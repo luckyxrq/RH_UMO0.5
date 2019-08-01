@@ -87,7 +87,9 @@ static void vTaskTaskUserIF(void *pvParameters)
 
     while(1)
     {
-		printf("500ms tick\r\n");
+		DEBUG("DEBUG 500ms tick\r\n");
+		LOG("LOG 500ms tick\r\n");
+		WARNING("WARNING 500ms tick\r\n");
 		vTaskDelay(500);
 	}
 }

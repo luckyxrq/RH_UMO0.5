@@ -44,7 +44,10 @@
 .\flash\obj\sysinfotest.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\flash\obj\sysinfotest.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\sysinfotest.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\sysinfotest.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\sysinfotest.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
 .\flash\obj\sysinfotest.o: ..\..\User\bsp\inc\bsp_timer.h
 .\flash\obj\sysinfotest.o: ..\..\User\bsp\inc\bsp_dwt.h
 .\flash\obj\sysinfotest.o: ..\..\User\bsp\inc\bsp_tim_pwm.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_PowerSwitch.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_DC_Motor.h

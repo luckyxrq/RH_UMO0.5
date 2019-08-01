@@ -40,9 +40,9 @@ void bsp_Init(void)
 	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	bsp_InitDWT();
-
 	bsp_InitUart(); 	/* 初始化串口 */
-
+	bsp_InitSW();		/* 开机打开其他外设电源使能引脚 */
+	bsp_InitDC_Motor(); /* 初始化直流电机 */
 }
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

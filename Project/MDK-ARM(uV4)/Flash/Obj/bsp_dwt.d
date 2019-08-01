@@ -44,7 +44,10 @@
 .\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_dwt.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
 .\flash\obj\bsp_dwt.o: ..\..\User\bsp\inc\bsp_timer.h
 .\flash\obj\bsp_dwt.o: ..\..\User\bsp\inc\bsp_dwt.h
 .\flash\obj\bsp_dwt.o: ..\..\User\bsp\inc\bsp_tim_pwm.h
+.\flash\obj\bsp_dwt.o: ..\..\User\app\inc\bsp_PowerSwitch.h
+.\flash\obj\bsp_dwt.o: ..\..\User\app\inc\bsp_DC_Motor.h

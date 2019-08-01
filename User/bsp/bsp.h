@@ -56,7 +56,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdlib.h>
+#include <stdbool.h>
 
 #ifndef TRUE
 	#define TRUE  1
@@ -75,6 +75,30 @@
 #define EXTI9_5_ISR_MOVE_OUT
 
 #define DEBUG_GPS_TO_COM1	/* 打印GPS数据到串口1 */
+
+#define DEBUG_EN      1 
+#define LOG_EN        1 
+#define WARNING_EN    1 
+
+
+#if DEBUG_EN
+#define DEBUG(format, ...) printf (format, ##__VA_ARGS__)
+#else
+#define DEBUG(format, ...) {}
+#endif
+	
+#if LOG_EN
+#define LOG(format, ...) printf (format, ##__VA_ARGS__)
+#else
+#define LOG(format, ...) {}
+#endif
+	
+#if WARNING_EN
+#define WARNING(format, ...) printf (format, ##__VA_ARGS__)
+#else
+#define WARNING(format, ...) {}
+#endif
+
 
 /* 通过取消注释或者添加注释的方式控制是否包含底层驱动模块 */
 #include "bsp_uart_fifo.h"
@@ -140,6 +164,11 @@
 
 //#include "bsp_esp8266.h"
 //#include "bsp_step_moto.h"
+
+
+#include "bsp_PowerSwitch.h"
+#include "bsp_DC_Motor.h"
+
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

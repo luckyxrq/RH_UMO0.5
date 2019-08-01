@@ -37671,7 +37671,36 @@ N#endif /* __stdlib_h */
 N
 N/* end of stdlib.h */
 L 59 "..\..\User\bsp\bsp.h" 2
-N#include <stdlib.h>
+N#include <stdbool.h>
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision: 177844 $
+N * Checkin $Date: 2012-11-21 11:51:12 +0000 (Wed, 21 Nov 2012) $
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5050106
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 60 "..\..\User\bsp\bsp.h" 2
 N
 N#ifndef TRUE
 N	#define TRUE  1
@@ -37690,6 +37719,33 @@ N*/
 N#define EXTI9_5_ISR_MOVE_OUT
 N
 N#define DEBUG_GPS_TO_COM1	/* 打印GPS数据到串口1 */
+N
+N#define DEBUG_EN      1 
+N#define LOG_EN        1 
+N#define WARNING_EN    1 
+N
+N
+N#if DEBUG_EN
+X#if 1
+N#define DEBUG(format, ...) printf (format, ##__VA_ARGS__)
+N#else
+S#define DEBUG(format, ...) {}
+N#endif
+N	
+N#if LOG_EN
+X#if 1
+N#define LOG(format, ...) printf (format, ##__VA_ARGS__)
+N#else
+S#define LOG(format, ...) {}
+N#endif
+N	
+N#if WARNING_EN
+X#if 1
+N#define WARNING(format, ...) printf (format, ##__VA_ARGS__)
+N#else
+S#define WARNING(format, ...) {}
+N#endif
+N
 N
 N/* 通过取消注释或者添加注释的方式控制是否包含底层驱动模块 */
 N#include "bsp_uart_fifo.h"
@@ -37840,7 +37896,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 81 "..\..\User\bsp\bsp.h" 2
+L 105 "..\..\User\bsp\bsp.h" 2
 N//#include "bsp_led.h"
 N#include "bsp_timer.h"
 L 1 "..\..\User\bsp\inc\bsp_timer.h" 1
@@ -37899,7 +37955,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 83 "..\..\User\bsp\bsp.h" 2
+L 107 "..\..\User\bsp\bsp.h" 2
 N//#include "bsp_key.h"
 N#include "bsp_dwt.h"
 L 1 "..\..\User\bsp\inc\bsp_dwt.h" 1
@@ -37929,7 +37985,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 85 "..\..\User\bsp\bsp.h" 2
+L 109 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_msg.h"
 N
@@ -37964,7 +38020,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 91 "..\..\User\bsp\bsp.h" 2
+L 115 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_cpu_flash.h"
 N//#include "bsp_sdio_sd.h"
@@ -38017,6 +38073,62 @@ N//#include "bsp_dac8562.h"
 N
 N//#include "bsp_esp8266.h"
 N//#include "bsp_step_moto.h"
+N
+N
+N#include "bsp_PowerSwitch.h"
+L 1 "..\..\User\app\inc\bsp_PowerSwitch.h" 1
+N#ifndef __BSP_POWERSWITCH_H
+N#define __BSP_POWERSWITCH_H
+N
+N
+Ntypedef enum
+N{
+N	SW_5V_EN_CTRL = 0 ,
+N	SW_IR_POWER
+N}SW_ID;
+N
+N
+Nvoid bsp_SwOn(SW_ID sw);
+Nvoid bsp_SwOff(SW_ID sw);
+Nvoid bsp_InitSW(void);
+N
+N
+N#endif
+N
+L 170 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_DC_Motor.h"
+L 1 "..\..\User\app\inc\bsp_DC_Motor.h" 1
+N#ifndef __BSP_DC_MOTOR_H
+N#define __BSP_DC_MOTOR_H
+N
+N
+N#define MOTOR_NUM    2       /*电机数量*/
+N#define MAXPWM       10000   /*最大PWM值*/
+N#define DC_PWM_T     30000   /*DC电机驱动芯片占空比周期*/
+N
+N
+Ntypedef enum
+N{
+N	MotorLeft = 0 ,/*左边电机编号*/
+N	MotorRight     /*右边电机编号*/ 
+N}MotorSN;
+N
+Ntypedef enum
+N{
+N	Forward  = 0 ,/*前进*/
+N	Backward      /*后退*/ 
+N}MotorDir;
+N
+N
+Nvoid bsp_InitDC_Motor(void);
+Nvoid bsp_MotorBrake(MotorSN sn);
+Nvoid bsp_MotorCoast(MotorSN sn);
+Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);
+N
+N#endif
+N
+L 171 "..\..\User\bsp\bsp.h" 2
+N
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
