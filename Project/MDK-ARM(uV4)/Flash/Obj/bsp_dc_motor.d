@@ -56,3 +56,4 @@
 .\flash\obj\bsp_dc_motor.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\bsp_dc_motor.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\bsp_dc_motor.o: ..\..\User\app\inc\bsp_Angle.h
+.\flash\obj\bsp_dc_motor.o: ..\..\User\app\inc\bsp_Action.h

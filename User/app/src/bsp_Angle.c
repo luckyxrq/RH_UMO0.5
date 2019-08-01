@@ -179,3 +179,12 @@ static void bsp_AngleAnalyzeApp(void)
 	angle.angle = ret / 100.0F;
 }
 
+
+
+float bsp_AngleAdd(float angle1 , float angle2)
+{
+	if(angle1>=0 && angle1<180)
+	{
+		
+	}
+}

@@ -116,7 +116,6 @@ static void vTaskTaskUserIF(void *pvParameters)
 		
 		vTaskDelay(500);
 		
-		printf("ÍÓÂÝÒÇ¶ÈÊý£º%.2F\r\n",bsp_AngleRead());
 	}
 }
 
@@ -149,10 +148,11 @@ static void vTaskLED(void *pvParameters)
 */
 static void vTaskMsgPro(void *pvParameters)
 {
-	
+	bsp_StartRunStable();
     while(1)
     {
-		vTaskDelay(20);
+		bsp_RunStableAct();
+		vTaskDelay(1);
     }
 }
 

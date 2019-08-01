@@ -65,3 +65,4 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Angle.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_Action.h

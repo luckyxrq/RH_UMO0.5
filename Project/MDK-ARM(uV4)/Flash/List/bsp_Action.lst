@@ -1,27 +1,4 @@
-L 1 "..\..\User\SysInfoTest.c"
-N/*
-N*********************************************************************************************************
-N*
-N*	模块名称 : 定时器时基
-N*	文件名称 : SysInfoTest.c
-N*	版    本 : V1.0
-N*	说    明 : 为了获取FreeRTOS的任务信息，需要创建一个定时器，这个定时器的时间基准精度要高于
-N*              系统时钟节拍。这样得到的任务信息才准确。
-N*              本文件提供的函数仅用于测试目的，切不可将其用于实际项目，原因有两点：
-N*               1. FreeRTOS的系统内核没有对总的计数时间做溢出保护。
-N*               2. 定时器中断是50us进入一次，比较影响系统性能。
-N*              --------------------------------------------------------------------------------------
-N*              本文件使用的是32位变量来保存50us一次的计数值，最大支持计数时间：
-N*              2^32 * 50us / 3600s = 59.6分钟。使用中测试的任务运行计数和任务占用率超过了59.6分钟将不准确。
-N*
-N*	修改记录 :
-N*		版本号    日期        作者     说明
-N*		V1.0    2015-08-19  Eric2013   首发
-N*
-N*	Copyright (C), 2015-2020, 安富莱电子 www.armfly.com
-N*
-N*********************************************************************************************************
-N*/
+L 1 "..\..\User\app\src\bsp_Action.c"
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -38424,49 +38401,135 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 25 "..\..\User\SysInfoTest.c" 2
+L 2 "..\..\User\app\src\bsp_Action.c" 2
+N
+Ntypedef struct
+N{
+N	volatile bool isRunning;
+X	volatile _Bool isRunning;
+N	volatile uint8_t action;
+N	volatile uint32_t delay;
+N}RunStableAct;
 N
 N
-N/* 定时器频率，50us一次中断 */
-N#define  timerINTERRUPT_FREQUENCY	20000
+Ntypedef struct
+N{
+N	volatile bool isRunning;
+X	volatile _Bool isRunning;
+N	volatile uint8_t action;
+N	volatile uint32_t delay;
+N	volatile float lastAngle;
+N}TurnAngleAct;
 N
-N/* 中断优先级 */
-N#define  timerHIGHEST_PRIORITY		1
 N
-N/* 被系统调用 */
-Nvolatile uint32_t ulHighFrequencyTimerTicks = 0UL;
+Nstatic RunStableAct runStableAct;
+Nstatic TurnAngleAct turnAngleAct;
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: vSetupTimerTest
-N*	功能说明: 创建定时器
+N*	函 数 名: bsp_StartRunStable
+N*	功能说明: 开启平缓启动。
 N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid vSetupSysInfoTest(void)
+Nvoid bsp_StartRunStable(void)
 N{
-N	bsp_SetTIMforInt(TIM6, timerINTERRUPT_FREQUENCY, timerHIGHEST_PRIORITY, 0);
-X	bsp_SetTIMforInt(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)), 20000, 1, 0);
+N	runStableAct.action = 0 ;
+N	runStableAct.isRunning = true;
+X	runStableAct.isRunning = 1;
 N}
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: TIM6_IRQHandler
-N*	功能说明: TIM6中断服务程序。
+N*	函 数 名: bsp_StopRunStable
+N*	功能说明: 停止平缓启动。
 N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid TIM6_IRQHandler( void )
+Nvoid bsp_StopRunStable(void)
 N{
-N	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
-X	if(TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)), ((uint16_t)0x0001)) != RESET)
+N	runStableAct.isRunning = false;
+X	runStableAct.isRunning = 0;
+N	runStableAct.action = 0 ;
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_RunStableAct
+N*	功能说明: 平缓启动。
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_RunStableAct(void)
+N{
+N	if(!runStableAct.isRunning)
 N	{
-N		ulHighFrequencyTimerTicks++;
-N		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);
-X		TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)), ((uint16_t)0x0001));
+N		return ;
+N	}
+N	
+N	switch(runStableAct.action)
+N	{
+N		case 0:
+N		{
+N			bsp_SetMotorPWM(MotorLeft,Forward,6000);
+N			bsp_SetMotorPWM(MotorRight,Forward,6000);
+N			runStableAct.delay = xTaskGetTickCount();
+N			runStableAct.action++;
+N		}break;
+N		
+N		case 1:
+N		{
+N			if(xTaskGetTickCount() - runStableAct.delay >= 1000)
+N			{
+N				bsp_SetMotorPWM(MotorLeft,Forward,7000);
+N				bsp_SetMotorPWM(MotorRight,Forward,7000);
+N				runStableAct.delay = xTaskGetTickCount();
+N				runStableAct.action++;
+N			}
+N		}break;
+N		
+N		case 2:
+N		{
+N			if(xTaskGetTickCount() - runStableAct.delay >= 1000)
+N			{
+N				bsp_MotorBrake(MotorLeft);
+N				bsp_MotorBrake(MotorRight);
+N				
+N				runStableAct.isRunning = false;
+X				runStableAct.isRunning = 0;
+N				runStableAct.action = 0 ;
+N			}
+N		}break;
 N	}
 N}
 N
-N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+N
+N
+Nvoid bsp_TurnAngleAct(int16_t angle)
+N{
+N	if(!turnAngleAct.isRunning)
+N	{
+N		return;
+N	}
+N	
+N	switch(turnAngleAct.action)
+N	{
+N		case 0:
+N		{
+N			
+N		}break;
+N		
+N		case 1:
+N		{
+N			
+N		}break;
+N	}
+N	
+N}
+N
+N
+N

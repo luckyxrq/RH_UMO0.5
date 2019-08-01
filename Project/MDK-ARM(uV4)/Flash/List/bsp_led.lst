@@ -38397,6 +38397,18 @@ N
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Action.h"
+L 1 "..\..\User\app\inc\bsp_Action.h" 1
+N#ifndef __BSP_ACTION_H
+N#define __BSP_ACTION_H
+N
+Nvoid bsp_RunStableAct(void);
+Nvoid bsp_StartRunStable(void);
+Nvoid bsp_StopRunStable(void);
+N	
+N#endif
+N
+L 175 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);

@@ -56,3 +56,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Angle.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Action.h

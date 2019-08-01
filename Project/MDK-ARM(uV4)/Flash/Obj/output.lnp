@@ -6,6 +6,7 @@
 ".\flash\obj\bsp_encoder.o"
 ".\flash\obj\bsp_collision.o"
 ".\flash\obj\bsp_angle.o"
+".\flash\obj\bsp_action.o"
 ".\flash\obj\bsp.o"
 ".\flash\obj\bsp_dwt.o"
 ".\flash\obj\bsp_uart_fifo.o"
