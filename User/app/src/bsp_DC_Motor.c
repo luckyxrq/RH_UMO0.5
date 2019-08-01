@@ -3,8 +3,8 @@
 
 typedef struct
 {
-	bool isRunning;     /*电机是否在运行*/
-	uint32_t encodeCnt; /*编码器计数值*/
+	volatile bool isRunning;     /*电机是否在运行*/
+	volatile uint32_t encodeCnt; /*编码器计数值*/
 	
 }Motor;
 

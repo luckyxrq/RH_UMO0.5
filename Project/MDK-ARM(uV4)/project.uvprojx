@@ -453,6 +453,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Collision.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_Angle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Angle.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -502,6 +507,11 @@
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_timer.c</FilePath>
             </File>
           </Files>
         </Group>

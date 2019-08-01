@@ -30,15 +30,17 @@
 000016  f7fffffe          BL       bsp_InitLed
 ;;;46     	bsp_InitKey();      /* 初始化按键 */
 00001a  f7fffffe          BL       bsp_InitKey
-;;;47     	bsp_InitDC_Motor(); /* 初始化直流电机 */
-00001e  f7fffffe          BL       bsp_InitDC_Motor
-;;;48     	bsp_InitEncoder();  /*初始化编码器引脚，用于统计脉冲的定时器*/
-000022  f7fffffe          BL       bsp_InitEncoder
-;;;49     	bsp_InitCollision();/*初始化碰撞检测，触动开关*/
-000026  f7fffffe          BL       bsp_InitCollision
-;;;50     }
-00002a  bd10              POP      {r4,pc}
-;;;51     
+;;;47     	bsp_InitHardTimer();/* 初始化硬件定时器 */
+00001e  f7fffffe          BL       bsp_InitHardTimer
+;;;48     	bsp_InitDC_Motor(); /* 初始化直流电机 */
+000022  f7fffffe          BL       bsp_InitDC_Motor
+;;;49     	bsp_InitEncoder();  /*初始化编码器引脚，用于统计脉冲的定时器*/
+000026  f7fffffe          BL       bsp_InitEncoder
+;;;50     	bsp_InitCollision();/*初始化碰撞检测，触动开关*/
+00002a  f7fffffe          BL       bsp_InitCollision
+;;;51     }
+00002e  bd10              POP      {r4,pc}
+;;;52     
                           ENDP
 
 

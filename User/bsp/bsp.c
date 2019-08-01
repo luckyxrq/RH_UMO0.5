@@ -44,6 +44,7 @@ void bsp_Init(void)
 	bsp_InitSW();		/* 开机打开其他外设电源使能引脚 */
 	bsp_InitLed();      /* 初始化LED */
 	bsp_InitKey();      /* 初始化按键 */
+	bsp_InitHardTimer();/* 初始化硬件定时器 */
 	bsp_InitDC_Motor(); /* 初始化直流电机 */
 	bsp_InitEncoder();  /*初始化编码器引脚，用于统计脉冲的定时器*/
 	bsp_InitCollision();/*初始化碰撞检测，触动开关*/

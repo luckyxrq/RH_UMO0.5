@@ -110,13 +110,13 @@ static void vTaskTaskUserIF(void *pvParameters)
 		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 		#endif
 		
-		bsp_CollisionDemo();
-		
 		bsp_LedToggle(1);
 		bsp_LedToggle(2);
 		bsp_LedToggle(3);
 		
 		vTaskDelay(500);
+		
+		printf("陀螺仪度数：%.2F\r\n",bsp_AngleRead());
 	}
 }
 

@@ -406,10 +406,9 @@ void RS485_SendStr(char *_pBuf)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-//extern void MODBUS_ReciveNew(uint8_t _byte);
 void RS485_ReciveNew(uint8_t _byte)
 {
-//	MODBUS_ReciveNew(_byte);
+	bsp_AngleRevByte(_byte);
 }
 
 /*
@@ -468,8 +467,8 @@ static void UartVarInit(void)
 	g_tUart3.usRxRead = 0;						/* 接收FIFO读索引 */
 	g_tUart3.usRxCount = 0;						/* 接收到的新数据个数 */
 	g_tUart3.usTxCount = 0;						/* 待发送的数据个数 */
-	g_tUart3.SendBefor = RS485_SendBefor;		/* 发送数据前的回调函数 */
-	g_tUart3.SendOver = RS485_SendOver;			/* 发送完毕后的回调函数 */
+	g_tUart3.SendBefor = 0;		                /* 发送数据前的回调函数 */
+	g_tUart3.SendOver = 0;			            /* 发送完毕后的回调函数 */
 	g_tUart3.ReciveNew = RS485_ReciveNew;		/* 接收到新数据后的回调函数 */
 #endif
 

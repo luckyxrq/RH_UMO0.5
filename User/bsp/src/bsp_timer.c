@@ -30,10 +30,10 @@
 	TIM3 和TIM4 是16位
 	TIM2 和TIM5 是16位 (103是16位, 407是32位)
 */
-#define USE_TIM2
+//#define USE_TIM2
 //#define USE_TIM3
 //#define USE_TIM4
-//#define USE_TIM5
+#define USE_TIM5
 
 #ifdef USE_TIM2
 	#define TIM_HARD		TIM2
