@@ -38282,13 +38282,6 @@ X		TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1400)), ((
 N		++interruptCount;
 N		
 N		
-N		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 1)
-X		if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),  ((uint16_t)0x8000)) == 1)
-N		{
-N			DEBUG("1\r\n");
-X			printf ("1\r\n");
-N		}
-N		
 N		/*×óÂö³å¼ÆÊý*/
 N		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 0)
 X		if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),  ((uint16_t)0x8000)) == 0)

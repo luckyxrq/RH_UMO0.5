@@ -118,11 +118,6 @@ void TIM7_IRQHandler(void)
 		++interruptCount;
 		
 		
-		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 1)
-		{
-			DEBUG("1\r\n");
-		}
-		
 		/*×óÂö³å¼ÆÊý*/
 		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 0)
 		{

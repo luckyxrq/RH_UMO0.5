@@ -44,8 +44,8 @@ void bsp_InitSW(void)
 	GPIO_Init(GPIO_PORT_IR_POWER, &GPIO_InitStructure);
 
 	//上电就锁住外设电源
-	bsp_SwOff(SW_5V_EN_CTRL);
-	bsp_SwOff(SW_IR_POWER);
+	bsp_SwOn(SW_5V_EN_CTRL);
+	bsp_SwOn(SW_IR_POWER);
 }
 
 

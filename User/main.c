@@ -84,7 +84,7 @@ int main(void)
 */
 static void vTaskTaskUserIF(void *pvParameters)
 {
-#if 0 /* 左前  右前 */
+#if 1 /* 左前  右前 */
 	bsp_SetMotorPWM(MotorLeft,Forward,6000);
 	bsp_SetMotorPWM(MotorRight,Forward,6000);
 #endif
@@ -105,12 +105,12 @@ static void vTaskTaskUserIF(void *pvParameters)
 #endif	
     while(1)
     {
-		#if 0
+		#if 1
 		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
 		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 		#endif
 		
-		DEBUG("tick\r\n");
+//		DEBUG("tick\r\n");
 		
 		vTaskDelay(100);
 	}

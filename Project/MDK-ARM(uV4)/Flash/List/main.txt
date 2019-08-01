@@ -340,15 +340,25 @@
 
                           AREA ||i.vTaskTaskUserIF||, CODE, READONLY, ALIGN=2
 
+                          REQUIRE _printf_percent
+                          REQUIRE _printf_widthprec
+                          REQUIRE _printf_f
+                          REQUIRE _printf_fp_dec
                   vTaskTaskUserIF PROC
 ;;;84     */
 ;;;85     static void vTaskTaskUserIF(void *pvParameters)
-000000  e005              B        |L8.14|
-                  |L8.2|
+000000  f2417270          MOV      r2,#0x1770
 ;;;86     {
-;;;87     #if 0 /* 左前  右前 */
+;;;87     #if 1 /* 左前  右前 */
 ;;;88     	bsp_SetMotorPWM(MotorLeft,Forward,6000);
+000004  2100              MOVS     r1,#0
+000006  4608              MOV      r0,r1
+000008  f7fffffe          BL       bsp_SetMotorPWM
 ;;;89     	bsp_SetMotorPWM(MotorRight,Forward,6000);
+00000c  f2417270          MOV      r2,#0x1770
+000010  2100              MOVS     r1,#0
+000012  2001              MOVS     r0,#1
+000014  f7fffffe          BL       bsp_SetMotorPWM
 ;;;90     #endif
 ;;;91     
 ;;;92     #if 0 /* 左后  右后 */
@@ -366,30 +376,55 @@
 ;;;104    	bsp_SetMotorPWM(MotorRight,Forward,6000);
 ;;;105    #endif	
 ;;;106        while(1)
+000018  e01a              B        |L8.80|
+                  |L8.26|
 ;;;107        {
-;;;108    		#if 0
+;;;108    		#if 1
 ;;;109    		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
+00001a  2000              MOVS     r0,#0
+00001c  f7fffffe          BL       bsp_EncoderGetSpeed
+000020  4606              MOV      r6,r0
+000022  f7fffffe          BL       __aeabi_f2d
+000026  4604              MOV      r4,r0
+000028  4622              MOV      r2,r4
+00002a  460b              MOV      r3,r1
+00002c  a009              ADR      r0,|L8.84|
+00002e  f7fffffe          BL       __2printf
 ;;;110    		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
+000032  2001              MOVS     r0,#1
+000034  f7fffffe          BL       bsp_EncoderGetSpeed
+000038  4606              MOV      r6,r0
+00003a  f7fffffe          BL       __aeabi_f2d
+00003e  4604              MOV      r4,r0
+000040  4622              MOV      r2,r4
+000042  460b              MOV      r3,r1
+000044  a007              ADR      r0,|L8.100|
+000046  f7fffffe          BL       __2printf
 ;;;111    		#endif
 ;;;112    		
-;;;113    		DEBUG("tick\r\n");
-000002  a003              ADR      r0,|L8.16|
-000004  f7fffffe          BL       __2printf
+;;;113    //		DEBUG("tick\r\n");
 ;;;114    		
 ;;;115    		vTaskDelay(100);
-000008  2064              MOVS     r0,#0x64
-00000a  f7fffffe          BL       vTaskDelay
-                  |L8.14|
-00000e  e7f8              B        |L8.2|
+00004a  2064              MOVS     r0,#0x64
+00004c  f7fffffe          BL       vTaskDelay
+                  |L8.80|
+000050  e7e3              B        |L8.26|
 ;;;116    	}
 ;;;117    }
 ;;;118    
                           ENDP
 
-                  |L8.16|
-000010  7469636b          DCB      "tick\r\n",0
-000014  0d0a00  
-000017  00                DCB      0
+000052  0000              DCW      0x0000
+                  |L8.84|
+000054  d7f3c2d6          DCB      215,243,194,214,203,217,182,200,":%.2F\r\n",0
+000058  cbd9b6c8
+00005c  3a252e32
+000060  460d0a00
+                  |L8.100|
+000064  d3d2c2d6          DCB      211,210,194,214,203,217,182,200,":%.2F\r\n",0
+000068  cbd9b6c8
+00006c  3a252e32
+000070  460d0a00
 
                           AREA ||.data||, DATA, ALIGN=2
 

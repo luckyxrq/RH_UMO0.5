@@ -55,12 +55,12 @@
 000040  f7fffffe          BL       GPIO_Init
 ;;;45     
 ;;;46     	//上电就锁住外设电源
-;;;47     	bsp_SwOff(SW_5V_EN_CTRL);
+;;;47     	bsp_SwOn(SW_5V_EN_CTRL);
 000044  2000              MOVS     r0,#0
-000046  f7fffffe          BL       bsp_SwOff
-;;;48     	bsp_SwOff(SW_IR_POWER);
+000046  f7fffffe          BL       bsp_SwOn
+;;;48     	bsp_SwOn(SW_IR_POWER);
 00004a  2001              MOVS     r0,#1
-00004c  f7fffffe          BL       bsp_SwOff
+00004c  f7fffffe          BL       bsp_SwOn
 ;;;49     }
 000050  bd08              POP      {r3,pc}
 ;;;50     

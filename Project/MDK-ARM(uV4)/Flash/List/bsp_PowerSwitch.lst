@@ -38204,8 +38204,8 @@ N	GPIO_Init(GPIO_PORT_IR_POWER, &GPIO_InitStructure);
 X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N
 N	//上电就锁住外设电源
-N	bsp_SwOff(SW_5V_EN_CTRL);
-N	bsp_SwOff(SW_IR_POWER);
+N	bsp_SwOn(SW_5V_EN_CTRL);
+N	bsp_SwOn(SW_IR_POWER);
 N}
 N
 N

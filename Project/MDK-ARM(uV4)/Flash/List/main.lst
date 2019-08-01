@@ -45623,9 +45623,9 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskTaskUserIF(void *pvParameters)
 N{
-N#if 0 /* 左前  右前 */
-S	bsp_SetMotorPWM(MotorLeft,Forward,6000);
-S	bsp_SetMotorPWM(MotorRight,Forward,6000);
+N#if 1 /* 左前  右前 */
+N	bsp_SetMotorPWM(MotorLeft,Forward,6000);
+N	bsp_SetMotorPWM(MotorRight,Forward,6000);
 N#endif
 N
 N#if 0 /* 左后  右后 */
@@ -45644,13 +45644,14 @@ S	bsp_SetMotorPWM(MotorRight,Forward,6000);
 N#endif	
 N    while(1)
 N    {
-N		#if 0
-S		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
-S		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
+N		#if 1
+N		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
+X		printf ("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
+N		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
+X		printf ("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 N		#endif
 N		
-N		DEBUG("tick\r\n");
-X		printf ("tick\r\n");
+N//		DEBUG("tick\r\n");
 N		
 N		vTaskDelay(100);
 N	}
