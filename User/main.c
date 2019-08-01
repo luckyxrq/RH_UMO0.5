@@ -84,7 +84,25 @@ int main(void)
 */
 static void vTaskTaskUserIF(void *pvParameters)
 {
+#if 0 /* 左前  右前 */
+	bsp_SetMotorPWM(MotorLeft,Forward,6000);
+	bsp_SetMotorPWM(MotorRight,Forward,6000);
+#endif
 
+#if 0 /* 左后  右后 */
+	bsp_SetMotorPWM(MotorLeft,Backward,6000);
+	bsp_SetMotorPWM(MotorRight,Backward,6000);
+#endif
+	
+#if 0 /* 左前  右后 */
+	bsp_SetMotorPWM(MotorLeft,Forward,6000);
+	bsp_SetMotorPWM(MotorRight,Backward,6000);
+#endif	
+	
+#if 0 /* 左后  右前 */
+	bsp_SetMotorPWM(MotorLeft,Backward,6000);
+	bsp_SetMotorPWM(MotorRight,Forward,6000);
+#endif	
     while(1)
     {
 		DEBUG("DEBUG 500ms tick\r\n");
