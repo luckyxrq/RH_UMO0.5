@@ -372,7 +372,7 @@
 ;;;104    	bsp_SetMotorPWM(MotorRight,Forward,6000);
 ;;;105    #endif	
 ;;;106        while(1)
-000018  e00c              B        |L8.52|
+000018  e00e              B        |L8.56|
                   |L8.26|
 ;;;107        {
 ;;;108    		#if 0
@@ -380,23 +380,24 @@
 ;;;110    		DEBUG("”“¬÷ÀŸ∂»:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 ;;;111    		#endif
 ;;;112    		
-;;;113    //		DEBUG("tick\r\n");
+;;;113    		bsp_CollisionDemo();
+00001a  f7fffffe          BL       bsp_CollisionDemo
 ;;;114    		
 ;;;115    		bsp_LedToggle(1);
-00001a  2001              MOVS     r0,#1
-00001c  f7fffffe          BL       bsp_LedToggle
+00001e  2001              MOVS     r0,#1
+000020  f7fffffe          BL       bsp_LedToggle
 ;;;116    		bsp_LedToggle(2);
-000020  2002              MOVS     r0,#2
-000022  f7fffffe          BL       bsp_LedToggle
+000024  2002              MOVS     r0,#2
+000026  f7fffffe          BL       bsp_LedToggle
 ;;;117    		bsp_LedToggle(3);
-000026  2003              MOVS     r0,#3
-000028  f7fffffe          BL       bsp_LedToggle
+00002a  2003              MOVS     r0,#3
+00002c  f7fffffe          BL       bsp_LedToggle
 ;;;118    		
 ;;;119    		vTaskDelay(500);
-00002c  f44f70fa          MOV      r0,#0x1f4
-000030  f7fffffe          BL       vTaskDelay
-                  |L8.52|
-000034  e7f1              B        |L8.26|
+000030  f44f70fa          MOV      r0,#0x1f4
+000034  f7fffffe          BL       vTaskDelay
+                  |L8.56|
+000038  e7ef              B        |L8.26|
 ;;;120    	}
 ;;;121    }
 ;;;122    

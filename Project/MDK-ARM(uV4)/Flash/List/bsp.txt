@@ -26,17 +26,19 @@
 00000e  f7fffffe          BL       bsp_InitUart
 ;;;44     	bsp_InitSW();		/* 开机打开其他外设电源使能引脚 */
 000012  f7fffffe          BL       bsp_InitSW
-;;;45     	bsp_InitLed();
+;;;45     	bsp_InitLed();      /* 初始化LED */
 000016  f7fffffe          BL       bsp_InitLed
-;;;46     	bsp_InitKey();
+;;;46     	bsp_InitKey();      /* 初始化按键 */
 00001a  f7fffffe          BL       bsp_InitKey
 ;;;47     	bsp_InitDC_Motor(); /* 初始化直流电机 */
 00001e  f7fffffe          BL       bsp_InitDC_Motor
 ;;;48     	bsp_InitEncoder();  /*初始化编码器引脚，用于统计脉冲的定时器*/
 000022  f7fffffe          BL       bsp_InitEncoder
-;;;49     }
-000026  bd10              POP      {r4,pc}
-;;;50     
+;;;49     	bsp_InitCollision();/*初始化碰撞检测，触动开关*/
+000026  f7fffffe          BL       bsp_InitCollision
+;;;50     }
+00002a  bd10              POP      {r4,pc}
+;;;51     
                           ENDP
 
 

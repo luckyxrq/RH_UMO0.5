@@ -54,3 +54,4 @@
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_DC_Motor.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_Encoder.h
+.\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_Collision.h

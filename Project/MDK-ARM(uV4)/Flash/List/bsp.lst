@@ -38365,6 +38365,26 @@ Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*·µ»Ø±àÂëÆ÷·´À¡µÄËÙ¶È£¬µ¥Î»£ººÁÃ×Ã¿Ã
 N
 N#endif
 L 172 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Collision.h"
+L 1 "..\..\User\app\inc\bsp_Collision.h" 1
+N#ifndef __BSP_COLLISION_H
+N#define __BSP_COLLISION_H
+N
+Ntypedef enum
+N{
+N	CollisionLeft = 0 ,
+N	CollisionRight,
+N	CollisionAll,
+N	CollisionNone
+N}Collision;
+N
+Nvoid bsp_InitCollision(void);      /*³õÊ¼»¯Åö×²¼ì²âÒı½Å*/
+NCollision bsp_CollisionScan(void); /*·µ»ØÅö×²½á¹û*/
+Nvoid bsp_CollisionDemo(void);      /*Åö×²²âÊÔÀı×Ó*/
+N
+N#endif
+L 173 "..\..\User\bsp\bsp.h" 2
+N
 N
 N/* Ìá¹©¸øÆäËûCÎÄ¼şµ÷ÓÃµÄº¯Êı */
 Nvoid bsp_Init(void);
@@ -38401,10 +38421,11 @@ X	NVIC_PriorityGroupConfig(((uint32_t)0x300));
 N	bsp_InitDWT();
 N	bsp_InitUart(); 	/* ³õÊ¼»¯´®¿Ú */
 N	bsp_InitSW();		/* ¿ª»ú´ò¿ªÆäËûÍâÉèµçÔ´Ê¹ÄÜÒı½Å */
-N	bsp_InitLed();
-N	bsp_InitKey();
+N	bsp_InitLed();      /* ³õÊ¼»¯LED */
+N	bsp_InitKey();      /* ³õÊ¼»¯°´¼ü */
 N	bsp_InitDC_Motor(); /* ³õÊ¼»¯Ö±Á÷µç»ú */
 N	bsp_InitEncoder();  /*³õÊ¼»¯±àÂëÆ÷Òı½Å£¬ÓÃÓÚÍ³¼ÆÂö³åµÄ¶¨Ê±Æ÷*/
+N	bsp_InitCollision();/*³õÊ¼»¯Åö×²¼ì²â£¬´¥¶¯¿ª¹Ø*/
 N}
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/

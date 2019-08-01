@@ -54,3 +54,4 @@
 .\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_DC_Motor.h
 .\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_Encoder.h
+.\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_Collision.h

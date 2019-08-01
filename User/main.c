@@ -110,7 +110,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 		DEBUG("”“¬÷ÀŸ∂»:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 		#endif
 		
-//		DEBUG("tick\r\n");
+		bsp_CollisionDemo();
 		
 		bsp_LedToggle(1);
 		bsp_LedToggle(2);

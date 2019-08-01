@@ -448,6 +448,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Encoder.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_Collision.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Collision.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
