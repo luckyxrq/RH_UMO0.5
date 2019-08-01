@@ -43,6 +43,7 @@ void bsp_Init(void)
 	bsp_InitUart(); 	/* 初始化串口 */
 	bsp_InitSW();		/* 开机打开其他外设电源使能引脚 */
 	bsp_InitDC_Motor(); /* 初始化直流电机 */
+	bsp_InitEncoder();  /*初始化编码器引脚，用于统计脉冲的定时器*/
 }
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

@@ -28,9 +28,11 @@
 000012  f7fffffe          BL       bsp_InitSW
 ;;;45     	bsp_InitDC_Motor(); /* 初始化直流电机 */
 000016  f7fffffe          BL       bsp_InitDC_Motor
-;;;46     }
-00001a  bd10              POP      {r4,pc}
-;;;47     
+;;;46     	bsp_InitEncoder();  /*初始化编码器引脚，用于统计脉冲的定时器*/
+00001a  f7fffffe          BL       bsp_InitEncoder
+;;;47     }
+00001e  bd10              POP      {r4,pc}
+;;;48     
                           ENDP
 
 

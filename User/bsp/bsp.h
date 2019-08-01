@@ -168,7 +168,7 @@
 
 #include "bsp_PowerSwitch.h"
 #include "bsp_DC_Motor.h"
-
+#include "bsp_Encoder.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

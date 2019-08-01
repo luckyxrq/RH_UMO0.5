@@ -1,9 +1,6 @@
 #include "bsp.h"
 
 
-
-
-
 typedef struct
 {
 	bool isRunning;     /*电机是否在运行*/

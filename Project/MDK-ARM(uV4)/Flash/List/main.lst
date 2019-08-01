@@ -45477,7 +45477,44 @@ N
 N#endif
 N
 L 171 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Encoder.h"
+L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
+N#ifndef __ENCODER_H
+N#define __ENCODER_H
 N
+N#define ENCODER_COUNT                 2       /*编码器个数*/
+N#define ENCODER_INTERRUPT_FREQUENCY	  10000   /*100us中断一次*/
+N#define CALC_T					      1000    /*1000次中断（100MS）计算一次速度*/
+N
+N#define PulseCntPerCircle	8                                      /*电机转一圈编码器脉冲个数*/
+N#define CircleCntPerCircle	32                                     /*轮子转一圈，电机实际转的圈数*/
+N#define Ratio		        (PulseCntPerCircle*CircleCntPerCircle) /*轮子转一圈，编码器的脉冲数*/
+N#define PI	3.14159F			  /*π*/
+N#define DIAMETER	70            /*直径70MM*/
+N#define PERIMETER   (PI*DIAMETER) /*轮子周长*/
+N
+Ntypedef enum
+N{
+N	EncoderLeft  = 0 ,
+N	EncoderRight
+N}EncoderSN;
+N
+Ntypedef struct
+N{
+N	bool isReadyRising[ENCODER_COUNT];   /*检测到一个低电平了，现在准备检测上升沿*/
+X	_Bool isReadyRising[2];    
+N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
+X	uint32_t risingCount[2];  
+N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
+X	float speed[2];           
+N}Encoder;
+N
+N
+Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
+Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
+N
+N#endif
+L 172 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
@@ -45607,13 +45644,15 @@ S	bsp_SetMotorPWM(MotorRight,Forward,6000);
 N#endif	
 N    while(1)
 N    {
-N		DEBUG("DEBUG 500ms tick\r\n");
-X		printf ("DEBUG 500ms tick\r\n");
-N		LOG("LOG 500ms tick\r\n");
-X		printf ("LOG 500ms tick\r\n");
-N		WARNING("WARNING 500ms tick\r\n");
-X		printf ("WARNING 500ms tick\r\n");
-N		vTaskDelay(500);
+N		#if 0
+S		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
+S		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
+N		#endif
+N		
+N		DEBUG("tick\r\n");
+X		printf ("tick\r\n");
+N		
+N		vTaskDelay(100);
 N	}
 N}
 N

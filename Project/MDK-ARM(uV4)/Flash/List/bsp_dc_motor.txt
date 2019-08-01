@@ -5,15 +5,15 @@
                           AREA ||i.bspInitPWM||, CODE, READONLY, ALIGN=2
 
                   bspInitPWM PROC
-;;;43     */
-;;;44     static void bspInitPWM(void)
+;;;40     */
+;;;41     static void bspInitPWM(void)
 000000  b51c              PUSH     {r2-r4,lr}
-;;;45     {
-;;;46     	GPIO_PinRemapConfig(GPIO_FullRemap_TIM1, ENABLE);           //Timer1重映射     
+;;;42     {
+;;;43     	GPIO_PinRemapConfig(GPIO_FullRemap_TIM1, ENABLE);           //Timer1重映射     
 000002  2101              MOVS     r1,#1
 000004  4817              LDR      r0,|L1.100|
 000006  f7fffffe          BL       GPIO_PinRemapConfig
-;;;47     	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
+;;;44     	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 00000a  f2427010          MOV      r0,#0x2710
 00000e  2100              MOVS     r1,#0
 000010  2301              MOVS     r3,#1
@@ -22,7 +22,7 @@
 000018  1551              ASRS     r1,r2,#21
 00001a  4814              LDR      r0,|L1.108|
 00001c  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;48     	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
+;;;45     	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 000020  f2427010          MOV      r0,#0x2710
 000024  2100              MOVS     r1,#0
 000026  2302              MOVS     r3,#2
@@ -31,7 +31,7 @@
 00002e  14d1              ASRS     r1,r2,#19
 000030  480e              LDR      r0,|L1.108|
 000032  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;49     	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
+;;;46     	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 000036  f2427010          MOV      r0,#0x2710
 00003a  2100              MOVS     r1,#0
 00003c  2303              MOVS     r3,#3
@@ -40,7 +40,7 @@
 000044  1451              ASRS     r1,r2,#17
 000046  4809              LDR      r0,|L1.108|
 000048  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;50     	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
+;;;47     	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 00004c  f2427010          MOV      r0,#0x2710
 000050  2100              MOVS     r1,#0
 000052  2304              MOVS     r3,#4
@@ -49,9 +49,9 @@
 00005a  0319              LSLS     r1,r3,#12
 00005c  4803              LDR      r0,|L1.108|
 00005e  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;51     }
+;;;48     }
 000062  bd1c              POP      {r2-r4,pc}
-;;;52     
+;;;49     
                           ENDP
 
                   |L1.100|
@@ -64,40 +64,40 @@
                           AREA ||i.bsp_InitDC_Motor||, CODE, READONLY, ALIGN=1
 
                   bsp_InitDC_Motor PROC
-;;;29     */
-;;;30     void bsp_InitDC_Motor(void)
+;;;26     */
+;;;27     void bsp_InitDC_Motor(void)
 000000  b510              PUSH     {r4,lr}
-;;;31     {
-;;;32     	bspInitPWM();
+;;;28     {
+;;;29     	bspInitPWM();
 000002  f7fffffe          BL       bspInitPWM
-;;;33     }
+;;;30     }
 000006  bd10              POP      {r4,pc}
-;;;34     
+;;;31     
                           ENDP
 
 
                           AREA ||i.bsp_MotorBrake||, CODE, READONLY, ALIGN=2
 
                   bsp_MotorBrake PROC
-;;;60     */
-;;;61     void bsp_MotorBrake(MotorSN sn)
+;;;57     */
+;;;58     void bsp_MotorBrake(MotorSN sn)
 000000  b51c              PUSH     {r2-r4,lr}
-;;;62     {
+;;;59     {
 000002  4604              MOV      r4,r0
-;;;63     	switch(sn)
+;;;60     	switch(sn)
 000004  b114              CBZ      r4,|L3.12|
 000006  2c01              CMP      r4,#1
 000008  d134              BNE      |L3.116|
 00000a  e019              B        |L3.64|
                   |L3.12|
-;;;64     	{
-;;;65     		case MotorLeft:
-;;;66     		{
-;;;67     			motor[MotorLeft].isRunning = false ;
+;;;61     	{
+;;;62     		case MotorLeft:
+;;;63     		{
+;;;64     			motor[MotorLeft].isRunning = false ;
 00000c  2000              MOVS     r0,#0
 00000e  491a              LDR      r1,|L3.120|
 000010  7008              STRB     r0,[r1,#0]
-;;;68     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0,MAXPWM); 
+;;;65     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0,MAXPWM); 
 000012  f2427010          MOV      r0,#0x2710
 000016  2100              MOVS     r1,#0
 000018  2303              MOVS     r3,#3
@@ -106,7 +106,7 @@
 000020  1451              ASRS     r1,r2,#17
 000022  4817              LDR      r0,|L3.128|
 000024  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;69     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,MAXPWM);
+;;;66     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,MAXPWM);
 000028  f2427010          MOV      r0,#0x2710
 00002c  2100              MOVS     r1,#0
 00002e  2304              MOVS     r3,#4
@@ -115,17 +115,17 @@
 000036  0319              LSLS     r1,r3,#12
 000038  4811              LDR      r0,|L3.128|
 00003a  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;70     		}break;
+;;;67     		}break;
 00003e  e019              B        |L3.116|
                   |L3.64|
-;;;71     		
-;;;72     		case MotorRight:
-;;;73     		{
-;;;74     			motor[MotorRight].isRunning = false ;
+;;;68     		
+;;;69     		case MotorRight:
+;;;70     		{
+;;;71     			motor[MotorRight].isRunning = false ;
 000040  2000              MOVS     r0,#0
 000042  490d              LDR      r1,|L3.120|
 000044  7208              STRB     r0,[r1,#8]
-;;;75     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,MAXPWM);
+;;;72     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,MAXPWM);
 000046  f2427010          MOV      r0,#0x2710
 00004a  2100              MOVS     r1,#0
 00004c  2301              MOVS     r3,#1
@@ -134,7 +134,7 @@
 000054  1551              ASRS     r1,r2,#21
 000056  480a              LDR      r0,|L3.128|
 000058  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;76     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,MAXPWM);
+;;;73     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,MAXPWM);
 00005c  f2427010          MOV      r0,#0x2710
 000060  2100              MOVS     r1,#0
 000062  2302              MOVS     r3,#2
@@ -143,15 +143,15 @@
 00006a  14d1              ASRS     r1,r2,#19
 00006c  4804              LDR      r0,|L3.128|
 00006e  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;77     		}break;
+;;;74     		}break;
 000072  bf00              NOP      
                   |L3.116|
-000074  bf00              NOP                            ;70
-;;;78     	}
-;;;79     	
-;;;80     }
+000074  bf00              NOP                            ;67
+;;;75     	}
+;;;76     	
+;;;77     }
 000076  bd1c              POP      {r2-r4,pc}
-;;;81     
+;;;78     
                           ENDP
 
                   |L3.120|
@@ -164,25 +164,25 @@
                           AREA ||i.bsp_MotorCoast||, CODE, READONLY, ALIGN=2
 
                   bsp_MotorCoast PROC
-;;;89     */
-;;;90     void bsp_MotorCoast(MotorSN sn)
+;;;86     */
+;;;87     void bsp_MotorCoast(MotorSN sn)
 000000  b51c              PUSH     {r2-r4,lr}
-;;;91     {
+;;;88     {
 000002  4604              MOV      r4,r0
-;;;92     	switch(sn)
+;;;89     	switch(sn)
 000004  b114              CBZ      r4,|L4.12|
 000006  2c01              CMP      r4,#1
 000008  d12a              BNE      |L4.96|
 00000a  e014              B        |L4.54|
                   |L4.12|
-;;;93     	{
-;;;94     		case MotorLeft:
-;;;95     		{
-;;;96     			motor[MotorLeft].isRunning = false ;
+;;;90     	{
+;;;91     		case MotorLeft:
+;;;92     		{
+;;;93     			motor[MotorLeft].isRunning = false ;
 00000c  2000              MOVS     r0,#0
 00000e  4915              LDR      r1,|L4.100|
 000010  7008              STRB     r0,[r1,#0]
-;;;97     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0,0); 
+;;;94     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0,0); 
 000012  9000              STR      r0,[sp,#0]
 000014  2303              MOVS     r3,#3
 000016  4a14              LDR      r2,|L4.104|
@@ -190,7 +190,7 @@
 00001a  9001              STR      r0,[sp,#4]
 00001c  4813              LDR      r0,|L4.108|
 00001e  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;98     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,0);
+;;;95     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,0);
 000022  2000              MOVS     r0,#0
 000024  9000              STR      r0,[sp,#0]
 000026  2304              MOVS     r3,#4
@@ -199,17 +199,17 @@
 00002c  9001              STR      r0,[sp,#4]
 00002e  480f              LDR      r0,|L4.108|
 000030  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;99     		}break;
+;;;96     		}break;
 000034  e014              B        |L4.96|
                   |L4.54|
-;;;100    		
-;;;101    		case MotorRight:
-;;;102    		{
-;;;103    			motor[MotorRight].isRunning = false ;
+;;;97     		
+;;;98     		case MotorRight:
+;;;99     		{
+;;;100    			motor[MotorRight].isRunning = false ;
 000036  2000              MOVS     r0,#0
 000038  490a              LDR      r1,|L4.100|
 00003a  7208              STRB     r0,[r1,#8]
-;;;104    			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,0);
+;;;101    			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,0);
 00003c  9000              STR      r0,[sp,#0]
 00003e  2301              MOVS     r3,#1
 000040  4a09              LDR      r2,|L4.104|
@@ -217,7 +217,7 @@
 000044  9001              STR      r0,[sp,#4]
 000046  4809              LDR      r0,|L4.108|
 000048  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;105    			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,0);
+;;;102    			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,0);
 00004c  2000              MOVS     r0,#0
 00004e  9000              STR      r0,[sp,#0]
 000050  2302              MOVS     r3,#2
@@ -226,15 +226,15 @@
 000056  9001              STR      r0,[sp,#4]
 000058  4804              LDR      r0,|L4.108|
 00005a  f7fffffe          BL       bsp_SetTIMOutPWM
-;;;106    		}break;
+;;;103    		}break;
 00005e  bf00              NOP      
                   |L4.96|
-000060  bf00              NOP                            ;99
-;;;107    	}
-;;;108    	
-;;;109    }
+000060  bf00              NOP                            ;96
+;;;104    	}
+;;;105    	
+;;;106    }
 000062  bd1c              POP      {r2-r4,pc}
-;;;110    
+;;;107    
                           ENDP
 
                   |L4.100|
@@ -247,148 +247,148 @@
                           AREA ||i.bsp_SetMotorPWM||, CODE, READONLY, ALIGN=2
 
                   bsp_SetMotorPWM PROC
-;;;118    */
-;;;119    void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
+;;;115    */
+;;;116    void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
 000000  b57c              PUSH     {r2-r6,lr}
-;;;120    {	
+;;;117    {	
 000002  4606              MOV      r6,r0
 000004  460d              MOV      r5,r1
 000006  4614              MOV      r4,r2
-;;;121    	//如果给出的PWM已经大于最大值，则直接退出函数
-;;;122    	if(pwm > MAXPWM)
+;;;118    	//如果给出的PWM已经大于最大值，则直接退出函数
+;;;119    	if(pwm > MAXPWM)
 000008  f2427010          MOV      r0,#0x2710
 00000c  4284              CMP      r4,r0
 00000e  dd03              BLE      |L5.24|
-;;;123    	{
-;;;124    		WARNING("PWM值超过了MAXPWM\r\n");
+;;;120    	{
+;;;121    		WARNING("PWM值超过了MAXPWM\r\n");
 000010  a031              ADR      r0,|L5.216|
 000012  f7fffffe          BL       __2printf
                   |L5.22|
-;;;125    		return ;
-;;;126    	}
-;;;127    	
-;;;128    	switch(sn)
-;;;129    	{
-;;;130    		case MotorLeft:
-;;;131    		{
-;;;132    			motor[MotorLeft].isRunning = true ;
-;;;133    			if(dir == Forward)
-;;;134    			{
-;;;135    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
-;;;136    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,DC_PWM_T, pwm);
-;;;137    			}
-;;;138    			else
-;;;139    			{
-;;;140    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, 0);
-;;;141    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3, DC_PWM_T,pwm); 
-;;;142    			}
-;;;143    		}break;
-;;;144    		
-;;;145    		case MotorRight:
-;;;146    		{
-;;;147    			motor[MotorRight].isRunning = true ;	
-;;;148    			if(dir == Forward)
-;;;149    			{
-;;;150    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
-;;;151    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,DC_PWM_T, pwm);
-;;;152    			}
-;;;153    			else
-;;;154    			{
-;;;155    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, 0);
-;;;156    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,DC_PWM_T, pwm);
-;;;157    			}
-;;;158    		}break;
-;;;159    	}
-;;;160    }
+;;;122    		return ;
+;;;123    	}
+;;;124    	
+;;;125    	switch(sn)
+;;;126    	{
+;;;127    		case MotorLeft:
+;;;128    		{
+;;;129    			motor[MotorLeft].isRunning = true ;
+;;;130    			if(dir == Forward)
+;;;131    			{
+;;;132    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
+;;;133    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,DC_PWM_T, pwm);
+;;;134    			}
+;;;135    			else
+;;;136    			{
+;;;137    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, 0);
+;;;138    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3, DC_PWM_T,pwm); 
+;;;139    			}
+;;;140    		}break;
+;;;141    		
+;;;142    		case MotorRight:
+;;;143    		{
+;;;144    			motor[MotorRight].isRunning = true ;	
+;;;145    			if(dir == Forward)
+;;;146    			{
+;;;147    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
+;;;148    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,DC_PWM_T, pwm);
+;;;149    			}
+;;;150    			else
+;;;151    			{
+;;;152    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, 0);
+;;;153    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,DC_PWM_T, pwm);
+;;;154    			}
+;;;155    		}break;
+;;;156    	}
+;;;157    }
 000016  bd7c              POP      {r2-r6,pc}
                   |L5.24|
 000018  b116              CBZ      r6,|L5.32|
-00001a  2e01              CMP      r6,#1                 ;128
+00001a  2e01              CMP      r6,#1                 ;125
 00001c  d158              BNE      |L5.208|
 00001e  e02b              B        |L5.120|
                   |L5.32|
-000020  2001              MOVS     r0,#1                 ;132
+000020  2001              MOVS     r0,#1                 ;129
 000022  4932              LDR      r1,|L5.236|
-000024  7008              STRB     r0,[r1,#0]            ;132
+000024  7008              STRB     r0,[r1,#0]            ;129
 000026  b99d              CBNZ     r5,|L5.80|
-000028  2000              MOVS     r0,#0                 ;135
-00002a  9000              STR      r0,[sp,#0]            ;135
-00002c  2303              MOVS     r3,#3                 ;135
+000028  2000              MOVS     r0,#0                 ;132
+00002a  9000              STR      r0,[sp,#0]            ;132
+00002c  2303              MOVS     r3,#3                 ;132
 00002e  4a30              LDR      r2,|L5.240|
-000030  1451              ASRS     r1,r2,#17             ;135
-000032  9001              STR      r0,[sp,#4]            ;135
+000030  1451              ASRS     r1,r2,#17             ;132
+000032  9001              STR      r0,[sp,#4]            ;132
 000034  482f              LDR      r0,|L5.244|
 000036  f7fffffe          BL       bsp_SetTIMOutPWM
-00003a  f2475030          MOV      r0,#0x7530            ;136
-00003e  2304              MOVS     r3,#4                 ;136
+00003a  f2475030          MOV      r0,#0x7530            ;133
+00003e  2304              MOVS     r3,#4                 ;133
 000040  4a2b              LDR      r2,|L5.240|
-000042  0319              LSLS     r1,r3,#12             ;136
-000044  e9cd0400          STRD     r0,r4,[sp,#0]         ;136
+000042  0319              LSLS     r1,r3,#12             ;133
+000044  e9cd0400          STRD     r0,r4,[sp,#0]         ;133
 000048  482a              LDR      r0,|L5.244|
 00004a  f7fffffe          BL       bsp_SetTIMOutPWM
 00004e  e012              B        |L5.118|
                   |L5.80|
-000050  2000              MOVS     r0,#0                 ;140
-000052  9000              STR      r0,[sp,#0]            ;140
-000054  2304              MOVS     r3,#4                 ;140
+000050  2000              MOVS     r0,#0                 ;137
+000052  9000              STR      r0,[sp,#0]            ;137
+000054  2304              MOVS     r3,#4                 ;137
 000056  4a26              LDR      r2,|L5.240|
-000058  0319              LSLS     r1,r3,#12             ;140
-00005a  9001              STR      r0,[sp,#4]            ;140
+000058  0319              LSLS     r1,r3,#12             ;137
+00005a  9001              STR      r0,[sp,#4]            ;137
 00005c  4825              LDR      r0,|L5.244|
 00005e  f7fffffe          BL       bsp_SetTIMOutPWM
-000062  f2475030          MOV      r0,#0x7530            ;141
-000066  2303              MOVS     r3,#3                 ;141
+000062  f2475030          MOV      r0,#0x7530            ;138
+000066  2303              MOVS     r3,#3                 ;138
 000068  4a21              LDR      r2,|L5.240|
-00006a  1451              ASRS     r1,r2,#17             ;141
-00006c  e9cd0400          STRD     r0,r4,[sp,#0]         ;141
+00006a  1451              ASRS     r1,r2,#17             ;138
+00006c  e9cd0400          STRD     r0,r4,[sp,#0]         ;138
 000070  4820              LDR      r0,|L5.244|
 000072  f7fffffe          BL       bsp_SetTIMOutPWM
                   |L5.118|
 000076  e02b              B        |L5.208|
                   |L5.120|
-000078  2001              MOVS     r0,#1                 ;147
+000078  2001              MOVS     r0,#1                 ;144
 00007a  491c              LDR      r1,|L5.236|
-00007c  7208              STRB     r0,[r1,#8]            ;147
+00007c  7208              STRB     r0,[r1,#8]            ;144
 00007e  b99d              CBNZ     r5,|L5.168|
-000080  2000              MOVS     r0,#0                 ;150
-000082  9000              STR      r0,[sp,#0]            ;150
-000084  2301              MOVS     r3,#1                 ;150
+000080  2000              MOVS     r0,#0                 ;147
+000082  9000              STR      r0,[sp,#0]            ;147
+000084  2301              MOVS     r3,#1                 ;147
 000086  4a1a              LDR      r2,|L5.240|
-000088  1551              ASRS     r1,r2,#21             ;150
-00008a  9001              STR      r0,[sp,#4]            ;150
+000088  1551              ASRS     r1,r2,#21             ;147
+00008a  9001              STR      r0,[sp,#4]            ;147
 00008c  4819              LDR      r0,|L5.244|
 00008e  f7fffffe          BL       bsp_SetTIMOutPWM
-000092  f2475030          MOV      r0,#0x7530            ;151
-000096  2302              MOVS     r3,#2                 ;151
+000092  f2475030          MOV      r0,#0x7530            ;148
+000096  2302              MOVS     r3,#2                 ;148
 000098  4a15              LDR      r2,|L5.240|
-00009a  14d1              ASRS     r1,r2,#19             ;151
-00009c  e9cd0400          STRD     r0,r4,[sp,#0]         ;151
+00009a  14d1              ASRS     r1,r2,#19             ;148
+00009c  e9cd0400          STRD     r0,r4,[sp,#0]         ;148
 0000a0  4814              LDR      r0,|L5.244|
 0000a2  f7fffffe          BL       bsp_SetTIMOutPWM
 0000a6  e012              B        |L5.206|
                   |L5.168|
-0000a8  2000              MOVS     r0,#0                 ;155
-0000aa  9000              STR      r0,[sp,#0]            ;155
-0000ac  2302              MOVS     r3,#2                 ;155
+0000a8  2000              MOVS     r0,#0                 ;152
+0000aa  9000              STR      r0,[sp,#0]            ;152
+0000ac  2302              MOVS     r3,#2                 ;152
 0000ae  4a10              LDR      r2,|L5.240|
-0000b0  14d1              ASRS     r1,r2,#19             ;155
-0000b2  9001              STR      r0,[sp,#4]            ;155
+0000b0  14d1              ASRS     r1,r2,#19             ;152
+0000b2  9001              STR      r0,[sp,#4]            ;152
 0000b4  480f              LDR      r0,|L5.244|
 0000b6  f7fffffe          BL       bsp_SetTIMOutPWM
-0000ba  f2475030          MOV      r0,#0x7530            ;156
-0000be  2301              MOVS     r3,#1                 ;156
+0000ba  f2475030          MOV      r0,#0x7530            ;153
+0000be  2301              MOVS     r3,#1                 ;153
 0000c0  4a0b              LDR      r2,|L5.240|
-0000c2  1551              ASRS     r1,r2,#21             ;156
-0000c4  e9cd0400          STRD     r0,r4,[sp,#0]         ;156
+0000c2  1551              ASRS     r1,r2,#21             ;153
+0000c4  e9cd0400          STRD     r0,r4,[sp,#0]         ;153
 0000c8  480a              LDR      r0,|L5.244|
 0000ca  f7fffffe          BL       bsp_SetTIMOutPWM
                   |L5.206|
-0000ce  bf00              NOP                            ;158
+0000ce  bf00              NOP                            ;155
                   |L5.208|
-0000d0  bf00              NOP                            ;143
+0000d0  bf00              NOP                            ;140
 0000d2  bf00              NOP      
 0000d4  e79f              B        |L5.22|
-;;;161    
+;;;158    
                           ENDP
 
 0000d6  0000              DCW      0x0000

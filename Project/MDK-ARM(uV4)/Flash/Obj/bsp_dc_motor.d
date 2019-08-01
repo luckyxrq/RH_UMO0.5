@@ -51,3 +51,4 @@
 .\flash\obj\bsp_dc_motor.o: ..\..\User\bsp\inc\bsp_tim_pwm.h
 .\flash\obj\bsp_dc_motor.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_dc_motor.o: ..\..\User\app\inc\bsp_DC_Motor.h
+.\flash\obj\bsp_dc_motor.o: ..\..\User\app\inc\bsp_Encoder.h
