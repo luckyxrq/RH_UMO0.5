@@ -105,14 +105,18 @@ static void vTaskTaskUserIF(void *pvParameters)
 #endif	
     while(1)
     {
-		#if 1
+		#if 0
 		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
 		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 		#endif
 		
 //		DEBUG("tick\r\n");
 		
-		vTaskDelay(100);
+		bsp_LedToggle(1);
+		bsp_LedToggle(2);
+		bsp_LedToggle(3);
+		
+		vTaskDelay(500);
 	}
 }
 

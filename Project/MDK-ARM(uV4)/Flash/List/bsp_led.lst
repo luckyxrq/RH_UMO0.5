@@ -1,4 +1,21 @@
-L 1 "..\..\User\app\src\bsp_DC_Motor.c"
+L 1 "..\..\User\bsp\src\bsp_led.c"
+N/*
+N*********************************************************************************************************
+N*
+N*	模块名称 : LED指示灯驱动模块
+N*	文件名称 : bsp_led.c
+N*	版    本 : V1.0
+N*	说    明 : 驱动LED指示灯
+N*
+N*	修改记录 :
+N*		版本号  日期        作者     说明
+N*		V1.0    2013-02-01 armfly  正式发布
+N*
+N*	Copyright (C), 2013-2014, 安富莱电子 www.armfly.com
+N*
+N*********************************************************************************************************
+N*/
+N
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -38356,197 +38373,237 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 2 "..\..\User\app\src\bsp_DC_Motor.c" 2
+L 19 "..\..\User\bsp\src\bsp_led.c" 2
 N
+N/*
+N	该程序适用于安富莱STM32-V4 开发板
 N
-Ntypedef struct
-N{
-N	bool isRunning;     /*电机是否在运行*/
-X	_Bool isRunning;      
-N	uint32_t encodeCnt; /*编码器计数值*/
+N	如果用于其它硬件，请修改GPIO定义
 N	
-N}Motor;
+N	如果用户的LED指示灯个数小于4个，可以将多余的LED全部定义为和第1个LED一样，并不影响程序功能
+N*/
+N
+N/*
+N	扫地机按键定义
+N	PD0 : LED_POWER
+N	PD1 : LED_HOME
+N	PD2 : LED_RET
+N*/
 N
 N
-N/*电机管理结构体数组*/
-NMotor motor[MOTOR_NUM];
-XMotor motor[2];
+N/* 按键口对应的RCC时钟 */
+N#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOD)
 N
-Nstatic void bspInitPWM(void);
+N#define GPIO_PORT_LED1  GPIOD
+N#define GPIO_PIN_LED1	GPIO_Pin_0
 N
+N#define GPIO_PORT_LED2  GPIOD
+N#define GPIO_PIN_LED2	GPIO_Pin_1
+N
+N#define GPIO_PORT_LED3  GPIOD
+N#define GPIO_PIN_LED3	GPIO_Pin_2
+N
+N#define GPIO_PORT_LED4  GPIOD
+N#define GPIO_PIN_LED4	GPIO_Pin_0
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_InitDC_Motor
-N*	功能说明: 初始化DC电机。
-N*			 全局变量。
-N*	形    参: 无
+N*	函 数 名: bsp_InitLed
+N*	功能说明: 配置LED指示灯相关的GPIO,  该函数被 bsp_Init() 调用。
+N*	形    参:  无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid bsp_InitDC_Motor(void)
+Nvoid bsp_InitLed(void)
 N{
-N	bspInitPWM();
+N	GPIO_InitTypeDef GPIO_InitStructure;
+N
+N	/* 打开GPIO时钟 */
+N	RCC_APB2PeriphClockCmd(RCC_ALL_LED, ENABLE);
+X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000020)), ENABLE);
+N
+N	/*
+N		配置所有的LED指示灯GPIO为推挽输出模式
+N		由于将GPIO设置为输出时，GPIO输出寄存器的值缺省是0，因此会驱动LED点亮.
+N		这是我不希望的，因此在改变GPIO为输出前，先关闭LED指示灯
+N	*/
+N	bsp_LedOff(1);
+N	bsp_LedOff(2);
+N	bsp_LedOff(3);
+N	bsp_LedOff(4);
+N
+N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
+N	
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED1;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+N	GPIO_Init(GPIO_PORT_LED1, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+N
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED2;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
+N	GPIO_Init(GPIO_PORT_LED2, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+N
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED3;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0004);
+N	GPIO_Init(GPIO_PORT_LED3, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+N
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED4;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+N	GPIO_Init(GPIO_PORT_LED4, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
 N}
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bspInitPWM
-N*	功能说明: 初始化DC电机需要的定时器，PWM输出。
-N*			 全局变量。
-N*	形    参: 无
+N*	函 数 名: bsp_LedOn
+N*	功能说明: 点亮指定的LED指示灯。
+N*	形    参:  _no : 指示灯序号，范围 1 - 4
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nstatic void bspInitPWM(void)
+Nvoid bsp_LedOn(uint8_t _no)
 N{
-N	GPIO_PinRemapConfig(GPIO_FullRemap_TIM1, ENABLE);           //Timer1重映射     
-X	GPIO_PinRemapConfig(((uint32_t)0x001600C0), ENABLE);           
-N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
-X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0, 10000);     
-N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
-X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0, 10000);     
-N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
-X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0, 10000);     
-N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
-X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0, 10000);     
-N}
+N	_no--;
 N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_MotorBrake
-N*	功能说明: 电机急停
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_MotorBrake(MotorSN sn)
-N{
-N	switch(sn)
+N	if (_no == 0)
 N	{
-N		case MotorLeft:
-N		{
-N			motor[MotorLeft].isRunning = false ;
-X			motor[MotorLeft].isRunning = 0 ;
-N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0,MAXPWM); 
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0,10000); 
-N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,MAXPWM);
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0,10000);
-N		}break;
-N		
-N		case MotorRight:
-N		{
-N			motor[MotorRight].isRunning = false ;
-X			motor[MotorRight].isRunning = 0 ;
-N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,MAXPWM);
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0,10000);
-N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,MAXPWM);
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0,10000);
-N		}break;
+N		GPIO_PORT_LED1->BRR = GPIO_PIN_LED1;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0001);
 N	}
-N	
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_MotorCoast
-N*	功能说明: 电机滑行停
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_MotorCoast(MotorSN sn)
-N{
-N	switch(sn)
+N	else if (_no == 1)
 N	{
-N		case MotorLeft:
-N		{
-N			motor[MotorLeft].isRunning = false ;
-X			motor[MotorLeft].isRunning = 0 ;
-N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0,0); 
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0,0); 
-N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,0);
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0,0);
-N		}break;
-N		
-N		case MotorRight:
-N		{
-N			motor[MotorRight].isRunning = false ;
-X			motor[MotorRight].isRunning = 0 ;
-N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,0);
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0,0);
-N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,0);
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0,0);
-N		}break;
+N		GPIO_PORT_LED2->BRR = GPIO_PIN_LED2;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0002);
 N	}
-N	
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_SetMotorPWM
-N*	功能说明: 电机编号，方向，占空比（有限制，限制在头文件）
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
-N{	
-N	//如果给出的PWM已经大于最大值，则直接退出函数
-N	if(pwm > MAXPWM)
-X	if(pwm > 10000)
+N	else if (_no == 2)
 N	{
-N		WARNING("PWM值超过了MAXPWM\r\n");
-X		printf ("PWM值超过了MAXPWM\r\n");
-N		return ;
+N		GPIO_PORT_LED3->BRR = GPIO_PIN_LED3;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0004);
 N	}
-N	
-N	switch(sn)
+N	else if (_no == 3)
 N	{
-N		case MotorLeft:
-N		{
-N			motor[MotorLeft].isRunning = true ;
-X			motor[MotorLeft].isRunning = 1 ;
-N			if(dir == Forward)
-N			{
-N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0, 0); 
-N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,DC_PWM_T, pwm);
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,30000, pwm);
-N			}
-N			else
-N			{
-N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, 0);
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0, 0);
-N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3, DC_PWM_T,pwm); 
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3, 30000,pwm); 
-N			}
-N		}break;
-N		
-N		case MotorRight:
-N		{
-N			motor[MotorRight].isRunning = true ;	
-X			motor[MotorRight].isRunning = 1 ;	
-N			if(dir == Forward)
-N			{
-N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0, 0);
-N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,DC_PWM_T, pwm);
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,30000, pwm);
-N			}
-N			else
-N			{
-N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, 0);
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0, 0);
-N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,DC_PWM_T, pwm);
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,30000, pwm);
-N			}
-N		}break;
+N		GPIO_PORT_LED4->BRR = GPIO_PIN_LED4;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0001);
 N	}
 N}
 N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_LedOff
+N*	功能说明: 熄灭指定的LED指示灯。
+N*	形    参:  _no : 指示灯序号，范围 1 - 4
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_LedOff(uint8_t _no)
+N{
+N	_no--;
 N
+N	if (_no == 0)
+N	{
+N		GPIO_PORT_LED1->BSRR = GPIO_PIN_LED1;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0001);
+N	}
+N	else if (_no == 1)
+N	{
+N		GPIO_PORT_LED2->BSRR = GPIO_PIN_LED2;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0002);
+N	}
+N	else if (_no == 2)
+N	{
+N		GPIO_PORT_LED3->BSRR = GPIO_PIN_LED3;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0004);
+N	}
+N	else if (_no == 3)
+N	{
+N		GPIO_PORT_LED4->BSRR = GPIO_PIN_LED4;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0001);
+N	}
+N}
 N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_LedToggle
+N*	功能说明: 翻转指定的LED指示灯。
+N*	形    参:  _no : 指示灯序号，范围 1 - 4
+N*	返 回 值: 按键代码
+N*********************************************************************************************************
+N*/
+Nvoid bsp_LedToggle(uint8_t _no)
+N{
+N	if (_no == 1)
+N	{
+N		GPIO_PORT_LED1->ODR ^= GPIO_PIN_LED1;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0001);
+N	}
+N	else if (_no == 2)
+N	{
+N		GPIO_PORT_LED2->ODR ^= GPIO_PIN_LED2;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0002);
+N	}
+N	else if (_no == 3)
+N	{
+N		GPIO_PORT_LED3->ODR ^= GPIO_PIN_LED3;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0004);
+N	}
+N	else if (_no == 4)
+N	{
+N		GPIO_PORT_LED4->ODR ^= GPIO_PIN_LED4;
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0001);
+N	}
+N}
 N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_IsLedOn
+N*	功能说明: 判断LED指示灯是否已经点亮。
+N*	形    参:  _no : 指示灯序号，范围 1 - 4
+N*	返 回 值: 1表示已经点亮，0表示未点亮
+N*********************************************************************************************************
+N*/
+Nuint8_t bsp_IsLedOn(uint8_t _no)
+N{
+N	if (_no == 1)
+N	{
+N		if ((GPIO_PORT_LED1->ODR & GPIO_PIN_LED1) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0001)) == 0)
+N		{
+N			return 1;
+N		}
+N		return 0;
+N	}
+N	else if (_no == 2)
+N	{
+N		if ((GPIO_PORT_LED2->ODR & GPIO_PIN_LED2) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0002)) == 0)
+N		{
+N			return 1;
+N		}
+N		return 0;
+N	}
+N	else if (_no == 3)
+N	{
+N		if ((GPIO_PORT_LED3->ODR & GPIO_PIN_LED3) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0004)) == 0)
+N		{
+N			return 1;
+N		}
+N		return 0;
+N	}
+N	else if (_no == 4)
+N	{
+N		if ((GPIO_PORT_LED4->ODR & GPIO_PIN_LED4) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0001)) == 0)
+N		{
+N			return 1;
+N		}
+N		return 0;
+N	}
 N
+N	return 0;
+N}
 N
+N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

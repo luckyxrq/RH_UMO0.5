@@ -3,7 +3,7 @@
 *
 *	模块名称 : 独立按键驱动模块
 *	文件名称 : bsp_key.c
-*	版    本 : V1.0
+*	版    本 : V1.2
 *	说    明 : 扫描独立按键，具有软件滤波机制，具有按键FIFO。可以检测如下事件：
 *				(1) 按键按下
 *				(2) 按键弹起
@@ -12,12 +12,12 @@
 *
 *	修改记录 :
 *		版本号  日期        作者     说明
-*		V1.0    2013-02-01 armfly  正式发布
-*		V1.1    2013-06-29 armfly  增加1个读指针，用于bsp_Idle() 函数读取系统控制组合键（截屏）
-*								   增加 K1 K2 组合键 和 K2 K3 组合键，用于系统控制
-*		V1.2    2015-08-08 armfly  K1，K2，K3独立按键进行排他判断，修改  IsKeyDown1()等函数
+*		V1.0    2013-02-01 码农闰土  正式发布
+*		V1.1    2013-06-29 码农闰土  增加1个读指针，用于bsp_Idle() 函数读取系统控制组合键（截屏）
+*								    增加 K1 K2 组合键 和 K2 K3 组合键，用于系统控制
+*		V1.2    2015-08-08 码农闰土  K1，K2，K3独立按键进行排他判断，修改  IsKeyDown1()等函数
 *
-*	Copyright (C), 2015-2016, 安富莱电子 www.armfly.com
+*	Copyright (C), 2013-2020, 码农闰土 QQ：1085081059
 *
 *********************************************************************************************************
 */
@@ -25,7 +25,6 @@
 #include "bsp.h"
 
 /*
-	该程序适用于安富莱STM32-V4开发板
 
 	如果用于其它硬件，请修改GPIO定义和 IsKeyDown1 - IsKeyDown8 函数
 
@@ -34,42 +33,37 @@
 */
 
 /*
-	安富莱STM32-V4 按键口线分配：
-		K1 键      : PC13   (低电平表示按下)
-		K2 键      : PA0    ( --- 高电平表示按下)
-		K3 键      : PG8    (低电平表示按下)
-		摇杆UP键   : PG15   (低电平表示按下)
-		摇杆DOWN键 : PD3    (低电平表示按下)
-		摇杆LEFT键 : PG14   (低电平表示按下)
-		摇杆RIGHT键: PG13   (低电平表示按下)
-		摇杆OK键   : PG7    (低电平表示按下)
+	按键口线分配：
+		K1 键      : PE7     (低电平表示按下)
+		K2 键      : PE8     (低电平表示按下)
+		K3 键      : PE10    (低电平表示按下)
 */
 
 /* 按键口对应的RCC时钟 */
-#define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOG)
+#define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
 
-#define GPIO_PORT_K1    GPIOC
-#define GPIO_PIN_K1	    GPIO_Pin_13
+#define GPIO_PORT_K1    GPIOE
+#define GPIO_PIN_K1	    GPIO_Pin_7
 
-#define GPIO_PORT_K2    GPIOA
-#define GPIO_PIN_K2	    GPIO_Pin_0
+#define GPIO_PORT_K2    GPIOE
+#define GPIO_PIN_K2	    GPIO_Pin_8
 
-#define GPIO_PORT_K3    GPIOG
-#define GPIO_PIN_K3	    GPIO_Pin_8
+#define GPIO_PORT_K3    GPIOE
+#define GPIO_PIN_K3	    GPIO_Pin_10
 
-#define GPIO_PORT_K4    GPIOG
-#define GPIO_PIN_K4	    GPIO_Pin_15
+#define GPIO_PORT_K4    GPIOE
+#define GPIO_PIN_K4	    GPIO_Pin_7
 
-#define GPIO_PORT_K5    GPIOD
-#define GPIO_PIN_K5	    GPIO_Pin_3
+#define GPIO_PORT_K5    GPIOE
+#define GPIO_PIN_K5	    GPIO_Pin_7
 
-#define GPIO_PORT_K6    GPIOG
-#define GPIO_PIN_K6	    GPIO_Pin_14
+#define GPIO_PORT_K6    GPIOE
+#define GPIO_PIN_K6	    GPIO_Pin_7
 
-#define GPIO_PORT_K7    GPIOG
-#define GPIO_PIN_K7	    GPIO_Pin_13
+#define GPIO_PORT_K7    GPIOE
+#define GPIO_PIN_K7	    GPIO_Pin_7
 
-#define GPIO_PORT_K8    GPIOG
+#define GPIO_PORT_K8    GPIOE
 #define GPIO_PIN_K8	    GPIO_Pin_7
 
 static KEY_T s_tBtn[KEY_COUNT];
@@ -91,7 +85,7 @@ static void bsp_DetectKey(uint8_t i);
 #if 1	/* 为了区分3个事件:　K1单独按下, K2单独按下， K1和K2同时按下 */
 static uint8_t IsKeyDown1(void)
 {
-	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
+	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
 		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) != 0)
 		return 1;
 	else 
@@ -99,7 +93,7 @@ static uint8_t IsKeyDown1(void)
 }
 static uint8_t IsKeyDown2(void)
 {
-	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
+	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
 		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) != 0)
 		return 1;
 	else 
@@ -107,7 +101,7 @@ static uint8_t IsKeyDown2(void)
 }
 static uint8_t IsKeyDown3(void)
 {
-	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
+	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
 		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0)
 		return 1;
 	else 
@@ -115,7 +109,7 @@ static uint8_t IsKeyDown3(void)
 }
 static uint8_t IsKeyDown9(void)	/* K1 K2组合键 */
 {
-	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
+	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
 		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) != 0)
 		return 1;
 	else 
@@ -123,7 +117,7 @@ static uint8_t IsKeyDown9(void)	/* K1 K2组合键 */
 }
 static uint8_t IsKeyDown10(void)	/* K2 K3组合键 */
 {
-	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
+	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
 		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0)
 		return 1;
 	else 
@@ -131,7 +125,7 @@ static uint8_t IsKeyDown10(void)	/* K2 K3组合键 */
 }
 #else	
 static uint8_t IsKeyDown1(void) {if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0) return 1;else return 0;}
-static uint8_t IsKeyDown2(void) {if ((GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0) return 1;else return 0;}
+static uint8_t IsKeyDown2(void) {if ((GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0) return 1;else return 0;}
 static uint8_t IsKeyDown3(void) {if ((GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0) return 1;else return 0;}
 
 static uint8_t IsKeyDown9(void) {if (IsKeyDown1() && IsKeyDown2()) return 1;else return 0;}		/* K1 K2组合键 */
@@ -139,8 +133,8 @@ static uint8_t IsKeyDown10(void) {if (IsKeyDown2() && IsKeyDown3()) return 1;els
 #endif
 
 /* 5方向摇杆 */
-static uint8_t IsKeyDown4(void) {if ((GPIO_PORT_K4->IDR & GPIO_PIN_K4) == 0) return 1;else return 0;}
-static uint8_t IsKeyDown5(void) {if ((GPIO_PORT_K5->IDR & GPIO_PIN_K5) == 0) return 1;else return 0;}
+static uint8_t IsKeyDown4(void) {if ((GPIO_PORT_K4->IDR & GPIO_PIN_K4) == 1) return 1;else return 0;}
+static uint8_t IsKeyDown5(void) {if ((GPIO_PORT_K5->IDR & GPIO_PIN_K5) == 1) return 1;else return 0;}
 static uint8_t IsKeyDown6(void) {if ((GPIO_PORT_K6->IDR & GPIO_PIN_K6) == 0) return 1;else return 0;}
 static uint8_t IsKeyDown7(void) {if ((GPIO_PORT_K7->IDR & GPIO_PIN_K7) == 0) return 1;else return 0;}
 static uint8_t IsKeyDown8(void) {if ((GPIO_PORT_K8->IDR & GPIO_PIN_K8) == 0) return 1;else return 0;}
@@ -297,7 +291,7 @@ static void bsp_InitKeyHard(void)
 
 	/* 第2步：配置所有的按键GPIO为浮动输入模式(实际上CPU复位后就是输入状态) */
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 输入浮空模式 */
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;	/* 输入浮空模式 */
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K1;
 	GPIO_Init(GPIO_PORT_K1, &GPIO_InitStructure);
@@ -356,17 +350,8 @@ static void bsp_InitKeyVar(void)
 
 	/* 如果需要单独更改某个按键的参数，可以在此单独重新赋值 */
 	/* 比如，我们希望按键1按下超过1秒后，自动重发相同键值 */
-	s_tBtn[KID_JOY_U].LongTime = 100;
-	s_tBtn[KID_JOY_U].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-
-	s_tBtn[KID_JOY_D].LongTime = 100;
-	s_tBtn[KID_JOY_D].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-
-	s_tBtn[KID_JOY_L].LongTime = 100;
-	s_tBtn[KID_JOY_L].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-
-	s_tBtn[KID_JOY_R].LongTime = 100;
-	s_tBtn[KID_JOY_R].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
+	s_tBtn[KID_K1].LongTime = 100;
+	s_tBtn[KID_K1].RepeatSpeed = 0;	/* 每隔x ms自动发送键值（单位10ms） */
 
 	/* 判断按键按下的函数 */
 	s_tBtn[0].IsKeyDownFunc = IsKeyDown1;
@@ -494,4 +479,4 @@ void bsp_KeyScan(void)
 	}
 }
 
-/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+/****************** Copyright (C), 2013-2020, 码农闰土 QQ：1085081059 (END OF FILE) **********************/

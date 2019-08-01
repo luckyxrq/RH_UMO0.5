@@ -25,21 +25,28 @@
 	如果用户的LED指示灯个数小于4个，可以将多余的LED全部定义为和第1个LED一样，并不影响程序功能
 */
 
+/*
+	扫地机按键定义
+	PD0 : LED_POWER
+	PD1 : LED_HOME
+	PD2 : LED_RET
+*/
+
 
 /* 按键口对应的RCC时钟 */
-#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOF)
+#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOD)
 
-#define GPIO_PORT_LED1  GPIOF
-#define GPIO_PIN_LED1	GPIO_Pin_11
+#define GPIO_PORT_LED1  GPIOD
+#define GPIO_PIN_LED1	GPIO_Pin_0
 
-#define GPIO_PORT_LED2  GPIOF
-#define GPIO_PIN_LED2	GPIO_Pin_7
+#define GPIO_PORT_LED2  GPIOD
+#define GPIO_PIN_LED2	GPIO_Pin_1
 
-#define GPIO_PORT_LED3  GPIOF
-#define GPIO_PIN_LED3	GPIO_Pin_8
+#define GPIO_PORT_LED3  GPIOD
+#define GPIO_PIN_LED3	GPIO_Pin_2
 
-#define GPIO_PORT_LED4  GPIOF
-#define GPIO_PIN_LED4	GPIO_Pin_9
+#define GPIO_PORT_LED4  GPIOD
+#define GPIO_PIN_LED4	GPIO_Pin_0
 
 /*
 *********************************************************************************************************
