@@ -30,6 +30,7 @@
 */
 void bsp_Init(void)
 {
+	uint8_t ret;
 	/*
 		由于ST固件库的启动文件已经执行了CPU系统时钟的初始化，所以不必再次重复配置系统时钟。
 		启动文件配置了CPU主时钟频率、内部Flash访问速度和可选的外部SRAM FSMC初始化。
@@ -48,6 +49,17 @@ void bsp_Init(void)
 	bsp_InitDC_Motor(); /* 初始化直流电机 */
 	bsp_InitEncoder();  /*初始化编码器引脚，用于统计脉冲的定时器*/
 	bsp_InitCollision();/*初始化碰撞检测，触动开关*/
+	
+	/* 初始化IO拓展芯片 */	
+	do{
+		ret = bsp_InitAW9523B();		
+		if(!ret) 
+		{
+			WARNING("AW9523B Init Error\r\n");
+			bsp_DelayMS(100);
+		}
+	}while(!ret);
+	bsp_InitDetectAct();/* 初始化红外扫描轮询 */	
 }
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

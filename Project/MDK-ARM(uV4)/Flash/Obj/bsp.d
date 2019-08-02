@@ -51,9 +51,13 @@
 .\flash\obj\bsp.o: ..\..\User\bsp\inc\bsp_key.h
 .\flash\obj\bsp.o: ..\..\User\bsp\inc\bsp_dwt.h
 .\flash\obj\bsp.o: ..\..\User\bsp\inc\bsp_tim_pwm.h
+.\flash\obj\bsp.o: ..\..\User\bsp\inc\bsp_i2c_gpio.h
 .\flash\obj\bsp.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp.o: ..\..\User\app\inc\bsp_DC_Motor.h
 .\flash\obj\bsp.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\bsp.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\bsp.o: ..\..\User\app\inc\bsp_Angle.h
 .\flash\obj\bsp.o: ..\..\User\app\inc\bsp_Action.h
+.\flash\obj\bsp.o: ..\..\User\app\inc\bsp_aw9523b.h
+.\flash\obj\bsp.o: ..\..\User\app\inc\bsp_DetectAct.h
+.\flash\obj\bsp.o: ..\..\User\app\inc\bsp_PulseMark.h

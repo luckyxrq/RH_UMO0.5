@@ -30,16 +30,16 @@
 
 /* 定义I2C总线连接的GPIO端口, 用户只需要修改下面4行代码即可任意改变SCL和SDA的引脚 */
 
-#define RCC_I2C_PORT 	RCC_APB2Periph_GPIOB		/* GPIO端口时钟 */
+#define RCC_I2C_PORT 	RCC_APB2Periph_GPIOA		/* GPIO端口时钟 */
 
-#define PORT_I2C_SCL	GPIOB			/* GPIO端口 */
-#define PIN_I2C_SCL		GPIO_Pin_6		/* GPIO引脚 */
+#define PORT_I2C_SCL	GPIOA			/* GPIO端口 */
+#define PIN_I2C_SCL		GPIO_Pin_4		/* GPIO引脚 */
 
-#define PORT_I2C_SDA	GPIOB			/* GPIO端口 */
-#define PIN_I2C_SDA		GPIO_Pin_7		/* GPIO引脚 */
+#define PORT_I2C_SDA	GPIOA			/* GPIO端口 */
+#define PIN_I2C_SDA		GPIO_Pin_1		/* GPIO引脚 */
 
-#define I2C_SCL_PIN		GPIO_Pin_6			/* 连接到SCL时钟线的GPIO */
-#define I2C_SDA_PIN		GPIO_Pin_7			/* 连接到SDA数据线的GPIO */
+#define I2C_SCL_PIN		GPIO_Pin_4			/* 连接到SCL时钟线的GPIO */
+#define I2C_SDA_PIN		GPIO_Pin_1			/* 连接到SDA数据线的GPIO */
 
 /* 定义读写SCL和SDA的宏 */
 #define I2C_SCL_1()  PORT_I2C_SCL->BSRR = I2C_SCL_PIN				/* SCL = 1 */
@@ -100,7 +100,13 @@ static void i2c_Delay(void)
 
 		实际应用选择400KHz左右的速率即可
 	*/
-	for (i = 0; i < 30; i++);
+	
+	/*　
+		扫地机使用的103ZET6，经过实测，这里取值4，大致为400KHz
+	*/
+	
+	
+	for (i = 0; i < 4; i++);
 }
 
 /*

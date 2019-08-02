@@ -463,6 +463,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Action.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_aw9523b.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_aw9523b.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_DetectAct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_DetectAct.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_PulseMark.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_PulseMark.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -518,6 +533,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_timer.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_i2c_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_i2c_gpio.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -562,6 +582,11 @@
               <FileName>stm32f10x_tim.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c</FilePath>
             </File>
           </Files>
         </Group>

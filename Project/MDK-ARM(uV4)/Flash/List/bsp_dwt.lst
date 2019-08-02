@@ -37715,6 +37715,9 @@ N#define EXTI9_5_ISR_MOVE_OUT
 N
 N#define DEBUG_GPS_TO_COM1	/* ´òÓ¡GPSÊý¾Ýµ½´®¿Ú1 */
 N
+N
+N#define UNUSED(x)    (void)(x) /*·ÀÖ¹³öÏÖÎ´Ê¹ÓÃµÄ¾¯¸æ*/
+N
 N#define DEBUG_EN      1 
 N#define LOG_EN        1 
 N#define WARNING_EN    1 
@@ -37891,7 +37894,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 105 "..\..\User\bsp\bsp.h" 2
+L 108 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_led.h"
 L 1 "..\..\User\bsp\inc\bsp_led.h" 1
 N/*
@@ -37920,7 +37923,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 106 "..\..\User\bsp\bsp.h" 2
+L 109 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_timer.h"
 L 1 "..\..\User\bsp\inc\bsp_timer.h" 1
 N/*
@@ -37978,7 +37981,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 107 "..\..\User\bsp\bsp.h" 2
+L 110 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_key.h"
 L 1 "..\..\User\bsp\inc\bsp_key.h" 1
 N/*
@@ -38154,7 +38157,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 108 "..\..\User\bsp\bsp.h" 2
+L 111 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_dwt.h"
 L 1 "..\..\User\bsp\inc\bsp_dwt.h" 1
 N/*
@@ -38183,7 +38186,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 109 "..\..\User\bsp\bsp.h" 2
+L 112 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_msg.h"
 N
@@ -38218,11 +38221,43 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 115 "..\..\User\bsp\bsp.h" 2
+L 118 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_cpu_flash.h"
 N//#include "bsp_sdio_sd.h"
-N//#include "bsp_i2c_gpio.h"
+N#include "bsp_i2c_gpio.h"
+L 1 "..\..\User\bsp\inc\bsp_i2c_gpio.h" 1
+N/*
+N*********************************************************************************************************
+N*
+N*	Ä£¿éÃû³Æ : I2C×ÜÏßÇý¶¯Ä£¿é
+N*	ÎÄ¼þÃû³Æ : bsp_i2c_gpio.h
+N*	°æ    ±¾ : V1.0
+N*	Ëµ    Ã÷ : Í·ÎÄ¼þ¡£
+N*
+N*	Copyright (C), 2012-2013, °²¸»À³µç×Ó www.armfly.com
+N*
+N*********************************************************************************************************
+N*/
+N
+N#ifndef _BSP_I2C_GPIO_H
+N#define _BSP_I2C_GPIO_H
+N
+N#define I2C_WR	0		/* Ð´¿ØÖÆbit */
+N#define I2C_RD	1		/* ¶Á¿ØÖÆbit */
+N
+Nvoid bsp_InitI2C(void);
+Nvoid i2c_Start(void);
+Nvoid i2c_Stop(void);
+Nvoid i2c_SendByte(uint8_t _ucByte);
+Nuint8_t i2c_ReadByte(void);
+Nuint8_t i2c_WaitAck(void);
+Nvoid i2c_Ack(void);
+Nvoid i2c_NAck(void);
+Nuint8_t i2c_CheckDevice(uint8_t _Address);
+N
+N#endif
+L 122 "..\..\User\bsp\bsp.h" 2
 N//#include "bsp_eeprom_24xx.h"
 N//#include "bsp_si4730.h"
 N//#include "bsp_hmc5883l.h"
@@ -38293,7 +38328,7 @@ N
 N
 N#endif
 N
-L 170 "..\..\User\bsp\bsp.h" 2
+L 173 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_DC_Motor.h"
 L 1 "..\..\User\app\inc\bsp_DC_Motor.h" 1
 N#ifndef __BSP_DC_MOTOR_H
@@ -38325,7 +38360,7 @@ Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* Ö±½ÓÊ¹ÓÃÕ¼¿Õ±
 N
 N#endif
 N
-L 171 "..\..\User\bsp\bsp.h" 2
+L 174 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Encoder.h"
 L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
 N#ifndef __ENCODER_H
@@ -38363,7 +38398,7 @@ Nvoid bsp_InitEncoder(void);               /*³õÊ¼»¯±àÂëÆ÷Òý½Å£¬ÓÃÓÚÍ³¼ÆÂö³åµÄ¶¨Ê
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*·µ»Ø±àÂëÆ÷·´À¡µÄËÙ¶È£¬µ¥Î»£ººÁÃ×Ã¿Ãë*/
 N
 N#endif
-L 172 "..\..\User\bsp\bsp.h" 2
+L 175 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
 L 1 "..\..\User\app\inc\bsp_Collision.h" 1
 N#ifndef __BSP_COLLISION_H
@@ -38382,7 +38417,7 @@ NCollision bsp_CollisionScan(void); /*·µ»ØÅö×²½á¹û*/
 Nvoid bsp_CollisionDemo(void);      /*Åö×²²âÊÔÀý×Ó*/
 N
 N#endif
-L 173 "..\..\User\bsp\bsp.h" 2
+L 176 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Angle.h"
 L 1 "..\..\User\app\inc\bsp_Angle.h" 1
 N#ifndef __BSP_ANGLE_H
@@ -38397,7 +38432,7 @@ Nfloat bsp_AngleAdd(float angle1 , float angle2);
 N
 N#endif
 N
-L 174 "..\..\User\bsp\bsp.h" 2
+L 177 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Action.h"
 L 1 "..\..\User\app\inc\bsp_Action.h" 1
 N#ifndef __BSP_ACTION_H
@@ -38409,8 +38444,98 @@ Nvoid bsp_StopRunStable(void);
 N	
 N#endif
 N
-L 175 "..\..\User\bsp\bsp.h" 2
+L 178 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_aw9523b.h"
+L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
+N#ifndef __BSP_AW9523B_H
+N#define __BSP_AW9523B_H
 N
+N#define AW_DEV_ADDR			0xB6		/* Éè±¸µØÖ· */
+N#define AW_ADDR_BYTES		1			/* µØÖ·×Ö½Ú¸öÊý */
+N
+Ntypedef enum
+N{
+N	AW_ID = 0x10,
+N	Config_Port0 = 0x04,//Ñ¡ÔñÊäÈë»òÊä³ö
+N	Config_Port1 = 0x05,//Ñ¡ÔñÊäÈë»òÊä³ö
+N	GCR = 0x11,//ÅäÖÃP0¿ÚÎªÍÆÍì»ò¿ªÂ©
+N	Output_Port0 = 0x02,
+N	Output_Port1 = 0x03
+N}ADDR;
+N
+Ntypedef enum
+N{
+N	awP0_0 = 0,
+N	awP0_1 = 1,
+N	awP0_2 = 2,
+N	awP0_3 = 3,
+N	awP0_4 = 4,
+N	awP0_5 = 5,
+N	awP0_6 = 6,
+N	awP0_7 = 7,
+N	
+N	awP1_0 = 8,
+N	awP1_1 = 9,
+N	awP1_2 = 10,
+N	awP1_3 = 11,
+N	awP1_4 = 12,
+N	awP1_5 = 13,
+N	awP1_6 = 14,
+N	awP1_7 = 15
+N	
+N}AW_PIN;
+N
+Ntypedef enum
+N{
+N	AW_0 = 0,
+N	AW_1 = 1
+N}AW_VAL;
+N
+N
+Nuint8_t bsp_InitAW9523B(void);
+Nuint8_t bsp_AWReadID(void);
+Nvoid bsp_AWSetPinVal(AW_PIN pin,AW_VAL val);
+Nuint8_t bsp_AWReadReg(ADDR addr);
+Nfloat bsp_GetAdScanValue(void);
+Nvoid bsp_DetectDeal(void);
+N
+N#endif
+N
+L 179 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_DetectAct.h"
+L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
+N#ifndef __BSP_DETECTACT_H
+N#define __BSP_DETECTACT_H
+N
+Ntypedef struct
+N{
+N	uint8_t isRunning;
+N	uint8_t action;
+N	uint32_t delay;
+N	
+N	uint8_t pinMapIndex;
+N	uint16_t adcVal;
+N}DetectAct;
+N
+Nvoid bsp_InitDetectAct(void);
+Nvoid bsp_DetectStart(void);
+Nvoid bsp_DetectStop(void);
+Nvoid bsp_DetectAct(void);
+Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
+N
+N#endif
+N
+L 180 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_PulseMark.h"
+L 1 "..\..\User\app\inc\bsp_PulseMark.h" 1
+N#ifndef __BSP_PULSEMARK_H
+N#define __BSP_PULSEMARK_H
+N
+Nvoid bsp_InitPinPulse(void);
+Nvoid bsp_SendPulse(void);
+N
+N#endif
+L 181 "..\..\User\bsp\bsp.h" 2
 N/* Ìá¹©¸øÆäËûCÎÄ¼þµ÷ÓÃµÄº¯Êý */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);

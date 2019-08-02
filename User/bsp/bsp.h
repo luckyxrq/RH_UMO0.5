@@ -76,6 +76,9 @@
 
 #define DEBUG_GPS_TO_COM1	/* 打印GPS数据到串口1 */
 
+
+#define UNUSED(x)    (void)(x) /*防止出现未使用的警告*/
+
 #define DEBUG_EN      1 
 #define LOG_EN        1 
 #define WARNING_EN    1 
@@ -115,7 +118,7 @@
 
 //#include "bsp_cpu_flash.h"
 //#include "bsp_sdio_sd.h"
-//#include "bsp_i2c_gpio.h"
+#include "bsp_i2c_gpio.h"
 //#include "bsp_eeprom_24xx.h"
 //#include "bsp_si4730.h"
 //#include "bsp_hmc5883l.h"
@@ -172,7 +175,9 @@
 #include "bsp_Collision.h"
 #include "bsp_Angle.h"
 #include "bsp_Action.h"
-
+#include "bsp_aw9523b.h"
+#include "bsp_DetectAct.h"
+#include "bsp_PulseMark.h"
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
 void bsp_Idle(void);
