@@ -46068,6 +46068,11 @@ N#if 0 /* 左后  右前 */
 S	bsp_SetMotorPWM(MotorLeft,Backward,6000);
 S	bsp_SetMotorPWM(MotorRight,Forward,6000);
 N#endif	
+N	
+N#if 0 /* 给定初始角度和转动角度，得到目的角度 */
+S	printf("des angle:%.2F\r\n",bsp_AngleAdd(-100,120));
+N#endif	
+N
 N    while(1)
 N    {
 N		#if 0

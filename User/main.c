@@ -103,6 +103,11 @@ static void vTaskTaskUserIF(void *pvParameters)
 	bsp_SetMotorPWM(MotorLeft,Backward,6000);
 	bsp_SetMotorPWM(MotorRight,Forward,6000);
 #endif	
+	
+#if 0 /* 给定初始角度和转动角度，得到目的角度 */
+	printf("des angle:%.2F\r\n",bsp_AngleAdd(-100,120));
+#endif	
+
     while(1)
     {
 		#if 0
