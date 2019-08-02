@@ -4,7 +4,7 @@
 
 #define PIN_MAP_MAX		10  //引脚对数
 #define SAMP_COUNT      10  //采集AD值的个数
-#define IntervalTime	10  //没对管子扫描间隔时间
+#define IntervalTime	4  //没对管子扫描间隔时间
 #define ChargeTime	    3   //没对管子扫描间隔时间
 #define TimeAfterOpen   120 //开发射后延时
 #define TimeAfterClose  20  //关发射，延时读，判断太阳光
@@ -566,6 +566,33 @@ float bsp_GetAdScanValue(void)
 	voltage = (sum / (float)sampleCount)*3.3F/4096;
 
 	return voltage;
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetInfraredVoltageLeft
+*	功能说明: 获取左边的红外电压值
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+float bsp_GetInfraredVoltageLeft(void)
+{
+	return adcRealTime[8];
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetInfraredVoltageRight
+*	功能说明: 获取右边的红外电压值
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+float bsp_GetInfraredVoltageRight(void)
+{
+	return adcRealTime[9];
 }
 
 

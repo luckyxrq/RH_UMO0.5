@@ -38506,6 +38506,8 @@ Nvoid bsp_AWSetPinVal(AW_PIN pin,AW_VAL val);
 Nuint8_t bsp_AWReadReg(ADDR addr);
 Nfloat bsp_GetAdScanValue(void);
 Nvoid bsp_DetectDeal(void);
+Nfloat bsp_GetInfraredVoltageLeft(void);
+Nfloat bsp_GetInfraredVoltageRight(void);
 N
 N#endif
 N
@@ -38571,6 +38573,19 @@ Nvoid bsp_IWDG_Feed(void);
 N
 N#endif
 L 182 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Edgewise.h"
+L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
+N#ifndef __BSP_EDGEWISE_H
+N#define __BSP_EDGEWISE_H
+N
+Nvoid bsp_EdgewiseAct(void);
+N
+N
+N#endif
+N
+L 183 "..\..\User\bsp\bsp.h" 2
+N
+N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);
@@ -38585,7 +38600,7 @@ N
 N
 N#define PIN_MAP_MAX		10  //引脚对数
 N#define SAMP_COUNT      10  //采集AD值的个数
-N#define IntervalTime	10  //没对管子扫描间隔时间
+N#define IntervalTime	4  //没对管子扫描间隔时间
 N#define ChargeTime	    3   //没对管子扫描间隔时间
 N#define TimeAfterOpen   120 //开发射后延时
 N#define TimeAfterClose  20  //关发射，延时读，判断太阳光
@@ -38721,7 +38736,7 @@ N
 N		case 2:
 N		{
 N			if(xTaskGetTickCount() - delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - delay >= (10-3)) 
+X			if(xTaskGetTickCount() - delay >= (4-3)) 
 N			{
 N				action = 0 ;
 N			}
@@ -38791,7 +38806,7 @@ N		//----------管子对--2--------------------------------------------------------
 N		case 2:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_0); 
@@ -38835,7 +38850,7 @@ N		//----------管子对--3--------------------------------------------------------
 N		case 4:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_0); 
@@ -38879,7 +38894,7 @@ N		//----------管子对--4--------------------------------------------------------
 N		case 6:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_0); 
@@ -38923,7 +38938,7 @@ N		//----------管子对--5--------------------------------------------------------
 N		case 8:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_0); 
@@ -38967,7 +38982,7 @@ N		//----------管子对--6--------------------------------------------------------
 N		case 10:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_0); 
@@ -39011,7 +39026,7 @@ N		//----------管子对--7--------------------------------------------------------
 N		case 12:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_0); 
@@ -39055,7 +39070,7 @@ N		//----------管子对--8--------------------------------------------------------
 N		case 14:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_0); 
@@ -39099,7 +39114,7 @@ N		//----------管子对--9--------------------------------------------------------
 N		case 16:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_0); 
@@ -39143,7 +39158,7 @@ N		//----------管子对--10-------------------------------------------------------
 N		case 18:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_0); 
@@ -39185,7 +39200,7 @@ N
 N		case 20:
 N		{
 N			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-X			if(xTaskGetTickCount() - detectAct.delay >= (10-3)) 
+X			if(xTaskGetTickCount() - detectAct.delay >= (4-3)) 
 N			{
 N				detectAct.action = 0 ;
 N				detectAct.pinMapIndex = 0 ;
@@ -39297,6 +39312,33 @@ N
 N	voltage = (sum / (float)sampleCount)*3.3F/4096;
 N
 N	return voltage;
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_GetInfraredVoltageLeft
+N*	功能说明: 获取左边的红外电压值
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nfloat bsp_GetInfraredVoltageLeft(void)
+N{
+N	return adcRealTime[8];
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_GetInfraredVoltageRight
+N*	功能说明: 获取右边的红外电压值
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nfloat bsp_GetInfraredVoltageRight(void)
+N{
+N	return adcRealTime[9];
 N}
 N
 N

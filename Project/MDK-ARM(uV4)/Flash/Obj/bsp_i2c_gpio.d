@@ -62,3 +62,4 @@
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_DetectAct.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_PulseMark.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\bsp\inc\bsp_IWDG.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_Edgewise.h

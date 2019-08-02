@@ -89,9 +89,6 @@ void bsp_RunStableAct(void)
 		{
 			if(xTaskGetTickCount() - runStableAct.delay >= 1000)
 			{
-				bsp_MotorBrake(MotorLeft);
-				bsp_MotorBrake(MotorRight);
-				
 				runStableAct.isRunning = false;
 				runStableAct.action = 0 ;
 			}

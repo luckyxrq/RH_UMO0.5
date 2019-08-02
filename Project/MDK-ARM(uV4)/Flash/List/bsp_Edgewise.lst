@@ -1,4 +1,4 @@
-L 1 "..\..\User\app\src\bsp_IWDG.c"
+L 1 "..\..\User\app\src\bsp_Edgewise.c"
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -38594,39 +38594,163 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 2 "..\..\User\app\src\bsp_IWDG.c" 2
+L 2 "..\..\User\app\src\bsp_Edgewise.c" 2
 N
+N#define CONSTANT	1.0F
 N
-Nstatic void bsp_IWDG_Config(uint8_t prer,uint16_t rlr) ;
+N#define NORMAL_SPEED	7000 /*正常速度*/
+N#define SLOW_SPEED	    6000 /*减速后速度*/
+N#define INTERVAL        1000  /*转向速度差*/
 N
-N
-Nvoid bsp_InitIWDG(void)
+Ntypedef struct
 N{
-N	/*与分频数为64,重载值为625,溢出时间为1S*/
-N	bsp_IWDG_Config(4,625); 
+N	volatile bool isRunning;
+X	volatile _Bool isRunning;
+N	volatile uint8_t action;
+N	volatile uint32_t delay;
+N	
+N}Edgewise;
+N
+N
+Nstatic Edgewise edgewise;
+N
+N
+N
+N
+N
+Nvoid bsp_EdgewiseAct(void)
+N{
+N	float voltage;
+N	Collision collision;
+N	
+N//	if(!edgewise.isRunning)
+N//	{
+N//		return ;
+N//	}
+N	
+N	/*
+N		往右边靠，从低到波峰，则直接沿边
+N		如果右边撞到了，则后退同时向左转向，转一个固定的角度
+N		现在则开始进行沿边，从波峰的左边向右锁住波峰
+N	*/
+N	switch(edgewise.action)
+N	{
+N		case 0:/*判断是否进入沿边模式*/
+N		{
+N			voltage = bsp_GetInfraredVoltageRight();
+N			collision = bsp_CollisionScan();
+N			
+N			/*撞到了，优先判断，后退同时转向*/
+N			if(collision == CollisionRight)
+N			{
+N				bsp_MotorBrake(MotorLeft);
+N				bsp_MotorBrake(MotorRight);
+N				edgewise.action++ ;
+N			}
+N			/*从左边到波峰，减速，沿边*/
+N			else if(voltage >= CONSTANT)
+X			else if(voltage >= 1.0F)
+N			{
+N				bsp_MotorBrake(MotorLeft);
+N				bsp_MotorBrake(MotorRight);
+N				edgewise.action = 10;
+N			}
+N			
+N		};break;
+N		
+N		case 1:/*撞到了，优先判断，后退*/
+N		{
+N			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED);
+X			bsp_SetMotorPWM(MotorLeft,Backward, 6000);
+N			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED);
+X			bsp_SetMotorPWM(MotorRight,Backward,6000);
+N			edgewise.delay = xTaskGetTickCount();
+N			edgewise.action++ ;
+N		};break;
+N		
+N		case 2:/*撞到了，优先判断，原地转向*/
+N		{
+N			if(xTaskGetTickCount() - edgewise.delay >= 600)
+N			{
+N				bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED);
+X				bsp_SetMotorPWM(MotorLeft,Backward, 6000);
+N				bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
+X				bsp_SetMotorPWM(MotorRight,Forward,6000);
+N				edgewise.delay = xTaskGetTickCount();
+N				edgewise.action++ ;
+N			}
+N		}break;
+N		
+N		case 3:/*撞到了，优先判断，继续前进*/
+N		{
+N			if(xTaskGetTickCount() - edgewise.delay >= 200)
+N			{
+N				bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED);
+X				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
+N				bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
+X				bsp_SetMotorPWM(MotorRight,Forward,6000);
+N				edgewise.delay = xTaskGetTickCount();
+N				edgewise.action = 0 ;
+N			}
+N		}break;
+N		
+N		
+N		
+N		case 10:
+N		{
+N			collision = bsp_CollisionScan();
+N			
+N			/*撞到了，优先判断，后退同时转向*/
+N			if(collision == CollisionRight)
+N			{
+N				bsp_MotorBrake(MotorLeft);
+N				bsp_MotorBrake(MotorRight);
+N				edgewise.action = 1 ;
+N			}
+N			else
+N			{
+N				voltage = bsp_GetInfraredVoltageRight();
+N				
+N				if(voltage >= 1.2F)/*套靠近了，向左偏移*/
+N				{
+N					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED);
+X					bsp_SetMotorPWM(MotorLeft,Forward, 6000);
+N					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED+INTERVAL);
+X					bsp_SetMotorPWM(MotorRight,Forward,6000+1000);
+N				}
+N				else if(voltage >= 1.1F) /*太远了，向右偏移*/
+N				{
+N					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED);
+X					bsp_SetMotorPWM(MotorLeft,Forward, 6000);
+N					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED+500);
+X					bsp_SetMotorPWM(MotorRight,Forward,6000+500);
+N				}
+N				else if(voltage <= 0.8F) /*太远了，向右偏移*/
+N				{
+N					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED+500);
+X					bsp_SetMotorPWM(MotorLeft,Forward, 6000+500);
+N					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
+X					bsp_SetMotorPWM(MotorRight,Forward,6000);
+N				}
+N				else if(voltage <= 0.9F) /*太远了，向右偏移*/
+N				{
+N					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED+INTERVAL);
+X					bsp_SetMotorPWM(MotorLeft,Forward, 6000+1000);
+N					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
+X					bsp_SetMotorPWM(MotorRight,Forward,6000);
+N				}
+N				else
+N				{
+N					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED);
+X					bsp_SetMotorPWM(MotorLeft,Forward, 6000);
+N					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
+X					bsp_SetMotorPWM(MotorRight,Forward,6000);
+N				}
+N			}
+N		}break;
+N		
+N	}
 N}
 N
-N//初始化独立看门狗
-N//prer:分频数:0~7(只有低3位有效!)
-N//分频因子=4*2^prer.但最大值只能是256!
-N//rlr:重装载寄存器值:低11位有效.
-N//时间计算(大概):Tout=((4*2^prer)*rlr)/40 (ms).
-Nstatic void bsp_IWDG_Config(uint8_t prer,uint16_t rlr) 
-N{	
-N 	IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable);  //使能对寄存器IWDG_PR和IWDG_RLR的写操作
-X 	IWDG_WriteAccessCmd(((uint16_t)0x5555));  
-N	
-N	IWDG_SetPrescaler(prer);  //设置IWDG预分频值:设置IWDG预分频值为64
-N	
-N	IWDG_SetReload(rlr);  //设置IWDG重装载值
-N	
-N	IWDG_ReloadCounter();  //按照IWDG重装载寄存器的值重装载IWDG计数器
-N	
-N	IWDG_Enable();  //使能IWDG
-N}
-N//喂独立看门狗
-Nvoid bsp_IWDG_Feed(void)
-N{   
-N 	IWDG_ReloadCounter();//reload										   
-N}
+N
 N

@@ -179,6 +179,9 @@
 #include "bsp_DetectAct.h"
 #include "bsp_PulseMark.h"
 #include "bsp_IWDG.h"
+#include "bsp_Edgewise.h"
+
+
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
 void bsp_Idle(void);

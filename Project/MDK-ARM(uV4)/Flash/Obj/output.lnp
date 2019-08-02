@@ -11,6 +11,7 @@
 ".\flash\obj\bsp_detectact.o"
 ".\flash\obj\bsp_pulsemark.o"
 ".\flash\obj\bsp_iwdg.o"
+".\flash\obj\bsp_edgewise.o"
 ".\flash\obj\bsp.o"
 ".\flash\obj\bsp_dwt.o"
 ".\flash\obj\bsp_uart_fifo.o"

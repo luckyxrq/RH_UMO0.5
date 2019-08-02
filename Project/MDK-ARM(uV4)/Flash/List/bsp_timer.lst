@@ -38531,6 +38531,8 @@ Nvoid bsp_AWSetPinVal(AW_PIN pin,AW_VAL val);
 Nuint8_t bsp_AWReadReg(ADDR addr);
 Nfloat bsp_GetAdScanValue(void);
 Nvoid bsp_DetectDeal(void);
+Nfloat bsp_GetInfraredVoltageLeft(void);
+Nfloat bsp_GetInfraredVoltageRight(void);
 N
 N#endif
 N
@@ -38596,6 +38598,19 @@ Nvoid bsp_IWDG_Feed(void);
 N
 N#endif
 L 182 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Edgewise.h"
+L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
+N#ifndef __BSP_EDGEWISE_H
+N#define __BSP_EDGEWISE_H
+N
+Nvoid bsp_EdgewiseAct(void);
+N
+N
+N#endif
+N
+L 183 "..\..\User\bsp\bsp.h" 2
+N
+N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);

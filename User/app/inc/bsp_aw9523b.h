@@ -49,6 +49,8 @@ void bsp_AWSetPinVal(AW_PIN pin,AW_VAL val);
 uint8_t bsp_AWReadReg(ADDR addr);
 float bsp_GetAdScanValue(void);
 void bsp_DetectDeal(void);
+float bsp_GetInfraredVoltageLeft(void);
+float bsp_GetInfraredVoltageRight(void);
 
 #endif
 

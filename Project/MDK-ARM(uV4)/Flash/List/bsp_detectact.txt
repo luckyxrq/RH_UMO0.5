@@ -458,15 +458,15 @@
 000012  e8dff010          TBH      [pc,r0,LSL #1]        ;152
 000016  0015              DCW      0x0015
 000018  002d00c9          DCW      0x002d,0x00c9
-00001c  00e80184          DCW      0x00e8,0x0184
-000020  01a3024b          DCW      0x01a3,0x024b
-000024  026a0306          DCW      0x026a,0x0306
-000028  032503c1          DCW      0x0325,0x03c1
-00002c  03e00488          DCW      0x03e0,0x0488
-000030  04a70543          DCW      0x04a7,0x0543
-000034  05620609          DCW      0x0562,0x0609
-000038  062806b7          DCW      0x0628,0x06b7
-00003c  06d60765          DCW      0x06d6,0x0765
+00001c  00e70183          DCW      0x00e7,0x0183
+000020  01a10249          DCW      0x01a1,0x0249
+000024  02670303          DCW      0x0267,0x0303
+000028  032103bd          DCW      0x0321,0x03bd
+00002c  03db0483          DCW      0x03db,0x0483
+000030  04a1053d          DCW      0x04a1,0x053d
+000034  055b0601          DCW      0x055b,0x0601
+000038  061f06ae          DCW      0x061f,0x06ae
+00003c  06cc075b          DCW      0x06cc,0x075b
 000040  48ee              LDR      r0,|L2.1020|
 000042  7a00              LDRB     r0,[r0,#8]            ;157  ; detectAct
 000044  210a              MOVS     r1,#0xa               ;157
@@ -486,7 +486,7 @@
 00006a  1c40              ADDS     r0,r0,#1              ;159
 00006c  7048              STRB     r0,[r1,#1]            ;159
                   |L2.110|
-00006e  e392              B        |L2.1942|
+00006e  e38e              B        |L2.1934|
 000070  f7fffffe          BL       xTaskGetTickCount
 000074  49e1              LDR      r1,|L2.1020|
 000076  6849              LDR      r1,[r1,#4]            ;165  ; detectAct
@@ -614,234 +614,233 @@
 0001ac  4993              LDR      r1,|L2.1020|
 0001ae  6849              LDR      r1,[r1,#4]            ;187  ; detectAct
 0001b0  1a40              SUBS     r0,r0,r1              ;187
-0001b2  2807              CMP      r0,#7                 ;187
-0001b4  d316              BCC      |L2.484|
-0001b6  4891              LDR      r0,|L2.1020|
-0001b8  7a00              LDRB     r0,[r0,#8]            ;189  ; detectAct
-0001ba  210a              MOVS     r1,#0xa               ;189
-0001bc  fb90f2f1          SDIV     r2,r0,r1              ;189
-0001c0  fb010012          MLS      r0,r1,r2,r0           ;189
-0001c4  498e              LDR      r1,|L2.1024|
-0001c6  eb010040          ADD      r0,r1,r0,LSL #1       ;189
-0001ca  7844              LDRB     r4,[r0,#1]            ;189
-0001cc  2100              MOVS     r1,#0                 ;189
-0001ce  4620              MOV      r0,r4                 ;189
-0001d0  f7fffffe          BL       bsp_AWSetPinVal
-0001d4  f7fffffe          BL       xTaskGetTickCount
-0001d8  4988              LDR      r1,|L2.1020|
-0001da  6048              STR      r0,[r1,#4]            ;190  ; detectAct
-0001dc  4608              MOV      r0,r1                 ;191
-0001de  7840              LDRB     r0,[r0,#1]            ;191  ; detectAct
-0001e0  1c40              ADDS     r0,r0,#1              ;191
-0001e2  7048              STRB     r0,[r1,#1]            ;191
-                  |L2.484|
-0001e4  e743              B        |L2.110|
-0001e6  f7fffffe          BL       xTaskGetTickCount
-0001ea  4984              LDR      r1,|L2.1020|
-0001ec  6849              LDR      r1,[r1,#4]            ;197  ; detectAct
-0001ee  1a40              SUBS     r0,r0,r1              ;197
-0001f0  2803              CMP      r0,#3                 ;197
-0001f2  d37b              BCC      |L2.748|
-0001f4  4881              LDR      r0,|L2.1020|
-0001f6  7a00              LDRB     r0,[r0,#8]            ;199  ; detectAct
-0001f8  210a              MOVS     r1,#0xa               ;199
-0001fa  fb90f2f1          SDIV     r2,r0,r1              ;199
-0001fe  fb010012          MLS      r0,r1,r2,r0           ;199
-000202  497f              LDR      r1,|L2.1024|
-000204  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;199
-000208  2100              MOVS     r1,#0                 ;199
-00020a  4620              MOV      r0,r4                 ;199
-00020c  f7fffffe          BL       bsp_AWSetPinVal
-000210  2078              MOVS     r0,#0x78              ;200
-000212  f7fffffe          BL       bsp_DelayUS
-000216  f7fffffe          BL       bsp_GetAdScanValue
-00021a  4978              LDR      r1,|L2.1020|
-00021c  7a09              LDRB     r1,[r1,#8]            ;201  ; detectAct
-00021e  220a              MOVS     r2,#0xa               ;201
-000220  fb91f3f2          SDIV     r3,r1,r2              ;201
-000224  fb021113          MLS      r1,r2,r3,r1           ;201
-000228  4a76              LDR      r2,|L2.1028|
-00022a  f8420031          STR      r0,[r2,r1,LSL #3]     ;201
-00022e  4873              LDR      r0,|L2.1020|
-000230  7a00              LDRB     r0,[r0,#8]            ;202  ; detectAct
-000232  210a              MOVS     r1,#0xa               ;202
-000234  fb90f2f1          SDIV     r2,r0,r1              ;202
-000238  fb010012          MLS      r0,r1,r2,r0           ;202
-00023c  4970              LDR      r1,|L2.1024|
-00023e  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;202
-000242  2101              MOVS     r1,#1                 ;202
-000244  4620              MOV      r0,r4                 ;202
-000246  f7fffffe          BL       bsp_AWSetPinVal
-00024a  2014              MOVS     r0,#0x14              ;203
-00024c  f7fffffe          BL       bsp_DelayUS
-000250  f7fffffe          BL       bsp_GetAdScanValue
-000254  4969              LDR      r1,|L2.1020|
-000256  7a09              LDRB     r1,[r1,#8]            ;204  ; detectAct
-000258  220a              MOVS     r2,#0xa               ;204
-00025a  fb91f3f2          SDIV     r3,r1,r2              ;204
-00025e  fb021113          MLS      r1,r2,r3,r1           ;204
-000262  4a68              LDR      r2,|L2.1028|
-000264  eb0201c1          ADD      r1,r2,r1,LSL #3       ;204
-000268  6048              STR      r0,[r1,#4]            ;204
-00026a  4864              LDR      r0,|L2.1020|
-00026c  7a00              LDRB     r0,[r0,#8]            ;205  ; detectAct
-00026e  210a              MOVS     r1,#0xa               ;205
-000270  fb90f2f1          SDIV     r2,r0,r1              ;205
-000274  fb010012          MLS      r0,r1,r2,r0           ;205
-000278  4961              LDR      r1,|L2.1024|
-00027a  eb010040          ADD      r0,r1,r0,LSL #1       ;205
-00027e  7844              LDRB     r4,[r0,#1]            ;205
-000280  2101              MOVS     r1,#1                 ;205
-000282  4620              MOV      r0,r4                 ;205
-000284  f7fffffe          BL       bsp_AWSetPinVal
-000288  495c              LDR      r1,|L2.1020|
-00028a  784d              LDRB     r5,[r1,#1]            ;207  ; detectAct
-00028c  eb0571d5          ADD      r1,r5,r5,LSR #31      ;207
-000290  1049              ASRS     r1,r1,#1              ;207
-000292  4a5c              LDR      r2,|L2.1028|
-000294  eb0201c1          ADD      r1,r2,r1,LSL #3       ;207
-000298  6848              LDR      r0,[r1,#4]            ;207
-00029a  f04f517e          MOV      r1,#0x3f800000        ;207
-00029e  f7fffffe          BL       __aeabi_cfrcmple
-0002a2  d801              BHI      |L2.680|
-0002a4  2000              MOVS     r0,#0                 ;207
-0002a6  e007              B        |L2.696|
-                  |L2.680|
-0002a8  4854              LDR      r0,|L2.1020|
-0002aa  7844              LDRB     r4,[r0,#1]            ;207  ; detectAct
-0002ac  eb0470d4          ADD      r0,r4,r4,LSR #31      ;207
-0002b0  1040              ASRS     r0,r0,#1              ;207
-0002b2  4954              LDR      r1,|L2.1028|
-0002b4  f8510030          LDR      r0,[r1,r0,LSL #3]     ;207
-                  |L2.696|
-0002b8  4950              LDR      r1,|L2.1020|
-0002ba  7a09              LDRB     r1,[r1,#8]            ;207  ; detectAct
-0002bc  220a              MOVS     r2,#0xa               ;207
-0002be  fb91f3f2          SDIV     r3,r1,r2              ;207
-0002c2  fb021113          MLS      r1,r2,r3,r1           ;207
-0002c6  4a50              LDR      r2,|L2.1032|
-0002c8  f8420021          STR      r0,[r2,r1,LSL #2]     ;207
-0002cc  494b              LDR      r1,|L2.1020|
-0002ce  784c              LDRB     r4,[r1,#1]            ;208  ; detectAct
-0002d0  eb0471d4          ADD      r1,r4,r4,LSR #31      ;208
-0002d4  1049              ASRS     r1,r1,#1              ;208
-0002d6  4a4b              LDR      r2,|L2.1028|
-0002d8  eb0201c1          ADD      r1,r2,r1,LSL #3       ;208
-0002dc  6848              LDR      r0,[r1,#4]            ;208
-0002de  f04f517e          MOV      r1,#0x3f800000        ;208
-0002e2  f7fffffe          BL       __aeabi_cfrcmple
-0002e6  d802              BHI      |L2.750|
-0002e8  2001              MOVS     r0,#1                 ;208
-0002ea  e001              B        |L2.752|
+0001b2  d016              BEQ      |L2.482|
+0001b4  4891              LDR      r0,|L2.1020|
+0001b6  7a00              LDRB     r0,[r0,#8]            ;189  ; detectAct
+0001b8  210a              MOVS     r1,#0xa               ;189
+0001ba  fb90f2f1          SDIV     r2,r0,r1              ;189
+0001be  fb010012          MLS      r0,r1,r2,r0           ;189
+0001c2  498f              LDR      r1,|L2.1024|
+0001c4  eb010040          ADD      r0,r1,r0,LSL #1       ;189
+0001c8  7844              LDRB     r4,[r0,#1]            ;189
+0001ca  2100              MOVS     r1,#0                 ;189
+0001cc  4620              MOV      r0,r4                 ;189
+0001ce  f7fffffe          BL       bsp_AWSetPinVal
+0001d2  f7fffffe          BL       xTaskGetTickCount
+0001d6  4989              LDR      r1,|L2.1020|
+0001d8  6048              STR      r0,[r1,#4]            ;190  ; detectAct
+0001da  4608              MOV      r0,r1                 ;191
+0001dc  7840              LDRB     r0,[r0,#1]            ;191  ; detectAct
+0001de  1c40              ADDS     r0,r0,#1              ;191
+0001e0  7048              STRB     r0,[r1,#1]            ;191
+                  |L2.482|
+0001e2  e744              B        |L2.110|
+0001e4  f7fffffe          BL       xTaskGetTickCount
+0001e8  4984              LDR      r1,|L2.1020|
+0001ea  6849              LDR      r1,[r1,#4]            ;197  ; detectAct
+0001ec  1a40              SUBS     r0,r0,r1              ;197
+0001ee  2803              CMP      r0,#3                 ;197
+0001f0  d37b              BCC      |L2.746|
+0001f2  4882              LDR      r0,|L2.1020|
+0001f4  7a00              LDRB     r0,[r0,#8]            ;199  ; detectAct
+0001f6  210a              MOVS     r1,#0xa               ;199
+0001f8  fb90f2f1          SDIV     r2,r0,r1              ;199
+0001fc  fb010012          MLS      r0,r1,r2,r0           ;199
+000200  497f              LDR      r1,|L2.1024|
+000202  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;199
+000206  2100              MOVS     r1,#0                 ;199
+000208  4620              MOV      r0,r4                 ;199
+00020a  f7fffffe          BL       bsp_AWSetPinVal
+00020e  2078              MOVS     r0,#0x78              ;200
+000210  f7fffffe          BL       bsp_DelayUS
+000214  f7fffffe          BL       bsp_GetAdScanValue
+000218  4978              LDR      r1,|L2.1020|
+00021a  7a09              LDRB     r1,[r1,#8]            ;201  ; detectAct
+00021c  220a              MOVS     r2,#0xa               ;201
+00021e  fb91f3f2          SDIV     r3,r1,r2              ;201
+000222  fb021113          MLS      r1,r2,r3,r1           ;201
+000226  4a77              LDR      r2,|L2.1028|
+000228  f8420031          STR      r0,[r2,r1,LSL #3]     ;201
+00022c  4873              LDR      r0,|L2.1020|
+00022e  7a00              LDRB     r0,[r0,#8]            ;202  ; detectAct
+000230  210a              MOVS     r1,#0xa               ;202
+000232  fb90f2f1          SDIV     r2,r0,r1              ;202
+000236  fb010012          MLS      r0,r1,r2,r0           ;202
+00023a  4971              LDR      r1,|L2.1024|
+00023c  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;202
+000240  2101              MOVS     r1,#1                 ;202
+000242  4620              MOV      r0,r4                 ;202
+000244  f7fffffe          BL       bsp_AWSetPinVal
+000248  2014              MOVS     r0,#0x14              ;203
+00024a  f7fffffe          BL       bsp_DelayUS
+00024e  f7fffffe          BL       bsp_GetAdScanValue
+000252  496a              LDR      r1,|L2.1020|
+000254  7a09              LDRB     r1,[r1,#8]            ;204  ; detectAct
+000256  220a              MOVS     r2,#0xa               ;204
+000258  fb91f3f2          SDIV     r3,r1,r2              ;204
+00025c  fb021113          MLS      r1,r2,r3,r1           ;204
+000260  4a68              LDR      r2,|L2.1028|
+000262  eb0201c1          ADD      r1,r2,r1,LSL #3       ;204
+000266  6048              STR      r0,[r1,#4]            ;204
+000268  4864              LDR      r0,|L2.1020|
+00026a  7a00              LDRB     r0,[r0,#8]            ;205  ; detectAct
+00026c  210a              MOVS     r1,#0xa               ;205
+00026e  fb90f2f1          SDIV     r2,r0,r1              ;205
+000272  fb010012          MLS      r0,r1,r2,r0           ;205
+000276  4962              LDR      r1,|L2.1024|
+000278  eb010040          ADD      r0,r1,r0,LSL #1       ;205
+00027c  7844              LDRB     r4,[r0,#1]            ;205
+00027e  2101              MOVS     r1,#1                 ;205
+000280  4620              MOV      r0,r4                 ;205
+000282  f7fffffe          BL       bsp_AWSetPinVal
+000286  495d              LDR      r1,|L2.1020|
+000288  784d              LDRB     r5,[r1,#1]            ;207  ; detectAct
+00028a  eb0571d5          ADD      r1,r5,r5,LSR #31      ;207
+00028e  1049              ASRS     r1,r1,#1              ;207
+000290  4a5c              LDR      r2,|L2.1028|
+000292  eb0201c1          ADD      r1,r2,r1,LSL #3       ;207
+000296  6848              LDR      r0,[r1,#4]            ;207
+000298  f04f517e          MOV      r1,#0x3f800000        ;207
+00029c  f7fffffe          BL       __aeabi_cfrcmple
+0002a0  d801              BHI      |L2.678|
+0002a2  2000              MOVS     r0,#0                 ;207
+0002a4  e007              B        |L2.694|
+                  |L2.678|
+0002a6  4855              LDR      r0,|L2.1020|
+0002a8  7844              LDRB     r4,[r0,#1]            ;207  ; detectAct
+0002aa  eb0470d4          ADD      r0,r4,r4,LSR #31      ;207
+0002ae  1040              ASRS     r0,r0,#1              ;207
+0002b0  4954              LDR      r1,|L2.1028|
+0002b2  f8510030          LDR      r0,[r1,r0,LSL #3]     ;207
+                  |L2.694|
+0002b6  4951              LDR      r1,|L2.1020|
+0002b8  7a09              LDRB     r1,[r1,#8]            ;207  ; detectAct
+0002ba  220a              MOVS     r2,#0xa               ;207
+0002bc  fb91f3f2          SDIV     r3,r1,r2              ;207
+0002c0  fb021113          MLS      r1,r2,r3,r1           ;207
+0002c4  4a50              LDR      r2,|L2.1032|
+0002c6  f8420021          STR      r0,[r2,r1,LSL #2]     ;207
+0002ca  494c              LDR      r1,|L2.1020|
+0002cc  784c              LDRB     r4,[r1,#1]            ;208  ; detectAct
+0002ce  eb0471d4          ADD      r1,r4,r4,LSR #31      ;208
+0002d2  1049              ASRS     r1,r1,#1              ;208
+0002d4  4a4b              LDR      r2,|L2.1028|
+0002d6  eb0201c1          ADD      r1,r2,r1,LSL #3       ;208
+0002da  6848              LDR      r0,[r1,#4]            ;208
+0002dc  f04f517e          MOV      r1,#0x3f800000        ;208
+0002e0  f7fffffe          BL       __aeabi_cfrcmple
+0002e4  d802              BHI      |L2.748|
+0002e6  2001              MOVS     r0,#1                 ;208
+0002e8  e001              B        |L2.750|
+                  |L2.746|
+0002ea  e016              B        |L2.794|
                   |L2.748|
-0002ec  e016              B        |L2.796|
+0002ec  2000              MOVS     r0,#0                 ;208
                   |L2.750|
-0002ee  2000              MOVS     r0,#0                 ;208
-                  |L2.752|
-0002f0  4942              LDR      r1,|L2.1020|
-0002f2  7a09              LDRB     r1,[r1,#8]            ;208  ; detectAct
-0002f4  220a              MOVS     r2,#0xa               ;208
-0002f6  fb91f3f2          SDIV     r3,r1,r2              ;208
-0002fa  fb021113          MLS      r1,r2,r3,r1           ;208
-0002fe  4a43              LDR      r2,|L2.1036|
-000300  5450              STRB     r0,[r2,r1]            ;208
-000302  483e              LDR      r0,|L2.1020|
-000304  7a00              LDRB     r0,[r0,#8]            ;209  ; detectAct
-000306  1c40              ADDS     r0,r0,#1              ;209
-000308  493c              LDR      r1,|L2.1020|
-00030a  7208              STRB     r0,[r1,#8]            ;209
-00030c  f7fffffe          BL       xTaskGetTickCount
-000310  493a              LDR      r1,|L2.1020|
-000312  6048              STR      r0,[r1,#4]            ;211  ; detectAct
-000314  4608              MOV      r0,r1                 ;212
-000316  7840              LDRB     r0,[r0,#1]            ;212  ; detectAct
-000318  1c40              ADDS     r0,r0,#1              ;212
-00031a  7048              STRB     r0,[r1,#1]            ;212
-                  |L2.796|
-00031c  e6a7              B        |L2.110|
-00031e  f7fffffe          BL       xTaskGetTickCount
-000322  4936              LDR      r1,|L2.1020|
-000324  6849              LDR      r1,[r1,#4]            ;219  ; detectAct
-000326  1a40              SUBS     r0,r0,r1              ;219
-000328  2807              CMP      r0,#7                 ;219
-00032a  d316              BCC      |L2.858|
-00032c  4833              LDR      r0,|L2.1020|
-00032e  7a00              LDRB     r0,[r0,#8]            ;221  ; detectAct
-000330  210a              MOVS     r1,#0xa               ;221
-000332  fb90f2f1          SDIV     r2,r0,r1              ;221
-000336  fb010012          MLS      r0,r1,r2,r0           ;221
-00033a  4931              LDR      r1,|L2.1024|
-00033c  eb010040          ADD      r0,r1,r0,LSL #1       ;221
-000340  7844              LDRB     r4,[r0,#1]            ;221
-000342  2100              MOVS     r1,#0                 ;221
-000344  4620              MOV      r0,r4                 ;221
-000346  f7fffffe          BL       bsp_AWSetPinVal
-00034a  f7fffffe          BL       xTaskGetTickCount
-00034e  492b              LDR      r1,|L2.1020|
-000350  6048              STR      r0,[r1,#4]            ;222  ; detectAct
-000352  4608              MOV      r0,r1                 ;223
-000354  7840              LDRB     r0,[r0,#1]            ;223  ; detectAct
-000356  1c40              ADDS     r0,r0,#1              ;223
-000358  7048              STRB     r0,[r1,#1]            ;223
-                  |L2.858|
-00035a  e688              B        |L2.110|
-00035c  f7fffffe          BL       xTaskGetTickCount
-000360  4926              LDR      r1,|L2.1020|
-000362  6849              LDR      r1,[r1,#4]            ;229  ; detectAct
-000364  1a40              SUBS     r0,r0,r1              ;229
-000366  2803              CMP      r0,#3                 ;229
-000368  d37d              BCC      |L2.1126|
-00036a  4824              LDR      r0,|L2.1020|
-00036c  7a00              LDRB     r0,[r0,#8]            ;231  ; detectAct
-00036e  210a              MOVS     r1,#0xa               ;231
-000370  fb90f2f1          SDIV     r2,r0,r1              ;231
-000374  fb010012          MLS      r0,r1,r2,r0           ;231
-000378  4921              LDR      r1,|L2.1024|
-00037a  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;231
-00037e  2100              MOVS     r1,#0                 ;231
-000380  4620              MOV      r0,r4                 ;231
-000382  f7fffffe          BL       bsp_AWSetPinVal
-000386  2078              MOVS     r0,#0x78              ;232
-000388  f7fffffe          BL       bsp_DelayUS
-00038c  f7fffffe          BL       bsp_GetAdScanValue
-000390  491a              LDR      r1,|L2.1020|
-000392  7a09              LDRB     r1,[r1,#8]            ;233  ; detectAct
-000394  220a              MOVS     r2,#0xa               ;233
-000396  fb91f3f2          SDIV     r3,r1,r2              ;233
-00039a  fb021113          MLS      r1,r2,r3,r1           ;233
-00039e  4a19              LDR      r2,|L2.1028|
-0003a0  f8420031          STR      r0,[r2,r1,LSL #3]     ;233
-0003a4  4815              LDR      r0,|L2.1020|
-0003a6  7a00              LDRB     r0,[r0,#8]            ;234  ; detectAct
-0003a8  210a              MOVS     r1,#0xa               ;234
-0003aa  fb90f2f1          SDIV     r2,r0,r1              ;234
-0003ae  fb010012          MLS      r0,r1,r2,r0           ;234
-0003b2  4913              LDR      r1,|L2.1024|
-0003b4  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;234
-0003b8  2101              MOVS     r1,#1                 ;234
-0003ba  4620              MOV      r0,r4                 ;234
-0003bc  f7fffffe          BL       bsp_AWSetPinVal
-0003c0  2014              MOVS     r0,#0x14              ;235
-0003c2  f7fffffe          BL       bsp_DelayUS
-0003c6  f7fffffe          BL       bsp_GetAdScanValue
-0003ca  490c              LDR      r1,|L2.1020|
-0003cc  7a09              LDRB     r1,[r1,#8]            ;236  ; detectAct
-0003ce  220a              MOVS     r2,#0xa               ;236
-0003d0  fb91f3f2          SDIV     r3,r1,r2              ;236
-0003d4  fb021113          MLS      r1,r2,r3,r1           ;236
-0003d8  4a0a              LDR      r2,|L2.1028|
-0003da  eb0201c1          ADD      r1,r2,r1,LSL #3       ;236
-0003de  6048              STR      r0,[r1,#4]            ;236
-0003e0  4806              LDR      r0,|L2.1020|
-0003e2  7a00              LDRB     r0,[r0,#8]            ;237  ; detectAct
-0003e4  210a              MOVS     r1,#0xa               ;237
-0003e6  fb90f2f1          SDIV     r2,r0,r1              ;237
-0003ea  fb010012          MLS      r0,r1,r2,r0           ;237
-0003ee  4904              LDR      r1,|L2.1024|
-0003f0  eb010040          ADD      r0,r1,r0,LSL #1       ;237
-0003f4  7844              LDRB     r4,[r0,#1]            ;237
-0003f6  2101              MOVS     r1,#1                 ;237
-0003f8  4620              MOV      r0,r4                 ;237
+0002ee  4943              LDR      r1,|L2.1020|
+0002f0  7a09              LDRB     r1,[r1,#8]            ;208  ; detectAct
+0002f2  220a              MOVS     r2,#0xa               ;208
+0002f4  fb91f3f2          SDIV     r3,r1,r2              ;208
+0002f8  fb021113          MLS      r1,r2,r3,r1           ;208
+0002fc  4a43              LDR      r2,|L2.1036|
+0002fe  5450              STRB     r0,[r2,r1]            ;208
+000300  483e              LDR      r0,|L2.1020|
+000302  7a00              LDRB     r0,[r0,#8]            ;209  ; detectAct
+000304  1c40              ADDS     r0,r0,#1              ;209
+000306  493d              LDR      r1,|L2.1020|
+000308  7208              STRB     r0,[r1,#8]            ;209
+00030a  f7fffffe          BL       xTaskGetTickCount
+00030e  493b              LDR      r1,|L2.1020|
+000310  6048              STR      r0,[r1,#4]            ;211  ; detectAct
+000312  4608              MOV      r0,r1                 ;212
+000314  7840              LDRB     r0,[r0,#1]            ;212  ; detectAct
+000316  1c40              ADDS     r0,r0,#1              ;212
+000318  7048              STRB     r0,[r1,#1]            ;212
+                  |L2.794|
+00031a  e6a8              B        |L2.110|
+00031c  f7fffffe          BL       xTaskGetTickCount
+000320  4936              LDR      r1,|L2.1020|
+000322  6849              LDR      r1,[r1,#4]            ;219  ; detectAct
+000324  1a40              SUBS     r0,r0,r1              ;219
+000326  d016              BEQ      |L2.854|
+000328  4834              LDR      r0,|L2.1020|
+00032a  7a00              LDRB     r0,[r0,#8]            ;221  ; detectAct
+00032c  210a              MOVS     r1,#0xa               ;221
+00032e  fb90f2f1          SDIV     r2,r0,r1              ;221
+000332  fb010012          MLS      r0,r1,r2,r0           ;221
+000336  4932              LDR      r1,|L2.1024|
+000338  eb010040          ADD      r0,r1,r0,LSL #1       ;221
+00033c  7844              LDRB     r4,[r0,#1]            ;221
+00033e  2100              MOVS     r1,#0                 ;221
+000340  4620              MOV      r0,r4                 ;221
+000342  f7fffffe          BL       bsp_AWSetPinVal
+000346  f7fffffe          BL       xTaskGetTickCount
+00034a  492c              LDR      r1,|L2.1020|
+00034c  6048              STR      r0,[r1,#4]            ;222  ; detectAct
+00034e  4608              MOV      r0,r1                 ;223
+000350  7840              LDRB     r0,[r0,#1]            ;223  ; detectAct
+000352  1c40              ADDS     r0,r0,#1              ;223
+000354  7048              STRB     r0,[r1,#1]            ;223
+                  |L2.854|
+000356  e68a              B        |L2.110|
+000358  f7fffffe          BL       xTaskGetTickCount
+00035c  4927              LDR      r1,|L2.1020|
+00035e  6849              LDR      r1,[r1,#4]            ;229  ; detectAct
+000360  1a40              SUBS     r0,r0,r1              ;229
+000362  2803              CMP      r0,#3                 ;229
+000364  d37d              BCC      |L2.1122|
+000366  4825              LDR      r0,|L2.1020|
+000368  7a00              LDRB     r0,[r0,#8]            ;231  ; detectAct
+00036a  210a              MOVS     r1,#0xa               ;231
+00036c  fb90f2f1          SDIV     r2,r0,r1              ;231
+000370  fb010012          MLS      r0,r1,r2,r0           ;231
+000374  4922              LDR      r1,|L2.1024|
+000376  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;231
+00037a  2100              MOVS     r1,#0                 ;231
+00037c  4620              MOV      r0,r4                 ;231
+00037e  f7fffffe          BL       bsp_AWSetPinVal
+000382  2078              MOVS     r0,#0x78              ;232
+000384  f7fffffe          BL       bsp_DelayUS
+000388  f7fffffe          BL       bsp_GetAdScanValue
+00038c  491b              LDR      r1,|L2.1020|
+00038e  7a09              LDRB     r1,[r1,#8]            ;233  ; detectAct
+000390  220a              MOVS     r2,#0xa               ;233
+000392  fb91f3f2          SDIV     r3,r1,r2              ;233
+000396  fb021113          MLS      r1,r2,r3,r1           ;233
+00039a  4a1a              LDR      r2,|L2.1028|
+00039c  f8420031          STR      r0,[r2,r1,LSL #3]     ;233
+0003a0  4816              LDR      r0,|L2.1020|
+0003a2  7a00              LDRB     r0,[r0,#8]            ;234  ; detectAct
+0003a4  210a              MOVS     r1,#0xa               ;234
+0003a6  fb90f2f1          SDIV     r2,r0,r1              ;234
+0003aa  fb010012          MLS      r0,r1,r2,r0           ;234
+0003ae  4914              LDR      r1,|L2.1024|
+0003b0  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;234
+0003b4  2101              MOVS     r1,#1                 ;234
+0003b6  4620              MOV      r0,r4                 ;234
+0003b8  f7fffffe          BL       bsp_AWSetPinVal
+0003bc  2014              MOVS     r0,#0x14              ;235
+0003be  f7fffffe          BL       bsp_DelayUS
+0003c2  f7fffffe          BL       bsp_GetAdScanValue
+0003c6  490d              LDR      r1,|L2.1020|
+0003c8  7a09              LDRB     r1,[r1,#8]            ;236  ; detectAct
+0003ca  220a              MOVS     r2,#0xa               ;236
+0003cc  fb91f3f2          SDIV     r3,r1,r2              ;236
+0003d0  fb021113          MLS      r1,r2,r3,r1           ;236
+0003d4  4a0b              LDR      r2,|L2.1028|
+0003d6  eb0201c1          ADD      r1,r2,r1,LSL #3       ;236
+0003da  6048              STR      r0,[r1,#4]            ;236
+0003dc  4807              LDR      r0,|L2.1020|
+0003de  7a00              LDRB     r0,[r0,#8]            ;237  ; detectAct
+0003e0  210a              MOVS     r1,#0xa               ;237
+0003e2  fb90f2f1          SDIV     r2,r0,r1              ;237
+0003e6  fb010012          MLS      r0,r1,r2,r0           ;237
+0003ea  4905              LDR      r1,|L2.1024|
+0003ec  eb010040          ADD      r0,r1,r0,LSL #1       ;237
+0003f0  7844              LDRB     r4,[r0,#1]            ;237
+0003f2  2101              MOVS     r1,#1                 ;237
+0003f4  4620              MOV      r0,r4                 ;237
+0003f6  f7fffffe          BL       bsp_AWSetPinVal
 0003fa  e009              B        |L2.1040|
                   |L2.1020|
                           DCD      detectAct
@@ -854,1154 +853,1145 @@
                   |L2.1036|
                           DCD      adcIsSunlight
                   |L2.1040|
-000410  f7fffffe          BL       bsp_AWSetPinVal
-000414  49fe              LDR      r1,|L2.2064|
-000416  784d              LDRB     r5,[r1,#1]            ;239  ; detectAct
-000418  eb0571d5          ADD      r1,r5,r5,LSR #31      ;239
-00041c  1049              ASRS     r1,r1,#1              ;239
-00041e  4afd              LDR      r2,|L2.2068|
-000420  eb0201c1          ADD      r1,r2,r1,LSL #3       ;239
-000424  6848              LDR      r0,[r1,#4]            ;239
-000426  f04f517e          MOV      r1,#0x3f800000        ;239
-00042a  f7fffffe          BL       __aeabi_cfrcmple
-00042e  d801              BHI      |L2.1076|
-000430  2000              MOVS     r0,#0                 ;239
-000432  e007              B        |L2.1092|
-                  |L2.1076|
-000434  48f6              LDR      r0,|L2.2064|
-000436  7844              LDRB     r4,[r0,#1]            ;239  ; detectAct
-000438  eb0470d4          ADD      r0,r4,r4,LSR #31      ;239
-00043c  1040              ASRS     r0,r0,#1              ;239
-00043e  49f5              LDR      r1,|L2.2068|
-000440  f8510030          LDR      r0,[r1,r0,LSL #3]     ;239
-                  |L2.1092|
-000444  49f2              LDR      r1,|L2.2064|
-000446  7a09              LDRB     r1,[r1,#8]            ;239  ; detectAct
-000448  220a              MOVS     r2,#0xa               ;239
-00044a  fb91f3f2          SDIV     r3,r1,r2              ;239
-00044e  fb021113          MLS      r1,r2,r3,r1           ;239
-000452  4af1              LDR      r2,|L2.2072|
-000454  f8420021          STR      r0,[r2,r1,LSL #2]     ;239
-000458  49ed              LDR      r1,|L2.2064|
-00045a  784c              LDRB     r4,[r1,#1]            ;240  ; detectAct
-00045c  eb0471d4          ADD      r1,r4,r4,LSR #31      ;240
-000460  1049              ASRS     r1,r1,#1              ;240
-000462  4aec              LDR      r2,|L2.2068|
-000464  e000              B        |L2.1128|
-                  |L2.1126|
-000466  e020              B        |L2.1194|
-                  |L2.1128|
-000468  eb0201c1          ADD      r1,r2,r1,LSL #3       ;240
-00046c  6848              LDR      r0,[r1,#4]            ;240
-00046e  f04f517e          MOV      r1,#0x3f800000        ;240
-000472  f7fffffe          BL       __aeabi_cfrcmple
-000476  d801              BHI      |L2.1148|
-000478  2001              MOVS     r0,#1                 ;240
-00047a  e000              B        |L2.1150|
-                  |L2.1148|
-00047c  2000              MOVS     r0,#0                 ;240
-                  |L2.1150|
-00047e  49e4              LDR      r1,|L2.2064|
-000480  7a09              LDRB     r1,[r1,#8]            ;240  ; detectAct
-000482  220a              MOVS     r2,#0xa               ;240
-000484  fb91f3f2          SDIV     r3,r1,r2              ;240
-000488  fb021113          MLS      r1,r2,r3,r1           ;240
-00048c  4ae3              LDR      r2,|L2.2076|
-00048e  5450              STRB     r0,[r2,r1]            ;240
-000490  48df              LDR      r0,|L2.2064|
-000492  7a00              LDRB     r0,[r0,#8]            ;241  ; detectAct
-000494  1c40              ADDS     r0,r0,#1              ;241
-000496  49de              LDR      r1,|L2.2064|
-000498  7208              STRB     r0,[r1,#8]            ;241
-00049a  f7fffffe          BL       xTaskGetTickCount
-00049e  49dc              LDR      r1,|L2.2064|
-0004a0  6048              STR      r0,[r1,#4]            ;243  ; detectAct
-0004a2  4608              MOV      r0,r1                 ;244
-0004a4  7840              LDRB     r0,[r0,#1]            ;244  ; detectAct
-0004a6  1c40              ADDS     r0,r0,#1              ;244
-0004a8  7048              STRB     r0,[r1,#1]            ;244
-                  |L2.1194|
-0004aa  e5e0              B        |L2.110|
-0004ac  f7fffffe          BL       xTaskGetTickCount
-0004b0  49d7              LDR      r1,|L2.2064|
-0004b2  6849              LDR      r1,[r1,#4]            ;251  ; detectAct
-0004b4  1a40              SUBS     r0,r0,r1              ;251
-0004b6  2807              CMP      r0,#7                 ;251
-0004b8  d316              BCC      |L2.1256|
-0004ba  48d5              LDR      r0,|L2.2064|
-0004bc  7a00              LDRB     r0,[r0,#8]            ;253  ; detectAct
-0004be  210a              MOVS     r1,#0xa               ;253
-0004c0  fb90f2f1          SDIV     r2,r0,r1              ;253
-0004c4  fb010012          MLS      r0,r1,r2,r0           ;253
-0004c8  49d5              LDR      r1,|L2.2080|
-0004ca  eb010040          ADD      r0,r1,r0,LSL #1       ;253
-0004ce  7844              LDRB     r4,[r0,#1]            ;253
-0004d0  2100              MOVS     r1,#0                 ;253
-0004d2  4620              MOV      r0,r4                 ;253
-0004d4  f7fffffe          BL       bsp_AWSetPinVal
-0004d8  f7fffffe          BL       xTaskGetTickCount
-0004dc  49cc              LDR      r1,|L2.2064|
-0004de  6048              STR      r0,[r1,#4]            ;254  ; detectAct
-0004e0  4608              MOV      r0,r1                 ;255
-0004e2  7840              LDRB     r0,[r0,#1]            ;255  ; detectAct
-0004e4  1c40              ADDS     r0,r0,#1              ;255
-0004e6  7048              STRB     r0,[r1,#1]            ;255
-                  |L2.1256|
-0004e8  e5c1              B        |L2.110|
-0004ea  f7fffffe          BL       xTaskGetTickCount
-0004ee  49c8              LDR      r1,|L2.2064|
-0004f0  6849              LDR      r1,[r1,#4]            ;261  ; detectAct
-0004f2  1a40              SUBS     r0,r0,r1              ;261
-0004f4  2803              CMP      r0,#3                 ;261
-0004f6  d37b              BCC      |L2.1520|
-0004f8  48c5              LDR      r0,|L2.2064|
-0004fa  7a00              LDRB     r0,[r0,#8]            ;263  ; detectAct
-0004fc  210a              MOVS     r1,#0xa               ;263
-0004fe  fb90f2f1          SDIV     r2,r0,r1              ;263
-000502  fb010012          MLS      r0,r1,r2,r0           ;263
-000506  49c6              LDR      r1,|L2.2080|
-000508  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;263
-00050c  2100              MOVS     r1,#0                 ;263
-00050e  4620              MOV      r0,r4                 ;263
-000510  f7fffffe          BL       bsp_AWSetPinVal
-000514  2078              MOVS     r0,#0x78              ;264
-000516  f7fffffe          BL       bsp_DelayUS
-00051a  f7fffffe          BL       bsp_GetAdScanValue
-00051e  49bc              LDR      r1,|L2.2064|
-000520  7a09              LDRB     r1,[r1,#8]            ;265  ; detectAct
-000522  220a              MOVS     r2,#0xa               ;265
-000524  fb91f3f2          SDIV     r3,r1,r2              ;265
-000528  fb021113          MLS      r1,r2,r3,r1           ;265
-00052c  4ab9              LDR      r2,|L2.2068|
-00052e  f8420031          STR      r0,[r2,r1,LSL #3]     ;265
-000532  48b7              LDR      r0,|L2.2064|
-000534  7a00              LDRB     r0,[r0,#8]            ;266  ; detectAct
-000536  210a              MOVS     r1,#0xa               ;266
-000538  fb90f2f1          SDIV     r2,r0,r1              ;266
-00053c  fb010012          MLS      r0,r1,r2,r0           ;266
-000540  49b7              LDR      r1,|L2.2080|
-000542  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;266
-000546  2101              MOVS     r1,#1                 ;266
-000548  4620              MOV      r0,r4                 ;266
-00054a  f7fffffe          BL       bsp_AWSetPinVal
-00054e  2014              MOVS     r0,#0x14              ;267
-000550  f7fffffe          BL       bsp_DelayUS
-000554  f7fffffe          BL       bsp_GetAdScanValue
-000558  49ad              LDR      r1,|L2.2064|
-00055a  7a09              LDRB     r1,[r1,#8]            ;268  ; detectAct
-00055c  220a              MOVS     r2,#0xa               ;268
-00055e  fb91f3f2          SDIV     r3,r1,r2              ;268
-000562  fb021113          MLS      r1,r2,r3,r1           ;268
-000566  4aab              LDR      r2,|L2.2068|
-000568  eb0201c1          ADD      r1,r2,r1,LSL #3       ;268
-00056c  6048              STR      r0,[r1,#4]            ;268
-00056e  48a8              LDR      r0,|L2.2064|
-000570  7a00              LDRB     r0,[r0,#8]            ;269  ; detectAct
-000572  210a              MOVS     r1,#0xa               ;269
-000574  fb90f2f1          SDIV     r2,r0,r1              ;269
-000578  fb010012          MLS      r0,r1,r2,r0           ;269
-00057c  49a8              LDR      r1,|L2.2080|
-00057e  eb010040          ADD      r0,r1,r0,LSL #1       ;269
-000582  7844              LDRB     r4,[r0,#1]            ;269
-000584  2101              MOVS     r1,#1                 ;269
-000586  4620              MOV      r0,r4                 ;269
-000588  f7fffffe          BL       bsp_AWSetPinVal
-00058c  49a0              LDR      r1,|L2.2064|
-00058e  784d              LDRB     r5,[r1,#1]            ;271  ; detectAct
-000590  eb0571d5          ADD      r1,r5,r5,LSR #31      ;271
-000594  1049              ASRS     r1,r1,#1              ;271
-000596  4a9f              LDR      r2,|L2.2068|
-000598  eb0201c1          ADD      r1,r2,r1,LSL #3       ;271
-00059c  6848              LDR      r0,[r1,#4]            ;271
-00059e  f04f517e          MOV      r1,#0x3f800000        ;271
-0005a2  f7fffffe          BL       __aeabi_cfrcmple
-0005a6  d801              BHI      |L2.1452|
-0005a8  2000              MOVS     r0,#0                 ;271
-0005aa  e007              B        |L2.1468|
-                  |L2.1452|
-0005ac  4898              LDR      r0,|L2.2064|
-0005ae  7844              LDRB     r4,[r0,#1]            ;271  ; detectAct
-0005b0  eb0470d4          ADD      r0,r4,r4,LSR #31      ;271
-0005b4  1040              ASRS     r0,r0,#1              ;271
-0005b6  4997              LDR      r1,|L2.2068|
-0005b8  f8510030          LDR      r0,[r1,r0,LSL #3]     ;271
-                  |L2.1468|
-0005bc  4994              LDR      r1,|L2.2064|
-0005be  7a09              LDRB     r1,[r1,#8]            ;271  ; detectAct
-0005c0  220a              MOVS     r2,#0xa               ;271
-0005c2  fb91f3f2          SDIV     r3,r1,r2              ;271
-0005c6  fb021113          MLS      r1,r2,r3,r1           ;271
-0005ca  4a93              LDR      r2,|L2.2072|
-0005cc  f8420021          STR      r0,[r2,r1,LSL #2]     ;271
-0005d0  498f              LDR      r1,|L2.2064|
-0005d2  784c              LDRB     r4,[r1,#1]            ;272  ; detectAct
-0005d4  eb0471d4          ADD      r1,r4,r4,LSR #31      ;272
-0005d8  1049              ASRS     r1,r1,#1              ;272
-0005da  4a8e              LDR      r2,|L2.2068|
-0005dc  eb0201c1          ADD      r1,r2,r1,LSL #3       ;272
-0005e0  6848              LDR      r0,[r1,#4]            ;272
-0005e2  f04f517e          MOV      r1,#0x3f800000        ;272
-0005e6  f7fffffe          BL       __aeabi_cfrcmple
-0005ea  d802              BHI      |L2.1522|
-0005ec  2001              MOVS     r0,#1                 ;272
-0005ee  e001              B        |L2.1524|
-                  |L2.1520|
-0005f0  e016              B        |L2.1568|
-                  |L2.1522|
-0005f2  2000              MOVS     r0,#0                 ;272
-                  |L2.1524|
-0005f4  4986              LDR      r1,|L2.2064|
-0005f6  7a09              LDRB     r1,[r1,#8]            ;272  ; detectAct
-0005f8  220a              MOVS     r2,#0xa               ;272
-0005fa  fb91f3f2          SDIV     r3,r1,r2              ;272
-0005fe  fb021113          MLS      r1,r2,r3,r1           ;272
-000602  4a86              LDR      r2,|L2.2076|
-000604  5450              STRB     r0,[r2,r1]            ;272
-000606  4882              LDR      r0,|L2.2064|
-000608  7a00              LDRB     r0,[r0,#8]            ;273  ; detectAct
-00060a  1c40              ADDS     r0,r0,#1              ;273
-00060c  4980              LDR      r1,|L2.2064|
-00060e  7208              STRB     r0,[r1,#8]            ;273
-000610  f7fffffe          BL       xTaskGetTickCount
-000614  497e              LDR      r1,|L2.2064|
-000616  6048              STR      r0,[r1,#4]            ;275  ; detectAct
-000618  4608              MOV      r0,r1                 ;276
-00061a  7840              LDRB     r0,[r0,#1]            ;276  ; detectAct
-00061c  1c40              ADDS     r0,r0,#1              ;276
-00061e  7048              STRB     r0,[r1,#1]            ;276
-                  |L2.1568|
-000620  e525              B        |L2.110|
-000622  f7fffffe          BL       xTaskGetTickCount
-000626  497a              LDR      r1,|L2.2064|
-000628  6849              LDR      r1,[r1,#4]            ;283  ; detectAct
-00062a  1a40              SUBS     r0,r0,r1              ;283
-00062c  2807              CMP      r0,#7                 ;283
-00062e  d316              BCC      |L2.1630|
-000630  4877              LDR      r0,|L2.2064|
-000632  7a00              LDRB     r0,[r0,#8]            ;285  ; detectAct
-000634  210a              MOVS     r1,#0xa               ;285
-000636  fb90f2f1          SDIV     r2,r0,r1              ;285
-00063a  fb010012          MLS      r0,r1,r2,r0           ;285
-00063e  4978              LDR      r1,|L2.2080|
-000640  eb010040          ADD      r0,r1,r0,LSL #1       ;285
-000644  7844              LDRB     r4,[r0,#1]            ;285
-000646  2100              MOVS     r1,#0                 ;285
-000648  4620              MOV      r0,r4                 ;285
-00064a  f7fffffe          BL       bsp_AWSetPinVal
-00064e  f7fffffe          BL       xTaskGetTickCount
-000652  496f              LDR      r1,|L2.2064|
-000654  6048              STR      r0,[r1,#4]            ;286  ; detectAct
-000656  4608              MOV      r0,r1                 ;287
-000658  7840              LDRB     r0,[r0,#1]            ;287  ; detectAct
-00065a  1c40              ADDS     r0,r0,#1              ;287
-00065c  7048              STRB     r0,[r1,#1]            ;287
-                  |L2.1630|
-00065e  e506              B        |L2.110|
-000660  f7fffffe          BL       xTaskGetTickCount
-000664  496a              LDR      r1,|L2.2064|
-000666  6849              LDR      r1,[r1,#4]            ;293  ; detectAct
-000668  1a40              SUBS     r0,r0,r1              ;293
-00066a  2803              CMP      r0,#3                 ;293
-00066c  d37b              BCC      |L2.1894|
-00066e  4868              LDR      r0,|L2.2064|
-000670  7a00              LDRB     r0,[r0,#8]            ;295  ; detectAct
-000672  210a              MOVS     r1,#0xa               ;295
-000674  fb90f2f1          SDIV     r2,r0,r1              ;295
-000678  fb010012          MLS      r0,r1,r2,r0           ;295
-00067c  4968              LDR      r1,|L2.2080|
-00067e  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;295
-000682  2100              MOVS     r1,#0                 ;295
-000684  4620              MOV      r0,r4                 ;295
-000686  f7fffffe          BL       bsp_AWSetPinVal
-00068a  2078              MOVS     r0,#0x78              ;296
-00068c  f7fffffe          BL       bsp_DelayUS
-000690  f7fffffe          BL       bsp_GetAdScanValue
-000694  495e              LDR      r1,|L2.2064|
-000696  7a09              LDRB     r1,[r1,#8]            ;297  ; detectAct
-000698  220a              MOVS     r2,#0xa               ;297
-00069a  fb91f3f2          SDIV     r3,r1,r2              ;297
-00069e  fb021113          MLS      r1,r2,r3,r1           ;297
-0006a2  4a5c              LDR      r2,|L2.2068|
-0006a4  f8420031          STR      r0,[r2,r1,LSL #3]     ;297
-0006a8  4859              LDR      r0,|L2.2064|
-0006aa  7a00              LDRB     r0,[r0,#8]            ;298  ; detectAct
-0006ac  210a              MOVS     r1,#0xa               ;298
-0006ae  fb90f2f1          SDIV     r2,r0,r1              ;298
-0006b2  fb010012          MLS      r0,r1,r2,r0           ;298
-0006b6  495a              LDR      r1,|L2.2080|
-0006b8  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;298
-0006bc  2101              MOVS     r1,#1                 ;298
-0006be  4620              MOV      r0,r4                 ;298
-0006c0  f7fffffe          BL       bsp_AWSetPinVal
-0006c4  2014              MOVS     r0,#0x14              ;299
-0006c6  f7fffffe          BL       bsp_DelayUS
-0006ca  f7fffffe          BL       bsp_GetAdScanValue
-0006ce  4950              LDR      r1,|L2.2064|
-0006d0  7a09              LDRB     r1,[r1,#8]            ;300  ; detectAct
-0006d2  220a              MOVS     r2,#0xa               ;300
-0006d4  fb91f3f2          SDIV     r3,r1,r2              ;300
-0006d8  fb021113          MLS      r1,r2,r3,r1           ;300
-0006dc  4a4d              LDR      r2,|L2.2068|
-0006de  eb0201c1          ADD      r1,r2,r1,LSL #3       ;300
-0006e2  6048              STR      r0,[r1,#4]            ;300
-0006e4  484a              LDR      r0,|L2.2064|
-0006e6  7a00              LDRB     r0,[r0,#8]            ;301  ; detectAct
-0006e8  210a              MOVS     r1,#0xa               ;301
-0006ea  fb90f2f1          SDIV     r2,r0,r1              ;301
-0006ee  fb010012          MLS      r0,r1,r2,r0           ;301
-0006f2  494b              LDR      r1,|L2.2080|
-0006f4  eb010040          ADD      r0,r1,r0,LSL #1       ;301
-0006f8  7844              LDRB     r4,[r0,#1]            ;301
-0006fa  2101              MOVS     r1,#1                 ;301
-0006fc  4620              MOV      r0,r4                 ;301
-0006fe  f7fffffe          BL       bsp_AWSetPinVal
-000702  4943              LDR      r1,|L2.2064|
-000704  784d              LDRB     r5,[r1,#1]            ;303  ; detectAct
-000706  eb0571d5          ADD      r1,r5,r5,LSR #31      ;303
-00070a  1049              ASRS     r1,r1,#1              ;303
-00070c  4a41              LDR      r2,|L2.2068|
-00070e  eb0201c1          ADD      r1,r2,r1,LSL #3       ;303
-000712  6848              LDR      r0,[r1,#4]            ;303
-000714  f04f517e          MOV      r1,#0x3f800000        ;303
-000718  f7fffffe          BL       __aeabi_cfrcmple
-00071c  d801              BHI      |L2.1826|
-00071e  2000              MOVS     r0,#0                 ;303
-000720  e007              B        |L2.1842|
-                  |L2.1826|
-000722  483b              LDR      r0,|L2.2064|
-000724  7844              LDRB     r4,[r0,#1]            ;303  ; detectAct
-000726  eb0470d4          ADD      r0,r4,r4,LSR #31      ;303
-00072a  1040              ASRS     r0,r0,#1              ;303
-00072c  4939              LDR      r1,|L2.2068|
-00072e  f8510030          LDR      r0,[r1,r0,LSL #3]     ;303
-                  |L2.1842|
-000732  4937              LDR      r1,|L2.2064|
-000734  7a09              LDRB     r1,[r1,#8]            ;303  ; detectAct
-000736  220a              MOVS     r2,#0xa               ;303
-000738  fb91f3f2          SDIV     r3,r1,r2              ;303
-00073c  fb021113          MLS      r1,r2,r3,r1           ;303
-000740  4a35              LDR      r2,|L2.2072|
-000742  f8420021          STR      r0,[r2,r1,LSL #2]     ;303
-000746  4932              LDR      r1,|L2.2064|
-000748  784c              LDRB     r4,[r1,#1]            ;304  ; detectAct
-00074a  eb0471d4          ADD      r1,r4,r4,LSR #31      ;304
-00074e  1049              ASRS     r1,r1,#1              ;304
-000750  4a30              LDR      r2,|L2.2068|
-000752  eb0201c1          ADD      r1,r2,r1,LSL #3       ;304
-000756  6848              LDR      r0,[r1,#4]            ;304
-000758  f04f517e          MOV      r1,#0x3f800000        ;304
-00075c  f7fffffe          BL       __aeabi_cfrcmple
-000760  d802              BHI      |L2.1896|
-000762  2001              MOVS     r0,#1                 ;304
-000764  e001              B        |L2.1898|
-                  |L2.1894|
-000766  e016              B        |L2.1942|
-                  |L2.1896|
-000768  2000              MOVS     r0,#0                 ;304
-                  |L2.1898|
-00076a  4929              LDR      r1,|L2.2064|
-00076c  7a09              LDRB     r1,[r1,#8]            ;304  ; detectAct
-00076e  220a              MOVS     r2,#0xa               ;304
-000770  fb91f3f2          SDIV     r3,r1,r2              ;304
-000774  fb021113          MLS      r1,r2,r3,r1           ;304
-000778  4a28              LDR      r2,|L2.2076|
-00077a  5450              STRB     r0,[r2,r1]            ;304
-00077c  4824              LDR      r0,|L2.2064|
-00077e  7a00              LDRB     r0,[r0,#8]            ;305  ; detectAct
-000780  1c40              ADDS     r0,r0,#1              ;305
-000782  4923              LDR      r1,|L2.2064|
-000784  7208              STRB     r0,[r1,#8]            ;305
-000786  f7fffffe          BL       xTaskGetTickCount
-00078a  4921              LDR      r1,|L2.2064|
-00078c  6048              STR      r0,[r1,#4]            ;307  ; detectAct
-00078e  4608              MOV      r0,r1                 ;308
-000790  7840              LDRB     r0,[r0,#1]            ;308  ; detectAct
-000792  1c40              ADDS     r0,r0,#1              ;308
-000794  7048              STRB     r0,[r1,#1]            ;308
-                  |L2.1942|
-000796  e3af              B        |L2.3832|
-000798  f7fffffe          BL       xTaskGetTickCount
-00079c  491c              LDR      r1,|L2.2064|
-00079e  6849              LDR      r1,[r1,#4]            ;315  ; detectAct
-0007a0  1a40              SUBS     r0,r0,r1              ;315
-0007a2  2807              CMP      r0,#7                 ;315
-0007a4  d316              BCC      |L2.2004|
-0007a6  481a              LDR      r0,|L2.2064|
-0007a8  7a00              LDRB     r0,[r0,#8]            ;317  ; detectAct
-0007aa  210a              MOVS     r1,#0xa               ;317
-0007ac  fb90f2f1          SDIV     r2,r0,r1              ;317
-0007b0  fb010012          MLS      r0,r1,r2,r0           ;317
-0007b4  491a              LDR      r1,|L2.2080|
-0007b6  eb010040          ADD      r0,r1,r0,LSL #1       ;317
-0007ba  7844              LDRB     r4,[r0,#1]            ;317
-0007bc  2100              MOVS     r1,#0                 ;317
-0007be  4620              MOV      r0,r4                 ;317
-0007c0  f7fffffe          BL       bsp_AWSetPinVal
-0007c4  f7fffffe          BL       xTaskGetTickCount
-0007c8  4911              LDR      r1,|L2.2064|
-0007ca  6048              STR      r0,[r1,#4]            ;318  ; detectAct
-0007cc  4608              MOV      r0,r1                 ;319
-0007ce  7840              LDRB     r0,[r0,#1]            ;319  ; detectAct
-0007d0  1c40              ADDS     r0,r0,#1              ;319
-0007d2  7048              STRB     r0,[r1,#1]            ;319
-                  |L2.2004|
-0007d4  e390              B        |L2.3832|
-0007d6  f7fffffe          BL       xTaskGetTickCount
-0007da  490d              LDR      r1,|L2.2064|
-0007dc  6849              LDR      r1,[r1,#4]            ;325  ; detectAct
-0007de  1a40              SUBS     r0,r0,r1              ;325
-0007e0  2803              CMP      r0,#3                 ;325
-0007e2  d37d              BCC      |L2.2272|
-0007e4  480a              LDR      r0,|L2.2064|
-0007e6  7a00              LDRB     r0,[r0,#8]            ;327  ; detectAct
-0007e8  210a              MOVS     r1,#0xa               ;327
-0007ea  fb90f2f1          SDIV     r2,r0,r1              ;327
-0007ee  fb010012          MLS      r0,r1,r2,r0           ;327
-0007f2  490b              LDR      r1,|L2.2080|
-0007f4  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;327
-0007f8  2100              MOVS     r1,#0                 ;327
-0007fa  4620              MOV      r0,r4                 ;327
-0007fc  f7fffffe          BL       bsp_AWSetPinVal
-000800  2078              MOVS     r0,#0x78              ;328
-000802  f7fffffe          BL       bsp_DelayUS
-000806  f7fffffe          BL       bsp_GetAdScanValue
-00080a  4901              LDR      r1,|L2.2064|
-00080c  7a09              LDRB     r1,[r1,#8]            ;329  ; detectAct
-00080e  e009              B        |L2.2084|
+000410  49fe              LDR      r1,|L2.2060|
+000412  784d              LDRB     r5,[r1,#1]            ;239  ; detectAct
+000414  eb0571d5          ADD      r1,r5,r5,LSR #31      ;239
+000418  1049              ASRS     r1,r1,#1              ;239
+00041a  4afd              LDR      r2,|L2.2064|
+00041c  eb0201c1          ADD      r1,r2,r1,LSL #3       ;239
+000420  6848              LDR      r0,[r1,#4]            ;239
+000422  f04f517e          MOV      r1,#0x3f800000        ;239
+000426  f7fffffe          BL       __aeabi_cfrcmple
+00042a  d801              BHI      |L2.1072|
+00042c  2000              MOVS     r0,#0                 ;239
+00042e  e007              B        |L2.1088|
+                  |L2.1072|
+000430  48f6              LDR      r0,|L2.2060|
+000432  7844              LDRB     r4,[r0,#1]            ;239  ; detectAct
+000434  eb0470d4          ADD      r0,r4,r4,LSR #31      ;239
+000438  1040              ASRS     r0,r0,#1              ;239
+00043a  49f5              LDR      r1,|L2.2064|
+00043c  f8510030          LDR      r0,[r1,r0,LSL #3]     ;239
+                  |L2.1088|
+000440  49f2              LDR      r1,|L2.2060|
+000442  7a09              LDRB     r1,[r1,#8]            ;239  ; detectAct
+000444  220a              MOVS     r2,#0xa               ;239
+000446  fb91f3f2          SDIV     r3,r1,r2              ;239
+00044a  fb021113          MLS      r1,r2,r3,r1           ;239
+00044e  4af1              LDR      r2,|L2.2068|
+000450  f8420021          STR      r0,[r2,r1,LSL #2]     ;239
+000454  49ed              LDR      r1,|L2.2060|
+000456  784c              LDRB     r4,[r1,#1]            ;240  ; detectAct
+000458  eb0471d4          ADD      r1,r4,r4,LSR #31      ;240
+00045c  1049              ASRS     r1,r1,#1              ;240
+00045e  4aec              LDR      r2,|L2.2064|
+000460  e000              B        |L2.1124|
+                  |L2.1122|
+000462  e020              B        |L2.1190|
+                  |L2.1124|
+000464  eb0201c1          ADD      r1,r2,r1,LSL #3       ;240
+000468  6848              LDR      r0,[r1,#4]            ;240
+00046a  f04f517e          MOV      r1,#0x3f800000        ;240
+00046e  f7fffffe          BL       __aeabi_cfrcmple
+000472  d801              BHI      |L2.1144|
+000474  2001              MOVS     r0,#1                 ;240
+000476  e000              B        |L2.1146|
+                  |L2.1144|
+000478  2000              MOVS     r0,#0                 ;240
+                  |L2.1146|
+00047a  49e4              LDR      r1,|L2.2060|
+00047c  7a09              LDRB     r1,[r1,#8]            ;240  ; detectAct
+00047e  220a              MOVS     r2,#0xa               ;240
+000480  fb91f3f2          SDIV     r3,r1,r2              ;240
+000484  fb021113          MLS      r1,r2,r3,r1           ;240
+000488  4ae3              LDR      r2,|L2.2072|
+00048a  5450              STRB     r0,[r2,r1]            ;240
+00048c  48df              LDR      r0,|L2.2060|
+00048e  7a00              LDRB     r0,[r0,#8]            ;241  ; detectAct
+000490  1c40              ADDS     r0,r0,#1              ;241
+000492  49de              LDR      r1,|L2.2060|
+000494  7208              STRB     r0,[r1,#8]            ;241
+000496  f7fffffe          BL       xTaskGetTickCount
+00049a  49dc              LDR      r1,|L2.2060|
+00049c  6048              STR      r0,[r1,#4]            ;243  ; detectAct
+00049e  4608              MOV      r0,r1                 ;244
+0004a0  7840              LDRB     r0,[r0,#1]            ;244  ; detectAct
+0004a2  1c40              ADDS     r0,r0,#1              ;244
+0004a4  7048              STRB     r0,[r1,#1]            ;244
+                  |L2.1190|
+0004a6  e5e2              B        |L2.110|
+0004a8  f7fffffe          BL       xTaskGetTickCount
+0004ac  49d7              LDR      r1,|L2.2060|
+0004ae  6849              LDR      r1,[r1,#4]            ;251  ; detectAct
+0004b0  1a40              SUBS     r0,r0,r1              ;251
+0004b2  d016              BEQ      |L2.1250|
+0004b4  48d5              LDR      r0,|L2.2060|
+0004b6  7a00              LDRB     r0,[r0,#8]            ;253  ; detectAct
+0004b8  210a              MOVS     r1,#0xa               ;253
+0004ba  fb90f2f1          SDIV     r2,r0,r1              ;253
+0004be  fb010012          MLS      r0,r1,r2,r0           ;253
+0004c2  49d6              LDR      r1,|L2.2076|
+0004c4  eb010040          ADD      r0,r1,r0,LSL #1       ;253
+0004c8  7844              LDRB     r4,[r0,#1]            ;253
+0004ca  2100              MOVS     r1,#0                 ;253
+0004cc  4620              MOV      r0,r4                 ;253
+0004ce  f7fffffe          BL       bsp_AWSetPinVal
+0004d2  f7fffffe          BL       xTaskGetTickCount
+0004d6  49cd              LDR      r1,|L2.2060|
+0004d8  6048              STR      r0,[r1,#4]            ;254  ; detectAct
+0004da  4608              MOV      r0,r1                 ;255
+0004dc  7840              LDRB     r0,[r0,#1]            ;255  ; detectAct
+0004de  1c40              ADDS     r0,r0,#1              ;255
+0004e0  7048              STRB     r0,[r1,#1]            ;255
+                  |L2.1250|
+0004e2  e5c4              B        |L2.110|
+0004e4  f7fffffe          BL       xTaskGetTickCount
+0004e8  49c8              LDR      r1,|L2.2060|
+0004ea  6849              LDR      r1,[r1,#4]            ;261  ; detectAct
+0004ec  1a40              SUBS     r0,r0,r1              ;261
+0004ee  2803              CMP      r0,#3                 ;261
+0004f0  d37b              BCC      |L2.1514|
+0004f2  48c6              LDR      r0,|L2.2060|
+0004f4  7a00              LDRB     r0,[r0,#8]            ;263  ; detectAct
+0004f6  210a              MOVS     r1,#0xa               ;263
+0004f8  fb90f2f1          SDIV     r2,r0,r1              ;263
+0004fc  fb010012          MLS      r0,r1,r2,r0           ;263
+000500  49c6              LDR      r1,|L2.2076|
+000502  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;263
+000506  2100              MOVS     r1,#0                 ;263
+000508  4620              MOV      r0,r4                 ;263
+00050a  f7fffffe          BL       bsp_AWSetPinVal
+00050e  2078              MOVS     r0,#0x78              ;264
+000510  f7fffffe          BL       bsp_DelayUS
+000514  f7fffffe          BL       bsp_GetAdScanValue
+000518  49bc              LDR      r1,|L2.2060|
+00051a  7a09              LDRB     r1,[r1,#8]            ;265  ; detectAct
+00051c  220a              MOVS     r2,#0xa               ;265
+00051e  fb91f3f2          SDIV     r3,r1,r2              ;265
+000522  fb021113          MLS      r1,r2,r3,r1           ;265
+000526  4aba              LDR      r2,|L2.2064|
+000528  f8420031          STR      r0,[r2,r1,LSL #3]     ;265
+00052c  48b7              LDR      r0,|L2.2060|
+00052e  7a00              LDRB     r0,[r0,#8]            ;266  ; detectAct
+000530  210a              MOVS     r1,#0xa               ;266
+000532  fb90f2f1          SDIV     r2,r0,r1              ;266
+000536  fb010012          MLS      r0,r1,r2,r0           ;266
+00053a  49b8              LDR      r1,|L2.2076|
+00053c  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;266
+000540  2101              MOVS     r1,#1                 ;266
+000542  4620              MOV      r0,r4                 ;266
+000544  f7fffffe          BL       bsp_AWSetPinVal
+000548  2014              MOVS     r0,#0x14              ;267
+00054a  f7fffffe          BL       bsp_DelayUS
+00054e  f7fffffe          BL       bsp_GetAdScanValue
+000552  49ae              LDR      r1,|L2.2060|
+000554  7a09              LDRB     r1,[r1,#8]            ;268  ; detectAct
+000556  220a              MOVS     r2,#0xa               ;268
+000558  fb91f3f2          SDIV     r3,r1,r2              ;268
+00055c  fb021113          MLS      r1,r2,r3,r1           ;268
+000560  4aab              LDR      r2,|L2.2064|
+000562  eb0201c1          ADD      r1,r2,r1,LSL #3       ;268
+000566  6048              STR      r0,[r1,#4]            ;268
+000568  48a8              LDR      r0,|L2.2060|
+00056a  7a00              LDRB     r0,[r0,#8]            ;269  ; detectAct
+00056c  210a              MOVS     r1,#0xa               ;269
+00056e  fb90f2f1          SDIV     r2,r0,r1              ;269
+000572  fb010012          MLS      r0,r1,r2,r0           ;269
+000576  49a9              LDR      r1,|L2.2076|
+000578  eb010040          ADD      r0,r1,r0,LSL #1       ;269
+00057c  7844              LDRB     r4,[r0,#1]            ;269
+00057e  2101              MOVS     r1,#1                 ;269
+000580  4620              MOV      r0,r4                 ;269
+000582  f7fffffe          BL       bsp_AWSetPinVal
+000586  49a1              LDR      r1,|L2.2060|
+000588  784d              LDRB     r5,[r1,#1]            ;271  ; detectAct
+00058a  eb0571d5          ADD      r1,r5,r5,LSR #31      ;271
+00058e  1049              ASRS     r1,r1,#1              ;271
+000590  4a9f              LDR      r2,|L2.2064|
+000592  eb0201c1          ADD      r1,r2,r1,LSL #3       ;271
+000596  6848              LDR      r0,[r1,#4]            ;271
+000598  f04f517e          MOV      r1,#0x3f800000        ;271
+00059c  f7fffffe          BL       __aeabi_cfrcmple
+0005a0  d801              BHI      |L2.1446|
+0005a2  2000              MOVS     r0,#0                 ;271
+0005a4  e007              B        |L2.1462|
+                  |L2.1446|
+0005a6  4899              LDR      r0,|L2.2060|
+0005a8  7844              LDRB     r4,[r0,#1]            ;271  ; detectAct
+0005aa  eb0470d4          ADD      r0,r4,r4,LSR #31      ;271
+0005ae  1040              ASRS     r0,r0,#1              ;271
+0005b0  4997              LDR      r1,|L2.2064|
+0005b2  f8510030          LDR      r0,[r1,r0,LSL #3]     ;271
+                  |L2.1462|
+0005b6  4995              LDR      r1,|L2.2060|
+0005b8  7a09              LDRB     r1,[r1,#8]            ;271  ; detectAct
+0005ba  220a              MOVS     r2,#0xa               ;271
+0005bc  fb91f3f2          SDIV     r3,r1,r2              ;271
+0005c0  fb021113          MLS      r1,r2,r3,r1           ;271
+0005c4  4a93              LDR      r2,|L2.2068|
+0005c6  f8420021          STR      r0,[r2,r1,LSL #2]     ;271
+0005ca  4990              LDR      r1,|L2.2060|
+0005cc  784c              LDRB     r4,[r1,#1]            ;272  ; detectAct
+0005ce  eb0471d4          ADD      r1,r4,r4,LSR #31      ;272
+0005d2  1049              ASRS     r1,r1,#1              ;272
+0005d4  4a8e              LDR      r2,|L2.2064|
+0005d6  eb0201c1          ADD      r1,r2,r1,LSL #3       ;272
+0005da  6848              LDR      r0,[r1,#4]            ;272
+0005dc  f04f517e          MOV      r1,#0x3f800000        ;272
+0005e0  f7fffffe          BL       __aeabi_cfrcmple
+0005e4  d802              BHI      |L2.1516|
+0005e6  2001              MOVS     r0,#1                 ;272
+0005e8  e001              B        |L2.1518|
+                  |L2.1514|
+0005ea  e016              B        |L2.1562|
+                  |L2.1516|
+0005ec  2000              MOVS     r0,#0                 ;272
+                  |L2.1518|
+0005ee  4987              LDR      r1,|L2.2060|
+0005f0  7a09              LDRB     r1,[r1,#8]            ;272  ; detectAct
+0005f2  220a              MOVS     r2,#0xa               ;272
+0005f4  fb91f3f2          SDIV     r3,r1,r2              ;272
+0005f8  fb021113          MLS      r1,r2,r3,r1           ;272
+0005fc  4a86              LDR      r2,|L2.2072|
+0005fe  5450              STRB     r0,[r2,r1]            ;272
+000600  4882              LDR      r0,|L2.2060|
+000602  7a00              LDRB     r0,[r0,#8]            ;273  ; detectAct
+000604  1c40              ADDS     r0,r0,#1              ;273
+000606  4981              LDR      r1,|L2.2060|
+000608  7208              STRB     r0,[r1,#8]            ;273
+00060a  f7fffffe          BL       xTaskGetTickCount
+00060e  497f              LDR      r1,|L2.2060|
+000610  6048              STR      r0,[r1,#4]            ;275  ; detectAct
+000612  4608              MOV      r0,r1                 ;276
+000614  7840              LDRB     r0,[r0,#1]            ;276  ; detectAct
+000616  1c40              ADDS     r0,r0,#1              ;276
+000618  7048              STRB     r0,[r1,#1]            ;276
+                  |L2.1562|
+00061a  e528              B        |L2.110|
+00061c  f7fffffe          BL       xTaskGetTickCount
+000620  497a              LDR      r1,|L2.2060|
+000622  6849              LDR      r1,[r1,#4]            ;283  ; detectAct
+000624  1a40              SUBS     r0,r0,r1              ;283
+000626  d016              BEQ      |L2.1622|
+000628  4878              LDR      r0,|L2.2060|
+00062a  7a00              LDRB     r0,[r0,#8]            ;285  ; detectAct
+00062c  210a              MOVS     r1,#0xa               ;285
+00062e  fb90f2f1          SDIV     r2,r0,r1              ;285
+000632  fb010012          MLS      r0,r1,r2,r0           ;285
+000636  4979              LDR      r1,|L2.2076|
+000638  eb010040          ADD      r0,r1,r0,LSL #1       ;285
+00063c  7844              LDRB     r4,[r0,#1]            ;285
+00063e  2100              MOVS     r1,#0                 ;285
+000640  4620              MOV      r0,r4                 ;285
+000642  f7fffffe          BL       bsp_AWSetPinVal
+000646  f7fffffe          BL       xTaskGetTickCount
+00064a  4970              LDR      r1,|L2.2060|
+00064c  6048              STR      r0,[r1,#4]            ;286  ; detectAct
+00064e  4608              MOV      r0,r1                 ;287
+000650  7840              LDRB     r0,[r0,#1]            ;287  ; detectAct
+000652  1c40              ADDS     r0,r0,#1              ;287
+000654  7048              STRB     r0,[r1,#1]            ;287
+                  |L2.1622|
+000656  e50a              B        |L2.110|
+000658  f7fffffe          BL       xTaskGetTickCount
+00065c  496b              LDR      r1,|L2.2060|
+00065e  6849              LDR      r1,[r1,#4]            ;293  ; detectAct
+000660  1a40              SUBS     r0,r0,r1              ;293
+000662  2803              CMP      r0,#3                 ;293
+000664  d37b              BCC      |L2.1886|
+000666  4869              LDR      r0,|L2.2060|
+000668  7a00              LDRB     r0,[r0,#8]            ;295  ; detectAct
+00066a  210a              MOVS     r1,#0xa               ;295
+00066c  fb90f2f1          SDIV     r2,r0,r1              ;295
+000670  fb010012          MLS      r0,r1,r2,r0           ;295
+000674  4969              LDR      r1,|L2.2076|
+000676  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;295
+00067a  2100              MOVS     r1,#0                 ;295
+00067c  4620              MOV      r0,r4                 ;295
+00067e  f7fffffe          BL       bsp_AWSetPinVal
+000682  2078              MOVS     r0,#0x78              ;296
+000684  f7fffffe          BL       bsp_DelayUS
+000688  f7fffffe          BL       bsp_GetAdScanValue
+00068c  495f              LDR      r1,|L2.2060|
+00068e  7a09              LDRB     r1,[r1,#8]            ;297  ; detectAct
+000690  220a              MOVS     r2,#0xa               ;297
+000692  fb91f3f2          SDIV     r3,r1,r2              ;297
+000696  fb021113          MLS      r1,r2,r3,r1           ;297
+00069a  4a5d              LDR      r2,|L2.2064|
+00069c  f8420031          STR      r0,[r2,r1,LSL #3]     ;297
+0006a0  485a              LDR      r0,|L2.2060|
+0006a2  7a00              LDRB     r0,[r0,#8]            ;298  ; detectAct
+0006a4  210a              MOVS     r1,#0xa               ;298
+0006a6  fb90f2f1          SDIV     r2,r0,r1              ;298
+0006aa  fb010012          MLS      r0,r1,r2,r0           ;298
+0006ae  495b              LDR      r1,|L2.2076|
+0006b0  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;298
+0006b4  2101              MOVS     r1,#1                 ;298
+0006b6  4620              MOV      r0,r4                 ;298
+0006b8  f7fffffe          BL       bsp_AWSetPinVal
+0006bc  2014              MOVS     r0,#0x14              ;299
+0006be  f7fffffe          BL       bsp_DelayUS
+0006c2  f7fffffe          BL       bsp_GetAdScanValue
+0006c6  4951              LDR      r1,|L2.2060|
+0006c8  7a09              LDRB     r1,[r1,#8]            ;300  ; detectAct
+0006ca  220a              MOVS     r2,#0xa               ;300
+0006cc  fb91f3f2          SDIV     r3,r1,r2              ;300
+0006d0  fb021113          MLS      r1,r2,r3,r1           ;300
+0006d4  4a4e              LDR      r2,|L2.2064|
+0006d6  eb0201c1          ADD      r1,r2,r1,LSL #3       ;300
+0006da  6048              STR      r0,[r1,#4]            ;300
+0006dc  484b              LDR      r0,|L2.2060|
+0006de  7a00              LDRB     r0,[r0,#8]            ;301  ; detectAct
+0006e0  210a              MOVS     r1,#0xa               ;301
+0006e2  fb90f2f1          SDIV     r2,r0,r1              ;301
+0006e6  fb010012          MLS      r0,r1,r2,r0           ;301
+0006ea  494c              LDR      r1,|L2.2076|
+0006ec  eb010040          ADD      r0,r1,r0,LSL #1       ;301
+0006f0  7844              LDRB     r4,[r0,#1]            ;301
+0006f2  2101              MOVS     r1,#1                 ;301
+0006f4  4620              MOV      r0,r4                 ;301
+0006f6  f7fffffe          BL       bsp_AWSetPinVal
+0006fa  4944              LDR      r1,|L2.2060|
+0006fc  784d              LDRB     r5,[r1,#1]            ;303  ; detectAct
+0006fe  eb0571d5          ADD      r1,r5,r5,LSR #31      ;303
+000702  1049              ASRS     r1,r1,#1              ;303
+000704  4a42              LDR      r2,|L2.2064|
+000706  eb0201c1          ADD      r1,r2,r1,LSL #3       ;303
+00070a  6848              LDR      r0,[r1,#4]            ;303
+00070c  f04f517e          MOV      r1,#0x3f800000        ;303
+000710  f7fffffe          BL       __aeabi_cfrcmple
+000714  d801              BHI      |L2.1818|
+000716  2000              MOVS     r0,#0                 ;303
+000718  e007              B        |L2.1834|
+                  |L2.1818|
+00071a  483c              LDR      r0,|L2.2060|
+00071c  7844              LDRB     r4,[r0,#1]            ;303  ; detectAct
+00071e  eb0470d4          ADD      r0,r4,r4,LSR #31      ;303
+000722  1040              ASRS     r0,r0,#1              ;303
+000724  493a              LDR      r1,|L2.2064|
+000726  f8510030          LDR      r0,[r1,r0,LSL #3]     ;303
+                  |L2.1834|
+00072a  4938              LDR      r1,|L2.2060|
+00072c  7a09              LDRB     r1,[r1,#8]            ;303  ; detectAct
+00072e  220a              MOVS     r2,#0xa               ;303
+000730  fb91f3f2          SDIV     r3,r1,r2              ;303
+000734  fb021113          MLS      r1,r2,r3,r1           ;303
+000738  4a36              LDR      r2,|L2.2068|
+00073a  f8420021          STR      r0,[r2,r1,LSL #2]     ;303
+00073e  4933              LDR      r1,|L2.2060|
+000740  784c              LDRB     r4,[r1,#1]            ;304  ; detectAct
+000742  eb0471d4          ADD      r1,r4,r4,LSR #31      ;304
+000746  1049              ASRS     r1,r1,#1              ;304
+000748  4a31              LDR      r2,|L2.2064|
+00074a  eb0201c1          ADD      r1,r2,r1,LSL #3       ;304
+00074e  6848              LDR      r0,[r1,#4]            ;304
+000750  f04f517e          MOV      r1,#0x3f800000        ;304
+000754  f7fffffe          BL       __aeabi_cfrcmple
+000758  d802              BHI      |L2.1888|
+00075a  2001              MOVS     r0,#1                 ;304
+00075c  e001              B        |L2.1890|
+                  |L2.1886|
+00075e  e016              B        |L2.1934|
+                  |L2.1888|
+000760  2000              MOVS     r0,#0                 ;304
+                  |L2.1890|
+000762  492a              LDR      r1,|L2.2060|
+000764  7a09              LDRB     r1,[r1,#8]            ;304  ; detectAct
+000766  220a              MOVS     r2,#0xa               ;304
+000768  fb91f3f2          SDIV     r3,r1,r2              ;304
+00076c  fb021113          MLS      r1,r2,r3,r1           ;304
+000770  4a29              LDR      r2,|L2.2072|
+000772  5450              STRB     r0,[r2,r1]            ;304
+000774  4825              LDR      r0,|L2.2060|
+000776  7a00              LDRB     r0,[r0,#8]            ;305  ; detectAct
+000778  1c40              ADDS     r0,r0,#1              ;305
+00077a  4924              LDR      r1,|L2.2060|
+00077c  7208              STRB     r0,[r1,#8]            ;305
+00077e  f7fffffe          BL       xTaskGetTickCount
+000782  4922              LDR      r1,|L2.2060|
+000784  6048              STR      r0,[r1,#4]            ;307  ; detectAct
+000786  4608              MOV      r0,r1                 ;308
+000788  7840              LDRB     r0,[r0,#1]            ;308  ; detectAct
+00078a  1c40              ADDS     r0,r0,#1              ;308
+00078c  7048              STRB     r0,[r1,#1]            ;308
+                  |L2.1934|
+00078e  e3a8              B        |L2.3810|
+000790  f7fffffe          BL       xTaskGetTickCount
+000794  491d              LDR      r1,|L2.2060|
+000796  6849              LDR      r1,[r1,#4]            ;315  ; detectAct
+000798  1a40              SUBS     r0,r0,r1              ;315
+00079a  d016              BEQ      |L2.1994|
+00079c  481b              LDR      r0,|L2.2060|
+00079e  7a00              LDRB     r0,[r0,#8]            ;317  ; detectAct
+0007a0  210a              MOVS     r1,#0xa               ;317
+0007a2  fb90f2f1          SDIV     r2,r0,r1              ;317
+0007a6  fb010012          MLS      r0,r1,r2,r0           ;317
+0007aa  491c              LDR      r1,|L2.2076|
+0007ac  eb010040          ADD      r0,r1,r0,LSL #1       ;317
+0007b0  7844              LDRB     r4,[r0,#1]            ;317
+0007b2  2100              MOVS     r1,#0                 ;317
+0007b4  4620              MOV      r0,r4                 ;317
+0007b6  f7fffffe          BL       bsp_AWSetPinVal
+0007ba  f7fffffe          BL       xTaskGetTickCount
+0007be  4913              LDR      r1,|L2.2060|
+0007c0  6048              STR      r0,[r1,#4]            ;318  ; detectAct
+0007c2  4608              MOV      r0,r1                 ;319
+0007c4  7840              LDRB     r0,[r0,#1]            ;319  ; detectAct
+0007c6  1c40              ADDS     r0,r0,#1              ;319
+0007c8  7048              STRB     r0,[r1,#1]            ;319
+                  |L2.1994|
+0007ca  e38a              B        |L2.3810|
+0007cc  f7fffffe          BL       xTaskGetTickCount
+0007d0  490e              LDR      r1,|L2.2060|
+0007d2  6849              LDR      r1,[r1,#4]            ;325  ; detectAct
+0007d4  1a40              SUBS     r0,r0,r1              ;325
+0007d6  2803              CMP      r0,#3                 ;325
+0007d8  d37d              BCC      |L2.2262|
+0007da  480c              LDR      r0,|L2.2060|
+0007dc  7a00              LDRB     r0,[r0,#8]            ;327  ; detectAct
+0007de  210a              MOVS     r1,#0xa               ;327
+0007e0  fb90f2f1          SDIV     r2,r0,r1              ;327
+0007e4  fb010012          MLS      r0,r1,r2,r0           ;327
+0007e8  490c              LDR      r1,|L2.2076|
+0007ea  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;327
+0007ee  2100              MOVS     r1,#0                 ;327
+0007f0  4620              MOV      r0,r4                 ;327
+0007f2  f7fffffe          BL       bsp_AWSetPinVal
+0007f6  2078              MOVS     r0,#0x78              ;328
+0007f8  f7fffffe          BL       bsp_DelayUS
+0007fc  f7fffffe          BL       bsp_GetAdScanValue
+000800  4902              LDR      r1,|L2.2060|
+000802  7a09              LDRB     r1,[r1,#8]            ;329  ; detectAct
+000804  220a              MOVS     r2,#0xa               ;329
+000806  fb91f3f2          SDIV     r3,r1,r2              ;329
+00080a  e009              B        |L2.2080|
+                  |L2.2060|
+                          DCD      detectAct
                   |L2.2064|
-                          DCD      detectAct
+                          DCD      adcContrast
                   |L2.2068|
-                          DCD      adcContrast
+                          DCD      adcRealTime
                   |L2.2072|
-                          DCD      adcRealTime
+                          DCD      adcIsSunlight
                   |L2.2076|
-                          DCD      adcIsSunlight
+                          DCD      PinMap
                   |L2.2080|
-                          DCD      PinMap
-                  |L2.2084|
-000824  220a              MOVS     r2,#0xa               ;329
-000826  fb91f3f2          SDIV     r3,r1,r2              ;329
-00082a  fb021113          MLS      r1,r2,r3,r1           ;329
-00082e  4af9              LDR      r2,|L2.3092|
-000830  f8420031          STR      r0,[r2,r1,LSL #3]     ;329
-000834  48f8              LDR      r0,|L2.3096|
-000836  7a00              LDRB     r0,[r0,#8]            ;330  ; detectAct
-000838  210a              MOVS     r1,#0xa               ;330
-00083a  fb90f2f1          SDIV     r2,r0,r1              ;330
-00083e  fb010012          MLS      r0,r1,r2,r0           ;330
-000842  49f6              LDR      r1,|L2.3100|
-000844  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;330
-000848  2101              MOVS     r1,#1                 ;330
-00084a  4620              MOV      r0,r4                 ;330
-00084c  f7fffffe          BL       bsp_AWSetPinVal
-000850  2014              MOVS     r0,#0x14              ;331
-000852  f7fffffe          BL       bsp_DelayUS
-000856  f7fffffe          BL       bsp_GetAdScanValue
-00085a  49ef              LDR      r1,|L2.3096|
-00085c  7a09              LDRB     r1,[r1,#8]            ;332  ; detectAct
-00085e  220a              MOVS     r2,#0xa               ;332
-000860  fb91f3f2          SDIV     r3,r1,r2              ;332
-000864  fb021113          MLS      r1,r2,r3,r1           ;332
-000868  4aea              LDR      r2,|L2.3092|
-00086a  eb0201c1          ADD      r1,r2,r1,LSL #3       ;332
-00086e  6048              STR      r0,[r1,#4]            ;332
-000870  48e9              LDR      r0,|L2.3096|
-000872  7a00              LDRB     r0,[r0,#8]            ;333  ; detectAct
-000874  210a              MOVS     r1,#0xa               ;333
-000876  fb90f2f1          SDIV     r2,r0,r1              ;333
-00087a  fb010012          MLS      r0,r1,r2,r0           ;333
-00087e  49e7              LDR      r1,|L2.3100|
-000880  eb010040          ADD      r0,r1,r0,LSL #1       ;333
-000884  7844              LDRB     r4,[r0,#1]            ;333
-000886  2101              MOVS     r1,#1                 ;333
-000888  4620              MOV      r0,r4                 ;333
-00088a  f7fffffe          BL       bsp_AWSetPinVal
-00088e  49e2              LDR      r1,|L2.3096|
-000890  784d              LDRB     r5,[r1,#1]            ;335  ; detectAct
-000892  eb0571d5          ADD      r1,r5,r5,LSR #31      ;335
-000896  1049              ASRS     r1,r1,#1              ;335
-000898  4ade              LDR      r2,|L2.3092|
-00089a  eb0201c1          ADD      r1,r2,r1,LSL #3       ;335
-00089e  6848              LDR      r0,[r1,#4]            ;335
-0008a0  f04f517e          MOV      r1,#0x3f800000        ;335
-0008a4  f7fffffe          BL       __aeabi_cfrcmple
-0008a8  d801              BHI      |L2.2222|
-0008aa  2000              MOVS     r0,#0                 ;335
-0008ac  e007              B        |L2.2238|
-                  |L2.2222|
-0008ae  48da              LDR      r0,|L2.3096|
-0008b0  7844              LDRB     r4,[r0,#1]            ;335  ; detectAct
-0008b2  eb0470d4          ADD      r0,r4,r4,LSR #31      ;335
-0008b6  1040              ASRS     r0,r0,#1              ;335
-0008b8  49d6              LDR      r1,|L2.3092|
-0008ba  f8510030          LDR      r0,[r1,r0,LSL #3]     ;335
-                  |L2.2238|
-0008be  49d6              LDR      r1,|L2.3096|
-0008c0  7a09              LDRB     r1,[r1,#8]            ;335  ; detectAct
-0008c2  220a              MOVS     r2,#0xa               ;335
-0008c4  fb91f3f2          SDIV     r3,r1,r2              ;335
-0008c8  fb021113          MLS      r1,r2,r3,r1           ;335
-0008cc  4ad4              LDR      r2,|L2.3104|
-0008ce  f8420021          STR      r0,[r2,r1,LSL #2]     ;335
-0008d2  49d1              LDR      r1,|L2.3096|
-0008d4  784c              LDRB     r4,[r1,#1]            ;336  ; detectAct
-0008d6  eb0471d4          ADD      r1,r4,r4,LSR #31      ;336
-0008da  1049              ASRS     r1,r1,#1              ;336
-0008dc  4acd              LDR      r2,|L2.3092|
-0008de  e000              B        |L2.2274|
-                  |L2.2272|
-0008e0  e020              B        |L2.2340|
-                  |L2.2274|
-0008e2  eb0201c1          ADD      r1,r2,r1,LSL #3       ;336
-0008e6  6848              LDR      r0,[r1,#4]            ;336
-0008e8  f04f517e          MOV      r1,#0x3f800000        ;336
-0008ec  f7fffffe          BL       __aeabi_cfrcmple
-0008f0  d801              BHI      |L2.2294|
-0008f2  2001              MOVS     r0,#1                 ;336
-0008f4  e000              B        |L2.2296|
-                  |L2.2294|
-0008f6  2000              MOVS     r0,#0                 ;336
-                  |L2.2296|
-0008f8  49c7              LDR      r1,|L2.3096|
-0008fa  7a09              LDRB     r1,[r1,#8]            ;336  ; detectAct
-0008fc  220a              MOVS     r2,#0xa               ;336
-0008fe  fb91f3f2          SDIV     r3,r1,r2              ;336
-000902  fb021113          MLS      r1,r2,r3,r1           ;336
-000906  4ac7              LDR      r2,|L2.3108|
-000908  5450              STRB     r0,[r2,r1]            ;336
-00090a  48c3              LDR      r0,|L2.3096|
-00090c  7a00              LDRB     r0,[r0,#8]            ;337  ; detectAct
-00090e  1c40              ADDS     r0,r0,#1              ;337
-000910  49c1              LDR      r1,|L2.3096|
-000912  7208              STRB     r0,[r1,#8]            ;337
-000914  f7fffffe          BL       xTaskGetTickCount
-000918  49bf              LDR      r1,|L2.3096|
-00091a  6048              STR      r0,[r1,#4]            ;339  ; detectAct
-00091c  4608              MOV      r0,r1                 ;340
-00091e  7840              LDRB     r0,[r0,#1]            ;340  ; detectAct
-000920  1c40              ADDS     r0,r0,#1              ;340
-000922  7048              STRB     r0,[r1,#1]            ;340
-                  |L2.2340|
-000924  e2e8              B        |L2.3832|
-000926  f7fffffe          BL       xTaskGetTickCount
-00092a  49bb              LDR      r1,|L2.3096|
-00092c  6849              LDR      r1,[r1,#4]            ;347  ; detectAct
-00092e  1a40              SUBS     r0,r0,r1              ;347
-000930  2807              CMP      r0,#7                 ;347
-000932  d316              BCC      |L2.2402|
-000934  48b8              LDR      r0,|L2.3096|
-000936  7a00              LDRB     r0,[r0,#8]            ;349  ; detectAct
-000938  210a              MOVS     r1,#0xa               ;349
-00093a  fb90f2f1          SDIV     r2,r0,r1              ;349
-00093e  fb010012          MLS      r0,r1,r2,r0           ;349
-000942  49b6              LDR      r1,|L2.3100|
-000944  eb010040          ADD      r0,r1,r0,LSL #1       ;349
-000948  7844              LDRB     r4,[r0,#1]            ;349
-00094a  2100              MOVS     r1,#0                 ;349
-00094c  4620              MOV      r0,r4                 ;349
-00094e  f7fffffe          BL       bsp_AWSetPinVal
-000952  f7fffffe          BL       xTaskGetTickCount
-000956  49b0              LDR      r1,|L2.3096|
-000958  6048              STR      r0,[r1,#4]            ;350  ; detectAct
-00095a  4608              MOV      r0,r1                 ;351
-00095c  7840              LDRB     r0,[r0,#1]            ;351  ; detectAct
-00095e  1c40              ADDS     r0,r0,#1              ;351
-000960  7048              STRB     r0,[r1,#1]            ;351
-                  |L2.2402|
-000962  e2c9              B        |L2.3832|
-000964  f7fffffe          BL       xTaskGetTickCount
-000968  49ab              LDR      r1,|L2.3096|
-00096a  6849              LDR      r1,[r1,#4]            ;357  ; detectAct
-00096c  1a40              SUBS     r0,r0,r1              ;357
-00096e  2803              CMP      r0,#3                 ;357
-000970  d37b              BCC      |L2.2666|
-000972  48a9              LDR      r0,|L2.3096|
-000974  7a00              LDRB     r0,[r0,#8]            ;359  ; detectAct
-000976  210a              MOVS     r1,#0xa               ;359
-000978  fb90f2f1          SDIV     r2,r0,r1              ;359
-00097c  fb010012          MLS      r0,r1,r2,r0           ;359
-000980  49a6              LDR      r1,|L2.3100|
-000982  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;359
-000986  2100              MOVS     r1,#0                 ;359
-000988  4620              MOV      r0,r4                 ;359
-00098a  f7fffffe          BL       bsp_AWSetPinVal
-00098e  2078              MOVS     r0,#0x78              ;360
-000990  f7fffffe          BL       bsp_DelayUS
-000994  f7fffffe          BL       bsp_GetAdScanValue
-000998  499f              LDR      r1,|L2.3096|
-00099a  7a09              LDRB     r1,[r1,#8]            ;361  ; detectAct
-00099c  220a              MOVS     r2,#0xa               ;361
-00099e  fb91f3f2          SDIV     r3,r1,r2              ;361
-0009a2  fb021113          MLS      r1,r2,r3,r1           ;361
-0009a6  4a9b              LDR      r2,|L2.3092|
-0009a8  f8420031          STR      r0,[r2,r1,LSL #3]     ;361
-0009ac  489a              LDR      r0,|L2.3096|
-0009ae  7a00              LDRB     r0,[r0,#8]            ;362  ; detectAct
-0009b0  210a              MOVS     r1,#0xa               ;362
-0009b2  fb90f2f1          SDIV     r2,r0,r1              ;362
-0009b6  fb010012          MLS      r0,r1,r2,r0           ;362
-0009ba  4998              LDR      r1,|L2.3100|
-0009bc  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;362
-0009c0  2101              MOVS     r1,#1                 ;362
-0009c2  4620              MOV      r0,r4                 ;362
-0009c4  f7fffffe          BL       bsp_AWSetPinVal
-0009c8  2014              MOVS     r0,#0x14              ;363
-0009ca  f7fffffe          BL       bsp_DelayUS
-0009ce  f7fffffe          BL       bsp_GetAdScanValue
-0009d2  4991              LDR      r1,|L2.3096|
-0009d4  7a09              LDRB     r1,[r1,#8]            ;364  ; detectAct
-0009d6  220a              MOVS     r2,#0xa               ;364
-0009d8  fb91f3f2          SDIV     r3,r1,r2              ;364
-0009dc  fb021113          MLS      r1,r2,r3,r1           ;364
-0009e0  4a8c              LDR      r2,|L2.3092|
-0009e2  eb0201c1          ADD      r1,r2,r1,LSL #3       ;364
-0009e6  6048              STR      r0,[r1,#4]            ;364
-0009e8  488b              LDR      r0,|L2.3096|
-0009ea  7a00              LDRB     r0,[r0,#8]            ;365  ; detectAct
-0009ec  210a              MOVS     r1,#0xa               ;365
-0009ee  fb90f2f1          SDIV     r2,r0,r1              ;365
-0009f2  fb010012          MLS      r0,r1,r2,r0           ;365
-0009f6  4989              LDR      r1,|L2.3100|
-0009f8  eb010040          ADD      r0,r1,r0,LSL #1       ;365
-0009fc  7844              LDRB     r4,[r0,#1]            ;365
-0009fe  2101              MOVS     r1,#1                 ;365
-000a00  4620              MOV      r0,r4                 ;365
-000a02  f7fffffe          BL       bsp_AWSetPinVal
-000a06  4984              LDR      r1,|L2.3096|
-000a08  784d              LDRB     r5,[r1,#1]            ;367  ; detectAct
-000a0a  eb0571d5          ADD      r1,r5,r5,LSR #31      ;367
-000a0e  1049              ASRS     r1,r1,#1              ;367
-000a10  4a80              LDR      r2,|L2.3092|
-000a12  eb0201c1          ADD      r1,r2,r1,LSL #3       ;367
-000a16  6848              LDR      r0,[r1,#4]            ;367
-000a18  f04f517e          MOV      r1,#0x3f800000        ;367
-000a1c  f7fffffe          BL       __aeabi_cfrcmple
-000a20  d801              BHI      |L2.2598|
-000a22  2000              MOVS     r0,#0                 ;367
-000a24  e007              B        |L2.2614|
-                  |L2.2598|
-000a26  487c              LDR      r0,|L2.3096|
-000a28  7844              LDRB     r4,[r0,#1]            ;367  ; detectAct
-000a2a  eb0470d4          ADD      r0,r4,r4,LSR #31      ;367
-000a2e  1040              ASRS     r0,r0,#1              ;367
-000a30  4978              LDR      r1,|L2.3092|
-000a32  f8510030          LDR      r0,[r1,r0,LSL #3]     ;367
-                  |L2.2614|
-000a36  4978              LDR      r1,|L2.3096|
-000a38  7a09              LDRB     r1,[r1,#8]            ;367  ; detectAct
-000a3a  220a              MOVS     r2,#0xa               ;367
-000a3c  fb91f3f2          SDIV     r3,r1,r2              ;367
-000a40  fb021113          MLS      r1,r2,r3,r1           ;367
-000a44  4a76              LDR      r2,|L2.3104|
-000a46  f8420021          STR      r0,[r2,r1,LSL #2]     ;367
-000a4a  4973              LDR      r1,|L2.3096|
-000a4c  784c              LDRB     r4,[r1,#1]            ;368  ; detectAct
-000a4e  eb0471d4          ADD      r1,r4,r4,LSR #31      ;368
-000a52  1049              ASRS     r1,r1,#1              ;368
-000a54  4a6f              LDR      r2,|L2.3092|
-000a56  eb0201c1          ADD      r1,r2,r1,LSL #3       ;368
-000a5a  6848              LDR      r0,[r1,#4]            ;368
-000a5c  f04f517e          MOV      r1,#0x3f800000        ;368
-000a60  f7fffffe          BL       __aeabi_cfrcmple
-000a64  d802              BHI      |L2.2668|
-000a66  2001              MOVS     r0,#1                 ;368
-000a68  e001              B        |L2.2670|
-                  |L2.2666|
-000a6a  e016              B        |L2.2714|
-                  |L2.2668|
-000a6c  2000              MOVS     r0,#0                 ;368
-                  |L2.2670|
-000a6e  496a              LDR      r1,|L2.3096|
-000a70  7a09              LDRB     r1,[r1,#8]            ;368  ; detectAct
-000a72  220a              MOVS     r2,#0xa               ;368
-000a74  fb91f3f2          SDIV     r3,r1,r2              ;368
-000a78  fb021113          MLS      r1,r2,r3,r1           ;368
-000a7c  4a69              LDR      r2,|L2.3108|
-000a7e  5450              STRB     r0,[r2,r1]            ;368
-000a80  4865              LDR      r0,|L2.3096|
-000a82  7a00              LDRB     r0,[r0,#8]            ;369  ; detectAct
-000a84  1c40              ADDS     r0,r0,#1              ;369
-000a86  4964              LDR      r1,|L2.3096|
-000a88  7208              STRB     r0,[r1,#8]            ;369
-000a8a  f7fffffe          BL       xTaskGetTickCount
-000a8e  4962              LDR      r1,|L2.3096|
-000a90  6048              STR      r0,[r1,#4]            ;371  ; detectAct
-000a92  4608              MOV      r0,r1                 ;372
-000a94  7840              LDRB     r0,[r0,#1]            ;372  ; detectAct
-000a96  1c40              ADDS     r0,r0,#1              ;372
-000a98  7048              STRB     r0,[r1,#1]            ;372
-                  |L2.2714|
-000a9a  e22d              B        |L2.3832|
-000a9c  f7fffffe          BL       xTaskGetTickCount
-000aa0  495d              LDR      r1,|L2.3096|
-000aa2  6849              LDR      r1,[r1,#4]            ;379  ; detectAct
-000aa4  1a40              SUBS     r0,r0,r1              ;379
-000aa6  2807              CMP      r0,#7                 ;379
-000aa8  d316              BCC      |L2.2776|
-000aaa  485b              LDR      r0,|L2.3096|
-000aac  7a00              LDRB     r0,[r0,#8]            ;381  ; detectAct
-000aae  210a              MOVS     r1,#0xa               ;381
-000ab0  fb90f2f1          SDIV     r2,r0,r1              ;381
-000ab4  fb010012          MLS      r0,r1,r2,r0           ;381
-000ab8  4958              LDR      r1,|L2.3100|
-000aba  eb010040          ADD      r0,r1,r0,LSL #1       ;381
-000abe  7844              LDRB     r4,[r0,#1]            ;381
-000ac0  2100              MOVS     r1,#0                 ;381
-000ac2  4620              MOV      r0,r4                 ;381
-000ac4  f7fffffe          BL       bsp_AWSetPinVal
-000ac8  f7fffffe          BL       xTaskGetTickCount
-000acc  4952              LDR      r1,|L2.3096|
-000ace  6048              STR      r0,[r1,#4]            ;382  ; detectAct
-000ad0  4608              MOV      r0,r1                 ;383
-000ad2  7840              LDRB     r0,[r0,#1]            ;383  ; detectAct
-000ad4  1c40              ADDS     r0,r0,#1              ;383
-000ad6  7048              STRB     r0,[r1,#1]            ;383
-                  |L2.2776|
-000ad8  e20e              B        |L2.3832|
-000ada  f7fffffe          BL       xTaskGetTickCount
-000ade  494e              LDR      r1,|L2.3096|
-000ae0  6849              LDR      r1,[r1,#4]            ;389  ; detectAct
-000ae2  1a40              SUBS     r0,r0,r1              ;389
-000ae4  2803              CMP      r0,#3                 ;389
-000ae6  d37b              BCC      |L2.3040|
-000ae8  484b              LDR      r0,|L2.3096|
-000aea  7a00              LDRB     r0,[r0,#8]            ;391  ; detectAct
-000aec  210a              MOVS     r1,#0xa               ;391
-000aee  fb90f2f1          SDIV     r2,r0,r1              ;391
-000af2  fb010012          MLS      r0,r1,r2,r0           ;391
-000af6  4949              LDR      r1,|L2.3100|
-000af8  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;391
-000afc  2100              MOVS     r1,#0                 ;391
-000afe  4620              MOV      r0,r4                 ;391
-000b00  f7fffffe          BL       bsp_AWSetPinVal
-000b04  2078              MOVS     r0,#0x78              ;392
-000b06  f7fffffe          BL       bsp_DelayUS
-000b0a  f7fffffe          BL       bsp_GetAdScanValue
-000b0e  4942              LDR      r1,|L2.3096|
-000b10  7a09              LDRB     r1,[r1,#8]            ;393  ; detectAct
-000b12  220a              MOVS     r2,#0xa               ;393
-000b14  fb91f3f2          SDIV     r3,r1,r2              ;393
-000b18  fb021113          MLS      r1,r2,r3,r1           ;393
-000b1c  4a3d              LDR      r2,|L2.3092|
-000b1e  f8420031          STR      r0,[r2,r1,LSL #3]     ;393
-000b22  483d              LDR      r0,|L2.3096|
-000b24  7a00              LDRB     r0,[r0,#8]            ;394  ; detectAct
-000b26  210a              MOVS     r1,#0xa               ;394
-000b28  fb90f2f1          SDIV     r2,r0,r1              ;394
-000b2c  fb010012          MLS      r0,r1,r2,r0           ;394
-000b30  493a              LDR      r1,|L2.3100|
-000b32  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;394
-000b36  2101              MOVS     r1,#1                 ;394
-000b38  4620              MOV      r0,r4                 ;394
-000b3a  f7fffffe          BL       bsp_AWSetPinVal
-000b3e  2014              MOVS     r0,#0x14              ;395
-000b40  f7fffffe          BL       bsp_DelayUS
-000b44  f7fffffe          BL       bsp_GetAdScanValue
-000b48  4933              LDR      r1,|L2.3096|
-000b4a  7a09              LDRB     r1,[r1,#8]            ;396  ; detectAct
-000b4c  220a              MOVS     r2,#0xa               ;396
-000b4e  fb91f3f2          SDIV     r3,r1,r2              ;396
-000b52  fb021113          MLS      r1,r2,r3,r1           ;396
-000b56  4a2f              LDR      r2,|L2.3092|
-000b58  eb0201c1          ADD      r1,r2,r1,LSL #3       ;396
-000b5c  6048              STR      r0,[r1,#4]            ;396
-000b5e  482e              LDR      r0,|L2.3096|
-000b60  7a00              LDRB     r0,[r0,#8]            ;397  ; detectAct
-000b62  210a              MOVS     r1,#0xa               ;397
-000b64  fb90f2f1          SDIV     r2,r0,r1              ;397
-000b68  fb010012          MLS      r0,r1,r2,r0           ;397
-000b6c  492b              LDR      r1,|L2.3100|
-000b6e  eb010040          ADD      r0,r1,r0,LSL #1       ;397
-000b72  7844              LDRB     r4,[r0,#1]            ;397
-000b74  2101              MOVS     r1,#1                 ;397
-000b76  4620              MOV      r0,r4                 ;397
-000b78  f7fffffe          BL       bsp_AWSetPinVal
-000b7c  4926              LDR      r1,|L2.3096|
-000b7e  784d              LDRB     r5,[r1,#1]            ;399  ; detectAct
-000b80  eb0571d5          ADD      r1,r5,r5,LSR #31      ;399
-000b84  1049              ASRS     r1,r1,#1              ;399
-000b86  4a23              LDR      r2,|L2.3092|
-000b88  eb0201c1          ADD      r1,r2,r1,LSL #3       ;399
-000b8c  6848              LDR      r0,[r1,#4]            ;399
-000b8e  f04f517e          MOV      r1,#0x3f800000        ;399
-000b92  f7fffffe          BL       __aeabi_cfrcmple
-000b96  d801              BHI      |L2.2972|
-000b98  2000              MOVS     r0,#0                 ;399
-000b9a  e007              B        |L2.2988|
-                  |L2.2972|
-000b9c  481e              LDR      r0,|L2.3096|
-000b9e  7844              LDRB     r4,[r0,#1]            ;399  ; detectAct
-000ba0  eb0470d4          ADD      r0,r4,r4,LSR #31      ;399
-000ba4  1040              ASRS     r0,r0,#1              ;399
-000ba6  491b              LDR      r1,|L2.3092|
-000ba8  f8510030          LDR      r0,[r1,r0,LSL #3]     ;399
-                  |L2.2988|
-000bac  491a              LDR      r1,|L2.3096|
-000bae  7a09              LDRB     r1,[r1,#8]            ;399  ; detectAct
-000bb0  220a              MOVS     r2,#0xa               ;399
-000bb2  fb91f3f2          SDIV     r3,r1,r2              ;399
-000bb6  fb021113          MLS      r1,r2,r3,r1           ;399
-000bba  4a19              LDR      r2,|L2.3104|
-000bbc  f8420021          STR      r0,[r2,r1,LSL #2]     ;399
-000bc0  4915              LDR      r1,|L2.3096|
-000bc2  784c              LDRB     r4,[r1,#1]            ;400  ; detectAct
-000bc4  eb0471d4          ADD      r1,r4,r4,LSR #31      ;400
-000bc8  1049              ASRS     r1,r1,#1              ;400
-000bca  4a12              LDR      r2,|L2.3092|
-000bcc  eb0201c1          ADD      r1,r2,r1,LSL #3       ;400
-000bd0  6848              LDR      r0,[r1,#4]            ;400
-000bd2  f04f517e          MOV      r1,#0x3f800000        ;400
-000bd6  f7fffffe          BL       __aeabi_cfrcmple
-000bda  d802              BHI      |L2.3042|
-000bdc  2001              MOVS     r0,#1                 ;400
-000bde  e001              B        |L2.3044|
-                  |L2.3040|
-000be0  e016              B        |L2.3088|
-                  |L2.3042|
-000be2  2000              MOVS     r0,#0                 ;400
-                  |L2.3044|
-000be4  490c              LDR      r1,|L2.3096|
-000be6  7a09              LDRB     r1,[r1,#8]            ;400  ; detectAct
-000be8  220a              MOVS     r2,#0xa               ;400
-000bea  fb91f3f2          SDIV     r3,r1,r2              ;400
-000bee  fb021113          MLS      r1,r2,r3,r1           ;400
-000bf2  4a0c              LDR      r2,|L2.3108|
-000bf4  5450              STRB     r0,[r2,r1]            ;400
-000bf6  4808              LDR      r0,|L2.3096|
-000bf8  7a00              LDRB     r0,[r0,#8]            ;401  ; detectAct
-000bfa  1c40              ADDS     r0,r0,#1              ;401
-000bfc  4906              LDR      r1,|L2.3096|
-000bfe  7208              STRB     r0,[r1,#8]            ;401
-000c00  f7fffffe          BL       xTaskGetTickCount
-000c04  4904              LDR      r1,|L2.3096|
-000c06  6048              STR      r0,[r1,#4]            ;403  ; detectAct
-000c08  4608              MOV      r0,r1                 ;404
-000c0a  7840              LDRB     r0,[r0,#1]            ;404  ; detectAct
-000c0c  1c40              ADDS     r0,r0,#1              ;404
-000c0e  7048              STRB     r0,[r1,#1]            ;404
-                  |L2.3088|
-000c10  e172              B        |L2.3832|
-000c12  0000              DCW      0x0000
-                  |L2.3092|
+000820  fb021113          MLS      r1,r2,r3,r1           ;329
+000824  4af7              LDR      r2,|L2.3076|
+000826  f8420031          STR      r0,[r2,r1,LSL #3]     ;329
+00082a  48f7              LDR      r0,|L2.3080|
+00082c  7a00              LDRB     r0,[r0,#8]            ;330  ; detectAct
+00082e  210a              MOVS     r1,#0xa               ;330
+000830  fb90f2f1          SDIV     r2,r0,r1              ;330
+000834  fb010012          MLS      r0,r1,r2,r0           ;330
+000838  49f4              LDR      r1,|L2.3084|
+00083a  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;330
+00083e  2101              MOVS     r1,#1                 ;330
+000840  4620              MOV      r0,r4                 ;330
+000842  f7fffffe          BL       bsp_AWSetPinVal
+000846  2014              MOVS     r0,#0x14              ;331
+000848  f7fffffe          BL       bsp_DelayUS
+00084c  f7fffffe          BL       bsp_GetAdScanValue
+000850  49ed              LDR      r1,|L2.3080|
+000852  7a09              LDRB     r1,[r1,#8]            ;332  ; detectAct
+000854  220a              MOVS     r2,#0xa               ;332
+000856  fb91f3f2          SDIV     r3,r1,r2              ;332
+00085a  fb021113          MLS      r1,r2,r3,r1           ;332
+00085e  4ae9              LDR      r2,|L2.3076|
+000860  eb0201c1          ADD      r1,r2,r1,LSL #3       ;332
+000864  6048              STR      r0,[r1,#4]            ;332
+000866  48e8              LDR      r0,|L2.3080|
+000868  7a00              LDRB     r0,[r0,#8]            ;333  ; detectAct
+00086a  210a              MOVS     r1,#0xa               ;333
+00086c  fb90f2f1          SDIV     r2,r0,r1              ;333
+000870  fb010012          MLS      r0,r1,r2,r0           ;333
+000874  49e5              LDR      r1,|L2.3084|
+000876  eb010040          ADD      r0,r1,r0,LSL #1       ;333
+00087a  7844              LDRB     r4,[r0,#1]            ;333
+00087c  2101              MOVS     r1,#1                 ;333
+00087e  4620              MOV      r0,r4                 ;333
+000880  f7fffffe          BL       bsp_AWSetPinVal
+000884  49e0              LDR      r1,|L2.3080|
+000886  784d              LDRB     r5,[r1,#1]            ;335  ; detectAct
+000888  eb0571d5          ADD      r1,r5,r5,LSR #31      ;335
+00088c  1049              ASRS     r1,r1,#1              ;335
+00088e  4add              LDR      r2,|L2.3076|
+000890  eb0201c1          ADD      r1,r2,r1,LSL #3       ;335
+000894  6848              LDR      r0,[r1,#4]            ;335
+000896  f04f517e          MOV      r1,#0x3f800000        ;335
+00089a  f7fffffe          BL       __aeabi_cfrcmple
+00089e  d801              BHI      |L2.2212|
+0008a0  2000              MOVS     r0,#0                 ;335
+0008a2  e007              B        |L2.2228|
+                  |L2.2212|
+0008a4  48d8              LDR      r0,|L2.3080|
+0008a6  7844              LDRB     r4,[r0,#1]            ;335  ; detectAct
+0008a8  eb0470d4          ADD      r0,r4,r4,LSR #31      ;335
+0008ac  1040              ASRS     r0,r0,#1              ;335
+0008ae  49d5              LDR      r1,|L2.3076|
+0008b0  f8510030          LDR      r0,[r1,r0,LSL #3]     ;335
+                  |L2.2228|
+0008b4  49d4              LDR      r1,|L2.3080|
+0008b6  7a09              LDRB     r1,[r1,#8]            ;335  ; detectAct
+0008b8  220a              MOVS     r2,#0xa               ;335
+0008ba  fb91f3f2          SDIV     r3,r1,r2              ;335
+0008be  fb021113          MLS      r1,r2,r3,r1           ;335
+0008c2  4ad3              LDR      r2,|L2.3088|
+0008c4  f8420021          STR      r0,[r2,r1,LSL #2]     ;335
+0008c8  49cf              LDR      r1,|L2.3080|
+0008ca  784c              LDRB     r4,[r1,#1]            ;336  ; detectAct
+0008cc  eb0471d4          ADD      r1,r4,r4,LSR #31      ;336
+0008d0  1049              ASRS     r1,r1,#1              ;336
+0008d2  4acc              LDR      r2,|L2.3076|
+0008d4  e000              B        |L2.2264|
+                  |L2.2262|
+0008d6  e020              B        |L2.2330|
+                  |L2.2264|
+0008d8  eb0201c1          ADD      r1,r2,r1,LSL #3       ;336
+0008dc  6848              LDR      r0,[r1,#4]            ;336
+0008de  f04f517e          MOV      r1,#0x3f800000        ;336
+0008e2  f7fffffe          BL       __aeabi_cfrcmple
+0008e6  d801              BHI      |L2.2284|
+0008e8  2001              MOVS     r0,#1                 ;336
+0008ea  e000              B        |L2.2286|
+                  |L2.2284|
+0008ec  2000              MOVS     r0,#0                 ;336
+                  |L2.2286|
+0008ee  49c6              LDR      r1,|L2.3080|
+0008f0  7a09              LDRB     r1,[r1,#8]            ;336  ; detectAct
+0008f2  220a              MOVS     r2,#0xa               ;336
+0008f4  fb91f3f2          SDIV     r3,r1,r2              ;336
+0008f8  fb021113          MLS      r1,r2,r3,r1           ;336
+0008fc  4ac5              LDR      r2,|L2.3092|
+0008fe  5450              STRB     r0,[r2,r1]            ;336
+000900  48c1              LDR      r0,|L2.3080|
+000902  7a00              LDRB     r0,[r0,#8]            ;337  ; detectAct
+000904  1c40              ADDS     r0,r0,#1              ;337
+000906  49c0              LDR      r1,|L2.3080|
+000908  7208              STRB     r0,[r1,#8]            ;337
+00090a  f7fffffe          BL       xTaskGetTickCount
+00090e  49be              LDR      r1,|L2.3080|
+000910  6048              STR      r0,[r1,#4]            ;339  ; detectAct
+000912  4608              MOV      r0,r1                 ;340
+000914  7840              LDRB     r0,[r0,#1]            ;340  ; detectAct
+000916  1c40              ADDS     r0,r0,#1              ;340
+000918  7048              STRB     r0,[r1,#1]            ;340
+                  |L2.2330|
+00091a  e2e2              B        |L2.3810|
+00091c  f7fffffe          BL       xTaskGetTickCount
+000920  49b9              LDR      r1,|L2.3080|
+000922  6849              LDR      r1,[r1,#4]            ;347  ; detectAct
+000924  1a40              SUBS     r0,r0,r1              ;347
+000926  d016              BEQ      |L2.2390|
+000928  48b7              LDR      r0,|L2.3080|
+00092a  7a00              LDRB     r0,[r0,#8]            ;349  ; detectAct
+00092c  210a              MOVS     r1,#0xa               ;349
+00092e  fb90f2f1          SDIV     r2,r0,r1              ;349
+000932  fb010012          MLS      r0,r1,r2,r0           ;349
+000936  49b5              LDR      r1,|L2.3084|
+000938  eb010040          ADD      r0,r1,r0,LSL #1       ;349
+00093c  7844              LDRB     r4,[r0,#1]            ;349
+00093e  2100              MOVS     r1,#0                 ;349
+000940  4620              MOV      r0,r4                 ;349
+000942  f7fffffe          BL       bsp_AWSetPinVal
+000946  f7fffffe          BL       xTaskGetTickCount
+00094a  49af              LDR      r1,|L2.3080|
+00094c  6048              STR      r0,[r1,#4]            ;350  ; detectAct
+00094e  4608              MOV      r0,r1                 ;351
+000950  7840              LDRB     r0,[r0,#1]            ;351  ; detectAct
+000952  1c40              ADDS     r0,r0,#1              ;351
+000954  7048              STRB     r0,[r1,#1]            ;351
+                  |L2.2390|
+000956  e2c4              B        |L2.3810|
+000958  f7fffffe          BL       xTaskGetTickCount
+00095c  49aa              LDR      r1,|L2.3080|
+00095e  6849              LDR      r1,[r1,#4]            ;357  ; detectAct
+000960  1a40              SUBS     r0,r0,r1              ;357
+000962  2803              CMP      r0,#3                 ;357
+000964  d37b              BCC      |L2.2654|
+000966  48a8              LDR      r0,|L2.3080|
+000968  7a00              LDRB     r0,[r0,#8]            ;359  ; detectAct
+00096a  210a              MOVS     r1,#0xa               ;359
+00096c  fb90f2f1          SDIV     r2,r0,r1              ;359
+000970  fb010012          MLS      r0,r1,r2,r0           ;359
+000974  49a5              LDR      r1,|L2.3084|
+000976  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;359
+00097a  2100              MOVS     r1,#0                 ;359
+00097c  4620              MOV      r0,r4                 ;359
+00097e  f7fffffe          BL       bsp_AWSetPinVal
+000982  2078              MOVS     r0,#0x78              ;360
+000984  f7fffffe          BL       bsp_DelayUS
+000988  f7fffffe          BL       bsp_GetAdScanValue
+00098c  499e              LDR      r1,|L2.3080|
+00098e  7a09              LDRB     r1,[r1,#8]            ;361  ; detectAct
+000990  220a              MOVS     r2,#0xa               ;361
+000992  fb91f3f2          SDIV     r3,r1,r2              ;361
+000996  fb021113          MLS      r1,r2,r3,r1           ;361
+00099a  4a9a              LDR      r2,|L2.3076|
+00099c  f8420031          STR      r0,[r2,r1,LSL #3]     ;361
+0009a0  4899              LDR      r0,|L2.3080|
+0009a2  7a00              LDRB     r0,[r0,#8]            ;362  ; detectAct
+0009a4  210a              MOVS     r1,#0xa               ;362
+0009a6  fb90f2f1          SDIV     r2,r0,r1              ;362
+0009aa  fb010012          MLS      r0,r1,r2,r0           ;362
+0009ae  4997              LDR      r1,|L2.3084|
+0009b0  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;362
+0009b4  2101              MOVS     r1,#1                 ;362
+0009b6  4620              MOV      r0,r4                 ;362
+0009b8  f7fffffe          BL       bsp_AWSetPinVal
+0009bc  2014              MOVS     r0,#0x14              ;363
+0009be  f7fffffe          BL       bsp_DelayUS
+0009c2  f7fffffe          BL       bsp_GetAdScanValue
+0009c6  4990              LDR      r1,|L2.3080|
+0009c8  7a09              LDRB     r1,[r1,#8]            ;364  ; detectAct
+0009ca  220a              MOVS     r2,#0xa               ;364
+0009cc  fb91f3f2          SDIV     r3,r1,r2              ;364
+0009d0  fb021113          MLS      r1,r2,r3,r1           ;364
+0009d4  4a8b              LDR      r2,|L2.3076|
+0009d6  eb0201c1          ADD      r1,r2,r1,LSL #3       ;364
+0009da  6048              STR      r0,[r1,#4]            ;364
+0009dc  488a              LDR      r0,|L2.3080|
+0009de  7a00              LDRB     r0,[r0,#8]            ;365  ; detectAct
+0009e0  210a              MOVS     r1,#0xa               ;365
+0009e2  fb90f2f1          SDIV     r2,r0,r1              ;365
+0009e6  fb010012          MLS      r0,r1,r2,r0           ;365
+0009ea  4988              LDR      r1,|L2.3084|
+0009ec  eb010040          ADD      r0,r1,r0,LSL #1       ;365
+0009f0  7844              LDRB     r4,[r0,#1]            ;365
+0009f2  2101              MOVS     r1,#1                 ;365
+0009f4  4620              MOV      r0,r4                 ;365
+0009f6  f7fffffe          BL       bsp_AWSetPinVal
+0009fa  4983              LDR      r1,|L2.3080|
+0009fc  784d              LDRB     r5,[r1,#1]            ;367  ; detectAct
+0009fe  eb0571d5          ADD      r1,r5,r5,LSR #31      ;367
+000a02  1049              ASRS     r1,r1,#1              ;367
+000a04  4a7f              LDR      r2,|L2.3076|
+000a06  eb0201c1          ADD      r1,r2,r1,LSL #3       ;367
+000a0a  6848              LDR      r0,[r1,#4]            ;367
+000a0c  f04f517e          MOV      r1,#0x3f800000        ;367
+000a10  f7fffffe          BL       __aeabi_cfrcmple
+000a14  d801              BHI      |L2.2586|
+000a16  2000              MOVS     r0,#0                 ;367
+000a18  e007              B        |L2.2602|
+                  |L2.2586|
+000a1a  487b              LDR      r0,|L2.3080|
+000a1c  7844              LDRB     r4,[r0,#1]            ;367  ; detectAct
+000a1e  eb0470d4          ADD      r0,r4,r4,LSR #31      ;367
+000a22  1040              ASRS     r0,r0,#1              ;367
+000a24  4977              LDR      r1,|L2.3076|
+000a26  f8510030          LDR      r0,[r1,r0,LSL #3]     ;367
+                  |L2.2602|
+000a2a  4977              LDR      r1,|L2.3080|
+000a2c  7a09              LDRB     r1,[r1,#8]            ;367  ; detectAct
+000a2e  220a              MOVS     r2,#0xa               ;367
+000a30  fb91f3f2          SDIV     r3,r1,r2              ;367
+000a34  fb021113          MLS      r1,r2,r3,r1           ;367
+000a38  4a75              LDR      r2,|L2.3088|
+000a3a  f8420021          STR      r0,[r2,r1,LSL #2]     ;367
+000a3e  4972              LDR      r1,|L2.3080|
+000a40  784c              LDRB     r4,[r1,#1]            ;368  ; detectAct
+000a42  eb0471d4          ADD      r1,r4,r4,LSR #31      ;368
+000a46  1049              ASRS     r1,r1,#1              ;368
+000a48  4a6e              LDR      r2,|L2.3076|
+000a4a  eb0201c1          ADD      r1,r2,r1,LSL #3       ;368
+000a4e  6848              LDR      r0,[r1,#4]            ;368
+000a50  f04f517e          MOV      r1,#0x3f800000        ;368
+000a54  f7fffffe          BL       __aeabi_cfrcmple
+000a58  d802              BHI      |L2.2656|
+000a5a  2001              MOVS     r0,#1                 ;368
+000a5c  e001              B        |L2.2658|
+                  |L2.2654|
+000a5e  e016              B        |L2.2702|
+                  |L2.2656|
+000a60  2000              MOVS     r0,#0                 ;368
+                  |L2.2658|
+000a62  4969              LDR      r1,|L2.3080|
+000a64  7a09              LDRB     r1,[r1,#8]            ;368  ; detectAct
+000a66  220a              MOVS     r2,#0xa               ;368
+000a68  fb91f3f2          SDIV     r3,r1,r2              ;368
+000a6c  fb021113          MLS      r1,r2,r3,r1           ;368
+000a70  4a68              LDR      r2,|L2.3092|
+000a72  5450              STRB     r0,[r2,r1]            ;368
+000a74  4864              LDR      r0,|L2.3080|
+000a76  7a00              LDRB     r0,[r0,#8]            ;369  ; detectAct
+000a78  1c40              ADDS     r0,r0,#1              ;369
+000a7a  4963              LDR      r1,|L2.3080|
+000a7c  7208              STRB     r0,[r1,#8]            ;369
+000a7e  f7fffffe          BL       xTaskGetTickCount
+000a82  4961              LDR      r1,|L2.3080|
+000a84  6048              STR      r0,[r1,#4]            ;371  ; detectAct
+000a86  4608              MOV      r0,r1                 ;372
+000a88  7840              LDRB     r0,[r0,#1]            ;372  ; detectAct
+000a8a  1c40              ADDS     r0,r0,#1              ;372
+000a8c  7048              STRB     r0,[r1,#1]            ;372
+                  |L2.2702|
+000a8e  e228              B        |L2.3810|
+000a90  f7fffffe          BL       xTaskGetTickCount
+000a94  495c              LDR      r1,|L2.3080|
+000a96  6849              LDR      r1,[r1,#4]            ;379  ; detectAct
+000a98  1a40              SUBS     r0,r0,r1              ;379
+000a9a  d016              BEQ      |L2.2762|
+000a9c  485a              LDR      r0,|L2.3080|
+000a9e  7a00              LDRB     r0,[r0,#8]            ;381  ; detectAct
+000aa0  210a              MOVS     r1,#0xa               ;381
+000aa2  fb90f2f1          SDIV     r2,r0,r1              ;381
+000aa6  fb010012          MLS      r0,r1,r2,r0           ;381
+000aaa  4958              LDR      r1,|L2.3084|
+000aac  eb010040          ADD      r0,r1,r0,LSL #1       ;381
+000ab0  7844              LDRB     r4,[r0,#1]            ;381
+000ab2  2100              MOVS     r1,#0                 ;381
+000ab4  4620              MOV      r0,r4                 ;381
+000ab6  f7fffffe          BL       bsp_AWSetPinVal
+000aba  f7fffffe          BL       xTaskGetTickCount
+000abe  4952              LDR      r1,|L2.3080|
+000ac0  6048              STR      r0,[r1,#4]            ;382  ; detectAct
+000ac2  4608              MOV      r0,r1                 ;383
+000ac4  7840              LDRB     r0,[r0,#1]            ;383  ; detectAct
+000ac6  1c40              ADDS     r0,r0,#1              ;383
+000ac8  7048              STRB     r0,[r1,#1]            ;383
+                  |L2.2762|
+000aca  e20a              B        |L2.3810|
+000acc  f7fffffe          BL       xTaskGetTickCount
+000ad0  494d              LDR      r1,|L2.3080|
+000ad2  6849              LDR      r1,[r1,#4]            ;389  ; detectAct
+000ad4  1a40              SUBS     r0,r0,r1              ;389
+000ad6  2803              CMP      r0,#3                 ;389
+000ad8  d37b              BCC      |L2.3026|
+000ada  484b              LDR      r0,|L2.3080|
+000adc  7a00              LDRB     r0,[r0,#8]            ;391  ; detectAct
+000ade  210a              MOVS     r1,#0xa               ;391
+000ae0  fb90f2f1          SDIV     r2,r0,r1              ;391
+000ae4  fb010012          MLS      r0,r1,r2,r0           ;391
+000ae8  4948              LDR      r1,|L2.3084|
+000aea  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;391
+000aee  2100              MOVS     r1,#0                 ;391
+000af0  4620              MOV      r0,r4                 ;391
+000af2  f7fffffe          BL       bsp_AWSetPinVal
+000af6  2078              MOVS     r0,#0x78              ;392
+000af8  f7fffffe          BL       bsp_DelayUS
+000afc  f7fffffe          BL       bsp_GetAdScanValue
+000b00  4941              LDR      r1,|L2.3080|
+000b02  7a09              LDRB     r1,[r1,#8]            ;393  ; detectAct
+000b04  220a              MOVS     r2,#0xa               ;393
+000b06  fb91f3f2          SDIV     r3,r1,r2              ;393
+000b0a  fb021113          MLS      r1,r2,r3,r1           ;393
+000b0e  4a3d              LDR      r2,|L2.3076|
+000b10  f8420031          STR      r0,[r2,r1,LSL #3]     ;393
+000b14  483c              LDR      r0,|L2.3080|
+000b16  7a00              LDRB     r0,[r0,#8]            ;394  ; detectAct
+000b18  210a              MOVS     r1,#0xa               ;394
+000b1a  fb90f2f1          SDIV     r2,r0,r1              ;394
+000b1e  fb010012          MLS      r0,r1,r2,r0           ;394
+000b22  493a              LDR      r1,|L2.3084|
+000b24  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;394
+000b28  2101              MOVS     r1,#1                 ;394
+000b2a  4620              MOV      r0,r4                 ;394
+000b2c  f7fffffe          BL       bsp_AWSetPinVal
+000b30  2014              MOVS     r0,#0x14              ;395
+000b32  f7fffffe          BL       bsp_DelayUS
+000b36  f7fffffe          BL       bsp_GetAdScanValue
+000b3a  4933              LDR      r1,|L2.3080|
+000b3c  7a09              LDRB     r1,[r1,#8]            ;396  ; detectAct
+000b3e  220a              MOVS     r2,#0xa               ;396
+000b40  fb91f3f2          SDIV     r3,r1,r2              ;396
+000b44  fb021113          MLS      r1,r2,r3,r1           ;396
+000b48  4a2e              LDR      r2,|L2.3076|
+000b4a  eb0201c1          ADD      r1,r2,r1,LSL #3       ;396
+000b4e  6048              STR      r0,[r1,#4]            ;396
+000b50  482d              LDR      r0,|L2.3080|
+000b52  7a00              LDRB     r0,[r0,#8]            ;397  ; detectAct
+000b54  210a              MOVS     r1,#0xa               ;397
+000b56  fb90f2f1          SDIV     r2,r0,r1              ;397
+000b5a  fb010012          MLS      r0,r1,r2,r0           ;397
+000b5e  492b              LDR      r1,|L2.3084|
+000b60  eb010040          ADD      r0,r1,r0,LSL #1       ;397
+000b64  7844              LDRB     r4,[r0,#1]            ;397
+000b66  2101              MOVS     r1,#1                 ;397
+000b68  4620              MOV      r0,r4                 ;397
+000b6a  f7fffffe          BL       bsp_AWSetPinVal
+000b6e  4926              LDR      r1,|L2.3080|
+000b70  784d              LDRB     r5,[r1,#1]            ;399  ; detectAct
+000b72  eb0571d5          ADD      r1,r5,r5,LSR #31      ;399
+000b76  1049              ASRS     r1,r1,#1              ;399
+000b78  4a22              LDR      r2,|L2.3076|
+000b7a  eb0201c1          ADD      r1,r2,r1,LSL #3       ;399
+000b7e  6848              LDR      r0,[r1,#4]            ;399
+000b80  f04f517e          MOV      r1,#0x3f800000        ;399
+000b84  f7fffffe          BL       __aeabi_cfrcmple
+000b88  d801              BHI      |L2.2958|
+000b8a  2000              MOVS     r0,#0                 ;399
+000b8c  e007              B        |L2.2974|
+                  |L2.2958|
+000b8e  481e              LDR      r0,|L2.3080|
+000b90  7844              LDRB     r4,[r0,#1]            ;399  ; detectAct
+000b92  eb0470d4          ADD      r0,r4,r4,LSR #31      ;399
+000b96  1040              ASRS     r0,r0,#1              ;399
+000b98  491a              LDR      r1,|L2.3076|
+000b9a  f8510030          LDR      r0,[r1,r0,LSL #3]     ;399
+                  |L2.2974|
+000b9e  491a              LDR      r1,|L2.3080|
+000ba0  7a09              LDRB     r1,[r1,#8]            ;399  ; detectAct
+000ba2  220a              MOVS     r2,#0xa               ;399
+000ba4  fb91f3f2          SDIV     r3,r1,r2              ;399
+000ba8  fb021113          MLS      r1,r2,r3,r1           ;399
+000bac  4a18              LDR      r2,|L2.3088|
+000bae  f8420021          STR      r0,[r2,r1,LSL #2]     ;399
+000bb2  4915              LDR      r1,|L2.3080|
+000bb4  784c              LDRB     r4,[r1,#1]            ;400  ; detectAct
+000bb6  eb0471d4          ADD      r1,r4,r4,LSR #31      ;400
+000bba  1049              ASRS     r1,r1,#1              ;400
+000bbc  4a11              LDR      r2,|L2.3076|
+000bbe  eb0201c1          ADD      r1,r2,r1,LSL #3       ;400
+000bc2  6848              LDR      r0,[r1,#4]            ;400
+000bc4  f04f517e          MOV      r1,#0x3f800000        ;400
+000bc8  f7fffffe          BL       __aeabi_cfrcmple
+000bcc  d802              BHI      |L2.3028|
+000bce  2001              MOVS     r0,#1                 ;400
+000bd0  e001              B        |L2.3030|
+                  |L2.3026|
+000bd2  e016              B        |L2.3074|
+                  |L2.3028|
+000bd4  2000              MOVS     r0,#0                 ;400
+                  |L2.3030|
+000bd6  490c              LDR      r1,|L2.3080|
+000bd8  7a09              LDRB     r1,[r1,#8]            ;400  ; detectAct
+000bda  220a              MOVS     r2,#0xa               ;400
+000bdc  fb91f3f2          SDIV     r3,r1,r2              ;400
+000be0  fb021113          MLS      r1,r2,r3,r1           ;400
+000be4  4a0b              LDR      r2,|L2.3092|
+000be6  5450              STRB     r0,[r2,r1]            ;400
+000be8  4807              LDR      r0,|L2.3080|
+000bea  7a00              LDRB     r0,[r0,#8]            ;401  ; detectAct
+000bec  1c40              ADDS     r0,r0,#1              ;401
+000bee  4906              LDR      r1,|L2.3080|
+000bf0  7208              STRB     r0,[r1,#8]            ;401
+000bf2  f7fffffe          BL       xTaskGetTickCount
+000bf6  4904              LDR      r1,|L2.3080|
+000bf8  6048              STR      r0,[r1,#4]            ;403  ; detectAct
+000bfa  4608              MOV      r0,r1                 ;404
+000bfc  7840              LDRB     r0,[r0,#1]            ;404  ; detectAct
+000bfe  1c40              ADDS     r0,r0,#1              ;404
+000c00  7048              STRB     r0,[r1,#1]            ;404
+                  |L2.3074|
+000c02  e16e              B        |L2.3810|
+                  |L2.3076|
                           DCD      adcContrast
-                  |L2.3096|
+                  |L2.3080|
                           DCD      detectAct
-                  |L2.3100|
+                  |L2.3084|
                           DCD      PinMap
-                  |L2.3104|
+                  |L2.3088|
                           DCD      adcRealTime
-                  |L2.3108|
+                  |L2.3092|
                           DCD      adcIsSunlight
-000c28  f7fffffe          BL       xTaskGetTickCount
-000c2c  49b4              LDR      r1,|L2.3840|
-000c2e  6849              LDR      r1,[r1,#4]            ;411  ; detectAct
-000c30  1a40              SUBS     r0,r0,r1              ;411
-000c32  2807              CMP      r0,#7                 ;411
-000c34  d316              BCC      |L2.3172|
-000c36  48b2              LDR      r0,|L2.3840|
-000c38  7a00              LDRB     r0,[r0,#8]            ;413  ; detectAct
-000c3a  210a              MOVS     r1,#0xa               ;413
-000c3c  fb90f2f1          SDIV     r2,r0,r1              ;413
-000c40  fb010012          MLS      r0,r1,r2,r0           ;413
-000c44  49af              LDR      r1,|L2.3844|
-000c46  eb010040          ADD      r0,r1,r0,LSL #1       ;413
-000c4a  7844              LDRB     r4,[r0,#1]            ;413
-000c4c  2100              MOVS     r1,#0                 ;413
-000c4e  4620              MOV      r0,r4                 ;413
-000c50  f7fffffe          BL       bsp_AWSetPinVal
+000c18  f7fffffe          BL       xTaskGetTickCount
+000c1c  49b3              LDR      r1,|L2.3820|
+000c1e  6849              LDR      r1,[r1,#4]            ;411  ; detectAct
+000c20  1a40              SUBS     r0,r0,r1              ;411
+000c22  d016              BEQ      |L2.3154|
+000c24  48b1              LDR      r0,|L2.3820|
+000c26  7a00              LDRB     r0,[r0,#8]            ;413  ; detectAct
+000c28  210a              MOVS     r1,#0xa               ;413
+000c2a  fb90f2f1          SDIV     r2,r0,r1              ;413
+000c2e  fb010012          MLS      r0,r1,r2,r0           ;413
+000c32  49af              LDR      r1,|L2.3824|
+000c34  eb010040          ADD      r0,r1,r0,LSL #1       ;413
+000c38  7844              LDRB     r4,[r0,#1]            ;413
+000c3a  2100              MOVS     r1,#0                 ;413
+000c3c  4620              MOV      r0,r4                 ;413
+000c3e  f7fffffe          BL       bsp_AWSetPinVal
+000c42  f7fffffe          BL       xTaskGetTickCount
+000c46  49a9              LDR      r1,|L2.3820|
+000c48  6048              STR      r0,[r1,#4]            ;414  ; detectAct
+000c4a  4608              MOV      r0,r1                 ;415
+000c4c  7840              LDRB     r0,[r0,#1]            ;415  ; detectAct
+000c4e  1c40              ADDS     r0,r0,#1              ;415
+000c50  7048              STRB     r0,[r1,#1]            ;415
+                  |L2.3154|
+000c52  e146              B        |L2.3810|
 000c54  f7fffffe          BL       xTaskGetTickCount
-000c58  49a9              LDR      r1,|L2.3840|
-000c5a  6048              STR      r0,[r1,#4]            ;414  ; detectAct
-000c5c  4608              MOV      r0,r1                 ;415
-000c5e  7840              LDRB     r0,[r0,#1]            ;415  ; detectAct
-000c60  1c40              ADDS     r0,r0,#1              ;415
-000c62  7048              STRB     r0,[r1,#1]            ;415
-                  |L2.3172|
-000c64  e148              B        |L2.3832|
-000c66  f7fffffe          BL       xTaskGetTickCount
-000c6a  49a5              LDR      r1,|L2.3840|
-000c6c  6849              LDR      r1,[r1,#4]            ;421  ; detectAct
-000c6e  1a40              SUBS     r0,r0,r1              ;421
-000c70  2803              CMP      r0,#3                 ;421
-000c72  d37d              BCC      |L2.3440|
-000c74  2078              MOVS     r0,#0x78              ;424
-000c76  f7fffffe          BL       bsp_DelayUS
-000c7a  f7fffffe          BL       bsp_GetAdScanValue
-000c7e  49a0              LDR      r1,|L2.3840|
-000c80  7a09              LDRB     r1,[r1,#8]            ;425  ; detectAct
-000c82  220a              MOVS     r2,#0xa               ;425
-000c84  fb91f3f2          SDIV     r3,r1,r2              ;425
-000c88  fb021113          MLS      r1,r2,r3,r1           ;425
-000c8c  4a9e              LDR      r2,|L2.3848|
-000c8e  f8420031          STR      r0,[r2,r1,LSL #3]     ;425
-000c92  489b              LDR      r0,|L2.3840|
-000c94  7a00              LDRB     r0,[r0,#8]            ;426  ; detectAct
-000c96  210a              MOVS     r1,#0xa               ;426
-000c98  fb90f2f1          SDIV     r2,r0,r1              ;426
-000c9c  fb010012          MLS      r0,r1,r2,r0           ;426
-000ca0  4998              LDR      r1,|L2.3844|
-000ca2  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;426
-000ca6  2101              MOVS     r1,#1                 ;426
-000ca8  4620              MOV      r0,r4                 ;426
-000caa  f7fffffe          BL       bsp_AWSetPinVal
-000cae  2014              MOVS     r0,#0x14              ;427
-000cb0  f7fffffe          BL       bsp_DelayUS
-000cb4  f7fffffe          BL       bsp_GetAdScanValue
-000cb8  4991              LDR      r1,|L2.3840|
-000cba  7a09              LDRB     r1,[r1,#8]            ;428  ; detectAct
-000cbc  220a              MOVS     r2,#0xa               ;428
-000cbe  fb91f3f2          SDIV     r3,r1,r2              ;428
-000cc2  fb021113          MLS      r1,r2,r3,r1           ;428
-000cc6  4a90              LDR      r2,|L2.3848|
-000cc8  eb0201c1          ADD      r1,r2,r1,LSL #3       ;428
-000ccc  6048              STR      r0,[r1,#4]            ;428
-000cce  488c              LDR      r0,|L2.3840|
-000cd0  7a00              LDRB     r0,[r0,#8]            ;429  ; detectAct
-000cd2  210a              MOVS     r1,#0xa               ;429
-000cd4  fb90f2f1          SDIV     r2,r0,r1              ;429
-000cd8  fb010012          MLS      r0,r1,r2,r0           ;429
-000cdc  4989              LDR      r1,|L2.3844|
-000cde  eb010040          ADD      r0,r1,r0,LSL #1       ;429
-000ce2  7844              LDRB     r4,[r0,#1]            ;429
-000ce4  2101              MOVS     r1,#1                 ;429
-000ce6  4620              MOV      r0,r4                 ;429
-000ce8  f7fffffe          BL       bsp_AWSetPinVal
-000cec  4984              LDR      r1,|L2.3840|
-000cee  784d              LDRB     r5,[r1,#1]            ;431  ; detectAct
-000cf0  eb0571d5          ADD      r1,r5,r5,LSR #31      ;431
-000cf4  1049              ASRS     r1,r1,#1              ;431
-000cf6  4a84              LDR      r2,|L2.3848|
-000cf8  eb0201c1          ADD      r1,r2,r1,LSL #3       ;431
-000cfc  6848              LDR      r0,[r1,#4]            ;431
-000cfe  f04f517e          MOV      r1,#0x3f800000        ;431
-000d02  f7fffffe          BL       __aeabi_cfrcmple
-000d06  d801              BHI      |L2.3340|
-000d08  2000              MOVS     r0,#0                 ;431
-000d0a  e007              B        |L2.3356|
-                  |L2.3340|
-000d0c  487c              LDR      r0,|L2.3840|
-000d0e  7844              LDRB     r4,[r0,#1]            ;431  ; detectAct
-000d10  eb0470d4          ADD      r0,r4,r4,LSR #31      ;431
-000d14  1040              ASRS     r0,r0,#1              ;431
-000d16  497c              LDR      r1,|L2.3848|
-000d18  f8510030          LDR      r0,[r1,r0,LSL #3]     ;431
-                  |L2.3356|
-000d1c  4978              LDR      r1,|L2.3840|
-000d1e  7a09              LDRB     r1,[r1,#8]            ;431  ; detectAct
-000d20  220a              MOVS     r2,#0xa               ;431
-000d22  fb91f3f2          SDIV     r3,r1,r2              ;431
-000d26  fb021113          MLS      r1,r2,r3,r1           ;431
-000d2a  4a78              LDR      r2,|L2.3852|
-000d2c  f8420021          STR      r0,[r2,r1,LSL #2]     ;431
-000d30  4973              LDR      r1,|L2.3840|
-000d32  784c              LDRB     r4,[r1,#1]            ;432  ; detectAct
-000d34  eb0471d4          ADD      r1,r4,r4,LSR #31      ;432
-000d38  1049              ASRS     r1,r1,#1              ;432
-000d3a  4a73              LDR      r2,|L2.3848|
-000d3c  eb0201c1          ADD      r1,r2,r1,LSL #3       ;432
-000d40  6848              LDR      r0,[r1,#4]            ;432
-000d42  f04f517e          MOV      r1,#0x3f800000        ;432
-000d46  f7fffffe          BL       __aeabi_cfrcmple
-000d4a  d801              BHI      |L2.3408|
-000d4c  2001              MOVS     r0,#1                 ;432
-000d4e  e000              B        |L2.3410|
-                  |L2.3408|
-000d50  2000              MOVS     r0,#0                 ;432
-                  |L2.3410|
-000d52  496b              LDR      r1,|L2.3840|
-000d54  7a09              LDRB     r1,[r1,#8]            ;432  ; detectAct
-000d56  220a              MOVS     r2,#0xa               ;432
-000d58  fb91f3f2          SDIV     r3,r1,r2              ;432
-000d5c  fb021113          MLS      r1,r2,r3,r1           ;432
-000d60  4a6b              LDR      r2,|L2.3856|
-000d62  5450              STRB     r0,[r2,r1]            ;432
-000d64  4866              LDR      r0,|L2.3840|
-000d66  7a00              LDRB     r0,[r0,#8]            ;433  ; detectAct
-000d68  1c40              ADDS     r0,r0,#1              ;433
-000d6a  4965              LDR      r1,|L2.3840|
-000d6c  7208              STRB     r0,[r1,#8]            ;433
-000d6e  e000              B        |L2.3442|
+000c58  49a4              LDR      r1,|L2.3820|
+000c5a  6849              LDR      r1,[r1,#4]            ;421  ; detectAct
+000c5c  1a40              SUBS     r0,r0,r1              ;421
+000c5e  2803              CMP      r0,#3                 ;421
+000c60  d37d              BCC      |L2.3422|
+000c62  2078              MOVS     r0,#0x78              ;424
+000c64  f7fffffe          BL       bsp_DelayUS
+000c68  f7fffffe          BL       bsp_GetAdScanValue
+000c6c  499f              LDR      r1,|L2.3820|
+000c6e  7a09              LDRB     r1,[r1,#8]            ;425  ; detectAct
+000c70  220a              MOVS     r2,#0xa               ;425
+000c72  fb91f3f2          SDIV     r3,r1,r2              ;425
+000c76  fb021113          MLS      r1,r2,r3,r1           ;425
+000c7a  4a9e              LDR      r2,|L2.3828|
+000c7c  f8420031          STR      r0,[r2,r1,LSL #3]     ;425
+000c80  489a              LDR      r0,|L2.3820|
+000c82  7a00              LDRB     r0,[r0,#8]            ;426  ; detectAct
+000c84  210a              MOVS     r1,#0xa               ;426
+000c86  fb90f2f1          SDIV     r2,r0,r1              ;426
+000c8a  fb010012          MLS      r0,r1,r2,r0           ;426
+000c8e  4998              LDR      r1,|L2.3824|
+000c90  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;426
+000c94  2101              MOVS     r1,#1                 ;426
+000c96  4620              MOV      r0,r4                 ;426
+000c98  f7fffffe          BL       bsp_AWSetPinVal
+000c9c  2014              MOVS     r0,#0x14              ;427
+000c9e  f7fffffe          BL       bsp_DelayUS
+000ca2  f7fffffe          BL       bsp_GetAdScanValue
+000ca6  4991              LDR      r1,|L2.3820|
+000ca8  7a09              LDRB     r1,[r1,#8]            ;428  ; detectAct
+000caa  220a              MOVS     r2,#0xa               ;428
+000cac  fb91f3f2          SDIV     r3,r1,r2              ;428
+000cb0  fb021113          MLS      r1,r2,r3,r1           ;428
+000cb4  4a8f              LDR      r2,|L2.3828|
+000cb6  eb0201c1          ADD      r1,r2,r1,LSL #3       ;428
+000cba  6048              STR      r0,[r1,#4]            ;428
+000cbc  488b              LDR      r0,|L2.3820|
+000cbe  7a00              LDRB     r0,[r0,#8]            ;429  ; detectAct
+000cc0  210a              MOVS     r1,#0xa               ;429
+000cc2  fb90f2f1          SDIV     r2,r0,r1              ;429
+000cc6  fb010012          MLS      r0,r1,r2,r0           ;429
+000cca  4989              LDR      r1,|L2.3824|
+000ccc  eb010040          ADD      r0,r1,r0,LSL #1       ;429
+000cd0  7844              LDRB     r4,[r0,#1]            ;429
+000cd2  2101              MOVS     r1,#1                 ;429
+000cd4  4620              MOV      r0,r4                 ;429
+000cd6  f7fffffe          BL       bsp_AWSetPinVal
+000cda  4984              LDR      r1,|L2.3820|
+000cdc  784d              LDRB     r5,[r1,#1]            ;431  ; detectAct
+000cde  eb0571d5          ADD      r1,r5,r5,LSR #31      ;431
+000ce2  1049              ASRS     r1,r1,#1              ;431
+000ce4  4a83              LDR      r2,|L2.3828|
+000ce6  eb0201c1          ADD      r1,r2,r1,LSL #3       ;431
+000cea  6848              LDR      r0,[r1,#4]            ;431
+000cec  f04f517e          MOV      r1,#0x3f800000        ;431
+000cf0  f7fffffe          BL       __aeabi_cfrcmple
+000cf4  d801              BHI      |L2.3322|
+000cf6  2000              MOVS     r0,#0                 ;431
+000cf8  e007              B        |L2.3338|
+                  |L2.3322|
+000cfa  487c              LDR      r0,|L2.3820|
+000cfc  7844              LDRB     r4,[r0,#1]            ;431  ; detectAct
+000cfe  eb0470d4          ADD      r0,r4,r4,LSR #31      ;431
+000d02  1040              ASRS     r0,r0,#1              ;431
+000d04  497b              LDR      r1,|L2.3828|
+000d06  f8510030          LDR      r0,[r1,r0,LSL #3]     ;431
+                  |L2.3338|
+000d0a  4978              LDR      r1,|L2.3820|
+000d0c  7a09              LDRB     r1,[r1,#8]            ;431  ; detectAct
+000d0e  220a              MOVS     r2,#0xa               ;431
+000d10  fb91f3f2          SDIV     r3,r1,r2              ;431
+000d14  fb021113          MLS      r1,r2,r3,r1           ;431
+000d18  4a77              LDR      r2,|L2.3832|
+000d1a  f8420021          STR      r0,[r2,r1,LSL #2]     ;431
+000d1e  4973              LDR      r1,|L2.3820|
+000d20  784c              LDRB     r4,[r1,#1]            ;432  ; detectAct
+000d22  eb0471d4          ADD      r1,r4,r4,LSR #31      ;432
+000d26  1049              ASRS     r1,r1,#1              ;432
+000d28  4a72              LDR      r2,|L2.3828|
+000d2a  eb0201c1          ADD      r1,r2,r1,LSL #3       ;432
+000d2e  6848              LDR      r0,[r1,#4]            ;432
+000d30  f04f517e          MOV      r1,#0x3f800000        ;432
+000d34  f7fffffe          BL       __aeabi_cfrcmple
+000d38  d801              BHI      |L2.3390|
+000d3a  2001              MOVS     r0,#1                 ;432
+000d3c  e000              B        |L2.3392|
+                  |L2.3390|
+000d3e  2000              MOVS     r0,#0                 ;432
+                  |L2.3392|
+000d40  496a              LDR      r1,|L2.3820|
+000d42  7a09              LDRB     r1,[r1,#8]            ;432  ; detectAct
+000d44  220a              MOVS     r2,#0xa               ;432
+000d46  fb91f3f2          SDIV     r3,r1,r2              ;432
+000d4a  fb021113          MLS      r1,r2,r3,r1           ;432
+000d4e  4a6b              LDR      r2,|L2.3836|
+000d50  5450              STRB     r0,[r2,r1]            ;432
+000d52  4866              LDR      r0,|L2.3820|
+000d54  7a00              LDRB     r0,[r0,#8]            ;433  ; detectAct
+000d56  1c40              ADDS     r0,r0,#1              ;433
+000d58  4964              LDR      r1,|L2.3820|
+000d5a  7208              STRB     r0,[r1,#8]            ;433
+000d5c  e000              B        |L2.3424|
+                  |L2.3422|
+000d5e  e007              B        |L2.3440|
+                  |L2.3424|
+000d60  f7fffffe          BL       xTaskGetTickCount
+000d64  4961              LDR      r1,|L2.3820|
+000d66  6048              STR      r0,[r1,#4]            ;435  ; detectAct
+000d68  4608              MOV      r0,r1                 ;436
+000d6a  7840              LDRB     r0,[r0,#1]            ;436  ; detectAct
+000d6c  1c40              ADDS     r0,r0,#1              ;436
+000d6e  7048              STRB     r0,[r1,#1]            ;436
                   |L2.3440|
-000d70  e007              B        |L2.3458|
-                  |L2.3442|
+000d70  e0b7              B        |L2.3810|
 000d72  f7fffffe          BL       xTaskGetTickCount
-000d76  4962              LDR      r1,|L2.3840|
-000d78  6048              STR      r0,[r1,#4]            ;435  ; detectAct
-000d7a  4608              MOV      r0,r1                 ;436
-000d7c  7840              LDRB     r0,[r0,#1]            ;436  ; detectAct
-000d7e  1c40              ADDS     r0,r0,#1              ;436
-000d80  7048              STRB     r0,[r1,#1]            ;436
-                  |L2.3458|
-000d82  e0b9              B        |L2.3832|
-000d84  f7fffffe          BL       xTaskGetTickCount
-000d88  495d              LDR      r1,|L2.3840|
-000d8a  6849              LDR      r1,[r1,#4]            ;444  ; detectAct
-000d8c  1a40              SUBS     r0,r0,r1              ;444
-000d8e  2807              CMP      r0,#7                 ;444
-000d90  d316              BCC      |L2.3520|
-000d92  485b              LDR      r0,|L2.3840|
-000d94  7a00              LDRB     r0,[r0,#8]            ;446  ; detectAct
-000d96  210a              MOVS     r1,#0xa               ;446
-000d98  fb90f2f1          SDIV     r2,r0,r1              ;446
-000d9c  fb010012          MLS      r0,r1,r2,r0           ;446
-000da0  4958              LDR      r1,|L2.3844|
-000da2  eb010040          ADD      r0,r1,r0,LSL #1       ;446
-000da6  7844              LDRB     r4,[r0,#1]            ;446
-000da8  2100              MOVS     r1,#0                 ;446
-000daa  4620              MOV      r0,r4                 ;446
-000dac  f7fffffe          BL       bsp_AWSetPinVal
-000db0  f7fffffe          BL       xTaskGetTickCount
-000db4  4952              LDR      r1,|L2.3840|
-000db6  6048              STR      r0,[r1,#4]            ;447  ; detectAct
-000db8  4608              MOV      r0,r1                 ;448
-000dba  7840              LDRB     r0,[r0,#1]            ;448  ; detectAct
-000dbc  1c40              ADDS     r0,r0,#1              ;448
-000dbe  7048              STRB     r0,[r1,#1]            ;448
-                  |L2.3520|
-000dc0  e09a              B        |L2.3832|
-000dc2  f7fffffe          BL       xTaskGetTickCount
-000dc6  494e              LDR      r1,|L2.3840|
-000dc8  6849              LDR      r1,[r1,#4]            ;454  ; detectAct
-000dca  1a40              SUBS     r0,r0,r1              ;454
-000dcc  2803              CMP      r0,#3                 ;454
-000dce  d37d              BCC      |L2.3788|
-000dd0  2078              MOVS     r0,#0x78              ;457
-000dd2  f7fffffe          BL       bsp_DelayUS
-000dd6  f7fffffe          BL       bsp_GetAdScanValue
-000dda  4949              LDR      r1,|L2.3840|
-000ddc  7a09              LDRB     r1,[r1,#8]            ;458  ; detectAct
-000dde  220a              MOVS     r2,#0xa               ;458
-000de0  fb91f3f2          SDIV     r3,r1,r2              ;458
-000de4  fb021113          MLS      r1,r2,r3,r1           ;458
-000de8  4a47              LDR      r2,|L2.3848|
-000dea  f8420031          STR      r0,[r2,r1,LSL #3]     ;458
-000dee  4844              LDR      r0,|L2.3840|
-000df0  7a00              LDRB     r0,[r0,#8]            ;459  ; detectAct
-000df2  210a              MOVS     r1,#0xa               ;459
-000df4  fb90f2f1          SDIV     r2,r0,r1              ;459
-000df8  fb010012          MLS      r0,r1,r2,r0           ;459
-000dfc  4941              LDR      r1,|L2.3844|
-000dfe  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;459
-000e02  2101              MOVS     r1,#1                 ;459
-000e04  4620              MOV      r0,r4                 ;459
-000e06  f7fffffe          BL       bsp_AWSetPinVal
-000e0a  2014              MOVS     r0,#0x14              ;460
-000e0c  f7fffffe          BL       bsp_DelayUS
-000e10  f7fffffe          BL       bsp_GetAdScanValue
-000e14  493a              LDR      r1,|L2.3840|
-000e16  7a09              LDRB     r1,[r1,#8]            ;461  ; detectAct
-000e18  220a              MOVS     r2,#0xa               ;461
-000e1a  fb91f3f2          SDIV     r3,r1,r2              ;461
-000e1e  fb021113          MLS      r1,r2,r3,r1           ;461
-000e22  4a39              LDR      r2,|L2.3848|
-000e24  eb0201c1          ADD      r1,r2,r1,LSL #3       ;461
-000e28  6048              STR      r0,[r1,#4]            ;461
-000e2a  4835              LDR      r0,|L2.3840|
-000e2c  7a00              LDRB     r0,[r0,#8]            ;462  ; detectAct
-000e2e  210a              MOVS     r1,#0xa               ;462
-000e30  fb90f2f1          SDIV     r2,r0,r1              ;462
-000e34  fb010012          MLS      r0,r1,r2,r0           ;462
-000e38  4932              LDR      r1,|L2.3844|
-000e3a  eb010040          ADD      r0,r1,r0,LSL #1       ;462
-000e3e  7844              LDRB     r4,[r0,#1]            ;462
-000e40  2101              MOVS     r1,#1                 ;462
-000e42  4620              MOV      r0,r4                 ;462
-000e44  f7fffffe          BL       bsp_AWSetPinVal
-000e48  492d              LDR      r1,|L2.3840|
-000e4a  784d              LDRB     r5,[r1,#1]            ;464  ; detectAct
-000e4c  eb0571d5          ADD      r1,r5,r5,LSR #31      ;464
-000e50  1049              ASRS     r1,r1,#1              ;464
-000e52  4a2d              LDR      r2,|L2.3848|
-000e54  eb0201c1          ADD      r1,r2,r1,LSL #3       ;464
-000e58  6848              LDR      r0,[r1,#4]            ;464
-000e5a  f04f517e          MOV      r1,#0x3f800000        ;464
-000e5e  f7fffffe          BL       __aeabi_cfrcmple
-000e62  d801              BHI      |L2.3688|
-000e64  2000              MOVS     r0,#0                 ;464
-000e66  e007              B        |L2.3704|
-                  |L2.3688|
-000e68  4825              LDR      r0,|L2.3840|
-000e6a  7844              LDRB     r4,[r0,#1]            ;464  ; detectAct
-000e6c  eb0470d4          ADD      r0,r4,r4,LSR #31      ;464
-000e70  1040              ASRS     r0,r0,#1              ;464
-000e72  4925              LDR      r1,|L2.3848|
-000e74  f8510030          LDR      r0,[r1,r0,LSL #3]     ;464
-                  |L2.3704|
-000e78  4921              LDR      r1,|L2.3840|
-000e7a  7a09              LDRB     r1,[r1,#8]            ;464  ; detectAct
-000e7c  220a              MOVS     r2,#0xa               ;464
-000e7e  fb91f3f2          SDIV     r3,r1,r2              ;464
-000e82  fb021113          MLS      r1,r2,r3,r1           ;464
-000e86  4a21              LDR      r2,|L2.3852|
-000e88  f8420021          STR      r0,[r2,r1,LSL #2]     ;464
-000e8c  491c              LDR      r1,|L2.3840|
-000e8e  784c              LDRB     r4,[r1,#1]            ;465  ; detectAct
-000e90  eb0471d4          ADD      r1,r4,r4,LSR #31      ;465
-000e94  1049              ASRS     r1,r1,#1              ;465
-000e96  4a1c              LDR      r2,|L2.3848|
-000e98  eb0201c1          ADD      r1,r2,r1,LSL #3       ;465
-000e9c  6848              LDR      r0,[r1,#4]            ;465
-000e9e  f04f517e          MOV      r1,#0x3f800000        ;465
-000ea2  f7fffffe          BL       __aeabi_cfrcmple
-000ea6  d801              BHI      |L2.3756|
-000ea8  2001              MOVS     r0,#1                 ;465
-000eaa  e000              B        |L2.3758|
-                  |L2.3756|
-000eac  2000              MOVS     r0,#0                 ;465
-                  |L2.3758|
-000eae  4914              LDR      r1,|L2.3840|
-000eb0  7a09              LDRB     r1,[r1,#8]            ;465  ; detectAct
-000eb2  220a              MOVS     r2,#0xa               ;465
-000eb4  fb91f3f2          SDIV     r3,r1,r2              ;465
-000eb8  fb021113          MLS      r1,r2,r3,r1           ;465
-000ebc  4a14              LDR      r2,|L2.3856|
-000ebe  5450              STRB     r0,[r2,r1]            ;465
-000ec0  480f              LDR      r0,|L2.3840|
-000ec2  7a00              LDRB     r0,[r0,#8]            ;466  ; detectAct
-000ec4  1c40              ADDS     r0,r0,#1              ;466
-000ec6  490e              LDR      r1,|L2.3840|
-000ec8  7208              STRB     r0,[r1,#8]            ;466
-000eca  e000              B        |L2.3790|
-                  |L2.3788|
-000ecc  e007              B        |L2.3806|
-                  |L2.3790|
-000ece  f7fffffe          BL       xTaskGetTickCount
-000ed2  490b              LDR      r1,|L2.3840|
-000ed4  6048              STR      r0,[r1,#4]            ;468  ; detectAct
-000ed6  4608              MOV      r0,r1                 ;469
-000ed8  7840              LDRB     r0,[r0,#1]            ;469  ; detectAct
-000eda  1c40              ADDS     r0,r0,#1              ;469
-000edc  7048              STRB     r0,[r1,#1]            ;469
-                  |L2.3806|
-000ede  e00b              B        |L2.3832|
-000ee0  f7fffffe          BL       xTaskGetTickCount
-000ee4  4906              LDR      r1,|L2.3840|
-000ee6  6849              LDR      r1,[r1,#4]            ;475  ; detectAct
-000ee8  1a40              SUBS     r0,r0,r1              ;475
-000eea  2807              CMP      r0,#7                 ;475
-000eec  d303              BCC      |L2.3830|
-000eee  2000              MOVS     r0,#0                 ;477
-000ef0  4903              LDR      r1,|L2.3840|
-000ef2  7048              STRB     r0,[r1,#1]            ;477
-000ef4  7208              STRB     r0,[r1,#8]            ;478
-                  |L2.3830|
-000ef6  bf00              NOP                            ;480
-                  |L2.3832|
-000ef8  bf00              NOP                            ;161
-000efa  bf00              NOP      
-000efc  f7ffb884          B        |L2.8|
+000d76  495d              LDR      r1,|L2.3820|
+000d78  6849              LDR      r1,[r1,#4]            ;444  ; detectAct
+000d7a  1a40              SUBS     r0,r0,r1              ;444
+000d7c  d016              BEQ      |L2.3500|
+000d7e  485b              LDR      r0,|L2.3820|
+000d80  7a00              LDRB     r0,[r0,#8]            ;446  ; detectAct
+000d82  210a              MOVS     r1,#0xa               ;446
+000d84  fb90f2f1          SDIV     r2,r0,r1              ;446
+000d88  fb010012          MLS      r0,r1,r2,r0           ;446
+000d8c  4958              LDR      r1,|L2.3824|
+000d8e  eb010040          ADD      r0,r1,r0,LSL #1       ;446
+000d92  7844              LDRB     r4,[r0,#1]            ;446
+000d94  2100              MOVS     r1,#0                 ;446
+000d96  4620              MOV      r0,r4                 ;446
+000d98  f7fffffe          BL       bsp_AWSetPinVal
+000d9c  f7fffffe          BL       xTaskGetTickCount
+000da0  4952              LDR      r1,|L2.3820|
+000da2  6048              STR      r0,[r1,#4]            ;447  ; detectAct
+000da4  4608              MOV      r0,r1                 ;448
+000da6  7840              LDRB     r0,[r0,#1]            ;448  ; detectAct
+000da8  1c40              ADDS     r0,r0,#1              ;448
+000daa  7048              STRB     r0,[r1,#1]            ;448
+                  |L2.3500|
+000dac  e099              B        |L2.3810|
+000dae  f7fffffe          BL       xTaskGetTickCount
+000db2  494e              LDR      r1,|L2.3820|
+000db4  6849              LDR      r1,[r1,#4]            ;454  ; detectAct
+000db6  1a40              SUBS     r0,r0,r1              ;454
+000db8  2803              CMP      r0,#3                 ;454
+000dba  d37d              BCC      |L2.3768|
+000dbc  2078              MOVS     r0,#0x78              ;457
+000dbe  f7fffffe          BL       bsp_DelayUS
+000dc2  f7fffffe          BL       bsp_GetAdScanValue
+000dc6  4949              LDR      r1,|L2.3820|
+000dc8  7a09              LDRB     r1,[r1,#8]            ;458  ; detectAct
+000dca  220a              MOVS     r2,#0xa               ;458
+000dcc  fb91f3f2          SDIV     r3,r1,r2              ;458
+000dd0  fb021113          MLS      r1,r2,r3,r1           ;458
+000dd4  4a47              LDR      r2,|L2.3828|
+000dd6  f8420031          STR      r0,[r2,r1,LSL #3]     ;458
+000dda  4844              LDR      r0,|L2.3820|
+000ddc  7a00              LDRB     r0,[r0,#8]            ;459  ; detectAct
+000dde  210a              MOVS     r1,#0xa               ;459
+000de0  fb90f2f1          SDIV     r2,r0,r1              ;459
+000de4  fb010012          MLS      r0,r1,r2,r0           ;459
+000de8  4941              LDR      r1,|L2.3824|
+000dea  f8114010          LDRB     r4,[r1,r0,LSL #1]     ;459
+000dee  2101              MOVS     r1,#1                 ;459
+000df0  4620              MOV      r0,r4                 ;459
+000df2  f7fffffe          BL       bsp_AWSetPinVal
+000df6  2014              MOVS     r0,#0x14              ;460
+000df8  f7fffffe          BL       bsp_DelayUS
+000dfc  f7fffffe          BL       bsp_GetAdScanValue
+000e00  493a              LDR      r1,|L2.3820|
+000e02  7a09              LDRB     r1,[r1,#8]            ;461  ; detectAct
+000e04  220a              MOVS     r2,#0xa               ;461
+000e06  fb91f3f2          SDIV     r3,r1,r2              ;461
+000e0a  fb021113          MLS      r1,r2,r3,r1           ;461
+000e0e  4a39              LDR      r2,|L2.3828|
+000e10  eb0201c1          ADD      r1,r2,r1,LSL #3       ;461
+000e14  6048              STR      r0,[r1,#4]            ;461
+000e16  4835              LDR      r0,|L2.3820|
+000e18  7a00              LDRB     r0,[r0,#8]            ;462  ; detectAct
+000e1a  210a              MOVS     r1,#0xa               ;462
+000e1c  fb90f2f1          SDIV     r2,r0,r1              ;462
+000e20  fb010012          MLS      r0,r1,r2,r0           ;462
+000e24  4932              LDR      r1,|L2.3824|
+000e26  eb010040          ADD      r0,r1,r0,LSL #1       ;462
+000e2a  7844              LDRB     r4,[r0,#1]            ;462
+000e2c  2101              MOVS     r1,#1                 ;462
+000e2e  4620              MOV      r0,r4                 ;462
+000e30  f7fffffe          BL       bsp_AWSetPinVal
+000e34  492d              LDR      r1,|L2.3820|
+000e36  784d              LDRB     r5,[r1,#1]            ;464  ; detectAct
+000e38  eb0571d5          ADD      r1,r5,r5,LSR #31      ;464
+000e3c  1049              ASRS     r1,r1,#1              ;464
+000e3e  4a2d              LDR      r2,|L2.3828|
+000e40  eb0201c1          ADD      r1,r2,r1,LSL #3       ;464
+000e44  6848              LDR      r0,[r1,#4]            ;464
+000e46  f04f517e          MOV      r1,#0x3f800000        ;464
+000e4a  f7fffffe          BL       __aeabi_cfrcmple
+000e4e  d801              BHI      |L2.3668|
+000e50  2000              MOVS     r0,#0                 ;464
+000e52  e007              B        |L2.3684|
+                  |L2.3668|
+000e54  4825              LDR      r0,|L2.3820|
+000e56  7844              LDRB     r4,[r0,#1]            ;464  ; detectAct
+000e58  eb0470d4          ADD      r0,r4,r4,LSR #31      ;464
+000e5c  1040              ASRS     r0,r0,#1              ;464
+000e5e  4925              LDR      r1,|L2.3828|
+000e60  f8510030          LDR      r0,[r1,r0,LSL #3]     ;464
+                  |L2.3684|
+000e64  4921              LDR      r1,|L2.3820|
+000e66  7a09              LDRB     r1,[r1,#8]            ;464  ; detectAct
+000e68  220a              MOVS     r2,#0xa               ;464
+000e6a  fb91f3f2          SDIV     r3,r1,r2              ;464
+000e6e  fb021113          MLS      r1,r2,r3,r1           ;464
+000e72  4a21              LDR      r2,|L2.3832|
+000e74  f8420021          STR      r0,[r2,r1,LSL #2]     ;464
+000e78  491c              LDR      r1,|L2.3820|
+000e7a  784c              LDRB     r4,[r1,#1]            ;465  ; detectAct
+000e7c  eb0471d4          ADD      r1,r4,r4,LSR #31      ;465
+000e80  1049              ASRS     r1,r1,#1              ;465
+000e82  4a1c              LDR      r2,|L2.3828|
+000e84  eb0201c1          ADD      r1,r2,r1,LSL #3       ;465
+000e88  6848              LDR      r0,[r1,#4]            ;465
+000e8a  f04f517e          MOV      r1,#0x3f800000        ;465
+000e8e  f7fffffe          BL       __aeabi_cfrcmple
+000e92  d801              BHI      |L2.3736|
+000e94  2001              MOVS     r0,#1                 ;465
+000e96  e000              B        |L2.3738|
+                  |L2.3736|
+000e98  2000              MOVS     r0,#0                 ;465
+                  |L2.3738|
+000e9a  4914              LDR      r1,|L2.3820|
+000e9c  7a09              LDRB     r1,[r1,#8]            ;465  ; detectAct
+000e9e  220a              MOVS     r2,#0xa               ;465
+000ea0  fb91f3f2          SDIV     r3,r1,r2              ;465
+000ea4  fb021113          MLS      r1,r2,r3,r1           ;465
+000ea8  4a14              LDR      r2,|L2.3836|
+000eaa  5450              STRB     r0,[r2,r1]            ;465
+000eac  480f              LDR      r0,|L2.3820|
+000eae  7a00              LDRB     r0,[r0,#8]            ;466  ; detectAct
+000eb0  1c40              ADDS     r0,r0,#1              ;466
+000eb2  490e              LDR      r1,|L2.3820|
+000eb4  7208              STRB     r0,[r1,#8]            ;466
+000eb6  e000              B        |L2.3770|
+                  |L2.3768|
+000eb8  e007              B        |L2.3786|
+                  |L2.3770|
+000eba  f7fffffe          BL       xTaskGetTickCount
+000ebe  490b              LDR      r1,|L2.3820|
+000ec0  6048              STR      r0,[r1,#4]            ;468  ; detectAct
+000ec2  4608              MOV      r0,r1                 ;469
+000ec4  7840              LDRB     r0,[r0,#1]            ;469  ; detectAct
+000ec6  1c40              ADDS     r0,r0,#1              ;469
+000ec8  7048              STRB     r0,[r1,#1]            ;469
+                  |L2.3786|
+000eca  e00a              B        |L2.3810|
+000ecc  f7fffffe          BL       xTaskGetTickCount
+000ed0  4906              LDR      r1,|L2.3820|
+000ed2  6849              LDR      r1,[r1,#4]            ;475  ; detectAct
+000ed4  1a40              SUBS     r0,r0,r1              ;475
+000ed6  d003              BEQ      |L2.3808|
+000ed8  2000              MOVS     r0,#0                 ;477
+000eda  4904              LDR      r1,|L2.3820|
+000edc  7048              STRB     r0,[r1,#1]            ;477
+000ede  7208              STRB     r0,[r1,#8]            ;478
+                  |L2.3808|
+000ee0  bf00              NOP                            ;480
+                  |L2.3810|
+000ee2  bf00              NOP                            ;161
+000ee4  bf00              NOP      
+000ee6  f7ffb88f          B        |L2.8|
 ;;;486    
                           ENDP
 
-                  |L2.3840|
+000eea  0000              DCW      0x0000
+                  |L2.3820|
                           DCD      detectAct
-                  |L2.3844|
+                  |L2.3824|
                           DCD      PinMap
-                  |L2.3848|
+                  |L2.3828|
                           DCD      adcContrast
-                  |L2.3852|
+                  |L2.3832|
                           DCD      adcRealTime
-                  |L2.3856|
+                  |L2.3836|
                           DCD      adcIsSunlight
 
                           AREA ||i.bsp_DetectActTest||, CODE, READONLY, ALIGN=2
@@ -2022,7 +2012,7 @@
 00000a  2801              CMP      r0,#1
 00000c  d019              BEQ      |L3.66|
 00000e  2802              CMP      r0,#2
-000010  d162              BNE      |L3.216|
+000010  d161              BNE      |L3.214|
 000012  e056              B        |L3.194|
                   |L3.20|
 ;;;100    	{
@@ -2050,7 +2040,7 @@
 00003e  7008              STRB     r0,[r1,#0]
 ;;;106    			
 ;;;107    		}break;
-000040  e04a              B        |L3.216|
+000040  e049              B        |L3.214|
                   |L3.66|
 ;;;108    		
 ;;;109    		case 1:
@@ -2116,7 +2106,7 @@
                   |L3.192|
 ;;;124    			}
 ;;;125    		}break;
-0000c0  e00a              B        |L3.216|
+0000c0  e009              B        |L3.214|
                   |L3.194|
 ;;;126    		
 ;;;127    		case 2:
@@ -2126,26 +2116,26 @@
 0000c6  4907              LDR      r1,|L3.228|
 0000c8  6809              LDR      r1,[r1,#0]  ; delay
 0000ca  1a40              SUBS     r0,r0,r1
-0000cc  2807              CMP      r0,#7
-0000ce  d302              BCC      |L3.214|
+0000cc  d002              BEQ      |L3.212|
 ;;;130    			{
 ;;;131    				action = 0 ;
-0000d0  2000              MOVS     r0,#0
-0000d2  4902              LDR      r1,|L3.220|
-0000d4  7008              STRB     r0,[r1,#0]
-                  |L3.214|
+0000ce  2000              MOVS     r0,#0
+0000d0  4902              LDR      r1,|L3.220|
+0000d2  7008              STRB     r0,[r1,#0]
+                  |L3.212|
 ;;;132    			}
 ;;;133    		}break;
-0000d6  bf00              NOP      
-                  |L3.216|
-0000d8  bf00              NOP                            ;107
+0000d4  bf00              NOP      
+                  |L3.214|
+0000d6  bf00              NOP                            ;107
 ;;;134    	}
 ;;;135    	
 ;;;136    }
-0000da  bd70              POP      {r4-r6,pc}
+0000d8  bd70              POP      {r4-r6,pc}
 ;;;137    
                           ENDP
 
+0000da  0000              DCW      0x0000
                   |L3.220|
                           DCD      action
                   |L3.224|
@@ -2156,23 +2146,23 @@
                           AREA ||i.bsp_DetectDeal||, CODE, READONLY, ALIGN=1
 
                   bsp_DetectDeal PROC
-;;;571    
-;;;572    void bsp_DetectDeal(void)
+;;;598    
+;;;599    void bsp_DetectDeal(void)
 000000  2000              MOVS     r0,#0
-;;;573    {
-;;;574    	uint8_t i = 0 ;
-;;;575    	
-;;;576    	UNUSED(i);
-;;;577    
-;;;578    #if 1	
-;;;579    	
-;;;580    	
-;;;581    	
-;;;582    	//如果是前面被挡住了1,2,3,4,5,减速
-;;;583    	
-;;;584    	
-;;;585    	//如果是太阳光射到了，开启全闪烁灯
-;;;586    	for(i=0;i<PIN_MAP_MAX;i++)
+;;;600    {
+;;;601    	uint8_t i = 0 ;
+;;;602    	
+;;;603    	UNUSED(i);
+;;;604    
+;;;605    #if 1	
+;;;606    	
+;;;607    	
+;;;608    	
+;;;609    	//如果是前面被挡住了1,2,3,4,5,减速
+;;;610    	
+;;;611    	
+;;;612    	//如果是太阳光射到了，开启全闪烁灯
+;;;613    	for(i=0;i<PIN_MAP_MAX;i++)
 000002  bf00              NOP      
 000004  e001              B        |L4.10|
                   |L4.6|
@@ -2181,42 +2171,42 @@
                   |L4.10|
 00000a  280a              CMP      r0,#0xa
 00000c  dbfb              BLT      |L4.6|
-;;;587    	{
-;;;588    		if(adcIsSunlight[i])
-;;;589    		{
-;;;590    			
-;;;591    		}
-;;;592    	}
-;;;593    	
-;;;594    	//printf("adcRealTime[9]:%.2f\r\n",adcRealTime[9]);
-;;;595    	
-;;;596    	#define S 6000
-;;;597    	#define A 500
-;;;598    	
-;;;599    	
-;;;600    //	if(adcRealTime[9] >= 1.0F)
-;;;601    //	{
-;;;602    
-;;;603    //		DEBUG("<<<<<<<<<<<<\r\n");
-;;;604    //	}
-;;;605    //	else if(adcRealTime[9] <= 0.7F)
-;;;606    //	{
-;;;607    
-;;;608    //		DEBUG(">>>>>>>>>>>>\r\n");
-;;;609    //	}
-;;;610    //	else
-;;;611    //	{
-;;;612    //		DEBUG("=============\r\n");
-;;;613    //	}
-;;;614    
-;;;615    	
-;;;616    	
-;;;617    #endif
-;;;618    	
-;;;619    	
-;;;620    }
+;;;614    	{
+;;;615    		if(adcIsSunlight[i])
+;;;616    		{
+;;;617    			
+;;;618    		}
+;;;619    	}
+;;;620    	
+;;;621    	//printf("adcRealTime[9]:%.2f\r\n",adcRealTime[9]);
+;;;622    	
+;;;623    	#define S 6000
+;;;624    	#define A 500
+;;;625    	
+;;;626    	
+;;;627    //	if(adcRealTime[9] >= 1.0F)
+;;;628    //	{
+;;;629    
+;;;630    //		DEBUG("<<<<<<<<<<<<\r\n");
+;;;631    //	}
+;;;632    //	else if(adcRealTime[9] <= 0.7F)
+;;;633    //	{
+;;;634    
+;;;635    //		DEBUG(">>>>>>>>>>>>\r\n");
+;;;636    //	}
+;;;637    //	else
+;;;638    //	{
+;;;639    //		DEBUG("=============\r\n");
+;;;640    //	}
+;;;641    
+;;;642    	
+;;;643    	
+;;;644    #endif
+;;;645    	
+;;;646    	
+;;;647    }
 00000e  4770              BX       lr
-;;;621    
+;;;648    
                           ENDP
 
 
@@ -2361,6 +2351,42 @@
                   |L7.120|
                           DCD      0x40533333
 
+                          AREA ||i.bsp_GetInfraredVoltageLeft||, CODE, READONLY, ALIGN=2
+
+                  bsp_GetInfraredVoltageLeft PROC
+;;;579    */
+;;;580    float bsp_GetInfraredVoltageLeft(void)
+000000  4801              LDR      r0,|L8.8|
+;;;581    {
+;;;582    	return adcRealTime[8];
+000002  6a00              LDR      r0,[r0,#0x20]  ; adcRealTime
+;;;583    }
+000004  4770              BX       lr
+;;;584    
+                          ENDP
+
+000006  0000              DCW      0x0000
+                  |L8.8|
+                          DCD      adcRealTime
+
+                          AREA ||i.bsp_GetInfraredVoltageRight||, CODE, READONLY, ALIGN=2
+
+                  bsp_GetInfraredVoltageRight PROC
+;;;592    */
+;;;593    float bsp_GetInfraredVoltageRight(void)
+000000  4801              LDR      r0,|L9.8|
+;;;594    {
+;;;595    	return adcRealTime[9];
+000002  6a40              LDR      r0,[r0,#0x24]  ; adcRealTime
+;;;596    }
+000004  4770              BX       lr
+;;;597    
+                          ENDP
+
+000006  0000              DCW      0x0000
+                  |L9.8|
+                          DCD      adcRealTime
+
                           AREA ||i.bsp_InitDetectAct||, CODE, READONLY, ALIGN=2
 
                   bsp_InitDetectAct PROC
@@ -2376,7 +2402,7 @@
 ;;;50     	
 ;;;51     	detectAct.isRunning = 0 ;
 000006  2000              MOVS     r0,#0
-000008  4903              LDR      r1,|L8.24|
+000008  4903              LDR      r1,|L10.24|
 00000a  7008              STRB     r0,[r1,#0]
 ;;;52     	detectAct.action = 0 ;
 00000c  7048              STRB     r0,[r1,#1]
@@ -2393,7 +2419,7 @@
                           ENDP
 
 000016  0000              DCW      0x0000
-                  |L8.24|
+                  |L10.24|
                           DCD      detectAct
 
                           AREA ||.bss||, DATA, NOINIT, ALIGN=2

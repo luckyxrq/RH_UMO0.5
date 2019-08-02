@@ -483,6 +483,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_IWDG.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_Edgewise.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Edgewise.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
