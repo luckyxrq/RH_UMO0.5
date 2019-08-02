@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5D43B940)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5D43E3CE)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5731823E)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
@@ -21,7 +21,7 @@ I (..\..\FreeRTOS\include\croutine.h)(0x5620F7DA)
 I (..\..\FreeRTOS\include\semphr.h)(0x5620F7DA)
 I (..\..\FreeRTOS\include\event_groups.h)(0x5620F7DA)
 I (..\..\FreeRTOS\include\timers.h)(0x5620F7DA)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x50FD88A6)
 I (..\..\Libraries\CMSIS\Include\core_cm3.h)(0x50FD8897)
 I (..\..\Libraries\CMSIS\Include\core_cmInstr.h)(0x50FD8897)
@@ -66,14 +66,14 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\includes.h)(0x5731823E)()
 F (..\..\User\SysInfoTest.c)(0x56F4F15F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\sysinfotest.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\sysinfotest.crf --depend .\flash\obj\sysinfotest.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -131,14 +131,14 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\FreeRTOSConfig.h)(0x575E3A57)()
 F (..\..\User\app\src\bsp_PowerSwitch.c)(0x5D42C3F1)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_powerswitch.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_powerswitch.crf --depend .\flash\obj\bsp_powerswitch.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -196,13 +196,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\app\src\bsp_DC_Motor.c)(0x5D42DA8E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dc_motor.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_dc_motor.crf --depend .\flash\obj\bsp_dc_motor.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -260,13 +260,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\app\src\bsp_Encoder.c)(0x5D42C421)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_encoder.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_encoder.crf --depend .\flash\obj\bsp_encoder.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -324,13 +324,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\app\src\bsp_Collision.c)(0x5D42D566)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_collision.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_collision.crf --depend .\flash\obj\bsp_collision.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -388,13 +388,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\app\src\bsp_Angle.c)(0x5D43A1F8)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_angle.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_angle.crf --depend .\flash\obj\bsp_angle.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -452,13 +452,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
-F (..\..\User\app\src\bsp_Action.c)(0x5D43B95C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_action.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_action.crf --depend .\flash\obj\bsp_action.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
+F (..\..\User\app\src\bsp_Action.c)(0x5D43E3CE)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_action.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_action.crf --depend .\flash\obj\bsp_action.d)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -516,13 +516,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\app\src\bsp_aw9523b.c)(0x5D3FDBF8)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_aw9523b.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_aw9523b.crf --depend .\flash\obj\bsp_aw9523b.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -580,13 +580,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
-F (..\..\User\app\src\bsp_DetectAct.c)(0x5D43D9ED)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
+F (..\..\User\app\src\bsp_DetectAct.c)(0x5D43E3CE)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -644,13 +644,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\app\src\bsp_PulseMark.c)(0x5D43A3F5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_pulsemark.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_pulsemark.crf --depend .\flash\obj\bsp_pulsemark.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -708,13 +708,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\app\src\bsp_IWDG.c)(0x5D43A961)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_iwdg.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_iwdg.crf --depend .\flash\obj\bsp_iwdg.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -772,13 +772,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
-F (..\..\User\app\src\bsp_Edgewise.c)(0x5D43D63B)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
+F (..\..\User\app\src\bsp_Edgewise.c)(0x5D43E705)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -836,13 +836,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\bsp\bsp.c)(0x5D43A992)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -900,14 +900,14 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
-F (..\..\User\bsp\bsp.h)(0x5D43AEC0)()
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
+F (..\..\User\bsp\bsp.h)(0x5D43E3CE)()
 F (..\..\User\bsp\src\bsp_dwt.c)(0x55D42597)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dwt.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_dwt.crf --depend .\flash\obj\bsp_dwt.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -965,13 +965,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\bsp\src\bsp_uart_fifo.c)(0x5D42D86C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uart_fifo.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_uart_fifo.crf --depend .\flash\obj\bsp_uart_fifo.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1029,11 +1029,11 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\bsp\stm32f10x_it.c)(0x57053237)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_it.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\stm32f10x_it.crf --depend .\flash\obj\stm32f10x_it.d)
 I (..\..\User\bsp\stm32f10x_it.h)(0x4E9832EC)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x50FD88A6)
@@ -1067,7 +1067,7 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x50FD88AD)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x50FD88AD)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x50FD88AD)
 F (..\..\User\bsp\src\bsp_tim_pwm.c)(0x55BA34B3)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_tim_pwm.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_tim_pwm.crf --depend .\flash\obj\bsp_tim_pwm.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1125,11 +1125,11 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\bsp\stm32f10x_assert.c)(0x4E982D67)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_assert.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\stm32f10x_assert.crf --depend .\flash\obj\stm32f10x_assert.d)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x50FD88A6)
 I (..\..\Libraries\CMSIS\Include\core_cm3.h)(0x50FD8897)
@@ -1163,7 +1163,7 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x50FD88AD)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x50FD88AD)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 F (..\..\User\bsp\src\bsp_key.c)(0x5D42C74B)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_key.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_key.crf --depend .\flash\obj\bsp_key.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1221,13 +1221,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\bsp\src\bsp_led.c)(0x5D42C758)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_led.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_led.crf --depend .\flash\obj\bsp_led.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1285,13 +1285,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\bsp\src\bsp_timer.c)(0x5D42D9A1)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_timer.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_timer.crf --depend .\flash\obj\bsp_timer.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1349,13 +1349,13 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\User\bsp\src\bsp_i2c_gpio.c)(0x5D439931)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_i2c_gpio.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_i2c_gpio.crf --depend .\flash\obj\bsp_i2c_gpio.d)
-I (..\..\User\bsp\bsp.h)(0x5D43AEC0)
+I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1413,11 +1413,11 @@ I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
-I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43B2C6)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D43E3CE)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43B7F9)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
 F (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Source\Templates\arm\startup_stm32f10x_hd.s)(0x57061D97)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 514" --pd "STM32F10X_HD SETA 1"--list .\flash\list\startup_stm32f10x_hd.lst --xref -o .\flash\obj\startup_stm32f10x_hd.o --depend .\flash\obj\startup_stm32f10x_hd.d)
 F (..\..\Libraries\STM32F10x_StdPeriph_Driver\src\misc.c)(0x50FD88AC)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\misc.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\misc.crf --depend .\flash\obj\misc.d)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x50FD88AD)

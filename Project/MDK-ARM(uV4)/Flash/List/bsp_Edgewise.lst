@@ -38597,10 +38597,12 @@ N/***************************** 安富莱电子 www.armfly.com (END OF FILE) ********
 L 2 "..\..\User\app\src\bsp_Edgewise.c" 2
 N
 N#define CONSTANT	1.0F
+N#define MIN_VOLTAGE	0.6F
 N
 N#define NORMAL_SPEED	7000 /*正常速度*/
 N#define SLOW_SPEED	    6000 /*减速后速度*/
 N#define INTERVAL        1000  /*转向速度差*/
+N
 N
 Ntypedef struct
 N{
@@ -38655,6 +38657,14 @@ N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N				edgewise.action = 10;
 N			}
+N			else if(voltage < MIN_VOLTAGE)
+X			else if(voltage < 0.6F)
+N			{
+N				bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED+500);
+X				bsp_SetMotorPWM(MotorLeft,Forward, 6000+500);
+N				bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
+X				bsp_SetMotorPWM(MotorRight,Forward,6000);
+N			}
 N			
 N		};break;
 N		
@@ -38693,6 +38703,8 @@ N				edgewise.delay = xTaskGetTickCount();
 N				edgewise.action = 0 ;
 N			}
 N		}break;
+N		
+N		
 N		
 N		
 N		

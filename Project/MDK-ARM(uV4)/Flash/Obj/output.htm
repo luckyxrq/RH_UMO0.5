@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Aug 02 14:36:31 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Aug 02 15:32:23 2019
 <BR><P>
 <H3>Maximum Stack Usage =        176 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -421,7 +421,7 @@ Global Symbols
 
 <P><STRONG><a name="[142]"></a>__aeabi_cfcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cfcmple.o(.text), UNUSED)
 
-<P><STRONG><a name="[c7]"></a>__aeabi_cfcmple</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, cfcmple.o(.text))
+<P><STRONG><a name="[c6]"></a>__aeabi_cfcmple</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, cfcmple.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
 </UL>
 
@@ -956,7 +956,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AnglePoll
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskTaskUserIF
 </UL>
@@ -1061,14 +1061,14 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStart
 </UL>
 
-<P><STRONG><a name="[c3]"></a>bsp_EdgewiseAct</STRONG> (Thumb, 464 bytes, Stack size 16 bytes, bsp_edgewise.o(i.bsp_EdgewiseAct))
+<P><STRONG><a name="[c3]"></a>bsp_EdgewiseAct</STRONG> (Thumb, 500 bytes, Stack size 16 bytes, bsp_edgewise.o(i.bsp_EdgewiseAct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = bsp_EdgewiseAct &rArr; bsp_SetMotorPWM &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetInfraredVoltageRight
 </UL>
@@ -1292,12 +1292,12 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = bsp_RunStableAct &rArr; bsp_SetMotorPWM &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMsgPro
 </UL>
 
-<P><STRONG><a name="[c6]"></a>bsp_SetMotorPWM</STRONG> (Thumb, 214 bytes, Stack size 24 bytes, bsp_dc_motor.o(i.bsp_SetMotorPWM))
+<P><STRONG><a name="[c7]"></a>bsp_SetMotorPWM</STRONG> (Thumb, 214 bytes, Stack size 24 bytes, bsp_dc_motor.o(i.bsp_SetMotorPWM))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = bsp_SetMotorPWM &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMOutPWM
@@ -1327,7 +1327,7 @@ Global Symbols
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ConfigTimGpio
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ConfigGpioOut
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bspInitPWM
 </UL>

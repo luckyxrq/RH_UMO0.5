@@ -1,10 +1,12 @@
 #include "bsp.h"
 
 #define CONSTANT	1.0F
+#define MIN_VOLTAGE	0.6F
 
 #define NORMAL_SPEED	7000 /*正常速度*/
 #define SLOW_SPEED	    6000 /*减速后速度*/
 #define INTERVAL        1000  /*转向速度差*/
+
 
 typedef struct
 {
@@ -57,6 +59,11 @@ void bsp_EdgewiseAct(void)
 				bsp_MotorBrake(MotorRight);
 				edgewise.action = 10;
 			}
+			else if(voltage < MIN_VOLTAGE)
+			{
+				bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED+500);
+				bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
+			}
 			
 		};break;
 		
@@ -89,6 +96,8 @@ void bsp_EdgewiseAct(void)
 				edgewise.action = 0 ;
 			}
 		}break;
+		
+		
 		
 		
 		
