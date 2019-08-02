@@ -84,7 +84,7 @@ int main(void)
 */
 static void vTaskTaskUserIF(void *pvParameters)
 {
-#if 1 /* 左前  右前 */
+#if 0 /* 左前  右前 */
 	bsp_SetMotorPWM(MotorLeft,Forward,6000);
 	bsp_SetMotorPWM(MotorRight,Forward,6000);
 #endif
@@ -151,7 +151,7 @@ static void vTaskMsgPro(void *pvParameters)
 	bsp_StartRunStable();
     while(1)
     {
-		bsp_RunStableAct();
+		bsp_RunStableAct(); /* 平滑启动状态机 */
 		vTaskDelay(1);
     }
 }

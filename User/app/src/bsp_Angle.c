@@ -181,10 +181,48 @@ static void bsp_AngleAnalyzeApp(void)
 
 
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_AngleAdd
+*	功能说明: 返回转动后的角度
+*	形    参: angle1（-180~180），angle2（-180~180）
+*	返 回 值: 转动后的角度
+*********************************************************************************************************
+*/
 float bsp_AngleAdd(float angle1 , float angle2)
 {
-	if(angle1>=0 && angle1<180)
+	float ret = 0.0F;
+	
+	ret = angle1 + angle2;
+	
+	if(angle1>=0.0F)
 	{
-		
+		if(ret >= 0.0F && ret <= 180.0F)
+		{
+			return ret ;
+		}
+		else if(ret > 180.0F)
+		{
+			return -(180 - (ret-180.0F));
+		}
+		else
+		{
+			return ret ;
+		}
+	}
+	else
+	{
+		if(ret < 0.0F && ret > -180.0F)
+		{
+			return ret ;
+		}
+		else if(ret < -180.0F)
+		{
+			return (180-(-ret-180));
+		}
+		else
+		{
+			return ret ;
+		}
 	}
 }

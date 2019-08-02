@@ -307,7 +307,7 @@
 000004  e004              B        |L6.16|
                   |L6.6|
 ;;;153        {
-;;;154    		bsp_RunStableAct();
+;;;154    		bsp_RunStableAct(); /* 平滑启动状态机 */
 000006  f7fffffe          BL       bsp_RunStableAct
 ;;;155    		vTaskDelay(1);
 00000a  2001              MOVS     r0,#1
@@ -346,18 +346,12 @@
                   vTaskTaskUserIF PROC
 ;;;84     */
 ;;;85     static void vTaskTaskUserIF(void *pvParameters)
-000000  f2417270          MOV      r2,#0x1770
+000000  e00c              B        |L8.28|
+                  |L8.2|
 ;;;86     {
-;;;87     #if 1 /* 左前  右前 */
+;;;87     #if 0 /* 左前  右前 */
 ;;;88     	bsp_SetMotorPWM(MotorLeft,Forward,6000);
-000004  2100              MOVS     r1,#0
-000006  4608              MOV      r0,r1
-000008  f7fffffe          BL       bsp_SetMotorPWM
 ;;;89     	bsp_SetMotorPWM(MotorRight,Forward,6000);
-00000c  f2417270          MOV      r2,#0x1770
-000010  2100              MOVS     r1,#0
-000012  2001              MOVS     r0,#1
-000014  f7fffffe          BL       bsp_SetMotorPWM
 ;;;90     #endif
 ;;;91     
 ;;;92     #if 0 /* 左后  右后 */
@@ -375,8 +369,6 @@
 ;;;104    	bsp_SetMotorPWM(MotorRight,Forward,6000);
 ;;;105    #endif	
 ;;;106        while(1)
-000018  e00c              B        |L8.52|
-                  |L8.26|
 ;;;107        {
 ;;;108    		#if 0
 ;;;109    		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
@@ -384,20 +376,20 @@
 ;;;111    		#endif
 ;;;112    		
 ;;;113    		bsp_LedToggle(1);
-00001a  2001              MOVS     r0,#1
-00001c  f7fffffe          BL       bsp_LedToggle
+000002  2001              MOVS     r0,#1
+000004  f7fffffe          BL       bsp_LedToggle
 ;;;114    		bsp_LedToggle(2);
-000020  2002              MOVS     r0,#2
-000022  f7fffffe          BL       bsp_LedToggle
+000008  2002              MOVS     r0,#2
+00000a  f7fffffe          BL       bsp_LedToggle
 ;;;115    		bsp_LedToggle(3);
-000026  2003              MOVS     r0,#3
-000028  f7fffffe          BL       bsp_LedToggle
+00000e  2003              MOVS     r0,#3
+000010  f7fffffe          BL       bsp_LedToggle
 ;;;116    		
 ;;;117    		vTaskDelay(500);
-00002c  f44f70fa          MOV      r0,#0x1f4
-000030  f7fffffe          BL       vTaskDelay
-                  |L8.52|
-000034  e7f1              B        |L8.26|
+000014  f44f70fa          MOV      r0,#0x1f4
+000018  f7fffffe          BL       vTaskDelay
+                  |L8.28|
+00001c  e7f1              B        |L8.2|
 ;;;118    		
 ;;;119    	}
 ;;;120    }

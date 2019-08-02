@@ -38376,6 +38376,7 @@ N#define RX_BAUD       UART3_BAUD
 N
 Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
+Nfloat bsp_AngleAdd(float angle1 , float angle2);
 N
 N#endif
 N
@@ -38598,7 +38599,48 @@ N}
 N
 N
 N
-N//float bsp_AngleAdd(float angle1 , float angle2)
-N//{
-N//	if(angle1)
-N//}
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_AngleAdd
+N*	功能说明: 返回转动后的角度
+N*	形    参: angle1（-180~180），angle2（-180~180）
+N*	返 回 值: 转动后的角度
+N*********************************************************************************************************
+N*/
+Nfloat bsp_AngleAdd(float angle1 , float angle2)
+N{
+N	float ret = 0.0F;
+N	
+N	ret = angle1 + angle2;
+N	
+N	if(angle1>=0.0F)
+N	{
+N		if(ret >= 0.0F && ret <= 180.0F)
+N		{
+N			return ret ;
+N		}
+N		else if(ret > 180.0F)
+N		{
+N			return -(180 - (ret-180.0F));
+N		}
+N		else
+N		{
+N			return ret ;
+N		}
+N	}
+N	else
+N	{
+N		if(ret < 0.0F && ret > -180.0F)
+N		{
+N			return ret ;
+N		}
+N		else if(ret < -180.0F)
+N		{
+N			return (180-(-ret-180));
+N		}
+N		else
+N		{
+N			return ret ;
+N		}
+N	}
+N}

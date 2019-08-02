@@ -38400,6 +38400,7 @@ N#define RX_BAUD       UART3_BAUD
 N
 Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
+Nfloat bsp_AngleAdd(float angle1 , float angle2);
 N
 N#endif
 N

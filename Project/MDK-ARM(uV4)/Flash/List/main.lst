@@ -45747,6 +45747,7 @@ N#define RX_BAUD       UART3_BAUD
 N
 Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
+Nfloat bsp_AngleAdd(float angle1 , float angle2);
 N
 N#endif
 N
@@ -45871,9 +45872,9 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskTaskUserIF(void *pvParameters)
 N{
-N#if 1 /* 左前  右前 */
-N	bsp_SetMotorPWM(MotorLeft,Forward,6000);
-N	bsp_SetMotorPWM(MotorRight,Forward,6000);
+N#if 0 /* 左前  右前 */
+S	bsp_SetMotorPWM(MotorLeft,Forward,6000);
+S	bsp_SetMotorPWM(MotorRight,Forward,6000);
 N#endif
 N
 N#if 0 /* 左后  右后 */
@@ -45938,7 +45939,7 @@ N{
 N	bsp_StartRunStable();
 N    while(1)
 N    {
-N		bsp_RunStableAct();
+N		bsp_RunStableAct(); /* 平滑启动状态机 */
 N		vTaskDelay(1);
 N    }
 N}
