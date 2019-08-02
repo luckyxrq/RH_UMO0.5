@@ -55,7 +55,7 @@
 00003e  b92c              CBNZ     r4,|L1.76|
 ;;;59     		{
 ;;;60     			WARNING("AW9523B Init Error\r\n");
-000040  a005              ADR      r0,|L1.88|
+000040  a007              ADR      r0,|L1.96|
 000042  f7fffffe          BL       __2printf
 ;;;61     			bsp_DelayMS(100);
 000046  2064              MOVS     r0,#0x64
@@ -68,23 +68,35 @@
 ;;;64     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 000050  f7fffffe          BL       bsp_InitDetectAct
 ;;;65     	
-;;;66     	
-;;;67     }
-000054  bd10              POP      {r4,pc}
-;;;68     
+;;;66     	bsp_InitIWDG();     /*初始化看门狗*/
+000054  f7fffffe          BL       bsp_InitIWDG
+;;;67     	
+;;;68     	DEBUG("初始化完毕\r\n");
+000058  a007              ADR      r0,|L1.120|
+00005a  f7fffffe          BL       __2printf
+;;;69     }
+00005e  bd10              POP      {r4,pc}
+;;;70     
                           ENDP
 
-000056  0000              DCW      0x0000
-                  |L1.88|
-000058  41573935          DCB      "AW9523B Init Error\r\n",0
-00005c  32334220
-000060  496e6974
-000064  20457272
-000068  6f720d0a
-00006c  00      
-00006d  00                DCB      0
-00006e  00                DCB      0
-00006f  00                DCB      0
+                  |L1.96|
+000060  41573935          DCB      "AW9523B Init Error\r\n",0
+000064  32334220
+000068  496e6974
+00006c  20457272
+000070  6f720d0a
+000074  00      
+000075  00                DCB      0
+000076  00                DCB      0
+000077  00                DCB      0
+                  |L1.120|
+000078  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
+00007c  bbafcdea
+000080  b1cf0d0a
+000084  00      
+000085  00                DCB      0
+000086  00                DCB      0
+000087  00                DCB      0
 
 ;*** Start embedded assembler ***
 

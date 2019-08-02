@@ -2196,49 +2196,27 @@
 ;;;599    	
 ;;;600    //	if(adcRealTime[9] >= 1.0F)
 ;;;601    //	{
-;;;602    ////		bsp_SetMotorSpeed(MLeft , S);
-;;;603    ////		bsp_SetMotorSpeed(MRight , S+A);
-;;;604    //		
-;;;605    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
-;;;606    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,A4950T, S);
-;;;607    //		
-;;;608    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
-;;;609    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,A4950T, S+A);
-;;;610    //		printf("<<<<<<<<<<<<\r\n");
-;;;611    //	}
-;;;612    //	else if(adcRealTime[9] <= 0.7F)
-;;;613    //	{
-;;;614    ////		bsp_SetMotorSpeed(MLeft , S+A);
-;;;615    ////		bsp_SetMotorSpeed(MRight , S);
-;;;616    //		
-;;;617    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
-;;;618    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,A4950T, S+A);
-;;;619    //		
-;;;620    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
-;;;621    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,A4950T, S);
-;;;622    //		printf(">>>>>>>>>>>>\r\n");
-;;;623    //	}
-;;;624    //	else
-;;;625    //	{
-;;;626    ////		bsp_SetMotorSpeed(MLeft ,  S);
-;;;627    ////		bsp_SetMotorSpeed(MRight , S);
-;;;628    //		
-;;;629    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
-;;;630    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,A4950T, S);
-;;;631    //		
-;;;632    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
-;;;633    //		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,A4950T, S);
-;;;634    //		printf("=============\r\n");
-;;;635    //	}
-;;;636    
-;;;637    	
-;;;638    	
-;;;639    #endif
-;;;640    	
-;;;641    	
-;;;642    }
+;;;602    
+;;;603    //		DEBUG("<<<<<<<<<<<<\r\n");
+;;;604    //	}
+;;;605    //	else if(adcRealTime[9] <= 0.7F)
+;;;606    //	{
+;;;607    
+;;;608    //		DEBUG(">>>>>>>>>>>>\r\n");
+;;;609    //	}
+;;;610    //	else
+;;;611    //	{
+;;;612    //		DEBUG("=============\r\n");
+;;;613    //	}
+;;;614    
+;;;615    	
+;;;616    	
+;;;617    #endif
+;;;618    	
+;;;619    	
+;;;620    }
 00000e  4770              BX       lr
-;;;643    
+;;;621    
                           ENDP
 
 

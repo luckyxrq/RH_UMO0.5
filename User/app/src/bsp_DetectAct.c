@@ -599,39 +599,17 @@ void bsp_DetectDeal(void)
 	
 //	if(adcRealTime[9] >= 1.0F)
 //	{
-////		bsp_SetMotorSpeed(MLeft , S);
-////		bsp_SetMotorSpeed(MRight , S+A);
-//		
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,A4950T, S);
-//		
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,A4950T, S+A);
-//		printf("<<<<<<<<<<<<\r\n");
+
+//		DEBUG("<<<<<<<<<<<<\r\n");
 //	}
 //	else if(adcRealTime[9] <= 0.7F)
 //	{
-////		bsp_SetMotorSpeed(MLeft , S+A);
-////		bsp_SetMotorSpeed(MRight , S);
-//		
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,A4950T, S+A);
-//		
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,A4950T, S);
-//		printf(">>>>>>>>>>>>\r\n");
+
+//		DEBUG(">>>>>>>>>>>>\r\n");
 //	}
 //	else
 //	{
-////		bsp_SetMotorSpeed(MLeft ,  S);
-////		bsp_SetMotorSpeed(MRight , S);
-//		
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,A4950T, S);
-//		
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
-//		bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,A4950T, S);
-//		printf("=============\r\n");
+//		DEBUG("=============\r\n");
 //	}
 
 	

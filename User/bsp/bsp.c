@@ -63,7 +63,9 @@ void bsp_Init(void)
 	}while(!ret);
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
+	bsp_InitIWDG();     /*初始化看门狗*/
 	
+	DEBUG("初始化完毕\r\n");
 }
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

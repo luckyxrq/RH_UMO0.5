@@ -61,3 +61,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_aw9523b.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_DetectAct.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_PulseMark.h
+.\flash\obj\sysinfotest.o: ..\..\User\bsp\inc\bsp_IWDG.h

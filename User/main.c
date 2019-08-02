@@ -138,6 +138,7 @@ static void vTaskLED(void *pvParameters)
 
     while(1)
     {
+		bsp_IWDG_Feed(); /* 喂狗 */
 		vTaskDelay(20);
     }
 }
@@ -172,9 +173,12 @@ static void vTaskMsgPro(void *pvParameters)
 */
 static void vTaskStart(void *pvParameters)
 {
+	bsp_DetectStart(); /*开启红外对管轮询扫描*/
     while(1)
     {
-        vTaskDelay(10);
+		bsp_DetectAct();  /*红外对管轮询扫描*/
+		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+        vTaskDelay(1);
     }
 }
 				

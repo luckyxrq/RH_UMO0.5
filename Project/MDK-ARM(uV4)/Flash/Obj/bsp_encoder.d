@@ -61,3 +61,4 @@
 .\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_aw9523b.h
 .\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_DetectAct.h
 .\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_PulseMark.h
+.\flash\obj\bsp_encoder.o: ..\..\User\bsp\inc\bsp_IWDG.h
