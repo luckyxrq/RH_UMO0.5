@@ -110,6 +110,11 @@ static void vTaskTaskUserIF(void *pvParameters)
 		DEBUG("”“¬÷ÀŸ∂»:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 		#endif
 		
+		
+		#if 1
+		DEBUG("Ω«∂»£∫%.2F\r\n",bsp_AngleRead());
+		#endif
+		
 		bsp_LedToggle(1);
 		bsp_LedToggle(2);
 		bsp_LedToggle(3);

@@ -38427,9 +38427,34 @@ N
 N#define RX_BUF_SIZE   13
 N#define RX_BAUD       UART3_BAUD
 N
+N
+Ntypedef struct
+N{
+N	volatile bool timeout ;
+X	volatile _Bool timeout ;
+N	volatile uint16_t rxCount;
+N	volatile uint8_t  buf[RX_BUF_SIZE] ;
+X	volatile uint8_t  buf[13] ;
+N	volatile float angle;
+N}Angle;
+N
+N
+Ntypedef struct
+N{
+N	volatile int16_t HEAD;
+N	volatile int16_t RATE;
+N	volatile int16_t ANGLE;
+N	volatile int16_t SUM1;
+N	volatile int16_t RESERVE;
+N	volatile int8_t SUM2;
+N	volatile int16_t END;
+N}AngleFrame;
+N
+N
 Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
 Nfloat bsp_AngleAdd(float angle1 , float angle2);
+Nvoid bsp_InitAngle(void);
 N
 N#endif
 N
@@ -38571,6 +38596,8 @@ N	/* ÓÅÏÈ¼¶·Ö×éÉèÖÃÎª4£¬¿ÉÅäÖÃ0-15¼¶ÇÀÕ¼Ê½ÓÅÏÈ¼¶£¬0¼¶×ÓÓÅÏÈ¼¶£¬¼´²»´æÔÚ×ÓÓÅÏÈ¼¶¡
 N	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 X	NVIC_PriorityGroupConfig(((uint32_t)0x300));
 N	bsp_InitDWT();
+N	bsp_InitAngle();    /* ³õÊ¼»¯ÍÓÂİÒÇ£¬Ö»ÊÇ¸´Î»Òı½Å³õÊ¼»¯£¬ÀïÃæÃ»ÓĞÓÃµ½´®¿Ú´òÓ¡¡£ÔÚ´®¿Ú³õÊ¼»¯Ç°Ãæ¸´Î»ÓĞÖúÓÚÍÓÂİÒÇµÚÒ»Ö¡Êı¾İ²»³ö´í */
+N	bsp_InitPinPulse(); /* ³õÊ¼»¯Âö³åÖ¸Ê¾Òı½Å£¬Âö³åÖ¸Ê¾Ã»ÓĞÊ¹ÓÃ´®¿Ú´òÓ¡£¬ÔÚ´®¿ÚÖ®Ç°³õÊ¼»¯ */
 N	bsp_InitUart(); 	/* ³õÊ¼»¯´®¿Ú */
 N	bsp_InitSW();		/* ¿ª»ú´ò¿ªÆäËûÍâÉèµçÔ´Ê¹ÄÜÒı½Å */
 N	bsp_InitLed();      /* ³õÊ¼»¯LED */
@@ -38590,7 +38617,9 @@ X			printf ("AW9523B Init Error\r\n");
 N			bsp_DelayMS(100);
 N		}
 N	}while(!ret);
-N	bsp_InitDetectAct();/* ³õÊ¼»¯ºìÍâÉ¨ÃèÂÖÑ¯ */	
+N	bsp_InitDetectAct();/* IOÍØÕ¹Ğ¾Æ¬³õÊ¼»¯³É¹¦ÁËÖ®ºóÔÙ³õÊ¼»¯ºìÍâÂÖÑ¯É¨Ãè */	
+N	
+N	
 N}
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/

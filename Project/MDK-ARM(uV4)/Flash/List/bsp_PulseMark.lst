@@ -38409,9 +38409,34 @@ N
 N#define RX_BUF_SIZE   13
 N#define RX_BAUD       UART3_BAUD
 N
+N
+Ntypedef struct
+N{
+N	volatile bool timeout ;
+X	volatile _Bool timeout ;
+N	volatile uint16_t rxCount;
+N	volatile uint8_t  buf[RX_BUF_SIZE] ;
+X	volatile uint8_t  buf[13] ;
+N	volatile float angle;
+N}Angle;
+N
+N
+Ntypedef struct
+N{
+N	volatile int16_t HEAD;
+N	volatile int16_t RATE;
+N	volatile int16_t ANGLE;
+N	volatile int16_t SUM1;
+N	volatile int16_t RESERVE;
+N	volatile int8_t SUM2;
+N	volatile int16_t END;
+N}AngleFrame;
+N
+N
 Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
 Nfloat bsp_AngleAdd(float angle1 , float angle2);
+Nvoid bsp_InitAngle(void);
 N
 N#endif
 N
@@ -38530,10 +38555,10 @@ N/***************************** 安富莱电子 www.armfly.com (END OF FILE) ********
 L 2 "..\..\User\app\src\bsp_PulseMark.c" 2
 N
 N/* 口对应的RCC时钟 */
-N#define RCC_ALL_PULSE 	(RCC_APB2Periph_GPIOB)
+N#define RCC_ALL_PULSE 	(RCC_APB2Periph_GPIOG)
 N
-N#define GPIO_PORT_PULSE  GPIOB
-N#define GPIO_PIN_PULSE	 GPIO_Pin_0
+N#define GPIO_PORT_PULSE  GPIOG
+N#define GPIO_PIN_PULSE	 GPIO_Pin_1
 N
 N
 N/*
@@ -38549,14 +38574,14 @@ N{
 N	GPIO_InitTypeDef GPIO_InitStructure;
 N
 N	RCC_APB2PeriphClockCmd(RCC_ALL_PULSE, ENABLE );	 
-X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000008)), ENABLE );	 
+X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000100)), ENABLE );	 
 N                      
 N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_PULSE;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
 N	GPIO_Init(GPIO_PORT_PULSE, &GPIO_InitStructure);	
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)), &GPIO_InitStructure);	
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);	
 N}
 N
 N
@@ -38571,9 +38596,9 @@ N*/
 Nvoid bsp_SendPulse(void)
 N{
 N	GPIO_SetBits(GPIO_PORT_PULSE,GPIO_PIN_PULSE);
-X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),((uint16_t)0x0001));
+X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)),((uint16_t)0x0002));
 N	bsp_DelayUS(10);
 N	GPIO_ResetBits(GPIO_PORT_PULSE,GPIO_PIN_PULSE);
-X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),((uint16_t)0x0001));
+X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)),((uint16_t)0x0002));
 N}
 N

@@ -13,7 +13,7 @@
 ;;;21     
 ;;;22     	RCC_APB2PeriphClockCmd(RCC_ALL_PULSE, ENABLE );	 
 000002  2101              MOVS     r1,#1
-000004  2008              MOVS     r0,#8
+000004  0208              LSLS     r0,r1,#8
 000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
 ;;;23                           
 ;;;24     	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -23,7 +23,7 @@
 000010  2010              MOVS     r0,#0x10
 000012  f88d0003          STRB     r0,[sp,#3]
 ;;;26     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_PULSE;
-000016  2001              MOVS     r0,#1
+000016  2002              MOVS     r0,#2
 000018  f8ad0000          STRH     r0,[sp,#0]
 ;;;27     	GPIO_Init(GPIO_PORT_PULSE, &GPIO_InitStructure);	
 00001c  4669              MOV      r1,sp
@@ -36,7 +36,7 @@
 
 000026  0000              DCW      0x0000
                   |L1.40|
-                          DCD      0x40010c00
+                          DCD      0x40012000
 
                           AREA ||i.bsp_SendPulse||, CODE, READONLY, ALIGN=2
 
@@ -46,14 +46,14 @@
 000000  b510              PUSH     {r4,lr}
 ;;;40     {
 ;;;41     	GPIO_SetBits(GPIO_PORT_PULSE,GPIO_PIN_PULSE);
-000002  2101              MOVS     r1,#1
+000002  2102              MOVS     r1,#2
 000004  4805              LDR      r0,|L2.28|
 000006  f7fffffe          BL       GPIO_SetBits
 ;;;42     	bsp_DelayUS(10);
 00000a  200a              MOVS     r0,#0xa
 00000c  f7fffffe          BL       bsp_DelayUS
 ;;;43     	GPIO_ResetBits(GPIO_PORT_PULSE,GPIO_PIN_PULSE);
-000010  2101              MOVS     r1,#1
+000010  2102              MOVS     r1,#2
 000012  4802              LDR      r0,|L2.28|
 000014  f7fffffe          BL       GPIO_ResetBits
 ;;;44     }
@@ -63,7 +63,7 @@
 
 00001a  0000              DCW      0x0000
                   |L2.28|
-                          DCD      0x40010c00
+                          DCD      0x40012000
 
 ;*** Start embedded assembler ***
 

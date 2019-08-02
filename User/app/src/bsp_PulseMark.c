@@ -1,10 +1,10 @@
 #include "bsp.h"
 
 /* 口对应的RCC时钟 */
-#define RCC_ALL_PULSE 	(RCC_APB2Periph_GPIOB)
+#define RCC_ALL_PULSE 	(RCC_APB2Periph_GPIOG)
 
-#define GPIO_PORT_PULSE  GPIOB
-#define GPIO_PIN_PULSE	 GPIO_Pin_0
+#define GPIO_PORT_PULSE  GPIOG
+#define GPIO_PIN_PULSE	 GPIO_Pin_1
 
 
 /*

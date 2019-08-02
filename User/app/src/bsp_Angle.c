@@ -2,25 +2,7 @@
 
 
 
-typedef struct
-{
-	volatile bool timeout ;
-	volatile uint16_t rxCount;
-	volatile uint8_t  buf[RX_BUF_SIZE] ;
-	volatile float angle;
-}Angle;
 
-
-typedef struct
-{
-	volatile int16_t HEAD;
-	volatile int16_t RATE;
-	volatile int16_t ANGLE;
-	volatile int16_t SUM1;
-	volatile int16_t RESERVE;
-	volatile int8_t SUM2;
-	volatile int16_t END;
-}AngleFrame;
 
 static Angle angle;
 static AngleFrame angleFrame;
@@ -29,6 +11,58 @@ static void bsp_AngleTimeout(void);
 static void bsp_AnglePoll(void);
 static void bsp_AngleAnalyzeApp(void);
 static bool bsp_AngleCheck(void);
+static void bsp_AngleRst(void);
+
+
+
+/* 按键口对应的RCC时钟 */
+#define RCC_ALL_ANGLE 	(RCC_APB2Periph_GPIOB)
+
+#define GPIO_PORT_RST    GPIOB
+#define GPIO_PIN_RST	 GPIO_Pin_13
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_InitAngle
+*	功能说明: 初始化陀螺仪模块
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_InitAngle(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	/* 打开GPIO时钟 */
+	RCC_APB2PeriphClockCmd(RCC_ALL_ANGLE, ENABLE);
+
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;	
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_RST;
+	GPIO_Init(GPIO_PORT_RST, &GPIO_InitStructure);
+	
+	bsp_AngleRst();
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_AngleRst
+*	功能说明: 复位陀螺仪模块
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_AngleRst(void)
+{
+	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
+	bsp_DelayMS(10);
+	GPIO_ResetBits(GPIO_PORT_RST,GPIO_PIN_RST);
+	bsp_DelayUS(10);
+	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
+}
+
 
 /*
 *********************************************************************************************************

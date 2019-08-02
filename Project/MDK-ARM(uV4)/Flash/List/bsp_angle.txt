@@ -5,28 +5,28 @@
                           AREA ||i.bsp_AngleAdd||, CODE, READONLY, ALIGN=2
 
                   bsp_AngleAdd PROC
-;;;191    */
-;;;192    float bsp_AngleAdd(float angle1 , float angle2)
+;;;225    */
+;;;226    float bsp_AngleAdd(float angle1 , float angle2)
 000000  e92d41f0          PUSH     {r4-r8,lr}
-;;;193    {
+;;;227    {
 000004  4605              MOV      r5,r0
 000006  460e              MOV      r6,r1
-;;;194    	float ret = 0.0F;
+;;;228    	float ret = 0.0F;
 000008  2400              MOVS     r4,#0
-;;;195    	
-;;;196    	ret = angle1 + angle2;
+;;;229    	
+;;;230    	ret = angle1 + angle2;
 00000a  4631              MOV      r1,r6
 00000c  4628              MOV      r0,r5
 00000e  f7fffffe          BL       __aeabi_fadd
 000012  4604              MOV      r4,r0
-;;;197    	
-;;;198    	if(angle1>=0.0F)
+;;;231    	
+;;;232    	if(angle1>=0.0F)
 000014  2100              MOVS     r1,#0
 000016  4628              MOV      r0,r5
 000018  f7fffffe          BL       __aeabi_cfrcmple
 00001c  d81e              BHI      |L1.92|
-;;;199    	{
-;;;200    		if(ret >= 0.0F && ret <= 180.0F)
+;;;233    	{
+;;;234    		if(ret >= 0.0F && ret <= 180.0F)
 00001e  2100              MOVS     r1,#0
 000020  4620              MOV      r0,r4
 000022  f7fffffe          BL       __aeabi_cfrcmple
@@ -35,79 +35,79 @@
 00002a  4620              MOV      r0,r4
 00002c  f7fffffe          BL       __aeabi_cfcmple
 000030  d802              BHI      |L1.56|
-;;;201    		{
-;;;202    			return ret ;
+;;;235    		{
+;;;236    			return ret ;
 000032  4620              MOV      r0,r4
                   |L1.52|
-;;;203    		}
-;;;204    		else if(ret > 180.0F)
-;;;205    		{
-;;;206    			return -(180 - (ret-180.0F));
-;;;207    		}
-;;;208    		else
-;;;209    		{
-;;;210    			return ret ;
-;;;211    		}
-;;;212    	}
-;;;213    	else
-;;;214    	{
-;;;215    		if(ret < 0.0F && ret > -180.0F)
-;;;216    		{
-;;;217    			return ret ;
-;;;218    		}
-;;;219    		else if(ret < -180.0F)
-;;;220    		{
-;;;221    			return (180-(-ret-180));
-;;;222    		}
-;;;223    		else
-;;;224    		{
-;;;225    			return ret ;
-;;;226    		}
-;;;227    	}
-;;;228    }
+;;;237    		}
+;;;238    		else if(ret > 180.0F)
+;;;239    		{
+;;;240    			return -(180 - (ret-180.0F));
+;;;241    		}
+;;;242    		else
+;;;243    		{
+;;;244    			return ret ;
+;;;245    		}
+;;;246    	}
+;;;247    	else
+;;;248    	{
+;;;249    		if(ret < 0.0F && ret > -180.0F)
+;;;250    		{
+;;;251    			return ret ;
+;;;252    		}
+;;;253    		else if(ret < -180.0F)
+;;;254    		{
+;;;255    			return (180-(-ret-180));
+;;;256    		}
+;;;257    		else
+;;;258    		{
+;;;259    			return ret ;
+;;;260    		}
+;;;261    	}
+;;;262    }
 000034  e8bd81f0          POP      {r4-r8,pc}
                   |L1.56|
 000038  4917              LDR      r1,|L1.152|
-00003a  4620              MOV      r0,r4                 ;204
+00003a  4620              MOV      r0,r4                 ;238
 00003c  f7fffffe          BL       __aeabi_cfrcmple
 000040  d20a              BCS      |L1.88|
 000042  4915              LDR      r1,|L1.152|
-000044  4620              MOV      r0,r4                 ;206
+000044  4620              MOV      r0,r4                 ;240
 000046  f7fffffe          BL       __aeabi_fsub
-00004a  4607              MOV      r7,r0                 ;206
+00004a  4607              MOV      r7,r0                 ;240
 00004c  4912              LDR      r1,|L1.152|
 00004e  f7fffffe          BL       __aeabi_frsub
-000052  f0804000          EOR      r0,r0,#0x80000000     ;206
+000052  f0804000          EOR      r0,r0,#0x80000000     ;240
 000056  e7ed              B        |L1.52|
                   |L1.88|
-000058  4620              MOV      r0,r4                 ;210
+000058  4620              MOV      r0,r4                 ;244
 00005a  e7eb              B        |L1.52|
                   |L1.92|
-00005c  2100              MOVS     r1,#0                 ;215
-00005e  4620              MOV      r0,r4                 ;215
+00005c  2100              MOVS     r1,#0                 ;249
+00005e  4620              MOV      r0,r4                 ;249
 000060  f7fffffe          BL       __aeabi_cfcmple
 000064  d206              BCS      |L1.116|
 000066  490d              LDR      r1,|L1.156|
-000068  4620              MOV      r0,r4                 ;215
+000068  4620              MOV      r0,r4                 ;249
 00006a  f7fffffe          BL       __aeabi_cfrcmple
 00006e  d201              BCS      |L1.116|
-000070  4620              MOV      r0,r4                 ;217
+000070  4620              MOV      r0,r4                 ;251
 000072  e7df              B        |L1.52|
                   |L1.116|
 000074  4909              LDR      r1,|L1.156|
-000076  4620              MOV      r0,r4                 ;219
+000076  4620              MOV      r0,r4                 ;253
 000078  f7fffffe          BL       __aeabi_cfcmple
 00007c  d20a              BCS      |L1.148|
-00007e  f0844800          EOR      r8,r4,#0x80000000     ;221
+00007e  f0844800          EOR      r8,r4,#0x80000000     ;255
 000082  4905              LDR      r1,|L1.152|
-000084  4640              MOV      r0,r8                 ;221
+000084  4640              MOV      r0,r8                 ;255
 000086  f7fffffe          BL       __aeabi_fsub
-00008a  4607              MOV      r7,r0                 ;221
+00008a  4607              MOV      r7,r0                 ;255
 00008c  4902              LDR      r1,|L1.152|
 00008e  f7fffffe          BL       __aeabi_frsub
 000092  e7cf              B        |L1.52|
                   |L1.148|
-000094  4620              MOV      r0,r4                 ;225
+000094  4620              MOV      r0,r4                 ;259
 000096  e7cd              B        |L1.52|
                           ENDP
 
@@ -119,17 +119,17 @@
                           AREA ||i.bsp_AngleAnalyzeApp||, CODE, READONLY, ALIGN=2
 
                   bsp_AngleAnalyzeApp PROC
-;;;175    */
-;;;176    static void bsp_AngleAnalyzeApp(void)
+;;;209    */
+;;;210    static void bsp_AngleAnalyzeApp(void)
 000000  b570              PUSH     {r4-r6,lr}
-;;;177    {	
-;;;178    	int16_t ret = angle.buf[5] << 8 | angle.buf[4];
+;;;211    {	
+;;;212    	int16_t ret = angle.buf[5] << 8 | angle.buf[4];
 000002  4808              LDR      r0,|L2.36|
 000004  7a01              LDRB     r1,[r0,#8]
 000006  7a40              LDRB     r0,[r0,#9]
 000008  ea412000          ORR      r0,r1,r0,LSL #8
 00000c  b204              SXTH     r4,r0
-;;;179    	angle.angle = ret / 100.0F;
+;;;213    	angle.angle = ret / 100.0F;
 00000e  4620              MOV      r0,r4
 000010  f7fffffe          BL       __aeabi_i2f
 000014  4605              MOV      r5,r0
@@ -137,9 +137,9 @@
 000018  f7fffffe          BL       __aeabi_fdiv
 00001c  4901              LDR      r1,|L2.36|
 00001e  6148              STR      r0,[r1,#0x14]  ; angle
-;;;180    }
+;;;214    }
 000020  bd70              POP      {r4-r6,pc}
-;;;181    
+;;;215    
                           ENDP
 
 000022  0000              DCW      0x0000
@@ -151,18 +151,18 @@
                           AREA ||i.bsp_AngleCheck||, CODE, READONLY, ALIGN=2
 
                   bsp_AngleCheck PROC
-;;;143    */
-;;;144    static bool bsp_AngleCheck(void)
+;;;177    */
+;;;178    static bool bsp_AngleCheck(void)
 000000  4823              LDR      r0,|L3.144|
-;;;145    {
-;;;146    	angleFrame.HEAD     = angle.buf[1] << 8  | angle.buf[0];
+;;;179    {
+;;;180    	angleFrame.HEAD     = angle.buf[1] << 8  | angle.buf[0];
 000002  7901              LDRB     r1,[r0,#4]  ; angle
 000004  7940              LDRB     r0,[r0,#5]
 000006  ea412000          ORR      r0,r1,r0,LSL #8
 00000a  b200              SXTH     r0,r0
 00000c  4921              LDR      r1,|L3.148|
 00000e  8008              STRH     r0,[r1,#0]
-;;;147    	angleFrame.RATE     = angle.buf[3] << 8  | angle.buf[2];
+;;;181    	angleFrame.RATE     = angle.buf[3] << 8  | angle.buf[2];
 000010  481f              LDR      r0,|L3.144|
 000012  7981              LDRB     r1,[r0,#6]
 000014  79c0              LDRB     r0,[r0,#7]
@@ -170,7 +170,7 @@
 00001a  b200              SXTH     r0,r0
 00001c  491d              LDR      r1,|L3.148|
 00001e  8048              STRH     r0,[r1,#2]
-;;;148    	angleFrame.ANGLE    = angle.buf[5] << 8  | angle.buf[4];
+;;;182    	angleFrame.ANGLE    = angle.buf[5] << 8  | angle.buf[4];
 000020  481b              LDR      r0,|L3.144|
 000022  7a01              LDRB     r1,[r0,#8]
 000024  7a40              LDRB     r0,[r0,#9]
@@ -178,7 +178,7 @@
 00002a  b200              SXTH     r0,r0
 00002c  4919              LDR      r1,|L3.148|
 00002e  8088              STRH     r0,[r1,#4]
-;;;149    	angleFrame.SUM1     = angle.buf[7] << 8  | angle.buf[6];
+;;;183    	angleFrame.SUM1     = angle.buf[7] << 8  | angle.buf[6];
 000030  4817              LDR      r0,|L3.144|
 000032  7a81              LDRB     r1,[r0,#0xa]
 000034  7ac0              LDRB     r0,[r0,#0xb]
@@ -186,7 +186,7 @@
 00003a  b200              SXTH     r0,r0
 00003c  4915              LDR      r1,|L3.148|
 00003e  80c8              STRH     r0,[r1,#6]
-;;;150    	angleFrame.RESERVE  = angle.buf[9] << 8  | angle.buf[8];
+;;;184    	angleFrame.RESERVE  = angle.buf[9] << 8  | angle.buf[8];
 000040  4813              LDR      r0,|L3.144|
 000042  7b01              LDRB     r1,[r0,#0xc]
 000044  7b40              LDRB     r0,[r0,#0xd]
@@ -194,12 +194,12 @@
 00004a  b200              SXTH     r0,r0
 00004c  4911              LDR      r1,|L3.148|
 00004e  8108              STRH     r0,[r1,#8]
-;;;151    	angleFrame.SUM2     = angle.buf[10];
+;;;185    	angleFrame.SUM2     = angle.buf[10];
 000050  480f              LDR      r0,|L3.144|
 000052  7b80              LDRB     r0,[r0,#0xe]
 000054  b240              SXTB     r0,r0
 000056  7288              STRB     r0,[r1,#0xa]
-;;;152    	angleFrame.END      = angle.buf[12] << 8 | angle.buf[11];
+;;;186    	angleFrame.END      = angle.buf[12] << 8 | angle.buf[11];
 000058  480d              LDR      r0,|L3.144|
 00005a  7bc1              LDRB     r1,[r0,#0xf]
 00005c  7c00              LDRB     r0,[r0,#0x10]
@@ -207,10 +207,10 @@
 000062  b200              SXTH     r0,r0
 000064  490b              LDR      r1,|L3.148|
 000066  8188              STRH     r0,[r1,#0xc]
-;;;153    	
-;;;154    	
-;;;155    	/*校验SUM1*/
-;;;156    	if((angleFrame.HEAD+angleFrame.RATE+angleFrame.ANGLE) != angleFrame.SUM1)
+;;;187    	
+;;;188    	
+;;;189    	/*校验SUM1*/
+;;;190    	if((angleFrame.HEAD+angleFrame.RATE+angleFrame.ANGLE) != angleFrame.SUM1)
 000068  4608              MOV      r0,r1
 00006a  f9b00000          LDRSH    r0,[r0,#0]  ; angleFrame
 00006e  f9b11002          LDRSH    r1,[r1,#2]  ; angleFrame
@@ -222,23 +222,23 @@
 00007e  f9b11006          LDRSH    r1,[r1,#6]  ; angleFrame
 000082  4288              CMP      r0,r1
 000084  d001              BEQ      |L3.138|
-;;;157    	{
-;;;158    		return false;
+;;;191    	{
+;;;192    		return false;
 000086  2000              MOVS     r0,#0
                   |L3.136|
-;;;159    	}
-;;;160    
-;;;161    	#if 0
-;;;162    	DEBUG("%X   %X\r\n",angleFrame.HEAD+angleFrame.RATE+angleFrame.ANGLE,angleFrame.SUM1);
-;;;163    	#endif
-;;;164    	
-;;;165    	return true;
-;;;166    }	
+;;;193    	}
+;;;194    
+;;;195    	#if 0
+;;;196    	DEBUG("%X   %X\r\n",angleFrame.HEAD+angleFrame.RATE+angleFrame.ANGLE,angleFrame.SUM1);
+;;;197    	#endif
+;;;198    	
+;;;199    	return true;
+;;;200    }	
 000088  4770              BX       lr
                   |L3.138|
-00008a  2001              MOVS     r0,#1                 ;165
+00008a  2001              MOVS     r0,#1                 ;199
 00008c  e7fc              B        |L3.136|
-;;;167    
+;;;201    
                           ENDP
 
 00008e  0000              DCW      0x0000
@@ -253,52 +253,52 @@
                           REQUIRE _printf_d
                           REQUIRE _printf_int_dec
                   bsp_AnglePoll PROC
-;;;105    */
-;;;106    static void bsp_AnglePoll(void)
+;;;139    */
+;;;140    static void bsp_AnglePoll(void)
 000000  b510              PUSH     {r4,lr}
-;;;107    {	
-;;;108    	if (angle.timeout == false)	/* 超过3.5个字符时间后执行MODH_RxTimeOut()函数。 */
+;;;141    {	
+;;;142    	if (angle.timeout == false)	/* 超过3.5个字符时间后执行MODH_RxTimeOut()函数。 */
 000002  480e              LDR      r0,|L4.60|
 000004  7800              LDRB     r0,[r0,#0]  ; angle
 000006  b900              CBNZ     r0,|L4.10|
                   |L4.8|
-;;;109    	{
-;;;110    		/* 没有超时，继续接收。不要清零  */
-;;;111    		return ;
-;;;112    	}
-;;;113    
-;;;114    	/* 超时清零  */
-;;;115    	angle.timeout = false;
-;;;116    
-;;;117    	if (angle.rxCount != 13)
-;;;118    	{
-;;;119    		WARNING("陀螺仪数据长度错误:%d\r\n",angle.rxCount);
-;;;120    		goto err_ret;
-;;;121    	}
-;;;122    	
-;;;123    	/* 计算SUM校验和 */
-;;;124    	if(bsp_AngleCheck() == false)
-;;;125    	{
-;;;126    		goto err_ret;
-;;;127    	}
-;;;128    	
-;;;129    	/* 分析应用层协议 */
-;;;130    	bsp_AngleAnalyzeApp();
-;;;131    
-;;;132    err_ret:
-;;;133    	angle.rxCount = 0;	/* 必须清零计数器，方便下次帧同步 */
-;;;134    }
+;;;143    	{
+;;;144    		/* 没有超时，继续接收。不要清零  */
+;;;145    		return ;
+;;;146    	}
+;;;147    
+;;;148    	/* 超时清零  */
+;;;149    	angle.timeout = false;
+;;;150    
+;;;151    	if (angle.rxCount != 13)
+;;;152    	{
+;;;153    		WARNING("陀螺仪数据长度错误:%d\r\n",angle.rxCount);
+;;;154    		goto err_ret;
+;;;155    	}
+;;;156    	
+;;;157    	/* 计算SUM校验和 */
+;;;158    	if(bsp_AngleCheck() == false)
+;;;159    	{
+;;;160    		goto err_ret;
+;;;161    	}
+;;;162    	
+;;;163    	/* 分析应用层协议 */
+;;;164    	bsp_AngleAnalyzeApp();
+;;;165    
+;;;166    err_ret:
+;;;167    	angle.rxCount = 0;	/* 必须清零计数器，方便下次帧同步 */
+;;;168    }
 000008  bd10              POP      {r4,pc}
                   |L4.10|
-00000a  2000              MOVS     r0,#0                 ;115
+00000a  2000              MOVS     r0,#0                 ;149
 00000c  490b              LDR      r1,|L4.60|
-00000e  7008              STRB     r0,[r1,#0]            ;115
-000010  4608              MOV      r0,r1                 ;117
-000012  8840              LDRH     r0,[r0,#2]            ;117  ; angle
-000014  280d              CMP      r0,#0xd               ;117
+00000e  7008              STRB     r0,[r1,#0]            ;149
+000010  4608              MOV      r0,r1                 ;151
+000012  8840              LDRH     r0,[r0,#2]            ;151  ; angle
+000014  280d              CMP      r0,#0xd               ;151
 000016  d005              BEQ      |L4.36|
-000018  4608              MOV      r0,r1                 ;119
-00001a  8841              LDRH     r1,[r0,#2]            ;119  ; angle
+000018  4608              MOV      r0,r1                 ;153
+00001a  8841              LDRH     r1,[r0,#2]            ;153  ; angle
 00001c  a008              ADR      r0,|L4.64|
 00001e  f7fffffe          BL       __2printf
 000022  e006              B        |L4.50|
@@ -308,14 +308,14 @@
 00002a  e002              B        |L4.50|
                   |L4.44|
 00002c  f7fffffe          BL       bsp_AngleAnalyzeApp
-000030  bf00              NOP                            ;132
+000030  bf00              NOP                            ;166
                   |L4.50|
-000032  2000              MOVS     r0,#0                 ;133
+000032  2000              MOVS     r0,#0                 ;167
 000034  4901              LDR      r1,|L4.60|
-000036  8048              STRH     r0,[r1,#2]            ;133
+000036  8048              STRH     r0,[r1,#2]            ;167
 000038  bf00              NOP      
 00003a  e7e5              B        |L4.8|
-;;;135    
+;;;169    
                           ENDP
 
                   |L4.60|
@@ -332,15 +332,15 @@
                           AREA ||i.bsp_AngleRead||, CODE, READONLY, ALIGN=2
 
                   bsp_AngleRead PROC
-;;;40     */
-;;;41     float bsp_AngleRead(void)
+;;;74     */
+;;;75     float bsp_AngleRead(void)
 000000  4801              LDR      r0,|L5.8|
-;;;42     {
-;;;43     	return angle.angle;
+;;;76     {
+;;;77     	return angle.angle;
 000002  6940              LDR      r0,[r0,#0x14]  ; angle
-;;;44     }
+;;;78     }
 000004  4770              BX       lr
-;;;45     
+;;;79     
                           ENDP
 
 000006  0000              DCW      0x0000
@@ -350,45 +350,45 @@
                           AREA ||i.bsp_AngleRevByte||, CODE, READONLY, ALIGN=2
 
                   bsp_AngleRevByte PROC
-;;;54     */
-;;;55     void bsp_AngleRevByte(uint8_t byte)
+;;;88     */
+;;;89     void bsp_AngleRevByte(uint8_t byte)
 000000  b570              PUSH     {r4-r6,lr}
-;;;56     {
+;;;90     {
 000002  4604              MOV      r4,r0
-;;;57     	/*
-;;;58     		3.5个字符的时间间隔，只是用在RTU模式下面，因为RTU模式没有开始符和结束符，
-;;;59     		两个数据包之间只能靠时间间隔来区分，Modbus定义在不同的波特率下，间隔时间是不一样的，
-;;;60     		所以就是3.5个字符的时间，波特率高，这个时间间隔就小，波特率低，这个时间间隔相应就大
-;;;61     
-;;;62     		4800  = 7.297ms
-;;;63     		9600  = 3.646ms
-;;;64     		19200  = 1.771ms
-;;;65     		38400  = 0.885ms
-;;;66     	*/
-;;;67     	uint32_t timeout;
-;;;68     
-;;;69     	angle.timeout = false;
+;;;91     	/*
+;;;92     		3.5个字符的时间间隔，只是用在RTU模式下面，因为RTU模式没有开始符和结束符，
+;;;93     		两个数据包之间只能靠时间间隔来区分，Modbus定义在不同的波特率下，间隔时间是不一样的，
+;;;94     		所以就是3.5个字符的时间，波特率高，这个时间间隔就小，波特率低，这个时间间隔相应就大
+;;;95     
+;;;96     		4800  = 7.297ms
+;;;97     		9600  = 3.646ms
+;;;98     		19200  = 1.771ms
+;;;99     		38400  = 0.885ms
+;;;100    	*/
+;;;101    	uint32_t timeout;
+;;;102    
+;;;103    	angle.timeout = false;
 000004  2000              MOVS     r0,#0
 000006  490a              LDR      r1,|L6.48|
 000008  7008              STRB     r0,[r1,#0]
-;;;70     	
-;;;71     	timeout = 35000000 / RX_BAUD;		/* 计算超时时间，单位us 35000000*/
+;;;104    	
+;;;105    	timeout = 35000000 / RX_BAUD;		/* 计算超时时间，单位us 35000000*/
 00000a  f240152f          MOV      r5,#0x12f
-;;;72     	
-;;;73     	/* 硬件定时中断，定时精度us*/
-;;;74     	bsp_StartHardTimer(3, timeout, (void *)bsp_AngleTimeout);
+;;;106    	
+;;;107    	/* 硬件定时中断，定时精度us*/
+;;;108    	bsp_StartHardTimer(3, timeout, (void *)bsp_AngleTimeout);
 00000e  4a09              LDR      r2,|L6.52|
 000010  4629              MOV      r1,r5
 000012  2003              MOVS     r0,#3
 000014  f7fffffe          BL       bsp_StartHardTimer
-;;;75     
-;;;76     	if (angle.rxCount < RX_BUF_SIZE)
+;;;109    
+;;;110    	if (angle.rxCount < RX_BUF_SIZE)
 000018  4805              LDR      r0,|L6.48|
 00001a  8840              LDRH     r0,[r0,#2]  ; angle
 00001c  280d              CMP      r0,#0xd
 00001e  da06              BGE      |L6.46|
-;;;77     	{
-;;;78     		angle.buf[angle.rxCount++] = byte;
+;;;111    	{
+;;;112    		angle.buf[angle.rxCount++] = byte;
 000020  4903              LDR      r1,|L6.48|
 000022  8848              LDRH     r0,[r1,#2]  ; angle
 000024  1c41              ADDS     r1,r0,#1
@@ -397,10 +397,10 @@
 00002a  1d11              ADDS     r1,r2,#4
 00002c  540c              STRB     r4,[r1,r0]
                   |L6.46|
-;;;79     	}
-;;;80     }
+;;;113    	}
+;;;114    }
 00002e  bd70              POP      {r4-r6,pc}
-;;;81     
+;;;115    
                           ENDP
 
                   |L6.48|
@@ -408,28 +408,102 @@
                   |L6.52|
                           DCD      bsp_AngleTimeout
 
+                          AREA ||i.bsp_AngleRst||, CODE, READONLY, ALIGN=2
+
+                  bsp_AngleRst PROC
+;;;56     */
+;;;57     static void bsp_AngleRst(void)
+000000  b510              PUSH     {r4,lr}
+;;;58     {
+;;;59     	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
+000002  f44f5100          MOV      r1,#0x2000
+000006  480a              LDR      r0,|L7.48|
+000008  f7fffffe          BL       GPIO_SetBits
+;;;60     	bsp_DelayMS(10);
+00000c  200a              MOVS     r0,#0xa
+00000e  f7fffffe          BL       bsp_DelayMS
+;;;61     	GPIO_ResetBits(GPIO_PORT_RST,GPIO_PIN_RST);
+000012  f44f5100          MOV      r1,#0x2000
+000016  4806              LDR      r0,|L7.48|
+000018  f7fffffe          BL       GPIO_ResetBits
+;;;62     	bsp_DelayUS(10);
+00001c  200a              MOVS     r0,#0xa
+00001e  f7fffffe          BL       bsp_DelayUS
+;;;63     	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
+000022  f44f5100          MOV      r1,#0x2000
+000026  4802              LDR      r0,|L7.48|
+000028  f7fffffe          BL       GPIO_SetBits
+;;;64     }
+00002c  bd10              POP      {r4,pc}
+;;;65     
+                          ENDP
+
+00002e  0000              DCW      0x0000
+                  |L7.48|
+                          DCD      0x40010c00
+
                           AREA ||i.bsp_AngleTimeout||, CODE, READONLY, ALIGN=2
 
                   bsp_AngleTimeout PROC
-;;;89     */
-;;;90     static void bsp_AngleTimeout(void)
+;;;123    */
+;;;124    static void bsp_AngleTimeout(void)
 000000  b510              PUSH     {r4,lr}
-;;;91     {
-;;;92     	angle.timeout = true;
+;;;125    {
+;;;126    	angle.timeout = true;
 000002  2001              MOVS     r0,#1
-000004  4902              LDR      r1,|L7.16|
+000004  4902              LDR      r1,|L8.16|
 000006  7008              STRB     r0,[r1,#0]
-;;;93     	
-;;;94     	bsp_AnglePoll();
+;;;127    	
+;;;128    	bsp_AnglePoll();
 000008  f7fffffe          BL       bsp_AnglePoll
-;;;95     }
+;;;129    }
 00000c  bd10              POP      {r4,pc}
-;;;96     
+;;;130    
                           ENDP
 
 00000e  0000              DCW      0x0000
-                  |L7.16|
+                  |L8.16|
                           DCD      angle
+
+                          AREA ||i.bsp_InitAngle||, CODE, READONLY, ALIGN=2
+
+                  bsp_InitAngle PROC
+;;;32     */
+;;;33     void bsp_InitAngle(void)
+000000  b508              PUSH     {r3,lr}
+;;;34     {
+;;;35     	GPIO_InitTypeDef GPIO_InitStructure;
+;;;36     
+;;;37     	/* 打开GPIO时钟 */
+;;;38     	RCC_APB2PeriphClockCmd(RCC_ALL_ANGLE, ENABLE);
+000002  2101              MOVS     r1,#1
+000004  2008              MOVS     r0,#8
+000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
+;;;39     
+;;;40     	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+00000a  2003              MOVS     r0,#3
+00000c  f88d0002          STRB     r0,[sp,#2]
+;;;41     	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;	
+000010  2014              MOVS     r0,#0x14
+000012  f88d0003          STRB     r0,[sp,#3]
+;;;42     	
+;;;43     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_RST;
+000016  f44f5000          MOV      r0,#0x2000
+00001a  f8ad0000          STRH     r0,[sp,#0]
+;;;44     	GPIO_Init(GPIO_PORT_RST, &GPIO_InitStructure);
+00001e  4669              MOV      r1,sp
+000020  4802              LDR      r0,|L9.44|
+000022  f7fffffe          BL       GPIO_Init
+;;;45     	
+;;;46     	bsp_AngleRst();
+000026  f7fffffe          BL       bsp_AngleRst
+;;;47     }
+00002a  bd08              POP      {r3,pc}
+;;;48     
+                          ENDP
+
+                  |L9.44|
+                          DCD      0x40010c00
 
                           AREA ||.bss||, DATA, NOINIT, ALIGN=2
 
@@ -443,9 +517,9 @@
 #line 1 "..\\..\\User\\app\\src\\bsp_Angle.c"
 	AREA ||.rev16_text||, CODE
 	THUMB
-	EXPORT |__asm___11_bsp_Angle_c_f16e245a____REV16|
+	EXPORT |__asm___11_bsp_Angle_c_ba9d2981____REV16|
 #line 114 "..\\..\\Libraries\\CMSIS\\Include\\core_cmInstr.h"
-|__asm___11_bsp_Angle_c_f16e245a____REV16| PROC
+|__asm___11_bsp_Angle_c_ba9d2981____REV16| PROC
 #line 115
 
  rev16 r0, r0
@@ -453,9 +527,9 @@
 	ENDP
 	AREA ||.revsh_text||, CODE
 	THUMB
-	EXPORT |__asm___11_bsp_Angle_c_f16e245a____REVSH|
+	EXPORT |__asm___11_bsp_Angle_c_ba9d2981____REVSH|
 #line 128
-|__asm___11_bsp_Angle_c_f16e245a____REVSH| PROC
+|__asm___11_bsp_Angle_c_ba9d2981____REVSH| PROC
 #line 129
 
  revsh r0, r0

@@ -45780,9 +45780,34 @@ N
 N#define RX_BUF_SIZE   13
 N#define RX_BAUD       UART3_BAUD
 N
+N
+Ntypedef struct
+N{
+N	volatile bool timeout ;
+X	volatile _Bool timeout ;
+N	volatile uint16_t rxCount;
+N	volatile uint8_t  buf[RX_BUF_SIZE] ;
+X	volatile uint8_t  buf[13] ;
+N	volatile float angle;
+N}Angle;
+N
+N
+Ntypedef struct
+N{
+N	volatile int16_t HEAD;
+N	volatile int16_t RATE;
+N	volatile int16_t ANGLE;
+N	volatile int16_t SUM1;
+N	volatile int16_t RESERVE;
+N	volatile int8_t SUM2;
+N	volatile int16_t END;
+N}AngleFrame;
+N
+N
 Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
 Nfloat bsp_AngleAdd(float angle1 , float angle2);
+Nvoid bsp_InitAngle(void);
 N
 N#endif
 N
@@ -46021,6 +46046,12 @@ N    {
 N		#if 0
 S		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
 S		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
+N		#endif
+N		
+N		
+N		#if 1
+N		DEBUG("角度：%.2F\r\n",bsp_AngleRead());
+X		printf ("角度：%.2F\r\n",bsp_AngleRead());
 N		#endif
 N		
 N		bsp_LedToggle(1);
