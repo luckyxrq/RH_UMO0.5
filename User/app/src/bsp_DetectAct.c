@@ -596,53 +596,32 @@ float bsp_GetInfraredVoltageRight(void)
 }
 
 
+
+uint8_t flgdec = 0 ;
+
 void bsp_DetectDeal(void)
 {
 	uint8_t i = 0 ;
+
 	
 	UNUSED(i);
 
-#if 1	
-	
-	
-	
-	//如果是前面被挡住了1,2,3,4,5,减速
-	
+
 	
 	//如果是太阳光射到了，开启全闪烁灯
-	for(i=0;i<PIN_MAP_MAX;i++)
+	for(i=0;i<=7;i++)
 	{
-		if(adcIsSunlight[i])
+		if(adcRealTime[i] >=1.0F)
 		{
+			if(flgdec == 0)
+			{
+				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
+				bsp_SetMotorPWM(MotorRight,Forward,6000);
+				flgdec = 1 ;
+			}
 			
 		}
 	}
-	
-	//printf("adcRealTime[9]:%.2f\r\n",adcRealTime[9]);
-	
-	#define S 6000
-	#define A 500
-	
-	
-//	if(adcRealTime[9] >= 1.0F)
-//	{
-
-//		DEBUG("<<<<<<<<<<<<\r\n");
-//	}
-//	else if(adcRealTime[9] <= 0.7F)
-//	{
-
-//		DEBUG(">>>>>>>>>>>>\r\n");
-//	}
-//	else
-//	{
-//		DEBUG("=============\r\n");
-//	}
-
-	
-	
-#endif
-	
 	
 }
 

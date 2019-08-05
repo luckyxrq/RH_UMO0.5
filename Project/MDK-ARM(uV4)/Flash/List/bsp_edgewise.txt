@@ -5,355 +5,234 @@
                           AREA ||i.bsp_EdgewiseAct||, CODE, READONLY, ALIGN=2
 
                   bsp_EdgewiseAct PROC
-;;;25     
-;;;26     void bsp_EdgewiseAct(void)
-000000  b570              PUSH     {r4-r6,lr}
-;;;27     {
-;;;28     	float voltage;
-;;;29     	Collision collision;
-;;;30     	
-;;;31     //	if(!edgewise.isRunning)
-;;;32     //	{
-;;;33     //		return ;
-;;;34     //	}
-;;;35     	
-;;;36     	/*
-;;;37     		往右边靠，从低到波峰，则直接沿边
-;;;38     		如果右边撞到了，则后退同时向左转向，转一个固定的角度
-;;;39     		现在则开始进行沿边，从波峰的左边向右锁住波峰
-;;;40     	*/
-;;;41     	switch(edgewise.action)
-000002  487c              LDR      r0,|L1.500|
+;;;23     
+;;;24     void bsp_EdgewiseAct(void)
+000000  b510              PUSH     {r4,lr}
+;;;25     {
+;;;26     	Collision collision;
+;;;27     	
+;;;28     
+;;;29     	switch(edgewise.action)
+000002  4849              LDR      r0,|L1.296|
 000004  7840              LDRB     r0,[r0,#1]  ; edgewise
 000006  2802              CMP      r0,#2
-000008  d054              BEQ      |L1.180|
+000008  d048              BEQ      |L1.156|
 00000a  dc03              BGT      |L1.20|
 00000c  b138              CBZ      r0,|L1.30|
 00000e  2801              CMP      r0,#1
                   |L1.16|
-000010  d13a              BNE      |L1.136|
-000012  e03a              B        |L1.138|
+000010  d130              BNE      |L1.116|
+000012  e030              B        |L1.118|
                   |L1.20|
 000014  2803              CMP      r0,#3
-000016  d06a              BEQ      |L1.238|
+000016  d054              BEQ      |L1.194|
 000018  280a              CMP      r0,#0xa
 00001a  d1f9              BNE      |L1.16|
-00001c  e081              B        |L1.290|
+00001c  e064              B        |L1.232|
                   |L1.30|
-;;;42     	{
-;;;43     		case 0:/*判断是否进入沿边模式*/
-;;;44     		{
-;;;45     			voltage = bsp_GetInfraredVoltageRight();
-00001e  f7fffffe          BL       bsp_GetInfraredVoltageRight
-000022  4605              MOV      r5,r0
-;;;46     			collision = bsp_CollisionScan();
-000024  f7fffffe          BL       bsp_CollisionScan
-000028  4604              MOV      r4,r0
-;;;47     			
-;;;48     			/*撞到了，优先判断，后退同时转向*/
-;;;49     			if(collision == CollisionRight)
-00002a  2c01              CMP      r4,#1
-00002c  d10b              BNE      |L1.70|
-;;;50     			{
-;;;51     				bsp_MotorBrake(MotorLeft);
-00002e  2000              MOVS     r0,#0
-000030  f7fffffe          BL       bsp_MotorBrake
-;;;52     				bsp_MotorBrake(MotorRight);
-000034  2001              MOVS     r0,#1
-000036  f7fffffe          BL       bsp_MotorBrake
-;;;53     				edgewise.action++ ;
-00003a  486e              LDR      r0,|L1.500|
-00003c  7840              LDRB     r0,[r0,#1]  ; edgewise
-00003e  1c40              ADDS     r0,r0,#1
-000040  496c              LDR      r1,|L1.500|
-000042  7048              STRB     r0,[r1,#1]
-000044  e020              B        |L1.136|
-                  |L1.70|
-;;;54     			}
-;;;55     			/*从左边到波峰，减速，沿边*/
-;;;56     			else if(voltage >= CONSTANT)
-000046  f04f517e          MOV      r1,#0x3f800000
-00004a  4628              MOV      r0,r5
-00004c  f7fffffe          BL       __aeabi_cfrcmple
-000050  d809              BHI      |L1.102|
-;;;57     			{
-;;;58     				bsp_MotorBrake(MotorLeft);
-000052  2000              MOVS     r0,#0
-000054  f7fffffe          BL       bsp_MotorBrake
-;;;59     				bsp_MotorBrake(MotorRight);
-000058  2001              MOVS     r0,#1
-00005a  f7fffffe          BL       bsp_MotorBrake
-;;;60     				edgewise.action = 10;
-00005e  200a              MOVS     r0,#0xa
-000060  4964              LDR      r1,|L1.500|
-000062  7048              STRB     r0,[r1,#1]
-000064  e010              B        |L1.136|
-                  |L1.102|
-;;;61     			}
-;;;62     			else if(voltage < MIN_VOLTAGE)
-000066  4964              LDR      r1,|L1.504|
-000068  4628              MOV      r0,r5
-00006a  f7fffffe          BL       __aeabi_cfcmple
-00006e  d20b              BCS      |L1.136|
-;;;63     			{
-;;;64     				bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED+500);
-000070  f6411264          MOV      r2,#0x1964
-000074  2100              MOVS     r1,#0
-000076  4608              MOV      r0,r1
-000078  f7fffffe          BL       bsp_SetMotorPWM
-;;;65     				bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
-00007c  f2417270          MOV      r2,#0x1770
-000080  2100              MOVS     r1,#0
-000082  2001              MOVS     r0,#1
-000084  f7fffffe          BL       bsp_SetMotorPWM
-                  |L1.136|
-;;;66     			}
-;;;67     			
-;;;68     		};break;
-000088  e0b2              B        |L1.496|
-                  |L1.138|
-;;;69     		
-;;;70     		case 1:/*撞到了，优先判断，后退*/
-;;;71     		{
-;;;72     			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED);
-00008a  f2417270          MOV      r2,#0x1770
-00008e  2101              MOVS     r1,#1
-000090  2000              MOVS     r0,#0
-000092  f7fffffe          BL       bsp_SetMotorPWM
-;;;73     			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED);
-000096  f2417270          MOV      r2,#0x1770
-00009a  2101              MOVS     r1,#1
-00009c  4608              MOV      r0,r1
-00009e  f7fffffe          BL       bsp_SetMotorPWM
-;;;74     			edgewise.delay = xTaskGetTickCount();
-0000a2  f7fffffe          BL       xTaskGetTickCount
-0000a6  4953              LDR      r1,|L1.500|
-0000a8  6048              STR      r0,[r1,#4]  ; edgewise
-;;;75     			edgewise.action++ ;
-0000aa  4608              MOV      r0,r1
-0000ac  7840              LDRB     r0,[r0,#1]  ; edgewise
-0000ae  1c40              ADDS     r0,r0,#1
-0000b0  7048              STRB     r0,[r1,#1]
-;;;76     		};break;
-0000b2  e09d              B        |L1.496|
-                  |L1.180|
-;;;77     		
-;;;78     		case 2:/*撞到了，优先判断，原地转向*/
-;;;79     		{
-;;;80     			if(xTaskGetTickCount() - edgewise.delay >= 600)
+;;;30     	{
+;;;31     		case 0:/*判断是否进入沿边模式*/
+;;;32     		{
+;;;33     			collision = bsp_CollisionScan();
+00001e  f7fffffe          BL       bsp_CollisionScan
+000022  4604              MOV      r4,r0
+;;;34     			
+;;;35     			/*撞到了，优先判断，后退同时转向*/
+;;;36     			if(collision == CollisionLeft)
+000024  b95c              CBNZ     r4,|L1.62|
+;;;37     			{
+;;;38     				bsp_StopRunStable();
+000026  f7fffffe          BL       bsp_StopRunStable
+;;;39     				bsp_MotorBrake(MotorLeft);
+00002a  2000              MOVS     r0,#0
+00002c  f7fffffe          BL       bsp_MotorBrake
+;;;40     				bsp_MotorBrake(MotorRight);
+000030  2001              MOVS     r0,#1
+000032  f7fffffe          BL       bsp_MotorBrake
+;;;41     				edgewise.action = 2 ;
+000036  2002              MOVS     r0,#2
+000038  493b              LDR      r1,|L1.296|
+00003a  7048              STRB     r0,[r1,#1]
+00003c  e01a              B        |L1.116|
+                  |L1.62|
+;;;42     			}
+;;;43     			/*撞到了，优先判断，后退同时转向*/
+;;;44     			else if(collision == CollisionRight)
+00003e  2c01              CMP      r4,#1
+000040  d10b              BNE      |L1.90|
+;;;45     			{
+;;;46     				bsp_StopRunStable();
+000042  f7fffffe          BL       bsp_StopRunStable
+;;;47     				bsp_MotorBrake(MotorLeft);
+000046  2000              MOVS     r0,#0
+000048  f7fffffe          BL       bsp_MotorBrake
+;;;48     				bsp_MotorBrake(MotorRight);
+00004c  2001              MOVS     r0,#1
+00004e  f7fffffe          BL       bsp_MotorBrake
+;;;49     				edgewise.action = 3 ;
+000052  2003              MOVS     r0,#3
+000054  4934              LDR      r1,|L1.296|
+000056  7048              STRB     r0,[r1,#1]
+000058  e00c              B        |L1.116|
+                  |L1.90|
+;;;50     			}
+;;;51     			/*撞到了，优先判断，后退同时转向*/
+;;;52     			else if(collision == CollisionAll)
+00005a  2c02              CMP      r4,#2
+00005c  d10a              BNE      |L1.116|
+;;;53     			{
+;;;54     				bsp_StopRunStable();
+00005e  f7fffffe          BL       bsp_StopRunStable
+;;;55     				bsp_MotorBrake(MotorLeft);
+000062  2000              MOVS     r0,#0
+000064  f7fffffe          BL       bsp_MotorBrake
+;;;56     				bsp_MotorBrake(MotorRight);
+000068  2001              MOVS     r0,#1
+00006a  f7fffffe          BL       bsp_MotorBrake
+;;;57     				edgewise.action = 1 ;
+00006e  2001              MOVS     r0,#1
+000070  492d              LDR      r1,|L1.296|
+000072  7048              STRB     r0,[r1,#1]
+                  |L1.116|
+;;;58     			}
+;;;59     			
+;;;60     			
+;;;61     		};break;
+000074  e056              B        |L1.292|
+                  |L1.118|
+;;;62     		
+;;;63     		
+;;;64     		
+;;;65     		
+;;;66     		case 1:
+;;;67     		{
+;;;68     			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED);
+000076  f2417270          MOV      r2,#0x1770
+00007a  2101              MOVS     r1,#1
+00007c  2000              MOVS     r0,#0
+00007e  f7fffffe          BL       bsp_SetMotorPWM
+;;;69     			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED);
+000082  f2417270          MOV      r2,#0x1770
+000086  2101              MOVS     r1,#1
+000088  4608              MOV      r0,r1
+00008a  f7fffffe          BL       bsp_SetMotorPWM
+;;;70     			edgewise.delay = xTaskGetTickCount();
+00008e  f7fffffe          BL       xTaskGetTickCount
+000092  4925              LDR      r1,|L1.296|
+000094  6048              STR      r0,[r1,#4]  ; edgewise
+;;;71     			edgewise.action = 10 ;
+000096  200a              MOVS     r0,#0xa
+000098  7048              STRB     r0,[r1,#1]
+;;;72     		}break;
+00009a  e043              B        |L1.292|
+                  |L1.156|
+;;;73     		
+;;;74     		
+;;;75     		case 2:
+;;;76     		{
+;;;77     			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED-500);
+00009c  f241527c          MOV      r2,#0x157c
+0000a0  2101              MOVS     r1,#1
+0000a2  2000              MOVS     r0,#0
+0000a4  f7fffffe          BL       bsp_SetMotorPWM
+;;;78     			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED+500);
+0000a8  f6411264          MOV      r2,#0x1964
+0000ac  2101              MOVS     r1,#1
+0000ae  4608              MOV      r0,r1
+0000b0  f7fffffe          BL       bsp_SetMotorPWM
+;;;79     			edgewise.delay = xTaskGetTickCount();
 0000b4  f7fffffe          BL       xTaskGetTickCount
-0000b8  494e              LDR      r1,|L1.500|
-0000ba  6849              LDR      r1,[r1,#4]  ; edgewise
-0000bc  1a40              SUBS     r0,r0,r1
-0000be  f5b07f16          CMP      r0,#0x258
-0000c2  d313              BCC      |L1.236|
-;;;81     			{
-;;;82     				bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED);
-0000c4  f2417270          MOV      r2,#0x1770
-0000c8  2101              MOVS     r1,#1
-0000ca  2000              MOVS     r0,#0
-0000cc  f7fffffe          BL       bsp_SetMotorPWM
-;;;83     				bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
-0000d0  f2417270          MOV      r2,#0x1770
-0000d4  2100              MOVS     r1,#0
-0000d6  2001              MOVS     r0,#1
-0000d8  f7fffffe          BL       bsp_SetMotorPWM
-;;;84     				edgewise.delay = xTaskGetTickCount();
-0000dc  f7fffffe          BL       xTaskGetTickCount
-0000e0  4944              LDR      r1,|L1.500|
-0000e2  6048              STR      r0,[r1,#4]  ; edgewise
-;;;85     				edgewise.action++ ;
-0000e4  4608              MOV      r0,r1
-0000e6  7840              LDRB     r0,[r0,#1]  ; edgewise
-0000e8  1c40              ADDS     r0,r0,#1
-0000ea  7048              STRB     r0,[r1,#1]
-                  |L1.236|
-;;;86     			}
-;;;87     		}break;
-0000ec  e080              B        |L1.496|
-                  |L1.238|
-;;;88     		
-;;;89     		case 3:/*撞到了，优先判断，继续前进*/
-;;;90     		{
-;;;91     			if(xTaskGetTickCount() - edgewise.delay >= 200)
-0000ee  f7fffffe          BL       xTaskGetTickCount
-0000f2  4940              LDR      r1,|L1.500|
-0000f4  6849              LDR      r1,[r1,#4]  ; edgewise
-0000f6  1a40              SUBS     r0,r0,r1
-0000f8  28c8              CMP      r0,#0xc8
-0000fa  d311              BCC      |L1.288|
-;;;92     			{
-;;;93     				bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED);
-0000fc  f2417270          MOV      r2,#0x1770
-000100  2100              MOVS     r1,#0
-000102  4608              MOV      r0,r1
-000104  f7fffffe          BL       bsp_SetMotorPWM
-;;;94     				bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
-000108  f2417270          MOV      r2,#0x1770
-00010c  2100              MOVS     r1,#0
-00010e  2001              MOVS     r0,#1
-000110  f7fffffe          BL       bsp_SetMotorPWM
-;;;95     				edgewise.delay = xTaskGetTickCount();
-000114  f7fffffe          BL       xTaskGetTickCount
-000118  4936              LDR      r1,|L1.500|
-00011a  6048              STR      r0,[r1,#4]  ; edgewise
-;;;96     				edgewise.action = 0 ;
-00011c  2000              MOVS     r0,#0
-00011e  7048              STRB     r0,[r1,#1]
-                  |L1.288|
-;;;97     			}
-;;;98     		}break;
-000120  e066              B        |L1.496|
+0000b8  491b              LDR      r1,|L1.296|
+0000ba  6048              STR      r0,[r1,#4]  ; edgewise
+;;;80     			edgewise.action = 10 ;
+0000bc  200a              MOVS     r0,#0xa
+0000be  7048              STRB     r0,[r1,#1]
+;;;81     		}break;
+0000c0  e030              B        |L1.292|
+                  |L1.194|
+;;;82     		
+;;;83     		
+;;;84     		case 3:
+;;;85     		{
+;;;86     			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED+500);
+0000c2  f6411264          MOV      r2,#0x1964
+0000c6  2101              MOVS     r1,#1
+0000c8  2000              MOVS     r0,#0
+0000ca  f7fffffe          BL       bsp_SetMotorPWM
+;;;87     			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED-500);
+0000ce  f241527c          MOV      r2,#0x157c
+0000d2  2101              MOVS     r1,#1
+0000d4  4608              MOV      r0,r1
+0000d6  f7fffffe          BL       bsp_SetMotorPWM
+;;;88     			edgewise.delay = xTaskGetTickCount();
+0000da  f7fffffe          BL       xTaskGetTickCount
+0000de  4912              LDR      r1,|L1.296|
+0000e0  6048              STR      r0,[r1,#4]  ; edgewise
+;;;89     			edgewise.action = 10 ;
+0000e2  200a              MOVS     r0,#0xa
+0000e4  7048              STRB     r0,[r1,#1]
+;;;90     		}break;
+0000e6  e01d              B        |L1.292|
+                  |L1.232|
+;;;91     		
+;;;92     		case 10:
+;;;93     		{
+;;;94     			if(xTaskGetTickCount() - edgewise.delay >= 1000)
+0000e8  f7fffffe          BL       xTaskGetTickCount
+0000ec  490e              LDR      r1,|L1.296|
+0000ee  6849              LDR      r1,[r1,#4]  ; edgewise
+0000f0  1a40              SUBS     r0,r0,r1
+0000f2  f5b07f7a          CMP      r0,#0x3e8
+0000f6  d314              BCC      |L1.290|
+;;;95     			{
+;;;96     				bsp_MotorBrake(MotorLeft);
+0000f8  2000              MOVS     r0,#0
+0000fa  f7fffffe          BL       bsp_MotorBrake
+;;;97     				bsp_MotorBrake(MotorRight);
+0000fe  2001              MOVS     r0,#1
+000100  f7fffffe          BL       bsp_MotorBrake
+;;;98     				edgewise.delay = xTaskGetTickCount();
+000104  f7fffffe          BL       xTaskGetTickCount
+000108  4907              LDR      r1,|L1.296|
+00010a  6048              STR      r0,[r1,#4]  ; edgewise
+;;;99     				edgewise.action++;
+00010c  4608              MOV      r0,r1
+00010e  7840              LDRB     r0,[r0,#1]  ; edgewise
+000110  1c40              ADDS     r0,r0,#1
+000112  7048              STRB     r0,[r1,#1]
+;;;100    				
+;;;101    				bsp_StartRunStable();
+000114  f7fffffe          BL       bsp_StartRunStable
+;;;102    				
+;;;103    //				bsp_SetMotorPWM(MotorLeft,Forward, 7000);
+;;;104    //				bsp_SetMotorPWM(MotorRight,Forward,7000);
+;;;105    				
+;;;106    				flgdec = 0 ;
+000118  2000              MOVS     r0,#0
+00011a  4904              LDR      r1,|L1.300|
+00011c  7008              STRB     r0,[r1,#0]
+;;;107    				edgewise.action = 0 ;
+00011e  4902              LDR      r1,|L1.296|
+000120  7048              STRB     r0,[r1,#1]
                   |L1.290|
-;;;99     		
-;;;100    		
-;;;101    		
-;;;102    		
-;;;103    		
-;;;104    		case 10:
-;;;105    		{
-;;;106    			collision = bsp_CollisionScan();
-000122  f7fffffe          BL       bsp_CollisionScan
-000126  4604              MOV      r4,r0
-;;;107    			
-;;;108    			/*撞到了，优先判断，后退同时转向*/
-;;;109    			if(collision == CollisionRight)
-000128  2c01              CMP      r4,#1
-00012a  d109              BNE      |L1.320|
-;;;110    			{
-;;;111    				bsp_MotorBrake(MotorLeft);
-00012c  2000              MOVS     r0,#0
-00012e  f7fffffe          BL       bsp_MotorBrake
-;;;112    				bsp_MotorBrake(MotorRight);
-000132  2001              MOVS     r0,#1
-000134  f7fffffe          BL       bsp_MotorBrake
-;;;113    				edgewise.action = 1 ;
-000138  2001              MOVS     r0,#1
-00013a  492e              LDR      r1,|L1.500|
-00013c  7048              STRB     r0,[r1,#1]
-00013e  e056              B        |L1.494|
-                  |L1.320|
-;;;114    			}
-;;;115    			else
-;;;116    			{
-;;;117    				voltage = bsp_GetInfraredVoltageRight();
-000140  f7fffffe          BL       bsp_GetInfraredVoltageRight
-000144  4605              MOV      r5,r0
-;;;118    				
-;;;119    				if(voltage >= 1.2F)/*套靠近了，向左偏移*/
-000146  492d              LDR      r1,|L1.508|
-000148  4628              MOV      r0,r5
-00014a  f7fffffe          BL       __aeabi_cfrcmple
-00014e  d80c              BHI      |L1.362|
-;;;120    				{
-;;;121    					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED);
-000150  f2417270          MOV      r2,#0x1770
-000154  2100              MOVS     r1,#0
-000156  4608              MOV      r0,r1
-000158  f7fffffe          BL       bsp_SetMotorPWM
-;;;122    					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED+INTERVAL);
-00015c  f6413258          MOV      r2,#0x1b58
-000160  2100              MOVS     r1,#0
-000162  2001              MOVS     r0,#1
-000164  f7fffffe          BL       bsp_SetMotorPWM
-000168  e041              B        |L1.494|
-                  |L1.362|
-;;;123    				}
-;;;124    				else if(voltage >= 1.1F) /*太远了，向右偏移*/
-00016a  4925              LDR      r1,|L1.512|
-00016c  4628              MOV      r0,r5
-00016e  f7fffffe          BL       __aeabi_cfrcmple
-000172  d80c              BHI      |L1.398|
-;;;125    				{
-;;;126    					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED);
-000174  f2417270          MOV      r2,#0x1770
-000178  2100              MOVS     r1,#0
-00017a  4608              MOV      r0,r1
-00017c  f7fffffe          BL       bsp_SetMotorPWM
-;;;127    					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED+500);
-000180  f6411264          MOV      r2,#0x1964
-000184  2100              MOVS     r1,#0
-000186  2001              MOVS     r0,#1
-000188  f7fffffe          BL       bsp_SetMotorPWM
-00018c  e02f              B        |L1.494|
-                  |L1.398|
-;;;128    				}
-;;;129    				else if(voltage <= 0.8F) /*太远了，向右偏移*/
-00018e  491d              LDR      r1,|L1.516|
-000190  4628              MOV      r0,r5
-000192  f7fffffe          BL       __aeabi_cfcmple
-000196  d80c              BHI      |L1.434|
-;;;130    				{
-;;;131    					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED+500);
-000198  f6411264          MOV      r2,#0x1964
-00019c  2100              MOVS     r1,#0
-00019e  4608              MOV      r0,r1
-0001a0  f7fffffe          BL       bsp_SetMotorPWM
-;;;132    					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
-0001a4  f2417270          MOV      r2,#0x1770
-0001a8  2100              MOVS     r1,#0
-0001aa  2001              MOVS     r0,#1
-0001ac  f7fffffe          BL       bsp_SetMotorPWM
-0001b0  e01d              B        |L1.494|
-                  |L1.434|
-;;;133    				}
-;;;134    				else if(voltage <= 0.9F) /*太远了，向右偏移*/
-0001b2  4915              LDR      r1,|L1.520|
-0001b4  4628              MOV      r0,r5
-0001b6  f7fffffe          BL       __aeabi_cfcmple
-0001ba  d80c              BHI      |L1.470|
-;;;135    				{
-;;;136    					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED+INTERVAL);
-0001bc  f6413258          MOV      r2,#0x1b58
-0001c0  2100              MOVS     r1,#0
-0001c2  4608              MOV      r0,r1
-0001c4  f7fffffe          BL       bsp_SetMotorPWM
-;;;137    					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
-0001c8  f2417270          MOV      r2,#0x1770
-0001cc  2100              MOVS     r1,#0
-0001ce  2001              MOVS     r0,#1
-0001d0  f7fffffe          BL       bsp_SetMotorPWM
-0001d4  e00b              B        |L1.494|
-                  |L1.470|
-;;;138    				}
-;;;139    				else
-;;;140    				{
-;;;141    					bsp_SetMotorPWM(MotorLeft,Forward, SLOW_SPEED);
-0001d6  f2417270          MOV      r2,#0x1770
-0001da  2100              MOVS     r1,#0
-0001dc  4608              MOV      r0,r1
-0001de  f7fffffe          BL       bsp_SetMotorPWM
-;;;142    					bsp_SetMotorPWM(MotorRight,Forward,SLOW_SPEED);
-0001e2  f2417270          MOV      r2,#0x1770
-0001e6  2100              MOVS     r1,#0
-0001e8  2001              MOVS     r0,#1
-0001ea  f7fffffe          BL       bsp_SetMotorPWM
-                  |L1.494|
-;;;143    				}
-;;;144    			}
-;;;145    		}break;
-0001ee  bf00              NOP      
-                  |L1.496|
-0001f0  bf00              NOP                            ;68
-;;;146    		
-;;;147    	}
-;;;148    }
-0001f2  bd70              POP      {r4-r6,pc}
-;;;149    
+;;;108    			}
+;;;109    		}break;
+000122  bf00              NOP      
+                  |L1.292|
+000124  bf00              NOP                            ;61
+;;;110    		
+;;;111    		
+;;;112    
+;;;113    	}	
+;;;114    }
+000126  bd10              POP      {r4,pc}
+;;;115    
                           ENDP
 
-                  |L1.500|
+                  |L1.296|
                           DCD      edgewise
-                  |L1.504|
-                          DCD      0x3f19999a
-                  |L1.508|
-                          DCD      0x3f99999a
-                  |L1.512|
-                          DCD      0x3f8ccccd
-                  |L1.516|
-                          DCD      0x3f4ccccd
-                  |L1.520|
-                          DCD      0x3f666666
+                  |L1.300|
+                          DCD      flgdec
 
                           AREA ||.data||, DATA, ALIGN=2
 

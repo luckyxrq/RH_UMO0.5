@@ -2143,72 +2143,74 @@
                   |L3.228|
                           DCD      delay
 
-                          AREA ||i.bsp_DetectDeal||, CODE, READONLY, ALIGN=1
+                          AREA ||i.bsp_DetectDeal||, CODE, READONLY, ALIGN=2
 
                   bsp_DetectDeal PROC
-;;;598    
-;;;599    void bsp_DetectDeal(void)
-000000  2000              MOVS     r0,#0
-;;;600    {
-;;;601    	uint8_t i = 0 ;
-;;;602    	
-;;;603    	UNUSED(i);
-;;;604    
-;;;605    #if 1	
+;;;601    
+;;;602    void bsp_DetectDeal(void)
+000000  b510              PUSH     {r4,lr}
+;;;603    {
+;;;604    	uint8_t i = 0 ;
+000002  2400              MOVS     r4,#0
+;;;605    
 ;;;606    	
-;;;607    	
-;;;608    	
-;;;609    	//如果是前面被挡住了1,2,3,4,5,减速
+;;;607    	UNUSED(i);
+;;;608    
+;;;609    
 ;;;610    	
-;;;611    	
-;;;612    	//如果是太阳光射到了，开启全闪烁灯
-;;;613    	for(i=0;i<PIN_MAP_MAX;i++)
-000002  bf00              NOP      
-000004  e001              B        |L4.10|
-                  |L4.6|
-000006  1c41              ADDS     r1,r0,#1
-000008  b2c8              UXTB     r0,r1
-                  |L4.10|
-00000a  280a              CMP      r0,#0xa
-00000c  dbfb              BLT      |L4.6|
-;;;614    	{
-;;;615    		if(adcIsSunlight[i])
-;;;616    		{
-;;;617    			
-;;;618    		}
-;;;619    	}
-;;;620    	
-;;;621    	//printf("adcRealTime[9]:%.2f\r\n",adcRealTime[9]);
-;;;622    	
-;;;623    	#define S 6000
-;;;624    	#define A 500
+;;;611    	//如果是太阳光射到了，开启全闪烁灯
+;;;612    	for(i=0;i<=7;i++)
+000004  bf00              NOP      
+000006  e01b              B        |L4.64|
+                  |L4.8|
+;;;613    	{
+;;;614    		if(adcRealTime[i] >=1.0F)
+000008  490f              LDR      r1,|L4.72|
+00000a  f8510024          LDR      r0,[r1,r4,LSL #2]
+00000e  f04f517e          MOV      r1,#0x3f800000
+000012  f7fffffe          BL       __aeabi_cfrcmple
+000016  d811              BHI      |L4.60|
+;;;615    		{
+;;;616    			if(flgdec == 0)
+000018  480c              LDR      r0,|L4.76|
+00001a  7800              LDRB     r0,[r0,#0]  ; flgdec
+00001c  b970              CBNZ     r0,|L4.60|
+;;;617    			{
+;;;618    				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
+00001e  f2417270          MOV      r2,#0x1770
+000022  2100              MOVS     r1,#0
+000024  4608              MOV      r0,r1
+000026  f7fffffe          BL       bsp_SetMotorPWM
+;;;619    				bsp_SetMotorPWM(MotorRight,Forward,6000);
+00002a  f2417270          MOV      r2,#0x1770
+00002e  2100              MOVS     r1,#0
+000030  2001              MOVS     r0,#1
+000032  f7fffffe          BL       bsp_SetMotorPWM
+;;;620    				flgdec = 1 ;
+000036  2001              MOVS     r0,#1
+000038  4904              LDR      r1,|L4.76|
+00003a  7008              STRB     r0,[r1,#0]
+                  |L4.60|
+00003c  1c60              ADDS     r0,r4,#1              ;612
+00003e  b2c4              UXTB     r4,r0                 ;612
+                  |L4.64|
+000040  2c07              CMP      r4,#7                 ;612
+000042  dde1              BLE      |L4.8|
+;;;621    			}
+;;;622    			
+;;;623    		}
+;;;624    	}
 ;;;625    	
-;;;626    	
-;;;627    //	if(adcRealTime[9] >= 1.0F)
-;;;628    //	{
-;;;629    
-;;;630    //		DEBUG("<<<<<<<<<<<<\r\n");
-;;;631    //	}
-;;;632    //	else if(adcRealTime[9] <= 0.7F)
-;;;633    //	{
-;;;634    
-;;;635    //		DEBUG(">>>>>>>>>>>>\r\n");
-;;;636    //	}
-;;;637    //	else
-;;;638    //	{
-;;;639    //		DEBUG("=============\r\n");
-;;;640    //	}
-;;;641    
-;;;642    	
-;;;643    	
-;;;644    #endif
-;;;645    	
-;;;646    	
-;;;647    }
-00000e  4770              BX       lr
-;;;648    
+;;;626    }
+000044  bd10              POP      {r4,pc}
+;;;627    
                           ENDP
 
+000046  0000              DCW      0x0000
+                  |L4.72|
+                          DCD      adcRealTime
+                  |L4.76|
+                          DCD      flgdec
 
                           AREA ||i.bsp_DetectStart||, CODE, READONLY, ALIGN=2
 
@@ -2441,8 +2443,10 @@
 000008  08020901          DCB      0x08,0x02,0x09,0x01
 00000c  0a000e06          DCB      0x0a,0x00,0x0e,0x06
 000010  0c0c0b0b          DCB      0x0c,0x0c,0x0b,0x0b
+                  flgdec
+000014  00                DCB      0x00
                   action
-000014  00000000          DCB      0x00,0x00,0x00,0x00
+000015  000000            DCB      0x00,0x00,0x00
                   delay
                           DCD      0x00000000
 

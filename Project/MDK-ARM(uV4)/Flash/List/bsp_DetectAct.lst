@@ -39342,55 +39342,33 @@ N	return adcRealTime[9];
 N}
 N
 N
+N
+Nuint8_t flgdec = 0 ;
+N
 Nvoid bsp_DetectDeal(void)
 N{
 N	uint8_t i = 0 ;
+N
 N	
 N	UNUSED(i);
 X	(void)(i);
 N
-N#if 1	
-N	
-N	
-N	
-N	//如果是前面被挡住了1,2,3,4,5,减速
-N	
+N
 N	
 N	//如果是太阳光射到了，开启全闪烁灯
-N	for(i=0;i<PIN_MAP_MAX;i++)
-X	for(i=0;i<10;i++)
+N	for(i=0;i<=7;i++)
 N	{
-N		if(adcIsSunlight[i])
+N		if(adcRealTime[i] >=1.0F)
 N		{
+N			if(flgdec == 0)
+N			{
+N				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
+N				bsp_SetMotorPWM(MotorRight,Forward,6000);
+N				flgdec = 1 ;
+N			}
 N			
 N		}
 N	}
-N	
-N	//printf("adcRealTime[9]:%.2f\r\n",adcRealTime[9]);
-N	
-N	#define S 6000
-N	#define A 500
-N	
-N	
-N//	if(adcRealTime[9] >= 1.0F)
-N//	{
-N
-N//		DEBUG("<<<<<<<<<<<<\r\n");
-N//	}
-N//	else if(adcRealTime[9] <= 0.7F)
-N//	{
-N
-N//		DEBUG(">>>>>>>>>>>>\r\n");
-N//	}
-N//	else
-N//	{
-N//		DEBUG("=============\r\n");
-N//	}
-N
-N	
-N	
-N#endif
-N	
 N	
 N}
 N

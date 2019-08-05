@@ -26,6 +26,7 @@ static TaskHandle_t xHandleTaskStart = NULL;
 static SemaphoreHandle_t  xMutex = NULL;
 
 
+
 /*
 *********************************************************************************************************
 *	函 数 名: main
@@ -144,6 +145,26 @@ static void vTaskLED(void *pvParameters)
     while(1)
     {
 		bsp_IWDG_Feed(); /* 喂狗 */
+		
+		
+		{
+			Collision collision = bsp_CollisionScan();
+			if(collision == CollisionLeft)
+			{
+				DEBUG("左边碰撞\r\n");
+			}
+			else if(collision == CollisionRight)
+			{
+				DEBUG("右边碰撞\r\n");
+			}
+			else if(collision == CollisionAll)
+			{
+				DEBUG("两边碰撞\r\n");
+			}
+			
+		}
+		
+		
 		vTaskDelay(20);
     }
 }
@@ -162,7 +183,7 @@ static void vTaskMsgPro(void *pvParameters)
 	bsp_StartRunStable();
     while(1)
     {
-		bsp_RunStableAct(); /* 平滑启动状态机 */
+		//bsp_RunStableAct(); /* 平滑启动状态机 */
 		vTaskDelay(1);
     }
 }
@@ -183,7 +204,7 @@ static void vTaskStart(void *pvParameters)
     {
 		bsp_DetectAct();  /*红外对管轮询扫描*/
 		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-		bsp_EdgewiseAct();/*沿边*/
+//		bsp_EdgewiseAct();/*沿边*/
         vTaskDelay(1);
     }
 }
