@@ -117,7 +117,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 		#endif
 		
 		
-		#if 1
+		#if 0
 		DEBUG("½Ç¶È£º%.2F\r\n",bsp_AngleRead());
 		#endif
 		
@@ -141,7 +141,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 */
 static void vTaskLED(void *pvParameters)
 {
-
+	static uint32_t index = 0 ;
     while(1)
     {
 		bsp_IWDG_Feed(); /* Î¹¹· */
@@ -151,15 +151,15 @@ static void vTaskLED(void *pvParameters)
 			Collision collision = bsp_CollisionScan();
 			if(collision == CollisionLeft)
 			{
-				DEBUG("×ó±ßÅö×²\r\n");
+				DEBUG("%06d×ó±ßÅö×²\r\n",index++);
 			}
 			else if(collision == CollisionRight)
 			{
-				DEBUG("ÓÒ±ßÅö×²\r\n");
+				DEBUG("%06dÓÒ±ßÅö×²\r\n",index++);
 			}
 			else if(collision == CollisionAll)
 			{
-//				DEBUG("Á½±ßÅö×²\r\n");
+				DEBUG("%06dÁ½±ßÅö×²\r\n",index++);
 			}
 			
 		}

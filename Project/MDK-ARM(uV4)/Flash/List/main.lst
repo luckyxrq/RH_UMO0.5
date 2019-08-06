@@ -46097,9 +46097,8 @@ S		DEBUG("ÓÒÂÖËÙ¶È:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 N		#endif
 N		
 N		
-N		#if 1
-N		DEBUG("½Ç¶È£º%.2F\r\n",bsp_AngleRead());
-X		printf ("½Ç¶È£º%.2F\r\n",bsp_AngleRead());
+N		#if 0
+S		DEBUG("½Ç¶È£º%.2F\r\n",bsp_AngleRead());
 N		#endif
 N		
 N		bsp_LedToggle(1);
@@ -46122,7 +46121,7 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskLED(void *pvParameters)
 N{
-N
+N	static uint32_t index = 0 ;
 N    while(1)
 N    {
 N		bsp_IWDG_Feed(); /* Î¹¹· */
@@ -46132,17 +46131,18 @@ N		{
 N			Collision collision = bsp_CollisionScan();
 N			if(collision == CollisionLeft)
 N			{
-N				DEBUG("×ó±ßÅö×²\r\n");
-X				printf ("×ó±ßÅö×²\r\n");
+N				DEBUG("%06d×ó±ßÅö×²\r\n",index++);
+X				printf ("%06d×ó±ßÅö×²\r\n",index++);
 N			}
 N			else if(collision == CollisionRight)
 N			{
-N				DEBUG("ÓÒ±ßÅö×²\r\n");
-X				printf ("ÓÒ±ßÅö×²\r\n");
+N				DEBUG("%06dÓÒ±ßÅö×²\r\n",index++);
+X				printf ("%06dÓÒ±ßÅö×²\r\n",index++);
 N			}
 N			else if(collision == CollisionAll)
 N			{
-N//				DEBUG("Á½±ßÅö×²\r\n");
+N				DEBUG("%06dÁ½±ßÅö×²\r\n",index++);
+X				printf ("%06dÁ½±ßÅö×²\r\n",index++);
 N			}
 N			
 N		}

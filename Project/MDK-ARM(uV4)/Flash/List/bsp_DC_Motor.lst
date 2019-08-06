@@ -38765,7 +38765,7 @@ N		case MotorRight:
 N		{
 N			motor[MotorRight].isRunning = true ;	
 X			motor[MotorRight].isRunning = 1 ;	
-N			if(dir == Forward)
+N			if(dir == Backward)
 N			{
 N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
 X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0, 0);

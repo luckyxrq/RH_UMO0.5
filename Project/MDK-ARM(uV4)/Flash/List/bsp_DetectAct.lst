@@ -39353,7 +39353,15 @@ N
 N	UNUSED(i);
 X	(void)(i);
 N
-N
+N	
+N	
+N#if 0	
+S	for(i=0;i<10;i++)
+S	{
+S		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
+S	}
+S	printf("\r\n");
+N#endif
 N	
 N	//如果是太阳光射到了，开启全闪烁灯
 N	for(i=0;i<=7;i++)

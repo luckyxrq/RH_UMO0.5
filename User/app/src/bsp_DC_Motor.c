@@ -142,7 +142,7 @@ void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
 		case MotorRight:
 		{
 			motor[MotorRight].isRunning = true ;	
-			if(dir == Forward)
+			if(dir == Backward)
 			{
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,DC_PWM_T, pwm);

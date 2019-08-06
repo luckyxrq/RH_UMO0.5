@@ -606,7 +606,15 @@ void bsp_DetectDeal(void)
 	
 	UNUSED(i);
 
-
+	
+	
+#if 0	
+	for(i=0;i<10;i++)
+	{
+		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
+	}
+	printf("\r\n");
+#endif
 	
 	//如果是太阳光射到了，开启全闪烁灯
 	for(i=0;i<=7;i++)

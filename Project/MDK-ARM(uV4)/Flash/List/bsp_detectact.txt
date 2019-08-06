@@ -2156,54 +2156,62 @@
 ;;;606    	
 ;;;607    	UNUSED(i);
 ;;;608    
-;;;609    
+;;;609    	
 ;;;610    	
-;;;611    	//如果是太阳光射到了，开启全闪烁灯
-;;;612    	for(i=0;i<=7;i++)
+;;;611    #if 0	
+;;;612    	for(i=0;i<10;i++)
+;;;613    	{
+;;;614    		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
+;;;615    	}
+;;;616    	printf("\r\n");
+;;;617    #endif
+;;;618    	
+;;;619    	//如果是太阳光射到了，开启全闪烁灯
+;;;620    	for(i=0;i<=7;i++)
 000004  bf00              NOP      
 000006  e01b              B        |L4.64|
                   |L4.8|
-;;;613    	{
-;;;614    		if(adcRealTime[i] >=1.0F)
+;;;621    	{
+;;;622    		if(adcRealTime[i] >=1.0F)
 000008  490f              LDR      r1,|L4.72|
 00000a  f8510024          LDR      r0,[r1,r4,LSL #2]
 00000e  f04f517e          MOV      r1,#0x3f800000
 000012  f7fffffe          BL       __aeabi_cfrcmple
 000016  d811              BHI      |L4.60|
-;;;615    		{
-;;;616    			if(flgdec == 0)
+;;;623    		{
+;;;624    			if(flgdec == 0)
 000018  480c              LDR      r0,|L4.76|
 00001a  7800              LDRB     r0,[r0,#0]  ; flgdec
 00001c  b970              CBNZ     r0,|L4.60|
-;;;617    			{
-;;;618    				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
+;;;625    			{
+;;;626    				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
 00001e  f2417270          MOV      r2,#0x1770
 000022  2100              MOVS     r1,#0
 000024  4608              MOV      r0,r1
 000026  f7fffffe          BL       bsp_SetMotorPWM
-;;;619    				bsp_SetMotorPWM(MotorRight,Forward,6000);
+;;;627    				bsp_SetMotorPWM(MotorRight,Forward,6000);
 00002a  f2417270          MOV      r2,#0x1770
 00002e  2100              MOVS     r1,#0
 000030  2001              MOVS     r0,#1
 000032  f7fffffe          BL       bsp_SetMotorPWM
-;;;620    				flgdec = 1 ;
+;;;628    				flgdec = 1 ;
 000036  2001              MOVS     r0,#1
 000038  4904              LDR      r1,|L4.76|
 00003a  7008              STRB     r0,[r1,#0]
                   |L4.60|
-00003c  1c60              ADDS     r0,r4,#1              ;612
-00003e  b2c4              UXTB     r4,r0                 ;612
+00003c  1c60              ADDS     r0,r4,#1              ;620
+00003e  b2c4              UXTB     r4,r0                 ;620
                   |L4.64|
-000040  2c07              CMP      r4,#7                 ;612
+000040  2c07              CMP      r4,#7                 ;620
 000042  dde1              BLE      |L4.8|
-;;;621    			}
-;;;622    			
-;;;623    		}
-;;;624    	}
-;;;625    	
-;;;626    }
+;;;629    			}
+;;;630    			
+;;;631    		}
+;;;632    	}
+;;;633    	
+;;;634    }
 000044  bd10              POP      {r4,pc}
-;;;627    
+;;;635    
                           ENDP
 
 000046  0000              DCW      0x0000
