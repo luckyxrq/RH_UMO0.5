@@ -46142,8 +46142,7 @@ X				printf ("右边碰撞\r\n");
 N			}
 N			else if(collision == CollisionAll)
 N			{
-N				DEBUG("两边碰撞\r\n");
-X				printf ("两边碰撞\r\n");
+N//				DEBUG("两边碰撞\r\n");
 N			}
 N			
 N		}
@@ -46167,7 +46166,7 @@ N{
 N	bsp_StartRunStable();
 N    while(1)
 N    {
-N		//bsp_RunStableAct(); /* 平滑启动状态机 */
+N		bsp_RunStableAct(); /* 平滑启动状态机 */
 N		vTaskDelay(1);
 N    }
 N}
@@ -46188,7 +46187,7 @@ N    while(1)
 N    {
 N		bsp_DetectAct();  /*红外对管轮询扫描*/
 N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-N//		bsp_EdgewiseAct();/*沿边*/
+N		bsp_EdgewiseAct();/*沿边*/
 N        vTaskDelay(1);
 N    }
 N}

@@ -38698,13 +38698,9 @@ N			if(xTaskGetTickCount() - edgewise.delay >= 1000)
 N			{
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
-N				edgewise.delay = xTaskGetTickCount();
-N				edgewise.action++;
 N				
-N				bsp_StartRunStable();
-N				
-N//				bsp_SetMotorPWM(MotorLeft,Forward, 7000);
-N//				bsp_SetMotorPWM(MotorRight,Forward,7000);
+N				bsp_SetMotorPWM(MotorLeft,Forward, 7000);
+N				bsp_SetMotorPWM(MotorRight,Forward,7000);
 N				
 N				flgdec = 0 ;
 N				edgewise.action = 0 ;

@@ -95,13 +95,9 @@ void bsp_EdgewiseAct(void)
 			{
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
-				edgewise.delay = xTaskGetTickCount();
-				edgewise.action++;
 				
-				bsp_StartRunStable();
-				
-//				bsp_SetMotorPWM(MotorLeft,Forward, 7000);
-//				bsp_SetMotorPWM(MotorRight,Forward,7000);
+				bsp_SetMotorPWM(MotorLeft,Forward, 7000);
+				bsp_SetMotorPWM(MotorRight,Forward,7000);
 				
 				flgdec = 0 ;
 				edgewise.action = 0 ;

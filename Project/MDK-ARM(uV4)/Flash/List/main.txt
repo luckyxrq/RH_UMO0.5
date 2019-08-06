@@ -278,7 +278,7 @@
                   vTaskLED PROC
 ;;;141    */
 ;;;142    static void vTaskLED(void *pvParameters)
-000000  e017              B        |L5.50|
+000000  e013              B        |L5.42|
                   |L5.2|
 ;;;143    {
 ;;;144    
@@ -296,9 +296,9 @@
 00000c  b91c              CBNZ     r4,|L5.22|
 ;;;153    			{
 ;;;154    				DEBUG("×ó±ßÅö×²\r\n");
-00000e  a009              ADR      r0,|L5.52|
+00000e  a007              ADR      r0,|L5.44|
 000010  f7fffffe          BL       __2printf
-000014  e00a              B        |L5.44|
+000014  e006              B        |L5.36|
                   |L5.22|
 ;;;155    			}
 ;;;156    			else if(collision == CollisionRight)
@@ -306,49 +306,41 @@
 000018  d103              BNE      |L5.34|
 ;;;157    			{
 ;;;158    				DEBUG("ÓÒ±ßÅö×²\r\n");
-00001a  a009              ADR      r0,|L5.64|
+00001a  a007              ADR      r0,|L5.56|
 00001c  f7fffffe          BL       __2printf
-000020  e004              B        |L5.44|
+000020  e000              B        |L5.36|
                   |L5.34|
 ;;;159    			}
 ;;;160    			else if(collision == CollisionAll)
-000022  2c02              CMP      r4,#2
-000024  d102              BNE      |L5.44|
+000022  bf00              NOP      
+                  |L5.36|
 ;;;161    			{
-;;;162    				DEBUG("Á½±ßÅö×²\r\n");
-000026  a009              ADR      r0,|L5.76|
-000028  f7fffffe          BL       __2printf
-                  |L5.44|
+;;;162    //				DEBUG("Á½±ßÅö×²\r\n");
 ;;;163    			}
 ;;;164    			
 ;;;165    		}
 ;;;166    		
 ;;;167    		
 ;;;168    		vTaskDelay(20);
-00002c  2014              MOVS     r0,#0x14
-00002e  f7fffffe          BL       vTaskDelay
-                  |L5.50|
-000032  e7e6              B        |L5.2|
+000024  2014              MOVS     r0,#0x14
+000026  f7fffffe          BL       vTaskDelay
+                  |L5.42|
+00002a  e7ea              B        |L5.2|
 ;;;169        }
 ;;;170    }
 ;;;171    
                           ENDP
 
-                  |L5.52|
-000034  d7f3b1df          DCB      215,243,177,223,197,246,215,178,"\r\n",0
-000038  c5f6d7b2
-00003c  0d0a00  
-00003f  00                DCB      0
-                  |L5.64|
-000040  d3d2b1df          DCB      211,210,177,223,197,246,215,178,"\r\n",0
-000044  c5f6d7b2
-000048  0d0a00  
-00004b  00                DCB      0
-                  |L5.76|
-00004c  c1bdb1df          DCB      193,189,177,223,197,246,215,178,"\r\n",0
-000050  c5f6d7b2
-000054  0d0a00  
-000057  00                DCB      0
+                  |L5.44|
+00002c  d7f3b1df          DCB      215,243,177,223,197,246,215,178,"\r\n",0
+000030  c5f6d7b2
+000034  0d0a00  
+000037  00                DCB      0
+                  |L5.56|
+000038  d3d2b1df          DCB      211,210,177,223,197,246,215,178,"\r\n",0
+00003c  c5f6d7b2
+000040  0d0a00  
+000043  00                DCB      0
 
                           AREA ||i.vTaskMsgPro||, CODE, READONLY, ALIGN=1
 
@@ -359,15 +351,16 @@
 ;;;182    {
 ;;;183    	bsp_StartRunStable();
 ;;;184        while(1)
-000004  e002              B        |L6.12|
+000004  e004              B        |L6.16|
                   |L6.6|
 ;;;185        {
-;;;186    		//bsp_RunStableAct(); /* Æ½»¬Æô¶¯×´Ì¬»ú */
+;;;186    		bsp_RunStableAct(); /* Æ½»¬Æô¶¯×´Ì¬»ú */
+000006  f7fffffe          BL       bsp_RunStableAct
 ;;;187    		vTaskDelay(1);
-000006  2001              MOVS     r0,#1
-000008  f7fffffe          BL       vTaskDelay
-                  |L6.12|
-00000c  e7fb              B        |L6.6|
+00000a  2001              MOVS     r0,#1
+00000c  f7fffffe          BL       vTaskDelay
+                  |L6.16|
+000010  e7f9              B        |L6.6|
 ;;;188        }
 ;;;189    }
 ;;;190    
@@ -383,19 +376,20 @@
 ;;;201    {
 ;;;202    	bsp_DetectStart(); /*¿ªÆôºìÍâ¶Ô¹ÜÂÖÑ¯É¨Ãè*/
 ;;;203        while(1)
-000004  e006              B        |L7.20|
+000004  e008              B        |L7.24|
                   |L7.6|
 ;;;204        {
 ;;;205    		bsp_DetectAct();  /*ºìÍâ¶Ô¹ÜÂÖÑ¯É¨Ãè*/
 000006  f7fffffe          BL       bsp_DetectAct
 ;;;206    		bsp_DetectDeal(); /*ºìÍâ¶Ô¹ÜÉ¨Ãè½á¹û´¦Àí*/
 00000a  f7fffffe          BL       bsp_DetectDeal
-;;;207    //		bsp_EdgewiseAct();/*ÑØ±ß*/
+;;;207    		bsp_EdgewiseAct();/*ÑØ±ß*/
+00000e  f7fffffe          BL       bsp_EdgewiseAct
 ;;;208            vTaskDelay(1);
-00000e  2001              MOVS     r0,#1
-000010  f7fffffe          BL       vTaskDelay
-                  |L7.20|
-000014  e7f7              B        |L7.6|
+000012  2001              MOVS     r0,#1
+000014  f7fffffe          BL       vTaskDelay
+                  |L7.24|
+000018  e7f5              B        |L7.6|
 ;;;209        }
 ;;;210    }
 ;;;211    				

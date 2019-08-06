@@ -13,7 +13,7 @@
 ;;;27     	
 ;;;28     
 ;;;29     	switch(edgewise.action)
-000002  4849              LDR      r0,|L1.296|
+000002  484a              LDR      r0,|L1.300|
 000004  7840              LDRB     r0,[r0,#1]  ; edgewise
 000006  2802              CMP      r0,#2
 000008  d048              BEQ      |L1.156|
@@ -51,7 +51,7 @@
 000032  f7fffffe          BL       bsp_MotorBrake
 ;;;41     				edgewise.action = 2 ;
 000036  2002              MOVS     r0,#2
-000038  493b              LDR      r1,|L1.296|
+000038  493c              LDR      r1,|L1.300|
 00003a  7048              STRB     r0,[r1,#1]
 00003c  e01a              B        |L1.116|
                   |L1.62|
@@ -71,7 +71,7 @@
 00004e  f7fffffe          BL       bsp_MotorBrake
 ;;;49     				edgewise.action = 3 ;
 000052  2003              MOVS     r0,#3
-000054  4934              LDR      r1,|L1.296|
+000054  4935              LDR      r1,|L1.300|
 000056  7048              STRB     r0,[r1,#1]
 000058  e00c              B        |L1.116|
                   |L1.90|
@@ -91,14 +91,14 @@
 00006a  f7fffffe          BL       bsp_MotorBrake
 ;;;57     				edgewise.action = 1 ;
 00006e  2001              MOVS     r0,#1
-000070  492d              LDR      r1,|L1.296|
+000070  492e              LDR      r1,|L1.300|
 000072  7048              STRB     r0,[r1,#1]
                   |L1.116|
 ;;;58     			}
 ;;;59     			
 ;;;60     			
 ;;;61     		};break;
-000074  e056              B        |L1.292|
+000074  e058              B        |L1.296|
                   |L1.118|
 ;;;62     		
 ;;;63     		
@@ -118,13 +118,13 @@
 00008a  f7fffffe          BL       bsp_SetMotorPWM
 ;;;70     			edgewise.delay = xTaskGetTickCount();
 00008e  f7fffffe          BL       xTaskGetTickCount
-000092  4925              LDR      r1,|L1.296|
+000092  4926              LDR      r1,|L1.300|
 000094  6048              STR      r0,[r1,#4]  ; edgewise
 ;;;71     			edgewise.action = 10 ;
 000096  200a              MOVS     r0,#0xa
 000098  7048              STRB     r0,[r1,#1]
 ;;;72     		}break;
-00009a  e043              B        |L1.292|
+00009a  e045              B        |L1.296|
                   |L1.156|
 ;;;73     		
 ;;;74     		
@@ -142,13 +142,13 @@
 0000b0  f7fffffe          BL       bsp_SetMotorPWM
 ;;;79     			edgewise.delay = xTaskGetTickCount();
 0000b4  f7fffffe          BL       xTaskGetTickCount
-0000b8  491b              LDR      r1,|L1.296|
+0000b8  491c              LDR      r1,|L1.300|
 0000ba  6048              STR      r0,[r1,#4]  ; edgewise
 ;;;80     			edgewise.action = 10 ;
 0000bc  200a              MOVS     r0,#0xa
 0000be  7048              STRB     r0,[r1,#1]
 ;;;81     		}break;
-0000c0  e030              B        |L1.292|
+0000c0  e032              B        |L1.296|
                   |L1.194|
 ;;;82     		
 ;;;83     		
@@ -166,24 +166,24 @@
 0000d6  f7fffffe          BL       bsp_SetMotorPWM
 ;;;88     			edgewise.delay = xTaskGetTickCount();
 0000da  f7fffffe          BL       xTaskGetTickCount
-0000de  4912              LDR      r1,|L1.296|
+0000de  4913              LDR      r1,|L1.300|
 0000e0  6048              STR      r0,[r1,#4]  ; edgewise
 ;;;89     			edgewise.action = 10 ;
 0000e2  200a              MOVS     r0,#0xa
 0000e4  7048              STRB     r0,[r1,#1]
 ;;;90     		}break;
-0000e6  e01d              B        |L1.292|
+0000e6  e01f              B        |L1.296|
                   |L1.232|
 ;;;91     		
 ;;;92     		case 10:
 ;;;93     		{
 ;;;94     			if(xTaskGetTickCount() - edgewise.delay >= 1000)
 0000e8  f7fffffe          BL       xTaskGetTickCount
-0000ec  490e              LDR      r1,|L1.296|
+0000ec  490f              LDR      r1,|L1.300|
 0000ee  6849              LDR      r1,[r1,#4]  ; edgewise
 0000f0  1a40              SUBS     r0,r0,r1
 0000f2  f5b07f7a          CMP      r0,#0x3e8
-0000f6  d314              BCC      |L1.290|
+0000f6  d316              BCC      |L1.294|
 ;;;95     			{
 ;;;96     				bsp_MotorBrake(MotorLeft);
 0000f8  2000              MOVS     r0,#0
@@ -191,47 +191,43 @@
 ;;;97     				bsp_MotorBrake(MotorRight);
 0000fe  2001              MOVS     r0,#1
 000100  f7fffffe          BL       bsp_MotorBrake
-;;;98     				edgewise.delay = xTaskGetTickCount();
-000104  f7fffffe          BL       xTaskGetTickCount
-000108  4907              LDR      r1,|L1.296|
-00010a  6048              STR      r0,[r1,#4]  ; edgewise
-;;;99     				edgewise.action++;
-00010c  4608              MOV      r0,r1
-00010e  7840              LDRB     r0,[r0,#1]  ; edgewise
-000110  1c40              ADDS     r0,r0,#1
-000112  7048              STRB     r0,[r1,#1]
-;;;100    				
-;;;101    				bsp_StartRunStable();
-000114  f7fffffe          BL       bsp_StartRunStable
-;;;102    				
-;;;103    //				bsp_SetMotorPWM(MotorLeft,Forward, 7000);
-;;;104    //				bsp_SetMotorPWM(MotorRight,Forward,7000);
-;;;105    				
-;;;106    				flgdec = 0 ;
-000118  2000              MOVS     r0,#0
-00011a  4904              LDR      r1,|L1.300|
-00011c  7008              STRB     r0,[r1,#0]
-;;;107    				edgewise.action = 0 ;
-00011e  4902              LDR      r1,|L1.296|
-000120  7048              STRB     r0,[r1,#1]
-                  |L1.290|
-;;;108    			}
-;;;109    		}break;
-000122  bf00              NOP      
-                  |L1.292|
-000124  bf00              NOP                            ;61
-;;;110    		
-;;;111    		
-;;;112    
-;;;113    	}	
-;;;114    }
-000126  bd10              POP      {r4,pc}
-;;;115    
+;;;98     				
+;;;99     				bsp_SetMotorPWM(MotorLeft,Forward, 7000);
+000104  f6413258          MOV      r2,#0x1b58
+000108  2100              MOVS     r1,#0
+00010a  4608              MOV      r0,r1
+00010c  f7fffffe          BL       bsp_SetMotorPWM
+;;;100    				bsp_SetMotorPWM(MotorRight,Forward,7000);
+000110  f6413258          MOV      r2,#0x1b58
+000114  2100              MOVS     r1,#0
+000116  2001              MOVS     r0,#1
+000118  f7fffffe          BL       bsp_SetMotorPWM
+;;;101    				
+;;;102    				flgdec = 0 ;
+00011c  2000              MOVS     r0,#0
+00011e  4904              LDR      r1,|L1.304|
+000120  7008              STRB     r0,[r1,#0]
+;;;103    				edgewise.action = 0 ;
+000122  4902              LDR      r1,|L1.300|
+000124  7048              STRB     r0,[r1,#1]
+                  |L1.294|
+;;;104    			}
+;;;105    		}break;
+000126  bf00              NOP      
+                  |L1.296|
+000128  bf00              NOP                            ;61
+;;;106    		
+;;;107    		
+;;;108    
+;;;109    	}	
+;;;110    }
+00012a  bd10              POP      {r4,pc}
+;;;111    
                           ENDP
 
-                  |L1.296|
-                          DCD      edgewise
                   |L1.300|
+                          DCD      edgewise
+                  |L1.304|
                           DCD      flgdec
 
                           AREA ||.data||, DATA, ALIGN=2

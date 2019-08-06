@@ -159,7 +159,7 @@ static void vTaskLED(void *pvParameters)
 			}
 			else if(collision == CollisionAll)
 			{
-				DEBUG("两边碰撞\r\n");
+//				DEBUG("两边碰撞\r\n");
 			}
 			
 		}
@@ -183,7 +183,7 @@ static void vTaskMsgPro(void *pvParameters)
 	bsp_StartRunStable();
     while(1)
     {
-		//bsp_RunStableAct(); /* 平滑启动状态机 */
+		bsp_RunStableAct(); /* 平滑启动状态机 */
 		vTaskDelay(1);
     }
 }
@@ -204,7 +204,7 @@ static void vTaskStart(void *pvParameters)
     {
 		bsp_DetectAct();  /*红外对管轮询扫描*/
 		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-//		bsp_EdgewiseAct();/*沿边*/
+		bsp_EdgewiseAct();/*沿边*/
         vTaskDelay(1);
     }
 }

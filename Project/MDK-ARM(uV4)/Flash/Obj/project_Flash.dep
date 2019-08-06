@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5D442225)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5D48ED5F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5731823E)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
@@ -62,7 +62,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -127,7 +127,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -192,7 +192,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -201,7 +201,7 @@ I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
 I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
-F (..\..\User\app\src\bsp_DC_Motor.c)(0x5D42DA8E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dc_motor.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_dc_motor.crf --depend .\flash\obj\bsp_dc_motor.d)
+F (..\..\User\app\src\bsp_DC_Motor.c)(0x5D47ED74)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dc_motor.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_dc_motor.crf --depend .\flash\obj\bsp_dc_motor.d)
 I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -256,7 +256,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -320,7 +320,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -384,7 +384,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -448,7 +448,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -512,7 +512,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -576,7 +576,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -585,7 +585,7 @@ I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
 I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
-F (..\..\User\app\src\bsp_DetectAct.c)(0x5D441578)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
+F (..\..\User\app\src\bsp_DetectAct.c)(0x5D47ED8F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
 I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -640,7 +640,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -704,7 +704,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -768,7 +768,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -777,7 +777,7 @@ I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
 I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
-F (..\..\User\app\src\bsp_Edgewise.c)(0x5D441A3E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
+F (..\..\User\app\src\bsp_Edgewise.c)(0x5D48DD55)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
 I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -832,7 +832,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -841,7 +841,7 @@ I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D439DA9)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D439DA5)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D43A927)
 I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D43E3CE)
-F (..\..\User\bsp\bsp.c)(0x5D442237)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
+F (..\..\User\bsp\bsp.c)(0x5D47ED8F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
 I (..\..\User\bsp\bsp.h)(0x5D43E3CE)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5620F7DA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -896,7 +896,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -961,7 +961,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -1025,7 +1025,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -1121,7 +1121,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -1217,7 +1217,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -1281,7 +1281,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -1345,7 +1345,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
@@ -1409,7 +1409,7 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x55BA33B4)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x511B205F)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D42A284)
 I (..\..\User\app\inc\bsp_DC_Motor.h)(0x5D42AB3A)
-I (..\..\User\app\inc\bsp_Encoder.h)(0x5D42C208)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D47E865)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D42D566)
 I (..\..\User\app\inc\bsp_Angle.h)(0x5D43A20C)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D42EB47)
