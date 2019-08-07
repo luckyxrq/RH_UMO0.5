@@ -165,7 +165,7 @@ static void vTaskLED(void *pvParameters)
 		}
 		
 		
-		bsp_GetCapCnt(CapCH4);
+		bsp_GetCapCnt(CapCH1);
 		
 		
 		vTaskDelay(20);
@@ -183,10 +183,10 @@ static void vTaskLED(void *pvParameters)
 */
 static void vTaskMsgPro(void *pvParameters)
 {
-	bsp_StartRunStable();
+	//bsp_StartRunStable();
     while(1)
     {
-		bsp_RunStableAct(); /* 平滑启动状态机 */
+		//bsp_RunStableAct(); /* 平滑启动状态机 */
 		vTaskDelay(1);
     }
 }
@@ -206,8 +206,8 @@ static void vTaskStart(void *pvParameters)
     while(1)
     {
 		bsp_DetectAct();  /*红外对管轮询扫描*/
-		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-		bsp_EdgewiseAct();/*沿边*/
+		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		//bsp_EdgewiseAct();/*沿边*/
         vTaskDelay(1);
     }
 }

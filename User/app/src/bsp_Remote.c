@@ -68,7 +68,7 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 		chargingPile.capValue[ch]=0;
 	}
 	
-	
+	return temp;
 }
 
 

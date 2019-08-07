@@ -37789,8 +37789,8 @@ N	¡¾´®¿Ú4¡¿ --- ²»×ö´®¿ÚÓÃ¡£
 N	¡¾´®¿Ú5¡¿ --- ²»×ö´®¿ÚÓÃ¡£
 N*/
 N#define	UART1_FIFO_EN	0
-N#define	UART2_FIFO_EN	1
-N#define	UART3_FIFO_EN	1
+N#define	UART2_FIFO_EN	1  //µ÷ÊÔ
+N#define	UART3_FIFO_EN	0  //ÍÓÂİÒÇ
 N#define	UART4_FIFO_EN	0
 N#define	UART5_FIFO_EN	0
 N
@@ -37829,10 +37829,10 @@ N	#define UART2_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART3_FIFO_EN == 1
-X#if 1 == 1
-N	#define UART3_BAUD			115200
-N	#define UART3_TX_BUF_SIZE	1*1024
-N	#define UART3_RX_BUF_SIZE	1*1024
+X#if 0 == 1
+S	#define UART3_BAUD			115200
+S	#define UART3_TX_BUF_SIZE	1*1024
+S	#define UART3_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART4_FIFO_EN == 1
@@ -38425,7 +38425,7 @@ N#ifndef __BSP_ANGLE_H
 N#define __BSP_ANGLE_H
 N
 N#define RX_BUF_SIZE   13
-N#define RX_BAUD       UART3_BAUD
+N#define RX_BAUD       115200
 N
 N
 Ntypedef struct
@@ -38670,17 +38670,17 @@ N	/* ÓÅÏÈ¼¶·Ö×éÉèÖÃÎª4£¬¿ÉÅäÖÃ0-15¼¶ÇÀÕ¼Ê½ÓÅÏÈ¼¶£¬0¼¶×ÓÓÅÏÈ¼¶£¬¼´²»´æÔÚ×ÓÓÅÏÈ¼¶¡
 N	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 X	NVIC_PriorityGroupConfig(((uint32_t)0x300));
 N	bsp_InitDWT();
-N	bsp_InitAngle();    /* ³õÊ¼»¯ÍÓÂİÒÇ£¬Ö»ÊÇ¸´Î»Òı½Å³õÊ¼»¯£¬ÀïÃæÃ»ÓĞÓÃµ½´®¿Ú´òÓ¡¡£ÔÚ´®¿Ú³õÊ¼»¯Ç°Ãæ¸´Î»ÓĞÖúÓÚÍÓÂİÒÇµÚÒ»Ö¡Êı¾İ²»³ö´í */
-N	bsp_InitPinPulse(); /* ³õÊ¼»¯Âö³åÖ¸Ê¾Òı½Å£¬Âö³åÖ¸Ê¾Ã»ÓĞÊ¹ÓÃ´®¿Ú´òÓ¡£¬ÔÚ´®¿ÚÖ®Ç°³õÊ¼»¯ */
-N	bsp_InitUart(); 	/* ³õÊ¼»¯´®¿Ú */
-N	bsp_InitSW();		/* ¿ª»ú´ò¿ªÆäËûÍâÉèµçÔ´Ê¹ÄÜÒı½Å */
-N	bsp_InitLed();      /* ³õÊ¼»¯LED */
-N	bsp_InitKey();      /* ³õÊ¼»¯°´¼ü */
-N	bsp_InitHardTimer();/* ³õÊ¼»¯Ó²¼ş¶¨Ê±Æ÷ */
-N	bsp_InitDC_Motor(); /* ³õÊ¼»¯Ö±Á÷µç»ú */
-N	bsp_InitEncoder();  /*³õÊ¼»¯±àÂëÆ÷Òı½Å£¬ÓÃÓÚÍ³¼ÆÂö³åµÄ¶¨Ê±Æ÷*/
-N	bsp_InitCollision();/*³õÊ¼»¯Åö×²¼ì²â£¬´¥¶¯¿ª¹Ø*/
-N	
+N	bsp_InitAngle();         /* ³õÊ¼»¯ÍÓÂİÒÇ£¬Ö»ÊÇ¸´Î»Òı½Å³õÊ¼»¯£¬ÀïÃæÃ»ÓĞÓÃµ½´®¿Ú´òÓ¡¡£ÔÚ´®¿Ú³õÊ¼»¯Ç°Ãæ¸´Î»ÓĞÖúÓÚÍÓÂİÒÇµÚÒ»Ö¡Êı¾İ²»³ö´í */
+N	bsp_InitPinPulse();      /* ³õÊ¼»¯Âö³åÖ¸Ê¾Òı½Å£¬Âö³åÖ¸Ê¾Ã»ÓĞÊ¹ÓÃ´®¿Ú´òÓ¡£¬ÔÚ´®¿ÚÖ®Ç°³õÊ¼»¯ */
+N	bsp_InitUart(); 	     /* ³õÊ¼»¯´®¿Ú */
+N	bsp_InitSW();		     /* ¿ª»ú´ò¿ªÆäËûÍâÉèµçÔ´Ê¹ÄÜÒı½Å */
+N	bsp_InitLed();           /* ³õÊ¼»¯LED */
+N	bsp_InitKey();           /* ³õÊ¼»¯°´¼ü */
+N	bsp_InitHardTimer();     /* ³õÊ¼»¯Ó²¼ş¶¨Ê±Æ÷ */
+N	bsp_InitDC_Motor();      /* ³õÊ¼»¯Ö±Á÷µç»ú */
+N	bsp_InitEncoder();       /*³õÊ¼»¯±àÂëÆ÷Òı½Å£¬ÓÃÓÚÍ³¼ÆÂö³åµÄ¶¨Ê±Æ÷*/
+N	bsp_InitCollision();     /*³õÊ¼»¯Åö×²¼ì²â£¬´¥¶¯¿ª¹Ø*/
+N	bsp_InitChargingPile();  /*³õÊ¼»¯ÊäÈë²¶»ñ*/
 N	
 N	/* ³õÊ¼»¯IOÍØÕ¹Ğ¾Æ¬ */	
 N	do{
@@ -38698,6 +38698,7 @@ N	bsp_InitIWDG();     /*³õÊ¼»¯¿´ÃÅ¹·*/
 N	
 N	DEBUG("³õÊ¼»¯Íê±Ï\r\n");
 X	printf ("³õÊ¼»¯Íê±Ï\r\n");
+N	
 N}
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/

@@ -45142,8 +45142,8 @@ N	【串口4】 --- 不做串口用。
 N	【串口5】 --- 不做串口用。
 N*/
 N#define	UART1_FIFO_EN	0
-N#define	UART2_FIFO_EN	1
-N#define	UART3_FIFO_EN	1
+N#define	UART2_FIFO_EN	1  //调试
+N#define	UART3_FIFO_EN	0  //陀螺仪
 N#define	UART4_FIFO_EN	0
 N#define	UART5_FIFO_EN	0
 N
@@ -45182,10 +45182,10 @@ N	#define UART2_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART3_FIFO_EN == 1
-X#if 1 == 1
-N	#define UART3_BAUD			115200
-N	#define UART3_TX_BUF_SIZE	1*1024
-N	#define UART3_RX_BUF_SIZE	1*1024
+X#if 0 == 1
+S	#define UART3_BAUD			115200
+S	#define UART3_TX_BUF_SIZE	1*1024
+S	#define UART3_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART4_FIFO_EN == 1
@@ -45778,7 +45778,7 @@ N#ifndef __BSP_ANGLE_H
 N#define __BSP_ANGLE_H
 N
 N#define RX_BUF_SIZE   13
-N#define RX_BAUD       UART3_BAUD
+N#define RX_BAUD       115200
 N
 N
 Ntypedef struct
@@ -46180,7 +46180,7 @@ N
 N		}
 N		
 N		
-N		bsp_GetCapCnt(CapCH4);
+N		bsp_GetCapCnt(CapCH1);
 N		
 N		
 N		vTaskDelay(20);
@@ -46198,10 +46198,10 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskMsgPro(void *pvParameters)
 N{
-N	bsp_StartRunStable();
+N	//bsp_StartRunStable();
 N    while(1)
 N    {
-N		bsp_RunStableAct(); /* 平滑启动状态机 */
+N		//bsp_RunStableAct(); /* 平滑启动状态机 */
 N		vTaskDelay(1);
 N    }
 N}
@@ -46221,8 +46221,8 @@ N	bsp_DetectStart(); /*开启红外对管轮询扫描*/
 N    while(1)
 N    {
 N		bsp_DetectAct();  /*红外对管轮询扫描*/
-N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-N		bsp_EdgewiseAct();/*沿边*/
+N		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N		//bsp_EdgewiseAct();/*沿边*/
 N        vTaskDelay(1);
 N    }
 N}

@@ -2,7 +2,7 @@
 #define __BSP_ANGLE_H
 
 #define RX_BUF_SIZE   13
-#define RX_BAUD       UART3_BAUD
+#define RX_BAUD       115200
 
 
 typedef struct

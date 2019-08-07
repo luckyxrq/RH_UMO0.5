@@ -41,17 +41,17 @@ void bsp_Init(void)
 	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	bsp_InitDWT();
-	bsp_InitAngle();    /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
-	bsp_InitPinPulse(); /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
-	bsp_InitUart(); 	/* 初始化串口 */
-	bsp_InitSW();		/* 开机打开其他外设电源使能引脚 */
-	bsp_InitLed();      /* 初始化LED */
-	bsp_InitKey();      /* 初始化按键 */
-	bsp_InitHardTimer();/* 初始化硬件定时器 */
-	bsp_InitDC_Motor(); /* 初始化直流电机 */
-	bsp_InitEncoder();  /*初始化编码器引脚，用于统计脉冲的定时器*/
-	bsp_InitCollision();/*初始化碰撞检测，触动开关*/
-	
+	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
+	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
+	bsp_InitUart(); 	     /* 初始化串口 */
+	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
+	bsp_InitLed();           /* 初始化LED */
+	bsp_InitKey();           /* 初始化按键 */
+	bsp_InitHardTimer();     /* 初始化硬件定时器 */
+	bsp_InitDC_Motor();      /* 初始化直流电机 */
+	bsp_InitEncoder();       /*初始化编码器引脚，用于统计脉冲的定时器*/
+	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
+	bsp_InitChargingPile();  /*初始化输入捕获*/
 	
 	/* 初始化IO拓展芯片 */	
 	do{
@@ -67,6 +67,7 @@ void bsp_Init(void)
 	bsp_InitIWDG();     /*初始化看门狗*/
 	
 	DEBUG("初始化完毕\r\n");
+	
 }
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

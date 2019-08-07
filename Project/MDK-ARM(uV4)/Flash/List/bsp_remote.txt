@@ -542,13 +542,13 @@
                   |L2.72|
 ;;;69     	}
 ;;;70     	
-;;;71     	
+;;;71     	return temp;
+000048  4628              MOV      r0,r5
 ;;;72     }
-000048  bd70              POP      {r4-r6,pc}
+00004a  bd70              POP      {r4-r6,pc}
 ;;;73     
                           ENDP
 
-00004a  0000              DCW      0x0000
                   |L2.76|
                           DCD      chargingPile
                   |L2.80|

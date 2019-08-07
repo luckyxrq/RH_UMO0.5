@@ -38,8 +38,8 @@
 	【串口5】 --- 不做串口用。
 */
 #define	UART1_FIFO_EN	0
-#define	UART2_FIFO_EN	1
-#define	UART3_FIFO_EN	1
+#define	UART2_FIFO_EN	1  //调试
+#define	UART3_FIFO_EN	0  //陀螺仪
 #define	UART4_FIFO_EN	0
 #define	UART5_FIFO_EN	0
 

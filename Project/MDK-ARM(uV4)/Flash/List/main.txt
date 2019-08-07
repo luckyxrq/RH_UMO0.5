@@ -348,8 +348,8 @@
 ;;;165    		}
 ;;;166    		
 ;;;167    		
-;;;168    		bsp_GetCapCnt(CapCH4);
-000050  2003              MOVS     r0,#3
+;;;168    		bsp_GetCapCnt(CapCH1);
+000050  2000              MOVS     r0,#0
 000052  f7fffffe          BL       bsp_GetCapCnt
 ;;;169    		
 ;;;170    		
@@ -390,20 +390,18 @@
                   vTaskMsgPro PROC
 ;;;183    */
 ;;;184    static void vTaskMsgPro(void *pvParameters)
-000000  f7fffffe          BL       bsp_StartRunStable
+000000  e002              B        |L6.8|
+                  |L6.2|
 ;;;185    {
-;;;186    	bsp_StartRunStable();
+;;;186    	//bsp_StartRunStable();
 ;;;187        while(1)
-000004  e004              B        |L6.16|
-                  |L6.6|
 ;;;188        {
-;;;189    		bsp_RunStableAct(); /* 平滑启动状态机 */
-000006  f7fffffe          BL       bsp_RunStableAct
+;;;189    		//bsp_RunStableAct(); /* 平滑启动状态机 */
 ;;;190    		vTaskDelay(1);
-00000a  2001              MOVS     r0,#1
-00000c  f7fffffe          BL       vTaskDelay
-                  |L6.16|
-000010  e7f9              B        |L6.6|
+000002  2001              MOVS     r0,#1
+000004  f7fffffe          BL       vTaskDelay
+                  |L6.8|
+000008  e7fb              B        |L6.2|
 ;;;191        }
 ;;;192    }
 ;;;193    
@@ -419,20 +417,18 @@
 ;;;204    {
 ;;;205    	bsp_DetectStart(); /*开启红外对管轮询扫描*/
 ;;;206        while(1)
-000004  e008              B        |L7.24|
+000004  e004              B        |L7.16|
                   |L7.6|
 ;;;207        {
 ;;;208    		bsp_DetectAct();  /*红外对管轮询扫描*/
 000006  f7fffffe          BL       bsp_DetectAct
-;;;209    		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-00000a  f7fffffe          BL       bsp_DetectDeal
-;;;210    		bsp_EdgewiseAct();/*沿边*/
-00000e  f7fffffe          BL       bsp_EdgewiseAct
+;;;209    		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
+;;;210    		//bsp_EdgewiseAct();/*沿边*/
 ;;;211            vTaskDelay(1);
-000012  2001              MOVS     r0,#1
-000014  f7fffffe          BL       vTaskDelay
-                  |L7.24|
-000018  e7f5              B        |L7.6|
+00000a  2001              MOVS     r0,#1
+00000c  f7fffffe          BL       vTaskDelay
+                  |L7.16|
+000010  e7f9              B        |L7.6|
 ;;;212        }
 ;;;213    }
 ;;;214    				
