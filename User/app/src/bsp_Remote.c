@@ -128,6 +128,23 @@ static void bsp_InitTIM3Cap(u16 arr,u16 psc)
 
 
 
+
+
+
+typedef struct
+{
+	bool is500us;
+	bool is1000us;
+	bool is1500us;
+}Remote;
+
+static Remote remote[4];
+
+
+
+
+
+
 void TIM3_IRQHandler(void)
 {
 	CapCH ch = CapCH1;
