@@ -1,5 +1,10 @@
 #include "bsp.h"
 
+#define RANGE			100         /*红外接收脉宽计数范围*/
+#define RangeSub(x)		((x)-RANGE) /*红外接收脉宽计数范围 负*/
+#define RangeAdd(x)		((x)+RANGE) /*红外接收脉宽计数范围 正*/
+
+
 typedef struct
 {
 	uint8_t isRunning;
@@ -7,12 +12,12 @@ typedef struct
 	
 }SearchCharging;
 
-
-
 static ChargingPile chargingPile;
 static SearchCharging searchCharging;
-
 static void bsp_InitTIM3Cap(u16 arr,u16 psc);
+
+
+
 
 
 void bsp_InitChargingPile(void)
@@ -52,6 +57,116 @@ void bsp_SearchChargingPileAct(void)
 	}
 }
 
+
+
+typedef struct
+{
+	bool is500us;
+	bool is1000us;
+	bool is1500us;
+}Remote;
+
+typedef enum
+{
+	Pulse500US  = 0 ,
+	Pulse1000US = 1 ,
+	Pulse1500US = 2 
+}PulseWidth;
+
+static volatile Remote remote[4];
+static volatile uint32_t remoteStateTimer[3*4]; //三种脉冲，4个接收管
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_ClearRemoteTimerCnt
+*	功能说明: 指定接收管，脉冲类型，清除计数器。
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_ClearRemoteTimerCnt(CapCH capCH , PulseWidth pulseWidth)
+{
+	remoteStateTimer[capCH*3+pulseWidth] = 0 ;
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_ClearRemoteTimerCnt
+*	功能说明: 指定接收管，脉冲类型，计数器加1。
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_RemoteTimerCntAdd(CapCH capCH , PulseWidth pulseWidth)
+{
+	++remoteStateTimer[capCH*3+pulseWidth];
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_ClearRemotePulseState
+*	功能说明: 清除指定管，指定宽度脉冲辐射范围状态。
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_ClearRemotePulseState(CapCH capCH , PulseWidth pulseWidth)
+{
+	switch(pulseWidth)
+	{
+		case Pulse500US:
+		{
+			remote[capCH].is500us = 0 ;
+		}break;
+		case Pulse1000US:
+		{
+			remote[capCH].is1000us = 0 ;
+		}break;
+		case Pulse1500US:
+		{
+			remote[capCH].is1500us = 0 ;
+		}break;
+	}
+
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SetRemotePulseState
+*	功能说明: 设定指定管，指定宽度脉冲辐射范围状态。
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_SetRemotePulseState(CapCH capCH , PulseWidth pulseWidth)
+{
+	switch(pulseWidth)
+	{
+		case Pulse500US:
+		{
+			remote[capCH].is500us = 1 ;
+		}break;
+		case Pulse1000US:
+		{
+			remote[capCH].is1000us = 1 ;
+		}break;
+		case Pulse1500US:
+		{
+			remote[capCH].is1500us = 1 ;
+		}break;
+	}
+
+}
+
+
+
+
+
+
+
 uint32_t bsp_GetCapCnt(CapCH capCH)
 {
 	uint32_t temp = 0; 
@@ -64,6 +179,21 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 		temp+=chargingPile.capValue[ch];//得到总的时间
 		temp-=chargingPile.capStart[ch];//得到总的时间
 		printf("LOW:%d us\r\n",temp);   //打印总的时间
+		
+		if(temp >= RangeSub(500) && temp <=  RangeAdd(500))
+		{
+			remote[ch].is500us = true;
+		}
+		else if(temp >= RangeSub(1000) && temp <=  RangeAdd(1000))
+		{
+			remote[ch].is1000us = true;
+		}
+		else if(temp >= RangeSub(1500) && temp <=  RangeAdd(1500))
+		{
+			remote[ch].is1500us = true;
+		}
+		
+		
 		chargingPile.capState[ch]=0;
 		chargingPile.capValue[ch]=0;
 	}
@@ -131,14 +261,7 @@ static void bsp_InitTIM3Cap(u16 arr,u16 psc)
 
 
 
-typedef struct
-{
-	bool is500us;
-	bool is1000us;
-	bool is1500us;
-}Remote;
 
-static Remote remote[4];
 
 
 
