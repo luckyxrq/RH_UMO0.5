@@ -63,3 +63,4 @@
 .\flash\obj\bsp_collision.o: ..\..\User\app\inc\bsp_PulseMark.h
 .\flash\obj\bsp_collision.o: ..\..\User\bsp\inc\bsp_IWDG.h
 .\flash\obj\bsp_collision.o: ..\..\User\app\inc\bsp_Edgewise.h
+.\flash\obj\bsp_collision.o: ..\..\User\app\inc\bsp_Remote.h

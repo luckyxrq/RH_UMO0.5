@@ -180,7 +180,7 @@
 #include "bsp_PulseMark.h"
 #include "bsp_IWDG.h"
 #include "bsp_Edgewise.h"
-
+#include "bsp_Remote.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

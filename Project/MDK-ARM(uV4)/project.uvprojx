@@ -488,6 +488,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Edgewise.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_Remote.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Remote.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -72,3 +72,4 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_PulseMark.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_IWDG.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Edgewise.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_Remote.h

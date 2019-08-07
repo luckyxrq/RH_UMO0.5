@@ -165,6 +165,9 @@ static void vTaskLED(void *pvParameters)
 		}
 		
 		
+		bsp_GetCapCnt(CapCH4);
+		
+		
 		vTaskDelay(20);
     }
 }

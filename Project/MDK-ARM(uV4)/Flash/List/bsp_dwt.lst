@@ -38601,7 +38601,39 @@ N
 N#endif
 N
 L 183 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Remote.h"
+L 1 "..\..\User\app\inc\bsp_Remote.h" 1
+N#ifndef __BSP_REMOTE_H
+N#define __BSP_REMOTE_H
 N
+N#define CH_CNT    4
+N
+Ntypedef enum
+N{
+N    CapCH1 = 0 ,
+N    CapCH2 = 1 ,
+N    CapCH3 = 2 ,
+N    CapCH4 = 3 ,
+N}CapCH;
+N
+Ntypedef struct
+N{
+N    volatile uint8_t  capState[CH_CNT];  //输入捕获状态		    				
+X    volatile uint8_t  capState[4];  
+N    volatile uint16_t capValue[CH_CNT];	 //输入捕获值
+X    volatile uint16_t capValue[4];	 
+N	volatile uint16_t capStart[CH_CNT];	 //输入捕获触发时定时器的值
+X	volatile uint16_t capStart[4];	 
+N}ChargingPile;
+N
+Nuint32_t bsp_GetCapCnt(CapCH capCH);
+Nvoid bsp_InitChargingPile(void);
+Nvoid bsp_SearchChargingPileAct(void);
+Nvoid bsp_StartSearchChargingPile(void);
+Nvoid bsp_StopSearchChargingPile(void);
+N
+N#endif
+L 184 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);

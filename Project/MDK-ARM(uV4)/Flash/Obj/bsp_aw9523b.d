@@ -63,3 +63,4 @@
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_PulseMark.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\bsp\inc\bsp_IWDG.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_Edgewise.h
+.\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_Remote.h
