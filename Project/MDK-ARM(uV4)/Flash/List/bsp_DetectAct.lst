@@ -38359,6 +38359,7 @@ Nvoid bsp_InitDC_Motor(void);      /* 初始化直流电机的PWM定时器 */
 Nvoid bsp_MotorBrake(MotorSN sn);  /* 急停 */
 Nvoid bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
 Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
+Nvoid bsp_PidControlAct(void);
 N
 N#endif
 N
@@ -39413,22 +39414,23 @@ S		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
 S	}
 S	printf("\r\n");
 N#endif
-N	
-N	//如果是太阳光射到了，开启全闪烁灯
-N	for(i=0;i<=7;i++)
-N	{
-N		if(adcRealTime[i] >=1.0F)
-N		{
-N			if(flgdec == 0)
-N			{
-N				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
-N				bsp_SetMotorPWM(MotorRight,Forward,6000);
-N				flgdec = 1 ;
-N			}
-N			
-N		}
-N	}
-N	
+N
+N#if 0	
+S	//如果是太阳光射到了，开启全闪烁灯
+S	for(i=0;i<=7;i++)
+S	{
+S		if(adcRealTime[i] >=1.0F)
+S		{
+S			if(flgdec == 0)
+S			{
+S				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
+S				bsp_SetMotorPWM(MotorRight,Forward,6000);
+S				flgdec = 1 ;
+S			}
+S			
+S		}
+S	}
+N#endif	
 N}
 N
 N

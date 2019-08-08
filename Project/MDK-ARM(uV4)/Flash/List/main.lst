@@ -45730,6 +45730,7 @@ Nvoid bsp_InitDC_Motor(void);      /* 初始化直流电机的PWM定时器 */
 Nvoid bsp_MotorBrake(MotorSN sn);  /* 急停 */
 Nvoid bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
 Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
+Nvoid bsp_PidControlAct(void);
 N
 N#endif
 N
@@ -46142,9 +46143,11 @@ N#endif
 N
 N    while(1)
 N    {
-N		#if 0
-S		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
-S		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
+N		#if 1
+N		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
+X		printf ("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
+N		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
+X		printf ("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 N		#endif
 N		
 N		
@@ -46198,7 +46201,9 @@ N			}
 N			
 N		}
 N		
-N		vTaskDelay(20);
+N		bsp_PidControlAct();
+N		
+N		vTaskDelay(100);
 N    }
 N}
 N

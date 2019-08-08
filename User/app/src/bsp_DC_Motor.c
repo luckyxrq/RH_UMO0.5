@@ -15,6 +15,7 @@ static PID pid[2];
 
 static void bspInitPWM(void);
 static float pidabs(float val);
+static void bsp_InitMotorPid(MotorSN sn);
 
 /*
 *********************************************************************************************************
@@ -28,6 +29,8 @@ static float pidabs(float val);
 void bsp_InitDC_Motor(void)
 {
 	bspInitPWM();
+	bsp_InitMotorPid(MotorLeft);
+	bsp_InitMotorPid(MotorRight);
 }
 
 /*
@@ -239,7 +242,7 @@ void bsp_PidControlAct(void)
 	#endif
 	
 	/************************PID  左轮************************/
-	if(motor[MotorLeft].isRunning)
+	//if(motor[MotorLeft].isRunning)
 	{
 		speed = bsp_EncoderGetSpeed(EncoderLeft);//当前速度毫米/秒
 		pid[MotorLeft].bias = pidabs(pid[MotorLeft].target) - speed;//当前误差值
@@ -275,7 +278,7 @@ void bsp_PidControlAct(void)
 	
 	
 	/************************PID  右轮************************/
-	if(motor[MotorRight].isRunning)
+	//if(motor[MotorRight].isRunning)
 	{
 		speed = bsp_EncoderGetSpeed(EncoderRight);//当前速度毫米/秒
 		pid[MotorRight].bias = pidabs(pid[MotorRight].target) - speed;//当前误差值

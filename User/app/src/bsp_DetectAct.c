@@ -615,7 +615,8 @@ void bsp_DetectDeal(void)
 	}
 	printf("\r\n");
 #endif
-	
+
+#if 0	
 	//如果是太阳光射到了，开启全闪烁灯
 	for(i=0;i<=7;i++)
 	{
@@ -630,7 +631,7 @@ void bsp_DetectDeal(void)
 			
 		}
 	}
-	
+#endif	
 }
 
 
