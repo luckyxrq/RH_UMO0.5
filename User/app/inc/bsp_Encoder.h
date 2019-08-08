@@ -5,7 +5,7 @@
 #define ENCODER_INTERRUPT_FREQUENCY	  10000   /*100us中断一次*/
 #define CALC_T					      1000    /*1000次中断（100MS）计算一次速度*/
 
-#define PulseCntPerCircle	8                                      /*电机转一圈编码器脉冲个数*/
+#define PulseCntPerCircle	16                                      /*电机转一圈编码器脉冲个数*/
 #define CircleCntPerCircle	32                                     /*轮子转一圈，电机实际转的圈数*/
 #define Ratio		        (PulseCntPerCircle*CircleCntPerCircle) /*轮子转一圈，编码器的脉冲数*/
 #define PI	3.14159F			  /*π*/

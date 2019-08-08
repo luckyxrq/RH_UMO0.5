@@ -38373,7 +38373,7 @@ N#define ENCODER_COUNT                 2       /*编码器个数*/
 N#define ENCODER_INTERRUPT_FREQUENCY	  10000   /*100us中断一次*/
 N#define CALC_T					      1000    /*1000次中断（100MS）计算一次速度*/
 N
-N#define PulseCntPerCircle	8                                      /*电机转一圈编码器脉冲个数*/
+N#define PulseCntPerCircle	16                                      /*电机转一圈编码器脉冲个数*/
 N#define CircleCntPerCircle	32                                     /*轮子转一圈，电机实际转的圈数*/
 N#define Ratio		        (PulseCntPerCircle*CircleCntPerCircle) /*轮子转一圈，编码器的脉冲数*/
 N#define PI	3.14159F			  /*π*/
@@ -38737,7 +38737,7 @@ N*/
 Nstatic void bsp_EncoderCalcSpeed(EncoderSN sn)
 N{
 N	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.1F;
-X	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)(8*32) *  (float)(3.14159F*70) / 0.1F;
+X	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)(16*32) *  (float)(3.14159F*70) / 0.1F;
 N	encoder.risingCount[sn] = 0 ;
 N	
 N}

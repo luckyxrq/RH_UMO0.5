@@ -147,7 +147,7 @@
 000008  f8510024          LDR      r0,[r1,r4,LSL #2]
 00000c  f7fffffe          BL       __aeabi_ui2f
 000010  4607              MOV      r7,r0
-000012  f04f4187          MOV      r1,#0x43800000
+000012  f04f4188          MOV      r1,#0x44000000
 000016  f7fffffe          BL       __aeabi_fdiv
 00001a  4606              MOV      r6,r0
 00001c  4909              LDR      r1,|L2.68|
