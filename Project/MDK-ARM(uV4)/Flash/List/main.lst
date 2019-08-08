@@ -46179,10 +46179,6 @@ N			}
 N			
 N		}
 N		
-N		
-N		bsp_GetCapCnt(CapCH1);
-N		
-N		
 N		vTaskDelay(20);
 N    }
 N}
@@ -46221,7 +46217,7 @@ N	bsp_DetectStart(); /*开启红外对管轮询扫描*/
 N    while(1)
 N    {
 N		bsp_DetectAct();  /*红外对管轮询扫描*/
-N		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 N		//bsp_EdgewiseAct();/*沿边*/
 N        vTaskDelay(1);
 N    }
