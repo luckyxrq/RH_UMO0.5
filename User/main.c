@@ -109,6 +109,11 @@ static void vTaskTaskUserIF(void *pvParameters)
 	printf("des angle:%.2F\r\n",bsp_AngleAdd(-100,120));
 #endif	
 
+#if 1
+	bsp_SetMotorTargetSpeed(MotorLeft,200);
+	bsp_SetMotorTargetSpeed(MotorRight,-200);
+#endif
+
     while(1)
     {
 		#if 1

@@ -130,7 +130,6 @@ void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
 	{
 		case MotorLeft:
 		{
-			motor[MotorLeft].isRunning = true ;
 			if(dir == Forward)
 			{
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
@@ -145,7 +144,6 @@ void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
 		
 		case MotorRight:
 		{
-			motor[MotorRight].isRunning = true ;	
 			if(dir == Backward)
 			{
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
@@ -156,6 +154,39 @@ void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, 0);
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,DC_PWM_T, pwm);
 			}
+		}break;
+	}
+}
+
+
+
+
+void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed)
+{	
+	//如果给出的PWM已经大于最大值，则直接退出函数
+	if(sn!=MotorLeft && sn!=MotorRight)
+	{
+		WARNING("错误的电机\r\n");
+		return ;
+	}
+	
+	
+	bsp_MotorBrake(sn);
+	
+	
+	
+	switch(sn)
+	{
+		case MotorLeft:
+		{
+			pid[MotorLeft].target = targetSpeed;
+			motor[MotorLeft].isRunning = true ;
+		}break;
+		
+		case MotorRight:
+		{
+			pid[MotorRight].target = targetSpeed;
+			motor[MotorRight].isRunning = true ;
 		}break;
 	}
 }
@@ -242,7 +273,7 @@ void bsp_PidControlAct(void)
 	#endif
 	
 	/************************PID  左轮************************/
-	//if(motor[MotorLeft].isRunning)
+	if(motor[MotorLeft].isRunning)
 	{
 		speed = bsp_EncoderGetSpeed(EncoderLeft);//当前速度毫米/秒
 		pid[MotorLeft].bias = pidabs(pid[MotorLeft].target) - speed;//当前误差值
@@ -278,7 +309,7 @@ void bsp_PidControlAct(void)
 	
 	
 	/************************PID  右轮************************/
-	//if(motor[MotorRight].isRunning)
+	if(motor[MotorRight].isRunning)
 	{
 		speed = bsp_EncoderGetSpeed(EncoderRight);//当前速度毫米/秒
 		pid[MotorRight].bias = pidabs(pid[MotorRight].target) - speed;//当前误差值
@@ -318,6 +349,10 @@ static float pidabs(float val)
 {
 	return val>0 ? val : -val;
 }
+
+
+
+
 
 
 

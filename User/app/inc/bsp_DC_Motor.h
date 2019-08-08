@@ -44,6 +44,7 @@ void bsp_MotorBrake(MotorSN sn);  /* 急停 */
 void bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
 void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
 void bsp_PidControlAct(void);
+void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
 
 #endif
 
