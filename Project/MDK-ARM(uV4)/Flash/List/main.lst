@@ -45740,8 +45740,8 @@ L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
 N#ifndef __ENCODER_H
 N#define __ENCODER_H
 N
-N#define ENCODER_COUNT                 2        /*编码器个数*/
-N#define ENCODER_INTERRUPT_FREQUENCY	  100000   /*10us中断一次*/
+N#define ENCODER_COUNT                 2         /*编码器个数*/
+N#define ENCODER_INTERRUPT_FREQUENCY	  100000    /*10us中断一次*/
 N#define CALC_T					      30000     /*1000次中断（300MS）计算一次速度*/
 N
 N#define PulseCntPerCircle	16                                      /*电机转一圈编码器脉冲个数*/
