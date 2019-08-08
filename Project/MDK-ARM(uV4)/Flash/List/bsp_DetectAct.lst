@@ -38467,9 +38467,7 @@ L 1 "..\..\User\app\inc\bsp_Action.h" 1
 N#ifndef __BSP_ACTION_H
 N#define __BSP_ACTION_H
 N
-Nvoid bsp_RunStableAct(void);
-Nvoid bsp_StartRunStable(void);
-Nvoid bsp_StopRunStable(void);
+N
 N	
 N#endif
 N
@@ -39408,12 +39406,12 @@ X	(void)(i);
 N
 N	
 N	
-N#if 0	
-S	for(i=0;i<10;i++)
-S	{
-S		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
-S	}
-S	printf("\r\n");
+N#if 1	
+N	for(i=0;i<10;i++)
+N	{
+N		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
+N	}
+N	printf("\r\n");
 N#endif
 N
 N#if 0	
@@ -39422,10 +39420,11 @@ S	for(i=0;i<=7;i++)
 S	{
 S		if(adcRealTime[i] >=1.0F)
 S		{
+S			DEBUG("’œ∞≠ŒÔ\r\n");
 S			if(flgdec == 0)
 S			{
-S				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
-S				bsp_SetMotorPWM(MotorRight,Forward,6000);
+S				bsp_SetMotorTargetSpeed(MotorLeft,150);
+S				bsp_SetMotorTargetSpeed(MotorRight,150);
 S				flgdec = 1 ;
 S			}
 S			

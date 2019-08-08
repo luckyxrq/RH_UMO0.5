@@ -413,19 +413,20 @@
 ;;;207    {
 ;;;208    	bsp_DetectStart(); /*开启红外对管轮询扫描*/
 ;;;209        while(1)
-000004  e006              B        |L7.20|
+000004  e008              B        |L7.24|
                   |L7.6|
 ;;;210        {
 ;;;211    		bsp_DetectAct();  /*红外对管轮询扫描*/
 000006  f7fffffe          BL       bsp_DetectAct
 ;;;212    		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 00000a  f7fffffe          BL       bsp_DetectDeal
-;;;213    		//bsp_EdgewiseAct();/*沿边*/
+;;;213    		bsp_EdgewiseAct();/*沿边*/
+00000e  f7fffffe          BL       bsp_EdgewiseAct
 ;;;214            vTaskDelay(1);
-00000e  2001              MOVS     r0,#1
-000010  f7fffffe          BL       vTaskDelay
-                  |L7.20|
-000014  e7f7              B        |L7.6|
+000012  2001              MOVS     r0,#1
+000014  f7fffffe          BL       vTaskDelay
+                  |L7.24|
+000018  e7f5              B        |L7.6|
 ;;;215        }
 ;;;216    }
 ;;;217    				
@@ -434,14 +435,10 @@
 
                           AREA ||i.vTaskTaskUserIF||, CODE, READONLY, ALIGN=2
 
-                          REQUIRE _printf_percent
-                          REQUIRE _printf_widthprec
-                          REQUIRE _printf_f
-                          REQUIRE _printf_fp_dec
                   vTaskTaskUserIF PROC
 ;;;85     */
 ;;;86     static void vTaskTaskUserIF(void *pvParameters)
-000000  4917              LDR      r1,|L8.96|
+000000  490b              LDR      r1,|L8.48|
 ;;;87     {
 ;;;88     #if 0 /* 左前  右前 */
 ;;;89     	bsp_SetMotorPWM(MotorLeft,Forward,6000);
@@ -468,40 +465,22 @@
 ;;;110    #endif	
 ;;;111    
 ;;;112    #if 1
-;;;113    	bsp_SetMotorTargetSpeed(MotorLeft,200);
+;;;113    	bsp_SetMotorTargetSpeed(MotorLeft,250);
 000002  2000              MOVS     r0,#0
 000004  f7fffffe          BL       bsp_SetMotorTargetSpeed
-;;;114    	bsp_SetMotorTargetSpeed(MotorRight,-200);
-000008  4916              LDR      r1,|L8.100|
+;;;114    	bsp_SetMotorTargetSpeed(MotorRight,250);
+000008  4909              LDR      r1,|L8.48|
 00000a  2001              MOVS     r0,#1
 00000c  f7fffffe          BL       bsp_SetMotorTargetSpeed
 ;;;115    #endif
 ;;;116    
 ;;;117        while(1)
-000010  e024              B        |L8.92|
+000010  e00c              B        |L8.44|
                   |L8.18|
 ;;;118        {
-;;;119    		#if 1
+;;;119    		#if 0
 ;;;120    		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
-000012  2000              MOVS     r0,#0
-000014  f7fffffe          BL       bsp_EncoderGetSpeed
-000018  4606              MOV      r6,r0
-00001a  f7fffffe          BL       __aeabi_f2d
-00001e  4604              MOV      r4,r0
-000020  4622              MOV      r2,r4
-000022  460b              MOV      r3,r1
-000024  a010              ADR      r0,|L8.104|
-000026  f7fffffe          BL       __2printf
 ;;;121    		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
-00002a  2001              MOVS     r0,#1
-00002c  f7fffffe          BL       bsp_EncoderGetSpeed
-000030  4606              MOV      r6,r0
-000032  f7fffffe          BL       __aeabi_f2d
-000036  4604              MOV      r4,r0
-000038  4622              MOV      r2,r4
-00003a  460b              MOV      r3,r1
-00003c  a00e              ADR      r0,|L8.120|
-00003e  f7fffffe          BL       __2printf
 ;;;122    		#endif
 ;;;123    		
 ;;;124    		
@@ -510,41 +489,29 @@
 ;;;127    		#endif
 ;;;128    		
 ;;;129    		bsp_LedToggle(1);
-000042  2001              MOVS     r0,#1
-000044  f7fffffe          BL       bsp_LedToggle
+000012  2001              MOVS     r0,#1
+000014  f7fffffe          BL       bsp_LedToggle
 ;;;130    		bsp_LedToggle(2);
-000048  2002              MOVS     r0,#2
-00004a  f7fffffe          BL       bsp_LedToggle
+000018  2002              MOVS     r0,#2
+00001a  f7fffffe          BL       bsp_LedToggle
 ;;;131    		bsp_LedToggle(3);
-00004e  2003              MOVS     r0,#3
-000050  f7fffffe          BL       bsp_LedToggle
+00001e  2003              MOVS     r0,#3
+000020  f7fffffe          BL       bsp_LedToggle
 ;;;132    		
 ;;;133    		vTaskDelay(500);
-000054  f44f70fa          MOV      r0,#0x1f4
-000058  f7fffffe          BL       vTaskDelay
-                  |L8.92|
-00005c  e7d9              B        |L8.18|
+000024  f44f70fa          MOV      r0,#0x1f4
+000028  f7fffffe          BL       vTaskDelay
+                  |L8.44|
+00002c  e7f1              B        |L8.18|
 ;;;134    		
 ;;;135    	}
 ;;;136    }
 ;;;137    
                           ENDP
 
-00005e  0000              DCW      0x0000
-                  |L8.96|
-                          DCD      0x43480000
-                  |L8.100|
-                          DCD      0xc3480000
-                  |L8.104|
-000068  d7f3c2d6          DCB      215,243,194,214,203,217,182,200,":%.2F\r\n",0
-00006c  cbd9b6c8
-000070  3a252e32
-000074  460d0a00
-                  |L8.120|
-000078  d3d2c2d6          DCB      211,210,194,214,203,217,182,200,":%.2F\r\n",0
-00007c  cbd9b6c8
-000080  3a252e32
-000084  460d0a00
+00002e  0000              DCW      0x0000
+                  |L8.48|
+                          DCD      0x437a0000
 
                           AREA ||.data||, DATA, ALIGN=2
 

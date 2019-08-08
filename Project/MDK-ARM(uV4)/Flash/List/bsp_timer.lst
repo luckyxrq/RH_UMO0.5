@@ -38492,9 +38492,7 @@ L 1 "..\..\User\app\inc\bsp_Action.h" 1
 N#ifndef __BSP_ACTION_H
 N#define __BSP_ACTION_H
 N
-Nvoid bsp_RunStableAct(void);
-Nvoid bsp_StartRunStable(void);
-Nvoid bsp_StopRunStable(void);
+N
 N	
 N#endif
 N

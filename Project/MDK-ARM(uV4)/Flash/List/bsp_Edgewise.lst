@@ -38467,9 +38467,7 @@ L 1 "..\..\User\app\inc\bsp_Action.h" 1
 N#ifndef __BSP_ACTION_H
 N#define __BSP_ACTION_H
 N
-Nvoid bsp_RunStableAct(void);
-Nvoid bsp_StartRunStable(void);
-Nvoid bsp_StopRunStable(void);
+N
 N	
 N#endif
 N
@@ -38685,7 +38683,6 @@ N
 N			/*撞到了，优先判断，后退同时转向*/
 N			if(collision == CollisionLeft)
 N			{
-N				bsp_StopRunStable();
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N				edgewise.action = 2 ;
@@ -38693,7 +38690,6 @@ N			}
 N			/*撞到了，优先判断，后退同时转向*/
 N			else if(collision == CollisionRight)
 N			{
-N				bsp_StopRunStable();
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N				edgewise.action = 3 ;
@@ -38701,7 +38697,6 @@ N			}
 N			/*撞到了，优先判断，后退同时转向*/
 N			else if(collision == CollisionAll)
 N			{
-N				bsp_StopRunStable();
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N				edgewise.action = 1 ;
@@ -38713,7 +38708,7 @@ N
 N		
 N		
 N		
-N		case 1:
+N		case 1://后退
 N		{
 N			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED);
 X			bsp_SetMotorPWM(MotorLeft,Backward, 6000);
@@ -38724,7 +38719,7 @@ N			edgewise.action = 10 ;
 N		}break;
 N		
 N		
-N		case 2:
+N		case 2://左撞
 N		{
 N			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED-500);
 X			bsp_SetMotorPWM(MotorLeft,Backward, 6000-500);
@@ -38735,7 +38730,7 @@ N			edgewise.action = 10 ;
 N		}break;
 N		
 N		
-N		case 3:
+N		case 3://右撞
 N		{
 N			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED+500);
 X			bsp_SetMotorPWM(MotorLeft,Backward, 6000+500);
@@ -38752,8 +38747,8 @@ N			{
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N				
-N				bsp_SetMotorPWM(MotorLeft,Forward, 7000);
-N				bsp_SetMotorPWM(MotorRight,Forward,7000);
+N				bsp_SetMotorTargetSpeed(MotorLeft,250);
+N				bsp_SetMotorTargetSpeed(MotorRight,250);
 N				
 N				flgdec = 0 ;
 N				edgewise.action = 0 ;

@@ -35,7 +35,6 @@ void bsp_EdgewiseAct(void)
 			/*撞到了，优先判断，后退同时转向*/
 			if(collision == CollisionLeft)
 			{
-				bsp_StopRunStable();
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
 				edgewise.action = 2 ;
@@ -43,7 +42,6 @@ void bsp_EdgewiseAct(void)
 			/*撞到了，优先判断，后退同时转向*/
 			else if(collision == CollisionRight)
 			{
-				bsp_StopRunStable();
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
 				edgewise.action = 3 ;
@@ -51,7 +49,6 @@ void bsp_EdgewiseAct(void)
 			/*撞到了，优先判断，后退同时转向*/
 			else if(collision == CollisionAll)
 			{
-				bsp_StopRunStable();
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
 				edgewise.action = 1 ;
@@ -63,7 +60,7 @@ void bsp_EdgewiseAct(void)
 		
 		
 		
-		case 1:
+		case 1://后退
 		{
 			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED);
 			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED);
@@ -72,7 +69,7 @@ void bsp_EdgewiseAct(void)
 		}break;
 		
 		
-		case 2:
+		case 2://左撞
 		{
 			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED-500);
 			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED+500);
@@ -81,7 +78,7 @@ void bsp_EdgewiseAct(void)
 		}break;
 		
 		
-		case 3:
+		case 3://右撞
 		{
 			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED+500);
 			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED-500);
@@ -96,8 +93,8 @@ void bsp_EdgewiseAct(void)
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
 				
-				bsp_SetMotorPWM(MotorLeft,Forward, 7000);
-				bsp_SetMotorPWM(MotorRight,Forward,7000);
+				bsp_SetMotorTargetSpeed(MotorLeft,250);
+				bsp_SetMotorTargetSpeed(MotorRight,250);
 				
 				flgdec = 0 ;
 				edgewise.action = 0 ;

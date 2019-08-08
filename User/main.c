@@ -110,13 +110,13 @@ static void vTaskTaskUserIF(void *pvParameters)
 #endif	
 
 #if 1
-	bsp_SetMotorTargetSpeed(MotorLeft,200);
-	bsp_SetMotorTargetSpeed(MotorRight,-200);
+	bsp_SetMotorTargetSpeed(MotorLeft,250);
+	bsp_SetMotorTargetSpeed(MotorRight,250);
 #endif
 
     while(1)
     {
-		#if 1
+		#if 0
 		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
 		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 		#endif
@@ -210,7 +210,7 @@ static void vTaskStart(void *pvParameters)
     {
 		bsp_DetectAct();  /*红外对管轮询扫描*/
 		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-		//bsp_EdgewiseAct();/*沿边*/
+		bsp_EdgewiseAct();/*沿边*/
         vTaskDelay(1);
     }
 }

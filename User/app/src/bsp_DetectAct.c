@@ -608,7 +608,7 @@ void bsp_DetectDeal(void)
 
 	
 	
-#if 0	
+#if 1	
 	for(i=0;i<10;i++)
 	{
 		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
@@ -622,10 +622,11 @@ void bsp_DetectDeal(void)
 	{
 		if(adcRealTime[i] >=1.0F)
 		{
+			DEBUG("’œ∞≠ŒÔ\r\n");
 			if(flgdec == 0)
 			{
-				bsp_SetMotorPWM(MotorLeft,Forward, 6000);
-				bsp_SetMotorPWM(MotorRight,Forward,6000);
+				bsp_SetMotorTargetSpeed(MotorLeft,150);
+				bsp_SetMotorTargetSpeed(MotorRight,150);
 				flgdec = 1 ;
 			}
 			
