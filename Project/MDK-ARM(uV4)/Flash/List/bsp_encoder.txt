@@ -14,7 +14,7 @@
 000004  4821              LDR      r0,|L1.140|
 000006  f7fffffe          BL       TIM_GetITStatus
 00000a  2800              CMP      r0,#0
-00000c  d03c              BEQ      |L1.136|
+00000c  d03d              BEQ      |L1.138|
 ;;;116    	{
 ;;;117    		TIM_ClearITPendingBit(TIM7, TIM_IT_Update); 
 00000e  2101              MOVS     r1,#1
@@ -100,29 +100,29 @@
 ;;;150    		if(interruptCount >= CALC_T)
 00006e  4808              LDR      r0,|L1.144|
 000070  6800              LDR      r0,[r0,#0]  ; interruptCount
-000072  f5b07f7a          CMP      r0,#0x3e8
-000076  d307              BCC      |L1.136|
+000072  f2475130          MOV      r1,#0x7530
+000076  4288              CMP      r0,r1
+000078  d307              BCC      |L1.138|
 ;;;151    		{
 ;;;152    			interruptCount = 0 ;
-000078  2000              MOVS     r0,#0
-00007a  4905              LDR      r1,|L1.144|
-00007c  6008              STR      r0,[r1,#0]  ; interruptCount
+00007a  2000              MOVS     r0,#0
+00007c  4904              LDR      r1,|L1.144|
+00007e  6008              STR      r0,[r1,#0]  ; interruptCount
 ;;;153    			
 ;;;154    			bsp_EncoderCalcSpeed(EncoderLeft);
-00007e  f7fffffe          BL       bsp_EncoderCalcSpeed
+000080  f7fffffe          BL       bsp_EncoderCalcSpeed
 ;;;155    			bsp_EncoderCalcSpeed(EncoderRight);
-000082  2001              MOVS     r0,#1
-000084  f7fffffe          BL       bsp_EncoderCalcSpeed
-                  |L1.136|
+000084  2001              MOVS     r0,#1
+000086  f7fffffe          BL       bsp_EncoderCalcSpeed
+                  |L1.138|
 ;;;156    		}
 ;;;157    
 ;;;158    	}
 ;;;159    }
-000088  bd10              POP      {r4,pc}
+00008a  bd10              POP      {r4,pc}
 ;;;160    
                           ENDP
 
-00008a  0000              DCW      0x0000
                   |L1.140|
                           DCD      0x40001400
                   |L1.144|
@@ -142,7 +142,7 @@
 000000  e92d41f0          PUSH     {r4-r8,lr}
 ;;;84     {
 000004  4604              MOV      r4,r0
-;;;85     	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.1F;
+;;;85     	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.3F;
 000006  490e              LDR      r1,|L2.64|
 000008  f8510024          LDR      r0,[r1,r4,LSL #2]
 00000c  f7fffffe          BL       __aeabi_ui2f
@@ -174,7 +174,7 @@
                   |L2.68|
                           DCD      0x435be94c
                   |L2.72|
-                          DCD      0x3dcccccd
+                          DCD      0x3e99999a
 
                           AREA ||i.bsp_EncoderGetSpeed||, CODE, READONLY, ALIGN=2
 
@@ -270,15 +270,16 @@
 ;;;71     	bsp_SetTIMforInt(TIM7, ENCODER_INTERRUPT_FREQUENCY, 1, 0);
 000002  2300              MOVS     r3,#0
 000004  2201              MOVS     r2,#1
-000006  f2427110          MOV      r1,#0x2710
-00000a  4802              LDR      r0,|L6.20|
-00000c  f7fffffe          BL       bsp_SetTIMforInt
+000006  4902              LDR      r1,|L6.16|
+000008  4802              LDR      r0,|L6.20|
+00000a  f7fffffe          BL       bsp_SetTIMforInt
 ;;;72     }
-000010  bd10              POP      {r4,pc}
+00000e  bd10              POP      {r4,pc}
 ;;;73     
                           ENDP
 
-000012  0000              DCW      0x0000
+                  |L6.16|
+                          DCD      0x000186a0
                   |L6.20|
                           DCD      0x40001400
 

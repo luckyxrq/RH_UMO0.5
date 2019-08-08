@@ -82,7 +82,7 @@ static void bsp_InitEncoderTick(void)
 */
 static void bsp_EncoderCalcSpeed(EncoderSN sn)
 {
-	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.1F;
+	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.3F;
 	encoder.risingCount[sn] = 0 ;
 	
 }

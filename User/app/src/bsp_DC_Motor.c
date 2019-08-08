@@ -176,7 +176,7 @@ void bsp_InitMotorPid(MotorSN sn)
 		case MotorLeft:
 		{
 			/************************PID 恣態字**********12 0.5 1 0.8 5500*******/
-			pid[MotorLeft].target = 200;
+			pid[MotorLeft].target = 250;
 			
 			pid[MotorLeft].kp = 6;
 			pid[MotorLeft].ki = 0.5;
@@ -197,7 +197,7 @@ void bsp_InitMotorPid(MotorSN sn)
 		case MotorRight:
 		{
 			/************************PID 嘔態字************************/
-			pid[MotorRight].target = 200;
+			pid[MotorRight].target = 250;
 			
 			pid[MotorRight].kp = 6;
 			pid[MotorRight].ki = 0.5;

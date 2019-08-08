@@ -1,9 +1,9 @@
 #ifndef __ENCODER_H
 #define __ENCODER_H
 
-#define ENCODER_COUNT                 2       /*编码器个数*/
-#define ENCODER_INTERRUPT_FREQUENCY	  10000   /*100us中断一次*/
-#define CALC_T					      1000    /*1000次中断（100MS）计算一次速度*/
+#define ENCODER_COUNT                 2        /*编码器个数*/
+#define ENCODER_INTERRUPT_FREQUENCY	  100000   /*10us中断一次*/
+#define CALC_T					      30000     /*1000次中断（300MS）计算一次速度*/
 
 #define PulseCntPerCircle	16                                      /*电机转一圈编码器脉冲个数*/
 #define CircleCntPerCircle	32                                     /*轮子转一圈，电机实际转的圈数*/
