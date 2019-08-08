@@ -19,6 +19,25 @@ typedef enum
 	Backward      /*后退*/ 
 }MotorDir;
 
+typedef struct
+{
+	volatile float target; //目标值
+	
+	volatile float kp;  //比例
+	volatile float ki;  //积分
+	volatile float kd;  //微分
+	
+	volatile float bias;     //本次误差
+	volatile float lastBias; //上次误差
+	volatile float biasSum;  //累积误差
+	
+	volatile float pwm;     //计算出的PWM值
+	volatile float pwmMax;  //PWM能够取的最大值
+	
+	volatile float kiLimit; //积分上限
+	volatile float fitK;    //拟合参数k  
+	volatile float fitD;    //拟合参数d
+}PID;
 
 void bsp_InitDC_Motor(void);      /* 初始化直流电机的PWM定时器 */
 void bsp_MotorBrake(MotorSN sn);  /* 急停 */

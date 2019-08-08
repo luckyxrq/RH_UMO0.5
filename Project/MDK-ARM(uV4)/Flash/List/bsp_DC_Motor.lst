@@ -38335,6 +38335,25 @@ N	Forward  = 0 ,/*前进*/
 N	Backward      /*后退*/ 
 N}MotorDir;
 N
+Ntypedef struct
+N{
+N	volatile float target; //目标值
+N	
+N	volatile float kp;  //比例
+N	volatile float ki;  //积分
+N	volatile float kd;  //微分
+N	
+N	volatile float bias;     //本次误差
+N	volatile float lastBias; //上次误差
+N	volatile float biasSum;  //累积误差
+N	
+N	volatile float pwm;     //计算出的PWM值
+N	volatile float pwmMax;  //PWM能够取的最大值
+N	
+N	volatile float kiLimit; //积分上限
+N	volatile float fitK;    //拟合参数k  
+N	volatile float fitD;    //拟合参数d
+N}PID;
 N
 Nvoid bsp_InitDC_Motor(void);      /* 初始化直流电机的PWM定时器 */
 Nvoid bsp_MotorBrake(MotorSN sn);  /* 急停 */
@@ -38641,9 +38660,10 @@ N
 N/*电机管理结构体数组*/
 NMotor motor[MOTOR_NUM];
 XMotor motor[2];
+Nstatic PID pid[2];
 N
 Nstatic void bspInitPWM(void);
-N
+Nstatic float pidabs(float val);
 N
 N/*
 N*********************************************************************************************************
@@ -38815,6 +38835,167 @@ N		}break;
 N	}
 N}
 N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_InitMotorPid
+N*	功能说明: 初始化某个电机PID
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_InitMotorPid(MotorSN sn)
+N{
+N	switch(sn)
+N	{
+N		case MotorLeft:
+N		{
+N			/************************PID 左轮机**********12 0.5 1 0.8 5500*******/
+N			pid[MotorLeft].target = 150;
+N			
+N			pid[MotorLeft].kp = 6;
+N			pid[MotorLeft].ki = 0.5;
+N			pid[MotorLeft].kd = 1;
+N			
+N			pid[MotorLeft].bias = 0 ;
+N			pid[MotorLeft].lastBias = 0 ;
+N			pid[MotorLeft].biasSum = 0 ;
+N			
+N			pid[MotorLeft].pwm = 0 ;
+N			pid[MotorLeft].pwmMax = MAXPWM ;
+X			pid[MotorLeft].pwmMax = 10000 ;
+N			
+N			pid[MotorLeft].kiLimit = 20000 ;
+N			pid[MotorLeft].fitK = 0.8 ;
+N			pid[MotorLeft].fitD = 2000 ;
+N		}break;
+N		
+N		case MotorRight:
+N		{
+N			/************************PID 右轮机************************/
+N			pid[MotorRight].target = 150;
+N			
+N			pid[MotorRight].kp = 6;
+N			pid[MotorRight].ki = 0.5;
+N			pid[MotorRight].kd = 1;
+N			
+N			pid[MotorRight].bias = 0 ;
+N			pid[MotorRight].lastBias = 0 ;
+N			pid[MotorRight].biasSum = 0 ;
+N			
+N			pid[MotorRight].pwm = 0 ;
+N			pid[MotorRight].pwmMax = MAXPWM ;
+X			pid[MotorRight].pwmMax = 10000 ;
+N			
+N			pid[MotorRight].kiLimit = 20000 ;
+N			pid[MotorRight].fitK = 0.8 ;
+N			pid[MotorRight].fitD = 2000 ;
+N		}break;
+N	}
+N}
+N
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_PidControlAct
+N*	功能说明: 实时调节电机PID，100MS调用一次
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_PidControlAct(void)
+N{
+N	int32_t speed = 0 ;
+N	float S_Out[4] = {0};
+N	
+N	UNUSED(S_Out);
+X	(void)(S_Out);
+N	
+N	/************************显示速度波形************************/
+N	#if 0 
+S	S_Out[0] = bsp_EncoderGetSpeed(EncoderLeft);
+S	S_Out[1] = bsp_EncoderGetSpeed(EncoderRight);
+S	SDS_OutPut_Data(S_Out);
+N	#endif
+N	
+N	/************************PID  左轮************************/
+N	if(motor[MotorLeft].isRunning)
+N	{
+N		speed = bsp_EncoderGetSpeed(EncoderLeft);//当前速度毫米/秒
+N		pid[MotorLeft].bias = pidabs(pid[MotorLeft].target) - speed;//当前误差值
+N		pid[MotorLeft].biasSum += pid[MotorLeft].bias;//误差累积
+N		
+N		//积分限制
+N		if(pid[MotorLeft].biasSum >= pid[MotorLeft].kiLimit)
+N		{
+N			pid[MotorLeft].biasSum = pid[MotorLeft].kiLimit;
+N		}
+N			
+N		pid[MotorLeft].pwm = (pid[MotorLeft].fitK*pidabs(pid[MotorLeft].target) + pid[MotorLeft].fitD) + pid[MotorLeft].kp*pid[MotorLeft].bias + pid[MotorLeft].ki*pid[MotorLeft].biasSum + pid[MotorLeft].kd*(pid[MotorLeft].bias-pid[MotorLeft].lastBias); 
+N		pid[MotorLeft].lastBias = pid[MotorLeft].bias;//上次误差
+N		
+N		//PWM限制
+N		if(pid[MotorLeft].pwm >= pid[MotorLeft].pwmMax)
+N		{
+N			pid[MotorLeft].pwm = pid[MotorLeft].pwmMax;
+N		}
+N		else if(pid[MotorLeft].pwm <= 0)
+N		{
+N			pid[MotorLeft].pwm = 0 ;
+N		}
+N		#if 0
+S		printf("left:%dmm/s  ",bsp_EncoderGetSpeed(EncoderLeft));
+S		printf("pid[MotorLeft].bias:%f  ",pid[MotorLeft].bias);
+S		printf("pid[MotorLeft].biasSum:%f  ",pid[MotorLeft].biasSum);
+S		printf("pid[MotorLeft].lastBias:%f  ",pid[MotorLeft].lastBias);
+S		printf("pid[MotorLeft].pwm:%f  ",pid[MotorLeft].pwm);
+N		#endif
+N		bsp_SetMotorPWM(MotorLeft, pid[MotorLeft].target>0 ? Forward:Backward, pid[MotorLeft].pwm);
+N	}
+N	
+N	
+N	/************************PID  右轮************************/
+N	if(motor[MotorRight].isRunning)
+N	{
+N		speed = bsp_EncoderGetSpeed(EncoderRight);//当前速度毫米/秒
+N		pid[MotorRight].bias = pidabs(pid[MotorRight].target) - speed;//当前误差值
+N		pid[MotorRight].biasSum += pid[MotorRight].bias;//误差累积
+N		
+N		//积分限制
+N		if(pid[MotorRight].biasSum >= pid[MotorRight].kiLimit)
+N		{
+N			pid[MotorRight].biasSum = pid[MotorRight].kiLimit;
+N		}
+N			
+N		pid[MotorRight].pwm = (pid[MotorRight].fitK*pidabs(pid[MotorRight].target) + pid[MotorRight].fitD) + pid[MotorRight].kp*pid[MotorRight].bias + pid[MotorRight].ki*pid[MotorRight].biasSum + pid[MotorRight].kd*(pid[MotorRight].bias-pid[MotorRight].lastBias); 
+N		pid[MotorRight].lastBias = pid[MotorRight].bias;//上次误差
+N		
+N		//PWM限制
+N		if(pid[MotorRight].pwm >= pid[MotorRight].pwmMax)
+N		{
+N			pid[MotorRight].pwm = pid[MotorRight].pwmMax;
+N		}
+N		else if(pid[MotorRight].pwm <= 0)
+N		{
+N			pid[MotorRight].pwm = 0 ;
+N		}
+N		#if 0
+S		printf("right:%dmm/s  ",bsp_EncoderGetSpeed(EncoderRight));
+S		printf("pid[MotorRight].bias:%f  ",pid[MotorRight].bias);
+S		printf("pid[MotorRight].biasSum:%f  ",pid[MotorRight].biasSum);
+S		printf("pid[MotorRight].lastBias:%f  ",pid[MotorRight].lastBias);
+S		printf("pid[MotorRight].pwm:%f\r\n",pid[MotorRight].pwm);
+N		#endif
+N		bsp_SetMotorPWM(MotorRight, pid[MotorRight].target>0 ? Forward:Backward, pid[MotorRight].pwm);
+N	}
+N	
+N}
+N
+Nstatic float pidabs(float val)
+N{
+N	return val>0 ? val : -val;
+N}
 N
 N
 N

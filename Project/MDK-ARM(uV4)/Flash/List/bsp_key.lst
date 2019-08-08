@@ -38359,6 +38359,25 @@ N	Forward  = 0 ,/*前进*/
 N	Backward      /*后退*/ 
 N}MotorDir;
 N
+Ntypedef struct
+N{
+N	volatile float target; //目标值
+N	
+N	volatile float kp;  //比例
+N	volatile float ki;  //积分
+N	volatile float kd;  //微分
+N	
+N	volatile float bias;     //本次误差
+N	volatile float lastBias; //上次误差
+N	volatile float biasSum;  //累积误差
+N	
+N	volatile float pwm;     //计算出的PWM值
+N	volatile float pwmMax;  //PWM能够取的最大值
+N	
+N	volatile float kiLimit; //积分上限
+N	volatile float fitK;    //拟合参数k  
+N	volatile float fitD;    //拟合参数d
+N}PID;
 N
 Nvoid bsp_InitDC_Motor(void);      /* 初始化直流电机的PWM定时器 */
 Nvoid bsp_MotorBrake(MotorSN sn);  /* 急停 */
