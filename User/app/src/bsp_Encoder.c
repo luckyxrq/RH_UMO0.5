@@ -129,6 +129,7 @@ void TIM7_IRQHandler(void)
 			{
 				encoder.isReadyRising[EncoderLeft] = false;
 				++encoder.risingCount[EncoderLeft];
+				encoder.odometer[0] += (bsp_MotorGetDir(MotorLeft)==Forward ? 1 : -1);/*里程计*/
 			}
 		}
 		
@@ -143,6 +144,7 @@ void TIM7_IRQHandler(void)
 			{
 				encoder.isReadyRising[EncoderRight] = false;
 				++encoder.risingCount[EncoderRight];
+				encoder.odometer[1] += (bsp_MotorGetDir(MotorRight)==Forward ? 1 : -1);/*里程计*/
 			}
 		}
 
@@ -156,5 +158,27 @@ void TIM7_IRQHandler(void)
 		}
 
 	}
+}
+
+
+
+int32_t bsp_encoderGetOdometer(MotorSN sn)
+{
+	int32_t odometer = 0 ;
+	switch(sn)
+	{
+		case MotorLeft:
+		{
+			odometer = encoder.odometer[0];
+		}break;
+		
+		case MotorRight:
+		{
+			odometer = encoder.odometer[1];
+		}break;
+	}
+	
+	return  odometer;
+	
 }
 

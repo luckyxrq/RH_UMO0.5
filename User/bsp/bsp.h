@@ -160,7 +160,7 @@
 
 //#include "bsp_modbus.h"
 //#include "bsp_rs485_led.h"
-//#include "bsp_user_lib.h"
+#include "bsp_user_lib.h"
 
 //#include "bsp_dac8501.h"
 //#include "bsp_dac8562.h"

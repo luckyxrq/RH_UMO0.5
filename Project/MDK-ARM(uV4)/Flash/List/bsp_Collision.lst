@@ -37773,7 +37773,7 @@ N*/
 N#define	UART1_FIFO_EN	0
 N#define	UART2_FIFO_EN	1  //调试
 N#define	UART3_FIFO_EN	1  //陀螺仪
-N#define	UART4_FIFO_EN	0
+N#define	UART4_FIFO_EN	1
 N#define	UART5_FIFO_EN	0
 N
 N/* RS485芯片发送使能GPIO, PB2 */
@@ -37818,10 +37818,10 @@ N	#define UART3_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART4_FIFO_EN == 1
-X#if 0 == 1
-S	#define UART4_BAUD			115200
-S	#define UART4_TX_BUF_SIZE	1*1024
-S	#define UART4_RX_BUF_SIZE	1*1024
+X#if 1 == 1
+N	#define UART4_BAUD			115200
+N	#define UART4_TX_BUF_SIZE	1*1024
+N	#define UART4_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART5_FIFO_EN == 1
@@ -38282,7 +38282,47 @@ N//#include "bsp_ps2.h"
 N
 N//#include "bsp_modbus.h"
 N//#include "bsp_rs485_led.h"
-N//#include "bsp_user_lib.h"
+N#include "bsp_user_lib.h"
+L 1 "..\..\User\bsp\inc\bsp_user_lib.h" 1
+N/*
+N*********************************************************************************************************
+N*
+N*	模块名称 : 字符串操作\数值转换
+N*	文件名称 : bsp_user_lib.h
+N*	版    本 : V1.2
+N*	说    明 : 头文件
+N*
+N*********************************************************************************************************
+N*/
+N
+N#ifndef __BSP_USER_LIB_H
+N#define __BSP_USER_LIB_H
+N
+Nint str_len(char *_str);
+Nvoid str_cpy(char *_tar, char *_src);
+Nint str_cmp(char * s1, char * s2);
+Nvoid mem_set(char *_tar, char _data, int _len);
+N
+Nvoid int_to_str(int _iNumber, char *_pBuf, unsigned char _len);
+Nint str_to_int(char *_pStr);
+N
+Nuint16_t BEBufToUint16(uint8_t *_pBuf);
+Nuint16_t LEBufToUint16(uint8_t *_pBuf);
+N
+Nuint32_t BEBufToUint32(uint8_t *_pBuf);
+Nuint32_t LEBufToUint32(uint8_t *_pBuf);
+N
+Nuint16_t CRC16_Modbus(uint8_t *_pBuf, uint16_t _usLen) ;
+Nint32_t  CaculTwoPoint(int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t x);
+N
+Nchar BcdToChar(uint8_t _bcd);
+Nvoid HexToAscll(uint8_t * _pHex, char *_pAscii, uint16_t _BinBytes);
+Nuint32_t AsciiToUint32(char *pAscii);
+N
+N#endif
+N
+N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+L 164 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_dac8501.h"
 N//#include "bsp_dac8562.h"
@@ -38361,7 +38401,7 @@ Nvoid bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
 Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
 Nvoid bsp_PidControlAct(void);
 Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-N
+NMotorDir bsp_MotorGetDir(MotorSN sn);
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2
@@ -38395,11 +38435,14 @@ N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
 X	uint32_t risingCount[2];  
 N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
 X	float speed[2];           
+N	int32_t odometer[ENCODER_COUNT];
+X	int32_t odometer[2];
 N}Encoder;
 N
 N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
+Nint32_t bsp_encoderGetOdometer(MotorSN sn);
 N
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
@@ -38439,6 +38482,7 @@ N	volatile uint16_t rxCount;
 N	volatile uint8_t  buf[RX_BUF_SIZE] ;
 X	volatile uint8_t  buf[13] ;
 N	volatile float angle;
+N	volatile int16_t angleRaw;
 N}Angle;
 N
 N
@@ -38456,6 +38500,7 @@ N
 N
 Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
+Nint16_t bsp_AngleReadRaw(void);
 Nfloat bsp_AngleAdd(float angle1 , float angle2);
 Nvoid bsp_InitAngle(void);
 Nvoid bsp_AngleRst(void);
@@ -38643,6 +38688,7 @@ L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
 N#define __BSP_COMMUNICATION_H
 N
+Nvoid bsp_SendReportFrame(void);
 N
 N#endif
 L 185 "..\..\User\bsp\bsp.h" 2

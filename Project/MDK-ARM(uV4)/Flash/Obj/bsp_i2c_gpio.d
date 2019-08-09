@@ -52,6 +52,7 @@
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\bsp\inc\bsp_dwt.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\bsp\inc\bsp_tim_pwm.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\bsp\inc\bsp_i2c_gpio.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\bsp\inc\bsp_user_lib.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_DC_Motor.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_Encoder.h

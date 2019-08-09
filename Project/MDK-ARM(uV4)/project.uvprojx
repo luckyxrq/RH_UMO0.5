@@ -493,6 +493,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Remote.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_communication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_communication.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -552,6 +557,11 @@
               <FileName>bsp_i2c_gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_i2c_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_user_lib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_user_lib.c</FilePath>
             </File>
           </Files>
         </Group>

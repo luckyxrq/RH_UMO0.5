@@ -11,127 +11,155 @@
 ;;;114    {
 ;;;115    	if(RESET != TIM_GetITStatus(TIM7, TIM_IT_Update)) 
 000002  2101              MOVS     r1,#1
-000004  4821              LDR      r0,|L1.140|
+000004  482e              LDR      r0,|L1.192|
 000006  f7fffffe          BL       TIM_GetITStatus
 00000a  2800              CMP      r0,#0
-00000c  d03d              BEQ      |L1.138|
+00000c  d057              BEQ      |L1.190|
 ;;;116    	{
 ;;;117    		TIM_ClearITPendingBit(TIM7, TIM_IT_Update); 
 00000e  2101              MOVS     r1,#1
-000010  481e              LDR      r0,|L1.140|
+000010  482b              LDR      r0,|L1.192|
 000012  f7fffffe          BL       TIM_ClearITPendingBit
 ;;;118    		++interruptCount;
-000016  481e              LDR      r0,|L1.144|
+000016  482b              LDR      r0,|L1.196|
 000018  6800              LDR      r0,[r0,#0]  ; interruptCount
 00001a  1c40              ADDS     r0,r0,#1
-00001c  491c              LDR      r1,|L1.144|
+00001c  4929              LDR      r1,|L1.196|
 00001e  6008              STR      r0,[r1,#0]  ; interruptCount
 ;;;119    		
 ;;;120    		
 ;;;121    		/*左脉冲计数*/
 ;;;122    		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 0)
 000020  f44f4100          MOV      r1,#0x8000
-000024  481b              LDR      r0,|L1.148|
+000024  4828              LDR      r0,|L1.200|
 000026  f7fffffe          BL       GPIO_ReadInputDataBit
 00002a  b918              CBNZ     r0,|L1.52|
 ;;;123    		{
 ;;;124    			encoder.isReadyRising[EncoderLeft] = true;
 00002c  2001              MOVS     r0,#1
-00002e  491a              LDR      r1,|L1.152|
+00002e  4927              LDR      r1,|L1.204|
 000030  7008              STRB     r0,[r1,#0]
-000032  e009              B        |L1.72|
+000032  e016              B        |L1.98|
                   |L1.52|
 ;;;125    		}
 ;;;126    		else
 ;;;127    		{
 ;;;128    			if(encoder.isReadyRising[EncoderLeft])
-000034  4818              LDR      r0,|L1.152|
+000034  4825              LDR      r0,|L1.204|
 000036  7800              LDRB     r0,[r0,#0]  ; encoder
-000038  b130              CBZ      r0,|L1.72|
+000038  b198              CBZ      r0,|L1.98|
 ;;;129    			{
 ;;;130    				encoder.isReadyRising[EncoderLeft] = false;
 00003a  2000              MOVS     r0,#0
-00003c  4916              LDR      r1,|L1.152|
+00003c  4923              LDR      r1,|L1.204|
 00003e  7008              STRB     r0,[r1,#0]
 ;;;131    				++encoder.risingCount[EncoderLeft];
 000040  4608              MOV      r0,r1
 000042  6840              LDR      r0,[r0,#4]  ; encoder
 000044  1c40              ADDS     r0,r0,#1
 000046  6048              STR      r0,[r1,#4]  ; encoder
-                  |L1.72|
-;;;132    			}
-;;;133    		}
-;;;134    		
-;;;135    		/*右脉冲计数*/
-;;;136    		if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,  GPIO_PIN_RIGHT) == 0)
-000048  2108              MOVS     r1,#8
-00004a  4814              LDR      r0,|L1.156|
-00004c  f7fffffe          BL       GPIO_ReadInputDataBit
-000050  b918              CBNZ     r0,|L1.90|
-;;;137    		{
-;;;138    			encoder.isReadyRising[EncoderRight] = true;
-000052  2001              MOVS     r0,#1
-000054  4910              LDR      r1,|L1.152|
-000056  7048              STRB     r0,[r1,#1]
-000058  e009              B        |L1.110|
-                  |L1.90|
-;;;139    		}
-;;;140    		else
-;;;141    		{
-;;;142    			if(encoder.isReadyRising[EncoderRight])
-00005a  480f              LDR      r0,|L1.152|
-00005c  7840              LDRB     r0,[r0,#1]  ; encoder
-00005e  b130              CBZ      r0,|L1.110|
-;;;143    			{
-;;;144    				encoder.isReadyRising[EncoderRight] = false;
-000060  2000              MOVS     r0,#0
-000062  490d              LDR      r1,|L1.152|
-000064  7048              STRB     r0,[r1,#1]
-;;;145    				++encoder.risingCount[EncoderRight];
-000066  4608              MOV      r0,r1
-000068  6880              LDR      r0,[r0,#8]
-00006a  1c40              ADDS     r0,r0,#1
-00006c  6088              STR      r0,[r1,#8]
-                  |L1.110|
-;;;146    			}
-;;;147    		}
-;;;148    
-;;;149    		/*计算速度*/
-;;;150    		if(interruptCount >= CALC_T)
-00006e  4808              LDR      r0,|L1.144|
-000070  6800              LDR      r0,[r0,#0]  ; interruptCount
-000072  f2475130          MOV      r1,#0x7530
-000076  4288              CMP      r0,r1
-000078  d307              BCC      |L1.138|
-;;;151    		{
-;;;152    			interruptCount = 0 ;
+;;;132    				encoder.odometer[0] += (bsp_MotorGetDir(MotorLeft)==Forward ? 1 : -1);/*里程计*/
+000048  2000              MOVS     r0,#0
+00004a  f7fffffe          BL       bsp_MotorGetDir
+00004e  b908              CBNZ     r0,|L1.84|
+000050  2001              MOVS     r0,#1
+000052  e001              B        |L1.88|
+                  |L1.84|
+000054  f04f30ff          MOV      r0,#0xffffffff
+                  |L1.88|
+000058  491c              LDR      r1,|L1.204|
+00005a  6949              LDR      r1,[r1,#0x14]  ; encoder
+00005c  4408              ADD      r0,r0,r1
+00005e  491b              LDR      r1,|L1.204|
+000060  6148              STR      r0,[r1,#0x14]  ; encoder
+                  |L1.98|
+;;;133    			}
+;;;134    		}
+;;;135    		
+;;;136    		/*右脉冲计数*/
+;;;137    		if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,  GPIO_PIN_RIGHT) == 0)
+000062  2108              MOVS     r1,#8
+000064  481a              LDR      r0,|L1.208|
+000066  f7fffffe          BL       GPIO_ReadInputDataBit
+00006a  b918              CBNZ     r0,|L1.116|
+;;;138    		{
+;;;139    			encoder.isReadyRising[EncoderRight] = true;
+00006c  2001              MOVS     r0,#1
+00006e  4917              LDR      r1,|L1.204|
+000070  7048              STRB     r0,[r1,#1]
+000072  e016              B        |L1.162|
+                  |L1.116|
+;;;140    		}
+;;;141    		else
+;;;142    		{
+;;;143    			if(encoder.isReadyRising[EncoderRight])
+000074  4815              LDR      r0,|L1.204|
+000076  7840              LDRB     r0,[r0,#1]  ; encoder
+000078  b198              CBZ      r0,|L1.162|
+;;;144    			{
+;;;145    				encoder.isReadyRising[EncoderRight] = false;
 00007a  2000              MOVS     r0,#0
-00007c  4904              LDR      r1,|L1.144|
-00007e  6008              STR      r0,[r1,#0]  ; interruptCount
-;;;153    			
-;;;154    			bsp_EncoderCalcSpeed(EncoderLeft);
-000080  f7fffffe          BL       bsp_EncoderCalcSpeed
-;;;155    			bsp_EncoderCalcSpeed(EncoderRight);
-000084  2001              MOVS     r0,#1
-000086  f7fffffe          BL       bsp_EncoderCalcSpeed
-                  |L1.138|
-;;;156    		}
-;;;157    
-;;;158    	}
-;;;159    }
-00008a  bd10              POP      {r4,pc}
-;;;160    
+00007c  4913              LDR      r1,|L1.204|
+00007e  7048              STRB     r0,[r1,#1]
+;;;146    				++encoder.risingCount[EncoderRight];
+000080  4608              MOV      r0,r1
+000082  6880              LDR      r0,[r0,#8]
+000084  1c40              ADDS     r0,r0,#1
+000086  6088              STR      r0,[r1,#8]
+;;;147    				encoder.odometer[1] += (bsp_MotorGetDir(MotorRight)==Forward ? 1 : -1);/*里程计*/
+000088  2001              MOVS     r0,#1
+00008a  f7fffffe          BL       bsp_MotorGetDir
+00008e  b908              CBNZ     r0,|L1.148|
+000090  2101              MOVS     r1,#1
+000092  e001              B        |L1.152|
+                  |L1.148|
+000094  f04f31ff          MOV      r1,#0xffffffff
+                  |L1.152|
+000098  480c              LDR      r0,|L1.204|
+00009a  6980              LDR      r0,[r0,#0x18]
+00009c  4401              ADD      r1,r1,r0
+00009e  480b              LDR      r0,|L1.204|
+0000a0  6181              STR      r1,[r0,#0x18]
+                  |L1.162|
+;;;148    			}
+;;;149    		}
+;;;150    
+;;;151    		/*计算速度*/
+;;;152    		if(interruptCount >= CALC_T)
+0000a2  4808              LDR      r0,|L1.196|
+0000a4  6800              LDR      r0,[r0,#0]  ; interruptCount
+0000a6  f2475130          MOV      r1,#0x7530
+0000aa  4288              CMP      r0,r1
+0000ac  d307              BCC      |L1.190|
+;;;153    		{
+;;;154    			interruptCount = 0 ;
+0000ae  2000              MOVS     r0,#0
+0000b0  4904              LDR      r1,|L1.196|
+0000b2  6008              STR      r0,[r1,#0]  ; interruptCount
+;;;155    			
+;;;156    			bsp_EncoderCalcSpeed(EncoderLeft);
+0000b4  f7fffffe          BL       bsp_EncoderCalcSpeed
+;;;157    			bsp_EncoderCalcSpeed(EncoderRight);
+0000b8  2001              MOVS     r0,#1
+0000ba  f7fffffe          BL       bsp_EncoderCalcSpeed
+                  |L1.190|
+;;;158    		}
+;;;159    
+;;;160    	}
+;;;161    }
+0000be  bd10              POP      {r4,pc}
+;;;162    
                           ENDP
 
-                  |L1.140|
+                  |L1.192|
                           DCD      0x40001400
-                  |L1.144|
+                  |L1.196|
                           DCD      interruptCount
-                  |L1.148|
+                  |L1.200|
                           DCD      0x40010800
-                  |L1.152|
+                  |L1.204|
                           DCD      encoder
-                  |L1.156|
+                  |L1.208|
                           DCD      0x40011800
 
                           AREA ||i.bsp_EncoderCalcSpeed||, CODE, READONLY, ALIGN=2
@@ -283,10 +311,56 @@
                   |L6.20|
                           DCD      0x40001400
 
+                          AREA ||i.bsp_encoderGetOdometer||, CODE, READONLY, ALIGN=2
+
+                  bsp_encoderGetOdometer PROC
+;;;164    
+;;;165    int32_t bsp_encoderGetOdometer(MotorSN sn)
+000000  4601              MOV      r1,r0
+;;;166    {
+;;;167    	int32_t odometer = 0 ;
+000002  2000              MOVS     r0,#0
+;;;168    	switch(sn)
+000004  b111              CBZ      r1,|L7.12|
+000006  2901              CMP      r1,#1
+000008  d106              BNE      |L7.24|
+00000a  e002              B        |L7.18|
+                  |L7.12|
+;;;169    	{
+;;;170    		case MotorLeft:
+;;;171    		{
+;;;172    			odometer = encoder.odometer[0];
+00000c  4a03              LDR      r2,|L7.28|
+00000e  6950              LDR      r0,[r2,#0x14]  ; encoder
+;;;173    		}break;
+000010  e002              B        |L7.24|
+                  |L7.18|
+;;;174    		
+;;;175    		case MotorRight:
+;;;176    		{
+;;;177    			odometer = encoder.odometer[1];
+000012  4a02              LDR      r2,|L7.28|
+000014  6990              LDR      r0,[r2,#0x18]
+;;;178    		}break;
+000016  bf00              NOP      
+                  |L7.24|
+000018  bf00              NOP                            ;173
+;;;179    	}
+;;;180    	
+;;;181    	return  odometer;
+;;;182    	
+;;;183    }
+00001a  4770              BX       lr
+;;;184    
+                          ENDP
+
+                  |L7.28|
+                          DCD      encoder
+
                           AREA ||.bss||, DATA, NOINIT, ALIGN=2
 
                   encoder
-                          %        20
+                          %        28
 
                           AREA ||.data||, DATA, ALIGN=2
 

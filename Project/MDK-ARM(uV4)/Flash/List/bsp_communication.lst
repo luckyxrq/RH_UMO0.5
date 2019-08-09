@@ -37773,7 +37773,7 @@ N*/
 N#define	UART1_FIFO_EN	0
 N#define	UART2_FIFO_EN	1  //调试
 N#define	UART3_FIFO_EN	1  //陀螺仪
-N#define	UART4_FIFO_EN	0
+N#define	UART4_FIFO_EN	1
 N#define	UART5_FIFO_EN	0
 N
 N/* RS485芯片发送使能GPIO, PB2 */
@@ -37818,10 +37818,10 @@ N	#define UART3_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART4_FIFO_EN == 1
-X#if 0 == 1
-S	#define UART4_BAUD			115200
-S	#define UART4_TX_BUF_SIZE	1*1024
-S	#define UART4_RX_BUF_SIZE	1*1024
+X#if 1 == 1
+N	#define UART4_BAUD			115200
+N	#define UART4_TX_BUF_SIZE	1*1024
+N	#define UART4_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART5_FIFO_EN == 1
@@ -38282,7 +38282,47 @@ N//#include "bsp_ps2.h"
 N
 N//#include "bsp_modbus.h"
 N//#include "bsp_rs485_led.h"
-N//#include "bsp_user_lib.h"
+N#include "bsp_user_lib.h"
+L 1 "..\..\User\bsp\inc\bsp_user_lib.h" 1
+N/*
+N*********************************************************************************************************
+N*
+N*	模块名称 : 字符串操作\数值转换
+N*	文件名称 : bsp_user_lib.h
+N*	版    本 : V1.2
+N*	说    明 : 头文件
+N*
+N*********************************************************************************************************
+N*/
+N
+N#ifndef __BSP_USER_LIB_H
+N#define __BSP_USER_LIB_H
+N
+Nint str_len(char *_str);
+Nvoid str_cpy(char *_tar, char *_src);
+Nint str_cmp(char * s1, char * s2);
+Nvoid mem_set(char *_tar, char _data, int _len);
+N
+Nvoid int_to_str(int _iNumber, char *_pBuf, unsigned char _len);
+Nint str_to_int(char *_pStr);
+N
+Nuint16_t BEBufToUint16(uint8_t *_pBuf);
+Nuint16_t LEBufToUint16(uint8_t *_pBuf);
+N
+Nuint32_t BEBufToUint32(uint8_t *_pBuf);
+Nuint32_t LEBufToUint32(uint8_t *_pBuf);
+N
+Nuint16_t CRC16_Modbus(uint8_t *_pBuf, uint16_t _usLen) ;
+Nint32_t  CaculTwoPoint(int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t x);
+N
+Nchar BcdToChar(uint8_t _bcd);
+Nvoid HexToAscll(uint8_t * _pHex, char *_pAscii, uint16_t _BinBytes);
+Nuint32_t AsciiToUint32(char *pAscii);
+N
+N#endif
+N
+N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+L 164 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_dac8501.h"
 N//#include "bsp_dac8562.h"
@@ -38361,7 +38401,7 @@ Nvoid bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
 Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
 Nvoid bsp_PidControlAct(void);
 Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-N
+NMotorDir bsp_MotorGetDir(MotorSN sn);
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2
@@ -38395,11 +38435,14 @@ N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
 X	uint32_t risingCount[2];  
 N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
 X	float speed[2];           
+N	int32_t odometer[ENCODER_COUNT];
+X	int32_t odometer[2];
 N}Encoder;
 N
 N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
+Nint32_t bsp_encoderGetOdometer(MotorSN sn);
 N
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
@@ -38439,6 +38482,7 @@ N	volatile uint16_t rxCount;
 N	volatile uint8_t  buf[RX_BUF_SIZE] ;
 X	volatile uint8_t  buf[13] ;
 N	volatile float angle;
+N	volatile int16_t angleRaw;
 N}Angle;
 N
 N
@@ -38456,6 +38500,7 @@ N
 N
 Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
+Nint16_t bsp_AngleReadRaw(void);
 Nfloat bsp_AngleAdd(float angle1 , float angle2);
 Nvoid bsp_InitAngle(void);
 Nvoid bsp_AngleRst(void);
@@ -38643,6 +38688,7 @@ L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
 N#define __BSP_COMMUNICATION_H
 N
+Nvoid bsp_SendReportFrame(void);
 N
 N#endif
 L 185 "..\..\User\bsp\bsp.h" 2
@@ -38657,4 +38703,135 @@ N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_communication.c" 2
+N
+N#pragma pack(1)
+Ntypedef struct _s_min_id_environment
+N{
+N	uint8_t sof1;                  //0xAA
+N	uint8_t sof2;                  //0xAA
+N	uint8_t sof3;                  //0xAA
+N	uint8_t identifier;	           //0x25
+N	uint8_t size_of_payload_field; //0x04
+N	int32_t left_wheel_pulse_count;
+N	int32_t right_wheel_pulse_count;
+N	uint8_t button_control_cmd;
+N	uint16_t distance_of_left_infrared;
+N	uint16_t distance_of_right_infrared;
+N	uint16_t distance_of_front_infrared;
+N	int16_t  angle_deg;
+N	uint16_t adc_1;
+N	uint16_t adc_2;
+N	uint16_t adc_3;
+N	uint16_t adc_4;
+N	int16_t acc_x;
+N	int16_t acc_y;
+N	int16_t acc_z;
+N	uint16_t obstacle_signal;
+N	uint8_t battery_level_soc;
+N	uint8_t charge_status;
+N	uint8_t checksum_msb;
+N	uint8_t checksum_lsb;
+N	uint8_t end_of_falg;           //0x55
+N}ReportFrame;
+N
+N
+Nstatic ReportFrame reportFrame;
+Nstatic uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len);
+Nstatic void bsp_FillReportFrame(void);
+N
+N
+N
+N
+Nvoid bsp_SendReportFrame(void)
+N{
+N	uint8_t  buf[256] = {0};       /*用于存储帧*/
+N	uint32_t len = sizeof(reportFrame);/*帧大小*/
+N	uint8_t* src = (uint8_t*)&reportFrame;
+N	uint32_t i = 0 ;
+N	
+N	/*填充数据*/
+N	bsp_FillReportFrame();
+N	
+N	/*填充帧*/
+N	for(i=0;i<len;i++)
+N	{
+N		buf[i] = src[i];
+N	}
+N	
+N	comSendBuf(COM4,buf,len);
+N	
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_FillReportFrame
+N*	功能说明: 填充上报数据帧
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_FillReportFrame(void)
+N{
+N	uint16_t chk = 0 ;
+N	uint32_t len = sizeof(reportFrame);/*帧大小*/
+N	uint8_t* src = (uint8_t*)&reportFrame;
+N	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
+N	int32_t odometerL = bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
+N	int32_t odometerR = bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
+N	/*消除编译器警告*/
+N	UNUSED(reportFrame);
+X	(void)(reportFrame);
+N	
+N	/*大小端转换*/
+N	reportFrame.sof1 = 0xAA;                   //恒定为0xAA
+N	reportFrame.sof2 = 0xAA;                   //恒定为0xAA
+N	reportFrame.sof3 = 0xAA;                   //恒定为0xAA
+N	reportFrame.identifier = 0x25;             //恒定为0x25
+N	reportFrame.size_of_payload_field = 0x04;  //恒定为0x04
+N	reportFrame.left_wheel_pulse_count =  BEBufToUint32((uint8_t*)&odometerL);
+N	reportFrame.right_wheel_pulse_count = BEBufToUint32((uint8_t*)&odometerR);
+N	reportFrame.button_control_cmd = 0 ;
+N	reportFrame.distance_of_left_infrared = 0 ;
+N	reportFrame.distance_of_right_infrared = 0 ;
+N	reportFrame.distance_of_front_infrared = 0 ;
+N	reportFrame.angle_deg = BEBufToUint16((uint8_t*)&angle);
+N	reportFrame.adc_1 = 0 ;
+N	reportFrame.adc_2 = 0 ;
+N	reportFrame.adc_3 = 0 ;
+N	reportFrame.adc_4 = 0 ;
+N	reportFrame.acc_x = 0 ;
+N	reportFrame.acc_y = 0 ;
+N	reportFrame.acc_z = 0 ;
+N	reportFrame.obstacle_signal = 0 ;
+N	reportFrame.battery_level_soc = 0 ;
+N	reportFrame.charge_status = 0 ;
+N	reportFrame.checksum_msb = 0 ;
+N	reportFrame.checksum_lsb = 0 ;
+N	reportFrame.end_of_falg = 0x55 ;                  /*恒定0x55*/
+N	
+N	/*计算校验*/
+N	chk = bsp_CalcChk(src+3,len-7);
+N	reportFrame.checksum_msb = chk >> 8;
+N	reportFrame.checksum_lsb = chk & 0x00FF;
+N}
+N
+N
+Nuint16_t bsp_CalcChk(uint8_t *buf, uint8_t len)
+N{
+N	uint8_t  i;
+N	uint16_t rx_sum1=0x00FFu;
+N	uint16_t rx_sum2=0x00FFu;
+N	
+N	for(i=0; i<len; i++)
+N	{
+N		rx_sum2 += rx_sum1 += buf[i];
+N	}
+N	
+N	rx_sum1 = (rx_sum1&0x00FFu) + (rx_sum1>>8);
+N	rx_sum2 = (rx_sum2&0x00FFu) + (rx_sum2>>8);
+N	
+N	return rx_sum2<<8|rx_sum1;
+N}
+N
 N

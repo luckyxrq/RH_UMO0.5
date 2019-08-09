@@ -24,6 +24,7 @@
 ".\flash\obj\bsp_led.o"
 ".\flash\obj\bsp_timer.o"
 ".\flash\obj\bsp_i2c_gpio.o"
+".\flash\obj\bsp_user_lib.o"
 ".\flash\obj\startup_stm32f10x_hd.o"
 ".\flash\obj\misc.o"
 ".\flash\obj\stm32f10x_gpio.o"

@@ -86,111 +86,111 @@
                           AREA ||i.bsp_InitMotorPid||, CODE, READONLY, ALIGN=2
 
                   bsp_InitMotorPid PROC
-;;;203    */
-;;;204    void bsp_InitMotorPid(MotorSN sn)
+;;;220    */
+;;;221    void bsp_InitMotorPid(MotorSN sn)
 000000  b110              CBZ      r0,|L3.8|
-;;;205    {
-;;;206    	switch(sn)
+;;;222    {
+;;;223    	switch(sn)
 000002  2801              CMP      r0,#1
 000004  d133              BNE      |L3.110|
 000006  e018              B        |L3.58|
                   |L3.8|
-;;;207    	{
-;;;208    		case MotorLeft:
-;;;209    		{
-;;;210    			/************************PID 左轮机**********12 0.5 1 0.8 5500*******/
-;;;211    			pid[MotorLeft].target = 250;
+;;;224    	{
+;;;225    		case MotorLeft:
+;;;226    		{
+;;;227    			/************************PID 左轮机**********12 0.5 1 0.8 5500*******/
+;;;228    			pid[MotorLeft].target = 250;
 000008  491a              LDR      r1,|L3.116|
 00000a  4a1b              LDR      r2,|L3.120|
 00000c  6011              STR      r1,[r2,#0]  ; pid
-;;;212    			
-;;;213    			pid[MotorLeft].kp = 6;
+;;;229    			
+;;;230    			pid[MotorLeft].kp = 6;
 00000e  491b              LDR      r1,|L3.124|
 000010  6051              STR      r1,[r2,#4]  ; pid
-;;;214    			pid[MotorLeft].ki = 0.5;
+;;;231    			pid[MotorLeft].ki = 0.5;
 000012  f04f517c          MOV      r1,#0x3f000000
 000016  6091              STR      r1,[r2,#8]  ; pid
-;;;215    			pid[MotorLeft].kd = 1;
+;;;232    			pid[MotorLeft].kd = 1;
 000018  f04f517e          MOV      r1,#0x3f800000
 00001c  60d1              STR      r1,[r2,#0xc]  ; pid
-;;;216    			
-;;;217    			pid[MotorLeft].bias = 0 ;
+;;;233    			
+;;;234    			pid[MotorLeft].bias = 0 ;
 00001e  2100              MOVS     r1,#0
 000020  6111              STR      r1,[r2,#0x10]  ; pid
-;;;218    			pid[MotorLeft].lastBias = 0 ;
+;;;235    			pid[MotorLeft].lastBias = 0 ;
 000022  6151              STR      r1,[r2,#0x14]  ; pid
-;;;219    			pid[MotorLeft].biasSum = 0 ;
+;;;236    			pid[MotorLeft].biasSum = 0 ;
 000024  6191              STR      r1,[r2,#0x18]  ; pid
-;;;220    			
-;;;221    			pid[MotorLeft].pwm = 0 ;
+;;;237    			
+;;;238    			pid[MotorLeft].pwm = 0 ;
 000026  61d1              STR      r1,[r2,#0x1c]  ; pid
-;;;222    			pid[MotorLeft].pwmMax = MAXPWM ;
+;;;239    			pid[MotorLeft].pwmMax = MAXPWM ;
 000028  4915              LDR      r1,|L3.128|
 00002a  6211              STR      r1,[r2,#0x20]  ; pid
-;;;223    			
-;;;224    			pid[MotorLeft].kiLimit = 20000 ;
+;;;240    			
+;;;241    			pid[MotorLeft].kiLimit = 20000 ;
 00002c  4915              LDR      r1,|L3.132|
 00002e  6251              STR      r1,[r2,#0x24]  ; pid
-;;;225    			pid[MotorLeft].fitK = 0.8 ;
+;;;242    			pid[MotorLeft].fitK = 0.8 ;
 000030  4915              LDR      r1,|L3.136|
 000032  6291              STR      r1,[r2,#0x28]  ; pid
-;;;226    			pid[MotorLeft].fitD = 2000 ;
+;;;243    			pid[MotorLeft].fitD = 2000 ;
 000034  4915              LDR      r1,|L3.140|
 000036  62d1              STR      r1,[r2,#0x2c]  ; pid
-;;;227    		}break;
+;;;244    		}break;
 000038  e019              B        |L3.110|
                   |L3.58|
-;;;228    		
-;;;229    		case MotorRight:
-;;;230    		{
-;;;231    			/************************PID 右轮机************************/
-;;;232    			pid[MotorRight].target = 250;
+;;;245    		
+;;;246    		case MotorRight:
+;;;247    		{
+;;;248    			/************************PID 右轮机************************/
+;;;249    			pid[MotorRight].target = 250;
 00003a  490e              LDR      r1,|L3.116|
 00003c  4a0e              LDR      r2,|L3.120|
 00003e  6311              STR      r1,[r2,#0x30]  ; pid
-;;;233    			
-;;;234    			pid[MotorRight].kp = 6;
+;;;250    			
+;;;251    			pid[MotorRight].kp = 6;
 000040  4a0e              LDR      r2,|L3.124|
 000042  490d              LDR      r1,|L3.120|
 000044  634a              STR      r2,[r1,#0x34]
-;;;235    			pid[MotorRight].ki = 0.5;
+;;;252    			pid[MotorRight].ki = 0.5;
 000046  f04f527c          MOV      r2,#0x3f000000
 00004a  638a              STR      r2,[r1,#0x38]
-;;;236    			pid[MotorRight].kd = 1;
+;;;253    			pid[MotorRight].kd = 1;
 00004c  f04f527e          MOV      r2,#0x3f800000
 000050  63ca              STR      r2,[r1,#0x3c]
-;;;237    			
-;;;238    			pid[MotorRight].bias = 0 ;
+;;;254    			
+;;;255    			pid[MotorRight].bias = 0 ;
 000052  2200              MOVS     r2,#0
 000054  640a              STR      r2,[r1,#0x40]
-;;;239    			pid[MotorRight].lastBias = 0 ;
+;;;256    			pid[MotorRight].lastBias = 0 ;
 000056  644a              STR      r2,[r1,#0x44]
-;;;240    			pid[MotorRight].biasSum = 0 ;
+;;;257    			pid[MotorRight].biasSum = 0 ;
 000058  648a              STR      r2,[r1,#0x48]
-;;;241    			
-;;;242    			pid[MotorRight].pwm = 0 ;
+;;;258    			
+;;;259    			pid[MotorRight].pwm = 0 ;
 00005a  64ca              STR      r2,[r1,#0x4c]
-;;;243    			pid[MotorRight].pwmMax = MAXPWM ;
+;;;260    			pid[MotorRight].pwmMax = MAXPWM ;
 00005c  4a08              LDR      r2,|L3.128|
 00005e  650a              STR      r2,[r1,#0x50]
-;;;244    			
-;;;245    			pid[MotorRight].kiLimit = 20000 ;
+;;;261    			
+;;;262    			pid[MotorRight].kiLimit = 20000 ;
 000060  4a08              LDR      r2,|L3.132|
 000062  654a              STR      r2,[r1,#0x54]
-;;;246    			pid[MotorRight].fitK = 0.8 ;
+;;;263    			pid[MotorRight].fitK = 0.8 ;
 000064  4a08              LDR      r2,|L3.136|
 000066  658a              STR      r2,[r1,#0x58]
-;;;247    			pid[MotorRight].fitD = 2000 ;
+;;;264    			pid[MotorRight].fitD = 2000 ;
 000068  4a08              LDR      r2,|L3.140|
 00006a  65ca              STR      r2,[r1,#0x5c]
-;;;248    		}break;
+;;;265    		}break;
 00006c  bf00              NOP      
                   |L3.110|
-00006e  bf00              NOP                            ;227
-;;;249    	}
-;;;250    }
+00006e  bf00              NOP                            ;244
+;;;266    	}
+;;;267    }
 000070  4770              BX       lr
-;;;251    
+;;;268    
                           ENDP
 
 000072  0000              DCW      0x0000
@@ -257,7 +257,7 @@
 ;;;76     			motor[MotorRight].isRunning = false ;
 000040  2000              MOVS     r0,#0
 000042  490d              LDR      r1,|L4.120|
-000044  7208              STRB     r0,[r1,#8]
+000044  7308              STRB     r0,[r1,#0xc]
 ;;;77     			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,MAXPWM);
 000046  f2427010          MOV      r0,#0x2710
 00004a  2100              MOVS     r1,#0
@@ -341,7 +341,7 @@
 ;;;105    			motor[MotorRight].isRunning = false ;
 000036  2000              MOVS     r0,#0
 000038  490a              LDR      r1,|L5.100|
-00003a  7208              STRB     r0,[r1,#8]
+00003a  7308              STRB     r0,[r1,#0xc]
 ;;;106    			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,0);
 00003c  9000              STR      r0,[sp,#0]
 00003e  2301              MOVS     r3,#1
@@ -377,112 +377,132 @@
                   |L5.108|
                           DCD      0x40011800
 
+                          AREA ||i.bsp_MotorGetDir||, CODE, READONLY, ALIGN=2
+
+                  bsp_MotorGetDir PROC
+;;;174    */
+;;;175    MotorDir bsp_MotorGetDir(MotorSN sn)
+000000  4601              MOV      r1,r0
+;;;176    {
+;;;177    	return motor[sn].dir;
+000002  eb010041          ADD      r0,r1,r1,LSL #1
+000006  4a02              LDR      r2,|L6.16|
+000008  eb020080          ADD      r0,r2,r0,LSL #2
+00000c  7a00              LDRB     r0,[r0,#8]
+;;;178    }
+00000e  4770              BX       lr
+;;;179    
+                          ENDP
+
+                  |L6.16|
+                          DCD      motor
+
                           AREA ||i.bsp_PidControlAct||, CODE, READONLY, ALIGN=2
 
                   bsp_PidControlAct PROC
-;;;261    */
-;;;262    void bsp_PidControlAct(void)
+;;;278    */
+;;;279    void bsp_PidControlAct(void)
 000000  e92d4ff0          PUSH     {r4-r11,lr}
-;;;263    {
+;;;280    {
 000004  b085              SUB      sp,sp,#0x14
-;;;264    	int32_t speed = 0 ;
+;;;281    	int32_t speed = 0 ;
 000006  2400              MOVS     r4,#0
-;;;265    	float S_Out[4] = {0};
+;;;282    	float S_Out[4] = {0};
 000008  2000              MOVS     r0,#0
 00000a  9001              STR      r0,[sp,#4]
 00000c  9002              STR      r0,[sp,#8]
 00000e  9003              STR      r0,[sp,#0xc]
 000010  9004              STR      r0,[sp,#0x10]
-;;;266    	
-;;;267    	UNUSED(S_Out);
-;;;268    	
-;;;269    	/************************显示速度波形************************/
-;;;270    	#if 0 
-;;;271    	S_Out[0] = bsp_EncoderGetSpeed(EncoderLeft);
-;;;272    	S_Out[1] = bsp_EncoderGetSpeed(EncoderRight);
-;;;273    	SDS_OutPut_Data(S_Out);
-;;;274    	#endif
-;;;275    	
-;;;276    	/************************PID  左轮************************/
-;;;277    	if(motor[MotorLeft].isRunning)
-000012  488d              LDR      r0,|L6.584|
+;;;283    	
+;;;284    	UNUSED(S_Out);
+;;;285    	
+;;;286    	/************************显示速度波形************************/
+;;;287    	#if 0 
+;;;288    	S_Out[0] = bsp_EncoderGetSpeed(EncoderLeft);
+;;;289    	S_Out[1] = bsp_EncoderGetSpeed(EncoderRight);
+;;;290    	SDS_OutPut_Data(S_Out);
+;;;291    	#endif
+;;;292    	
+;;;293    	/************************PID  左轮************************/
+;;;294    	if(motor[MotorLeft].isRunning)
+000012  488d              LDR      r0,|L7.584|
 000014  7800              LDRB     r0,[r0,#0]  ; motor
 000016  2800              CMP      r0,#0
-000018  d07e              BEQ      |L6.280|
-;;;278    	{
-;;;279    		speed = bsp_EncoderGetSpeed(EncoderLeft);//当前速度毫米/秒
+000018  d07e              BEQ      |L7.280|
+;;;295    	{
+;;;296    		speed = bsp_EncoderGetSpeed(EncoderLeft);//当前速度毫米/秒
 00001a  2000              MOVS     r0,#0
 00001c  f7fffffe          BL       bsp_EncoderGetSpeed
 000020  4605              MOV      r5,r0
 000022  f7fffffe          BL       __aeabi_f2iz
 000026  4604              MOV      r4,r0
-;;;280    		pid[MotorLeft].bias = pidabs(pid[MotorLeft].target) - speed;//当前误差值
+;;;297    		pid[MotorLeft].bias = pidabs(pid[MotorLeft].target) - speed;//当前误差值
 000028  4620              MOV      r0,r4
 00002a  f7fffffe          BL       __aeabi_i2f
 00002e  4605              MOV      r5,r0
-000030  4986              LDR      r1,|L6.588|
+000030  4986              LDR      r1,|L7.588|
 000032  6808              LDR      r0,[r1,#0]  ; pid
 000034  f7fffffe          BL       pidabs
 000038  4606              MOV      r6,r0
 00003a  4629              MOV      r1,r5
 00003c  f7fffffe          BL       __aeabi_fsub
-000040  4982              LDR      r1,|L6.588|
+000040  4982              LDR      r1,|L7.588|
 000042  6108              STR      r0,[r1,#0x10]  ; pid
-;;;281    		pid[MotorLeft].biasSum += pid[MotorLeft].bias;//误差累积
+;;;298    		pid[MotorLeft].biasSum += pid[MotorLeft].bias;//误差累积
 000044  460a              MOV      r2,r1
 000046  6911              LDR      r1,[r2,#0x10]  ; pid
 000048  6990              LDR      r0,[r2,#0x18]  ; pid
 00004a  f7fffffe          BL       __aeabi_fadd
-00004e  497f              LDR      r1,|L6.588|
+00004e  497f              LDR      r1,|L7.588|
 000050  6188              STR      r0,[r1,#0x18]  ; pid
-;;;282    		
-;;;283    		//积分限制
-;;;284    		if(pid[MotorLeft].biasSum >= pid[MotorLeft].kiLimit)
+;;;299    		
+;;;300    		//积分限制
+;;;301    		if(pid[MotorLeft].biasSum >= pid[MotorLeft].kiLimit)
 000052  460a              MOV      r2,r1
 000054  6a51              LDR      r1,[r2,#0x24]  ; pid
 000056  6990              LDR      r0,[r2,#0x18]  ; pid
 000058  f7fffffe          BL       __aeabi_cfrcmple
-00005c  d803              BHI      |L6.102|
-;;;285    		{
-;;;286    			pid[MotorLeft].biasSum = pid[MotorLeft].kiLimit;
-00005e  487b              LDR      r0,|L6.588|
+00005c  d803              BHI      |L7.102|
+;;;302    		{
+;;;303    			pid[MotorLeft].biasSum = pid[MotorLeft].kiLimit;
+00005e  487b              LDR      r0,|L7.588|
 000060  6a40              LDR      r0,[r0,#0x24]  ; pid
-000062  497a              LDR      r1,|L6.588|
+000062  497a              LDR      r1,|L7.588|
 000064  6188              STR      r0,[r1,#0x18]  ; pid
-                  |L6.102|
-;;;287    		}
-;;;288    			
-;;;289    		pid[MotorLeft].pwm = (pid[MotorLeft].fitK*pidabs(pid[MotorLeft].target) + pid[MotorLeft].fitD) + pid[MotorLeft].kp*pid[MotorLeft].bias + pid[MotorLeft].ki*pid[MotorLeft].biasSum + pid[MotorLeft].kd*(pid[MotorLeft].bias-pid[MotorLeft].lastBias); 
-000066  4a79              LDR      r2,|L6.588|
+                  |L7.102|
+;;;304    		}
+;;;305    			
+;;;306    		pid[MotorLeft].pwm = (pid[MotorLeft].fitK*pidabs(pid[MotorLeft].target) + pid[MotorLeft].fitD) + pid[MotorLeft].kp*pid[MotorLeft].bias + pid[MotorLeft].ki*pid[MotorLeft].biasSum + pid[MotorLeft].kd*(pid[MotorLeft].bias-pid[MotorLeft].lastBias); 
+000066  4a79              LDR      r2,|L7.588|
 000068  6951              LDR      r1,[r2,#0x14]  ; pid
 00006a  6910              LDR      r0,[r2,#0x10]  ; pid
 00006c  f7fffffe          BL       __aeabi_fsub
 000070  4607              MOV      r7,r0
-000072  4876              LDR      r0,|L6.588|
+000072  4876              LDR      r0,|L7.588|
 000074  68c1              LDR      r1,[r0,#0xc]  ; pid
 000076  4638              MOV      r0,r7
 000078  f7fffffe          BL       __aeabi_fmul
 00007c  4605              MOV      r5,r0
-00007e  4a73              LDR      r2,|L6.588|
+00007e  4a73              LDR      r2,|L7.588|
 000080  6991              LDR      r1,[r2,#0x18]  ; pid
 000082  6890              LDR      r0,[r2,#8]  ; pid
 000084  f7fffffe          BL       __aeabi_fmul
 000088  4682              MOV      r10,r0
-00008a  4a70              LDR      r2,|L6.588|
+00008a  4a70              LDR      r2,|L7.588|
 00008c  6911              LDR      r1,[r2,#0x10]  ; pid
 00008e  6850              LDR      r0,[r2,#4]  ; pid
 000090  f7fffffe          BL       __aeabi_fmul
 000094  4683              MOV      r11,r0
-000096  496d              LDR      r1,|L6.588|
+000096  496d              LDR      r1,|L7.588|
 000098  6808              LDR      r0,[r1,#0]  ; pid
 00009a  f7fffffe          BL       pidabs
 00009e  9000              STR      r0,[sp,#0]
-0000a0  486a              LDR      r0,|L6.588|
+0000a0  486a              LDR      r0,|L7.588|
 0000a2  6a81              LDR      r1,[r0,#0x28]  ; pid
 0000a4  9800              LDR      r0,[sp,#0]
 0000a6  f7fffffe          BL       __aeabi_fmul
 0000aa  4681              MOV      r9,r0
-0000ac  4867              LDR      r0,|L6.588|
+0000ac  4867              LDR      r0,|L7.588|
 0000ae  6ac1              LDR      r1,[r0,#0x2c]  ; pid
 0000b0  4648              MOV      r0,r9
 0000b2  f7fffffe          BL       __aeabi_fadd
@@ -495,156 +515,156 @@
 0000c6  4606              MOV      r6,r0
 0000c8  4629              MOV      r1,r5
 0000ca  f7fffffe          BL       __aeabi_fadd
-0000ce  495f              LDR      r1,|L6.588|
+0000ce  495f              LDR      r1,|L7.588|
 0000d0  61c8              STR      r0,[r1,#0x1c]  ; pid
-;;;290    		pid[MotorLeft].lastBias = pid[MotorLeft].bias;//上次误差
+;;;307    		pid[MotorLeft].lastBias = pid[MotorLeft].bias;//上次误差
 0000d2  4608              MOV      r0,r1
 0000d4  6900              LDR      r0,[r0,#0x10]  ; pid
 0000d6  6148              STR      r0,[r1,#0x14]  ; pid
-;;;291    		
-;;;292    		//PWM限制
-;;;293    		if(pid[MotorLeft].pwm >= pid[MotorLeft].pwmMax)
+;;;308    		
+;;;309    		//PWM限制
+;;;310    		if(pid[MotorLeft].pwm >= pid[MotorLeft].pwmMax)
 0000d8  460a              MOV      r2,r1
 0000da  6a11              LDR      r1,[r2,#0x20]  ; pid
 0000dc  69d0              LDR      r0,[r2,#0x1c]  ; pid
 0000de  f7fffffe          BL       __aeabi_cfrcmple
-0000e2  d804              BHI      |L6.238|
-;;;294    		{
-;;;295    			pid[MotorLeft].pwm = pid[MotorLeft].pwmMax;
-0000e4  4859              LDR      r0,|L6.588|
+0000e2  d804              BHI      |L7.238|
+;;;311    		{
+;;;312    			pid[MotorLeft].pwm = pid[MotorLeft].pwmMax;
+0000e4  4859              LDR      r0,|L7.588|
 0000e6  6a00              LDR      r0,[r0,#0x20]  ; pid
-0000e8  4958              LDR      r1,|L6.588|
+0000e8  4958              LDR      r1,|L7.588|
 0000ea  61c8              STR      r0,[r1,#0x1c]  ; pid
-0000ec  e008              B        |L6.256|
-                  |L6.238|
-;;;296    		}
-;;;297    		else if(pid[MotorLeft].pwm <= 0)
-0000ee  4957              LDR      r1,|L6.588|
+0000ec  e008              B        |L7.256|
+                  |L7.238|
+;;;313    		}
+;;;314    		else if(pid[MotorLeft].pwm <= 0)
+0000ee  4957              LDR      r1,|L7.588|
 0000f0  69c8              LDR      r0,[r1,#0x1c]  ; pid
 0000f2  2100              MOVS     r1,#0
 0000f4  f7fffffe          BL       __aeabi_cfcmple
-0000f8  d802              BHI      |L6.256|
-;;;298    		{
-;;;299    			pid[MotorLeft].pwm = 0 ;
+0000f8  d802              BHI      |L7.256|
+;;;315    		{
+;;;316    			pid[MotorLeft].pwm = 0 ;
 0000fa  2000              MOVS     r0,#0
-0000fc  4953              LDR      r1,|L6.588|
+0000fc  4953              LDR      r1,|L7.588|
 0000fe  61c8              STR      r0,[r1,#0x1c]  ; pid
-                  |L6.256|
-;;;300    		}
-;;;301    		#if 0
-;;;302    		printf("left:%dmm/s  ",bsp_EncoderGetSpeed(EncoderLeft));
-;;;303    		printf("pid[MotorLeft].bias:%f  ",pid[MotorLeft].bias);
-;;;304    		printf("pid[MotorLeft].biasSum:%f  ",pid[MotorLeft].biasSum);
-;;;305    		printf("pid[MotorLeft].lastBias:%f  ",pid[MotorLeft].lastBias);
-;;;306    		printf("pid[MotorLeft].pwm:%f  ",pid[MotorLeft].pwm);
-;;;307    		#endif
-;;;308    		bsp_SetMotorPWM(MotorLeft, pid[MotorLeft].target>0 ? Forward:Backward, pid[MotorLeft].pwm);
-000100  4952              LDR      r1,|L6.588|
+                  |L7.256|
+;;;317    		}
+;;;318    		#if 0
+;;;319    		printf("left:%dmm/s  ",bsp_EncoderGetSpeed(EncoderLeft));
+;;;320    		printf("pid[MotorLeft].bias:%f  ",pid[MotorLeft].bias);
+;;;321    		printf("pid[MotorLeft].biasSum:%f  ",pid[MotorLeft].biasSum);
+;;;322    		printf("pid[MotorLeft].lastBias:%f  ",pid[MotorLeft].lastBias);
+;;;323    		printf("pid[MotorLeft].pwm:%f  ",pid[MotorLeft].pwm);
+;;;324    		#endif
+;;;325    		bsp_SetMotorPWM(MotorLeft, pid[MotorLeft].target>0 ? Forward:Backward, pid[MotorLeft].pwm);
+000100  4952              LDR      r1,|L7.588|
 000102  69c8              LDR      r0,[r1,#0x1c]  ; pid
 000104  f7fffffe          BL       __aeabi_f2uiz
 000108  b285              UXTH     r5,r0
-00010a  4950              LDR      r1,|L6.588|
+00010a  4950              LDR      r1,|L7.588|
 00010c  6808              LDR      r0,[r1,#0]  ; pid
 00010e  2100              MOVS     r1,#0
 000110  f7fffffe          BL       __aeabi_cfrcmple
-000114  d303              BCC      |L6.286|
-000116  e000              B        |L6.282|
-                  |L6.280|
-000118  e008              B        |L6.300|
-                  |L6.282|
+000114  d303              BCC      |L7.286|
+000116  e000              B        |L7.282|
+                  |L7.280|
+000118  e008              B        |L7.300|
+                  |L7.282|
 00011a  2001              MOVS     r0,#1
-00011c  e000              B        |L6.288|
-                  |L6.286|
+00011c  e000              B        |L7.288|
+                  |L7.286|
 00011e  2000              MOVS     r0,#0
-                  |L6.288|
+                  |L7.288|
 000120  4606              MOV      r6,r0
 000122  462a              MOV      r2,r5
 000124  4631              MOV      r1,r6
 000126  2000              MOVS     r0,#0
 000128  f7fffffe          BL       bsp_SetMotorPWM
-                  |L6.300|
-;;;309    	}
-;;;310    	
-;;;311    	
-;;;312    	/************************PID  右轮************************/
-;;;313    	if(motor[MotorRight].isRunning)
-00012c  4846              LDR      r0,|L6.584|
-00012e  7a00              LDRB     r0,[r0,#8]  ; motor
+                  |L7.300|
+;;;326    	}
+;;;327    	
+;;;328    	
+;;;329    	/************************PID  右轮************************/
+;;;330    	if(motor[MotorRight].isRunning)
+00012c  4846              LDR      r0,|L7.584|
+00012e  7b00              LDRB     r0,[r0,#0xc]  ; motor
 000130  2800              CMP      r0,#0
-000132  d07d              BEQ      |L6.560|
-;;;314    	{
-;;;315    		speed = bsp_EncoderGetSpeed(EncoderRight);//当前速度毫米/秒
+000132  d07d              BEQ      |L7.560|
+;;;331    	{
+;;;332    		speed = bsp_EncoderGetSpeed(EncoderRight);//当前速度毫米/秒
 000134  2001              MOVS     r0,#1
 000136  f7fffffe          BL       bsp_EncoderGetSpeed
 00013a  4605              MOV      r5,r0
 00013c  f7fffffe          BL       __aeabi_f2iz
 000140  4604              MOV      r4,r0
-;;;316    		pid[MotorRight].bias = pidabs(pid[MotorRight].target) - speed;//当前误差值
+;;;333    		pid[MotorRight].bias = pidabs(pid[MotorRight].target) - speed;//当前误差值
 000142  4620              MOV      r0,r4
 000144  f7fffffe          BL       __aeabi_i2f
 000148  4605              MOV      r5,r0
-00014a  4940              LDR      r1,|L6.588|
+00014a  4940              LDR      r1,|L7.588|
 00014c  6b08              LDR      r0,[r1,#0x30]  ; pid
 00014e  f7fffffe          BL       pidabs
 000152  4606              MOV      r6,r0
 000154  4629              MOV      r1,r5
 000156  f7fffffe          BL       __aeabi_fsub
-00015a  493c              LDR      r1,|L6.588|
+00015a  493c              LDR      r1,|L7.588|
 00015c  6408              STR      r0,[r1,#0x40]
-;;;317    		pid[MotorRight].biasSum += pid[MotorRight].bias;//误差累积
+;;;334    		pid[MotorRight].biasSum += pid[MotorRight].bias;//误差累积
 00015e  460a              MOV      r2,r1
 000160  6c11              LDR      r1,[r2,#0x40]
 000162  6c90              LDR      r0,[r2,#0x48]
 000164  f7fffffe          BL       __aeabi_fadd
-000168  4938              LDR      r1,|L6.588|
+000168  4938              LDR      r1,|L7.588|
 00016a  6488              STR      r0,[r1,#0x48]
-;;;318    		
-;;;319    		//积分限制
-;;;320    		if(pid[MotorRight].biasSum >= pid[MotorRight].kiLimit)
+;;;335    		
+;;;336    		//积分限制
+;;;337    		if(pid[MotorRight].biasSum >= pid[MotorRight].kiLimit)
 00016c  460a              MOV      r2,r1
 00016e  6d51              LDR      r1,[r2,#0x54]
 000170  6c90              LDR      r0,[r2,#0x48]
 000172  f7fffffe          BL       __aeabi_cfrcmple
-000176  d802              BHI      |L6.382|
-;;;321    		{
-;;;322    			pid[MotorRight].biasSum = pid[MotorRight].kiLimit;
-000178  4834              LDR      r0,|L6.588|
+000176  d802              BHI      |L7.382|
+;;;338    		{
+;;;339    			pid[MotorRight].biasSum = pid[MotorRight].kiLimit;
+000178  4834              LDR      r0,|L7.588|
 00017a  6d41              LDR      r1,[r0,#0x54]
 00017c  6481              STR      r1,[r0,#0x48]
-                  |L6.382|
-;;;323    		}
-;;;324    			
-;;;325    		pid[MotorRight].pwm = (pid[MotorRight].fitK*pidabs(pid[MotorRight].target) + pid[MotorRight].fitD) + pid[MotorRight].kp*pid[MotorRight].bias + pid[MotorRight].ki*pid[MotorRight].biasSum + pid[MotorRight].kd*(pid[MotorRight].bias-pid[MotorRight].lastBias); 
-00017e  4a33              LDR      r2,|L6.588|
+                  |L7.382|
+;;;340    		}
+;;;341    			
+;;;342    		pid[MotorRight].pwm = (pid[MotorRight].fitK*pidabs(pid[MotorRight].target) + pid[MotorRight].fitD) + pid[MotorRight].kp*pid[MotorRight].bias + pid[MotorRight].ki*pid[MotorRight].biasSum + pid[MotorRight].kd*(pid[MotorRight].bias-pid[MotorRight].lastBias); 
+00017e  4a33              LDR      r2,|L7.588|
 000180  6c51              LDR      r1,[r2,#0x44]
 000182  6c10              LDR      r0,[r2,#0x40]
 000184  f7fffffe          BL       __aeabi_fsub
 000188  4607              MOV      r7,r0
-00018a  4830              LDR      r0,|L6.588|
+00018a  4830              LDR      r0,|L7.588|
 00018c  6bc1              LDR      r1,[r0,#0x3c]
 00018e  4638              MOV      r0,r7
 000190  f7fffffe          BL       __aeabi_fmul
 000194  4605              MOV      r5,r0
-000196  4a2d              LDR      r2,|L6.588|
+000196  4a2d              LDR      r2,|L7.588|
 000198  6c91              LDR      r1,[r2,#0x48]
 00019a  6b90              LDR      r0,[r2,#0x38]
 00019c  f7fffffe          BL       __aeabi_fmul
-0001a0  4a2a              LDR      r2,|L6.588|
+0001a0  4a2a              LDR      r2,|L7.588|
 0001a2  9000              STR      r0,[sp,#0]
 0001a4  6c11              LDR      r1,[r2,#0x40]
 0001a6  6b50              LDR      r0,[r2,#0x34]
 0001a8  f7fffffe          BL       __aeabi_fmul
 0001ac  4682              MOV      r10,r0
-0001ae  4927              LDR      r1,|L6.588|
+0001ae  4927              LDR      r1,|L7.588|
 0001b0  6b08              LDR      r0,[r1,#0x30]  ; pid
 0001b2  f7fffffe          BL       pidabs
 0001b6  4683              MOV      r11,r0
-0001b8  4824              LDR      r0,|L6.588|
+0001b8  4824              LDR      r0,|L7.588|
 0001ba  6d81              LDR      r1,[r0,#0x58]
 0001bc  4658              MOV      r0,r11
 0001be  f7fffffe          BL       __aeabi_fmul
 0001c2  4681              MOV      r9,r0
-0001c4  4821              LDR      r0,|L6.588|
+0001c4  4821              LDR      r0,|L7.588|
 0001c6  6dc1              LDR      r1,[r0,#0x5c]
 0001c8  4648              MOV      r0,r9
 0001ca  f7fffffe          BL       __aeabi_fadd
@@ -657,83 +677,83 @@
 0001de  4606              MOV      r6,r0
 0001e0  4629              MOV      r1,r5
 0001e2  f7fffffe          BL       __aeabi_fadd
-0001e6  4919              LDR      r1,|L6.588|
+0001e6  4919              LDR      r1,|L7.588|
 0001e8  64c8              STR      r0,[r1,#0x4c]
-;;;326    		pid[MotorRight].lastBias = pid[MotorRight].bias;//上次误差
+;;;343    		pid[MotorRight].lastBias = pid[MotorRight].bias;//上次误差
 0001ea  4608              MOV      r0,r1
 0001ec  6c01              LDR      r1,[r0,#0x40]
 0001ee  6441              STR      r1,[r0,#0x44]
-;;;327    		
-;;;328    		//PWM限制
-;;;329    		if(pid[MotorRight].pwm >= pid[MotorRight].pwmMax)
+;;;344    		
+;;;345    		//PWM限制
+;;;346    		if(pid[MotorRight].pwm >= pid[MotorRight].pwmMax)
 0001f0  4602              MOV      r2,r0
 0001f2  6d11              LDR      r1,[r2,#0x50]
 0001f4  6cd0              LDR      r0,[r2,#0x4c]
 0001f6  f7fffffe          BL       __aeabi_cfrcmple
-0001fa  d803              BHI      |L6.516|
-;;;330    		{
-;;;331    			pid[MotorRight].pwm = pid[MotorRight].pwmMax;
-0001fc  4813              LDR      r0,|L6.588|
+0001fa  d803              BHI      |L7.516|
+;;;347    		{
+;;;348    			pid[MotorRight].pwm = pid[MotorRight].pwmMax;
+0001fc  4813              LDR      r0,|L7.588|
 0001fe  6d01              LDR      r1,[r0,#0x50]
 000200  64c1              STR      r1,[r0,#0x4c]
-000202  e008              B        |L6.534|
-                  |L6.516|
-;;;332    		}
-;;;333    		else if(pid[MotorRight].pwm <= 0)
-000204  4911              LDR      r1,|L6.588|
+000202  e008              B        |L7.534|
+                  |L7.516|
+;;;349    		}
+;;;350    		else if(pid[MotorRight].pwm <= 0)
+000204  4911              LDR      r1,|L7.588|
 000206  6cc8              LDR      r0,[r1,#0x4c]
 000208  2100              MOVS     r1,#0
 00020a  f7fffffe          BL       __aeabi_cfcmple
-00020e  d802              BHI      |L6.534|
-;;;334    		{
-;;;335    			pid[MotorRight].pwm = 0 ;
+00020e  d802              BHI      |L7.534|
+;;;351    		{
+;;;352    			pid[MotorRight].pwm = 0 ;
 000210  2100              MOVS     r1,#0
-000212  480e              LDR      r0,|L6.588|
+000212  480e              LDR      r0,|L7.588|
 000214  64c1              STR      r1,[r0,#0x4c]
-                  |L6.534|
-;;;336    		}
-;;;337    		#if 0
-;;;338    		printf("right:%dmm/s  ",bsp_EncoderGetSpeed(EncoderRight));
-;;;339    		printf("pid[MotorRight].bias:%f  ",pid[MotorRight].bias);
-;;;340    		printf("pid[MotorRight].biasSum:%f  ",pid[MotorRight].biasSum);
-;;;341    		printf("pid[MotorRight].lastBias:%f  ",pid[MotorRight].lastBias);
-;;;342    		printf("pid[MotorRight].pwm:%f\r\n",pid[MotorRight].pwm);
-;;;343    		#endif
-;;;344    		bsp_SetMotorPWM(MotorRight, pid[MotorRight].target>0 ? Forward:Backward, pid[MotorRight].pwm);
-000216  490d              LDR      r1,|L6.588|
+                  |L7.534|
+;;;353    		}
+;;;354    		#if 0
+;;;355    		printf("right:%dmm/s  ",bsp_EncoderGetSpeed(EncoderRight));
+;;;356    		printf("pid[MotorRight].bias:%f  ",pid[MotorRight].bias);
+;;;357    		printf("pid[MotorRight].biasSum:%f  ",pid[MotorRight].biasSum);
+;;;358    		printf("pid[MotorRight].lastBias:%f  ",pid[MotorRight].lastBias);
+;;;359    		printf("pid[MotorRight].pwm:%f\r\n",pid[MotorRight].pwm);
+;;;360    		#endif
+;;;361    		bsp_SetMotorPWM(MotorRight, pid[MotorRight].target>0 ? Forward:Backward, pid[MotorRight].pwm);
+000216  490d              LDR      r1,|L7.588|
 000218  6cc8              LDR      r0,[r1,#0x4c]
 00021a  f7fffffe          BL       __aeabi_f2uiz
 00021e  b285              UXTH     r5,r0
-000220  490a              LDR      r1,|L6.588|
+000220  490a              LDR      r1,|L7.588|
 000222  6b08              LDR      r0,[r1,#0x30]  ; pid
 000224  2100              MOVS     r1,#0
 000226  f7fffffe          BL       __aeabi_cfrcmple
-00022a  d302              BCC      |L6.562|
+00022a  d302              BCC      |L7.562|
 00022c  2001              MOVS     r0,#1
-00022e  e001              B        |L6.564|
-                  |L6.560|
-000230  e006              B        |L6.576|
-                  |L6.562|
+00022e  e001              B        |L7.564|
+                  |L7.560|
+000230  e006              B        |L7.576|
+                  |L7.562|
 000232  2000              MOVS     r0,#0
-                  |L6.564|
+                  |L7.564|
 000234  4606              MOV      r6,r0
 000236  462a              MOV      r2,r5
 000238  4631              MOV      r1,r6
 00023a  2001              MOVS     r0,#1
 00023c  f7fffffe          BL       bsp_SetMotorPWM
-                  |L6.576|
-;;;345    	}
-;;;346    	
-;;;347    }
+                  |L7.576|
+;;;362    	}
+;;;363    	
+;;;364    }
 000240  b005              ADD      sp,sp,#0x14
 000242  e8bd8ff0          POP      {r4-r11,pc}
-;;;348    
+;;;365    
                           ENDP
 
 000246  0000              DCW      0x0000
-                  |L6.584|
+                  |L7.584|
                           DCD      motor
-                  |L6.588|
+                  |L7.588|
                           DCD      pid
 
                           AREA ||i.bsp_SetMotorPWM||, CODE, READONLY, ALIGN=2
@@ -750,12 +770,12 @@
 ;;;124    	if(pwm > MAXPWM)
 000008  f2427010          MOV      r0,#0x2710
 00000c  4284              CMP      r4,r0
-00000e  dd03              BLE      |L7.24|
+00000e  dd03              BLE      |L8.24|
 ;;;125    	{
 ;;;126    		WARNING("PWM值超过了MAXPWM\r\n");
-000010  a02e              ADR      r0,|L7.204|
+000010  a034              ADR      r0,|L8.228|
 000012  f7fffffe          BL       __2printf
-                  |L7.22|
+                  |L8.22|
 ;;;127    		return ;
 ;;;128    	}
 ;;;129    	
@@ -767,198 +787,216 @@
 ;;;135    			{
 ;;;136    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
 ;;;137    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,DC_PWM_T, pwm);
-;;;138    			}
-;;;139    			else
-;;;140    			{
-;;;141    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, 0);
-;;;142    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3, DC_PWM_T,pwm); 
-;;;143    			}
-;;;144    		}break;
-;;;145    		
-;;;146    		case MotorRight:
-;;;147    		{
-;;;148    			if(dir == Backward)
-;;;149    			{
-;;;150    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
-;;;151    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,DC_PWM_T, pwm);
-;;;152    			}
-;;;153    			else
-;;;154    			{
-;;;155    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, 0);
-;;;156    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,DC_PWM_T, pwm);
-;;;157    			}
-;;;158    		}break;
-;;;159    	}
-;;;160    }
+;;;138    				motor[MotorLeft].dir = Forward;/*用于编码器标记正负*/
+;;;139    			}
+;;;140    			else
+;;;141    			{
+;;;142    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, 0);
+;;;143    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3, DC_PWM_T,pwm); 
+;;;144    				motor[MotorLeft].dir = Backward;/*用于编码器标记正负*/
+;;;145    			}
+;;;146    		}break;
+;;;147    		
+;;;148    		case MotorRight:
+;;;149    		{
+;;;150    			if(dir == Backward)
+;;;151    			{
+;;;152    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
+;;;153    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,DC_PWM_T, pwm);
+;;;154    				motor[MotorRight].dir = Forward;/*用于编码器标记正负*/
+;;;155    			}
+;;;156    			else
+;;;157    			{
+;;;158    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, 0);
+;;;159    				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,DC_PWM_T, pwm);
+;;;160    				motor[MotorRight].dir = Backward;/*用于编码器标记正负*/
+;;;161    			}
+;;;162    		}break;
+;;;163    	}
+;;;164    }
 000016  bd7c              POP      {r2-r6,pc}
-                  |L7.24|
-000018  b116              CBZ      r6,|L7.32|
+                  |L8.24|
+000018  b116              CBZ      r6,|L8.32|
 00001a  2e01              CMP      r6,#1                 ;130
-00001c  d153              BNE      |L7.198|
-00001e  e028              B        |L7.114|
-                  |L7.32|
-000020  b99d              CBNZ     r5,|L7.74|
+00001c  d15f              BNE      |L8.222|
+00001e  e02e              B        |L8.126|
+                  |L8.32|
+000020  b9b5              CBNZ     r5,|L8.80|
 000022  2000              MOVS     r0,#0                 ;136
 000024  9000              STR      r0,[sp,#0]            ;136
 000026  2303              MOVS     r3,#3                 ;136
-000028  4a2d              LDR      r2,|L7.224|
+000028  4a33              LDR      r2,|L8.248|
 00002a  1451              ASRS     r1,r2,#17             ;136
 00002c  9001              STR      r0,[sp,#4]            ;136
-00002e  482d              LDR      r0,|L7.228|
+00002e  4833              LDR      r0,|L8.252|
 000030  f7fffffe          BL       bsp_SetTIMOutPWM
 000034  f2475030          MOV      r0,#0x7530            ;137
 000038  2304              MOVS     r3,#4                 ;137
-00003a  4a29              LDR      r2,|L7.224|
+00003a  4a2f              LDR      r2,|L8.248|
 00003c  0319              LSLS     r1,r3,#12             ;137
 00003e  e9cd0400          STRD     r0,r4,[sp,#0]         ;137
-000042  4828              LDR      r0,|L7.228|
+000042  482e              LDR      r0,|L8.252|
 000044  f7fffffe          BL       bsp_SetTIMOutPWM
-000048  e012              B        |L7.112|
-                  |L7.74|
-00004a  2000              MOVS     r0,#0                 ;141
-00004c  9000              STR      r0,[sp,#0]            ;141
-00004e  2304              MOVS     r3,#4                 ;141
-000050  4a23              LDR      r2,|L7.224|
-000052  0319              LSLS     r1,r3,#12             ;141
-000054  9001              STR      r0,[sp,#4]            ;141
-000056  4823              LDR      r0,|L7.228|
-000058  f7fffffe          BL       bsp_SetTIMOutPWM
-00005c  f2475030          MOV      r0,#0x7530            ;142
-000060  2303              MOVS     r3,#3                 ;142
-000062  4a1f              LDR      r2,|L7.224|
-000064  1451              ASRS     r1,r2,#17             ;142
-000066  e9cd0400          STRD     r0,r4,[sp,#0]         ;142
-00006a  481e              LDR      r0,|L7.228|
-00006c  f7fffffe          BL       bsp_SetTIMOutPWM
-                  |L7.112|
-000070  e029              B        |L7.198|
-                  |L7.114|
-000072  2d01              CMP      r5,#1                 ;148
-000074  d113              BNE      |L7.158|
-000076  2000              MOVS     r0,#0                 ;150
-000078  9000              STR      r0,[sp,#0]            ;150
-00007a  2301              MOVS     r3,#1                 ;150
-00007c  4a18              LDR      r2,|L7.224|
-00007e  1551              ASRS     r1,r2,#21             ;150
-000080  9001              STR      r0,[sp,#4]            ;150
-000082  4818              LDR      r0,|L7.228|
-000084  f7fffffe          BL       bsp_SetTIMOutPWM
-000088  f2475030          MOV      r0,#0x7530            ;151
-00008c  2302              MOVS     r3,#2                 ;151
-00008e  4a14              LDR      r2,|L7.224|
-000090  14d1              ASRS     r1,r2,#19             ;151
-000092  e9cd0400          STRD     r0,r4,[sp,#0]         ;151
-000096  4813              LDR      r0,|L7.228|
-000098  f7fffffe          BL       bsp_SetTIMOutPWM
-00009c  e012              B        |L7.196|
-                  |L7.158|
-00009e  2000              MOVS     r0,#0                 ;155
-0000a0  9000              STR      r0,[sp,#0]            ;155
-0000a2  2302              MOVS     r3,#2                 ;155
-0000a4  4a0e              LDR      r2,|L7.224|
-0000a6  14d1              ASRS     r1,r2,#19             ;155
-0000a8  9001              STR      r0,[sp,#4]            ;155
-0000aa  480e              LDR      r0,|L7.228|
-0000ac  f7fffffe          BL       bsp_SetTIMOutPWM
-0000b0  f2475030          MOV      r0,#0x7530            ;156
-0000b4  2301              MOVS     r3,#1                 ;156
-0000b6  4a0a              LDR      r2,|L7.224|
-0000b8  1551              ASRS     r1,r2,#21             ;156
-0000ba  e9cd0400          STRD     r0,r4,[sp,#0]         ;156
-0000be  4809              LDR      r0,|L7.228|
-0000c0  f7fffffe          BL       bsp_SetTIMOutPWM
-                  |L7.196|
-0000c4  bf00              NOP                            ;158
-                  |L7.198|
-0000c6  bf00              NOP                            ;144
-0000c8  bf00              NOP      
-0000ca  e7a4              B        |L7.22|
-;;;161    
+000048  2000              MOVS     r0,#0                 ;138
+00004a  492d              LDR      r1,|L8.256|
+00004c  7208              STRB     r0,[r1,#8]            ;138
+00004e  e015              B        |L8.124|
+                  |L8.80|
+000050  2000              MOVS     r0,#0                 ;142
+000052  9000              STR      r0,[sp,#0]            ;142
+000054  2304              MOVS     r3,#4                 ;142
+000056  4a28              LDR      r2,|L8.248|
+000058  0319              LSLS     r1,r3,#12             ;142
+00005a  9001              STR      r0,[sp,#4]            ;142
+00005c  4827              LDR      r0,|L8.252|
+00005e  f7fffffe          BL       bsp_SetTIMOutPWM
+000062  f2475030          MOV      r0,#0x7530            ;143
+000066  2303              MOVS     r3,#3                 ;143
+000068  4a23              LDR      r2,|L8.248|
+00006a  1451              ASRS     r1,r2,#17             ;143
+00006c  e9cd0400          STRD     r0,r4,[sp,#0]         ;143
+000070  4822              LDR      r0,|L8.252|
+000072  f7fffffe          BL       bsp_SetTIMOutPWM
+000076  2001              MOVS     r0,#1                 ;144
+000078  4921              LDR      r1,|L8.256|
+00007a  7208              STRB     r0,[r1,#8]            ;144
+                  |L8.124|
+00007c  e02f              B        |L8.222|
+                  |L8.126|
+00007e  2d01              CMP      r5,#1                 ;150
+000080  d116              BNE      |L8.176|
+000082  2000              MOVS     r0,#0                 ;152
+000084  9000              STR      r0,[sp,#0]            ;152
+000086  2301              MOVS     r3,#1                 ;152
+000088  4a1b              LDR      r2,|L8.248|
+00008a  1551              ASRS     r1,r2,#21             ;152
+00008c  9001              STR      r0,[sp,#4]            ;152
+00008e  481b              LDR      r0,|L8.252|
+000090  f7fffffe          BL       bsp_SetTIMOutPWM
+000094  f2475030          MOV      r0,#0x7530            ;153
+000098  2302              MOVS     r3,#2                 ;153
+00009a  4a17              LDR      r2,|L8.248|
+00009c  14d1              ASRS     r1,r2,#19             ;153
+00009e  e9cd0400          STRD     r0,r4,[sp,#0]         ;153
+0000a2  4816              LDR      r0,|L8.252|
+0000a4  f7fffffe          BL       bsp_SetTIMOutPWM
+0000a8  2100              MOVS     r1,#0                 ;154
+0000aa  4815              LDR      r0,|L8.256|
+0000ac  7501              STRB     r1,[r0,#0x14]         ;154
+0000ae  e015              B        |L8.220|
+                  |L8.176|
+0000b0  2000              MOVS     r0,#0                 ;158
+0000b2  9000              STR      r0,[sp,#0]            ;158
+0000b4  2302              MOVS     r3,#2                 ;158
+0000b6  4a10              LDR      r2,|L8.248|
+0000b8  14d1              ASRS     r1,r2,#19             ;158
+0000ba  9001              STR      r0,[sp,#4]            ;158
+0000bc  480f              LDR      r0,|L8.252|
+0000be  f7fffffe          BL       bsp_SetTIMOutPWM
+0000c2  f2475030          MOV      r0,#0x7530            ;159
+0000c6  2301              MOVS     r3,#1                 ;159
+0000c8  4a0b              LDR      r2,|L8.248|
+0000ca  1551              ASRS     r1,r2,#21             ;159
+0000cc  e9cd0400          STRD     r0,r4,[sp,#0]         ;159
+0000d0  480a              LDR      r0,|L8.252|
+0000d2  f7fffffe          BL       bsp_SetTIMOutPWM
+0000d6  2101              MOVS     r1,#1                 ;160
+0000d8  4809              LDR      r0,|L8.256|
+0000da  7501              STRB     r1,[r0,#0x14]         ;160
+                  |L8.220|
+0000dc  bf00              NOP                            ;162
+                  |L8.222|
+0000de  bf00              NOP                            ;146
+0000e0  bf00              NOP      
+0000e2  e798              B        |L8.22|
+;;;165    
                           ENDP
 
-                  |L7.204|
-0000cc  50574dd6          DCB      "PWM",214,181,179,172,185,253,193,203,"MAXPWM\r\n",0
-0000d0  b5b3acb9
-0000d4  fdc1cb4d
-0000d8  41585057
-0000dc  4d0d0a00
-                  |L7.224|
+                  |L8.228|
+0000e4  50574dd6          DCB      "PWM",214,181,179,172,185,253,193,203,"MAXPWM\r\n",0
+0000e8  b5b3acb9
+0000ec  fdc1cb4d
+0000f0  41585057
+0000f4  4d0d0a00
+                  |L8.248|
                           DCD      0x40012c00
-                  |L7.228|
+                  |L8.252|
                           DCD      0x40011800
+                  |L8.256|
+                          DCD      motor
 
                           AREA ||i.bsp_SetMotorTargetSpeed||, CODE, READONLY, ALIGN=2
 
                   bsp_SetMotorTargetSpeed PROC
-;;;164    
-;;;165    void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed)
+;;;181    
+;;;182    void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed)
 000000  b570              PUSH     {r4-r6,lr}
-;;;166    {	
+;;;183    {	
 000002  4604              MOV      r4,r0
 000004  460d              MOV      r5,r1
-;;;167    	//如果给出的PWM已经大于最大值，则直接退出函数
-;;;168    	if(sn!=MotorLeft && sn!=MotorRight)
-000006  b12c              CBZ      r4,|L8.20|
+;;;184    	//如果给出的PWM已经大于最大值，则直接退出函数
+;;;185    	if(sn!=MotorLeft && sn!=MotorRight)
+000006  b12c              CBZ      r4,|L9.20|
 000008  2c01              CMP      r4,#1
-00000a  d003              BEQ      |L8.20|
-;;;169    	{
-;;;170    		WARNING("错误的电机\r\n");
-00000c  a00c              ADR      r0,|L8.64|
+00000a  d003              BEQ      |L9.20|
+;;;186    	{
+;;;187    		WARNING("错误的电机\r\n");
+00000c  a00c              ADR      r0,|L9.64|
 00000e  f7fffffe          BL       __2printf
-                  |L8.18|
-;;;171    		return ;
-;;;172    	}
-;;;173    	
-;;;174    	
-;;;175    	bsp_MotorBrake(sn);
-;;;176    	
-;;;177    	
-;;;178    	
-;;;179    	switch(sn)
-;;;180    	{
-;;;181    		case MotorLeft:
-;;;182    		{
-;;;183    			pid[MotorLeft].target = targetSpeed;
-;;;184    			motor[MotorLeft].isRunning = true ;
-;;;185    		}break;
-;;;186    		
-;;;187    		case MotorRight:
-;;;188    		{
-;;;189    			pid[MotorRight].target = targetSpeed;
-;;;190    			motor[MotorRight].isRunning = true ;
-;;;191    		}break;
-;;;192    	}
-;;;193    }
+                  |L9.18|
+;;;188    		return ;
+;;;189    	}
+;;;190    	
+;;;191    	
+;;;192    	bsp_MotorBrake(sn);
+;;;193    	
+;;;194    	
+;;;195    	
+;;;196    	switch(sn)
+;;;197    	{
+;;;198    		case MotorLeft:
+;;;199    		{
+;;;200    			pid[MotorLeft].target = targetSpeed;
+;;;201    			motor[MotorLeft].isRunning = true ;
+;;;202    		}break;
+;;;203    		
+;;;204    		case MotorRight:
+;;;205    		{
+;;;206    			pid[MotorRight].target = targetSpeed;
+;;;207    			motor[MotorRight].isRunning = true ;
+;;;208    		}break;
+;;;209    	}
+;;;210    }
 000012  bd70              POP      {r4-r6,pc}
-                  |L8.20|
-000014  4620              MOV      r0,r4                 ;175
+                  |L9.20|
+000014  4620              MOV      r0,r4                 ;192
 000016  f7fffffe          BL       bsp_MotorBrake
-00001a  b114              CBZ      r4,|L8.34|
-00001c  2c01              CMP      r4,#1                 ;179
-00001e  d10c              BNE      |L8.58|
-000020  e005              B        |L8.46|
-                  |L8.34|
-000022  480b              LDR      r0,|L8.80|
-000024  6005              STR      r5,[r0,#0]            ;183  ; pid
-000026  2001              MOVS     r0,#1                 ;184
-000028  490a              LDR      r1,|L8.84|
-00002a  7008              STRB     r0,[r1,#0]            ;184
-00002c  e005              B        |L8.58|
-                  |L8.46|
-00002e  4808              LDR      r0,|L8.80|
-000030  6305              STR      r5,[r0,#0x30]         ;189  ; pid
-000032  2001              MOVS     r0,#1                 ;190
-000034  4907              LDR      r1,|L8.84|
-000036  7208              STRB     r0,[r1,#8]            ;190
-000038  bf00              NOP                            ;191
-                  |L8.58|
-00003a  bf00              NOP                            ;185
+00001a  b114              CBZ      r4,|L9.34|
+00001c  2c01              CMP      r4,#1                 ;196
+00001e  d10c              BNE      |L9.58|
+000020  e005              B        |L9.46|
+                  |L9.34|
+000022  480b              LDR      r0,|L9.80|
+000024  6005              STR      r5,[r0,#0]            ;200  ; pid
+000026  2001              MOVS     r0,#1                 ;201
+000028  490a              LDR      r1,|L9.84|
+00002a  7008              STRB     r0,[r1,#0]            ;201
+00002c  e005              B        |L9.58|
+                  |L9.46|
+00002e  4808              LDR      r0,|L9.80|
+000030  6305              STR      r5,[r0,#0x30]         ;206  ; pid
+000032  2001              MOVS     r0,#1                 ;207
+000034  4907              LDR      r1,|L9.84|
+000036  7308              STRB     r0,[r1,#0xc]          ;207
+000038  bf00              NOP                            ;208
+                  |L9.58|
+00003a  bf00              NOP                            ;202
 00003c  bf00              NOP      
-00003e  e7e8              B        |L8.18|
-;;;194    
+00003e  e7e8              B        |L9.18|
+;;;211    
                           ENDP
 
-                  |L8.64|
+                  |L9.64|
 000040  b4edcef3          DCB      180,237,206,243,181,196,181,231,187,250,"\r\n",0
 000044  b5c4b5e7
 000048  bbfa0d0a
@@ -966,39 +1004,39 @@
 00004d  00                DCB      0
 00004e  00                DCB      0
 00004f  00                DCB      0
-                  |L8.80|
+                  |L9.80|
                           DCD      pid
-                  |L8.84|
+                  |L9.84|
                           DCD      motor
 
                           AREA ||i.pidabs||, CODE, READONLY, ALIGN=1
 
                   pidabs PROC
-;;;348    
-;;;349    static float pidabs(float val)
+;;;365    
+;;;366    static float pidabs(float val)
 000000  b510              PUSH     {r4,lr}
-;;;350    {
+;;;367    {
 000002  4604              MOV      r4,r0
-;;;351    	return val>0 ? val : -val;
+;;;368    	return val>0 ? val : -val;
 000004  2100              MOVS     r1,#0
 000006  4620              MOV      r0,r4
 000008  f7fffffe          BL       __aeabi_cfrcmple
-00000c  d201              BCS      |L9.18|
+00000c  d201              BCS      |L10.18|
 00000e  4620              MOV      r0,r4
-                  |L9.16|
-;;;352    }
+                  |L10.16|
+;;;369    }
 000010  bd10              POP      {r4,pc}
-                  |L9.18|
-000012  f0844000          EOR      r0,r4,#0x80000000     ;351
-000016  e7fb              B        |L9.16|
-;;;353    
+                  |L10.18|
+000012  f0844000          EOR      r0,r4,#0x80000000     ;368
+000016  e7fb              B        |L10.16|
+;;;370    
                           ENDP
 
 
                           AREA ||.bss||, DATA, NOINIT, ALIGN=2
 
                   motor
-                          %        16
+                          %        24
                   pid
                           %        96
 

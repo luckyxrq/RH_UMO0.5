@@ -11,6 +11,7 @@ typedef struct
 	volatile uint16_t rxCount;
 	volatile uint8_t  buf[RX_BUF_SIZE] ;
 	volatile float angle;
+	volatile int16_t angleRaw;
 }Angle;
 
 
@@ -28,6 +29,7 @@ typedef struct
 
 void bsp_AngleRevByte(uint8_t byte);
 float bsp_AngleRead(void);
+int16_t bsp_AngleReadRaw(void);
 float bsp_AngleAdd(float angle1 , float angle2);
 void bsp_InitAngle(void);
 void bsp_AngleRst(void);

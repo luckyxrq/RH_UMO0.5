@@ -5,7 +5,7 @@ typedef struct
 {
 	volatile bool isRunning;     /*电机是否在运行*/
 	volatile uint32_t encodeCnt; /*编码器计数值*/
-	
+	volatile MotorDir dir;
 }Motor;
 
 
@@ -135,11 +135,13 @@ void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
 			{
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,DC_PWM_T, pwm);
+				motor[MotorLeft].dir = Forward;/*用于编码器标记正负*/
 			}
 			else
 			{
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, 0);
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3, DC_PWM_T,pwm); 
+				motor[MotorLeft].dir = Backward;/*用于编码器标记正负*/
 			}
 		}break;
 		
@@ -149,16 +151,31 @@ void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
 			{
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,DC_PWM_T, pwm);
+				motor[MotorRight].dir = Forward;/*用于编码器标记正负*/
 			}
 			else
 			{
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, 0);
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,DC_PWM_T, pwm);
+				motor[MotorRight].dir = Backward;/*用于编码器标记正负*/
 			}
 		}break;
 	}
 }
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_MotorGetDir
+*	功能说明: 获取电机运行方向
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+MotorDir bsp_MotorGetDir(MotorSN sn)
+{
+	return motor[sn].dir;
+}
 
 
 
