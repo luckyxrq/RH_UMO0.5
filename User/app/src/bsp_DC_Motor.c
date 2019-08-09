@@ -15,7 +15,7 @@ static PID pid[2];
 
 static void bspInitPWM(void);
 static float pidabs(float val);
-static void bsp_InitMotorPid(MotorSN sn);
+void bsp_InitMotorPid(MotorSN sn);
 
 /*
 *********************************************************************************************************
@@ -50,6 +50,11 @@ static void bspInitPWM(void)
 	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 	
+	GPIO_PinRemapConfig(GPIO_Remap_TIM4, ENABLE);           //Timer4重映射    
+	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_12, TIM4, 1,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
+	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_13, TIM4, 2,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
+	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_14, TIM4, 3,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
+	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_15, TIM4, 4,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 }
 
 /*
@@ -78,6 +83,7 @@ void bsp_MotorBrake(MotorSN sn)
 			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,MAXPWM);
 		}break;
 	}
+	
 	
 }
 
@@ -156,6 +162,34 @@ void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
 				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,DC_PWM_T, pwm);
 			}
 		}break;
+		
+		case MotorRoller:
+		{
+			if(dir == Backward)
+			{
+				bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_12, TIM4, 1,0, 0);
+				bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_13, TIM4, 2,DC_PWM_T, pwm);
+			}
+			else
+			{
+				bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_13, TIM4, 2,0, 0);
+				bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_12, TIM4, 1,DC_PWM_T, pwm);
+			}
+		}break;
+		
+		case MotorBrush:
+		{
+			if(dir == Backward)
+			{
+				bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_14, TIM4, 3,0, 0);
+				bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_15, TIM4, 4,DC_PWM_T, pwm);
+			}
+			else
+			{
+				bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_15, TIM4, 4,0, 0);
+				bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_14, TIM4, 3,DC_PWM_T, pwm);
+			}
+		}break;
 	}
 }
 
@@ -210,7 +244,7 @@ void bsp_InitMotorPid(MotorSN sn)
 			/************************PID 左轮机**********12 0.5 1 0.8 5500*******/
 			pid[MotorLeft].target = 250;
 			
-			pid[MotorLeft].kp = 6;
+			pid[MotorLeft].kp = 8;
 			pid[MotorLeft].ki = 0.5;
 			pid[MotorLeft].kd = 1;
 			
@@ -223,7 +257,7 @@ void bsp_InitMotorPid(MotorSN sn)
 			
 			pid[MotorLeft].kiLimit = 20000 ;
 			pid[MotorLeft].fitK = 0.8 ;
-			pid[MotorLeft].fitD = 2000 ;
+			pid[MotorLeft].fitD = 5000 ;
 		}break;
 		
 		case MotorRight:
@@ -231,7 +265,7 @@ void bsp_InitMotorPid(MotorSN sn)
 			/************************PID 右轮机************************/
 			pid[MotorRight].target = 250;
 			
-			pid[MotorRight].kp = 6;
+			pid[MotorRight].kp = 8;
 			pid[MotorRight].ki = 0.5;
 			pid[MotorRight].kd = 1;
 			
@@ -244,7 +278,7 @@ void bsp_InitMotorPid(MotorSN sn)
 			
 			pid[MotorRight].kiLimit = 20000 ;
 			pid[MotorRight].fitK = 0.8 ;
-			pid[MotorRight].fitD = 2000 ;
+			pid[MotorRight].fitD = 5000 ;
 		}break;
 	}
 }

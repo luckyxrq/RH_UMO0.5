@@ -38325,8 +38325,10 @@ N
 N
 Ntypedef enum
 N{
-N	MotorLeft = 0 ,/*×ó±ßµç»ú±àºÅ*/
-N	MotorRight     /*ÓÒ±ßµç»ú±àºÅ*/ 
+N	MotorLeft = 0 , /*×ó±ßµç»ú±àºÅ*/
+N	MotorRight,     /*ÓÒ±ßµç»ú±àºÅ*/
+N	MotorRoller,
+N	MotorBrush
 N}MotorSN;
 N
 Ntypedef enum
@@ -38361,7 +38363,7 @@ Nvoid bsp_MotorCoast(MotorSN sn);  /* »¬ĞĞÍ£Ö¹ */
 Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* Ö±½ÓÊ¹ÓÃÕ¼¿Õ±È¿ØÖÆ£¬6000»ù±¾ÊÇ×îµÍËÙ¶È£¬ÔÙĞ¡¾Í²»×ªÁË */
 Nvoid bsp_PidControlAct(void);
 Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-N
+Nvoid bsp_InitMotorPid(MotorSN sn);
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2
@@ -38655,7 +38657,7 @@ N#define IntervalTime	4  //Ã»¶Ô¹Ü×ÓÉ¨Ãè¼ä¸ôÊ±¼ä
 N#define ChargeTime	    3   //Ã»¶Ô¹Ü×ÓÉ¨Ãè¼ä¸ôÊ±¼ä
 N#define TimeAfterOpen   120 //¿ª·¢ÉäºóÑÓÊ±
 N#define TimeAfterClose  20  //¹Ø·¢Éä£¬ÑÓÊ±¶Á£¬ÅĞ¶ÏÌ«Ñô¹â
-N#define Sunlight        1.0F//Èç¹û¹Ø±Õ·¢Éä¹ÜÒ²¶ÁÈ¡µ½ÁËÌ«Ñô¹âµÄãĞÖµ£¬ÔòÈÏÎªÊÇÌ«Ñô¹âµÄÓ°Ïì
+N#define Sunlight        0.3F//Èç¹û¹Ø±Õ·¢Éä¹ÜÒ²¶ÁÈ¡µ½ÁËÌ«Ñô¹âµÄãĞÖµ£¬ÔòÈÏÎªÊÇÌ«Ñô¹âµÄÓ°Ïì
 N
 NAW_PIN PinMap[PIN_MAP_MAX][2]=
 XAW_PIN PinMap[10][2]=
@@ -38843,9 +38845,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -38887,9 +38889,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -38931,9 +38933,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -38975,9 +38977,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -39019,9 +39021,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -39063,9 +39065,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -39107,9 +39109,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -39151,9 +39153,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -39194,9 +39196,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -39238,9 +39240,9 @@ N				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//¹Ø½ÓÊ
 X				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%10][1], AW_1);
 N				
 N				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//Èç¹û¶Áµ½Ì«Ñô¹âÁË¾Íµ±Ã»ÓĞ¼ì²âµ½ÕÏ°­Îï
-X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 0 : adcContrast[detectAct.action/2][0];
+X				adcRealTime[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 0 : adcContrast[detectAct.action/2][0];
 N				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//¼ÇÂ¼ÊÇ·ñ±»µ±Ñô¹âµ²×¡ÁË
-X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 1.0F ? 1 : 0;
+X				adcIsSunlight[detectAct.pinMapIndex%10] = adcContrast[detectAct.action/2][1] >= 0.3F ? 1 : 0;
 N				detectAct.pinMapIndex++;
 N				
 N				detectAct.delay = xTaskGetTickCount();
@@ -39415,12 +39417,12 @@ N	printf("\r\n");
 N#endif
 N
 N#if 1	
-N	//Èç¹ûÊÇÌ«Ñô¹âÉäµ½ÁË£¬¿ªÆôÈ«ÉÁË¸µÆ
-N	for(i=0;i<=7;i++)
+N	for(i=0;i<=9;i++)
 N	{
+N		if(i == 1) continue;
+N		
 N		if(adcRealTime[i] >=1.0F)
 N		{
-N			//DEBUG("ÕÏ°­Îï:%d\r\n",i);
 N			if(flgdec == 0)
 N			{
 N				bsp_SetMotorTargetSpeed(MotorLeft,150);

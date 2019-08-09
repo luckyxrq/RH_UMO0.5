@@ -38349,8 +38349,10 @@ N
 N
 Ntypedef enum
 N{
-N	MotorLeft = 0 ,/*左边电机编号*/
-N	MotorRight     /*右边电机编号*/ 
+N	MotorLeft = 0 , /*左边电机编号*/
+N	MotorRight,     /*右边电机编号*/
+N	MotorRoller,
+N	MotorBrush
 N}MotorSN;
 N
 Ntypedef enum
@@ -38385,7 +38387,7 @@ Nvoid bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
 Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
 Nvoid bsp_PidControlAct(void);
 Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-N
+Nvoid bsp_InitMotorPid(MotorSN sn);
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2

@@ -8,7 +8,7 @@
 #define ChargeTime	    3   //没对管子扫描间隔时间
 #define TimeAfterOpen   120 //开发射后延时
 #define TimeAfterClose  20  //关发射，延时读，判断太阳光
-#define Sunlight        1.0F//如果关闭发射管也读取到了太阳光的阈值，则认为是太阳光的影响
+#define Sunlight        0.3F//如果关闭发射管也读取到了太阳光的阈值，则认为是太阳光的影响
 
 AW_PIN PinMap[PIN_MAP_MAX][2]=
 {
@@ -617,12 +617,12 @@ void bsp_DetectDeal(void)
 #endif
 
 #if 1	
-	//如果是太阳光射到了，开启全闪烁灯
-	for(i=0;i<=7;i++)
+	for(i=0;i<=9;i++)
 	{
+		if(i == 1) continue;
+		
 		if(adcRealTime[i] >=1.0F)
 		{
-			//DEBUG("障碍物:%d\r\n",i);
 			if(flgdec == 0)
 			{
 				bsp_SetMotorTargetSpeed(MotorLeft,150);

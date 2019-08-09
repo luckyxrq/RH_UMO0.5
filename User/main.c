@@ -114,6 +114,12 @@ static void vTaskTaskUserIF(void *pvParameters)
 	bsp_SetMotorTargetSpeed(MotorRight,250);
 #endif
 
+#if 1
+	bsp_SetMotorPWM(MotorRoller,Forward,6500);
+	bsp_SetMotorPWM(MotorBrush, Forward,7000);
+#endif
+
+
     while(1)
     {
 		#if 0

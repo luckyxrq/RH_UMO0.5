@@ -9,8 +9,10 @@
 
 typedef enum
 {
-	MotorLeft = 0 ,/*左边电机编号*/
-	MotorRight     /*右边电机编号*/ 
+	MotorLeft = 0 , /*左边电机编号*/
+	MotorRight,     /*右边电机编号*/
+	MotorRoller,
+	MotorBrush
 }MotorSN;
 
 typedef enum
@@ -45,6 +47,6 @@ void bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
 void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
 void bsp_PidControlAct(void);
 void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-
+void bsp_InitMotorPid(MotorSN sn);
 #endif
 

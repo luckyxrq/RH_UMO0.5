@@ -93,6 +93,10 @@ void bsp_EdgewiseAct(void)
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
 				
+				
+				bsp_InitMotorPid(MotorLeft);
+				bsp_InitMotorPid(MotorRight);
+				
 				bsp_SetMotorTargetSpeed(MotorLeft,250);
 				bsp_SetMotorTargetSpeed(MotorRight,250);
 				

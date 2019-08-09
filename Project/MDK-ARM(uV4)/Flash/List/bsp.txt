@@ -23,63 +23,64 @@
 000006  f7fffffe          BL       NVIC_PriorityGroupConfig
 ;;;43     	bsp_InitDWT();
 00000a  f7fffffe          BL       bsp_InitDWT
-;;;44     	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
-00000e  f7fffffe          BL       bsp_InitAngle
-;;;45     	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
-000012  f7fffffe          BL       bsp_InitPinPulse
-;;;46     	bsp_InitUart(); 	     /* 初始化串口 */
-000016  f7fffffe          BL       bsp_InitUart
-;;;47     	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
-00001a  f7fffffe          BL       bsp_InitSW
-;;;48     	bsp_InitLed();           /* 初始化LED */
+;;;44     	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
+00000e  f7fffffe          BL       bsp_InitSW
+;;;45     	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
+000012  f7fffffe          BL       bsp_InitAngle
+;;;46     	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
+000016  f7fffffe          BL       bsp_InitPinPulse
+;;;47     	bsp_InitUart(); 	     /* 初始化串口 */
+00001a  f7fffffe          BL       bsp_InitUart
+;;;48     	
+;;;49     	bsp_InitLed();           /* 初始化LED */
 00001e  f7fffffe          BL       bsp_InitLed
-;;;49     	bsp_InitKey();           /* 初始化按键 */
+;;;50     	bsp_InitKey();           /* 初始化按键 */
 000022  f7fffffe          BL       bsp_InitKey
-;;;50     	bsp_InitHardTimer();     /* 初始化硬件定时器 */
+;;;51     	bsp_InitHardTimer();     /* 初始化硬件定时器 */
 000026  f7fffffe          BL       bsp_InitHardTimer
-;;;51     	bsp_InitDC_Motor();      /* 初始化直流电机 */
+;;;52     	bsp_InitDC_Motor();      /* 初始化直流电机 */
 00002a  f7fffffe          BL       bsp_InitDC_Motor
-;;;52     	bsp_InitEncoder();       /*初始化编码器引脚，用于统计脉冲的定时器*/
+;;;53     	bsp_InitEncoder();       /*初始化编码器引脚，用于统计脉冲的定时器*/
 00002e  f7fffffe          BL       bsp_InitEncoder
-;;;53     	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
+;;;54     	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 000032  f7fffffe          BL       bsp_InitCollision
-;;;54     	bsp_InitChargingPile();  /*初始化输入捕获*/
+;;;55     	bsp_InitChargingPile();  /*初始化输入捕获*/
 000036  f7fffffe          BL       bsp_InitChargingPile
-;;;55     	
-;;;56     	/* 初始化IO拓展芯片 */	
-;;;57     	do{
+;;;56     	
+;;;57     	/* 初始化IO拓展芯片 */	
+;;;58     	do{
 00003a  bf00              NOP      
                   |L1.60|
-;;;58     		ret = bsp_InitAW9523B();		
+;;;59     		ret = bsp_InitAW9523B();		
 00003c  f7fffffe          BL       bsp_InitAW9523B
 000040  4604              MOV      r4,r0
-;;;59     		if(!ret) 
+;;;60     		if(!ret) 
 000042  b92c              CBNZ     r4,|L1.80|
-;;;60     		{
-;;;61     			WARNING("AW9523B Init Error\r\n");
+;;;61     		{
+;;;62     			WARNING("AW9523B Init Error\r\n");
 000044  a007              ADR      r0,|L1.100|
 000046  f7fffffe          BL       __2printf
-;;;62     			bsp_DelayMS(100);
+;;;63     			bsp_DelayMS(100);
 00004a  2064              MOVS     r0,#0x64
 00004c  f7fffffe          BL       bsp_DelayMS
                   |L1.80|
-;;;63     		}
-;;;64     	}while(!ret);
+;;;64     		}
+;;;65     	}while(!ret);
 000050  2c00              CMP      r4,#0
 000052  d0f3              BEQ      |L1.60|
-;;;65     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
+;;;66     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 000054  f7fffffe          BL       bsp_InitDetectAct
-;;;66     	
-;;;67     	bsp_InitIWDG();     /*初始化看门狗*/
+;;;67     	
+;;;68     	bsp_InitIWDG();     /*初始化看门狗*/
 000058  f7fffffe          BL       bsp_InitIWDG
-;;;68     	
-;;;69     	DEBUG("初始化完毕\r\n");
+;;;69     	
+;;;70     	DEBUG("初始化完毕\r\n");
 00005c  a007              ADR      r0,|L1.124|
 00005e  f7fffffe          BL       __2printf
-;;;70     	
-;;;71     }
+;;;71     	
+;;;72     }
 000062  bd10              POP      {r4,pc}
-;;;72     
+;;;73     
                           ENDP
 
                   |L1.100|

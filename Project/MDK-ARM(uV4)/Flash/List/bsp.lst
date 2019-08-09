@@ -38343,8 +38343,10 @@ N
 N
 Ntypedef enum
 N{
-N	MotorLeft = 0 ,/*×ó±ßµç»ú±àºÅ*/
-N	MotorRight     /*ÓÒ±ßµç»ú±àºÅ*/ 
+N	MotorLeft = 0 , /*×ó±ßµç»ú±àºÅ*/
+N	MotorRight,     /*ÓÒ±ßµç»ú±àºÅ*/
+N	MotorRoller,
+N	MotorBrush
 N}MotorSN;
 N
 Ntypedef enum
@@ -38379,7 +38381,7 @@ Nvoid bsp_MotorCoast(MotorSN sn);  /* »¬ĞĞÍ£Ö¹ */
 Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* Ö±½ÓÊ¹ÓÃÕ¼¿Õ±È¿ØÖÆ£¬6000»ù±¾ÊÇ×îµÍËÙ¶È£¬ÔÙĞ¡¾Í²»×ªÁË */
 Nvoid bsp_PidControlAct(void);
 Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-N
+Nvoid bsp_InitMotorPid(MotorSN sn);
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2
@@ -38689,10 +38691,11 @@ N	/* ÓÅÏÈ¼¶·Ö×éÉèÖÃÎª4£¬¿ÉÅäÖÃ0-15¼¶ÇÀÕ¼Ê½ÓÅÏÈ¼¶£¬0¼¶×ÓÓÅÏÈ¼¶£¬¼´²»´æÔÚ×ÓÓÅÏÈ¼¶¡
 N	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 X	NVIC_PriorityGroupConfig(((uint32_t)0x300));
 N	bsp_InitDWT();
+N	bsp_InitSW();		     /* ¿ª»ú´ò¿ªÆäËûÍâÉèµçÔ´Ê¹ÄÜÒı½Å */
 N	bsp_InitAngle();         /* ³õÊ¼»¯ÍÓÂİÒÇ£¬Ö»ÊÇ¸´Î»Òı½Å³õÊ¼»¯£¬ÀïÃæÃ»ÓĞÓÃµ½´®¿Ú´òÓ¡¡£ÔÚ´®¿Ú³õÊ¼»¯Ç°Ãæ¸´Î»ÓĞÖúÓÚÍÓÂİÒÇµÚÒ»Ö¡Êı¾İ²»³ö´í */
 N	bsp_InitPinPulse();      /* ³õÊ¼»¯Âö³åÖ¸Ê¾Òı½Å£¬Âö³åÖ¸Ê¾Ã»ÓĞÊ¹ÓÃ´®¿Ú´òÓ¡£¬ÔÚ´®¿ÚÖ®Ç°³õÊ¼»¯ */
 N	bsp_InitUart(); 	     /* ³õÊ¼»¯´®¿Ú */
-N	bsp_InitSW();		     /* ¿ª»ú´ò¿ªÆäËûÍâÉèµçÔ´Ê¹ÄÜÒı½Å */
+N	
 N	bsp_InitLed();           /* ³õÊ¼»¯LED */
 N	bsp_InitKey();           /* ³õÊ¼»¯°´¼ü */
 N	bsp_InitHardTimer();     /* ³õÊ¼»¯Ó²¼ş¶¨Ê±Æ÷ */
