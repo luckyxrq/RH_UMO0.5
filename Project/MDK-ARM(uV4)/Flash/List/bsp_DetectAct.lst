@@ -39414,22 +39414,22 @@ N	}
 N	printf("\r\n");
 N#endif
 N
-N#if 0	
-S	//如果是太阳光射到了，开启全闪烁灯
-S	for(i=0;i<=7;i++)
-S	{
-S		if(adcRealTime[i] >=1.0F)
-S		{
-S			DEBUG("障碍物\r\n");
-S			if(flgdec == 0)
-S			{
-S				bsp_SetMotorTargetSpeed(MotorLeft,150);
-S				bsp_SetMotorTargetSpeed(MotorRight,150);
-S				flgdec = 1 ;
-S			}
-S			
-S		}
-S	}
+N#if 1	
+N	//如果是太阳光射到了，开启全闪烁灯
+N	for(i=0;i<=7;i++)
+N	{
+N		if(adcRealTime[i] >=1.0F)
+N		{
+N			//DEBUG("障碍物:%d\r\n",i);
+N			if(flgdec == 0)
+N			{
+N				bsp_SetMotorTargetSpeed(MotorLeft,150);
+N				bsp_SetMotorTargetSpeed(MotorRight,150);
+N				flgdec = 1 ;
+N			}
+N			
+N		}
+N	}
 N#endif	
 N}
 N

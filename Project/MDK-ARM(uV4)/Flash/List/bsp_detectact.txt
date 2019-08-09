@@ -2171,14 +2171,14 @@
                   |L4.8|
 ;;;613    	{
 ;;;614    		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
-000008  4909              LDR      r1,|L4.48|
+000008  4917              LDR      r1,|L4.104|
 00000a  f8510024          LDR      r0,[r1,r4,LSL #2]
 00000e  f7fffffe          BL       __aeabi_f2d
 000012  4605              MOV      r5,r0
 000014  462a              MOV      r2,r5
 000016  460b              MOV      r3,r1
 000018  4621              MOV      r1,r4
-00001a  a006              ADR      r0,|L4.52|
+00001a  a014              ADR      r0,|L4.108|
 00001c  f7fffffe          BL       __2printf
 000020  1c60              ADDS     r0,r4,#1              ;612
 000022  b2c4              UXTB     r4,r0                 ;612
@@ -2187,47 +2187,77 @@
 000026  dbef              BLT      |L4.8|
 ;;;615    	}
 ;;;616    	printf("\r\n");
-000028  a008              ADR      r0,|L4.76|
+000028  a016              ADR      r0,|L4.132|
 00002a  f7fffffe          BL       __2printf
 ;;;617    #endif
 ;;;618    
-;;;619    #if 0	
+;;;619    #if 1	
 ;;;620    	//如果是太阳光射到了，开启全闪烁灯
 ;;;621    	for(i=0;i<=7;i++)
+00002e  2400              MOVS     r4,#0
+000030  e017              B        |L4.98|
+                  |L4.50|
 ;;;622    	{
 ;;;623    		if(adcRealTime[i] >=1.0F)
+000032  490d              LDR      r1,|L4.104|
+000034  f8510024          LDR      r0,[r1,r4,LSL #2]
+000038  f04f517e          MOV      r1,#0x3f800000
+00003c  f7fffffe          BL       __aeabi_cfrcmple
+000040  d80d              BHI      |L4.94|
 ;;;624    		{
-;;;625    			DEBUG("障碍物\r\n");
+;;;625    			//DEBUG("障碍物:%d\r\n",i);
 ;;;626    			if(flgdec == 0)
+000042  4811              LDR      r0,|L4.136|
+000044  7800              LDRB     r0,[r0,#0]  ; flgdec
+000046  b950              CBNZ     r0,|L4.94|
 ;;;627    			{
 ;;;628    				bsp_SetMotorTargetSpeed(MotorLeft,150);
+000048  4910              LDR      r1,|L4.140|
+00004a  2000              MOVS     r0,#0
+00004c  f7fffffe          BL       bsp_SetMotorTargetSpeed
 ;;;629    				bsp_SetMotorTargetSpeed(MotorRight,150);
+000050  490e              LDR      r1,|L4.140|
+000052  2001              MOVS     r0,#1
+000054  f7fffffe          BL       bsp_SetMotorTargetSpeed
 ;;;630    				flgdec = 1 ;
+000058  2001              MOVS     r0,#1
+00005a  490b              LDR      r1,|L4.136|
+00005c  7008              STRB     r0,[r1,#0]
+                  |L4.94|
+00005e  1c60              ADDS     r0,r4,#1              ;621
+000060  b2c4              UXTB     r4,r0                 ;621
+                  |L4.98|
+000062  2c07              CMP      r4,#7                 ;621
+000064  dde5              BLE      |L4.50|
 ;;;631    			}
 ;;;632    			
 ;;;633    		}
 ;;;634    	}
 ;;;635    #endif	
 ;;;636    }
-00002e  bd70              POP      {r4-r6,pc}
+000066  bd70              POP      {r4-r6,pc}
 ;;;637    
                           ENDP
 
-                  |L4.48|
+                  |L4.104|
                           DCD      adcRealTime
-                  |L4.52|
-000034  61646352          DCB      "adcRealTime[%d]:%.2F",0
-000038  65616c54
-00003c  696d655b
-000040  25645d3a
-000044  252e3246
-000048  00      
-000049  00                DCB      0
-00004a  00                DCB      0
-00004b  00                DCB      0
-                  |L4.76|
-00004c  0d0a00            DCB      "\r\n",0
-00004f  00                DCB      0
+                  |L4.108|
+00006c  61646352          DCB      "adcRealTime[%d]:%.2F",0
+000070  65616c54
+000074  696d655b
+000078  25645d3a
+00007c  252e3246
+000080  00      
+000081  00                DCB      0
+000082  00                DCB      0
+000083  00                DCB      0
+                  |L4.132|
+000084  0d0a00            DCB      "\r\n",0
+000087  00                DCB      0
+                  |L4.136|
+                          DCD      flgdec
+                  |L4.140|
+                          DCD      0x43160000
 
                           AREA ||i.bsp_DetectStart||, CODE, READONLY, ALIGN=2
 

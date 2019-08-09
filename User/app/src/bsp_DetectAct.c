@@ -616,13 +616,13 @@ void bsp_DetectDeal(void)
 	printf("\r\n");
 #endif
 
-#if 0	
+#if 1	
 	//如果是太阳光射到了，开启全闪烁灯
 	for(i=0;i<=7;i++)
 	{
 		if(adcRealTime[i] >=1.0F)
 		{
-			DEBUG("障碍物\r\n");
+			//DEBUG("障碍物:%d\r\n",i);
 			if(flgdec == 0)
 			{
 				bsp_SetMotorTargetSpeed(MotorLeft,150);

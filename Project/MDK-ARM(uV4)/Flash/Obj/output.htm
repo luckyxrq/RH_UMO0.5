@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Aug 08 17:24:20 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Aug 08 17:40:47 2019
 <BR><P>
 <H3>Maximum Stack Usage =        216 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -457,6 +457,7 @@ Global Symbols
 <P><STRONG><a name="[d0]"></a>__aeabi_cfrcmple</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, cfrcmple.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pidabs
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidControlAct
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectDeal
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 
@@ -1044,8 +1045,8 @@ Global Symbols
 <P><STRONG><a name="[c8]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectDeal
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
@@ -1076,7 +1077,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
+<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskLED
 </UL>
 
@@ -1133,10 +1134,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStart
 </UL>
 
-<P><STRONG><a name="[d1]"></a>bsp_DetectDeal</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, bsp_detectact.o(i.bsp_DetectDeal))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = bsp_DetectDeal &rArr; __2printf
+<P><STRONG><a name="[d1]"></a>bsp_DetectDeal</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, bsp_detectact.o(i.bsp_DetectDeal))
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = bsp_DetectDeal &rArr; bsp_SetMotorTargetSpeed &rArr; bsp_MotorBrake &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStart
@@ -1146,12 +1149,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStart
 </UL>
 
-<P><STRONG><a name="[d3]"></a>bsp_EdgewiseAct</STRONG> (Thumb, 280 bytes, Stack size 8 bytes, bsp_edgewise.o(i.bsp_EdgewiseAct))
+<P><STRONG><a name="[d4]"></a>bsp_EdgewiseAct</STRONG> (Thumb, 280 bytes, Stack size 8 bytes, bsp_edgewise.o(i.bsp_EdgewiseAct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = bsp_EdgewiseAct &rArr; bsp_SetMotorTargetSpeed &rArr; bsp_MotorBrake &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
+<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 </UL>
@@ -1374,13 +1377,13 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskTaskUserIF
 </UL>
 
-<P><STRONG><a name="[d4]"></a>bsp_MotorBrake</STRONG> (Thumb, 120 bytes, Stack size 16 bytes, bsp_dc_motor.o(i.bsp_MotorBrake))
+<P><STRONG><a name="[d5]"></a>bsp_MotorBrake</STRONG> (Thumb, 120 bytes, Stack size 16 bytes, bsp_dc_motor.o(i.bsp_MotorBrake))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = bsp_MotorBrake &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMOutPWM
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
+<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
 </UL>
 
 <P><STRONG><a name="[105]"></a>bsp_PidControlAct</STRONG> (Thumb, 582 bytes, Stack size 56 bytes, bsp_dc_motor.o(i.bsp_PidControlAct))
@@ -1395,29 +1398,30 @@ Global Symbols
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pidabs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskLED
 </UL>
 
-<P><STRONG><a name="[d5]"></a>bsp_SetMotorPWM</STRONG> (Thumb, 204 bytes, Stack size 24 bytes, bsp_dc_motor.o(i.bsp_SetMotorPWM))
+<P><STRONG><a name="[d6]"></a>bsp_SetMotorPWM</STRONG> (Thumb, 204 bytes, Stack size 24 bytes, bsp_dc_motor.o(i.bsp_SetMotorPWM))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = bsp_SetMotorPWM &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMOutPWM
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidControlAct
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
 </UL>
 
-<P><STRONG><a name="[d6]"></a>bsp_SetMotorTargetSpeed</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, bsp_dc_motor.o(i.bsp_SetMotorTargetSpeed))
+<P><STRONG><a name="[d3]"></a>bsp_SetMotorTargetSpeed</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, bsp_dc_motor.o(i.bsp_SetMotorTargetSpeed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = bsp_SetMotorTargetSpeed &rArr; bsp_MotorBrake &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
+<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectDeal
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskTaskUserIF
 </UL>
 
@@ -1441,8 +1445,8 @@ Global Symbols
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorPWM
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bspInitPWM
 </UL>
 
@@ -1816,7 +1820,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ce]"></a>xTaskGetTickCount</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, tasks.o(i.xTaskGetTickCount))
-<BR><BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
+<BR><BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 
@@ -1909,10 +1913,10 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
 <P><STRONG><a name="[4c]"></a>vTaskStart</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, main.o(i.vTaskStart))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = vTaskStart &rArr; bsp_EdgewiseAct &rArr; bsp_SetMotorTargetSpeed &rArr; bsp_MotorBrake &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = vTaskStart &rArr; bsp_DetectDeal &rArr; bsp_SetMotorTargetSpeed &rArr; bsp_MotorBrake &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseAct
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectStart
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectDeal
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
@@ -1923,7 +1927,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = vTaskTaskUserIF &rArr; bsp_SetMotorTargetSpeed &rArr; bsp_MotorBrake &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
