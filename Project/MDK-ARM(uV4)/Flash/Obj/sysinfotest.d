@@ -64,3 +64,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\bsp\inc\bsp_IWDG.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Edgewise.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Remote.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_communication.h

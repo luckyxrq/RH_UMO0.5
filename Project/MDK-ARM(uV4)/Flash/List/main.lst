@@ -45829,6 +45829,8 @@ Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
 Nfloat bsp_AngleAdd(float angle1 , float angle2);
 Nvoid bsp_InitAngle(void);
+Nvoid bsp_AngleRst(void);
+N
 N
 N#endif
 N
@@ -46007,6 +46009,15 @@ Nvoid bsp_StopSearchChargingPile(void);
 N
 N#endif
 L 184 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_communication.h"
+L 1 "..\..\User\app\inc\bsp_communication.h" 1
+N#ifndef __BSP_COMMUNICATION_H
+N#define __BSP_COMMUNICATION_H
+N
+N
+N#endif
+L 185 "..\..\User\bsp\bsp.h" 2
+N
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
@@ -46140,11 +46151,15 @@ N#if 0 /* 给定初始角度和转动角度，得到目的角度 */
 S	printf("des angle:%.2F\r\n",bsp_AngleAdd(-100,120));
 N#endif	
 N
-N#if 1
-N	bsp_SetMotorTargetSpeed(MotorLeft,250);
-N	bsp_SetMotorTargetSpeed(MotorRight,250);
+N#if 0
+S	bsp_SetMotorTargetSpeed(MotorLeft,250);
+S	bsp_SetMotorTargetSpeed(MotorRight,250);
 N#endif
 N
+N	vTaskDelay(2000);
+N	bsp_AngleRst();
+N	vTaskDelay(2000);
+N	
 N    while(1)
 N    {
 N		#if 0
@@ -46153,15 +46168,16 @@ S		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 N		#endif
 N		
 N		
-N		#if 0
-S		DEBUG("角度：%.2F\r\n",bsp_AngleRead());
+N		#if 1
+N		DEBUG("角度：%.2F\r\n",bsp_AngleRead());
+X		printf ("角度：%.2F\r\n",bsp_AngleRead());
 N		#endif
 N		
 N		bsp_LedToggle(1);
 N		bsp_LedToggle(2);
 N		bsp_LedToggle(3);
 N		
-N		vTaskDelay(500);
+N		vTaskDelay(100);
 N		
 N	}
 N}
@@ -46243,8 +46259,8 @@ N	bsp_DetectStart(); /*开启红外对管轮询扫描*/
 N    while(1)
 N    {
 N		bsp_DetectAct();  /*红外对管轮询扫描*/
-N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-N		bsp_EdgewiseAct();/*沿边*/
+N		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N		//bsp_EdgewiseAct();/*沿边*/
 N        vTaskDelay(1);
 N    }
 N}

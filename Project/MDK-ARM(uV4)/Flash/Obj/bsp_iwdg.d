@@ -64,3 +64,4 @@
 .\flash\obj\bsp_iwdg.o: ..\..\User\bsp\inc\bsp_IWDG.h
 .\flash\obj\bsp_iwdg.o: ..\..\User\app\inc\bsp_Edgewise.h
 .\flash\obj\bsp_iwdg.o: ..\..\User\app\inc\bsp_Remote.h
+.\flash\obj\bsp_iwdg.o: ..\..\User\app\inc\bsp_communication.h

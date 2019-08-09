@@ -38458,6 +38458,8 @@ Nvoid bsp_AngleRevByte(uint8_t byte);
 Nfloat bsp_AngleRead(void);
 Nfloat bsp_AngleAdd(float angle1 , float angle2);
 Nvoid bsp_InitAngle(void);
+Nvoid bsp_AngleRst(void);
+N
 N
 N#endif
 N
@@ -38636,6 +38638,15 @@ Nvoid bsp_StopSearchChargingPile(void);
 N
 N#endif
 L 184 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_communication.h"
+L 1 "..\..\User\app\inc\bsp_communication.h" 1
+N#ifndef __BSP_COMMUNICATION_H
+N#define __BSP_COMMUNICATION_H
+N
+N
+N#endif
+L 185 "..\..\User\bsp\bsp.h" 2
+N
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
@@ -38659,7 +38670,6 @@ Nstatic void bsp_AnglePoll(void);
 Nstatic void bsp_AngleAnalyzeApp(void);
 Nstatic bool bsp_AngleCheck(void);
 Xstatic _Bool bsp_AngleCheck(void);
-Nstatic void bsp_AngleRst(void);
 N
 N
 N
@@ -38693,8 +38703,7 @@ N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_RST;
 X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x2000);
 N	GPIO_Init(GPIO_PORT_RST, &GPIO_InitStructure);
 X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)), &GPIO_InitStructure);
-N	
-N	bsp_AngleRst();
+N
 N}
 N
 N/*
@@ -38705,11 +38714,11 @@ N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nstatic void bsp_AngleRst(void)
+Nvoid bsp_AngleRst(void)
 N{
 N	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),((uint16_t)0x2000));
-N	bsp_DelayMS(2000);
+N	bsp_DelayMS(10);
 N	GPIO_ResetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),((uint16_t)0x2000));
 N	bsp_DelayUS(10);
@@ -38810,8 +38819,8 @@ X	angle.timeout = 0;
 N
 N	if (angle.rxCount != 13)
 N	{
-N		WARNING("陀螺仪数据长度错误:%d\r\n",angle.rxCount);
-X		printf ("陀螺仪数据长度错误:%d\r\n",angle . rxCount);
+N		WARNING("angle len err:%d\r\n",angle.rxCount);
+X		printf ("angle len err:%d\r\n",angle . rxCount);
 N		goto err_ret;
 N	}
 N	
@@ -38819,6 +38828,8 @@ N	/* 计算SUM校验和 */
 N	if(bsp_AngleCheck() == false)
 X	if(bsp_AngleCheck() == 0)
 N	{
+N		WARNING("angle chk err:\r\n");
+X		printf ("angle chk err:\r\n");
 N		goto err_ret;
 N	}
 N	

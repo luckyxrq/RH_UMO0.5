@@ -30,6 +30,8 @@ void bsp_AngleRevByte(uint8_t byte);
 float bsp_AngleRead(void);
 float bsp_AngleAdd(float angle1 , float angle2);
 void bsp_InitAngle(void);
+void bsp_AngleRst(void);
+
 
 #endif
 

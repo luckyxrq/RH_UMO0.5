@@ -11,7 +11,6 @@ static void bsp_AngleTimeout(void);
 static void bsp_AnglePoll(void);
 static void bsp_AngleAnalyzeApp(void);
 static bool bsp_AngleCheck(void);
-static void bsp_AngleRst(void);
 
 
 
@@ -42,8 +41,7 @@ void bsp_InitAngle(void)
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_RST;
 	GPIO_Init(GPIO_PORT_RST, &GPIO_InitStructure);
-	
-	bsp_AngleRst();
+
 }
 
 /*
@@ -54,10 +52,10 @@ void bsp_InitAngle(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-static void bsp_AngleRst(void)
+void bsp_AngleRst(void)
 {
 	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
-	bsp_DelayMS(2000);
+	bsp_DelayMS(10);
 	GPIO_ResetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 	bsp_DelayUS(10);
 	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
@@ -150,13 +148,14 @@ static void bsp_AnglePoll(void)
 
 	if (angle.rxCount != 13)
 	{
-		WARNING("陀螺仪数据长度错误:%d\r\n",angle.rxCount);
+		WARNING("angle len err:%d\r\n",angle.rxCount);
 		goto err_ret;
 	}
 	
 	/* 计算SUM校验和 */
 	if(bsp_AngleCheck() == false)
 	{
+		WARNING("angle chk err:\r\n");
 		goto err_ret;
 	}
 	

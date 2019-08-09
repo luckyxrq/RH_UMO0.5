@@ -109,11 +109,15 @@ static void vTaskTaskUserIF(void *pvParameters)
 	printf("des angle:%.2F\r\n",bsp_AngleAdd(-100,120));
 #endif	
 
-#if 1
+#if 0
 	bsp_SetMotorTargetSpeed(MotorLeft,250);
 	bsp_SetMotorTargetSpeed(MotorRight,250);
 #endif
 
+	vTaskDelay(2000);
+	bsp_AngleRst();
+	vTaskDelay(2000);
+	
     while(1)
     {
 		#if 0
@@ -122,7 +126,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 		#endif
 		
 		
-		#if 0
+		#if 1
 		DEBUG("角度：%.2F\r\n",bsp_AngleRead());
 		#endif
 		
@@ -130,7 +134,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 		bsp_LedToggle(2);
 		bsp_LedToggle(3);
 		
-		vTaskDelay(500);
+		vTaskDelay(100);
 		
 	}
 }
@@ -209,8 +213,8 @@ static void vTaskStart(void *pvParameters)
     while(1)
     {
 		bsp_DetectAct();  /*红外对管轮询扫描*/
-		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-		bsp_EdgewiseAct();/*沿边*/
+		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		//bsp_EdgewiseAct();/*沿边*/
         vTaskDelay(1);
     }
 }
