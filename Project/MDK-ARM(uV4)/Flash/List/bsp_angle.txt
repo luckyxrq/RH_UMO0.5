@@ -458,9 +458,9 @@
 000012  f44f5100          MOV      r1,#0x2000
 000016  4806              LDR      r0,|L8.48|
 000018  f7fffffe          BL       GPIO_ResetBits
-;;;60     	bsp_DelayUS(10);
+;;;60     	bsp_DelayMS(10);
 00001c  200a              MOVS     r0,#0xa
-00001e  f7fffffe          BL       bsp_DelayUS
+00001e  f7fffffe          BL       bsp_DelayMS
 ;;;61     	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 000022  f44f5100          MOV      r1,#0x2000
 000026  4802              LDR      r0,|L8.48|

@@ -38798,7 +38798,7 @@ X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),
 N	bsp_DelayMS(10);
 N	GPIO_ResetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),((uint16_t)0x2000));
-N	bsp_DelayUS(10);
+N	bsp_DelayMS(10);
 N	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),((uint16_t)0x2000));
 N}

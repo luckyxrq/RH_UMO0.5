@@ -114,8 +114,9 @@ static void vTaskTaskUserIF(void *pvParameters)
 	bsp_SetMotorTargetSpeed(MotorRight,250);
 #endif
 
-	vTaskDelay(1000);
+	vTaskDelay(2000);
 	bsp_AngleRst();
+	vTaskDelay(2000);
 
     while(1)
     {

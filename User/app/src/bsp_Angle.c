@@ -57,7 +57,7 @@ void bsp_AngleRst(void)
 	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 	bsp_DelayMS(10);
 	GPIO_ResetBits(GPIO_PORT_RST,GPIO_PIN_RST);
-	bsp_DelayUS(10);
+	bsp_DelayMS(10);
 	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 }
 
