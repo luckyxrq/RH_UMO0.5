@@ -37772,7 +37772,7 @@ N	【串口5】 --- 不做串口用。
 N*/
 N#define	UART1_FIFO_EN	0
 N#define	UART2_FIFO_EN	1  //调试
-N#define	UART3_FIFO_EN	0  //陀螺仪
+N#define	UART3_FIFO_EN	1  //陀螺仪
 N#define	UART4_FIFO_EN	0
 N#define	UART5_FIFO_EN	0
 N
@@ -37811,10 +37811,10 @@ N	#define UART2_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART3_FIFO_EN == 1
-X#if 0 == 1
-S	#define UART3_BAUD			115200
-S	#define UART3_TX_BUF_SIZE	1*1024
-S	#define UART3_RX_BUF_SIZE	1*1024
+X#if 1 == 1
+N	#define UART3_BAUD			115200
+N	#define UART3_TX_BUF_SIZE	1*1024
+N	#define UART3_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART4_FIFO_EN == 1
@@ -38709,7 +38709,7 @@ Nstatic void bsp_AngleRst(void)
 N{
 N	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),((uint16_t)0x2000));
-N	bsp_DelayMS(10);
+N	bsp_DelayMS(2000);
 N	GPIO_ResetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)),((uint16_t)0x2000));
 N	bsp_DelayUS(10);

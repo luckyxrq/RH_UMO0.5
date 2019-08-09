@@ -419,26 +419,25 @@
 000002  f44f5100          MOV      r1,#0x2000
 000006  480a              LDR      r0,|L7.48|
 000008  f7fffffe          BL       GPIO_SetBits
-;;;60     	bsp_DelayMS(10);
-00000c  200a              MOVS     r0,#0xa
-00000e  f7fffffe          BL       bsp_DelayMS
+;;;60     	bsp_DelayMS(2000);
+00000c  f44f60fa          MOV      r0,#0x7d0
+000010  f7fffffe          BL       bsp_DelayMS
 ;;;61     	GPIO_ResetBits(GPIO_PORT_RST,GPIO_PIN_RST);
-000012  f44f5100          MOV      r1,#0x2000
-000016  4806              LDR      r0,|L7.48|
-000018  f7fffffe          BL       GPIO_ResetBits
+000014  f44f5100          MOV      r1,#0x2000
+000018  4805              LDR      r0,|L7.48|
+00001a  f7fffffe          BL       GPIO_ResetBits
 ;;;62     	bsp_DelayUS(10);
-00001c  200a              MOVS     r0,#0xa
-00001e  f7fffffe          BL       bsp_DelayUS
+00001e  200a              MOVS     r0,#0xa
+000020  f7fffffe          BL       bsp_DelayUS
 ;;;63     	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
-000022  f44f5100          MOV      r1,#0x2000
-000026  4802              LDR      r0,|L7.48|
-000028  f7fffffe          BL       GPIO_SetBits
+000024  f44f5100          MOV      r1,#0x2000
+000028  4801              LDR      r0,|L7.48|
+00002a  f7fffffe          BL       GPIO_SetBits
 ;;;64     }
-00002c  bd10              POP      {r4,pc}
+00002e  bd10              POP      {r4,pc}
 ;;;65     
                           ENDP
 
-00002e  0000              DCW      0x0000
                   |L7.48|
                           DCD      0x40010c00
 
