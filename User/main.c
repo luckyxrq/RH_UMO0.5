@@ -192,7 +192,9 @@ static void vTaskMsgPro(void *pvParameters)
 {
     while(1)
     {
-		bsp_SendReportFrame();
+		
+		DEBUG("ReportFrame:%d\r\n",sizeof(ReportFrame));
+		//bsp_SendReportFrame();
 		vTaskDelay(50);
     }
 }

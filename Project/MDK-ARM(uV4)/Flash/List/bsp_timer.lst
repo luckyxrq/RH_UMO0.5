@@ -38713,6 +38713,37 @@ L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
 N#define __BSP_COMMUNICATION_H
 N
+N#pragma pack(1)
+Ntypedef struct
+N{
+N	uint8_t sof1;                  //0xAA
+N	uint8_t sof2;                  //0xAA
+N	uint8_t sof3;                  //0xAA
+N	uint8_t identifier;	           //0x25
+N	uint8_t size_of_payload_field; //0x04
+N	int32_t left_wheel_pulse_count;
+N	int32_t right_wheel_pulse_count;
+N	uint8_t button_control_cmd;
+N	uint16_t distance_of_left_infrared;
+N	uint16_t distance_of_right_infrared;
+N	uint16_t distance_of_front_infrared;
+N	int16_t  angle_deg;
+N	uint16_t adc_1;
+N	uint16_t adc_2;
+N	uint16_t adc_3;
+N	uint16_t adc_4;
+N	int16_t acc_x;
+N	int16_t acc_y;
+N	int16_t acc_z;
+N	uint16_t obstacle_signal;
+N	uint8_t battery_level_soc;
+N	uint8_t charge_status;
+N	uint8_t checksum_msb;
+N	uint8_t checksum_lsb;
+N	uint8_t end_of_falg;           //0x55
+N}ReportFrame;
+N#pragma pack()
+N
 Nvoid bsp_SendReportFrame(void);
 N
 N#endif

@@ -38688,30 +38688,6 @@ L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
 N#define __BSP_COMMUNICATION_H
 N
-Nvoid bsp_SendReportFrame(void);
-N
-N#endif
-L 185 "..\..\User\bsp\bsp.h" 2
-N
-N
-N/* 提供给其他C文件调用的函数 */
-Nvoid bsp_Init(void);
-Nvoid bsp_Idle(void);
-Nvoid BSP_Tick_Init (void);
-N
-N#endif
-N
-N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 2 "..\..\User\app\src\bsp_communication.c" 2
-N
-N#define  MIN_ID_ENVIRONMENT 	0x30	// 环境
-N#define  MIN_ID_MOTION  		0x25	// 运动
-N#define  MIN_ID_POSE  			0x20	// 姿势
-N#define  MIN_ID_MAP 			0x40	// 地图
-N
-N
-Nuint8_t  buf[256] = {0};       /*用于存储帧，使用全局变量，防止频繁开辟栈空间*/
-N
 N#pragma pack(1)
 Ntypedef struct
 N{
@@ -38741,6 +38717,32 @@ N	uint8_t checksum_msb;
 N	uint8_t checksum_lsb;
 N	uint8_t end_of_falg;           //0x55
 N}ReportFrame;
+N#pragma pack()
+N
+Nvoid bsp_SendReportFrame(void);
+N
+N#endif
+L 185 "..\..\User\bsp\bsp.h" 2
+N
+N
+N/* 提供给其他C文件调用的函数 */
+Nvoid bsp_Init(void);
+Nvoid bsp_Idle(void);
+Nvoid BSP_Tick_Init (void);
+N
+N#endif
+N
+N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+L 2 "..\..\User\app\src\bsp_communication.c" 2
+N
+N#define  MIN_ID_ENVIRONMENT 	0x30	// 环境
+N#define  MIN_ID_MOTION  		0x25	// 运动
+N#define  MIN_ID_POSE  			0x20	// 姿势
+N#define  MIN_ID_MAP 			0x40	// 地图
+N
+N
+Nuint8_t  buf[256] = {0};       /*用于存储帧，使用全局变量，防止频繁开辟栈空间*/
+N
 N
 N
 Nstatic ReportFrame reportFrame;
