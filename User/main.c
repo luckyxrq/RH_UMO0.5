@@ -114,10 +114,9 @@ static void vTaskTaskUserIF(void *pvParameters)
 	bsp_SetMotorTargetSpeed(MotorRight,250);
 #endif
 
-	vTaskDelay(2000);
+	vTaskDelay(1000);
 	bsp_AngleRst();
-	vTaskDelay(2000);
-	
+
     while(1)
     {
 		#if 0
@@ -193,8 +192,8 @@ static void vTaskMsgPro(void *pvParameters)
     while(1)
     {
 		
-		DEBUG("ReportFrame:%d\r\n",sizeof(ReportFrame));
-		//bsp_SendReportFrame();
+		//DEBUG("ReportFrame:%d\r\n",sizeof(ReportFrame));
+		bsp_SendReportFrame();
 		vTaskDelay(50);
     }
 }

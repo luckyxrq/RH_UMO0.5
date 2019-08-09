@@ -46233,10 +46233,9 @@ S	bsp_SetMotorTargetSpeed(MotorLeft,250);
 S	bsp_SetMotorTargetSpeed(MotorRight,250);
 N#endif
 N
-N	vTaskDelay(2000);
+N	vTaskDelay(1000);
 N	bsp_AngleRst();
-N	vTaskDelay(2000);
-N	
+N
 N    while(1)
 N    {
 N		#if 0
@@ -46316,9 +46315,8 @@ N{
 N    while(1)
 N    {
 N		
-N		DEBUG("ReportFrame:%d\r\n",sizeof(ReportFrame));
-X		printf ("ReportFrame:%d\r\n",sizeof(ReportFrame));
-N		//bsp_SendReportFrame();
+N		//DEBUG("ReportFrame:%d\r\n",sizeof(ReportFrame));
+N		bsp_SendReportFrame();
 N		vTaskDelay(50);
 N    }
 N}
