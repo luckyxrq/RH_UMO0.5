@@ -9,13 +9,23 @@ typedef struct
 }Motor;
 
 
+typedef struct
+{
+	bool isRunning;
+	uint32_t tick;
+}Vacuum;
+
+
 /*电机管理结构体数组*/
 Motor motor[MOTOR_NUM];
 static PID pid[2];
+static Vacuum vacuum;
 
 static void bspInitPWM(void);
 static float pidabs(float val);
 void bsp_InitMotorPid(MotorSN sn);
+static void bsp_InitVacuum(void);
+
 
 /*
 *********************************************************************************************************
@@ -31,7 +41,61 @@ void bsp_InitDC_Motor(void)
 	bspInitPWM();
 	bsp_InitMotorPid(MotorLeft);
 	bsp_InitMotorPid(MotorRight);
+	bsp_InitVacuum();
 }
+
+
+static void bsp_InitVacuum(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	/* 打开GPIO时钟 */
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	GPIO_ResetBits(GPIOA,GPIO_Pin_0);
+}
+
+void bsp_VacuumClean(void)
+{	
+	if(!vacuum.isRunning)
+		return ;
+	
+	++vacuum.tick;
+	
+	if(vacuum.tick <= 20)
+	{
+		GPIO_SetBits(GPIOA,GPIO_Pin_0);
+	}
+	else if(vacuum.tick > 20 && vacuum.tick <=40)
+	{
+		GPIO_ResetBits(GPIOA,GPIO_Pin_0);
+	}
+	else
+	{
+		vacuum.tick = 0 ;
+	}
+}
+
+
+void bsp_StartVacuum(void)
+{
+	vacuum.tick = 0 ;
+	vacuum.isRunning = true;
+}
+
+void bsp_StopVacuum(void)
+{
+	vacuum.isRunning = false;
+	vacuum.tick = 0 ;
+}
+
+
 
 /*
 *********************************************************************************************************
@@ -44,17 +108,20 @@ void bsp_InitDC_Motor(void)
 */
 static void bspInitPWM(void)
 {
+	/*轮机*/
 	GPIO_PinRemapConfig(GPIO_FullRemap_TIM1, ENABLE);           //Timer1重映射     
 	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 	
+	/*边刷，滚刷*/
 	GPIO_PinRemapConfig(GPIO_Remap_TIM4, ENABLE);           //Timer4重映射    
 	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_12, TIM4, 1,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_13, TIM4, 2,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_14, TIM4, 3,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
 	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_15, TIM4, 4,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
+	
 }
 
 /*

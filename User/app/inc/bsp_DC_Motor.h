@@ -12,7 +12,8 @@ typedef enum
 	MotorLeft = 0 , /*左边电机编号*/
 	MotorRight,     /*右边电机编号*/
 	MotorRoller,
-	MotorBrush
+	MotorBrush,
+	MotorVacuum
 }MotorSN;
 
 typedef enum
@@ -48,5 +49,8 @@ void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比
 void bsp_PidControlAct(void);
 void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
 void bsp_InitMotorPid(MotorSN sn);
+void bsp_VacuumClean(void);
+void bsp_StartVacuum(void);
+void bsp_StopVacuum(void);
 #endif
 

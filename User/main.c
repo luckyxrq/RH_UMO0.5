@@ -111,7 +111,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 
 #if 1
 	bsp_SetMotorTargetSpeed(MotorLeft,250);
-	bsp_SetMotorTargetSpeed(MotorRight,250);
+	bsp_SetMotorTargetSpeed(MotorRight,250); 
 #endif
 
 #if 1

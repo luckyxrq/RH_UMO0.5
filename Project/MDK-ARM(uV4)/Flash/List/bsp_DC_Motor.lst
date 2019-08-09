@@ -38328,7 +38328,8 @@ N{
 N	MotorLeft = 0 , /*×ó±ßµç»ú±àºÅ*/
 N	MotorRight,     /*ÓÒ±ßµç»ú±àºÅ*/
 N	MotorRoller,
-N	MotorBrush
+N	MotorBrush,
+N	MotorVacuum
 N}MotorSN;
 N
 Ntypedef enum
@@ -38364,6 +38365,9 @@ Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* Ö±½ÓÊ¹ÓÃÕ¼¿Õ±
 Nvoid bsp_PidControlAct(void);
 Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
 Nvoid bsp_InitMotorPid(MotorSN sn);
+Nvoid bsp_VacuumClean(void);
+Nvoid bsp_StartVacuum(void);
+Nvoid bsp_StopVacuum(void);
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2
@@ -38659,14 +38663,25 @@ N
 N}Motor;
 N
 N
+Ntypedef struct
+N{
+N	bool isRunning;
+X	_Bool isRunning;
+N	uint32_t tick;
+N}Vacuum;
+N
+N
 N/*µç»ú¹ÜÀí½á¹¹ÌåÊý×é*/
 NMotor motor[MOTOR_NUM];
 XMotor motor[2];
 Nstatic PID pid[2];
+Nstatic Vacuum vacuum;
 N
 Nstatic void bspInitPWM(void);
 Nstatic float pidabs(float val);
 Nvoid bsp_InitMotorPid(MotorSN sn);
+Nstatic void bsp_InitVacuum(void);
+N
 N
 N/*
 N*********************************************************************************************************
@@ -38682,7 +38697,69 @@ N{
 N	bspInitPWM();
 N	bsp_InitMotorPid(MotorLeft);
 N	bsp_InitMotorPid(MotorRight);
+N	bsp_InitVacuum();
 N}
+N
+N
+Nstatic void bsp_InitVacuum(void)
+N{
+N	GPIO_InitTypeDef GPIO_InitStructure;
+N
+N	/* ´ò¿ªGPIOÊ±ÖÓ */
+N	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+X	RCC_APB2PeriphClockCmd(((uint32_t)0x00000004), ENABLE);
+N
+N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	
+N	
+N	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+N	GPIO_Init(GPIOA, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)), &GPIO_InitStructure);
+N	
+N	GPIO_ResetBits(GPIOA,GPIO_Pin_0);
+X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x0001));
+N}
+N
+Nvoid bsp_VacuumClean(void)
+N{	
+N	if(!vacuum.isRunning)
+N		return ;
+N	
+N	++vacuum.tick;
+N	
+N	if(vacuum.tick <= 20)
+N	{
+N		GPIO_SetBits(GPIOA,GPIO_Pin_0);
+X		GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x0001));
+N	}
+N	else if(vacuum.tick > 20 && vacuum.tick <=40)
+N	{
+N		GPIO_ResetBits(GPIOA,GPIO_Pin_0);
+X		GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x0001));
+N	}
+N	else
+N	{
+N		vacuum.tick = 0 ;
+N	}
+N}
+N
+N
+Nvoid bsp_StartVacuum(void)
+N{
+N	vacuum.tick = 0 ;
+N	vacuum.isRunning = true;
+X	vacuum.isRunning = 1;
+N}
+N
+Nvoid bsp_StopVacuum(void)
+N{
+N	vacuum.isRunning = false;
+X	vacuum.isRunning = 0;
+N	vacuum.tick = 0 ;
+N}
+N
+N
 N
 N/*
 N*********************************************************************************************************
@@ -38695,6 +38772,7 @@ N*******************************************************************************
 N*/
 Nstatic void bspInitPWM(void)
 N{
+N	/*ÂÖ»ú*/
 N	GPIO_PinRemapConfig(GPIO_FullRemap_TIM1, ENABLE);           //Timer1ÖØÓ³Éä     
 X	GPIO_PinRemapConfig(((uint32_t)0x001600C0), ENABLE);           
 N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, MAXPWM);     //µ±ÆµÂÊÎª0£¬Õ¼¿Õ±ÈÎª100%Ê±£¬GPIOÊä³ö1
@@ -38706,6 +38784,7 @@ X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x180
 N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, MAXPWM);     //µ±ÆµÂÊÎª0£¬Õ¼¿Õ±ÈÎª100%Ê±£¬GPIOÊä³ö1
 X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0, 10000);     
 N	
+N	/*±ßË¢£¬¹öË¢*/
 N	GPIO_PinRemapConfig(GPIO_Remap_TIM4, ENABLE);           //Timer4ÖØÓ³Éä    
 X	GPIO_PinRemapConfig(((uint32_t)0x00001000), ENABLE);           
 N	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_12, TIM4, 1,0, MAXPWM);     //µ±ÆµÂÊÎª0£¬Õ¼¿Õ±ÈÎª100%Ê±£¬GPIOÊä³ö1
@@ -38716,6 +38795,7 @@ N	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_14, TIM4, 3,0, MAXPWM);     //µ±ÆµÂÊÎª0£¬Õ¼¿Õ
 X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), ((uint16_t)0x4000), ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), 3,0, 10000);     
 N	bsp_SetTIMOutPWM(GPIOD, GPIO_Pin_15, TIM4, 4,0, MAXPWM);     //µ±ÆµÂÊÎª0£¬Õ¼¿Õ±ÈÎª100%Ê±£¬GPIOÊä³ö1
 X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), ((uint16_t)0x8000), ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), 4,0, 10000);     
+N	
 N}
 N
 N/*

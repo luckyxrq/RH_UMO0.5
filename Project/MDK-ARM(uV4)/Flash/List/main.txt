@@ -468,7 +468,7 @@
 ;;;113    	bsp_SetMotorTargetSpeed(MotorLeft,250);
 000002  2000              MOVS     r0,#0
 000004  f7fffffe          BL       bsp_SetMotorTargetSpeed
-;;;114    	bsp_SetMotorTargetSpeed(MotorRight,250);
+;;;114    	bsp_SetMotorTargetSpeed(MotorRight,250); 
 000008  490f              LDR      r1,|L8.72|
 00000a  2001              MOVS     r0,#1
 00000c  f7fffffe          BL       bsp_SetMotorTargetSpeed

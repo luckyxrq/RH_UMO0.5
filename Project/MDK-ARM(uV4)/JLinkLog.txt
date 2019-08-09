@@ -677,3 +677,6 @@ T56F8 047:567 JLINK_ReadMem (0x0000001C, 0x003C Bytes, ...) -- CPU_ReadMem(60 by
 T56F8 047:571 JLINK_ReadMem (0x0000001E, 0x0002 Bytes, ...) -- CPU_ReadMem(2 bytes @ 0x0800001E) - Data: AA AA  returns 0x01 (0002ms, 0737ms total)
 T56F8 047:573 JLINK_ReadMem (0x0000001E, 0x0002 Bytes, ...) -- CPU_ReadMem(2 bytes @ 0x0800001E) - Data: AA AA  returns 0x01 (0002ms, 0739ms total)
 T56F8 047:575 JLINK_ReadMem (0x0000001E, 0x0002 Bytes, ...) -- CPU_ReadMem(2 bytes @ 0x0800001E) - Data: AA AA  returns 0x01 (0002ms, 0741ms total)
+T56F8 361:133 JLINK_Close() -- CPU is running -- CPU_WriteMem(4 bytes @ 0xE0002008) -- CPU is running -- CPU_WriteMem(4 bytes @ 0xE000200C) -- CPU is running -- CPU_WriteMem(4 bytes @ 0xE0002010) -- CPU is running -- CPU_WriteMem(4 bytes @ 0xE0002014) -- CPU is running -- CPU_WriteMem(4 bytes @ 0xE0002018) -- CPU is running -- CPU_WriteMem(4 bytes @ 0xE000201C) >0x0D TIF> >0x0D TIF> >0x0D TIF> >0x0D TIF> >0x0D TIF> >0x0D TIF> >0x0D TIF> >0x0D TIF> >0x0D TIF> >0x0D TIF> (0030ms, 0771ms total)
+T56F8 361:133  (0030ms, 0771ms total)
+T56F8 361:133 Closed (0030ms, 0771ms total)

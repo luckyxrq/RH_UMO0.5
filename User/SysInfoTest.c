@@ -58,6 +58,8 @@ void TIM6_IRQHandler( void )
 {
 	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 	{
+		bsp_VacuumClean();
+		
 		ulHighFrequencyTimerTicks++;
 		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);
 	}

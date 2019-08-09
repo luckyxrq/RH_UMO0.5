@@ -11,30 +11,33 @@
 ;;;58     {
 ;;;59     	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 000002  2101              MOVS     r1,#1
-000004  4806              LDR      r0,|L1.32|
+000004  4807              LDR      r0,|L1.36|
 000006  f7fffffe          BL       TIM_GetITStatus
-00000a  b140              CBZ      r0,|L1.30|
+00000a  b150              CBZ      r0,|L1.34|
 ;;;60     	{
-;;;61     		ulHighFrequencyTimerTicks++;
-00000c  4805              LDR      r0,|L1.36|
-00000e  6800              LDR      r0,[r0,#0]  ; ulHighFrequencyTimerTicks
-000010  1c40              ADDS     r0,r0,#1
-000012  4904              LDR      r1,|L1.36|
-000014  6008              STR      r0,[r1,#0]  ; ulHighFrequencyTimerTicks
-;;;62     		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);
-000016  2101              MOVS     r1,#1
-000018  4801              LDR      r0,|L1.32|
-00001a  f7fffffe          BL       TIM_ClearITPendingBit
-                  |L1.30|
-;;;63     	}
-;;;64     }
-00001e  bd10              POP      {r4,pc}
-;;;65     
+;;;61     		bsp_VacuumClean();
+00000c  f7fffffe          BL       bsp_VacuumClean
+;;;62     		
+;;;63     		ulHighFrequencyTimerTicks++;
+000010  4805              LDR      r0,|L1.40|
+000012  6800              LDR      r0,[r0,#0]  ; ulHighFrequencyTimerTicks
+000014  1c40              ADDS     r0,r0,#1
+000016  4904              LDR      r1,|L1.40|
+000018  6008              STR      r0,[r1,#0]  ; ulHighFrequencyTimerTicks
+;;;64     		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);
+00001a  2101              MOVS     r1,#1
+00001c  4801              LDR      r0,|L1.36|
+00001e  f7fffffe          BL       TIM_ClearITPendingBit
+                  |L1.34|
+;;;65     	}
+;;;66     }
+000022  bd10              POP      {r4,pc}
+;;;67     
                           ENDP
 
-                  |L1.32|
-                          DCD      0x40001000
                   |L1.36|
+                          DCD      0x40001000
+                  |L1.40|
                           DCD      ulHighFrequencyTimerTicks
 
                           AREA ||i.vSetupSysInfoTest||, CODE, READONLY, ALIGN=2
