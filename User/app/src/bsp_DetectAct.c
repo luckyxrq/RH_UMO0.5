@@ -619,14 +619,14 @@ void bsp_DetectDeal(void)
 #if 1	
 	for(i=0;i<=9;i++)
 	{
-		if(i == 1) continue;
+		if(i == 5) continue;
 		
 		if(adcRealTime[i] >=1.0F)
 		{
 			if(flgdec == 0)
 			{
-				bsp_SetMotorTargetSpeed(MotorLeft,150);
-				bsp_SetMotorTargetSpeed(MotorRight,150);
+				bsp_SetMotorTargetSpeed(MotorLeft,120);
+				bsp_SetMotorTargetSpeed(MotorRight,120);
 				flgdec = 1 ;
 			}
 			

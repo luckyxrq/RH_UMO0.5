@@ -273,7 +273,7 @@ void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed)
 	}
 	
 	
-	bsp_MotorBrake(sn);
+	bsp_MotorCoast(sn);
 	
 	
 	
@@ -324,7 +324,7 @@ void bsp_InitMotorPid(MotorSN sn)
 			
 			pid[MotorLeft].kiLimit = 20000 ;
 			pid[MotorLeft].fitK = 0.8 ;
-			pid[MotorLeft].fitD = 5000 ;
+			pid[MotorLeft].fitD = 5600 ;
 		}break;
 		
 		case MotorRight:
@@ -345,7 +345,7 @@ void bsp_InitMotorPid(MotorSN sn)
 			
 			pid[MotorRight].kiLimit = 20000 ;
 			pid[MotorRight].fitK = 0.8 ;
-			pid[MotorRight].fitD = 5000 ;
+			pid[MotorRight].fitD = 5600 ;
 		}break;
 	}
 }

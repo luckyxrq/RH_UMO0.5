@@ -38978,7 +38978,7 @@ N		return ;
 N	}
 N	
 N	
-N	bsp_MotorBrake(sn);
+N	bsp_MotorCoast(sn);
 N	
 N	
 N	
@@ -39032,7 +39032,7 @@ X			pid[MotorLeft].pwmMax = 10000 ;
 N			
 N			pid[MotorLeft].kiLimit = 20000 ;
 N			pid[MotorLeft].fitK = 0.8 ;
-N			pid[MotorLeft].fitD = 5000 ;
+N			pid[MotorLeft].fitD = 5600 ;
 N		}break;
 N		
 N		case MotorRight:
@@ -39054,7 +39054,7 @@ X			pid[MotorRight].pwmMax = 10000 ;
 N			
 N			pid[MotorRight].kiLimit = 20000 ;
 N			pid[MotorRight].fitK = 0.8 ;
-N			pid[MotorRight].fitD = 5000 ;
+N			pid[MotorRight].fitD = 5600 ;
 N		}break;
 N	}
 N}

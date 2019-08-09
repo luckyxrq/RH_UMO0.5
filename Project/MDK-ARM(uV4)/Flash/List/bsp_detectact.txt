@@ -2205,8 +2205,8 @@
 000030  e01b              B        |L4.106|
                   |L4.50|
 ;;;621    	{
-;;;622    		if(i == 1) continue;
-000032  2c01              CMP      r4,#1
+;;;622    		if(i == 5) continue;
+000032  2c05              CMP      r4,#5
 000034  d100              BNE      |L4.56|
 000036  e016              B        |L4.102|
                   |L4.56|
@@ -2223,11 +2223,11 @@
 00004a  7800              LDRB     r0,[r0,#0]  ; flgdec
 00004c  b950              CBNZ     r0,|L4.100|
 ;;;627    			{
-;;;628    				bsp_SetMotorTargetSpeed(MotorLeft,150);
+;;;628    				bsp_SetMotorTargetSpeed(MotorLeft,120);
 00004e  4911              LDR      r1,|L4.148|
 000050  2000              MOVS     r0,#0
 000052  f7fffffe          BL       bsp_SetMotorTargetSpeed
-;;;629    				bsp_SetMotorTargetSpeed(MotorRight,150);
+;;;629    				bsp_SetMotorTargetSpeed(MotorRight,120);
 000056  490f              LDR      r1,|L4.148|
 000058  2001              MOVS     r0,#1
 00005a  f7fffffe          BL       bsp_SetMotorTargetSpeed
@@ -2271,7 +2271,7 @@
                   |L4.144|
                           DCD      flgdec
                   |L4.148|
-                          DCD      0x43160000
+                          DCD      0x42f00000
 
                           AREA ||i.bsp_DetectStart||, CODE, READONLY, ALIGN=2
 

@@ -183,7 +183,7 @@
 ;;;326    			pid[MotorLeft].fitK = 0.8 ;
 000032  4915              LDR      r1,|L3.136|
 000034  6291              STR      r1,[r2,#0x28]  ; pid
-;;;327    			pid[MotorLeft].fitD = 5000 ;
+;;;327    			pid[MotorLeft].fitD = 5600 ;
 000036  4915              LDR      r1,|L3.140|
 000038  62d1              STR      r1,[r2,#0x2c]  ; pid
 ;;;328    		}break;
@@ -229,7 +229,7 @@
 ;;;347    			pid[MotorRight].fitK = 0.8 ;
 000068  4a07              LDR      r2,|L3.136|
 00006a  658a              STR      r2,[r1,#0x58]
-;;;348    			pid[MotorRight].fitD = 5000 ;
+;;;348    			pid[MotorRight].fitD = 5600 ;
 00006c  4a07              LDR      r2,|L3.140|
 00006e  65ca              STR      r2,[r1,#0x5c]
 ;;;349    		}break;
@@ -254,7 +254,7 @@
                   |L3.136|
                           DCD      0x3f4ccccd
                   |L3.140|
-                          DCD      0x459c4000
+                          DCD      0x45af0000
 
                           AREA ||i.bsp_InitVacuum||, CODE, READONLY, ALIGN=2
 
@@ -1111,7 +1111,7 @@
 ;;;273    	}
 ;;;274    	
 ;;;275    	
-;;;276    	bsp_MotorBrake(sn);
+;;;276    	bsp_MotorCoast(sn);
 ;;;277    	
 ;;;278    	
 ;;;279    	
@@ -1133,7 +1133,7 @@
 000012  bd70              POP      {r4-r6,pc}
                   |L9.20|
 000014  4620              MOV      r0,r4                 ;276
-000016  f7fffffe          BL       bsp_MotorBrake
+000016  f7fffffe          BL       bsp_MotorCoast
 00001a  b114              CBZ      r4,|L9.34|
 00001c  2c01              CMP      r4,#1                 ;280
 00001e  d10c              BNE      |L9.58|
