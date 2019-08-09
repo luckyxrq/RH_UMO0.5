@@ -684,7 +684,7 @@ N#define configCPU_CLOCK_HZ			( ( unsigned long ) 72000000 )
 N#define configTICK_RATE_HZ			( ( TickType_t ) 1000 )
 N#define configMAX_PRIORITIES		( 5 )
 N#define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 )
-N#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 17 * 1024 ) )
+N#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 28 * 1024 ) )
 N#define configMAX_TASK_NAME_LEN		( 16 )
 N#define configUSE_TRACE_FACILITY	1
 N#define configUSE_16_BIT_TICKS		0
@@ -38704,8 +38704,16 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_communication.c" 2
 N
+N#define  MIN_ID_ENVIRONMENT 	0x30	// 环境
+N#define  MIN_ID_MOTION  		0x25	// 运动
+N#define  MIN_ID_POSE  			0x20	// 姿势
+N#define  MIN_ID_MAP 			0x40	// 地图
+N
+N
+Nuint8_t  buf[256] = {0};       /*用于存储帧，使用全局变量，防止频繁开辟栈空间*/
+N
 N#pragma pack(1)
-Ntypedef struct _s_min_id_environment
+Ntypedef struct
 N{
 N	uint8_t sof1;                  //0xAA
 N	uint8_t sof2;                  //0xAA
@@ -38741,10 +38749,17 @@ Nstatic void bsp_FillReportFrame(void);
 N
 N
 N
-N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_SendReportFrame
+N*	功能说明: 发送数据帧
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
 Nvoid bsp_SendReportFrame(void)
 N{
-N	uint8_t  buf[256] = {0};       /*用于存储帧*/
+N	
 N	uint32_t len = sizeof(reportFrame);/*帧大小*/
 N	uint8_t* src = (uint8_t*)&reportFrame;
 N	uint32_t i = 0 ;
@@ -38779,16 +38794,18 @@ N	uint8_t* src = (uint8_t*)&reportFrame;
 N	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
 N	int32_t odometerL = bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
 N	int32_t odometerR = bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
+N	
 N	/*消除编译器警告*/
 N	UNUSED(reportFrame);
 X	(void)(reportFrame);
 N	
 N	/*大小端转换*/
-N	reportFrame.sof1 = 0xAA;                   //恒定为0xAA
-N	reportFrame.sof2 = 0xAA;                   //恒定为0xAA
-N	reportFrame.sof3 = 0xAA;                   //恒定为0xAA
-N	reportFrame.identifier = 0x25;             //恒定为0x25
-N	reportFrame.size_of_payload_field = 0x04;  //恒定为0x04
+N	reportFrame.sof1 = 0xAA;                     //恒定为0xAA
+N	reportFrame.sof2 = 0xAA;                     //恒定为0xAA
+N	reportFrame.sof3 = 0xAA;                     //恒定为0xAA
+N	reportFrame.identifier = MIN_ID_ENVIRONMENT; //恒定为0x25
+X	reportFrame.identifier = 0x30; 
+N	reportFrame.size_of_payload_field = 0x1B+8; 
 N	reportFrame.left_wheel_pulse_count =  BEBufToUint32((uint8_t*)&odometerL);
 N	reportFrame.right_wheel_pulse_count = BEBufToUint32((uint8_t*)&odometerR);
 N	reportFrame.button_control_cmd = 0 ;
@@ -38811,13 +38828,21 @@ N	reportFrame.checksum_lsb = 0 ;
 N	reportFrame.end_of_falg = 0x55 ;                  /*恒定0x55*/
 N	
 N	/*计算校验*/
-N	chk = bsp_CalcChk(src+3,len-7);
+N	chk = bsp_CalcChk(src+3,len-6);
 N	reportFrame.checksum_msb = chk >> 8;
 N	reportFrame.checksum_lsb = chk & 0x00FF;
 N}
 N
 N
-Nuint16_t bsp_CalcChk(uint8_t *buf, uint8_t len)
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_CalcChk
+N*	功能说明: 计算校验值
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nstatic uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len)
 N{
 N	uint8_t  i;
 N	uint16_t rx_sum1=0x00FFu;

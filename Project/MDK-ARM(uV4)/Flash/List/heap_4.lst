@@ -1703,7 +1703,7 @@ N#define configCPU_CLOCK_HZ			( ( unsigned long ) 72000000 )
 N#define configTICK_RATE_HZ			( ( TickType_t ) 1000 )
 N#define configMAX_PRIORITIES		( 5 )
 N#define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 )
-N#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 17 * 1024 ) )
+N#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 28 * 1024 ) )
 N#define configMAX_TASK_NAME_LEN		( 16 )
 N#define configUSE_TRACE_FACILITY	1
 N#define configUSE_16_BIT_TICKS		0
@@ -6191,7 +6191,7 @@ S	heap - probably so it can be placed in a special segment or address. */
 S	extern uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
 N#else
 N	static uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
-X	static uint8_t ucHeap[ ( ( size_t ) ( 17 * 1024 ) ) ];
+X	static uint8_t ucHeap[ ( ( size_t ) ( 28 * 1024 ) ) ];
 N#endif /* configAPPLICATION_ALLOCATED_HEAP */
 N
 N/* Define the linked list structure.  This is used to link free blocks in order
@@ -6491,7 +6491,7 @@ NBlockLink_t *pxFirstFreeBlock;
 Nuint8_t *pucAlignedHeap;
 Nsize_t uxAddress;
 Nsize_t xTotalHeapSize = configTOTAL_HEAP_SIZE;
-Xsize_t xTotalHeapSize = ( ( size_t ) ( 17 * 1024 ) );
+Xsize_t xTotalHeapSize = ( ( size_t ) ( 28 * 1024 ) );
 N
 N	/* Ensure the heap starts on a correctly aligned boundary. */
 N	uxAddress = ( size_t ) ucHeap;

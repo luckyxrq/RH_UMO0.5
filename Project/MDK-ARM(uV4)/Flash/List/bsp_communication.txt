@@ -5,165 +5,166 @@
                           AREA ||i.bsp_CalcChk||, CODE, READONLY, ALIGN=1
 
                   bsp_CalcChk PROC
-;;;114    
-;;;115    uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len)
+;;;138    */
+;;;139    static uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len)
 000000  b530              PUSH     {r4,r5,lr}
-;;;116    {
+;;;140    {
 000002  4604              MOV      r4,r0
 000004  460d              MOV      r5,r1
-;;;117    	uint8_t  i;
-;;;118    	uint16_t rx_sum1=0x00FFu;
+;;;141    	uint8_t  i;
+;;;142    	uint16_t rx_sum1=0x00FFu;
 000006  21ff              MOVS     r1,#0xff
-;;;119    	uint16_t rx_sum2=0x00FFu;
+;;;143    	uint16_t rx_sum2=0x00FFu;
 000008  22ff              MOVS     r2,#0xff
-;;;120    	
-;;;121    	for(i=0; i<len; i++)
+;;;144    	
+;;;145    	for(i=0; i<len; i++)
 00000a  2300              MOVS     r3,#0
 00000c  e007              B        |L1.30|
                   |L1.14|
-;;;122    	{
-;;;123    		rx_sum2 += rx_sum1 += buf[i];
+;;;146    	{
+;;;147    		rx_sum2 += rx_sum1 += buf[i];
 00000e  5ce0              LDRB     r0,[r4,r3]
 000010  4408              ADD      r0,r0,r1
 000012  b280              UXTH     r0,r0
 000014  4601              MOV      r1,r0
 000016  4410              ADD      r0,r0,r2
 000018  b282              UXTH     r2,r0
-00001a  1c58              ADDS     r0,r3,#1              ;121
-00001c  b2c3              UXTB     r3,r0                 ;121
+00001a  1c58              ADDS     r0,r3,#1              ;145
+00001c  b2c3              UXTB     r3,r0                 ;145
                   |L1.30|
-00001e  42ab              CMP      r3,r5                 ;121
+00001e  42ab              CMP      r3,r5                 ;145
 000020  dbf5              BLT      |L1.14|
-;;;124    	}
-;;;125    	
-;;;126    	rx_sum1 = (rx_sum1&0x00FFu) + (rx_sum1>>8);
+;;;148    	}
+;;;149    	
+;;;150    	rx_sum1 = (rx_sum1&0x00FFu) + (rx_sum1>>8);
 000022  b2c8              UXTB     r0,r1
 000024  eb002121          ADD      r1,r0,r1,ASR #8
-;;;127    	rx_sum2 = (rx_sum2&0x00FFu) + (rx_sum2>>8);
+;;;151    	rx_sum2 = (rx_sum2&0x00FFu) + (rx_sum2>>8);
 000028  b2d0              UXTB     r0,r2
 00002a  eb002222          ADD      r2,r0,r2,ASR #8
-;;;128    	
-;;;129    	return rx_sum2<<8|rx_sum1;
+;;;152    	
+;;;153    	return rx_sum2<<8|rx_sum1;
 00002e  ea412002          ORR      r0,r1,r2,LSL #8
 000032  b280              UXTH     r0,r0
-;;;130    }
+;;;154    }
 000034  bd30              POP      {r4,r5,pc}
-;;;131    
+;;;155    
                           ENDP
 
 
                           AREA ||i.bsp_FillReportFrame||, CODE, READONLY, ALIGN=2
 
                   bsp_FillReportFrame PROC
-;;;69     */
-;;;70     void bsp_FillReportFrame(void)
+;;;84     */
+;;;85     void bsp_FillReportFrame(void)
 000000  b5fe              PUSH     {r1-r7,lr}
-;;;71     {
-;;;72     	uint16_t chk = 0 ;
+;;;86     {
+;;;87     	uint16_t chk = 0 ;
 000002  2400              MOVS     r4,#0
-;;;73     	uint32_t len = sizeof(reportFrame);/*帧大小*/
+;;;88     	uint32_t len = sizeof(reportFrame);/*帧大小*/
 000004  252b              MOVS     r5,#0x2b
-;;;74     	uint8_t* src = (uint8_t*)&reportFrame;
+;;;89     	uint8_t* src = (uint8_t*)&reportFrame;
 000006  4e26              LDR      r6,|L2.160|
-;;;75     	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
+;;;90     	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
 000008  f7fffffe          BL       bsp_AngleReadRaw
 00000c  9002              STR      r0,[sp,#8]
-;;;76     	int32_t odometerL = bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
+;;;91     	int32_t odometerL = bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
 00000e  2000              MOVS     r0,#0
 000010  f7fffffe          BL       bsp_encoderGetOdometer
 000014  9001              STR      r0,[sp,#4]
-;;;77     	int32_t odometerR = bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
+;;;92     	int32_t odometerR = bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
 000016  2001              MOVS     r0,#1
 000018  f7fffffe          BL       bsp_encoderGetOdometer
 00001c  9000              STR      r0,[sp,#0]
-;;;78     	/*消除编译器警告*/
-;;;79     	UNUSED(reportFrame);
-;;;80     	
-;;;81     	/*大小端转换*/
-;;;82     	reportFrame.sof1 = 0xAA;                   //恒定为0xAA
+;;;93     	
+;;;94     	/*消除编译器警告*/
+;;;95     	UNUSED(reportFrame);
+;;;96     	
+;;;97     	/*大小端转换*/
+;;;98     	reportFrame.sof1 = 0xAA;                     //恒定为0xAA
 00001e  20aa              MOVS     r0,#0xaa
 000020  4631              MOV      r1,r6
 000022  7008              STRB     r0,[r1,#0]
-;;;83     	reportFrame.sof2 = 0xAA;                   //恒定为0xAA
+;;;99     	reportFrame.sof2 = 0xAA;                     //恒定为0xAA
 000024  7048              STRB     r0,[r1,#1]
-;;;84     	reportFrame.sof3 = 0xAA;                   //恒定为0xAA
+;;;100    	reportFrame.sof3 = 0xAA;                     //恒定为0xAA
 000026  7088              STRB     r0,[r1,#2]
-;;;85     	reportFrame.identifier = 0x25;             //恒定为0x25
-000028  2025              MOVS     r0,#0x25
+;;;101    	reportFrame.identifier = MIN_ID_ENVIRONMENT; //恒定为0x25
+000028  2030              MOVS     r0,#0x30
 00002a  70c8              STRB     r0,[r1,#3]
-;;;86     	reportFrame.size_of_payload_field = 0x04;  //恒定为0x04
-00002c  2004              MOVS     r0,#4
+;;;102    	reportFrame.size_of_payload_field = 0x1B+8; 
+00002c  2023              MOVS     r0,#0x23
 00002e  7108              STRB     r0,[r1,#4]
-;;;87     	reportFrame.left_wheel_pulse_count =  BEBufToUint32((uint8_t*)&odometerL);
+;;;103    	reportFrame.left_wheel_pulse_count =  BEBufToUint32((uint8_t*)&odometerL);
 000030  a801              ADD      r0,sp,#4
 000032  f7fffffe          BL       BEBufToUint32
 000036  4631              MOV      r1,r6
 000038  f8c10005          STR      r0,[r1,#5]  ; reportFrame
-;;;88     	reportFrame.right_wheel_pulse_count = BEBufToUint32((uint8_t*)&odometerR);
+;;;104    	reportFrame.right_wheel_pulse_count = BEBufToUint32((uint8_t*)&odometerR);
 00003c  4668              MOV      r0,sp
 00003e  f7fffffe          BL       BEBufToUint32
 000042  4631              MOV      r1,r6
 000044  f8c10009          STR      r0,[r1,#9]  ; reportFrame
-;;;89     	reportFrame.button_control_cmd = 0 ;
+;;;105    	reportFrame.button_control_cmd = 0 ;
 000048  2000              MOVS     r0,#0
 00004a  7348              STRB     r0,[r1,#0xd]
-;;;90     	reportFrame.distance_of_left_infrared = 0 ;
+;;;106    	reportFrame.distance_of_left_infrared = 0 ;
 00004c  81c8              STRH     r0,[r1,#0xe]
-;;;91     	reportFrame.distance_of_right_infrared = 0 ;
+;;;107    	reportFrame.distance_of_right_infrared = 0 ;
 00004e  8208              STRH     r0,[r1,#0x10]
-;;;92     	reportFrame.distance_of_front_infrared = 0 ;
+;;;108    	reportFrame.distance_of_front_infrared = 0 ;
 000050  8248              STRH     r0,[r1,#0x12]
-;;;93     	reportFrame.angle_deg = BEBufToUint16((uint8_t*)&angle);
+;;;109    	reportFrame.angle_deg = BEBufToUint16((uint8_t*)&angle);
 000052  a802              ADD      r0,sp,#8
 000054  f7fffffe          BL       BEBufToUint16
 000058  b200              SXTH     r0,r0
 00005a  4631              MOV      r1,r6
 00005c  8288              STRH     r0,[r1,#0x14]
-;;;94     	reportFrame.adc_1 = 0 ;
+;;;110    	reportFrame.adc_1 = 0 ;
 00005e  2000              MOVS     r0,#0
 000060  82c8              STRH     r0,[r1,#0x16]
-;;;95     	reportFrame.adc_2 = 0 ;
+;;;111    	reportFrame.adc_2 = 0 ;
 000062  8308              STRH     r0,[r1,#0x18]
-;;;96     	reportFrame.adc_3 = 0 ;
+;;;112    	reportFrame.adc_3 = 0 ;
 000064  8348              STRH     r0,[r1,#0x1a]
-;;;97     	reportFrame.adc_4 = 0 ;
+;;;113    	reportFrame.adc_4 = 0 ;
 000066  8388              STRH     r0,[r1,#0x1c]
-;;;98     	reportFrame.acc_x = 0 ;
+;;;114    	reportFrame.acc_x = 0 ;
 000068  83c8              STRH     r0,[r1,#0x1e]
-;;;99     	reportFrame.acc_y = 0 ;
+;;;115    	reportFrame.acc_y = 0 ;
 00006a  8408              STRH     r0,[r1,#0x20]
-;;;100    	reportFrame.acc_z = 0 ;
+;;;116    	reportFrame.acc_z = 0 ;
 00006c  8448              STRH     r0,[r1,#0x22]
-;;;101    	reportFrame.obstacle_signal = 0 ;
+;;;117    	reportFrame.obstacle_signal = 0 ;
 00006e  8488              STRH     r0,[r1,#0x24]
-;;;102    	reportFrame.battery_level_soc = 0 ;
+;;;118    	reportFrame.battery_level_soc = 0 ;
 000070  f8810026          STRB     r0,[r1,#0x26]
-;;;103    	reportFrame.charge_status = 0 ;
+;;;119    	reportFrame.charge_status = 0 ;
 000074  f8810027          STRB     r0,[r1,#0x27]
-;;;104    	reportFrame.checksum_msb = 0 ;
+;;;120    	reportFrame.checksum_msb = 0 ;
 000078  f8810028          STRB     r0,[r1,#0x28]
-;;;105    	reportFrame.checksum_lsb = 0 ;
+;;;121    	reportFrame.checksum_lsb = 0 ;
 00007c  f8810029          STRB     r0,[r1,#0x29]
-;;;106    	reportFrame.end_of_falg = 0x55 ;                  /*恒定0x55*/
+;;;122    	reportFrame.end_of_falg = 0x55 ;                  /*恒定0x55*/
 000080  2055              MOVS     r0,#0x55
 000082  f881002a          STRB     r0,[r1,#0x2a]
-;;;107    	
-;;;108    	/*计算校验*/
-;;;109    	chk = bsp_CalcChk(src+3,len-7);
-000086  1fe8              SUBS     r0,r5,#7
+;;;123    	
+;;;124    	/*计算校验*/
+;;;125    	chk = bsp_CalcChk(src+3,len-6);
+000086  1fa8              SUBS     r0,r5,#6
 000088  b2c1              UXTB     r1,r0
 00008a  1cf0              ADDS     r0,r6,#3
 00008c  f7fffffe          BL       bsp_CalcChk
 000090  4604              MOV      r4,r0
-;;;110    	reportFrame.checksum_msb = chk >> 8;
+;;;126    	reportFrame.checksum_msb = chk >> 8;
 000092  1220              ASRS     r0,r4,#8
 000094  4631              MOV      r1,r6
 000096  f8810028          STRB     r0,[r1,#0x28]
-;;;111    	reportFrame.checksum_lsb = chk & 0x00FF;
+;;;127    	reportFrame.checksum_lsb = chk & 0x00FF;
 00009a  f8814029          STRB     r4,[r1,#0x29]
-;;;112    }
+;;;128    }
 00009e  bdfe              POP      {r1-r7,pc}
-;;;113    
+;;;129    
                           ENDP
 
                   |L2.160|
@@ -172,59 +173,58 @@
                           AREA ||i.bsp_SendReportFrame||, CODE, READONLY, ALIGN=2
 
                   bsp_SendReportFrame PROC
-;;;40     
-;;;41     void bsp_SendReportFrame(void)
+;;;55     */
+;;;56     void bsp_SendReportFrame(void)
 000000  b570              PUSH     {r4-r6,lr}
-;;;42     {
-000002  b0c0              SUB      sp,sp,#0x100
-;;;43     	uint8_t  buf[256] = {0};       /*用于存储帧*/
-000004  f44f7180          MOV      r1,#0x100
-000008  4668              MOV      r0,sp
-00000a  f7fffffe          BL       __aeabi_memclr4
-;;;44     	uint32_t len = sizeof(reportFrame);/*帧大小*/
-00000e  252b              MOVS     r5,#0x2b
-;;;45     	uint8_t* src = (uint8_t*)&reportFrame;
-000010  4e09              LDR      r6,|L3.56|
-;;;46     	uint32_t i = 0 ;
-000012  2400              MOVS     r4,#0
-;;;47     	
-;;;48     	/*填充数据*/
-;;;49     	bsp_FillReportFrame();
-000014  f7fffffe          BL       bsp_FillReportFrame
-;;;50     	
-;;;51     	/*填充帧*/
-;;;52     	for(i=0;i<len;i++)
-000018  bf00              NOP      
-00001a  e003              B        |L3.36|
-                  |L3.28|
-;;;53     	{
-;;;54     		buf[i] = src[i];
-00001c  5d30              LDRB     r0,[r6,r4]
-00001e  f80d0004          STRB     r0,[sp,r4]
-000022  1c64              ADDS     r4,r4,#1              ;52
-                  |L3.36|
-000024  42ac              CMP      r4,r5                 ;52
-000026  d3f9              BCC      |L3.28|
-;;;55     	}
-;;;56     	
-;;;57     	comSendBuf(COM4,buf,len);
-000028  b2aa              UXTH     r2,r5
-00002a  4669              MOV      r1,sp
-00002c  2003              MOVS     r0,#3
-00002e  f7fffffe          BL       comSendBuf
+;;;57     {
 ;;;58     	
-;;;59     }
-000032  b040              ADD      sp,sp,#0x100
-000034  bd70              POP      {r4-r6,pc}
-;;;60     
+;;;59     	uint32_t len = sizeof(reportFrame);/*帧大小*/
+000002  252b              MOVS     r5,#0x2b
+;;;60     	uint8_t* src = (uint8_t*)&reportFrame;
+000004  4e08              LDR      r6,|L3.40|
+;;;61     	uint32_t i = 0 ;
+000006  2400              MOVS     r4,#0
+;;;62     	
+;;;63     	/*填充数据*/
+;;;64     	bsp_FillReportFrame();
+000008  f7fffffe          BL       bsp_FillReportFrame
+;;;65     	
+;;;66     	/*填充帧*/
+;;;67     	for(i=0;i<len;i++)
+00000c  bf00              NOP      
+00000e  e003              B        |L3.24|
+                  |L3.16|
+;;;68     	{
+;;;69     		buf[i] = src[i];
+000010  5d30              LDRB     r0,[r6,r4]
+000012  4906              LDR      r1,|L3.44|
+000014  5508              STRB     r0,[r1,r4]
+000016  1c64              ADDS     r4,r4,#1              ;67
+                  |L3.24|
+000018  42ac              CMP      r4,r5                 ;67
+00001a  d3f9              BCC      |L3.16|
+;;;70     	}
+;;;71     	
+;;;72     	comSendBuf(COM4,buf,len);
+00001c  b2aa              UXTH     r2,r5
+00001e  4903              LDR      r1,|L3.44|
+000020  2003              MOVS     r0,#3
+000022  f7fffffe          BL       comSendBuf
+;;;73     	
+;;;74     }
+000026  bd70              POP      {r4-r6,pc}
+;;;75     
                           ENDP
 
-000036  0000              DCW      0x0000
-                  |L3.56|
+                  |L3.40|
                           DCD      reportFrame
+                  |L3.44|
+                          DCD      buf
 
                           AREA ||.bss||, DATA, NOINIT, ALIGN=0
 
+                  buf
+                          %        256
                   reportFrame
                           %        43
 
@@ -233,9 +233,9 @@
 #line 1 "..\\..\\User\\app\\src\\bsp_communication.c"
 	AREA ||.rev16_text||, CODE
 	THUMB
-	EXPORT |__asm___19_bsp_communication_c_3b292321____REV16|
+	EXPORT |__asm___19_bsp_communication_c_buf____REV16|
 #line 114 "..\\..\\Libraries\\CMSIS\\Include\\core_cmInstr.h"
-|__asm___19_bsp_communication_c_3b292321____REV16| PROC
+|__asm___19_bsp_communication_c_buf____REV16| PROC
 #line 115
 
  rev16 r0, r0
@@ -243,9 +243,9 @@
 	ENDP
 	AREA ||.revsh_text||, CODE
 	THUMB
-	EXPORT |__asm___19_bsp_communication_c_3b292321____REVSH|
+	EXPORT |__asm___19_bsp_communication_c_buf____REVSH|
 #line 128
-|__asm___19_bsp_communication_c_3b292321____REVSH| PROC
+|__asm___19_bsp_communication_c_buf____REVSH| PROC
 #line 129
 
  revsh r0, r0

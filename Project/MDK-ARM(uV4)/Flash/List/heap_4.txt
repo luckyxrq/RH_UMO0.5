@@ -13,7 +13,7 @@
 ;;;370    uint8_t *pucAlignedHeap;
 ;;;371    size_t uxAddress;
 ;;;372    size_t xTotalHeapSize = configTOTAL_HEAP_SIZE;
-000002  f44f4388          MOV      r3,#0x4400
+000002  f44f43e0          MOV      r3,#0x7000
 ;;;373    
 ;;;374    	/* Ensure the heap starts on a correctly aligned boundary. */
 ;;;375    	uxAddress = ( size_t ) ucHeap;
@@ -706,7 +706,7 @@
                           AREA ||.bss||, DATA, NOINIT, ALIGN=0
 
                   ucHeap
-                          %        17408
+                          %        28672
 
                           AREA ||.data||, DATA, ALIGN=2
 

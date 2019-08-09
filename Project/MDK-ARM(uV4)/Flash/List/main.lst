@@ -4335,7 +4335,7 @@ N#define configCPU_CLOCK_HZ			( ( unsigned long ) 72000000 )
 N#define configTICK_RATE_HZ			( ( TickType_t ) 1000 )
 N#define configMAX_PRIORITIES		( 5 )
 N#define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 )
-N#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 17 * 1024 ) )
+N#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 28 * 1024 ) )
 N#define configMAX_TASK_NAME_LEN		( 16 )
 N#define configUSE_TRACE_FACILITY	1
 N#define configUSE_16_BIT_TICKS		0
@@ -46282,11 +46282,10 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskMsgPro(void *pvParameters)
 N{
-N	//bsp_StartRunStable();
 N    while(1)
 N    {
-N		//bsp_RunStableAct(); /* 平滑启动状态机 */
-N		vTaskDelay(1);
+N		bsp_SendReportFrame();
+N		vTaskDelay(50);
 N    }
 N}
 N
@@ -46323,37 +46322,37 @@ Nstatic void AppTaskCreate (void)
 N{
 N    xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
 N                 "vTaskUserIF",     	/* 任务名    */
-N                 512,               	/* 任务栈大小，单位word，也就是4字节 */
+N                 1024,               	/* 任务栈大小，单位word，也就是4字节 */
 N                 NULL,              	/* 任务参数  */
 N                 1,                 	/* 任务优先级*/
 N                 &xHandleTaskUserIF );  /* 任务句柄  */
-X    xTaskGenericCreate( ( vTaskTaskUserIF ), ( "vTaskUserIF" ), ( 512 ), ( 0 ), ( 1 ), ( &xHandleTaskUserIF ), ( 0 ), ( 0 ) );   
+X    xTaskGenericCreate( ( vTaskTaskUserIF ), ( "vTaskUserIF" ), ( 1024 ), ( 0 ), ( 1 ), ( &xHandleTaskUserIF ), ( 0 ), ( 0 ) );   
 N	
 N	
 N	xTaskCreate( vTaskLED,    		/* 任务函数  */
 N                 "vTaskLED",  		/* 任务名    */
-N                 512,         		/* stack大小，单位word，也就是4字节 */
+N                 1024,         		/* stack大小，单位word，也就是4字节 */
 N                 NULL,        		/* 任务参数  */
 N                 2,           		/* 任务优先级*/
 N                 &xHandleTaskLED ); /* 任务句柄  */
-X	xTaskGenericCreate( ( vTaskLED ), ( "vTaskLED" ), ( 512 ), ( 0 ), ( 2 ), ( &xHandleTaskLED ), ( 0 ), ( 0 ) );  
+X	xTaskGenericCreate( ( vTaskLED ), ( "vTaskLED" ), ( 1024 ), ( 0 ), ( 2 ), ( &xHandleTaskLED ), ( 0 ), ( 0 ) );  
 N	
 N	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
 N                 "vTaskMsgPro",   		/* 任务名    */
-N                 512,             		/* 任务栈大小，单位word，也就是4字节 */
+N                 1024,             		/* 任务栈大小，单位word，也就是4字节 */
 N                 NULL,           		/* 任务参数  */
 N                 3,               		/* 任务优先级*/
 N                 &xHandleTaskMsgPro );  /* 任务句柄  */
-X	xTaskGenericCreate( ( vTaskMsgPro ), ( "vTaskMsgPro" ), ( 512 ), ( 0 ), ( 3 ), ( &xHandleTaskMsgPro ), ( 0 ), ( 0 ) );   
+X	xTaskGenericCreate( ( vTaskMsgPro ), ( "vTaskMsgPro" ), ( 1024 ), ( 0 ), ( 3 ), ( &xHandleTaskMsgPro ), ( 0 ), ( 0 ) );   
 N	
 N	
 N	xTaskCreate( vTaskStart,     		/* 任务函数  */
 N                 "vTaskStart",   		/* 任务名    */
-N                 512,            		/* 任务栈大小，单位word，也就是4字节 */
+N                 1024,            		/* 任务栈大小，单位word，也就是4字节 */
 N                 NULL,           		/* 任务参数  */
 N                 4,              		/* 任务优先级*/
 N                 &xHandleTaskStart );   /* 任务句柄  */
-X	xTaskGenericCreate( ( vTaskStart ), ( "vTaskStart" ), ( 512 ), ( 0 ), ( 4 ), ( &xHandleTaskStart ), ( 0 ), ( 0 ) );    
+X	xTaskGenericCreate( ( vTaskStart ), ( "vTaskStart" ), ( 1024 ), ( 0 ), ( 4 ), ( &xHandleTaskStart ), ( 0 ), ( 0 ) );    
 N}
 N
 N/*

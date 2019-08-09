@@ -190,11 +190,10 @@ static void vTaskLED(void *pvParameters)
 */
 static void vTaskMsgPro(void *pvParameters)
 {
-	//bsp_StartRunStable();
     while(1)
     {
-		//bsp_RunStableAct(); /* 平滑启动状态机 */
-		vTaskDelay(1);
+		bsp_SendReportFrame();
+		vTaskDelay(50);
     }
 }
 
@@ -231,7 +230,7 @@ static void AppTaskCreate (void)
 {
     xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
                  "vTaskUserIF",     	/* 任务名    */
-                 512,               	/* 任务栈大小，单位word，也就是4字节 */
+                 1024,               	/* 任务栈大小，单位word，也就是4字节 */
                  NULL,              	/* 任务参数  */
                  1,                 	/* 任务优先级*/
                  &xHandleTaskUserIF );  /* 任务句柄  */
@@ -239,14 +238,14 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate( vTaskLED,    		/* 任务函数  */
                  "vTaskLED",  		/* 任务名    */
-                 512,         		/* stack大小，单位word，也就是4字节 */
+                 1024,         		/* stack大小，单位word，也就是4字节 */
                  NULL,        		/* 任务参数  */
                  2,           		/* 任务优先级*/
                  &xHandleTaskLED ); /* 任务句柄  */
 	
 	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
                  "vTaskMsgPro",   		/* 任务名    */
-                 512,             		/* 任务栈大小，单位word，也就是4字节 */
+                 1024,             		/* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		/* 任务参数  */
                  3,               		/* 任务优先级*/
                  &xHandleTaskMsgPro );  /* 任务句柄  */
@@ -254,7 +253,7 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate( vTaskStart,     		/* 任务函数  */
                  "vTaskStart",   		/* 任务名    */
-                 512,            		/* 任务栈大小，单位word，也就是4字节 */
+                 1024,            		/* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		/* 任务参数  */
                  4,              		/* 任务优先级*/
                  &xHandleTaskStart );   /* 任务句柄  */
