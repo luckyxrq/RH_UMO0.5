@@ -391,54 +391,54 @@
 ;;;192    {
 ;;;193        while(1)
 ;;;194        {
-;;;195    		
-;;;196    		//DEBUG("ReportFrame:%d\r\n",sizeof(ReportFrame));
-;;;197    		bsp_SendReportFrame();
+;;;195    		bsp_SendReportFrame();
 000002  f7fffffe          BL       bsp_SendReportFrame
-;;;198    		vTaskDelay(50);
+;;;196    		vTaskDelay(50);
 000006  2032              MOVS     r0,#0x32
 000008  f7fffffe          BL       vTaskDelay
                   |L6.12|
 00000c  e7f9              B        |L6.2|
-;;;199        }
-;;;200    }
-;;;201    
+;;;197        }
+;;;198    }
+;;;199    
                           ENDP
 
 
                           AREA ||i.vTaskStart||, CODE, READONLY, ALIGN=1
 
                   vTaskStart PROC
-;;;210    */
-;;;211    static void vTaskStart(void *pvParameters)
+;;;208    */
+;;;209    static void vTaskStart(void *pvParameters)
 000000  f7fffffe          BL       bsp_DetectStart
-;;;212    {
-;;;213    	bsp_DetectStart(); /*开启红外对管轮询扫描*/
-;;;214        while(1)
-000004  e004              B        |L7.16|
+;;;210    {
+;;;211    	bsp_DetectStart(); /*开启红外对管轮询扫描*/
+;;;212        while(1)
+000004  e00a              B        |L7.28|
                   |L7.6|
-;;;215        {
-;;;216    		bsp_DetectAct();  /*红外对管轮询扫描*/
+;;;213        {
+;;;214    		bsp_DetectAct();  /*红外对管轮询扫描*/
 000006  f7fffffe          BL       bsp_DetectAct
-;;;217    		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
-;;;218    		//bsp_EdgewiseAct();/*沿边*/
+;;;215    		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
+;;;216    		//bsp_EdgewiseAct();/*沿边*/
+;;;217    		bsp_GetCapCnt(CapCH3);
+00000a  2002              MOVS     r0,#2
+00000c  f7fffffe          BL       bsp_GetCapCnt
+;;;218    		bsp_PrintRemoteState(CapCH3);
+000010  2002              MOVS     r0,#2
+000012  f7fffffe          BL       bsp_PrintRemoteState
 ;;;219            vTaskDelay(1);
-00000a  2001              MOVS     r0,#1
-00000c  f7fffffe          BL       vTaskDelay
-                  |L7.16|
-000010  e7f9              B        |L7.6|
+000016  2001              MOVS     r0,#1
+000018  f7fffffe          BL       vTaskDelay
+                  |L7.28|
+00001c  e7f3              B        |L7.6|
 ;;;220        }
 ;;;221    }
 ;;;222    				
                           ENDP
 
 
-                          AREA ||i.vTaskTaskUserIF||, CODE, READONLY, ALIGN=2
+                          AREA ||i.vTaskTaskUserIF||, CODE, READONLY, ALIGN=1
 
-                          REQUIRE _printf_percent
-                          REQUIRE _printf_widthprec
-                          REQUIRE _printf_f
-                          REQUIRE _printf_fp_dec
                   vTaskTaskUserIF PROC
 ;;;85     */
 ;;;86     static void vTaskTaskUserIF(void *pvParameters)
@@ -482,7 +482,7 @@
 000010  f7fffffe          BL       vTaskDelay
 ;;;120    
 ;;;121        while(1)
-000014  e016              B        |L8.68|
+000014  e00b              B        |L8.46|
                   |L8.22|
 ;;;122        {
 ;;;123    		#if 0
@@ -491,48 +491,31 @@
 ;;;126    		#endif
 ;;;127    		
 ;;;128    		
-;;;129    		#if 1
+;;;129    		#if 0
 ;;;130    		DEBUG("角度：%.2F\r\n",bsp_AngleRead());
-000016  f7fffffe          BL       bsp_AngleRead
-00001a  4606              MOV      r6,r0
-00001c  f7fffffe          BL       __aeabi_f2d
-000020  4604              MOV      r4,r0
-000022  4622              MOV      r2,r4
-000024  460b              MOV      r3,r1
-000026  a008              ADR      r0,|L8.72|
-000028  f7fffffe          BL       __2printf
 ;;;131    		#endif
 ;;;132    		
 ;;;133    		bsp_LedToggle(1);
-00002c  2001              MOVS     r0,#1
-00002e  f7fffffe          BL       bsp_LedToggle
+000016  2001              MOVS     r0,#1
+000018  f7fffffe          BL       bsp_LedToggle
 ;;;134    		bsp_LedToggle(2);
-000032  2002              MOVS     r0,#2
-000034  f7fffffe          BL       bsp_LedToggle
+00001c  2002              MOVS     r0,#2
+00001e  f7fffffe          BL       bsp_LedToggle
 ;;;135    		bsp_LedToggle(3);
-000038  2003              MOVS     r0,#3
-00003a  f7fffffe          BL       bsp_LedToggle
+000022  2003              MOVS     r0,#3
+000024  f7fffffe          BL       bsp_LedToggle
 ;;;136    		
 ;;;137    		vTaskDelay(100);
-00003e  2064              MOVS     r0,#0x64
-000040  f7fffffe          BL       vTaskDelay
-                  |L8.68|
-000044  e7e7              B        |L8.22|
+000028  2064              MOVS     r0,#0x64
+00002a  f7fffffe          BL       vTaskDelay
+                  |L8.46|
+00002e  e7f2              B        |L8.22|
 ;;;138    		
 ;;;139    	}
 ;;;140    }
 ;;;141    
                           ENDP
 
-000046  0000              DCW      0x0000
-                  |L8.72|
-000048  bdc7b6c8          DCB      189,199,182,200,163,186,"%.2F\r\n",0
-00004c  a3ba252e
-000050  32460d0a
-000054  00      
-000055  00                DCB      0
-000056  00                DCB      0
-000057  00                DCB      0
 
                           AREA ||.data||, DATA, ALIGN=2
 

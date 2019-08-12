@@ -38695,6 +38695,8 @@ Nvoid bsp_InitChargingPile(void);
 Nvoid bsp_SearchChargingPileAct(void);
 Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
+Nvoid bsp_PulseTimerPer1MS(void);
+Nvoid bsp_PrintRemoteState(CapCH capCH);
 N
 N#endif
 L 184 "..\..\User\bsp\bsp.h" 2

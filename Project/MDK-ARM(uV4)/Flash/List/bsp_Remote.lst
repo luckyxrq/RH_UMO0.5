@@ -38680,6 +38680,8 @@ Nvoid bsp_InitChargingPile(void);
 Nvoid bsp_SearchChargingPileAct(void);
 Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
+Nvoid bsp_PulseTimerPer1MS(void);
+Nvoid bsp_PrintRemoteState(CapCH capCH);
 N
 N#endif
 L 184 "..\..\User\bsp\bsp.h" 2
@@ -38738,7 +38740,7 @@ N
 N#define RANGE			100         /*红外接收脉宽计数范围*/
 N#define RangeSub(x)		((x)-RANGE) /*红外接收脉宽计数范围 负*/
 N#define RangeAdd(x)		((x)+RANGE) /*红外接收脉宽计数范围 正*/
-N
+N#define CYCLE			70          /*如果确认检测的相应宽度的脉冲，*/
 N
 Ntypedef struct
 N{
@@ -38796,12 +38798,12 @@ N
 N
 Ntypedef struct
 N{
-N	bool is500us;
-X	_Bool is500us;
-N	bool is1000us;
-X	_Bool is1000us;
-N	bool is1500us;
-X	_Bool is1500us;
+N	volatile bool is500us;
+X	volatile _Bool is500us;
+N	volatile bool is1000us;
+X	volatile _Bool is1000us;
+N	volatile bool is1500us;
+X	volatile _Bool is1500us;
 N}Remote;
 N
 Ntypedef enum
@@ -38857,15 +38859,18 @@ N	switch(pulseWidth)
 N	{
 N		case Pulse500US:
 N		{
-N			remote[capCH].is500us = 0 ;
+N			remote[capCH].is500us = false ;
+X			remote[capCH].is500us = 0 ;
 N		}break;
 N		case Pulse1000US:
 N		{
-N			remote[capCH].is1000us = 0 ;
+N			remote[capCH].is1000us = false ;
+X			remote[capCH].is1000us = 0 ;
 N		}break;
 N		case Pulse1500US:
 N		{
-N			remote[capCH].is1500us = 0 ;
+N			remote[capCH].is1500us = false ;
+X			remote[capCH].is1500us = 0 ;
 N		}break;
 N	}
 N
@@ -38885,21 +38890,65 @@ N	switch(pulseWidth)
 N	{
 N		case Pulse500US:
 N		{
-N			remote[capCH].is500us = 1 ;
+N			remote[capCH].is500us = true ;
+X			remote[capCH].is500us = 1 ;
 N		}break;
 N		case Pulse1000US:
 N		{
-N			remote[capCH].is1000us = 1 ;
+N			remote[capCH].is1000us = true ;
+X			remote[capCH].is1000us = 1 ;
 N		}break;
 N		case Pulse1500US:
 N		{
-N			remote[capCH].is1500us = 1 ;
+N			remote[capCH].is1500us = true ;
+X			remote[capCH].is1500us = 1 ;
 N		}break;
 N	}
 N
 N}
 N
 N
+N
+Nvoid bsp_PulseTimerPer1MS(void)
+N{
+N	CapCH ch = CapCH1 ;
+N	PulseWidth pulse = Pulse500US ;
+N	
+N	for(ch=CapCH1;ch<=CapCH4;ch++)
+N	{
+N		for(pulse=Pulse500US;pulse<=Pulse1500US;pulse++)
+N		{
+N			if(remoteStateTimer[ch*3+pulse] <= CYCLE)
+X			if(remoteStateTimer[ch*3+pulse] <= 70)
+N			{
+N				bsp_RemoteTimerCntAdd(ch,pulse); /*如果计数值为0，则每MS加1，直到一个循环周期*/
+N			}
+N		}
+N	}
+N	
+N	if(remoteStateTimer[ch*3+pulse] > CYCLE) /*计数值大于一个循环周期，则清除检测到某脉冲*/
+X	if(remoteStateTimer[ch*3+pulse] > 70)  
+N	{
+N		if(pulse == Pulse500US && remote[ch].is500us==true)
+X		if(pulse == Pulse500US && remote[ch].is500us==1)
+N		{
+N			remote[ch].is500us = false;
+X			remote[ch].is500us = 0;
+N		}
+N		else if(pulse == Pulse1000US && remote[ch].is1000us==true)
+X		else if(pulse == Pulse1000US && remote[ch].is1000us==1)
+N		{
+N			remote[ch].is1000us = false;
+X			remote[ch].is1000us = 0;
+N		}
+N		else if(pulse == Pulse1500US && remote[ch].is1500us==true)
+X		else if(pulse == Pulse1500US && remote[ch].is1500us==1)
+N		{
+N			remote[ch].is1500us = false;
+X			remote[ch].is1500us = 0;
+N		}
+N	}
+N}
 N
 N
 N
@@ -38916,27 +38965,31 @@ N		temp=chargingPile.capState[ch]&0X3F;
 N		temp*=65536;//溢出时间总和
 N		temp+=chargingPile.capValue[ch];//得到总的时间
 N		temp-=chargingPile.capStart[ch];//得到总的时间
-N		printf("LOW:%d us\r\n",temp);   //打印总的时间
 N		
+N		
+N		//printf("LOW:%d us\r\n",temp);   //打印总的时间
+N
 N		if(temp >= RangeSub(500) && temp <=  RangeAdd(500))
 X		if(temp >= ((500)-100) && temp <=  ((500)+100))
 N		{
 N			remote[ch].is500us = true;
 X			remote[ch].is500us = 1;
+N			bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
 N		}
 N		else if(temp >= RangeSub(1000) && temp <=  RangeAdd(1000))
 X		else if(temp >= ((1000)-100) && temp <=  ((1000)+100))
 N		{
 N			remote[ch].is1000us = true;
 X			remote[ch].is1000us = 1;
+N			bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
 N		}
 N		else if(temp >= RangeSub(1500) && temp <=  RangeAdd(1500))
 X		else if(temp >= ((1500)-100) && temp <=  ((1500)+100))
 N		{
 N			remote[ch].is1500us = true;
 X			remote[ch].is1500us = 1;
+N			bsp_ClearRemoteTimerCnt(ch,Pulse1500US);//清除计数
 N		}
-N		
 N		
 N		chargingPile.capState[ch]=0;
 N		chargingPile.capValue[ch]=0;
@@ -38944,6 +38997,18 @@ N	}
 N	
 N	return temp;
 N}
+N
+N
+Nvoid bsp_PrintRemoteState(CapCH capCH)
+N{
+N	printf("500us:%s\r\n",remote[capCH].is500us   == true ? "true":"false");
+X	printf("500us:%s\r\n",remote[capCH].is500us   == 1 ? "true":"false");
+N	printf("1000us:%s\r\n",remote[capCH].is1000us == true ? "true":"false");
+X	printf("1000us:%s\r\n",remote[capCH].is1000us == 1 ? "true":"false");
+N	printf("1500us:%s\r\n",remote[capCH].is1500us == true ? "true":"false");
+X	printf("1500us:%s\r\n",remote[capCH].is1500us == 1 ? "true":"false");
+N}
+N
 N
 N
 Nstatic void bsp_InitTIM3Cap(u16 arr,u16 psc)

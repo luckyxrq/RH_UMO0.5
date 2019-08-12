@@ -46051,6 +46051,8 @@ Nvoid bsp_InitChargingPile(void);
 Nvoid bsp_SearchChargingPileAct(void);
 Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
+Nvoid bsp_PulseTimerPer1MS(void);
+Nvoid bsp_PrintRemoteState(CapCH capCH);
 N
 N#endif
 L 184 "..\..\User\bsp\bsp.h" 2
@@ -46245,9 +46247,8 @@ S		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 N		#endif
 N		
 N		
-N		#if 1
-N		DEBUG("角度：%.2F\r\n",bsp_AngleRead());
-X		printf ("角度：%.2F\r\n",bsp_AngleRead());
+N		#if 0
+S		DEBUG("角度：%.2F\r\n",bsp_AngleRead());
 N		#endif
 N		
 N		bsp_LedToggle(1);
@@ -46315,8 +46316,6 @@ Nstatic void vTaskMsgPro(void *pvParameters)
 N{
 N    while(1)
 N    {
-N		
-N		//DEBUG("ReportFrame:%d\r\n",sizeof(ReportFrame));
 N		bsp_SendReportFrame();
 N		vTaskDelay(50);
 N    }
@@ -46339,6 +46338,8 @@ N    {
 N		bsp_DetectAct();  /*红外对管轮询扫描*/
 N		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
 N		//bsp_EdgewiseAct();/*沿边*/
+N		bsp_GetCapCnt(CapCH3);
+N		bsp_PrintRemoteState(CapCH3);
 N        vTaskDelay(1);
 N    }
 N}

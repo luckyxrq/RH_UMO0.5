@@ -38703,6 +38703,8 @@ Nvoid bsp_InitChargingPile(void);
 Nvoid bsp_SearchChargingPileAct(void);
 Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
+Nvoid bsp_PulseTimerPer1MS(void);
+Nvoid bsp_PrintRemoteState(CapCH capCH);
 N
 N#endif
 L 184 "..\..\User\bsp\bsp.h" 2
@@ -38792,9 +38794,17 @@ N*******************************************************************************
 N*/
 Nvoid TIM6_IRQHandler( void )
 N{
+N	static uint32_t tick = 0 ;
+N	
 N	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 X	if(TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)), ((uint16_t)0x0001)) != RESET)
 N	{
+N		if(++tick % 20 == 0) //1MS 
+N		{
+N			bsp_PulseTimerPer1MS();
+N		}
+N		
+N		
 N		ulHighFrequencyTimerTicks++;
 N		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);
 X		TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)), ((uint16_t)0x0001));

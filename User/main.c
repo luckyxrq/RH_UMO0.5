@@ -126,7 +126,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 		#endif
 		
 		
-		#if 1
+		#if 0
 		DEBUG("角度：%.2F\r\n",bsp_AngleRead());
 		#endif
 		
@@ -192,8 +192,6 @@ static void vTaskMsgPro(void *pvParameters)
 {
     while(1)
     {
-		
-		//DEBUG("ReportFrame:%d\r\n",sizeof(ReportFrame));
 		bsp_SendReportFrame();
 		vTaskDelay(50);
     }
@@ -216,6 +214,8 @@ static void vTaskStart(void *pvParameters)
 		bsp_DetectAct();  /*红外对管轮询扫描*/
 		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
 		//bsp_EdgewiseAct();/*沿边*/
+		bsp_GetCapCnt(CapCH3);
+		bsp_PrintRemoteState(CapCH3);
         vTaskDelay(1);
     }
 }

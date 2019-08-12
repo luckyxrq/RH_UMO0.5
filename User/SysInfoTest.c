@@ -56,8 +56,16 @@ void vSetupSysInfoTest(void)
 */
 void TIM6_IRQHandler( void )
 {
+	static uint32_t tick = 0 ;
+	
 	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 	{
+		if(++tick % 20 == 0) //1MS 
+		{
+			bsp_PulseTimerPer1MS();
+		}
+		
+		
 		ulHighFrequencyTimerTicks++;
 		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);
 	}
