@@ -38814,7 +38814,7 @@ N	Pulse1500US = 2
 N}PulseWidth;
 N
 Nstatic volatile Remote remote[4];
-Nstatic volatile uint32_t remoteStateTimer[3*4]; //三种脉冲，4个接收管
+Nstatic volatile uint32_t remoteStateTimer[4][3]; //三种脉冲，4个接收管
 N
 N
 N/*
@@ -38827,7 +38827,7 @@ N*******************************************************************************
 N*/
 Nvoid bsp_ClearRemoteTimerCnt(CapCH capCH , PulseWidth pulseWidth)
 N{
-N	remoteStateTimer[capCH*3+pulseWidth] = 0 ;
+N	remoteStateTimer[capCH][pulseWidth] = 0 ;
 N}
 N
 N
@@ -38841,7 +38841,7 @@ N*******************************************************************************
 N*/
 Nvoid bsp_RemoteTimerCntAdd(CapCH capCH , PulseWidth pulseWidth)
 N{
-N	++remoteStateTimer[capCH*3+pulseWidth];
+N	++remoteStateTimer[capCH][pulseWidth];
 N}
 N
 N
@@ -38918,36 +38918,35 @@ N	for(ch=CapCH1;ch<=CapCH4;ch++)
 N	{
 N		for(pulse=Pulse500US;pulse<=Pulse1500US;pulse++)
 N		{
-N			if(remoteStateTimer[ch*3+pulse] <= CYCLE)
-X			if(remoteStateTimer[ch*3+pulse] <= 70)
+N			if(remoteStateTimer[ch][pulse] <= CYCLE)
+X			if(remoteStateTimer[ch][pulse] <= 70)
 N			{
 N				bsp_RemoteTimerCntAdd(ch,pulse); /*如果计数值为0，则每MS加1，直到一个循环周期*/
+N			}
+N			else
+N			{
+N				if(pulse == Pulse500US && remote[ch].is500us==true)
+X				if(pulse == Pulse500US && remote[ch].is500us==1)
+N				{
+N					remote[ch].is500us = false;
+X					remote[ch].is500us = 0;
+N				}
+N				else if(pulse == Pulse1000US && remote[ch].is1000us==true)
+X				else if(pulse == Pulse1000US && remote[ch].is1000us==1)
+N				{
+N					remote[ch].is1000us = false;
+X					remote[ch].is1000us = 0;
+N				}
+N				else if(pulse == Pulse1500US && remote[ch].is1500us==true)
+X				else if(pulse == Pulse1500US && remote[ch].is1500us==1)
+N				{
+N					remote[ch].is1500us = false;
+X					remote[ch].is1500us = 0;
+N				}
 N			}
 N		}
 N	}
 N	
-N	if(remoteStateTimer[ch*3+pulse] > CYCLE) /*计数值大于一个循环周期，则清除检测到某脉冲*/
-X	if(remoteStateTimer[ch*3+pulse] > 70)  
-N	{
-N		if(pulse == Pulse500US && remote[ch].is500us==true)
-X		if(pulse == Pulse500US && remote[ch].is500us==1)
-N		{
-N			remote[ch].is500us = false;
-X			remote[ch].is500us = 0;
-N		}
-N		else if(pulse == Pulse1000US && remote[ch].is1000us==true)
-X		else if(pulse == Pulse1000US && remote[ch].is1000us==1)
-N		{
-N			remote[ch].is1000us = false;
-X			remote[ch].is1000us = 0;
-N		}
-N		else if(pulse == Pulse1500US && remote[ch].is1500us==true)
-X		else if(pulse == Pulse1500US && remote[ch].is1500us==1)
-N		{
-N			remote[ch].is1500us = false;
-X			remote[ch].is1500us = 0;
-N		}
-N	}
 N}
 N
 N

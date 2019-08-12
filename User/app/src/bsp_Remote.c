@@ -74,7 +74,7 @@ typedef enum
 }PulseWidth;
 
 static volatile Remote remote[4];
-static volatile uint32_t remoteStateTimer[3*4]; //三种脉冲，4个接收管
+static volatile uint32_t remoteStateTimer[4][3]; //三种脉冲，4个接收管
 
 
 /*
@@ -87,7 +87,7 @@ static volatile uint32_t remoteStateTimer[3*4]; //三种脉冲，4个接收管
 */
 void bsp_ClearRemoteTimerCnt(CapCH capCH , PulseWidth pulseWidth)
 {
-	remoteStateTimer[capCH*3+pulseWidth] = 0 ;
+	remoteStateTimer[capCH][pulseWidth] = 0 ;
 }
 
 
@@ -101,7 +101,7 @@ void bsp_ClearRemoteTimerCnt(CapCH capCH , PulseWidth pulseWidth)
 */
 void bsp_RemoteTimerCntAdd(CapCH capCH , PulseWidth pulseWidth)
 {
-	++remoteStateTimer[capCH*3+pulseWidth];
+	++remoteStateTimer[capCH][pulseWidth];
 }
 
 
@@ -172,28 +172,28 @@ void bsp_PulseTimerPer1MS(void)
 	{
 		for(pulse=Pulse500US;pulse<=Pulse1500US;pulse++)
 		{
-			if(remoteStateTimer[ch*3+pulse] <= CYCLE)
+			if(remoteStateTimer[ch][pulse] <= CYCLE)
 			{
 				bsp_RemoteTimerCntAdd(ch,pulse); /*如果计数值为0，则每MS加1，直到一个循环周期*/
+			}
+			else
+			{
+				if(pulse == Pulse500US && remote[ch].is500us==true)
+				{
+					remote[ch].is500us = false;
+				}
+				else if(pulse == Pulse1000US && remote[ch].is1000us==true)
+				{
+					remote[ch].is1000us = false;
+				}
+				else if(pulse == Pulse1500US && remote[ch].is1500us==true)
+				{
+					remote[ch].is1500us = false;
+				}
 			}
 		}
 	}
 	
-	if(remoteStateTimer[ch*3+pulse] > CYCLE) /*计数值大于一个循环周期，则清除检测到某脉冲*/
-	{
-		if(pulse == Pulse500US && remote[ch].is500us==true)
-		{
-			remote[ch].is500us = false;
-		}
-		else if(pulse == Pulse1000US && remote[ch].is1000us==true)
-		{
-			remote[ch].is1000us = false;
-		}
-		else if(pulse == Pulse1500US && remote[ch].is1500us==true)
-		{
-			remote[ch].is1500us = false;
-		}
-	}
 }
 
 
