@@ -66,7 +66,7 @@ void TIM6_IRQHandler( void )
 		{
 			i = 0 ;
 			bsp_DetectAct();  /*红外对管轮询扫描*/
-			bsp_DetectDeal(); /*红外对管扫描结果处理*/
+//			bsp_DetectDeal(); /*红外对管扫描结果处理*/
 		}
 		
 		

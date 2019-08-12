@@ -109,12 +109,12 @@ static void vTaskTaskUserIF(void *pvParameters)
 	printf("des angle:%.2F\r\n",bsp_AngleAdd(-100,120));
 #endif	
 
-#if 1
+#if 0
 	bsp_SetMotorTargetSpeed(MotorLeft,250);
 	bsp_SetMotorTargetSpeed(MotorRight,250); 
 #endif
 
-#if 1
+#if 0
 	bsp_SetMotorPWM(MotorRoller,Forward,7000);
 	bsp_SetMotorPWM(MotorBrush, Forward,6500);
 #endif
@@ -216,7 +216,7 @@ static void vTaskStart(void *pvParameters)
 	bsp_DetectStart(); /*开启红外对管轮询扫描*/
     while(1)
     {
-		//bsp_DetectAct();  /*红外对管轮询扫描*/
+		bsp_DetectAct();  /*红外对管轮询扫描*/
 		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
 		bsp_EdgewiseAct();/*沿边*/
         vTaskDelay(1);

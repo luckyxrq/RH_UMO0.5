@@ -417,30 +417,32 @@
 ;;;215    {
 ;;;216    	bsp_DetectStart(); /*开启红外对管轮询扫描*/
 ;;;217        while(1)
-000004  e004              B        |L7.16|
+000004  e006              B        |L7.20|
                   |L7.6|
 ;;;218        {
-;;;219    		//bsp_DetectAct();  /*红外对管轮询扫描*/
+;;;219    		bsp_DetectAct();  /*红外对管轮询扫描*/
+000006  f7fffffe          BL       bsp_DetectAct
 ;;;220    		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
 ;;;221    		bsp_EdgewiseAct();/*沿边*/
-000006  f7fffffe          BL       bsp_EdgewiseAct
+00000a  f7fffffe          BL       bsp_EdgewiseAct
 ;;;222            vTaskDelay(1);
-00000a  2001              MOVS     r0,#1
-00000c  f7fffffe          BL       vTaskDelay
-                  |L7.16|
-000010  e7f9              B        |L7.6|
+00000e  2001              MOVS     r0,#1
+000010  f7fffffe          BL       vTaskDelay
+                  |L7.20|
+000014  e7f7              B        |L7.6|
 ;;;223        }
 ;;;224    }
 ;;;225    				
                           ENDP
 
 
-                          AREA ||i.vTaskTaskUserIF||, CODE, READONLY, ALIGN=2
+                          AREA ||i.vTaskTaskUserIF||, CODE, READONLY, ALIGN=1
 
                   vTaskTaskUserIF PROC
 ;;;85     */
 ;;;86     static void vTaskTaskUserIF(void *pvParameters)
-000000  4911              LDR      r1,|L8.72|
+000000  e00c              B        |L8.28|
+                  |L8.2|
 ;;;87     {
 ;;;88     #if 0 /* 左前  右前 */
 ;;;89     	bsp_SetMotorPWM(MotorLeft,Forward,6000);
@@ -466,33 +468,18 @@
 ;;;109    	printf("des angle:%.2F\r\n",bsp_AngleAdd(-100,120));
 ;;;110    #endif	
 ;;;111    
-;;;112    #if 1
+;;;112    #if 0
 ;;;113    	bsp_SetMotorTargetSpeed(MotorLeft,250);
-000002  2000              MOVS     r0,#0
-000004  f7fffffe          BL       bsp_SetMotorTargetSpeed
 ;;;114    	bsp_SetMotorTargetSpeed(MotorRight,250); 
-000008  490f              LDR      r1,|L8.72|
-00000a  2001              MOVS     r0,#1
-00000c  f7fffffe          BL       bsp_SetMotorTargetSpeed
 ;;;115    #endif
 ;;;116    
-;;;117    #if 1
+;;;117    #if 0
 ;;;118    	bsp_SetMotorPWM(MotorRoller,Forward,7000);
-000010  f6413258          MOV      r2,#0x1b58
-000014  2100              MOVS     r1,#0
-000016  2002              MOVS     r0,#2
-000018  f7fffffe          BL       bsp_SetMotorPWM
 ;;;119    	bsp_SetMotorPWM(MotorBrush, Forward,6500);
-00001c  f6411264          MOV      r2,#0x1964
-000020  2100              MOVS     r1,#0
-000022  2003              MOVS     r0,#3
-000024  f7fffffe          BL       bsp_SetMotorPWM
 ;;;120    #endif
 ;;;121    
 ;;;122    
 ;;;123        while(1)
-000028  e00c              B        |L8.68|
-                  |L8.42|
 ;;;124        {
 ;;;125    		#if 0
 ;;;126    		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
@@ -505,29 +492,26 @@
 ;;;133    		#endif
 ;;;134    		
 ;;;135    		bsp_LedToggle(1);
-00002a  2001              MOVS     r0,#1
-00002c  f7fffffe          BL       bsp_LedToggle
+000002  2001              MOVS     r0,#1
+000004  f7fffffe          BL       bsp_LedToggle
 ;;;136    		bsp_LedToggle(2);
-000030  2002              MOVS     r0,#2
-000032  f7fffffe          BL       bsp_LedToggle
+000008  2002              MOVS     r0,#2
+00000a  f7fffffe          BL       bsp_LedToggle
 ;;;137    		bsp_LedToggle(3);
-000036  2003              MOVS     r0,#3
-000038  f7fffffe          BL       bsp_LedToggle
+00000e  2003              MOVS     r0,#3
+000010  f7fffffe          BL       bsp_LedToggle
 ;;;138    		
 ;;;139    		vTaskDelay(500);
-00003c  f44f70fa          MOV      r0,#0x1f4
-000040  f7fffffe          BL       vTaskDelay
-                  |L8.68|
-000044  e7f1              B        |L8.42|
+000014  f44f70fa          MOV      r0,#0x1f4
+000018  f7fffffe          BL       vTaskDelay
+                  |L8.28|
+00001c  e7f1              B        |L8.2|
 ;;;140    		
 ;;;141    	}
 ;;;142    }
 ;;;143    
                           ENDP
 
-000046  0000              DCW      0x0000
-                  |L8.72|
-                          DCD      0x437a0000
 
                           AREA ||.data||, DATA, ALIGN=2
 
