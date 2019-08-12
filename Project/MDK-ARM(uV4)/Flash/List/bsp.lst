@@ -38419,11 +38419,14 @@ N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
 X	uint32_t risingCount[2];  
 N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
 X	float speed[2];           
+N	int32_t cnt[ENCODER_COUNT];
+X	int32_t cnt[2];
 N}Encoder;
 N
 N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
+Nvoid bsp_PrintEncoder(void);
 N
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
@@ -38720,7 +38723,7 @@ N		}
 N	}while(!ret);
 N	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 N	
-N	bsp_InitIWDG();     /*初始化看门狗*/
+N	//bsp_InitIWDG();     /*初始化看门狗*/
 N	
 N	DEBUG("初始化完毕\r\n");
 X	printf ("初始化完毕\r\n");

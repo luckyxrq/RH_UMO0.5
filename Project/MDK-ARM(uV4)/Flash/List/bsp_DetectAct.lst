@@ -38401,11 +38401,14 @@ N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
 X	uint32_t risingCount[2];  
 N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
 X	float speed[2];           
+N	int32_t cnt[ENCODER_COUNT];
+X	int32_t cnt[2];
 N}Encoder;
 N
 N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
+Nvoid bsp_PrintEncoder(void);
 N
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
@@ -39412,12 +39415,12 @@ X	(void)(i);
 N
 N	
 N	
-N#if 1	
-N	for(i=0;i<10;i++)
-N	{
-N		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
-N	}
-N	printf("\r\n");
+N#if 0	
+S	for(i=0;i<10;i++)
+S	{
+S		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
+S	}
+S	printf("\r\n");
 N#endif
 N
 N#if 1	
@@ -39427,8 +39430,13 @@ N		if(i == 5) continue;
 N		
 N		if(adcRealTime[i] >=1.0F)
 N		{
+N			//DEBUG("time:%d encoder:%d\r\n");
 N			if(flgdec == 0)
 N			{
+N				bsp_PrintEncoder();
+N				bsp_MotorBrake(MotorLeft);
+N				bsp_MotorBrake(MotorRight);
+N				
 N				bsp_SetMotorTargetSpeed(MotorLeft,120);
 N				bsp_SetMotorTargetSpeed(MotorRight,120);
 N				flgdec = 1 ;

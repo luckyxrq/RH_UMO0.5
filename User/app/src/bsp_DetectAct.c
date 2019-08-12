@@ -608,7 +608,7 @@ void bsp_DetectDeal(void)
 
 	
 	
-#if 1	
+#if 0	
 	for(i=0;i<10;i++)
 	{
 		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
@@ -623,8 +623,13 @@ void bsp_DetectDeal(void)
 		
 		if(adcRealTime[i] >=1.0F)
 		{
+			//DEBUG("time:%d encoder:%d\r\n");
 			if(flgdec == 0)
 			{
+				bsp_PrintEncoder();
+				bsp_MotorBrake(MotorLeft);
+				bsp_MotorBrake(MotorRight);
+				
 				bsp_SetMotorTargetSpeed(MotorLeft,120);
 				bsp_SetMotorTargetSpeed(MotorRight,120);
 				flgdec = 1 ;

@@ -58,7 +58,7 @@
 000042  b92c              CBNZ     r4,|L1.80|
 ;;;61     		{
 ;;;62     			WARNING("AW9523B Init Error\r\n");
-000044  a007              ADR      r0,|L1.100|
+000044  a006              ADR      r0,|L1.96|
 000046  f7fffffe          BL       __2printf
 ;;;63     			bsp_DelayMS(100);
 00004a  2064              MOVS     r0,#0x64
@@ -71,36 +71,35 @@
 ;;;66     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 000054  f7fffffe          BL       bsp_InitDetectAct
 ;;;67     	
-;;;68     	bsp_InitIWDG();     /*初始化看门狗*/
-000058  f7fffffe          BL       bsp_InitIWDG
+;;;68     	//bsp_InitIWDG();     /*初始化看门狗*/
 ;;;69     	
 ;;;70     	DEBUG("初始化完毕\r\n");
-00005c  a007              ADR      r0,|L1.124|
-00005e  f7fffffe          BL       __2printf
+000058  a007              ADR      r0,|L1.120|
+00005a  f7fffffe          BL       __2printf
 ;;;71     	
 ;;;72     }
-000062  bd10              POP      {r4,pc}
+00005e  bd10              POP      {r4,pc}
 ;;;73     
                           ENDP
 
-                  |L1.100|
-000064  41573935          DCB      "AW9523B Init Error\r\n",0
-000068  32334220
-00006c  496e6974
-000070  20457272
-000074  6f720d0a
-000078  00      
-000079  00                DCB      0
-00007a  00                DCB      0
-00007b  00                DCB      0
-                  |L1.124|
-00007c  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
-000080  bbafcdea
-000084  b1cf0d0a
-000088  00      
-000089  00                DCB      0
-00008a  00                DCB      0
-00008b  00                DCB      0
+                  |L1.96|
+000060  41573935          DCB      "AW9523B Init Error\r\n",0
+000064  32334220
+000068  496e6974
+00006c  20457272
+000070  6f720d0a
+000074  00      
+000075  00                DCB      0
+000076  00                DCB      0
+000077  00                DCB      0
+                  |L1.120|
+000078  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
+00007c  bbafcdea
+000080  b1cf0d0a
+000084  00      
+000085  00                DCB      0
+000086  00                DCB      0
+000087  00                DCB      0
 
 ;*** Start embedded assembler ***
 

@@ -273,7 +273,7 @@ void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed)
 	}
 	
 	
-	bsp_MotorCoast(sn);
+	bsp_MotorBrake(sn);
 	
 	
 	

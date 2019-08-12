@@ -23,10 +23,12 @@ typedef struct
 	bool isReadyRising[ENCODER_COUNT];   /*检测到一个低电平了，现在准备检测上升沿*/
 	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
 	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
+	int32_t cnt[ENCODER_COUNT];
 }Encoder;
 
 
 void bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 float bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
+void bsp_PrintEncoder(void);
 
 #endif

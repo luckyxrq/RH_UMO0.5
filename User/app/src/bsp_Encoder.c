@@ -129,6 +129,7 @@ void TIM7_IRQHandler(void)
 			{
 				encoder.isReadyRising[EncoderLeft] = false;
 				++encoder.risingCount[EncoderLeft];
+				++encoder.cnt[0];
 			}
 		}
 		
@@ -143,6 +144,7 @@ void TIM7_IRQHandler(void)
 			{
 				encoder.isReadyRising[EncoderRight] = false;
 				++encoder.risingCount[EncoderRight];
+				++encoder.cnt[1];
 			}
 		}
 
@@ -156,5 +158,11 @@ void TIM7_IRQHandler(void)
 		}
 
 	}
+}
+
+
+void bsp_PrintEncoder(void)
+{
+	DEBUG("L:%d  R:%d\r\n",encoder.cnt[0],encoder.cnt[1]);
 }
 

@@ -1111,7 +1111,7 @@
 ;;;273    	}
 ;;;274    	
 ;;;275    	
-;;;276    	bsp_MotorCoast(sn);
+;;;276    	bsp_MotorBrake(sn);
 ;;;277    	
 ;;;278    	
 ;;;279    	
@@ -1133,7 +1133,7 @@
 000012  bd70              POP      {r4-r6,pc}
                   |L9.20|
 000014  4620              MOV      r0,r4                 ;276
-000016  f7fffffe          BL       bsp_MotorCoast
+000016  f7fffffe          BL       bsp_MotorBrake
 00001a  b114              CBZ      r4,|L9.34|
 00001c  2c01              CMP      r4,#1                 ;280
 00001e  d10c              BNE      |L9.58|

@@ -38401,11 +38401,14 @@ N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
 X	uint32_t risingCount[2];  
 N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
 X	float speed[2];           
+N	int32_t cnt[ENCODER_COUNT];
+X	int32_t cnt[2];
 N}Encoder;
 N
 N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
+Nvoid bsp_PrintEncoder(void);
 N
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
@@ -38794,6 +38797,7 @@ N			{
 N				encoder.isReadyRising[EncoderLeft] = false;
 X				encoder.isReadyRising[EncoderLeft] = 0;
 N				++encoder.risingCount[EncoderLeft];
+N				++encoder.cnt[0];
 N			}
 N		}
 N		
@@ -38811,6 +38815,7 @@ N			{
 N				encoder.isReadyRising[EncoderRight] = false;
 X				encoder.isReadyRising[EncoderRight] = 0;
 N				++encoder.risingCount[EncoderRight];
+N				++encoder.cnt[1];
 N			}
 N		}
 N
@@ -38825,5 +38830,12 @@ N			bsp_EncoderCalcSpeed(EncoderRight);
 N		}
 N
 N	}
+N}
+N
+N
+Nvoid bsp_PrintEncoder(void)
+N{
+N	DEBUG("L:%d  R:%d\r\n",encoder.cnt[0],encoder.cnt[1]);
+X	printf ("L:%d  R:%d\r\n",encoder . cnt[0],encoder . cnt[1]);
 N}
 N

@@ -56,9 +56,19 @@ void vSetupSysInfoTest(void)
 */
 void TIM6_IRQHandler( void )
 {
+	static uint32_t i = 0 ;
+	
 	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 	{
 		bsp_VacuumClean();
+		
+		if(++i >= 20)
+		{
+			i = 0 ;
+			bsp_DetectAct();  /*红外对管轮询扫描*/
+			bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		}
+		
 		
 		ulHighFrequencyTimerTicks++;
 		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);

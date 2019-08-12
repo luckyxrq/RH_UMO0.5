@@ -11,127 +11,137 @@
 ;;;114    {
 ;;;115    	if(RESET != TIM_GetITStatus(TIM7, TIM_IT_Update)) 
 000002  2101              MOVS     r1,#1
-000004  4821              LDR      r0,|L1.140|
+000004  4825              LDR      r0,|L1.156|
 000006  f7fffffe          BL       TIM_GetITStatus
 00000a  2800              CMP      r0,#0
-00000c  d03d              BEQ      |L1.138|
+00000c  d045              BEQ      |L1.154|
 ;;;116    	{
 ;;;117    		TIM_ClearITPendingBit(TIM7, TIM_IT_Update); 
 00000e  2101              MOVS     r1,#1
-000010  481e              LDR      r0,|L1.140|
+000010  4822              LDR      r0,|L1.156|
 000012  f7fffffe          BL       TIM_ClearITPendingBit
 ;;;118    		++interruptCount;
-000016  481e              LDR      r0,|L1.144|
+000016  4822              LDR      r0,|L1.160|
 000018  6800              LDR      r0,[r0,#0]  ; interruptCount
 00001a  1c40              ADDS     r0,r0,#1
-00001c  491c              LDR      r1,|L1.144|
+00001c  4920              LDR      r1,|L1.160|
 00001e  6008              STR      r0,[r1,#0]  ; interruptCount
 ;;;119    		
 ;;;120    		
 ;;;121    		/*左脉冲计数*/
 ;;;122    		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 0)
 000020  f44f4100          MOV      r1,#0x8000
-000024  481b              LDR      r0,|L1.148|
+000024  481f              LDR      r0,|L1.164|
 000026  f7fffffe          BL       GPIO_ReadInputDataBit
 00002a  b918              CBNZ     r0,|L1.52|
 ;;;123    		{
 ;;;124    			encoder.isReadyRising[EncoderLeft] = true;
 00002c  2001              MOVS     r0,#1
-00002e  491a              LDR      r1,|L1.152|
+00002e  491e              LDR      r1,|L1.168|
 000030  7008              STRB     r0,[r1,#0]
-000032  e009              B        |L1.72|
+000032  e00d              B        |L1.80|
                   |L1.52|
 ;;;125    		}
 ;;;126    		else
 ;;;127    		{
 ;;;128    			if(encoder.isReadyRising[EncoderLeft])
-000034  4818              LDR      r0,|L1.152|
+000034  481c              LDR      r0,|L1.168|
 000036  7800              LDRB     r0,[r0,#0]  ; encoder
-000038  b130              CBZ      r0,|L1.72|
+000038  b150              CBZ      r0,|L1.80|
 ;;;129    			{
 ;;;130    				encoder.isReadyRising[EncoderLeft] = false;
 00003a  2000              MOVS     r0,#0
-00003c  4916              LDR      r1,|L1.152|
+00003c  491a              LDR      r1,|L1.168|
 00003e  7008              STRB     r0,[r1,#0]
 ;;;131    				++encoder.risingCount[EncoderLeft];
 000040  4608              MOV      r0,r1
 000042  6840              LDR      r0,[r0,#4]  ; encoder
 000044  1c40              ADDS     r0,r0,#1
 000046  6048              STR      r0,[r1,#4]  ; encoder
-                  |L1.72|
-;;;132    			}
-;;;133    		}
-;;;134    		
-;;;135    		/*右脉冲计数*/
-;;;136    		if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,  GPIO_PIN_RIGHT) == 0)
-000048  2108              MOVS     r1,#8
-00004a  4814              LDR      r0,|L1.156|
-00004c  f7fffffe          BL       GPIO_ReadInputDataBit
-000050  b918              CBNZ     r0,|L1.90|
-;;;137    		{
-;;;138    			encoder.isReadyRising[EncoderRight] = true;
-000052  2001              MOVS     r0,#1
-000054  4910              LDR      r1,|L1.152|
-000056  7048              STRB     r0,[r1,#1]
-000058  e009              B        |L1.110|
-                  |L1.90|
-;;;139    		}
-;;;140    		else
-;;;141    		{
-;;;142    			if(encoder.isReadyRising[EncoderRight])
-00005a  480f              LDR      r0,|L1.152|
-00005c  7840              LDRB     r0,[r0,#1]  ; encoder
-00005e  b130              CBZ      r0,|L1.110|
-;;;143    			{
-;;;144    				encoder.isReadyRising[EncoderRight] = false;
-000060  2000              MOVS     r0,#0
-000062  490d              LDR      r1,|L1.152|
-000064  7048              STRB     r0,[r1,#1]
-;;;145    				++encoder.risingCount[EncoderRight];
-000066  4608              MOV      r0,r1
-000068  6880              LDR      r0,[r0,#8]
-00006a  1c40              ADDS     r0,r0,#1
-00006c  6088              STR      r0,[r1,#8]
-                  |L1.110|
-;;;146    			}
-;;;147    		}
-;;;148    
-;;;149    		/*计算速度*/
-;;;150    		if(interruptCount >= CALC_T)
-00006e  4808              LDR      r0,|L1.144|
-000070  6800              LDR      r0,[r0,#0]  ; interruptCount
-000072  f2475130          MOV      r1,#0x7530
-000076  4288              CMP      r0,r1
-000078  d307              BCC      |L1.138|
-;;;151    		{
-;;;152    			interruptCount = 0 ;
-00007a  2000              MOVS     r0,#0
-00007c  4904              LDR      r1,|L1.144|
-00007e  6008              STR      r0,[r1,#0]  ; interruptCount
-;;;153    			
-;;;154    			bsp_EncoderCalcSpeed(EncoderLeft);
-000080  f7fffffe          BL       bsp_EncoderCalcSpeed
-;;;155    			bsp_EncoderCalcSpeed(EncoderRight);
-000084  2001              MOVS     r0,#1
-000086  f7fffffe          BL       bsp_EncoderCalcSpeed
-                  |L1.138|
-;;;156    		}
-;;;157    
-;;;158    	}
-;;;159    }
-00008a  bd10              POP      {r4,pc}
-;;;160    
+;;;132    				++encoder.cnt[0];
+000048  4608              MOV      r0,r1
+00004a  6940              LDR      r0,[r0,#0x14]  ; encoder
+00004c  1c40              ADDS     r0,r0,#1
+00004e  6148              STR      r0,[r1,#0x14]  ; encoder
+                  |L1.80|
+;;;133    			}
+;;;134    		}
+;;;135    		
+;;;136    		/*右脉冲计数*/
+;;;137    		if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,  GPIO_PIN_RIGHT) == 0)
+000050  2108              MOVS     r1,#8
+000052  4816              LDR      r0,|L1.172|
+000054  f7fffffe          BL       GPIO_ReadInputDataBit
+000058  b918              CBNZ     r0,|L1.98|
+;;;138    		{
+;;;139    			encoder.isReadyRising[EncoderRight] = true;
+00005a  2001              MOVS     r0,#1
+00005c  4912              LDR      r1,|L1.168|
+00005e  7048              STRB     r0,[r1,#1]
+000060  e00d              B        |L1.126|
+                  |L1.98|
+;;;140    		}
+;;;141    		else
+;;;142    		{
+;;;143    			if(encoder.isReadyRising[EncoderRight])
+000062  4811              LDR      r0,|L1.168|
+000064  7840              LDRB     r0,[r0,#1]  ; encoder
+000066  b150              CBZ      r0,|L1.126|
+;;;144    			{
+;;;145    				encoder.isReadyRising[EncoderRight] = false;
+000068  2000              MOVS     r0,#0
+00006a  490f              LDR      r1,|L1.168|
+00006c  7048              STRB     r0,[r1,#1]
+;;;146    				++encoder.risingCount[EncoderRight];
+00006e  4608              MOV      r0,r1
+000070  6880              LDR      r0,[r0,#8]
+000072  1c40              ADDS     r0,r0,#1
+000074  6088              STR      r0,[r1,#8]
+;;;147    				++encoder.cnt[1];
+000076  4608              MOV      r0,r1
+000078  6980              LDR      r0,[r0,#0x18]
+00007a  1c40              ADDS     r0,r0,#1
+00007c  6188              STR      r0,[r1,#0x18]
+                  |L1.126|
+;;;148    			}
+;;;149    		}
+;;;150    
+;;;151    		/*计算速度*/
+;;;152    		if(interruptCount >= CALC_T)
+00007e  4808              LDR      r0,|L1.160|
+000080  6800              LDR      r0,[r0,#0]  ; interruptCount
+000082  f2475130          MOV      r1,#0x7530
+000086  4288              CMP      r0,r1
+000088  d307              BCC      |L1.154|
+;;;153    		{
+;;;154    			interruptCount = 0 ;
+00008a  2000              MOVS     r0,#0
+00008c  4904              LDR      r1,|L1.160|
+00008e  6008              STR      r0,[r1,#0]  ; interruptCount
+;;;155    			
+;;;156    			bsp_EncoderCalcSpeed(EncoderLeft);
+000090  f7fffffe          BL       bsp_EncoderCalcSpeed
+;;;157    			bsp_EncoderCalcSpeed(EncoderRight);
+000094  2001              MOVS     r0,#1
+000096  f7fffffe          BL       bsp_EncoderCalcSpeed
+                  |L1.154|
+;;;158    		}
+;;;159    
+;;;160    	}
+;;;161    }
+00009a  bd10              POP      {r4,pc}
+;;;162    
                           ENDP
 
-                  |L1.140|
-                          DCD      0x40001400
-                  |L1.144|
-                          DCD      interruptCount
-                  |L1.148|
-                          DCD      0x40010800
-                  |L1.152|
-                          DCD      encoder
                   |L1.156|
+                          DCD      0x40001400
+                  |L1.160|
+                          DCD      interruptCount
+                  |L1.164|
+                          DCD      0x40010800
+                  |L1.168|
+                          DCD      encoder
+                  |L1.172|
                           DCD      0x40011800
 
                           AREA ||i.bsp_EncoderCalcSpeed||, CODE, READONLY, ALIGN=2
@@ -283,10 +293,42 @@
                   |L6.20|
                           DCD      0x40001400
 
+                          AREA ||i.bsp_PrintEncoder||, CODE, READONLY, ALIGN=2
+
+                          REQUIRE _printf_percent
+                          REQUIRE _printf_d
+                          REQUIRE _printf_int_dec
+                  bsp_PrintEncoder PROC
+;;;163    
+;;;164    void bsp_PrintEncoder(void)
+000000  b510              PUSH     {r4,lr}
+;;;165    {
+;;;166    	DEBUG("L:%d  R:%d\r\n",encoder.cnt[0],encoder.cnt[1]);
+000002  4803              LDR      r0,|L7.16|
+000004  6982              LDR      r2,[r0,#0x18]
+000006  6941              LDR      r1,[r0,#0x14]  ; encoder
+000008  a002              ADR      r0,|L7.20|
+00000a  f7fffffe          BL       __2printf
+;;;167    }
+00000e  bd10              POP      {r4,pc}
+;;;168    
+                          ENDP
+
+                  |L7.16|
+                          DCD      encoder
+                  |L7.20|
+000014  4c3a2564          DCB      "L:%d  R:%d\r\n",0
+000018  2020523a
+00001c  25640d0a
+000020  00      
+000021  00                DCB      0
+000022  00                DCB      0
+000023  00                DCB      0
+
                           AREA ||.bss||, DATA, NOINIT, ALIGN=2
 
                   encoder
-                          %        20
+                          %        28
 
                           AREA ||.data||, DATA, ALIGN=2
 

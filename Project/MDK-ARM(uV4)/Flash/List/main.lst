@@ -45772,11 +45772,14 @@ N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
 X	uint32_t risingCount[2];  
 N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
 X	float speed[2];           
+N	int32_t cnt[ENCODER_COUNT];
+X	int32_t cnt[2];
 N}Encoder;
 N
 N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
+Nvoid bsp_PrintEncoder(void);
 N
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
@@ -46152,8 +46155,8 @@ N	bsp_SetMotorTargetSpeed(MotorRight,250);
 N#endif
 N
 N#if 1
-N	bsp_SetMotorPWM(MotorRoller,Forward,6500);
-N	bsp_SetMotorPWM(MotorBrush, Forward,7000);
+N	bsp_SetMotorPWM(MotorRoller,Forward,7000);
+N	bsp_SetMotorPWM(MotorBrush, Forward,6500);
 N#endif
 N
 N
@@ -46192,7 +46195,7 @@ N{
 N	static uint32_t index = 0 ;
 N    while(1)
 N    {
-N		bsp_IWDG_Feed(); /* 喂狗 */
+N		//bsp_IWDG_Feed(); /* 喂狗 */
 N		
 N		
 N		{
@@ -46233,6 +46236,8 @@ N*/
 Nstatic void vTaskMsgPro(void *pvParameters)
 N{
 N	//bsp_StartRunStable();
+N	vTaskDelay(2000);
+N	bsp_StartVacuum();
 N    while(1)
 N    {
 N		//bsp_RunStableAct(); /* 平滑启动状态机 */
@@ -46254,8 +46259,8 @@ N{
 N	bsp_DetectStart(); /*开启红外对管轮询扫描*/
 N    while(1)
 N    {
-N		bsp_DetectAct();  /*红外对管轮询扫描*/
-N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N		//bsp_DetectAct();  /*红外对管轮询扫描*/
+N		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
 N		bsp_EdgewiseAct();/*沿边*/
 N        vTaskDelay(1);
 N    }
