@@ -13,56 +13,53 @@
 ;;;60     	
 ;;;61     	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 000002  2101              MOVS     r1,#1
-000004  480e              LDR      r0,|L1.64|
+000004  480b              LDR      r0,|L1.52|
 000006  f7fffffe          BL       TIM_GetITStatus
-00000a  b1b8              CBZ      r0,|L1.60|
+00000a  b188              CBZ      r0,|L1.48|
 ;;;62     	{
-;;;63     		bsp_VacuumClean();
-00000c  f7fffffe          BL       bsp_VacuumClean
+;;;63     		//bsp_VacuumClean();
 ;;;64     		
 ;;;65     		if(++i >= 20)
-000010  480c              LDR      r0,|L1.68|
-000012  6800              LDR      r0,[r0,#0]  ; i
-000014  1c40              ADDS     r0,r0,#1
-000016  490b              LDR      r1,|L1.68|
-000018  6008              STR      r0,[r1,#0]  ; i
-00001a  2814              CMP      r0,#0x14
-00001c  d305              BCC      |L1.42|
+00000c  480a              LDR      r0,|L1.56|
+00000e  6800              LDR      r0,[r0,#0]  ; i
+000010  1c40              ADDS     r0,r0,#1
+000012  4909              LDR      r1,|L1.56|
+000014  6008              STR      r0,[r1,#0]  ; i
+000016  2814              CMP      r0,#0x14
+000018  d301              BCC      |L1.30|
 ;;;66     		{
 ;;;67     			i = 0 ;
-00001e  2000              MOVS     r0,#0
-000020  6008              STR      r0,[r1,#0]  ; i
-;;;68     			bsp_DetectAct();  /*红外对管轮询扫描*/
-000022  f7fffffe          BL       bsp_DetectAct
-;;;69     			bsp_DetectDeal(); /*红外对管扫描结果处理*/
-000026  f7fffffe          BL       bsp_DetectDeal
-                  |L1.42|
+00001a  2000              MOVS     r0,#0
+00001c  6008              STR      r0,[r1,#0]  ; i
+                  |L1.30|
+;;;68     //			bsp_DetectAct();  /*红外对管轮询扫描*/
+;;;69     //			bsp_DetectDeal(); /*红外对管扫描结果处理*/
 ;;;70     		}
 ;;;71     		
 ;;;72     		
 ;;;73     		ulHighFrequencyTimerTicks++;
-00002a  4807              LDR      r0,|L1.72|
-00002c  6800              LDR      r0,[r0,#0]  ; ulHighFrequencyTimerTicks
-00002e  1c40              ADDS     r0,r0,#1
-000030  4905              LDR      r1,|L1.72|
-000032  6008              STR      r0,[r1,#0]  ; ulHighFrequencyTimerTicks
+00001e  4807              LDR      r0,|L1.60|
+000020  6800              LDR      r0,[r0,#0]  ; ulHighFrequencyTimerTicks
+000022  1c40              ADDS     r0,r0,#1
+000024  4905              LDR      r1,|L1.60|
+000026  6008              STR      r0,[r1,#0]  ; ulHighFrequencyTimerTicks
 ;;;74     		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);
-000034  2101              MOVS     r1,#1
-000036  4802              LDR      r0,|L1.64|
-000038  f7fffffe          BL       TIM_ClearITPendingBit
-                  |L1.60|
+000028  2101              MOVS     r1,#1
+00002a  4802              LDR      r0,|L1.52|
+00002c  f7fffffe          BL       TIM_ClearITPendingBit
+                  |L1.48|
 ;;;75     	}
 ;;;76     }
-00003c  bd10              POP      {r4,pc}
+000030  bd10              POP      {r4,pc}
 ;;;77     
                           ENDP
 
-00003e  0000              DCW      0x0000
-                  |L1.64|
+000032  0000              DCW      0x0000
+                  |L1.52|
                           DCD      0x40001000
-                  |L1.68|
+                  |L1.56|
                           DCD      i
-                  |L1.72|
+                  |L1.60|
                           DCD      ulHighFrequencyTimerTicks
 
                           AREA ||i.vSetupSysInfoTest||, CODE, READONLY, ALIGN=2

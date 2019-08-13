@@ -2177,74 +2177,62 @@
 ;;;619    #if 1	
 ;;;620    	for(i=0;i<=9;i++)
 000004  bf00              NOP      
-000006  e023              B        |L4.80|
+000006  e00f              B        |L4.40|
                   |L4.8|
 ;;;621    	{
-;;;622    		if(i == 5) continue;
-000008  2c05              CMP      r4,#5
-00000a  d100              BNE      |L4.14|
-00000c  e01e              B        |L4.76|
-                  |L4.14|
+;;;622    //		if(i == 5) continue;
 ;;;623    		
-;;;624    		if(adcRealTime[i] >=1.0F)
-00000e  4912              LDR      r1,|L4.88|
-000010  f8510024          LDR      r0,[r1,r4,LSL #2]
-000014  f04f517e          MOV      r1,#0x3f800000
-000018  f7fffffe          BL       __aeabi_cfrcmple
-00001c  d815              BHI      |L4.74|
+;;;624    //		if(i == 3 || i == 7 || i == 1 || i == 2 || i == 4)
 ;;;625    		{
-;;;626    			//DEBUG("time:%d encoder:%d\r\n");
-;;;627    			if(flgdec == 0)
-00001e  480f              LDR      r0,|L4.92|
-000020  7800              LDRB     r0,[r0,#0]  ; flgdec
-000022  b990              CBNZ     r0,|L4.74|
-;;;628    			{
-;;;629    				bsp_PrintEncoder();
-000024  f7fffffe          BL       bsp_PrintEncoder
-;;;630    				bsp_MotorBrake(MotorLeft);
-000028  2000              MOVS     r0,#0
-00002a  f7fffffe          BL       bsp_MotorBrake
-;;;631    				bsp_MotorBrake(MotorRight);
-00002e  2001              MOVS     r0,#1
-000030  f7fffffe          BL       bsp_MotorBrake
-;;;632    				
-;;;633    				bsp_SetMotorTargetSpeed(MotorLeft,120);
-000034  490a              LDR      r1,|L4.96|
-000036  2000              MOVS     r0,#0
-000038  f7fffffe          BL       bsp_SetMotorTargetSpeed
-;;;634    				bsp_SetMotorTargetSpeed(MotorRight,120);
-00003c  4908              LDR      r1,|L4.96|
-00003e  2001              MOVS     r0,#1
-000040  f7fffffe          BL       bsp_SetMotorTargetSpeed
-;;;635    				flgdec = 1 ;
-000044  2001              MOVS     r0,#1
-000046  4905              LDR      r1,|L4.92|
-000048  7008              STRB     r0,[r1,#0]
-                  |L4.74|
-00004a  bf00              NOP                            ;622
-                  |L4.76|
-00004c  1c60              ADDS     r0,r4,#1              ;620
-00004e  b2c4              UXTB     r4,r0                 ;620
-                  |L4.80|
-000050  2c09              CMP      r4,#9                 ;620
-000052  ddd9              BLE      |L4.8|
-;;;636    			}
-;;;637    			
-;;;638    		}
-;;;639    	}
-;;;640    #endif	
-;;;641    }
-000054  bd10              POP      {r4,pc}
-;;;642    
+;;;626    			if(adcRealTime[i] >= 1.0F)
+000008  4909              LDR      r1,|L4.48|
+00000a  f8510024          LDR      r0,[r1,r4,LSL #2]
+00000e  f04f517e          MOV      r1,#0x3f800000
+000012  f7fffffe          BL       __aeabi_cfrcmple
+000016  d805              BHI      |L4.36|
+;;;627    			{
+;;;628    				bsp_MotorBrake(MotorLeft);
+000018  2000              MOVS     r0,#0
+00001a  f7fffffe          BL       bsp_MotorBrake
+;;;629    				bsp_MotorBrake(MotorRight);
+00001e  2001              MOVS     r0,#1
+000020  f7fffffe          BL       bsp_MotorBrake
+                  |L4.36|
+000024  1c60              ADDS     r0,r4,#1              ;620
+000026  b2c4              UXTB     r4,r0                 ;620
+                  |L4.40|
+000028  2c09              CMP      r4,#9                 ;620
+00002a  dded              BLE      |L4.8|
+;;;630    			}
+;;;631    			
+;;;632    		}
+;;;633    		
+;;;634    		
+;;;635    //		if(adcRealTime[i] >=1.0F)
+;;;636    //		{
+;;;637    //			//DEBUG("time:%d encoder:%d\r\n");
+;;;638    //			if(flgdec == 0)
+;;;639    //			{
+;;;640    //				bsp_PrintEncoder();
+;;;641    //				bsp_MotorBrake(MotorLeft);
+;;;642    //				bsp_MotorBrake(MotorRight);
+;;;643    //				
+;;;644    //				bsp_SetMotorTargetSpeed(MotorLeft,120);
+;;;645    //				bsp_SetMotorTargetSpeed(MotorRight,120);
+;;;646    //				flgdec = 1 ;
+;;;647    //			}
+;;;648    //			
+;;;649    //		}
+;;;650    	}
+;;;651    #endif	
+;;;652    }
+00002c  bd10              POP      {r4,pc}
+;;;653    
                           ENDP
 
-000056  0000              DCW      0x0000
-                  |L4.88|
+00002e  0000              DCW      0x0000
+                  |L4.48|
                           DCD      adcRealTime
-                  |L4.92|
-                          DCD      flgdec
-                  |L4.96|
-                          DCD      0x42f00000
 
                           AREA ||i.bsp_DetectStart||, CODE, READONLY, ALIGN=2
 

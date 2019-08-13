@@ -46154,9 +46154,9 @@ N	bsp_SetMotorTargetSpeed(MotorLeft,250);
 N	bsp_SetMotorTargetSpeed(MotorRight,250); 
 N#endif
 N
-N#if 1
-N	bsp_SetMotorPWM(MotorRoller,Forward,7000);
-N	bsp_SetMotorPWM(MotorBrush, Forward,6500);
+N#if 0
+S	bsp_SetMotorPWM(MotorRoller,Forward,7000);
+S	bsp_SetMotorPWM(MotorBrush, Forward,6500);
 N#endif
 N
 N
@@ -46259,8 +46259,8 @@ N{
 N	bsp_DetectStart(); /*开启红外对管轮询扫描*/
 N    while(1)
 N    {
-N		//bsp_DetectAct();  /*红外对管轮询扫描*/
-N		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N		bsp_DetectAct();  /*红外对管轮询扫描*/
+N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 N		bsp_EdgewiseAct();/*沿边*/
 N        vTaskDelay(1);
 N    }

@@ -619,23 +619,34 @@ void bsp_DetectDeal(void)
 #if 1	
 	for(i=0;i<=9;i++)
 	{
-		if(i == 5) continue;
+//		if(i == 5) continue;
 		
-		if(adcRealTime[i] >=1.0F)
+//		if(i == 3 || i == 7 || i == 1 || i == 2 || i == 4)
 		{
-			//DEBUG("time:%d encoder:%d\r\n");
-			if(flgdec == 0)
+			if(adcRealTime[i] >= 1.0F)
 			{
-				bsp_PrintEncoder();
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
-				
-				bsp_SetMotorTargetSpeed(MotorLeft,120);
-				bsp_SetMotorTargetSpeed(MotorRight,120);
-				flgdec = 1 ;
 			}
 			
 		}
+		
+		
+//		if(adcRealTime[i] >=1.0F)
+//		{
+//			//DEBUG("time:%d encoder:%d\r\n");
+//			if(flgdec == 0)
+//			{
+//				bsp_PrintEncoder();
+//				bsp_MotorBrake(MotorLeft);
+//				bsp_MotorBrake(MotorRight);
+//				
+//				bsp_SetMotorTargetSpeed(MotorLeft,120);
+//				bsp_SetMotorTargetSpeed(MotorRight,120);
+//				flgdec = 1 ;
+//			}
+//			
+//		}
 	}
 #endif	
 }

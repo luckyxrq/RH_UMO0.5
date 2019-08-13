@@ -38718,13 +38718,13 @@ N
 N	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 X	if(TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)), ((uint16_t)0x0001)) != RESET)
 N	{
-N		bsp_VacuumClean();
+N		//bsp_VacuumClean();
 N		
 N		if(++i >= 20)
 N		{
 N			i = 0 ;
-N			bsp_DetectAct();  /*红外对管轮询扫描*/
-N			bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N//			bsp_DetectAct();  /*红外对管轮询扫描*/
+N//			bsp_DetectDeal(); /*红外对管扫描结果处理*/
 N		}
 N		
 N		
