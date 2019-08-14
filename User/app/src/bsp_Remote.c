@@ -108,7 +108,7 @@ void bsp_SearchChargingPileAct(void)
 				searchCharging.isRight = false ; //´Ó×ó±ßÇÐÈë
 				searchCharging.action++;
 			}
-			else if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+			else if((remote[CapCH4].is500us && remote[CapCH4].is1000us)  || (remote[CapCH3].is500us && remote[CapCH3].is1000us))
 			{
 				searchCharging.action = 5 ;
 			}
@@ -218,7 +218,7 @@ void bsp_SearchChargingPileAct(void)
 		{
 			if(searchCharging.isNeedBack)
 			{
-				if(xTaskGetTickCount() - searchCharging.delay >= 3000)
+				if(xTaskGetTickCount() - searchCharging.delay >= 5000)
 				{
 					searchCharging.isNeedBack = false;
 				}

@@ -38861,7 +38861,7 @@ N				searchCharging.isRight = false ; //´Ó×ó±ßÇÐÈë
 X				searchCharging.isRight = 0 ; 
 N				searchCharging.action++;
 N			}
-N			else if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+N			else if((remote[CapCH4].is500us && remote[CapCH4].is1000us)  || (remote[CapCH3].is500us && remote[CapCH3].is1000us))
 N			{
 N				searchCharging.action = 5 ;
 N			}
@@ -38978,7 +38978,7 @@ N		case 6:
 N		{
 N			if(searchCharging.isNeedBack)
 N			{
-N				if(xTaskGetTickCount() - searchCharging.delay >= 3000)
+N				if(xTaskGetTickCount() - searchCharging.delay >= 5000)
 N				{
 N					searchCharging.isNeedBack = false;
 X					searchCharging.isNeedBack = 0;
