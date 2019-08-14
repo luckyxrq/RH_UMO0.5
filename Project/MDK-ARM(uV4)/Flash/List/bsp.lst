@@ -38464,7 +38464,7 @@ N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
 Nint32_t bsp_encoderGetOdometer(MotorSN sn);
-N
+Nvoid EXTI_Config(void);
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
@@ -38795,7 +38795,7 @@ N	bsp_InitDC_Motor();      /* 初始化直流电机 */
 N	bsp_InitEncoder();       /*初始化编码器引脚，用于统计脉冲的定时器*/
 N	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 N	bsp_InitChargingPile();  /*初始化输入捕获*/
-N	
+N	EXTI_Config();
 N	/* 初始化IO拓展芯片 */	
 N	do{
 N		ret = bsp_InitAW9523B();		

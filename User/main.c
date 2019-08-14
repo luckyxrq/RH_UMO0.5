@@ -233,7 +233,7 @@ static void vTaskStart(void *pvParameters)
 		bsp_GetCapCnt(CapCH4);
 		
 		/*Ñ°ÕÒ³äµç×®*/
-		bsp_SearchChargingPileAct();
+		//bsp_SearchChargingPileAct();
 		
         vTaskDelay(1);
     }

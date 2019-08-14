@@ -30,5 +30,5 @@ typedef struct
 void bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 float bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
 int32_t bsp_encoderGetOdometer(MotorSN sn);
-
+void EXTI_Config(void);
 #endif

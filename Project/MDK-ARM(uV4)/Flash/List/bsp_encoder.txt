@@ -2,6 +2,227 @@
 ; commandline ArmCC [--list --split_sections --debug -c --asm --interleave -o.\flash\obj\bsp_encoder.o --asm_dir=.\Flash\List\ --list_dir=.\Flash\List\ --depend=.\flash\obj\bsp_encoder.d --cpu=Cortex-M3 --apcs=interwork -O0 --diag_suppress=9931,870 -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -IF:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE -ID:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include -ID:\soft\MDK5\ARM\CMSIS\Include -D__MICROLIB -D__UVISION_VERSION=514 -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD --omf_browse=.\flash\obj\bsp_encoder.crf ..\..\User\app\src\bsp_Encoder.c]
                           THUMB
 
+                          AREA ||i.EXTI15_10_IRQHandler||, CODE, READONLY, ALIGN=2
+
+                  EXTI15_10_IRQHandler PROC
+;;;294    */
+;;;295    void EXTI15_10_IRQHandler(void)
+000000  b510              PUSH     {r4,lr}
+;;;296    {
+;;;297    
+;;;298    	if (EXTI_GetITStatus(EXTI_Line15) != RESET)
+000002  f44f4000          MOV      r0,#0x8000
+000006  f7fffffe          BL       EXTI_GetITStatus
+00000a  b130              CBZ      r0,|L1.26|
+;;;299    	{
+;;;300    		EXTI_ClearITPendingBit(EXTI_Line15);
+00000c  f44f4000          MOV      r0,#0x8000
+000010  f7fffffe          BL       EXTI_ClearITPendingBit
+;;;301    
+;;;302    		DEBUG("EXTI_Line15");
+000014  a001              ADR      r0,|L1.28|
+000016  f7fffffe          BL       __2printf
+                  |L1.26|
+;;;303    	}
+;;;304    }
+00001a  bd10              POP      {r4,pc}
+;;;305    
+                          ENDP
+
+                  |L1.28|
+00001c  45585449          DCB      "EXTI_Line15",0
+000020  5f4c696e
+000024  65313500
+
+                          AREA ||i.EXTI3_IRQHandler||, CODE, READONLY, ALIGN=2
+
+                  EXTI3_IRQHandler PROC
+;;;314    */
+;;;315    void EXTI3_IRQHandler(void)
+000000  b510              PUSH     {r4,lr}
+;;;316    {
+;;;317    
+;;;318    	if (EXTI_GetITStatus(EXTI_Line3) != RESET)
+000002  2008              MOVS     r0,#8
+000004  f7fffffe          BL       EXTI_GetITStatus
+000008  b128              CBZ      r0,|L2.22|
+;;;319    	{
+;;;320    		EXTI_ClearITPendingBit(EXTI_Line3);
+00000a  2008              MOVS     r0,#8
+00000c  f7fffffe          BL       EXTI_ClearITPendingBit
+;;;321    		
+;;;322    		DEBUG("EXTI_Line3");
+000010  a001              ADR      r0,|L2.24|
+000012  f7fffffe          BL       __2printf
+                  |L2.22|
+;;;323    	}
+;;;324    }
+000016  bd10              POP      {r4,pc}
+;;;325    
+                          ENDP
+
+                  |L2.24|
+000018  45585449          DCB      "EXTI_Line3",0
+00001c  5f4c696e
+000020  653300  
+000023  00                DCB      0
+
+                          AREA ||i.EXTI_Config||, CODE, READONLY, ALIGN=2
+
+                  EXTI_Config PROC
+;;;213    */
+;;;214    void EXTI_Config(void)
+000000  b51f              PUSH     {r0-r4,lr}
+;;;215    {
+;;;216    	/* 配置PA15 */
+;;;217    	{
+;;;218    		GPIO_InitTypeDef GPIO_InitStructure;
+;;;219    		EXTI_InitTypeDef   EXTI_InitStructure;
+;;;220    		NVIC_InitTypeDef   NVIC_InitStructure;		
+;;;221    		
+;;;222    		/* 使能 GPIO 时钟 */
+;;;223    		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+000002  2101              MOVS     r1,#1
+000004  2004              MOVS     r0,#4
+000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
+;;;224    
+;;;225    		/* 配置 PA0 为输入浮空模式 */
+;;;226    		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+00000a  f44f4000          MOV      r0,#0x8000
+00000e  f8ad000c          STRH     r0,[sp,#0xc]
+;;;227    		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+000012  2004              MOVS     r0,#4
+000014  f88d000f          STRB     r0,[sp,#0xf]
+;;;228    		GPIO_Init(GPIOA, &GPIO_InitStructure);
+000018  a903              ADD      r1,sp,#0xc
+00001a  482d              LDR      r0,|L3.208|
+00001c  f7fffffe          BL       GPIO_Init
+;;;229    
+;;;230    		/* 使能 AFIO 时钟 */
+;;;231    		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+000020  2101              MOVS     r1,#1
+000022  4608              MOV      r0,r1
+000024  f7fffffe          BL       RCC_APB2PeriphClockCmd
+;;;232    
+;;;233    		/* Connect EXTI0 Line to PA.00 pin */
+;;;234    		GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource15);
+000028  210f              MOVS     r1,#0xf
+00002a  2000              MOVS     r0,#0
+00002c  f7fffffe          BL       GPIO_EXTILineConfig
+;;;235    
+;;;236    		/* Configure EXTI0 line */
+;;;237    		EXTI_InitStructure.EXTI_Line = EXTI_Line15;
+000030  f44f4000          MOV      r0,#0x8000
+000034  9001              STR      r0,[sp,#4]
+;;;238    		EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+000036  2000              MOVS     r0,#0
+000038  f88d0008          STRB     r0,[sp,#8]
+;;;239    		EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  	
+00003c  2010              MOVS     r0,#0x10
+00003e  f88d0009          STRB     r0,[sp,#9]
+;;;240    		EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+000042  2001              MOVS     r0,#1
+000044  f88d000a          STRB     r0,[sp,#0xa]
+;;;241    		EXTI_Init(&EXTI_InitStructure);
+000048  a801              ADD      r0,sp,#4
+00004a  f7fffffe          BL       EXTI_Init
+;;;242    
+;;;243    		/* Enable and set EXTI0 Interrupt to the lowest priority */
+;;;244    		NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
+00004e  2028              MOVS     r0,#0x28
+000050  f88d0000          STRB     r0,[sp,#0]
+;;;245    		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+000054  200f              MOVS     r0,#0xf
+000056  f88d0001          STRB     r0,[sp,#1]
+;;;246    		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+00005a  f88d0002          STRB     r0,[sp,#2]
+;;;247    		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+00005e  2001              MOVS     r0,#1
+000060  f88d0003          STRB     r0,[sp,#3]
+;;;248    		NVIC_Init(&NVIC_InitStructure);
+000064  4668              MOV      r0,sp
+000066  f7fffffe          BL       NVIC_Init
+;;;249    	}
+;;;250    	
+;;;251    	/* 配置 PE3 外部中断 */
+;;;252    	{
+;;;253    		GPIO_InitTypeDef GPIO_InitStructure;
+;;;254    		EXTI_InitTypeDef   EXTI_InitStructure;
+;;;255    		NVIC_InitTypeDef   NVIC_InitStructure;			
+;;;256    		
+;;;257    		/* 使能 GPIO 时钟 */
+;;;258    		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
+00006a  2101              MOVS     r1,#1
+00006c  2040              MOVS     r0,#0x40
+00006e  f7fffffe          BL       RCC_APB2PeriphClockCmd
+;;;259    
+;;;260    		/* 配置 PC13 为输入浮空模式 */
+;;;261    		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+000072  2008              MOVS     r0,#8
+000074  f8ad000c          STRH     r0,[sp,#0xc]
+;;;262    		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+000078  2004              MOVS     r0,#4
+00007a  f88d000f          STRB     r0,[sp,#0xf]
+;;;263    		GPIO_Init(GPIOE, &GPIO_InitStructure);
+00007e  a903              ADD      r1,sp,#0xc
+000080  4814              LDR      r0,|L3.212|
+000082  f7fffffe          BL       GPIO_Init
+;;;264    
+;;;265    		/* 使能 AFIO 时钟 */
+;;;266    		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+000086  2101              MOVS     r1,#1
+000088  4608              MOV      r0,r1
+00008a  f7fffffe          BL       RCC_APB2PeriphClockCmd
+;;;267    
+;;;268    		/* Connect EXTI13 Line to PA.00 pin */
+;;;269    		GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource3);
+00008e  2103              MOVS     r1,#3
+000090  2004              MOVS     r0,#4
+000092  f7fffffe          BL       GPIO_EXTILineConfig
+;;;270    
+;;;271    		/* Configure EXTI13 line */
+;;;272    		EXTI_InitStructure.EXTI_Line = EXTI_Line3;
+000096  2008              MOVS     r0,#8
+000098  9001              STR      r0,[sp,#4]
+;;;273    		EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+00009a  2000              MOVS     r0,#0
+00009c  f88d0008          STRB     r0,[sp,#8]
+;;;274    		EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  	/* 上升沿触发 */
+0000a0  2010              MOVS     r0,#0x10
+0000a2  f88d0009          STRB     r0,[sp,#9]
+;;;275    		EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+0000a6  2001              MOVS     r0,#1
+0000a8  f88d000a          STRB     r0,[sp,#0xa]
+;;;276    		EXTI_Init(&EXTI_InitStructure);
+0000ac  a801              ADD      r0,sp,#4
+0000ae  f7fffffe          BL       EXTI_Init
+;;;277    
+;;;278    		/* Enable and set EXTI13 Interrupt to the lowest priority */
+;;;279    		NVIC_InitStructure.NVIC_IRQChannel = EXTI3_IRQn;
+0000b2  2009              MOVS     r0,#9
+0000b4  f88d0000          STRB     r0,[sp,#0]
+;;;280    		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+0000b8  200f              MOVS     r0,#0xf
+0000ba  f88d0001          STRB     r0,[sp,#1]
+;;;281    		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+0000be  f88d0002          STRB     r0,[sp,#2]
+;;;282    		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+0000c2  2001              MOVS     r0,#1
+0000c4  f88d0003          STRB     r0,[sp,#3]
+;;;283    		NVIC_Init(&NVIC_InitStructure);
+0000c8  4668              MOV      r0,sp
+0000ca  f7fffffe          BL       NVIC_Init
+;;;284    	}			
+;;;285    }
+0000ce  bd1f              POP      {r0-r4,pc}
+;;;286    
+                          ENDP
+
+                  |L3.208|
+                          DCD      0x40010800
+                  |L3.212|
+                          DCD      0x40011800
+
                           AREA ||i.TIM7_IRQHandler||, CODE, READONLY, ALIGN=2
 
                   TIM7_IRQHandler PROC
@@ -11,47 +232,47 @@
 ;;;114    {
 ;;;115    	if(RESET != TIM_GetITStatus(TIM7, TIM_IT_Update)) 
 000002  2101              MOVS     r1,#1
-000004  482e              LDR      r0,|L1.192|
+000004  482e              LDR      r0,|L4.192|
 000006  f7fffffe          BL       TIM_GetITStatus
 00000a  2800              CMP      r0,#0
-00000c  d057              BEQ      |L1.190|
+00000c  d057              BEQ      |L4.190|
 ;;;116    	{
 ;;;117    		TIM_ClearITPendingBit(TIM7, TIM_IT_Update); 
 00000e  2101              MOVS     r1,#1
-000010  482b              LDR      r0,|L1.192|
+000010  482b              LDR      r0,|L4.192|
 000012  f7fffffe          BL       TIM_ClearITPendingBit
 ;;;118    		++interruptCount;
-000016  482b              LDR      r0,|L1.196|
+000016  482b              LDR      r0,|L4.196|
 000018  6800              LDR      r0,[r0,#0]  ; interruptCount
 00001a  1c40              ADDS     r0,r0,#1
-00001c  4929              LDR      r1,|L1.196|
+00001c  4929              LDR      r1,|L4.196|
 00001e  6008              STR      r0,[r1,#0]  ; interruptCount
 ;;;119    		
 ;;;120    		
 ;;;121    		/*左脉冲计数*/
 ;;;122    		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 0)
 000020  f44f4100          MOV      r1,#0x8000
-000024  4828              LDR      r0,|L1.200|
+000024  4828              LDR      r0,|L4.200|
 000026  f7fffffe          BL       GPIO_ReadInputDataBit
-00002a  b918              CBNZ     r0,|L1.52|
+00002a  b918              CBNZ     r0,|L4.52|
 ;;;123    		{
 ;;;124    			encoder.isReadyRising[EncoderLeft] = true;
 00002c  2001              MOVS     r0,#1
-00002e  4927              LDR      r1,|L1.204|
+00002e  4927              LDR      r1,|L4.204|
 000030  7008              STRB     r0,[r1,#0]
-000032  e016              B        |L1.98|
-                  |L1.52|
+000032  e016              B        |L4.98|
+                  |L4.52|
 ;;;125    		}
 ;;;126    		else
 ;;;127    		{
 ;;;128    			if(encoder.isReadyRising[EncoderLeft])
-000034  4825              LDR      r0,|L1.204|
+000034  4825              LDR      r0,|L4.204|
 000036  7800              LDRB     r0,[r0,#0]  ; encoder
-000038  b198              CBZ      r0,|L1.98|
+000038  b198              CBZ      r0,|L4.98|
 ;;;129    			{
 ;;;130    				encoder.isReadyRising[EncoderLeft] = false;
 00003a  2000              MOVS     r0,#0
-00003c  4923              LDR      r1,|L1.204|
+00003c  4923              LDR      r1,|L4.204|
 00003e  7008              STRB     r0,[r1,#0]
 ;;;131    				++encoder.risingCount[EncoderLeft];
 000040  4608              MOV      r0,r1
@@ -61,45 +282,45 @@
 ;;;132    				encoder.odometer[0] += (bsp_MotorGetDir(MotorLeft)==Forward ? 1 : -1);/*里程计*/
 000048  2000              MOVS     r0,#0
 00004a  f7fffffe          BL       bsp_MotorGetDir
-00004e  b908              CBNZ     r0,|L1.84|
+00004e  b908              CBNZ     r0,|L4.84|
 000050  2001              MOVS     r0,#1
-000052  e001              B        |L1.88|
-                  |L1.84|
+000052  e001              B        |L4.88|
+                  |L4.84|
 000054  f04f30ff          MOV      r0,#0xffffffff
-                  |L1.88|
-000058  491c              LDR      r1,|L1.204|
+                  |L4.88|
+000058  491c              LDR      r1,|L4.204|
 00005a  6949              LDR      r1,[r1,#0x14]  ; encoder
 00005c  4408              ADD      r0,r0,r1
-00005e  491b              LDR      r1,|L1.204|
+00005e  491b              LDR      r1,|L4.204|
 000060  6148              STR      r0,[r1,#0x14]  ; encoder
-                  |L1.98|
+                  |L4.98|
 ;;;133    			}
 ;;;134    		}
 ;;;135    		
 ;;;136    		/*右脉冲计数*/
 ;;;137    		if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,  GPIO_PIN_RIGHT) == 0)
 000062  2108              MOVS     r1,#8
-000064  481a              LDR      r0,|L1.208|
+000064  481a              LDR      r0,|L4.208|
 000066  f7fffffe          BL       GPIO_ReadInputDataBit
-00006a  b918              CBNZ     r0,|L1.116|
+00006a  b918              CBNZ     r0,|L4.116|
 ;;;138    		{
 ;;;139    			encoder.isReadyRising[EncoderRight] = true;
 00006c  2001              MOVS     r0,#1
-00006e  4917              LDR      r1,|L1.204|
+00006e  4917              LDR      r1,|L4.204|
 000070  7048              STRB     r0,[r1,#1]
-000072  e016              B        |L1.162|
-                  |L1.116|
+000072  e016              B        |L4.162|
+                  |L4.116|
 ;;;140    		}
 ;;;141    		else
 ;;;142    		{
 ;;;143    			if(encoder.isReadyRising[EncoderRight])
-000074  4815              LDR      r0,|L1.204|
+000074  4815              LDR      r0,|L4.204|
 000076  7840              LDRB     r0,[r0,#1]  ; encoder
-000078  b198              CBZ      r0,|L1.162|
+000078  b198              CBZ      r0,|L4.162|
 ;;;144    			{
 ;;;145    				encoder.isReadyRising[EncoderRight] = false;
 00007a  2000              MOVS     r0,#0
-00007c  4913              LDR      r1,|L1.204|
+00007c  4913              LDR      r1,|L4.204|
 00007e  7048              STRB     r0,[r1,#1]
 ;;;146    				++encoder.risingCount[EncoderRight];
 000080  4608              MOV      r0,r1
@@ -109,32 +330,32 @@
 ;;;147    				encoder.odometer[1] += (bsp_MotorGetDir(MotorRight)==Forward ? 1 : -1);/*里程计*/
 000088  2001              MOVS     r0,#1
 00008a  f7fffffe          BL       bsp_MotorGetDir
-00008e  b908              CBNZ     r0,|L1.148|
+00008e  b908              CBNZ     r0,|L4.148|
 000090  2101              MOVS     r1,#1
-000092  e001              B        |L1.152|
-                  |L1.148|
+000092  e001              B        |L4.152|
+                  |L4.148|
 000094  f04f31ff          MOV      r1,#0xffffffff
-                  |L1.152|
-000098  480c              LDR      r0,|L1.204|
+                  |L4.152|
+000098  480c              LDR      r0,|L4.204|
 00009a  6980              LDR      r0,[r0,#0x18]
 00009c  4401              ADD      r1,r1,r0
-00009e  480b              LDR      r0,|L1.204|
+00009e  480b              LDR      r0,|L4.204|
 0000a0  6181              STR      r1,[r0,#0x18]
-                  |L1.162|
+                  |L4.162|
 ;;;148    			}
 ;;;149    		}
 ;;;150    
 ;;;151    		/*计算速度*/
 ;;;152    		if(interruptCount >= CALC_T)
-0000a2  4808              LDR      r0,|L1.196|
+0000a2  4808              LDR      r0,|L4.196|
 0000a4  6800              LDR      r0,[r0,#0]  ; interruptCount
 0000a6  f2475130          MOV      r1,#0x7530
 0000aa  4288              CMP      r0,r1
-0000ac  d307              BCC      |L1.190|
+0000ac  d307              BCC      |L4.190|
 ;;;153    		{
 ;;;154    			interruptCount = 0 ;
 0000ae  2000              MOVS     r0,#0
-0000b0  4904              LDR      r1,|L1.196|
+0000b0  4904              LDR      r1,|L4.196|
 0000b2  6008              STR      r0,[r1,#0]  ; interruptCount
 ;;;155    			
 ;;;156    			bsp_EncoderCalcSpeed(EncoderLeft);
@@ -142,7 +363,7 @@
 ;;;157    			bsp_EncoderCalcSpeed(EncoderRight);
 0000b8  2001              MOVS     r0,#1
 0000ba  f7fffffe          BL       bsp_EncoderCalcSpeed
-                  |L1.190|
+                  |L4.190|
 ;;;158    		}
 ;;;159    
 ;;;160    	}
@@ -151,15 +372,15 @@
 ;;;162    
                           ENDP
 
-                  |L1.192|
+                  |L4.192|
                           DCD      0x40001400
-                  |L1.196|
+                  |L4.196|
                           DCD      interruptCount
-                  |L1.200|
+                  |L4.200|
                           DCD      0x40010800
-                  |L1.204|
+                  |L4.204|
                           DCD      encoder
-                  |L1.208|
+                  |L4.208|
                           DCD      0x40011800
 
                           AREA ||i.bsp_EncoderCalcSpeed||, CODE, READONLY, ALIGN=2
@@ -171,24 +392,24 @@
 ;;;84     {
 000004  4604              MOV      r4,r0
 ;;;85     	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.3F;
-000006  490e              LDR      r1,|L2.64|
+000006  490e              LDR      r1,|L5.64|
 000008  f8510024          LDR      r0,[r1,r4,LSL #2]
 00000c  f7fffffe          BL       __aeabi_ui2f
 000010  4607              MOV      r7,r0
 000012  f04f4188          MOV      r1,#0x44000000
 000016  f7fffffe          BL       __aeabi_fdiv
 00001a  4606              MOV      r6,r0
-00001c  4909              LDR      r1,|L2.68|
+00001c  4909              LDR      r1,|L5.68|
 00001e  f7fffffe          BL       __aeabi_fmul
 000022  4605              MOV      r5,r0
-000024  4908              LDR      r1,|L2.72|
+000024  4908              LDR      r1,|L5.72|
 000026  f7fffffe          BL       __aeabi_fdiv
-00002a  4905              LDR      r1,|L2.64|
+00002a  4905              LDR      r1,|L5.64|
 00002c  3108              ADDS     r1,r1,#8
 00002e  f8410024          STR      r0,[r1,r4,LSL #2]
 ;;;86     	encoder.risingCount[sn] = 0 ;
 000032  2100              MOVS     r1,#0
-000034  4802              LDR      r0,|L2.64|
+000034  4802              LDR      r0,|L5.64|
 000036  f8401024          STR      r1,[r0,r4,LSL #2]
 ;;;87     	
 ;;;88     }
@@ -197,11 +418,11 @@
                           ENDP
 
 00003e  0000              DCW      0x0000
-                  |L2.64|
+                  |L5.64|
                           DCD      encoder+0x4
-                  |L2.68|
+                  |L5.68|
                           DCD      0x435be94c
-                  |L2.72|
+                  |L5.72|
                           DCD      0x3e99999a
 
                           AREA ||i.bsp_EncoderGetSpeed||, CODE, READONLY, ALIGN=2
@@ -212,7 +433,7 @@
 000000  4601              MOV      r1,r0
 ;;;100    {
 ;;;101    	return encoder.speed[sn];
-000002  4802              LDR      r0,|L3.12|
+000002  4802              LDR      r0,|L6.12|
 000004  f8500021          LDR      r0,[r0,r1,LSL #2]
 ;;;102    }
 000008  4770              BX       lr
@@ -220,7 +441,7 @@
                           ENDP
 
 00000a  0000              DCW      0x0000
-                  |L3.12|
+                  |L6.12|
                           DCD      encoder+0xc
 
                           AREA ||i.bsp_InitEncoder||, CODE, READONLY, ALIGN=1
@@ -267,7 +488,7 @@
 00001a  f8ad0000          STRH     r0,[sp,#0]
 ;;;54     	GPIO_Init(GPIO_PORT_LEFT, &GPIO_InitStructure); 
 00001e  4669              MOV      r1,sp
-000020  4805              LDR      r0,|L5.56|
+000020  4805              LDR      r0,|L8.56|
 000022  f7fffffe          BL       GPIO_Init
 ;;;55     	
 ;;;56     	GPIO_InitStructure.GPIO_Pin   = GPIO_PIN_RIGHT;
@@ -275,7 +496,7 @@
 000028  f8ad0000          STRH     r0,[sp,#0]
 ;;;57     	GPIO_Init(GPIO_PORT_RIGHT, &GPIO_InitStructure); 
 00002c  4669              MOV      r1,sp
-00002e  4803              LDR      r0,|L5.60|
+00002e  4803              LDR      r0,|L8.60|
 000030  f7fffffe          BL       GPIO_Init
 ;;;58     }
 000034  bd08              POP      {r3,pc}
@@ -283,9 +504,9 @@
                           ENDP
 
 000036  0000              DCW      0x0000
-                  |L5.56|
+                  |L8.56|
                           DCD      0x40010800
-                  |L5.60|
+                  |L8.60|
                           DCD      0x40011800
 
                           AREA ||i.bsp_InitEncoderTick||, CODE, READONLY, ALIGN=2
@@ -298,17 +519,17 @@
 ;;;71     	bsp_SetTIMforInt(TIM7, ENCODER_INTERRUPT_FREQUENCY, 1, 0);
 000002  2300              MOVS     r3,#0
 000004  2201              MOVS     r2,#1
-000006  4902              LDR      r1,|L6.16|
-000008  4802              LDR      r0,|L6.20|
+000006  4902              LDR      r1,|L9.16|
+000008  4802              LDR      r0,|L9.20|
 00000a  f7fffffe          BL       bsp_SetTIMforInt
 ;;;72     }
 00000e  bd10              POP      {r4,pc}
 ;;;73     
                           ENDP
 
-                  |L6.16|
+                  |L9.16|
                           DCD      0x000186a0
-                  |L6.20|
+                  |L9.20|
                           DCD      0x40001400
 
                           AREA ||i.bsp_encoderGetOdometer||, CODE, READONLY, ALIGN=2
@@ -321,29 +542,29 @@
 ;;;167    	int32_t odometer = 0 ;
 000002  2000              MOVS     r0,#0
 ;;;168    	switch(sn)
-000004  b111              CBZ      r1,|L7.12|
+000004  b111              CBZ      r1,|L10.12|
 000006  2901              CMP      r1,#1
-000008  d106              BNE      |L7.24|
-00000a  e002              B        |L7.18|
-                  |L7.12|
+000008  d106              BNE      |L10.24|
+00000a  e002              B        |L10.18|
+                  |L10.12|
 ;;;169    	{
 ;;;170    		case MotorLeft:
 ;;;171    		{
 ;;;172    			odometer = encoder.odometer[0];
-00000c  4a03              LDR      r2,|L7.28|
+00000c  4a03              LDR      r2,|L10.28|
 00000e  6950              LDR      r0,[r2,#0x14]  ; encoder
 ;;;173    		}break;
-000010  e002              B        |L7.24|
-                  |L7.18|
+000010  e002              B        |L10.24|
+                  |L10.18|
 ;;;174    		
 ;;;175    		case MotorRight:
 ;;;176    		{
 ;;;177    			odometer = encoder.odometer[1];
-000012  4a02              LDR      r2,|L7.28|
+000012  4a02              LDR      r2,|L10.28|
 000014  6990              LDR      r0,[r2,#0x18]
 ;;;178    		}break;
 000016  bf00              NOP      
-                  |L7.24|
+                  |L10.24|
 000018  bf00              NOP                            ;173
 ;;;179    	}
 ;;;180    	
@@ -354,7 +575,7 @@
 ;;;184    
                           ENDP
 
-                  |L7.28|
+                  |L10.28|
                           DCD      encoder
 
                           AREA ||.bss||, DATA, NOINIT, ALIGN=2

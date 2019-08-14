@@ -422,7 +422,7 @@
 00000c  f7fffffe          BL       vTaskDelay
 ;;;222    	
 ;;;223        while(1)
-000010  e012              B        |L7.56|
+000010  e010              B        |L7.52|
                   |L7.18|
 ;;;224        {
 ;;;225    		bsp_DetectAct();  /*∫ÏÕ‚∂‘π‹¬÷—Ø…®√Ë*/
@@ -445,14 +445,13 @@
 00002a  f7fffffe          BL       bsp_GetCapCnt
 ;;;234    		
 ;;;235    		/*—∞’“≥‰µÁ◊Æ*/
-;;;236    		bsp_SearchChargingPileAct();
-00002e  f7fffffe          BL       bsp_SearchChargingPileAct
+;;;236    		//bsp_SearchChargingPileAct();
 ;;;237    		
 ;;;238            vTaskDelay(1);
-000032  2001              MOVS     r0,#1
-000034  f7fffffe          BL       vTaskDelay
-                  |L7.56|
-000038  e7eb              B        |L7.18|
+00002e  2001              MOVS     r0,#1
+000030  f7fffffe          BL       vTaskDelay
+                  |L7.52|
+000034  e7ed              B        |L7.18|
 ;;;239        }
 ;;;240    }
 ;;;241    				

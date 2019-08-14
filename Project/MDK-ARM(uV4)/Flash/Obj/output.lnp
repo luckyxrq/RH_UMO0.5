@@ -34,6 +34,7 @@
 ".\flash\obj\stm32f10x_tim.o"
 ".\flash\obj\stm32f10x_adc.o"
 ".\flash\obj\stm32f10x_iwdg.o"
+".\flash\obj\stm32f10x_exti.o"
 ".\flash\obj\system_stm32f10x.o"
 ".\flash\obj\croutine.o"
 ".\flash\obj\event_groups.o"

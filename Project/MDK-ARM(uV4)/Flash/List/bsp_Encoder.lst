@@ -38446,7 +38446,7 @@ N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
 Nint32_t bsp_encoderGetOdometer(MotorSN sn);
-N
+Nvoid EXTI_Config(void);
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
@@ -38939,4 +38939,168 @@ N
 N	return  odometer;
 N	
 N}
+N
+N
+N
+N
+N
+N
+N
+N/////////////////////////////////////////////////////////////////
+N
+N
+N/* 定义例程名和例程发布日期 */
+N#define EXAMPLE_NAME	"V4-004_EXIT外部中断例程"
+N#define EXAMPLE_DATE	"2015-08-30"
+N#define DEMO_VER		"1.0"
+N
+N
+N
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: EXTI0_Config
+N*	功能说明: 配置外部中断。K1、K2、K3 中断.
+N*				K1键 PC13 ：下降沿触发
+N*				K2键 PA0  : 上升沿触发
+N*				K3键 PG8  : 下降沿触发
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid EXTI_Config(void)
+N{
+N	/* 配置PA15 */
+N	{
+N		GPIO_InitTypeDef GPIO_InitStructure;
+N		EXTI_InitTypeDef   EXTI_InitStructure;
+N		NVIC_InitTypeDef   NVIC_InitStructure;		
+N		
+N		/* 使能 GPIO 时钟 */
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000004), ENABLE);
+N
+N		/* 配置 PA0 为输入浮空模式 */
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x8000);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+N		GPIO_Init(GPIOA, &GPIO_InitStructure);
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)), &GPIO_InitStructure);
+N
+N		/* 使能 AFIO 时钟 */
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000001), ENABLE);
+N
+N		/* Connect EXTI0 Line to PA.00 pin */
+N		GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource15);
+X		GPIO_EXTILineConfig(((uint8_t)0x00), ((uint8_t)0x0F));
+N
+N		/* Configure EXTI0 line */
+N		EXTI_InitStructure.EXTI_Line = EXTI_Line15;
+X		EXTI_InitStructure.EXTI_Line = ((uint32_t)0x08000);
+N		EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+N		EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  	
+N		EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+N		EXTI_Init(&EXTI_InitStructure);
+N
+N		/* Enable and set EXTI0 Interrupt to the lowest priority */
+N		NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
+N		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+N		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+N		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+N		NVIC_Init(&NVIC_InitStructure);
+N	}
+N	
+N	/* 配置 PE3 外部中断 */
+N	{
+N		GPIO_InitTypeDef GPIO_InitStructure;
+N		EXTI_InitTypeDef   EXTI_InitStructure;
+N		NVIC_InitTypeDef   NVIC_InitStructure;			
+N		
+N		/* 使能 GPIO 时钟 */
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000040), ENABLE);
+N
+N		/* 配置 PC13 为输入浮空模式 */
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0008);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+N		GPIO_Init(GPIOE, &GPIO_InitStructure);
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
+N
+N		/* 使能 AFIO 时钟 */
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000001), ENABLE);
+N
+N		/* Connect EXTI13 Line to PA.00 pin */
+N		GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource3);
+X		GPIO_EXTILineConfig(((uint8_t)0x04), ((uint8_t)0x03));
+N
+N		/* Configure EXTI13 line */
+N		EXTI_InitStructure.EXTI_Line = EXTI_Line3;
+X		EXTI_InitStructure.EXTI_Line = ((uint32_t)0x00008);
+N		EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+N		EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  	/* 上升沿触发 */
+N		EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+N		EXTI_Init(&EXTI_InitStructure);
+N
+N		/* Enable and set EXTI13 Interrupt to the lowest priority */
+N		NVIC_InitStructure.NVIC_IRQChannel = EXTI3_IRQn;
+N		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+N		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+N		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+N		NVIC_Init(&NVIC_InitStructure);
+N	}			
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: EXTI9_5_IRQHandler
+N*	功能说明: 外部中断服务程序
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid EXTI15_10_IRQHandler(void)
+N{
+N
+N	if (EXTI_GetITStatus(EXTI_Line15) != RESET)
+X	if (EXTI_GetITStatus(((uint32_t)0x08000)) != RESET)
+N	{
+N		EXTI_ClearITPendingBit(EXTI_Line15);
+X		EXTI_ClearITPendingBit(((uint32_t)0x08000));
+N
+N		DEBUG("EXTI_Line15");
+X		printf ("EXTI_Line15");
+N	}
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: EXTI9_5_IRQHandler
+N*	功能说明: 外部中断服务程序
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid EXTI3_IRQHandler(void)
+N{
+N
+N	if (EXTI_GetITStatus(EXTI_Line3) != RESET)
+X	if (EXTI_GetITStatus(((uint32_t)0x00008)) != RESET)
+N	{
+N		EXTI_ClearITPendingBit(EXTI_Line3);
+X		EXTI_ClearITPendingBit(((uint32_t)0x00008));
+N		
+N		DEBUG("EXTI_Line3");
+X		printf ("EXTI_Line3");
+N	}
+N}
+N
+N
+N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+N
+N
 N

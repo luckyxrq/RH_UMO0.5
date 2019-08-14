@@ -52,7 +52,7 @@ void bsp_Init(void)
 	bsp_InitEncoder();       /*初始化编码器引脚，用于统计脉冲的定时器*/
 	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 	bsp_InitChargingPile();  /*初始化输入捕获*/
-	
+	EXTI_Config();
 	/* 初始化IO拓展芯片 */	
 	do{
 		ret = bsp_InitAW9523B();		
