@@ -38776,6 +38776,8 @@ N	uint32_t delay;
 N	float angle;
 N	bool isNeedBack;
 X	_Bool isNeedBack;
+N	bool isRight;
+X	_Bool isRight;
 N}SearchCharging;
 N
 Nstatic ChargingPile chargingPile;
@@ -38843,6 +38845,19 @@ X				printf ("1 detect 3 pulse\r\n");
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N
+N				searchCharging.isRight = true ; //从右边切入
+X				searchCharging.isRight = 1 ; 
+N				searchCharging.action++;
+N			}
+N			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is1500us)
+N			{
+N				DEBUG("2 detect 3 pulse\r\n");
+X				printf ("2 detect 3 pulse\r\n");
+N				bsp_MotorBrake(MotorLeft);
+N				bsp_MotorBrake(MotorRight);
+N				
+N				searchCharging.isRight = false ; //从左边切入
+X				searchCharging.isRight = 0 ; 
 N				searchCharging.action++;
 N			}
 N			else if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
@@ -38854,28 +38869,60 @@ N
 N
 N		case 2: //左走右不走
 N		{
-N			bsp_SetMotorTargetSpeed(MotorLeft,180);
-N			searchCharging.action++;
+N			if(searchCharging.isRight) //右边切入
+N			{
+N				bsp_SetMotorTargetSpeed(MotorLeft,180);
+N				searchCharging.action++;
+N			}
+N			else //左边切入
+N			{
+N				bsp_SetMotorTargetSpeed(MotorRight,180);
+N				searchCharging.action++;
+N			}
+N			
 N		}break;
 N		
 N		
 N		case 3: //4号同时收到
 N		{
-N			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+N			if(searchCharging.isRight) //右边切入
 N			{
-N				DEBUG("4 detect 3 pulse\r\n");
-X				printf ("4 detect 3 pulse\r\n");
-N				bsp_MotorBrake(MotorLeft);
-N				bsp_MotorBrake(MotorRight);
-N				searchCharging.action++;
+N				if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+N				{
+N					DEBUG("4 detect 3 pulse\r\n");
+X					printf ("4 detect 3 pulse\r\n");
+N					bsp_MotorBrake(MotorLeft);
+N					bsp_MotorBrake(MotorRight);
+N					searchCharging.action++;
+N				}
+N			}
+N			else //左边切入
+N			{
+N				if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
+N				{
+N					DEBUG("3 detect 3 pulse\r\n");
+X					printf ("3 detect 3 pulse\r\n");
+N					bsp_MotorBrake(MotorLeft);
+N					bsp_MotorBrake(MotorRight);
+N					searchCharging.action++;
+N				}
 N			}
 N		}break;
 N		
 N		case 4: //右转
 N		{
-N			bsp_SetMotorTargetSpeed(MotorLeft, 180);
-N			bsp_SetMotorTargetSpeed(MotorRight,140);
-N			searchCharging.action++;			
+N			if(searchCharging.isRight) //右边切入
+N			{
+N				bsp_SetMotorTargetSpeed(MotorLeft, 180);
+N				bsp_SetMotorTargetSpeed(MotorRight,140);
+N				searchCharging.action++;	
+N			}
+N			else
+N			{
+N				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+N				bsp_SetMotorTargetSpeed(MotorRight,180);
+N				searchCharging.action++;	
+N			}				
 N		}break;
 N		
 N		

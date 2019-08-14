@@ -5,481 +5,481 @@
                           AREA ||i.TIM3_IRQHandler||, CODE, READONLY, ALIGN=2
 
                   TIM3_IRQHandler PROC
-;;;429    
-;;;430    void TIM3_IRQHandler(void)
+;;;471    
+;;;472    void TIM3_IRQHandler(void)
 000000  b510              PUSH     {r4,lr}
-;;;431    {
-;;;432    	CapCH ch = CapCH1;
+;;;473    {
+;;;474    	CapCH ch = CapCH1;
 000002  2400              MOVS     r4,#0
-;;;433    	
-;;;434    	
-;;;435    	/************************  CH1  *********************************/
-;;;436    	ch = CapCH1;
+;;;475    	
+;;;476    	
+;;;477    	/************************  CH1  *********************************/
+;;;478    	ch = CapCH1;
 000004  bf00              NOP      
-;;;437    	if((chargingPile.capState[ch]&0X80) == 0)
+;;;479    	if((chargingPile.capState[ch]&0X80) == 0)
 000006  48c0              LDR      r0,|L1.776|
 000008  5d00              LDRB     r0,[r0,r4]
 00000a  f0000080          AND      r0,r0,#0x80
 00000e  2800              CMP      r0,#0
 000010  d156              BNE      |L1.192|
-;;;438    	{
-;;;439    		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
+;;;480    	{
+;;;481    		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
 000012  2101              MOVS     r1,#1
 000014  48bd              LDR      r0,|L1.780|
 000016  f7fffffe          BL       TIM_GetITStatus
 00001a  b1e0              CBZ      r0,|L1.86|
-;;;440            {	    
-;;;441                if(chargingPile.capState[ch]&0X40)
+;;;482            {	    
+;;;483                if(chargingPile.capState[ch]&0X40)
 00001c  48ba              LDR      r0,|L1.776|
 00001e  5d00              LDRB     r0,[r0,r4]
 000020  f0000040          AND      r0,r0,#0x40
 000024  b1b8              CBZ      r0,|L1.86|
-;;;442                {
-;;;443                    if((chargingPile.capState[ch]&0X3F)==0X3F)
+;;;484                {
+;;;485                    if((chargingPile.capState[ch]&0X3F)==0X3F)
 000026  48b8              LDR      r0,|L1.776|
 000028  5d00              LDRB     r0,[r0,r4]
 00002a  f000003f          AND      r0,r0,#0x3f
 00002e  283f              CMP      r0,#0x3f
 000030  d10c              BNE      |L1.76|
-;;;444                    {
-;;;445                        chargingPile.capState[ch]|=0X80;
+;;;486                    {
+;;;487                        chargingPile.capState[ch]|=0X80;
 000032  48b5              LDR      r0,|L1.776|
 000034  5d00              LDRB     r0,[r0,r4]
 000036  f0400080          ORR      r0,r0,#0x80
 00003a  49b3              LDR      r1,|L1.776|
 00003c  5508              STRB     r0,[r1,r4]
-;;;446                        chargingPile.capValue[ch]=0XFFFF;
+;;;488                        chargingPile.capValue[ch]=0XFFFF;
 00003e  f64f71ff          MOV      r1,#0xffff
 000042  48b1              LDR      r0,|L1.776|
 000044  1d00              ADDS     r0,r0,#4
 000046  f8201014          STRH     r1,[r0,r4,LSL #1]
 00004a  e004              B        |L1.86|
                   |L1.76|
-;;;447                    }else chargingPile.capState[ch]++;
+;;;489                    }else chargingPile.capState[ch]++;
 00004c  48ae              LDR      r0,|L1.776|
 00004e  5d00              LDRB     r0,[r0,r4]
 000050  1c40              ADDS     r0,r0,#1
 000052  49ad              LDR      r1,|L1.776|
 000054  5508              STRB     r0,[r1,r4]
                   |L1.86|
-;;;448                }	 
-;;;449            }
-;;;450            if (TIM_GetITStatus(TIM3, TIM_IT_CC1) != RESET)
+;;;490                }	 
+;;;491            }
+;;;492            if (TIM_GetITStatus(TIM3, TIM_IT_CC1) != RESET)
 000056  2102              MOVS     r1,#2
 000058  48ac              LDR      r0,|L1.780|
 00005a  f7fffffe          BL       TIM_GetITStatus
 00005e  b378              CBZ      r0,|L1.192|
-;;;451            {	
-;;;452                if(chargingPile.capState[ch]&0X40)			
+;;;493            {	
+;;;494                if(chargingPile.capState[ch]&0X40)			
 000060  48a9              LDR      r0,|L1.776|
 000062  5d00              LDRB     r0,[r0,r4]
 000064  f0000040          AND      r0,r0,#0x40
 000068  b188              CBZ      r0,|L1.142|
-;;;453                {	  			
-;;;454                    chargingPile.capState[ch]|=0X80;
+;;;495                {	  			
+;;;496                    chargingPile.capState[ch]|=0X80;
 00006a  48a7              LDR      r0,|L1.776|
 00006c  5d00              LDRB     r0,[r0,r4]
 00006e  f0400080          ORR      r0,r0,#0x80
 000072  49a5              LDR      r1,|L1.776|
 000074  5508              STRB     r0,[r1,r4]
-;;;455                    chargingPile.capValue[ch]=TIM_GetCapture1(TIM3);
+;;;497                    chargingPile.capValue[ch]=TIM_GetCapture1(TIM3);
 000076  48a5              LDR      r0,|L1.780|
 000078  f7fffffe          BL       TIM_GetCapture1
 00007c  49a2              LDR      r1,|L1.776|
 00007e  1d09              ADDS     r1,r1,#4
 000080  f8210014          STRH     r0,[r1,r4,LSL #1]
-;;;456                    TIM_OC1PolarityConfig(TIM3,TIM_ICPolarity_Falling);
+;;;498                    TIM_OC1PolarityConfig(TIM3,TIM_ICPolarity_Falling);
 000084  2102              MOVS     r1,#2
 000086  48a1              LDR      r0,|L1.780|
 000088  f7fffffe          BL       TIM_OC1PolarityConfig
 00008c  e018              B        |L1.192|
                   |L1.142|
-;;;457                }else 
-;;;458                {
-;;;459                    chargingPile.capState[ch]=0;	
+;;;499                }else 
+;;;500                {
+;;;501                    chargingPile.capState[ch]=0;	
 00008e  2000              MOVS     r0,#0
 000090  499d              LDR      r1,|L1.776|
 000092  5508              STRB     r0,[r1,r4]
-;;;460                    chargingPile.capValue[ch]=0;
+;;;502                    chargingPile.capValue[ch]=0;
 000094  2100              MOVS     r1,#0
 000096  489c              LDR      r0,|L1.776|
 000098  1d00              ADDS     r0,r0,#4
 00009a  f8201014          STRH     r1,[r0,r4,LSL #1]
-;;;461    				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
+;;;503    				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
 00009e  489b              LDR      r0,|L1.780|
 0000a0  f7fffffe          BL       TIM_GetCounter
 0000a4  4998              LDR      r1,|L1.776|
 0000a6  310c              ADDS     r1,r1,#0xc
 0000a8  f8210014          STRH     r0,[r1,r4,LSL #1]
-;;;462                    chargingPile.capState[ch]|=0X40;
+;;;504                    chargingPile.capState[ch]|=0X40;
 0000ac  4896              LDR      r0,|L1.776|
 0000ae  5d00              LDRB     r0,[r0,r4]
 0000b0  f0400040          ORR      r0,r0,#0x40
 0000b4  390c              SUBS     r1,r1,#0xc
 0000b6  5508              STRB     r0,[r1,r4]
-;;;463                    TIM_OC1PolarityConfig(TIM3,TIM_ICPolarity_Rising);
+;;;505                    TIM_OC1PolarityConfig(TIM3,TIM_ICPolarity_Rising);
 0000b8  2100              MOVS     r1,#0
 0000ba  4894              LDR      r0,|L1.780|
 0000bc  f7fffffe          BL       TIM_OC1PolarityConfig
                   |L1.192|
-;;;464                }		    
-;;;465            }			 
-;;;466    	}
-;;;467    	
-;;;468    	
-;;;469    	/************************  CH2  *********************************/
-;;;470    	ch = CapCH2;
+;;;506                }		    
+;;;507            }			 
+;;;508    	}
+;;;509    	
+;;;510    	
+;;;511    	/************************  CH2  *********************************/
+;;;512    	ch = CapCH2;
 0000c0  2401              MOVS     r4,#1
-;;;471    	if((chargingPile.capState[ch]&0X80) == 0)
+;;;513    	if((chargingPile.capState[ch]&0X80) == 0)
 0000c2  4891              LDR      r0,|L1.776|
 0000c4  5d00              LDRB     r0,[r0,r4]
 0000c6  f0000080          AND      r0,r0,#0x80
 0000ca  2800              CMP      r0,#0
 0000cc  d158              BNE      |L1.384|
-;;;472    	{
-;;;473    		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
+;;;514    	{
+;;;515    		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
 0000ce  2101              MOVS     r1,#1
 0000d0  488e              LDR      r0,|L1.780|
 0000d2  f7fffffe          BL       TIM_GetITStatus
 0000d6  b1e0              CBZ      r0,|L1.274|
-;;;474            {	    
-;;;475                if(chargingPile.capState[ch]&0X40)
+;;;516            {	    
+;;;517                if(chargingPile.capState[ch]&0X40)
 0000d8  488b              LDR      r0,|L1.776|
 0000da  5d00              LDRB     r0,[r0,r4]
 0000dc  f0000040          AND      r0,r0,#0x40
 0000e0  b1b8              CBZ      r0,|L1.274|
-;;;476                {
-;;;477                    if((chargingPile.capState[ch]&0X3F)==0X3F)
+;;;518                {
+;;;519                    if((chargingPile.capState[ch]&0X3F)==0X3F)
 0000e2  4889              LDR      r0,|L1.776|
 0000e4  5d00              LDRB     r0,[r0,r4]
 0000e6  f000003f          AND      r0,r0,#0x3f
 0000ea  283f              CMP      r0,#0x3f
 0000ec  d10c              BNE      |L1.264|
-;;;478                    {
-;;;479                        chargingPile.capState[ch]|=0X80;
+;;;520                    {
+;;;521                        chargingPile.capState[ch]|=0X80;
 0000ee  4886              LDR      r0,|L1.776|
 0000f0  5d00              LDRB     r0,[r0,r4]
 0000f2  f0400080          ORR      r0,r0,#0x80
 0000f6  4984              LDR      r1,|L1.776|
 0000f8  5508              STRB     r0,[r1,r4]
-;;;480                        chargingPile.capValue[ch]=0XFFFF;
+;;;522                        chargingPile.capValue[ch]=0XFFFF;
 0000fa  f64f71ff          MOV      r1,#0xffff
 0000fe  4882              LDR      r0,|L1.776|
 000100  1d00              ADDS     r0,r0,#4
 000102  f8201014          STRH     r1,[r0,r4,LSL #1]
 000106  e004              B        |L1.274|
                   |L1.264|
-;;;481                    }else chargingPile.capState[ch]++;
+;;;523                    }else chargingPile.capState[ch]++;
 000108  487f              LDR      r0,|L1.776|
 00010a  5d00              LDRB     r0,[r0,r4]
 00010c  1c40              ADDS     r0,r0,#1
 00010e  497e              LDR      r1,|L1.776|
 000110  5508              STRB     r0,[r1,r4]
                   |L1.274|
-;;;482                }	 
-;;;483            }
-;;;484            if (TIM_GetITStatus(TIM3, TIM_IT_CC2) != RESET)
+;;;524                }	 
+;;;525            }
+;;;526            if (TIM_GetITStatus(TIM3, TIM_IT_CC2) != RESET)
 000112  2104              MOVS     r1,#4
 000114  487d              LDR      r0,|L1.780|
 000116  f7fffffe          BL       TIM_GetITStatus
 00011a  b388              CBZ      r0,|L1.384|
-;;;485            {	
-;;;486                if(chargingPile.capState[ch]&0X40)			
+;;;527            {	
+;;;528                if(chargingPile.capState[ch]&0X40)			
 00011c  487a              LDR      r0,|L1.776|
 00011e  5d00              LDRB     r0,[r0,r4]
 000120  f0000040          AND      r0,r0,#0x40
 000124  b190              CBZ      r0,|L1.332|
-;;;487                {	  			
-;;;488                    chargingPile.capState[ch]|=0X80;
+;;;529                {	  			
+;;;530                    chargingPile.capState[ch]|=0X80;
 000126  4878              LDR      r0,|L1.776|
 000128  5d00              LDRB     r0,[r0,r4]
 00012a  f0400080          ORR      r0,r0,#0x80
 00012e  4976              LDR      r1,|L1.776|
 000130  5508              STRB     r0,[r1,r4]
-;;;489                    chargingPile.capValue[ch]=TIM_GetCapture2(TIM3);
+;;;531                    chargingPile.capValue[ch]=TIM_GetCapture2(TIM3);
 000132  4876              LDR      r0,|L1.780|
 000134  f7fffffe          BL       TIM_GetCapture2
 000138  4601              MOV      r1,r0
 00013a  4873              LDR      r0,|L1.776|
 00013c  1d00              ADDS     r0,r0,#4
 00013e  f8201014          STRH     r1,[r0,r4,LSL #1]
-;;;490                    TIM_OC2PolarityConfig(TIM3,TIM_ICPolarity_Falling);
+;;;532                    TIM_OC2PolarityConfig(TIM3,TIM_ICPolarity_Falling);
 000142  2102              MOVS     r1,#2
 000144  4871              LDR      r0,|L1.780|
 000146  f7fffffe          BL       TIM_OC2PolarityConfig
 00014a  e019              B        |L1.384|
                   |L1.332|
-;;;491                }else 
-;;;492                {
-;;;493                    chargingPile.capState[ch]=0;	
+;;;533                }else 
+;;;534                {
+;;;535                    chargingPile.capState[ch]=0;	
 00014c  2000              MOVS     r0,#0
 00014e  496e              LDR      r1,|L1.776|
 000150  5508              STRB     r0,[r1,r4]
-;;;494                    chargingPile.capValue[ch]=0;
+;;;536                    chargingPile.capValue[ch]=0;
 000152  2100              MOVS     r1,#0
 000154  486c              LDR      r0,|L1.776|
 000156  1d00              ADDS     r0,r0,#4
 000158  f8201014          STRH     r1,[r0,r4,LSL #1]
-;;;495    				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
+;;;537    				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
 00015c  486b              LDR      r0,|L1.780|
 00015e  f7fffffe          BL       TIM_GetCounter
 000162  4601              MOV      r1,r0
 000164  4868              LDR      r0,|L1.776|
 000166  300c              ADDS     r0,r0,#0xc
 000168  f8201014          STRH     r1,[r0,r4,LSL #1]
-;;;496                    chargingPile.capState[ch]|=0X40;
+;;;538                    chargingPile.capState[ch]|=0X40;
 00016c  380c              SUBS     r0,r0,#0xc
 00016e  5d00              LDRB     r0,[r0,r4]
 000170  f0400040          ORR      r0,r0,#0x40
 000174  4964              LDR      r1,|L1.776|
 000176  5508              STRB     r0,[r1,r4]
-;;;497                    TIM_OC2PolarityConfig(TIM3,TIM_ICPolarity_Rising);
+;;;539                    TIM_OC2PolarityConfig(TIM3,TIM_ICPolarity_Rising);
 000178  2100              MOVS     r1,#0
 00017a  4864              LDR      r0,|L1.780|
 00017c  f7fffffe          BL       TIM_OC2PolarityConfig
                   |L1.384|
-;;;498                }		    
-;;;499            }			 
-;;;500    	}
-;;;501    	
-;;;502    	
-;;;503    	/************************  CH3  *********************************/
-;;;504    	ch = CapCH3;
+;;;540                }		    
+;;;541            }			 
+;;;542    	}
+;;;543    	
+;;;544    	
+;;;545    	/************************  CH3  *********************************/
+;;;546    	ch = CapCH3;
 000180  2402              MOVS     r4,#2
-;;;505    	if((chargingPile.capState[ch]&0X80) == 0)
+;;;547    	if((chargingPile.capState[ch]&0X80) == 0)
 000182  4861              LDR      r0,|L1.776|
 000184  5d00              LDRB     r0,[r0,r4]
 000186  f0000080          AND      r0,r0,#0x80
 00018a  2800              CMP      r0,#0
 00018c  d157              BNE      |L1.574|
-;;;506    	{
-;;;507    		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
+;;;548    	{
+;;;549    		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
 00018e  2101              MOVS     r1,#1
 000190  485e              LDR      r0,|L1.780|
 000192  f7fffffe          BL       TIM_GetITStatus
 000196  b1e0              CBZ      r0,|L1.466|
-;;;508            {	    
-;;;509                if(chargingPile.capState[ch]&0X40)
+;;;550            {	    
+;;;551                if(chargingPile.capState[ch]&0X40)
 000198  485b              LDR      r0,|L1.776|
 00019a  5d00              LDRB     r0,[r0,r4]
 00019c  f0000040          AND      r0,r0,#0x40
 0001a0  b1b8              CBZ      r0,|L1.466|
-;;;510                {
-;;;511                    if((chargingPile.capState[ch]&0X3F)==0X3F)
+;;;552                {
+;;;553                    if((chargingPile.capState[ch]&0X3F)==0X3F)
 0001a2  4859              LDR      r0,|L1.776|
 0001a4  5d00              LDRB     r0,[r0,r4]
 0001a6  f000003f          AND      r0,r0,#0x3f
 0001aa  283f              CMP      r0,#0x3f
 0001ac  d10c              BNE      |L1.456|
-;;;512                    {
-;;;513                        chargingPile.capState[ch]|=0X80;
+;;;554                    {
+;;;555                        chargingPile.capState[ch]|=0X80;
 0001ae  4856              LDR      r0,|L1.776|
 0001b0  5d00              LDRB     r0,[r0,r4]
 0001b2  f0400080          ORR      r0,r0,#0x80
 0001b6  4954              LDR      r1,|L1.776|
 0001b8  5508              STRB     r0,[r1,r4]
-;;;514                        chargingPile.capValue[ch]=0XFFFF;
+;;;556                        chargingPile.capValue[ch]=0XFFFF;
 0001ba  f64f71ff          MOV      r1,#0xffff
 0001be  4852              LDR      r0,|L1.776|
 0001c0  1d00              ADDS     r0,r0,#4
 0001c2  f8201014          STRH     r1,[r0,r4,LSL #1]
 0001c6  e004              B        |L1.466|
                   |L1.456|
-;;;515                    }else chargingPile.capState[ch]++;
+;;;557                    }else chargingPile.capState[ch]++;
 0001c8  484f              LDR      r0,|L1.776|
 0001ca  5d00              LDRB     r0,[r0,r4]
 0001cc  1c40              ADDS     r0,r0,#1
 0001ce  494e              LDR      r1,|L1.776|
 0001d0  5508              STRB     r0,[r1,r4]
                   |L1.466|
-;;;516                }	 
-;;;517            }
-;;;518            if (TIM_GetITStatus(TIM3, TIM_IT_CC3) != RESET)
+;;;558                }	 
+;;;559            }
+;;;560            if (TIM_GetITStatus(TIM3, TIM_IT_CC3) != RESET)
 0001d2  2108              MOVS     r1,#8
 0001d4  484d              LDR      r0,|L1.780|
 0001d6  f7fffffe          BL       TIM_GetITStatus
 0001da  b380              CBZ      r0,|L1.574|
-;;;519            {	
-;;;520                if(chargingPile.capState[ch]&0X40)			
+;;;561            {	
+;;;562                if(chargingPile.capState[ch]&0X40)			
 0001dc  484a              LDR      r0,|L1.776|
 0001de  5d00              LDRB     r0,[r0,r4]
 0001e0  f0000040          AND      r0,r0,#0x40
 0001e4  b188              CBZ      r0,|L1.522|
-;;;521                {	  			
-;;;522                    chargingPile.capState[ch]|=0X80;
+;;;563                {	  			
+;;;564                    chargingPile.capState[ch]|=0X80;
 0001e6  4848              LDR      r0,|L1.776|
 0001e8  5d00              LDRB     r0,[r0,r4]
 0001ea  f0400080          ORR      r0,r0,#0x80
 0001ee  4946              LDR      r1,|L1.776|
 0001f0  5508              STRB     r0,[r1,r4]
-;;;523                    chargingPile.capValue[ch]=TIM_GetCapture3(TIM3);
+;;;565                    chargingPile.capValue[ch]=TIM_GetCapture3(TIM3);
 0001f2  4846              LDR      r0,|L1.780|
 0001f4  f7fffffe          BL       TIM_GetCapture3
 0001f8  4943              LDR      r1,|L1.776|
 0001fa  1d09              ADDS     r1,r1,#4
 0001fc  f8210014          STRH     r0,[r1,r4,LSL #1]
-;;;524                    TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Falling);
+;;;566                    TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Falling);
 000200  2102              MOVS     r1,#2
 000202  4842              LDR      r0,|L1.780|
 000204  f7fffffe          BL       TIM_OC3PolarityConfig
 000208  e019              B        |L1.574|
                   |L1.522|
-;;;525                }else 
-;;;526                {
-;;;527                    chargingPile.capState[ch]=0;	
+;;;567                }else 
+;;;568                {
+;;;569                    chargingPile.capState[ch]=0;	
 00020a  2000              MOVS     r0,#0
 00020c  493e              LDR      r1,|L1.776|
 00020e  5508              STRB     r0,[r1,r4]
-;;;528                    chargingPile.capValue[ch]=0;
+;;;570                    chargingPile.capValue[ch]=0;
 000210  2100              MOVS     r1,#0
 000212  483d              LDR      r0,|L1.776|
 000214  1d00              ADDS     r0,r0,#4
 000216  f8201014          STRH     r1,[r0,r4,LSL #1]
-;;;529    				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
+;;;571    				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
 00021a  483c              LDR      r0,|L1.780|
 00021c  f7fffffe          BL       TIM_GetCounter
 000220  4601              MOV      r1,r0
 000222  4839              LDR      r0,|L1.776|
 000224  300c              ADDS     r0,r0,#0xc
 000226  f8201014          STRH     r1,[r0,r4,LSL #1]
-;;;530                    chargingPile.capState[ch]|=0X40;
+;;;572                    chargingPile.capState[ch]|=0X40;
 00022a  380c              SUBS     r0,r0,#0xc
 00022c  5d00              LDRB     r0,[r0,r4]
 00022e  f0400040          ORR      r0,r0,#0x40
 000232  4935              LDR      r1,|L1.776|
 000234  5508              STRB     r0,[r1,r4]
-;;;531                    TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Rising);
+;;;573                    TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Rising);
 000236  2100              MOVS     r1,#0
 000238  4834              LDR      r0,|L1.780|
 00023a  f7fffffe          BL       TIM_OC3PolarityConfig
                   |L1.574|
-;;;532                }		    
-;;;533            }			 
-;;;534    	}
-;;;535    	
-;;;536    	
-;;;537    	/************************  CH4  *********************************/
-;;;538    	ch = CapCH4;
+;;;574                }		    
+;;;575            }			 
+;;;576    	}
+;;;577    	
+;;;578    	
+;;;579    	/************************  CH4  *********************************/
+;;;580    	ch = CapCH4;
 00023e  2403              MOVS     r4,#3
-;;;539    	if((chargingPile.capState[ch]&0X80) == 0)
+;;;581    	if((chargingPile.capState[ch]&0X80) == 0)
 000240  4831              LDR      r0,|L1.776|
 000242  5d00              LDRB     r0,[r0,r4]
 000244  f0000080          AND      r0,r0,#0x80
 000248  2800              CMP      r0,#0
 00024a  d157              BNE      |L1.764|
-;;;540    	{
-;;;541    		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
+;;;582    	{
+;;;583    		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
 00024c  2101              MOVS     r1,#1
 00024e  482f              LDR      r0,|L1.780|
 000250  f7fffffe          BL       TIM_GetITStatus
 000254  b1e0              CBZ      r0,|L1.656|
-;;;542            {	    
-;;;543                if(chargingPile.capState[ch]&0X40)
+;;;584            {	    
+;;;585                if(chargingPile.capState[ch]&0X40)
 000256  482c              LDR      r0,|L1.776|
 000258  5d00              LDRB     r0,[r0,r4]
 00025a  f0000040          AND      r0,r0,#0x40
 00025e  b1b8              CBZ      r0,|L1.656|
-;;;544                {
-;;;545                    if((chargingPile.capState[ch]&0X3F)==0X3F)
+;;;586                {
+;;;587                    if((chargingPile.capState[ch]&0X3F)==0X3F)
 000260  4829              LDR      r0,|L1.776|
 000262  5d00              LDRB     r0,[r0,r4]
 000264  f000003f          AND      r0,r0,#0x3f
 000268  283f              CMP      r0,#0x3f
 00026a  d10c              BNE      |L1.646|
-;;;546                    {
-;;;547                        chargingPile.capState[ch]|=0X80;
+;;;588                    {
+;;;589                        chargingPile.capState[ch]|=0X80;
 00026c  4826              LDR      r0,|L1.776|
 00026e  5d00              LDRB     r0,[r0,r4]
 000270  f0400080          ORR      r0,r0,#0x80
 000274  4924              LDR      r1,|L1.776|
 000276  5508              STRB     r0,[r1,r4]
-;;;548                        chargingPile.capValue[ch]=0XFFFF;
+;;;590                        chargingPile.capValue[ch]=0XFFFF;
 000278  f64f71ff          MOV      r1,#0xffff
 00027c  4822              LDR      r0,|L1.776|
 00027e  1d00              ADDS     r0,r0,#4
 000280  f8201014          STRH     r1,[r0,r4,LSL #1]
 000284  e004              B        |L1.656|
                   |L1.646|
-;;;549                    }else chargingPile.capState[ch]++;
+;;;591                    }else chargingPile.capState[ch]++;
 000286  4820              LDR      r0,|L1.776|
 000288  5d00              LDRB     r0,[r0,r4]
 00028a  1c40              ADDS     r0,r0,#1
 00028c  491e              LDR      r1,|L1.776|
 00028e  5508              STRB     r0,[r1,r4]
                   |L1.656|
-;;;550                }	 
-;;;551            }
-;;;552            if (TIM_GetITStatus(TIM3, TIM_IT_CC4) != RESET)
+;;;592                }	 
+;;;593            }
+;;;594            if (TIM_GetITStatus(TIM3, TIM_IT_CC4) != RESET)
 000290  2110              MOVS     r1,#0x10
 000292  481e              LDR      r0,|L1.780|
 000294  f7fffffe          BL       TIM_GetITStatus
 000298  b380              CBZ      r0,|L1.764|
-;;;553            {	
-;;;554                if(chargingPile.capState[ch]&0X40)			
+;;;595            {	
+;;;596                if(chargingPile.capState[ch]&0X40)			
 00029a  481b              LDR      r0,|L1.776|
 00029c  5d00              LDRB     r0,[r0,r4]
 00029e  f0000040          AND      r0,r0,#0x40
 0002a2  b190              CBZ      r0,|L1.714|
-;;;555                {	  			
-;;;556                    chargingPile.capState[ch]|=0X80;
+;;;597                {	  			
+;;;598                    chargingPile.capState[ch]|=0X80;
 0002a4  4818              LDR      r0,|L1.776|
 0002a6  5d00              LDRB     r0,[r0,r4]
 0002a8  f0400080          ORR      r0,r0,#0x80
 0002ac  4916              LDR      r1,|L1.776|
 0002ae  5508              STRB     r0,[r1,r4]
-;;;557                    chargingPile.capValue[ch]=TIM_GetCapture4(TIM3);
+;;;599                    chargingPile.capValue[ch]=TIM_GetCapture4(TIM3);
 0002b0  4816              LDR      r0,|L1.780|
 0002b2  f7fffffe          BL       TIM_GetCapture4
 0002b6  4601              MOV      r1,r0
 0002b8  4813              LDR      r0,|L1.776|
 0002ba  1d00              ADDS     r0,r0,#4
 0002bc  f8201014          STRH     r1,[r0,r4,LSL #1]
-;;;558                    TIM_OC4PolarityConfig(TIM3,TIM_ICPolarity_Falling);
+;;;600                    TIM_OC4PolarityConfig(TIM3,TIM_ICPolarity_Falling);
 0002c0  2102              MOVS     r1,#2
 0002c2  4812              LDR      r0,|L1.780|
 0002c4  f7fffffe          BL       TIM_OC4PolarityConfig
 0002c8  e018              B        |L1.764|
                   |L1.714|
-;;;559                }else 
-;;;560                {
-;;;561                    chargingPile.capState[ch]=0;	
+;;;601                }else 
+;;;602                {
+;;;603                    chargingPile.capState[ch]=0;	
 0002ca  2000              MOVS     r0,#0
 0002cc  490e              LDR      r1,|L1.776|
 0002ce  5508              STRB     r0,[r1,r4]
-;;;562                    chargingPile.capValue[ch]=0;
+;;;604                    chargingPile.capValue[ch]=0;
 0002d0  2100              MOVS     r1,#0
 0002d2  480d              LDR      r0,|L1.776|
 0002d4  1d00              ADDS     r0,r0,#4
 0002d6  f8201014          STRH     r1,[r0,r4,LSL #1]
-;;;563    				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
+;;;605    				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
 0002da  480c              LDR      r0,|L1.780|
 0002dc  f7fffffe          BL       TIM_GetCounter
 0002e0  4909              LDR      r1,|L1.776|
 0002e2  310c              ADDS     r1,r1,#0xc
 0002e4  f8210014          STRH     r0,[r1,r4,LSL #1]
-;;;564                    chargingPile.capState[ch]|=0X40;
+;;;606                    chargingPile.capState[ch]|=0X40;
 0002e8  4807              LDR      r0,|L1.776|
 0002ea  5d00              LDRB     r0,[r0,r4]
 0002ec  f0400040          ORR      r0,r0,#0x40
 0002f0  390c              SUBS     r1,r1,#0xc
 0002f2  5508              STRB     r0,[r1,r4]
-;;;565                    TIM_OC4PolarityConfig(TIM3,TIM_ICPolarity_Rising);
+;;;607                    TIM_OC4PolarityConfig(TIM3,TIM_ICPolarity_Rising);
 0002f4  2100              MOVS     r1,#0
 0002f6  4805              LDR      r0,|L1.780|
 0002f8  f7fffffe          BL       TIM_OC4PolarityConfig
                   |L1.764|
-;;;566                }		    
-;;;567            }			 
-;;;568    	}
-;;;569    	
-;;;570        TIM_ClearITPendingBit(TIM3, TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4|TIM_IT_Update); //清除中断标志位
+;;;608                }		    
+;;;609            }			 
+;;;610    	}
+;;;611    	
+;;;612        TIM_ClearITPendingBit(TIM3, TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4|TIM_IT_Update); //清除中断标志位
 0002fc  211f              MOVS     r1,#0x1f
 0002fe  4803              LDR      r0,|L1.780|
 000300  f7fffffe          BL       TIM_ClearITPendingBit
-;;;571        
-;;;572    }
+;;;613        
+;;;614    }
 000304  bd10              POP      {r4,pc}
-;;;573    
+;;;615    
                           ENDP
 
 000306  0000              DCW      0x0000
@@ -491,11 +491,11 @@
                           AREA ||i.bsp_ClearRemotePulseState||, CODE, READONLY, ALIGN=2
 
                   bsp_ClearRemotePulseState PROC
-;;;234    */
-;;;235    void bsp_ClearRemotePulseState(CapCH capCH , PulseWidth pulseWidth)
+;;;276    */
+;;;277    void bsp_ClearRemotePulseState(CapCH capCH , PulseWidth pulseWidth)
 000000  b510              PUSH     {r4,lr}
-;;;236    {
-;;;237    	switch(pulseWidth)
+;;;278    {
+;;;279    	switch(pulseWidth)
 000002  b121              CBZ      r1,|L2.14|
 000004  2901              CMP      r1,#1
 000006  d008              BEQ      |L2.26|
@@ -503,45 +503,45 @@
 00000a  d114              BNE      |L2.54|
 00000c  e00c              B        |L2.40|
                   |L2.14|
-;;;238    	{
-;;;239    		case Pulse500US:
-;;;240    		{
-;;;241    			remote[capCH].is500us = false ;
+;;;280    	{
+;;;281    		case Pulse500US:
+;;;282    		{
+;;;283    			remote[capCH].is500us = false ;
 00000e  2200              MOVS     r2,#0
 000010  eb000340          ADD      r3,r0,r0,LSL #1
 000014  4c09              LDR      r4,|L2.60|
 000016  54e2              STRB     r2,[r4,r3]
-;;;242    		}break;
+;;;284    		}break;
 000018  e00d              B        |L2.54|
                   |L2.26|
-;;;243    		case Pulse1000US:
-;;;244    		{
-;;;245    			remote[capCH].is1000us = false ;
+;;;285    		case Pulse1000US:
+;;;286    		{
+;;;287    			remote[capCH].is1000us = false ;
 00001a  2200              MOVS     r2,#0
 00001c  eb000340          ADD      r3,r0,r0,LSL #1
 000020  4c06              LDR      r4,|L2.60|
 000022  4423              ADD      r3,r3,r4
 000024  705a              STRB     r2,[r3,#1]
-;;;246    		}break;
+;;;288    		}break;
 000026  e006              B        |L2.54|
                   |L2.40|
-;;;247    		case Pulse1500US:
-;;;248    		{
-;;;249    			remote[capCH].is1500us = false ;
+;;;289    		case Pulse1500US:
+;;;290    		{
+;;;291    			remote[capCH].is1500us = false ;
 000028  2200              MOVS     r2,#0
 00002a  eb000340          ADD      r3,r0,r0,LSL #1
 00002e  4c03              LDR      r4,|L2.60|
 000030  4423              ADD      r3,r3,r4
 000032  709a              STRB     r2,[r3,#2]
-;;;250    		}break;
+;;;292    		}break;
 000034  bf00              NOP      
                   |L2.54|
-000036  bf00              NOP                            ;242
-;;;251    	}
-;;;252    
-;;;253    }
+000036  bf00              NOP                            ;284
+;;;293    	}
+;;;294    
+;;;295    }
 000038  bd10              POP      {r4,pc}
-;;;254    
+;;;296    
                           ENDP
 
 00003a  0000              DCW      0x0000
@@ -551,19 +551,19 @@
                           AREA ||i.bsp_ClearRemoteTimerCnt||, CODE, READONLY, ALIGN=2
 
                   bsp_ClearRemoteTimerCnt PROC
-;;;206    */
-;;;207    void bsp_ClearRemoteTimerCnt(CapCH capCH , PulseWidth pulseWidth)
+;;;248    */
+;;;249    void bsp_ClearRemoteTimerCnt(CapCH capCH , PulseWidth pulseWidth)
 000000  b510              PUSH     {r4,lr}
-;;;208    {
-;;;209    	remoteStateTimer[capCH][pulseWidth] = 0 ;
+;;;250    {
+;;;251    	remoteStateTimer[capCH][pulseWidth] = 0 ;
 000002  2200              MOVS     r2,#0
 000004  eb000340          ADD      r3,r0,r0,LSL #1
 000008  4c02              LDR      r4,|L3.20|
 00000a  eb040383          ADD      r3,r4,r3,LSL #2
 00000e  f8432021          STR      r2,[r3,r1,LSL #2]
-;;;210    }
+;;;252    }
 000012  bd10              POP      {r4,pc}
-;;;211    
+;;;253    
                           ENDP
 
                   |L3.20|
@@ -572,117 +572,117 @@
                           AREA ||i.bsp_GetCapCnt||, CODE, READONLY, ALIGN=2
 
                   bsp_GetCapCnt PROC
-;;;321    
-;;;322    uint32_t bsp_GetCapCnt(CapCH capCH)
+;;;363    
+;;;364    uint32_t bsp_GetCapCnt(CapCH capCH)
 000000  b570              PUSH     {r4-r6,lr}
-;;;323    {
+;;;365    {
 000002  4606              MOV      r6,r0
-;;;324    	uint32_t temp = 0; 
+;;;366    	uint32_t temp = 0; 
 000004  2400              MOVS     r4,#0
-;;;325    	CapCH ch = capCH;
+;;;367    	CapCH ch = capCH;
 000006  4635              MOV      r5,r6
-;;;326    	
-;;;327    	if(chargingPile.capState[ch]&0X80)//成功捕获到了一次上升沿
+;;;368    	
+;;;369    	if(chargingPile.capState[ch]&0X80)//成功捕获到了一次上升沿
 000008  4828              LDR      r0,|L4.172|
 00000a  5d40              LDRB     r0,[r0,r5]
 00000c  f0000080          AND      r0,r0,#0x80
 000010  2800              CMP      r0,#0
 000012  d048              BEQ      |L4.166|
-;;;328    	{
-;;;329    		temp=chargingPile.capState[ch]&0X3F;
+;;;370    	{
+;;;371    		temp=chargingPile.capState[ch]&0X3F;
 000014  4825              LDR      r0,|L4.172|
 000016  5d40              LDRB     r0,[r0,r5]
 000018  f000043f          AND      r4,r0,#0x3f
-;;;330    		temp*=65536;//溢出时间总和
+;;;372    		temp*=65536;//溢出时间总和
 00001c  0424              LSLS     r4,r4,#16
-;;;331    		temp+=chargingPile.capValue[ch];//得到总的时间
+;;;373    		temp+=chargingPile.capValue[ch];//得到总的时间
 00001e  4823              LDR      r0,|L4.172|
 000020  1d00              ADDS     r0,r0,#4
 000022  f8300015          LDRH     r0,[r0,r5,LSL #1]
 000026  4404              ADD      r4,r4,r0
-;;;332    		temp-=chargingPile.capStart[ch];//得到总的时间
+;;;374    		temp-=chargingPile.capStart[ch];//得到总的时间
 000028  4820              LDR      r0,|L4.172|
 00002a  300c              ADDS     r0,r0,#0xc
 00002c  f8300015          LDRH     r0,[r0,r5,LSL #1]
 000030  1a24              SUBS     r4,r4,r0
-;;;333    		
-;;;334    		
-;;;335    		//printf("LOW:%d us\r\n",temp);   //打印总的时间
-;;;336    
-;;;337    		if(temp >= RangeSub(500) && temp <=  RangeAdd(500))
+;;;375    		
+;;;376    		
+;;;377    		//printf("LOW:%d us\r\n",temp);   //打印总的时间
+;;;378    
+;;;379    		if(temp >= RangeSub(500) && temp <=  RangeAdd(500))
 000032  f5b47fc8          CMP      r4,#0x190
 000036  d30c              BCC      |L4.82|
 000038  f5b47f16          CMP      r4,#0x258
 00003c  d809              BHI      |L4.82|
-;;;338    		{
-;;;339    			remote[ch].is500us = true;
+;;;380    		{
+;;;381    			remote[ch].is500us = true;
 00003e  2001              MOVS     r0,#1
 000040  eb050145          ADD      r1,r5,r5,LSL #1
 000044  4a1a              LDR      r2,|L4.176|
 000046  5450              STRB     r0,[r2,r1]
-;;;340    			bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
+;;;382    			bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
 000048  2100              MOVS     r1,#0
 00004a  4628              MOV      r0,r5
 00004c  f7fffffe          BL       bsp_ClearRemoteTimerCnt
 000050  e021              B        |L4.150|
                   |L4.82|
-;;;341    		}
-;;;342    		else if(temp >= RangeSub(1000) && temp <=  RangeAdd(1000))
+;;;383    		}
+;;;384    		else if(temp >= RangeSub(1000) && temp <=  RangeAdd(1000))
 000052  f5b47f61          CMP      r4,#0x384
 000056  d30e              BCC      |L4.118|
 000058  f240404c          MOV      r0,#0x44c
 00005c  4284              CMP      r4,r0
 00005e  d80a              BHI      |L4.118|
-;;;343    		{
-;;;344    			remote[ch].is1000us = true;
+;;;385    		{
+;;;386    			remote[ch].is1000us = true;
 000060  2001              MOVS     r0,#1
 000062  eb050145          ADD      r1,r5,r5,LSL #1
 000066  4a12              LDR      r2,|L4.176|
 000068  4411              ADD      r1,r1,r2
 00006a  7048              STRB     r0,[r1,#1]
-;;;345    			bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
+;;;387    			bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
 00006c  2101              MOVS     r1,#1
 00006e  4628              MOV      r0,r5
 000070  f7fffffe          BL       bsp_ClearRemoteTimerCnt
 000074  e00f              B        |L4.150|
                   |L4.118|
-;;;346    		}
-;;;347    		else if(temp >= RangeSub(1500) && temp <=  RangeAdd(1500))
+;;;388    		}
+;;;389    		else if(temp >= RangeSub(1500) && temp <=  RangeAdd(1500))
 000076  f5b46faf          CMP      r4,#0x578
 00007a  d30c              BCC      |L4.150|
 00007c  f5b46fc8          CMP      r4,#0x640
 000080  d809              BHI      |L4.150|
-;;;348    		{
-;;;349    			remote[ch].is1500us = true;
+;;;390    		{
+;;;391    			remote[ch].is1500us = true;
 000082  2001              MOVS     r0,#1
 000084  eb050145          ADD      r1,r5,r5,LSL #1
 000088  4a09              LDR      r2,|L4.176|
 00008a  4411              ADD      r1,r1,r2
 00008c  7088              STRB     r0,[r1,#2]
-;;;350    			bsp_ClearRemoteTimerCnt(ch,Pulse1500US);//清除计数
+;;;392    			bsp_ClearRemoteTimerCnt(ch,Pulse1500US);//清除计数
 00008e  2102              MOVS     r1,#2
 000090  4628              MOV      r0,r5
 000092  f7fffffe          BL       bsp_ClearRemoteTimerCnt
                   |L4.150|
-;;;351    		}
-;;;352    		
-;;;353    		chargingPile.capState[ch]=0;
+;;;393    		}
+;;;394    		
+;;;395    		chargingPile.capState[ch]=0;
 000096  2000              MOVS     r0,#0
 000098  4904              LDR      r1,|L4.172|
 00009a  5548              STRB     r0,[r1,r5]
-;;;354    		chargingPile.capValue[ch]=0;
+;;;396    		chargingPile.capValue[ch]=0;
 00009c  2100              MOVS     r1,#0
 00009e  4803              LDR      r0,|L4.172|
 0000a0  1d00              ADDS     r0,r0,#4
 0000a2  f8201015          STRH     r1,[r0,r5,LSL #1]
                   |L4.166|
-;;;355    	}
-;;;356    	
-;;;357    	return temp;
+;;;397    	}
+;;;398    	
+;;;399    	return temp;
 0000a6  4620              MOV      r0,r4
-;;;358    }
+;;;400    }
 0000a8  bd70              POP      {r4-r6,pc}
-;;;359    
+;;;401    
                           ENDP
 
 0000aa  0000              DCW      0x0000
@@ -694,30 +694,30 @@
                           AREA ||i.bsp_GetChargeFeedback||, CODE, READONLY, ALIGN=2
 
                   bsp_GetChargeFeedback PROC
-;;;599    */
-;;;600    bool bsp_GetChargeFeedback(void)
+;;;641    */
+;;;642    bool bsp_GetChargeFeedback(void)
 000000  b510              PUSH     {r4,lr}
-;;;601    {
-;;;602    	if(GPIO_ReadInputDataBit(GPIOF,GPIO_Pin_7))
+;;;643    {
+;;;644    	if(GPIO_ReadInputDataBit(GPIOF,GPIO_Pin_7))
 000002  2180              MOVS     r1,#0x80
 000004  4803              LDR      r0,|L5.20|
 000006  f7fffffe          BL       GPIO_ReadInputDataBit
 00000a  b108              CBZ      r0,|L5.16|
-;;;603    	{
-;;;604    		return true ;
+;;;645    	{
+;;;646    		return true ;
 00000c  2001              MOVS     r0,#1
                   |L5.14|
-;;;605    	}
-;;;606    	else
-;;;607    	{
-;;;608    		return false ;
-;;;609    	}
-;;;610    }
+;;;647    	}
+;;;648    	else
+;;;649    	{
+;;;650    		return false ;
+;;;651    	}
+;;;652    }
 00000e  bd10              POP      {r4,pc}
                   |L5.16|
-000010  2000              MOVS     r0,#0                 ;608
+000010  2000              MOVS     r0,#0                 ;650
 000012  e7fc              B        |L5.14|
-;;;611    
+;;;653    
                           ENDP
 
                   |L5.20|
@@ -726,57 +726,57 @@
                           AREA ||i.bsp_InitChargingPile||, CODE, READONLY, ALIGN=1
 
                   bsp_InitChargingPile PROC
-;;;39     
-;;;40     void bsp_InitChargingPile(void)
+;;;40     
+;;;41     void bsp_InitChargingPile(void)
 000000  b510              PUSH     {r4,lr}
-;;;41     {
-;;;42         bsp_InitTIM3Cap(0xFFFF,72-1); //1MHz采样率
+;;;42     {
+;;;43         bsp_InitTIM3Cap(0xFFFF,72-1); //1MHz采样率
 000002  2147              MOVS     r1,#0x47
 000004  f64f70ff          MOV      r0,#0xffff
 000008  f7fffffe          BL       bsp_InitTIM3Cap
-;;;43     	
-;;;44     	bsp_InitIO();
+;;;44     	
+;;;45     	bsp_InitIO();
 00000c  f7fffffe          BL       bsp_InitIO
-;;;45     	
-;;;46     }
+;;;46     	
+;;;47     }
 000010  bd10              POP      {r4,pc}
-;;;47     
+;;;48     
                           ENDP
 
 
                           AREA ||i.bsp_InitIO||, CODE, READONLY, ALIGN=2
 
                   bsp_InitIO PROC
-;;;574    
-;;;575    static void bsp_InitIO(void)
+;;;616    
+;;;617    static void bsp_InitIO(void)
 000000  b508              PUSH     {r3,lr}
-;;;576    {
-;;;577    	GPIO_InitTypeDef GPIO_InitStructure;
-;;;578    
-;;;579    	/* 打开GPIO时钟 */
-;;;580    	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
+;;;618    {
+;;;619    	GPIO_InitTypeDef GPIO_InitStructure;
+;;;620    
+;;;621    	/* 打开GPIO时钟 */
+;;;622    	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
 000002  2101              MOVS     r1,#1
 000004  2080              MOVS     r0,#0x80
 000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;581    
-;;;582    	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+;;;623    
+;;;624    	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 00000a  2003              MOVS     r0,#3
 00000c  f88d0002          STRB     r0,[sp,#2]
-;;;583    	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
+;;;625    	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
 000010  2004              MOVS     r0,#4
 000012  f88d0003          STRB     r0,[sp,#3]
-;;;584    	
-;;;585    	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+;;;626    	
+;;;627    	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
 000016  2080              MOVS     r0,#0x80
 000018  f8ad0000          STRH     r0,[sp,#0]
-;;;586    	GPIO_Init(GPIOF, &GPIO_InitStructure);
+;;;628    	GPIO_Init(GPIOF, &GPIO_InitStructure);
 00001c  4669              MOV      r1,sp
 00001e  4802              LDR      r0,|L7.40|
 000020  f7fffffe          BL       GPIO_Init
-;;;587     
-;;;588    }
+;;;629     
+;;;630    }
 000024  bd08              POP      {r3,pc}
-;;;589    
+;;;631    
                           ENDP
 
 000026  0000              DCW      0x0000
@@ -786,140 +786,140 @@
                           AREA ||i.bsp_InitTIM3Cap||, CODE, READONLY, ALIGN=2
 
                   bsp_InitTIM3Cap PROC
-;;;371    
-;;;372    static void bsp_InitTIM3Cap(u16 arr,u16 psc)
+;;;413    
+;;;414    static void bsp_InitTIM3Cap(u16 arr,u16 psc)
 000000  b530              PUSH     {r4,r5,lr}
-;;;373    {	 
+;;;415    {	 
 000002  b089              SUB      sp,sp,#0x24
 000004  4605              MOV      r5,r0
 000006  460c              MOV      r4,r1
-;;;374        GPIO_InitTypeDef   GPIO_InitStructure;
-;;;375        NVIC_InitTypeDef   NVIC_InitStructure;
-;;;376        TIM_ICInitTypeDef  TIM_ICInitStructure;  
-;;;377        TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-;;;378        
-;;;379        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+;;;416        GPIO_InitTypeDef   GPIO_InitStructure;
+;;;417        NVIC_InitTypeDef   NVIC_InitStructure;
+;;;418        TIM_ICInitTypeDef  TIM_ICInitStructure;  
+;;;419        TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+;;;420        
+;;;421        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
 000008  2101              MOVS     r1,#1
 00000a  2010              MOVS     r0,#0x10
 00000c  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;380        RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,  ENABLE);
+;;;422        RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,  ENABLE);
 000010  2101              MOVS     r1,#1
 000012  2002              MOVS     r0,#2
 000014  f7fffffe          BL       RCC_APB1PeriphClockCmd
-;;;381        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC|RCC_APB2Periph_AFIO, ENABLE);
+;;;423        RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC|RCC_APB2Periph_AFIO, ENABLE);
 000018  2101              MOVS     r1,#1
 00001a  2011              MOVS     r0,#0x11
 00001c  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;382        GPIO_PinRemapConfig(GPIO_FullRemap_TIM3, ENABLE); 
+;;;424        GPIO_PinRemapConfig(GPIO_FullRemap_TIM3, ENABLE); 
 000020  2101              MOVS     r1,#1
 000022  482f              LDR      r0,|L8.224|
 000024  f7fffffe          BL       GPIO_PinRemapConfig
-;;;383        
-;;;384        GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9;
+;;;425        
+;;;426        GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9;
 000028  f44f7070          MOV      r0,#0x3c0
 00002c  f8ad0020          STRH     r0,[sp,#0x20]
-;;;385        GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPU;
+;;;427        GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPU;
 000030  2048              MOVS     r0,#0x48
 000032  f88d0023          STRB     r0,[sp,#0x23]
-;;;386        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+;;;428        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 000036  2003              MOVS     r0,#3
 000038  f88d0022          STRB     r0,[sp,#0x22]
-;;;387        GPIO_Init(GPIOC, &GPIO_InitStructure);
+;;;429        GPIO_Init(GPIOC, &GPIO_InitStructure);
 00003c  a908              ADD      r1,sp,#0x20
 00003e  4829              LDR      r0,|L8.228|
 000040  f7fffffe          BL       GPIO_Init
-;;;388        
-;;;389        TIM_TimeBaseStructure.TIM_Period 		= arr; 				    //设定计数器自动重装值 最大10ms溢出  
+;;;430        
+;;;431        TIM_TimeBaseStructure.TIM_Period 		= arr; 				    //设定计数器自动重装值 最大10ms溢出  
 000044  f8ad5008          STRH     r5,[sp,#8]
-;;;390        TIM_TimeBaseStructure.TIM_Prescaler     = psc; 				    //预分频器,1M的计数频率,1us加1.	   	
+;;;432        TIM_TimeBaseStructure.TIM_Prescaler     = psc; 				    //预分频器,1M的计数频率,1us加1.	   	
 000048  f8ad4004          STRH     r4,[sp,#4]
-;;;391        TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 		//设置时钟分割:TDTS = Tck_tim
+;;;433        TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 		//设置时钟分割:TDTS = Tck_tim
 00004c  2000              MOVS     r0,#0
 00004e  f8ad000a          STRH     r0,[sp,#0xa]
-;;;392        TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up;  	//TIM向上计数模式
+;;;434        TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up;  	//TIM向上计数模式
 000052  f8ad0006          STRH     r0,[sp,#6]
-;;;393        TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);  
+;;;435        TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);  
 000056  a901              ADD      r1,sp,#4
 000058  4823              LDR      r0,|L8.232|
 00005a  f7fffffe          BL       TIM_TimeBaseInit
-;;;394        
-;;;395        
-;;;396        TIM_ICInitStructure.TIM_ICPolarity  = TIM_ICPolarity_Falling;
+;;;436        
+;;;437        
+;;;438        TIM_ICInitStructure.TIM_ICPolarity  = TIM_ICPolarity_Falling;
 00005e  2002              MOVS     r0,#2
 000060  f8ad0012          STRH     r0,[sp,#0x12]
-;;;397        TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
+;;;439        TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
 000064  2001              MOVS     r0,#1
 000066  f8ad0014          STRH     r0,[sp,#0x14]
-;;;398        TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	
+;;;440        TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	
 00006a  2000              MOVS     r0,#0
 00006c  f8ad0016          STRH     r0,[sp,#0x16]
-;;;399        TIM_ICInitStructure.TIM_ICFilter    = 0x03;					
+;;;441        TIM_ICInitStructure.TIM_ICFilter    = 0x03;					
 000070  2003              MOVS     r0,#3
 000072  f8ad0018          STRH     r0,[sp,#0x18]
-;;;400        
-;;;401        TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_1;  		
+;;;442        
+;;;443        TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_1;  		
 000076  2000              MOVS     r0,#0
 000078  f8ad0010          STRH     r0,[sp,#0x10]
-;;;402        TIM_ICInit(TIM3, &TIM_ICInitStructure);
+;;;444        TIM_ICInit(TIM3, &TIM_ICInitStructure);
 00007c  a904              ADD      r1,sp,#0x10
 00007e  481a              LDR      r0,|L8.232|
 000080  f7fffffe          BL       TIM_ICInit
-;;;403        
-;;;404        TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_2;  		
+;;;445        
+;;;446        TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_2;  		
 000084  2004              MOVS     r0,#4
 000086  f8ad0010          STRH     r0,[sp,#0x10]
-;;;405        TIM_ICInit(TIM3, &TIM_ICInitStructure);
+;;;447        TIM_ICInit(TIM3, &TIM_ICInitStructure);
 00008a  a904              ADD      r1,sp,#0x10
 00008c  4816              LDR      r0,|L8.232|
 00008e  f7fffffe          BL       TIM_ICInit
-;;;406        
-;;;407        TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_3;  		
+;;;448        
+;;;449        TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_3;  		
 000092  2008              MOVS     r0,#8
 000094  f8ad0010          STRH     r0,[sp,#0x10]
-;;;408        TIM_ICInit(TIM3, &TIM_ICInitStructure);
+;;;450        TIM_ICInit(TIM3, &TIM_ICInitStructure);
 000098  a904              ADD      r1,sp,#0x10
 00009a  4813              LDR      r0,|L8.232|
 00009c  f7fffffe          BL       TIM_ICInit
-;;;409        
-;;;410        TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_4;  		
+;;;451        
+;;;452        TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_4;  		
 0000a0  200c              MOVS     r0,#0xc
 0000a2  f8ad0010          STRH     r0,[sp,#0x10]
-;;;411        TIM_ICInit(TIM3, &TIM_ICInitStructure);
+;;;453        TIM_ICInit(TIM3, &TIM_ICInitStructure);
 0000a6  a904              ADD      r1,sp,#0x10
 0000a8  480f              LDR      r0,|L8.232|
 0000aa  f7fffffe          BL       TIM_ICInit
-;;;412        
-;;;413        
-;;;414        NVIC_InitStructure.NVIC_IRQChannel 			  = TIM3_IRQn;  
+;;;454        
+;;;455        
+;;;456        NVIC_InitStructure.NVIC_IRQChannel 			  = TIM3_IRQn;  
 0000ae  201d              MOVS     r0,#0x1d
 0000b0  f88d001c          STRB     r0,[sp,#0x1c]
-;;;415        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  	//先占优先级0级
+;;;457        NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  	//先占优先级0级
 0000b4  2000              MOVS     r0,#0
 0000b6  f88d001d          STRB     r0,[sp,#0x1d]
-;;;416        NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;  		//从优先级3级
+;;;458        NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;  		//从优先级3级
 0000ba  f88d001e          STRB     r0,[sp,#0x1e]
-;;;417        NVIC_InitStructure.NVIC_IRQChannelCmd 		  = ENABLE; 	//IRQ通道被使能
+;;;459        NVIC_InitStructure.NVIC_IRQChannelCmd 		  = ENABLE; 	//IRQ通道被使能
 0000be  2001              MOVS     r0,#1
 0000c0  f88d001f          STRB     r0,[sp,#0x1f]
-;;;418        NVIC_Init(&NVIC_InitStructure);   	
+;;;460        NVIC_Init(&NVIC_InitStructure);   	
 0000c4  a807              ADD      r0,sp,#0x1c
 0000c6  f7fffffe          BL       NVIC_Init
-;;;419        
-;;;420        TIM_Cmd(TIM3,ENABLE ); 	
+;;;461        
+;;;462        TIM_Cmd(TIM3,ENABLE ); 	
 0000ca  2101              MOVS     r1,#1
 0000cc  4806              LDR      r0,|L8.232|
 0000ce  f7fffffe          BL       TIM_Cmd
-;;;421        
-;;;422        
-;;;423        TIM_ITConfig(TIM3,TIM_IT_Update|TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4, ENABLE);
+;;;463        
+;;;464        
+;;;465        TIM_ITConfig(TIM3,TIM_IT_Update|TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4, ENABLE);
 0000d2  2201              MOVS     r2,#1
 0000d4  211f              MOVS     r1,#0x1f
 0000d6  4804              LDR      r0,|L8.232|
 0000d8  f7fffffe          BL       TIM_ITConfig
-;;;424    }
+;;;466    }
 0000dc  b009              ADD      sp,sp,#0x24
 0000de  bd30              POP      {r4,r5,pc}
-;;;425    
+;;;467    
                           ENDP
 
                   |L8.224|
@@ -935,45 +935,45 @@
                           REQUIRE _printf_d
                           REQUIRE _printf_int_dec
                   bsp_PrintRemoteState PROC
-;;;360    
-;;;361    void bsp_PrintRemoteState(CapCH capCH)
+;;;402    
+;;;403    void bsp_PrintRemoteState(CapCH capCH)
 000000  b510              PUSH     {r4,lr}
-;;;362    {
+;;;404    {
 000002  4604              MOV      r4,r0
-;;;363    	printf("*******CH(1000,1500,500)******\r\n");
+;;;405    	printf("*******CH(1000,1500,500)******\r\n");
 000004  a00f              ADR      r0,|L9.68|
 000006  f7fffffe          BL       __2printf
-;;;364    	printf("CH1:%d %d %d\r\n",remote[CapCH1].is1000us,remote[CapCH1].is1500us,remote[CapCH1].is500us);
+;;;406    	printf("CH1:%d %d %d\r\n",remote[CapCH1].is1000us,remote[CapCH1].is1500us,remote[CapCH1].is500us);
 00000a  4817              LDR      r0,|L9.104|
 00000c  7803              LDRB     r3,[r0,#0]  ; remote
 00000e  7882              LDRB     r2,[r0,#2]  ; remote
 000010  7841              LDRB     r1,[r0,#1]  ; remote
 000012  a016              ADR      r0,|L9.108|
 000014  f7fffffe          BL       __2printf
-;;;365    	printf("CH2:%d %d %d\r\n",remote[CapCH2].is1000us,remote[CapCH2].is1500us,remote[CapCH2].is500us);
+;;;407    	printf("CH2:%d %d %d\r\n",remote[CapCH2].is1000us,remote[CapCH2].is1500us,remote[CapCH2].is500us);
 000018  4813              LDR      r0,|L9.104|
 00001a  78c3              LDRB     r3,[r0,#3]  ; remote
 00001c  7942              LDRB     r2,[r0,#5]
 00001e  7901              LDRB     r1,[r0,#4]
 000020  a016              ADR      r0,|L9.124|
 000022  f7fffffe          BL       __2printf
-;;;366    	printf("CH3:%d %d %d\r\n",remote[CapCH3].is1000us,remote[CapCH3].is1500us,remote[CapCH3].is500us);
+;;;408    	printf("CH3:%d %d %d\r\n",remote[CapCH3].is1000us,remote[CapCH3].is1500us,remote[CapCH3].is500us);
 000026  4810              LDR      r0,|L9.104|
 000028  7983              LDRB     r3,[r0,#6]  ; remote
 00002a  7a02              LDRB     r2,[r0,#8]
 00002c  79c1              LDRB     r1,[r0,#7]
 00002e  a017              ADR      r0,|L9.140|
 000030  f7fffffe          BL       __2printf
-;;;367    	printf("CH4:%d %d %d\r\n",remote[CapCH4].is1000us,remote[CapCH4].is1500us,remote[CapCH4].is500us);
+;;;409    	printf("CH4:%d %d %d\r\n",remote[CapCH4].is1000us,remote[CapCH4].is1500us,remote[CapCH4].is500us);
 000034  480c              LDR      r0,|L9.104|
 000036  7a43              LDRB     r3,[r0,#9]  ; remote
 000038  7ac2              LDRB     r2,[r0,#0xb]
 00003a  7a81              LDRB     r1,[r0,#0xa]
 00003c  a017              ADR      r0,|L9.156|
 00003e  f7fffffe          BL       __2printf
-;;;368    }
+;;;410    }
 000042  bd10              POP      {r4,pc}
-;;;369    
+;;;411    
                           ENDP
 
                   |L9.68|
@@ -1019,59 +1019,59 @@
                           AREA ||i.bsp_PulseTimerPer1MS||, CODE, READONLY, ALIGN=2
 
                   bsp_PulseTimerPer1MS PROC
-;;;284    
-;;;285    void bsp_PulseTimerPer1MS(void)
+;;;326    
+;;;327    void bsp_PulseTimerPer1MS(void)
 000000  b530              PUSH     {r4,r5,lr}
-;;;286    {
-;;;287    	CapCH ch = CapCH1 ;
+;;;328    {
+;;;329    	CapCH ch = CapCH1 ;
 000002  2400              MOVS     r4,#0
-;;;288    	PulseWidth pulse = Pulse500US ;
+;;;330    	PulseWidth pulse = Pulse500US ;
 000004  2500              MOVS     r5,#0
-;;;289    	
-;;;290    	for(ch=CapCH1;ch<=CapCH4;ch++)
+;;;331    	
+;;;332    	for(ch=CapCH1;ch<=CapCH4;ch++)
 000006  bf00              NOP      
 000008  e041              B        |L10.142|
                   |L10.10|
-;;;291    	{
-;;;292    		for(pulse=Pulse500US;pulse<=Pulse1500US;pulse++)
+;;;333    	{
+;;;334    		for(pulse=Pulse500US;pulse<=Pulse1500US;pulse++)
 00000a  2500              MOVS     r5,#0
 00000c  e03b              B        |L10.134|
                   |L10.14|
-;;;293    		{
-;;;294    			if(remoteStateTimer[ch][pulse] <= CYCLE)
+;;;335    		{
+;;;336    			if(remoteStateTimer[ch][pulse] <= CYCLE)
 00000e  eb040044          ADD      r0,r4,r4,LSL #1
 000012  4920              LDR      r1,|L10.148|
 000014  eb010080          ADD      r0,r1,r0,LSL #2
 000018  f8500025          LDR      r0,[r0,r5,LSL #2]
 00001c  2846              CMP      r0,#0x46
 00001e  d804              BHI      |L10.42|
-;;;295    			{
-;;;296    				bsp_RemoteTimerCntAdd(ch,pulse); /*如果计数值为0，则每MS加1，直到一个循环周期*/
+;;;337    			{
+;;;338    				bsp_RemoteTimerCntAdd(ch,pulse); /*如果计数值为0，则每MS加1，直到一个循环周期*/
 000020  4629              MOV      r1,r5
 000022  4620              MOV      r0,r4
 000024  f7fffffe          BL       bsp_RemoteTimerCntAdd
 000028  e02b              B        |L10.130|
                   |L10.42|
-;;;297    			}
-;;;298    			else
-;;;299    			{
-;;;300    				if(pulse == Pulse500US && remote[ch].is500us==true)
+;;;339    			}
+;;;340    			else
+;;;341    			{
+;;;342    				if(pulse == Pulse500US && remote[ch].is500us==true)
 00002a  b95d              CBNZ     r5,|L10.68|
 00002c  eb040044          ADD      r0,r4,r4,LSL #1
 000030  4919              LDR      r1,|L10.152|
 000032  5c08              LDRB     r0,[r1,r0]
 000034  2801              CMP      r0,#1
 000036  d105              BNE      |L10.68|
-;;;301    				{
-;;;302    					remote[ch].is500us = false;
+;;;343    				{
+;;;344    					remote[ch].is500us = false;
 000038  2000              MOVS     r0,#0
 00003a  eb040144          ADD      r1,r4,r4,LSL #1
 00003e  4a16              LDR      r2,|L10.152|
 000040  5450              STRB     r0,[r2,r1]
 000042  e01e              B        |L10.130|
                   |L10.68|
-;;;303    				}
-;;;304    				else if(pulse == Pulse1000US && remote[ch].is1000us==true)
+;;;345    				}
+;;;346    				else if(pulse == Pulse1000US && remote[ch].is1000us==true)
 000044  2d01              CMP      r5,#1
 000046  d10d              BNE      |L10.100|
 000048  eb040044          ADD      r0,r4,r4,LSL #1
@@ -1080,8 +1080,8 @@
 000050  7840              LDRB     r0,[r0,#1]
 000052  2801              CMP      r0,#1
 000054  d106              BNE      |L10.100|
-;;;305    				{
-;;;306    					remote[ch].is1000us = false;
+;;;347    				{
+;;;348    					remote[ch].is1000us = false;
 000056  2000              MOVS     r0,#0
 000058  eb040144          ADD      r1,r4,r4,LSL #1
 00005c  4a0e              LDR      r2,|L10.152|
@@ -1089,8 +1089,8 @@
 000060  7048              STRB     r0,[r1,#1]
 000062  e00e              B        |L10.130|
                   |L10.100|
-;;;307    				}
-;;;308    				else if(pulse == Pulse1500US && remote[ch].is1500us==true)
+;;;349    				}
+;;;350    				else if(pulse == Pulse1500US && remote[ch].is1500us==true)
 000064  2d02              CMP      r5,#2
 000066  d10c              BNE      |L10.130|
 000068  eb040044          ADD      r0,r4,r4,LSL #1
@@ -1099,32 +1099,32 @@
 000070  7880              LDRB     r0,[r0,#2]
 000072  2801              CMP      r0,#1
 000074  d105              BNE      |L10.130|
-;;;309    				{
-;;;310    					remote[ch].is1500us = false;
+;;;351    				{
+;;;352    					remote[ch].is1500us = false;
 000076  2000              MOVS     r0,#0
 000078  eb040144          ADD      r1,r4,r4,LSL #1
 00007c  4a06              LDR      r2,|L10.152|
 00007e  4411              ADD      r1,r1,r2
 000080  7088              STRB     r0,[r1,#2]
                   |L10.130|
-000082  1c68              ADDS     r0,r5,#1              ;292
-000084  b2c5              UXTB     r5,r0                 ;292
+000082  1c68              ADDS     r0,r5,#1              ;334
+000084  b2c5              UXTB     r5,r0                 ;334
                   |L10.134|
-000086  2d02              CMP      r5,#2                 ;292
+000086  2d02              CMP      r5,#2                 ;334
 000088  ddc1              BLE      |L10.14|
-00008a  1c60              ADDS     r0,r4,#1              ;290
-00008c  b2c4              UXTB     r4,r0                 ;290
+00008a  1c60              ADDS     r0,r4,#1              ;332
+00008c  b2c4              UXTB     r4,r0                 ;332
                   |L10.142|
-00008e  2c03              CMP      r4,#3                 ;290
+00008e  2c03              CMP      r4,#3                 ;332
 000090  ddbb              BLE      |L10.10|
-;;;311    				}
-;;;312    			}
-;;;313    		}
-;;;314    	}
-;;;315    	
-;;;316    }
+;;;353    				}
+;;;354    			}
+;;;355    		}
+;;;356    	}
+;;;357    	
+;;;358    }
 000092  bd30              POP      {r4,r5,pc}
-;;;317    
+;;;359    
                           ENDP
 
                   |L10.148|
@@ -1135,11 +1135,11 @@
                           AREA ||i.bsp_RemoteTimerCntAdd||, CODE, READONLY, ALIGN=2
 
                   bsp_RemoteTimerCntAdd PROC
-;;;220    */
-;;;221    void bsp_RemoteTimerCntAdd(CapCH capCH , PulseWidth pulseWidth)
+;;;262    */
+;;;263    void bsp_RemoteTimerCntAdd(CapCH capCH , PulseWidth pulseWidth)
 000000  b510              PUSH     {r4,lr}
-;;;222    {
-;;;223    	++remoteStateTimer[capCH][pulseWidth];
+;;;264    {
+;;;265    	++remoteStateTimer[capCH][pulseWidth];
 000002  eb000240          ADD      r2,r0,r0,LSL #1
 000006  4b07              LDR      r3,|L11.36|
 000008  eb030282          ADD      r2,r3,r2,LSL #2
@@ -1149,9 +1149,9 @@
 000016  4c03              LDR      r4,|L11.36|
 000018  eb040383          ADD      r3,r4,r3,LSL #2
 00001c  f8432021          STR      r2,[r3,r1,LSL #2]
-;;;224    }
+;;;266    }
 000020  bd10              POP      {r4,pc}
-;;;225    
+;;;267    
                           ENDP
 
 000022  0000              DCW      0x0000
@@ -1161,432 +1161,567 @@
                           AREA ||i.bsp_SearchChargingPileAct||, CODE, READONLY, ALIGN=2
 
                   bsp_SearchChargingPileAct PROC
-;;;61     
-;;;62     void bsp_SearchChargingPileAct(void)
+;;;62     
+;;;63     void bsp_SearchChargingPileAct(void)
 000000  b510              PUSH     {r4,lr}
-;;;63     {
-;;;64     	if(!searchCharging.isRunning)
-000002  4879              LDR      r0,|L12.488|
+;;;64     {
+;;;65     	if(!searchCharging.isRunning)
+000002  48a2              LDR      r0,|L12.652|
 000004  7800              LDRB     r0,[r0,#0]  ; searchCharging
 000006  b900              CBNZ     r0,|L12.10|
                   |L12.8|
-;;;65     	{
-;;;66     		return ;
-;;;67     	}
-;;;68     	
-;;;69     	/*充电*/
-;;;70     	if(bsp_GetChargeFeedback() == true)
-;;;71     	{
-;;;72     		DEBUG("is charging...\r\n");
-;;;73     		bsp_MotorBrake(MotorLeft);
-;;;74     	    bsp_MotorBrake(MotorRight);
-;;;75     		bsp_StopSearchChargingPile();
-;;;76     		return ;
-;;;77     	}
-;;;78     	
-;;;79     	switch(searchCharging.action)
-;;;80     	{
-;;;81     		case 0: //第一步，直走
-;;;82     		{
-;;;83     			bsp_SetMotorTargetSpeed(MotorLeft,180);
-;;;84     			bsp_SetMotorTargetSpeed(MotorRight,180);
-;;;85     			
-;;;86     			searchCharging.action++;
-;;;87     		}break;
-;;;88     		
-;;;89     		case 1: //直到1号能够检测到三种脉宽
-;;;90     		{
-;;;91     			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
-;;;92     			{
-;;;93     				DEBUG("1 detect 3 pulse\r\n");
-;;;94     				bsp_MotorBrake(MotorLeft);
-;;;95     				bsp_MotorBrake(MotorRight);
-;;;96     
-;;;97     				searchCharging.action++;
-;;;98     			}
-;;;99     			else if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
-;;;100    			{
-;;;101    				searchCharging.action = 5 ;
-;;;102    			}
-;;;103    		}break;
-;;;104    		
-;;;105    
-;;;106    		case 2: //左走右不走
-;;;107    		{
-;;;108    			bsp_SetMotorTargetSpeed(MotorLeft,180);
-;;;109    			searchCharging.action++;
-;;;110    		}break;
-;;;111    		
-;;;112    		
-;;;113    		case 3: //4号同时收到
-;;;114    		{
-;;;115    			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
-;;;116    			{
-;;;117    				DEBUG("4 detect 3 pulse\r\n");
-;;;118    				bsp_MotorBrake(MotorLeft);
-;;;119    				bsp_MotorBrake(MotorRight);
-;;;120    				searchCharging.action++;
-;;;121    			}
-;;;122    		}break;
-;;;123    		
-;;;124    		case 4: //右转
-;;;125    		{
-;;;126    			bsp_SetMotorTargetSpeed(MotorLeft, 180);
-;;;127    			bsp_SetMotorTargetSpeed(MotorRight,140);
-;;;128    			searchCharging.action++;			
-;;;129    		}break;
-;;;130    		
+;;;66     	{
+;;;67     		return ;
+;;;68     	}
+;;;69     	
+;;;70     	/*充电*/
+;;;71     	if(bsp_GetChargeFeedback() == true)
+;;;72     	{
+;;;73     		DEBUG("is charging...\r\n");
+;;;74     		bsp_MotorBrake(MotorLeft);
+;;;75     	    bsp_MotorBrake(MotorRight);
+;;;76     		bsp_StopSearchChargingPile();
+;;;77     		return ;
+;;;78     	}
+;;;79     	
+;;;80     	switch(searchCharging.action)
+;;;81     	{
+;;;82     		case 0: //第一步，直走
+;;;83     		{
+;;;84     			bsp_SetMotorTargetSpeed(MotorLeft,180);
+;;;85     			bsp_SetMotorTargetSpeed(MotorRight,180);
+;;;86     			
+;;;87     			searchCharging.action++;
+;;;88     		}break;
+;;;89     		
+;;;90     		case 1: //直到1号能够检测到三种脉宽
+;;;91     		{
+;;;92     			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
+;;;93     			{
+;;;94     				DEBUG("1 detect 3 pulse\r\n");
+;;;95     				bsp_MotorBrake(MotorLeft);
+;;;96     				bsp_MotorBrake(MotorRight);
+;;;97     
+;;;98     				searchCharging.isRight = true ; //从右边切入
+;;;99     				searchCharging.action++;
+;;;100    			}
+;;;101    			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is1500us)
+;;;102    			{
+;;;103    				DEBUG("2 detect 3 pulse\r\n");
+;;;104    				bsp_MotorBrake(MotorLeft);
+;;;105    				bsp_MotorBrake(MotorRight);
+;;;106    				
+;;;107    				searchCharging.isRight = false ; //从左边切入
+;;;108    				searchCharging.action++;
+;;;109    			}
+;;;110    			else if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+;;;111    			{
+;;;112    				searchCharging.action = 5 ;
+;;;113    			}
+;;;114    		}break;
+;;;115    		
+;;;116    
+;;;117    		case 2: //左走右不走
+;;;118    		{
+;;;119    			if(searchCharging.isRight) //右边切入
+;;;120    			{
+;;;121    				bsp_SetMotorTargetSpeed(MotorLeft,180);
+;;;122    				searchCharging.action++;
+;;;123    			}
+;;;124    			else //左边切入
+;;;125    			{
+;;;126    				bsp_SetMotorTargetSpeed(MotorRight,180);
+;;;127    				searchCharging.action++;
+;;;128    			}
+;;;129    			
+;;;130    		}break;
 ;;;131    		
-;;;132    		case 5: //前面一个都收不到了
-;;;133    		{
-;;;134    			Collision collision = bsp_CollisionScan();
-;;;135    			if(collision != CollisionNone)
+;;;132    		
+;;;133    		case 3: //4号同时收到
+;;;134    		{
+;;;135    			if(searchCharging.isRight) //右边切入
 ;;;136    			{
-;;;137    				bsp_MotorBrake(MotorLeft);
-;;;138    				bsp_MotorBrake(MotorRight);
-;;;139    				bsp_SetMotorTargetSpeed(MotorLeft, -180);
-;;;140    				bsp_SetMotorTargetSpeed(MotorRight,-180);
-;;;141    				
-;;;142    				searchCharging.isNeedBack = true;
-;;;143    				searchCharging.delay = xTaskGetTickCount();
+;;;137    				if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+;;;138    				{
+;;;139    					DEBUG("4 detect 3 pulse\r\n");
+;;;140    					bsp_MotorBrake(MotorLeft);
+;;;141    					bsp_MotorBrake(MotorRight);
+;;;142    					searchCharging.action++;
+;;;143    				}
 ;;;144    			}
-;;;145    			else if(remote[CapCH3].is500us && remote[CapCH4].is1000us) //同时有直走
+;;;145    			else //左边切入
 ;;;146    			{
-;;;147    				DEBUG("both\r\n");
-;;;148    				bsp_SetMotorTargetSpeed(MotorLeft, 140);
-;;;149    				bsp_SetMotorTargetSpeed(MotorRight,140);
-;;;150    			}
-;;;151    			else if(remote[CapCH1].is500us || remote[CapCH1].is1000us)
-;;;152    			{
-;;;153    				DEBUG("adjust\r\n");
-;;;154    				bsp_SetMotorTargetSpeed(MotorLeft, 180);
-;;;155    				bsp_SetMotorTargetSpeed(MotorRight,120);
-;;;156    			}
-;;;157    			else if(!remote[CapCH4].is1000us) //4收不到1000
-;;;158    			{
-;;;159    				DEBUG("4 miss 1000\r\n");
-;;;160    				bsp_SetMotorTargetSpeed(MotorLeft, 140);
-;;;161    				bsp_SetMotorTargetSpeed(MotorRight,180);
-;;;162    			}
-;;;163    			else if(!remote[CapCH3].is500us) //3收不到500
-;;;164    			{
-;;;165    				DEBUG("3 miss 500\r\n");
-;;;166    				bsp_SetMotorTargetSpeed(MotorLeft, 180);
-;;;167    				bsp_SetMotorTargetSpeed(MotorRight,140);
-;;;168    			}
-;;;169    			
-;;;170    			
-;;;171    			searchCharging.action++;
-;;;172    		}break;
+;;;147    				if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
+;;;148    				{
+;;;149    					DEBUG("3 detect 3 pulse\r\n");
+;;;150    					bsp_MotorBrake(MotorLeft);
+;;;151    					bsp_MotorBrake(MotorRight);
+;;;152    					searchCharging.action++;
+;;;153    				}
+;;;154    			}
+;;;155    		}break;
+;;;156    		
+;;;157    		case 4: //右转
+;;;158    		{
+;;;159    			if(searchCharging.isRight) //右边切入
+;;;160    			{
+;;;161    				bsp_SetMotorTargetSpeed(MotorLeft, 180);
+;;;162    				bsp_SetMotorTargetSpeed(MotorRight,140);
+;;;163    				searchCharging.action++;	
+;;;164    			}
+;;;165    			else
+;;;166    			{
+;;;167    				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+;;;168    				bsp_SetMotorTargetSpeed(MotorRight,180);
+;;;169    				searchCharging.action++;	
+;;;170    			}				
+;;;171    		}break;
+;;;172    		
 ;;;173    		
-;;;174    		case 6:
+;;;174    		case 5: //前面一个都收不到了
 ;;;175    		{
-;;;176    			if(searchCharging.isNeedBack)
-;;;177    			{
-;;;178    				if(xTaskGetTickCount() - searchCharging.delay >= 3000)
-;;;179    				{
-;;;180    					searchCharging.isNeedBack = false;
-;;;181    				}
-;;;182    			}
-;;;183    			else
-;;;184    			{
-;;;185    				searchCharging.action = 5;
+;;;176    			Collision collision = bsp_CollisionScan();
+;;;177    			if(collision != CollisionNone)
+;;;178    			{
+;;;179    				bsp_MotorBrake(MotorLeft);
+;;;180    				bsp_MotorBrake(MotorRight);
+;;;181    				bsp_SetMotorTargetSpeed(MotorLeft, -180);
+;;;182    				bsp_SetMotorTargetSpeed(MotorRight,-180);
+;;;183    				
+;;;184    				searchCharging.isNeedBack = true;
+;;;185    				searchCharging.delay = xTaskGetTickCount();
 ;;;186    			}
-;;;187    		}break;
-;;;188    		
-;;;189    		
-;;;190    		
-;;;191    	}
-;;;192    }
+;;;187    			else if(remote[CapCH3].is500us && remote[CapCH4].is1000us) //同时有直走
+;;;188    			{
+;;;189    				DEBUG("both\r\n");
+;;;190    				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+;;;191    				bsp_SetMotorTargetSpeed(MotorRight,140);
+;;;192    			}
+;;;193    			else if(remote[CapCH1].is500us || remote[CapCH1].is1000us)
+;;;194    			{
+;;;195    				DEBUG("adjust\r\n");
+;;;196    				bsp_SetMotorTargetSpeed(MotorLeft, 180);
+;;;197    				bsp_SetMotorTargetSpeed(MotorRight,120);
+;;;198    			}
+;;;199    			else if(!remote[CapCH4].is1000us) //4收不到1000
+;;;200    			{
+;;;201    				DEBUG("4 miss 1000\r\n");
+;;;202    				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+;;;203    				bsp_SetMotorTargetSpeed(MotorRight,180);
+;;;204    			}
+;;;205    			else if(!remote[CapCH3].is500us) //3收不到500
+;;;206    			{
+;;;207    				DEBUG("3 miss 500\r\n");
+;;;208    				bsp_SetMotorTargetSpeed(MotorLeft, 180);
+;;;209    				bsp_SetMotorTargetSpeed(MotorRight,140);
+;;;210    			}
+;;;211    			
+;;;212    			
+;;;213    			searchCharging.action++;
+;;;214    		}break;
+;;;215    		
+;;;216    		case 6:
+;;;217    		{
+;;;218    			if(searchCharging.isNeedBack)
+;;;219    			{
+;;;220    				if(xTaskGetTickCount() - searchCharging.delay >= 3000)
+;;;221    				{
+;;;222    					searchCharging.isNeedBack = false;
+;;;223    				}
+;;;224    			}
+;;;225    			else
+;;;226    			{
+;;;227    				searchCharging.action = 5;
+;;;228    			}
+;;;229    		}break;
+;;;230    		
+;;;231    		
+;;;232    		
+;;;233    	}
+;;;234    }
 000008  bd10              POP      {r4,pc}
                   |L12.10|
 00000a  f7fffffe          BL       bsp_GetChargeFeedback
 00000e  b158              CBZ      r0,|L12.40|
-000010  a076              ADR      r0,|L12.492|
+000010  a09f              ADR      r0,|L12.656|
 000012  f7fffffe          BL       __2printf
-000016  2000              MOVS     r0,#0                 ;73
+000016  2000              MOVS     r0,#0                 ;74
 000018  f7fffffe          BL       bsp_MotorBrake
-00001c  2001              MOVS     r0,#1                 ;74
+00001c  2001              MOVS     r0,#1                 ;75
 00001e  f7fffffe          BL       bsp_MotorBrake
 000022  f7fffffe          BL       bsp_StopSearchChargingPile
 000026  e7ef              B        |L12.8|
                   |L12.40|
-000028  486f              LDR      r0,|L12.488|
-00002a  6840              LDR      r0,[r0,#4]            ;79  ; searchCharging
-00002c  2807              CMP      r0,#7                 ;79
+000028  4898              LDR      r0,|L12.652|
+00002a  6840              LDR      r0,[r0,#4]            ;80  ; searchCharging
+00002c  2807              CMP      r0,#7                 ;80
 00002e  d212              BCS      |L12.86|
-000030  e8dff000          TBB      [pc,r0]               ;79
-000034  0412343e          DCB      0x04,0x12,0x34,0x3e
-000038  5361c300          DCB      0x53,0x61,0xc3,0x00
-00003c  4970              LDR      r1,|L12.512|
-00003e  2000              MOVS     r0,#0                 ;83
+000030  e8dff000          TBB      [pc,r0]               ;80
+000034  04124f66          DCB      0x04,0x12,0x4f,0x66
+000038  93b2f100          DCB      0x93,0xb2,0xf1,0x00
+00003c  4999              LDR      r1,|L12.676|
+00003e  2000              MOVS     r0,#0                 ;84
 000040  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000044  496e              LDR      r1,|L12.512|
-000046  2001              MOVS     r0,#1                 ;84
+000044  4997              LDR      r1,|L12.676|
+000046  2001              MOVS     r0,#1                 ;85
 000048  f7fffffe          BL       bsp_SetMotorTargetSpeed
-00004c  4866              LDR      r0,|L12.488|
-00004e  6840              LDR      r0,[r0,#4]            ;86  ; searchCharging
-000050  1c40              ADDS     r0,r0,#1              ;86
-000052  4965              LDR      r1,|L12.488|
-000054  6048              STR      r0,[r1,#4]            ;86  ; searchCharging
+00004c  488f              LDR      r0,|L12.652|
+00004e  6840              LDR      r0,[r0,#4]            ;87  ; searchCharging
+000050  1c40              ADDS     r0,r0,#1              ;87
+000052  498e              LDR      r1,|L12.652|
+000054  6048              STR      r0,[r1,#4]            ;87  ; searchCharging
                   |L12.86|
-000056  e0c4              B        |L12.482|
-000058  486a              LDR      r0,|L12.516|
-00005a  7800              LDRB     r0,[r0,#0]            ;91  ; remote
-00005c  b1a0              CBZ      r0,|L12.136|
-00005e  4869              LDR      r0,|L12.516|
-000060  7840              LDRB     r0,[r0,#1]            ;91  ; remote
-000062  b188              CBZ      r0,|L12.136|
-000064  4867              LDR      r0,|L12.516|
-000066  7880              LDRB     r0,[r0,#2]            ;91  ; remote
-000068  b170              CBZ      r0,|L12.136|
-00006a  a067              ADR      r0,|L12.520|
+000056  e116              B        |L12.646|
+000058  4893              LDR      r0,|L12.680|
+00005a  7800              LDRB     r0,[r0,#0]            ;92  ; remote
+00005c  b1a8              CBZ      r0,|L12.138|
+00005e  4892              LDR      r0,|L12.680|
+000060  7840              LDRB     r0,[r0,#1]            ;92  ; remote
+000062  b190              CBZ      r0,|L12.138|
+000064  4890              LDR      r0,|L12.680|
+000066  7880              LDRB     r0,[r0,#2]            ;92  ; remote
+000068  b178              CBZ      r0,|L12.138|
+00006a  a090              ADR      r0,|L12.684|
 00006c  f7fffffe          BL       __2printf
-000070  2000              MOVS     r0,#0                 ;94
+000070  2000              MOVS     r0,#0                 ;95
 000072  f7fffffe          BL       bsp_MotorBrake
-000076  2001              MOVS     r0,#1                 ;95
+000076  2001              MOVS     r0,#1                 ;96
 000078  f7fffffe          BL       bsp_MotorBrake
-00007c  485a              LDR      r0,|L12.488|
-00007e  6840              LDR      r0,[r0,#4]            ;97  ; searchCharging
-000080  1c40              ADDS     r0,r0,#1              ;97
-000082  4959              LDR      r1,|L12.488|
-000084  6048              STR      r0,[r1,#4]            ;97  ; searchCharging
-000086  e008              B        |L12.154|
-                  |L12.136|
-000088  485e              LDR      r0,|L12.516|
-00008a  7a40              LDRB     r0,[r0,#9]            ;99  ; remote
-00008c  b128              CBZ      r0,|L12.154|
-00008e  485d              LDR      r0,|L12.516|
-000090  7a80              LDRB     r0,[r0,#0xa]          ;99
-000092  b110              CBZ      r0,|L12.154|
-000094  2005              MOVS     r0,#5                 ;101
-000096  4954              LDR      r1,|L12.488|
-000098  6048              STR      r0,[r1,#4]            ;101  ; searchCharging
-                  |L12.154|
-00009a  e0a2              B        |L12.482|
-00009c  4958              LDR      r1,|L12.512|
-00009e  2000              MOVS     r0,#0                 ;108
-0000a0  f7fffffe          BL       bsp_SetMotorTargetSpeed
-0000a4  4850              LDR      r0,|L12.488|
-0000a6  6840              LDR      r0,[r0,#4]            ;109  ; searchCharging
-0000a8  1c40              ADDS     r0,r0,#1              ;109
-0000aa  494f              LDR      r1,|L12.488|
-0000ac  6048              STR      r0,[r1,#4]            ;109  ; searchCharging
-0000ae  e098              B        |L12.482|
-0000b0  4854              LDR      r0,|L12.516|
-0000b2  7a40              LDRB     r0,[r0,#9]            ;115  ; remote
-0000b4  b180              CBZ      r0,|L12.216|
-0000b6  4853              LDR      r0,|L12.516|
-0000b8  7a80              LDRB     r0,[r0,#0xa]          ;115
-0000ba  b168              CBZ      r0,|L12.216|
-0000bc  a057              ADR      r0,|L12.540|
-0000be  f7fffffe          BL       __2printf
-0000c2  2000              MOVS     r0,#0                 ;118
-0000c4  f7fffffe          BL       bsp_MotorBrake
-0000c8  2001              MOVS     r0,#1                 ;119
-0000ca  f7fffffe          BL       bsp_MotorBrake
-0000ce  4846              LDR      r0,|L12.488|
-0000d0  6840              LDR      r0,[r0,#4]            ;120  ; searchCharging
-0000d2  1c40              ADDS     r0,r0,#1              ;120
-0000d4  4944              LDR      r1,|L12.488|
-0000d6  6048              STR      r0,[r1,#4]            ;120  ; searchCharging
-                  |L12.216|
-0000d8  e083              B        |L12.482|
-0000da  4949              LDR      r1,|L12.512|
-0000dc  2000              MOVS     r0,#0                 ;126
-0000de  f7fffffe          BL       bsp_SetMotorTargetSpeed
-0000e2  4953              LDR      r1,|L12.560|
-0000e4  2001              MOVS     r0,#1                 ;127
-0000e6  f7fffffe          BL       bsp_SetMotorTargetSpeed
-0000ea  483f              LDR      r0,|L12.488|
-0000ec  6840              LDR      r0,[r0,#4]            ;128  ; searchCharging
-0000ee  1c40              ADDS     r0,r0,#1              ;128
-0000f0  493d              LDR      r1,|L12.488|
-0000f2  6048              STR      r0,[r1,#4]            ;128  ; searchCharging
-0000f4  e075              B        |L12.482|
-0000f6  f7fffffe          BL       bsp_CollisionScan
-0000fa  4604              MOV      r4,r0                 ;134
-0000fc  2c03              CMP      r4,#3                 ;135
-0000fe  d015              BEQ      |L12.300|
-000100  2000              MOVS     r0,#0                 ;137
-000102  f7fffffe          BL       bsp_MotorBrake
-000106  2001              MOVS     r0,#1                 ;138
-000108  f7fffffe          BL       bsp_MotorBrake
-00010c  4949              LDR      r1,|L12.564|
-00010e  2000              MOVS     r0,#0                 ;139
-000110  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000114  4947              LDR      r1,|L12.564|
-000116  2001              MOVS     r0,#1                 ;140
-000118  f7fffffe          BL       bsp_SetMotorTargetSpeed
-00011c  2001              MOVS     r0,#1                 ;142
-00011e  4932              LDR      r1,|L12.488|
-000120  7408              STRB     r0,[r1,#0x10]         ;142
-000122  f7fffffe          BL       xTaskGetTickCount
-000126  4930              LDR      r1,|L12.488|
-000128  6088              STR      r0,[r1,#8]            ;143  ; searchCharging
-00012a  e040              B        |L12.430|
-                  |L12.300|
-00012c  4835              LDR      r0,|L12.516|
-00012e  7980              LDRB     r0,[r0,#6]            ;145  ; remote
-000130  b170              CBZ      r0,|L12.336|
-000132  4834              LDR      r0,|L12.516|
-000134  7a80              LDRB     r0,[r0,#0xa]          ;145
-000136  b158              CBZ      r0,|L12.336|
-000138  a03f              ADR      r0,|L12.568|
-00013a  f7fffffe          BL       __2printf
-00013e  493c              LDR      r1,|L12.560|
-000140  2000              MOVS     r0,#0                 ;148
-000142  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000146  493a              LDR      r1,|L12.560|
-000148  2001              MOVS     r0,#1                 ;149
-00014a  f7fffffe          BL       bsp_SetMotorTargetSpeed
-00014e  e02e              B        |L12.430|
-                  |L12.336|
-000150  482c              LDR      r0,|L12.516|
-000152  7800              LDRB     r0,[r0,#0]            ;151  ; remote
-000154  b910              CBNZ     r0,|L12.348|
-000156  482b              LDR      r0,|L12.516|
-000158  7840              LDRB     r0,[r0,#1]            ;151  ; remote
-00015a  b158              CBZ      r0,|L12.372|
-                  |L12.348|
-00015c  a038              ADR      r0,|L12.576|
-00015e  f7fffffe          BL       __2printf
-000162  4927              LDR      r1,|L12.512|
-000164  2000              MOVS     r0,#0                 ;154
-000166  f7fffffe          BL       bsp_SetMotorTargetSpeed
-00016a  4938              LDR      r1,|L12.588|
-00016c  2001              MOVS     r0,#1                 ;155
-00016e  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000172  e01c              B        |L12.430|
-                  |L12.372|
-000174  4823              LDR      r0,|L12.516|
-000176  7a80              LDRB     r0,[r0,#0xa]          ;157
-000178  b958              CBNZ     r0,|L12.402|
-00017a  a035              ADR      r0,|L12.592|
-00017c  f7fffffe          BL       __2printf
-000180  492b              LDR      r1,|L12.560|
-000182  2000              MOVS     r0,#0                 ;160
-000184  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000188  491d              LDR      r1,|L12.512|
-00018a  2001              MOVS     r0,#1                 ;161
-00018c  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000190  e00d              B        |L12.430|
-                  |L12.402|
-000192  481c              LDR      r0,|L12.516|
-000194  7980              LDRB     r0,[r0,#6]            ;163  ; remote
-000196  b950              CBNZ     r0,|L12.430|
-000198  a031              ADR      r0,|L12.608|
-00019a  f7fffffe          BL       __2printf
-00019e  4918              LDR      r1,|L12.512|
-0001a0  2000              MOVS     r0,#0                 ;166
-0001a2  f7fffffe          BL       bsp_SetMotorTargetSpeed
-0001a6  4922              LDR      r1,|L12.560|
-0001a8  2001              MOVS     r0,#1                 ;167
-0001aa  f7fffffe          BL       bsp_SetMotorTargetSpeed
-                  |L12.430|
-0001ae  480e              LDR      r0,|L12.488|
-0001b0  6840              LDR      r0,[r0,#4]            ;171  ; searchCharging
-0001b2  1c40              ADDS     r0,r0,#1              ;171
-0001b4  490c              LDR      r1,|L12.488|
-0001b6  6048              STR      r0,[r1,#4]            ;171  ; searchCharging
-0001b8  e013              B        |L12.482|
-0001ba  480b              LDR      r0,|L12.488|
-0001bc  7c00              LDRB     r0,[r0,#0x10]         ;176  ; searchCharging
-0001be  b160              CBZ      r0,|L12.474|
-0001c0  f7fffffe          BL       xTaskGetTickCount
-0001c4  4908              LDR      r1,|L12.488|
-0001c6  6889              LDR      r1,[r1,#8]            ;178  ; searchCharging
-0001c8  1a40              SUBS     r0,r0,r1              ;178
-0001ca  f64031b8          MOV      r1,#0xbb8             ;178
-0001ce  4288              CMP      r0,r1                 ;178
-0001d0  d306              BCC      |L12.480|
-0001d2  2000              MOVS     r0,#0                 ;180
-0001d4  4904              LDR      r1,|L12.488|
-0001d6  7408              STRB     r0,[r1,#0x10]         ;180
-0001d8  e002              B        |L12.480|
-                  |L12.474|
-0001da  2005              MOVS     r0,#5                 ;185
-0001dc  4902              LDR      r1,|L12.488|
-0001de  6048              STR      r0,[r1,#4]            ;185  ; searchCharging
-                  |L12.480|
-0001e0  bf00              NOP                            ;187
-                  |L12.482|
-0001e2  bf00              NOP                            ;87
-0001e4  bf00              NOP      
-0001e6  e70f              B        |L12.8|
-;;;193    
+00007c  2001              MOVS     r0,#1                 ;98
+00007e  4983              LDR      r1,|L12.652|
+000080  7448              STRB     r0,[r1,#0x11]         ;98
+000082  4608              MOV      r0,r1                 ;99
+000084  6840              LDR      r0,[r0,#4]            ;99  ; searchCharging
+000086  1c40              ADDS     r0,r0,#1              ;99
+000088  6048              STR      r0,[r1,#4]            ;99  ; searchCharging
+                  |L12.138|
+00008a  4887              LDR      r0,|L12.680|
+00008c  78c0              LDRB     r0,[r0,#3]            ;101  ; remote
+00008e  b1b0              CBZ      r0,|L12.190|
+000090  4885              LDR      r0,|L12.680|
+000092  7900              LDRB     r0,[r0,#4]            ;101
+000094  b198              CBZ      r0,|L12.190|
+000096  4884              LDR      r0,|L12.680|
+000098  7940              LDRB     r0,[r0,#5]            ;101
+00009a  b180              CBZ      r0,|L12.190|
+00009c  a088              ADR      r0,|L12.704|
+00009e  f7fffffe          BL       __2printf
+0000a2  2000              MOVS     r0,#0                 ;104
+0000a4  f7fffffe          BL       bsp_MotorBrake
+0000a8  2001              MOVS     r0,#1                 ;105
+0000aa  f7fffffe          BL       bsp_MotorBrake
+0000ae  2000              MOVS     r0,#0                 ;107
+0000b0  4976              LDR      r1,|L12.652|
+0000b2  7448              STRB     r0,[r1,#0x11]         ;107
+0000b4  4608              MOV      r0,r1                 ;108
+0000b6  6840              LDR      r0,[r0,#4]            ;108  ; searchCharging
+0000b8  1c40              ADDS     r0,r0,#1              ;108
+0000ba  6048              STR      r0,[r1,#4]            ;108  ; searchCharging
+0000bc  e008              B        |L12.208|
+                  |L12.190|
+0000be  487a              LDR      r0,|L12.680|
+0000c0  7a40              LDRB     r0,[r0,#9]            ;110  ; remote
+0000c2  b128              CBZ      r0,|L12.208|
+0000c4  4878              LDR      r0,|L12.680|
+0000c6  7a80              LDRB     r0,[r0,#0xa]          ;110
+0000c8  b110              CBZ      r0,|L12.208|
+0000ca  2005              MOVS     r0,#5                 ;112
+0000cc  496f              LDR      r1,|L12.652|
+0000ce  6048              STR      r0,[r1,#4]            ;112  ; searchCharging
+                  |L12.208|
+0000d0  e0d9              B        |L12.646|
+0000d2  486e              LDR      r0,|L12.652|
+0000d4  7c40              LDRB     r0,[r0,#0x11]         ;119  ; searchCharging
+0000d6  b148              CBZ      r0,|L12.236|
+0000d8  4972              LDR      r1,|L12.676|
+0000da  2000              MOVS     r0,#0                 ;121
+0000dc  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0000e0  486a              LDR      r0,|L12.652|
+0000e2  6840              LDR      r0,[r0,#4]            ;122  ; searchCharging
+0000e4  1c40              ADDS     r0,r0,#1              ;122
+0000e6  4969              LDR      r1,|L12.652|
+0000e8  6048              STR      r0,[r1,#4]            ;122  ; searchCharging
+0000ea  e008              B        |L12.254|
+                  |L12.236|
+0000ec  496d              LDR      r1,|L12.676|
+0000ee  2001              MOVS     r0,#1                 ;126
+0000f0  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0000f4  4865              LDR      r0,|L12.652|
+0000f6  6840              LDR      r0,[r0,#4]            ;127  ; searchCharging
+0000f8  1c40              ADDS     r0,r0,#1              ;127
+0000fa  4964              LDR      r1,|L12.652|
+0000fc  6048              STR      r0,[r1,#4]            ;127  ; searchCharging
+                  |L12.254|
+0000fe  e0c2              B        |L12.646|
+000100  4862              LDR      r0,|L12.652|
+000102  7c40              LDRB     r0,[r0,#0x11]         ;135  ; searchCharging
+000104  b1a0              CBZ      r0,|L12.304|
+000106  4868              LDR      r0,|L12.680|
+000108  7a40              LDRB     r0,[r0,#9]            ;137  ; remote
+00010a  b328              CBZ      r0,|L12.344|
+00010c  4866              LDR      r0,|L12.680|
+00010e  7a80              LDRB     r0,[r0,#0xa]          ;137
+000110  b310              CBZ      r0,|L12.344|
+000112  a070              ADR      r0,|L12.724|
+000114  f7fffffe          BL       __2printf
+000118  2000              MOVS     r0,#0                 ;140
+00011a  f7fffffe          BL       bsp_MotorBrake
+00011e  2001              MOVS     r0,#1                 ;141
+000120  f7fffffe          BL       bsp_MotorBrake
+000124  4859              LDR      r0,|L12.652|
+000126  6840              LDR      r0,[r0,#4]            ;142  ; searchCharging
+000128  1c40              ADDS     r0,r0,#1              ;142
+00012a  4958              LDR      r1,|L12.652|
+00012c  6048              STR      r0,[r1,#4]            ;142  ; searchCharging
+00012e  e013              B        |L12.344|
+                  |L12.304|
+000130  485d              LDR      r0,|L12.680|
+000132  7980              LDRB     r0,[r0,#6]            ;147  ; remote
+000134  b180              CBZ      r0,|L12.344|
+000136  485c              LDR      r0,|L12.680|
+000138  79c0              LDRB     r0,[r0,#7]            ;147
+00013a  b168              CBZ      r0,|L12.344|
+00013c  a06a              ADR      r0,|L12.744|
+00013e  f7fffffe          BL       __2printf
+000142  2000              MOVS     r0,#0                 ;150
+000144  f7fffffe          BL       bsp_MotorBrake
+000148  2001              MOVS     r0,#1                 ;151
+00014a  f7fffffe          BL       bsp_MotorBrake
+00014e  484f              LDR      r0,|L12.652|
+000150  6840              LDR      r0,[r0,#4]            ;152  ; searchCharging
+000152  1c40              ADDS     r0,r0,#1              ;152
+000154  494d              LDR      r1,|L12.652|
+000156  6048              STR      r0,[r1,#4]            ;152  ; searchCharging
+                  |L12.344|
+000158  e095              B        |L12.646|
+00015a  484c              LDR      r0,|L12.652|
+00015c  7c40              LDRB     r0,[r0,#0x11]         ;159  ; searchCharging
+00015e  b168              CBZ      r0,|L12.380|
+000160  4950              LDR      r1,|L12.676|
+000162  2000              MOVS     r0,#0                 ;161
+000164  f7fffffe          BL       bsp_SetMotorTargetSpeed
+000168  4964              LDR      r1,|L12.764|
+00016a  2001              MOVS     r0,#1                 ;162
+00016c  f7fffffe          BL       bsp_SetMotorTargetSpeed
+000170  4846              LDR      r0,|L12.652|
+000172  6840              LDR      r0,[r0,#4]            ;163  ; searchCharging
+000174  1c40              ADDS     r0,r0,#1              ;163
+000176  4945              LDR      r1,|L12.652|
+000178  6048              STR      r0,[r1,#4]            ;163  ; searchCharging
+00017a  e00c              B        |L12.406|
+                  |L12.380|
+00017c  495f              LDR      r1,|L12.764|
+00017e  2000              MOVS     r0,#0                 ;167
+000180  f7fffffe          BL       bsp_SetMotorTargetSpeed
+000184  4947              LDR      r1,|L12.676|
+000186  2001              MOVS     r0,#1                 ;168
+000188  f7fffffe          BL       bsp_SetMotorTargetSpeed
+00018c  483f              LDR      r0,|L12.652|
+00018e  6840              LDR      r0,[r0,#4]            ;169  ; searchCharging
+000190  1c40              ADDS     r0,r0,#1              ;169
+000192  493e              LDR      r1,|L12.652|
+000194  6048              STR      r0,[r1,#4]            ;169  ; searchCharging
+                  |L12.406|
+000196  e076              B        |L12.646|
+000198  f7fffffe          BL       bsp_CollisionScan
+00019c  4604              MOV      r4,r0                 ;176
+00019e  2c03              CMP      r4,#3                 ;177
+0001a0  d015              BEQ      |L12.462|
+0001a2  2000              MOVS     r0,#0                 ;179
+0001a4  f7fffffe          BL       bsp_MotorBrake
+0001a8  2001              MOVS     r0,#1                 ;180
+0001aa  f7fffffe          BL       bsp_MotorBrake
+0001ae  4954              LDR      r1,|L12.768|
+0001b0  2000              MOVS     r0,#0                 ;181
+0001b2  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001b6  4952              LDR      r1,|L12.768|
+0001b8  2001              MOVS     r0,#1                 ;182
+0001ba  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001be  2001              MOVS     r0,#1                 ;184
+0001c0  4932              LDR      r1,|L12.652|
+0001c2  7408              STRB     r0,[r1,#0x10]         ;184
+0001c4  f7fffffe          BL       xTaskGetTickCount
+0001c8  4930              LDR      r1,|L12.652|
+0001ca  6088              STR      r0,[r1,#8]            ;185  ; searchCharging
+0001cc  e041              B        |L12.594|
+                  |L12.462|
+0001ce  4836              LDR      r0,|L12.680|
+0001d0  7980              LDRB     r0,[r0,#6]            ;187  ; remote
+0001d2  b170              CBZ      r0,|L12.498|
+0001d4  4834              LDR      r0,|L12.680|
+0001d6  7a80              LDRB     r0,[r0,#0xa]          ;187
+0001d8  b158              CBZ      r0,|L12.498|
+0001da  a04a              ADR      r0,|L12.772|
+0001dc  f7fffffe          BL       __2printf
+0001e0  4946              LDR      r1,|L12.764|
+0001e2  2000              MOVS     r0,#0                 ;190
+0001e4  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001e8  4944              LDR      r1,|L12.764|
+0001ea  2001              MOVS     r0,#1                 ;191
+0001ec  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001f0  e02f              B        |L12.594|
+                  |L12.498|
+0001f2  482d              LDR      r0,|L12.680|
+0001f4  7800              LDRB     r0,[r0,#0]            ;193  ; remote
+0001f6  b910              CBNZ     r0,|L12.510|
+0001f8  482b              LDR      r0,|L12.680|
+0001fa  7840              LDRB     r0,[r0,#1]            ;193  ; remote
+0001fc  b160              CBZ      r0,|L12.536|
+                  |L12.510|
+0001fe  a043              ADR      r0,|L12.780|
+000200  f7fffffe          BL       __2printf
+000204  4927              LDR      r1,|L12.676|
+000206  2000              MOVS     r0,#0                 ;196
+000208  f7fffffe          BL       bsp_SetMotorTargetSpeed
+00020c  4942              LDR      r1,|L12.792|
+00020e  2001              MOVS     r0,#1                 ;197
+000210  f7fffffe          BL       bsp_SetMotorTargetSpeed
+000214  e01d              B        |L12.594|
+000216  e022              B        |L12.606|
+                  |L12.536|
+000218  4823              LDR      r0,|L12.680|
+00021a  7a80              LDRB     r0,[r0,#0xa]          ;199
+00021c  b958              CBNZ     r0,|L12.566|
+00021e  a03f              ADR      r0,|L12.796|
+000220  f7fffffe          BL       __2printf
+000224  4935              LDR      r1,|L12.764|
+000226  2000              MOVS     r0,#0                 ;202
+000228  f7fffffe          BL       bsp_SetMotorTargetSpeed
+00022c  491d              LDR      r1,|L12.676|
+00022e  2001              MOVS     r0,#1                 ;203
+000230  f7fffffe          BL       bsp_SetMotorTargetSpeed
+000234  e00d              B        |L12.594|
+                  |L12.566|
+000236  481c              LDR      r0,|L12.680|
+000238  7980              LDRB     r0,[r0,#6]            ;205  ; remote
+00023a  b950              CBNZ     r0,|L12.594|
+00023c  a03b              ADR      r0,|L12.812|
+00023e  f7fffffe          BL       __2printf
+000242  4918              LDR      r1,|L12.676|
+000244  2000              MOVS     r0,#0                 ;208
+000246  f7fffffe          BL       bsp_SetMotorTargetSpeed
+00024a  492c              LDR      r1,|L12.764|
+00024c  2001              MOVS     r0,#1                 ;209
+00024e  f7fffffe          BL       bsp_SetMotorTargetSpeed
+                  |L12.594|
+000252  480e              LDR      r0,|L12.652|
+000254  6840              LDR      r0,[r0,#4]            ;213  ; searchCharging
+000256  1c40              ADDS     r0,r0,#1              ;213
+000258  490c              LDR      r1,|L12.652|
+00025a  6048              STR      r0,[r1,#4]            ;213  ; searchCharging
+00025c  e013              B        |L12.646|
+                  |L12.606|
+00025e  480b              LDR      r0,|L12.652|
+000260  7c00              LDRB     r0,[r0,#0x10]         ;218  ; searchCharging
+000262  b160              CBZ      r0,|L12.638|
+000264  f7fffffe          BL       xTaskGetTickCount
+000268  4908              LDR      r1,|L12.652|
+00026a  6889              LDR      r1,[r1,#8]            ;220  ; searchCharging
+00026c  1a40              SUBS     r0,r0,r1              ;220
+00026e  f64031b8          MOV      r1,#0xbb8             ;220
+000272  4288              CMP      r0,r1                 ;220
+000274  d306              BCC      |L12.644|
+000276  2000              MOVS     r0,#0                 ;222
+000278  4904              LDR      r1,|L12.652|
+00027a  7408              STRB     r0,[r1,#0x10]         ;222
+00027c  e002              B        |L12.644|
+                  |L12.638|
+00027e  2005              MOVS     r0,#5                 ;227
+000280  4902              LDR      r1,|L12.652|
+000282  6048              STR      r0,[r1,#4]            ;227  ; searchCharging
+                  |L12.644|
+000284  bf00              NOP                            ;229
+                  |L12.646|
+000286  bf00              NOP                            ;88
+000288  bf00              NOP      
+00028a  e6bd              B        |L12.8|
+;;;235    
                           ENDP
 
-                  |L12.488|
+                  |L12.652|
                           DCD      searchCharging
-                  |L12.492|
-0001ec  69732063          DCB      "is charging...\r\n",0
-0001f0  68617267
-0001f4  696e672e
-0001f8  2e2e0d0a
-0001fc  00      
-0001fd  00                DCB      0
-0001fe  00                DCB      0
-0001ff  00                DCB      0
-                  |L12.512|
+                  |L12.656|
+000290  69732063          DCB      "is charging...\r\n",0
+000294  68617267
+000298  696e672e
+00029c  2e2e0d0a
+0002a0  00      
+0002a1  00                DCB      0
+0002a2  00                DCB      0
+0002a3  00                DCB      0
+                  |L12.676|
                           DCD      0x43340000
-                  |L12.516|
+                  |L12.680|
                           DCD      remote
-                  |L12.520|
-000208  31206465          DCB      "1 detect 3 pulse\r\n",0
-00020c  74656374
-000210  20332070
-000214  756c7365
-000218  0d0a00  
-00021b  00                DCB      0
-                  |L12.540|
-00021c  34206465          DCB      "4 detect 3 pulse\r\n",0
-000220  74656374
-000224  20332070
-000228  756c7365
-00022c  0d0a00  
-00022f  00                DCB      0
-                  |L12.560|
+                  |L12.684|
+0002ac  31206465          DCB      "1 detect 3 pulse\r\n",0
+0002b0  74656374
+0002b4  20332070
+0002b8  756c7365
+0002bc  0d0a00  
+0002bf  00                DCB      0
+                  |L12.704|
+0002c0  32206465          DCB      "2 detect 3 pulse\r\n",0
+0002c4  74656374
+0002c8  20332070
+0002cc  756c7365
+0002d0  0d0a00  
+0002d3  00                DCB      0
+                  |L12.724|
+0002d4  34206465          DCB      "4 detect 3 pulse\r\n",0
+0002d8  74656374
+0002dc  20332070
+0002e0  756c7365
+0002e4  0d0a00  
+0002e7  00                DCB      0
+                  |L12.744|
+0002e8  33206465          DCB      "3 detect 3 pulse\r\n",0
+0002ec  74656374
+0002f0  20332070
+0002f4  756c7365
+0002f8  0d0a00  
+0002fb  00                DCB      0
+                  |L12.764|
                           DCD      0x430c0000
-                  |L12.564|
+                  |L12.768|
                           DCD      0xc3340000
-                  |L12.568|
-000238  626f7468          DCB      "both\r\n",0
-00023c  0d0a00  
-00023f  00                DCB      0
-                  |L12.576|
-000240  61646a75          DCB      "adjust\r\n",0
-000244  73740d0a
-000248  00      
-000249  00                DCB      0
-00024a  00                DCB      0
-00024b  00                DCB      0
-                  |L12.588|
+                  |L12.772|
+000304  626f7468          DCB      "both\r\n",0
+000308  0d0a00  
+00030b  00                DCB      0
+                  |L12.780|
+00030c  61646a75          DCB      "adjust\r\n",0
+000310  73740d0a
+000314  00      
+000315  00                DCB      0
+000316  00                DCB      0
+000317  00                DCB      0
+                  |L12.792|
                           DCD      0x42f00000
-                  |L12.592|
-000250  34206d69          DCB      "4 miss 1000\r\n",0
-000254  73732031
-000258  3030300d
-00025c  0a00    
-00025e  00                DCB      0
-00025f  00                DCB      0
-                  |L12.608|
-000260  33206d69          DCB      "3 miss 500\r\n",0
-000264  73732035
-000268  30300d0a
-00026c  00      
-00026d  00                DCB      0
-00026e  00                DCB      0
-00026f  00                DCB      0
+                  |L12.796|
+00031c  34206d69          DCB      "4 miss 1000\r\n",0
+000320  73732031
+000324  3030300d
+000328  0a00    
+00032a  00                DCB      0
+00032b  00                DCB      0
+                  |L12.812|
+00032c  33206d69          DCB      "3 miss 500\r\n",0
+000330  73732035
+000334  30300d0a
+000338  00      
+000339  00                DCB      0
+00033a  00                DCB      0
+00033b  00                DCB      0
 
                           AREA ||i.bsp_SetRemotePulseState||, CODE, READONLY, ALIGN=2
 
                   bsp_SetRemotePulseState PROC
-;;;262    */
-;;;263    void bsp_SetRemotePulseState(CapCH capCH , PulseWidth pulseWidth)
+;;;304    */
+;;;305    void bsp_SetRemotePulseState(CapCH capCH , PulseWidth pulseWidth)
 000000  b510              PUSH     {r4,lr}
-;;;264    {
-;;;265    	switch(pulseWidth)
+;;;306    {
+;;;307    	switch(pulseWidth)
 000002  b121              CBZ      r1,|L13.14|
 000004  2901              CMP      r1,#1
 000006  d008              BEQ      |L13.26|
@@ -1594,45 +1729,45 @@
 00000a  d114              BNE      |L13.54|
 00000c  e00c              B        |L13.40|
                   |L13.14|
-;;;266    	{
-;;;267    		case Pulse500US:
-;;;268    		{
-;;;269    			remote[capCH].is500us = true ;
+;;;308    	{
+;;;309    		case Pulse500US:
+;;;310    		{
+;;;311    			remote[capCH].is500us = true ;
 00000e  2201              MOVS     r2,#1
 000010  eb000340          ADD      r3,r0,r0,LSL #1
 000014  4c09              LDR      r4,|L13.60|
 000016  54e2              STRB     r2,[r4,r3]
-;;;270    		}break;
+;;;312    		}break;
 000018  e00d              B        |L13.54|
                   |L13.26|
-;;;271    		case Pulse1000US:
-;;;272    		{
-;;;273    			remote[capCH].is1000us = true ;
+;;;313    		case Pulse1000US:
+;;;314    		{
+;;;315    			remote[capCH].is1000us = true ;
 00001a  2201              MOVS     r2,#1
 00001c  eb000340          ADD      r3,r0,r0,LSL #1
 000020  4c06              LDR      r4,|L13.60|
 000022  4423              ADD      r3,r3,r4
 000024  705a              STRB     r2,[r3,#1]
-;;;274    		}break;
+;;;316    		}break;
 000026  e006              B        |L13.54|
                   |L13.40|
-;;;275    		case Pulse1500US:
-;;;276    		{
-;;;277    			remote[capCH].is1500us = true ;
+;;;317    		case Pulse1500US:
+;;;318    		{
+;;;319    			remote[capCH].is1500us = true ;
 000028  2201              MOVS     r2,#1
 00002a  eb000340          ADD      r3,r0,r0,LSL #1
 00002e  4c03              LDR      r4,|L13.60|
 000030  4423              ADD      r3,r3,r4
 000032  709a              STRB     r2,[r3,#2]
-;;;278    		}break;
+;;;320    		}break;
 000034  bf00              NOP      
                   |L13.54|
-000036  bf00              NOP                            ;270
-;;;279    	}
-;;;280    
-;;;281    }
+000036  bf00              NOP                            ;312
+;;;321    	}
+;;;322    
+;;;323    }
 000038  bd10              POP      {r4,pc}
-;;;282    
+;;;324    
                           ENDP
 
 00003a  0000              DCW      0x0000
@@ -1642,19 +1777,19 @@
                           AREA ||i.bsp_StartSearchChargingPile||, CODE, READONLY, ALIGN=2
 
                   bsp_StartSearchChargingPile PROC
-;;;49     
-;;;50     void bsp_StartSearchChargingPile(void)
+;;;50     
+;;;51     void bsp_StartSearchChargingPile(void)
 000000  2000              MOVS     r0,#0
-;;;51     {
-;;;52     	searchCharging.action = 0 ;
+;;;52     {
+;;;53     	searchCharging.action = 0 ;
 000002  4902              LDR      r1,|L14.12|
 000004  6048              STR      r0,[r1,#4]  ; searchCharging
-;;;53     	searchCharging.isRunning = 1 ;
+;;;54     	searchCharging.isRunning = 1 ;
 000006  2001              MOVS     r0,#1
 000008  7008              STRB     r0,[r1,#0]
-;;;54     }
+;;;55     }
 00000a  4770              BX       lr
-;;;55     
+;;;56     
                           ENDP
 
                   |L14.12|
@@ -1663,18 +1798,18 @@
                           AREA ||i.bsp_StopSearchChargingPile||, CODE, READONLY, ALIGN=2
 
                   bsp_StopSearchChargingPile PROC
-;;;55     
-;;;56     void bsp_StopSearchChargingPile(void)
+;;;56     
+;;;57     void bsp_StopSearchChargingPile(void)
 000000  2000              MOVS     r0,#0
-;;;57     {
-;;;58     	searchCharging.isRunning = 0 ;
+;;;58     {
+;;;59     	searchCharging.isRunning = 0 ;
 000002  4902              LDR      r1,|L15.12|
 000004  7008              STRB     r0,[r1,#0]
-;;;59     	searchCharging.action = 0 ;
+;;;60     	searchCharging.action = 0 ;
 000006  6048              STR      r0,[r1,#4]  ; searchCharging
-;;;60     }
+;;;61     }
 000008  4770              BX       lr
-;;;61     
+;;;62     
                           ENDP
 
 00000a  0000              DCW      0x0000

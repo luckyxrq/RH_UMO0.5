@@ -30,6 +30,7 @@ typedef struct
 	uint32_t delay;
 	float angle;
 	bool isNeedBack;
+	bool isRight;
 }SearchCharging;
 
 static ChargingPile chargingPile;
@@ -94,6 +95,16 @@ void bsp_SearchChargingPileAct(void)
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
 
+				searchCharging.isRight = true ; //从右边切入
+				searchCharging.action++;
+			}
+			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is1500us)
+			{
+				DEBUG("2 detect 3 pulse\r\n");
+				bsp_MotorBrake(MotorLeft);
+				bsp_MotorBrake(MotorRight);
+				
+				searchCharging.isRight = false ; //从左边切入
 				searchCharging.action++;
 			}
 			else if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
@@ -105,27 +116,58 @@ void bsp_SearchChargingPileAct(void)
 
 		case 2: //左走右不走
 		{
-			bsp_SetMotorTargetSpeed(MotorLeft,180);
-			searchCharging.action++;
+			if(searchCharging.isRight) //右边切入
+			{
+				bsp_SetMotorTargetSpeed(MotorLeft,180);
+				searchCharging.action++;
+			}
+			else //左边切入
+			{
+				bsp_SetMotorTargetSpeed(MotorRight,180);
+				searchCharging.action++;
+			}
+			
 		}break;
 		
 		
 		case 3: //4号同时收到
 		{
-			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+			if(searchCharging.isRight) //右边切入
 			{
-				DEBUG("4 detect 3 pulse\r\n");
-				bsp_MotorBrake(MotorLeft);
-				bsp_MotorBrake(MotorRight);
-				searchCharging.action++;
+				if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+				{
+					DEBUG("4 detect 3 pulse\r\n");
+					bsp_MotorBrake(MotorLeft);
+					bsp_MotorBrake(MotorRight);
+					searchCharging.action++;
+				}
+			}
+			else //左边切入
+			{
+				if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
+				{
+					DEBUG("3 detect 3 pulse\r\n");
+					bsp_MotorBrake(MotorLeft);
+					bsp_MotorBrake(MotorRight);
+					searchCharging.action++;
+				}
 			}
 		}break;
 		
 		case 4: //右转
 		{
-			bsp_SetMotorTargetSpeed(MotorLeft, 180);
-			bsp_SetMotorTargetSpeed(MotorRight,140);
-			searchCharging.action++;			
+			if(searchCharging.isRight) //右边切入
+			{
+				bsp_SetMotorTargetSpeed(MotorLeft, 180);
+				bsp_SetMotorTargetSpeed(MotorRight,140);
+				searchCharging.action++;	
+			}
+			else
+			{
+				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+				bsp_SetMotorTargetSpeed(MotorRight,180);
+				searchCharging.action++;	
+			}				
 		}break;
 		
 		
