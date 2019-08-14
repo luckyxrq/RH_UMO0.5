@@ -11,7 +11,7 @@
 
 
 
-static Encoder encoder;
+static QEncoder qencoder;
 static uint32_t interruptCount = 0 ;
 
 static void bsp_InitEncoderIO(void);
@@ -82,8 +82,8 @@ static void bsp_InitEncoderTick(void)
 */
 static void bsp_EncoderCalcSpeed(EncoderSN sn)
 {
-	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.3F;
-	encoder.risingCount[sn] = 0 ;
+	qencoder.speed[sn] = (float)qencoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.3F;
+	qencoder.risingCount[sn] = 0 ;
 	
 }
 
@@ -98,7 +98,7 @@ static void bsp_EncoderCalcSpeed(EncoderSN sn)
 */
 float bsp_EncoderGetSpeed(EncoderSN sn)
 {
-	return encoder.speed[sn];
+	return qencoder.speed[sn];
 }
 
 
@@ -121,30 +121,30 @@ void TIM7_IRQHandler(void)
 		/*左脉冲计数*/
 		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 0)
 		{
-			encoder.isReadyRising[EncoderLeft] = true;
+			qencoder.isReadyRising[EncoderLeft] = true;
 		}
 		else
 		{
-			if(encoder.isReadyRising[EncoderLeft])
+			if(qencoder.isReadyRising[EncoderLeft])
 			{
-				encoder.isReadyRising[EncoderLeft] = false;
-				++encoder.risingCount[EncoderLeft];
-				encoder.odometer[0] += (bsp_MotorGetDir(MotorLeft)==Forward ? 1 : -1);/*里程计*/
+				qencoder.isReadyRising[EncoderLeft] = false;
+				++qencoder.risingCount[EncoderLeft];
+				qencoder.odometer[0] += (bsp_MotorGetDir(MotorLeft)==Forward ? 1 : -1);/*里程计*/
 			}
 		}
 		
 		/*右脉冲计数*/
 		if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,  GPIO_PIN_RIGHT) == 0)
 		{
-			encoder.isReadyRising[EncoderRight] = true;
+			qencoder.isReadyRising[EncoderRight] = true;
 		}
 		else
 		{
-			if(encoder.isReadyRising[EncoderRight])
+			if(qencoder.isReadyRising[EncoderRight])
 			{
-				encoder.isReadyRising[EncoderRight] = false;
-				++encoder.risingCount[EncoderRight];
-				encoder.odometer[1] += (bsp_MotorGetDir(MotorRight)==Forward ? 1 : -1);/*里程计*/
+				qencoder.isReadyRising[EncoderRight] = false;
+				++qencoder.risingCount[EncoderRight];
+				qencoder.odometer[1] += (bsp_MotorGetDir(MotorRight)==Forward ? 1 : -1);/*里程计*/
 			}
 		}
 
@@ -169,12 +169,12 @@ int32_t bsp_encoderGetOdometer(MotorSN sn)
 	{
 		case MotorLeft:
 		{
-			odometer = encoder.odometer[0];
+			odometer = qencoder.odometer[0];
 		}break;
 		
 		case MotorRight:
 		{
-			odometer = encoder.odometer[1];
+			odometer = qencoder.odometer[1];
 		}break;
 	}
 	
@@ -198,6 +198,27 @@ int32_t bsp_encoderGetOdometer(MotorSN sn)
 
 
 
+typedef struct
+{
+	int32_t pulseTotalCnt;  /* 脉冲计数 */
+	int32_t pulseCntT;      /* 周期性的读取脉冲，每次读取清零，用于计算实时速度 */ 
+}Encoder;
+
+
+static Encoder encoder[ENCODER_COUNT];
+
+int32_t bsp_EncoderGetPulseCnt(EncoderSN sn)
+{
+	return encoder[sn].pulseTotalCnt;
+}
+
+int32_t bsp_EncoderGetPulseCntT(EncoderSN sn)
+{
+	int32_t ret = encoder[sn].pulseCntT;
+	encoder[sn].pulseCntT = 0 ;
+	
+	return ret;
+}
 
 
 /*
@@ -284,6 +305,7 @@ void EXTI_Config(void)
 	}			
 }
 
+
 /*
 *********************************************************************************************************
 *	函 数 名: EXTI9_5_IRQHandler
@@ -299,7 +321,8 @@ void EXTI15_10_IRQHandler(void)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line15);
 
-		DEBUG("EXTI_Line15");
+		++encoder[EncoderLeft].pulseTotalCnt;
+		++encoder[EncoderLeft].pulseCntT;
 	}
 }
 
@@ -319,7 +342,8 @@ void EXTI3_IRQHandler(void)
 	{
 		EXTI_ClearITPendingBit(EXTI_Line3);
 		
-		DEBUG("EXTI_Line3");
+		++encoder[EncoderRight].pulseTotalCnt;
+		++encoder[EncoderRight].pulseCntT;
 	}
 }
 

@@ -38440,13 +38440,19 @@ N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
 X	float speed[2];           
 N	int32_t odometer[ENCODER_COUNT];
 X	int32_t odometer[2];
-N}Encoder;
+N}QEncoder;
 N
 N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
 Nint32_t bsp_encoderGetOdometer(MotorSN sn);
+N
+N
+N
+N
 Nvoid EXTI_Config(void);
+Nint32_t bsp_EncoderGetPulseCnt(EncoderSN sn);
+Nint32_t bsp_EncoderGetPulseCntT(EncoderSN sn);
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"

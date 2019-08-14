@@ -24,11 +24,17 @@ typedef struct
 	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
 	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
 	int32_t odometer[ENCODER_COUNT];
-}Encoder;
+}QEncoder;
 
 
 void bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 float bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
 int32_t bsp_encoderGetOdometer(MotorSN sn);
+
+
+
+
 void EXTI_Config(void);
+int32_t bsp_EncoderGetPulseCnt(EncoderSN sn);
+int32_t bsp_EncoderGetPulseCntT(EncoderSN sn);
 #endif

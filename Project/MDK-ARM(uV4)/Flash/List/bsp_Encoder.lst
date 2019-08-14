@@ -38440,13 +38440,19 @@ N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
 X	float speed[2];           
 N	int32_t odometer[ENCODER_COUNT];
 X	int32_t odometer[2];
-N}Encoder;
+N}QEncoder;
 N
 N
 Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
 Nint32_t bsp_encoderGetOdometer(MotorSN sn);
+N
+N
+N
+N
 Nvoid EXTI_Config(void);
+Nint32_t bsp_EncoderGetPulseCnt(EncoderSN sn);
+Nint32_t bsp_EncoderGetPulseCntT(EncoderSN sn);
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
@@ -38753,7 +38759,7 @@ N#define GPIO_PIN_RIGHT	 GPIO_Pin_3
 N
 N
 N
-Nstatic Encoder encoder;
+Nstatic QEncoder qencoder;
 Nstatic uint32_t interruptCount = 0 ;
 N
 Nstatic void bsp_InitEncoderIO(void);
@@ -38830,9 +38836,9 @@ N*******************************************************************************
 N*/
 Nstatic void bsp_EncoderCalcSpeed(EncoderSN sn)
 N{
-N	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.3F;
-X	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)(16*32) *  (float)(3.14159F*70) / 0.3F;
-N	encoder.risingCount[sn] = 0 ;
+N	qencoder.speed[sn] = (float)qencoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.3F;
+X	qencoder.speed[sn] = (float)qencoder.risingCount[sn] / (float)(16*32) *  (float)(3.14159F*70) / 0.3F;
+N	qencoder.risingCount[sn] = 0 ;
 N	
 N}
 N
@@ -38847,7 +38853,7 @@ N*******************************************************************************
 N*/
 Nfloat bsp_EncoderGetSpeed(EncoderSN sn)
 N{
-N	return encoder.speed[sn];
+N	return qencoder.speed[sn];
 N}
 N
 N
@@ -38873,17 +38879,17 @@ N		/*左脉冲计数*/
 N		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 0)
 X		if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),  ((uint16_t)0x8000)) == 0)
 N		{
-N			encoder.isReadyRising[EncoderLeft] = true;
-X			encoder.isReadyRising[EncoderLeft] = 1;
+N			qencoder.isReadyRising[EncoderLeft] = true;
+X			qencoder.isReadyRising[EncoderLeft] = 1;
 N		}
 N		else
 N		{
-N			if(encoder.isReadyRising[EncoderLeft])
+N			if(qencoder.isReadyRising[EncoderLeft])
 N			{
-N				encoder.isReadyRising[EncoderLeft] = false;
-X				encoder.isReadyRising[EncoderLeft] = 0;
-N				++encoder.risingCount[EncoderLeft];
-N				encoder.odometer[0] += (bsp_MotorGetDir(MotorLeft)==Forward ? 1 : -1);/*里程计*/
+N				qencoder.isReadyRising[EncoderLeft] = false;
+X				qencoder.isReadyRising[EncoderLeft] = 0;
+N				++qencoder.risingCount[EncoderLeft];
+N				qencoder.odometer[0] += (bsp_MotorGetDir(MotorLeft)==Forward ? 1 : -1);/*里程计*/
 N			}
 N		}
 N		
@@ -38891,17 +38897,17 @@ N		/*右脉冲计数*/
 N		if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,  GPIO_PIN_RIGHT) == 0)
 X		if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)),  ((uint16_t)0x0008)) == 0)
 N		{
-N			encoder.isReadyRising[EncoderRight] = true;
-X			encoder.isReadyRising[EncoderRight] = 1;
+N			qencoder.isReadyRising[EncoderRight] = true;
+X			qencoder.isReadyRising[EncoderRight] = 1;
 N		}
 N		else
 N		{
-N			if(encoder.isReadyRising[EncoderRight])
+N			if(qencoder.isReadyRising[EncoderRight])
 N			{
-N				encoder.isReadyRising[EncoderRight] = false;
-X				encoder.isReadyRising[EncoderRight] = 0;
-N				++encoder.risingCount[EncoderRight];
-N				encoder.odometer[1] += (bsp_MotorGetDir(MotorRight)==Forward ? 1 : -1);/*里程计*/
+N				qencoder.isReadyRising[EncoderRight] = false;
+X				qencoder.isReadyRising[EncoderRight] = 0;
+N				++qencoder.risingCount[EncoderRight];
+N				qencoder.odometer[1] += (bsp_MotorGetDir(MotorRight)==Forward ? 1 : -1);/*里程计*/
 N			}
 N		}
 N
@@ -38927,12 +38933,12 @@ N	switch(sn)
 N	{
 N		case MotorLeft:
 N		{
-N			odometer = encoder.odometer[0];
+N			odometer = qencoder.odometer[0];
 N		}break;
 N		
 N		case MotorRight:
 N		{
-N			odometer = encoder.odometer[1];
+N			odometer = qencoder.odometer[1];
 N		}break;
 N	}
 N	
@@ -38956,6 +38962,28 @@ N#define DEMO_VER		"1.0"
 N
 N
 N
+Ntypedef struct
+N{
+N	int32_t pulseTotalCnt;  /* 脉冲计数 */
+N	int32_t pulseCntT;      /* 周期性的读取脉冲，每次读取清零，用于计算实时速度 */ 
+N}Encoder;
+N
+N
+Nstatic Encoder encoder[ENCODER_COUNT];
+Xstatic Encoder encoder[2];
+N
+Nint32_t bsp_EncoderGetPulseCnt(EncoderSN sn)
+N{
+N	return encoder[sn].pulseTotalCnt;
+N}
+N
+Nint32_t bsp_EncoderGetPulseCntT(EncoderSN sn)
+N{
+N	int32_t ret = encoder[sn].pulseCntT;
+N	encoder[sn].pulseCntT = 0 ;
+N	
+N	return ret;
+N}
 N
 N
 N/*
@@ -39054,6 +39082,7 @@ N		NVIC_Init(&NVIC_InitStructure);
 N	}			
 N}
 N
+N
 N/*
 N*********************************************************************************************************
 N*	函 数 名: EXTI9_5_IRQHandler
@@ -39071,8 +39100,8 @@ N	{
 N		EXTI_ClearITPendingBit(EXTI_Line15);
 X		EXTI_ClearITPendingBit(((uint32_t)0x08000));
 N
-N		DEBUG("EXTI_Line15");
-X		printf ("EXTI_Line15");
+N		++encoder[EncoderLeft].pulseTotalCnt;
+N		++encoder[EncoderLeft].pulseCntT;
 N	}
 N}
 N
@@ -39094,8 +39123,8 @@ N	{
 N		EXTI_ClearITPendingBit(EXTI_Line3);
 X		EXTI_ClearITPendingBit(((uint32_t)0x00008));
 N		
-N		DEBUG("EXTI_Line3");
-X		printf ("EXTI_Line3");
+N		++encoder[EncoderRight].pulseTotalCnt;
+N		++encoder[EncoderRight].pulseCntT;
 N	}
 N}
 N

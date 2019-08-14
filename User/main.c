@@ -193,11 +193,13 @@ static void vTaskMsgPro(void *pvParameters)
 {
     while(1)
     {
-		bsp_SendReportFrame();
+		//bsp_SendReportFrame();
 		//bsp_PrintRemoteState(CapCH3);
 		
+		DEBUG("Left:%d  ",bsp_EncoderGetPulseCntT(EncoderLeft));
+		DEBUG("Right:%d\r\n",bsp_EncoderGetPulseCntT(EncoderRight));
 		
-		vTaskDelay(1000);
+		vTaskDelay(10);
     }
 }
 
