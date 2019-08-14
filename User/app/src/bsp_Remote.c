@@ -7,24 +7,41 @@
 
 typedef struct
 {
+	volatile bool is500us;
+	volatile bool is1000us;
+	volatile bool is1500us;
+}Remote;
+
+typedef enum
+{
+	Pulse500US  = 0 ,
+	Pulse1000US = 1 ,
+	Pulse1500US = 2 
+}PulseWidth;
+
+static volatile Remote remote[4];
+static volatile uint32_t remoteStateTimer[4][3]; //三种脉冲，4个接收管
+
+
+typedef struct
+{
 	uint8_t isRunning;
 	uint32_t action ;
-	
+	uint32_t delay;
+	float angle;
 }SearchCharging;
 
 static ChargingPile chargingPile;
 static SearchCharging searchCharging;
 static void bsp_InitTIM3Cap(u16 arr,u16 psc);
-
-
-
-
+static void bsp_InitIO(void);
 
 void bsp_InitChargingPile(void)
 {
-    bsp_InitTIM3Cap(0xFFFF,72-1); //1MHz采样率，重载值1000，1000US中断一次
+    bsp_InitTIM3Cap(0xFFFF,72-1); //1MHz采样率
 	
-	bsp_StartSearchChargingPile();
+	bsp_InitIO();
+	
 }
 
 
@@ -48,33 +65,71 @@ void bsp_SearchChargingPileAct(void)
 		return ;
 	}
 	
+//	/*充电*/
+//	if(bsp_GetChargeFeedback() == true)
+//	{
+//		bsp_MotorBrake(MotorLeft);
+//	    bsp_MotorBrake(MotorRight);
+//		bsp_StopSearchChargingPile();
+//		return ;
+//	}
+	
 	switch(searchCharging.action)
 	{
-		case 0:
+		case 0: //第一步，直走
 		{
+			bsp_SetMotorTargetSpeed(MotorLeft,160);
+			bsp_SetMotorTargetSpeed(MotorRight,160);
 			
+			searchCharging.action++;
 		}break;
+		
+		case 1: //直到1号能够检测到三种脉宽
+		{
+			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
+			{
+				bsp_MotorBrake(MotorLeft);
+				bsp_MotorBrake(MotorRight);
+
+				searchCharging.action++;
+			}
+		}break;
+		
+
+		case 2: //左走右不走
+		{
+			bsp_SetMotorTargetSpeed(MotorLeft,160);
+			searchCharging.action++;
+		}break;
+		
+		
+		case 3: //4号同时收到
+		{
+			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+			{
+				
+				bsp_MotorBrake(MotorLeft);
+				bsp_MotorBrake(MotorRight);
+				searchCharging.action++;
+			}
+		}break;
+		
+		case 4: //右转
+		{
+			bsp_SetMotorTargetSpeed(MotorLeft, 160);
+			bsp_SetMotorTargetSpeed(MotorRight,120);
+			searchCharging.action++;			
+		}break;
+		
+		
+		
+		
 	}
 }
 
 
 
-typedef struct
-{
-	volatile bool is500us;
-	volatile bool is1000us;
-	volatile bool is1500us;
-}Remote;
 
-typedef enum
-{
-	Pulse500US  = 0 ,
-	Pulse1000US = 1 ,
-	Pulse1500US = 2 
-}PulseWidth;
-
-static volatile Remote remote[4];
-static volatile uint32_t remoteStateTimer[4][3]; //三种脉冲，4个接收管
 
 
 /*
@@ -241,9 +296,11 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 
 void bsp_PrintRemoteState(CapCH capCH)
 {
-	printf("500us:%s\r\n",remote[capCH].is500us   == true ? "true":"false");
-	printf("1000us:%s\r\n",remote[capCH].is1000us == true ? "true":"false");
-	printf("1500us:%s\r\n",remote[capCH].is1500us == true ? "true":"false");
+	printf("*******CH(1000,1500,500)******\r\n");
+	printf("CH1:%d %d %d\r\n",remote[CapCH1].is1000us,remote[CapCH1].is1500us,remote[CapCH1].is500us);
+	printf("CH2:%d %d %d\r\n",remote[CapCH2].is1000us,remote[CapCH2].is1500us,remote[CapCH2].is500us);
+	printf("CH3:%d %d %d\r\n",remote[CapCH3].is1000us,remote[CapCH3].is1500us,remote[CapCH3].is500us);
+	printf("CH4:%d %d %d\r\n",remote[CapCH4].is1000us,remote[CapCH4].is1500us,remote[CapCH4].is500us);
 }
 
 
@@ -301,14 +358,6 @@ static void bsp_InitTIM3Cap(u16 arr,u16 psc)
     
     TIM_ITConfig(TIM3,TIM_IT_Update|TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4, ENABLE);
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -456,6 +505,44 @@ void TIM3_IRQHandler(void)
 	
     TIM_ClearITPendingBit(TIM3, TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4|TIM_IT_Update); //清除中断标志位
     
+}
+
+
+static void bsp_InitIO(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	/* 打开GPIO时钟 */
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
+
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+	GPIO_Init(GPIOF, &GPIO_InitStructure);
+ 
+}
+
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: AdcPro
+*	功能说明: ADC采样处理
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_GetChargeFeedback(void)
+{
+	if(GPIO_ReadInputDataBit(GPIOF,GPIO_Pin_7))
+	{
+		return true ;
+	}
+	else
+	{
+		return false ;
+	}
 }
 
 

@@ -46,5 +46,8 @@ void bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比
 void bsp_PidControlAct(void);
 void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
 MotorDir bsp_MotorGetDir(MotorSN sn);
+void bsp_MotorRunR(void);
+void bsp_MotorRunL(void);
+void bsp_MotorRun(void);
 #endif
 

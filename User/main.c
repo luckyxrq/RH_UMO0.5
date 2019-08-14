@@ -114,9 +114,9 @@ static void vTaskTaskUserIF(void *pvParameters)
 	bsp_SetMotorTargetSpeed(MotorRight,250);
 #endif
 
-	vTaskDelay(2000);
+
 	bsp_AngleRst();
-	vTaskDelay(2000);
+
 
     while(1)
     {
@@ -126,8 +126,9 @@ static void vTaskTaskUserIF(void *pvParameters)
 		#endif
 		
 		
-		#if 0
-		DEBUG("角度：%.2F\r\n",bsp_AngleRead());
+		#if 1
+		//DEBUG("Angle:%.2F\r\n",bsp_AngleRead());
+		//DEBUG("Charge:%d\r\n",bsp_GetChargeFeedback());
 		#endif
 		
 		bsp_LedToggle(1);
@@ -160,15 +161,15 @@ static void vTaskLED(void *pvParameters)
 			Collision collision = bsp_CollisionScan();
 			if(collision == CollisionLeft)
 			{
-				DEBUG("%06d左边碰撞\r\n",index++);
+				DEBUG("%06dLeft\r\n",index++);
 			}
 			else if(collision == CollisionRight)
 			{
-				DEBUG("%06d右边碰撞\r\n",index++);
+				DEBUG("%06dRight\r\n",index++);
 			}
 			else if(collision == CollisionAll)
 			{
-				DEBUG("%06d两边碰撞\r\n",index++);
+				DEBUG("%06dBoth\r\n",index++);
 			}
 			
 		}
@@ -193,7 +194,10 @@ static void vTaskMsgPro(void *pvParameters)
     while(1)
     {
 		bsp_SendReportFrame();
-		vTaskDelay(50);
+		bsp_PrintRemoteState(CapCH3);
+		
+		
+		vTaskDelay(1000);
     }
 }
 
@@ -208,14 +212,29 @@ static void vTaskMsgPro(void *pvParameters)
 */
 static void vTaskStart(void *pvParameters)
 {
-	bsp_DetectStart(); /*开启红外对管轮询扫描*/
+	/*开启红外对管轮询扫描*/
+	bsp_DetectStart(); 
+	/*开启寻找充电桩*/
+	bsp_StartSearchChargingPile();
+	
+	
+	vTaskDelay(4000);
+	
     while(1)
     {
 		bsp_DetectAct();  /*红外对管轮询扫描*/
 		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
 		//bsp_EdgewiseAct();/*沿边*/
+		
+		/*四个红外接收管*/
+		bsp_GetCapCnt(CapCH1);
+		bsp_GetCapCnt(CapCH2);
 		bsp_GetCapCnt(CapCH3);
-		bsp_PrintRemoteState(CapCH3);
+		bsp_GetCapCnt(CapCH4);
+		
+		/*寻找充电桩*/
+		bsp_SearchChargingPileAct();
+		
         vTaskDelay(1);
     }
 }

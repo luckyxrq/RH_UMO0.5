@@ -38402,6 +38402,9 @@ Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* Ö±½ÓÊ¹ÓÃÕ¼¿Õ±
 Nvoid bsp_PidControlAct(void);
 Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
 NMotorDir bsp_MotorGetDir(MotorSN sn);
+Nvoid bsp_MotorRunR(void);
+Nvoid bsp_MotorRunL(void);
+Nvoid bsp_MotorRun(void);
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2
@@ -38682,6 +38685,8 @@ Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
 Nvoid bsp_PulseTimerPer1MS(void);
 Nvoid bsp_PrintRemoteState(CapCH capCH);
+Nbool bsp_GetChargeFeedback(void);
+X_Bool bsp_GetChargeFeedback(void);
 N
 N#endif
 L 184 "..\..\User\bsp\bsp.h" 2
@@ -38744,24 +38749,44 @@ N#define CYCLE			70          /*Èç¹ûÈ·ÈÏ¼ì²âµÄÏàÓ¦¿í¶ÈµÄÂö³å£¬*/
 N
 Ntypedef struct
 N{
+N	volatile bool is500us;
+X	volatile _Bool is500us;
+N	volatile bool is1000us;
+X	volatile _Bool is1000us;
+N	volatile bool is1500us;
+X	volatile _Bool is1500us;
+N}Remote;
+N
+Ntypedef enum
+N{
+N	Pulse500US  = 0 ,
+N	Pulse1000US = 1 ,
+N	Pulse1500US = 2 
+N}PulseWidth;
+N
+Nstatic volatile Remote remote[4];
+Nstatic volatile uint32_t remoteStateTimer[4][3]; //ÈýÖÖÂö³å£¬4¸ö½ÓÊÕ¹Ü
+N
+N
+Ntypedef struct
+N{
 N	uint8_t isRunning;
 N	uint32_t action ;
-N	
+N	uint32_t delay;
+N	float angle;
 N}SearchCharging;
 N
 Nstatic ChargingPile chargingPile;
 Nstatic SearchCharging searchCharging;
 Nstatic void bsp_InitTIM3Cap(u16 arr,u16 psc);
-N
-N
-N
-N
+Nstatic void bsp_InitIO(void);
 N
 Nvoid bsp_InitChargingPile(void)
 N{
-N    bsp_InitTIM3Cap(0xFFFF,72-1); //1MHz²ÉÑùÂÊ£¬ÖØÔØÖµ1000£¬1000USÖÐ¶ÏÒ»´Î
+N    bsp_InitTIM3Cap(0xFFFF,72-1); //1MHz²ÉÑùÂÊ
 N	
-N	bsp_StartSearchChargingPile();
+N	bsp_InitIO();
+N	
 N}
 N
 N
@@ -38785,9 +38810,83 @@ N	{
 N		return ;
 N	}
 N	
+N//	/*³äµç*/
+N//	if(bsp_GetChargeFeedback() == true)
+N//	{
+N//		bsp_MotorBrake(MotorLeft);
+N//	    bsp_MotorBrake(MotorRight);
+N//		bsp_StopSearchChargingPile();
+N//		return ;
+N//	}
+N	
 N	switch(searchCharging.action)
 N	{
-N		case 0:
+N		case 0: //µÚÒ»²½£¬Ö±×ß
+N		{
+N			bsp_SetMotorTargetSpeed(MotorLeft,160);
+N			bsp_SetMotorTargetSpeed(MotorRight,160);
+N			
+N			searchCharging.action++;
+N		}break;
+N		
+N		case 1: //Ö±µ½1ºÅÄÜ¹»¼ì²âµ½ÈýÖÖÂö¿í
+N		{
+N			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
+N			{
+N				bsp_MotorBrake(MotorLeft);
+N				bsp_MotorBrake(MotorRight);
+N
+N				searchCharging.action++;
+N			}
+N		}break;
+N		
+N
+N		case 2: //×ó×ßÓÒ²»×ß
+N		{
+N			bsp_SetMotorTargetSpeed(MotorLeft,160);
+N			searchCharging.action++;
+N		}break;
+N		
+N		
+N		case 3: //4ºÅÍ¬Ê±ÊÕµ½
+N		{
+N			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+N			{
+N				
+N				bsp_MotorBrake(MotorLeft);
+N				bsp_MotorBrake(MotorRight);
+N				searchCharging.action++;
+N			}
+N		}break;
+N		
+N		case 4: //ÓÒ×ª
+N		{
+N			bsp_SetMotorTargetSpeed(MotorLeft, 160);
+N			bsp_SetMotorTargetSpeed(MotorRight,120);
+N			searchCharging.action++;			
+N		}break;
+N		
+N		case 5: //Ö±µ½4ºÅ²»ÄÜÍ¬Ê±ÊÕµ½£¬×ó×ª
+N		{
+N			if(!(remote[CapCH4].is500us && remote[CapCH4].is1000us))
+N			{
+N				bsp_SetMotorTargetSpeed(MotorLeft, 120);
+N				bsp_SetMotorTargetSpeed(MotorRight,160);
+N				searchCharging.action++;
+N			}			
+N		}break;
+N		
+N		case 6: //×ó×ªÒ»»á¶ù£¬ÓÖ»áÍ¬Ê±ÊÕµ½
+N		{
+N			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+N			{
+N				bsp_SetMotorTargetSpeed(MotorLeft, 120);
+N				bsp_SetMotorTargetSpeed(MotorRight,160);
+N				searchCharging.action = 4;
+N			}
+N		}break;
+N		
+N		case 7: //×ó×ªµ½²»ÄÜÍ¬Ê±ÊÕµ½
 N		{
 N			
 N		}break;
@@ -38796,25 +38895,7 @@ N}
 N
 N
 N
-Ntypedef struct
-N{
-N	volatile bool is500us;
-X	volatile _Bool is500us;
-N	volatile bool is1000us;
-X	volatile _Bool is1000us;
-N	volatile bool is1500us;
-X	volatile _Bool is1500us;
-N}Remote;
 N
-Ntypedef enum
-N{
-N	Pulse500US  = 0 ,
-N	Pulse1000US = 1 ,
-N	Pulse1500US = 2 
-N}PulseWidth;
-N
-Nstatic volatile Remote remote[4];
-Nstatic volatile uint32_t remoteStateTimer[4][3]; //ÈýÖÖÂö³å£¬4¸ö½ÓÊÕ¹Ü
 N
 N
 N/*
@@ -39000,12 +39081,11 @@ N
 N
 Nvoid bsp_PrintRemoteState(CapCH capCH)
 N{
-N	printf("500us:%s\r\n",remote[capCH].is500us   == true ? "true":"false");
-X	printf("500us:%s\r\n",remote[capCH].is500us   == 1 ? "true":"false");
-N	printf("1000us:%s\r\n",remote[capCH].is1000us == true ? "true":"false");
-X	printf("1000us:%s\r\n",remote[capCH].is1000us == 1 ? "true":"false");
-N	printf("1500us:%s\r\n",remote[capCH].is1500us == true ? "true":"false");
-X	printf("1500us:%s\r\n",remote[capCH].is1500us == 1 ? "true":"false");
+N	printf("*******CH(1000,1500,500)******\r\n");
+N	printf("CH1:%d %d %d\r\n",remote[CapCH1].is1000us,remote[CapCH1].is1500us,remote[CapCH1].is500us);
+N	printf("CH2:%d %d %d\r\n",remote[CapCH2].is1000us,remote[CapCH2].is1500us,remote[CapCH2].is500us);
+N	printf("CH3:%d %d %d\r\n",remote[CapCH3].is1000us,remote[CapCH3].is1500us,remote[CapCH3].is500us);
+N	printf("CH4:%d %d %d\r\n",remote[CapCH4].is1000us,remote[CapCH4].is1500us,remote[CapCH4].is500us);
 N}
 N
 N
@@ -39085,14 +39165,6 @@ N
 N    TIM_ITConfig(TIM3,TIM_IT_Update|TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4, ENABLE);
 X    TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0001)|((uint16_t)0x0002)|((uint16_t)0x0004)|((uint16_t)0x0008)|((uint16_t)0x0010), ENABLE);
 N}
-N
-N
-N
-N
-N
-N
-N
-N
 N
 N
 N
@@ -39265,6 +39337,51 @@ N
 N    TIM_ClearITPendingBit(TIM3, TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4|TIM_IT_Update); //Çå³ýÖÐ¶Ï±êÖ¾Î»
 X    TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0002)|((uint16_t)0x0004)|((uint16_t)0x0008)|((uint16_t)0x0010)|((uint16_t)0x0001)); 
 N    
+N}
+N
+N
+Nstatic void bsp_InitIO(void)
+N{
+N	GPIO_InitTypeDef GPIO_InitStructure;
+N
+N	/* ´ò¿ªGPIOÊ±ÖÓ */
+N	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
+X	RCC_APB2PeriphClockCmd(((uint32_t)0x00000080), ENABLE);
+N
+N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
+N	
+N	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
+N	GPIO_Init(GPIOF, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
+N 
+N}
+N
+N
+N
+N/*
+N*********************************************************************************************************
+N*	º¯ Êý Ãû: AdcPro
+N*	¹¦ÄÜËµÃ÷: ADC²ÉÑù´¦Àí
+N*	ÐÎ    ²Î£ºÎÞ
+N*	·µ »Ø Öµ: ÎÞ
+N*********************************************************************************************************
+N*/
+Nbool bsp_GetChargeFeedback(void)
+X_Bool bsp_GetChargeFeedback(void)
+N{
+N	if(GPIO_ReadInputDataBit(GPIOF,GPIO_Pin_7))
+X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)),((uint16_t)0x0080)))
+N	{
+N		return true ;
+X		return 1 ;
+N	}
+N	else
+N	{
+N		return false ;
+X		return 0 ;
+N	}
 N}
 N
 N

@@ -45773,6 +45773,9 @@ Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* Ö±½ÓÊ¹ÓÃÕ¼¿Õ±
 Nvoid bsp_PidControlAct(void);
 Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
 NMotorDir bsp_MotorGetDir(MotorSN sn);
+Nvoid bsp_MotorRunR(void);
+Nvoid bsp_MotorRunL(void);
+Nvoid bsp_MotorRun(void);
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2
@@ -46053,6 +46056,8 @@ Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
 Nvoid bsp_PulseTimerPer1MS(void);
 Nvoid bsp_PrintRemoteState(CapCH capCH);
+Nbool bsp_GetChargeFeedback(void);
+X_Bool bsp_GetChargeFeedback(void);
 N
 N#endif
 L 184 "..\..\User\bsp\bsp.h" 2
@@ -46235,9 +46240,9 @@ S	bsp_SetMotorTargetSpeed(MotorLeft,250);
 S	bsp_SetMotorTargetSpeed(MotorRight,250);
 N#endif
 N
-N	vTaskDelay(2000);
+N
 N	bsp_AngleRst();
-N	vTaskDelay(2000);
+N
 N
 N    while(1)
 N    {
@@ -46247,8 +46252,9 @@ S		DEBUG("ÓÒÂÖËÙ¶È:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
 N		#endif
 N		
 N		
-N		#if 0
-S		DEBUG("½Ç¶È£º%.2F\r\n",bsp_AngleRead());
+N		#if 1
+N		//DEBUG("Angle:%.2F\r\n",bsp_AngleRead());
+N		//DEBUG("Charge:%d\r\n",bsp_GetChargeFeedback());
 N		#endif
 N		
 N		bsp_LedToggle(1);
@@ -46281,18 +46287,18 @@ N		{
 N			Collision collision = bsp_CollisionScan();
 N			if(collision == CollisionLeft)
 N			{
-N				DEBUG("%06d×ó±ßÅö×²\r\n",index++);
-X				printf ("%06d×ó±ßÅö×²\r\n",index++);
+N				DEBUG("%06dLeft\r\n",index++);
+X				printf ("%06dLeft\r\n",index++);
 N			}
 N			else if(collision == CollisionRight)
 N			{
-N				DEBUG("%06dÓÒ±ßÅö×²\r\n",index++);
-X				printf ("%06dÓÒ±ßÅö×²\r\n",index++);
+N				DEBUG("%06dRight\r\n",index++);
+X				printf ("%06dRight\r\n",index++);
 N			}
 N			else if(collision == CollisionAll)
 N			{
-N				DEBUG("%06dÁ½±ßÅö×²\r\n",index++);
-X				printf ("%06dÁ½±ßÅö×²\r\n",index++);
+N				DEBUG("%06dBoth\r\n",index++);
+X				printf ("%06dBoth\r\n",index++);
 N			}
 N			
 N		}
@@ -46317,7 +46323,10 @@ N{
 N    while(1)
 N    {
 N		bsp_SendReportFrame();
-N		vTaskDelay(50);
+N		bsp_PrintRemoteState(CapCH3);
+N		
+N		
+N		vTaskDelay(1000);
 N    }
 N}
 N
@@ -46332,14 +46341,29 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskStart(void *pvParameters)
 N{
-N	bsp_DetectStart(); /*¿ªÆôºìÍâ¶Ô¹ÜÂÖÑ¯É¨Ãè*/
+N	/*¿ªÆôºìÍâ¶Ô¹ÜÂÖÑ¯É¨Ãè*/
+N	bsp_DetectStart(); 
+N	/*¿ªÆôÑ°ÕÒ³äµç×®*/
+N	bsp_StartSearchChargingPile();
+N	
+N	
+N	vTaskDelay(4000);
+N	
 N    while(1)
 N    {
 N		bsp_DetectAct();  /*ºìÍâ¶Ô¹ÜÂÖÑ¯É¨Ãè*/
 N		//bsp_DetectDeal(); /*ºìÍâ¶Ô¹ÜÉ¨Ãè½á¹û´¦Àí*/
 N		//bsp_EdgewiseAct();/*ÑØ±ß*/
+N		
+N		/*ËÄ¸öºìÍâ½ÓÊÕ¹Ü*/
+N		bsp_GetCapCnt(CapCH1);
+N		bsp_GetCapCnt(CapCH2);
 N		bsp_GetCapCnt(CapCH3);
-N		bsp_PrintRemoteState(CapCH3);
+N		bsp_GetCapCnt(CapCH4);
+N		
+N		/*Ñ°ÕÒ³äµç×®*/
+N		bsp_SearchChargingPileAct();
+N		
 N        vTaskDelay(1);
 N    }
 N}

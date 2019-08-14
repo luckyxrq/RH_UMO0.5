@@ -38402,6 +38402,9 @@ Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* Ö±½ÓÊ¹ÓÃÕ¼¿Õ±
 Nvoid bsp_PidControlAct(void);
 Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
 NMotorDir bsp_MotorGetDir(MotorSN sn);
+Nvoid bsp_MotorRunR(void);
+Nvoid bsp_MotorRunL(void);
+Nvoid bsp_MotorRun(void);
 N#endif
 N
 L 174 "..\..\User\bsp\bsp.h" 2
@@ -38682,6 +38685,8 @@ Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
 Nvoid bsp_PulseTimerPer1MS(void);
 Nvoid bsp_PrintRemoteState(CapCH capCH);
+Nbool bsp_GetChargeFeedback(void);
+X_Bool bsp_GetChargeFeedback(void);
 N
 N#endif
 L 184 "..\..\User\bsp\bsp.h" 2
@@ -38816,6 +38821,8 @@ N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0,MAXPWM);
 X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0,10000); 
 N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,MAXPWM);
 X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0,10000);
+N			bsp_InitMotorPid(MotorLeft);
+N			
 N		}break;
 N		
 N		case MotorRight:
@@ -38826,6 +38833,8 @@ N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,MAXPWM);
 X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0,10000);
 N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,MAXPWM);
 X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0,10000);
+N			bsp_InitMotorPid(MotorRight);
+N			
 N		}break;
 N	}
 N	
@@ -38956,7 +38965,7 @@ N		return ;
 N	}
 N	
 N	
-N	bsp_MotorBrake(sn);
+N	//bsp_MotorBrake(sn);
 N	
 N	
 N	
@@ -38996,9 +39005,9 @@ N		{
 N			/************************PID ×óÂÖ»ú**********12 0.5 1 0.8 5500*******/
 N			pid[MotorLeft].target = 250;
 N			
-N			pid[MotorLeft].kp = 6;
-N			pid[MotorLeft].ki = 0.5;
-N			pid[MotorLeft].kd = 1;
+N			pid[MotorLeft].kp = 12;
+N			pid[MotorLeft].ki = 0.1;
+N			pid[MotorLeft].kd = 0;
 N			
 N			pid[MotorLeft].bias = 0 ;
 N			pid[MotorLeft].lastBias = 0 ;
@@ -39010,7 +39019,7 @@ X			pid[MotorLeft].pwmMax = 10000 ;
 N			
 N			pid[MotorLeft].kiLimit = 20000 ;
 N			pid[MotorLeft].fitK = 0.8 ;
-N			pid[MotorLeft].fitD = 2000 ;
+N			pid[MotorLeft].fitD = 4000 ;
 N		}break;
 N		
 N		case MotorRight:
@@ -39018,9 +39027,9 @@ N		{
 N			/************************PID ÓÒÂÖ»ú************************/
 N			pid[MotorRight].target = 250;
 N			
-N			pid[MotorRight].kp = 6;
-N			pid[MotorRight].ki = 0.5;
-N			pid[MotorRight].kd = 1;
+N			pid[MotorRight].kp = 12;
+N			pid[MotorRight].ki = 0.1;
+N			pid[MotorRight].kd = 0;
 N			
 N			pid[MotorRight].bias = 0 ;
 N			pid[MotorRight].lastBias = 0 ;
@@ -39032,7 +39041,7 @@ X			pid[MotorRight].pwmMax = 10000 ;
 N			
 N			pid[MotorRight].kiLimit = 20000 ;
 N			pid[MotorRight].fitK = 0.8 ;
-N			pid[MotorRight].fitD = 2000 ;
+N			pid[MotorRight].fitD = 4000 ;
 N		}break;
 N	}
 N}
@@ -39142,6 +39151,35 @@ N}
 N
 N
 N
+N
+N
+N#define Speed    4800
+N#define VAL      200
+N
+N
+Nvoid bsp_MotorRunR(void)
+N{
+N	bsp_SetMotorPWM(MotorLeft, Forward,Speed+VAL);
+X	bsp_SetMotorPWM(MotorLeft, Forward,4800+200);
+N	bsp_SetMotorPWM(MotorRight,Forward,Speed);
+X	bsp_SetMotorPWM(MotorRight,Forward,4800);
+N}
+N
+Nvoid bsp_MotorRunL(void)
+N{
+N	bsp_SetMotorPWM(MotorLeft, Forward,Speed);
+X	bsp_SetMotorPWM(MotorLeft, Forward,4800);
+N	bsp_SetMotorPWM(MotorRight,Forward,Speed+VAL);
+X	bsp_SetMotorPWM(MotorRight,Forward,4800+200);
+N}
+N
+Nvoid bsp_MotorRun(void)
+N{
+N	bsp_SetMotorPWM(MotorLeft, Forward,Speed);
+X	bsp_SetMotorPWM(MotorLeft, Forward,4800);
+N	bsp_SetMotorPWM(MotorRight,Forward,Speed);
+X	bsp_SetMotorPWM(MotorRight,Forward,4800);
+N}
 N
 N
 N

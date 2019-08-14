@@ -69,6 +69,8 @@ void bsp_MotorBrake(MotorSN sn)
 			motor[MotorLeft].isRunning = false ;
 			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0,MAXPWM); 
 			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,MAXPWM);
+			bsp_InitMotorPid(MotorLeft);
+			
 		}break;
 		
 		case MotorRight:
@@ -76,6 +78,8 @@ void bsp_MotorBrake(MotorSN sn)
 			motor[MotorRight].isRunning = false ;
 			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,MAXPWM);
 			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,MAXPWM);
+			bsp_InitMotorPid(MotorRight);
+			
 		}break;
 	}
 	
@@ -189,7 +193,7 @@ void bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed)
 	}
 	
 	
-	bsp_MotorBrake(sn);
+	//bsp_MotorBrake(sn);
 	
 	
 	
@@ -227,9 +231,9 @@ void bsp_InitMotorPid(MotorSN sn)
 			/************************PID ×óÂÖ»ú**********12 0.5 1 0.8 5500*******/
 			pid[MotorLeft].target = 250;
 			
-			pid[MotorLeft].kp = 6;
-			pid[MotorLeft].ki = 0.5;
-			pid[MotorLeft].kd = 1;
+			pid[MotorLeft].kp = 12;
+			pid[MotorLeft].ki = 0.1;
+			pid[MotorLeft].kd = 0;
 			
 			pid[MotorLeft].bias = 0 ;
 			pid[MotorLeft].lastBias = 0 ;
@@ -240,7 +244,7 @@ void bsp_InitMotorPid(MotorSN sn)
 			
 			pid[MotorLeft].kiLimit = 20000 ;
 			pid[MotorLeft].fitK = 0.8 ;
-			pid[MotorLeft].fitD = 2000 ;
+			pid[MotorLeft].fitD = 4000 ;
 		}break;
 		
 		case MotorRight:
@@ -248,9 +252,9 @@ void bsp_InitMotorPid(MotorSN sn)
 			/************************PID ÓÒÂÖ»ú************************/
 			pid[MotorRight].target = 250;
 			
-			pid[MotorRight].kp = 6;
-			pid[MotorRight].ki = 0.5;
-			pid[MotorRight].kd = 1;
+			pid[MotorRight].kp = 12;
+			pid[MotorRight].ki = 0.1;
+			pid[MotorRight].kd = 0;
 			
 			pid[MotorRight].bias = 0 ;
 			pid[MotorRight].lastBias = 0 ;
@@ -261,7 +265,7 @@ void bsp_InitMotorPid(MotorSN sn)
 			
 			pid[MotorRight].kiLimit = 20000 ;
 			pid[MotorRight].fitK = 0.8 ;
-			pid[MotorRight].fitD = 2000 ;
+			pid[MotorRight].fitD = 4000 ;
 		}break;
 	}
 }
@@ -370,6 +374,29 @@ static float pidabs(float val)
 
 
 
+
+
+#define Speed    4800
+#define VAL      200
+
+
+void bsp_MotorRunR(void)
+{
+	bsp_SetMotorPWM(MotorLeft, Forward,Speed+VAL);
+	bsp_SetMotorPWM(MotorRight,Forward,Speed);
+}
+
+void bsp_MotorRunL(void)
+{
+	bsp_SetMotorPWM(MotorLeft, Forward,Speed);
+	bsp_SetMotorPWM(MotorRight,Forward,Speed+VAL);
+}
+
+void bsp_MotorRun(void)
+{
+	bsp_SetMotorPWM(MotorLeft, Forward,Speed);
+	bsp_SetMotorPWM(MotorRight,Forward,Speed);
+}
 
 
 

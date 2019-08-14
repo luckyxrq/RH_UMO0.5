@@ -25,5 +25,6 @@ void bsp_StartSearchChargingPile(void);
 void bsp_StopSearchChargingPile(void);
 void bsp_PulseTimerPer1MS(void);
 void bsp_PrintRemoteState(CapCH capCH);
+bool bsp_GetChargeFeedback(void);
 
 #endif
