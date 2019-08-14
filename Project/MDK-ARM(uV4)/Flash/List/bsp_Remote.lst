@@ -38833,6 +38833,8 @@ N		case 1: //直到1号能够检测到三种脉宽
 N		{
 N			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
 N			{
+N				DEBUG("1 detect 3 pulse\r\n");
+X				printf ("1 detect 3 pulse\r\n");
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N
@@ -38852,7 +38854,8 @@ N		case 3: //4号同时收到
 N		{
 N			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
 N			{
-N				
+N				DEBUG("4 detect 3 pulse\r\n");
+X				printf ("4 detect 3 pulse\r\n");
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N				searchCharging.action++;
@@ -38866,30 +38869,57 @@ N			bsp_SetMotorTargetSpeed(MotorRight,120);
 N			searchCharging.action++;			
 N		}break;
 N		
-N		case 5: //直到4号不能同时收到，左转
+N		
+N		case 5: //前面一个都收不到了
 N		{
-N			if(!(remote[CapCH4].is500us && remote[CapCH4].is1000us))
+N			if(remote[CapCH3].is500us && remote[CapCH3].is1000us && remote[CapCH4].is500us && remote[CapCH4].is1000us) //同时有直走
 N			{
+N				DEBUG("3 , 4 both detect 3 pulse\r\n");
+X				printf ("3 , 4 both detect 3 pulse\r\n");
 N				bsp_SetMotorTargetSpeed(MotorLeft, 120);
+N				bsp_SetMotorTargetSpeed(MotorRight,120);
+N				searchCharging.action++;
+N			}
+N			else if(remote[CapCH3].is1000us && remote[CapCH4].is500us)//最后对准
+N			{
+N				DEBUG("last \r\n");
+X				printf ("last \r\n");
+N				bsp_SetMotorTargetSpeed(MotorLeft, 120);
+N				bsp_SetMotorTargetSpeed(MotorRight,120);
+N				searchCharging.action++;
+N			}
+N			else if(!(remote[CapCH3].is500us || remote[CapCH3].is1000us) && (remote[CapCH4].is500us || remote[CapCH4].is1000us)) //3号消失
+N			{
+N				DEBUG("3 miss\r\n");
+X				printf ("3 miss\r\n");
+N				bsp_SetMotorTargetSpeed(MotorLeft, 160);
+N				bsp_SetMotorTargetSpeed(MotorRight,100);
+N				searchCharging.action++;
+N			}		
+N			else if(!(remote[CapCH4].is500us || remote[CapCH4].is1000us) && (remote[CapCH3].is500us || remote[CapCH3].is1000us))//4号消失
+N			{
+N				DEBUG("4 miss\r\n");
+X				printf ("4 miss\r\n");
+N				bsp_SetMotorTargetSpeed(MotorLeft, 100);
 N				bsp_SetMotorTargetSpeed(MotorRight,160);
 N				searchCharging.action++;
-N			}			
-N		}break;
-N		
-N		case 6: //左转一会儿，又会同时收到
-N		{
-N			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+N			}
+N			else if(!(remote[CapCH3].is500us || remote[CapCH3].is1000us) && !(remote[CapCH4].is500us || remote[CapCH4].is1000us))//3,4同时消失
 N			{
-N				bsp_SetMotorTargetSpeed(MotorLeft, 120);
-N				bsp_SetMotorTargetSpeed(MotorRight,160);
-N				searchCharging.action = 4;
+N				DEBUG("3 , 4 miss\r\n");
+X				printf ("3 , 4 miss\r\n");
+N				bsp_SetMotorTargetSpeed(MotorLeft, 160);
+N				bsp_SetMotorTargetSpeed(MotorRight,100);
 N			}
 N		}break;
 N		
-N		case 7: //左转到不能同时收到
+N		case 6:
 N		{
-N			
+N			searchCharging.action = 5;
 N		}break;
+N		
+N		
+N		
 N	}
 N}
 N

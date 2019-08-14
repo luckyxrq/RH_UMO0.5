@@ -194,7 +194,7 @@ static void vTaskMsgPro(void *pvParameters)
     while(1)
     {
 		bsp_SendReportFrame();
-		bsp_PrintRemoteState(CapCH3);
+		//bsp_PrintRemoteState(CapCH3);
 		
 		
 		vTaskDelay(1000);

@@ -46323,7 +46323,7 @@ N{
 N    while(1)
 N    {
 N		bsp_SendReportFrame();
-N		bsp_PrintRemoteState(CapCH3);
+N		//bsp_PrintRemoteState(CapCH3);
 N		
 N		
 N		vTaskDelay(1000);

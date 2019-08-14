@@ -88,6 +88,7 @@ void bsp_SearchChargingPileAct(void)
 		{
 			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
 			{
+				DEBUG("1 detect 3 pulse\r\n");
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
 
@@ -107,7 +108,7 @@ void bsp_SearchChargingPileAct(void)
 		{
 			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
 			{
-				
+				DEBUG("4 detect 3 pulse\r\n");
 				bsp_MotorBrake(MotorLeft);
 				bsp_MotorBrake(MotorRight);
 				searchCharging.action++;
@@ -121,6 +122,49 @@ void bsp_SearchChargingPileAct(void)
 			searchCharging.action++;			
 		}break;
 		
+		
+		case 5: //前面一个都收不到了
+		{
+			if(remote[CapCH3].is500us && remote[CapCH3].is1000us && remote[CapCH4].is500us && remote[CapCH4].is1000us) //同时有直走
+			{
+				DEBUG("3 , 4 both detect 3 pulse\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 120);
+				bsp_SetMotorTargetSpeed(MotorRight,120);
+				searchCharging.action++;
+			}
+			else if(remote[CapCH3].is1000us && remote[CapCH4].is500us)//最后对准
+			{
+				DEBUG("last \r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 120);
+				bsp_SetMotorTargetSpeed(MotorRight,120);
+				searchCharging.action++;
+			}
+			else if(!(remote[CapCH3].is500us || remote[CapCH3].is1000us) && (remote[CapCH4].is500us || remote[CapCH4].is1000us)) //3号消失
+			{
+				DEBUG("3 miss\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 160);
+				bsp_SetMotorTargetSpeed(MotorRight,100);
+				searchCharging.action++;
+			}		
+			else if(!(remote[CapCH4].is500us || remote[CapCH4].is1000us) && (remote[CapCH3].is500us || remote[CapCH3].is1000us))//4号消失
+			{
+				DEBUG("4 miss\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 100);
+				bsp_SetMotorTargetSpeed(MotorRight,160);
+				searchCharging.action++;
+			}
+			else if(!(remote[CapCH3].is500us || remote[CapCH3].is1000us) && !(remote[CapCH4].is500us || remote[CapCH4].is1000us))//3,4同时消失
+			{
+				DEBUG("3 , 4 miss\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 160);
+				bsp_SetMotorTargetSpeed(MotorRight,100);
+			}
+		}break;
+		
+		case 6:
+		{
+			searchCharging.action = 5;
+		}break;
 		
 		
 		
