@@ -29,6 +29,7 @@ typedef struct
 	uint32_t action ;
 	uint32_t delay;
 	float angle;
+	bool isNeedBack;
 }SearchCharging;
 
 static ChargingPile chargingPile;
@@ -79,8 +80,8 @@ void bsp_SearchChargingPileAct(void)
 	{
 		case 0: //第一步，直走
 		{
-			bsp_SetMotorTargetSpeed(MotorLeft,160);
-			bsp_SetMotorTargetSpeed(MotorRight,160);
+			bsp_SetMotorTargetSpeed(MotorLeft,180);
+			bsp_SetMotorTargetSpeed(MotorRight,180);
 			
 			searchCharging.action++;
 		}break;
@@ -95,12 +96,16 @@ void bsp_SearchChargingPileAct(void)
 
 				searchCharging.action++;
 			}
+			else if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+			{
+				searchCharging.action = 5 ;
+			}
 		}break;
 		
 
 		case 2: //左走右不走
 		{
-			bsp_SetMotorTargetSpeed(MotorLeft,160);
+			bsp_SetMotorTargetSpeed(MotorLeft,180);
 			searchCharging.action++;
 		}break;
 		
@@ -118,53 +123,67 @@ void bsp_SearchChargingPileAct(void)
 		
 		case 4: //右转
 		{
-			bsp_SetMotorTargetSpeed(MotorLeft, 160);
-			bsp_SetMotorTargetSpeed(MotorRight,120);
+			bsp_SetMotorTargetSpeed(MotorLeft, 180);
+			bsp_SetMotorTargetSpeed(MotorRight,140);
 			searchCharging.action++;			
 		}break;
 		
 		
 		case 5: //前面一个都收不到了
 		{
-			if(remote[CapCH3].is500us && remote[CapCH3].is1000us && remote[CapCH4].is500us && remote[CapCH4].is1000us) //同时有直走
+			Collision collision = bsp_CollisionScan();
+			if(collision != CollisionNone)
 			{
-				DEBUG("3 , 4 both detect 3 pulse\r\n");
-				bsp_SetMotorTargetSpeed(MotorLeft, 120);
+				bsp_MotorBrake(MotorLeft);
+				bsp_MotorBrake(MotorRight);
+				bsp_SetMotorTargetSpeed(MotorLeft, -180);
+				bsp_SetMotorTargetSpeed(MotorRight,-180);
+				
+				searchCharging.isNeedBack = true;
+				searchCharging.delay = xTaskGetTickCount();
+			}
+			else if(remote[CapCH3].is500us && remote[CapCH4].is1000us) //同时有直走
+			{
+				DEBUG("both\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+				bsp_SetMotorTargetSpeed(MotorRight,140);
+			}
+			else if(remote[CapCH1].is500us || remote[CapCH1].is1000us)
+			{
+				DEBUG("adjust\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 180);
 				bsp_SetMotorTargetSpeed(MotorRight,120);
-				searchCharging.action++;
 			}
-			else if(remote[CapCH3].is1000us && remote[CapCH4].is500us)//最后对准
+			else if(!remote[CapCH4].is1000us) //4收不到1000
 			{
-				DEBUG("last \r\n");
-				bsp_SetMotorTargetSpeed(MotorLeft, 120);
-				bsp_SetMotorTargetSpeed(MotorRight,120);
-				searchCharging.action++;
+				DEBUG("4 miss 1000\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+				bsp_SetMotorTargetSpeed(MotorRight,180);
 			}
-			else if((!remote[CapCH3].is500us || !remote[CapCH3].is1000us) && (remote[CapCH4].is500us || remote[CapCH4].is1000us)) //3号消失
+			else if(!remote[CapCH3].is500us) //3收不到500
 			{
-				DEBUG("3 miss\r\n");
-				bsp_SetMotorTargetSpeed(MotorLeft, 160);
-				bsp_SetMotorTargetSpeed(MotorRight,100);
-				searchCharging.action++;
-			}		
-			else if((!remote[CapCH4].is500us || !remote[CapCH4].is1000us) && (remote[CapCH3].is500us || remote[CapCH3].is1000us))//4号消失
-			{
-				DEBUG("4 miss\r\n");
-				bsp_SetMotorTargetSpeed(MotorLeft, 100);
-				bsp_SetMotorTargetSpeed(MotorRight,160);
-				searchCharging.action++;
+				DEBUG("3 miss 500\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 180);
+				bsp_SetMotorTargetSpeed(MotorRight,140);
 			}
-			else if(!(remote[CapCH3].is500us || remote[CapCH3].is1000us) && !(remote[CapCH4].is500us || remote[CapCH4].is1000us))//3,4同时消失
-			{
-				DEBUG("3 , 4 miss\r\n");
-				bsp_SetMotorTargetSpeed(MotorLeft, 160);
-				bsp_SetMotorTargetSpeed(MotorRight,100);
-			}
+			
+			
+			searchCharging.action++;
 		}break;
 		
 		case 6:
 		{
-			searchCharging.action = 5;
+			if(searchCharging.isNeedBack)
+			{
+				if(xTaskGetTickCount() - searchCharging.delay >= 3000)
+				{
+					searchCharging.isNeedBack = false;
+				}
+			}
+			else
+			{
+				searchCharging.action = 5;
+			}
 		}break;
 		
 		

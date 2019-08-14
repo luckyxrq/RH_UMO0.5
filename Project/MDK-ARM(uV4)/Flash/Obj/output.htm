@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Aug 14 11:01:58 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Aug 14 11:55:00 2019
 <BR><P>
 <H3>Maximum Stack Usage =        216 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1152,7 +1152,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskLED
+<BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargingPileAct
+<LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskLED
 </UL>
 
 <P><STRONG><a name="[d1]"></a>bsp_ConfigGpioOut</STRONG> (Thumb, 46 bytes, Stack size 24 bytes, bsp_tim_pwm.o(i.bsp_ConfigGpioOut))
@@ -1487,13 +1488,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PulseTimerPer1MS
 </UL>
 
-<P><STRONG><a name="[11a]"></a>bsp_SearchChargingPileAct</STRONG> (Thumb, 508 bytes, Stack size 8 bytes, bsp_remote.o(i.bsp_SearchChargingPileAct))
+<P><STRONG><a name="[11a]"></a>bsp_SearchChargingPileAct</STRONG> (Thumb, 488 bytes, Stack size 8 bytes, bsp_remote.o(i.bsp_SearchChargingPileAct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = bsp_SearchChargingPileAct &rArr; bsp_MotorBrake &rArr; bsp_SetTIMOutPWM &rArr; bsp_ConfigTimGpio &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorTargetSpeed
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopSearchChargingPile
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetChargeFeedback
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStart
@@ -1943,7 +1946,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d7]"></a>xTaskGetTickCount</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, tasks.o(i.xTaskGetTickCount))
-<BR><BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<BR><BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargingPileAct
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 
 <P><STRONG><a name="[8b]"></a>xTaskIncrementTick</STRONG> (Thumb, 272 bytes, Stack size 24 bytes, tasks.o(i.xTaskIncrementTick))
