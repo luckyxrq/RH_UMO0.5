@@ -38767,7 +38767,6 @@ N
 Nstatic volatile Remote remote[4];
 Nstatic volatile uint32_t remoteStateTimer[4][3]; //三种脉冲，4个接收管
 N
-N
 Ntypedef struct
 N{
 N	uint8_t isRunning;
@@ -38776,6 +38775,7 @@ N	uint32_t delay;
 N	float angle;
 N	bool isNeedBack;
 X	_Bool isNeedBack;
+N	uint32_t cnt;
 N}SearchCharging;
 N
 Nstatic ChargingPile chargingPile;
@@ -38839,12 +38839,18 @@ N		case 1: //直到1号能够检测到三种脉宽
 N		{
 N			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is1500us)
 N			{
-N				DEBUG("2 detect 3 pulse\r\n");
-X				printf ("2 detect 3 pulse\r\n");
-N				bsp_MotorBrake(MotorLeft);
-N				bsp_MotorBrake(MotorRight);
+N				if(searchCharging.cnt++ >= 1000)
+N				{
+N					searchCharging.cnt = 0 ;
+N					
+N					DEBUG("2 detect 3 pulse\r\n");
+X					printf ("2 detect 3 pulse\r\n");
+N					bsp_MotorBrake(MotorLeft);
+N					bsp_MotorBrake(MotorRight);
 N
-N				searchCharging.action++;
+N					searchCharging.action++;
+N				}
+N				
 N			}
 N			else if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
 N			{

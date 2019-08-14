@@ -22,7 +22,6 @@ typedef enum
 static volatile Remote remote[4];
 static volatile uint32_t remoteStateTimer[4][3]; //三种脉冲，4个接收管
 
-
 typedef struct
 {
 	uint8_t isRunning;
@@ -30,6 +29,7 @@ typedef struct
 	uint32_t delay;
 	float angle;
 	bool isNeedBack;
+	uint32_t cnt;
 }SearchCharging;
 
 static ChargingPile chargingPile;
@@ -91,11 +91,17 @@ void bsp_SearchChargingPileAct(void)
 		{
 			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is1500us)
 			{
-				DEBUG("2 detect 3 pulse\r\n");
-				bsp_MotorBrake(MotorLeft);
-				bsp_MotorBrake(MotorRight);
+				if(searchCharging.cnt++ >= 1000)
+				{
+					searchCharging.cnt = 0 ;
+					
+					DEBUG("2 detect 3 pulse\r\n");
+					bsp_MotorBrake(MotorLeft);
+					bsp_MotorBrake(MotorRight);
 
-				searchCharging.action++;
+					searchCharging.action++;
+				}
+				
 			}
 			else if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
 			{

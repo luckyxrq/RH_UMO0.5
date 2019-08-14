@@ -194,7 +194,7 @@ static void vTaskMsgPro(void *pvParameters)
     while(1)
     {
 		bsp_SendReportFrame();
-		bsp_PrintRemoteState(CapCH3);
+		//bsp_PrintRemoteState(CapCH3);
 		
 		
 		vTaskDelay(1000);
@@ -233,7 +233,7 @@ static void vTaskStart(void *pvParameters)
 		bsp_GetCapCnt(CapCH4);
 		
 		/*Ñ°ÕÒ³äµç×®*/
-		//bsp_SearchChargingPileAct();
+		bsp_SearchChargingPileAct();
 		
         vTaskDelay(1);
     }
