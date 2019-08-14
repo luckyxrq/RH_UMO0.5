@@ -38823,6 +38823,7 @@ N	    bsp_MotorBrake(MotorRight);
 N		bsp_StopSearchChargingPile();
 N		return ;
 N	}
+N
 N	
 N	switch(searchCharging.action)
 N	{
@@ -38836,45 +38837,45 @@ N		}break;
 N		
 N		case 1: //直到1号能够检测到三种脉宽
 N		{
-N			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
+N			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is1500us)
 N			{
-N				DEBUG("1 detect 3 pulse\r\n");
-X				printf ("1 detect 3 pulse\r\n");
+N				DEBUG("2 detect 3 pulse\r\n");
+X				printf ("2 detect 3 pulse\r\n");
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N
 N				searchCharging.action++;
 N			}
-N			else if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+N			else if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
 N			{
 N				searchCharging.action = 5 ;
 N			}
 N		}break;
 N		
 N
-N		case 2: //左走右不走
+N		case 2: //右走左不走
 N		{
-N			bsp_SetMotorTargetSpeed(MotorLeft,180);
+N			bsp_SetMotorTargetSpeed(MotorRight,180);
 N			searchCharging.action++;
 N		}break;
 N		
 N		
-N		case 3: //4号同时收到
+N		case 3: //3号同时收到
 N		{
-N			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+N			if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
 N			{
-N				DEBUG("4 detect 3 pulse\r\n");
-X				printf ("4 detect 3 pulse\r\n");
+N				DEBUG("3 detect 3 pulse\r\n");
+X				printf ("3 detect 3 pulse\r\n");
 N				bsp_MotorBrake(MotorLeft);
 N				bsp_MotorBrake(MotorRight);
 N				searchCharging.action++;
 N			}
 N		}break;
 N		
-N		case 4: //右转
+N		case 4: //左转
 N		{
-N			bsp_SetMotorTargetSpeed(MotorLeft, 180);
-N			bsp_SetMotorTargetSpeed(MotorRight,140);
+N			bsp_SetMotorTargetSpeed(MotorLeft, 140);
+N			bsp_SetMotorTargetSpeed(MotorRight,180);
 N			searchCharging.action++;			
 N		}break;
 N		
@@ -38900,12 +38901,12 @@ X				printf ("both\r\n");
 N				bsp_SetMotorTargetSpeed(MotorLeft, 140);
 N				bsp_SetMotorTargetSpeed(MotorRight,140);
 N			}
-N			else if(remote[CapCH1].is500us || remote[CapCH1].is1000us)
+N			else if(remote[CapCH2].is500us || remote[CapCH2].is1000us)
 N			{
 N				DEBUG("adjust\r\n");
 X				printf ("adjust\r\n");
-N				bsp_SetMotorTargetSpeed(MotorLeft, 180);
-N				bsp_SetMotorTargetSpeed(MotorRight,120);
+N				bsp_SetMotorTargetSpeed(MotorLeft, 120);
+N				bsp_SetMotorTargetSpeed(MotorRight,180);
 N			}
 N			else if(!remote[CapCH4].is1000us) //4收不到1000
 N			{
@@ -38941,10 +38942,120 @@ N			{
 N				searchCharging.action = 5;
 N			}
 N		}break;
-N		
-N		
-N		
 N	}
+N	
+N#if 0	
+S	switch(searchCharging.action)
+S	{
+S		case 0: //第一步，直走
+S		{
+S			bsp_SetMotorTargetSpeed(MotorLeft,180);
+S			bsp_SetMotorTargetSpeed(MotorRight,180);
+S			
+S			searchCharging.action++;
+S		}break;
+S		
+S		case 1: //直到1号能够检测到三种脉宽
+S		{
+S			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
+S			{
+S				DEBUG("1 detect 3 pulse\r\n");
+S				bsp_MotorBrake(MotorLeft);
+S				bsp_MotorBrake(MotorRight);
+S
+S				searchCharging.action++;
+S			}
+S			else if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+S			{
+S				searchCharging.action = 5 ;
+S			}
+S		}break;
+S		
+S
+S		case 2: //左走右不走
+S		{
+S			bsp_SetMotorTargetSpeed(MotorLeft,180);
+S			searchCharging.action++;
+S		}break;
+S		
+S		
+S		case 3: //4号同时收到
+S		{
+S			if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+S			{
+S				DEBUG("4 detect 3 pulse\r\n");
+S				bsp_MotorBrake(MotorLeft);
+S				bsp_MotorBrake(MotorRight);
+S				searchCharging.action++;
+S			}
+S		}break;
+S		
+S		case 4: //右转
+S		{
+S			bsp_SetMotorTargetSpeed(MotorLeft, 180);
+S			bsp_SetMotorTargetSpeed(MotorRight,140);
+S			searchCharging.action++;			
+S		}break;
+S		
+S		
+S		case 5: //前面一个都收不到了
+S		{
+S			Collision collision = bsp_CollisionScan();
+S			if(collision != CollisionNone)
+S			{
+S				bsp_MotorBrake(MotorLeft);
+S				bsp_MotorBrake(MotorRight);
+S				bsp_SetMotorTargetSpeed(MotorLeft, -180);
+S				bsp_SetMotorTargetSpeed(MotorRight,-180);
+S				
+S				searchCharging.isNeedBack = true;
+S				searchCharging.delay = xTaskGetTickCount();
+S			}
+S			else if(remote[CapCH3].is500us && remote[CapCH4].is1000us) //同时有直走
+S			{
+S				DEBUG("both\r\n");
+S				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+S				bsp_SetMotorTargetSpeed(MotorRight,140);
+S			}
+S			else if(remote[CapCH1].is500us || remote[CapCH1].is1000us)
+S			{
+S				DEBUG("adjust\r\n");
+S				bsp_SetMotorTargetSpeed(MotorLeft, 180);
+S				bsp_SetMotorTargetSpeed(MotorRight,120);
+S			}
+S			else if(!remote[CapCH4].is1000us) //4收不到1000
+S			{
+S				DEBUG("4 miss 1000\r\n");
+S				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+S				bsp_SetMotorTargetSpeed(MotorRight,180);
+S			}
+S			else if(!remote[CapCH3].is500us) //3收不到500
+S			{
+S				DEBUG("3 miss 500\r\n");
+S				bsp_SetMotorTargetSpeed(MotorLeft, 180);
+S				bsp_SetMotorTargetSpeed(MotorRight,140);
+S			}
+S			
+S			
+S			searchCharging.action++;
+S		}break;
+S		
+S		case 6:
+S		{
+S			if(searchCharging.isNeedBack)
+S			{
+S				if(xTaskGetTickCount() - searchCharging.delay >= 3000)
+S				{
+S					searchCharging.isNeedBack = false;
+S				}
+S			}
+S			else
+S			{
+S				searchCharging.action = 5;
+S			}
+S		}break;
+S	}
+N#endif
 N}
 N
 N

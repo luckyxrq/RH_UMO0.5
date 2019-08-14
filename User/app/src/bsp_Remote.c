@@ -75,7 +75,120 @@ void bsp_SearchChargingPileAct(void)
 		bsp_StopSearchChargingPile();
 		return ;
 	}
+
 	
+	switch(searchCharging.action)
+	{
+		case 0: //第一步，直走
+		{
+			bsp_SetMotorTargetSpeed(MotorLeft,180);
+			bsp_SetMotorTargetSpeed(MotorRight,180);
+			
+			searchCharging.action++;
+		}break;
+		
+		case 1: //直到1号能够检测到三种脉宽
+		{
+			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is1500us)
+			{
+				DEBUG("2 detect 3 pulse\r\n");
+				bsp_MotorBrake(MotorLeft);
+				bsp_MotorBrake(MotorRight);
+
+				searchCharging.action++;
+			}
+			else if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
+			{
+				searchCharging.action = 5 ;
+			}
+		}break;
+		
+
+		case 2: //右走左不走
+		{
+			bsp_SetMotorTargetSpeed(MotorRight,180);
+			searchCharging.action++;
+		}break;
+		
+		
+		case 3: //3号同时收到
+		{
+			if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
+			{
+				DEBUG("3 detect 3 pulse\r\n");
+				bsp_MotorBrake(MotorLeft);
+				bsp_MotorBrake(MotorRight);
+				searchCharging.action++;
+			}
+		}break;
+		
+		case 4: //左转
+		{
+			bsp_SetMotorTargetSpeed(MotorLeft, 140);
+			bsp_SetMotorTargetSpeed(MotorRight,180);
+			searchCharging.action++;			
+		}break;
+		
+		
+		case 5: //前面一个都收不到了
+		{
+			Collision collision = bsp_CollisionScan();
+			if(collision != CollisionNone)
+			{
+				bsp_MotorBrake(MotorLeft);
+				bsp_MotorBrake(MotorRight);
+				bsp_SetMotorTargetSpeed(MotorLeft, -180);
+				bsp_SetMotorTargetSpeed(MotorRight,-180);
+				
+				searchCharging.isNeedBack = true;
+				searchCharging.delay = xTaskGetTickCount();
+			}
+			else if(remote[CapCH3].is500us && remote[CapCH4].is1000us) //同时有直走
+			{
+				DEBUG("both\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+				bsp_SetMotorTargetSpeed(MotorRight,140);
+			}
+			else if(remote[CapCH2].is500us || remote[CapCH2].is1000us)
+			{
+				DEBUG("adjust\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 120);
+				bsp_SetMotorTargetSpeed(MotorRight,180);
+			}
+			else if(!remote[CapCH4].is1000us) //4收不到1000
+			{
+				DEBUG("4 miss 1000\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 140);
+				bsp_SetMotorTargetSpeed(MotorRight,180);
+			}
+			else if(!remote[CapCH3].is500us) //3收不到500
+			{
+				DEBUG("3 miss 500\r\n");
+				bsp_SetMotorTargetSpeed(MotorLeft, 180);
+				bsp_SetMotorTargetSpeed(MotorRight,140);
+			}
+			
+			
+			searchCharging.action++;
+		}break;
+		
+		case 6:
+		{
+			if(searchCharging.isNeedBack)
+			{
+				if(xTaskGetTickCount() - searchCharging.delay >= 3000)
+				{
+					searchCharging.isNeedBack = false;
+				}
+			}
+			else
+			{
+				searchCharging.action = 5;
+			}
+		}break;
+	}
+	
+#if 0	
 	switch(searchCharging.action)
 	{
 		case 0: //第一步，直走
@@ -185,10 +298,8 @@ void bsp_SearchChargingPileAct(void)
 				searchCharging.action = 5;
 			}
 		}break;
-		
-		
-		
 	}
+#endif
 }
 
 

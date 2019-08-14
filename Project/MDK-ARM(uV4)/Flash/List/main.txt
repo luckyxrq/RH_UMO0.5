@@ -382,21 +382,23 @@
                   vTaskMsgPro PROC
 ;;;191    */
 ;;;192    static void vTaskMsgPro(void *pvParameters)
-000000  e005              B        |L6.14|
+000000  e008              B        |L6.20|
                   |L6.2|
 ;;;193    {
 ;;;194        while(1)
 ;;;195        {
 ;;;196    		bsp_SendReportFrame();
 000002  f7fffffe          BL       bsp_SendReportFrame
-;;;197    		//bsp_PrintRemoteState(CapCH3);
+;;;197    		bsp_PrintRemoteState(CapCH3);
+000006  2002              MOVS     r0,#2
+000008  f7fffffe          BL       bsp_PrintRemoteState
 ;;;198    		
 ;;;199    		
 ;;;200    		vTaskDelay(1000);
-000006  f44f707a          MOV      r0,#0x3e8
-00000a  f7fffffe          BL       vTaskDelay
-                  |L6.14|
-00000e  e7f8              B        |L6.2|
+00000c  f44f707a          MOV      r0,#0x3e8
+000010  f7fffffe          BL       vTaskDelay
+                  |L6.20|
+000014  e7f5              B        |L6.2|
 ;;;201        }
 ;;;202    }
 ;;;203    
@@ -422,7 +424,7 @@
 00000c  f7fffffe          BL       vTaskDelay
 ;;;222    	
 ;;;223        while(1)
-000010  e012              B        |L7.56|
+000010  e010              B        |L7.52|
                   |L7.18|
 ;;;224        {
 ;;;225    		bsp_DetectAct();  /*∫ÏÕ‚∂‘π‹¬÷—Ø…®√Ë*/
@@ -445,14 +447,13 @@
 00002a  f7fffffe          BL       bsp_GetCapCnt
 ;;;234    		
 ;;;235    		/*—∞’“≥‰µÁ◊Æ*/
-;;;236    		bsp_SearchChargingPileAct();
-00002e  f7fffffe          BL       bsp_SearchChargingPileAct
+;;;236    		//bsp_SearchChargingPileAct();
 ;;;237    		
 ;;;238            vTaskDelay(1);
-000032  2001              MOVS     r0,#1
-000034  f7fffffe          BL       vTaskDelay
-                  |L7.56|
-000038  e7eb              B        |L7.18|
+00002e  2001              MOVS     r0,#1
+000030  f7fffffe          BL       vTaskDelay
+                  |L7.52|
+000034  e7ed              B        |L7.18|
 ;;;239        }
 ;;;240    }
 ;;;241    				

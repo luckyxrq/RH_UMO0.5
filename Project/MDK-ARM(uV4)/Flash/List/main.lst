@@ -46323,7 +46323,7 @@ N{
 N    while(1)
 N    {
 N		bsp_SendReportFrame();
-N		//bsp_PrintRemoteState(CapCH3);
+N		bsp_PrintRemoteState(CapCH3);
 N		
 N		
 N		vTaskDelay(1000);
@@ -46362,7 +46362,7 @@ N		bsp_GetCapCnt(CapCH3);
 N		bsp_GetCapCnt(CapCH4);
 N		
 N		/*Ñ°ÕÒ³äµç×®*/
-N		bsp_SearchChargingPileAct();
+N		//bsp_SearchChargingPileAct();
 N		
 N        vTaskDelay(1);
 N    }
