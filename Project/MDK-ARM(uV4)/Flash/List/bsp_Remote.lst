@@ -38810,14 +38810,17 @@ N	{
 N		return ;
 N	}
 N	
-N//	/*充电*/
-N//	if(bsp_GetChargeFeedback() == true)
-N//	{
-N//		bsp_MotorBrake(MotorLeft);
-N//	    bsp_MotorBrake(MotorRight);
-N//		bsp_StopSearchChargingPile();
-N//		return ;
-N//	}
+N	/*充电*/
+N	if(bsp_GetChargeFeedback() == true)
+X	if(bsp_GetChargeFeedback() == 1)
+N	{
+N		DEBUG("is charging...\r\n");
+X		printf ("is charging...\r\n");
+N		bsp_MotorBrake(MotorLeft);
+N	    bsp_MotorBrake(MotorRight);
+N		bsp_StopSearchChargingPile();
+N		return ;
+N	}
 N	
 N	switch(searchCharging.action)
 N	{
@@ -38888,7 +38891,7 @@ N				bsp_SetMotorTargetSpeed(MotorLeft, 120);
 N				bsp_SetMotorTargetSpeed(MotorRight,120);
 N				searchCharging.action++;
 N			}
-N			else if(!(remote[CapCH3].is500us || remote[CapCH3].is1000us) && (remote[CapCH4].is500us || remote[CapCH4].is1000us)) //3号消失
+N			else if((!remote[CapCH3].is500us || !remote[CapCH3].is1000us) && (remote[CapCH4].is500us || remote[CapCH4].is1000us)) //3号消失
 N			{
 N				DEBUG("3 miss\r\n");
 X				printf ("3 miss\r\n");
@@ -38896,7 +38899,7 @@ N				bsp_SetMotorTargetSpeed(MotorLeft, 160);
 N				bsp_SetMotorTargetSpeed(MotorRight,100);
 N				searchCharging.action++;
 N			}		
-N			else if(!(remote[CapCH4].is500us || remote[CapCH4].is1000us) && (remote[CapCH3].is500us || remote[CapCH3].is1000us))//4号消失
+N			else if((!remote[CapCH4].is500us || !remote[CapCH4].is1000us) && (remote[CapCH3].is500us || remote[CapCH3].is1000us))//4号消失
 N			{
 N				DEBUG("4 miss\r\n");
 X				printf ("4 miss\r\n");

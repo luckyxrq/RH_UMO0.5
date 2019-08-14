@@ -65,14 +65,15 @@ void bsp_SearchChargingPileAct(void)
 		return ;
 	}
 	
-//	/*充电*/
-//	if(bsp_GetChargeFeedback() == true)
-//	{
-//		bsp_MotorBrake(MotorLeft);
-//	    bsp_MotorBrake(MotorRight);
-//		bsp_StopSearchChargingPile();
-//		return ;
-//	}
+	/*充电*/
+	if(bsp_GetChargeFeedback() == true)
+	{
+		DEBUG("is charging...\r\n");
+		bsp_MotorBrake(MotorLeft);
+	    bsp_MotorBrake(MotorRight);
+		bsp_StopSearchChargingPile();
+		return ;
+	}
 	
 	switch(searchCharging.action)
 	{
@@ -139,14 +140,14 @@ void bsp_SearchChargingPileAct(void)
 				bsp_SetMotorTargetSpeed(MotorRight,120);
 				searchCharging.action++;
 			}
-			else if(!(remote[CapCH3].is500us || remote[CapCH3].is1000us) && (remote[CapCH4].is500us || remote[CapCH4].is1000us)) //3号消失
+			else if((!remote[CapCH3].is500us || !remote[CapCH3].is1000us) && (remote[CapCH4].is500us || remote[CapCH4].is1000us)) //3号消失
 			{
 				DEBUG("3 miss\r\n");
 				bsp_SetMotorTargetSpeed(MotorLeft, 160);
 				bsp_SetMotorTargetSpeed(MotorRight,100);
 				searchCharging.action++;
 			}		
-			else if(!(remote[CapCH4].is500us || remote[CapCH4].is1000us) && (remote[CapCH3].is500us || remote[CapCH3].is1000us))//4号消失
+			else if((!remote[CapCH4].is500us || !remote[CapCH4].is1000us) && (remote[CapCH3].is500us || remote[CapCH3].is1000us))//4号消失
 			{
 				DEBUG("4 miss\r\n");
 				bsp_SetMotorTargetSpeed(MotorLeft, 100);
