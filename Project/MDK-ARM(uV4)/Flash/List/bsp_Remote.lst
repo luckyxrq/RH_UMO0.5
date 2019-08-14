@@ -38745,7 +38745,7 @@ N
 N#define RANGE			100         /*红外接收脉宽计数范围*/
 N#define RangeSub(x)		((x)-RANGE) /*红外接收脉宽计数范围 负*/
 N#define RangeAdd(x)		((x)+RANGE) /*红外接收脉宽计数范围 正*/
-N#define CYCLE			70          /*如果确认检测的相应宽度的脉冲，*/
+N#define CYCLE			80          /*如果确认检测的相应宽度的脉冲，*/
 N
 Ntypedef struct
 N{
@@ -38755,6 +38755,7 @@ N	volatile bool is1000us;
 X	volatile _Bool is1000us;
 N	volatile bool is1500us;
 X	volatile _Bool is1500us;
+N	volatile uint32_t remoteStatistics[3]; //用于统计计数次数
 N}Remote;
 N
 Ntypedef enum
@@ -39101,7 +39102,7 @@ N	{
 N		for(pulse=Pulse500US;pulse<=Pulse1500US;pulse++)
 N		{
 N			if(remoteStateTimer[ch][pulse] <= CYCLE)
-X			if(remoteStateTimer[ch][pulse] <= 70)
+X			if(remoteStateTimer[ch][pulse] <= 80)
 N			{
 N				bsp_RemoteTimerCntAdd(ch,pulse); /*如果计数值为0，则每MS加1，直到一个循环周期*/
 N			}
@@ -39153,23 +39154,42 @@ N
 N		if(temp >= RangeSub(500) && temp <=  RangeAdd(500))
 X		if(temp >= ((500)-100) && temp <=  ((500)+100))
 N		{
-N			remote[ch].is500us = true;
-X			remote[ch].is500us = 1;
-N			bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
+N			remote[ch].remoteStatistics[1] = 0 ;
+N			remote[ch].remoteStatistics[2] = 0 ;
+N			
+N			if(++remote[ch].remoteStatistics[0] >= 3)
+N			{
+N				remote[ch].is500us = true;
+X				remote[ch].is500us = 1;
+N				bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
+N			}
 N		}
 N		else if(temp >= RangeSub(1000) && temp <=  RangeAdd(1000))
 X		else if(temp >= ((1000)-100) && temp <=  ((1000)+100))
 N		{
-N			remote[ch].is1000us = true;
-X			remote[ch].is1000us = 1;
-N			bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
+N			remote[ch].remoteStatistics[0] = 0 ;
+N			remote[ch].remoteStatistics[2] = 0 ;
+N			
+N			if(++remote[ch].remoteStatistics[1] >= 3)
+N			{
+N				remote[ch].is1000us = true;
+X				remote[ch].is1000us = 1;
+N				bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
+N			}
 N		}
 N		else if(temp >= RangeSub(1500) && temp <=  RangeAdd(1500))
 X		else if(temp >= ((1500)-100) && temp <=  ((1500)+100))
 N		{
-N			remote[ch].is1500us = true;
-X			remote[ch].is1500us = 1;
+N			remote[ch].remoteStatistics[0] = 0 ;
+N			remote[ch].remoteStatistics[1] = 0 ;
+N			
+N			if(++remote[ch].remoteStatistics[2] >= 3)
+N			{
+N				remote[ch].is1500us = true;
+X				remote[ch].is1500us = 1;
 N			bsp_ClearRemoteTimerCnt(ch,Pulse1500US);//清除计数
+N			}
+N			
 N		}
 N		
 N		chargingPile.capState[ch]=0;

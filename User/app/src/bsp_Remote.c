@@ -3,13 +3,14 @@
 #define RANGE			100         /*红外接收脉宽计数范围*/
 #define RangeSub(x)		((x)-RANGE) /*红外接收脉宽计数范围 负*/
 #define RangeAdd(x)		((x)+RANGE) /*红外接收脉宽计数范围 正*/
-#define CYCLE			70          /*如果确认检测的相应宽度的脉冲，*/
+#define CYCLE			80          /*如果确认检测的相应宽度的脉冲，*/
 
 typedef struct
 {
 	volatile bool is500us;
 	volatile bool is1000us;
 	volatile bool is1500us;
+	volatile uint32_t remoteStatistics[3]; //用于统计计数次数
 }Remote;
 
 typedef enum
@@ -378,18 +379,37 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 
 		if(temp >= RangeSub(500) && temp <=  RangeAdd(500))
 		{
-			remote[ch].is500us = true;
-			bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
+			remote[ch].remoteStatistics[1] = 0 ;
+			remote[ch].remoteStatistics[2] = 0 ;
+			
+			if(++remote[ch].remoteStatistics[0] >= 3)
+			{
+				remote[ch].is500us = true;
+				bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
+			}
 		}
 		else if(temp >= RangeSub(1000) && temp <=  RangeAdd(1000))
 		{
-			remote[ch].is1000us = true;
-			bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
+			remote[ch].remoteStatistics[0] = 0 ;
+			remote[ch].remoteStatistics[2] = 0 ;
+			
+			if(++remote[ch].remoteStatistics[1] >= 3)
+			{
+				remote[ch].is1000us = true;
+				bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
+			}
 		}
 		else if(temp >= RangeSub(1500) && temp <=  RangeAdd(1500))
 		{
-			remote[ch].is1500us = true;
+			remote[ch].remoteStatistics[0] = 0 ;
+			remote[ch].remoteStatistics[1] = 0 ;
+			
+			if(++remote[ch].remoteStatistics[2] >= 3)
+			{
+				remote[ch].is1500us = true;
 			bsp_ClearRemoteTimerCnt(ch,Pulse1500US);//清除计数
+			}
+			
 		}
 		
 		chargingPile.capState[ch]=0;
