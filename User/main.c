@@ -126,7 +126,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 		#endif
 		
 		
-		#if 1
+		#if 0
 		DEBUG("½Ç¶È£º%.2F\r\n",bsp_AngleRead());
 		#endif
 		
@@ -156,6 +156,7 @@ static void vTaskLED(void *pvParameters)
 		bsp_IWDG_Feed(); /* Î¹¹· */
 		
 		
+		#if 0
 		{
 			Collision collision = bsp_CollisionScan();
 			if(collision == CollisionLeft)
@@ -172,6 +173,10 @@ static void vTaskLED(void *pvParameters)
 			}
 			
 		}
+		#endif
+		
+		bsp_SetMotorTargetSpeed(MotorLeft,250);
+		bsp_SetMotorTargetSpeed(MotorRight,250);
 		
 		bsp_PidControlAct();
 		
@@ -192,6 +197,7 @@ static void vTaskMsgPro(void *pvParameters)
 {
     while(1)
     {
+		
 		bsp_SendReportFrame();
 		vTaskDelay(50);
     }

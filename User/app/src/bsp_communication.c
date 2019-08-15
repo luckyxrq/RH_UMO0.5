@@ -87,9 +87,10 @@ void bsp_FillReportFrame(void)
 	uint16_t chk = 0 ;
 	uint32_t len = sizeof(reportFrame);/*帧大小*/
 	uint8_t* src = (uint8_t*)&reportFrame;
-	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
+	int16_t angle = bsp_AngleReadRaw()*-1;                     /*角度*/
 	int32_t odometerL = bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
 	int32_t odometerR = bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
+	uint16_t collisionRL = bsp_CollisionScan();
 	
 	/*消除编译器警告*/
 	UNUSED(reportFrame);
@@ -103,7 +104,7 @@ void bsp_FillReportFrame(void)
 	reportFrame.left_wheel_pulse_count =  BEBufToUint32((uint8_t*)&odometerL);
 	reportFrame.right_wheel_pulse_count = BEBufToUint32((uint8_t*)&odometerR);
 	reportFrame.button_control_cmd = 0 ;
-	reportFrame.distance_of_left_infrared = 0 ;
+	reportFrame.distance_of_left_infrared = collisionRL;
 	reportFrame.distance_of_right_infrared = 0 ;
 	reportFrame.distance_of_front_infrared = 0 ;
 	reportFrame.angle_deg = BEBufToUint16((uint8_t*)&angle);
