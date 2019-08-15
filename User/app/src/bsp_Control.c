@@ -30,8 +30,8 @@ void bsp_InitPid(MotorSN sn)
 	if(sn == MotorLeft)
 	{
 		/*给定KP KI参数*/
-		pid[0].kp = 20;
-		pid[0].ki = 30;
+		pid[0].kp = 5;
+		pid[0].ki = 10;
 		/*清除之前的误差*/
 		pid[0].bias = 0 ;
 		pid[0].lastBias = 0 ;
@@ -44,8 +44,8 @@ void bsp_InitPid(MotorSN sn)
 	else if(sn == MotorRight)
 	{
 		/*给定KP KI参数*/
-		pid[1].kp = 20;
-		pid[1].ki = 30;
+		pid[1].kp = 5;
+		pid[1].ki = 10;
 		/*清除之前的误差*/
 		pid[1].bias = 0 ;
 		pid[1].lastBias = 0 ;

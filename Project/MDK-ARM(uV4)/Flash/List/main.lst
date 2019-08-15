@@ -45941,11 +45941,18 @@ N{
 N
 N    while(1)
 N    {
-N		bsp_SetMotorSpeed(MotorLeft,5);
-N		bsp_SetMotorSpeed(MotorRight,5);		
+N		bsp_SetMotorSpeed(MotorLeft,12);
+N		bsp_SetMotorSpeed(MotorRight,12);		
 N		vTaskDelay(6000);
-N		bsp_SetMotorSpeed(MotorLeft,-5);
-N		bsp_SetMotorSpeed(MotorRight,-5);		
+N		bsp_SetMotorSpeed(MotorLeft,7);
+N		bsp_SetMotorSpeed(MotorRight,7);		
+N		vTaskDelay(6000);
+N		
+N		bsp_SetMotorSpeed(MotorLeft,-12);
+N		bsp_SetMotorSpeed(MotorRight,-12);		
+N		vTaskDelay(6000);
+N		bsp_SetMotorSpeed(MotorLeft,-7);
+N		bsp_SetMotorSpeed(MotorRight,-7);		
 N		vTaskDelay(6000);
 N
 N	}
