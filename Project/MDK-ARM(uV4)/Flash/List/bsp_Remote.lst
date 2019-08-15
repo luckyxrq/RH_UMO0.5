@@ -38888,7 +38888,7 @@ N		case 3: //4号同时收到
 N		{
 N			if(searchCharging.isRight) //右边切入
 N			{
-N				if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+N				if(remote[CapCH4].is500us && remote[CapCH4].is1000us && (remote[CapCH3].is500us || remote[CapCH3].is1000us))
 N				{
 N					DEBUG("4 detect 3 pulse\r\n");
 X					printf ("4 detect 3 pulse\r\n");
@@ -38899,7 +38899,7 @@ N				}
 N			}
 N			else //左边切入
 N			{
-N				if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
+N				if(remote[CapCH3].is500us && remote[CapCH3].is1000us && (remote[CapCH4].is500us || remote[CapCH4].is1000us))
 N				{
 N					DEBUG("3 detect 3 pulse\r\n");
 X					printf ("3 detect 3 pulse\r\n");

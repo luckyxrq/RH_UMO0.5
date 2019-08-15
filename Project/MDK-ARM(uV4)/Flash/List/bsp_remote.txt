@@ -1229,7 +1229,7 @@
 000000  b510              PUSH     {r4,lr}
 ;;;65     {
 ;;;66     	if(!searchCharging.isRunning)
-000002  48ab              LDR      r0,|L12.688|
+000002  48b4              LDR      r0,|L12.724|
 000004  7800              LDRB     r0,[r0,#0]  ; searchCharging
 000006  b900              CBNZ     r0,|L12.10|
                   |L12.8|
@@ -1304,7 +1304,7 @@
 ;;;135    		{
 ;;;136    			if(searchCharging.isRight) //”“±ﬂ«–»Î
 ;;;137    			{
-;;;138    				if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+;;;138    				if(remote[CapCH4].is500us && remote[CapCH4].is1000us && (remote[CapCH3].is500us || remote[CapCH3].is1000us))
 ;;;139    				{
 ;;;140    					DEBUG("4 detect 3 pulse\r\n");
 ;;;141    					bsp_MotorBrake(MotorLeft);
@@ -1314,7 +1314,7 @@
 ;;;145    			}
 ;;;146    			else //◊Û±ﬂ«–»Î
 ;;;147    			{
-;;;148    				if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
+;;;148    				if(remote[CapCH3].is500us && remote[CapCH3].is1000us && (remote[CapCH4].is500us || remote[CapCH4].is1000us))
 ;;;149    				{
 ;;;150    					DEBUG("3 detect 3 pulse\r\n");
 ;;;151    					bsp_MotorBrake(MotorLeft);
@@ -1406,7 +1406,7 @@
                   |L12.10|
 00000a  f7fffffe          BL       bsp_GetChargeFeedback
 00000e  b158              CBZ      r0,|L12.40|
-000010  a0a8              ADR      r0,|L12.692|
+000010  a0b1              ADR      r0,|L12.728|
 000012  f7fffffe          BL       __2printf
 000016  2000              MOVS     r0,#0                 ;75
 000018  f7fffffe          BL       bsp_MotorBrake
@@ -1415,66 +1415,66 @@
 000022  f7fffffe          BL       bsp_StopSearchChargingPile
 000026  e7ef              B        |L12.8|
                   |L12.40|
-000028  48a1              LDR      r0,|L12.688|
+000028  48aa              LDR      r0,|L12.724|
 00002a  6840              LDR      r0,[r0,#4]            ;81  ; searchCharging
 00002c  2807              CMP      r0,#7                 ;81
 00002e  d212              BCS      |L12.86|
 000030  e8dff000          TBB      [pc,r0]               ;81
 000034  04125970          DCB      0x04,0x12,0x59,0x70
-000038  a1c0ef00          DCB      0xa1,0xc0,0xef,0x00
-00003c  49a2              LDR      r1,|L12.712|
+000038  b2d1fe00          DCB      0xb2,0xd1,0xfe,0x00
+00003c  49ab              LDR      r1,|L12.748|
 00003e  2000              MOVS     r0,#0                 ;85
 000040  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000044  49a0              LDR      r1,|L12.712|
+000044  49a9              LDR      r1,|L12.748|
 000046  2001              MOVS     r0,#1                 ;86
 000048  f7fffffe          BL       bsp_SetMotorTargetSpeed
-00004c  4898              LDR      r0,|L12.688|
+00004c  48a1              LDR      r0,|L12.724|
 00004e  6840              LDR      r0,[r0,#4]            ;88  ; searchCharging
 000050  1c40              ADDS     r0,r0,#1              ;88
-000052  4997              LDR      r1,|L12.688|
+000052  49a0              LDR      r1,|L12.724|
 000054  6048              STR      r0,[r1,#4]            ;88  ; searchCharging
                   |L12.86|
-000056  e128              B        |L12.682|
-000058  489c              LDR      r0,|L12.716|
+000056  e13a              B        |L12.718|
+000058  48a5              LDR      r0,|L12.752|
 00005a  7800              LDRB     r0,[r0,#0]            ;93  ; remote
 00005c  b1a8              CBZ      r0,|L12.138|
-00005e  489b              LDR      r0,|L12.716|
+00005e  48a4              LDR      r0,|L12.752|
 000060  7840              LDRB     r0,[r0,#1]            ;93  ; remote
 000062  b190              CBZ      r0,|L12.138|
-000064  4899              LDR      r0,|L12.716|
+000064  48a2              LDR      r0,|L12.752|
 000066  7880              LDRB     r0,[r0,#2]            ;93  ; remote
 000068  b178              CBZ      r0,|L12.138|
-00006a  a099              ADR      r0,|L12.720|
+00006a  a0a2              ADR      r0,|L12.756|
 00006c  f7fffffe          BL       __2printf
 000070  2000              MOVS     r0,#0                 ;96
 000072  f7fffffe          BL       bsp_MotorBrake
 000076  2001              MOVS     r0,#1                 ;97
 000078  f7fffffe          BL       bsp_MotorBrake
 00007c  2001              MOVS     r0,#1                 ;99
-00007e  498c              LDR      r1,|L12.688|
+00007e  4995              LDR      r1,|L12.724|
 000080  7448              STRB     r0,[r1,#0x11]         ;99
 000082  4608              MOV      r0,r1                 ;100
 000084  6840              LDR      r0,[r0,#4]            ;100  ; searchCharging
 000086  1c40              ADDS     r0,r0,#1              ;100
 000088  6048              STR      r0,[r1,#4]            ;100  ; searchCharging
                   |L12.138|
-00008a  4890              LDR      r0,|L12.716|
+00008a  4899              LDR      r0,|L12.752|
 00008c  7c00              LDRB     r0,[r0,#0x10]         ;102  ; remote
 00008e  b1b0              CBZ      r0,|L12.190|
-000090  488e              LDR      r0,|L12.716|
+000090  4897              LDR      r0,|L12.752|
 000092  7c40              LDRB     r0,[r0,#0x11]         ;102
 000094  b198              CBZ      r0,|L12.190|
-000096  488d              LDR      r0,|L12.716|
+000096  4896              LDR      r0,|L12.752|
 000098  7c80              LDRB     r0,[r0,#0x12]         ;102
 00009a  b180              CBZ      r0,|L12.190|
-00009c  a091              ADR      r0,|L12.740|
+00009c  a09a              ADR      r0,|L12.776|
 00009e  f7fffffe          BL       __2printf
 0000a2  2000              MOVS     r0,#0                 ;105
 0000a4  f7fffffe          BL       bsp_MotorBrake
 0000a8  2001              MOVS     r0,#1                 ;106
 0000aa  f7fffffe          BL       bsp_MotorBrake
 0000ae  2000              MOVS     r0,#0                 ;108
-0000b0  497f              LDR      r1,|L12.688|
+0000b0  4988              LDR      r1,|L12.724|
 0000b2  7448              STRB     r0,[r1,#0x11]         ;108
 0000b4  4608              MOV      r0,r1                 ;109
 0000b6  6840              LDR      r0,[r0,#4]            ;109  ; searchCharging
@@ -1482,308 +1482,325 @@
 0000ba  6048              STR      r0,[r1,#4]            ;109  ; searchCharging
 0000bc  e012              B        |L12.228|
                   |L12.190|
-0000be  4883              LDR      r0,|L12.716|
+0000be  488c              LDR      r0,|L12.752|
 0000c0  f8900030          LDRB     r0,[r0,#0x30]         ;111  ; remote
 0000c4  b118              CBZ      r0,|L12.206|
-0000c6  4881              LDR      r0,|L12.716|
+0000c6  488a              LDR      r0,|L12.752|
 0000c8  f8900031          LDRB     r0,[r0,#0x31]         ;111
 0000cc  b938              CBNZ     r0,|L12.222|
                   |L12.206|
-0000ce  487f              LDR      r0,|L12.716|
+0000ce  4888              LDR      r0,|L12.752|
 0000d0  f8900020          LDRB     r0,[r0,#0x20]         ;111  ; remote
 0000d4  b130              CBZ      r0,|L12.228|
-0000d6  487d              LDR      r0,|L12.716|
+0000d6  4886              LDR      r0,|L12.752|
 0000d8  f8900021          LDRB     r0,[r0,#0x21]         ;111
 0000dc  b110              CBZ      r0,|L12.228|
                   |L12.222|
 0000de  2005              MOVS     r0,#5                 ;113
-0000e0  4973              LDR      r1,|L12.688|
+0000e0  497c              LDR      r1,|L12.724|
 0000e2  6048              STR      r0,[r1,#4]            ;113  ; searchCharging
                   |L12.228|
-0000e4  e0e1              B        |L12.682|
-0000e6  4872              LDR      r0,|L12.688|
+0000e4  e0f3              B        |L12.718|
+0000e6  487b              LDR      r0,|L12.724|
 0000e8  7c40              LDRB     r0,[r0,#0x11]         ;120  ; searchCharging
 0000ea  b148              CBZ      r0,|L12.256|
-0000ec  4976              LDR      r1,|L12.712|
+0000ec  497f              LDR      r1,|L12.748|
 0000ee  2000              MOVS     r0,#0                 ;122
 0000f0  f7fffffe          BL       bsp_SetMotorTargetSpeed
-0000f4  486e              LDR      r0,|L12.688|
+0000f4  4877              LDR      r0,|L12.724|
 0000f6  6840              LDR      r0,[r0,#4]            ;123  ; searchCharging
 0000f8  1c40              ADDS     r0,r0,#1              ;123
-0000fa  496d              LDR      r1,|L12.688|
+0000fa  4976              LDR      r1,|L12.724|
 0000fc  6048              STR      r0,[r1,#4]            ;123  ; searchCharging
 0000fe  e008              B        |L12.274|
                   |L12.256|
-000100  4971              LDR      r1,|L12.712|
+000100  497a              LDR      r1,|L12.748|
 000102  2001              MOVS     r0,#1                 ;127
 000104  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000108  4869              LDR      r0,|L12.688|
+000108  4872              LDR      r0,|L12.724|
 00010a  6840              LDR      r0,[r0,#4]            ;128  ; searchCharging
 00010c  1c40              ADDS     r0,r0,#1              ;128
-00010e  4968              LDR      r1,|L12.688|
+00010e  4971              LDR      r1,|L12.724|
 000110  6048              STR      r0,[r1,#4]            ;128  ; searchCharging
                   |L12.274|
-000112  e0ca              B        |L12.682|
-000114  4866              LDR      r0,|L12.688|
+000112  e0dc              B        |L12.718|
+000114  486f              LDR      r0,|L12.724|
 000116  7c40              LDRB     r0,[r0,#0x11]         ;136  ; searchCharging
-000118  b1b0              CBZ      r0,|L12.328|
-00011a  486c              LDR      r0,|L12.716|
+000118  b1f8              CBZ      r0,|L12.346|
+00011a  4875              LDR      r0,|L12.752|
 00011c  f8900030          LDRB     r0,[r0,#0x30]         ;138  ; remote
-000120  b340              CBZ      r0,|L12.372|
-000122  486a              LDR      r0,|L12.716|
-000124  f8900031          LDRB     r0,[r0,#0x31]         ;138
-000128  b320              CBZ      r0,|L12.372|
-00012a  a073              ADR      r0,|L12.760|
-00012c  f7fffffe          BL       __2printf
-000130  2000              MOVS     r0,#0                 ;141
-000132  f7fffffe          BL       bsp_MotorBrake
-000136  2001              MOVS     r0,#1                 ;142
-000138  f7fffffe          BL       bsp_MotorBrake
-00013c  485c              LDR      r0,|L12.688|
-00013e  6840              LDR      r0,[r0,#4]            ;143  ; searchCharging
-000140  1c40              ADDS     r0,r0,#1              ;143
-000142  495b              LDR      r1,|L12.688|
-000144  6048              STR      r0,[r1,#4]            ;143  ; searchCharging
-000146  e015              B        |L12.372|
-                  |L12.328|
-000148  4860              LDR      r0,|L12.716|
-00014a  f8900020          LDRB     r0,[r0,#0x20]         ;148  ; remote
-00014e  b188              CBZ      r0,|L12.372|
-000150  485e              LDR      r0,|L12.716|
-000152  f8900021          LDRB     r0,[r0,#0x21]         ;148
-000156  b168              CBZ      r0,|L12.372|
-000158  a06c              ADR      r0,|L12.780|
-00015a  f7fffffe          BL       __2printf
-00015e  2000              MOVS     r0,#0                 ;151
-000160  f7fffffe          BL       bsp_MotorBrake
-000164  2001              MOVS     r0,#1                 ;152
-000166  f7fffffe          BL       bsp_MotorBrake
-00016a  4851              LDR      r0,|L12.688|
-00016c  6840              LDR      r0,[r0,#4]            ;153  ; searchCharging
-00016e  1c40              ADDS     r0,r0,#1              ;153
-000170  494f              LDR      r1,|L12.688|
-000172  6048              STR      r0,[r1,#4]            ;153  ; searchCharging
-                  |L12.372|
-000174  e099              B        |L12.682|
-000176  484e              LDR      r0,|L12.688|
-000178  7c40              LDRB     r0,[r0,#0x11]         ;160  ; searchCharging
-00017a  b168              CBZ      r0,|L12.408|
-00017c  4952              LDR      r1,|L12.712|
-00017e  2000              MOVS     r0,#0                 ;162
-000180  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000184  4966              LDR      r1,|L12.800|
-000186  2001              MOVS     r0,#1                 ;163
-000188  f7fffffe          BL       bsp_SetMotorTargetSpeed
-00018c  4848              LDR      r0,|L12.688|
-00018e  6840              LDR      r0,[r0,#4]            ;164  ; searchCharging
-000190  1c40              ADDS     r0,r0,#1              ;164
-000192  4947              LDR      r1,|L12.688|
-000194  6048              STR      r0,[r1,#4]            ;164  ; searchCharging
-000196  e00c              B        |L12.434|
-                  |L12.408|
-000198  4961              LDR      r1,|L12.800|
-00019a  2000              MOVS     r0,#0                 ;168
-00019c  f7fffffe          BL       bsp_SetMotorTargetSpeed
-0001a0  4949              LDR      r1,|L12.712|
-0001a2  2001              MOVS     r0,#1                 ;169
-0001a4  f7fffffe          BL       bsp_SetMotorTargetSpeed
-0001a8  4841              LDR      r0,|L12.688|
-0001aa  6840              LDR      r0,[r0,#4]            ;170  ; searchCharging
-0001ac  1c40              ADDS     r0,r0,#1              ;170
-0001ae  4940              LDR      r1,|L12.688|
-0001b0  6048              STR      r0,[r1,#4]            ;170  ; searchCharging
-                  |L12.434|
-0001b2  e07a              B        |L12.682|
-0001b4  f7fffffe          BL       bsp_CollisionScan
-0001b8  4604              MOV      r4,r0                 ;177
-0001ba  2c03              CMP      r4,#3                 ;178
-0001bc  d015              BEQ      |L12.490|
-0001be  2000              MOVS     r0,#0                 ;180
-0001c0  f7fffffe          BL       bsp_MotorBrake
-0001c4  2001              MOVS     r0,#1                 ;181
-0001c6  f7fffffe          BL       bsp_MotorBrake
-0001ca  4956              LDR      r1,|L12.804|
-0001cc  2000              MOVS     r0,#0                 ;182
-0001ce  f7fffffe          BL       bsp_SetMotorTargetSpeed
-0001d2  4954              LDR      r1,|L12.804|
-0001d4  2001              MOVS     r0,#1                 ;183
-0001d6  f7fffffe          BL       bsp_SetMotorTargetSpeed
-0001da  2001              MOVS     r0,#1                 ;185
-0001dc  4934              LDR      r1,|L12.688|
-0001de  7408              STRB     r0,[r1,#0x10]         ;185
-0001e0  f7fffffe          BL       xTaskGetTickCount
-0001e4  4932              LDR      r1,|L12.688|
-0001e6  6088              STR      r0,[r1,#8]            ;186  ; searchCharging
-0001e8  e045              B        |L12.630|
-                  |L12.490|
-0001ea  4838              LDR      r0,|L12.716|
-0001ec  f8900020          LDRB     r0,[r0,#0x20]         ;188  ; remote
-0001f0  b180              CBZ      r0,|L12.532|
-0001f2  4836              LDR      r0,|L12.716|
-0001f4  f8900031          LDRB     r0,[r0,#0x31]         ;188
-0001f8  b160              CBZ      r0,|L12.532|
-0001fa  a04b              ADR      r0,|L12.808|
-0001fc  f7fffffe          BL       __2printf
-000200  4947              LDR      r1,|L12.800|
-000202  2000              MOVS     r0,#0                 ;191
-000204  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000208  4945              LDR      r1,|L12.800|
-00020a  2001              MOVS     r0,#1                 ;192
-00020c  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000210  e031              B        |L12.630|
-000212  e036              B        |L12.642|
-                  |L12.532|
-000214  482d              LDR      r0,|L12.716|
-000216  7800              LDRB     r0,[r0,#0]            ;194  ; remote
-000218  b910              CBNZ     r0,|L12.544|
-00021a  482c              LDR      r0,|L12.716|
-00021c  7840              LDRB     r0,[r0,#1]            ;194  ; remote
-00021e  b158              CBZ      r0,|L12.568|
-                  |L12.544|
-000220  a043              ADR      r0,|L12.816|
-000222  f7fffffe          BL       __2printf
-000226  4928              LDR      r1,|L12.712|
-000228  2000              MOVS     r0,#0                 ;197
-00022a  f7fffffe          BL       bsp_SetMotorTargetSpeed
-00022e  4943              LDR      r1,|L12.828|
-000230  2001              MOVS     r0,#1                 ;198
+000120  2800              CMP      r0,#0                 ;138
+000122  d038              BEQ      |L12.406|
+000124  4872              LDR      r0,|L12.752|
+000126  f8900031          LDRB     r0,[r0,#0x31]         ;138
+00012a  b3a0              CBZ      r0,|L12.406|
+00012c  4870              LDR      r0,|L12.752|
+00012e  f8900020          LDRB     r0,[r0,#0x20]         ;138  ; remote
+000132  b918              CBNZ     r0,|L12.316|
+000134  486e              LDR      r0,|L12.752|
+000136  f8900021          LDRB     r0,[r0,#0x21]         ;138
+00013a  b360              CBZ      r0,|L12.406|
+                  |L12.316|
+00013c  a077              ADR      r0,|L12.796|
+00013e  f7fffffe          BL       __2printf
+000142  2000              MOVS     r0,#0                 ;141
+000144  f7fffffe          BL       bsp_MotorBrake
+000148  2001              MOVS     r0,#1                 ;142
+00014a  f7fffffe          BL       bsp_MotorBrake
+00014e  4861              LDR      r0,|L12.724|
+000150  6840              LDR      r0,[r0,#4]            ;143  ; searchCharging
+000152  1c40              ADDS     r0,r0,#1              ;143
+000154  495f              LDR      r1,|L12.724|
+000156  6048              STR      r0,[r1,#4]            ;143  ; searchCharging
+000158  e01d              B        |L12.406|
+                  |L12.346|
+00015a  4865              LDR      r0,|L12.752|
+00015c  f8900020          LDRB     r0,[r0,#0x20]         ;148  ; remote
+000160  b1c8              CBZ      r0,|L12.406|
+000162  4863              LDR      r0,|L12.752|
+000164  f8900021          LDRB     r0,[r0,#0x21]         ;148
+000168  b1a8              CBZ      r0,|L12.406|
+00016a  4861              LDR      r0,|L12.752|
+00016c  f8900030          LDRB     r0,[r0,#0x30]         ;148  ; remote
+000170  b918              CBNZ     r0,|L12.378|
+000172  485f              LDR      r0,|L12.752|
+000174  f8900031          LDRB     r0,[r0,#0x31]         ;148
+000178  b168              CBZ      r0,|L12.406|
+                  |L12.378|
+00017a  a06d              ADR      r0,|L12.816|
+00017c  f7fffffe          BL       __2printf
+000180  2000              MOVS     r0,#0                 ;151
+000182  f7fffffe          BL       bsp_MotorBrake
+000186  2001              MOVS     r0,#1                 ;152
+000188  f7fffffe          BL       bsp_MotorBrake
+00018c  4851              LDR      r0,|L12.724|
+00018e  6840              LDR      r0,[r0,#4]            ;153  ; searchCharging
+000190  1c40              ADDS     r0,r0,#1              ;153
+000192  4950              LDR      r1,|L12.724|
+000194  6048              STR      r0,[r1,#4]            ;153  ; searchCharging
+                  |L12.406|
+000196  e09a              B        |L12.718|
+000198  484e              LDR      r0,|L12.724|
+00019a  7c40              LDRB     r0,[r0,#0x11]         ;160  ; searchCharging
+00019c  b168              CBZ      r0,|L12.442|
+00019e  4953              LDR      r1,|L12.748|
+0001a0  2000              MOVS     r0,#0                 ;162
+0001a2  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001a6  4967              LDR      r1,|L12.836|
+0001a8  2001              MOVS     r0,#1                 ;163
+0001aa  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001ae  4849              LDR      r0,|L12.724|
+0001b0  6840              LDR      r0,[r0,#4]            ;164  ; searchCharging
+0001b2  1c40              ADDS     r0,r0,#1              ;164
+0001b4  4947              LDR      r1,|L12.724|
+0001b6  6048              STR      r0,[r1,#4]            ;164  ; searchCharging
+0001b8  e00c              B        |L12.468|
+                  |L12.442|
+0001ba  4962              LDR      r1,|L12.836|
+0001bc  2000              MOVS     r0,#0                 ;168
+0001be  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001c2  494a              LDR      r1,|L12.748|
+0001c4  2001              MOVS     r0,#1                 ;169
+0001c6  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001ca  4842              LDR      r0,|L12.724|
+0001cc  6840              LDR      r0,[r0,#4]            ;170  ; searchCharging
+0001ce  1c40              ADDS     r0,r0,#1              ;170
+0001d0  4940              LDR      r1,|L12.724|
+0001d2  6048              STR      r0,[r1,#4]            ;170  ; searchCharging
+                  |L12.468|
+0001d4  e07b              B        |L12.718|
+0001d6  f7fffffe          BL       bsp_CollisionScan
+0001da  4604              MOV      r4,r0                 ;177
+0001dc  2c03              CMP      r4,#3                 ;178
+0001de  d015              BEQ      |L12.524|
+0001e0  2000              MOVS     r0,#0                 ;180
+0001e2  f7fffffe          BL       bsp_MotorBrake
+0001e6  2001              MOVS     r0,#1                 ;181
+0001e8  f7fffffe          BL       bsp_MotorBrake
+0001ec  4956              LDR      r1,|L12.840|
+0001ee  2000              MOVS     r0,#0                 ;182
+0001f0  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001f4  4954              LDR      r1,|L12.840|
+0001f6  2001              MOVS     r0,#1                 ;183
+0001f8  f7fffffe          BL       bsp_SetMotorTargetSpeed
+0001fc  2001              MOVS     r0,#1                 ;185
+0001fe  4935              LDR      r1,|L12.724|
+000200  7408              STRB     r0,[r1,#0x10]         ;185
+000202  f7fffffe          BL       xTaskGetTickCount
+000206  4933              LDR      r1,|L12.724|
+000208  6088              STR      r0,[r1,#8]            ;186  ; searchCharging
+00020a  e046              B        |L12.666|
+                  |L12.524|
+00020c  4838              LDR      r0,|L12.752|
+00020e  f8900020          LDRB     r0,[r0,#0x20]         ;188  ; remote
+000212  b188              CBZ      r0,|L12.568|
+000214  4836              LDR      r0,|L12.752|
+000216  f8900031          LDRB     r0,[r0,#0x31]         ;188
+00021a  b168              CBZ      r0,|L12.568|
+00021c  a04b              ADR      r0,|L12.844|
+00021e  f7fffffe          BL       __2printf
+000222  4948              LDR      r1,|L12.836|
+000224  2000              MOVS     r0,#0                 ;191
+000226  f7fffffe          BL       bsp_SetMotorTargetSpeed
+00022a  4946              LDR      r1,|L12.836|
+00022c  2001              MOVS     r0,#1                 ;192
+00022e  e000              B        |L12.562|
+000230  e039              B        |L12.678|
+                  |L12.562|
 000232  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000236  e01e              B        |L12.630|
+000236  e030              B        |L12.666|
                   |L12.568|
-000238  4824              LDR      r0,|L12.716|
-00023a  f8900031          LDRB     r0,[r0,#0x31]         ;200
-00023e  b958              CBNZ     r0,|L12.600|
-000240  a03f              ADR      r0,|L12.832|
-000242  f7fffffe          BL       __2printf
-000246  4936              LDR      r1,|L12.800|
-000248  2000              MOVS     r0,#0                 ;203
-00024a  f7fffffe          BL       bsp_SetMotorTargetSpeed
-00024e  491e              LDR      r1,|L12.712|
-000250  2001              MOVS     r0,#1                 ;204
-000252  f7fffffe          BL       bsp_SetMotorTargetSpeed
-000256  e00e              B        |L12.630|
-                  |L12.600|
-000258  481c              LDR      r0,|L12.716|
-00025a  f8900020          LDRB     r0,[r0,#0x20]         ;206  ; remote
-00025e  b950              CBNZ     r0,|L12.630|
-000260  a03b              ADR      r0,|L12.848|
-000262  f7fffffe          BL       __2printf
-000266  4918              LDR      r1,|L12.712|
-000268  2000              MOVS     r0,#0                 ;209
-00026a  f7fffffe          BL       bsp_SetMotorTargetSpeed
-00026e  492c              LDR      r1,|L12.800|
-000270  2001              MOVS     r0,#1                 ;210
-000272  f7fffffe          BL       bsp_SetMotorTargetSpeed
-                  |L12.630|
-000276  480e              LDR      r0,|L12.688|
-000278  6840              LDR      r0,[r0,#4]            ;214  ; searchCharging
-00027a  1c40              ADDS     r0,r0,#1              ;214
-00027c  490c              LDR      r1,|L12.688|
-00027e  6048              STR      r0,[r1,#4]            ;214  ; searchCharging
-000280  e013              B        |L12.682|
-                  |L12.642|
-000282  480b              LDR      r0,|L12.688|
-000284  7c00              LDRB     r0,[r0,#0x10]         ;219  ; searchCharging
-000286  b160              CBZ      r0,|L12.674|
-000288  f7fffffe          BL       xTaskGetTickCount
-00028c  4908              LDR      r1,|L12.688|
-00028e  6889              LDR      r1,[r1,#8]            ;221  ; searchCharging
-000290  1a40              SUBS     r0,r0,r1              ;221
-000292  f2413188          MOV      r1,#0x1388            ;221
-000296  4288              CMP      r0,r1                 ;221
-000298  d306              BCC      |L12.680|
-00029a  2000              MOVS     r0,#0                 ;223
-00029c  4904              LDR      r1,|L12.688|
-00029e  7408              STRB     r0,[r1,#0x10]         ;223
-0002a0  e002              B        |L12.680|
-                  |L12.674|
-0002a2  2005              MOVS     r0,#5                 ;228
-0002a4  4902              LDR      r1,|L12.688|
-0002a6  6048              STR      r0,[r1,#4]            ;228  ; searchCharging
-                  |L12.680|
-0002a8  bf00              NOP                            ;230
-                  |L12.682|
-0002aa  bf00              NOP                            ;89
-0002ac  bf00              NOP      
-0002ae  e6ab              B        |L12.8|
+000238  482d              LDR      r0,|L12.752|
+00023a  7800              LDRB     r0,[r0,#0]            ;194  ; remote
+00023c  b910              CBNZ     r0,|L12.580|
+00023e  482c              LDR      r0,|L12.752|
+000240  7840              LDRB     r0,[r0,#1]            ;194  ; remote
+000242  b158              CBZ      r0,|L12.604|
+                  |L12.580|
+000244  a043              ADR      r0,|L12.852|
+000246  f7fffffe          BL       __2printf
+00024a  4928              LDR      r1,|L12.748|
+00024c  2000              MOVS     r0,#0                 ;197
+00024e  f7fffffe          BL       bsp_SetMotorTargetSpeed
+000252  4943              LDR      r1,|L12.864|
+000254  2001              MOVS     r0,#1                 ;198
+000256  f7fffffe          BL       bsp_SetMotorTargetSpeed
+00025a  e01e              B        |L12.666|
+                  |L12.604|
+00025c  4824              LDR      r0,|L12.752|
+00025e  f8900031          LDRB     r0,[r0,#0x31]         ;200
+000262  b958              CBNZ     r0,|L12.636|
+000264  a03f              ADR      r0,|L12.868|
+000266  f7fffffe          BL       __2printf
+00026a  4936              LDR      r1,|L12.836|
+00026c  2000              MOVS     r0,#0                 ;203
+00026e  f7fffffe          BL       bsp_SetMotorTargetSpeed
+000272  491e              LDR      r1,|L12.748|
+000274  2001              MOVS     r0,#1                 ;204
+000276  f7fffffe          BL       bsp_SetMotorTargetSpeed
+00027a  e00e              B        |L12.666|
+                  |L12.636|
+00027c  481c              LDR      r0,|L12.752|
+00027e  f8900020          LDRB     r0,[r0,#0x20]         ;206  ; remote
+000282  b950              CBNZ     r0,|L12.666|
+000284  a03b              ADR      r0,|L12.884|
+000286  f7fffffe          BL       __2printf
+00028a  4918              LDR      r1,|L12.748|
+00028c  2000              MOVS     r0,#0                 ;209
+00028e  f7fffffe          BL       bsp_SetMotorTargetSpeed
+000292  492c              LDR      r1,|L12.836|
+000294  2001              MOVS     r0,#1                 ;210
+000296  f7fffffe          BL       bsp_SetMotorTargetSpeed
+                  |L12.666|
+00029a  480e              LDR      r0,|L12.724|
+00029c  6840              LDR      r0,[r0,#4]            ;214  ; searchCharging
+00029e  1c40              ADDS     r0,r0,#1              ;214
+0002a0  490c              LDR      r1,|L12.724|
+0002a2  6048              STR      r0,[r1,#4]            ;214  ; searchCharging
+0002a4  e013              B        |L12.718|
+                  |L12.678|
+0002a6  480b              LDR      r0,|L12.724|
+0002a8  7c00              LDRB     r0,[r0,#0x10]         ;219  ; searchCharging
+0002aa  b160              CBZ      r0,|L12.710|
+0002ac  f7fffffe          BL       xTaskGetTickCount
+0002b0  4908              LDR      r1,|L12.724|
+0002b2  6889              LDR      r1,[r1,#8]            ;221  ; searchCharging
+0002b4  1a40              SUBS     r0,r0,r1              ;221
+0002b6  f2413188          MOV      r1,#0x1388            ;221
+0002ba  4288              CMP      r0,r1                 ;221
+0002bc  d306              BCC      |L12.716|
+0002be  2000              MOVS     r0,#0                 ;223
+0002c0  4904              LDR      r1,|L12.724|
+0002c2  7408              STRB     r0,[r1,#0x10]         ;223
+0002c4  e002              B        |L12.716|
+                  |L12.710|
+0002c6  2005              MOVS     r0,#5                 ;228
+0002c8  4902              LDR      r1,|L12.724|
+0002ca  6048              STR      r0,[r1,#4]            ;228  ; searchCharging
+                  |L12.716|
+0002cc  bf00              NOP                            ;230
+                  |L12.718|
+0002ce  bf00              NOP                            ;89
+0002d0  bf00              NOP      
+0002d2  e699              B        |L12.8|
 ;;;236    
                           ENDP
 
-                  |L12.688|
+                  |L12.724|
                           DCD      searchCharging
-                  |L12.692|
-0002b4  69732063          DCB      "is charging...\r\n",0
-0002b8  68617267
-0002bc  696e672e
-0002c0  2e2e0d0a
-0002c4  00      
-0002c5  00                DCB      0
-0002c6  00                DCB      0
-0002c7  00                DCB      0
-                  |L12.712|
+                  |L12.728|
+0002d8  69732063          DCB      "is charging...\r\n",0
+0002dc  68617267
+0002e0  696e672e
+0002e4  2e2e0d0a
+0002e8  00      
+0002e9  00                DCB      0
+0002ea  00                DCB      0
+0002eb  00                DCB      0
+                  |L12.748|
                           DCD      0x43340000
-                  |L12.716|
+                  |L12.752|
                           DCD      remote
-                  |L12.720|
-0002d0  31206465          DCB      "1 detect 3 pulse\r\n",0
-0002d4  74656374
-0002d8  20332070
-0002dc  756c7365
-0002e0  0d0a00  
-0002e3  00                DCB      0
-                  |L12.740|
-0002e4  32206465          DCB      "2 detect 3 pulse\r\n",0
-0002e8  74656374
-0002ec  20332070
-0002f0  756c7365
-0002f4  0d0a00  
-0002f7  00                DCB      0
-                  |L12.760|
-0002f8  34206465          DCB      "4 detect 3 pulse\r\n",0
-0002fc  74656374
-000300  20332070
-000304  756c7365
-000308  0d0a00  
-00030b  00                DCB      0
-                  |L12.780|
-00030c  33206465          DCB      "3 detect 3 pulse\r\n",0
-000310  74656374
-000314  20332070
-000318  756c7365
-00031c  0d0a00  
-00031f  00                DCB      0
-                  |L12.800|
-                          DCD      0x430c0000
-                  |L12.804|
-                          DCD      0xc3340000
-                  |L12.808|
-000328  626f7468          DCB      "both\r\n",0
+                  |L12.756|
+0002f4  31206465          DCB      "1 detect 3 pulse\r\n",0
+0002f8  74656374
+0002fc  20332070
+000300  756c7365
+000304  0d0a00  
+000307  00                DCB      0
+                  |L12.776|
+000308  32206465          DCB      "2 detect 3 pulse\r\n",0
+00030c  74656374
+000310  20332070
+000314  756c7365
+000318  0d0a00  
+00031b  00                DCB      0
+                  |L12.796|
+00031c  34206465          DCB      "4 detect 3 pulse\r\n",0
+000320  74656374
+000324  20332070
+000328  756c7365
 00032c  0d0a00  
 00032f  00                DCB      0
                   |L12.816|
-000330  61646a75          DCB      "adjust\r\n",0
-000334  73740d0a
-000338  00      
-000339  00                DCB      0
-00033a  00                DCB      0
-00033b  00                DCB      0
-                  |L12.828|
-                          DCD      0x42f00000
-                  |L12.832|
-000340  34206d69          DCB      "4 miss 1000\r\n",0
-000344  73732031
-000348  3030300d
-00034c  0a00    
-00034e  00                DCB      0
-00034f  00                DCB      0
-                  |L12.848|
-000350  33206d69          DCB      "3 miss 500\r\n",0
-000354  73732035
-000358  30300d0a
+000330  33206465          DCB      "3 detect 3 pulse\r\n",0
+000334  74656374
+000338  20332070
+00033c  756c7365
+000340  0d0a00  
+000343  00                DCB      0
+                  |L12.836|
+                          DCD      0x430c0000
+                  |L12.840|
+                          DCD      0xc3340000
+                  |L12.844|
+00034c  626f7468          DCB      "both\r\n",0
+000350  0d0a00  
+000353  00                DCB      0
+                  |L12.852|
+000354  61646a75          DCB      "adjust\r\n",0
+000358  73740d0a
 00035c  00      
 00035d  00                DCB      0
 00035e  00                DCB      0
 00035f  00                DCB      0
+                  |L12.864|
+                          DCD      0x42f00000
+                  |L12.868|
+000364  34206d69          DCB      "4 miss 1000\r\n",0
+000368  73732031
+00036c  3030300d
+000370  0a00    
+000372  00                DCB      0
+000373  00                DCB      0
+                  |L12.884|
+000374  33206d69          DCB      "3 miss 500\r\n",0
+000378  73732035
+00037c  30300d0a
+000380  00      
+000381  00                DCB      0
+000382  00                DCB      0
+000383  00                DCB      0
 
                           AREA ||i.bsp_SetRemotePulseState||, CODE, READONLY, ALIGN=2
 

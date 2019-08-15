@@ -135,7 +135,7 @@ void bsp_SearchChargingPileAct(void)
 		{
 			if(searchCharging.isRight) //”“±ﬂ«–»Î
 			{
-				if(remote[CapCH4].is500us && remote[CapCH4].is1000us)
+				if(remote[CapCH4].is500us && remote[CapCH4].is1000us && (remote[CapCH3].is500us || remote[CapCH3].is1000us))
 				{
 					DEBUG("4 detect 3 pulse\r\n");
 					bsp_MotorBrake(MotorLeft);
@@ -145,7 +145,7 @@ void bsp_SearchChargingPileAct(void)
 			}
 			else //◊Û±ﬂ«–»Î
 			{
-				if(remote[CapCH3].is500us && remote[CapCH3].is1000us)
+				if(remote[CapCH3].is500us && remote[CapCH3].is1000us && (remote[CapCH4].is500us || remote[CapCH4].is1000us))
 				{
 					DEBUG("3 detect 3 pulse\r\n");
 					bsp_MotorBrake(MotorLeft);
