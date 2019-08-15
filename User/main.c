@@ -150,7 +150,9 @@ static void vTaskTaskUserIF(void *pvParameters)
 */
 static void vTaskLED(void *pvParameters)
 {
-	static uint32_t index = 0 ;
+	int16_t  left_velocity = 0,right_velocity = 0;
+	int8_t  ret = 0;
+//	static uint32_t index = 0 ;
     while(1)
     {
 		bsp_IWDG_Feed(); /* Î¹¹· */
@@ -174,9 +176,12 @@ static void vTaskLED(void *pvParameters)
 			
 		}
 		#endif
-		
-		bsp_SetMotorTargetSpeed(MotorLeft,250);
-		bsp_SetMotorTargetSpeed(MotorRight,250);
+		ret = bsp_ReveiceCmdFrame(&left_velocity,&right_velocity);
+		if(ret)
+		{
+			bsp_SetMotorTargetSpeed(MotorLeft,left_velocity);
+			bsp_SetMotorTargetSpeed(MotorRight,right_velocity);
+		}
 		
 		bsp_PidControlAct();
 		

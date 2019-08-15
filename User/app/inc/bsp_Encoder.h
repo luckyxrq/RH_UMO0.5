@@ -7,7 +7,7 @@
 
 #define PulseCntPerCircle	16                                      /*电机转一圈编码器脉冲个数*/
 #define CircleCntPerCircle	32                                     /*轮子转一圈，电机实际转的圈数*/
-#define Ratio		        (PulseCntPerCircle*CircleCntPerCircle) /*轮子转一圈，编码器的脉冲数*/
+#define Ratio		        256//(PulseCntPerCircle*CircleCntPerCircle) /*轮子转一圈，编码器的脉冲数*/
 #define PI	3.14159F			  /*π*/
 #define DIAMETER	70            /*直径70MM*/
 #define PERIMETER   (PI*DIAMETER) /*轮子周长*/
