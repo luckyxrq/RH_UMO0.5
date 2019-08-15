@@ -38408,10 +38408,6 @@ L 1 "..\..\User\app\inc\bsp_Control.h" 1
 N#ifndef __BSP_CONTROL_H
 N#define __BSP_CONTROL_H
 N
-N
-N#endif
-N
-L 176 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_motor.h"
 L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
@@ -38438,7 +38434,16 @@ Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
 N
 N#endif
 N
-L 177 "..\..\User\bsp\bsp.h" 2
+L 5 "..\..\User\app\inc\bsp_Control.h" 2
+N
+Nint32_t myabs(int32_t val);
+Nint32_t Incremental_PI (MotorSN sn ,int32_t Encoder,int32_t Target);
+Nint32_t Position_PID (int32_t Encoder,int32_t Target);
+N
+N#endif
+N
+L 176 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_motor.h"
 N//#include "bsp_Collision.h"
 N//#include "bsp_Angle.h"
 N//#include "bsp_Action.h"

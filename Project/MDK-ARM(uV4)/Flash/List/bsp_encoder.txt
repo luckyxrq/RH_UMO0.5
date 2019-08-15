@@ -13,59 +13,69 @@
 ;;;175    	if (EXTI_GetITStatus(EXTI_Line15) != RESET)
 000002  f44f4000          MOV      r0,#0x8000
 000006  f7fffffe          BL       EXTI_GetITStatus
-00000a  b140              CBZ      r0,|L1.30|
+00000a  b160              CBZ      r0,|L1.38|
 ;;;176    	{
 ;;;177    		EXTI_ClearITPendingBit(EXTI_Line15);
 00000c  f44f4000          MOV      r0,#0x8000
 000010  f7fffffe          BL       EXTI_ClearITPendingBit
 ;;;178    		
 ;;;179    		++encoder[EncoderLeft].totalMileage; /*总里程脉冲数加1，无正负*/
-000014  4802              LDR      r0,|L1.32|
+000014  4804              LDR      r0,|L1.40|
 000016  6800              LDR      r0,[r0,#0]  ; encoder
 000018  1c40              ADDS     r0,r0,#1
-00001a  4901              LDR      r1,|L1.32|
+00001a  4903              LDR      r1,|L1.40|
 00001c  6008              STR      r0,[r1,#0]  ; encoder
-                  |L1.30|
-;;;180    	}
-;;;181    }
-00001e  bd10              POP      {r4,pc}
-;;;182    
+;;;180    		++encoder[EncoderLeft].pulseT;
+00001e  4608              MOV      r0,r1
+000020  6840              LDR      r0,[r0,#4]  ; encoder
+000022  1c40              ADDS     r0,r0,#1
+000024  6048              STR      r0,[r1,#4]  ; encoder
+                  |L1.38|
+;;;181    	}
+;;;182    }
+000026  bd10              POP      {r4,pc}
+;;;183    
                           ENDP
 
-                  |L1.32|
+                  |L1.40|
                           DCD      encoder
 
                           AREA ||i.EXTI3_IRQHandler||, CODE, READONLY, ALIGN=2
 
                   EXTI3_IRQHandler PROC
-;;;191    */
-;;;192    void EXTI3_IRQHandler(void)
+;;;192    */
+;;;193    void EXTI3_IRQHandler(void)
 000000  b510              PUSH     {r4,lr}
-;;;193    {
-;;;194    
-;;;195    	if (EXTI_GetITStatus(EXTI_Line3) != RESET)
+;;;194    {
+;;;195    
+;;;196    	if (EXTI_GetITStatus(EXTI_Line3) != RESET)
 000002  2008              MOVS     r0,#8
 000004  f7fffffe          BL       EXTI_GetITStatus
-000008  b138              CBZ      r0,|L2.26|
-;;;196    	{
-;;;197    		EXTI_ClearITPendingBit(EXTI_Line3);
+000008  b158              CBZ      r0,|L2.34|
+;;;197    	{
+;;;198    		EXTI_ClearITPendingBit(EXTI_Line3);
 00000a  2008              MOVS     r0,#8
 00000c  f7fffffe          BL       EXTI_ClearITPendingBit
-;;;198    		
-;;;199    		++encoder[EncoderRight].totalMileage; /*总里程脉冲数加1，无正负*/
-000010  4802              LDR      r0,|L2.28|
+;;;199    		
+;;;200    		++encoder[EncoderRight].totalMileage; /*总里程脉冲数加1，无正负*/
+000010  4804              LDR      r0,|L2.36|
 000012  6880              LDR      r0,[r0,#8]  ; encoder
 000014  1c40              ADDS     r0,r0,#1
-000016  4901              LDR      r1,|L2.28|
+000016  4903              LDR      r1,|L2.36|
 000018  6088              STR      r0,[r1,#8]  ; encoder
-                  |L2.26|
-;;;200    	}
-;;;201    }
-00001a  bd10              POP      {r4,pc}
-;;;202    
+;;;201    		++encoder[EncoderRight].pulseT;
+00001a  4608              MOV      r0,r1
+00001c  68c0              LDR      r0,[r0,#0xc]
+00001e  1c40              ADDS     r0,r0,#1
+000020  60c8              STR      r0,[r1,#0xc]
+                  |L2.34|
+;;;202    	}
+;;;203    }
+000022  bd10              POP      {r4,pc}
+;;;204    
                           ENDP
 
-                  |L2.28|
+                  |L2.36|
                           DCD      encoder
 
                           AREA ||i.bsp_EXTI_Config||, CODE, READONLY, ALIGN=2

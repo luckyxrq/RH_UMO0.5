@@ -1861,9 +1861,9 @@
 000002  4604              MOV      r4,r0
 000004  460d              MOV      r5,r1
 ;;;1101   #if 1	/* 将需要printf的字符通过串口中断FIFO发送出去，printf函数会立即返回 */
-;;;1102   	comSendChar(COM1, ch);
+;;;1102   	comSendChar(COM2, ch);
 000006  b2e1              UXTB     r1,r4
-000008  2000              MOVS     r0,#0
+000008  2001              MOVS     r0,#1
 00000a  f7fffffe          BL       comSendChar
 ;;;1103   
 ;;;1104   	return ch;

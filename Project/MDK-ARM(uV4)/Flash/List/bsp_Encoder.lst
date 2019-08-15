@@ -38385,10 +38385,6 @@ L 1 "..\..\User\app\inc\bsp_Control.h" 1
 N#ifndef __BSP_CONTROL_H
 N#define __BSP_CONTROL_H
 N
-N
-N#endif
-N
-L 176 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_motor.h"
 L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
@@ -38415,7 +38411,16 @@ Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
 N
 N#endif
 N
-L 177 "..\..\User\bsp\bsp.h" 2
+L 5 "..\..\User\app\inc\bsp_Control.h" 2
+N
+Nint32_t myabs(int32_t val);
+Nint32_t Incremental_PI (MotorSN sn ,int32_t Encoder,int32_t Target);
+Nint32_t Position_PID (int32_t Encoder,int32_t Target);
+N
+N#endif
+N
+L 176 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_motor.h"
 N//#include "bsp_Collision.h"
 N//#include "bsp_Angle.h"
 N//#include "bsp_Action.h"
@@ -38657,6 +38662,7 @@ N		EXTI_ClearITPendingBit(EXTI_Line15);
 X		EXTI_ClearITPendingBit(((uint32_t)0x08000));
 N		
 N		++encoder[EncoderLeft].totalMileage; /*总里程脉冲数加1，无正负*/
+N		++encoder[EncoderLeft].pulseT;
 N	}
 N}
 N
@@ -38679,6 +38685,7 @@ N		EXTI_ClearITPendingBit(EXTI_Line3);
 X		EXTI_ClearITPendingBit(((uint32_t)0x00008));
 N		
 N		++encoder[EncoderRight].totalMileage; /*总里程脉冲数加1，无正负*/
+N		++encoder[EncoderRight].pulseT;
 N	}
 N}
 N

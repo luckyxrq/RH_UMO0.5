@@ -38385,10 +38385,6 @@ L 1 "..\..\User\app\inc\bsp_Control.h" 1
 N#ifndef __BSP_CONTROL_H
 N#define __BSP_CONTROL_H
 N
-N
-N#endif
-N
-L 176 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_motor.h"
 L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
@@ -38415,7 +38411,16 @@ Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
 N
 N#endif
 N
-L 177 "..\..\User\bsp\bsp.h" 2
+L 5 "..\..\User\app\inc\bsp_Control.h" 2
+N
+Nint32_t myabs(int32_t val);
+Nint32_t Incremental_PI (MotorSN sn ,int32_t Encoder,int32_t Target);
+Nint32_t Position_PID (int32_t Encoder,int32_t Target);
+N
+N#endif
+N
+L 176 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_motor.h"
 N//#include "bsp_Collision.h"
 N//#include "bsp_Angle.h"
 N//#include "bsp_Action.h"
@@ -38464,7 +38469,20 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_Control.c" 2
 N
-Nstatic int myabs(int a);
+Ntypedef struct
+N{
+N	volatile float Velocity_KP; /*速度KP*/
+N	volatile float Velocity_KI; /*速度KI*/
+N	
+N	float Bias;	     /*偏差*/
+N	float Last_bias; /*上次偏差*/
+N	float Pwm;       /*占空比*/   
+N
+N}PID_SPEED;
+N
+N
+N
+NPID_SPEED pid_speed[2];
 N
 N
 N/*
@@ -38475,7 +38493,7 @@ N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nint32_t Incremental_PI (int32_t Encoder,int32_t Target)
+Nint32_t Incremental_PI (MotorSN sn ,int32_t Encoder, int32_t Target)
 N{ 	
 N	/* 
 N		函数功能：增量PI控制器
@@ -38489,20 +38507,30 @@ N		pwm代表增量输出
 N		在我们的速度控制闭环系统里面，只使用PI控制
 N		pwm+=Kp[e（k）-e(k-1)]+Ki*e(k)
 N	*/
-N    static float Bias,Pwm,Last_bias;
 N	
-N	UNUSED(Bias);
-X	(void)(Bias);
-N	UNUSED(Pwm);
-X	(void)(Pwm);
-N	UNUSED(Last_bias);
-X	(void)(Last_bias);
+N	float Velocity_KP=20,Velocity_KI=30;      //PID系数
+N	static uint8_t flg = 0 ;
+N	
+N	static float Bias,Pwm,Last_bias;
+N	if(flg==0 && Target<0)
+N	{
+N		Bias = 0 ;
+N		Last_bias = 0 ;
+N		Pwm = 0 ;
+N		flg = 1 ;
+N	}
+N	
+N	
+N	
+N	
 N	
 N    Bias=Encoder-Target;                                  //计算偏差
-N    Pwm+=20*(Bias-Last_bias)+30*Bias;   //增量式PI控制器
+N    Pwm+=Velocity_KP*(Bias-Last_bias)+Velocity_KI*Bias;   //增量式PI控制器
 N    Last_bias=Bias;	                                     //保存上一次偏差 
-N    return Pwm;                                           //增量输出
+N    return Pwm;  
+N
 N}
+N
 N
 N/*
 N*********************************************************************************************************
@@ -38512,46 +38540,7 @@ N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nint32_t Position_PID (int32_t Encoder,int32_t Target)
-N{ 	
-N	/* 
-N		函数功能：位置式PID控制器
-N		入口参数：编码器测量位置信息，目标位置
-N		返回  值：电机PWM
-N		根据位置式离散PID公式 
-N		pwm=Kp*e(k)+Ki*∑e(k)+Kd[e（k）-e(k-1)]
-N		e(k)代表本次偏差 
-N		e(k-1)代表上一次的偏差  
-N		∑e(k)代表e(k)以及之前的偏差的累积和;其中k为1,2,,k;
-N		pwm代表输出
-N	*/
-N	static float Bias,Pwm,Integral_bias,Last_Bias;
-N	
-N	UNUSED(Bias);
-X	(void)(Bias);
-N	UNUSED(Pwm);
-X	(void)(Pwm);
-N	UNUSED(Integral_bias);
-X	(void)(Integral_bias);
-N	UNUSED(Last_Bias);
-X	(void)(Last_Bias);
-N	
-N//	Bias=Encoder-Target;                                  //计算偏差
-N//	Integral_bias+=Bias;	                                 //求出偏差的积分
-N//	Pwm=Position_KP*Bias+Position_KI*Integral_bias+Position_KD*(Bias-Last_Bias);       //位置式PID控制器
-N//	Last_Bias=Bias;                                       //保存上一次偏差 
-N	return Pwm;                                           //增量输出
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: myabs
-N*	功能说明: 求绝对值
-N*	形    参：无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nstatic int32_t myabs(int32_t val)
+Nint32_t myabs(int32_t val)
 N{ 		   
 N    int32_t temp;
 N	
@@ -38563,4 +38552,3 @@ N
 N    return temp;
 N}
 N
-W "..\..\User\app\src\bsp_Control.c" 83 16 function "myabs" was declared but never referenced

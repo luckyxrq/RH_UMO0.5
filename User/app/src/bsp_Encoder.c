@@ -177,6 +177,7 @@ void EXTI15_10_IRQHandler(void)
 		EXTI_ClearITPendingBit(EXTI_Line15);
 		
 		++encoder[EncoderLeft].totalMileage; /*总里程脉冲数加1，无正负*/
+		++encoder[EncoderLeft].pulseT;
 	}
 }
 
@@ -197,6 +198,7 @@ void EXTI3_IRQHandler(void)
 		EXTI_ClearITPendingBit(EXTI_Line3);
 		
 		++encoder[EncoderRight].totalMileage; /*总里程脉冲数加1，无正负*/
+		++encoder[EncoderRight].pulseT;
 	}
 }
 

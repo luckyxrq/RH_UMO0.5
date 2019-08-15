@@ -45756,10 +45756,6 @@ L 1 "..\..\User\app\inc\bsp_Control.h" 1
 N#ifndef __BSP_CONTROL_H
 N#define __BSP_CONTROL_H
 N
-N
-N#endif
-N
-L 176 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_motor.h"
 L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
@@ -45786,7 +45782,16 @@ Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
 N
 N#endif
 N
-L 177 "..\..\User\bsp\bsp.h" 2
+L 5 "..\..\User\app\inc\bsp_Control.h" 2
+N
+Nint32_t myabs(int32_t val);
+Nint32_t Incremental_PI (MotorSN sn ,int32_t Encoder,int32_t Target);
+Nint32_t Position_PID (int32_t Encoder,int32_t Target);
+N
+N#endif
+N
+L 176 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_motor.h"
 N//#include "bsp_Collision.h"
 N//#include "bsp_Angle.h"
 N//#include "bsp_Action.h"
@@ -45933,12 +45938,11 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskTaskUserIF(void *pvParameters)
 N{
-N	bsp_MotorSetPWM(MotorLeft,Forward,5000);
-N	bsp_MotorSetPWM(MotorRight,Forward,5000);
+N	//bsp_MotorSetPWM(MotorLeft,Forward,5000);
+N	//bsp_MotorSetPWM(MotorRight,Forward,5000);
 N    while(1)
 N    {
-N		DEBUG("L TotalMileage:%d  R TotalMileage:%d\r\n",bsp_EncoderGetTotalMileage(EncoderLeft),bsp_EncoderGetTotalMileage(EncoderRight));
-X		printf ("L TotalMileage:%d  R TotalMileage:%d\r\n",bsp_EncoderGetTotalMileage(EncoderLeft),bsp_EncoderGetTotalMileage(EncoderRight));
+N		//DEBUG("L TotalMileage:%d  R TotalMileage:%d\r\n",bsp_EncoderGetTotalMileage(EncoderLeft),bsp_EncoderGetTotalMileage(EncoderRight));
 N		
 N		vTaskDelay(100);
 N	}
@@ -45976,9 +45980,56 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskMsgPro(void *pvParameters)
 N{
+N		
+N	//DEBUG("bsp_EncoderGetPulseT:%d\r\n",cnt);
+N	int32_t cnt;
+N	int32_t pwm = 0 ;
+N	int32_t target = 5 ;
+N	uint32_t i = 0 ;
+N	
 N    while(1)
 N    {
-N
+N		cnt = bsp_EncoderGetPulseT(EncoderLeft);
+N		if(target < 0) cnt = -cnt;
+N		
+N		pwm = Incremental_PI(MotorLeft,cnt,target);  //===ËÙ¶ÈPI¿ØÖÆÆ÷
+N		
+N		
+N		
+N		if(pwm >= 7200) 
+N			pwm = 7200;
+N		else if(pwm <= -7200)
+N			pwm = -7200 ;
+N		
+N		DEBUG("pwm:%d\r\n",pwm);
+X		printf ("pwm:%d\r\n",pwm);
+N		bsp_MotorSetPWM(MotorLeft,pwm >0 ? Backward : Forward ,pwm >= 0 ? pwm : -pwm);
+N		
+N		
+N		if(i == 300)
+N		{
+N			target = 10;
+N		}
+N		else if(i == 600)
+N		{
+N			target = 5;
+N		}
+N		else if(i == 900)
+N		{
+N			TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+X			TIM_SetCompare1(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),(7200));
+N			TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+X			TIM_SetCompare2(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),(7200));
+N			TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+X			TIM_SetCompare3(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),(7200));
+N			TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+X			TIM_SetCompare4(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),(7200));
+N			//vTaskDelay(50);
+N			target = -5;
+N		}
+N		
+N		
+N		i++;
 N		
 N		vTaskDelay(10);
 N    }

@@ -85,11 +85,11 @@ int main(void)
 */
 static void vTaskTaskUserIF(void *pvParameters)
 {
-	bsp_MotorSetPWM(MotorLeft,Forward,5000);
-	bsp_MotorSetPWM(MotorRight,Forward,5000);
+	//bsp_MotorSetPWM(MotorLeft,Forward,5000);
+	//bsp_MotorSetPWM(MotorRight,Forward,5000);
     while(1)
     {
-		DEBUG("L TotalMileage:%d  R TotalMileage:%d\r\n",bsp_EncoderGetTotalMileage(EncoderLeft),bsp_EncoderGetTotalMileage(EncoderRight));
+		//DEBUG("L TotalMileage:%d  R TotalMileage:%d\r\n",bsp_EncoderGetTotalMileage(EncoderLeft),bsp_EncoderGetTotalMileage(EncoderRight));
 		
 		vTaskDelay(100);
 	}
@@ -127,9 +127,51 @@ static void vTaskLED(void *pvParameters)
 */
 static void vTaskMsgPro(void *pvParameters)
 {
+		
+	//DEBUG("bsp_EncoderGetPulseT:%d\r\n",cnt);
+	int32_t cnt;
+	int32_t pwm = 0 ;
+	int32_t target = 5 ;
+	uint32_t i = 0 ;
+	
     while(1)
     {
-
+		cnt = bsp_EncoderGetPulseT(EncoderLeft);
+		if(target < 0) cnt = -cnt;
+		
+		pwm = Incremental_PI(MotorLeft,cnt,target);  //===ËÙ¶ÈPI¿ØÖÆÆ÷
+		
+		
+		
+		if(pwm >= 7200) 
+			pwm = 7200;
+		else if(pwm <= -7200)
+			pwm = -7200 ;
+		
+		DEBUG("pwm:%d\r\n",pwm);
+		bsp_MotorSetPWM(MotorLeft,pwm >0 ? Backward : Forward ,pwm >= 0 ? pwm : -pwm);
+		
+		
+		if(i == 300)
+		{
+			target = 10;
+		}
+		else if(i == 600)
+		{
+			target = 5;
+		}
+		else if(i == 900)
+		{
+			TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+			TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+			TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+			TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+			//vTaskDelay(50);
+			target = -5;
+		}
+		
+		
+		i++;
 		
 		vTaskDelay(10);
     }

@@ -5,171 +5,158 @@
                           AREA ||i.Incremental_PI||, CODE, READONLY, ALIGN=2
 
                   Incremental_PI PROC
-;;;13     */
-;;;14     int32_t Incremental_PI (int32_t Encoder,int32_t Target)
-000000  e92d47f0          PUSH     {r4-r10,lr}
-;;;15     { 	
-000004  4604              MOV      r4,r0
-000006  460d              MOV      r5,r1
-;;;16     	/* 
-;;;17     		函数功能：增量PI控制器
-;;;18     		入口参数：编码器测量值，目标速度
-;;;19     		返回  值：电机PWM
-;;;20     		根据增量式离散PID公式 
-;;;21     		pwm+=Kp[e（k）-e(k-1)]+Ki*e(k)+Kd[e(k)-2e(k-1)+e(k-2)]
-;;;22     		e(k)代表本次偏差 
-;;;23     		e(k-1)代表上一次的偏差  以此类推 
-;;;24     		pwm代表增量输出
-;;;25     		在我们的速度控制闭环系统里面，只使用PI控制
-;;;26     		pwm+=Kp[e（k）-e(k-1)]+Ki*e(k)
-;;;27     	*/
-;;;28         static float Bias,Pwm,Last_bias;
-;;;29     	
-;;;30     	UNUSED(Bias);
-;;;31     	UNUSED(Pwm);
-;;;32     	UNUSED(Last_bias);
-;;;33     	
-;;;34         Bias=Encoder-Target;                                  //计算偏差
-000008  1b60              SUBS     r0,r4,r5
-00000a  f7fffffe          BL       __aeabi_i2f
-00000e  4914              LDR      r1,|L1.96|
-000010  6008              STR      r0,[r1,#0]  ; Bias
-;;;35         Pwm+=20*(Bias-Last_bias)+30*Bias;   //增量式PI控制器
-000012  4608              MOV      r0,r1
-000014  6801              LDR      r1,[r0,#0]  ; Bias
-000016  4813              LDR      r0,|L1.100|
-000018  f7fffffe          BL       __aeabi_fmul
-00001c  4680              MOV      r8,r0
-00001e  4812              LDR      r0,|L1.104|
-000020  6801              LDR      r1,[r0,#0]  ; Last_bias
-000022  480f              LDR      r0,|L1.96|
-000024  6800              LDR      r0,[r0,#0]  ; Bias
-000026  f7fffffe          BL       __aeabi_fsub
-00002a  4681              MOV      r9,r0
-00002c  490f              LDR      r1,|L1.108|
-00002e  f7fffffe          BL       __aeabi_fmul
-000032  4607              MOV      r7,r0
-000034  4641              MOV      r1,r8
-000036  f7fffffe          BL       __aeabi_fadd
-00003a  4606              MOV      r6,r0
-00003c  480c              LDR      r0,|L1.112|
-00003e  6801              LDR      r1,[r0,#0]  ; Pwm
-000040  4630              MOV      r0,r6
-000042  f7fffffe          BL       __aeabi_fadd
-000046  490a              LDR      r1,|L1.112|
-000048  6008              STR      r0,[r1,#0]  ; Pwm
-;;;36         Last_bias=Bias;	                                     //保存上一次偏差 
-00004a  4805              LDR      r0,|L1.96|
-00004c  6800              LDR      r0,[r0,#0]  ; Bias
-00004e  4906              LDR      r1,|L1.104|
-000050  6008              STR      r0,[r1,#0]  ; Last_bias
-;;;37         return Pwm;                                           //增量输出
-000052  4807              LDR      r0,|L1.112|
-000054  6800              LDR      r0,[r0,#0]  ; Pwm
-000056  f7fffffe          BL       __aeabi_f2iz
-;;;38     }
-00005a  e8bd87f0          POP      {r4-r10,pc}
-;;;39     
-                          ENDP
-
-00005e  0000              DCW      0x0000
-                  |L1.96|
-                          DCD      Bias
-                  |L1.100|
-                          DCD      0x41f00000
-                  |L1.104|
-                          DCD      Last_bias
-                  |L1.108|
-                          DCD      0x41a00000
-                  |L1.112|
-                          DCD      Pwm
-
-                          AREA ||i.Position_PID||, CODE, READONLY, ALIGN=2
-
-                  Position_PID PROC
-;;;47     */
-;;;48     int32_t Position_PID (int32_t Encoder,int32_t Target)
-000000  b570              PUSH     {r4-r6,lr}
-;;;49     { 	
-000002  4604              MOV      r4,r0
+;;;26     */
+;;;27     int32_t Incremental_PI (MotorSN sn ,int32_t Encoder, int32_t Target)
+000000  e92d5ff0          PUSH     {r4-r12,lr}
+;;;28     { 	
 000004  460d              MOV      r5,r1
-;;;50     	/* 
-;;;51     		函数功能：位置式PID控制器
-;;;52     		入口参数：编码器测量位置信息，目标位置
-;;;53     		返回  值：电机PWM
-;;;54     		根据位置式离散PID公式 
-;;;55     		pwm=Kp*e(k)+Ki*∑e(k)+Kd[e（k）-e(k-1)]
-;;;56     		e(k)代表本次偏差 
-;;;57     		e(k-1)代表上一次的偏差  
-;;;58     		∑e(k)代表e(k)以及之前的偏差的累积和;其中k为1,2,,k;
-;;;59     		pwm代表输出
-;;;60     	*/
-;;;61     	static float Bias,Pwm,Integral_bias,Last_Bias;
-;;;62     	
-;;;63     	UNUSED(Bias);
-;;;64     	UNUSED(Pwm);
-;;;65     	UNUSED(Integral_bias);
-;;;66     	UNUSED(Last_Bias);
-;;;67     	
-;;;68     //	Bias=Encoder-Target;                                  //计算偏差
-;;;69     //	Integral_bias+=Bias;	                                 //求出偏差的积分
-;;;70     //	Pwm=Position_KP*Bias+Position_KI*Integral_bias+Position_KD*(Bias-Last_Bias);       //位置式PID控制器
-;;;71     //	Last_Bias=Bias;                                       //保存上一次偏差 
-;;;72     	return Pwm;                                           //增量输出
-000006  4802              LDR      r0,|L2.16|
-000008  6800              LDR      r0,[r0,#0]  ; Pwm
-00000a  f7fffffe          BL       __aeabi_f2iz
-;;;73     }
-00000e  bd70              POP      {r4-r6,pc}
-;;;74     
+000006  4614              MOV      r4,r2
+;;;29     	/* 
+;;;30     		函数功能：增量PI控制器
+;;;31     		入口参数：编码器测量值，目标速度
+;;;32     		返回  值：电机PWM
+;;;33     		根据增量式离散PID公式 
+;;;34     		pwm+=Kp[e（k）-e(k-1)]+Ki*e(k)+Kd[e(k)-2e(k-1)+e(k-2)]
+;;;35     		e(k)代表本次偏差 
+;;;36     		e(k-1)代表上一次的偏差  以此类推 
+;;;37     		pwm代表增量输出
+;;;38     		在我们的速度控制闭环系统里面，只使用PI控制
+;;;39     		pwm+=Kp[e（k）-e(k-1)]+Ki*e(k)
+;;;40     	*/
+;;;41     	
+;;;42     	float Velocity_KP=20,Velocity_KI=30;      //PID系数
+000008  4e1d              LDR      r6,|L1.128|
+00000a  4f1e              LDR      r7,|L1.132|
+;;;43     	static uint8_t flg = 0 ;
+;;;44     	
+;;;45     	static float Bias,Pwm,Last_bias;
+;;;46     	if(flg==0 && Target<0)
+00000c  481e              LDR      r0,|L1.136|
+00000e  7800              LDRB     r0,[r0,#0]  ; flg
+000010  b958              CBNZ     r0,|L1.42|
+000012  2c00              CMP      r4,#0
+000014  da09              BGE      |L1.42|
+;;;47     	{
+;;;48     		Bias = 0 ;
+000016  2000              MOVS     r0,#0
+000018  491c              LDR      r1,|L1.140|
+00001a  6008              STR      r0,[r1,#0]  ; Bias
+;;;49     		Last_bias = 0 ;
+00001c  491c              LDR      r1,|L1.144|
+00001e  6008              STR      r0,[r1,#0]  ; Last_bias
+;;;50     		Pwm = 0 ;
+000020  491c              LDR      r1,|L1.148|
+000022  6008              STR      r0,[r1,#0]  ; Pwm
+;;;51     		flg = 1 ;
+000024  2001              MOVS     r0,#1
+000026  4918              LDR      r1,|L1.136|
+000028  7008              STRB     r0,[r1,#0]
+                  |L1.42|
+;;;52     	}
+;;;53     	
+;;;54     	
+;;;55     	
+;;;56     	
+;;;57     	
+;;;58         Bias=Encoder-Target;                                  //计算偏差
+00002a  1b28              SUBS     r0,r5,r4
+00002c  f7fffffe          BL       __aeabi_i2f
+000030  4916              LDR      r1,|L1.140|
+000032  6008              STR      r0,[r1,#0]  ; Bias
+;;;59         Pwm+=Velocity_KP*(Bias-Last_bias)+Velocity_KI*Bias;   //增量式PI控制器
+000034  4608              MOV      r0,r1
+000036  6801              LDR      r1,[r0,#0]  ; Bias
+000038  4638              MOV      r0,r7
+00003a  f7fffffe          BL       __aeabi_fmul
+00003e  4682              MOV      r10,r0
+000040  4813              LDR      r0,|L1.144|
+000042  6801              LDR      r1,[r0,#0]  ; Last_bias
+000044  4811              LDR      r0,|L1.140|
+000046  6800              LDR      r0,[r0,#0]  ; Bias
+000048  f7fffffe          BL       __aeabi_fsub
+00004c  4683              MOV      r11,r0
+00004e  4631              MOV      r1,r6
+000050  f7fffffe          BL       __aeabi_fmul
+000054  4681              MOV      r9,r0
+000056  4651              MOV      r1,r10
+000058  f7fffffe          BL       __aeabi_fadd
+00005c  4680              MOV      r8,r0
+00005e  480d              LDR      r0,|L1.148|
+000060  6801              LDR      r1,[r0,#0]  ; Pwm
+000062  4640              MOV      r0,r8
+000064  f7fffffe          BL       __aeabi_fadd
+000068  490a              LDR      r1,|L1.148|
+00006a  6008              STR      r0,[r1,#0]  ; Pwm
+;;;60         Last_bias=Bias;	                                     //保存上一次偏差 
+00006c  4807              LDR      r0,|L1.140|
+00006e  6800              LDR      r0,[r0,#0]  ; Bias
+000070  4907              LDR      r1,|L1.144|
+000072  6008              STR      r0,[r1,#0]  ; Last_bias
+;;;61         return Pwm;  
+000074  4807              LDR      r0,|L1.148|
+000076  6800              LDR      r0,[r0,#0]  ; Pwm
+000078  f7fffffe          BL       __aeabi_f2iz
+;;;62     
+;;;63     }
+00007c  e8bd9ff0          POP      {r4-r12,pc}
+;;;64     
                           ENDP
 
-                  |L2.16|
-                          DCD      |symbol_number.16|
+                  |L1.128|
+                          DCD      0x41a00000
+                  |L1.132|
+                          DCD      0x41f00000
+                  |L1.136|
+                          DCD      ||flg||
+                  |L1.140|
+                          DCD      Bias
+                  |L1.144|
+                          DCD      Last_bias
+                  |L1.148|
+                          DCD      Pwm
 
                           AREA ||i.myabs||, CODE, READONLY, ALIGN=1
 
                   myabs PROC
-;;;82     */
-;;;83     static int32_t myabs(int32_t val)
+;;;73     */
+;;;74     int32_t myabs(int32_t val)
 000000  4601              MOV      r1,r0
-;;;84     { 		   
-;;;85         int32_t temp;
-;;;86     	
-;;;87         if(val < 0)  
+;;;75     { 		   
+;;;76         int32_t temp;
+;;;77     	
+;;;78         if(val < 0)  
 000002  2900              CMP      r1,#0
-000004  da01              BGE      |L3.10|
-;;;88     		temp = -val;  
+000004  da01              BGE      |L2.10|
+;;;79     		temp = -val;  
 000006  4248              RSBS     r0,r1,#0
-000008  e000              B        |L3.12|
-                  |L3.10|
-;;;89         else 
-;;;90     		temp = val;
+000008  e000              B        |L2.12|
+                  |L2.10|
+;;;80         else 
+;;;81     		temp = val;
 00000a  4608              MOV      r0,r1
-                  |L3.12|
-;;;91     	
-;;;92         return temp;
-;;;93     }
+                  |L2.12|
+;;;82     	
+;;;83         return temp;
+;;;84     }
 00000c  4770              BX       lr
-;;;94     
+;;;85     
                           ENDP
 
 
+                          AREA ||.bss||, DATA, NOINIT, ALIGN=2
+
+                  pid_speed
+                          %        40
+
                           AREA ||.data||, DATA, ALIGN=2
 
+                  ||flg||
+000000  00000000          DCB      0x00,0x00,0x00,0x00
                   Bias
                           DCD      0x00000000
                   Pwm
                           DCD      0x00000000
                   Last_bias
-                          DCD      0x00000000
-                  |symbol_number.15|
-                          DCD      0x00000000
-                  |symbol_number.16|
-                          DCD      0x00000000
-                  Integral_bias
-                          DCD      0x00000000
-                  Last_Bias
                           DCD      0x00000000
 
 ;*** Start embedded assembler ***
