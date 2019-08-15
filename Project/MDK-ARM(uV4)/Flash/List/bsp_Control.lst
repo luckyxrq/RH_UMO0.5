@@ -38390,7 +38390,7 @@ L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
 N#define __BSP_MOTOR_H
 N
-N#define CONSTANT_HIGH_PWM      (7200)
+N#define CONSTANT_HIGH_PWM      (3600)
 N#define CONSTANT_LOW_PWM       (0)
 N
 N
@@ -38414,8 +38414,9 @@ N
 L 5 "..\..\User\app\inc\bsp_Control.h" 2
 N
 Nint32_t myabs(int32_t val);
-Nint32_t Incremental_PI (MotorSN sn ,int32_t Encoder,int32_t Target);
-Nint32_t Position_PID (int32_t Encoder,int32_t Target);
+Nvoid bsp_InitPid(MotorSN sn);
+Nvoid bsp_PidClear(MotorSN sn);
+Nvoid bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target);
 N
 N#endif
 N
@@ -38469,67 +38470,129 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_Control.c" 2
 N
+N#define MAX_PWM      (3600) //最大PWM绝对
+N
 Ntypedef struct
 N{
-N	volatile float Velocity_KP; /*速度KP*/
-N	volatile float Velocity_KI; /*速度KI*/
+N	volatile float kp; /*速度KP*/
+N	volatile float ki; /*速度KI*/
 N	
-N	float Bias;	     /*偏差*/
-N	float Last_bias; /*上次偏差*/
-N	float Pwm;       /*占空比*/   
+N	float bias;	       /*偏差*/
+N	float lastBias;    /*上次偏差*/
+N	float pwm;         /*占空比*/ 
 N
-N}PID_SPEED;
-N
-N
-N
-NPID_SPEED pid_speed[2];
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: myabs
-N*	功能说明: 求绝对值
-N*	形    参：无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nint32_t Incremental_PI (MotorSN sn ,int32_t Encoder, int32_t Target)
-N{ 	
-N	/* 
-N		函数功能：增量PI控制器
-N		入口参数：编码器测量值，目标速度
-N		返回  值：电机PWM
-N		根据增量式离散PID公式 
-N		pwm+=Kp[e（k）-e(k-1)]+Ki*e(k)+Kd[e(k)-2e(k-1)+e(k-2)]
-N		e(k)代表本次偏差 
-N		e(k-1)代表上一次的偏差  以此类推 
-N		pwm代表增量输出
-N		在我们的速度控制闭环系统里面，只使用PI控制
-N		pwm+=Kp[e（k）-e(k-1)]+Ki*e(k)
-N	*/
 N	
-N	float Velocity_KP=20,Velocity_KI=30;      //PID系数
-N	static uint8_t flg = 0 ;
-N	
-N	static float Bias,Pwm,Last_bias;
-N	if(flg==0 && Target<0)
+N
+N}PID;
+N
+N
+N/*左右轮机需要使用PID控制*/ 
+NPID pid[2];
+N
+Nstatic int32_t bsp_PwmLimit(int32_t pwm);
+N
+Nvoid bsp_InitPid(MotorSN sn)
+N{
+N	if(sn == MotorLeft)
 N	{
-N		Bias = 0 ;
-N		Last_bias = 0 ;
-N		Pwm = 0 ;
-N		flg = 1 ;
+N		/*给定KP KI参数*/
+N		pid[0].kp = 20;
+N		pid[0].ki = 30;
+N		/*清除之前的误差*/
+N		pid[0].bias = 0 ;
+N		pid[0].lastBias = 0 ;
+N		pid[0].pwm = 0 ;
+N	}
+N	else if(sn == MotorRight)
+N	{
+N		/*给定KP KI参数*/
+N		pid[1].kp = 20;
+N		pid[1].ki = 30;
+N		/*清除之前的误差*/
+N		pid[1].bias = 0 ;
+N		pid[1].lastBias = 0 ;
+N		pid[1].pwm = 0 ;
+N	}
+N}
+N
+N
+Nvoid bsp_PidClear(MotorSN sn)
+N{
+N	if(sn == MotorLeft)
+N	{
+N		/*清除之前的误差*/
+N		pid[0].bias = 0 ;
+N		pid[0].lastBias = 0 ;
+N		pid[0].pwm = 0 ;
+N	}
+N	else if(sn == MotorRight)
+N	{
+N		/*清除之前的误差*/
+N		pid[1].bias = 0 ;
+N		pid[1].lastBias = 0 ;
+N		pid[1].pwm = 0 ;
+N	}
+N}
+N
+N
+Nvoid bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
+N{
+N
+N	/*如果目标速度小于0，那么编码器的反馈速度也应该为负，单个霍尔只能计数，没有正负*/
+N	if(Target < 0 ) 
+N	{
+N		Encoder = -Encoder;
+N	}
+N		
+N	/*计算PWM值，增量式PID*/
+N	if(sn == MotorLeft)
+N	{
+N		pid[0].bias = Encoder-Target;                                  
+N		pid[0].pwm += pid[0].kp*(pid[0].bias-pid[0].lastBias)+pid[0].ki*pid[0].bias;
+N		pid[0].lastBias=pid[0].bias;
+N		/*限幅*/
+N		pid[0].pwm = bsp_PwmLimit(pid[0].pwm);	
+N		/*设置PWM*/
+N		bsp_MotorSetPWM(MotorLeft,pid[0].pwm >0 ? Backward : Forward ,myabs(pid[0].pwm));
+N	}
+N	else if(sn == MotorRight)
+N	{
+N		pid[1].bias = Encoder-Target;                                
+N		pid[1].pwm += pid[1].kp*(pid[1].bias-pid[1].lastBias)+pid[1].ki*pid[1].bias;
+N		pid[1].lastBias=pid[1].bias;
+N		/*限幅*/
+N		pid[1].pwm = bsp_PwmLimit(pid[1].pwm);
+N		/*设置PWM*/
+N		bsp_MotorSetPWM(MotorRight,pid[1].pwm >0 ? Backward : Forward ,myabs(pid[1].pwm));
 N	}
 N	
-N	
-N	
-N	
-N	
-N    Bias=Encoder-Target;                                  //计算偏差
-N    Pwm+=Velocity_KP*(Bias-Last_bias)+Velocity_KI*Bias;   //增量式PI控制器
-N    Last_bias=Bias;	                                     //保存上一次偏差 
-N    return Pwm;  
-N
 N}
+N
+N
+N
+Nstatic int32_t bsp_PwmLimit(int32_t pwm)
+N{
+N	int32_t ret = 0 ;
+N	
+N	if(pwm >= MAX_PWM)
+X	if(pwm >= (3600))
+N	{
+N		ret = MAX_PWM;
+X		ret = (3600);
+N	}
+N	else if(pwm <= -MAX_PWM)
+X	else if(pwm <= -(3600))
+N	{
+N		ret = -MAX_PWM;
+X		ret = -(3600);
+N	}
+N	else
+N	{
+N		ret = pwm;
+N	}
+N	
+N	return ret;
+N}	
 N
 N
 N/*

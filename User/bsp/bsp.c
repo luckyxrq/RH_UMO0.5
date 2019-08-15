@@ -48,7 +48,8 @@ void bsp_Init(void)
 	bsp_InitHardTimer();     /* 初始化硬件定时器 */
 	bsp_InitEncoder();
 	bsp_InitMotor();
-	
+	bsp_InitPid(MotorLeft);
+	bsp_InitPid(MotorRight);
 	DEBUG("初始化完毕\r\n");
 	
 }

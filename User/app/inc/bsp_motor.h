@@ -1,7 +1,7 @@
 #ifndef __BSP_MOTOR_H
 #define __BSP_MOTOR_H
 
-#define CONSTANT_HIGH_PWM      (7200)
+#define CONSTANT_HIGH_PWM      (3600)
 #define CONSTANT_LOW_PWM       (0)
 
 

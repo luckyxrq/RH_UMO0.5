@@ -25,7 +25,8 @@ static void bsp_InitTimer1(uint16_t arr,uint16_t psc);
 void bsp_InitMotor(void)
 {
 	/*初始化PWM 10KHZ，用于驱动电机*/
-	bsp_InitTimer1(7199,0); 
+	//bsp_InitTimer1(7199,0); 
+	bsp_InitTimer1(3599,0); 
 }
 
 /*

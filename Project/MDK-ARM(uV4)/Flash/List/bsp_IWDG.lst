@@ -38390,7 +38390,7 @@ L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
 N#define __BSP_MOTOR_H
 N
-N#define CONSTANT_HIGH_PWM      (7200)
+N#define CONSTANT_HIGH_PWM      (3600)
 N#define CONSTANT_LOW_PWM       (0)
 N
 N
@@ -38414,8 +38414,9 @@ N
 L 5 "..\..\User\app\inc\bsp_Control.h" 2
 N
 Nint32_t myabs(int32_t val);
-Nint32_t Incremental_PI (MotorSN sn ,int32_t Encoder,int32_t Target);
-Nint32_t Position_PID (int32_t Encoder,int32_t Target);
+Nvoid bsp_InitPid(MotorSN sn);
+Nvoid bsp_PidClear(MotorSN sn);
+Nvoid bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target);
 N
 N#endif
 N

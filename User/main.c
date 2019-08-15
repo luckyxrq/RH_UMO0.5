@@ -127,51 +127,35 @@ static void vTaskLED(void *pvParameters)
 */
 static void vTaskMsgPro(void *pvParameters)
 {
-		
-	//DEBUG("bsp_EncoderGetPulseT:%d\r\n",cnt);
-	int32_t cnt;
-	int32_t pwm = 0 ;
-	int32_t target = 5 ;
-	uint32_t i = 0 ;
+	static uint32_t i = 0 ;
+	int32_t target = 2;
 	
     while(1)
     {
-		cnt = bsp_EncoderGetPulseT(EncoderLeft);
-		if(target < 0) cnt = -cnt;
+
+		bsp_PidExec(MotorLeft,bsp_EncoderGetPulseT(EncoderLeft),target);
+		bsp_PidExec(MotorRight,bsp_EncoderGetPulseT(EncoderRight),target);
 		
-		pwm = Incremental_PI(MotorLeft,cnt,target);  //===ËÙ¶ÈPI¿ØÖÆÆ÷
-		
-		
-		
-		if(pwm >= 7200) 
-			pwm = 7200;
-		else if(pwm <= -7200)
-			pwm = -7200 ;
-		
-		DEBUG("pwm:%d\r\n",pwm);
-		bsp_MotorSetPWM(MotorLeft,pwm >0 ? Backward : Forward ,pwm >= 0 ? pwm : -pwm);
-		
-		
-		if(i == 300)
-		{
-			target = 10;
-		}
-		else if(i == 600)
-		{
-			target = 5;
-		}
-		else if(i == 900)
-		{
-			TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
-			TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
-			TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
-			TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
-			//vTaskDelay(50);
-			target = -5;
-		}
-		
-		
-		i++;
+//		if(i++ == 300*1)
+//		{
+//			target = 10;
+//		}
+//		else if(i++ == 300*2)
+//		{
+//			target = 5;
+//		}
+//		else if(i++ == 300*3)
+//		{
+//			target = -5;
+//			
+//			TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+//			TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+//			
+//			TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+//			TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+//			bsp_PidClear(MotorLeft);
+//			bsp_PidClear(MotorRight);
+//		}
 		
 		vTaskDelay(10);
     }
