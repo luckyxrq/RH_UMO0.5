@@ -38571,14 +38571,14 @@ N	/*TIM1，TIM8必须使用，其他定时器可使用或不使用*/
 N	TIM_CtrlPWMOutputs(TIM1,ENABLE);
 X	TIM_CtrlPWMOutputs(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),ENABLE);
 N	
-N	TIM_SetCompare1(TIM1,3600/4);
-X	TIM_SetCompare1(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),3600/4);
-N	TIM_SetCompare2(TIM1,3600/3);
-X	TIM_SetCompare2(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),3600/3);
-N	TIM_SetCompare3(TIM1,3600/2);
-X	TIM_SetCompare3(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),3600/2);
-N	TIM_SetCompare4(TIM1,3600);
-X	TIM_SetCompare4(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),3600);
+N	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+X	TIM_SetCompare1(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),(7200));
+N	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+X	TIM_SetCompare2(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),(7200));
+N	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+X	TIM_SetCompare3(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),(7200));
+N	TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+X	TIM_SetCompare4(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),(7200));
 N	
 N}
 N

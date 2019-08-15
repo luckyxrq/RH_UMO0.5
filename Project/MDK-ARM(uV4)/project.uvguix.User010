@@ -2588,9 +2588,9 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>..\..\User\app\src\bsp_motor.c</Name>
-        <ColumnNumber>70</ColumnNumber>
-        <TopLine>1</TopLine>
-        <CurrentLine>8</CurrentLine>
+        <ColumnNumber>1</ColumnNumber>
+        <TopLine>75</TopLine>
+        <CurrentLine>107</CurrentLine>
         <Folding>0</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

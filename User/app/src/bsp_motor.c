@@ -99,10 +99,10 @@ static void bsp_InitTimer1(uint16_t arr,uint16_t psc)
 	/*TIM1，TIM8必须使用，其他定时器可使用或不使用*/
 	TIM_CtrlPWMOutputs(TIM1,ENABLE);
 	
-	TIM_SetCompare1(TIM1,3600/4);
-	TIM_SetCompare2(TIM1,3600/3);
-	TIM_SetCompare3(TIM1,3600/2);
-	TIM_SetCompare4(TIM1,3600);
+	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
 	
 }
 

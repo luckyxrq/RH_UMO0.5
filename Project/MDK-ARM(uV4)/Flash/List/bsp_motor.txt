@@ -156,20 +156,20 @@
 0000c2  480e              LDR      r0,|L2.252|
 0000c4  f7fffffe          BL       TIM_CtrlPWMOutputs
 ;;;101    	
-;;;102    	TIM_SetCompare1(TIM1,3600/4);
-0000c8  f44f7161          MOV      r1,#0x384
+;;;102    	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+0000c8  f44f51e1          MOV      r1,#0x1c20
 0000cc  480b              LDR      r0,|L2.252|
 0000ce  f7fffffe          BL       TIM_SetCompare1
-;;;103    	TIM_SetCompare2(TIM1,3600/3);
-0000d2  f44f6196          MOV      r1,#0x4b0
+;;;103    	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+0000d2  f44f51e1          MOV      r1,#0x1c20
 0000d6  4809              LDR      r0,|L2.252|
 0000d8  f7fffffe          BL       TIM_SetCompare2
-;;;104    	TIM_SetCompare3(TIM1,3600/2);
-0000dc  f44f61e1          MOV      r1,#0x708
+;;;104    	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+0000dc  f44f51e1          MOV      r1,#0x1c20
 0000e0  4806              LDR      r0,|L2.252|
 0000e2  f7fffffe          BL       TIM_SetCompare3
-;;;105    	TIM_SetCompare4(TIM1,3600);
-0000e6  f44f6161          MOV      r1,#0xe10
+;;;105    	TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+0000e6  f44f51e1          MOV      r1,#0x1c20
 0000ea  4804              LDR      r0,|L2.252|
 0000ec  f7fffffe          BL       TIM_SetCompare4
 ;;;106    	
