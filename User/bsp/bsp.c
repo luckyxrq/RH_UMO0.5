@@ -30,7 +30,6 @@
 */
 void bsp_Init(void)
 {
-	uint8_t ret;
 	/*
 		由于ST固件库的启动文件已经执行了CPU系统时钟的初始化，所以不必再次重复配置系统时钟。
 		启动文件配置了CPU主时钟频率、内部Flash访问速度和可选的外部SRAM FSMC初始化。
@@ -41,30 +40,13 @@ void bsp_Init(void)
 	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	bsp_InitDWT();
-	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
-	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
+
 	bsp_InitUart(); 	     /* 初始化串口 */
 	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
 	bsp_InitLed();           /* 初始化LED */
 	bsp_InitKey();           /* 初始化按键 */
 	bsp_InitHardTimer();     /* 初始化硬件定时器 */
-	bsp_InitDC_Motor();      /* 初始化直流电机 */
-	bsp_InitEncoder();       /*初始化编码器引脚，用于统计脉冲的定时器*/
-	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
-	bsp_InitChargingPile();  /*初始化输入捕获*/
-	EXTI_Config();
-	/* 初始化IO拓展芯片 */	
-	do{
-		ret = bsp_InitAW9523B();		
-		if(!ret) 
-		{
-			WARNING("AW9523B Init Error\r\n");
-			bsp_DelayMS(100);
-		}
-	}while(!ret);
-	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
-	
-	bsp_InitIWDG();     /*初始化看门狗*/
+	bsp_InitEncoder();
 	
 	DEBUG("初始化完毕\r\n");
 	

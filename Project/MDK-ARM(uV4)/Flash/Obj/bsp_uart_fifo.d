@@ -54,15 +54,5 @@
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\bsp\inc\bsp_i2c_gpio.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\bsp\inc\bsp_user_lib.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_PowerSwitch.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_DC_Motor.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Encoder.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Collision.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Angle.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Action.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_aw9523b.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_DetectAct.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_PulseMark.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\bsp\inc\bsp_IWDG.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Edgewise.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Remote.h
-.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_communication.h

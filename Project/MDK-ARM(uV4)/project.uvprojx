@@ -442,6 +442,49 @@
               <FileName>bsp_DC_Motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_DC_Motor.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>bsp_Encoder.c</FileName>
@@ -449,54 +492,9 @@
               <FilePath>..\..\User\app\src\bsp_Encoder.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_Collision.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_Collision.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_Angle.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_Angle.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_Action.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_Action.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_aw9523b.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_aw9523b.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_DetectAct.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_DetectAct.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_PulseMark.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_PulseMark.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_IWDG.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_IWDG.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_Edgewise.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_Edgewise.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_Remote.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_Remote.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_communication.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_communication.c</FilePath>
             </File>
           </Files>
         </Group>

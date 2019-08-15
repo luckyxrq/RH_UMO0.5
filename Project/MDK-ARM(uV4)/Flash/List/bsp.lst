@@ -38370,275 +38370,40 @@ N
 N#endif
 N
 L 173 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_DC_Motor.h"
-L 1 "..\..\User\app\inc\bsp_DC_Motor.h" 1
-N#ifndef __BSP_DC_MOTOR_H
-N#define __BSP_DC_MOTOR_H
-N
-N
-N#define MOTOR_NUM    2       /*µç»úÊıÁ¿*/
-N#define MAXPWM       10000   /*×î´óPWMÖµ*/
-N#define DC_PWM_T     30000   /*DCµç»úÇı¶¯Ğ¾Æ¬Õ¼¿Õ±ÈÖÜÆÚ*/
-N
-N
-Ntypedef enum
-N{
-N	MotorLeft = 0 ,/*×ó±ßµç»ú±àºÅ*/
-N	MotorRight     /*ÓÒ±ßµç»ú±àºÅ*/ 
-N}MotorSN;
-N
-Ntypedef enum
-N{
-N	Forward  = 0 ,/*Ç°½ø*/
-N	Backward      /*ºóÍË*/ 
-N}MotorDir;
-N
-Ntypedef struct
-N{
-N	volatile float target; //Ä¿±êÖµ
-N	
-N	volatile float kp;  //±ÈÀı
-N	volatile float ki;  //»ı·Ö
-N	volatile float kd;  //Î¢·Ö
-N	
-N	volatile float bias;     //±¾´ÎÎó²î
-N	volatile float lastBias; //ÉÏ´ÎÎó²î
-N	volatile float biasSum;  //ÀÛ»ıÎó²î
-N	
-N	volatile float pwm;     //¼ÆËã³öµÄPWMÖµ
-N	volatile float pwmMax;  //PWMÄÜ¹»È¡µÄ×î´óÖµ
-N	
-N	volatile float kiLimit; //»ı·ÖÉÏÏŞ
-N	volatile float fitK;    //ÄâºÏ²ÎÊık  
-N	volatile float fitD;    //ÄâºÏ²ÎÊıd
-N}PID;
-N
-Nvoid bsp_InitDC_Motor(void);      /* ³õÊ¼»¯Ö±Á÷µç»úµÄPWM¶¨Ê±Æ÷ */
-Nvoid bsp_MotorBrake(MotorSN sn);  /* ¼±Í£ */
-Nvoid bsp_MotorCoast(MotorSN sn);  /* »¬ĞĞÍ£Ö¹ */
-Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* Ö±½ÓÊ¹ÓÃÕ¼¿Õ±È¿ØÖÆ£¬6000»ù±¾ÊÇ×îµÍËÙ¶È£¬ÔÙĞ¡¾Í²»×ªÁË */
-Nvoid bsp_PidControlAct(void);
-Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-NMotorDir bsp_MotorGetDir(MotorSN sn);
-Nvoid bsp_MotorRunR(void);
-Nvoid bsp_MotorRunL(void);
-Nvoid bsp_MotorRun(void);
-N#endif
-N
-L 174 "..\..\User\bsp\bsp.h" 2
+N//#include "bsp_DC_Motor.h"
 N#include "bsp_Encoder.h"
 L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
 N#ifndef __ENCODER_H
 N#define __ENCODER_H
 N
-N#define ENCODER_COUNT                 2         /*±àÂëÆ÷¸öÊı*/
-N#define ENCODER_INTERRUPT_FREQUENCY	  100000    /*10usÖĞ¶ÏÒ»´Î*/
-N#define CALC_T					      30000     /*1000´ÎÖĞ¶Ï£¨300MS£©¼ÆËãÒ»´ÎËÙ¶È*/
-N
-N#define PulseCntPerCircle	16                                      /*µç»ú×ªÒ»È¦±àÂëÆ÷Âö³å¸öÊı*/
-N#define CircleCntPerCircle	32                                     /*ÂÖ×Ó×ªÒ»È¦£¬µç»úÊµ¼Ê×ªµÄÈ¦Êı*/
-N#define Ratio		        (PulseCntPerCircle*CircleCntPerCircle) /*ÂÖ×Ó×ªÒ»È¦£¬±àÂëÆ÷µÄÂö³åÊı*/
-N#define PI	3.14159F			  /*¦Ğ*/
-N#define DIAMETER	70            /*Ö±¾¶70MM*/
-N#define PERIMETER   (PI*DIAMETER) /*ÂÖ×ÓÖÜ³¤*/
+N#define ENCODER_NUM      (2)     /*±àÂëÆ÷¸öÊı*/
+N#define RPM_PULSE_RATIO  (1024)  /*ÂÖ×Ó×ª1È¦£¬Âö³å¸öÊı*/
+N#define ENCODER_PI		 (3.14F) /*¦Ğ*/
 N
 Ntypedef enum
 N{
-N	EncoderLeft  = 0 ,
+N	EncoderLeft = 0 ,
 N	EncoderRight
 N}EncoderSN;
 N
 Ntypedef struct
 N{
-N	bool isReadyRising[ENCODER_COUNT];   /*¼ì²âµ½Ò»¸öµÍµçÆ½ÁË£¬ÏÖÔÚ×¼±¸¼ì²âÉÏÉıÑØ*/
-X	_Bool isReadyRising[2];    
-N	uint32_t risingCount[ENCODER_COUNT]; /*ÉÏÉıÑØ¸öÊı*/
-X	uint32_t risingCount[2];  
-N	float speed[ENCODER_COUNT];          /*µ¥Î»ºÁÃ×Ã¿Ãë*/
-X	float speed[2];           
-N	int32_t odometer[ENCODER_COUNT];
-X	int32_t odometer[2];
-N}QEncoder;
+N	uint32_t totalMileage; /*×ÜÀï³Ì£¬Ã»ÓĞÕı¸º£¬Ç°½øºóÍË¶¼¼Ó£¬ÉÏÉıÑØÏÂ½µÑØ¶¼¼Ó*/
+N	int32_t pulseT;        /*ÖÜÆÚĞÔµÄ¶ÁÈ¡Âö³å¸öÊı£¬ÀíÂÛÉÏÓĞÕı¸º£¬µ«Ä¿Ç°É¨µØ»úÖ»ÓĞ1¸ö»ô¶û£¬ÎŞ·¨Ó²¼ş²ãÃæµÃµ½Õı¸º*/
+N}Encoder;
 N
+Nvoid bsp_InitEncoder(void);
+Nuint32_t bsp_EncoderGetTotalMileage(EncoderSN sn);
+Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
 N
-Nvoid bsp_InitEncoder(void);               /*³õÊ¼»¯±àÂëÆ÷Òı½Å£¬ÓÃÓÚÍ³¼ÆÂö³åµÄ¶¨Ê±Æ÷*/
-Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*·µ»Ø±àÂëÆ÷·´À¡µÄËÙ¶È£¬µ¥Î»£ººÁÃ×Ã¿Ãë*/
-Nint32_t bsp_encoderGetOdometer(MotorSN sn);
-N
-N
-N
-N
-Nvoid EXTI_Config(void);
-Nint32_t bsp_EncoderGetPulseCnt(EncoderSN sn);
-Nint32_t bsp_EncoderGetPulseCntT(EncoderSN sn);
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Collision.h"
-L 1 "..\..\User\app\inc\bsp_Collision.h" 1
-N#ifndef __BSP_COLLISION_H
-N#define __BSP_COLLISION_H
-N
-Ntypedef enum
-N{
-N	CollisionLeft = 0 ,
-N	CollisionRight,
-N	CollisionAll,
-N	CollisionNone
-N}Collision;
-N
-Nvoid bsp_InitCollision(void);      /*³õÊ¼»¯Åö×²¼ì²âÒı½Å*/
-NCollision bsp_CollisionScan(void); /*·µ»ØÅö×²½á¹û*/
-Nvoid bsp_CollisionDemo(void);      /*Åö×²²âÊÔÀı×Ó*/
-N
-N#endif
-L 176 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Angle.h"
-L 1 "..\..\User\app\inc\bsp_Angle.h" 1
-N#ifndef __BSP_ANGLE_H
-N#define __BSP_ANGLE_H
-N
-N#define RX_BUF_SIZE   13
-N#define RX_BAUD       115200
-N
-N
-Ntypedef struct
-N{
-N	volatile bool timeout ;
-X	volatile _Bool timeout ;
-N	volatile uint16_t rxCount;
-N	volatile uint8_t  buf[RX_BUF_SIZE] ;
-X	volatile uint8_t  buf[13] ;
-N	volatile float angle;
-N	volatile int16_t angleRaw;
-N}Angle;
-N
-N
-Ntypedef struct
-N{
-N	volatile int16_t HEAD;
-N	volatile int16_t RATE;
-N	volatile int16_t ANGLE;
-N	volatile int16_t SUM1;
-N	volatile int16_t RESERVE;
-N	volatile int8_t SUM2;
-N	volatile int16_t END;
-N}AngleFrame;
-N
-N
-Nvoid bsp_AngleRevByte(uint8_t byte);
-Nfloat bsp_AngleRead(void);
-Nint16_t bsp_AngleReadRaw(void);
-Nfloat bsp_AngleAdd(float angle1 , float angle2);
-Nvoid bsp_InitAngle(void);
-Nvoid bsp_AngleRst(void);
-N
-N
-N#endif
-N
-L 177 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Action.h"
-L 1 "..\..\User\app\inc\bsp_Action.h" 1
-N#ifndef __BSP_ACTION_H
-N#define __BSP_ACTION_H
-N
-N
-N	
-N#endif
-N
-L 178 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_aw9523b.h"
-L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
-N#ifndef __BSP_AW9523B_H
-N#define __BSP_AW9523B_H
-N
-N#define AW_DEV_ADDR			0xB6		/* Éè±¸µØÖ· */
-N#define AW_ADDR_BYTES		1			/* µØÖ·×Ö½Ú¸öÊı */
-N
-Ntypedef enum
-N{
-N	AW_ID = 0x10,
-N	Config_Port0 = 0x04,//Ñ¡ÔñÊäÈë»òÊä³ö
-N	Config_Port1 = 0x05,//Ñ¡ÔñÊäÈë»òÊä³ö
-N	GCR = 0x11,//ÅäÖÃP0¿ÚÎªÍÆÍì»ò¿ªÂ©
-N	Output_Port0 = 0x02,
-N	Output_Port1 = 0x03
-N}ADDR;
-N
-Ntypedef enum
-N{
-N	awP0_0 = 0,
-N	awP0_1 = 1,
-N	awP0_2 = 2,
-N	awP0_3 = 3,
-N	awP0_4 = 4,
-N	awP0_5 = 5,
-N	awP0_6 = 6,
-N	awP0_7 = 7,
-N	
-N	awP1_0 = 8,
-N	awP1_1 = 9,
-N	awP1_2 = 10,
-N	awP1_3 = 11,
-N	awP1_4 = 12,
-N	awP1_5 = 13,
-N	awP1_6 = 14,
-N	awP1_7 = 15
-N	
-N}AW_PIN;
-N
-Ntypedef enum
-N{
-N	AW_0 = 0,
-N	AW_1 = 1
-N}AW_VAL;
-N
-N
-Nuint8_t bsp_InitAW9523B(void);
-Nuint8_t bsp_AWReadID(void);
-Nvoid bsp_AWSetPinVal(AW_PIN pin,AW_VAL val);
-Nuint8_t bsp_AWReadReg(ADDR addr);
-Nfloat bsp_GetAdScanValue(void);
-Nvoid bsp_DetectDeal(void);
-Nfloat bsp_GetInfraredVoltageLeft(void);
-Nfloat bsp_GetInfraredVoltageRight(void);
-N
-N#endif
-N
-L 179 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_DetectAct.h"
-L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
-N#ifndef __BSP_DETECTACT_H
-N#define __BSP_DETECTACT_H
-N
-Ntypedef struct
-N{
-N	uint8_t isRunning;
-N	uint8_t action;
-N	uint32_t delay;
-N	
-N	uint8_t pinMapIndex;
-N	uint16_t adcVal;
-N}DetectAct;
-N
-Nvoid bsp_InitDetectAct(void);
-Nvoid bsp_DetectStart(void);
-Nvoid bsp_DetectStop(void);
-Nvoid bsp_DetectAct(void);
-Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
-N
-N#endif
-N
-L 180 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_PulseMark.h"
-L 1 "..\..\User\app\inc\bsp_PulseMark.h" 1
-N#ifndef __BSP_PULSEMARK_H
-N#define __BSP_PULSEMARK_H
-N
-Nvoid bsp_InitPinPulse(void);
-Nvoid bsp_SendPulse(void);
-N
-N#endif
-L 181 "..\..\User\bsp\bsp.h" 2
+N//#include "bsp_Collision.h"
+N//#include "bsp_Angle.h"
+N//#include "bsp_Action.h"
+N//#include "bsp_aw9523b.h"
+N//#include "bsp_DetectAct.h"
+N//#include "bsp_PulseMark.h"
 N#include "bsp_IWDG.h"
 L 1 "..\..\User\bsp\inc\bsp_IWDG.h" 1
 N/*
@@ -38666,94 +38431,9 @@ Nvoid bsp_IWDG_Feed(void);
 N
 N#endif
 L 182 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Edgewise.h"
-L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
-N#ifndef __BSP_EDGEWISE_H
-N#define __BSP_EDGEWISE_H
-N
-Nvoid bsp_EdgewiseAct(void);
-N
-N
-N#endif
-N
-L 183 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Remote.h"
-L 1 "..\..\User\app\inc\bsp_Remote.h" 1
-N#ifndef __BSP_REMOTE_H
-N#define __BSP_REMOTE_H
-N
-N#define CH_CNT    4
-N
-Ntypedef enum
-N{
-N    CapCH1 = 0 ,
-N    CapCH2 = 1 ,
-N    CapCH3 = 2 ,
-N    CapCH4 = 3 ,
-N}CapCH;
-N
-Ntypedef struct
-N{
-N    volatile uint8_t  capState[CH_CNT];  //ÊäÈë²¶»ñ×´Ì¬		    				
-X    volatile uint8_t  capState[4];  
-N    volatile uint16_t capValue[CH_CNT];	 //ÊäÈë²¶»ñÖµ
-X    volatile uint16_t capValue[4];	 
-N	volatile uint16_t capStart[CH_CNT];	 //ÊäÈë²¶»ñ´¥·¢Ê±¶¨Ê±Æ÷µÄÖµ
-X	volatile uint16_t capStart[4];	 
-N}ChargingPile;
-N
-Nuint32_t bsp_GetCapCnt(CapCH capCH);
-Nvoid bsp_InitChargingPile(void);
-Nvoid bsp_SearchChargingPileAct(void);
-Nvoid bsp_StartSearchChargingPile(void);
-Nvoid bsp_StopSearchChargingPile(void);
-Nvoid bsp_PulseTimerPer1MS(void);
-Nvoid bsp_PrintRemoteState(CapCH capCH);
-Nbool bsp_GetChargeFeedback(void);
-X_Bool bsp_GetChargeFeedback(void);
-N
-N#endif
-L 184 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_communication.h"
-L 1 "..\..\User\app\inc\bsp_communication.h" 1
-N#ifndef __BSP_COMMUNICATION_H
-N#define __BSP_COMMUNICATION_H
-N
-N#pragma pack(1)
-Ntypedef struct
-N{
-N	uint8_t sof1;                  //0xAA
-N	uint8_t sof2;                  //0xAA
-N	uint8_t sof3;                  //0xAA
-N	uint8_t identifier;	           //0x25
-N	uint8_t size_of_payload_field; //0x04
-N	int32_t left_wheel_pulse_count;
-N	int32_t right_wheel_pulse_count;
-N	uint8_t button_control_cmd;
-N	uint16_t distance_of_left_infrared;
-N	uint16_t distance_of_right_infrared;
-N	uint16_t distance_of_front_infrared;
-N	int16_t  angle_deg;
-N	uint16_t adc_1;
-N	uint16_t adc_2;
-N	uint16_t adc_3;
-N	uint16_t adc_4;
-N	int16_t acc_x;
-N	int16_t acc_y;
-N	int16_t acc_z;
-N	uint16_t obstacle_signal;
-N	uint8_t battery_level_soc;
-N	uint8_t charge_status;
-N	uint8_t checksum_msb;
-N	uint8_t checksum_lsb;
-N	uint8_t end_of_falg;           //0x55
-N}ReportFrame;
-N#pragma pack()
-N
-Nvoid bsp_SendReportFrame(void);
-N
-N#endif
-L 185 "..\..\User\bsp\bsp.h" 2
+N//#include "bsp_Edgewise.h"
+N//#include "bsp_Remote.h"
+N//#include "bsp_communication.h"
 N
 N
 N/* Ìá¹©¸øÆäËûCÎÄ¼şµ÷ÓÃµÄº¯Êı */
@@ -38778,7 +38458,6 @@ N*******************************************************************************
 N*/
 Nvoid bsp_Init(void)
 N{
-N	uint8_t ret;
 N	/*
 N		ÓÉÓÚST¹Ì¼ş¿âµÄÆô¶¯ÎÄ¼şÒÑ¾­Ö´ĞĞÁËCPUÏµÍ³Ê±ÖÓµÄ³õÊ¼»¯£¬ËùÒÔ²»±ØÔÙ´ÎÖØ¸´ÅäÖÃÏµÍ³Ê±ÖÓ¡£
 N		Æô¶¯ÎÄ¼şÅäÖÃÁËCPUÖ÷Ê±ÖÓÆµÂÊ¡¢ÄÚ²¿Flash·ÃÎÊËÙ¶ÈºÍ¿ÉÑ¡µÄÍâ²¿SRAM FSMC³õÊ¼»¯¡£
@@ -38790,31 +38469,13 @@ N	/* ÓÅÏÈ¼¶·Ö×éÉèÖÃÎª4£¬¿ÉÅäÖÃ0-15¼¶ÇÀÕ¼Ê½ÓÅÏÈ¼¶£¬0¼¶×ÓÓÅÏÈ¼¶£¬¼´²»´æÔÚ×ÓÓÅÏÈ¼¶¡
 N	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 X	NVIC_PriorityGroupConfig(((uint32_t)0x300));
 N	bsp_InitDWT();
-N	bsp_InitAngle();         /* ³õÊ¼»¯ÍÓÂİÒÇ£¬Ö»ÊÇ¸´Î»Òı½Å³õÊ¼»¯£¬ÀïÃæÃ»ÓĞÓÃµ½´®¿Ú´òÓ¡¡£ÔÚ´®¿Ú³õÊ¼»¯Ç°Ãæ¸´Î»ÓĞÖúÓÚÍÓÂİÒÇµÚÒ»Ö¡Êı¾İ²»³ö´í */
-N	bsp_InitPinPulse();      /* ³õÊ¼»¯Âö³åÖ¸Ê¾Òı½Å£¬Âö³åÖ¸Ê¾Ã»ÓĞÊ¹ÓÃ´®¿Ú´òÓ¡£¬ÔÚ´®¿ÚÖ®Ç°³õÊ¼»¯ */
+N
 N	bsp_InitUart(); 	     /* ³õÊ¼»¯´®¿Ú */
 N	bsp_InitSW();		     /* ¿ª»ú´ò¿ªÆäËûÍâÉèµçÔ´Ê¹ÄÜÒı½Å */
 N	bsp_InitLed();           /* ³õÊ¼»¯LED */
 N	bsp_InitKey();           /* ³õÊ¼»¯°´¼ü */
 N	bsp_InitHardTimer();     /* ³õÊ¼»¯Ó²¼ş¶¨Ê±Æ÷ */
-N	bsp_InitDC_Motor();      /* ³õÊ¼»¯Ö±Á÷µç»ú */
-N	bsp_InitEncoder();       /*³õÊ¼»¯±àÂëÆ÷Òı½Å£¬ÓÃÓÚÍ³¼ÆÂö³åµÄ¶¨Ê±Æ÷*/
-N	bsp_InitCollision();     /*³õÊ¼»¯Åö×²¼ì²â£¬´¥¶¯¿ª¹Ø*/
-N	bsp_InitChargingPile();  /*³õÊ¼»¯ÊäÈë²¶»ñ*/
-N	EXTI_Config();
-N	/* ³õÊ¼»¯IOÍØÕ¹Ğ¾Æ¬ */	
-N	do{
-N		ret = bsp_InitAW9523B();		
-N		if(!ret) 
-N		{
-N			WARNING("AW9523B Init Error\r\n");
-X			printf ("AW9523B Init Error\r\n");
-N			bsp_DelayMS(100);
-N		}
-N	}while(!ret);
-N	bsp_InitDetectAct();/* IOÍØÕ¹Ğ¾Æ¬³õÊ¼»¯³É¹¦ÁËÖ®ºóÔÙ³õÊ¼»¯ºìÍâÂÖÑ¯É¨Ãè */	
-N	
-N	bsp_InitIWDG();     /*³õÊ¼»¯¿´ÃÅ¹·*/
+N	bsp_InitEncoder();
 N	
 N	DEBUG("³õÊ¼»¯Íê±Ï\r\n");
 X	printf ("³õÊ¼»¯Íê±Ï\r\n");

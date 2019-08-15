@@ -9,98 +9,51 @@
 ;;;31     void bsp_Init(void)
 000000  b510              PUSH     {r4,lr}
 ;;;32     {
-;;;33     	uint8_t ret;
-;;;34     	/*
-;;;35     		由于ST固件库的启动文件已经执行了CPU系统时钟的初始化，所以不必再次重复配置系统时钟。
-;;;36     		启动文件配置了CPU主时钟频率、内部Flash访问速度和可选的外部SRAM FSMC初始化。
-;;;37     
-;;;38     		系统时钟缺省配置为72MHz，如果需要更改，可以修改 system_stm32f10x.c 文件
-;;;39     	*/
-;;;40     	
-;;;41     	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
-;;;42     	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+;;;33     	/*
+;;;34     		由于ST固件库的启动文件已经执行了CPU系统时钟的初始化，所以不必再次重复配置系统时钟。
+;;;35     		启动文件配置了CPU主时钟频率、内部Flash访问速度和可选的外部SRAM FSMC初始化。
+;;;36     
+;;;37     		系统时钟缺省配置为72MHz，如果需要更改，可以修改 system_stm32f10x.c 文件
+;;;38     	*/
+;;;39     	
+;;;40     	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
+;;;41     	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 000002  f44f7040          MOV      r0,#0x300
 000006  f7fffffe          BL       NVIC_PriorityGroupConfig
-;;;43     	bsp_InitDWT();
+;;;42     	bsp_InitDWT();
 00000a  f7fffffe          BL       bsp_InitDWT
-;;;44     	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
-00000e  f7fffffe          BL       bsp_InitAngle
-;;;45     	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
-000012  f7fffffe          BL       bsp_InitPinPulse
-;;;46     	bsp_InitUart(); 	     /* 初始化串口 */
-000016  f7fffffe          BL       bsp_InitUart
-;;;47     	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
-00001a  f7fffffe          BL       bsp_InitSW
-;;;48     	bsp_InitLed();           /* 初始化LED */
-00001e  f7fffffe          BL       bsp_InitLed
-;;;49     	bsp_InitKey();           /* 初始化按键 */
-000022  f7fffffe          BL       bsp_InitKey
-;;;50     	bsp_InitHardTimer();     /* 初始化硬件定时器 */
-000026  f7fffffe          BL       bsp_InitHardTimer
-;;;51     	bsp_InitDC_Motor();      /* 初始化直流电机 */
-00002a  f7fffffe          BL       bsp_InitDC_Motor
-;;;52     	bsp_InitEncoder();       /*初始化编码器引脚，用于统计脉冲的定时器*/
-00002e  f7fffffe          BL       bsp_InitEncoder
-;;;53     	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
-000032  f7fffffe          BL       bsp_InitCollision
-;;;54     	bsp_InitChargingPile();  /*初始化输入捕获*/
-000036  f7fffffe          BL       bsp_InitChargingPile
-;;;55     	EXTI_Config();
-00003a  f7fffffe          BL       EXTI_Config
-;;;56     	/* 初始化IO拓展芯片 */	
-;;;57     	do{
-00003e  bf00              NOP      
-                  |L1.64|
-;;;58     		ret = bsp_InitAW9523B();		
-000040  f7fffffe          BL       bsp_InitAW9523B
-000044  4604              MOV      r4,r0
-;;;59     		if(!ret) 
-000046  b92c              CBNZ     r4,|L1.84|
-;;;60     		{
-;;;61     			WARNING("AW9523B Init Error\r\n");
-000048  a007              ADR      r0,|L1.104|
-00004a  f7fffffe          BL       __2printf
-;;;62     			bsp_DelayMS(100);
-00004e  2064              MOVS     r0,#0x64
-000050  f7fffffe          BL       bsp_DelayMS
-                  |L1.84|
-;;;63     		}
-;;;64     	}while(!ret);
-000054  2c00              CMP      r4,#0
-000056  d0f3              BEQ      |L1.64|
-;;;65     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
-000058  f7fffffe          BL       bsp_InitDetectAct
-;;;66     	
-;;;67     	bsp_InitIWDG();     /*初始化看门狗*/
-00005c  f7fffffe          BL       bsp_InitIWDG
-;;;68     	
-;;;69     	DEBUG("初始化完毕\r\n");
-000060  a007              ADR      r0,|L1.128|
-000062  f7fffffe          BL       __2printf
-;;;70     	
-;;;71     }
-000066  bd10              POP      {r4,pc}
-;;;72     
+;;;43     
+;;;44     	bsp_InitUart(); 	     /* 初始化串口 */
+00000e  f7fffffe          BL       bsp_InitUart
+;;;45     	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
+000012  f7fffffe          BL       bsp_InitSW
+;;;46     	bsp_InitLed();           /* 初始化LED */
+000016  f7fffffe          BL       bsp_InitLed
+;;;47     	bsp_InitKey();           /* 初始化按键 */
+00001a  f7fffffe          BL       bsp_InitKey
+;;;48     	bsp_InitHardTimer();     /* 初始化硬件定时器 */
+00001e  f7fffffe          BL       bsp_InitHardTimer
+;;;49     	bsp_InitEncoder();
+000022  f7fffffe          BL       bsp_InitEncoder
+;;;50     	
+;;;51     	DEBUG("初始化完毕\r\n");
+000026  a002              ADR      r0,|L1.48|
+000028  f7fffffe          BL       __2printf
+;;;52     	
+;;;53     }
+00002c  bd10              POP      {r4,pc}
+;;;54     
                           ENDP
 
-                  |L1.104|
-000068  41573935          DCB      "AW9523B Init Error\r\n",0
-00006c  32334220
-000070  496e6974
-000074  20457272
-000078  6f720d0a
-00007c  00      
-00007d  00                DCB      0
-00007e  00                DCB      0
-00007f  00                DCB      0
-                  |L1.128|
-000080  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
-000084  bbafcdea
-000088  b1cf0d0a
-00008c  00      
-00008d  00                DCB      0
-00008e  00                DCB      0
-00008f  00                DCB      0
+00002e  0000              DCW      0x0000
+                  |L1.48|
+000030  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
+000034  bbafcdea
+000038  b1cf0d0a
+00003c  00      
+00003d  00                DCB      0
+00003e  00                DCB      0
+00003f  00                DCB      0
 
 ;*** Start embedded assembler ***
 

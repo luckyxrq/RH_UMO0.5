@@ -408,7 +408,7 @@ void RS485_SendStr(char *_pBuf)
 */
 void RS485_ReciveNew(uint8_t _byte)
 {
-	bsp_AngleRevByte(_byte);
+
 }
 
 /*

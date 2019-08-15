@@ -640,14 +640,10 @@
                   RS485_ReciveNew PROC
 ;;;408    */
 ;;;409    void RS485_ReciveNew(uint8_t _byte)
-000000  b510              PUSH     {r4,lr}
+000000  4770              BX       lr
 ;;;410    {
-000002  4604              MOV      r4,r0
-;;;411    	bsp_AngleRevByte(_byte);
-000004  4620              MOV      r0,r4
-000006  f7fffffe          BL       bsp_AngleRevByte
+;;;411    
 ;;;412    }
-00000a  bd10              POP      {r4,pc}
 ;;;413    
                           ENDP
 

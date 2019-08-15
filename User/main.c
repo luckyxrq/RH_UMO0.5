@@ -85,58 +85,11 @@ int main(void)
 */
 static void vTaskTaskUserIF(void *pvParameters)
 {
-#if 0 /* 左前  右前 */
-	bsp_SetMotorPWM(MotorLeft,Forward,6000);
-	bsp_SetMotorPWM(MotorRight,Forward,6000);
-#endif
-
-#if 0 /* 左后  右后 */
-	bsp_SetMotorPWM(MotorLeft,Backward,6000);
-	bsp_SetMotorPWM(MotorRight,Backward,6000);
-#endif
-	
-#if 0 /* 左前  右后 */
-	bsp_SetMotorPWM(MotorLeft,Forward,6000);
-	bsp_SetMotorPWM(MotorRight,Backward,6000);
-#endif	
-	
-#if 0 /* 左后  右前 */
-	bsp_SetMotorPWM(MotorLeft,Backward,6000);
-	bsp_SetMotorPWM(MotorRight,Forward,6000);
-#endif	
-	
-#if 0 /* 给定初始角度和转动角度，得到目的角度 */
-	printf("des angle:%.2F\r\n",bsp_AngleAdd(-100,120));
-#endif	
-
-#if 0
-	bsp_SetMotorTargetSpeed(MotorLeft,250);
-	bsp_SetMotorTargetSpeed(MotorRight,250);
-#endif
-
-
-	bsp_AngleRst();
-
-
     while(1)
     {
-		#if 0
-		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
-		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
-		#endif
-		
-		
-		#if 1
-		//DEBUG("Angle:%.2F\r\n",bsp_AngleRead());
-		//DEBUG("Charge:%d\r\n",bsp_GetChargeFeedback());
-		#endif
-		
-		bsp_LedToggle(1);
-		bsp_LedToggle(2);
-		bsp_LedToggle(3);
+		DEBUG("L TotalMileage:%d  R TotalMileage:%d\r\n",bsp_EncoderGetTotalMileage(EncoderLeft),bsp_EncoderGetTotalMileage(EncoderRight));
 		
 		vTaskDelay(100);
-		
 	}
 }
 
@@ -151,30 +104,11 @@ static void vTaskTaskUserIF(void *pvParameters)
 */
 static void vTaskLED(void *pvParameters)
 {
-	static uint32_t index = 0 ;
+
     while(1)
     {
 		bsp_IWDG_Feed(); /* 喂狗 */
-		
-		
-		{
-			Collision collision = bsp_CollisionScan();
-			if(collision == CollisionLeft)
-			{
-				DEBUG("%06dLeft\r\n",index++);
-			}
-			else if(collision == CollisionRight)
-			{
-				DEBUG("%06dRight\r\n",index++);
-			}
-			else if(collision == CollisionAll)
-			{
-				DEBUG("%06dBoth\r\n",index++);
-			}
-			
-		}
-		
-		bsp_PidControlAct();
+
 		
 		vTaskDelay(100);
     }
@@ -193,11 +127,7 @@ static void vTaskMsgPro(void *pvParameters)
 {
     while(1)
     {
-		//bsp_SendReportFrame();
-		//bsp_PrintRemoteState(CapCH3);
-		
-		DEBUG("Left:%d  ",bsp_EncoderGetPulseCntT(EncoderLeft));
-		DEBUG("Right:%d\r\n",bsp_EncoderGetPulseCntT(EncoderRight));
+
 		
 		vTaskDelay(10);
     }
@@ -214,29 +144,9 @@ static void vTaskMsgPro(void *pvParameters)
 */
 static void vTaskStart(void *pvParameters)
 {
-	/*开启红外对管轮询扫描*/
-	bsp_DetectStart(); 
-	/*开启寻找充电桩*/
-	bsp_StartSearchChargingPile();
-	
-	
-	vTaskDelay(4000);
-	
     while(1)
     {
-		bsp_DetectAct();  /*红外对管轮询扫描*/
-		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
-		//bsp_EdgewiseAct();/*沿边*/
-		
-		/*四个红外接收管*/
-		bsp_GetCapCnt(CapCH1);
-		bsp_GetCapCnt(CapCH2);
-		bsp_GetCapCnt(CapCH3);
-		bsp_GetCapCnt(CapCH4);
-		
-		/*寻找充电桩*/
-		//bsp_SearchChargingPileAct();
-		
+
         vTaskDelay(1);
     }
 }

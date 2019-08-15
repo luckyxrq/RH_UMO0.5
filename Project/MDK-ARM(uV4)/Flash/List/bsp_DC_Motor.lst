@@ -38352,390 +38352,27 @@ N
 N#endif
 N
 L 173 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_DC_Motor.h"
-L 1 "..\..\User\app\inc\bsp_DC_Motor.h" 1
-N#ifndef __BSP_DC_MOTOR_H
-N#define __BSP_DC_MOTOR_H
-N
-N
-N#define MOTOR_NUM    2       /*电机数量*/
-N#define MAXPWM       10000   /*最大PWM值*/
-N#define DC_PWM_T     30000   /*DC电机驱动芯片占空比周期*/
-N
-N
-Ntypedef enum
-N{
-N	MotorLeft = 0 ,/*左边电机编号*/
-N	MotorRight     /*右边电机编号*/ 
-N}MotorSN;
-N
-Ntypedef enum
-N{
-N	Forward  = 0 ,/*前进*/
-N	Backward      /*后退*/ 
-N}MotorDir;
-N
-Ntypedef struct
-N{
-N	volatile float target; //目标值
-N	
-N	volatile float kp;  //比例
-N	volatile float ki;  //积分
-N	volatile float kd;  //微分
-N	
-N	volatile float bias;     //本次误差
-N	volatile float lastBias; //上次误差
-N	volatile float biasSum;  //累积误差
-N	
-N	volatile float pwm;     //计算出的PWM值
-N	volatile float pwmMax;  //PWM能够取的最大值
-N	
-N	volatile float kiLimit; //积分上限
-N	volatile float fitK;    //拟合参数k  
-N	volatile float fitD;    //拟合参数d
-N}PID;
-N
-Nvoid bsp_InitDC_Motor(void);      /* 初始化直流电机的PWM定时器 */
-Nvoid bsp_MotorBrake(MotorSN sn);  /* 急停 */
-Nvoid bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
-Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
-Nvoid bsp_PidControlAct(void);
-Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-NMotorDir bsp_MotorGetDir(MotorSN sn);
-Nvoid bsp_MotorRunR(void);
-Nvoid bsp_MotorRunL(void);
-Nvoid bsp_MotorRun(void);
-N#endif
-N
-L 174 "..\..\User\bsp\bsp.h" 2
+N//#include "bsp_DC_Motor.h"
 N#include "bsp_Encoder.h"
 L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
 N#ifndef __ENCODER_H
 N#define __ENCODER_H
 N
-N#define ENCODER_COUNT                 2         /*编码器个数*/
-N#define ENCODER_INTERRUPT_FREQUENCY	  100000    /*10us中断一次*/
-N#define CALC_T					      30000     /*1000次中断（300MS）计算一次速度*/
-N
-N#define PulseCntPerCircle	16                                      /*电机转一圈编码器脉冲个数*/
-N#define CircleCntPerCircle	32                                     /*轮子转一圈，电机实际转的圈数*/
-N#define Ratio		        (PulseCntPerCircle*CircleCntPerCircle) /*轮子转一圈，编码器的脉冲数*/
-N#define PI	3.14159F			  /*π*/
-N#define DIAMETER	70            /*直径70MM*/
-N#define PERIMETER   (PI*DIAMETER) /*轮子周长*/
-N
-Ntypedef enum
-N{
-N	EncoderLeft  = 0 ,
-N	EncoderRight
-N}EncoderSN;
-N
-Ntypedef struct
-N{
-N	bool isReadyRising[ENCODER_COUNT];   /*检测到一个低电平了，现在准备检测上升沿*/
-X	_Bool isReadyRising[2];    
-N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
-X	uint32_t risingCount[2];  
-N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
-X	float speed[2];           
-N	int32_t odometer[ENCODER_COUNT];
-X	int32_t odometer[2];
-N}QEncoder;
-N
-N
-Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
-Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
-Nint32_t bsp_encoderGetOdometer(MotorSN sn);
-N
-N
-N
 N
 Nvoid EXTI_Config(void);
-Nint32_t bsp_EncoderGetPulseCnt(EncoderSN sn);
-Nint32_t bsp_EncoderGetPulseCntT(EncoderSN sn);
+N
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Collision.h"
-L 1 "..\..\User\app\inc\bsp_Collision.h" 1
-N#ifndef __BSP_COLLISION_H
-N#define __BSP_COLLISION_H
-N
-Ntypedef enum
-N{
-N	CollisionLeft = 0 ,
-N	CollisionRight,
-N	CollisionAll,
-N	CollisionNone
-N}Collision;
-N
-Nvoid bsp_InitCollision(void);      /*初始化碰撞检测引脚*/
-NCollision bsp_CollisionScan(void); /*返回碰撞结果*/
-Nvoid bsp_CollisionDemo(void);      /*碰撞测试例子*/
-N
-N#endif
-L 176 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Angle.h"
-L 1 "..\..\User\app\inc\bsp_Angle.h" 1
-N#ifndef __BSP_ANGLE_H
-N#define __BSP_ANGLE_H
-N
-N#define RX_BUF_SIZE   13
-N#define RX_BAUD       115200
-N
-N
-Ntypedef struct
-N{
-N	volatile bool timeout ;
-X	volatile _Bool timeout ;
-N	volatile uint16_t rxCount;
-N	volatile uint8_t  buf[RX_BUF_SIZE] ;
-X	volatile uint8_t  buf[13] ;
-N	volatile float angle;
-N	volatile int16_t angleRaw;
-N}Angle;
-N
-N
-Ntypedef struct
-N{
-N	volatile int16_t HEAD;
-N	volatile int16_t RATE;
-N	volatile int16_t ANGLE;
-N	volatile int16_t SUM1;
-N	volatile int16_t RESERVE;
-N	volatile int8_t SUM2;
-N	volatile int16_t END;
-N}AngleFrame;
-N
-N
-Nvoid bsp_AngleRevByte(uint8_t byte);
-Nfloat bsp_AngleRead(void);
-Nint16_t bsp_AngleReadRaw(void);
-Nfloat bsp_AngleAdd(float angle1 , float angle2);
-Nvoid bsp_InitAngle(void);
-Nvoid bsp_AngleRst(void);
-N
-N
-N#endif
-N
-L 177 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Action.h"
-L 1 "..\..\User\app\inc\bsp_Action.h" 1
-N#ifndef __BSP_ACTION_H
-N#define __BSP_ACTION_H
-N
-N
-N	
-N#endif
-N
-L 178 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_aw9523b.h"
-L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
-N#ifndef __BSP_AW9523B_H
-N#define __BSP_AW9523B_H
-N
-N#define AW_DEV_ADDR			0xB6		/* 设备地址 */
-N#define AW_ADDR_BYTES		1			/* 地址字节个数 */
-N
-Ntypedef enum
-N{
-N	AW_ID = 0x10,
-N	Config_Port0 = 0x04,//选择输入或输出
-N	Config_Port1 = 0x05,//选择输入或输出
-N	GCR = 0x11,//配置P0口为推挽或开漏
-N	Output_Port0 = 0x02,
-N	Output_Port1 = 0x03
-N}ADDR;
-N
-Ntypedef enum
-N{
-N	awP0_0 = 0,
-N	awP0_1 = 1,
-N	awP0_2 = 2,
-N	awP0_3 = 3,
-N	awP0_4 = 4,
-N	awP0_5 = 5,
-N	awP0_6 = 6,
-N	awP0_7 = 7,
-N	
-N	awP1_0 = 8,
-N	awP1_1 = 9,
-N	awP1_2 = 10,
-N	awP1_3 = 11,
-N	awP1_4 = 12,
-N	awP1_5 = 13,
-N	awP1_6 = 14,
-N	awP1_7 = 15
-N	
-N}AW_PIN;
-N
-Ntypedef enum
-N{
-N	AW_0 = 0,
-N	AW_1 = 1
-N}AW_VAL;
-N
-N
-Nuint8_t bsp_InitAW9523B(void);
-Nuint8_t bsp_AWReadID(void);
-Nvoid bsp_AWSetPinVal(AW_PIN pin,AW_VAL val);
-Nuint8_t bsp_AWReadReg(ADDR addr);
-Nfloat bsp_GetAdScanValue(void);
-Nvoid bsp_DetectDeal(void);
-Nfloat bsp_GetInfraredVoltageLeft(void);
-Nfloat bsp_GetInfraredVoltageRight(void);
-N
-N#endif
-N
-L 179 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_DetectAct.h"
-L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
-N#ifndef __BSP_DETECTACT_H
-N#define __BSP_DETECTACT_H
-N
-Ntypedef struct
-N{
-N	uint8_t isRunning;
-N	uint8_t action;
-N	uint32_t delay;
-N	
-N	uint8_t pinMapIndex;
-N	uint16_t adcVal;
-N}DetectAct;
-N
-Nvoid bsp_InitDetectAct(void);
-Nvoid bsp_DetectStart(void);
-Nvoid bsp_DetectStop(void);
-Nvoid bsp_DetectAct(void);
-Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
-N
-N#endif
-N
-L 180 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_PulseMark.h"
-L 1 "..\..\User\app\inc\bsp_PulseMark.h" 1
-N#ifndef __BSP_PULSEMARK_H
-N#define __BSP_PULSEMARK_H
-N
-Nvoid bsp_InitPinPulse(void);
-Nvoid bsp_SendPulse(void);
-N
-N#endif
-L 181 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_IWDG.h"
-L 1 "..\..\User\bsp\inc\bsp_IWDG.h" 1
-N/*
-N*********************************************************************************************************
-N*	                                  
-N*	模块名称 : 看门狗程序头文件
-N*	文件名称 : bsp_iwdg.h
-N*	版    本 : V1.0
-N*	说    明 : IWDG例程。
-N*	修改记录 :
-N*		版本号  日期         作者    说明
-N*		v1.0    2012-12-12 stm32f4  ST固件库V1.0.2版本。
-N*
-N*	Copyright (C), 2013-2014
-N*   QQ超级群：216681322
-N*   BLOG: http://blog.sina.com.cn/u/2565749395
-N*********************************************************************************************************
-N*/
-N
-N#ifndef _BSP_IWDG_H
-N#define _BSP_IWDG_H
-N
-Nvoid bsp_InitIWDG(void);
-Nvoid bsp_IWDG_Feed(void);
-N
-N#endif
-L 182 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Edgewise.h"
-L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
-N#ifndef __BSP_EDGEWISE_H
-N#define __BSP_EDGEWISE_H
-N
-Nvoid bsp_EdgewiseAct(void);
-N
-N
-N#endif
-N
-L 183 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Remote.h"
-L 1 "..\..\User\app\inc\bsp_Remote.h" 1
-N#ifndef __BSP_REMOTE_H
-N#define __BSP_REMOTE_H
-N
-N#define CH_CNT    4
-N
-Ntypedef enum
-N{
-N    CapCH1 = 0 ,
-N    CapCH2 = 1 ,
-N    CapCH3 = 2 ,
-N    CapCH4 = 3 ,
-N}CapCH;
-N
-Ntypedef struct
-N{
-N    volatile uint8_t  capState[CH_CNT];  //输入捕获状态		    				
-X    volatile uint8_t  capState[4];  
-N    volatile uint16_t capValue[CH_CNT];	 //输入捕获值
-X    volatile uint16_t capValue[4];	 
-N	volatile uint16_t capStart[CH_CNT];	 //输入捕获触发时定时器的值
-X	volatile uint16_t capStart[4];	 
-N}ChargingPile;
-N
-Nuint32_t bsp_GetCapCnt(CapCH capCH);
-Nvoid bsp_InitChargingPile(void);
-Nvoid bsp_SearchChargingPileAct(void);
-Nvoid bsp_StartSearchChargingPile(void);
-Nvoid bsp_StopSearchChargingPile(void);
-Nvoid bsp_PulseTimerPer1MS(void);
-Nvoid bsp_PrintRemoteState(CapCH capCH);
-Nbool bsp_GetChargeFeedback(void);
-X_Bool bsp_GetChargeFeedback(void);
-N
-N#endif
-L 184 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_communication.h"
-L 1 "..\..\User\app\inc\bsp_communication.h" 1
-N#ifndef __BSP_COMMUNICATION_H
-N#define __BSP_COMMUNICATION_H
-N
-N#pragma pack(1)
-Ntypedef struct
-N{
-N	uint8_t sof1;                  //0xAA
-N	uint8_t sof2;                  //0xAA
-N	uint8_t sof3;                  //0xAA
-N	uint8_t identifier;	           //0x25
-N	uint8_t size_of_payload_field; //0x04
-N	int32_t left_wheel_pulse_count;
-N	int32_t right_wheel_pulse_count;
-N	uint8_t button_control_cmd;
-N	uint16_t distance_of_left_infrared;
-N	uint16_t distance_of_right_infrared;
-N	uint16_t distance_of_front_infrared;
-N	int16_t  angle_deg;
-N	uint16_t adc_1;
-N	uint16_t adc_2;
-N	uint16_t adc_3;
-N	uint16_t adc_4;
-N	int16_t acc_x;
-N	int16_t acc_y;
-N	int16_t acc_z;
-N	uint16_t obstacle_signal;
-N	uint8_t battery_level_soc;
-N	uint8_t charge_status;
-N	uint8_t checksum_msb;
-N	uint8_t checksum_lsb;
-N	uint8_t end_of_falg;           //0x55
-N}ReportFrame;
-N#pragma pack()
-N
-Nvoid bsp_SendReportFrame(void);
-N
-N#endif
-L 185 "..\..\User\bsp\bsp.h" 2
+N//#include "bsp_Collision.h"
+N//#include "bsp_Angle.h"
+N//#include "bsp_Action.h"
+N//#include "bsp_aw9523b.h"
+N//#include "bsp_DetectAct.h"
+N//#include "bsp_PulseMark.h"
+N//#include "bsp_IWDG.h"
+N//#include "bsp_Edgewise.h"
+N//#include "bsp_Remote.h"
+N//#include "bsp_communication.h"
 N
 N
 N/* 提供给其他C文件调用的函数 */
@@ -38754,17 +38391,20 @@ N{
 N	volatile bool isRunning;     /*电机是否在运行*/
 X	volatile _Bool isRunning;      
 N	volatile uint32_t encodeCnt; /*编码器计数值*/
+E "..\..\User\app\src\bsp_DC_Motor.c" 8 11 identifier "MotorDir" is undefined
 N	volatile MotorDir dir;
 N}Motor;
 N
 N
 N/*电机管理结构体数组*/
+E "..\..\User\app\src\bsp_DC_Motor.c" 13 13 identifier "MOTOR_NUM" is undefined
 NMotor motor[MOTOR_NUM];
-XMotor motor[2];
+E "..\..\User\app\src\bsp_DC_Motor.c" 14 8 identifier "PID" is undefined
 Nstatic PID pid[2];
 N
 Nstatic void bspInitPWM(void);
 Nstatic float pidabs(float val);
+E "..\..\User\app\src\bsp_DC_Motor.c" 18 30 identifier "MotorSN" is undefined
 Nstatic void bsp_InitMotorPid(MotorSN sn);
 N
 N/*
@@ -38779,7 +38419,9 @@ N*/
 Nvoid bsp_InitDC_Motor(void)
 N{
 N	bspInitPWM();
+E "..\..\User\app\src\bsp_DC_Motor.c" 32 19 identifier "MotorLeft" is undefined
 N	bsp_InitMotorPid(MotorLeft);
+E "..\..\User\app\src\bsp_DC_Motor.c" 33 19 identifier "MotorRight" is undefined
 N	bsp_InitMotorPid(MotorRight);
 N}
 N
@@ -38796,14 +38438,15 @@ Nstatic void bspInitPWM(void)
 N{
 N	GPIO_PinRemapConfig(GPIO_FullRemap_TIM1, ENABLE);           //Timer1重映射     
 X	GPIO_PinRemapConfig(((uint32_t)0x001600C0), ENABLE);           
+E "..\..\User\app\src\bsp_DC_Motor.c" 48 50 identifier "MAXPWM" is undefined
 N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
-X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0, 10000);     
+X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0, MAXPWM);     
 N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
-X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0, 10000);     
+X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0, MAXPWM);     
 N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
-X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0, 10000);     
+X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0, MAXPWM);     
 N	bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, MAXPWM);     //当频率为0，占空比为100%时，GPIO输出1
-X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0, 10000);     
+X	bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0, MAXPWM);     
 N	
 N}
 N
@@ -38815,30 +38458,35 @@ N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
+E "..\..\User\app\src\bsp_DC_Motor.c" 63 21 identifier "MotorSN" is undefined
 Nvoid bsp_MotorBrake(MotorSN sn)
 N{
 N	switch(sn)
 N	{
+E "..\..\User\app\src\bsp_DC_Motor.c" 67 8 identifier "MotorLeft" is undefined
 N		case MotorLeft:
 N		{
 N			motor[MotorLeft].isRunning = false ;
 X			motor[MotorLeft].isRunning = 0 ;
+E "..\..\User\app\src\bsp_DC_Motor.c" 70 51 identifier "MAXPWM" is undefined
 N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0,MAXPWM); 
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0,10000); 
+X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0,MAXPWM); 
 N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,MAXPWM);
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0,10000);
+X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0,MAXPWM);
 N			bsp_InitMotorPid(MotorLeft);
 N			
 N		}break;
 N		
+E "..\..\User\app\src\bsp_DC_Motor.c" 76 8 identifier "MotorRight" is undefined
 N		case MotorRight:
 N		{
 N			motor[MotorRight].isRunning = false ;
 X			motor[MotorRight].isRunning = 0 ;
+E "..\..\User\app\src\bsp_DC_Motor.c" 79 51 identifier "MAXPWM" is undefined
 N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0,MAXPWM);
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0,10000);
+X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0,MAXPWM);
 N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0,MAXPWM);
-X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0,10000);
+X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0,MAXPWM);
 N			bsp_InitMotorPid(MotorRight);
 N			
 N		}break;
@@ -38854,10 +38502,12 @@ N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
+E "..\..\User\app\src\bsp_DC_Motor.c" 96 21 identifier "MotorSN" is undefined
 Nvoid bsp_MotorCoast(MotorSN sn)
 N{
 N	switch(sn)
 N	{
+E "..\..\User\app\src\bsp_DC_Motor.c" 100 8 identifier "MotorLeft" is undefined
 N		case MotorLeft:
 N		{
 N			motor[MotorLeft].isRunning = false ;
@@ -38868,6 +38518,7 @@ N			bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0,0);
 X			bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0,0);
 N		}break;
 N		
+E "..\..\User\app\src\bsp_DC_Motor.c" 107 8 identifier "MotorRight" is undefined
 N		case MotorRight:
 N		{
 N			motor[MotorRight].isRunning = false ;
@@ -38889,11 +38540,13 @@ N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
+E "..\..\User\app\src\bsp_DC_Motor.c" 125 22 identifier "MotorSN" is undefined
+E "..\..\User\app\src\bsp_DC_Motor.c" 125 34 identifier "MotorDir" is undefined
 Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm)
 N{	
 N	//如果给出的PWM已经大于最大值，则直接退出函数
+E "..\..\User\app\src\bsp_DC_Motor.c" 128 11 identifier "MAXPWM" is undefined
 N	if(pwm > MAXPWM)
-X	if(pwm > 10000)
 N	{
 N		WARNING("PWM值超过了MAXPWM\r\n");
 X		printf ("PWM值超过了MAXPWM\r\n");
@@ -38902,42 +38555,52 @@ N	}
 N	
 N	switch(sn)
 N	{
+E "..\..\User\app\src\bsp_DC_Motor.c" 136 8 identifier "MotorLeft" is undefined
 N		case MotorLeft:
 N		{
+E "..\..\User\app\src\bsp_DC_Motor.c" 138 14 identifier "Forward" is undefined
 N			if(dir == Forward)
 N			{
 N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3,0, 0); 
 X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3,0, 0); 
+E "..\..\User\app\src\bsp_DC_Motor.c" 141 50 identifier "DC_PWM_T" is undefined
 N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,DC_PWM_T, pwm);
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,30000, pwm);
+X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,DC_PWM_T, pwm);
 N				motor[MotorLeft].dir = Forward;/*用于编码器标记正负*/
 N			}
 N			else
 N			{
 N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_14, TIM1, 4,0, 0);
 X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x4000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 4,0, 0);
+E "..\..\User\app\src\bsp_DC_Motor.c" 147 51 identifier "DC_PWM_T" is undefined
 N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_13, TIM1, 3, DC_PWM_T,pwm); 
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3, 30000,pwm); 
+X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x2000), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 3, DC_PWM_T,pwm); 
+E "..\..\User\app\src\bsp_DC_Motor.c" 148 28 identifier "Backward" is undefined
 N				motor[MotorLeft].dir = Backward;/*用于编码器标记正负*/
 N			}
 N		}break;
 N		
+E "..\..\User\app\src\bsp_DC_Motor.c" 152 8 identifier "MotorRight" is undefined
 N		case MotorRight:
 N		{
+E "..\..\User\app\src\bsp_DC_Motor.c" 154 14 identifier "Backward" is undefined
 N			if(dir == Backward)
 N			{
 N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,0, 0);
 X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,0, 0);
+E "..\..\User\app\src\bsp_DC_Motor.c" 157 50 identifier "DC_PWM_T" is undefined
 N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,DC_PWM_T, pwm);
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,30000, pwm);
+X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,DC_PWM_T, pwm);
+E "..\..\User\app\src\bsp_DC_Motor.c" 158 29 identifier "Forward" is undefined
 N				motor[MotorRight].dir = Forward;/*用于编码器标记正负*/
 N			}
 N			else
 N			{
 N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_11, TIM1, 2,0, 0);
 X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0800), ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 2,0, 0);
+E "..\..\User\app\src\bsp_DC_Motor.c" 163 50 identifier "DC_PWM_T" is undefined
 N				bsp_SetTIMOutPWM(GPIOE, GPIO_Pin_9,  TIM1, 1,DC_PWM_T, pwm);
-X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,30000, pwm);
+X				bsp_SetTIMOutPWM(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), ((uint16_t)0x0200),  ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), 1,DC_PWM_T, pwm);
 N				motor[MotorRight].dir = Backward;/*用于编码器标记正负*/
 N			}
 N		}break;
@@ -38953,242 +38616,7 @@ N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
+E "..\..\User\app\src\bsp_DC_Motor.c" 179 1 identifier "MotorDir" is undefined
+E "..\..\User\app\src\bsp_DC_Motor.c" 179 26 identifier "MotorSN" is undefined
+C "" 0 0 error limit reached
 NMotorDir bsp_MotorGetDir(MotorSN sn)
-N{
-N	return motor[sn].dir;
-N}
-N
-N
-N
-Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed)
-N{	
-N	//如果给出的PWM已经大于最大值，则直接退出函数
-N	if(sn!=MotorLeft && sn!=MotorRight)
-N	{
-N		WARNING("错误的电机\r\n");
-X		printf ("错误的电机\r\n");
-N		return ;
-N	}
-N	
-N	
-N	//bsp_MotorBrake(sn);
-N	
-N	
-N	
-N	switch(sn)
-N	{
-N		case MotorLeft:
-N		{
-N			pid[MotorLeft].target = targetSpeed;
-N			motor[MotorLeft].isRunning = true ;
-X			motor[MotorLeft].isRunning = 1 ;
-N		}break;
-N		
-N		case MotorRight:
-N		{
-N			pid[MotorRight].target = targetSpeed;
-N			motor[MotorRight].isRunning = true ;
-X			motor[MotorRight].isRunning = 1 ;
-N		}break;
-N	}
-N}
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_InitMotorPid
-N*	功能说明: 初始化某个电机PID
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_InitMotorPid(MotorSN sn)
-N{
-N	switch(sn)
-N	{
-N		case MotorLeft:
-N		{
-N			/************************PID 左轮机**********12 0.5 1 0.8 5500*******/
-N			pid[MotorLeft].target = 250;
-N			
-N			pid[MotorLeft].kp = 12;
-N			pid[MotorLeft].ki = 0.1;
-N			pid[MotorLeft].kd = 0;
-N			
-N			pid[MotorLeft].bias = 0 ;
-N			pid[MotorLeft].lastBias = 0 ;
-N			pid[MotorLeft].biasSum = 0 ;
-N			
-N			pid[MotorLeft].pwm = 0 ;
-N			pid[MotorLeft].pwmMax = MAXPWM ;
-X			pid[MotorLeft].pwmMax = 10000 ;
-N			
-N			pid[MotorLeft].kiLimit = 20000 ;
-N			pid[MotorLeft].fitK = 0.8 ;
-N			pid[MotorLeft].fitD = 4000 ;
-N		}break;
-N		
-N		case MotorRight:
-N		{
-N			/************************PID 右轮机************************/
-N			pid[MotorRight].target = 250;
-N			
-N			pid[MotorRight].kp = 12;
-N			pid[MotorRight].ki = 0.1;
-N			pid[MotorRight].kd = 0;
-N			
-N			pid[MotorRight].bias = 0 ;
-N			pid[MotorRight].lastBias = 0 ;
-N			pid[MotorRight].biasSum = 0 ;
-N			
-N			pid[MotorRight].pwm = 0 ;
-N			pid[MotorRight].pwmMax = MAXPWM ;
-X			pid[MotorRight].pwmMax = 10000 ;
-N			
-N			pid[MotorRight].kiLimit = 20000 ;
-N			pid[MotorRight].fitK = 0.8 ;
-N			pid[MotorRight].fitD = 4000 ;
-N		}break;
-N	}
-N}
-N
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_PidControlAct
-N*	功能说明: 实时调节电机PID，100MS调用一次
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_PidControlAct(void)
-N{
-N	int32_t speed = 0 ;
-N	float S_Out[4] = {0};
-N	
-N	UNUSED(S_Out);
-X	(void)(S_Out);
-N	
-N	/************************显示速度波形************************/
-N	#if 0 
-S	S_Out[0] = bsp_EncoderGetSpeed(EncoderLeft);
-S	S_Out[1] = bsp_EncoderGetSpeed(EncoderRight);
-S	SDS_OutPut_Data(S_Out);
-N	#endif
-N	
-N	/************************PID  左轮************************/
-N	if(motor[MotorLeft].isRunning)
-N	{
-N		speed = bsp_EncoderGetSpeed(EncoderLeft);//当前速度毫米/秒
-N		pid[MotorLeft].bias = pidabs(pid[MotorLeft].target) - speed;//当前误差值
-N		pid[MotorLeft].biasSum += pid[MotorLeft].bias;//误差累积
-N		
-N		//积分限制
-N		if(pid[MotorLeft].biasSum >= pid[MotorLeft].kiLimit)
-N		{
-N			pid[MotorLeft].biasSum = pid[MotorLeft].kiLimit;
-N		}
-N			
-N		pid[MotorLeft].pwm = (pid[MotorLeft].fitK*pidabs(pid[MotorLeft].target) + pid[MotorLeft].fitD) + pid[MotorLeft].kp*pid[MotorLeft].bias + pid[MotorLeft].ki*pid[MotorLeft].biasSum + pid[MotorLeft].kd*(pid[MotorLeft].bias-pid[MotorLeft].lastBias); 
-N		pid[MotorLeft].lastBias = pid[MotorLeft].bias;//上次误差
-N		
-N		//PWM限制
-N		if(pid[MotorLeft].pwm >= pid[MotorLeft].pwmMax)
-N		{
-N			pid[MotorLeft].pwm = pid[MotorLeft].pwmMax;
-N		}
-N		else if(pid[MotorLeft].pwm <= 0)
-N		{
-N			pid[MotorLeft].pwm = 0 ;
-N		}
-N		#if 0
-S		printf("left:%dmm/s  ",bsp_EncoderGetSpeed(EncoderLeft));
-S		printf("pid[MotorLeft].bias:%f  ",pid[MotorLeft].bias);
-S		printf("pid[MotorLeft].biasSum:%f  ",pid[MotorLeft].biasSum);
-S		printf("pid[MotorLeft].lastBias:%f  ",pid[MotorLeft].lastBias);
-S		printf("pid[MotorLeft].pwm:%f  ",pid[MotorLeft].pwm);
-N		#endif
-N		bsp_SetMotorPWM(MotorLeft, pid[MotorLeft].target>0 ? Forward:Backward, pid[MotorLeft].pwm);
-N	}
-N	
-N	
-N	/************************PID  右轮************************/
-N	if(motor[MotorRight].isRunning)
-N	{
-N		speed = bsp_EncoderGetSpeed(EncoderRight);//当前速度毫米/秒
-N		pid[MotorRight].bias = pidabs(pid[MotorRight].target) - speed;//当前误差值
-N		pid[MotorRight].biasSum += pid[MotorRight].bias;//误差累积
-N		
-N		//积分限制
-N		if(pid[MotorRight].biasSum >= pid[MotorRight].kiLimit)
-N		{
-N			pid[MotorRight].biasSum = pid[MotorRight].kiLimit;
-N		}
-N			
-N		pid[MotorRight].pwm = (pid[MotorRight].fitK*pidabs(pid[MotorRight].target) + pid[MotorRight].fitD) + pid[MotorRight].kp*pid[MotorRight].bias + pid[MotorRight].ki*pid[MotorRight].biasSum + pid[MotorRight].kd*(pid[MotorRight].bias-pid[MotorRight].lastBias); 
-N		pid[MotorRight].lastBias = pid[MotorRight].bias;//上次误差
-N		
-N		//PWM限制
-N		if(pid[MotorRight].pwm >= pid[MotorRight].pwmMax)
-N		{
-N			pid[MotorRight].pwm = pid[MotorRight].pwmMax;
-N		}
-N		else if(pid[MotorRight].pwm <= 0)
-N		{
-N			pid[MotorRight].pwm = 0 ;
-N		}
-N		#if 0
-S		printf("right:%dmm/s  ",bsp_EncoderGetSpeed(EncoderRight));
-S		printf("pid[MotorRight].bias:%f  ",pid[MotorRight].bias);
-S		printf("pid[MotorRight].biasSum:%f  ",pid[MotorRight].biasSum);
-S		printf("pid[MotorRight].lastBias:%f  ",pid[MotorRight].lastBias);
-S		printf("pid[MotorRight].pwm:%f\r\n",pid[MotorRight].pwm);
-N		#endif
-N		bsp_SetMotorPWM(MotorRight, pid[MotorRight].target>0 ? Forward:Backward, pid[MotorRight].pwm);
-N	}
-N	
-N}
-N
-Nstatic float pidabs(float val)
-N{
-N	return val>0 ? val : -val;
-N}
-N
-N
-N
-N
-N
-N#define Speed    4800
-N#define VAL      200
-N
-N
-Nvoid bsp_MotorRunR(void)
-N{
-N	bsp_SetMotorPWM(MotorLeft, Forward,Speed+VAL);
-X	bsp_SetMotorPWM(MotorLeft, Forward,4800+200);
-N	bsp_SetMotorPWM(MotorRight,Forward,Speed);
-X	bsp_SetMotorPWM(MotorRight,Forward,4800);
-N}
-N
-Nvoid bsp_MotorRunL(void)
-N{
-N	bsp_SetMotorPWM(MotorLeft, Forward,Speed);
-X	bsp_SetMotorPWM(MotorLeft, Forward,4800);
-N	bsp_SetMotorPWM(MotorRight,Forward,Speed+VAL);
-X	bsp_SetMotorPWM(MotorRight,Forward,4800+200);
-N}
-N
-Nvoid bsp_MotorRun(void)
-N{
-N	bsp_SetMotorPWM(MotorLeft, Forward,Speed);
-X	bsp_SetMotorPWM(MotorLeft, Forward,4800);
-N	bsp_SetMotorPWM(MotorRight,Forward,Speed);
-X	bsp_SetMotorPWM(MotorRight,Forward,4800);
-N}
-N
-N
-N
-N
-N
-N

@@ -38371,275 +38371,40 @@ N
 N#endif
 N
 L 173 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_DC_Motor.h"
-L 1 "..\..\User\app\inc\bsp_DC_Motor.h" 1
-N#ifndef __BSP_DC_MOTOR_H
-N#define __BSP_DC_MOTOR_H
-N
-N
-N#define MOTOR_NUM    2       /*电机数量*/
-N#define MAXPWM       10000   /*最大PWM值*/
-N#define DC_PWM_T     30000   /*DC电机驱动芯片占空比周期*/
-N
-N
-Ntypedef enum
-N{
-N	MotorLeft = 0 ,/*左边电机编号*/
-N	MotorRight     /*右边电机编号*/ 
-N}MotorSN;
-N
-Ntypedef enum
-N{
-N	Forward  = 0 ,/*前进*/
-N	Backward      /*后退*/ 
-N}MotorDir;
-N
-Ntypedef struct
-N{
-N	volatile float target; //目标值
-N	
-N	volatile float kp;  //比例
-N	volatile float ki;  //积分
-N	volatile float kd;  //微分
-N	
-N	volatile float bias;     //本次误差
-N	volatile float lastBias; //上次误差
-N	volatile float biasSum;  //累积误差
-N	
-N	volatile float pwm;     //计算出的PWM值
-N	volatile float pwmMax;  //PWM能够取的最大值
-N	
-N	volatile float kiLimit; //积分上限
-N	volatile float fitK;    //拟合参数k  
-N	volatile float fitD;    //拟合参数d
-N}PID;
-N
-Nvoid bsp_InitDC_Motor(void);      /* 初始化直流电机的PWM定时器 */
-Nvoid bsp_MotorBrake(MotorSN sn);  /* 急停 */
-Nvoid bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
-Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
-Nvoid bsp_PidControlAct(void);
-Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-NMotorDir bsp_MotorGetDir(MotorSN sn);
-Nvoid bsp_MotorRunR(void);
-Nvoid bsp_MotorRunL(void);
-Nvoid bsp_MotorRun(void);
-N#endif
-N
-L 174 "..\..\User\bsp\bsp.h" 2
+N//#include "bsp_DC_Motor.h"
 N#include "bsp_Encoder.h"
 L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
 N#ifndef __ENCODER_H
 N#define __ENCODER_H
 N
-N#define ENCODER_COUNT                 2         /*编码器个数*/
-N#define ENCODER_INTERRUPT_FREQUENCY	  100000    /*10us中断一次*/
-N#define CALC_T					      30000     /*1000次中断（300MS）计算一次速度*/
-N
-N#define PulseCntPerCircle	16                                      /*电机转一圈编码器脉冲个数*/
-N#define CircleCntPerCircle	32                                     /*轮子转一圈，电机实际转的圈数*/
-N#define Ratio		        (PulseCntPerCircle*CircleCntPerCircle) /*轮子转一圈，编码器的脉冲数*/
-N#define PI	3.14159F			  /*π*/
-N#define DIAMETER	70            /*直径70MM*/
-N#define PERIMETER   (PI*DIAMETER) /*轮子周长*/
+N#define ENCODER_NUM      (2)     /*编码器个数*/
+N#define RPM_PULSE_RATIO  (1024)  /*轮子转1圈，脉冲个数*/
+N#define ENCODER_PI		 (3.14F) /*π*/
 N
 Ntypedef enum
 N{
-N	EncoderLeft  = 0 ,
+N	EncoderLeft = 0 ,
 N	EncoderRight
 N}EncoderSN;
 N
 Ntypedef struct
 N{
-N	bool isReadyRising[ENCODER_COUNT];   /*检测到一个低电平了，现在准备检测上升沿*/
-X	_Bool isReadyRising[2];    
-N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
-X	uint32_t risingCount[2];  
-N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
-X	float speed[2];           
-N	int32_t odometer[ENCODER_COUNT];
-X	int32_t odometer[2];
-N}QEncoder;
+N	uint32_t totalMileage; /*总里程，没有正负，前进后退都加，上升沿下降沿都加*/
+N	int32_t pulseT;        /*周期性的读取脉冲个数，理论上有正负，但目前扫地机只有1个霍尔，无法硬件层面得到正负*/
+N}Encoder;
 N
+Nvoid bsp_InitEncoder(void);
+Nuint32_t bsp_EncoderGetTotalMileage(EncoderSN sn);
+Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
 N
-Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
-Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
-Nint32_t bsp_encoderGetOdometer(MotorSN sn);
-N
-N
-N
-N
-Nvoid EXTI_Config(void);
-Nint32_t bsp_EncoderGetPulseCnt(EncoderSN sn);
-Nint32_t bsp_EncoderGetPulseCntT(EncoderSN sn);
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Collision.h"
-L 1 "..\..\User\app\inc\bsp_Collision.h" 1
-N#ifndef __BSP_COLLISION_H
-N#define __BSP_COLLISION_H
-N
-Ntypedef enum
-N{
-N	CollisionLeft = 0 ,
-N	CollisionRight,
-N	CollisionAll,
-N	CollisionNone
-N}Collision;
-N
-Nvoid bsp_InitCollision(void);      /*初始化碰撞检测引脚*/
-NCollision bsp_CollisionScan(void); /*返回碰撞结果*/
-Nvoid bsp_CollisionDemo(void);      /*碰撞测试例子*/
-N
-N#endif
-L 176 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Angle.h"
-L 1 "..\..\User\app\inc\bsp_Angle.h" 1
-N#ifndef __BSP_ANGLE_H
-N#define __BSP_ANGLE_H
-N
-N#define RX_BUF_SIZE   13
-N#define RX_BAUD       115200
-N
-N
-Ntypedef struct
-N{
-N	volatile bool timeout ;
-X	volatile _Bool timeout ;
-N	volatile uint16_t rxCount;
-N	volatile uint8_t  buf[RX_BUF_SIZE] ;
-X	volatile uint8_t  buf[13] ;
-N	volatile float angle;
-N	volatile int16_t angleRaw;
-N}Angle;
-N
-N
-Ntypedef struct
-N{
-N	volatile int16_t HEAD;
-N	volatile int16_t RATE;
-N	volatile int16_t ANGLE;
-N	volatile int16_t SUM1;
-N	volatile int16_t RESERVE;
-N	volatile int8_t SUM2;
-N	volatile int16_t END;
-N}AngleFrame;
-N
-N
-Nvoid bsp_AngleRevByte(uint8_t byte);
-Nfloat bsp_AngleRead(void);
-Nint16_t bsp_AngleReadRaw(void);
-Nfloat bsp_AngleAdd(float angle1 , float angle2);
-Nvoid bsp_InitAngle(void);
-Nvoid bsp_AngleRst(void);
-N
-N
-N#endif
-N
-L 177 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Action.h"
-L 1 "..\..\User\app\inc\bsp_Action.h" 1
-N#ifndef __BSP_ACTION_H
-N#define __BSP_ACTION_H
-N
-N
-N	
-N#endif
-N
-L 178 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_aw9523b.h"
-L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
-N#ifndef __BSP_AW9523B_H
-N#define __BSP_AW9523B_H
-N
-N#define AW_DEV_ADDR			0xB6		/* 设备地址 */
-N#define AW_ADDR_BYTES		1			/* 地址字节个数 */
-N
-Ntypedef enum
-N{
-N	AW_ID = 0x10,
-N	Config_Port0 = 0x04,//选择输入或输出
-N	Config_Port1 = 0x05,//选择输入或输出
-N	GCR = 0x11,//配置P0口为推挽或开漏
-N	Output_Port0 = 0x02,
-N	Output_Port1 = 0x03
-N}ADDR;
-N
-Ntypedef enum
-N{
-N	awP0_0 = 0,
-N	awP0_1 = 1,
-N	awP0_2 = 2,
-N	awP0_3 = 3,
-N	awP0_4 = 4,
-N	awP0_5 = 5,
-N	awP0_6 = 6,
-N	awP0_7 = 7,
-N	
-N	awP1_0 = 8,
-N	awP1_1 = 9,
-N	awP1_2 = 10,
-N	awP1_3 = 11,
-N	awP1_4 = 12,
-N	awP1_5 = 13,
-N	awP1_6 = 14,
-N	awP1_7 = 15
-N	
-N}AW_PIN;
-N
-Ntypedef enum
-N{
-N	AW_0 = 0,
-N	AW_1 = 1
-N}AW_VAL;
-N
-N
-Nuint8_t bsp_InitAW9523B(void);
-Nuint8_t bsp_AWReadID(void);
-Nvoid bsp_AWSetPinVal(AW_PIN pin,AW_VAL val);
-Nuint8_t bsp_AWReadReg(ADDR addr);
-Nfloat bsp_GetAdScanValue(void);
-Nvoid bsp_DetectDeal(void);
-Nfloat bsp_GetInfraredVoltageLeft(void);
-Nfloat bsp_GetInfraredVoltageRight(void);
-N
-N#endif
-N
-L 179 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_DetectAct.h"
-L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
-N#ifndef __BSP_DETECTACT_H
-N#define __BSP_DETECTACT_H
-N
-Ntypedef struct
-N{
-N	uint8_t isRunning;
-N	uint8_t action;
-N	uint32_t delay;
-N	
-N	uint8_t pinMapIndex;
-N	uint16_t adcVal;
-N}DetectAct;
-N
-Nvoid bsp_InitDetectAct(void);
-Nvoid bsp_DetectStart(void);
-Nvoid bsp_DetectStop(void);
-Nvoid bsp_DetectAct(void);
-Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
-N
-N#endif
-N
-L 180 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_PulseMark.h"
-L 1 "..\..\User\app\inc\bsp_PulseMark.h" 1
-N#ifndef __BSP_PULSEMARK_H
-N#define __BSP_PULSEMARK_H
-N
-Nvoid bsp_InitPinPulse(void);
-Nvoid bsp_SendPulse(void);
-N
-N#endif
-L 181 "..\..\User\bsp\bsp.h" 2
+N//#include "bsp_Collision.h"
+N//#include "bsp_Angle.h"
+N//#include "bsp_Action.h"
+N//#include "bsp_aw9523b.h"
+N//#include "bsp_DetectAct.h"
+N//#include "bsp_PulseMark.h"
 N#include "bsp_IWDG.h"
 L 1 "..\..\User\bsp\inc\bsp_IWDG.h" 1
 N/*
@@ -38667,94 +38432,9 @@ Nvoid bsp_IWDG_Feed(void);
 N
 N#endif
 L 182 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Edgewise.h"
-L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
-N#ifndef __BSP_EDGEWISE_H
-N#define __BSP_EDGEWISE_H
-N
-Nvoid bsp_EdgewiseAct(void);
-N
-N
-N#endif
-N
-L 183 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Remote.h"
-L 1 "..\..\User\app\inc\bsp_Remote.h" 1
-N#ifndef __BSP_REMOTE_H
-N#define __BSP_REMOTE_H
-N
-N#define CH_CNT    4
-N
-Ntypedef enum
-N{
-N    CapCH1 = 0 ,
-N    CapCH2 = 1 ,
-N    CapCH3 = 2 ,
-N    CapCH4 = 3 ,
-N}CapCH;
-N
-Ntypedef struct
-N{
-N    volatile uint8_t  capState[CH_CNT];  //输入捕获状态		    				
-X    volatile uint8_t  capState[4];  
-N    volatile uint16_t capValue[CH_CNT];	 //输入捕获值
-X    volatile uint16_t capValue[4];	 
-N	volatile uint16_t capStart[CH_CNT];	 //输入捕获触发时定时器的值
-X	volatile uint16_t capStart[4];	 
-N}ChargingPile;
-N
-Nuint32_t bsp_GetCapCnt(CapCH capCH);
-Nvoid bsp_InitChargingPile(void);
-Nvoid bsp_SearchChargingPileAct(void);
-Nvoid bsp_StartSearchChargingPile(void);
-Nvoid bsp_StopSearchChargingPile(void);
-Nvoid bsp_PulseTimerPer1MS(void);
-Nvoid bsp_PrintRemoteState(CapCH capCH);
-Nbool bsp_GetChargeFeedback(void);
-X_Bool bsp_GetChargeFeedback(void);
-N
-N#endif
-L 184 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_communication.h"
-L 1 "..\..\User\app\inc\bsp_communication.h" 1
-N#ifndef __BSP_COMMUNICATION_H
-N#define __BSP_COMMUNICATION_H
-N
-N#pragma pack(1)
-Ntypedef struct
-N{
-N	uint8_t sof1;                  //0xAA
-N	uint8_t sof2;                  //0xAA
-N	uint8_t sof3;                  //0xAA
-N	uint8_t identifier;	           //0x25
-N	uint8_t size_of_payload_field; //0x04
-N	int32_t left_wheel_pulse_count;
-N	int32_t right_wheel_pulse_count;
-N	uint8_t button_control_cmd;
-N	uint16_t distance_of_left_infrared;
-N	uint16_t distance_of_right_infrared;
-N	uint16_t distance_of_front_infrared;
-N	int16_t  angle_deg;
-N	uint16_t adc_1;
-N	uint16_t adc_2;
-N	uint16_t adc_3;
-N	uint16_t adc_4;
-N	int16_t acc_x;
-N	int16_t acc_y;
-N	int16_t acc_z;
-N	uint16_t obstacle_signal;
-N	uint8_t battery_level_soc;
-N	uint8_t charge_status;
-N	uint8_t checksum_msb;
-N	uint8_t checksum_lsb;
-N	uint8_t end_of_falg;           //0x55
-N}ReportFrame;
-N#pragma pack()
-N
-Nvoid bsp_SendReportFrame(void);
-N
-N#endif
-L 185 "..\..\User\bsp\bsp.h" 2
+N//#include "bsp_Edgewise.h"
+N//#include "bsp_Remote.h"
+N//#include "bsp_communication.h"
 N
 N
 N/* 提供给其他C文件调用的函数 */
