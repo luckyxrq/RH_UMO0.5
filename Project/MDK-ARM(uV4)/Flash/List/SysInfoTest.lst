@@ -38436,10 +38436,9 @@ N#endif
 N
 L 5 "..\..\User\app\inc\bsp_Control.h" 2
 N
-Nint32_t myabs(int32_t val);
 Nvoid bsp_InitPid(MotorSN sn);
-Nvoid bsp_PidClear(MotorSN sn);
-Nvoid bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target);
+Nvoid bsp_PidSched(void);
+Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 N
 N#endif
 N

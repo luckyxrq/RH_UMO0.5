@@ -85,13 +85,16 @@ int main(void)
 */
 static void vTaskTaskUserIF(void *pvParameters)
 {
-	//bsp_MotorSetPWM(MotorLeft,Forward,5000);
-	//bsp_MotorSetPWM(MotorRight,Forward,5000);
+
     while(1)
     {
-		//DEBUG("L TotalMileage:%d  R TotalMileage:%d\r\n",bsp_EncoderGetTotalMileage(EncoderLeft),bsp_EncoderGetTotalMileage(EncoderRight));
-		
-		vTaskDelay(100);
+		bsp_SetMotorSpeed(MotorLeft,5);
+		bsp_SetMotorSpeed(MotorRight,5);		
+		vTaskDelay(6000);
+		bsp_SetMotorSpeed(MotorLeft,-5);
+		bsp_SetMotorSpeed(MotorRight,-5);		
+		vTaskDelay(6000);
+
 	}
 }
 
@@ -127,35 +130,12 @@ static void vTaskLED(void *pvParameters)
 */
 static void vTaskMsgPro(void *pvParameters)
 {
-	static uint32_t i = 0 ;
-	int32_t target = 2;
+	
 	
     while(1)
     {
 
-		bsp_PidExec(MotorLeft,bsp_EncoderGetPulseT(EncoderLeft),target);
-		bsp_PidExec(MotorRight,bsp_EncoderGetPulseT(EncoderRight),target);
-		
-//		if(i++ == 300*1)
-//		{
-//			target = 10;
-//		}
-//		else if(i++ == 300*2)
-//		{
-//			target = 5;
-//		}
-//		else if(i++ == 300*3)
-//		{
-//			target = -5;
-//			
-//			TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
-//			TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
-//			
-//			TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
-//			TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
-//			bsp_PidClear(MotorLeft);
-//			bsp_PidClear(MotorRight);
-//		}
+		bsp_PidSched();
 		
 		vTaskDelay(10);
     }

@@ -45784,10 +45784,9 @@ N#endif
 N
 L 5 "..\..\User\app\inc\bsp_Control.h" 2
 N
-Nint32_t myabs(int32_t val);
 Nvoid bsp_InitPid(MotorSN sn);
-Nvoid bsp_PidClear(MotorSN sn);
-Nvoid bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target);
+Nvoid bsp_PidSched(void);
+Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 N
 N#endif
 N
@@ -45939,13 +45938,16 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskTaskUserIF(void *pvParameters)
 N{
-N	//bsp_MotorSetPWM(MotorLeft,Forward,5000);
-N	//bsp_MotorSetPWM(MotorRight,Forward,5000);
+N
 N    while(1)
 N    {
-N		//DEBUG("L TotalMileage:%d  R TotalMileage:%d\r\n",bsp_EncoderGetTotalMileage(EncoderLeft),bsp_EncoderGetTotalMileage(EncoderRight));
-N		
-N		vTaskDelay(100);
+N		bsp_SetMotorSpeed(MotorLeft,5);
+N		bsp_SetMotorSpeed(MotorRight,5);		
+N		vTaskDelay(6000);
+N		bsp_SetMotorSpeed(MotorLeft,-5);
+N		bsp_SetMotorSpeed(MotorRight,-5);		
+N		vTaskDelay(6000);
+N
 N	}
 N}
 N
@@ -45981,39 +45983,15 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskMsgPro(void *pvParameters)
 N{
-N	static uint32_t i = 0 ;
-N	int32_t target = 2;
+N	
 N	
 N    while(1)
 N    {
 N
-N		bsp_PidExec(MotorLeft,bsp_EncoderGetPulseT(EncoderLeft),target);
-N		bsp_PidExec(MotorRight,bsp_EncoderGetPulseT(EncoderRight),target);
-N		
-N//		if(i++ == 300*1)
-N//		{
-N//			target = 10;
-N//		}
-N//		else if(i++ == 300*2)
-N//		{
-N//			target = 5;
-N//		}
-N//		else if(i++ == 300*3)
-N//		{
-N//			target = -5;
-N//			
-N//			TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
-N//			TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
-N//			
-N//			TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
-N//			TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
-N//			bsp_PidClear(MotorLeft);
-N//			bsp_PidClear(MotorRight);
-N//		}
+N		bsp_PidSched();
 N		
 N		vTaskDelay(10);
 N    }
-W "..\..\User\main.c" 130 18 variable "i" was declared but never referenced
 N}
 N
 N/*
