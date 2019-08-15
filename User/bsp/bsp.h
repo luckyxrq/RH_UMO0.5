@@ -172,6 +172,8 @@
 #include "bsp_PowerSwitch.h"
 //#include "bsp_DC_Motor.h"
 #include "bsp_Encoder.h"
+#include "bsp_Control.h"
+#include "bsp_motor.h"
 //#include "bsp_Collision.h"
 //#include "bsp_Angle.h"
 //#include "bsp_Action.h"

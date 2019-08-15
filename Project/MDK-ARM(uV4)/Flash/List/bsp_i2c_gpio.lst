@@ -37792,7 +37792,7 @@ N
 N	【串口4】 --- 不做串口用。
 N	【串口5】 --- 不做串口用。
 N*/
-N#define	UART1_FIFO_EN	0
+N#define	UART1_FIFO_EN	1
 N#define	UART2_FIFO_EN	1  //调试
 N#define	UART3_FIFO_EN	1  //陀螺仪
 N#define	UART4_FIFO_EN	1
@@ -37818,8 +37818,8 @@ N	COM5 = 4,	/* UART5, PC12, PD2 */
 N}COM_PORT_E;
 N
 N/* 定义串口波特率和FIFO缓冲区大小，分为发送缓冲区和接收缓冲区, 支持全双工 */
-N#if UART1_FIFO_EN == 0
-X#if 0 == 0
+N#if UART1_FIFO_EN == 1
+X#if 1 == 1
 N	#define UART1_BAUD			115200
 N	#define UART1_TX_BUF_SIZE	1*1024
 N	#define UART1_RX_BUF_SIZE	1*1024
@@ -38402,6 +38402,25 @@ Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
 N
 N#endif
 L 175 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Control.h"
+L 1 "..\..\User\app\inc\bsp_Control.h" 1
+N#ifndef __BSP_CONTROL_H
+N#define __BSP_CONTROL_H
+N
+N
+N#endif
+N
+L 176 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_motor.h"
+L 1 "..\..\User\app\inc\bsp_motor.h" 1
+N#ifndef __BSP_MOTOR_H
+N#define __BSP_MOTOR_H
+N
+Nvoid bsp_InitMotor(void);
+N
+N#endif
+N
+L 177 "..\..\User\bsp\bsp.h" 2
 N//#include "bsp_Collision.h"
 N//#include "bsp_Angle.h"
 N//#include "bsp_Action.h"
@@ -38434,7 +38453,7 @@ Nvoid bsp_InitIWDG(void);
 Nvoid bsp_IWDG_Feed(void);
 N
 N#endif
-L 182 "..\..\User\bsp\bsp.h" 2
+L 184 "..\..\User\bsp\bsp.h" 2
 N//#include "bsp_Edgewise.h"
 N//#include "bsp_Remote.h"
 N//#include "bsp_communication.h"

@@ -55,4 +55,6 @@
 .\flash\obj\sysinfotest.o: ..\..\User\bsp\inc\bsp_user_lib.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Encoder.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Control.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_motor.h
 .\flash\obj\sysinfotest.o: ..\..\User\bsp\inc\bsp_IWDG.h

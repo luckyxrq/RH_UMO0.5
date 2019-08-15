@@ -35,25 +35,27 @@
 00001e  f7fffffe          BL       bsp_InitHardTimer
 ;;;49     	bsp_InitEncoder();
 000022  f7fffffe          BL       bsp_InitEncoder
-;;;50     	
-;;;51     	DEBUG("初始化完毕\r\n");
-000026  a002              ADR      r0,|L1.48|
-000028  f7fffffe          BL       __2printf
-;;;52     	
-;;;53     }
-00002c  bd10              POP      {r4,pc}
-;;;54     
+;;;50     	bsp_InitMotor();
+000026  f7fffffe          BL       bsp_InitMotor
+;;;51     	
+;;;52     	DEBUG("初始化完毕\r\n");
+00002a  a002              ADR      r0,|L1.52|
+00002c  f7fffffe          BL       __2printf
+;;;53     	
+;;;54     }
+000030  bd10              POP      {r4,pc}
+;;;55     
                           ENDP
 
-00002e  0000              DCW      0x0000
-                  |L1.48|
-000030  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
-000034  bbafcdea
-000038  b1cf0d0a
-00003c  00      
-00003d  00                DCB      0
-00003e  00                DCB      0
-00003f  00                DCB      0
+000032  0000              DCW      0x0000
+                  |L1.52|
+000034  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
+000038  bbafcdea
+00003c  b1cf0d0a
+000040  00      
+000041  00                DCB      0
+000042  00                DCB      0
+000043  00                DCB      0
 
 ;*** Start embedded assembler ***
 
