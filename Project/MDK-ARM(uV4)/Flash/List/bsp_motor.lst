@@ -38448,6 +38448,17 @@ N/***************************** 安富莱电子 www.armfly.com (END OF FILE) ********
 L 2 "..\..\User\app\src\bsp_motor.c" 2
 N
 N
+N/*
+N	笔记：
+N	硬件前提：bsp_InitTimer1(7199,0);10KHz
+N	输出恒为0：TIM_SetCompare1(TIM1,0);
+N	输出恒为1：TIM_SetCompare1(TIM1,7200);!!!千万别写成TIM_SetCompare1(TIM1,7199);;
+N*/
+N
+N
+N#define CONSTANT_HIGH_PWM      (7200)
+N#define CONSTANT_LOW_PWM       (0)
+N
 N
 Nstatic void bsp_InitTimer1(uint16_t arr,uint16_t psc);
 N
@@ -38506,17 +38517,17 @@ N	TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
 X	TIM_TimeBaseInit(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)), &TIM_TimeBaseStructure); 
 N	
 N	/*
-N	PWM一共有两种模式，PWM1模式：CNT<CRRx为有效电平。CNT>CRRx为无效电平。PWM2模式相反。
+N	PWM一共有两种模式，PWM1模式：CNT<CRRx为有效电平（不包括等于）。CNT>=CRRx为无效电平。PWM2模式相反。
 N	那么问题来了什么为有效电平？他又怎么确定？
 N	它是由TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;输出极性来定的。
 N	有效电平加输出极性就等于什么时候输出高电
 N	*/ 
-N	TIM_OCInitStructure.TIM_OCMode 		= TIM_OCMode_PWM2; 			
-X	TIM_OCInitStructure.TIM_OCMode 		= ((uint16_t)0x0070); 			
+N	TIM_OCInitStructure.TIM_OCMode 		= TIM_OCMode_PWM1; 			
+X	TIM_OCInitStructure.TIM_OCMode 		= ((uint16_t)0x0060); 			
 N 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; 	
 X 	TIM_OCInitStructure.TIM_OutputState = ((uint16_t)0x0001); 	
-N	TIM_OCInitStructure.TIM_OCPolarity  = TIM_OCPolarity_Low;	
-X	TIM_OCInitStructure.TIM_OCPolarity  = ((uint16_t)0x0002);	
+N	TIM_OCInitStructure.TIM_OCPolarity  = TIM_OCPolarity_High;	
+X	TIM_OCInitStructure.TIM_OCPolarity  = ((uint16_t)0x0000);	
 N
 N	/*TIM1，TIM8必须使用，否则在RTOS中无法使用，暂时不了解原因*/
 N	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Disable;	/* only for TIM1 and TIM8. */	
@@ -38560,10 +38571,14 @@ N	/*TIM1，TIM8必须使用，其他定时器可使用或不使用*/
 N	TIM_CtrlPWMOutputs(TIM1,ENABLE);
 X	TIM_CtrlPWMOutputs(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),ENABLE);
 N	
-N	TIM_SetCompare1(TIM1,1000);
-X	TIM_SetCompare1(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),1000);
-N	TIM_SetCompare2(TIM1,5000);
-X	TIM_SetCompare2(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),5000);
-N
+N	TIM_SetCompare1(TIM1,3600/4);
+X	TIM_SetCompare1(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),3600/4);
+N	TIM_SetCompare2(TIM1,3600/3);
+X	TIM_SetCompare2(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),3600/3);
+N	TIM_SetCompare3(TIM1,3600/2);
+X	TIM_SetCompare3(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),3600/2);
+N	TIM_SetCompare4(TIM1,3600);
+X	TIM_SetCompare4(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),3600);
+N	
 N}
 N

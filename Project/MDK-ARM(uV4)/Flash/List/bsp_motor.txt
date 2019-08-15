@@ -5,179 +5,185 @@
                           AREA ||i.bsp_InitMotor||, CODE, READONLY, ALIGN=1
 
                   bsp_InitMotor PROC
-;;;14     */
-;;;15     void bsp_InitMotor(void)
+;;;25     */
+;;;26     void bsp_InitMotor(void)
 000000  b510              PUSH     {r4,lr}
-;;;16     {
-;;;17     	/*初始化PWM 10KHZ，用于驱动电机*/
-;;;18     	bsp_InitTimer1(7199,0); 
+;;;27     {
+;;;28     	/*初始化PWM 10KHZ，用于驱动电机*/
+;;;29     	bsp_InitTimer1(7199,0); 
 000002  2100              MOVS     r1,#0
 000004  f641401f          MOV      r0,#0x1c1f
 000008  f7fffffe          BL       bsp_InitTimer1
-;;;19     }
+;;;30     }
 00000c  bd10              POP      {r4,pc}
-;;;20     
+;;;31     
                           ENDP
 
 
                           AREA ||i.bsp_InitTimer1||, CODE, READONLY, ALIGN=2
 
                   bsp_InitTimer1 PROC
-;;;28     */
-;;;29     static void bsp_InitTimer1(uint16_t arr,uint16_t psc)
+;;;39     */
+;;;40     static void bsp_InitTimer1(uint16_t arr,uint16_t psc)
 000000  b530              PUSH     {r4,r5,lr}
-;;;30     {  
+;;;41     {  
 000002  b089              SUB      sp,sp,#0x24
 000004  4605              MOV      r5,r0
 000006  460c              MOV      r4,r1
-;;;31     	
-;;;32     	GPIO_InitTypeDef   GPIO_InitStructure;
-;;;33     	TIM_OCInitTypeDef  TIM_OCInitStructure;
-;;;34     	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-;;;35     	
-;;;36     	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
+;;;42     	
+;;;43     	GPIO_InitTypeDef   GPIO_InitStructure;
+;;;44     	TIM_OCInitTypeDef  TIM_OCInitStructure;
+;;;45     	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+;;;46     	
+;;;47     	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
 000008  2101              MOVS     r1,#1
 00000a  02c8              LSLS     r0,r1,#11
 00000c  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;37      	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE|RCC_APB2Periph_AFIO, ENABLE);
+;;;48      	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE|RCC_APB2Periph_AFIO, ENABLE);
 000010  2101              MOVS     r1,#1
 000012  2041              MOVS     r0,#0x41
 000014  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;38     	GPIO_PinRemapConfig(GPIO_FullRemap_TIM1, ENABLE); /*Timer1重映射*/     	
+;;;49     	GPIO_PinRemapConfig(GPIO_FullRemap_TIM1, ENABLE); /*Timer1重映射*/     	
 000018  2101              MOVS     r1,#1
-00001a  4832              LDR      r0,|L2.228|
+00001a  4836              LDR      r0,|L2.244|
 00001c  f7fffffe          BL       GPIO_PinRemapConfig
-;;;39     
-;;;40     	/*GPIO初始化*/
-;;;41     	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_9|GPIO_Pin_11|GPIO_Pin_13|GPIO_Pin_14;
+;;;50     
+;;;51     	/*GPIO初始化*/
+;;;52     	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_9|GPIO_Pin_11|GPIO_Pin_13|GPIO_Pin_14;
 000020  f44f40d4          MOV      r0,#0x6a00
 000024  f8ad0020          STRH     r0,[sp,#0x20]
-;;;42     	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;  //复用推挽输出
+;;;53     	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;  //复用推挽输出
 000028  2018              MOVS     r0,#0x18
 00002a  f88d0023          STRB     r0,[sp,#0x23]
-;;;43     	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+;;;54     	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 00002e  2003              MOVS     r0,#3
 000030  f88d0022          STRB     r0,[sp,#0x22]
-;;;44     	GPIO_Init(GPIOE, &GPIO_InitStructure);
+;;;55     	GPIO_Init(GPIOE, &GPIO_InitStructure);
 000034  a908              ADD      r1,sp,#0x20
-000036  482c              LDR      r0,|L2.232|
+000036  4830              LDR      r0,|L2.248|
 000038  f7fffffe          BL       GPIO_Init
-;;;45     	
-;;;46     	/*定时器初始化*/
-;;;47     	TIM_TimeBaseStructure.TIM_Period 		= arr; 					
+;;;56     	
+;;;57     	/*定时器初始化*/
+;;;58     	TIM_TimeBaseStructure.TIM_Period 		= arr; 					
 00003c  f8ad5008          STRH     r5,[sp,#8]
-;;;48     	TIM_TimeBaseStructure.TIM_Prescaler     = psc; 					
+;;;59     	TIM_TimeBaseStructure.TIM_Prescaler     = psc; 					
 000040  f8ad4004          STRH     r4,[sp,#4]
-;;;49     	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 		
+;;;60     	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 		
 000044  2000              MOVS     r0,#0
 000046  f8ad000a          STRH     r0,[sp,#0xa]
-;;;50     	TIM_TimeBaseStructure.TIM_CounterMode 	= TIM_CounterMode_Up;  	
+;;;61     	TIM_TimeBaseStructure.TIM_CounterMode 	= TIM_CounterMode_Up;  	
 00004a  f8ad0006          STRH     r0,[sp,#6]
-;;;51     	TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure); 
+;;;62     	TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure); 
 00004e  a901              ADD      r1,sp,#4
-000050  4826              LDR      r0,|L2.236|
+000050  482a              LDR      r0,|L2.252|
 000052  f7fffffe          BL       TIM_TimeBaseInit
-;;;52     	
-;;;53     	/*
-;;;54     	PWM一共有两种模式，PWM1模式：CNT<CRRx为有效电平。CNT>CRRx为无效电平。PWM2模式相反。
-;;;55     	那么问题来了什么为有效电平？他又怎么确定？
-;;;56     	它是由TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;输出极性来定的。
-;;;57     	有效电平加输出极性就等于什么时候输出高电
-;;;58     	*/ 
-;;;59     	TIM_OCInitStructure.TIM_OCMode 		= TIM_OCMode_PWM2; 			
-000056  2070              MOVS     r0,#0x70
+;;;63     	
+;;;64     	/*
+;;;65     	PWM一共有两种模式，PWM1模式：CNT<CRRx为有效电平（不包括等于）。CNT>=CRRx为无效电平。PWM2模式相反。
+;;;66     	那么问题来了什么为有效电平？他又怎么确定？
+;;;67     	它是由TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;输出极性来定的。
+;;;68     	有效电平加输出极性就等于什么时候输出高电
+;;;69     	*/ 
+;;;70     	TIM_OCInitStructure.TIM_OCMode 		= TIM_OCMode_PWM1; 			
+000056  2060              MOVS     r0,#0x60
 000058  f8ad0010          STRH     r0,[sp,#0x10]
-;;;60      	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; 	
+;;;71      	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; 	
 00005c  2001              MOVS     r0,#1
 00005e  f8ad0012          STRH     r0,[sp,#0x12]
-;;;61     	TIM_OCInitStructure.TIM_OCPolarity  = TIM_OCPolarity_Low;	
-000062  2002              MOVS     r0,#2
+;;;72     	TIM_OCInitStructure.TIM_OCPolarity  = TIM_OCPolarity_High;	
+000062  2000              MOVS     r0,#0
 000064  f8ad0018          STRH     r0,[sp,#0x18]
-;;;62     
-;;;63     	/*TIM1，TIM8必须使用，否则在RTOS中无法使用，暂时不了解原因*/
-;;;64     	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Disable;	/* only for TIM1 and TIM8. */	
-000068  2000              MOVS     r0,#0
-00006a  f8ad0014          STRH     r0,[sp,#0x14]
-;;;65     	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;			/* only for TIM1 and TIM8. */		
-00006e  f8ad001a          STRH     r0,[sp,#0x1a]
-;;;66     	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;		/* only for TIM1 and TIM8. */
-000072  f8ad001c          STRH     r0,[sp,#0x1c]
-;;;67     	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;		/* only for TIM1 and TIM8. */
-000076  f8ad001e          STRH     r0,[sp,#0x1e]
-;;;68     	
-;;;69     	/*CH1*/
-;;;70     	TIM_OC1Init(TIM1, &TIM_OCInitStructure);	 
-00007a  a904              ADD      r1,sp,#0x10
-00007c  481b              LDR      r0,|L2.236|
-00007e  f7fffffe          BL       TIM_OC1Init
-;;;71     	TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
-000082  2108              MOVS     r1,#8
-000084  4819              LDR      r0,|L2.236|
-000086  f7fffffe          BL       TIM_OC1PreloadConfig
-;;;72     	
-;;;73     	/*CH2*/
-;;;74     	TIM_OC2Init(TIM1, &TIM_OCInitStructure); 
-00008a  a904              ADD      r1,sp,#0x10
-00008c  4817              LDR      r0,|L2.236|
-00008e  f7fffffe          BL       TIM_OC2Init
-;;;75     	TIM_OC2PreloadConfig(TIM1, TIM_OCPreload_Enable);
-000092  2108              MOVS     r1,#8
-000094  4815              LDR      r0,|L2.236|
-000096  f7fffffe          BL       TIM_OC2PreloadConfig
-;;;76     	
-;;;77     	/*CH3*/
-;;;78     	TIM_OC3Init(TIM1, &TIM_OCInitStructure);	 
-00009a  a904              ADD      r1,sp,#0x10
-00009c  4813              LDR      r0,|L2.236|
-00009e  f7fffffe          BL       TIM_OC3Init
-;;;79     	TIM_OC3PreloadConfig(TIM1, TIM_OCPreload_Enable);
-0000a2  2108              MOVS     r1,#8
-0000a4  4811              LDR      r0,|L2.236|
-0000a6  f7fffffe          BL       TIM_OC3PreloadConfig
-;;;80     	
-;;;81     	/*CH4*/
-;;;82     	TIM_OC4Init(TIM1, &TIM_OCInitStructure);	 
-0000aa  a904              ADD      r1,sp,#0x10
-0000ac  480f              LDR      r0,|L2.236|
-0000ae  f7fffffe          BL       TIM_OC4Init
-;;;83     	TIM_OC4PreloadConfig(TIM1, TIM_OCPreload_Enable);
-0000b2  2108              MOVS     r1,#8
-0000b4  480d              LDR      r0,|L2.236|
-0000b6  f7fffffe          BL       TIM_OC4PreloadConfig
-;;;84       
-;;;85     	/*使能TIM1*/
-;;;86     	TIM_Cmd(TIM1, ENABLE); 
-0000ba  2101              MOVS     r1,#1
-0000bc  480b              LDR      r0,|L2.236|
-0000be  f7fffffe          BL       TIM_Cmd
+;;;73     
+;;;74     	/*TIM1，TIM8必须使用，否则在RTOS中无法使用，暂时不了解原因*/
+;;;75     	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Disable;	/* only for TIM1 and TIM8. */	
+000068  f8ad0014          STRH     r0,[sp,#0x14]
+;;;76     	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;			/* only for TIM1 and TIM8. */		
+00006c  f8ad001a          STRH     r0,[sp,#0x1a]
+;;;77     	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;		/* only for TIM1 and TIM8. */
+000070  f8ad001c          STRH     r0,[sp,#0x1c]
+;;;78     	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;		/* only for TIM1 and TIM8. */
+000074  f8ad001e          STRH     r0,[sp,#0x1e]
+;;;79     	
+;;;80     	/*CH1*/
+;;;81     	TIM_OC1Init(TIM1, &TIM_OCInitStructure);	 
+000078  a904              ADD      r1,sp,#0x10
+00007a  4820              LDR      r0,|L2.252|
+00007c  f7fffffe          BL       TIM_OC1Init
+;;;82     	TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
+000080  2108              MOVS     r1,#8
+000082  481e              LDR      r0,|L2.252|
+000084  f7fffffe          BL       TIM_OC1PreloadConfig
+;;;83     	
+;;;84     	/*CH2*/
+;;;85     	TIM_OC2Init(TIM1, &TIM_OCInitStructure); 
+000088  a904              ADD      r1,sp,#0x10
+00008a  481c              LDR      r0,|L2.252|
+00008c  f7fffffe          BL       TIM_OC2Init
+;;;86     	TIM_OC2PreloadConfig(TIM1, TIM_OCPreload_Enable);
+000090  2108              MOVS     r1,#8
+000092  481a              LDR      r0,|L2.252|
+000094  f7fffffe          BL       TIM_OC2PreloadConfig
 ;;;87     	
-;;;88     	/*TIM1，TIM8必须使用，其他定时器可使用或不使用*/
-;;;89     	TIM_CtrlPWMOutputs(TIM1,ENABLE);
-0000c2  2101              MOVS     r1,#1
-0000c4  4809              LDR      r0,|L2.236|
-0000c6  f7fffffe          BL       TIM_CtrlPWMOutputs
-;;;90     	
-;;;91     	TIM_SetCompare1(TIM1,1000);
-0000ca  f44f717a          MOV      r1,#0x3e8
-0000ce  4807              LDR      r0,|L2.236|
-0000d0  f7fffffe          BL       TIM_SetCompare1
-;;;92     	TIM_SetCompare2(TIM1,5000);
-0000d4  f2413188          MOV      r1,#0x1388
-0000d8  4804              LDR      r0,|L2.236|
-0000da  f7fffffe          BL       TIM_SetCompare2
-;;;93     
-;;;94     }
-0000de  b009              ADD      sp,sp,#0x24
-0000e0  bd30              POP      {r4,r5,pc}
-;;;95     
+;;;88     	/*CH3*/
+;;;89     	TIM_OC3Init(TIM1, &TIM_OCInitStructure);	 
+000098  a904              ADD      r1,sp,#0x10
+00009a  4818              LDR      r0,|L2.252|
+00009c  f7fffffe          BL       TIM_OC3Init
+;;;90     	TIM_OC3PreloadConfig(TIM1, TIM_OCPreload_Enable);
+0000a0  2108              MOVS     r1,#8
+0000a2  4816              LDR      r0,|L2.252|
+0000a4  f7fffffe          BL       TIM_OC3PreloadConfig
+;;;91     	
+;;;92     	/*CH4*/
+;;;93     	TIM_OC4Init(TIM1, &TIM_OCInitStructure);	 
+0000a8  a904              ADD      r1,sp,#0x10
+0000aa  4814              LDR      r0,|L2.252|
+0000ac  f7fffffe          BL       TIM_OC4Init
+;;;94     	TIM_OC4PreloadConfig(TIM1, TIM_OCPreload_Enable);
+0000b0  2108              MOVS     r1,#8
+0000b2  4812              LDR      r0,|L2.252|
+0000b4  f7fffffe          BL       TIM_OC4PreloadConfig
+;;;95       
+;;;96     	/*使能TIM1*/
+;;;97     	TIM_Cmd(TIM1, ENABLE); 
+0000b8  2101              MOVS     r1,#1
+0000ba  4810              LDR      r0,|L2.252|
+0000bc  f7fffffe          BL       TIM_Cmd
+;;;98     	
+;;;99     	/*TIM1，TIM8必须使用，其他定时器可使用或不使用*/
+;;;100    	TIM_CtrlPWMOutputs(TIM1,ENABLE);
+0000c0  2101              MOVS     r1,#1
+0000c2  480e              LDR      r0,|L2.252|
+0000c4  f7fffffe          BL       TIM_CtrlPWMOutputs
+;;;101    	
+;;;102    	TIM_SetCompare1(TIM1,3600/4);
+0000c8  f44f7161          MOV      r1,#0x384
+0000cc  480b              LDR      r0,|L2.252|
+0000ce  f7fffffe          BL       TIM_SetCompare1
+;;;103    	TIM_SetCompare2(TIM1,3600/3);
+0000d2  f44f6196          MOV      r1,#0x4b0
+0000d6  4809              LDR      r0,|L2.252|
+0000d8  f7fffffe          BL       TIM_SetCompare2
+;;;104    	TIM_SetCompare3(TIM1,3600/2);
+0000dc  f44f61e1          MOV      r1,#0x708
+0000e0  4806              LDR      r0,|L2.252|
+0000e2  f7fffffe          BL       TIM_SetCompare3
+;;;105    	TIM_SetCompare4(TIM1,3600);
+0000e6  f44f6161          MOV      r1,#0xe10
+0000ea  4804              LDR      r0,|L2.252|
+0000ec  f7fffffe          BL       TIM_SetCompare4
+;;;106    	
+;;;107    }
+0000f0  b009              ADD      sp,sp,#0x24
+0000f2  bd30              POP      {r4,r5,pc}
+;;;108    
                           ENDP
 
-0000e2  0000              DCW      0x0000
-                  |L2.228|
+                  |L2.244|
                           DCD      0x001600c0
-                  |L2.232|
+                  |L2.248|
                           DCD      0x40011800
-                  |L2.236|
+                  |L2.252|
                           DCD      0x40012c00
 
 ;*** Start embedded assembler ***
