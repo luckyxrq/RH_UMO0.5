@@ -85,6 +85,8 @@ int main(void)
 */
 static void vTaskTaskUserIF(void *pvParameters)
 {
+	bsp_MotorSetPWM(MotorLeft,Forward,5000);
+	bsp_MotorSetPWM(MotorRight,Forward,5000);
     while(1)
     {
 		DEBUG("L TotalMileage:%d  R TotalMileage:%d\r\n",bsp_EncoderGetTotalMileage(EncoderLeft),bsp_EncoderGetTotalMileage(EncoderRight));

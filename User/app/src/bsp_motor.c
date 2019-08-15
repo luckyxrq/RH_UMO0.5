@@ -9,8 +9,7 @@
 */
 
 
-#define CONSTANT_HIGH_PWM      (7200)
-#define CONSTANT_LOW_PWM       (0)
+
 
 
 static void bsp_InitTimer1(uint16_t arr,uint16_t psc);
@@ -28,6 +27,49 @@ void bsp_InitMotor(void)
 	/*初始化PWM 10KHZ，用于驱动电机*/
 	bsp_InitTimer1(7199,0); 
 }
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_MotorSetPWM
+*	功能说明: 通过PWM直接控制电机，PWM较小的时候，电机无法转动
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm)
+{
+	switch(sn)
+	{
+		case MotorLeft:
+		{
+			if(dir == Forward)
+			{
+				TIM_SetCompare3(TIM1,0);
+				TIM_SetCompare4(TIM1,pwm);
+			}
+			else
+			{
+				TIM_SetCompare3(TIM1,pwm);
+				TIM_SetCompare4(TIM1,0);
+			}
+		}break;
+		
+		case MotorRight:
+		{
+			if(dir != Forward)
+			{
+				TIM_SetCompare1(TIM1,0);
+				TIM_SetCompare2(TIM1,pwm);
+			}
+			else
+			{
+				TIM_SetCompare1(TIM1,pwm);
+				TIM_SetCompare2(TIM1,0);
+			}
+		}break;
+	}
+}
+
 
 /*
 *********************************************************************************************************
@@ -99,10 +141,14 @@ static void bsp_InitTimer1(uint16_t arr,uint16_t psc)
 	/*TIM1，TIM8必须使用，其他定时器可使用或不使用*/
 	TIM_CtrlPWMOutputs(TIM1,ENABLE);
 	
+	/*4个通道全部输出高电平*/
 	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
 	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
 	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
 	TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
 	
 }
+
+
+
 

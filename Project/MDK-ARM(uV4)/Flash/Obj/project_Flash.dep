@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5D54D5AE)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5D5516BF)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5D54B9E4)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
@@ -64,7 +64,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\includes.h)(0x5D54B9E4)()
 F (..\..\User\SysInfoTest.c)(0x5D54C95E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\sysinfotest.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\sysinfotest.crf --depend .\flash\obj\sysinfotest.d)
@@ -124,7 +124,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\FreeRTOSConfig.h)(0x5D54B9F6)()
 F (..\..\User\app\src\bsp_PowerSwitch.c)(0x5D54B9E4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_powerswitch.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_powerswitch.crf --depend .\flash\obj\bsp_powerswitch.d)
@@ -184,7 +184,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\app\src\bsp_Encoder.c)(0x5D54DA90)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_encoder.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_encoder.crf --depend .\flash\obj\bsp_encoder.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -243,7 +243,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\app\src\bsp_IWDG.c)(0x5D54B9E4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_iwdg.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_iwdg.crf --depend .\flash\obj\bsp_iwdg.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -302,7 +302,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\app\src\bsp_Control.c)(0x5D54DDBD)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_control.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_control.crf --depend .\flash\obj\bsp_control.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -361,9 +361,9 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
-F (..\..\User\app\src\bsp_motor.c)(0x5D551400)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
+F (..\..\User\app\src\bsp_motor.c)(0x5D55172C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D54B9E2)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -420,7 +420,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\bsp\bsp.c)(0x5D54F1F7)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -479,7 +479,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\bsp\bsp.h)(0x5D55013D)()
 F (..\..\User\bsp\src\bsp_dwt.c)(0x5D54B9E4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dwt.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_dwt.crf --depend .\flash\obj\bsp_dwt.d)
@@ -539,7 +539,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\bsp\src\bsp_uart_fifo.c)(0x5D550193)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uart_fifo.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_uart_fifo.crf --depend .\flash\obj\bsp_uart_fifo.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -598,7 +598,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\bsp\stm32f10x_it.c)(0x5D54B9E4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_it.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\stm32f10x_it.crf --depend .\flash\obj\stm32f10x_it.d)
 I (..\..\User\bsp\stm32f10x_it.h)(0x5D54B9E4)
@@ -721,7 +721,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\bsp\src\bsp_led.c)(0x5D54B9E4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_led.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_led.crf --depend .\flash\obj\bsp_led.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -780,7 +780,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\bsp\src\bsp_timer.c)(0x5D54B9E4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_timer.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_timer.crf --depend .\flash\obj\bsp_timer.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -839,7 +839,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\bsp\src\bsp_i2c_gpio.c)(0x5D54B9E4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_i2c_gpio.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_i2c_gpio.crf --depend .\flash\obj\bsp_i2c_gpio.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -898,7 +898,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\bsp\src\bsp_user_lib.c)(0x5D54B9E4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_user_lib.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_user_lib.crf --depend .\flash\obj\bsp_user_lib.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -957,7 +957,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\User\bsp\src\bsp_tim_pwm.c)(0x5D54B9E4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_tim_pwm.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\bsp_tim_pwm.crf --depend .\flash\obj\bsp_tim_pwm.d)
 I (..\..\User\bsp\bsp.h)(0x5D55013D)
@@ -1016,7 +1016,7 @@ I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D54B9E4)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5D54D949)
 I (..\..\User\app\inc\bsp_Control.h)(0x5D54DB41)
-I (..\..\User\app\inc\bsp_motor.h)(0x5D54F1EF)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D5515FC)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D54B9E4)
 F (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Source\Templates\arm\startup_stm32f10x_hd.s)(0x5D54B9E2)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 514" --pd "STM32F10X_HD SETA 1"--list .\flash\list\startup_stm32f10x_hd.lst --xref -o .\flash\obj\startup_stm32f10x_hd.o --depend .\flash\obj\startup_stm32f10x_hd.d)
 F (..\..\Libraries\STM32F10x_StdPeriph_Driver\src\misc.c)(0x5D54B9E3)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Flash\\List\\" -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\misc.o --list_dir ".\\Flash\\List\\" --list --omf_browse .\flash\obj\misc.crf --depend .\flash\obj\misc.d)

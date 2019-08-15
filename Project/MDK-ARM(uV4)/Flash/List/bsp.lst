@@ -38412,7 +38412,24 @@ L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
 N#define __BSP_MOTOR_H
 N
+N#define CONSTANT_HIGH_PWM      (7200)
+N#define CONSTANT_LOW_PWM       (0)
+N
+N
+Ntypedef enum
+N{
+N	MotorLeft = 0 ,
+N	MotorRight
+N}MotorSN;
+N
+Ntypedef enum
+N{
+N	Forward = 0 ,
+N	Backward
+N}MotorDir;
+N
 Nvoid bsp_InitMotor(void);
+Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
 N
 N#endif
 N
