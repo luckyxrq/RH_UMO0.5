@@ -6,6 +6,7 @@
 void bsp_InitPid(MotorSN sn);
 void bsp_PidSched(void);
 void bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
+int32_t bsp_MotorGetSpeed(MotorSN sn);
 
 #endif
 

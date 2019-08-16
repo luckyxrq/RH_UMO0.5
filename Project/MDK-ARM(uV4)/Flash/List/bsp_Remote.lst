@@ -38697,6 +38697,7 @@ N
 Nvoid bsp_InitPid(MotorSN sn);
 Nvoid bsp_PidSched(void);
 Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
+Nint32_t bsp_MotorGetSpeed(MotorSN sn);
 N
 N#endif
 N
@@ -38791,8 +38792,8 @@ X	if(bsp_GetChargeFeedback() == 1)
 N	{
 N		DEBUG("is charging...\r\n");
 X		printf ("is charging...\r\n");
-N		//bsp_MotorBrake(MotorLeft);
-N	    //bsp_MotorBrake(MotorRight);
+N		bsp_SetMotorSpeed(MotorLeft,0);
+N		bsp_SetMotorSpeed(MotorRight,0);
 N		bsp_StopSearchChargingPile();
 N		return ;
 N	}
@@ -38801,8 +38802,8 @@ N	switch(searchCharging.action)
 N	{
 N		case 0: //第一步，直走
 N		{
-N			//bsp_SetMotorTargetSpeed(MotorLeft,180);
-N			//bsp_SetMotorTargetSpeed(MotorRight,180);
+N			bsp_SetMotorSpeed(MotorLeft,5);
+N			bsp_SetMotorSpeed(MotorRight,5);
 N			
 N			searchCharging.action++;
 N		}break;
@@ -38813,8 +38814,8 @@ N			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is150
 N			{
 N				DEBUG("1 detect 3 pulse\r\n");
 X				printf ("1 detect 3 pulse\r\n");
-N				//bsp_MotorBrake(MotorLeft);
-N				//bsp_MotorBrake(MotorRight);
+N				bsp_SetMotorSpeed(MotorLeft,0);
+N				bsp_SetMotorSpeed(MotorRight,0);
 N
 N				searchCharging.isRight = true ; //从右边切入
 X				searchCharging.isRight = 1 ; 
@@ -38824,8 +38825,8 @@ N			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is150
 N			{
 N				DEBUG("2 detect 3 pulse\r\n");
 X				printf ("2 detect 3 pulse\r\n");
-N				//bsp_MotorBrake(MotorLeft);
-N				//bsp_MotorBrake(MotorRight);
+N				bsp_SetMotorSpeed(MotorLeft,0);
+N				bsp_SetMotorSpeed(MotorRight,0);
 N				
 N				searchCharging.isRight = false ; //从左边切入
 X				searchCharging.isRight = 0 ; 
@@ -38842,12 +38843,12 @@ N		case 2: //左走右不走
 N		{
 N			if(searchCharging.isRight) //右边切入
 N			{
-N				//bsp_SetMotorTargetSpeed(MotorLeft,180);
+N				bsp_SetMotorSpeed(MotorLeft,5);
 N				searchCharging.action++;
 N			}
 N			else //左边切入
 N			{
-N				//bsp_SetMotorTargetSpeed(MotorRight,180);
+N				bsp_SetMotorSpeed(MotorRight,5);
 N				searchCharging.action++;
 N			}
 N			

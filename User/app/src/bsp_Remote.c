@@ -72,8 +72,8 @@ void bsp_SearchChargingPileAct(void)
 	if(bsp_GetChargeFeedback() == true)
 	{
 		DEBUG("is charging...\r\n");
-		//bsp_MotorBrake(MotorLeft);
-	    //bsp_MotorBrake(MotorRight);
+		bsp_SetMotorSpeed(MotorLeft,0);
+		bsp_SetMotorSpeed(MotorRight,0);
 		bsp_StopSearchChargingPile();
 		return ;
 	}
@@ -82,8 +82,8 @@ void bsp_SearchChargingPileAct(void)
 	{
 		case 0: //第一步，直走
 		{
-			//bsp_SetMotorTargetSpeed(MotorLeft,180);
-			//bsp_SetMotorTargetSpeed(MotorRight,180);
+			bsp_SetMotorSpeed(MotorLeft,5);
+			bsp_SetMotorSpeed(MotorRight,5);
 			
 			searchCharging.action++;
 		}break;
@@ -93,8 +93,8 @@ void bsp_SearchChargingPileAct(void)
 			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
 			{
 				DEBUG("1 detect 3 pulse\r\n");
-				//bsp_MotorBrake(MotorLeft);
-				//bsp_MotorBrake(MotorRight);
+				bsp_SetMotorSpeed(MotorLeft,0);
+				bsp_SetMotorSpeed(MotorRight,0);
 
 				searchCharging.isRight = true ; //从右边切入
 				searchCharging.action++;
@@ -102,8 +102,8 @@ void bsp_SearchChargingPileAct(void)
 			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is1500us)
 			{
 				DEBUG("2 detect 3 pulse\r\n");
-				//bsp_MotorBrake(MotorLeft);
-				//bsp_MotorBrake(MotorRight);
+				bsp_SetMotorSpeed(MotorLeft,0);
+				bsp_SetMotorSpeed(MotorRight,0);
 				
 				searchCharging.isRight = false ; //从左边切入
 				searchCharging.action++;
@@ -119,12 +119,12 @@ void bsp_SearchChargingPileAct(void)
 		{
 			if(searchCharging.isRight) //右边切入
 			{
-				//bsp_SetMotorTargetSpeed(MotorLeft,180);
+				bsp_SetMotorSpeed(MotorLeft,5);
 				searchCharging.action++;
 			}
 			else //左边切入
 			{
-				//bsp_SetMotorTargetSpeed(MotorRight,180);
+				bsp_SetMotorSpeed(MotorRight,5);
 				searchCharging.action++;
 			}
 			

@@ -38697,6 +38697,7 @@ N
 Nvoid bsp_InitPid(MotorSN sn);
 Nvoid bsp_PidSched(void);
 Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
+Nint32_t bsp_MotorGetSpeed(MotorSN sn);
 N
 N#endif
 N
@@ -38729,7 +38730,9 @@ N}PID;
 N
 N
 N/*左右轮机需要使用PID控制*/ 
-NPID pid[2];
+Nstatic PID pid[2];
+N/*速度：MS/S , 10MS更新一次*/ 
+Nstatic int32_t speed[2]; 
 N
 Nstatic void bsp_PidClear(MotorSN sn);
 Nstatic void bsp_MotorBrake(MotorSN sn);
@@ -38737,6 +38740,14 @@ Nstatic void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target);
 Nstatic int32_t bsp_PwmLimit(int32_t pwm);
 Nstatic int32_t myabs(int32_t val);
 N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_InitPid
+N*	功能说明: 初始化电机PID参数
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
 Nvoid bsp_InitPid(MotorSN sn)
 N{
 N	if(sn == MotorLeft)
@@ -38769,7 +38780,14 @@ N		pid[1].lastTarget = 0 ;
 N	}
 N}
 N
-N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_SetMotorSpeed
+N*	功能说明: 设置电机目标速度，有正负
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
 Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed)
 N{
 N	if(sn == MotorLeft)
@@ -38782,7 +38800,14 @@ N		pid[1].target = speed;
 N	}
 N}
 N
-N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_PidSched
+N*	功能说明: PID调度函数，周期性调用，10MS一次
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
 Nvoid bsp_PidSched(void)
 N{
 N	bsp_PidExec(MotorLeft, bsp_EncoderGetPulseT(EncoderLeft), pid[0].target);
@@ -38790,6 +38815,28 @@ N	bsp_PidExec(MotorRight,bsp_EncoderGetPulseT(EncoderRight),pid[1].target);
 N}
 N
 N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_MotorGetSpeed
+N*	功能说明: 返回电机实时速度，单位MM/S
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nint32_t bsp_MotorGetSpeed(MotorSN sn)
+N{
+N	return speed[sn];
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_PidClear
+N*	功能说明: 清空电机PID累积参数
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
 Nstatic void bsp_PidClear(MotorSN sn)
 N{
 N	if(sn == MotorLeft)
@@ -38814,7 +38861,14 @@ N		pid[1].lastTarget = 0 ;
 N	}
 N}
 N
-N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_MotorBrake
+N*	功能说明: 电机急停
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
 Nstatic void bsp_MotorBrake(MotorSN sn)
 N{
 N	if(sn == MotorLeft)
@@ -38834,10 +38888,14 @@ N	}
 N
 N}
 N
-N
-N
-N
-N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_PidExec
+N*	功能说明: PID执行函数，设置占空比
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
 Nstatic void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 N{
 N	/*如果目标速度为0*/
@@ -38847,13 +38905,15 @@ N		bsp_MotorBrake(sn);
 N		bsp_PidClear(sn);
 N	}
 N	
+N	
 N	/*如果目标速度小于0，那么编码器的反馈速度也应该为负，单个霍尔只能计数，没有正负*/
 N	if(Target < 0 ) 
 N	{
 N		Encoder = -Encoder;
 N	}
 N	
-N	
+N	/*计算速度，250MM/S时，10MS有12个脉冲*/
+N	speed[sn] = Encoder / 12.0F * 250;
 N		
 N	/*计算PWM值，增量式PID*/
 N	if(sn == MotorLeft)
@@ -38902,7 +38962,14 @@ N
 N}
 N
 N
-N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_PwmLimit
+N*	功能说明: PID限幅
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
 Nstatic int32_t bsp_PwmLimit(int32_t pwm)
 N{
 N	int32_t ret = 0 ;
