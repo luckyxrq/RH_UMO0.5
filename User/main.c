@@ -88,23 +88,26 @@ static void vTaskTaskUserIF(void *pvParameters)
 	bsp_AngleRst();
 
 #if 1
-		bsp_SetMotorSpeed(MotorLeft,5);
-		bsp_SetMotorSpeed(MotorRight,5);
+		bsp_SetMotorSpeed(MotorLeft,6);
+		bsp_SetMotorSpeed(MotorRight,6);
 #endif	
 
     while(1)
     {
-//		bsp_SetMotorSpeed(MotorLeft,12);
-//		bsp_SetMotorSpeed(MotorRight,12);
-//		vTaskDelay(6000);
-//		bsp_SetMotorSpeed(MotorLeft,5);
-//		bsp_SetMotorSpeed(MotorRight,5);
-//		vTaskDelay(6000);
-//		bsp_SetMotorSpeed(MotorLeft,-12);
-//		bsp_SetMotorSpeed(MotorRight,-12);
-//		vTaskDelay(6000);
-//		bsp_SetMotorSpeed(MotorLeft,-5);
-//		bsp_SetMotorSpeed(MotorRight,-5);
+		bsp_SetMotorSpeed(MotorLeft,6);
+		bsp_SetMotorSpeed(MotorRight,6);
+		vTaskDelay(6000);
+		
+		bsp_SetMotorSpeed(MotorLeft,0);
+		bsp_SetMotorSpeed(MotorRight,0);
+		vTaskDelay(6000);
+		
+		bsp_SetMotorSpeed(MotorLeft,-6);
+		bsp_SetMotorSpeed(MotorRight,-6);
+		vTaskDelay(6000);
+		
+		bsp_SetMotorSpeed(MotorLeft,0);
+		bsp_SetMotorSpeed(MotorRight,0);
 		vTaskDelay(6000);
 		
 	}
@@ -160,6 +163,8 @@ static void vTaskLED(void *pvParameters)
 		}
 #endif
 		
+		bsp_ScopeSend();
+		
 		vTaskDelay(50);
     }
 }
@@ -183,6 +188,9 @@ static void vTaskMsgPro(void *pvParameters)
 		bsp_IWDG_Feed(); /* 喂狗 */
 		
 		bsp_PidSched(); /*10MS调用一次*/
+		
+//		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
+//		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 		
 		vTaskDelay(10);
     }

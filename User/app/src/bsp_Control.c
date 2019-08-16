@@ -1,6 +1,7 @@
 #include "bsp.h"
 
-#define MAX_PWM      (3600) //最大PWM绝对
+#define MAX_PWM               (3600) //最大PWM绝对
+#define SPEED_SAMP_COUNT      (10)   //速度滤波处理，FIFO深度
 
 typedef struct
 {
@@ -19,7 +20,9 @@ typedef struct
 /*左右轮机需要使用PID控制*/ 
 static PID pid[2];
 /*速度：MS/S , 10MS更新一次*/ 
-static int32_t speed[2]; 
+static int32_t speed[2][SPEED_SAMP_COUNT];
+/*用于指示样本FIFO序号*/
+static uint8_t sampleIndex[2] = {0,0} ;
 
 static void bsp_PidClear(MotorSN sn);
 static void bsp_MotorBrake(MotorSN sn);
@@ -112,7 +115,18 @@ void bsp_PidSched(void)
 */
 int32_t bsp_MotorGetSpeed(MotorSN sn)
 {
-	return speed[sn];
+	uint8_t i = 0 ;
+	int32_t sum = 0 ;
+	int32_t ret = 0 ;
+	
+	for(i=0; i< SPEED_SAMP_COUNT ; i++)
+	{
+		sum += speed[sn][i];
+	}
+	
+	ret = (float)sum / (float)SPEED_SAMP_COUNT;
+	
+	return ret;
 }
 
 
@@ -196,7 +210,11 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 	}
 	
 	/*计算速度，250MM/S时，10MS有12个脉冲*/
-	speed[sn] = Encoder / 12.0F * 250;
+	speed[sn][sampleIndex[sn]++] = Encoder / 12.0F * 250;
+	if(sampleIndex[sn] >= SPEED_SAMP_COUNT)
+	{
+		sampleIndex[sn] = 0 ;
+	}
 		
 	/*计算PWM值，增量式PID*/
 	if(sn == MotorLeft)

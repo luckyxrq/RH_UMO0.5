@@ -38702,6 +38702,18 @@ N
 N#endif
 N
 L 186 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Scope.h"
+L 1 "..\..\User\app\inc\bsp_Scope.h" 1
+N#ifndef __BSP_SCOPE_H
+N#define __BSP_SCOPE_H
+N
+N
+Nvoid bsp_ScopeSend(void);
+N
+N
+N#endif
+N
+L 187 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
@@ -38713,7 +38725,8 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_Control.c" 2
 N
-N#define MAX_PWM      (3600) //最大PWM绝对
+N#define MAX_PWM               (3600) //最大PWM绝对
+N#define SPEED_SAMP_COUNT      (10)   //速度滤波处理，FIFO深度
 N
 Ntypedef struct
 N{
@@ -38732,7 +38745,10 @@ N
 N/*左右轮机需要使用PID控制*/ 
 Nstatic PID pid[2];
 N/*速度：MS/S , 10MS更新一次*/ 
-Nstatic int32_t speed[2]; 
+Nstatic int32_t speed[2][SPEED_SAMP_COUNT];
+Xstatic int32_t speed[2][(10)];
+N/*用于指示样本FIFO序号*/
+Nstatic uint8_t sampleIndex[2] = {0,0} ;
 N
 Nstatic void bsp_PidClear(MotorSN sn);
 Nstatic void bsp_MotorBrake(MotorSN sn);
@@ -38825,7 +38841,20 @@ N*******************************************************************************
 N*/
 Nint32_t bsp_MotorGetSpeed(MotorSN sn)
 N{
-N	return speed[sn];
+N	uint8_t i = 0 ;
+N	int32_t sum = 0 ;
+N	int32_t ret = 0 ;
+N	
+N	for(i=0; i< SPEED_SAMP_COUNT ; i++)
+X	for(i=0; i< (10) ; i++)
+N	{
+N		sum += speed[sn][i];
+N	}
+N	
+N	ret = (float)sum / (float)SPEED_SAMP_COUNT;
+X	ret = (float)sum / (float)(10);
+N	
+N	return ret;
 N}
 N
 N
@@ -38913,7 +38942,12 @@ N		Encoder = -Encoder;
 N	}
 N	
 N	/*计算速度，250MM/S时，10MS有12个脉冲*/
-N	speed[sn] = Encoder / 12.0F * 250;
+N	speed[sn][sampleIndex[sn]++] = Encoder / 12.0F * 250;
+N	if(sampleIndex[sn] >= SPEED_SAMP_COUNT)
+X	if(sampleIndex[sn] >= (10))
+N	{
+N		sampleIndex[sn] = 0 ;
+N	}
 N		
 N	/*计算PWM值，增量式PID*/
 N	if(sn == MotorLeft)

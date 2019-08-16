@@ -183,6 +183,7 @@
 #include "bsp_Encoder.h"
 #include "bsp_motor.h"
 #include "bsp_Control.h"
+#include "bsp_Scope.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

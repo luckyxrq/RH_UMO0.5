@@ -38726,6 +38726,18 @@ N
 N#endif
 N
 L 186 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Scope.h"
+L 1 "..\..\User\app\inc\bsp_Scope.h" 1
+N#ifndef __BSP_SCOPE_H
+N#define __BSP_SCOPE_H
+N
+N
+Nvoid bsp_ScopeSend(void);
+N
+N
+N#endif
+N
+L 187 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);

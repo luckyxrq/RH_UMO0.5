@@ -46073,6 +46073,18 @@ N
 N#endif
 N
 L 186 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Scope.h"
+L 1 "..\..\User\app\inc\bsp_Scope.h" 1
+N#ifndef __BSP_SCOPE_H
+N#define __BSP_SCOPE_H
+N
+N
+Nvoid bsp_ScopeSend(void);
+N
+N
+N#endif
+N
+L 187 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
@@ -46185,23 +46197,26 @@ N{
 N	bsp_AngleRst();
 N
 N#if 1
-N		bsp_SetMotorSpeed(MotorLeft,5);
-N		bsp_SetMotorSpeed(MotorRight,5);
+N		bsp_SetMotorSpeed(MotorLeft,6);
+N		bsp_SetMotorSpeed(MotorRight,6);
 N#endif	
 N
 N    while(1)
 N    {
-N//		bsp_SetMotorSpeed(MotorLeft,12);
-N//		bsp_SetMotorSpeed(MotorRight,12);
-N//		vTaskDelay(6000);
-N//		bsp_SetMotorSpeed(MotorLeft,5);
-N//		bsp_SetMotorSpeed(MotorRight,5);
-N//		vTaskDelay(6000);
-N//		bsp_SetMotorSpeed(MotorLeft,-12);
-N//		bsp_SetMotorSpeed(MotorRight,-12);
-N//		vTaskDelay(6000);
-N//		bsp_SetMotorSpeed(MotorLeft,-5);
-N//		bsp_SetMotorSpeed(MotorRight,-5);
+N		bsp_SetMotorSpeed(MotorLeft,6);
+N		bsp_SetMotorSpeed(MotorRight,6);
+N		vTaskDelay(6000);
+N		
+N		bsp_SetMotorSpeed(MotorLeft,0);
+N		bsp_SetMotorSpeed(MotorRight,0);
+N		vTaskDelay(6000);
+N		
+N		bsp_SetMotorSpeed(MotorLeft,-6);
+N		bsp_SetMotorSpeed(MotorRight,-6);
+N		vTaskDelay(6000);
+N		
+N		bsp_SetMotorSpeed(MotorLeft,0);
+N		bsp_SetMotorSpeed(MotorRight,0);
 N		vTaskDelay(6000);
 N		
 N	}
@@ -46257,6 +46272,8 @@ S			bsp_SetMotorSpeed(MotorRight,5);
 S		}
 N#endif
 N		
+N		bsp_ScopeSend();
+N		
 N		vTaskDelay(50);
 N    }
 N}
@@ -46280,6 +46297,9 @@ N
 N		bsp_IWDG_Feed(); /* 喂狗 */
 N		
 N		bsp_PidSched(); /*10MS调用一次*/
+N		
+N//		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
+N//		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 N		
 N		vTaskDelay(10);
 N    }

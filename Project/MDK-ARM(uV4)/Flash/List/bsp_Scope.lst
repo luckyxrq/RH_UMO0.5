@@ -1,23 +1,4 @@
-L 1 "..\..\User\bsp\src\bsp_tim_pwm.c"
-N/*
-N*********************************************************************************************************
-N*
-N*	模块名称 : TIM基本定时中断和PWM驱动模块
-N*	文件名称 : bsp_tim_pwm.c
-N*	版    本 : V1.1
-N*	说    明 : 利用STM32F4内部TIM输出PWM信号， 并实现基本的定时中断
-N*	修改记录 :
-N*		版本号  日期        作者     说明
-N*		V1.0    2013-08-16 armfly  正式发布
-N*		V1.1	2014-06-15 armfly  完善 bsp_SetTIMOutPWM，当占空比=0和100%时，关闭定时器，GPIO配置为输出
-N*		V1.2	2015-05-08 armfly  解决TIM8不能输出PWM的问题。
-N*		V1.3	2015-07-30 armfly  增加反相引脚输出PWM函数 bsp_SetTIMOutPWM_N();
-N*
-N*	Copyright (C), 2015-2016, 安富莱电子 www.armfly.com
-N*
-N*********************************************************************************************************
-N*/
-N
+L 1 "..\..\User\app\src\bsp_Scope.c"
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -38742,741 +38723,113 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 21 "..\..\User\bsp\src\bsp_tim_pwm.c" 2
+L 2 "..\..\User\app\src\bsp_Scope.c" 2
 N
-N/*
-N	可以输出到GPIO的TIM通道:
 N
-N	PA0  TIM5_CH1
-N	PA0  TIM5_CH2  TIM2_CH2
-N	PA2  TIM5_CH3  TIM2_CH3
-N	PA3  TIM5_CH4  TIM2_CH4
-N	
-N	PA6  TIM3_CH1
-N	PA7  TIM3_CH2
-N	
-N	PB0  TIM3_CH3
-N	PB1  TIM3_CH4
 N
-N	PE9   TIM1_CH1
-N	PE11  TIM1_CH2
-N	PE13  TIM1_CH3
+N/**************************************************************************
+N作者：平衡小车之家 
+N淘宝店铺：http://shop114407458.taobao.com/
+N**************************************************************************/
+Nunsigned char DataScope_OutPut_Buffer[42] = {0};	   //串口发送缓冲区
 N
-N	PE14  TIM1_CH4
-N	
-N	PD12	TIM4_CH1
-N	PD13	TIM4_CH2
-N	PD14	TIM4_CH3
-N	PD15	TIM4_CH4	
-N	
-N	PC6		TIM8_CH1
-N	PC7		TIM8_CH2
-N	PC8		TIM8_CH3
-N	PC9		TIM8_CH4	
-N	
-N	PA8		TIM1_CH1
-N	PA9		TIM1_CH2
-N	PA10	TIM1_CH3
-N	PA11	TIM1_CH4	
+Nstatic void DataScope_Get_Channel_Data(float Data,unsigned char Channel);    // 写通道数据至 待发送帧数据缓存区
+Nstatic unsigned char DataScope_Data_Generate(unsigned char Channel_Number);  // 发送帧数据生成函数 
 N
-N	PB3		TIM2_CH2
-N	PB4		TIM3_CH1
-N	PB5		TIM3_CH2
-N	
-N	PB6		TIM4_CH1
-N	PB7		TIM4_CH2	
-N	PB8		TIM4_CH3
-N	PB9		TIM4_CH4		
-N
-N	APB1 定时器有 TIM2, TIM3 ,TIM4, TIM5, TIM6, TIM7        --- 36M
-N	APB2 定时器有 TIM1, TIM8                    ---- 72M
-N*/
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_GetRCCofGPIO
-N*	功能说明: 根据GPIO 得到RCC寄存器
-N*	形    参：无
-N*	返 回 值: GPIO外设时钟名
-N*********************************************************************************************************
-N*/
-Nuint32_t bsp_GetRCCofGPIO(GPIO_TypeDef* GPIOx)
+N//函数说明：将单精度浮点数据转成4字节数据并存入指定地址 
+N//附加说明：用户无需直接操作此函数 
+N//target:目标单精度数据
+N//buf:待写入数组
+N//beg:指定从数组第几个元素开始写入
+N//函数无返回 
+Nvoid Float2Byte(float *target,unsigned char *buf,unsigned char beg)
 N{
-N	uint32_t rcc = 0;
-N
-N	if (GPIOx == GPIOA)
-X	if (GPIOx == ((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)))
-N	{
-N		rcc = RCC_APB2Periph_GPIOA;
-X		rcc = ((uint32_t)0x00000004);
-N	}
-N	else if (GPIOx == GPIOB)
-X	else if (GPIOx == ((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)))
-N	{
-N		rcc = RCC_APB2Periph_GPIOB;
-X		rcc = ((uint32_t)0x00000008);
-N	}
-N	else if (GPIOx == GPIOC)
-X	else if (GPIOx == ((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)))
-N	{
-N		rcc = RCC_APB2Periph_GPIOC;
-X		rcc = ((uint32_t)0x00000010);
-N	}
-N	else if (GPIOx == GPIOD)
-X	else if (GPIOx == ((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)))
-N	{
-N		rcc = RCC_APB2Periph_GPIOD;
-X		rcc = ((uint32_t)0x00000020);
-N	}
-N	else if (GPIOx == GPIOE)
-X	else if (GPIOx == ((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)))
-N	{
-N		rcc = RCC_APB2Periph_GPIOE;
-X		rcc = ((uint32_t)0x00000040);
-N	}
-N	else if (GPIOx == GPIOF)
-X	else if (GPIOx == ((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)))
-N	{
-N		rcc = RCC_APB2Periph_GPIOF;
-X		rcc = ((uint32_t)0x00000080);
-N	}
-N	else if (GPIOx == GPIOG)
-X	else if (GPIOx == ((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)))
-N	{
-N		rcc = RCC_APB2Periph_GPIOG;
-X		rcc = ((uint32_t)0x00000100);
-N	}
-N
-N	return rcc;
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_GetRCCofTIM
-N*	功能说明: 根据TIM 得到RCC寄存器
-N*	形    参：无
-N*	返 回 值: TIM外设时钟名
-N*********************************************************************************************************
-N*/
-Nuint32_t bsp_GetRCCofTIM(TIM_TypeDef* TIMx)
-N{
-N	uint32_t rcc = 0;
-N
-N	/*
-N		APB1 定时器有 TIM2, TIM3 ,TIM4, TIM5, TIM6, TIM7, TIM12, TIM13, TIM14
-N		APB2 定时器有 TIM1, TIM8 ,TIM9, TIM10, TIM11
-N	*/
-N	if (TIMx == TIM1)
-X	if (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)))
-N	{
-N		rcc = RCC_APB2Periph_TIM1;
-X		rcc = ((uint32_t)0x00000800);
-N	}
-N	else if (TIMx == TIM8)
-X	else if (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400)))
-N	{
-N		rcc = RCC_APB2Periph_TIM8;
-X		rcc = ((uint32_t)0x00002000);
-N	}
-N	else if (TIMx == TIM9)
-X	else if (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x4C00)))
-N	{
-N		rcc = RCC_APB2Periph_TIM9;
-X		rcc = ((uint32_t)0x00080000);
-N	}
-N	else if (TIMx == TIM10)
-X	else if (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x5000)))
-N	{
-N		rcc = RCC_APB2Periph_TIM10;
-X		rcc = ((uint32_t)0x00100000);
-N	}
-N	else if (TIMx == TIM11)
-X	else if (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x5400)))
-N	{
-N		rcc = RCC_APB2Periph_TIM11;
-X		rcc = ((uint32_t)0x00200000);
-N	}
-N	/* 下面是 APB1时钟 */
-N	else if (TIMx == TIM2)
-X	else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)))
-N	{
-N		rcc = RCC_APB1Periph_TIM2;
-X		rcc = ((uint32_t)0x00000001);
-N	}
-N	else if (TIMx == TIM3)
-X	else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)))
-N	{
-N		rcc = RCC_APB1Periph_TIM3;
-X		rcc = ((uint32_t)0x00000002);
-N	}
-N	else if (TIMx == TIM4)
-X	else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)))
-N	{
-N		rcc = RCC_APB1Periph_TIM4;
-X		rcc = ((uint32_t)0x00000004);
-N	}
-N	else if (TIMx == TIM5)
-X	else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)))
-N	{
-N		rcc = RCC_APB1Periph_TIM5;
-X		rcc = ((uint32_t)0x00000008);
-N	}
-N	else if (TIMx == TIM6)
-X	else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)))
-N	{
-N		rcc = RCC_APB1Periph_TIM6;
-X		rcc = ((uint32_t)0x00000010);
-N	}
-N	else if (TIMx == TIM7)
-X	else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1400)))
-N	{
-N		rcc = RCC_APB1Periph_TIM7;
-X		rcc = ((uint32_t)0x00000020);
-N	}
-N	else if (TIMx == TIM12)
-X	else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1800)))
-N	{
-N		rcc = RCC_APB1Periph_TIM12;
-X		rcc = ((uint32_t)0x00000040);
-N	}
-N	else if (TIMx == TIM13)
-X	else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1C00)))
-N	{
-N		rcc = RCC_APB1Periph_TIM13;
-X		rcc = ((uint32_t)0x00000080);
-N	}
-N	else if (TIMx == TIM14)
-X	else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x2000)))
-N	{
-N		rcc = RCC_APB1Periph_TIM14;
-X		rcc = ((uint32_t)0x00000100);
-N	}
-N
-N	return rcc;
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_ConfigTimGpio
-N*	功能说明: 配置GPIO和TIM时钟， GPIO连接到TIM输出通道
-N*	形    参: GPIOx
-N*			 GPIO_PinX
-N*			 TIMx
-N*			 _ucChannel
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_ConfigTimGpio(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinX, TIM_TypeDef* TIMx, uint8_t _ucChannel)
-N{
-N	GPIO_InitTypeDef  GPIO_InitStructure;
-N
-N	/* 使能GPIO时钟 */
-N	RCC_APB2PeriphClockCmd(bsp_GetRCCofGPIO(GPIOx), ENABLE);
-N
-N  	/* 使能TIM时钟 */
-N	if ((TIMx == TIM1) || (TIMx == TIM8))
-X	if ((TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400))))
-N	{
-N		RCC_APB2PeriphClockCmd(bsp_GetRCCofTIM(TIMx), ENABLE);
-N	}
-N	else
-N	{
-N		RCC_APB1PeriphClockCmd(bsp_GetRCCofTIM(TIMx), ENABLE);
-N	}
-N
-N	/* 配置GPIO */
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PinX;
-N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;		/* 复用功能 */
-N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N	GPIO_Init(GPIOx, &GPIO_InitStructure); 
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_ConfigGpioOut
-N*	功能说明: 配置GPIO为推挽输出。主要用于PWM输出，占空比为0和100的情况。
-N*	形    参: GPIOx
-N*			  GPIO_PinX
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_ConfigGpioOut(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinX)
-N{
-N	GPIO_InitTypeDef  GPIO_InitStructure;
-N
-N	/* 使能GPIO时钟 */
-N	RCC_APB2PeriphClockCmd(bsp_GetRCCofGPIO(GPIOx), ENABLE);
-N
-N	/* 配置GPIO */
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PinX;		/* 带入的形参 */
-N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 输出 */
-N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N	GPIO_Init(GPIOx, &GPIO_InitStructure);
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_SetTIMOutPWM
-N*	功能说明: 设置引脚输出的PWM信号的频率和占空比.  当频率为0，并且占空为0时，关闭定时器，GPIO输出0；
-N*			  当频率为0，占空比为100%时，GPIO输出1.
-N*	形    参: _ulFreq : PWM信号频率，单位Hz  (实际测试，最大输出频率为 168M / 4 = 42M）. 0 表示禁止输出
-N*			  _ulDutyCycle : PWM信号占空比，单位：万分之一。如5000，表示50.00%的占空比
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_SetTIMOutPWM(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, TIM_TypeDef* TIMx, uint8_t _ucChannel,
-N	 uint32_t _ulFreq, uint32_t _ulDutyCycle)
-N{
-N	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-N	TIM_OCInitTypeDef  TIM_OCInitStructure;
-N	uint16_t usPeriod;
-N	uint16_t usPrescaler;
-N	uint32_t uiTIMxCLK;
-N
-N	if (_ulDutyCycle == 0)
-N	{		
-N		TIM_Cmd(TIMx, DISABLE);		/* 关闭PWM输出 */
-N		bsp_ConfigGpioOut(GPIOx, GPIO_Pin);	/* 配置GPIO为推挽输出 */		
-N		GPIO_WriteBit(GPIOx, GPIO_Pin, Bit_RESET);	/* PWM = 0 */		
-N		return;
-N	}
-N	else if (_ulDutyCycle == 10000)
-N	{
-N		TIM_Cmd(TIMx, DISABLE);		/* 关闭PWM输出 */
-N
-N		bsp_ConfigGpioOut(GPIOx, GPIO_Pin);	/* 配置GPIO为推挽输出 */		
-N		GPIO_WriteBit(GPIOx, GPIO_Pin, Bit_SET);	/* PWM = 1 */	
-N		return;
-N	}
-N	
-N
-N	bsp_ConfigTimGpio(GPIOx, GPIO_Pin, TIMx, _ucChannel);	/* 使能GPIO和TIM时钟，并连接TIM通道到GPIO */
-N	
-N    /*-----------------------------------------------------------------------
-N		system_stm32f4xx.c 文件中 void SetSysClock(void) 函数对时钟的配置如下：
-N
-N		HCLK = SYSCLK / 1     (AHB1Periph)
-N		PCLK2 = HCLK / 2      (APB2Periph)
-N		PCLK1 = HCLK / 4      (APB1Periph)
-N
-N		因为APB1 prescaler != 1, 所以 APB1上的TIMxCLK = PCLK1 x 2 = SystemCoreClock / 2;
-N		因为APB2 prescaler != 1, 所以 APB2上的TIMxCLK = PCLK2 x 2 = SystemCoreClock;
-N
-N		APB1 定时器有 TIM2, TIM3 ,TIM4, TIM5, TIM6, TIM6, TIM12, TIM13,TIM14
-N		APB2 定时器有 TIM1, TIM8 ,TIM9, TIM10, TIM11
-N
-N	----------------------------------------------------------------------- */
-N	if ((TIMx == TIM1) || (TIMx == TIM8) || (TIMx == TIM9) || (TIMx == TIM10) || (TIMx == TIM11))
-X	if ((TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x4C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x5000))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x5400))))
-N	{
-N		/* APB2 定时器 */
-N		uiTIMxCLK = SystemCoreClock;
-N	}
-N	else	/* APB1 定时器 */
-N	{
-N		uiTIMxCLK = SystemCoreClock;	// SystemCoreClock / 2;
-N	}
-N
-N	if (_ulFreq < 100)
-N	{
-N		usPrescaler = 10000 - 1;					/* 分频比 = 10000 */
-N		usPeriod =  (uiTIMxCLK / 10000) / _ulFreq  - 1;		/* 自动重装的值 */
-N	}
-N	else if (_ulFreq < 3000)
-N	{
-N		usPrescaler = 100 - 1;					/* 分频比 = 100 */
-N		usPeriod =  (uiTIMxCLK / 100) / _ulFreq  - 1;		/* 自动重装的值 */
-N	}
-N	else	/* 大于4K的频率，无需分频 */
-N	{
-N		usPrescaler = 0;					/* 分频比 = 1 */
-N		usPeriod = uiTIMxCLK / _ulFreq - 1;	/* 自动重装的值 */
-N	}
-N
-N	/* Time base configuration */
-N	TIM_TimeBaseStructure.TIM_Period = usPeriod;
-N	TIM_TimeBaseStructure.TIM_Prescaler = usPrescaler;
-N	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-N	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-X	TIM_TimeBaseStructure.TIM_CounterMode = ((uint16_t)0x0000);
-N	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;	
-N	TIM_TimeBaseInit(TIMx, &TIM_TimeBaseStructure);
-N
-N	/* PWM1 Mode configuration: Channel1 */
-N	TIM_OCStructInit(&TIM_OCInitStructure);		/* 初始化结构体成员 */
-N	
-N	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-X	TIM_OCInitStructure.TIM_OCMode = ((uint16_t)0x0060);
-N	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-X	TIM_OCInitStructure.TIM_OutputState = ((uint16_t)0x0001);
-N	TIM_OCInitStructure.TIM_Pulse = (_ulDutyCycle * usPeriod) / 10000;
-N	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-X	TIM_OCInitStructure.TIM_OCPolarity = ((uint16_t)0x0000);
-N	
-N	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Disable;	/* only for TIM1 and TIM8. */	
-X	TIM_OCInitStructure.TIM_OutputNState = ((uint16_t)0x0000);	 	
-N	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;			/* only for TIM1 and TIM8. */		
-X	TIM_OCInitStructure.TIM_OCNPolarity = ((uint16_t)0x0000);			 		
-N	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;		/* only for TIM1 and TIM8. */
-X	TIM_OCInitStructure.TIM_OCIdleState = ((uint16_t)0x0000);		 
-N	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;		/* only for TIM1 and TIM8. */
-X	TIM_OCInitStructure.TIM_OCNIdleState = ((uint16_t)0x0000);		 
-N	
-N	if (_ucChannel == 1)
-N	{
-N		TIM_OC1Init(TIMx, &TIM_OCInitStructure);
-N		TIM_OC1PreloadConfig(TIMx, TIM_OCPreload_Enable);
-X		TIM_OC1PreloadConfig(TIMx, ((uint16_t)0x0008));
-N	}
-N	else if (_ucChannel == 2)
-N	{
-N		TIM_OC2Init(TIMx, &TIM_OCInitStructure);
-N		TIM_OC2PreloadConfig(TIMx, TIM_OCPreload_Enable);
-X		TIM_OC2PreloadConfig(TIMx, ((uint16_t)0x0008));
-N	}
-N	else if (_ucChannel == 3)
-N	{
-N		TIM_OC3Init(TIMx, &TIM_OCInitStructure);
-N		TIM_OC3PreloadConfig(TIMx, TIM_OCPreload_Enable);
-X		TIM_OC3PreloadConfig(TIMx, ((uint16_t)0x0008));
-N	}
-N	else if (_ucChannel == 4)
-N	{
-N		TIM_OC4Init(TIMx, &TIM_OCInitStructure);
-N		TIM_OC4PreloadConfig(TIMx, TIM_OCPreload_Enable);
-X		TIM_OC4PreloadConfig(TIMx, ((uint16_t)0x0008));
-N	}
-N
-N	TIM_ARRPreloadConfig(TIMx, ENABLE);
-N
-N	/* TIMx enable counter */
-N	TIM_Cmd(TIMx, ENABLE);
-N
-N	/* 下面这句话对于TIM1和TIM8是必须的，对于TIM2-TIM6则不必要 */
-N	if ((TIMx == TIM1) || (TIMx == TIM8))
-X	if ((TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400))))
-N	{
-N		TIM_CtrlPWMOutputs(TIMx, ENABLE);
-N	}
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_SetTIMOutPWM_N
-N*	功能说明: 设置TIM8_CH1N 等反相引脚输出的PWM信号的频率和占空比.  当频率为0，并且占空为0时，关闭定时器，GPIO输出0；
-N*			  当频率为0，占空比为100%时，GPIO输出1.
-N*	形    参: _ulFreq : PWM信号频率，单位Hz  (实际测试，最大输出频率为 168M / 4 = 42M）. 0 表示禁止输出
-N*			  _ulDutyCycle : PWM信号占空比，单位：万分之一。如5000，表示50.00%的占空比
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_SetTIMOutPWM_N(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, TIM_TypeDef* TIMx, uint8_t _ucChannel,
-N	 uint32_t _ulFreq, uint32_t _ulDutyCycle)
-N{
-N	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-N	TIM_OCInitTypeDef  TIM_OCInitStructure;
-N	uint16_t usPeriod;
-N	uint16_t usPrescaler;
-N	uint32_t uiTIMxCLK;
-N
-N	if (_ulDutyCycle == 0)
-N	{		
-N		TIM_Cmd(TIMx, DISABLE);		/* 关闭PWM输出 */
-N		bsp_ConfigGpioOut(GPIOx, GPIO_Pin);	/* 配置GPIO为推挽输出 */		
-N		GPIO_WriteBit(GPIOx, GPIO_Pin, Bit_RESET);	/* PWM = 0 */		
-N		return;
-N	}
-N	else if (_ulDutyCycle == 10000)
-N	{
-N		TIM_Cmd(TIMx, DISABLE);		/* 关闭PWM输出 */
-N
-N		bsp_ConfigGpioOut(GPIOx, GPIO_Pin);	/* 配置GPIO为推挽输出 */		
-N		GPIO_WriteBit(GPIOx, GPIO_Pin, Bit_SET);	/* PWM = 1 */	
-N		return;
-N	}
-N	
-N
-N	bsp_ConfigTimGpio(GPIOx, GPIO_Pin, TIMx, _ucChannel);	/* 使能GPIO和TIM时钟，并连接TIM通道到GPIO */
-N	
-N    /*-----------------------------------------------------------------------
-N		system_stm32f4xx.c 文件中 void SetSysClock(void) 函数对时钟的配置如下：
-N
-N		HCLK = SYSCLK / 1     (AHB1Periph)
-N		PCLK2 = HCLK / 2      (APB2Periph)
-N		PCLK1 = HCLK / 4      (APB1Periph)
-N
-N		因为APB1 prescaler != 1, 所以 APB1上的TIMxCLK = PCLK1 x 2 = SystemCoreClock / 2;
-N		因为APB2 prescaler != 1, 所以 APB2上的TIMxCLK = PCLK2 x 2 = SystemCoreClock;
-N
-N		APB1 定时器有 TIM2, TIM3 ,TIM4, TIM5, TIM6, TIM6, TIM12, TIM13,TIM14
-N		APB2 定时器有 TIM1, TIM8 ,TIM9, TIM10, TIM11
-N
-N	----------------------------------------------------------------------- */
-N	if ((TIMx == TIM1) || (TIMx == TIM8) || (TIMx == TIM9) || (TIMx == TIM10) || (TIMx == TIM11))
-X	if ((TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x4C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x5000))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x5400))))
-N	{
-N		/* APB2 定时器 */
-N		uiTIMxCLK = SystemCoreClock;
-N	}
-N	else	/* APB1 定时器 */
-N	{
-N		uiTIMxCLK = SystemCoreClock;	// SystemCoreClock / 2;
-N	}
-N
-N	if (_ulFreq < 100)
-N	{
-N		usPrescaler = 10000 - 1;					/* 分频比 = 10000 */
-N		usPeriod =  (uiTIMxCLK / 10000) / _ulFreq  - 1;		/* 自动重装的值 */
-N	}
-N	else if (_ulFreq < 3000)
-N	{
-N		usPrescaler = 100 - 1;					/* 分频比 = 100 */
-N		usPeriod =  (uiTIMxCLK / 100) / _ulFreq  - 1;		/* 自动重装的值 */
-N	}
-N	else	/* 大于4K的频率，无需分频 */
-N	{
-N		usPrescaler = 0;					/* 分频比 = 1 */
-N		usPeriod = uiTIMxCLK / _ulFreq - 1;	/* 自动重装的值 */
-N	}
-N
-N	/* Time base configuration */
-N	TIM_TimeBaseStructure.TIM_Period = usPeriod;
-N	TIM_TimeBaseStructure.TIM_Prescaler = usPrescaler;
-N	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-N	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-X	TIM_TimeBaseStructure.TIM_CounterMode = ((uint16_t)0x0000);
-N	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;	
-N	TIM_TimeBaseInit(TIMx, &TIM_TimeBaseStructure);
-N
-N	/* PWM1 Mode configuration: Channel1 */
-N	TIM_OCStructInit(&TIM_OCInitStructure);		/* 初始化结构体成员 */
-N	
-N	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-X	TIM_OCInitStructure.TIM_OCMode = ((uint16_t)0x0060);
-N	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Disable;		/* 和 bsp_SetTIMOutPWM_N() 不同 */
-X	TIM_OCInitStructure.TIM_OutputState = ((uint16_t)0x0000);		 
-N	TIM_OCInitStructure.TIM_Pulse = (_ulDutyCycle * usPeriod) / 10000;
-N	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-X	TIM_OCInitStructure.TIM_OCPolarity = ((uint16_t)0x0000);
-N	
-N	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;		/* only for TIM1 and TIM8. */	
-X	TIM_OCInitStructure.TIM_OutputNState = ((uint16_t)0x0004);		 	
-N	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;			/* only for TIM1 and TIM8. */		
-X	TIM_OCInitStructure.TIM_OCNPolarity = ((uint16_t)0x0000);			 		
-N	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;		/* only for TIM1 and TIM8. */
-X	TIM_OCInitStructure.TIM_OCIdleState = ((uint16_t)0x0000);		 
-N	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;		/* only for TIM1 and TIM8. */
-X	TIM_OCInitStructure.TIM_OCNIdleState = ((uint16_t)0x0000);		 
-N	
-N	if (_ucChannel == 1)
-N	{
-N		TIM_OC1Init(TIMx, &TIM_OCInitStructure);
-N		TIM_OC1PreloadConfig(TIMx, TIM_OCPreload_Enable);
-X		TIM_OC1PreloadConfig(TIMx, ((uint16_t)0x0008));
-N	}
-N	else if (_ucChannel == 2)
-N	{
-N		TIM_OC2Init(TIMx, &TIM_OCInitStructure);
-N		TIM_OC2PreloadConfig(TIMx, TIM_OCPreload_Enable);
-X		TIM_OC2PreloadConfig(TIMx, ((uint16_t)0x0008));
-N	}
-N	else if (_ucChannel == 3)
-N	{
-N		TIM_OC3Init(TIMx, &TIM_OCInitStructure);
-N		TIM_OC3PreloadConfig(TIMx, TIM_OCPreload_Enable);
-X		TIM_OC3PreloadConfig(TIMx, ((uint16_t)0x0008));
-N	}
-N	else if (_ucChannel == 4)
-N	{
-N		TIM_OC4Init(TIMx, &TIM_OCInitStructure);
-N		TIM_OC4PreloadConfig(TIMx, TIM_OCPreload_Enable);
-X		TIM_OC4PreloadConfig(TIMx, ((uint16_t)0x0008));
-N	}
-N
-N	TIM_ARRPreloadConfig(TIMx, ENABLE);
-N
-N	/* TIMx enable counter */
-N	TIM_Cmd(TIMx, ENABLE);
-N
-N	/* 下面这句话对于TIM1和TIM8是必须的，对于TIM2-TIM6则不必要 */
-N	if ((TIMx == TIM1) || (TIMx == TIM8))
-X	if ((TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400))))
-N	{
-N		TIM_CtrlPWMOutputs(TIMx, ENABLE);
-N	}
+N    unsigned char *point;
+N    point = (unsigned char*)target;	  //得到float的地址
+N    buf[beg]   = point[0];
+N    buf[beg+1] = point[1];
+N    buf[beg+2] = point[2];
+N    buf[beg+3] = point[3];
 N}
 N
 N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_SetTIMforInt
-N*	功能说明: 配置TIM和NVIC，用于简单的定时中断. 开启定时中断。 中断服务程序由应用程序实现。
-N*	形    参: TIMx : 定时器
-N*			  _ulFreq : 定时频率 （Hz）。 0 表示关闭。
-N*			  _PreemptionPriority : 中断优先级分组
-N*			  _SubPriority : 子优先级
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_SetTIMforInt(TIM_TypeDef* TIMx, uint32_t _ulFreq, uint8_t _PreemptionPriority, uint8_t _SubPriority)
+N//函数说明：将待发送通道的单精度浮点数据写入发送缓冲区
+N//Data：通道数据
+N//Channel：选择通道（1-10）
+N//函数无返回 
+Nvoid DataScope_Get_Channel_Data(float Data,unsigned char Channel)
 N{
-N	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-N	uint16_t usPeriod;
-N	uint16_t usPrescaler;
-N	uint32_t uiTIMxCLK;
+N    if ( (Channel > 10) || (Channel == 0) ) return;  //通道个数大于10或等于0，直接跳出，不执行函数
+N    else
+N    {
+N        switch (Channel)
+N        {
+N        case 1:  Float2Byte(&Data,DataScope_OutPut_Buffer,1); break;
+N        case 2:  Float2Byte(&Data,DataScope_OutPut_Buffer,5); break;
+N        case 3:  Float2Byte(&Data,DataScope_OutPut_Buffer,9); break;
+N        case 4:  Float2Byte(&Data,DataScope_OutPut_Buffer,13); break;
+N        case 5:  Float2Byte(&Data,DataScope_OutPut_Buffer,17); break;
+N        case 6:  Float2Byte(&Data,DataScope_OutPut_Buffer,21); break;
+N        case 7:  Float2Byte(&Data,DataScope_OutPut_Buffer,25); break;
+N        case 8:  Float2Byte(&Data,DataScope_OutPut_Buffer,29); break;
+N        case 9:  Float2Byte(&Data,DataScope_OutPut_Buffer,33); break;
+N        case 10: Float2Byte(&Data,DataScope_OutPut_Buffer,37); break;
+N        }
+N    }	 
+N}
 N
-N  	/* 使能TIM时钟 */
-N	if ((TIMx == TIM1) || (TIMx == TIM8))
-X	if ((TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400))))
-N	{
-N		RCC_APB2PeriphClockCmd(bsp_GetRCCofTIM(TIMx), ENABLE);
-N	}
-N	else
-N	{
-N		RCC_APB1PeriphClockCmd(bsp_GetRCCofTIM(TIMx), ENABLE);
-N	}
 N
-N	if (_ulFreq == 0)
-N	{
-N		TIM_Cmd(TIMx, DISABLE);		/* 关闭定时输出 */
+N//函数说明：生成 DataScopeV1.0 能正确识别的帧格式
+N//Channel_Number，需要发送的通道个数
+N//返回发送缓冲区数据个数
+N//返回0表示帧格式生成失败 
+Nunsigned char DataScope_Data_Generate(unsigned char Channel_Number)
+N{
+N    if ( (Channel_Number > 10) || (Channel_Number == 0) ) { return 0; }  //通道个数大于10或等于0，直接跳出，不执行函数
+N    else
+N    {	
+N        DataScope_OutPut_Buffer[0] = '$';  //帧头
+N        
+N        switch(Channel_Number)   
+N        { 
+N        case 1:   DataScope_OutPut_Buffer[5]  =  5; return  6;  
+N        case 2:   DataScope_OutPut_Buffer[9]  =  9; return 10;
+N        case 3:   DataScope_OutPut_Buffer[13] = 13; return 14; 
+N        case 4:   DataScope_OutPut_Buffer[17] = 17; return 18;
+N        case 5:   DataScope_OutPut_Buffer[21] = 21; return 22;  
+N        case 6:   DataScope_OutPut_Buffer[25] = 25; return 26;
+N        case 7:   DataScope_OutPut_Buffer[29] = 29; return 30; 
+N        case 8:   DataScope_OutPut_Buffer[33] = 33; return 34; 
+N        case 9:   DataScope_OutPut_Buffer[37] = 37; return 38;
+N        case 10:  DataScope_OutPut_Buffer[41] = 41; return 42; 
+N        }	 
+N    }
+N    return 0;
+N}
 N
-N		/* 关闭TIM定时更新中断 (Update) */
+N
+N
+Nvoid bsp_ScopeSend(void)
+N{   
+N		unsigned char Send_Count; //串口需要发送的数据个数
+N		unsigned char i; 
+N	
+N		DataScope_Get_Channel_Data( bsp_MotorGetSpeed(MotorLeft), 1 );       //显示角度 单位：度（°）
+N		DataScope_Get_Channel_Data( bsp_MotorGetSpeed(MotorRight), 2 );         //显示超声波测量的距离 单位：CM 
+N		DataScope_Get_Channel_Data( 0, 3 );                 //显示电池电压 单位：V
+N//		DataScope_Get_Channel_Data( 0 , 4 );   
+N//		DataScope_Get_Channel_Data(0, 5 ); //用您要显示的数据替换0就行了
+N//		DataScope_Get_Channel_Data(0 , 6 );//用您要显示的数据替换0就行了
+N//		DataScope_Get_Channel_Data(0, 7 );
+N//		DataScope_Get_Channel_Data( 0, 8 ); 
+N//		DataScope_Get_Channel_Data(0, 9 );  
+N//		DataScope_Get_Channel_Data( 0 , 10);
+N		Send_Count = DataScope_Data_Generate(3);
+N		for( i = 0 ; i < Send_Count; i++) 
 N		{
-N			NVIC_InitTypeDef NVIC_InitStructure;	/* 中断结构体在 misc.h 中定义 */
-N			uint8_t irq = 0;	/* 中断号, 定义在 stm32f4xx.h */
-N
-N			if (TIMx == TIM1)
-X			if (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)))
-N				irq = TIM1_UP_IRQn;
-N			else if (TIMx == TIM2)
-X			else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)))
-N				irq = TIM2_IRQn;
-N			else if (TIMx == TIM3)
-X			else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)))
-N				irq = TIM3_IRQn;
-N			else if (TIMx == TIM4)
-X			else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)))
-N				irq = TIM4_IRQn;
-N			else if (TIMx == TIM5)
-X			else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)))
-N				irq = TIM5_IRQn;
-N			else if (TIMx == TIM6)
-X			else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)))
-N				irq = TIM6_IRQn;
-N			else if (TIMx == TIM7)
-X			else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1400)))
-N				irq = TIM7_IRQn;
-N			else if (TIMx == TIM8)
-X			else if (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400)))
-N				irq = TIM8_UP_IRQn;
-N
-N			NVIC_InitStructure.NVIC_IRQChannel = irq;
-N			NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = _PreemptionPriority;
-N			NVIC_InitStructure.NVIC_IRQChannelSubPriority = _SubPriority;
-N			NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;
-N			NVIC_Init(&NVIC_InitStructure);
-N		}		
-N		return;
-N	}
-N
-N    /*-----------------------------------------------------------------------
-N		system_stm32f4xx.c 文件中 static void SetSysClockToHSE(void) 函数对时钟的配置如下：
-N
-N			//HCLK = SYSCLK 
-N			RCC->CFGR |= (uint32_t)RCC_CFGR_HPRE_DIV1;
-N			  
-N			//PCLK2 = HCLK
-N			RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE2_DIV1;
+N			comSendChar(COM2,DataScope_OutPut_Buffer[i]);
 N			
-N			//PCLK1 = HCLK
-N			RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE1_DIV1;
-N
-N		APB1 定时器有 TIM2, TIM3 ,TIM4, TIM5, TIM6, TIM7, TIM12, TIM13,TIM14
-N		APB2 定时器有 TIM1, TIM8 ,TIM9, TIM10, TIM11
-N
-N	----------------------------------------------------------------------- */
-N	if ((TIMx == TIM1) || (TIMx == TIM8) || (TIMx == TIM9) || (TIMx == TIM10) || (TIMx == TIM11))
-X	if ((TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x4C00))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x5000))) || (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x5400))))
-N	{
-N		/* APB2 定时器 */
-N		uiTIMxCLK = SystemCoreClock;
-N	}
-N	else	/* APB1 定时器 .  */
-N	{
-N		uiTIMxCLK = SystemCoreClock;	// SystemCoreClock / 2;
-N	}
-N
-N	if (_ulFreq < 100)
-N	{
-N		usPrescaler = 10000 - 1;					/* 分频比 = 1000 */
-N		usPeriod =  (uiTIMxCLK / 10000) / _ulFreq  - 1;		/* 自动重装的值 */
-N	}
-N	else if (_ulFreq < 3000)
-N	{
-N		usPrescaler = 100 - 1;					/* 分频比 = 100 */
-N		usPeriod =  (uiTIMxCLK / 100) / _ulFreq  - 1;		/* 自动重装的值 */
-N	}
-N	else	/* 大于4K的频率，无需分频 */
-N	{
-N		usPrescaler = 0;					/* 分频比 = 1 */
-N		usPeriod = uiTIMxCLK / _ulFreq - 1;	/* 自动重装的值 */
-N	}
-N
-N	/* Time base configuration */
-N	TIM_TimeBaseStructure.TIM_Period = usPeriod;
-N	TIM_TimeBaseStructure.TIM_Prescaler = usPrescaler;
-N	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-N	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-X	TIM_TimeBaseStructure.TIM_CounterMode = ((uint16_t)0x0000);
-N	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
-N
-N	TIM_TimeBaseInit(TIMx, &TIM_TimeBaseStructure);
-N
-N	TIM_ARRPreloadConfig(TIMx, ENABLE);
-N
-N	/* TIM Interrupts enable */
-N	TIM_ITConfig(TIMx, TIM_IT_Update, ENABLE);
-X	TIM_ITConfig(TIMx, ((uint16_t)0x0001), ENABLE);
-N
-N	/* TIMx enable counter */
-N	TIM_Cmd(TIMx, ENABLE);
-N
-N	/* 配置TIM定时更新中断 (Update) */
-N	{
-N		NVIC_InitTypeDef NVIC_InitStructure;	/* 中断结构体在 misc.h 中定义 */
-N		uint8_t irq = 0;	/* 中断号, 定义在 stm32f4xx.h */
-N
-N		if (TIMx == TIM1)
-X		if (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)))
-N			irq = TIM1_UP_IRQn;
-N		else if (TIMx == TIM2)
-X		else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)))
-N			irq = TIM2_IRQn;
-N		else if (TIMx == TIM3)
-X		else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)))
-N			irq = TIM3_IRQn;
-N		else if (TIMx == TIM4)
-X		else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)))
-N			irq = TIM4_IRQn;
-N		else if (TIMx == TIM5)
-X		else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)))
-N			irq = TIM5_IRQn;
-N		else if (TIMx == TIM6)
-X		else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)))
-N			irq = TIM6_IRQn;
-N		else if (TIMx == TIM7)
-X		else if (TIMx == ((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1400)))
-N			irq = TIM7_IRQn;
-N		else if (TIMx == TIM8)
-X		else if (TIMx == ((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3400)))
-N			irq = TIM8_UP_IRQn;
-N
-N		NVIC_InitStructure.NVIC_IRQChannel = irq;
-N		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = _PreemptionPriority;
-N		NVIC_InitStructure.NVIC_IRQChannelSubPriority = _SubPriority;
-N		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-N		NVIC_Init(&NVIC_InitStructure);
-N	}
+N//			while((USART1->SR&0X40)==0);  
+N//			USART1->DR = DataScope_OutPut_Buffer[i]; 
+N		}
 N}
-N
-N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
