@@ -38754,11 +38754,28 @@ N
 N
 N	switch(edgewise.action)
 N	{
-N		case 0:/*判断是否进入沿边模式*/
+N		case 0:
 N		{
-N
-N		}
-N
+N			/*右边沿边红外检测到了*/
+N			if(bsp_GetInfraredVoltageRight() >= 1.0F)
+N			{
+N				edgewise.action++;
+N			}
+N		}break;
+N		
+N		case 1:
+N		{
+N			if(bsp_GetInfraredVoltageRight() >= 1.0F)
+N			{
+N				bsp_SetMotorSpeed(MotorLeft,5);
+N				bsp_SetMotorSpeed(MotorRight,6);
+N			}
+N			else
+N			{
+N				bsp_SetMotorSpeed(MotorLeft,6);
+N				bsp_SetMotorSpeed(MotorRight,5);
+N			}
+N		}break;
 N	}	
 W "..\..\User\app\src\bsp_Edgewise.c" 25 12 variable "collision" was declared but never referenced
 N}

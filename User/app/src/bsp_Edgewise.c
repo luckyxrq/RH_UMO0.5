@@ -27,11 +27,28 @@ void bsp_EdgewiseAct(void)
 
 	switch(edgewise.action)
 	{
-		case 0:/*判断是否进入沿边模式*/
+		case 0:
 		{
-
-		}
-
+			/*右边沿边红外检测到了*/
+			if(bsp_GetInfraredVoltageRight() >= 1.0F)
+			{
+				edgewise.action++;
+			}
+		}break;
+		
+		case 1:
+		{
+			if(bsp_GetInfraredVoltageRight() >= 1.0F)
+			{
+				bsp_SetMotorSpeed(MotorLeft,5);
+				bsp_SetMotorSpeed(MotorRight,6);
+			}
+			else
+			{
+				bsp_SetMotorSpeed(MotorLeft,6);
+				bsp_SetMotorSpeed(MotorRight,5);
+			}
+		}break;
 	}	
 }
 

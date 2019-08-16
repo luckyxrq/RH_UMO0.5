@@ -7,30 +7,86 @@
                   bsp_EdgewiseAct PROC
 ;;;22     
 ;;;23     void bsp_EdgewiseAct(void)
-000000  4802              LDR      r0,|L1.12|
+000000  b510              PUSH     {r4,lr}
 ;;;24     {
 ;;;25     	Collision collision;
 ;;;26     	
 ;;;27     
 ;;;28     	switch(edgewise.action)
-000002  7840              LDRB     r0,[r0,#1]  ; edgewise
-000004  b900              CBNZ     r0,|L1.8|
+000002  4818              LDR      r0,|L1.100|
+000004  7840              LDRB     r0,[r0,#1]  ; edgewise
+000006  b110              CBZ      r0,|L1.14|
+000008  2801              CMP      r0,#1
+00000a  d128              BNE      |L1.94|
+00000c  e00d              B        |L1.42|
+                  |L1.14|
 ;;;29     	{
-;;;30     		case 0:/*判断是否进入沿边模式*/
-000006  bf00              NOP      
-                  |L1.8|
+;;;30     		case 0:
 ;;;31     		{
-;;;32     
-;;;33     		}
-;;;34     
-;;;35     	}	
-;;;36     }
-000008  4770              BX       lr
-;;;37     
+;;;32     			/*右边沿边红外检测到了*/
+;;;33     			if(bsp_GetInfraredVoltageRight() >= 1.0F)
+00000e  f7fffffe          BL       bsp_GetInfraredVoltageRight
+000012  4604              MOV      r4,r0
+000014  f04f517e          MOV      r1,#0x3f800000
+000018  f7fffffe          BL       __aeabi_cfrcmple
+00001c  d804              BHI      |L1.40|
+;;;34     			{
+;;;35     				edgewise.action++;
+00001e  4811              LDR      r0,|L1.100|
+000020  7840              LDRB     r0,[r0,#1]  ; edgewise
+000022  1c40              ADDS     r0,r0,#1
+000024  490f              LDR      r1,|L1.100|
+000026  7048              STRB     r0,[r1,#1]
+                  |L1.40|
+;;;36     			}
+;;;37     		}break;
+000028  e019              B        |L1.94|
+                  |L1.42|
+;;;38     		
+;;;39     		case 1:
+;;;40     		{
+;;;41     			if(bsp_GetInfraredVoltageRight() >= 1.0F)
+00002a  f7fffffe          BL       bsp_GetInfraredVoltageRight
+00002e  4604              MOV      r4,r0
+000030  f04f517e          MOV      r1,#0x3f800000
+000034  f7fffffe          BL       __aeabi_cfrcmple
+000038  d808              BHI      |L1.76|
+;;;42     			{
+;;;43     				bsp_SetMotorSpeed(MotorLeft,5);
+00003a  2105              MOVS     r1,#5
+00003c  2000              MOVS     r0,#0
+00003e  f7fffffe          BL       bsp_SetMotorSpeed
+;;;44     				bsp_SetMotorSpeed(MotorRight,6);
+000042  2106              MOVS     r1,#6
+000044  2001              MOVS     r0,#1
+000046  f7fffffe          BL       bsp_SetMotorSpeed
+00004a  e007              B        |L1.92|
+                  |L1.76|
+;;;45     			}
+;;;46     			else
+;;;47     			{
+;;;48     				bsp_SetMotorSpeed(MotorLeft,6);
+00004c  2106              MOVS     r1,#6
+00004e  2000              MOVS     r0,#0
+000050  f7fffffe          BL       bsp_SetMotorSpeed
+;;;49     				bsp_SetMotorSpeed(MotorRight,5);
+000054  2105              MOVS     r1,#5
+000056  2001              MOVS     r0,#1
+000058  f7fffffe          BL       bsp_SetMotorSpeed
+                  |L1.92|
+;;;50     			}
+;;;51     		}break;
+00005c  bf00              NOP      
+                  |L1.94|
+00005e  bf00              NOP                            ;37
+;;;52     	}	
+;;;53     }
+000060  bd10              POP      {r4,pc}
+;;;54     
                           ENDP
 
-00000a  0000              DCW      0x0000
-                  |L1.12|
+000062  0000              DCW      0x0000
+                  |L1.100|
                           DCD      edgewise
 
                           AREA ||.data||, DATA, ALIGN=2
