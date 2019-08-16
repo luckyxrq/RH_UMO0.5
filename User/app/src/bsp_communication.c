@@ -79,6 +79,7 @@ typedef struct _BUF_
 static ReportFrame reportFrame;
 static uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len);
 static void bsp_FillReportFrame(void);
+static void bsp_UartAnalysis(uint8_t *buf,int16_t* left_velocity,int16_t* right_velocity);
 
 uint8_t  BB16_Buf[1*1024] = {0};
 S_Cmd    BB16_Cmd = {0,0,0,0,0,BB16_Buf,0};
@@ -112,7 +113,14 @@ void bsp_SendReportFrame(void)
 	comSendBuf(COM4,buf,len);	
 }
 
-
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_ReveiceCmdFrame
+*	功能说明: 数据帧接收解析
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 uint8_t bsp_ReveiceCmdFrame(int16_t* left_velocity,int16_t* right_velocity)
 {
 	uint8_t ch = 0;
@@ -122,9 +130,7 @@ uint8_t bsp_ReveiceCmdFrame(int16_t* left_velocity,int16_t* right_velocity)
 	uint16_t fletcher16=0;
 	uint8_t  BB16_Tmp_Buf[1*1024] = {0};
 	uint8_t  vaule = 0;
-	
-	int16_t linear_velocity = 0,angular_velocity = 0;
-	
+
 	
 	while(comGetChar(COM4, &ch))
 	{
@@ -180,7 +186,7 @@ uint8_t bsp_ReveiceCmdFrame(int16_t* left_velocity,int16_t* right_velocity)
 					break;
 											
 			case BB16_MESSAGE_ID:	// 消息ID
-					if(0x25 == vaule)
+					if(CMD_ID_SPEED == vaule  || CMD_ID_DISTANCE == vaule ||  CMD_ID_ANGLE == vaule)
 					{
 						BB16_Cmd.state = BB16_LENGHT;		
 					}
@@ -232,15 +238,9 @@ uint8_t bsp_ReveiceCmdFrame(int16_t* left_velocity,int16_t* right_velocity)
 				
 					if((0x55==vaule) && (fletcher16==bsp_CalcChk(BB16_Cmd.buf+3,BB16_Cmd.cnt-6)))
 					{
-							linear_velocity  = (BB16_Cmd.buf[5]<<8) + BB16_Cmd.buf[6];
-							angular_velocity = (BB16_Cmd.buf[7]<<8) + BB16_Cmd.buf[8];
-
-							*left_velocity  = (int16_t)((0.5*(2*linear_velocity*0.001 - DegToRad(angular_velocity)*WHEEL_LENGTH))* 1000);
-							*right_velocity = (int16_t)((0.5*(2*linear_velocity*0.001 + DegToRad(angular_velocity)*WHEEL_LENGTH))* 1000);
-							
-							memset(&BB16_Cmd,0,sizeof(S_Cmd));
-							return 1;
-						
+						bsp_UartAnalysis(BB16_Cmd.buf,left_velocity,right_velocity);
+						memset(&BB16_Cmd,0,sizeof(S_Cmd));
+						return 1;
 					}
 					else			// 校验未通过
 					{
@@ -253,6 +253,43 @@ uint8_t bsp_ReveiceCmdFrame(int16_t* left_velocity,int16_t* right_velocity)
 	
 	return 0;
 
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_UartAnalysis
+*	功能说明: 数据帧赋值解析
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_UartAnalysis(uint8_t *buf,int16_t* left_velocity,int16_t* right_velocity)
+{
+	int16_t linear_velocity = 0,angular_velocity = 0;
+	uint8_t  message_id;
+	
+	message_id = buf[3];			// 消息ID
+	
+	switch (message_id)
+	{
+		case CMD_ID_SPEED:			// 运动
+			linear_velocity  = (buf[5]<<8) + buf[6];
+			angular_velocity = (buf[7]<<8) + buf[8];
+
+			*left_velocity  = (int16_t)((0.5*(2*linear_velocity*0.001 - DegToRad(angular_velocity)*WHEEL_LENGTH))* 1000);
+			*right_velocity = (int16_t)((0.5*(2*linear_velocity*0.001 + DegToRad(angular_velocity)*WHEEL_LENGTH))* 1000);
+			break;
+		case CMD_ID_DISTANCE:
+			
+			break;
+		case CMD_ID_ANGLE:
+			
+			break;
+		default:
+			break;
+	}
+
+	
 }
 
 

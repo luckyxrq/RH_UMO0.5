@@ -16,6 +16,11 @@
 #define  BB16_CKA				7		// ะฃั้A
 #define  BB16_END				8		// ึกฮฒ
 
+#define  CMD_ID_SPEED 	        0x25	// 
+#define  CMD_ID_DISTANCE  		0x35	// 
+#define  CMD_ID_ANGLE  			0x45	// 
+
+
 
 
 
