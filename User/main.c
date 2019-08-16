@@ -174,7 +174,6 @@ static void vTaskLED(void *pvParameters)
 			
 		}
 		
-		bsp_PidControlAct();
 		
 		vTaskDelay(100);
     }

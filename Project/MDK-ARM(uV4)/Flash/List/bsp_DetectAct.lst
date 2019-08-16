@@ -39488,9 +39488,7 @@ N		{
 N			//DEBUG("’œ∞≠ŒÔ:%d\r\n",i);
 N			if(flgdec == 0)
 N			{
-W "..\..\User\app\src\bsp_DetectAct.c" 628 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft,150);
-N				bsp_SetMotorTargetSpeed(MotorRight,150);
+N
 N				flgdec = 1 ;
 N			}
 N			

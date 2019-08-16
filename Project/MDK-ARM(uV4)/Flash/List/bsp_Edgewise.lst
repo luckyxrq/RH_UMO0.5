@@ -38743,94 +38743,11 @@ N	switch(edgewise.action)
 N	{
 N		case 0:/*判断是否进入沿边模式*/
 N		{
-N			collision = bsp_CollisionScan();
-N			
-N			/*撞到了，优先判断，后退同时转向*/
-N			if(collision == CollisionLeft)
-N			{
-W "..\..\User\app\src\bsp_Edgewise.c" 38 5 function "bsp_MotorBrake" declared implicitly
-N				bsp_MotorBrake(MotorLeft);
-N				bsp_MotorBrake(MotorRight);
-N				edgewise.action = 2 ;
-N			}
-N			/*撞到了，优先判断，后退同时转向*/
-N			else if(collision == CollisionRight)
-N			{
-W "..\..\User\app\src\bsp_Edgewise.c" 45 5 function "bsp_MotorBrake" declared implicitly
-N				bsp_MotorBrake(MotorLeft);
-N				bsp_MotorBrake(MotorRight);
-N				edgewise.action = 3 ;
-N			}
-N			/*撞到了，优先判断，后退同时转向*/
-N			else if(collision == CollisionAll)
-N			{
-W "..\..\User\app\src\bsp_Edgewise.c" 52 5 function "bsp_MotorBrake" declared implicitly
-N				bsp_MotorBrake(MotorLeft);
-N				bsp_MotorBrake(MotorRight);
-N				edgewise.action = 1 ;
-N			}
-N			
-N			
-N		};break;
-N		
-N		
-N		
-N		
-N		case 1://后退
-N		{
-W "..\..\User\app\src\bsp_Edgewise.c" 65 4 function "bsp_SetMotorPWM" declared implicitly
-N			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED);
-X			bsp_SetMotorPWM(MotorLeft,Backward, 6000);
-N			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED);
-X			bsp_SetMotorPWM(MotorRight,Backward,6000);
-N			edgewise.delay = xTaskGetTickCount();
-N			edgewise.action = 10 ;
-N		}break;
-N		
-N		
-N		case 2://左撞
-N		{
-W "..\..\User\app\src\bsp_Edgewise.c" 74 4 function "bsp_SetMotorPWM" declared implicitly
-N			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED-500);
-X			bsp_SetMotorPWM(MotorLeft,Backward, 6000-500);
-N			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED+500);
-X			bsp_SetMotorPWM(MotorRight,Backward,6000+500);
-N			edgewise.delay = xTaskGetTickCount();
-N			edgewise.action = 10 ;
-N		}break;
-N		
-N		
-N		case 3://右撞
-N		{
-W "..\..\User\app\src\bsp_Edgewise.c" 83 4 function "bsp_SetMotorPWM" declared implicitly
-N			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED+500);
-X			bsp_SetMotorPWM(MotorLeft,Backward, 6000+500);
-N			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED-500);
-X			bsp_SetMotorPWM(MotorRight,Backward,6000-500);
-N			edgewise.delay = xTaskGetTickCount();
-N			edgewise.action = 10 ;
-N		}break;
-N		
-N		case 10:
-N		{
-N			if(xTaskGetTickCount() - edgewise.delay >= 1000)
-N			{
-W "..\..\User\app\src\bsp_Edgewise.c" 93 5 function "bsp_MotorBrake" declared implicitly
-N				bsp_MotorBrake(MotorLeft);
-N				bsp_MotorBrake(MotorRight);
-N				
-W "..\..\User\app\src\bsp_Edgewise.c" 96 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft,250);
-N				bsp_SetMotorTargetSpeed(MotorRight,250);
-N				
-N				flgdec = 0 ;
-N				edgewise.action = 0 ;
-N			}
-N		}break;
-N		
-N		
+N
+N		}
 N
 N	}	
+W "..\..\User\app\src\bsp_Edgewise.c" 26 12 variable "collision" was declared but never referenced
 N}
 N
 N

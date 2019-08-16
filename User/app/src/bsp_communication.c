@@ -59,8 +59,8 @@ void bsp_FillReportFrame(void)
 	uint32_t len = sizeof(reportFrame);/*帧大小*/
 	uint8_t* src = (uint8_t*)&reportFrame;
 	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
-	int32_t odometerL = bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
-	int32_t odometerR = bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
+	int32_t odometerL = 0;//bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
+	int32_t odometerR = 0;//bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
 	
 	/*消除编译器警告*/
 	UNUSED(reportFrame);

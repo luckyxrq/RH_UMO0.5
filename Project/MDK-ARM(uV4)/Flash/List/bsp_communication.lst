@@ -38771,9 +38771,8 @@ N	uint16_t chk = 0 ;
 N	uint32_t len = sizeof(reportFrame);/*帧大小*/
 N	uint8_t* src = (uint8_t*)&reportFrame;
 N	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
-W "..\..\User\app\src\bsp_communication.c" 62 22 function "bsp_encoderGetOdometer" declared implicitly
-N	int32_t odometerL = bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
-N	int32_t odometerR = bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
+N	int32_t odometerL = 0;//bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
+N	int32_t odometerR = 0;//bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
 N	
 N	/*消除编译器警告*/
 N	UNUSED(reportFrame);

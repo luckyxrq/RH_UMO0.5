@@ -30,78 +30,8 @@ void bsp_EdgewiseAct(void)
 	{
 		case 0:/*判断是否进入沿边模式*/
 		{
-			collision = bsp_CollisionScan();
-			
-			/*撞到了，优先判断，后退同时转向*/
-			if(collision == CollisionLeft)
-			{
-				bsp_MotorBrake(MotorLeft);
-				bsp_MotorBrake(MotorRight);
-				edgewise.action = 2 ;
-			}
-			/*撞到了，优先判断，后退同时转向*/
-			else if(collision == CollisionRight)
-			{
-				bsp_MotorBrake(MotorLeft);
-				bsp_MotorBrake(MotorRight);
-				edgewise.action = 3 ;
-			}
-			/*撞到了，优先判断，后退同时转向*/
-			else if(collision == CollisionAll)
-			{
-				bsp_MotorBrake(MotorLeft);
-				bsp_MotorBrake(MotorRight);
-				edgewise.action = 1 ;
-			}
-			
-			
-		};break;
-		
-		
-		
-		
-		case 1://后退
-		{
-			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED);
-			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED);
-			edgewise.delay = xTaskGetTickCount();
-			edgewise.action = 10 ;
-		}break;
-		
-		
-		case 2://左撞
-		{
-			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED-500);
-			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED+500);
-			edgewise.delay = xTaskGetTickCount();
-			edgewise.action = 10 ;
-		}break;
-		
-		
-		case 3://右撞
-		{
-			bsp_SetMotorPWM(MotorLeft,Backward, SLOW_SPEED+500);
-			bsp_SetMotorPWM(MotorRight,Backward,SLOW_SPEED-500);
-			edgewise.delay = xTaskGetTickCount();
-			edgewise.action = 10 ;
-		}break;
-		
-		case 10:
-		{
-			if(xTaskGetTickCount() - edgewise.delay >= 1000)
-			{
-				bsp_MotorBrake(MotorLeft);
-				bsp_MotorBrake(MotorRight);
-				
-				bsp_SetMotorTargetSpeed(MotorLeft,250);
-				bsp_SetMotorTargetSpeed(MotorRight,250);
-				
-				flgdec = 0 ;
-				edgewise.action = 0 ;
-			}
-		}break;
-		
-		
+
+		}
 
 	}	
 }

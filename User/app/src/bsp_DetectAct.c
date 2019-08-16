@@ -625,8 +625,7 @@ void bsp_DetectDeal(void)
 			//DEBUG("’œ∞≠ŒÔ:%d\r\n",i);
 			if(flgdec == 0)
 			{
-				bsp_SetMotorTargetSpeed(MotorLeft,150);
-				bsp_SetMotorTargetSpeed(MotorRight,150);
+
 				flgdec = 1 ;
 			}
 			

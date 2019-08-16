@@ -64,110 +64,108 @@
 ;;;59     	uint32_t len = sizeof(reportFrame);/*帧大小*/
 000004  252b              MOVS     r5,#0x2b
 ;;;60     	uint8_t* src = (uint8_t*)&reportFrame;
-000006  4e26              LDR      r6,|L2.160|
+000006  4e24              LDR      r6,|L2.152|
 ;;;61     	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
 000008  f7fffffe          BL       bsp_AngleReadRaw
 00000c  9002              STR      r0,[sp,#8]
-;;;62     	int32_t odometerL = bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
+;;;62     	int32_t odometerL = 0;//bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
 00000e  2000              MOVS     r0,#0
-000010  f7fffffe          BL       bsp_encoderGetOdometer
-000014  9001              STR      r0,[sp,#4]
-;;;63     	int32_t odometerR = bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
-000016  2001              MOVS     r0,#1
-000018  f7fffffe          BL       bsp_encoderGetOdometer
-00001c  9000              STR      r0,[sp,#0]
+000010  9001              STR      r0,[sp,#4]
+;;;63     	int32_t odometerR = 0;//bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
+000012  9000              STR      r0,[sp,#0]
 ;;;64     	
 ;;;65     	/*消除编译器警告*/
 ;;;66     	UNUSED(reportFrame);
 ;;;67     	
 ;;;68     	/*大小端转换*/
 ;;;69     	reportFrame.sof1 = 0xAA;                     //恒定为0xAA
-00001e  20aa              MOVS     r0,#0xaa
-000020  4631              MOV      r1,r6
-000022  7008              STRB     r0,[r1,#0]
+000014  20aa              MOVS     r0,#0xaa
+000016  4631              MOV      r1,r6
+000018  7008              STRB     r0,[r1,#0]
 ;;;70     	reportFrame.sof2 = 0xAA;                     //恒定为0xAA
-000024  7048              STRB     r0,[r1,#1]
+00001a  7048              STRB     r0,[r1,#1]
 ;;;71     	reportFrame.sof3 = 0xAA;                     //恒定为0xAA
-000026  7088              STRB     r0,[r1,#2]
+00001c  7088              STRB     r0,[r1,#2]
 ;;;72     	reportFrame.identifier = MIN_ID_ENVIRONMENT; //恒定为0x25
-000028  2030              MOVS     r0,#0x30
-00002a  70c8              STRB     r0,[r1,#3]
+00001e  2030              MOVS     r0,#0x30
+000020  70c8              STRB     r0,[r1,#3]
 ;;;73     	reportFrame.size_of_payload_field = 0x1B+8; 
-00002c  2023              MOVS     r0,#0x23
-00002e  7108              STRB     r0,[r1,#4]
+000022  2023              MOVS     r0,#0x23
+000024  7108              STRB     r0,[r1,#4]
 ;;;74     	reportFrame.left_wheel_pulse_count =  BEBufToUint32((uint8_t*)&odometerL);
-000030  a801              ADD      r0,sp,#4
-000032  f7fffffe          BL       BEBufToUint32
-000036  4631              MOV      r1,r6
-000038  f8c10005          STR      r0,[r1,#5]  ; reportFrame
+000026  a801              ADD      r0,sp,#4
+000028  f7fffffe          BL       BEBufToUint32
+00002c  4631              MOV      r1,r6
+00002e  f8c10005          STR      r0,[r1,#5]  ; reportFrame
 ;;;75     	reportFrame.right_wheel_pulse_count = BEBufToUint32((uint8_t*)&odometerR);
-00003c  4668              MOV      r0,sp
-00003e  f7fffffe          BL       BEBufToUint32
-000042  4631              MOV      r1,r6
-000044  f8c10009          STR      r0,[r1,#9]  ; reportFrame
+000032  4668              MOV      r0,sp
+000034  f7fffffe          BL       BEBufToUint32
+000038  4631              MOV      r1,r6
+00003a  f8c10009          STR      r0,[r1,#9]  ; reportFrame
 ;;;76     	reportFrame.button_control_cmd = 0 ;
-000048  2000              MOVS     r0,#0
-00004a  7348              STRB     r0,[r1,#0xd]
+00003e  2000              MOVS     r0,#0
+000040  7348              STRB     r0,[r1,#0xd]
 ;;;77     	reportFrame.distance_of_left_infrared = 0 ;
-00004c  81c8              STRH     r0,[r1,#0xe]
+000042  81c8              STRH     r0,[r1,#0xe]
 ;;;78     	reportFrame.distance_of_right_infrared = 0 ;
-00004e  8208              STRH     r0,[r1,#0x10]
+000044  8208              STRH     r0,[r1,#0x10]
 ;;;79     	reportFrame.distance_of_front_infrared = 0 ;
-000050  8248              STRH     r0,[r1,#0x12]
+000046  8248              STRH     r0,[r1,#0x12]
 ;;;80     	reportFrame.angle_deg = BEBufToUint16((uint8_t*)&angle);
-000052  a802              ADD      r0,sp,#8
-000054  f7fffffe          BL       BEBufToUint16
-000058  b200              SXTH     r0,r0
-00005a  4631              MOV      r1,r6
-00005c  8288              STRH     r0,[r1,#0x14]
+000048  a802              ADD      r0,sp,#8
+00004a  f7fffffe          BL       BEBufToUint16
+00004e  b200              SXTH     r0,r0
+000050  4631              MOV      r1,r6
+000052  8288              STRH     r0,[r1,#0x14]
 ;;;81     	reportFrame.adc_1 = 0 ;
-00005e  2000              MOVS     r0,#0
-000060  82c8              STRH     r0,[r1,#0x16]
+000054  2000              MOVS     r0,#0
+000056  82c8              STRH     r0,[r1,#0x16]
 ;;;82     	reportFrame.adc_2 = 0 ;
-000062  8308              STRH     r0,[r1,#0x18]
+000058  8308              STRH     r0,[r1,#0x18]
 ;;;83     	reportFrame.adc_3 = 0 ;
-000064  8348              STRH     r0,[r1,#0x1a]
+00005a  8348              STRH     r0,[r1,#0x1a]
 ;;;84     	reportFrame.adc_4 = 0 ;
-000066  8388              STRH     r0,[r1,#0x1c]
+00005c  8388              STRH     r0,[r1,#0x1c]
 ;;;85     	reportFrame.acc_x = 0 ;
-000068  83c8              STRH     r0,[r1,#0x1e]
+00005e  83c8              STRH     r0,[r1,#0x1e]
 ;;;86     	reportFrame.acc_y = 0 ;
-00006a  8408              STRH     r0,[r1,#0x20]
+000060  8408              STRH     r0,[r1,#0x20]
 ;;;87     	reportFrame.acc_z = 0 ;
-00006c  8448              STRH     r0,[r1,#0x22]
+000062  8448              STRH     r0,[r1,#0x22]
 ;;;88     	reportFrame.obstacle_signal = 0 ;
-00006e  8488              STRH     r0,[r1,#0x24]
+000064  8488              STRH     r0,[r1,#0x24]
 ;;;89     	reportFrame.battery_level_soc = 0 ;
-000070  f8810026          STRB     r0,[r1,#0x26]
+000066  f8810026          STRB     r0,[r1,#0x26]
 ;;;90     	reportFrame.charge_status = 0 ;
-000074  f8810027          STRB     r0,[r1,#0x27]
+00006a  f8810027          STRB     r0,[r1,#0x27]
 ;;;91     	reportFrame.checksum_msb = 0 ;
-000078  f8810028          STRB     r0,[r1,#0x28]
+00006e  f8810028          STRB     r0,[r1,#0x28]
 ;;;92     	reportFrame.checksum_lsb = 0 ;
-00007c  f8810029          STRB     r0,[r1,#0x29]
+000072  f8810029          STRB     r0,[r1,#0x29]
 ;;;93     	reportFrame.end_of_falg = 0x55 ;                  /*恒定0x55*/
-000080  2055              MOVS     r0,#0x55
-000082  f881002a          STRB     r0,[r1,#0x2a]
+000076  2055              MOVS     r0,#0x55
+000078  f881002a          STRB     r0,[r1,#0x2a]
 ;;;94     	
 ;;;95     	/*计算校验*/
 ;;;96     	chk = bsp_CalcChk(src+3,len-6);
-000086  1fa8              SUBS     r0,r5,#6
-000088  b2c1              UXTB     r1,r0
-00008a  1cf0              ADDS     r0,r6,#3
-00008c  f7fffffe          BL       bsp_CalcChk
-000090  4604              MOV      r4,r0
+00007c  1fa8              SUBS     r0,r5,#6
+00007e  b2c1              UXTB     r1,r0
+000080  1cf0              ADDS     r0,r6,#3
+000082  f7fffffe          BL       bsp_CalcChk
+000086  4604              MOV      r4,r0
 ;;;97     	reportFrame.checksum_msb = chk >> 8;
-000092  1220              ASRS     r0,r4,#8
-000094  4631              MOV      r1,r6
-000096  f8810028          STRB     r0,[r1,#0x28]
+000088  1220              ASRS     r0,r4,#8
+00008a  4631              MOV      r1,r6
+00008c  f8810028          STRB     r0,[r1,#0x28]
 ;;;98     	reportFrame.checksum_lsb = chk & 0x00FF;
-00009a  f8814029          STRB     r4,[r1,#0x29]
+000090  f8814029          STRB     r4,[r1,#0x29]
 ;;;99     }
-00009e  bdfe              POP      {r1-r7,pc}
+000094  bdfe              POP      {r1-r7,pc}
 ;;;100    
                           ENDP
 
-                  |L2.160|
+000096  0000              DCW      0x0000
+                  |L2.152|
                           DCD      reportFrame
 
                           AREA ||i.bsp_SendReportFrame||, CODE, READONLY, ALIGN=2

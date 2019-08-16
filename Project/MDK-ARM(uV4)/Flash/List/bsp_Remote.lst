@@ -38791,9 +38791,8 @@ X	if(bsp_GetChargeFeedback() == 1)
 N	{
 N		DEBUG("is charging...\r\n");
 X		printf ("is charging...\r\n");
-W "..\..\User\app\src\bsp_Remote.c" 75 3 function "bsp_MotorBrake" declared implicitly
-N		bsp_MotorBrake(MotorLeft);
-N	    bsp_MotorBrake(MotorRight);
+N		//bsp_MotorBrake(MotorLeft);
+N	    //bsp_MotorBrake(MotorRight);
 N		bsp_StopSearchChargingPile();
 N		return ;
 N	}
@@ -38802,9 +38801,8 @@ N	switch(searchCharging.action)
 N	{
 N		case 0: //第一步，直走
 N		{
-W "..\..\User\app\src\bsp_Remote.c" 85 4 function "bsp_SetMotorTargetSpeed" declared implicitly
-N			bsp_SetMotorTargetSpeed(MotorLeft,180);
-N			bsp_SetMotorTargetSpeed(MotorRight,180);
+N			//bsp_SetMotorTargetSpeed(MotorLeft,180);
+N			//bsp_SetMotorTargetSpeed(MotorRight,180);
 N			
 N			searchCharging.action++;
 N		}break;
@@ -38815,9 +38813,8 @@ N			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is150
 N			{
 N				DEBUG("1 detect 3 pulse\r\n");
 X				printf ("1 detect 3 pulse\r\n");
-W "..\..\User\app\src\bsp_Remote.c" 96 5 function "bsp_MotorBrake" declared implicitly
-N				bsp_MotorBrake(MotorLeft);
-N				bsp_MotorBrake(MotorRight);
+N				//bsp_MotorBrake(MotorLeft);
+N				//bsp_MotorBrake(MotorRight);
 N
 N				searchCharging.isRight = true ; //从右边切入
 X				searchCharging.isRight = 1 ; 
@@ -38827,9 +38824,8 @@ N			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is150
 N			{
 N				DEBUG("2 detect 3 pulse\r\n");
 X				printf ("2 detect 3 pulse\r\n");
-W "..\..\User\app\src\bsp_Remote.c" 105 5 function "bsp_MotorBrake" declared implicitly
-N				bsp_MotorBrake(MotorLeft);
-N				bsp_MotorBrake(MotorRight);
+N				//bsp_MotorBrake(MotorLeft);
+N				//bsp_MotorBrake(MotorRight);
 N				
 N				searchCharging.isRight = false ; //从左边切入
 X				searchCharging.isRight = 0 ; 
@@ -38846,14 +38842,12 @@ N		case 2: //左走右不走
 N		{
 N			if(searchCharging.isRight) //右边切入
 N			{
-W "..\..\User\app\src\bsp_Remote.c" 122 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft,180);
+N				//bsp_SetMotorTargetSpeed(MotorLeft,180);
 N				searchCharging.action++;
 N			}
 N			else //左边切入
 N			{
-W "..\..\User\app\src\bsp_Remote.c" 127 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorRight,180);
+N				//bsp_SetMotorTargetSpeed(MotorRight,180);
 N				searchCharging.action++;
 N			}
 N			
@@ -38868,9 +38862,8 @@ N				if(remote[CapCH4].is500us && remote[CapCH4].is1000us && (remote[CapCH3].is5
 N				{
 N					DEBUG("4 detect 3 pulse\r\n");
 X					printf ("4 detect 3 pulse\r\n");
-W "..\..\User\app\src\bsp_Remote.c" 141 6 function "bsp_MotorBrake" declared implicitly
-N					bsp_MotorBrake(MotorLeft);
-N					bsp_MotorBrake(MotorRight);
+N					//bsp_MotorBrake(MotorLeft);
+N					//bsp_MotorBrake(MotorRight);
 N					searchCharging.action++;
 N				}
 N			}
@@ -38880,9 +38873,8 @@ N				if(remote[CapCH3].is500us && remote[CapCH3].is1000us && (remote[CapCH4].is5
 N				{
 N					DEBUG("3 detect 3 pulse\r\n");
 X					printf ("3 detect 3 pulse\r\n");
-W "..\..\User\app\src\bsp_Remote.c" 151 6 function "bsp_MotorBrake" declared implicitly
-N					bsp_MotorBrake(MotorLeft);
-N					bsp_MotorBrake(MotorRight);
+N					//bsp_MotorBrake(MotorLeft);
+N					//bsp_MotorBrake(MotorRight);
 N					searchCharging.action++;
 N				}
 N			}
@@ -38892,16 +38884,14 @@ N		case 4: //右转
 N		{
 N			if(searchCharging.isRight) //右边切入
 N			{
-W "..\..\User\app\src\bsp_Remote.c" 162 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft, 180);
-N				bsp_SetMotorTargetSpeed(MotorRight,140);
+N				//bsp_SetMotorTargetSpeed(MotorLeft, 180);
+N				//bsp_SetMotorTargetSpeed(MotorRight,140);
 N				searchCharging.action++;	
 N			}
 N			else
 N			{
-W "..\..\User\app\src\bsp_Remote.c" 168 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft, 140);
-N				bsp_SetMotorTargetSpeed(MotorRight,180);
+N				//bsp_SetMotorTargetSpeed(MotorLeft, 140);
+N				//bsp_SetMotorTargetSpeed(MotorRight,180);
 N				searchCharging.action++;	
 N			}				
 N		}break;
@@ -38912,12 +38902,10 @@ N		{
 N			Collision collision = bsp_CollisionScan();
 N			if(collision != CollisionNone)
 N			{
-W "..\..\User\app\src\bsp_Remote.c" 180 5 function "bsp_MotorBrake" declared implicitly
-N				bsp_MotorBrake(MotorLeft);
-N				bsp_MotorBrake(MotorRight);
-W "..\..\User\app\src\bsp_Remote.c" 182 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft, -180);
-N				bsp_SetMotorTargetSpeed(MotorRight,-180);
+N				//bsp_MotorBrake(MotorLeft);
+N				//bsp_MotorBrake(MotorRight);
+N				//bsp_SetMotorTargetSpeed(MotorLeft, -180);
+N				//bsp_SetMotorTargetSpeed(MotorRight,-180);
 N				
 N				searchCharging.isNeedBack = true;
 X				searchCharging.isNeedBack = 1;
@@ -38927,33 +38915,29 @@ N			else if(remote[CapCH3].is500us && remote[CapCH4].is1000us) //同时有直走
 N			{
 N				DEBUG("both\r\n");
 X				printf ("both\r\n");
-W "..\..\User\app\src\bsp_Remote.c" 191 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft, 140);
-N				bsp_SetMotorTargetSpeed(MotorRight,140);
+N				//bsp_SetMotorTargetSpeed(MotorLeft, 140);
+N				//bsp_SetMotorTargetSpeed(MotorRight,140);
 N			}
 N			else if(remote[CapCH1].is500us || remote[CapCH1].is1000us)
 N			{
 N				DEBUG("adjust\r\n");
 X				printf ("adjust\r\n");
-W "..\..\User\app\src\bsp_Remote.c" 197 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft, 180);
-N				bsp_SetMotorTargetSpeed(MotorRight,120);
+N				//bsp_SetMotorTargetSpeed(MotorLeft, 180);
+N				//bsp_SetMotorTargetSpeed(MotorRight,120);
 N			}
 N			else if(!remote[CapCH4].is1000us) //4收不到1000
 N			{
 N				DEBUG("4 miss 1000\r\n");
 X				printf ("4 miss 1000\r\n");
-W "..\..\User\app\src\bsp_Remote.c" 203 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft, 140);
-N				bsp_SetMotorTargetSpeed(MotorRight,180);
+N				//bsp_SetMotorTargetSpeed(MotorLeft, 140);
+N				//bsp_SetMotorTargetSpeed(MotorRight,180);
 N			}
 N			else if(!remote[CapCH3].is500us) //3收不到500
 N			{
 N				DEBUG("3 miss 500\r\n");
 X				printf ("3 miss 500\r\n");
-W "..\..\User\app\src\bsp_Remote.c" 209 5 function "bsp_SetMotorTargetSpeed" declared implicitly
-N				bsp_SetMotorTargetSpeed(MotorLeft, 180);
-N				bsp_SetMotorTargetSpeed(MotorRight,140);
+N				//bsp_SetMotorTargetSpeed(MotorLeft, 180);
+N				//bsp_SetMotorTargetSpeed(MotorRight,140);
 N			}
 N			
 N			

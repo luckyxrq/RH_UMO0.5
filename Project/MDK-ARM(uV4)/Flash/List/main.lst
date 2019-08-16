@@ -46273,8 +46273,6 @@ N			}
 N			
 N		}
 N		
-W "..\..\User\main.c" 177 3 function "bsp_PidControlAct" declared implicitly
-N		bsp_PidControlAct();
 N		
 N		vTaskDelay(100);
 N    }
