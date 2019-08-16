@@ -2,36 +2,28 @@
 ; commandline ArmCC [--list --split_sections --debug -c --asm --interleave -o.\flash\obj\bsp_edgewise.o --asm_dir=.\Flash\List\ --list_dir=.\Flash\List\ --depend=.\flash\obj\bsp_edgewise.d --cpu=Cortex-M3 --apcs=interwork -O0 --diag_suppress=9931,870 -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -IF:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE -ID:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include -ID:\soft\MDK5\ARM\CMSIS\Include -D__MICROLIB -D__UVISION_VERSION=514 -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD --omf_browse=.\flash\obj\bsp_edgewise.crf ..\..\User\app\src\bsp_Edgewise.c]
                           THUMB
 
-                          AREA ||i.bsp_EdgewiseAct||, CODE, READONLY, ALIGN=2
+                          AREA ||i.bsp_EdgewiseAct||, CODE, READONLY, ALIGN=1
 
                   bsp_EdgewiseAct PROC
 ;;;23     
 ;;;24     void bsp_EdgewiseAct(void)
-000000  4802              LDR      r0,|L1.12|
+000000  4770              BX       lr
 ;;;25     {
-;;;26     	Collision collision;
-;;;27     	
+;;;26     //	Collision collision;
+;;;27     //	
 ;;;28     
-;;;29     	switch(edgewise.action)
-000002  7840              LDRB     r0,[r0,#1]  ; edgewise
-000004  b900              CBNZ     r0,|L1.8|
-;;;30     	{
-;;;31     		case 0:/*判断是否进入沿边模式*/
-000006  bf00              NOP      
-                  |L1.8|
-;;;32     		{
+;;;29     //	switch(edgewise.action)
+;;;30     //	{
+;;;31     //		case 0:/*判断是否进入沿边模式*/
+;;;32     //		{
 ;;;33     
-;;;34     		}
+;;;34     //		}
 ;;;35     
-;;;36     	}	
+;;;36     //	}	
 ;;;37     }
-000008  4770              BX       lr
 ;;;38     
                           ENDP
 
-00000a  0000              DCW      0x0000
-                  |L1.12|
-                          DCD      edgewise
 
                           AREA ||.data||, DATA, ALIGN=2
 

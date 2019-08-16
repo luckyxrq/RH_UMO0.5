@@ -38783,7 +38783,7 @@ N		}
 N		
 N		if(tick % 20*10 == 0)       /*10MS */
 N		{
-N			bsp_PidSched(); /*10MS调用一次*/
+N			
 N		}
 N		
 N		

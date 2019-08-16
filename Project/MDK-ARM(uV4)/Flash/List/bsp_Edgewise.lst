@@ -38736,18 +38736,17 @@ Nextern uint8_t flgdec ;
 N
 Nvoid bsp_EdgewiseAct(void)
 N{
-N	Collision collision;
-N	
+N//	Collision collision;
+N//	
 N
-N	switch(edgewise.action)
-N	{
-N		case 0:/*判断是否进入沿边模式*/
-N		{
+N//	switch(edgewise.action)
+N//	{
+N//		case 0:/*判断是否进入沿边模式*/
+N//		{
 N
-N		}
+N//		}
 N
-N	}	
-W "..\..\User\app\src\bsp_Edgewise.c" 26 12 variable "collision" was declared but never referenced
+N//	}	
 N}
 N
 N

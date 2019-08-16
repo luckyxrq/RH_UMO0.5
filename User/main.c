@@ -87,11 +87,21 @@ static void vTaskTaskUserIF(void *pvParameters)
 {
 	bsp_AngleRst();
 	
-	bsp_SetMotorSpeed(MotorLeft,5);
+	
     while(1)
     {
-
-		vTaskDelay(100);
+		bsp_SetMotorSpeed(MotorLeft,12);
+		bsp_SetMotorSpeed(MotorRight,12);
+		vTaskDelay(6000);
+		bsp_SetMotorSpeed(MotorLeft,5);
+		bsp_SetMotorSpeed(MotorRight,5);
+		vTaskDelay(6000);
+		bsp_SetMotorSpeed(MotorLeft,-12);
+		bsp_SetMotorSpeed(MotorRight,-12);
+		vTaskDelay(6000);
+		bsp_SetMotorSpeed(MotorLeft,-5);
+		bsp_SetMotorSpeed(MotorRight,-5);
+		vTaskDelay(6000);
 		
 	}
 }
@@ -151,6 +161,8 @@ static void vTaskMsgPro(void *pvParameters)
 		//bsp_SendReportFrame();
 		//bsp_PrintRemoteState(CapCH3);
 		
+		bsp_PidSched(); /*10MS调用一次*/
+		
 		vTaskDelay(10);
     }
 }
@@ -166,25 +178,23 @@ static void vTaskMsgPro(void *pvParameters)
 */
 static void vTaskStart(void *pvParameters)
 {
-	/*开启红外对管轮询扫描*/
-	bsp_DetectStart(); 
-	/*开启寻找充电桩*/
-	bsp_StartSearchChargingPile();
+//	/*开启红外对管轮询扫描*/
+//	bsp_DetectStart(); 
+//	/*开启寻找充电桩*/
+//	bsp_StartSearchChargingPile();
 	
-	
-	vTaskDelay(4000);
 	
     while(1)
     {
-		bsp_DetectAct();  /*红外对管轮询扫描*/
+//		bsp_DetectAct();  /*红外对管轮询扫描*/
 		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
 		//bsp_EdgewiseAct();/*沿边*/
 		
 		/*四个红外接收管*/
-		bsp_GetCapCnt(CapCH1);
-		bsp_GetCapCnt(CapCH2);
-		bsp_GetCapCnt(CapCH3);
-		bsp_GetCapCnt(CapCH4);
+//		bsp_GetCapCnt(CapCH1);
+//		bsp_GetCapCnt(CapCH2);
+//		bsp_GetCapCnt(CapCH3);
+//		bsp_GetCapCnt(CapCH4);
 		
 		/*寻找充电桩*/
 		//bsp_SearchChargingPileAct();

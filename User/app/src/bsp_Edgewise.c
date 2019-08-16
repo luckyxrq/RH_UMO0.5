@@ -23,17 +23,17 @@ extern uint8_t flgdec ;
 
 void bsp_EdgewiseAct(void)
 {
-	Collision collision;
-	
+//	Collision collision;
+//	
 
-	switch(edgewise.action)
-	{
-		case 0:/*判断是否进入沿边模式*/
-		{
+//	switch(edgewise.action)
+//	{
+//		case 0:/*判断是否进入沿边模式*/
+//		{
 
-		}
+//		}
 
-	}	
+//	}	
 }
 
 

@@ -69,7 +69,7 @@ void TIM6_IRQHandler( void )
 		
 		if(tick % 20*10 == 0)       /*10MS */
 		{
-			bsp_PidSched(); /*10MS调用一次*/
+			
 		}
 		
 		
