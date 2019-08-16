@@ -2851,7 +2851,7 @@ Image component sizes
        484         90          0          0         42       3502   bsp_angle.o
        306          4          0          0          0       3050   bsp_aw9523b.o
        168         40          0          0          0       1128   bsp_collision.o
-       742         44          0          0         56       4703   bsp_control.o
+       742         44          0          0         56       4707   bsp_control.o
        168         14          0          0        142       1856   bsp_detectact.o
        106         22          0          0          0       1458   bsp_dwt.o
        348         20          0          0         16       3543   bsp_encoder.o
@@ -2887,7 +2887,7 @@ Image component sizes
       2420        346          0         64        200      16058   tasks.o
 
     ----------------------------------------------------------------------
-     17560       1842        336        188      37776     445417   Object Totals
+     17560       1842        336        188      37776     445421   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         46          0          0          0         11          0   (incl. Padding)
 
@@ -2951,8 +2951,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     21868       1948        336        192      37776     435189   Grand Totals
-     21868       1948        336        192      37776     435189   ELF Image Totals
+     21868       1948        336        192      37776     435193   Grand Totals
+     21868       1948        336        192      37776     435193   ELF Image Totals
      21868       1948        336        192          0          0   ROM Totals
 
 ==============================================================================

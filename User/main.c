@@ -87,7 +87,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 {
 	bsp_AngleRst();
 	
-	
+
     while(1)
     {
 		bsp_SetMotorSpeed(MotorLeft,12);

@@ -11,8 +11,8 @@ typedef struct
 	volatile float lastBias;    /*上次偏差*/
 	volatile float pwm;         /*占空比*/ 
 
-	int32_t target;             /*目的速度*/
-	int32_t lastTarget;         /*上一次目的速度*/ 
+	volatile int32_t target;             /*目的速度*/
+	volatile int32_t lastTarget;         /*上一次目的速度*/ 
 }PID;
 
 

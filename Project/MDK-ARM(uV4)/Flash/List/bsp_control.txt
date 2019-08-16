@@ -455,8 +455,8 @@
 000004  f7fffffe          BL       bsp_EncoderGetPulseT
 000008  4604              MOV      r4,r0
 00000a  4808              LDR      r0,|L5.44|
-00000c  4621              MOV      r1,r4
-00000e  6942              LDR      r2,[r0,#0x14]  ; pid
+00000c  6942              LDR      r2,[r0,#0x14]  ; pid
+00000e  4621              MOV      r1,r4
 000010  2000              MOVS     r0,#0
 000012  f7fffffe          BL       bsp_PidExec
 ;;;77     	bsp_PidExec(MotorRight,bsp_EncoderGetPulseT(EncoderRight),pid[1].target);
@@ -464,8 +464,8 @@
 000018  f7fffffe          BL       bsp_EncoderGetPulseT
 00001c  4604              MOV      r4,r0
 00001e  4803              LDR      r0,|L5.44|
-000020  4621              MOV      r1,r4
-000022  6b02              LDR      r2,[r0,#0x30]
+000020  6b02              LDR      r2,[r0,#0x30]
+000022  4621              MOV      r1,r4
 000024  2001              MOVS     r0,#1
 000026  f7fffffe          BL       bsp_PidExec
 ;;;78     }

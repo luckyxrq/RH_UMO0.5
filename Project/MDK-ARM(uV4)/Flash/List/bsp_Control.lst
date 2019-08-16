@@ -38723,8 +38723,8 @@ N	volatile float bias;	    /*偏差*/
 N	volatile float lastBias;    /*上次偏差*/
 N	volatile float pwm;         /*占空比*/ 
 N
-N	int32_t target;             /*目的速度*/
-N	int32_t lastTarget;         /*上一次目的速度*/ 
+N	volatile int32_t target;             /*目的速度*/
+N	volatile int32_t lastTarget;         /*上一次目的速度*/ 
 N}PID;
 N
 N

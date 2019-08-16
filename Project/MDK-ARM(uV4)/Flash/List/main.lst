@@ -46183,7 +46183,7 @@ Nstatic void vTaskTaskUserIF(void *pvParameters)
 N{
 N	bsp_AngleRst();
 N	
-N	
+N
 N    while(1)
 N    {
 N		bsp_SetMotorSpeed(MotorLeft,12);
