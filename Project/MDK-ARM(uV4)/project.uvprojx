@@ -488,6 +488,21 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_communication.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_Encoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_Control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Control.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -607,6 +622,11 @@
               <FileName>stm32f10x_iwdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_iwdg.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_exti.c</FilePath>
             </File>
           </Files>
         </Group>

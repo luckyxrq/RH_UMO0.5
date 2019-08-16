@@ -85,56 +85,12 @@ int main(void)
 */
 static void vTaskTaskUserIF(void *pvParameters)
 {
-#if 0 /* 左前  右前 */
-	bsp_SetMotorPWM(MotorLeft,Forward,6000);
-	bsp_SetMotorPWM(MotorRight,Forward,6000);
-#endif
-
-#if 0 /* 左后  右后 */
-	bsp_SetMotorPWM(MotorLeft,Backward,6000);
-	bsp_SetMotorPWM(MotorRight,Backward,6000);
-#endif
-	
-#if 0 /* 左前  右后 */
-	bsp_SetMotorPWM(MotorLeft,Forward,6000);
-	bsp_SetMotorPWM(MotorRight,Backward,6000);
-#endif	
-	
-#if 0 /* 左后  右前 */
-	bsp_SetMotorPWM(MotorLeft,Backward,6000);
-	bsp_SetMotorPWM(MotorRight,Forward,6000);
-#endif	
-	
-#if 0 /* 给定初始角度和转动角度，得到目的角度 */
-	printf("des angle:%.2F\r\n",bsp_AngleAdd(-100,120));
-#endif	
-
-#if 0
-	bsp_SetMotorTargetSpeed(MotorLeft,250);
-	bsp_SetMotorTargetSpeed(MotorRight,250);
-#endif
-
-
 	bsp_AngleRst();
-
-
+	
+	bsp_SetMotorSpeed(MotorLeft,5);
     while(1)
     {
-		#if 0
-		DEBUG("左轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderLeft));
-		DEBUG("右轮速度:%.2F\r\n",bsp_EncoderGetSpeed(EncoderRight));
-		#endif
-		
-		
-		#if 1
-		//DEBUG("Angle:%.2F\r\n",bsp_AngleRead());
-		//DEBUG("Charge:%d\r\n",bsp_GetChargeFeedback());
-		#endif
-		
-		bsp_LedToggle(1);
-		bsp_LedToggle(2);
-		bsp_LedToggle(3);
-		
+
 		vTaskDelay(100);
 		
 	}
@@ -192,11 +148,10 @@ static void vTaskMsgPro(void *pvParameters)
 {
     while(1)
     {
-		bsp_SendReportFrame();
+		//bsp_SendReportFrame();
 		//bsp_PrintRemoteState(CapCH3);
 		
-		
-		vTaskDelay(1000);
+		vTaskDelay(10);
     }
 }
 
@@ -232,7 +187,7 @@ static void vTaskStart(void *pvParameters)
 		bsp_GetCapCnt(CapCH4);
 		
 		/*寻找充电桩*/
-		bsp_SearchChargingPileAct();
+		//bsp_SearchChargingPileAct();
 		
         vTaskDelay(1);
     }

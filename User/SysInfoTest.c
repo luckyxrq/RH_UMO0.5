@@ -60,9 +60,16 @@ void TIM6_IRQHandler( void )
 	
 	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 	{
-		if(++tick % 20 == 0) //1MS 
+		++tick; //50US加1
+		
+		if(tick % 20 == 0)          /*1MS */
 		{
 			bsp_PulseTimerPer1MS();
+		}
+		
+		if(tick % 20*10 == 0)       /*10MS */
+		{
+			bsp_PidSched(); /*10MS调用一次*/
 		}
 		
 		

@@ -38774,9 +38774,16 @@ N
 N	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 X	if(TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1000)), ((uint16_t)0x0001)) != RESET)
 N	{
-N		if(++tick % 20 == 0) //1MS 
+N		++tick; //50US加1
+N		
+N		if(tick % 20 == 0)          /*1MS */
 N		{
 N			bsp_PulseTimerPer1MS();
+N		}
+N		
+N		if(tick % 20*10 == 0)       /*10MS */
+N		{
+N			bsp_PidSched(); /*10MS调用一次*/
 N		}
 N		
 N		
