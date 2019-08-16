@@ -138,8 +138,8 @@ void bsp_SearchChargingPileAct(void)
 				if(remote[CapCH4].is500us && remote[CapCH4].is1000us && (remote[CapCH3].is500us || remote[CapCH3].is1000us))
 				{
 					DEBUG("4 detect 3 pulse\r\n");
-					//bsp_MotorBrake(MotorLeft);
-					//bsp_MotorBrake(MotorRight);
+					bsp_SetMotorSpeed(MotorLeft,0);
+					bsp_SetMotorSpeed(MotorRight,0);
 					searchCharging.action++;
 				}
 			}
@@ -148,8 +148,8 @@ void bsp_SearchChargingPileAct(void)
 				if(remote[CapCH3].is500us && remote[CapCH3].is1000us && (remote[CapCH4].is500us || remote[CapCH4].is1000us))
 				{
 					DEBUG("3 detect 3 pulse\r\n");
-					//bsp_MotorBrake(MotorLeft);
-					//bsp_MotorBrake(MotorRight);
+					bsp_SetMotorSpeed(MotorLeft,0);
+					bsp_SetMotorSpeed(MotorRight,0);
 					searchCharging.action++;
 				}
 			}
@@ -159,14 +159,14 @@ void bsp_SearchChargingPileAct(void)
 		{
 			if(searchCharging.isRight) //右边切入
 			{
-				//bsp_SetMotorTargetSpeed(MotorLeft, 180);
-				//bsp_SetMotorTargetSpeed(MotorRight,140);
+				bsp_SetMotorSpeed(MotorLeft,6);
+				bsp_SetMotorSpeed(MotorRight,5);
 				searchCharging.action++;	
 			}
 			else
 			{
-				//bsp_SetMotorTargetSpeed(MotorLeft, 140);
-				//bsp_SetMotorTargetSpeed(MotorRight,180);
+				bsp_SetMotorSpeed(MotorLeft,5);
+				bsp_SetMotorSpeed(MotorRight,6);
 				searchCharging.action++;	
 			}				
 		}break;
@@ -177,10 +177,8 @@ void bsp_SearchChargingPileAct(void)
 			Collision collision = bsp_CollisionScan();
 			if(collision != CollisionNone)
 			{
-				//bsp_MotorBrake(MotorLeft);
-				//bsp_MotorBrake(MotorRight);
-				//bsp_SetMotorTargetSpeed(MotorLeft, -180);
-				//bsp_SetMotorTargetSpeed(MotorRight,-180);
+				bsp_SetMotorSpeed(MotorLeft,-5);
+				bsp_SetMotorSpeed(MotorRight,-5);
 				
 				searchCharging.isNeedBack = true;
 				searchCharging.delay = xTaskGetTickCount();
@@ -188,26 +186,26 @@ void bsp_SearchChargingPileAct(void)
 			else if(remote[CapCH3].is500us && remote[CapCH4].is1000us) //同时有直走
 			{
 				DEBUG("both\r\n");
-				//bsp_SetMotorTargetSpeed(MotorLeft, 140);
-				//bsp_SetMotorTargetSpeed(MotorRight,140);
+				bsp_SetMotorSpeed(MotorLeft,5);
+				bsp_SetMotorSpeed(MotorRight,5);
 			}
 			else if(remote[CapCH1].is500us || remote[CapCH1].is1000us)
 			{
 				DEBUG("adjust\r\n");
-				//bsp_SetMotorTargetSpeed(MotorLeft, 180);
-				//bsp_SetMotorTargetSpeed(MotorRight,120);
+				bsp_SetMotorSpeed(MotorLeft,6);
+				bsp_SetMotorSpeed(MotorRight,4);
 			}
 			else if(!remote[CapCH4].is1000us) //4收不到1000
 			{
 				DEBUG("4 miss 1000\r\n");
-				//bsp_SetMotorTargetSpeed(MotorLeft, 140);
-				//bsp_SetMotorTargetSpeed(MotorRight,180);
+				bsp_SetMotorSpeed(MotorLeft,4);
+				bsp_SetMotorSpeed(MotorRight,5);
 			}
 			else if(!remote[CapCH3].is500us) //3收不到500
 			{
 				DEBUG("3 miss 500\r\n");
-				//bsp_SetMotorTargetSpeed(MotorLeft, 180);
-				//bsp_SetMotorTargetSpeed(MotorRight,140);
+				bsp_SetMotorSpeed(MotorLeft,5);
+				bsp_SetMotorSpeed(MotorRight,4);
 			}
 			
 			

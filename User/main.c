@@ -94,20 +94,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 
     while(1)
     {
-		bsp_SetMotorSpeed(MotorLeft,6);
-		bsp_SetMotorSpeed(MotorRight,6);
-		vTaskDelay(6000);
-		
-		bsp_SetMotorSpeed(MotorLeft,0);
-		bsp_SetMotorSpeed(MotorRight,0);
-		vTaskDelay(6000);
-		
-		bsp_SetMotorSpeed(MotorLeft,-6);
-		bsp_SetMotorSpeed(MotorRight,-6);
-		vTaskDelay(6000);
-		
-		bsp_SetMotorSpeed(MotorLeft,0);
-		bsp_SetMotorSpeed(MotorRight,0);
+
 		vTaskDelay(6000);
 		
 	}
@@ -163,7 +150,7 @@ static void vTaskLED(void *pvParameters)
 		}
 #endif
 		
-		bsp_ScopeSend();
+		//bsp_ScopeSend();
 		
 		vTaskDelay(50);
     }

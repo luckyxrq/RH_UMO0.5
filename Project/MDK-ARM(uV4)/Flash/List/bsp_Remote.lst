@@ -38875,8 +38875,8 @@ N				if(remote[CapCH4].is500us && remote[CapCH4].is1000us && (remote[CapCH3].is5
 N				{
 N					DEBUG("4 detect 3 pulse\r\n");
 X					printf ("4 detect 3 pulse\r\n");
-N					//bsp_MotorBrake(MotorLeft);
-N					//bsp_MotorBrake(MotorRight);
+N					bsp_SetMotorSpeed(MotorLeft,0);
+N					bsp_SetMotorSpeed(MotorRight,0);
 N					searchCharging.action++;
 N				}
 N			}
@@ -38886,8 +38886,8 @@ N				if(remote[CapCH3].is500us && remote[CapCH3].is1000us && (remote[CapCH4].is5
 N				{
 N					DEBUG("3 detect 3 pulse\r\n");
 X					printf ("3 detect 3 pulse\r\n");
-N					//bsp_MotorBrake(MotorLeft);
-N					//bsp_MotorBrake(MotorRight);
+N					bsp_SetMotorSpeed(MotorLeft,0);
+N					bsp_SetMotorSpeed(MotorRight,0);
 N					searchCharging.action++;
 N				}
 N			}
@@ -38897,14 +38897,14 @@ N		case 4: //右转
 N		{
 N			if(searchCharging.isRight) //右边切入
 N			{
-N				//bsp_SetMotorTargetSpeed(MotorLeft, 180);
-N				//bsp_SetMotorTargetSpeed(MotorRight,140);
+N				bsp_SetMotorSpeed(MotorLeft,6);
+N				bsp_SetMotorSpeed(MotorRight,5);
 N				searchCharging.action++;	
 N			}
 N			else
 N			{
-N				//bsp_SetMotorTargetSpeed(MotorLeft, 140);
-N				//bsp_SetMotorTargetSpeed(MotorRight,180);
+N				bsp_SetMotorSpeed(MotorLeft,5);
+N				bsp_SetMotorSpeed(MotorRight,6);
 N				searchCharging.action++;	
 N			}				
 N		}break;
@@ -38915,10 +38915,8 @@ N		{
 N			Collision collision = bsp_CollisionScan();
 N			if(collision != CollisionNone)
 N			{
-N				//bsp_MotorBrake(MotorLeft);
-N				//bsp_MotorBrake(MotorRight);
-N				//bsp_SetMotorTargetSpeed(MotorLeft, -180);
-N				//bsp_SetMotorTargetSpeed(MotorRight,-180);
+N				bsp_SetMotorSpeed(MotorLeft,-5);
+N				bsp_SetMotorSpeed(MotorRight,-5);
 N				
 N				searchCharging.isNeedBack = true;
 X				searchCharging.isNeedBack = 1;
@@ -38928,29 +38926,29 @@ N			else if(remote[CapCH3].is500us && remote[CapCH4].is1000us) //同时有直走
 N			{
 N				DEBUG("both\r\n");
 X				printf ("both\r\n");
-N				//bsp_SetMotorTargetSpeed(MotorLeft, 140);
-N				//bsp_SetMotorTargetSpeed(MotorRight,140);
+N				bsp_SetMotorSpeed(MotorLeft,5);
+N				bsp_SetMotorSpeed(MotorRight,5);
 N			}
 N			else if(remote[CapCH1].is500us || remote[CapCH1].is1000us)
 N			{
 N				DEBUG("adjust\r\n");
 X				printf ("adjust\r\n");
-N				//bsp_SetMotorTargetSpeed(MotorLeft, 180);
-N				//bsp_SetMotorTargetSpeed(MotorRight,120);
+N				bsp_SetMotorSpeed(MotorLeft,6);
+N				bsp_SetMotorSpeed(MotorRight,4);
 N			}
 N			else if(!remote[CapCH4].is1000us) //4收不到1000
 N			{
 N				DEBUG("4 miss 1000\r\n");
 X				printf ("4 miss 1000\r\n");
-N				//bsp_SetMotorTargetSpeed(MotorLeft, 140);
-N				//bsp_SetMotorTargetSpeed(MotorRight,180);
+N				bsp_SetMotorSpeed(MotorLeft,4);
+N				bsp_SetMotorSpeed(MotorRight,5);
 N			}
 N			else if(!remote[CapCH3].is500us) //3收不到500
 N			{
 N				DEBUG("3 miss 500\r\n");
 X				printf ("3 miss 500\r\n");
-N				//bsp_SetMotorTargetSpeed(MotorLeft, 180);
-N				//bsp_SetMotorTargetSpeed(MotorRight,140);
+N				bsp_SetMotorSpeed(MotorLeft,5);
+N				bsp_SetMotorSpeed(MotorRight,4);
 N			}
 N			
 N			

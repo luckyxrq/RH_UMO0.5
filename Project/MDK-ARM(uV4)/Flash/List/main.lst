@@ -46203,20 +46203,7 @@ N#endif
 N
 N    while(1)
 N    {
-N		bsp_SetMotorSpeed(MotorLeft,6);
-N		bsp_SetMotorSpeed(MotorRight,6);
-N		vTaskDelay(6000);
-N		
-N		bsp_SetMotorSpeed(MotorLeft,0);
-N		bsp_SetMotorSpeed(MotorRight,0);
-N		vTaskDelay(6000);
-N		
-N		bsp_SetMotorSpeed(MotorLeft,-6);
-N		bsp_SetMotorSpeed(MotorRight,-6);
-N		vTaskDelay(6000);
-N		
-N		bsp_SetMotorSpeed(MotorLeft,0);
-N		bsp_SetMotorSpeed(MotorRight,0);
+N
 N		vTaskDelay(6000);
 N		
 N	}
@@ -46272,7 +46259,7 @@ S			bsp_SetMotorSpeed(MotorRight,5);
 S		}
 N#endif
 N		
-N		bsp_ScopeSend();
+N		//bsp_ScopeSend();
 N		
 N		vTaskDelay(50);
 N    }
