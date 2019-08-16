@@ -38725,27 +38725,31 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_Scope.c" 2
 N
+N/*
+N	作者：平衡小车之家 
+N	淘宝店铺：http://shop114407458.taobao.com/
+N*/
 N
+N/*串口发送帧缓冲区*/
+Nstatic uint8_t DataScope_OutPut_Buffer[42] = {0};
 N
-N/**************************************************************************
-N作者：平衡小车之家 
-N淘宝店铺：http://shop114407458.taobao.com/
-N**************************************************************************/
-Nunsigned char DataScope_OutPut_Buffer[42] = {0};	   //串口发送缓冲区
+N/*写通道数据至 待发送帧数据缓存区*/
+Nstatic void DataScope_Get_Channel_Data(float Data,uint8_t Channel);
+N/*发送帧数据生成函数*/
+Nstatic uint8_t DataScope_Data_Generate(uint8_t Channel_Number);
 N
-Nstatic void DataScope_Get_Channel_Data(float Data,unsigned char Channel);    // 写通道数据至 待发送帧数据缓存区
-Nstatic unsigned char DataScope_Data_Generate(unsigned char Channel_Number);  // 发送帧数据生成函数 
-N
-N//函数说明：将单精度浮点数据转成4字节数据并存入指定地址 
-N//附加说明：用户无需直接操作此函数 
-N//target:目标单精度数据
-N//buf:待写入数组
-N//beg:指定从数组第几个元素开始写入
-N//函数无返回 
-Nvoid Float2Byte(float *target,unsigned char *buf,unsigned char beg)
+N/*
+N*********************************************************************************************************
+N*	函 数 名: Float2Byte
+N*	功能说明: 将单精度浮点数据转成4字节数据并存入指定地址，用户无需直接操作此函数 
+N*	形    参: target:目标单精度数据，buf:待写入数组，beg:指定从数组第几个元素开始写入
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nstatic void Float2Byte(float *target,uint8_t *buf,uint8_t beg)
 N{
-N    unsigned char *point;
-N    point = (unsigned char*)target;	  //得到float的地址
+N    uint8_t *point;
+N    point = (uint8_t*)target;	  //得到float的地址
 N    buf[beg]   = point[0];
 N    buf[beg+1] = point[1];
 N    buf[beg+2] = point[2];
@@ -38753,13 +38757,19 @@ N    buf[beg+3] = point[3];
 N}
 N
 N
-N//函数说明：将待发送通道的单精度浮点数据写入发送缓冲区
-N//Data：通道数据
-N//Channel：选择通道（1-10）
-N//函数无返回 
-Nvoid DataScope_Get_Channel_Data(float Data,unsigned char Channel)
+N/*
+N*********************************************************************************************************
+N*	函 数 名: DataScope_Get_Channel_Data
+N*	功能说明: 将待发送通道的单精度浮点数据写入发送缓冲区
+N*	形    参: Data：通道数据，Channel：选择通道（1-10）
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nstatic void DataScope_Get_Channel_Data(float Data,uint8_t Channel)
 N{
-N    if ( (Channel > 10) || (Channel == 0) ) return;  //通道个数大于10或等于0，直接跳出，不执行函数
+N	/*通道个数大于10或等于0，直接跳出，不执行函数*/
+N    if ( (Channel > 10) || (Channel == 0) ) 
+N		return;  
 N    else
 N    {
 N        switch (Channel)
@@ -38779,11 +38789,15 @@ N    }
 N}
 N
 N
-N//函数说明：生成 DataScopeV1.0 能正确识别的帧格式
-N//Channel_Number，需要发送的通道个数
-N//返回发送缓冲区数据个数
-N//返回0表示帧格式生成失败 
-Nunsigned char DataScope_Data_Generate(unsigned char Channel_Number)
+N/*
+N*********************************************************************************************************
+N*	函 数 名: DataScope_Data_Generate
+N*	功能说明: 生成 DataScopeV1.0 能正确识别的帧格式
+N*	形    参: Channel_Number，需要发送的通道个数
+N*	返 回 值: 返回发送缓冲区数据个数，返回0表示帧格式生成失败 
+N*********************************************************************************************************
+N*/
+Nstatic uint8_t DataScope_Data_Generate(uint8_t Channel_Number)
 N{
 N    if ( (Channel_Number > 10) || (Channel_Number == 0) ) { return 0; }  //通道个数大于10或等于0，直接跳出，不执行函数
 N    else
@@ -38811,15 +38825,15 @@ N
 N
 Nvoid bsp_ScopeSend(void)
 N{   
-N		unsigned char Send_Count; //串口需要发送的数据个数
-N		unsigned char i; 
+N		uint8_t Send_Count; //串口需要发送的数据个数
+N		uint8_t i; 
 N	
-N		DataScope_Get_Channel_Data( bsp_MotorGetSpeed(MotorLeft), 1 );       //显示角度 单位：度（°）
-N		DataScope_Get_Channel_Data( bsp_MotorGetSpeed(MotorRight), 2 );         //显示超声波测量的距离 单位：CM 
-N		DataScope_Get_Channel_Data( 0, 3 );                 //显示电池电压 单位：V
+N		DataScope_Get_Channel_Data( bsp_MotorGetSpeed(MotorLeft), 1 ); 
+N		DataScope_Get_Channel_Data( bsp_MotorGetSpeed(MotorRight), 2 ); 
+N		DataScope_Get_Channel_Data( 0, 3 );                
 N//		DataScope_Get_Channel_Data( 0 , 4 );   
-N//		DataScope_Get_Channel_Data(0, 5 ); //用您要显示的数据替换0就行了
-N//		DataScope_Get_Channel_Data(0 , 6 );//用您要显示的数据替换0就行了
+N//		DataScope_Get_Channel_Data(0, 5 ); 
+N//		DataScope_Get_Channel_Data(0 , 6 );
 N//		DataScope_Get_Channel_Data(0, 7 );
 N//		DataScope_Get_Channel_Data( 0, 8 ); 
 N//		DataScope_Get_Channel_Data(0, 9 );  
@@ -38827,9 +38841,11 @@ N//		DataScope_Get_Channel_Data( 0 , 10);
 N		Send_Count = DataScope_Data_Generate(3);
 N		for( i = 0 ; i < Send_Count; i++) 
 N		{
+N			#if 1
 N			comSendChar(COM2,DataScope_OutPut_Buffer[i]);
-N			
-N//			while((USART1->SR&0X40)==0);  
-N//			USART1->DR = DataScope_OutPut_Buffer[i]; 
+N			#else
+S			while((USART1->SR&0X40)==0);  
+S			USART1->DR = DataScope_OutPut_Buffer[i]; 
+N			#endif
 N		}
 N}
