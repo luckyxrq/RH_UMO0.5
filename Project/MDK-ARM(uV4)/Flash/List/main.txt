@@ -371,45 +371,39 @@
                   vTaskStart PROC
 ;;;194    */
 ;;;195    static void vTaskStart(void *pvParameters)
-000000  f7fffffe          BL       bsp_StartSearchChargingPile
+000000  f7fffffe          BL       bsp_DetectStart
 ;;;196    {
-;;;197    //	/*开启红外对管轮询扫描*/
-;;;198    //	bsp_DetectStart(); 
+;;;197    	/*开启红外对管轮询扫描*/
+;;;198    	bsp_DetectStart(); 
 ;;;199    //	/*开启寻找充电桩*/
-;;;200    	bsp_StartSearchChargingPile();
+;;;200    //	bsp_StartSearchChargingPile();
 ;;;201    	
 ;;;202    	
 ;;;203        while(1)
-000004  e010              B        |L7.40|
+000004  e008              B        |L7.24|
                   |L7.6|
 ;;;204        {
-;;;205    //		bsp_DetectAct();  /*红外对管轮询扫描*/
-;;;206    		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
-;;;207    		//bsp_EdgewiseAct();/*沿边*/
+;;;205    		bsp_DetectAct();  /*红外对管轮询扫描*/
+000006  f7fffffe          BL       bsp_DetectAct
+;;;206    		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+00000a  f7fffffe          BL       bsp_DetectDeal
+;;;207    		bsp_EdgewiseAct();/*沿边*/
+00000e  f7fffffe          BL       bsp_EdgewiseAct
 ;;;208    		
-;;;209    		/*四个红外接收管*/
-;;;210    		bsp_GetCapCnt(CapCH1);
-000006  2000              MOVS     r0,#0
-000008  f7fffffe          BL       bsp_GetCapCnt
-;;;211    		bsp_GetCapCnt(CapCH2);
-00000c  2001              MOVS     r0,#1
-00000e  f7fffffe          BL       bsp_GetCapCnt
-;;;212    		bsp_GetCapCnt(CapCH3);
-000012  2002              MOVS     r0,#2
-000014  f7fffffe          BL       bsp_GetCapCnt
-;;;213    		bsp_GetCapCnt(CapCH4);
-000018  2003              MOVS     r0,#3
-00001a  f7fffffe          BL       bsp_GetCapCnt
-;;;214    		
-;;;215    		/*寻找充电桩*/
-;;;216    		bsp_SearchChargingPileAct();
-00001e  f7fffffe          BL       bsp_SearchChargingPileAct
+;;;209    //		/*四个红外接收管*/
+;;;210    //		bsp_GetCapCnt(CapCH1);
+;;;211    //		bsp_GetCapCnt(CapCH2);
+;;;212    //		bsp_GetCapCnt(CapCH3);
+;;;213    //		bsp_GetCapCnt(CapCH4);
+;;;214    //		
+;;;215    //		/*寻找充电桩*/
+;;;216    //		bsp_SearchChargingPileAct();
 ;;;217    		
 ;;;218            vTaskDelay(1);
-000022  2001              MOVS     r0,#1
-000024  f7fffffe          BL       vTaskDelay
-                  |L7.40|
-000028  e7ed              B        |L7.6|
+000012  2001              MOVS     r0,#1
+000014  f7fffffe          BL       vTaskDelay
+                  |L7.24|
+000018  e7f5              B        |L7.6|
 ;;;219        }
 ;;;220    }
 ;;;221    				
@@ -426,12 +420,12 @@
 ;;;88     	bsp_AngleRst();
 ;;;89     
 ;;;90     #if 1
-;;;91     		bsp_SetMotorSpeed(MotorLeft,6);
-000004  2106              MOVS     r1,#6
+;;;91     		bsp_SetMotorSpeed(MotorLeft,12);
+000004  210c              MOVS     r1,#0xc
 000006  2000              MOVS     r0,#0
 000008  f7fffffe          BL       bsp_SetMotorSpeed
-;;;92     		bsp_SetMotorSpeed(MotorRight,6);
-00000c  2106              MOVS     r1,#6
+;;;92     		bsp_SetMotorSpeed(MotorRight,12);
+00000c  210c              MOVS     r1,#0xc
 00000e  2001              MOVS     r0,#1
 000010  f7fffffe          BL       bsp_SetMotorSpeed
 ;;;93     #endif	

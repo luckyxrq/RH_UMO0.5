@@ -38713,6 +38713,7 @@ Nvoid bsp_InitPid(MotorSN sn);
 Nvoid bsp_PidSched(void);
 Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 Nint32_t bsp_MotorGetSpeed(MotorSN sn);
+Nint32_t bsp_MotorGetTargetSpeed(MotorSN sn);
 N
 N#endif
 N

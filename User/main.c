@@ -88,8 +88,8 @@ static void vTaskTaskUserIF(void *pvParameters)
 	bsp_AngleRst();
 
 #if 1
-		bsp_SetMotorSpeed(MotorLeft,6);
-		bsp_SetMotorSpeed(MotorRight,6);
+		bsp_SetMotorSpeed(MotorLeft,12);
+		bsp_SetMotorSpeed(MotorRight,12);
 #endif	
 
     while(1)
@@ -194,26 +194,26 @@ static void vTaskMsgPro(void *pvParameters)
 */
 static void vTaskStart(void *pvParameters)
 {
-//	/*开启红外对管轮询扫描*/
-//	bsp_DetectStart(); 
+	/*开启红外对管轮询扫描*/
+	bsp_DetectStart(); 
 //	/*开启寻找充电桩*/
-	bsp_StartSearchChargingPile();
+//	bsp_StartSearchChargingPile();
 	
 	
     while(1)
     {
-//		bsp_DetectAct();  /*红外对管轮询扫描*/
-		//bsp_DetectDeal(); /*红外对管扫描结果处理*/
-		//bsp_EdgewiseAct();/*沿边*/
+		bsp_DetectAct();  /*红外对管轮询扫描*/
+		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		bsp_EdgewiseAct();/*沿边*/
 		
-		/*四个红外接收管*/
-		bsp_GetCapCnt(CapCH1);
-		bsp_GetCapCnt(CapCH2);
-		bsp_GetCapCnt(CapCH3);
-		bsp_GetCapCnt(CapCH4);
-		
-		/*寻找充电桩*/
-		bsp_SearchChargingPileAct();
+//		/*四个红外接收管*/
+//		bsp_GetCapCnt(CapCH1);
+//		bsp_GetCapCnt(CapCH2);
+//		bsp_GetCapCnt(CapCH3);
+//		bsp_GetCapCnt(CapCH4);
+//		
+//		/*寻找充电桩*/
+//		bsp_SearchChargingPileAct();
 		
         vTaskDelay(1);
     }

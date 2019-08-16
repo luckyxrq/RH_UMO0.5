@@ -2145,110 +2145,134 @@
 
                           AREA ||i.bsp_DetectDeal||, CODE, READONLY, ALIGN=2
 
-                          REQUIRE _printf_percent
-                          REQUIRE _printf_widthprec
-                          REQUIRE _printf_d
-                          REQUIRE _printf_f
-                          REQUIRE _printf_int_dec
-                          REQUIRE _printf_fp_dec
                   bsp_DetectDeal PROC
-;;;601    
-;;;602    void bsp_DetectDeal(void)
-000000  b570              PUSH     {r4-r6,lr}
-;;;603    {
-;;;604    	uint8_t i = 0 ;
+;;;600    
+;;;601    void bsp_DetectDeal(void)
+000000  b510              PUSH     {r4,lr}
+;;;602    {
+;;;603    	uint8_t i = 0 ;
 000002  2400              MOVS     r4,#0
-;;;605    
+;;;604    	static bool isObstacle = false;
+;;;605    	static uint32_t noObstacleTickCnt = 0 ;
 ;;;606    	
 ;;;607    	UNUSED(i);
 ;;;608    
 ;;;609    	
 ;;;610    	
-;;;611    #if 1	
+;;;611    #if 0	
 ;;;612    	for(i=0;i<10;i++)
-000004  bf00              NOP      
-000006  e00d              B        |L4.36|
-                  |L4.8|
 ;;;613    	{
 ;;;614    		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
-000008  4913              LDR      r1,|L4.88|
-00000a  f8510024          LDR      r0,[r1,r4,LSL #2]
-00000e  f7fffffe          BL       __aeabi_f2d
-000012  4605              MOV      r5,r0
-000014  462a              MOV      r2,r5
-000016  460b              MOV      r3,r1
-000018  4621              MOV      r1,r4
-00001a  a010              ADR      r0,|L4.92|
-00001c  f7fffffe          BL       __2printf
-000020  1c60              ADDS     r0,r4,#1              ;612
-000022  b2c4              UXTB     r4,r0                 ;612
-                  |L4.36|
-000024  2c0a              CMP      r4,#0xa               ;612
-000026  dbef              BLT      |L4.8|
 ;;;615    	}
 ;;;616    	printf("\r\n");
-000028  a012              ADR      r0,|L4.116|
-00002a  f7fffffe          BL       __2printf
 ;;;617    #endif
 ;;;618    
 ;;;619    #if 1	
-;;;620    	//如果是太阳光射到了，开启全闪烁灯
-;;;621    	for(i=0;i<=7;i++)
-00002e  2400              MOVS     r4,#0
-000030  e00f              B        |L4.82|
-                  |L4.50|
-;;;622    	{
-;;;623    		if(adcRealTime[i] >=1.0F)
-000032  4909              LDR      r1,|L4.88|
-000034  f8510024          LDR      r0,[r1,r4,LSL #2]
-000038  f04f517e          MOV      r1,#0x3f800000
-00003c  f7fffffe          BL       __aeabi_cfrcmple
-000040  d805              BHI      |L4.78|
-;;;624    		{
-;;;625    			//DEBUG("障碍物:%d\r\n",i);
-;;;626    			if(flgdec == 0)
-000042  480d              LDR      r0,|L4.120|
-000044  7800              LDRB     r0,[r0,#0]  ; flgdec
-000046  b910              CBNZ     r0,|L4.78|
-;;;627    			{
-;;;628    
-;;;629    				flgdec = 1 ;
-000048  2001              MOVS     r0,#1
-00004a  490b              LDR      r1,|L4.120|
-00004c  7008              STRB     r0,[r1,#0]
+;;;620    	/*检测障碍物之前，先认为无障碍物*/
+;;;621    	isObstacle = false;
+000004  2000              MOVS     r0,#0
+000006  4923              LDR      r1,|L4.148|
+000008  7008              STRB     r0,[r1,#0]
+;;;622    	/*只要一个管子认为有障碍物就是有障碍物*/
+;;;623    	for(i=0;i<=7;i++)
+00000a  bf00              NOP      
+00000c  e021              B        |L4.82|
+                  |L4.14|
+;;;624    	{
+;;;625    		if(adcRealTime[i] >=1.0F)
+00000e  4922              LDR      r1,|L4.152|
+000010  f8510024          LDR      r0,[r1,r4,LSL #2]
+000014  f04f517e          MOV      r1,#0x3f800000
+000018  f7fffffe          BL       __aeabi_cfrcmple
+00001c  d817              BHI      |L4.78|
+;;;626    		{
+;;;627    			/*前进 且 有障碍物的同时才减速，减速是有时间限制的，开启定时器回调函数，时间到了就恢复正常速度*/
+;;;628    			if(bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
+00001e  2000              MOVS     r0,#0
+000020  f7fffffe          BL       bsp_MotorGetTargetSpeed
+000024  2800              CMP      r0,#0
+000026  db12              BLT      |L4.78|
+000028  2001              MOVS     r0,#1
+00002a  f7fffffe          BL       bsp_MotorGetTargetSpeed
+00002e  2800              CMP      r0,#0
+000030  db0d              BLT      |L4.78|
+;;;629    			{
+;;;630    				bsp_SetMotorSpeed(MotorLeft,5);
+000032  2105              MOVS     r1,#5
+000034  2000              MOVS     r0,#0
+000036  f7fffffe          BL       bsp_SetMotorSpeed
+;;;631    				bsp_SetMotorSpeed(MotorRight,5);
+00003a  2105              MOVS     r1,#5
+00003c  2001              MOVS     r0,#1
+00003e  f7fffffe          BL       bsp_SetMotorSpeed
+;;;632    				
+;;;633    				/*有障碍物*/
+;;;634    				isObstacle = true;
+000042  2001              MOVS     r0,#1
+000044  4913              LDR      r1,|L4.148|
+000046  7008              STRB     r0,[r1,#0]
+;;;635    				noObstacleTickCnt = 0 ;
+000048  2000              MOVS     r0,#0
+00004a  4914              LDR      r1,|L4.156|
+00004c  6008              STR      r0,[r1,#0]  ; noObstacleTickCnt
                   |L4.78|
-00004e  1c60              ADDS     r0,r4,#1              ;621
-000050  b2c4              UXTB     r4,r0                 ;621
+00004e  1c60              ADDS     r0,r4,#1              ;623
+000050  b2c4              UXTB     r4,r0                 ;623
                   |L4.82|
-000052  2c07              CMP      r4,#7                 ;621
-000054  dded              BLE      |L4.50|
-;;;630    			}
-;;;631    			
-;;;632    		}
-;;;633    	}
-;;;634    #endif	
-;;;635    }
-000056  bd70              POP      {r4-r6,pc}
-;;;636    
+000052  2c07              CMP      r4,#7                 ;623
+000054  dddb              BLE      |L4.14|
+;;;636    			}
+;;;637    		}
+;;;638    	}
+;;;639    	
+;;;640    	/*无障碍物计时，标志必须是前进*/
+;;;641    	if(isObstacle == false && bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
+000056  480f              LDR      r0,|L4.148|
+000058  7800              LDRB     r0,[r0,#0]  ; isObstacle
+00005a  b9d0              CBNZ     r0,|L4.146|
+00005c  2000              MOVS     r0,#0
+00005e  f7fffffe          BL       bsp_MotorGetTargetSpeed
+000062  2800              CMP      r0,#0
+000064  db15              BLT      |L4.146|
+000066  2001              MOVS     r0,#1
+000068  f7fffffe          BL       bsp_MotorGetTargetSpeed
+00006c  2800              CMP      r0,#0
+00006e  db10              BLT      |L4.146|
+;;;642    	{
+;;;643    		if(++noObstacleTickCnt >= 1500)
+000070  480a              LDR      r0,|L4.156|
+000072  6800              LDR      r0,[r0,#0]  ; noObstacleTickCnt
+000074  1c40              ADDS     r0,r0,#1
+000076  4909              LDR      r1,|L4.156|
+000078  6008              STR      r0,[r1,#0]  ; noObstacleTickCnt
+00007a  f24051dc          MOV      r1,#0x5dc
+00007e  4288              CMP      r0,r1
+000080  d307              BCC      |L4.146|
+;;;644    		{
+;;;645    			bsp_SetMotorSpeed(MotorLeft,12);
+000082  210c              MOVS     r1,#0xc
+000084  2000              MOVS     r0,#0
+000086  f7fffffe          BL       bsp_SetMotorSpeed
+;;;646    			bsp_SetMotorSpeed(MotorRight,12);
+00008a  210c              MOVS     r1,#0xc
+00008c  2001              MOVS     r0,#1
+00008e  f7fffffe          BL       bsp_SetMotorSpeed
+                  |L4.146|
+;;;647    		}
+;;;648    	}
+;;;649    	
+;;;650    #endif	
+;;;651    }
+000092  bd10              POP      {r4,pc}
+;;;652    
                           ENDP
 
-                  |L4.88|
+                  |L4.148|
+                          DCD      isObstacle
+                  |L4.152|
                           DCD      adcRealTime
-                  |L4.92|
-00005c  61646352          DCB      "adcRealTime[%d]:%.2F",0
-000060  65616c54
-000064  696d655b
-000068  25645d3a
-00006c  252e3246
-000070  00      
-000071  00                DCB      0
-000072  00                DCB      0
-000073  00                DCB      0
-                  |L4.116|
-000074  0d0a00            DCB      "\r\n",0
-000077  00                DCB      0
-                  |L4.120|
-                          DCD      flgdec
+                  |L4.156|
+                          DCD      noObstacleTickCnt
 
                           AREA ||i.bsp_DetectStart||, CODE, READONLY, ALIGN=2
 
@@ -2481,11 +2505,13 @@
 000008  08020901          DCB      0x08,0x02,0x09,0x01
 00000c  0a000e06          DCB      0x0a,0x00,0x0e,0x06
 000010  0c0c0b0b          DCB      0x0c,0x0c,0x0b,0x0b
-                  flgdec
-000014  00                DCB      0x00
                   action
-000015  000000            DCB      0x00,0x00,0x00
+000014  00000000          DCB      0x00,0x00,0x00,0x00
                   delay
+                          DCD      0x00000000
+                  isObstacle
+00001c  00000000          DCB      0x00,0x00,0x00,0x00
+                  noObstacleTickCnt
                           DCD      0x00000000
 
 ;*** Start embedded assembler ***

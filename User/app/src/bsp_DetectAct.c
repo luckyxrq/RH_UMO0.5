@@ -597,18 +597,18 @@ float bsp_GetInfraredVoltageRight(void)
 
 
 
-uint8_t flgdec = 0 ;
 
 void bsp_DetectDeal(void)
 {
 	uint8_t i = 0 ;
-
+	static bool isObstacle = false;
+	static uint32_t noObstacleTickCnt = 0 ;
 	
 	UNUSED(i);
 
 	
 	
-#if 1	
+#if 0	
 	for(i=0;i<10;i++)
 	{
 		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
@@ -617,20 +617,36 @@ void bsp_DetectDeal(void)
 #endif
 
 #if 1	
-	//如果是太阳光射到了，开启全闪烁灯
+	/*检测障碍物之前，先认为无障碍物*/
+	isObstacle = false;
+	/*只要一个管子认为有障碍物就是有障碍物*/
 	for(i=0;i<=7;i++)
 	{
 		if(adcRealTime[i] >=1.0F)
 		{
-			//DEBUG("障碍物:%d\r\n",i);
-			if(flgdec == 0)
+			/*前进 且 有障碍物的同时才减速，减速是有时间限制的，开启定时器回调函数，时间到了就恢复正常速度*/
+			if(bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
 			{
-
-				flgdec = 1 ;
+				bsp_SetMotorSpeed(MotorLeft,5);
+				bsp_SetMotorSpeed(MotorRight,5);
+				
+				/*有障碍物*/
+				isObstacle = true;
+				noObstacleTickCnt = 0 ;
 			}
-			
 		}
 	}
+	
+	/*无障碍物计时，标志必须是前进*/
+	if(isObstacle == false && bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
+	{
+		if(++noObstacleTickCnt >= 1500)
+		{
+			bsp_SetMotorSpeed(MotorLeft,12);
+			bsp_SetMotorSpeed(MotorRight,12);
+		}
+	}
+	
 #endif	
 }
 
