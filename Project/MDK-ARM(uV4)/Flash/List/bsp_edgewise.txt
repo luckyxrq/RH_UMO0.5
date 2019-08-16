@@ -186,17 +186,17 @@
 0000f4  f7fffffe          BL       bsp_MotorBrake
 ;;;95     				
 ;;;96     				bsp_SetMotorTargetSpeed(MotorLeft,250);
-0000f8  4908              LDR      r1,|L1.284|
+0000f8  21fa              MOVS     r1,#0xfa
 0000fa  2000              MOVS     r0,#0
 0000fc  f7fffffe          BL       bsp_SetMotorTargetSpeed
 ;;;97     				bsp_SetMotorTargetSpeed(MotorRight,250);
-000100  4906              LDR      r1,|L1.284|
+000100  21fa              MOVS     r1,#0xfa
 000102  2001              MOVS     r0,#1
 000104  f7fffffe          BL       bsp_SetMotorTargetSpeed
 ;;;98     				
 ;;;99     				flgdec = 0 ;
 000108  2000              MOVS     r0,#0
-00010a  4905              LDR      r1,|L1.288|
+00010a  4904              LDR      r1,|L1.284|
 00010c  7008              STRB     r0,[r1,#0]
 ;;;100    				edgewise.action = 0 ;
 00010e  4902              LDR      r1,|L1.280|
@@ -219,8 +219,6 @@
                   |L1.280|
                           DCD      edgewise
                   |L1.284|
-                          DCD      0x437a0000
-                  |L1.288|
                           DCD      flgdec
 
                           AREA ||.data||, DATA, ALIGN=2

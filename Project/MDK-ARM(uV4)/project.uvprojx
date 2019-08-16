@@ -439,16 +439,6 @@
               <FilePath>..\..\User\app\src\bsp_PowerSwitch.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_DC_Motor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_DC_Motor.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_Encoder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_Encoder.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_Collision.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Collision.c</FilePath>

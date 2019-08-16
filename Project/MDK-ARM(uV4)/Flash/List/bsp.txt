@@ -37,69 +37,77 @@
 000022  f7fffffe          BL       bsp_InitKey
 ;;;50     	bsp_InitHardTimer();     /* 初始化硬件定时器 */
 000026  f7fffffe          BL       bsp_InitHardTimer
-;;;51     	bsp_InitDC_Motor();      /* 初始化直流电机 */
-00002a  f7fffffe          BL       bsp_InitDC_Motor
-;;;52     	bsp_InitEncoder();       /*初始化编码器引脚，用于统计脉冲的定时器*/
-00002e  f7fffffe          BL       bsp_InitEncoder
-;;;53     	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
-000032  f7fffffe          BL       bsp_InitCollision
-;;;54     	bsp_InitChargingPile();  /*初始化输入捕获*/
-000036  f7fffffe          BL       bsp_InitChargingPile
-;;;55     	
-;;;56     	/* 初始化IO拓展芯片 */	
-;;;57     	do{
-00003a  bf00              NOP      
-                  |L1.60|
-;;;58     		ret = bsp_InitAW9523B();		
-00003c  f7fffffe          BL       bsp_InitAW9523B
-000040  4604              MOV      r4,r0
-;;;59     		if(!ret) 
-000042  b92c              CBNZ     r4,|L1.80|
-;;;60     		{
-;;;61     			WARNING("AW9523B Init Error\r\n");
-000044  a007              ADR      r0,|L1.100|
-000046  f7fffffe          BL       __2printf
-;;;62     			bsp_DelayMS(100);
-00004a  2064              MOVS     r0,#0x64
-00004c  f7fffffe          BL       bsp_DelayMS
-                  |L1.80|
-;;;63     		}
-;;;64     	}while(!ret);
-000050  2c00              CMP      r4,#0
-000052  d0f3              BEQ      |L1.60|
-;;;65     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
-000054  f7fffffe          BL       bsp_InitDetectAct
-;;;66     	
-;;;67     	bsp_InitIWDG();     /*初始化看门狗*/
-000058  f7fffffe          BL       bsp_InitIWDG
-;;;68     	
-;;;69     	DEBUG("初始化完毕\r\n");
-00005c  a007              ADR      r0,|L1.124|
-00005e  f7fffffe          BL       __2printf
+;;;51     	
+;;;52     	bsp_InitEncoder();
+00002a  f7fffffe          BL       bsp_InitEncoder
+;;;53     	bsp_InitMotor();
+00002e  f7fffffe          BL       bsp_InitMotor
+;;;54     	bsp_InitPid(MotorLeft);
+000032  2000              MOVS     r0,#0
+000034  f7fffffe          BL       bsp_InitPid
+;;;55     	bsp_InitPid(MotorRight);
+000038  2001              MOVS     r0,#1
+00003a  f7fffffe          BL       bsp_InitPid
+;;;56     	
+;;;57     	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
+00003e  f7fffffe          BL       bsp_InitCollision
+;;;58     	bsp_InitChargingPile();  /*初始化输入捕获*/
+000042  f7fffffe          BL       bsp_InitChargingPile
+;;;59     	
+;;;60     	/* 初始化IO拓展芯片 */	
+;;;61     	do{
+000046  bf00              NOP      
+                  |L1.72|
+;;;62     		ret = bsp_InitAW9523B();		
+000048  f7fffffe          BL       bsp_InitAW9523B
+00004c  4604              MOV      r4,r0
+;;;63     		if(!ret) 
+00004e  b92c              CBNZ     r4,|L1.92|
+;;;64     		{
+;;;65     			WARNING("AW9523B Init Error\r\n");
+000050  a007              ADR      r0,|L1.112|
+000052  f7fffffe          BL       __2printf
+;;;66     			bsp_DelayMS(100);
+000056  2064              MOVS     r0,#0x64
+000058  f7fffffe          BL       bsp_DelayMS
+                  |L1.92|
+;;;67     		}
+;;;68     	}while(!ret);
+00005c  2c00              CMP      r4,#0
+00005e  d0f3              BEQ      |L1.72|
+;;;69     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
+000060  f7fffffe          BL       bsp_InitDetectAct
 ;;;70     	
-;;;71     }
-000062  bd10              POP      {r4,pc}
-;;;72     
+;;;71     	bsp_InitIWDG();     /*初始化看门狗*/
+000064  f7fffffe          BL       bsp_InitIWDG
+;;;72     	
+;;;73     	DEBUG("初始化完毕\r\n");
+000068  a007              ADR      r0,|L1.136|
+00006a  f7fffffe          BL       __2printf
+;;;74     	
+;;;75     }
+00006e  bd10              POP      {r4,pc}
+;;;76     
                           ENDP
 
-                  |L1.100|
-000064  41573935          DCB      "AW9523B Init Error\r\n",0
-000068  32334220
-00006c  496e6974
-000070  20457272
-000074  6f720d0a
-000078  00      
-000079  00                DCB      0
-00007a  00                DCB      0
-00007b  00                DCB      0
-                  |L1.124|
-00007c  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
-000080  bbafcdea
-000084  b1cf0d0a
-000088  00      
-000089  00                DCB      0
-00008a  00                DCB      0
-00008b  00                DCB      0
+                  |L1.112|
+000070  41573935          DCB      "AW9523B Init Error\r\n",0
+000074  32334220
+000078  496e6974
+00007c  20457272
+000080  6f720d0a
+000084  00      
+000085  00                DCB      0
+000086  00                DCB      0
+000087  00                DCB      0
+                  |L1.136|
+000088  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
+00008c  bbafcdea
+000090  b1cf0d0a
+000094  00      
+000095  00                DCB      0
+000096  00                DCB      0
+000097  00                DCB      0
 
 ;*** Start embedded assembler ***
 

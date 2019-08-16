@@ -63,8 +63,6 @@
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_i2c_gpio.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_user_lib.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_PowerSwitch.h
-.\flash\obj\main.o: ..\..\User\app\inc\bsp_DC_Motor.h
-.\flash\obj\main.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Angle.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Action.h
@@ -75,3 +73,6 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Edgewise.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Remote.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_communication.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_Encoder.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_motor.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_Control.h

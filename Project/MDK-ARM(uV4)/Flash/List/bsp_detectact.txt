@@ -2212,11 +2212,11 @@
 000046  b950              CBNZ     r0,|L4.94|
 ;;;627    			{
 ;;;628    				bsp_SetMotorTargetSpeed(MotorLeft,150);
-000048  4910              LDR      r1,|L4.140|
+000048  2196              MOVS     r1,#0x96
 00004a  2000              MOVS     r0,#0
 00004c  f7fffffe          BL       bsp_SetMotorTargetSpeed
 ;;;629    				bsp_SetMotorTargetSpeed(MotorRight,150);
-000050  490e              LDR      r1,|L4.140|
+000050  2196              MOVS     r1,#0x96
 000052  2001              MOVS     r0,#1
 000054  f7fffffe          BL       bsp_SetMotorTargetSpeed
 ;;;630    				flgdec = 1 ;
@@ -2256,8 +2256,6 @@
 000087  00                DCB      0
                   |L4.136|
                           DCD      flgdec
-                  |L4.140|
-                          DCD      0x43160000
 
                           AREA ||i.bsp_DetectStart||, CODE, READONLY, ALIGN=2
 

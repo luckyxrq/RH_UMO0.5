@@ -38352,103 +38352,6 @@ N
 N#endif
 N
 L 173 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_DC_Motor.h"
-L 1 "..\..\User\app\inc\bsp_DC_Motor.h" 1
-N#ifndef __BSP_DC_MOTOR_H
-N#define __BSP_DC_MOTOR_H
-N
-N
-N#define MOTOR_NUM    2       /*电机数量*/
-N#define MAXPWM       10000   /*最大PWM值*/
-N#define DC_PWM_T     30000   /*DC电机驱动芯片占空比周期*/
-N
-N
-Ntypedef enum
-N{
-N	MotorLeft = 0 ,/*左边电机编号*/
-N	MotorRight     /*右边电机编号*/ 
-N}MotorSN;
-N
-Ntypedef enum
-N{
-N	Forward  = 0 ,/*前进*/
-N	Backward      /*后退*/ 
-N}MotorDir;
-N
-Ntypedef struct
-N{
-N	volatile float target; //目标值
-N	
-N	volatile float kp;  //比例
-N	volatile float ki;  //积分
-N	volatile float kd;  //微分
-N	
-N	volatile float bias;     //本次误差
-N	volatile float lastBias; //上次误差
-N	volatile float biasSum;  //累积误差
-N	
-N	volatile float pwm;     //计算出的PWM值
-N	volatile float pwmMax;  //PWM能够取的最大值
-N	
-N	volatile float kiLimit; //积分上限
-N	volatile float fitK;    //拟合参数k  
-N	volatile float fitD;    //拟合参数d
-N}PID;
-N
-Nvoid bsp_InitDC_Motor(void);      /* 初始化直流电机的PWM定时器 */
-Nvoid bsp_MotorBrake(MotorSN sn);  /* 急停 */
-Nvoid bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
-Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
-Nvoid bsp_PidControlAct(void);
-Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-NMotorDir bsp_MotorGetDir(MotorSN sn);
-Nvoid bsp_MotorRunR(void);
-Nvoid bsp_MotorRunL(void);
-Nvoid bsp_MotorRun(void);
-N#endif
-N
-L 174 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Encoder.h"
-L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
-N#ifndef __ENCODER_H
-N#define __ENCODER_H
-N
-N#define ENCODER_COUNT                 2         /*编码器个数*/
-N#define ENCODER_INTERRUPT_FREQUENCY	  100000    /*10us中断一次*/
-N#define CALC_T					      30000     /*1000次中断（300MS）计算一次速度*/
-N
-N#define PulseCntPerCircle	16                                      /*电机转一圈编码器脉冲个数*/
-N#define CircleCntPerCircle	32                                     /*轮子转一圈，电机实际转的圈数*/
-N#define Ratio		        (PulseCntPerCircle*CircleCntPerCircle) /*轮子转一圈，编码器的脉冲数*/
-N#define PI	3.14159F			  /*π*/
-N#define DIAMETER	70            /*直径70MM*/
-N#define PERIMETER   (PI*DIAMETER) /*轮子周长*/
-N
-Ntypedef enum
-N{
-N	EncoderLeft  = 0 ,
-N	EncoderRight
-N}EncoderSN;
-N
-Ntypedef struct
-N{
-N	bool isReadyRising[ENCODER_COUNT];   /*检测到一个低电平了，现在准备检测上升沿*/
-X	_Bool isReadyRising[2];    
-N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
-X	uint32_t risingCount[2];  
-N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
-X	float speed[2];           
-N	int32_t odometer[ENCODER_COUNT];
-X	int32_t odometer[2];
-N}Encoder;
-N
-N
-Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
-Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
-Nint32_t bsp_encoderGetOdometer(MotorSN sn);
-N
-N#endif
-L 175 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
 L 1 "..\..\User\app\inc\bsp_Collision.h" 1
 N#ifndef __BSP_COLLISION_H
@@ -38467,7 +38370,7 @@ NCollision bsp_CollisionScan(void); /*返回碰撞结果*/
 Nvoid bsp_CollisionDemo(void);      /*碰撞测试例子*/
 N
 N#endif
-L 176 "..\..\User\bsp\bsp.h" 2
+L 174 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Angle.h"
 L 1 "..\..\User\app\inc\bsp_Angle.h" 1
 N#ifndef __BSP_ANGLE_H
@@ -38511,7 +38414,7 @@ N
 N
 N#endif
 N
-L 177 "..\..\User\bsp\bsp.h" 2
+L 175 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Action.h"
 L 1 "..\..\User\app\inc\bsp_Action.h" 1
 N#ifndef __BSP_ACTION_H
@@ -38521,7 +38424,7 @@ N
 N	
 N#endif
 N
-L 178 "..\..\User\bsp\bsp.h" 2
+L 176 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_aw9523b.h"
 L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
 N#ifndef __BSP_AW9523B_H
@@ -38580,7 +38483,7 @@ Nfloat bsp_GetInfraredVoltageRight(void);
 N
 N#endif
 N
-L 179 "..\..\User\bsp\bsp.h" 2
+L 177 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_DetectAct.h"
 L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
 N#ifndef __BSP_DETECTACT_H
@@ -38604,7 +38507,7 @@ Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
 N
 N#endif
 N
-L 180 "..\..\User\bsp\bsp.h" 2
+L 178 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_PulseMark.h"
 L 1 "..\..\User\app\inc\bsp_PulseMark.h" 1
 N#ifndef __BSP_PULSEMARK_H
@@ -38614,7 +38517,7 @@ Nvoid bsp_InitPinPulse(void);
 Nvoid bsp_SendPulse(void);
 N
 N#endif
-L 181 "..\..\User\bsp\bsp.h" 2
+L 179 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_IWDG.h"
 L 1 "..\..\User\bsp\inc\bsp_IWDG.h" 1
 N/*
@@ -38641,7 +38544,7 @@ Nvoid bsp_InitIWDG(void);
 Nvoid bsp_IWDG_Feed(void);
 N
 N#endif
-L 182 "..\..\User\bsp\bsp.h" 2
+L 180 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Edgewise.h"
 L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
 N#ifndef __BSP_EDGEWISE_H
@@ -38652,7 +38555,7 @@ N
 N
 N#endif
 N
-L 183 "..\..\User\bsp\bsp.h" 2
+L 181 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Remote.h"
 L 1 "..\..\User\app\inc\bsp_Remote.h" 1
 N#ifndef __BSP_REMOTE_H
@@ -38689,7 +38592,7 @@ Nbool bsp_GetChargeFeedback(void);
 X_Bool bsp_GetChargeFeedback(void);
 N
 N#endif
-L 184 "..\..\User\bsp\bsp.h" 2
+L 182 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_communication.h"
 L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
@@ -38729,8 +38632,75 @@ N
 Nvoid bsp_SendReportFrame(void);
 N
 N#endif
-L 185 "..\..\User\bsp\bsp.h" 2
+L 183 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Encoder.h"
+L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
+N#ifndef __ENCODER_H
+N#define __ENCODER_H
 N
+N#define ENCODER_NUM      (2)     /*编码器个数*/
+N#define RPM_PULSE_RATIO  (1024)  /*轮子转1圈，脉冲个数*/
+N#define ENCODER_PI		 (3.14F) /*π*/
+N
+Ntypedef enum
+N{
+N	EncoderLeft = 0 ,
+N	EncoderRight
+N}EncoderSN;
+N
+Ntypedef struct
+N{
+N	uint32_t totalMileage; /*总里程，没有正负，前进后退都加，上升沿下降沿都加*/
+N	int32_t pulseT;        /*周期性的读取脉冲个数，理论上有正负，但目前扫地机只有1个霍尔，无法硬件层面得到正负*/
+N}Encoder;
+N
+Nvoid bsp_InitEncoder(void);
+Nuint32_t bsp_EncoderGetTotalMileage(EncoderSN sn);
+Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
+N
+N#endif
+L 184 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_motor.h"
+L 1 "..\..\User\app\inc\bsp_motor.h" 1
+N#ifndef __BSP_MOTOR_H
+N#define __BSP_MOTOR_H
+N
+N#define CONSTANT_HIGH_PWM      (3600)
+N#define CONSTANT_LOW_PWM       (0)
+N
+N
+Ntypedef enum
+N{
+N	MotorLeft = 0 ,
+N	MotorRight
+N}MotorSN;
+N
+Ntypedef enum
+N{
+N	Forward = 0 ,
+N	Backward
+N}MotorDir;
+N
+Nvoid bsp_InitMotor(void);
+Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
+N
+N#endif
+N
+L 185 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Control.h"
+L 1 "..\..\User\app\inc\bsp_Control.h" 1
+N#ifndef __BSP_CONTROL_H
+N#define __BSP_CONTROL_H
+N
+N#include "bsp_motor.h"
+N
+Nvoid bsp_InitPid(MotorSN sn);
+Nvoid bsp_PidSched(void);
+Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
+N
+N#endif
+N
+L 186 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
@@ -38742,201 +38712,228 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_Encoder.c" 2
 N
-N/* 编码器口对应的RCC时钟 */
-N#define RCC_ALL_ENCODER 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOE)
+N/*
+N**********************************************************************************************************
+N											变量声明
+N**********************************************************************************************************
+N*/
+Nstatic Encoder encoder[ENCODER_NUM];
+Xstatic Encoder encoder[(2)];
 N
-N#define GPIO_PORT_LEFT   GPIOA
-N#define GPIO_PIN_LEFT	 GPIO_Pin_15
-N
-N#define GPIO_PORT_RIGHT  GPIOE
-N#define GPIO_PIN_RIGHT	 GPIO_Pin_3
-N
-N
-N
-Nstatic Encoder encoder;
-Nstatic uint32_t interruptCount = 0 ;
-N
-Nstatic void bsp_InitEncoderIO(void);
-Nstatic void bsp_InitEncoderTick(void);
-Nstatic void bsp_EncoderCalcSpeed(EncoderSN sn);
+N/*
+N**********************************************************************************************************
+N											函数声明
+N**********************************************************************************************************
+N*/
+Nstatic void bsp_InitGPIO(void);
+Nstatic void bsp_EXTI_Config(void);
 N
 N/*
 N*********************************************************************************************************
 N*	函 数 名: bsp_InitEncoder
-N*	功能说明:初始化编码器需要的定时器和IO口。
-N*	形    参:  无
+N*	功能说明: 初始化编码器
+N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
 Nvoid bsp_InitEncoder(void)
 N{
-N	bsp_InitEncoderIO();
-N	bsp_InitEncoderTick();
+N	UNUSED(encoder);
+X	(void)(encoder);
 N	
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_InitEncoderIO
-N*	功能说明:初始化编码器IO口。
-N*	形    参:  无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nstatic void bsp_InitEncoderIO(void)
-N{
-N	GPIO_InitTypeDef  GPIO_InitStructure;
-N	
-N	RCC_APB2PeriphClockCmd(RCC_ALL_ENCODER, ENABLE);
-X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000004) | ((uint32_t)0x00000040)), ENABLE);
-N				  
-N	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPU;			
-N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N	
-N	GPIO_InitStructure.GPIO_Pin   = GPIO_PIN_LEFT;
-X	GPIO_InitStructure.GPIO_Pin   = ((uint16_t)0x8000);
-N	GPIO_Init(GPIO_PORT_LEFT, &GPIO_InitStructure); 
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)), &GPIO_InitStructure); 
-N	
-N	GPIO_InitStructure.GPIO_Pin   = GPIO_PIN_RIGHT;
-X	GPIO_InitStructure.GPIO_Pin   = ((uint16_t)0x0008);
-N	GPIO_Init(GPIO_PORT_RIGHT, &GPIO_InitStructure); 
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure); 
+N	bsp_InitGPIO();
 N}
 N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_InitEncoderTick
-N*	功能说明:初始化编码器定时器。
-N*	形    参:  无
+N*	函 数 名: bsp_EncoderGetTotalMileage
+N*	功能说明: 获取总里程脉冲数，无正负
+N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nstatic void bsp_InitEncoderTick(void)
+Nuint32_t bsp_EncoderGetTotalMileage(EncoderSN sn)
 N{
-N	bsp_SetTIMforInt(TIM7, ENCODER_INTERRUPT_FREQUENCY, 1, 0);
-X	bsp_SetTIMforInt(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1400)), 100000, 1, 0);
+N	return encoder[sn].totalMileage;
 N}
 N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_EncoderCalcSpeed
-N*	功能说明: 通过编码器计算速度。
-N*	形    参: 无
+N*	函 数 名: bsp_EncoderGetPulseT
+N*	功能说明: 编码器M测速法，周期性的调用，5MS，10MS调用一次均可，理论此值有正负，但是只有一个霍尔，硬件层面
+N*             无法判断正负 
+N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nstatic void bsp_EncoderCalcSpeed(EncoderSN sn)
+Nint32_t bsp_EncoderGetPulseT(EncoderSN sn)
 N{
-N	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)Ratio *  (float)PERIMETER / 0.3F;
-X	encoder.speed[sn] = (float)encoder.risingCount[sn] / (float)(16*32) *  (float)(3.14159F*70) / 0.3F;
-N	encoder.risingCount[sn] = 0 ;
+N	int32_t pulseCnt = 0 ;
 N	
+N	pulseCnt = encoder[sn].pulseT;
+N	encoder[sn].pulseT = 0 ;
+N	
+N	return pulseCnt;
 N}
 N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_EncoderGetSpeed
-N*	功能说明: 返回编码器反馈的电机运行的速度
-N*	形    参: 编码器编号
+N*	函 数 名: bsp_InitGPIO
+N*	功能说明: 初始化编码器IO扣，扫地机每个轮子编码器只有一个活儿传感器，没有正负
+N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nfloat bsp_EncoderGetSpeed(EncoderSN sn)
+Nstatic void bsp_InitGPIO(void)
 N{
-N	return encoder.speed[sn];
+N	bsp_EXTI_Config();
 N}
 N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: TIM7_IRQHandler
-N*	功能说明:每100us进入一次中断，如果捕获到一个上升沿，则脉冲个数加1
-N*	形    参: 无
+N*	函 数 名: bsp_EXTI_Config
+N*	功能说明: 配置外部中断。编码器已经接了上拉电阻，单片机配置为浮空输入，2倍频捕获脉冲，上下江沿触发
+N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid TIM7_IRQHandler(void)
+Nstatic void bsp_EXTI_Config(void)
 N{
-N	if(RESET != TIM_GetITStatus(TIM7, TIM_IT_Update)) 
-X	if(RESET != TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1400)), ((uint16_t)0x0001))) 
+N	/* 配置PA15 */
 N	{
-N		TIM_ClearITPendingBit(TIM7, TIM_IT_Update); 
-X		TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x1400)), ((uint16_t)0x0001)); 
-N		++interruptCount;
+N		GPIO_InitTypeDef GPIO_InitStructure;
+N		EXTI_InitTypeDef   EXTI_InitStructure;
+N		NVIC_InitTypeDef   NVIC_InitStructure;		
 N		
-N		
-N		/*左脉冲计数*/
-N		if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,  GPIO_PIN_LEFT) == 0)
-X		if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),  ((uint16_t)0x8000)) == 0)
-N		{
-N			encoder.isReadyRising[EncoderLeft] = true;
-X			encoder.isReadyRising[EncoderLeft] = 1;
-N		}
-N		else
-N		{
-N			if(encoder.isReadyRising[EncoderLeft])
-N			{
-N				encoder.isReadyRising[EncoderLeft] = false;
-X				encoder.isReadyRising[EncoderLeft] = 0;
-N				++encoder.risingCount[EncoderLeft];
-N				encoder.odometer[0] += (bsp_MotorGetDir(MotorLeft)==Forward ? 1 : -1);/*里程计*/
-N			}
-N		}
-N		
-N		/*右脉冲计数*/
-N		if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,  GPIO_PIN_RIGHT) == 0)
-X		if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)),  ((uint16_t)0x0008)) == 0)
-N		{
-N			encoder.isReadyRising[EncoderRight] = true;
-X			encoder.isReadyRising[EncoderRight] = 1;
-N		}
-N		else
-N		{
-N			if(encoder.isReadyRising[EncoderRight])
-N			{
-N				encoder.isReadyRising[EncoderRight] = false;
-X				encoder.isReadyRising[EncoderRight] = 0;
-N				++encoder.risingCount[EncoderRight];
-N				encoder.odometer[1] += (bsp_MotorGetDir(MotorRight)==Forward ? 1 : -1);/*里程计*/
-N			}
-N		}
+N		/* 使能 GPIO 时钟 */
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000004), ENABLE);
 N
-N		/*计算速度*/
-N		if(interruptCount >= CALC_T)
-X		if(interruptCount >= 30000)
-N		{
-N			interruptCount = 0 ;
-N			
-N			bsp_EncoderCalcSpeed(EncoderLeft);
-N			bsp_EncoderCalcSpeed(EncoderRight);
-N		}
+N		/* 配置 PA0 为输入浮空模式 */
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x8000);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+N		GPIO_Init(GPIOA, &GPIO_InitStructure);
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)), &GPIO_InitStructure);
 N
+N		/* 使能 AFIO 时钟 */
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000001), ENABLE);
+N
+N		/* Connect EXTI0 Line to PA.00 pin */
+N		GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource15);
+X		GPIO_EXTILineConfig(((uint8_t)0x00), ((uint8_t)0x0F));
+N
+N		/* Configure EXTI0 line */
+N		EXTI_InitStructure.EXTI_Line = EXTI_Line15;
+X		EXTI_InitStructure.EXTI_Line = ((uint32_t)0x08000);
+N		EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+N		EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  	
+N		EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+N		EXTI_Init(&EXTI_InitStructure);
+N
+N		/* Enable and set EXTI0 Interrupt to the lowest priority */
+N		NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
+N		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+N		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+N		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+N		NVIC_Init(&NVIC_InitStructure);
+N	}
+N	
+N	/* 配置 PE3 外部中断 */
+N	{
+N		GPIO_InitTypeDef GPIO_InitStructure;
+N		EXTI_InitTypeDef   EXTI_InitStructure;
+N		NVIC_InitTypeDef   NVIC_InitStructure;			
+N		
+N		/* 使能 GPIO 时钟 */
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000040), ENABLE);
+N
+N		/* 配置 PC13 为输入浮空模式 */
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0008);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+N		GPIO_Init(GPIOE, &GPIO_InitStructure);
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
+N
+N		/* 使能 AFIO 时钟 */
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000001), ENABLE);
+N
+N		/* Connect EXTI13 Line to PA.00 pin */
+N		GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource3);
+X		GPIO_EXTILineConfig(((uint8_t)0x04), ((uint8_t)0x03));
+N
+N		/* Configure EXTI13 line */
+N		EXTI_InitStructure.EXTI_Line = EXTI_Line3;
+X		EXTI_InitStructure.EXTI_Line = ((uint32_t)0x00008);
+N		EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+N		EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  	/* 上升沿触发 */
+N		EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+N		EXTI_Init(&EXTI_InitStructure);
+N
+N		/* Enable and set EXTI13 Interrupt to the lowest priority */
+N		NVIC_InitStructure.NVIC_IRQChannel = EXTI3_IRQn;
+N		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+N		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+N		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+N		NVIC_Init(&NVIC_InitStructure);
+N	}			
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: EXTI9_5_IRQHandler
+N*	功能说明: 外部中断服务程序
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid EXTI15_10_IRQHandler(void)
+N{
+N
+N	if (EXTI_GetITStatus(EXTI_Line15) != RESET)
+X	if (EXTI_GetITStatus(((uint32_t)0x08000)) != RESET)
+N	{
+N		EXTI_ClearITPendingBit(EXTI_Line15);
+X		EXTI_ClearITPendingBit(((uint32_t)0x08000));
+N		
+N		++encoder[EncoderLeft].totalMileage; /*总里程脉冲数加1，无正负*/
+N		++encoder[EncoderLeft].pulseT;
 N	}
 N}
 N
 N
-N
-Nint32_t bsp_encoderGetOdometer(MotorSN sn)
+N/*
+N*********************************************************************************************************
+N*	函 数 名: EXTI9_5_IRQHandler
+N*	功能说明: 外部中断服务程序
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid EXTI3_IRQHandler(void)
 N{
-N	int32_t odometer = 0 ;
-N	switch(sn)
+N
+N	if (EXTI_GetITStatus(EXTI_Line3) != RESET)
+X	if (EXTI_GetITStatus(((uint32_t)0x00008)) != RESET)
 N	{
-N		case MotorLeft:
-N		{
-N			odometer = encoder.odometer[0];
-N		}break;
+N		EXTI_ClearITPendingBit(EXTI_Line3);
+X		EXTI_ClearITPendingBit(((uint32_t)0x00008));
 N		
-N		case MotorRight:
-N		{
-N			odometer = encoder.odometer[1];
-N		}break;
+N		++encoder[EncoderRight].totalMileage; /*总里程脉冲数加1，无正负*/
+N		++encoder[EncoderRight].pulseT;
 N	}
-N	
-N	return  odometer;
-N	
 N}
+N
+N
+N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+N
+N
 N

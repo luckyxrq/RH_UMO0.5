@@ -170,8 +170,6 @@
 
 
 #include "bsp_PowerSwitch.h"
-#include "bsp_DC_Motor.h"
-#include "bsp_Encoder.h"
 #include "bsp_Collision.h"
 #include "bsp_Angle.h"
 #include "bsp_Action.h"
@@ -182,7 +180,9 @@
 #include "bsp_Edgewise.h"
 #include "bsp_Remote.h"
 #include "bsp_communication.h"
-
+#include "bsp_Encoder.h"
+#include "bsp_motor.h"
+#include "bsp_Control.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

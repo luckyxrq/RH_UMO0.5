@@ -38374,103 +38374,6 @@ N
 N#endif
 N
 L 173 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_DC_Motor.h"
-L 1 "..\..\User\app\inc\bsp_DC_Motor.h" 1
-N#ifndef __BSP_DC_MOTOR_H
-N#define __BSP_DC_MOTOR_H
-N
-N
-N#define MOTOR_NUM    2       /*电机数量*/
-N#define MAXPWM       10000   /*最大PWM值*/
-N#define DC_PWM_T     30000   /*DC电机驱动芯片占空比周期*/
-N
-N
-Ntypedef enum
-N{
-N	MotorLeft = 0 ,/*左边电机编号*/
-N	MotorRight     /*右边电机编号*/ 
-N}MotorSN;
-N
-Ntypedef enum
-N{
-N	Forward  = 0 ,/*前进*/
-N	Backward      /*后退*/ 
-N}MotorDir;
-N
-Ntypedef struct
-N{
-N	volatile float target; //目标值
-N	
-N	volatile float kp;  //比例
-N	volatile float ki;  //积分
-N	volatile float kd;  //微分
-N	
-N	volatile float bias;     //本次误差
-N	volatile float lastBias; //上次误差
-N	volatile float biasSum;  //累积误差
-N	
-N	volatile float pwm;     //计算出的PWM值
-N	volatile float pwmMax;  //PWM能够取的最大值
-N	
-N	volatile float kiLimit; //积分上限
-N	volatile float fitK;    //拟合参数k  
-N	volatile float fitD;    //拟合参数d
-N}PID;
-N
-Nvoid bsp_InitDC_Motor(void);      /* 初始化直流电机的PWM定时器 */
-Nvoid bsp_MotorBrake(MotorSN sn);  /* 急停 */
-Nvoid bsp_MotorCoast(MotorSN sn);  /* 滑行停止 */
-Nvoid bsp_SetMotorPWM(MotorSN sn, MotorDir dir, uint16_t pwm);  /* 直接使用占空比控制，6000基本是最低速度，再小就不转了 */
-Nvoid bsp_PidControlAct(void);
-Nvoid bsp_SetMotorTargetSpeed(MotorSN sn, float targetSpeed);
-NMotorDir bsp_MotorGetDir(MotorSN sn);
-Nvoid bsp_MotorRunR(void);
-Nvoid bsp_MotorRunL(void);
-Nvoid bsp_MotorRun(void);
-N#endif
-N
-L 174 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_Encoder.h"
-L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
-N#ifndef __ENCODER_H
-N#define __ENCODER_H
-N
-N#define ENCODER_COUNT                 2         /*编码器个数*/
-N#define ENCODER_INTERRUPT_FREQUENCY	  100000    /*10us中断一次*/
-N#define CALC_T					      30000     /*1000次中断（300MS）计算一次速度*/
-N
-N#define PulseCntPerCircle	16                                      /*电机转一圈编码器脉冲个数*/
-N#define CircleCntPerCircle	32                                     /*轮子转一圈，电机实际转的圈数*/
-N#define Ratio		        (PulseCntPerCircle*CircleCntPerCircle) /*轮子转一圈，编码器的脉冲数*/
-N#define PI	3.14159F			  /*π*/
-N#define DIAMETER	70            /*直径70MM*/
-N#define PERIMETER   (PI*DIAMETER) /*轮子周长*/
-N
-Ntypedef enum
-N{
-N	EncoderLeft  = 0 ,
-N	EncoderRight
-N}EncoderSN;
-N
-Ntypedef struct
-N{
-N	bool isReadyRising[ENCODER_COUNT];   /*检测到一个低电平了，现在准备检测上升沿*/
-X	_Bool isReadyRising[2];    
-N	uint32_t risingCount[ENCODER_COUNT]; /*上升沿个数*/
-X	uint32_t risingCount[2];  
-N	float speed[ENCODER_COUNT];          /*单位毫米每秒*/
-X	float speed[2];           
-N	int32_t odometer[ENCODER_COUNT];
-X	int32_t odometer[2];
-N}Encoder;
-N
-N
-Nvoid bsp_InitEncoder(void);               /*初始化编码器引脚，用于统计脉冲的定时器*/
-Nfloat bsp_EncoderGetSpeed(EncoderSN sn);  /*返回编码器反馈的速度，单位：毫米每秒*/
-Nint32_t bsp_encoderGetOdometer(MotorSN sn);
-N
-N#endif
-L 175 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
 L 1 "..\..\User\app\inc\bsp_Collision.h" 1
 N#ifndef __BSP_COLLISION_H
@@ -38489,7 +38392,7 @@ NCollision bsp_CollisionScan(void); /*返回碰撞结果*/
 Nvoid bsp_CollisionDemo(void);      /*碰撞测试例子*/
 N
 N#endif
-L 176 "..\..\User\bsp\bsp.h" 2
+L 174 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Angle.h"
 L 1 "..\..\User\app\inc\bsp_Angle.h" 1
 N#ifndef __BSP_ANGLE_H
@@ -38533,7 +38436,7 @@ N
 N
 N#endif
 N
-L 177 "..\..\User\bsp\bsp.h" 2
+L 175 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Action.h"
 L 1 "..\..\User\app\inc\bsp_Action.h" 1
 N#ifndef __BSP_ACTION_H
@@ -38543,7 +38446,7 @@ N
 N	
 N#endif
 N
-L 178 "..\..\User\bsp\bsp.h" 2
+L 176 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_aw9523b.h"
 L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
 N#ifndef __BSP_AW9523B_H
@@ -38602,7 +38505,7 @@ Nfloat bsp_GetInfraredVoltageRight(void);
 N
 N#endif
 N
-L 179 "..\..\User\bsp\bsp.h" 2
+L 177 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_DetectAct.h"
 L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
 N#ifndef __BSP_DETECTACT_H
@@ -38626,7 +38529,7 @@ Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
 N
 N#endif
 N
-L 180 "..\..\User\bsp\bsp.h" 2
+L 178 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_PulseMark.h"
 L 1 "..\..\User\app\inc\bsp_PulseMark.h" 1
 N#ifndef __BSP_PULSEMARK_H
@@ -38636,7 +38539,7 @@ Nvoid bsp_InitPinPulse(void);
 Nvoid bsp_SendPulse(void);
 N
 N#endif
-L 181 "..\..\User\bsp\bsp.h" 2
+L 179 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_IWDG.h"
 L 1 "..\..\User\bsp\inc\bsp_IWDG.h" 1
 N/*
@@ -38663,7 +38566,7 @@ Nvoid bsp_InitIWDG(void);
 Nvoid bsp_IWDG_Feed(void);
 N
 N#endif
-L 182 "..\..\User\bsp\bsp.h" 2
+L 180 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Edgewise.h"
 L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
 N#ifndef __BSP_EDGEWISE_H
@@ -38674,7 +38577,7 @@ N
 N
 N#endif
 N
-L 183 "..\..\User\bsp\bsp.h" 2
+L 181 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Remote.h"
 L 1 "..\..\User\app\inc\bsp_Remote.h" 1
 N#ifndef __BSP_REMOTE_H
@@ -38711,7 +38614,7 @@ Nbool bsp_GetChargeFeedback(void);
 X_Bool bsp_GetChargeFeedback(void);
 N
 N#endif
-L 184 "..\..\User\bsp\bsp.h" 2
+L 182 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_communication.h"
 L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
@@ -38751,8 +38654,75 @@ N
 Nvoid bsp_SendReportFrame(void);
 N
 N#endif
-L 185 "..\..\User\bsp\bsp.h" 2
+L 183 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Encoder.h"
+L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
+N#ifndef __ENCODER_H
+N#define __ENCODER_H
 N
+N#define ENCODER_NUM      (2)     /*编码器个数*/
+N#define RPM_PULSE_RATIO  (1024)  /*轮子转1圈，脉冲个数*/
+N#define ENCODER_PI		 (3.14F) /*π*/
+N
+Ntypedef enum
+N{
+N	EncoderLeft = 0 ,
+N	EncoderRight
+N}EncoderSN;
+N
+Ntypedef struct
+N{
+N	uint32_t totalMileage; /*总里程，没有正负，前进后退都加，上升沿下降沿都加*/
+N	int32_t pulseT;        /*周期性的读取脉冲个数，理论上有正负，但目前扫地机只有1个霍尔，无法硬件层面得到正负*/
+N}Encoder;
+N
+Nvoid bsp_InitEncoder(void);
+Nuint32_t bsp_EncoderGetTotalMileage(EncoderSN sn);
+Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
+N
+N#endif
+L 184 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_motor.h"
+L 1 "..\..\User\app\inc\bsp_motor.h" 1
+N#ifndef __BSP_MOTOR_H
+N#define __BSP_MOTOR_H
+N
+N#define CONSTANT_HIGH_PWM      (3600)
+N#define CONSTANT_LOW_PWM       (0)
+N
+N
+Ntypedef enum
+N{
+N	MotorLeft = 0 ,
+N	MotorRight
+N}MotorSN;
+N
+Ntypedef enum
+N{
+N	Forward = 0 ,
+N	Backward
+N}MotorDir;
+N
+Nvoid bsp_InitMotor(void);
+Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
+N
+N#endif
+N
+L 185 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Control.h"
+L 1 "..\..\User\app\inc\bsp_Control.h" 1
+N#ifndef __BSP_CONTROL_H
+N#define __BSP_CONTROL_H
+N
+N#include "bsp_motor.h"
+N
+Nvoid bsp_InitPid(MotorSN sn);
+Nvoid bsp_PidSched(void);
+Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
+N
+N#endif
+N
+L 186 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
