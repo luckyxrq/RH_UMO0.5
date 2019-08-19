@@ -38615,6 +38615,26 @@ L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
 N#define __BSP_COMMUNICATION_H
 N
+N
+N#define  MIN_ID_ENVIRONMENT 	0x30	// 环境
+N#define  MIN_ID_MOTION  		0x25	// 运动
+N#define  MIN_ID_POSE  			0x20	// 姿势
+N#define  MIN_ID_MAP 			0x40	// 地图
+N
+N
+N#define  CMD_ID_SPEED 	        0x25
+N#define  CMD_ID_DISTANCE  		0x35
+N#define  CMD_ID_ANGLE  			0x45
+N
+N#define WHEEL_LENGTH  			0.23F
+N#define M_PI 					3.14F
+N#define MAX_ANALYSIS_LEN	    512
+N
+N
+N#define Deg2Rad(deg) (M_PI * deg / 180.0F)
+N#define Rad2Deg(rad) (180.0F * rad / M_PI)
+N
+N
 N/*按照1字节对齐，便于存储到uint8_t类型buf*/
 N#pragma pack(1)
 Ntypedef struct
@@ -38664,7 +38684,15 @@ N	uint8_t end_of_falg;           //0x55
 N}ReportFrame;
 N#pragma pack()
 N
-Nvoid bsp_SendReportFrame(void);
+N
+Ntypedef struct
+N{
+N	uint16_t len;                       /*缓冲区数据个数*/
+N	uint8_t msgID;                      /*消息ID*/
+N}RouteAnalysis;
+N
+Nvoid bsp_SendReportFrame(void); /*发送帧*/
+Nvoid bsp_ComAnalysis(void);     /*接收帧*/
 N
 N#endif
 L 183 "..\..\User\bsp\bsp.h" 2

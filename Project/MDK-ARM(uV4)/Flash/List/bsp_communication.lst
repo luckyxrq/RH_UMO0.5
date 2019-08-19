@@ -38598,6 +38598,26 @@ L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
 N#define __BSP_COMMUNICATION_H
 N
+N
+N#define  MIN_ID_ENVIRONMENT 	0x30	// 环境
+N#define  MIN_ID_MOTION  		0x25	// 运动
+N#define  MIN_ID_POSE  			0x20	// 姿势
+N#define  MIN_ID_MAP 			0x40	// 地图
+N
+N
+N#define  CMD_ID_SPEED 	        0x25
+N#define  CMD_ID_DISTANCE  		0x35
+N#define  CMD_ID_ANGLE  			0x45
+N
+N#define WHEEL_LENGTH  			0.23F
+N#define M_PI 					3.14F
+N#define MAX_ANALYSIS_LEN	    512
+N
+N
+N#define Deg2Rad(deg) (M_PI * deg / 180.0F)
+N#define Rad2Deg(rad) (180.0F * rad / M_PI)
+N
+N
 N/*按照1字节对齐，便于存储到uint8_t类型buf*/
 N#pragma pack(1)
 Ntypedef struct
@@ -38647,7 +38667,15 @@ N	uint8_t end_of_falg;           //0x55
 N}ReportFrame;
 N#pragma pack()
 N
-Nvoid bsp_SendReportFrame(void);
+N
+Ntypedef struct
+N{
+N	uint16_t len;                       /*缓冲区数据个数*/
+N	uint8_t msgID;                      /*消息ID*/
+N}RouteAnalysis;
+N
+Nvoid bsp_SendReportFrame(void); /*发送帧*/
+Nvoid bsp_ComAnalysis(void);     /*接收帧*/
 N
 N#endif
 L 183 "..\..\User\bsp\bsp.h" 2
@@ -38745,42 +38773,22 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_communication.c" 2
 N
-N#define  MIN_ID_ENVIRONMENT 	0x30	// 环境
-N#define  MIN_ID_MOTION  		0x25	// 运动
-N#define  MIN_ID_POSE  			0x20	// 姿势
-N#define  MIN_ID_MAP 			0x40	// 地图
-N
-N
-N#define  CMD_ID_SPEED 	        0x25
-N#define  CMD_ID_DISTANCE  		0x35
-N#define  CMD_ID_ANGLE  			0x45
-N
-N#define WHEEL_LENGTH  			0.23F
-N#define M_PI 					3.14F
-N#define MAX_ANALYSIS_LEN	    512
-N
-N
-N#define Deg2Rad(deg) (M_PI * deg / 180.0F)
-N#define Rad2Deg(rad) (180.0F * rad / M_PI)
-N
-Ntypedef struct
-N{
-N	int16_t* leftVelocity;              /*左轮速度*/
-N	int16_t* rightVelocity;             /*右轮速度*/
-N	uint16_t len;                       /*缓冲区数据个数*/
-N	uint8_t msgID;                      /*消息ID*/
-N}RouteAnalysis;
-N
-N
-N
-N
-N
-Nuint8_t  buf[256] = {0};                              /*用于存储帧，使用全局变量，防止频繁开辟栈空间*/
-Nstatic uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0}; /*用于解析帧数据*/
-Xstatic uint8_t analysisBuf[512] = {0};  
+N/*
+N**********************************************************************************************************
+N											变量声明
+N**********************************************************************************************************
+N*/
+Nstatic uint8_t sendBuf[256] = {0};                     /*用于存储帧，使用全局变量，防止频繁开辟栈空间*/
+Nstatic uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0};    /*用于解析帧数据*/
+Xstatic uint8_t analysisBuf[512] = {0};     
 Nstatic RouteAnalysis routeAnalysis;
-N
 Nstatic ReportFrame reportFrame;
+N
+N/*
+N**********************************************************************************************************
+N											函数声明
+N**********************************************************************************************************
+N*/
 Nstatic uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len);
 Nstatic void bsp_FillReportFrame(void);
 N
@@ -38892,8 +38900,6 @@ N}
 N
 N
 N
-N
-N
 N/*
 N*********************************************************************************************************
 N*	函 数 名: bsp_SendReportFrame
@@ -38915,10 +38921,10 @@ N
 N	/*填充帧*/
 N	for(i=0;i<len;i++)
 N	{
-N		buf[i] = src[i];
+N		sendBuf[i] = src[i];
 N	}
 N	
-N	comSendBuf(COM4,buf,len);
+N	comSendBuf(COM4,sendBuf,len);
 N	
 N}
 N

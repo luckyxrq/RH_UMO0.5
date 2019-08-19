@@ -1,40 +1,20 @@
 #include "bsp.h"
 
-#define  MIN_ID_ENVIRONMENT 	0x30	// 环境
-#define  MIN_ID_MOTION  		0x25	// 运动
-#define  MIN_ID_POSE  			0x20	// 姿势
-#define  MIN_ID_MAP 			0x40	// 地图
-
-
-#define  CMD_ID_SPEED 	        0x25
-#define  CMD_ID_DISTANCE  		0x35
-#define  CMD_ID_ANGLE  			0x45
-
-#define WHEEL_LENGTH  			0.23F
-#define M_PI 					3.14F
-#define MAX_ANALYSIS_LEN	    512
-
-
-#define Deg2Rad(deg) (M_PI * deg / 180.0F)
-#define Rad2Deg(rad) (180.0F * rad / M_PI)
-
-typedef struct
-{
-	int16_t* leftVelocity;              /*左轮速度*/
-	int16_t* rightVelocity;             /*右轮速度*/
-	uint16_t len;                       /*缓冲区数据个数*/
-	uint8_t msgID;                      /*消息ID*/
-}RouteAnalysis;
-
-
-
-
-
-uint8_t  buf[256] = {0};                              /*用于存储帧，使用全局变量，防止频繁开辟栈空间*/
-static uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0}; /*用于解析帧数据*/
+/*
+**********************************************************************************************************
+											变量声明
+**********************************************************************************************************
+*/
+static uint8_t sendBuf[256] = {0};                     /*用于存储帧，使用全局变量，防止频繁开辟栈空间*/
+static uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0};    /*用于解析帧数据*/
 static RouteAnalysis routeAnalysis;
-
 static ReportFrame reportFrame;
+
+/*
+**********************************************************************************************************
+											函数声明
+**********************************************************************************************************
+*/
 static uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len);
 static void bsp_FillReportFrame(void);
 
@@ -141,8 +121,6 @@ void bsp_ComAnalysis(void)
 
 
 
-
-
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_SendReportFrame
@@ -164,10 +142,10 @@ void bsp_SendReportFrame(void)
 	/*填充帧*/
 	for(i=0;i<len;i++)
 	{
-		buf[i] = src[i];
+		sendBuf[i] = src[i];
 	}
 	
-	comSendBuf(COM4,buf,len);
+	comSendBuf(COM4,sendBuf,len);
 	
 }
 

@@ -1,6 +1,26 @@
 #ifndef __BSP_COMMUNICATION_H
 #define __BSP_COMMUNICATION_H
 
+
+#define  MIN_ID_ENVIRONMENT 	0x30	// 环境
+#define  MIN_ID_MOTION  		0x25	// 运动
+#define  MIN_ID_POSE  			0x20	// 姿势
+#define  MIN_ID_MAP 			0x40	// 地图
+
+
+#define  CMD_ID_SPEED 	        0x25
+#define  CMD_ID_DISTANCE  		0x35
+#define  CMD_ID_ANGLE  			0x45
+
+#define WHEEL_LENGTH  			0.23F
+#define M_PI 					3.14F
+#define MAX_ANALYSIS_LEN	    512
+
+
+#define Deg2Rad(deg) (M_PI * deg / 180.0F)
+#define Rad2Deg(rad) (180.0F * rad / M_PI)
+
+
 /*按照1字节对齐，便于存储到uint8_t类型buf*/
 #pragma pack(1)
 typedef struct
@@ -50,6 +70,14 @@ typedef struct
 }ReportFrame;
 #pragma pack()
 
-void bsp_SendReportFrame(void);
+
+typedef struct
+{
+	uint16_t len;                       /*缓冲区数据个数*/
+	uint8_t msgID;                      /*消息ID*/
+}RouteAnalysis;
+
+void bsp_SendReportFrame(void); /*发送帧*/
+void bsp_ComAnalysis(void);     /*接收帧*/
 
 #endif

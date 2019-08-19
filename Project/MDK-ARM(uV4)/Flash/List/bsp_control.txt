@@ -207,52 +207,51 @@
 ;;;155    {
 000004  4604              MOV      r4,r0
 ;;;156    	int32_t ret = 0 ;
-000006  2700              MOVS     r7,#0
+000006  2500              MOVS     r5,#0
 ;;;157    	float pulse = 0 ;
-000008  2500              MOVS     r5,#0
+000008  2600              MOVS     r6,#0
 ;;;158    	
 ;;;159    	pulse = mm / 250.0F * 12.0F ;
 00000a  4620              MOV      r0,r4
 00000c  f7fffffe          BL       __aeabi_i2f
 000010  4680              MOV      r8,r0
-000012  490c              LDR      r1,|L5.68|
+000012  490b              LDR      r1,|L5.64|
 000014  f7fffffe          BL       __aeabi_fdiv
-000018  4606              MOV      r6,r0
-00001a  490b              LDR      r1,|L5.72|
+000018  4607              MOV      r7,r0
+00001a  490a              LDR      r1,|L5.68|
 00001c  f7fffffe          BL       __aeabi_fmul
-000020  4605              MOV      r5,r0
+000020  4606              MOV      r6,r0
 ;;;160    	
 ;;;161    	if(pulse <= 1.0F)
 000022  f04f517e          MOV      r1,#0x3f800000
-000026  4628              MOV      r0,r5
+000026  4630              MOV      r0,r6
 000028  f7fffffe          BL       __aeabi_cfcmple
 00002c  d801              BHI      |L5.50|
 ;;;162    	{
 ;;;163    		ret = 1 ;
-00002e  2701              MOVS     r7,#1
+00002e  2501              MOVS     r5,#1
 000030  e003              B        |L5.58|
                   |L5.50|
 ;;;164    	}
 ;;;165    	else
 ;;;166    	{
 ;;;167    		ret = pulse;
-000032  4628              MOV      r0,r5
+000032  4630              MOV      r0,r6
 000034  f7fffffe          BL       __aeabi_f2iz
-000038  4607              MOV      r7,r0
+000038  4605              MOV      r5,r0
                   |L5.58|
 ;;;168    	}
 ;;;169    	
-;;;170    	return pulse;
+;;;170    	return ret;
 00003a  4628              MOV      r0,r5
-00003c  f7fffffe          BL       __aeabi_f2iz
 ;;;171    }
-000040  e8bd81f0          POP      {r4-r8,pc}
+00003c  e8bd81f0          POP      {r4-r8,pc}
 ;;;172    
                           ENDP
 
-                  |L5.68|
+                  |L5.64|
                           DCD      0x437a0000
-                  |L5.72|
+                  |L5.68|
                           DCD      0x41400000
 
                           AREA ||i.bsp_PidClear||, CODE, READONLY, ALIGN=2
