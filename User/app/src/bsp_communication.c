@@ -201,6 +201,51 @@ void bsp_FillReportFrame(void)
 //	chk = bsp_CalcChk(src+3,len-6);
 //	reportFrame.checksum_msb = chk >> 8;
 //	reportFrame.checksum_lsb = chk & 0x00FF;
+
+
+
+	reportFrame.sof1 = 0xAA;                  		                    //0xAA
+	reportFrame.sof2 = 0xAA;                  		                    //0xAA
+	reportFrame.sof3 = 0xAA;                  		                    //0xAA
+	reportFrame.identifier_major = MIN_ID_ENVIRONMENT;                  //主识别码
+	reportFrame.identifier_subs = 0x00;        	                        //子识别码
+	reportFrame.size_of_payload_field = sizeof(reportFrame) - 6;   	    //数据长度（不包括头标识3，尾标识1，校验2）
+	reportFrame.left_wheel_pulse_count = 0 ;  	                        //左轮编码器计数
+	reportFrame.right_wheel_pluse_count = 0; 	                        //右轮编码器计数
+	reportFrame.left_wheel_velocity = 0 ;  		                        //左轮电机速度
+	reportFrame.right_wheel_veloctiy = 0 ;		                        //右轮电机速度
+	reportFrame.x_coordinate = 0 ;				                        //X坐标
+	reportFrame.y_coordinate = 0 ;				                        //Y坐标
+	reportFrame.theta_angle_deg = 0;			                        //航向角
+	reportFrame.landoff_button = 0;                                     //离地开关
+	reportFrame.collosion_button = 0 ; 			                        //碰撞开关
+	reportFrame.infrared_front_status = 0; 	                            //前向红外状态 
+	reportFrame.infrared_edge_status = 0;	                            //沿边红外状态
+	reportFrame.infrared_adc_value1 = 0;                                //红外ADC值1	 
+	reportFrame.infrared_adc_value2 = 0;                                //红外ADC值2	 
+	reportFrame.infrared_adc_value3 = 0;                                //红外ADC值3	 
+	reportFrame.infrared_adc_value4 = 0;                                //红外ADC值4	 
+	reportFrame.infrared_adc_value5 = 0;                                //红外ADC值5	 
+	reportFrame.infrared_adc_value6 = 0;                                //红外ADC值6	 
+	reportFrame.infrared_adc_value7 = 0;                                //红外ADC值7	 
+	reportFrame.infrared_adc_value8 = 0;                                //红外ADC值8	 
+	reportFrame.infrared_adc_value9 = 0;                                //红外ADC值9	 
+	reportFrame.infrared_adc_value10 = 0;                               //红外ADC值10
+	reportFrame.infrared_cliff_status = 0 ;                             //跳崖红外状态
+	reportFrame.infrared_cliff_adc_value1 = 0 ;                         //跳崖ADC值1
+	reportFrame.infrared_cliff_adc_value2 = 0 ;                         //跳崖ADC值2
+	reportFrame.infrared_cliff_adc_value3 = 0 ;                         //跳崖ADC值3
+	reportFrame.battery_voltage = 0;                                    //电池电压
+	reportFrame.charging_status = 0;                                    //充电状态
+	reportFrame.error_code = 0;         	                            //异常状态
+	reportFrame.machine_status = 0;                                     //机器状态
+	reportFrame.timestamp = 0;                                          //时间戳
+	reportFrame.reserved1 = 0;  	                                    //保留位1
+	reportFrame.reserved2 = 0;				                            //保留位2
+	reportFrame.reserved3 = 0;         	                                //保留位3
+	reportFrame.checksum_msb = 0;
+	reportFrame.checksum_lsb = 0;
+	reportFrame.end_of_falg = 0;                                        //0x55
 }
 
 
