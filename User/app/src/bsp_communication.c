@@ -160,50 +160,12 @@ void bsp_SendReportFrame(void)
 */
 void bsp_FillReportFrame(void)
 {
-//	uint16_t chk = 0 ;
-//	uint32_t len = sizeof(reportFrame);/*帧大小*/
-//	uint8_t* src = (uint8_t*)&reportFrame;
-//	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
-//	int32_t odometerL = 0;//bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
-//	int32_t odometerR = 0;//bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
-//	
-//	/*消除编译器警告*/
-//	UNUSED(reportFrame);
-//	
-//	/*大小端转换*/
-//	reportFrame.sof1 = 0xAA;                     //恒定为0xAA
-//	reportFrame.sof2 = 0xAA;                     //恒定为0xAA
-//	reportFrame.sof3 = 0xAA;                     //恒定为0xAA
-//	reportFrame.identifier = MIN_ID_ENVIRONMENT; //恒定为0x25
-//	reportFrame.size_of_payload_field = 0x1B+8; 
-//	reportFrame.left_wheel_pulse_count =  BEBufToUint32((uint8_t*)&odometerL);
-//	reportFrame.right_wheel_pulse_count = BEBufToUint32((uint8_t*)&odometerR);
-//	reportFrame.button_control_cmd = 0 ;
-//	reportFrame.distance_of_left_infrared = 0 ;
-//	reportFrame.distance_of_right_infrared = 0 ;
-//	reportFrame.distance_of_front_infrared = 0 ;
-//	reportFrame.angle_deg = BEBufToUint16((uint8_t*)&angle);
-//	reportFrame.adc_1 = 0 ;
-//	reportFrame.adc_2 = 0 ;
-//	reportFrame.adc_3 = 0 ;
-//	reportFrame.adc_4 = 0 ;
-//	reportFrame.acc_x = 0 ;
-//	reportFrame.acc_y = 0 ;
-//	reportFrame.acc_z = 0 ;
-//	reportFrame.obstacle_signal = 0 ;
-//	reportFrame.battery_level_soc = 0 ;
-//	reportFrame.charge_status = 0 ;
-//	reportFrame.checksum_msb = 0 ;
-//	reportFrame.checksum_lsb = 0 ;
-//	reportFrame.end_of_falg = 0x55 ;                  /*恒定0x55*/
-//	
-//	/*计算校验*/
-//	chk = bsp_CalcChk(src+3,len-6);
-//	reportFrame.checksum_msb = chk >> 8;
-//	reportFrame.checksum_lsb = chk & 0x00FF;
-
-
-
+	uint16_t chk = 0 ;
+	uint32_t len = sizeof(reportFrame);  /*帧大小*/
+	uint8_t* src = (uint8_t*)&reportFrame;
+	
+	int16_t angle = bsp_AngleReadRaw();  /*角度*/ 
+	
 	reportFrame.sof1 = 0xAA;                  		                    //0xAA
 	reportFrame.sof2 = 0xAA;                  		                    //0xAA
 	reportFrame.sof3 = 0xAA;                  		                    //0xAA
@@ -216,7 +178,7 @@ void bsp_FillReportFrame(void)
 	reportFrame.right_wheel_veloctiy = 0 ;		                        //右轮电机速度
 	reportFrame.x_coordinate = 0 ;				                        //X坐标
 	reportFrame.y_coordinate = 0 ;				                        //Y坐标
-	reportFrame.theta_angle_deg = 0;			                        //航向角
+	reportFrame.theta_angle_deg = BEBufToUint16((uint8_t*)&angle);		//航向角
 	reportFrame.landoff_button = 0;                                     //离地开关
 	reportFrame.collosion_button = 0 ; 			                        //碰撞开关
 	reportFrame.infrared_front_status = 0; 	                            //前向红外状态 
@@ -245,7 +207,12 @@ void bsp_FillReportFrame(void)
 	reportFrame.reserved3 = 0;         	                                //保留位3
 	reportFrame.checksum_msb = 0;
 	reportFrame.checksum_lsb = 0;
-	reportFrame.end_of_falg = 0;                                        //0x55
+	reportFrame.end_of_falg = 0x55;                                     //0x55
+	
+	/*计算校验*/
+	chk = bsp_CalcChk(src+3,len-6);
+	reportFrame.checksum_msb = chk >> 8;
+	reportFrame.checksum_lsb = chk & 0x00FF;
 }
 
 

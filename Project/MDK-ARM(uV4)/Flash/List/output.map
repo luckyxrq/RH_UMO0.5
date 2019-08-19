@@ -219,6 +219,10 @@ Section Cross References
     bsp_communication.o(i.bsp_ComAnalysis) refers to bsp_uart_fifo.o(i.comGetChar) for comGetChar
     bsp_communication.o(i.bsp_ComAnalysis) refers to bsp_communication.o(.bss) for analysisBuf
     bsp_communication.o(i.bsp_ComAnalysis) refers to bsp_communication.o(.data) for routeAnalysis
+    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_angle.o(i.bsp_AngleReadRaw) for bsp_AngleReadRaw
+    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_user_lib.o(i.BEBufToUint16) for BEBufToUint16
+    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_communication.o(i.bsp_CalcChk) for bsp_CalcChk
+    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_communication.o(.bss) for reportFrame
     bsp_communication.o(i.bsp_SendReportFrame) refers to bsp_communication.o(i.bsp_FillReportFrame) for bsp_FillReportFrame
     bsp_communication.o(i.bsp_SendReportFrame) refers to bsp_uart_fifo.o(i.comSendBuf) for comSendBuf
     bsp_communication.o(i.bsp_SendReportFrame) refers to bsp_communication.o(.bss) for reportFrame
@@ -1265,7 +1269,7 @@ Removing Unused input sections from the image.
     Removing bsp_communication.o(.revsh_text), (4 bytes).
     Removing bsp_communication.o(i.bsp_CalcChk), (54 bytes).
     Removing bsp_communication.o(i.bsp_ComAnalysis), (564 bytes).
-    Removing bsp_communication.o(i.bsp_FillReportFrame), (2 bytes).
+    Removing bsp_communication.o(i.bsp_FillReportFrame), (200 bytes).
     Removing bsp_communication.o(i.bsp_SendReportFrame), (48 bytes).
     Removing bsp_communication.o(.bss), (851 bytes).
     Removing bsp_communication.o(.data), (4 bytes).
@@ -1631,7 +1635,7 @@ Removing Unused input sections from the image.
     Removing dfixul.o(.text), (48 bytes).
     Removing cdrcmple.o(.text), (48 bytes).
 
-415 unused section(s) (total 22865 bytes) removed from the image.
+415 unused section(s) (total 23063 bytes) removed from the image.
 
 ==============================================================================
 
