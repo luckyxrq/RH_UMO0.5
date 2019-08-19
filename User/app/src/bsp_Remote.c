@@ -359,7 +359,14 @@ void bsp_PulseTimerPer1MS(void)
 
 
 
-
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetCapCnt
+*	功能说明: 获取这个通道的低电平持续时间
+*	形    参: 通道
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 uint32_t bsp_GetCapCnt(CapCH capCH)
 {
 	uint32_t temp = 0; 
@@ -382,8 +389,8 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 			
 			if(++remote[ch].remoteStatistics[0] >= 3)
 			{
-				remote[ch].is500us = true;
 				bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
+				remote[ch].is500us = true;
 			}
 		}
 		else if(temp >= RangeSub(1000) && temp <=  RangeAdd(1000))
@@ -393,8 +400,8 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 			
 			if(++remote[ch].remoteStatistics[1] >= 3)
 			{
-				remote[ch].is1000us = true;
 				bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
+				remote[ch].is1000us = true;
 			}
 		}
 		else if(temp >= RangeSub(1500) && temp <=  RangeAdd(1500))
@@ -404,8 +411,8 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 			
 			if(++remote[ch].remoteStatistics[2] >= 3)
 			{
+			    bsp_ClearRemoteTimerCnt(ch,Pulse1500US);//清除计数
 				remote[ch].is1500us = true;
-			bsp_ClearRemoteTimerCnt(ch,Pulse1500US);//清除计数
 			}
 			
 		}
@@ -418,7 +425,15 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 }
 
 
-void bsp_PrintRemoteState(CapCH capCH)
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_PrintRemoteState
+*	功能说明: 获取 每个通道的低电平持续时间
+*	形    参: 通道
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_PrintRemoteState(void)
 {
 	printf("*******CH(1000,1500,500)******\r\n");
 	printf("CH1:%d %d %d\r\n",remote[CapCH1].is1000us,remote[CapCH1].is1500us,remote[CapCH1].is500us);
@@ -429,6 +444,15 @@ void bsp_PrintRemoteState(CapCH capCH)
 
 
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_InitTIM3Cap
+*	功能说明: 定时器3输入捕获配置
+*	形    参: 通道
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 static void bsp_InitTIM3Cap(u16 arr,u16 psc)
 {	 
     GPIO_InitTypeDef   GPIO_InitStructure;

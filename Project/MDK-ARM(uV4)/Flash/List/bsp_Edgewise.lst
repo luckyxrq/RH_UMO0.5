@@ -38587,7 +38587,7 @@ Nvoid bsp_SearchChargingPileAct(void);
 Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
 Nvoid bsp_PulseTimerPer1MS(void);
-Nvoid bsp_PrintRemoteState(CapCH capCH);
+Nvoid bsp_PrintRemoteState(void);
 Nbool bsp_GetChargeFeedback(void);
 X_Bool bsp_GetChargeFeedback(void);
 N
@@ -38749,7 +38749,7 @@ N
 N
 Nvoid bsp_EdgewiseAct(void)
 N{
-N	Collision collision;
+N	//Collision collision;
 N	
 N
 N	switch(edgewise.action)
@@ -38777,7 +38777,6 @@ N				bsp_SetMotorSpeed(MotorRight,5);
 N			}
 N		}break;
 N	}	
-W "..\..\User\app\src\bsp_Edgewise.c" 25 12 variable "collision" was declared but never referenced
 N}
 N
 N

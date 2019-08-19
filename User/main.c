@@ -170,7 +170,7 @@ static void vTaskMsgPro(void *pvParameters)
     while(1)
     {
 		//bsp_SendReportFrame();
-		//bsp_PrintRemoteState(CapCH3);
+		//bsp_PrintRemoteState();
 		
 		bsp_IWDG_Feed(); /* Î¹¹· */
 		

@@ -9,7 +9,7 @@
 ;;;23     void bsp_EdgewiseAct(void)
 000000  b510              PUSH     {r4,lr}
 ;;;24     {
-;;;25     	Collision collision;
+;;;25     	//Collision collision;
 ;;;26     	
 ;;;27     
 ;;;28     	switch(edgewise.action)

@@ -22,7 +22,7 @@ static Edgewise edgewise;
 
 void bsp_EdgewiseAct(void)
 {
-	Collision collision;
+	//Collision collision;
 	
 
 	switch(edgewise.action)

@@ -45958,7 +45958,7 @@ Nvoid bsp_SearchChargingPileAct(void);
 Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
 Nvoid bsp_PulseTimerPer1MS(void);
-Nvoid bsp_PrintRemoteState(CapCH capCH);
+Nvoid bsp_PrintRemoteState(void);
 Nbool bsp_GetChargeFeedback(void);
 X_Bool bsp_GetChargeFeedback(void);
 N
@@ -46280,7 +46280,7 @@ N{
 N    while(1)
 N    {
 N		//bsp_SendReportFrame();
-N		//bsp_PrintRemoteState(CapCH3);
+N		//bsp_PrintRemoteState();
 N		
 N		bsp_IWDG_Feed(); /* Î¹¹· */
 N		

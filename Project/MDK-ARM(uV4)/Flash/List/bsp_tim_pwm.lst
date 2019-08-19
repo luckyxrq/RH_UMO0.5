@@ -38606,7 +38606,7 @@ Nvoid bsp_SearchChargingPileAct(void);
 Nvoid bsp_StartSearchChargingPile(void);
 Nvoid bsp_StopSearchChargingPile(void);
 Nvoid bsp_PulseTimerPer1MS(void);
-Nvoid bsp_PrintRemoteState(CapCH capCH);
+Nvoid bsp_PrintRemoteState(void);
 Nbool bsp_GetChargeFeedback(void);
 X_Bool bsp_GetChargeFeedback(void);
 N

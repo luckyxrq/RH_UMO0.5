@@ -344,7 +344,7 @@
 ;;;170        while(1)
 ;;;171        {
 ;;;172    		//bsp_SendReportFrame();
-;;;173    		//bsp_PrintRemoteState(CapCH3);
+;;;173    		//bsp_PrintRemoteState();
 ;;;174    		
 ;;;175    		bsp_IWDG_Feed(); /* Î¹¹· */
 000002  f7fffffe          BL       bsp_IWDG_Feed
