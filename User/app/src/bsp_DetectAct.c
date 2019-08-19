@@ -10,6 +10,9 @@
 #define TimeAfterClose  20  //关发射，延时读，判断太阳光
 #define Sunlight        1.0F//如果关闭发射管也读取到了太阳光的阈值，则认为是太阳光的影响
 
+
+
+
 AW_PIN PinMap[PIN_MAP_MAX][2]=
 {
 	{awP1_5,awP0_7},   //1
@@ -595,7 +598,18 @@ float bsp_GetInfraredVoltageRight(void)
 	return adcRealTime[9];
 }
 
-
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetInfraRedAdcVoltage
+*	功能说明: 获取红外扫描管的电压
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+float bsp_GetInfraRedAdcVoltage(IR_SN sn)
+{
+	return adcRealTime[sn];
+}
 
 
 void bsp_DetectDeal(void)

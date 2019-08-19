@@ -38471,6 +38471,20 @@ N	AW_0 = 0,
 N	AW_1 = 1
 N}AW_VAL;
 N
+Ntypedef enum
+N{
+N	IR0 = 0,
+N	IR1,
+N	IR2,
+N	IR3,
+N	IR4,
+N	IR5,
+N	IR6,
+N	IR7,
+N	IR8,
+N	IR9,
+N}IR_SN;
+N
 N
 Nuint8_t bsp_InitAW9523B(void);
 Nuint8_t bsp_AWReadID(void);
@@ -38480,7 +38494,7 @@ Nfloat bsp_GetAdScanValue(void);
 Nvoid bsp_DetectDeal(void);
 Nfloat bsp_GetInfraredVoltageLeft(void);
 Nfloat bsp_GetInfraredVoltageRight(void);
-N
+Nfloat bsp_GetInfraRedAdcVoltage(IR_SN sn);
 N#endif
 N
 L 177 "..\..\User\bsp\bsp.h" 2
@@ -38945,49 +38959,49 @@ N	uint8_t* src = (uint8_t*)&reportFrame;
 N	
 N	int16_t angle = bsp_AngleReadRaw();  /*角度*/ 
 N	
-N	reportFrame.sof1 = 0xAA;                  		                    //0xAA
-N	reportFrame.sof2 = 0xAA;                  		                    //0xAA
-N	reportFrame.sof3 = 0xAA;                  		                    //0xAA
-N	reportFrame.identifier_major = MIN_ID_ENVIRONMENT;                  //主识别码
-X	reportFrame.identifier_major = 0x30;                  
-N	reportFrame.identifier_subs = 0x00;        	                        //子识别码
-N	reportFrame.size_of_payload_field = sizeof(reportFrame) - 6;   	    //数据长度（不包括头标识3，尾标识1，校验2）
-N	reportFrame.left_wheel_pulse_count = 0 ;  	                        //左轮编码器计数
-N	reportFrame.right_wheel_pluse_count = 0; 	                        //右轮编码器计数
-N	reportFrame.left_wheel_velocity = 0 ;  		                        //左轮电机速度
-N	reportFrame.right_wheel_veloctiy = 0 ;		                        //右轮电机速度
-N	reportFrame.x_coordinate = 0 ;				                        //X坐标
-N	reportFrame.y_coordinate = 0 ;				                        //Y坐标
-N	reportFrame.theta_angle_deg = BEBufToUint16((uint8_t*)&angle);		//航向角
-N	reportFrame.landoff_button = 0;                                     //离地开关
-N	reportFrame.collosion_button = 0 ; 			                        //碰撞开关
-N	reportFrame.infrared_front_status = 0; 	                            //前向红外状态 
-N	reportFrame.infrared_edge_status = 0;	                            //沿边红外状态
-N	reportFrame.infrared_adc_value1 = 0;                                //红外ADC值1	 
-N	reportFrame.infrared_adc_value2 = 0;                                //红外ADC值2	 
-N	reportFrame.infrared_adc_value3 = 0;                                //红外ADC值3	 
-N	reportFrame.infrared_adc_value4 = 0;                                //红外ADC值4	 
-N	reportFrame.infrared_adc_value5 = 0;                                //红外ADC值5	 
-N	reportFrame.infrared_adc_value6 = 0;                                //红外ADC值6	 
-N	reportFrame.infrared_adc_value7 = 0;                                //红外ADC值7	 
-N	reportFrame.infrared_adc_value8 = 0;                                //红外ADC值8	 
-N	reportFrame.infrared_adc_value9 = 0;                                //红外ADC值9	 
-N	reportFrame.infrared_adc_value10 = 0;                               //红外ADC值10
-N	reportFrame.infrared_cliff_status = 0 ;                             //跳崖红外状态
-N	reportFrame.infrared_cliff_adc_value1 = 0 ;                         //跳崖ADC值1
-N	reportFrame.infrared_cliff_adc_value2 = 0 ;                         //跳崖ADC值2
-N	reportFrame.infrared_cliff_adc_value3 = 0 ;                         //跳崖ADC值3
-N	reportFrame.battery_voltage = 0;                                    //电池电压
-N	reportFrame.charging_status = 0;                                    //充电状态
-N	reportFrame.error_code = 0;         	                            //异常状态
-N	reportFrame.machine_status = 0;                                     //机器状态
-N	reportFrame.timestamp = 0;                                          //时间戳
-N	reportFrame.reserved1 = 0;  	                                    //保留位1
-N	reportFrame.reserved2 = 0;				                            //保留位2
-N	reportFrame.reserved3 = 0;         	                                //保留位3
-N	reportFrame.checksum_msb = 0;
-N	reportFrame.checksum_lsb = 0;
-N	reportFrame.end_of_falg = 0x55;                                     //0x55
+N	reportFrame.sof1 = 0xAA;                  		                        //0xAA
+N	reportFrame.sof2 = 0xAA;                  		                        //0xAA
+N	reportFrame.sof3 = 0xAA;                  		                        //0xAA
+N	reportFrame.identifier_major = MIN_ID_ENVIRONMENT;                      //主识别码
+X	reportFrame.identifier_major = 0x30;                      
+N	reportFrame.identifier_subs = 0x00;        	                            //子识别码
+N	reportFrame.size_of_payload_field = sizeof(reportFrame) - 6;   	        //数据长度（不包括头标识3，尾标识1，校验2）
+N	reportFrame.left_wheel_pulse_count = 0 ;  	                            //左轮编码器计数
+N	reportFrame.right_wheel_pluse_count = 0; 	                            //右轮编码器计数
+N	reportFrame.left_wheel_velocity = bsp_MotorGetSpeed(MotorLeft) ;  		//左轮电机速度
+N	reportFrame.right_wheel_veloctiy = bsp_MotorGetSpeed(MotorRight) ;		//右轮电机速度
+N	reportFrame.x_coordinate = 0 ;				                            //X坐标
+N	reportFrame.y_coordinate = 0 ;				                            //Y坐标
+N	reportFrame.theta_angle_deg = BEBufToUint16((uint8_t*)&angle);		    //航向角
+N	reportFrame.landoff_button = 0;                                         //离地开关
+N	reportFrame.collosion_button = bsp_CollisionScan() ; 			        //碰撞开关
+N	reportFrame.infrared_front_status = 0; 	                                //前向红外状态 
+N	reportFrame.infrared_edge_status = 0;	                                //沿边红外状态
+N	reportFrame.infrared_adc_value1 =  bsp_GetInfraRedAdcVoltage(IR0)*100;  //红外ADC值1	 
+N	reportFrame.infrared_adc_value2 =  bsp_GetInfraRedAdcVoltage(IR1)*100;  //红外ADC值2	 
+N	reportFrame.infrared_adc_value3 =  bsp_GetInfraRedAdcVoltage(IR2)*100;  //红外ADC值3	 
+N	reportFrame.infrared_adc_value4 =  bsp_GetInfraRedAdcVoltage(IR3)*100;  //红外ADC值4	 
+N	reportFrame.infrared_adc_value5 =  bsp_GetInfraRedAdcVoltage(IR4)*100;  //红外ADC值5	 
+N	reportFrame.infrared_adc_value6 =  bsp_GetInfraRedAdcVoltage(IR5)*100;  //红外ADC值6	 
+N	reportFrame.infrared_adc_value7 =  bsp_GetInfraRedAdcVoltage(IR6)*100;  //红外ADC值7	 
+N	reportFrame.infrared_adc_value8 =  bsp_GetInfraRedAdcVoltage(IR7)*100;  //红外ADC值8	 
+N	reportFrame.infrared_adc_value9 =  bsp_GetInfraRedAdcVoltage(IR8)*100;  //红外ADC值9	 
+N	reportFrame.infrared_adc_value10 = bsp_GetInfraRedAdcVoltage(IR9)*100;  //红外ADC值10
+N	reportFrame.infrared_cliff_status = 0 ;                                 //跳崖红外状态
+N	reportFrame.infrared_cliff_adc_value1 = 0 ;                             //跳崖ADC值1
+N	reportFrame.infrared_cliff_adc_value2 = 0 ;                             //跳崖ADC值2
+N	reportFrame.infrared_cliff_adc_value3 = 0 ;                             //跳崖ADC值3
+N	reportFrame.battery_voltage = 0;                                        //电池电压
+N	reportFrame.charging_status = 0;                                        //充电状态
+N	reportFrame.error_code = 0;         	                                //异常状态
+N	reportFrame.machine_status = 0;                                         //机器状态
+N	reportFrame.timestamp = xTaskGetTickCount();                            //时间戳
+N	reportFrame.reserved1 = 0;  	                                        //保留位1
+N	reportFrame.reserved2 = 0;				                                //保留位2
+N	reportFrame.reserved3 = 0;         	                                    //保留位3
+N	reportFrame.checksum_msb = 0;                                           //校验
+N	reportFrame.checksum_lsb = 0;                                           //校验
+N	reportFrame.end_of_falg = 0x55;                                         //帧结尾恒定为0x55
 N	
 N	/*计算校验*/
 N	chk = bsp_CalcChk(src+3,len-6);

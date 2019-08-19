@@ -38486,6 +38486,20 @@ N	AW_0 = 0,
 N	AW_1 = 1
 N}AW_VAL;
 N
+Ntypedef enum
+N{
+N	IR0 = 0,
+N	IR1,
+N	IR2,
+N	IR3,
+N	IR4,
+N	IR5,
+N	IR6,
+N	IR7,
+N	IR8,
+N	IR9,
+N}IR_SN;
+N
 N
 Nuint8_t bsp_InitAW9523B(void);
 Nuint8_t bsp_AWReadID(void);
@@ -38495,7 +38509,7 @@ Nfloat bsp_GetAdScanValue(void);
 Nvoid bsp_DetectDeal(void);
 Nfloat bsp_GetInfraredVoltageLeft(void);
 Nfloat bsp_GetInfraredVoltageRight(void);
-N
+Nfloat bsp_GetInfraRedAdcVoltage(IR_SN sn);
 N#endif
 N
 L 177 "..\..\User\bsp\bsp.h" 2

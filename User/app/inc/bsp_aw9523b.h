@@ -42,6 +42,20 @@ typedef enum
 	AW_1 = 1
 }AW_VAL;
 
+typedef enum
+{
+	IR0 = 0,
+	IR1,
+	IR2,
+	IR3,
+	IR4,
+	IR5,
+	IR6,
+	IR7,
+	IR8,
+	IR9,
+}IR_SN;
+
 
 uint8_t bsp_InitAW9523B(void);
 uint8_t bsp_AWReadID(void);
@@ -51,6 +65,6 @@ float bsp_GetAdScanValue(void);
 void bsp_DetectDeal(void);
 float bsp_GetInfraredVoltageLeft(void);
 float bsp_GetInfraredVoltageRight(void);
-
+float bsp_GetInfraRedAdcVoltage(IR_SN sn);
 #endif
 
