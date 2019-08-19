@@ -38768,6 +38768,7 @@ N{
 N	int16_t* leftVelocity;              /*左轮速度*/
 N	int16_t* rightVelocity;             /*右轮速度*/
 N	uint16_t len;                       /*缓冲区数据个数*/
+N	uint8_t msgID;                      /*消息ID*/
 N}RouteAnalysis;
 N
 N
@@ -38833,6 +38834,7 @@ N			}
 N		}
 N		else if(index == 4)/*消息ID*/
 N		{
+N			routeAnalysis.msgID = ch;
 N			if(ch != CMD_ID_SPEED && ch != CMD_ID_DISTANCE && ch != CMD_ID_ANGLE)
 X			if(ch != 0x25 && ch != 0x35 && ch != 0x45)
 N			{
@@ -38854,21 +38856,38 @@ N				index = 0 ;
 N			}
 N			else /*获得了正确的解析数据*/
 N			{
-N				int16_t linearVelocity  = analysisBuf[5]<<8 | analysisBuf[6];
-N				int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
+N				if(routeAnalysis.msgID == CMD_ID_SPEED)
+X				if(routeAnalysis.msgID == 0x25)
+N				{
+N					int16_t linearVelocity  = analysisBuf[5]<<8 | analysisBuf[6];
+N					int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
+N					
+N					/*计算出速度，单位MM/S */
+N					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+X					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
+N					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+X					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
+N					
+N					/*设定速度*/
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+N				}
 N				
-N				/*计算出速度，单位MM/S */
-N				int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-X				int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
-N				int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-X				int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
-N				
-N				/*设定速度*/
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+N				/*重新开始计数*/
+N				index = 0 ;
 N			}
 N		}
 N	}
+N	
+N	
+N	/*选定串口*/
+N	port = COM1;
+N	
+N	/*选定串口*/
+N	port = COM2;
+N	
+N	/*选定串口*/
+N	port = COM3;
 N}
 N
 N

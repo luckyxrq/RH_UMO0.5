@@ -1263,7 +1263,7 @@ Removing Unused input sections from the image.
     Removing bsp_communication.o(.rev16_text), (4 bytes).
     Removing bsp_communication.o(.revsh_text), (4 bytes).
     Removing bsp_communication.o(i.bsp_CalcChk), (54 bytes).
-    Removing bsp_communication.o(i.bsp_ComAnalysis), (532 bytes).
+    Removing bsp_communication.o(i.bsp_ComAnalysis), (564 bytes).
     Removing bsp_communication.o(i.bsp_FillReportFrame), (2 bytes).
     Removing bsp_communication.o(i.bsp_SendReportFrame), (48 bytes).
     Removing bsp_communication.o(.bss), (863 bytes).
@@ -1629,7 +1629,7 @@ Removing Unused input sections from the image.
     Removing dfixul.o(.text), (48 bytes).
     Removing cdrcmple.o(.text), (48 bytes).
 
-414 unused section(s) (total 22845 bytes) removed from the image.
+414 unused section(s) (total 22877 bytes) removed from the image.
 
 ==============================================================================
 

@@ -23,6 +23,7 @@ typedef struct
 	int16_t* leftVelocity;              /*左轮速度*/
 	int16_t* rightVelocity;             /*右轮速度*/
 	uint16_t len;                       /*缓冲区数据个数*/
+	uint8_t msgID;                      /*消息ID*/
 }RouteAnalysis;
 
 
@@ -86,6 +87,7 @@ void bsp_ComAnalysis(void)
 		}
 		else if(index == 4)/*消息ID*/
 		{
+			routeAnalysis.msgID = ch;
 			if(ch != CMD_ID_SPEED && ch != CMD_ID_DISTANCE && ch != CMD_ID_ANGLE)
 			{
 				index = 0 ;
@@ -106,19 +108,35 @@ void bsp_ComAnalysis(void)
 			}
 			else /*获得了正确的解析数据*/
 			{
-				int16_t linearVelocity  = analysisBuf[5]<<8 | analysisBuf[6];
-				int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
+				if(routeAnalysis.msgID == CMD_ID_SPEED)
+				{
+					int16_t linearVelocity  = analysisBuf[5]<<8 | analysisBuf[6];
+					int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
+					
+					/*计算出速度，单位MM/S */
+					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+					
+					/*设定速度*/
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+				}
 				
-				/*计算出速度，单位MM/S */
-				int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-				int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-				
-				/*设定速度*/
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+				/*重新开始计数*/
+				index = 0 ;
 			}
 		}
 	}
+	
+	
+	/*选定串口*/
+	port = COM1;
+	
+	/*选定串口*/
+	port = COM2;
+	
+	/*选定串口*/
+	port = COM3;
 }
 
 
