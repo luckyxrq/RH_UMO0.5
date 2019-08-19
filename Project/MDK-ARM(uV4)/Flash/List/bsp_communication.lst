@@ -38598,31 +38598,49 @@ L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
 N#define __BSP_COMMUNICATION_H
 N
+N/*按照1字节对齐，便于存储到uint8_t类型buf*/
 N#pragma pack(1)
 Ntypedef struct
 N{
-N	uint8_t sof1;                  //0xAA
-N	uint8_t sof2;                  //0xAA
-N	uint8_t sof3;                  //0xAA
-N	uint8_t identifier;	           //0x25
-N	uint8_t size_of_payload_field; //0x04
-N	int32_t left_wheel_pulse_count;
-N	int32_t right_wheel_pulse_count;
-N	uint8_t button_control_cmd;
-N	uint16_t distance_of_left_infrared;
-N	uint16_t distance_of_right_infrared;
-N	uint16_t distance_of_front_infrared;
-N	int16_t  angle_deg;
-N	uint16_t adc_1;
-N	uint16_t adc_2;
-N	uint16_t adc_3;
-N	uint16_t adc_4;
-N	int16_t acc_x;
-N	int16_t acc_y;
-N	int16_t acc_z;
-N	uint16_t obstacle_signal;
-N	uint8_t battery_level_soc;
-N	uint8_t charge_status;
+N	uint8_t sof1;                  		//0xAA
+N	uint8_t sof2;                  		//0xAA
+N	uint8_t sof3;                  		//0xAA
+N	uint8_t  identifier_major;       	//0     主识别码            u8
+N	uint8_t  identifier_subs;        	//1		子识别码	        u8
+N	uint8_t  size_of_payload_field;   	//2		数据长度	        u8
+N	int32_t  left_wheel_pulse_count;  	//3		左轮编码器计数	    u32
+N	int32_t  right_wheel_pluse_count; 	//4		右轮编码器计数	    u32
+N	int16_t  left_wheel_velocity;  		//5		左轮电机速度        int16
+N	int16_t  right_wheel_veloctiy;		//6		右轮电机速度		int16
+N	int32_t  x_coordinate;				//7		X坐标				int32
+N	int32_t  y_coordinate;				//8		Y坐标				int32
+N	int16_t  theta_angle_deg;			//9		航向角	        	int16
+N	uint8_t  landoff_button;            //10	离地开关	 		u8
+N	uint8_t  collosion_button; 			//11 	碰撞开关	 		u8
+N	uint16_t infrared_front_status; 	//12	前向红外状态 		u16
+N	uint8_t  infrared_edge_status;	    //13	沿边红外状态 		u8
+N	uint16_t infrared_adc_value1;       //14	红外ADC值1	 		u16
+N	uint16_t infrared_adc_value2;       //15	红外ADC值2	 		u16
+N	uint16_t infrared_adc_value3;       //16	红外ADC值3	 		u16
+N	uint16_t infrared_adc_value4;       //17	红外ADC值4	 		u16
+N	uint16_t infrared_adc_value5;       //18	红外ADC值5	 		u16
+N	uint16_t infrared_adc_value6;       //19	红外ADC值6	 		u16
+N	uint16_t infrared_adc_value7;       //20	红外ADC值7	 		u16
+N	uint16_t infrared_adc_value8;       //21	红外ADC值8	 		u16
+N	uint16_t infrared_adc_value9;       //22	红外ADC值9	 		u16
+N	uint16_t infrared_adc_value10;      //23	红外ADC值10	 		u16
+N	uint8_t  infrared_cliff_status;     //24    跳崖红外状态 		u8 
+N	uint16_t infrared_cliff_adc_value1; //25	跳崖ADC值1	 		u16
+N	uint16_t infrared_cliff_adc_value2; //26	跳崖ADC值2	 		u16
+N	uint16_t infrared_cliff_adc_value3; //27	跳崖ADC值3	 		u16
+N	uint8_t  battery_voltage;           //28	电池电压	 		u8
+N	uint8_t  charging_status;           //29	充电状态     		u8
+N	uint8_t  error_code;         	    //30	异常状态 	 		u8
+N	uint8_t  machine_status;            //31	机器状态	 		u8
+N	uint32_t timestamp;                 //32	时间戳	     		u32
+N	uint32_t reserved1;  	            //33	保留位1	     		u32
+N	uint32_t reserved2;				    //34	保留位2	     		u32
+N	uint32_t reserved3;         	    //35	保留位3	     		u32
 N	uint8_t checksum_msb;
 N	uint8_t checksum_lsb;
 N	uint8_t end_of_falg;           //0x55
@@ -38699,6 +38717,7 @@ Nvoid bsp_PidSched(void);
 Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 Nint32_t bsp_MotorGetSpeed(MotorSN sn);
 Nint32_t bsp_MotorGetTargetSpeed(MotorSN sn);
+Nint32_t bsp_MotorSpeedMM2Pulse(int32_t mm);
 N
 N#endif
 N
@@ -38732,13 +38751,127 @@ N#define  MIN_ID_POSE  			0x20	// 姿势
 N#define  MIN_ID_MAP 			0x40	// 地图
 N
 N
-Nuint8_t  buf[256] = {0};       /*用于存储帧，使用全局变量，防止频繁开辟栈空间*/
+N#define  CMD_ID_SPEED 	        0x25
+N#define  CMD_ID_DISTANCE  		0x35
+N#define  CMD_ID_ANGLE  			0x45
+N
+N#define WHEEL_LENGTH  			0.23F
+N#define M_PI 					3.14F
+N#define MAX_ANALYSIS_LEN	    512
 N
 N
+N#define Deg2Rad(deg) (M_PI * deg / 180.0F)
+N#define Rad2Deg(rad) (180.0F * rad / M_PI)
+N
+Ntypedef struct
+N{
+N	int16_t* leftVelocity;              /*左轮速度*/
+N	int16_t* rightVelocity;             /*右轮速度*/
+N	uint16_t len;                       /*缓冲区数据个数*/
+N}RouteAnalysis;
+N
+N
+N
+N
+N
+Nuint8_t  buf[256] = {0};                              /*用于存储帧，使用全局变量，防止频繁开辟栈空间*/
+Nstatic uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0}; /*用于解析帧数据*/
+Xstatic uint8_t analysisBuf[512] = {0};  
+Nstatic RouteAnalysis routeAnalysis;
 N
 Nstatic ReportFrame reportFrame;
 Nstatic uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len);
 Nstatic void bsp_FillReportFrame(void);
+N
+N
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_ComAnalysis
+N*	功能说明: 串口数据解析
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_ComAnalysis(void)
+N{
+N	COM_PORT_E port ; 
+N	uint8_t ch = 0 ;
+N	uint16_t index = 0 ;
+N	
+N	/*选定串口*/
+N	port = COM4;
+N	
+N	while(comGetChar(port, &ch))
+N	{
+N		/*依次获取串口缓冲区每个字节*/
+N		analysisBuf[index % MAX_ANALYSIS_LEN] = ch ;
+X		analysisBuf[index % 512] = ch ;
+N		index++;
+N		
+N		if(index == 1)    /*前面3个是帧头*/
+N		{
+N			if(ch != 0xAA)
+N			{
+N				index = 0 ;
+N			}
+N		}
+N		else if(index == 2)/*前面3个是帧头*/
+N		{
+N			if(ch != 0xAA)
+N			{
+N				index = 0 ;
+N			}
+N		}
+N		else if(index == 3)/*前面3个是帧头*/
+N		{
+N			if(ch != 0xAA)
+N			{
+N				index = 0 ;
+N			}
+N		}
+N		else if(index == 4)/*消息ID*/
+N		{
+N			if(ch != CMD_ID_SPEED && ch != CMD_ID_DISTANCE && ch != CMD_ID_ANGLE)
+X			if(ch != 0x25 && ch != 0x35 && ch != 0x45)
+N			{
+N				index = 0 ;
+N			}
+N		}
+N		else if(index == 5)/*帧长度*/
+N		{
+N			routeAnalysis.len = ch;
+N		}
+N		else if(index >= (routeAnalysis.len+ 8))/*数据接收完毕（帧头帧尾4，检验2，ID 1，长度1）*/
+N		{
+N			uint16_t calcChk = bsp_CalcChk(analysisBuf+3,index-6); /*计算校验数据，用于校验的数据不包括前面的3个帧头和后面的1个帧尾，2个校验字节*/
+N			uint16_t rxChk   = analysisBuf[index-1-2] << 8 | analysisBuf[index-1-1];
+N			
+N			if(analysisBuf[index-1] != 0x55 || calcChk != rxChk)
+N			{
+N				index = 0 ;
+N			}
+N			else /*获得了正确的解析数据*/
+N			{
+N				int16_t linearVelocity  = analysisBuf[5]<<8 | analysisBuf[6];
+N				int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
+N				
+N				/*计算出速度，单位MM/S */
+N				int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+X				int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
+N				int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+X				int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
+N				
+N				/*设定速度*/
+N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
+N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+N			}
+N		}
+N	}
+N}
+N
+N
 N
 N
 N
@@ -38781,49 +38914,47 @@ N*******************************************************************************
 N*/
 Nvoid bsp_FillReportFrame(void)
 N{
-N	uint16_t chk = 0 ;
-N	uint32_t len = sizeof(reportFrame);/*帧大小*/
-N	uint8_t* src = (uint8_t*)&reportFrame;
-N	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
-N	int32_t odometerL = 0;//bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
-N	int32_t odometerR = 0;//bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
-N	
-N	/*消除编译器警告*/
-N	UNUSED(reportFrame);
-X	(void)(reportFrame);
-N	
-N	/*大小端转换*/
-N	reportFrame.sof1 = 0xAA;                     //恒定为0xAA
-N	reportFrame.sof2 = 0xAA;                     //恒定为0xAA
-N	reportFrame.sof3 = 0xAA;                     //恒定为0xAA
-N	reportFrame.identifier = MIN_ID_ENVIRONMENT; //恒定为0x25
-X	reportFrame.identifier = 0x30; 
-N	reportFrame.size_of_payload_field = 0x1B+8; 
-N	reportFrame.left_wheel_pulse_count =  BEBufToUint32((uint8_t*)&odometerL);
-N	reportFrame.right_wheel_pulse_count = BEBufToUint32((uint8_t*)&odometerR);
-N	reportFrame.button_control_cmd = 0 ;
-N	reportFrame.distance_of_left_infrared = 0 ;
-N	reportFrame.distance_of_right_infrared = 0 ;
-N	reportFrame.distance_of_front_infrared = 0 ;
-N	reportFrame.angle_deg = BEBufToUint16((uint8_t*)&angle);
-N	reportFrame.adc_1 = 0 ;
-N	reportFrame.adc_2 = 0 ;
-N	reportFrame.adc_3 = 0 ;
-N	reportFrame.adc_4 = 0 ;
-N	reportFrame.acc_x = 0 ;
-N	reportFrame.acc_y = 0 ;
-N	reportFrame.acc_z = 0 ;
-N	reportFrame.obstacle_signal = 0 ;
-N	reportFrame.battery_level_soc = 0 ;
-N	reportFrame.charge_status = 0 ;
-N	reportFrame.checksum_msb = 0 ;
-N	reportFrame.checksum_lsb = 0 ;
-N	reportFrame.end_of_falg = 0x55 ;                  /*恒定0x55*/
-N	
-N	/*计算校验*/
-N	chk = bsp_CalcChk(src+3,len-6);
-N	reportFrame.checksum_msb = chk >> 8;
-N	reportFrame.checksum_lsb = chk & 0x00FF;
+N//	uint16_t chk = 0 ;
+N//	uint32_t len = sizeof(reportFrame);/*帧大小*/
+N//	uint8_t* src = (uint8_t*)&reportFrame;
+N//	int16_t angle = bsp_AngleReadRaw();                     /*角度*/
+N//	int32_t odometerL = 0;//bsp_encoderGetOdometer(MotorLeft);  /*里程计 左*/
+N//	int32_t odometerR = 0;//bsp_encoderGetOdometer(MotorRight); /*里程计 右*/
+N//	
+N//	/*消除编译器警告*/
+N//	UNUSED(reportFrame);
+N//	
+N//	/*大小端转换*/
+N//	reportFrame.sof1 = 0xAA;                     //恒定为0xAA
+N//	reportFrame.sof2 = 0xAA;                     //恒定为0xAA
+N//	reportFrame.sof3 = 0xAA;                     //恒定为0xAA
+N//	reportFrame.identifier = MIN_ID_ENVIRONMENT; //恒定为0x25
+N//	reportFrame.size_of_payload_field = 0x1B+8; 
+N//	reportFrame.left_wheel_pulse_count =  BEBufToUint32((uint8_t*)&odometerL);
+N//	reportFrame.right_wheel_pulse_count = BEBufToUint32((uint8_t*)&odometerR);
+N//	reportFrame.button_control_cmd = 0 ;
+N//	reportFrame.distance_of_left_infrared = 0 ;
+N//	reportFrame.distance_of_right_infrared = 0 ;
+N//	reportFrame.distance_of_front_infrared = 0 ;
+N//	reportFrame.angle_deg = BEBufToUint16((uint8_t*)&angle);
+N//	reportFrame.adc_1 = 0 ;
+N//	reportFrame.adc_2 = 0 ;
+N//	reportFrame.adc_3 = 0 ;
+N//	reportFrame.adc_4 = 0 ;
+N//	reportFrame.acc_x = 0 ;
+N//	reportFrame.acc_y = 0 ;
+N//	reportFrame.acc_z = 0 ;
+N//	reportFrame.obstacle_signal = 0 ;
+N//	reportFrame.battery_level_soc = 0 ;
+N//	reportFrame.charge_status = 0 ;
+N//	reportFrame.checksum_msb = 0 ;
+N//	reportFrame.checksum_lsb = 0 ;
+N//	reportFrame.end_of_falg = 0x55 ;                  /*恒定0x55*/
+N//	
+N//	/*计算校验*/
+N//	chk = bsp_CalcChk(src+3,len-6);
+N//	reportFrame.checksum_msb = chk >> 8;
+N//	reportFrame.checksum_lsb = chk & 0x00FF;
 N}
 N
 N
@@ -38851,5 +38982,7 @@ N	rx_sum2 = (rx_sum2&0x00FFu) + (rx_sum2>>8);
 N	
 N	return rx_sum2<<8|rx_sum1;
 N}
+N
+N
 N
 N

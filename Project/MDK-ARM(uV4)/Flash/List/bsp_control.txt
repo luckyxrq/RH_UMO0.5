@@ -80,43 +80,43 @@
                           AREA ||i.bsp_MotorBrake||, CODE, READONLY, ALIGN=2
 
                   bsp_MotorBrake PROC
-;;;185    */
-;;;186    static void bsp_MotorBrake(MotorSN sn)
+;;;213    */
+;;;214    static void bsp_MotorBrake(MotorSN sn)
 000000  b510              PUSH     {r4,lr}
-;;;187    {
+;;;215    {
 000002  4604              MOV      r4,r0
-;;;188    	if(sn == MotorLeft)
+;;;216    	if(sn == MotorLeft)
 000004  b954              CBNZ     r4,|L2.28|
-;;;189    	{
-;;;190    		TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+;;;217    	{
+;;;218    		TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
 000006  f44f6161          MOV      r1,#0xe10
 00000a  480b              LDR      r0,|L2.56|
 00000c  f7fffffe          BL       TIM_SetCompare3
-;;;191    		TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+;;;219    		TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
 000010  f44f6161          MOV      r1,#0xe10
 000014  4808              LDR      r0,|L2.56|
 000016  f7fffffe          BL       TIM_SetCompare4
 00001a  e00b              B        |L2.52|
                   |L2.28|
-;;;192    	}
-;;;193    	else if(sn == MotorRight)
+;;;220    	}
+;;;221    	else if(sn == MotorRight)
 00001c  2c01              CMP      r4,#1
 00001e  d109              BNE      |L2.52|
-;;;194    	{
-;;;195    		TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+;;;222    	{
+;;;223    		TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
 000020  f44f6161          MOV      r1,#0xe10
 000024  4804              LDR      r0,|L2.56|
 000026  f7fffffe          BL       TIM_SetCompare1
-;;;196    		TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+;;;224    		TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
 00002a  f44f6161          MOV      r1,#0xe10
 00002e  4802              LDR      r0,|L2.56|
 000030  f7fffffe          BL       TIM_SetCompare2
                   |L2.52|
-;;;197    	}
-;;;198    
-;;;199    }
+;;;225    	}
+;;;226    
+;;;227    }
 000034  bd10              POP      {r4,pc}
-;;;200    
+;;;228    
                           ENDP
 
 000036  0000              DCW      0x0000
@@ -198,149 +198,206 @@
                   |L4.16|
                           DCD      pid
 
+                          AREA ||i.bsp_MotorSpeedMM2Pulse||, CODE, READONLY, ALIGN=2
+
+                  bsp_MotorSpeedMM2Pulse PROC
+;;;153    */
+;;;154    int32_t bsp_MotorSpeedMM2Pulse(int32_t mm)
+000000  e92d41f0          PUSH     {r4-r8,lr}
+;;;155    {
+000004  4604              MOV      r4,r0
+;;;156    	int32_t ret = 0 ;
+000006  2700              MOVS     r7,#0
+;;;157    	float pulse = 0 ;
+000008  2500              MOVS     r5,#0
+;;;158    	
+;;;159    	pulse = mm / 250.0F * 12.0F ;
+00000a  4620              MOV      r0,r4
+00000c  f7fffffe          BL       __aeabi_i2f
+000010  4680              MOV      r8,r0
+000012  490c              LDR      r1,|L5.68|
+000014  f7fffffe          BL       __aeabi_fdiv
+000018  4606              MOV      r6,r0
+00001a  490b              LDR      r1,|L5.72|
+00001c  f7fffffe          BL       __aeabi_fmul
+000020  4605              MOV      r5,r0
+;;;160    	
+;;;161    	if(pulse <= 1.0F)
+000022  f04f517e          MOV      r1,#0x3f800000
+000026  4628              MOV      r0,r5
+000028  f7fffffe          BL       __aeabi_cfcmple
+00002c  d801              BHI      |L5.50|
+;;;162    	{
+;;;163    		ret = 1 ;
+00002e  2701              MOVS     r7,#1
+000030  e003              B        |L5.58|
+                  |L5.50|
+;;;164    	}
+;;;165    	else
+;;;166    	{
+;;;167    		ret = pulse;
+000032  4628              MOV      r0,r5
+000034  f7fffffe          BL       __aeabi_f2iz
+000038  4607              MOV      r7,r0
+                  |L5.58|
+;;;168    	}
+;;;169    	
+;;;170    	return pulse;
+00003a  4628              MOV      r0,r5
+00003c  f7fffffe          BL       __aeabi_f2iz
+;;;171    }
+000040  e8bd81f0          POP      {r4-r8,pc}
+;;;172    
+                          ENDP
+
+                  |L5.68|
+                          DCD      0x437a0000
+                  |L5.72|
+                          DCD      0x41400000
+
                           AREA ||i.bsp_PidClear||, CODE, READONLY, ALIGN=2
 
                   bsp_PidClear PROC
-;;;153    */
-;;;154    static void bsp_PidClear(MotorSN sn)
-000000  b930              CBNZ     r0,|L5.16|
-;;;155    {
-;;;156    	if(sn == MotorLeft)
-;;;157    	{
-;;;158    		/*清除之前的误差*/
-;;;159    		pid[0].bias = 0 ;
+;;;181    */
+;;;182    static void bsp_PidClear(MotorSN sn)
+000000  b930              CBNZ     r0,|L6.16|
+;;;183    {
+;;;184    	if(sn == MotorLeft)
+;;;185    	{
+;;;186    		/*清除之前的误差*/
+;;;187    		pid[0].bias = 0 ;
 000002  2100              MOVS     r1,#0
-000004  4a07              LDR      r2,|L5.36|
+000004  4a07              LDR      r2,|L6.36|
 000006  6091              STR      r1,[r2,#8]  ; pid
-;;;160    		pid[0].lastBias = 0 ;
+;;;188    		pid[0].lastBias = 0 ;
 000008  60d1              STR      r1,[r2,#0xc]  ; pid
-;;;161    		pid[0].pwm = 0 ;
+;;;189    		pid[0].pwm = 0 ;
 00000a  6111              STR      r1,[r2,#0x10]  ; pid
-;;;162    
-;;;163    		/*上一次目的速度*/
-;;;164    		pid[0].lastTarget = 0 ;
+;;;190    
+;;;191    		/*上一次目的速度*/
+;;;192    		pid[0].lastTarget = 0 ;
 00000c  6191              STR      r1,[r2,#0x18]  ; pid
-00000e  e007              B        |L5.32|
-                  |L5.16|
-;;;165    	}
-;;;166    	else if(sn == MotorRight)
+00000e  e007              B        |L6.32|
+                  |L6.16|
+;;;193    	}
+;;;194    	else if(sn == MotorRight)
 000010  2801              CMP      r0,#1
-000012  d105              BNE      |L5.32|
-;;;167    	{
-;;;168    		/*清除之前的误差*/
-;;;169    		pid[1].bias = 0 ;
+000012  d105              BNE      |L6.32|
+;;;195    	{
+;;;196    		/*清除之前的误差*/
+;;;197    		pid[1].bias = 0 ;
 000014  2200              MOVS     r2,#0
-000016  4903              LDR      r1,|L5.36|
+000016  4903              LDR      r1,|L6.36|
 000018  624a              STR      r2,[r1,#0x24]
-;;;170    		pid[1].lastBias = 0 ;
+;;;198    		pid[1].lastBias = 0 ;
 00001a  628a              STR      r2,[r1,#0x28]
-;;;171    		pid[1].pwm = 0 ;
+;;;199    		pid[1].pwm = 0 ;
 00001c  62ca              STR      r2,[r1,#0x2c]
-;;;172    
-;;;173    		/*上一次目的速度*/
-;;;174    		pid[1].lastTarget = 0 ;
+;;;200    
+;;;201    		/*上一次目的速度*/
+;;;202    		pid[1].lastTarget = 0 ;
 00001e  634a              STR      r2,[r1,#0x34]
-                  |L5.32|
-;;;175    	}
-;;;176    }
+                  |L6.32|
+;;;203    	}
+;;;204    }
 000020  4770              BX       lr
-;;;177    
+;;;205    
                           ENDP
 
 000022  0000              DCW      0x0000
-                  |L5.36|
+                  |L6.36|
                           DCD      pid
 
                           AREA ||i.bsp_PidExec||, CODE, READONLY, ALIGN=2
 
                   bsp_PidExec PROC
-;;;208    */
-;;;209    static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
+;;;236    */
+;;;237    static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 000000  e92d47f0          PUSH     {r4-r10,lr}
-;;;210    {
+;;;238    {
 000004  4604              MOV      r4,r0
 000006  460e              MOV      r6,r1
 000008  4615              MOV      r5,r2
-;;;211    	/*如果目标速度为0*/
-;;;212    	if(Target == 0)
-00000a  b92d              CBNZ     r5,|L6.24|
-;;;213    	{
-;;;214    		bsp_MotorBrake(sn);
+;;;239    	/*如果目标速度为0*/
+;;;240    	if(Target == 0)
+00000a  b92d              CBNZ     r5,|L7.24|
+;;;241    	{
+;;;242    		bsp_MotorBrake(sn);
 00000c  4620              MOV      r0,r4
 00000e  f7fffffe          BL       bsp_MotorBrake
-;;;215    		bsp_PidClear(sn);
+;;;243    		bsp_PidClear(sn);
 000012  4620              MOV      r0,r4
 000014  f7fffffe          BL       bsp_PidClear
-                  |L6.24|
-;;;216    	}
-;;;217    	
-;;;218    	
-;;;219    	/*如果目标速度小于0，那么编码器的反馈速度也应该为负，单个霍尔只能计数，没有正负*/
-;;;220    	if(Target < 0 ) 
+                  |L7.24|
+;;;244    	}
+;;;245    	
+;;;246    	
+;;;247    	/*如果目标速度小于0，那么编码器的反馈速度也应该为负，单个霍尔只能计数，没有正负*/
+;;;248    	if(Target < 0 ) 
 000018  2d00              CMP      r5,#0
-00001a  da00              BGE      |L6.30|
-;;;221    	{
-;;;222    		Encoder = -Encoder;
+00001a  da00              BGE      |L7.30|
+;;;249    	{
+;;;250    		Encoder = -Encoder;
 00001c  4276              RSBS     r6,r6,#0
-                  |L6.30|
-;;;223    	}
-;;;224    	
-;;;225    	/*计算速度，250MM/S时，10MS有12个脉冲*/
-;;;226    	speed[sn][sampleIndex[sn]++] = Encoder / 12.0F * 250;
+                  |L7.30|
+;;;251    	}
+;;;252    	
+;;;253    	/*计算速度，250MM/S时，10MS有12个脉冲*/
+;;;254    	speed[sn][sampleIndex[sn]++] = Encoder / 12.0F * 250;
 00001e  4630              MOV      r0,r6
 000020  f7fffffe          BL       __aeabi_i2f
 000024  4681              MOV      r9,r0
-000026  4977              LDR      r1,|L6.516|
+000026  4977              LDR      r1,|L7.516|
 000028  f7fffffe          BL       __aeabi_fdiv
 00002c  4680              MOV      r8,r0
-00002e  4976              LDR      r1,|L6.520|
+00002e  4976              LDR      r1,|L7.520|
 000030  f7fffffe          BL       __aeabi_fmul
 000034  4607              MOV      r7,r0
 000036  f7fffffe          BL       __aeabi_f2iz
-00003a  4974              LDR      r1,|L6.524|
+00003a  4974              LDR      r1,|L7.524|
 00003c  5d0a              LDRB     r2,[r1,r4]
 00003e  5d09              LDRB     r1,[r1,r4]
 000040  1c49              ADDS     r1,r1,#1
-000042  4b72              LDR      r3,|L6.524|
+000042  4b72              LDR      r3,|L7.524|
 000044  5519              STRB     r1,[r3,r4]
 000046  eb040184          ADD      r1,r4,r4,LSL #2
-00004a  4b71              LDR      r3,|L6.528|
+00004a  4b71              LDR      r3,|L7.528|
 00004c  eb0301c1          ADD      r1,r3,r1,LSL #3
 000050  f8410022          STR      r0,[r1,r2,LSL #2]
-;;;227    	if(sampleIndex[sn] >= SPEED_SAMP_COUNT)
-000054  486d              LDR      r0,|L6.524|
+;;;255    	if(sampleIndex[sn] >= SPEED_SAMP_COUNT)
+000054  486d              LDR      r0,|L7.524|
 000056  5d00              LDRB     r0,[r0,r4]
 000058  280a              CMP      r0,#0xa
-00005a  db02              BLT      |L6.98|
-;;;228    	{
-;;;229    		sampleIndex[sn] = 0 ;
+00005a  db02              BLT      |L7.98|
+;;;256    	{
+;;;257    		sampleIndex[sn] = 0 ;
 00005c  2000              MOVS     r0,#0
-00005e  496b              LDR      r1,|L6.524|
+00005e  496b              LDR      r1,|L7.524|
 000060  5508              STRB     r0,[r1,r4]
-                  |L6.98|
-;;;230    	}
-;;;231    		
-;;;232    	/*计算PWM值，增量式PID*/
-;;;233    	if(sn == MotorLeft)
+                  |L7.98|
+;;;258    	}
+;;;259    		
+;;;260    	/*计算PWM值，增量式PID*/
+;;;261    	if(sn == MotorLeft)
 000062  2c00              CMP      r4,#0
-000064  d165              BNE      |L6.306|
-;;;234    	{
-;;;235    		if(pid[0].lastTarget == 0) /*从0速启动*/
-000066  486b              LDR      r0,|L6.532|
+000064  d165              BNE      |L7.306|
+;;;262    	{
+;;;263    		if(pid[0].lastTarget == 0) /*从0速启动*/
+000066  486b              LDR      r0,|L7.532|
 000068  6980              LDR      r0,[r0,#0x18]  ; pid
-00006a  b910              CBNZ     r0,|L6.114|
-;;;236    		{
-;;;237    			pid[0].lastTarget = Target;
-00006c  4869              LDR      r0,|L6.532|
+00006a  b910              CBNZ     r0,|L7.114|
+;;;264    		{
+;;;265    			pid[0].lastTarget = Target;
+00006c  4869              LDR      r0,|L7.532|
 00006e  6185              STR      r5,[r0,#0x18]  ; pid
-000070  e018              B        |L6.164|
-                  |L6.114|
-;;;238    		}
-;;;239    		else if(pid[0].lastTarget / (float)Target < 0) /*2次目标速度方向相反*/
+000070  e018              B        |L7.164|
+                  |L7.114|
+;;;266    		}
+;;;267    		else if(pid[0].lastTarget / (float)Target < 0) /*2次目标速度方向相反*/
 000072  4628              MOV      r0,r5
 000074  f7fffffe          BL       __aeabi_i2f
 000078  4680              MOV      r8,r0
-00007a  4966              LDR      r1,|L6.532|
+00007a  4966              LDR      r1,|L7.532|
 00007c  6988              LDR      r0,[r1,#0x18]  ; pid
 00007e  f7fffffe          BL       __aeabi_i2f
 000082  4681              MOV      r9,r0
@@ -349,215 +406,215 @@
 00008a  4607              MOV      r7,r0
 00008c  2100              MOVS     r1,#0
 00008e  f7fffffe          BL       __aeabi_cfcmple
-000092  d207              BCS      |L6.164|
-;;;240    		{
-;;;241    			bsp_MotorBrake(sn);
+000092  d207              BCS      |L7.164|
+;;;268    		{
+;;;269    			bsp_MotorBrake(sn);
 000094  4620              MOV      r0,r4
 000096  f7fffffe          BL       bsp_MotorBrake
-;;;242    			bsp_PidClear(sn);
+;;;270    			bsp_PidClear(sn);
 00009a  4620              MOV      r0,r4
 00009c  f7fffffe          BL       bsp_PidClear
-                  |L6.160|
-;;;243    			return ;
-;;;244    		}
-;;;245    		
-;;;246    		pid[0].bias = Encoder-Target;                                  
-;;;247    		pid[0].pwm += pid[0].kp*(pid[0].bias-pid[0].lastBias)+pid[0].ki*pid[0].bias;
-;;;248    		pid[0].lastBias=pid[0].bias;
-;;;249    		/*限幅*/
-;;;250    		pid[0].pwm = bsp_PwmLimit(pid[0].pwm);	
-;;;251    		/*设置PWM*/
-;;;252    		bsp_MotorSetPWM(MotorLeft,pid[0].pwm >0 ? Backward : Forward ,myabs(pid[0].pwm));
-;;;253    	}
-;;;254    	else if(sn == MotorRight)
-;;;255    	{
-;;;256    		if(pid[1].lastTarget == 0) /*从0速启动*/
-;;;257    		{
-;;;258    			pid[1].lastTarget = Target;
-;;;259    		}
-;;;260    		else if(pid[1].lastTarget / (float)Target < 0) /*2次目标速度方向相反*/
-;;;261    		{
-;;;262    			bsp_MotorBrake(sn);
-;;;263    			bsp_PidClear(sn);
-;;;264    			return ;
-;;;265    		}
-;;;266    		
-;;;267    		pid[1].bias = Encoder-Target;                                
-;;;268    		pid[1].pwm += pid[1].kp*(pid[1].bias-pid[1].lastBias)+pid[1].ki*pid[1].bias;
-;;;269    		pid[1].lastBias=pid[1].bias;
-;;;270    		/*限幅*/
-;;;271    		pid[1].pwm = bsp_PwmLimit(pid[1].pwm);
-;;;272    		/*设置PWM*/
-;;;273    		bsp_MotorSetPWM(MotorRight,pid[1].pwm >0 ? Backward : Forward ,myabs(pid[1].pwm));
-;;;274    	}
-;;;275    	
-;;;276    }
+                  |L7.160|
+;;;271    			return ;
+;;;272    		}
+;;;273    		
+;;;274    		pid[0].bias = Encoder-Target;                                  
+;;;275    		pid[0].pwm += pid[0].kp*(pid[0].bias-pid[0].lastBias)+pid[0].ki*pid[0].bias;
+;;;276    		pid[0].lastBias=pid[0].bias;
+;;;277    		/*限幅*/
+;;;278    		pid[0].pwm = bsp_PwmLimit(pid[0].pwm);	
+;;;279    		/*设置PWM*/
+;;;280    		bsp_MotorSetPWM(MotorLeft,pid[0].pwm >0 ? Backward : Forward ,myabs(pid[0].pwm));
+;;;281    	}
+;;;282    	else if(sn == MotorRight)
+;;;283    	{
+;;;284    		if(pid[1].lastTarget == 0) /*从0速启动*/
+;;;285    		{
+;;;286    			pid[1].lastTarget = Target;
+;;;287    		}
+;;;288    		else if(pid[1].lastTarget / (float)Target < 0) /*2次目标速度方向相反*/
+;;;289    		{
+;;;290    			bsp_MotorBrake(sn);
+;;;291    			bsp_PidClear(sn);
+;;;292    			return ;
+;;;293    		}
+;;;294    		
+;;;295    		pid[1].bias = Encoder-Target;                                
+;;;296    		pid[1].pwm += pid[1].kp*(pid[1].bias-pid[1].lastBias)+pid[1].ki*pid[1].bias;
+;;;297    		pid[1].lastBias=pid[1].bias;
+;;;298    		/*限幅*/
+;;;299    		pid[1].pwm = bsp_PwmLimit(pid[1].pwm);
+;;;300    		/*设置PWM*/
+;;;301    		bsp_MotorSetPWM(MotorRight,pid[1].pwm >0 ? Backward : Forward ,myabs(pid[1].pwm));
+;;;302    	}
+;;;303    	
+;;;304    }
 0000a0  e8bd87f0          POP      {r4-r10,pc}
-                  |L6.164|
-0000a4  1b70              SUBS     r0,r6,r5              ;246
+                  |L7.164|
+0000a4  1b70              SUBS     r0,r6,r5              ;274
 0000a6  f7fffffe          BL       __aeabi_i2f
-0000aa  495a              LDR      r1,|L6.532|
-0000ac  6088              STR      r0,[r1,#8]            ;246  ; pid
-0000ae  460a              MOV      r2,r1                 ;247
-0000b0  6891              LDR      r1,[r2,#8]            ;247  ; pid
-0000b2  6850              LDR      r0,[r2,#4]            ;247  ; pid
+0000aa  495a              LDR      r1,|L7.532|
+0000ac  6088              STR      r0,[r1,#8]            ;274  ; pid
+0000ae  460a              MOV      r2,r1                 ;275
+0000b0  6891              LDR      r1,[r2,#8]            ;275  ; pid
+0000b2  6850              LDR      r0,[r2,#4]            ;275  ; pid
 0000b4  f7fffffe          BL       __aeabi_fmul
-0000b8  4681              MOV      r9,r0                 ;247
-0000ba  4a56              LDR      r2,|L6.532|
-0000bc  68d1              LDR      r1,[r2,#0xc]          ;247  ; pid
-0000be  6890              LDR      r0,[r2,#8]            ;247  ; pid
+0000b8  4681              MOV      r9,r0                 ;275
+0000ba  4a56              LDR      r2,|L7.532|
+0000bc  68d1              LDR      r1,[r2,#0xc]          ;275  ; pid
+0000be  6890              LDR      r0,[r2,#8]            ;275  ; pid
 0000c0  f7fffffe          BL       __aeabi_fsub
-0000c4  4682              MOV      r10,r0                ;247
-0000c6  4853              LDR      r0,|L6.532|
-0000c8  6801              LDR      r1,[r0,#0]            ;247  ; pid
-0000ca  4650              MOV      r0,r10                ;247
+0000c4  4682              MOV      r10,r0                ;275
+0000c6  4853              LDR      r0,|L7.532|
+0000c8  6801              LDR      r1,[r0,#0]            ;275  ; pid
+0000ca  4650              MOV      r0,r10                ;275
 0000cc  f7fffffe          BL       __aeabi_fmul
-0000d0  4680              MOV      r8,r0                 ;247
-0000d2  4649              MOV      r1,r9                 ;247
+0000d0  4680              MOV      r8,r0                 ;275
+0000d2  4649              MOV      r1,r9                 ;275
 0000d4  f7fffffe          BL       __aeabi_fadd
-0000d8  4607              MOV      r7,r0                 ;247
-0000da  484e              LDR      r0,|L6.532|
-0000dc  6901              LDR      r1,[r0,#0x10]         ;247  ; pid
-0000de  4638              MOV      r0,r7                 ;247
+0000d8  4607              MOV      r7,r0                 ;275
+0000da  484e              LDR      r0,|L7.532|
+0000dc  6901              LDR      r1,[r0,#0x10]         ;275  ; pid
+0000de  4638              MOV      r0,r7                 ;275
 0000e0  f7fffffe          BL       __aeabi_fadd
-0000e4  494b              LDR      r1,|L6.532|
-0000e6  6108              STR      r0,[r1,#0x10]         ;247  ; pid
-0000e8  4608              MOV      r0,r1                 ;248
-0000ea  6880              LDR      r0,[r0,#8]            ;248  ; pid
-0000ec  60c8              STR      r0,[r1,#0xc]          ;248  ; pid
-0000ee  6908              LDR      r0,[r1,#0x10]         ;250  ; pid
+0000e4  494b              LDR      r1,|L7.532|
+0000e6  6108              STR      r0,[r1,#0x10]         ;275  ; pid
+0000e8  4608              MOV      r0,r1                 ;276
+0000ea  6880              LDR      r0,[r0,#8]            ;276  ; pid
+0000ec  60c8              STR      r0,[r1,#0xc]          ;276  ; pid
+0000ee  6908              LDR      r0,[r1,#0x10]         ;278  ; pid
 0000f0  f7fffffe          BL       __aeabi_f2iz
-0000f4  4680              MOV      r8,r0                 ;250
+0000f4  4680              MOV      r8,r0                 ;278
 0000f6  f7fffffe          BL       bsp_PwmLimit
-0000fa  4607              MOV      r7,r0                 ;250
+0000fa  4607              MOV      r7,r0                 ;278
 0000fc  f7fffffe          BL       __aeabi_i2f
-000100  4944              LDR      r1,|L6.532|
-000102  6108              STR      r0,[r1,#0x10]         ;250  ; pid
-000104  6908              LDR      r0,[r1,#0x10]         ;252  ; pid
+000100  4944              LDR      r1,|L7.532|
+000102  6108              STR      r0,[r1,#0x10]         ;278  ; pid
+000104  6908              LDR      r0,[r1,#0x10]         ;280  ; pid
 000106  f7fffffe          BL       __aeabi_f2iz
-00010a  4681              MOV      r9,r0                 ;252
+00010a  4681              MOV      r9,r0                 ;280
 00010c  f7fffffe          BL       myabs
-000110  b287              UXTH     r7,r0                 ;252
-000112  4940              LDR      r1,|L6.532|
-000114  6908              LDR      r0,[r1,#0x10]         ;252  ; pid
-000116  2100              MOVS     r1,#0                 ;252
+000110  b287              UXTH     r7,r0                 ;280
+000112  4940              LDR      r1,|L7.532|
+000114  6908              LDR      r0,[r1,#0x10]         ;280  ; pid
+000116  2100              MOVS     r1,#0                 ;280
 000118  f7fffffe          BL       __aeabi_cfrcmple
-00011c  d201              BCS      |L6.290|
-00011e  2001              MOVS     r0,#1                 ;252
-000120  e000              B        |L6.292|
-                  |L6.290|
-000122  2000              MOVS     r0,#0                 ;252
-                  |L6.292|
-000124  4680              MOV      r8,r0                 ;252
-000126  463a              MOV      r2,r7                 ;252
-000128  4641              MOV      r1,r8                 ;252
-00012a  2000              MOVS     r0,#0                 ;252
+00011c  d201              BCS      |L7.290|
+00011e  2001              MOVS     r0,#1                 ;280
+000120  e000              B        |L7.292|
+                  |L7.290|
+000122  2000              MOVS     r0,#0                 ;280
+                  |L7.292|
+000124  4680              MOV      r8,r0                 ;280
+000126  463a              MOV      r2,r7                 ;280
+000128  4641              MOV      r1,r8                 ;280
+00012a  2000              MOVS     r0,#0                 ;280
 00012c  f7fffffe          BL       bsp_MotorSetPWM
-000130  e066              B        |L6.512|
-                  |L6.306|
-000132  2c01              CMP      r4,#1                 ;254
-000134  d164              BNE      |L6.512|
-000136  4837              LDR      r0,|L6.532|
-000138  6b40              LDR      r0,[r0,#0x34]         ;256
-00013a  b910              CBNZ     r0,|L6.322|
-00013c  4835              LDR      r0,|L6.532|
-00013e  6345              STR      r5,[r0,#0x34]         ;258
-000140  e017              B        |L6.370|
-                  |L6.322|
-000142  4628              MOV      r0,r5                 ;260
+000130  e066              B        |L7.512|
+                  |L7.306|
+000132  2c01              CMP      r4,#1                 ;282
+000134  d164              BNE      |L7.512|
+000136  4837              LDR      r0,|L7.532|
+000138  6b40              LDR      r0,[r0,#0x34]         ;284
+00013a  b910              CBNZ     r0,|L7.322|
+00013c  4835              LDR      r0,|L7.532|
+00013e  6345              STR      r5,[r0,#0x34]         ;286
+000140  e017              B        |L7.370|
+                  |L7.322|
+000142  4628              MOV      r0,r5                 ;288
 000144  f7fffffe          BL       __aeabi_i2f
-000148  4680              MOV      r8,r0                 ;260
-00014a  4932              LDR      r1,|L6.532|
-00014c  6b48              LDR      r0,[r1,#0x34]         ;260
+000148  4680              MOV      r8,r0                 ;288
+00014a  4932              LDR      r1,|L7.532|
+00014c  6b48              LDR      r0,[r1,#0x34]         ;288
 00014e  f7fffffe          BL       __aeabi_i2f
-000152  4681              MOV      r9,r0                 ;260
-000154  4641              MOV      r1,r8                 ;260
+000152  4681              MOV      r9,r0                 ;288
+000154  4641              MOV      r1,r8                 ;288
 000156  f7fffffe          BL       __aeabi_fdiv
-00015a  4607              MOV      r7,r0                 ;260
-00015c  2100              MOVS     r1,#0                 ;260
+00015a  4607              MOV      r7,r0                 ;288
+00015c  2100              MOVS     r1,#0                 ;288
 00015e  f7fffffe          BL       __aeabi_cfcmple
-000162  d206              BCS      |L6.370|
-000164  4620              MOV      r0,r4                 ;262
+000162  d206              BCS      |L7.370|
+000164  4620              MOV      r0,r4                 ;290
 000166  f7fffffe          BL       bsp_MotorBrake
-00016a  4620              MOV      r0,r4                 ;263
+00016a  4620              MOV      r0,r4                 ;291
 00016c  f7fffffe          BL       bsp_PidClear
-000170  e796              B        |L6.160|
-                  |L6.370|
-000172  1b70              SUBS     r0,r6,r5              ;267
+000170  e796              B        |L7.160|
+                  |L7.370|
+000172  1b70              SUBS     r0,r6,r5              ;295
 000174  f7fffffe          BL       __aeabi_i2f
-000178  4926              LDR      r1,|L6.532|
-00017a  6248              STR      r0,[r1,#0x24]         ;267
-00017c  460a              MOV      r2,r1                 ;268
-00017e  6a51              LDR      r1,[r2,#0x24]         ;268
-000180  6a10              LDR      r0,[r2,#0x20]         ;268
+000178  4926              LDR      r1,|L7.532|
+00017a  6248              STR      r0,[r1,#0x24]         ;295
+00017c  460a              MOV      r2,r1                 ;296
+00017e  6a51              LDR      r1,[r2,#0x24]         ;296
+000180  6a10              LDR      r0,[r2,#0x20]         ;296
 000182  f7fffffe          BL       __aeabi_fmul
-000186  4681              MOV      r9,r0                 ;268
-000188  4a22              LDR      r2,|L6.532|
-00018a  6a91              LDR      r1,[r2,#0x28]         ;268
-00018c  6a50              LDR      r0,[r2,#0x24]         ;268
+000186  4681              MOV      r9,r0                 ;296
+000188  4a22              LDR      r2,|L7.532|
+00018a  6a91              LDR      r1,[r2,#0x28]         ;296
+00018c  6a50              LDR      r0,[r2,#0x24]         ;296
 00018e  f7fffffe          BL       __aeabi_fsub
-000192  4682              MOV      r10,r0                ;268
-000194  481f              LDR      r0,|L6.532|
-000196  69c1              LDR      r1,[r0,#0x1c]         ;268  ; pid
-000198  4650              MOV      r0,r10                ;268
+000192  4682              MOV      r10,r0                ;296
+000194  481f              LDR      r0,|L7.532|
+000196  69c1              LDR      r1,[r0,#0x1c]         ;296  ; pid
+000198  4650              MOV      r0,r10                ;296
 00019a  f7fffffe          BL       __aeabi_fmul
-00019e  4680              MOV      r8,r0                 ;268
-0001a0  4649              MOV      r1,r9                 ;268
+00019e  4680              MOV      r8,r0                 ;296
+0001a0  4649              MOV      r1,r9                 ;296
 0001a2  f7fffffe          BL       __aeabi_fadd
-0001a6  4607              MOV      r7,r0                 ;268
-0001a8  481a              LDR      r0,|L6.532|
-0001aa  6ac1              LDR      r1,[r0,#0x2c]         ;268
-0001ac  4638              MOV      r0,r7                 ;268
+0001a6  4607              MOV      r7,r0                 ;296
+0001a8  481a              LDR      r0,|L7.532|
+0001aa  6ac1              LDR      r1,[r0,#0x2c]         ;296
+0001ac  4638              MOV      r0,r7                 ;296
 0001ae  f7fffffe          BL       __aeabi_fadd
-0001b2  4918              LDR      r1,|L6.532|
-0001b4  62c8              STR      r0,[r1,#0x2c]         ;268
-0001b6  4608              MOV      r0,r1                 ;269
-0001b8  6a41              LDR      r1,[r0,#0x24]         ;269
-0001ba  6281              STR      r1,[r0,#0x28]         ;269
-0001bc  4601              MOV      r1,r0                 ;271
-0001be  6ac8              LDR      r0,[r1,#0x2c]         ;271
+0001b2  4918              LDR      r1,|L7.532|
+0001b4  62c8              STR      r0,[r1,#0x2c]         ;296
+0001b6  4608              MOV      r0,r1                 ;297
+0001b8  6a41              LDR      r1,[r0,#0x24]         ;297
+0001ba  6281              STR      r1,[r0,#0x28]         ;297
+0001bc  4601              MOV      r1,r0                 ;299
+0001be  6ac8              LDR      r0,[r1,#0x2c]         ;299
 0001c0  f7fffffe          BL       __aeabi_f2iz
-0001c4  4680              MOV      r8,r0                 ;271
+0001c4  4680              MOV      r8,r0                 ;299
 0001c6  f7fffffe          BL       bsp_PwmLimit
-0001ca  4607              MOV      r7,r0                 ;271
+0001ca  4607              MOV      r7,r0                 ;299
 0001cc  f7fffffe          BL       __aeabi_i2f
-0001d0  4910              LDR      r1,|L6.532|
-0001d2  62c8              STR      r0,[r1,#0x2c]         ;271
-0001d4  6ac8              LDR      r0,[r1,#0x2c]         ;273
+0001d0  4910              LDR      r1,|L7.532|
+0001d2  62c8              STR      r0,[r1,#0x2c]         ;299
+0001d4  6ac8              LDR      r0,[r1,#0x2c]         ;301
 0001d6  f7fffffe          BL       __aeabi_f2iz
-0001da  4681              MOV      r9,r0                 ;273
+0001da  4681              MOV      r9,r0                 ;301
 0001dc  f7fffffe          BL       myabs
-0001e0  b287              UXTH     r7,r0                 ;273
-0001e2  490c              LDR      r1,|L6.532|
-0001e4  6ac8              LDR      r0,[r1,#0x2c]         ;273
-0001e6  2100              MOVS     r1,#0                 ;273
+0001e0  b287              UXTH     r7,r0                 ;301
+0001e2  490c              LDR      r1,|L7.532|
+0001e4  6ac8              LDR      r0,[r1,#0x2c]         ;301
+0001e6  2100              MOVS     r1,#0                 ;301
 0001e8  f7fffffe          BL       __aeabi_cfrcmple
-0001ec  d201              BCS      |L6.498|
-0001ee  2001              MOVS     r0,#1                 ;273
-0001f0  e000              B        |L6.500|
-                  |L6.498|
-0001f2  2000              MOVS     r0,#0                 ;273
-                  |L6.500|
-0001f4  4680              MOV      r8,r0                 ;273
-0001f6  463a              MOV      r2,r7                 ;273
-0001f8  4641              MOV      r1,r8                 ;273
-0001fa  2001              MOVS     r0,#1                 ;273
+0001ec  d201              BCS      |L7.498|
+0001ee  2001              MOVS     r0,#1                 ;301
+0001f0  e000              B        |L7.500|
+                  |L7.498|
+0001f2  2000              MOVS     r0,#0                 ;301
+                  |L7.500|
+0001f4  4680              MOV      r8,r0                 ;301
+0001f6  463a              MOV      r2,r7                 ;301
+0001f8  4641              MOV      r1,r8                 ;301
+0001fa  2001              MOVS     r0,#1                 ;301
 0001fc  f7fffffe          BL       bsp_MotorSetPWM
-                  |L6.512|
+                  |L7.512|
 000200  bf00              NOP      
-000202  e74d              B        |L6.160|
-;;;277    
+000202  e74d              B        |L7.160|
+;;;305    
                           ENDP
 
-                  |L6.516|
+                  |L7.516|
                           DCD      0x41400000
-                  |L6.520|
+                  |L7.520|
                           DCD      0x437a0000
-                  |L6.524|
+                  |L7.524|
                           DCD      sampleIndex
-                  |L6.528|
+                  |L7.528|
                           DCD      speed
-                  |L6.532|
+                  |L7.532|
                           DCD      pid
 
                           AREA ||i.bsp_PidSched||, CODE, READONLY, ALIGN=2
@@ -571,7 +628,7 @@
 000002  2000              MOVS     r0,#0
 000004  f7fffffe          BL       bsp_EncoderGetPulseT
 000008  4604              MOV      r4,r0
-00000a  4808              LDR      r0,|L7.44|
+00000a  4808              LDR      r0,|L8.44|
 00000c  6942              LDR      r2,[r0,#0x14]  ; pid
 00000e  4621              MOV      r1,r4
 000010  2000              MOVS     r0,#0
@@ -580,7 +637,7 @@
 000016  2001              MOVS     r0,#1
 000018  f7fffffe          BL       bsp_EncoderGetPulseT
 00001c  4604              MOV      r4,r0
-00001e  4803              LDR      r0,|L7.44|
+00001e  4803              LDR      r0,|L8.44|
 000020  6b02              LDR      r2,[r0,#0x30]
 000022  4621              MOV      r1,r4
 000024  2001              MOVS     r0,#1
@@ -590,52 +647,52 @@
 ;;;119    
                           ENDP
 
-                  |L7.44|
+                  |L8.44|
                           DCD      pid
 
                           AREA ||i.bsp_PwmLimit||, CODE, READONLY, ALIGN=2
 
                   bsp_PwmLimit PROC
-;;;286    */
-;;;287    static int32_t bsp_PwmLimit(int32_t pwm)
+;;;314    */
+;;;315    static int32_t bsp_PwmLimit(int32_t pwm)
 000000  4601              MOV      r1,r0
-;;;288    {
-;;;289    	int32_t ret = 0 ;
+;;;316    {
+;;;317    	int32_t ret = 0 ;
 000002  2000              MOVS     r0,#0
-;;;290    	
-;;;291    	if(pwm >= MAX_PWM)
+;;;318    	
+;;;319    	if(pwm >= MAX_PWM)
 000004  f5b16f61          CMP      r1,#0xe10
-000008  db02              BLT      |L8.16|
-;;;292    	{
-;;;293    		ret = MAX_PWM;
+000008  db02              BLT      |L9.16|
+;;;320    	{
+;;;321    		ret = MAX_PWM;
 00000a  f44f6061          MOV      r0,#0xe10
-00000e  e005              B        |L8.28|
-                  |L8.16|
-;;;294    	}
-;;;295    	else if(pwm <= -MAX_PWM)
+00000e  e005              B        |L9.28|
+                  |L9.16|
+;;;322    	}
+;;;323    	else if(pwm <= -MAX_PWM)
 000010  f5116f61          CMN      r1,#0xe10
-000014  dc01              BGT      |L8.26|
-;;;296    	{
-;;;297    		ret = -MAX_PWM;
-000016  4802              LDR      r0,|L8.32|
-000018  e000              B        |L8.28|
-                  |L8.26|
-;;;298    	}
-;;;299    	else
-;;;300    	{
-;;;301    		ret = pwm;
+000014  dc01              BGT      |L9.26|
+;;;324    	{
+;;;325    		ret = -MAX_PWM;
+000016  4802              LDR      r0,|L9.32|
+000018  e000              B        |L9.28|
+                  |L9.26|
+;;;326    	}
+;;;327    	else
+;;;328    	{
+;;;329    		ret = pwm;
 00001a  4608              MOV      r0,r1
-                  |L8.28|
-;;;302    	}
-;;;303    	
-;;;304    	return ret;
-;;;305    }	
+                  |L9.28|
+;;;330    	}
+;;;331    	
+;;;332    	return ret;
+;;;333    }	
 00001c  4770              BX       lr
-;;;306    
+;;;334    
                           ENDP
 
 00001e  0000              DCW      0x0000
-                  |L8.32|
+                  |L9.32|
                           DCD      0xfffff1f0
 
                           AREA ||i.bsp_SetMotorSpeed||, CODE, READONLY, ALIGN=2
@@ -643,24 +700,24 @@
                   bsp_SetMotorSpeed PROC
 ;;;80     */
 ;;;81     void bsp_SetMotorSpeed(MotorSN sn , int32_t speed)
-000000  b910              CBNZ     r0,|L9.8|
+000000  b910              CBNZ     r0,|L10.8|
 ;;;82     {
 ;;;83     	if(sn == MotorLeft)
 ;;;84     	{
 ;;;85     		pid[0].target = speed;
-000002  4a04              LDR      r2,|L9.20|
+000002  4a04              LDR      r2,|L10.20|
 000004  6151              STR      r1,[r2,#0x14]  ; pid
-000006  e003              B        |L9.16|
-                  |L9.8|
+000006  e003              B        |L10.16|
+                  |L10.8|
 ;;;86     	}
 ;;;87     	else if(sn == MotorRight)
 000008  2801              CMP      r0,#1
-00000a  d101              BNE      |L9.16|
+00000a  d101              BNE      |L10.16|
 ;;;88     	{
 ;;;89     		pid[1].target = speed;
-00000c  4a01              LDR      r2,|L9.20|
+00000c  4a01              LDR      r2,|L10.20|
 00000e  6311              STR      r1,[r2,#0x30]
-                  |L9.16|
+                  |L10.16|
 ;;;90     	}
 ;;;91     }
 000010  4770              BX       lr
@@ -668,34 +725,34 @@
                           ENDP
 
 000012  0000              DCW      0x0000
-                  |L9.20|
+                  |L10.20|
                           DCD      pid
 
                           AREA ||i.myabs||, CODE, READONLY, ALIGN=1
 
                   myabs PROC
-;;;315    */
-;;;316    static int32_t myabs(int32_t val)
+;;;343    */
+;;;344    static int32_t myabs(int32_t val)
 000000  4601              MOV      r1,r0
-;;;317    { 		   
-;;;318        int32_t temp;
-;;;319    	
-;;;320        if(val < 0)  
+;;;345    { 		   
+;;;346        int32_t temp;
+;;;347    	
+;;;348        if(val < 0)  
 000002  2900              CMP      r1,#0
-000004  da01              BGE      |L10.10|
-;;;321    		temp = -val;  
+000004  da01              BGE      |L11.10|
+;;;349    		temp = -val;  
 000006  4248              RSBS     r0,r1,#0
-000008  e000              B        |L10.12|
-                  |L10.10|
-;;;322        else 
-;;;323    		temp = val;
+000008  e000              B        |L11.12|
+                  |L11.10|
+;;;350        else 
+;;;351    		temp = val;
 00000a  4608              MOV      r0,r1
-                  |L10.12|
-;;;324    	
-;;;325        return temp;
-;;;326    }
+                  |L11.12|
+;;;352    	
+;;;353        return temp;
+;;;354    }
 00000c  4770              BX       lr
-;;;327    
+;;;355    
                           ENDP
 
 
