@@ -222,12 +222,13 @@ Section Cross References
     bsp_communication.o(i.bsp_ComAnalysis) refers to bsp_communication.o(.data) for routeAnalysis
     bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_angle.o(i.bsp_AngleReadRaw) for bsp_AngleReadRaw
     bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_control.o(i.bsp_MotorGetSpeed) for bsp_MotorGetSpeed
-    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_user_lib.o(i.BEBufToUint16) for BEBufToUint16
-    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_collision.o(i.bsp_CollisionScan) for bsp_CollisionScan
     bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_detectact.o(i.bsp_GetInfraRedAdcVoltage) for bsp_GetInfraRedAdcVoltage
     bsp_communication.o(i.bsp_FillReportFrame) refers to fmul.o(.text) for __aeabi_fmul
     bsp_communication.o(i.bsp_FillReportFrame) refers to ffixui.o(.text) for __aeabi_f2uiz
     bsp_communication.o(i.bsp_FillReportFrame) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
+    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_user_lib.o(i.BEBufToUint16) for BEBufToUint16
+    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_collision.o(i.bsp_CollisionScan) for bsp_CollisionScan
+    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_user_lib.o(i.BEBufToUint32) for BEBufToUint32
     bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_communication.o(i.bsp_CalcChk) for bsp_CalcChk
     bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_communication.o(.bss) for reportFrame
     bsp_communication.o(i.bsp_SendReportFrame) refers to bsp_communication.o(i.bsp_FillReportFrame) for bsp_FillReportFrame
@@ -1278,7 +1279,7 @@ Removing Unused input sections from the image.
     Removing bsp_communication.o(.revsh_text), (4 bytes).
     Removing bsp_communication.o(i.bsp_CalcChk), (54 bytes).
     Removing bsp_communication.o(i.bsp_ComAnalysis), (564 bytes).
-    Removing bsp_communication.o(i.bsp_FillReportFrame), (464 bytes).
+    Removing bsp_communication.o(i.bsp_FillReportFrame), (604 bytes).
     Removing bsp_communication.o(i.bsp_SendReportFrame), (48 bytes).
     Removing bsp_communication.o(.bss), (851 bytes).
     Removing bsp_communication.o(.data), (4 bytes).
@@ -1645,7 +1646,7 @@ Removing Unused input sections from the image.
     Removing dfixul.o(.text), (48 bytes).
     Removing cdrcmple.o(.text), (48 bytes).
 
-417 unused section(s) (total 23383 bytes) removed from the image.
+417 unused section(s) (total 23523 bytes) removed from the image.
 
 ==============================================================================
 
