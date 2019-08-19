@@ -38760,6 +38760,7 @@ Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 Nint32_t bsp_MotorGetSpeed(MotorSN sn);
 Nint32_t bsp_MotorGetTargetSpeed(MotorSN sn);
 Nint32_t bsp_MotorSpeedMM2Pulse(int32_t mm);
+Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
 N
 N#endif
 N
@@ -38806,6 +38807,8 @@ N
 N
 N/*左右轮机需要使用PID控制*/ 
 Nstatic PID pid[2];
+N/*左右轮机脉冲数，带方向的矢量*/
+Nstatic int32_t encoderPulseVector[2];
 N/*速度：MS/S , 10MS更新一次*/ 
 Nstatic int32_t speed[2][SPEED_SAMP_COUNT];
 Xstatic int32_t speed[2][(10)];
@@ -38960,6 +38963,19 @@ N
 N	return ret;
 N}
 N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_MotorGetPulseVector
+N*	功能说明: 获取左右轮机转动的脉冲数
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nint32_t bsp_MotorGetPulseVector(MotorSN sn)
+N{
+N	return encoderPulseVector[sn];
+N}
+N
 N
 N/*
 N*********************************************************************************************************
@@ -39043,6 +39059,9 @@ N	if(Target < 0 )
 N	{
 N		Encoder = -Encoder;
 N	}
+N	
+N	/*统计左右轮机转动的脉冲数，带方向的*/
+N	encoderPulseVector[sn] += Encoder;
 N	
 N	/*计算速度，250MM/S时，10MS有12个脉冲*/
 N	speed[sn][sampleIndex[sn]++] = Encoder / 12.0F * 250;

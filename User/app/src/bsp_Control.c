@@ -19,6 +19,8 @@ typedef struct
 
 /*左右轮机需要使用PID控制*/ 
 static PID pid[2];
+/*左右轮机脉冲数，带方向的矢量*/
+static int32_t encoderPulseVector[2];
 /*速度：MS/S , 10MS更新一次*/ 
 static int32_t speed[2][SPEED_SAMP_COUNT];
 /*用于指示样本FIFO序号*/
@@ -170,6 +172,19 @@ int32_t bsp_MotorSpeedMM2Pulse(int32_t mm)
 	return ret;
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_MotorGetPulseVector
+*	功能说明: 获取左右轮机转动的脉冲数
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+int32_t bsp_MotorGetPulseVector(MotorSN sn)
+{
+	return encoderPulseVector[sn];
+}
+
 
 /*
 *********************************************************************************************************
@@ -249,6 +264,9 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 	{
 		Encoder = -Encoder;
 	}
+	
+	/*统计左右轮机转动的脉冲数，带方向的*/
+	encoderPulseVector[sn] += Encoder;
 	
 	/*计算速度，250MM/S时，10MS有12个脉冲*/
 	speed[sn][sampleIndex[sn]++] = Encoder / 12.0F * 250;
