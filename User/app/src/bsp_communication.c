@@ -181,6 +181,11 @@ void bsp_FillReportFrame(void)
 	uint32_t timestamp = xTaskGetTickCount();
 	int32_t leftPulseVector = bsp_MotorGetPulseVector(MotorLeft);
 	int32_t rightPulseVector = bsp_MotorGetPulseVector(MotorRight);
+	int32_t x_coordinate = bsp_GetCurrentPosX();
+	int32_t y_coordinate = bsp_GetCurrentPosY();
+	
+	
+	
 	
 	reportFrame.sof1 = 0xAA;                  		                                  //0xAA
 	reportFrame.sof2 = 0xAA;                  		                                  //0xAA
@@ -192,8 +197,8 @@ void bsp_FillReportFrame(void)
 	reportFrame.right_wheel_pluse_count = BEBufToUint32((uint8_t*)&rightPulseVector); //右轮编码器计数
 	reportFrame.left_wheel_velocity = BEBufToUint16((uint8_t*)&leftSpeedMM);  		  //左轮电机速度
 	reportFrame.right_wheel_veloctiy = BEBufToUint16((uint8_t*)&rightSpeedMM);		  //右轮电机速度
-	reportFrame.x_coordinate = 0 ;				                                      //X坐标
-	reportFrame.y_coordinate = 0 ;				                                      //Y坐标
+	reportFrame.x_coordinate = BEBufToUint32((uint8_t*)&x_coordinate);				  //X坐标
+	reportFrame.y_coordinate = BEBufToUint32((uint8_t*)&y_coordinate);				  //Y坐标
 	reportFrame.theta_angle_deg = BEBufToUint16((uint8_t*)&angle);		              //航向角
 	reportFrame.landoff_button = 0;                                                   //离地开关
 	reportFrame.collosion_button = bsp_CollisionScan() ; 			                  //碰撞开关

@@ -227,6 +227,8 @@ Section Cross References
     bsp_communication.o(i.bsp_FillReportFrame) refers to ffixui.o(.text) for __aeabi_f2uiz
     bsp_communication.o(i.bsp_FillReportFrame) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
     bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_control.o(i.bsp_MotorGetPulseVector) for bsp_MotorGetPulseVector
+    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_position.o(i.bsp_GetCurrentPosX) for bsp_GetCurrentPosX
+    bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_position.o(i.bsp_GetCurrentPosY) for bsp_GetCurrentPosY
     bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_user_lib.o(i.BEBufToUint32) for BEBufToUint32
     bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_user_lib.o(i.BEBufToUint16) for BEBufToUint16
     bsp_communication.o(i.bsp_FillReportFrame) refers to bsp_collision.o(i.bsp_CollisionScan) for bsp_CollisionScan
@@ -1384,7 +1386,7 @@ Removing Unused input sections from the image.
     Removing bsp_communication.o(.revsh_text), (4 bytes).
     Removing bsp_communication.o(i.bsp_CalcChk), (54 bytes).
     Removing bsp_communication.o(i.bsp_ComAnalysis), (564 bytes).
-    Removing bsp_communication.o(i.bsp_FillReportFrame), (632 bytes).
+    Removing bsp_communication.o(i.bsp_FillReportFrame), (660 bytes).
     Removing bsp_communication.o(i.bsp_SendReportFrame), (48 bytes).
     Removing bsp_communication.o(.bss), (851 bytes).
     Removing bsp_communication.o(.data), (4 bytes).
@@ -1762,7 +1764,7 @@ Removing Unused input sections from the image.
     Removing cdrcmple.o(.text), (48 bytes).
     Removing dscalb.o(.text), (46 bytes).
 
-428 unused section(s) (total 24371 bytes) removed from the image.
+428 unused section(s) (total 24399 bytes) removed from the image.
 
 ==============================================================================
 
