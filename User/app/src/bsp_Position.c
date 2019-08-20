@@ -113,6 +113,8 @@ void bsp_PositionUpdate(void)
 		{
 			if(xTaskGetTickCount() - position.delay >= UPDATE_POS_T)
 			{
+				bsp_SendReportFrame();/*上报协议帧*/
+				
 				position.action = 1 ;
 			}
 		}break;

@@ -46153,7 +46153,7 @@ L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
 N#define __BSP_POSITION_H
 N
-N#define UPDATE_POS_T      50 /*更新坐标的时间周期，单位MM*/
+N#define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
 N
 Ntypedef struct
 N{
@@ -46392,7 +46392,7 @@ N		//bsp_PrintRemoteState();
 N		
 N		bsp_IWDG_Feed(); /* 喂狗 */
 N		
-N		bsp_PidSched(); /*10MS调用一次*/
+N		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 N		
 N//		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
 N//		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));

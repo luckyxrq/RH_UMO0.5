@@ -38782,7 +38782,7 @@ L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
 N#define __BSP_POSITION_H
 N
-N#define UPDATE_POS_T      50 /*更新坐标的时间周期，单位MM*/
+N#define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
 N
 Ntypedef struct
 N{
@@ -39034,27 +39034,27 @@ N	reportFrame.identifier_major = MIN_ID_ENVIRONMENT;                            
 X	reportFrame.identifier_major = 0x30;                                
 N	reportFrame.identifier_subs = 0x00;        	                                      //子识别码
 N	reportFrame.size_of_payload_field = dataLen;   	                                  //数据长度（不包括头标识3，尾标识1，校验2）
-N	reportFrame.left_wheel_pulse_count = BEBufToUint32((uint8_t*)&leftPulseVector);   //左轮编码器计数
-N	reportFrame.right_wheel_pluse_count = BEBufToUint32((uint8_t*)&rightPulseVector); //右轮编码器计数
-N	reportFrame.left_wheel_velocity = BEBufToUint16((uint8_t*)&leftSpeedMM);  		  //左轮电机速度
-N	reportFrame.right_wheel_veloctiy = BEBufToUint16((uint8_t*)&rightSpeedMM);		  //右轮电机速度
-N	reportFrame.x_coordinate = BEBufToUint32((uint8_t*)&x_coordinate);				  //X坐标
-N	reportFrame.y_coordinate = BEBufToUint32((uint8_t*)&y_coordinate);				  //Y坐标
-N	reportFrame.theta_angle_deg = BEBufToUint16((uint8_t*)&angle);		              //航向角
+N	reportFrame.left_wheel_pulse_count = leftPulseVector;   //左轮编码器计数
+N	reportFrame.right_wheel_pluse_count = rightPulseVector; //右轮编码器计数
+N	reportFrame.left_wheel_velocity = leftSpeedMM;  		  //左轮电机速度
+N	reportFrame.right_wheel_veloctiy = rightSpeedMM;		  //右轮电机速度
+N	reportFrame.x_coordinate = x_coordinate;				  //X坐标
+N	reportFrame.y_coordinate = y_coordinate;				  //Y坐标
+N	reportFrame.theta_angle_deg = angle;		              //航向角
 N	reportFrame.landoff_button = 0;                                                   //离地开关
 N	reportFrame.collosion_button = bsp_CollisionScan() ; 			                  //碰撞开关
 N	reportFrame.infrared_front_status = 0; 	                                          //前向红外状态 
 N	reportFrame.infrared_edge_status = 0;	                                          //沿边红外状态
-N	reportFrame.infrared_adc_value1 =  BEBufToUint16((uint8_t*)&adc1);                //红外ADC值1	 
-N	reportFrame.infrared_adc_value2 =  BEBufToUint16((uint8_t*)&adc2);                //红外ADC值2	 
-N	reportFrame.infrared_adc_value3 =  BEBufToUint16((uint8_t*)&adc3);                //红外ADC值3	 
-N	reportFrame.infrared_adc_value4 =  BEBufToUint16((uint8_t*)&adc4);                //红外ADC值4	 
-N	reportFrame.infrared_adc_value5 =  BEBufToUint16((uint8_t*)&adc5);                //红外ADC值5	 
-N	reportFrame.infrared_adc_value6 =  BEBufToUint16((uint8_t*)&adc6);                //红外ADC值6	 
-N	reportFrame.infrared_adc_value7 =  BEBufToUint16((uint8_t*)&adc7);                //红外ADC值7	 
-N	reportFrame.infrared_adc_value8 =  BEBufToUint16((uint8_t*)&adc8);                //红外ADC值8	 
-N	reportFrame.infrared_adc_value9 =  BEBufToUint16((uint8_t*)&adc9);                //红外ADC值9	 
-N	reportFrame.infrared_adc_value10 = BEBufToUint16((uint8_t*)&adc10);               //红外ADC值10
+N	reportFrame.infrared_adc_value1 =  adc1;                //红外ADC值1	 
+N	reportFrame.infrared_adc_value2 =  adc2;                //红外ADC值2	 
+N	reportFrame.infrared_adc_value3 =  adc3;                //红外ADC值3	 
+N	reportFrame.infrared_adc_value4 =  adc4;                //红外ADC值4	 
+N	reportFrame.infrared_adc_value5 =  adc5;                //红外ADC值5	 
+N	reportFrame.infrared_adc_value6 =  adc6;                //红外ADC值6	 
+N	reportFrame.infrared_adc_value7 =  adc7;                //红外ADC值7	 
+N	reportFrame.infrared_adc_value8 =  adc8;                //红外ADC值8	 
+N	reportFrame.infrared_adc_value9 =  adc9;                //红外ADC值9	 
+N	reportFrame.infrared_adc_value10 = adc10;               //红外ADC值10
 N	reportFrame.infrared_cliff_status = 0 ;                                           //跳崖红外状态
 N	reportFrame.infrared_cliff_adc_value1 = 0 ;                                       //跳崖ADC值1
 N	reportFrame.infrared_cliff_adc_value2 = 0 ;                                       //跳崖ADC值2
@@ -39063,7 +39063,7 @@ N	reportFrame.battery_voltage = 0;                                              
 N	reportFrame.charging_status = 0;                                                  //充电状态
 N	reportFrame.error_code = 0;         	                                          //异常状态
 N	reportFrame.machine_status = 0;                                                   //机器状态
-N	reportFrame.timestamp = BEBufToUint32((uint8_t*)&timestamp);                      //时间戳
+N	reportFrame.timestamp = timestamp;                      //时间戳
 N	reportFrame.reserved1 = 0;  	                                                  //保留位1
 N	reportFrame.reserved2 = 0;				                                          //保留位2
 N	reportFrame.reserved3 = 0;         	                                              //保留位3

@@ -38782,7 +38782,7 @@ L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
 N#define __BSP_POSITION_H
 N
-N#define UPDATE_POS_T      50 /*更新坐标的时间周期，单位MM*/
+N#define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
 N
 Ntypedef struct
 N{
@@ -40400,8 +40400,10 @@ N
 N		case 2:
 N		{
 N			if(xTaskGetTickCount() - position.delay >= UPDATE_POS_T)
-X			if(xTaskGetTickCount() - position.delay >= 50)
+X			if(xTaskGetTickCount() - position.delay >= 20)
 N			{
+N				bsp_SendReportFrame();/*上报协议帧*/
+N				
 N				position.action = 1 ;
 N			}
 N		}break;

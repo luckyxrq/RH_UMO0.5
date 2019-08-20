@@ -1,7 +1,7 @@
 #ifndef __BSP_POSITION_H
 #define __BSP_POSITION_H
 
-#define UPDATE_POS_T      50 /*更新坐标的时间周期，单位MM*/
+#define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
 
 typedef struct
 {

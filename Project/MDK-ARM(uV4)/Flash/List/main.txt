@@ -349,7 +349,7 @@
 ;;;175    		bsp_IWDG_Feed(); /* 喂狗 */
 000002  f7fffffe          BL       bsp_IWDG_Feed
 ;;;176    		
-;;;177    		bsp_PidSched(); /*10MS调用一次*/
+;;;177    		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 000006  f7fffffe          BL       bsp_PidSched
 ;;;178    		
 ;;;179    //		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));

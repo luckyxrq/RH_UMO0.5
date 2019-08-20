@@ -174,7 +174,7 @@ static void vTaskMsgPro(void *pvParameters)
 		
 		bsp_IWDG_Feed(); /* 喂狗 */
 		
-		bsp_PidSched(); /*10MS调用一次*/
+		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 		
 //		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
 //		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
