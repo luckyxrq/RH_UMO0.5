@@ -38794,6 +38794,15 @@ N
 N#endif
 N
 L 187 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Position.h"
+L 1 "..\..\User\app\inc\bsp_Position.h" 1
+N#ifndef __BSP_POSITION_H
+N#define __BSP_POSITION_H
+N
+N#endif
+N
+L 188 "..\..\User\bsp\bsp.h" 2
+N
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);

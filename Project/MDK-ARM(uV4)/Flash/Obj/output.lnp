@@ -16,6 +16,7 @@
 ".\flash\obj\bsp_motor.o"
 ".\flash\obj\bsp_control.o"
 ".\flash\obj\bsp_scope.o"
+".\flash\obj\bsp_position.o"
 ".\flash\obj\bsp.o"
 ".\flash\obj\bsp_dwt.o"
 ".\flash\obj\bsp_uart_fifo.o"

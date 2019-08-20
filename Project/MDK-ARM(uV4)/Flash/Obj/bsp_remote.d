@@ -68,3 +68,4 @@
 .\flash\obj\bsp_remote.o: ..\..\User\app\inc\bsp_motor.h
 .\flash\obj\bsp_remote.o: ..\..\User\app\inc\bsp_Control.h
 .\flash\obj\bsp_remote.o: ..\..\User\app\inc\bsp_Scope.h
+.\flash\obj\bsp_remote.o: ..\..\User\app\inc\bsp_Position.h
