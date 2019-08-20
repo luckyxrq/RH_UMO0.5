@@ -88,8 +88,8 @@ static void vTaskTaskUserIF(void *pvParameters)
 	bsp_AngleRst();
 
 #if 1
-		bsp_SetMotorSpeed(MotorLeft,6);
-		bsp_SetMotorSpeed(MotorRight,6);
+		bsp_SetMotorSpeed(MotorLeft,12);
+		bsp_SetMotorSpeed(MotorRight,12);
 #endif	
 
     while(1)
@@ -115,7 +115,7 @@ static void vTaskLED(void *pvParameters)
     while(1)
     {
 		
-#if 0
+#if 1
 		Collision collision = bsp_CollisionScan();
 		
 		if(collision == CollisionLeft)

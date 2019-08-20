@@ -32,6 +32,7 @@
 
 #define RCC_I2C_PORT 	RCC_APB2Periph_GPIOA		/* GPIO端口时钟 */
 
+#if 0
 #define PORT_I2C_SCL	GPIOA			/* GPIO端口 */
 #define PIN_I2C_SCL		GPIO_Pin_4		/* GPIO引脚 */
 
@@ -40,6 +41,18 @@
 
 #define I2C_SCL_PIN		GPIO_Pin_4			/* 连接到SCL时钟线的GPIO */
 #define I2C_SDA_PIN		GPIO_Pin_1			/* 连接到SDA数据线的GPIO */
+
+#else
+
+#define PORT_I2C_SCL	GPIOA			/* GPIO端口 */
+#define PIN_I2C_SCL		GPIO_Pin_1		/* GPIO引脚 */
+
+#define PORT_I2C_SDA	GPIOA			/* GPIO端口 */
+#define PIN_I2C_SDA		GPIO_Pin_4		/* GPIO引脚 */
+
+#define I2C_SCL_PIN		GPIO_Pin_1			/* 连接到SCL时钟线的GPIO */
+#define I2C_SDA_PIN		GPIO_Pin_4			/* 连接到SDA数据线的GPIO */
+#endif
 
 /* 定义读写SCL和SDA的宏 */
 #define I2C_SCL_1()  PORT_I2C_SCL->BSRR = I2C_SCL_PIN				/* SCL = 1 */
