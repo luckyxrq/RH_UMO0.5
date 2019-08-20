@@ -2143,21 +2143,14 @@
                   |L3.228|
                           DCD      delay
 
-                          AREA ||i.bsp_DetectDeal||, CODE, READONLY, ALIGN=2
+                          AREA ||i.bsp_DetectDeal||, CODE, READONLY, ALIGN=1
 
-                          REQUIRE _printf_percent
-                          REQUIRE _printf_widthprec
-                          REQUIRE _printf_d
-                          REQUIRE _printf_f
-                          REQUIRE _printf_int_dec
-                          REQUIRE _printf_fp_dec
                   bsp_DetectDeal PROC
 ;;;614    
 ;;;615    void bsp_DetectDeal(void)
-000000  b570              PUSH     {r4-r6,lr}
+000000  2000              MOVS     r0,#0
 ;;;616    {
 ;;;617    	uint8_t i = 0 ;
-000002  2400              MOVS     r4,#0
 ;;;618    	static bool isObstacle = false;
 ;;;619    	static uint32_t noObstacleTickCnt = 0 ;
 ;;;620    	
@@ -2166,31 +2159,12 @@
 ;;;623    	UNUSED(noObstacleTickCnt);
 ;;;624    	
 ;;;625    	
-;;;626    #if 1	
+;;;626    #if 0	
 ;;;627    	for(i=0;i<10;i++)
-000004  bf00              NOP      
-000006  e00d              B        |L4.36|
-                  |L4.8|
 ;;;628    	{
 ;;;629    		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
-000008  4909              LDR      r1,|L4.48|
-00000a  f8510024          LDR      r0,[r1,r4,LSL #2]
-00000e  f7fffffe          BL       __aeabi_f2d
-000012  4605              MOV      r5,r0
-000014  462a              MOV      r2,r5
-000016  460b              MOV      r3,r1
-000018  4621              MOV      r1,r4
-00001a  a006              ADR      r0,|L4.52|
-00001c  f7fffffe          BL       __2printf
-000020  1c60              ADDS     r0,r4,#1              ;627
-000022  b2c4              UXTB     r4,r0                 ;627
-                  |L4.36|
-000024  2c0a              CMP      r4,#0xa               ;627
-000026  dbef              BLT      |L4.8|
 ;;;630    	}
 ;;;631    	printf("\r\n");
-000028  a008              ADR      r0,|L4.76|
-00002a  f7fffffe          BL       __2printf
 ;;;632    #endif
 ;;;633    
 ;;;634    #if 0	
@@ -2226,25 +2200,10 @@
 ;;;664    	
 ;;;665    #endif	
 ;;;666    }
-00002e  bd70              POP      {r4-r6,pc}
+000002  4770              BX       lr
 ;;;667    
                           ENDP
 
-                  |L4.48|
-                          DCD      adcRealTime
-                  |L4.52|
-000034  61646352          DCB      "adcRealTime[%d]:%.2F",0
-000038  65616c54
-00003c  696d655b
-000040  25645d3a
-000044  252e3246
-000048  00      
-000049  00                DCB      0
-00004a  00                DCB      0
-00004b  00                DCB      0
-                  |L4.76|
-00004c  0d0a00            DCB      "\r\n",0
-00004f  00                DCB      0
 
                           AREA ||i.bsp_DetectStart||, CODE, READONLY, ALIGN=2
 

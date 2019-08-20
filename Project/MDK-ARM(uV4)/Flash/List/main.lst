@@ -46333,43 +46333,46 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskLED(void *pvParameters)
 N{
-N	//static uint32_t index = 0 ;
+N	static uint32_t index = 0 ;
 N    while(1)
 N    {
 N		
-N#if 0
-S		Collision collision = bsp_CollisionScan();
-S		
-S		if(collision == CollisionLeft)
-S		{
-S			//DEBUG("%06dLeft\r\n",index++);
-S			
-S			bsp_SetMotorSpeed(MotorLeft,-5);
-S			bsp_SetMotorSpeed(MotorRight,-12);
-S			vTaskDelay(500);
-S			bsp_SetMotorSpeed(MotorLeft,5);
-S			bsp_SetMotorSpeed(MotorRight,5);
-S		}
-S		else if(collision == CollisionRight)
-S		{
-S			//DEBUG("%06dRight\r\n",index++);
-S			
-S			bsp_SetMotorSpeed(MotorLeft,-12);
-S			bsp_SetMotorSpeed(MotorRight,-5);
-S			vTaskDelay(500);
-S			bsp_SetMotorSpeed(MotorLeft,5);
-S			bsp_SetMotorSpeed(MotorRight,5);
-S		}
-S		else if(collision == CollisionAll)
-S		{
-S			//DEBUG("%06dBoth\r\n",index++);
-S			
-S			bsp_SetMotorSpeed(MotorLeft,-12);
-S			bsp_SetMotorSpeed(MotorRight,-12);
-S			vTaskDelay(500);
-S			bsp_SetMotorSpeed(MotorLeft,5);
-S			bsp_SetMotorSpeed(MotorRight,5);
-S		}
+N#if 1
+N		Collision collision = bsp_CollisionScan();
+N		
+N		if(collision == CollisionLeft)
+N		{
+N			DEBUG("%06dLeft\r\n",index++);
+X			printf ("%06dLeft\r\n",index++);
+N			
+N			bsp_SetMotorSpeed(MotorLeft,-5);
+N			bsp_SetMotorSpeed(MotorRight,-12);
+N			vTaskDelay(500);
+N			bsp_SetMotorSpeed(MotorLeft,5);
+N			bsp_SetMotorSpeed(MotorRight,5);
+N		}
+N		else if(collision == CollisionRight)
+N		{
+N			DEBUG("%06dRight\r\n",index++);
+X			printf ("%06dRight\r\n",index++);
+N			
+N			bsp_SetMotorSpeed(MotorLeft,-12);
+N			bsp_SetMotorSpeed(MotorRight,-5);
+N			vTaskDelay(500);
+N			bsp_SetMotorSpeed(MotorLeft,5);
+N			bsp_SetMotorSpeed(MotorRight,5);
+N		}
+N		else if(collision == CollisionAll)
+N		{
+N			DEBUG("%06dBoth\r\n",index++);
+X			printf ("%06dBoth\r\n",index++);
+N			
+N			bsp_SetMotorSpeed(MotorLeft,-12);
+N			bsp_SetMotorSpeed(MotorRight,-12);
+N			vTaskDelay(500);
+N			bsp_SetMotorSpeed(MotorLeft,5);
+N			bsp_SetMotorSpeed(MotorRight,5);
+N		}
 N#endif
 N		
 N		//bsp_ScopeSend();

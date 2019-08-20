@@ -39611,12 +39611,12 @@ N	UNUSED(noObstacleTickCnt);
 X	(void)(noObstacleTickCnt);
 N	
 N	
-N#if 1	
-N	for(i=0;i<10;i++)
-N	{
-N		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
-N	}
-N	printf("\r\n");
+N#if 0	
+S	for(i=0;i<10;i++)
+S	{
+S		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
+S	}
+S	printf("\r\n");
 N#endif
 N
 N#if 0	

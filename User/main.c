@@ -115,16 +115,16 @@ static void vTaskTaskUserIF(void *pvParameters)
 */
 static void vTaskLED(void *pvParameters)
 {
-	//static uint32_t index = 0 ;
+	static uint32_t index = 0 ;
     while(1)
     {
 		
-#if 0
+#if 1
 		Collision collision = bsp_CollisionScan();
 		
 		if(collision == CollisionLeft)
 		{
-			//DEBUG("%06dLeft\r\n",index++);
+			DEBUG("%06dLeft\r\n",index++);
 			
 			bsp_SetMotorSpeed(MotorLeft,-5);
 			bsp_SetMotorSpeed(MotorRight,-12);
@@ -134,7 +134,7 @@ static void vTaskLED(void *pvParameters)
 		}
 		else if(collision == CollisionRight)
 		{
-			//DEBUG("%06dRight\r\n",index++);
+			DEBUG("%06dRight\r\n",index++);
 			
 			bsp_SetMotorSpeed(MotorLeft,-12);
 			bsp_SetMotorSpeed(MotorRight,-5);
@@ -144,7 +144,7 @@ static void vTaskLED(void *pvParameters)
 		}
 		else if(collision == CollisionAll)
 		{
-			//DEBUG("%06dBoth\r\n",index++);
+			DEBUG("%06dBoth\r\n",index++);
 			
 			bsp_SetMotorSpeed(MotorLeft,-12);
 			bsp_SetMotorSpeed(MotorRight,-12);
