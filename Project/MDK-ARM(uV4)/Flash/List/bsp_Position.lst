@@ -38782,6 +38782,43 @@ L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
 N#define __BSP_POSITION_H
 N
+N#define UPDATE_POS_T      50 /*更新坐标的时间周期，单位MM*/
+N
+Ntypedef struct
+N{
+N	/*上一时刻位置信息*/
+N	volatile int32_t lastX ;
+N	volatile int32_t lastY ;
+N	
+N	/*当前时刻位置信息*/
+N	int32_t currentX ;
+N	int32_t currentY ;
+N	
+N	/*上一时刻和当前速度*/
+N	volatile double lastSpeed;
+N	volatile double currentSpeed;
+N	
+N	/*上一时刻和当前时刻时间戳*/
+N	volatile uint32_t lastTimestamp;
+N	volatile uint32_t currentTimestamp;
+N	
+N	/*上一时刻和当前时刻角度*/
+N	volatile double lastOrientation ;
+N	volatile double currentOrientation ;
+N	
+N	/*状态机*/
+N	volatile uint8_t action ;
+N	volatile bool isRunning ;
+X	volatile _Bool isRunning ;
+N	volatile uint32_t delay ;
+N}Position;
+N
+Nvoid bsp_StartUpdatePos(void);
+Nvoid bsp_StopUpdatePos(void);
+Nvoid bsp_PositionUpdate(void);
+Nint32_t bsp_GetCurrentPosX(void);
+Nint32_t bsp_GetCurrentPosY(void);
+N
 N#endif
 N
 L 188 "..\..\User\bsp\bsp.h" 2
@@ -40249,38 +40286,80 @@ N
 N/* end of math.h */
 L 3 "..\..\User\app\src\bsp_Position.c" 2
 N
-Ntypedef struct
-N{
-N	/*上一时刻位置信息*/
-N	volatile int32_t lastX ;
-N	volatile int32_t lastY ;
-N	
-N	/*当前时刻位置信息*/
-N	int32_t currentX ;
-N	int32_t currentY ;
-N	
-N	/*上一时刻和当前速度*/
-N	volatile double lastSpeed;
-N	volatile double currentSpeed;
-N	
-N	/*上一时刻和当前时刻时间戳*/
-N	volatile uint32_t lastTimestamp;
-N	volatile uint32_t currentTimestamp;
-N	
-N	/*上一时刻和当前时刻角度*/
-N	volatile double lastOrientation ;
-N	volatile double currentOrientation ;
-N	
-N	/*状态机*/
-N	volatile uint8_t action ;
-N	volatile bool isRunning ;
-X	volatile _Bool isRunning ;
-N	volatile uint32_t delay ;
-N}Position;
-N
-N
 Nstatic Position position;
 N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_StartUpdatePos
+N*	功能说明: 开启周期性的更新坐标
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_StartUpdatePos(void)
+N{
+N	position.action = 0 ;
+N	position.delay = 0 ;
+N	position.isRunning = true;
+X	position.isRunning = 1;
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_StartUpdatePos
+N*	功能说明: 关闭周期性的更新坐标
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_StopUpdatePos(void)
+N{
+N	position.isRunning = false;
+X	position.isRunning = 0;
+N	position.action = 0 ;
+N	position.delay = 0 ;
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_GetCurrentPosX
+N*	功能说明: 返回当前X坐标
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nint32_t bsp_GetCurrentPosX(void)
+N{
+N	return position.currentX;
+N}
+N
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_StartUpdatePos
+N*	功能说明: 返回当前Y坐标
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nint32_t bsp_GetCurrentPosY(void)
+N{
+N	return position.currentY;
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_PositionUpdate
+N*	功能说明: 周期性的更新坐标
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
 Nvoid bsp_PositionUpdate(void)
 N{
 N	if(!position.isRunning)
@@ -40294,26 +40373,37 @@ N		case 0:
 N		{
 N			position.currentTimestamp = xTaskGetTickCount();
 N			position.action++;
-N		}break;
+N		};/*此处故意不加break，为了上上面那条语句只运行1次*/
 N		
 N		case 1:
 N		{
 N			/*保存上一次信息*/
-N			position.lastSpeed = position.currentSpeed;
 N			position.lastTimestamp = position.currentTimestamp;
+N			position.lastSpeed = position.currentSpeed;
 N			position.lastOrientation = position.currentOrientation;
 N			position.lastX = position.currentX;
 N			position.lastY = position.currentY;
 N			
 N			/*更新当前信息*/
 N			position.currentTimestamp = xTaskGetTickCount();
-N			position.currentSpeed = (bsp_MotorGetSpeed(MotorLeft) + bsp_MotorGetSpeed(MotorRight)) * 0.5F * 0.001; /*单位：MM/S*/
+N			position.currentSpeed = (bsp_MotorGetSpeed(MotorLeft) + bsp_MotorGetSpeed(MotorRight)) * 0.5F * 0.001F; /*单位：MM/S*/
 N			position.currentOrientation = Deg2Rad(bsp_AngleReadRaw()*0.01F); /*单位：弧度*/
 X			position.currentOrientation = (3.14F * bsp_AngleReadRaw()*0.01F / 180.0F);  
 N			
 N			position.currentX = position.lastX + (position.currentSpeed*cos(position.currentOrientation)+position.lastSpeed*cos(position.lastOrientation))*(position.currentTimestamp-position.lastTimestamp)*0.0005F;
 N			position.currentY = position.lastY + (position.currentSpeed*sin(position.currentOrientation)+position.lastSpeed*sin(position.lastOrientation))*(position.currentTimestamp-position.lastTimestamp)*0.0005F;
 N
+N			position.delay = xTaskGetTickCount(); /*确保周期性*/
+N			position.action++;
+N		}break;
+N		
+N		case 2:
+N		{
+N			if(xTaskGetTickCount() - position.delay >= UPDATE_POS_T)
+X			if(xTaskGetTickCount() - position.delay >= 50)
+N			{
+N				position.action = 1 ;
+N			}
 N		}break;
 N	}
 N	
@@ -40324,7 +40414,7 @@ N
 N
 N
 N
-N/**************************************************伪代码********************************************************
+N/**************************************************伪代码，2019年8月20日10:09:29****************************************
 N
 N	int32_t leftCurrentSpeed  = 0 ;
 N	int32_t rightCurrentSpeed = 0 ;

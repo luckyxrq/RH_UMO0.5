@@ -38797,6 +38797,43 @@ L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
 N#define __BSP_POSITION_H
 N
+N#define UPDATE_POS_T      50 /*更新坐标的时间周期，单位MM*/
+N
+Ntypedef struct
+N{
+N	/*上一时刻位置信息*/
+N	volatile int32_t lastX ;
+N	volatile int32_t lastY ;
+N	
+N	/*当前时刻位置信息*/
+N	int32_t currentX ;
+N	int32_t currentY ;
+N	
+N	/*上一时刻和当前速度*/
+N	volatile double lastSpeed;
+N	volatile double currentSpeed;
+N	
+N	/*上一时刻和当前时刻时间戳*/
+N	volatile uint32_t lastTimestamp;
+N	volatile uint32_t currentTimestamp;
+N	
+N	/*上一时刻和当前时刻角度*/
+N	volatile double lastOrientation ;
+N	volatile double currentOrientation ;
+N	
+N	/*状态机*/
+N	volatile uint8_t action ;
+N	volatile bool isRunning ;
+X	volatile _Bool isRunning ;
+N	volatile uint32_t delay ;
+N}Position;
+N
+Nvoid bsp_StartUpdatePos(void);
+Nvoid bsp_StopUpdatePos(void);
+Nvoid bsp_PositionUpdate(void);
+Nint32_t bsp_GetCurrentPosX(void);
+Nint32_t bsp_GetCurrentPosY(void);
+N
 N#endif
 N
 L 188 "..\..\User\bsp\bsp.h" 2

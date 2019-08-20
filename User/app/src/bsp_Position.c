@@ -1,37 +1,78 @@
 #include "bsp.h"
 #include <math.h>
 
-typedef struct
-{
-	/*上一时刻位置信息*/
-	volatile int32_t lastX ;
-	volatile int32_t lastY ;
-	
-	/*当前时刻位置信息*/
-	int32_t currentX ;
-	int32_t currentY ;
-	
-	/*上一时刻和当前速度*/
-	volatile double lastSpeed;
-	volatile double currentSpeed;
-	
-	/*上一时刻和当前时刻时间戳*/
-	volatile uint32_t lastTimestamp;
-	volatile uint32_t currentTimestamp;
-	
-	/*上一时刻和当前时刻角度*/
-	volatile double lastOrientation ;
-	volatile double currentOrientation ;
-	
-	/*状态机*/
-	volatile uint8_t action ;
-	volatile bool isRunning ;
-	volatile uint32_t delay ;
-}Position;
-
-
 static Position position;
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StartUpdatePos
+*	功能说明: 开启周期性的更新坐标
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_StartUpdatePos(void)
+{
+	position.action = 0 ;
+	position.delay = 0 ;
+	position.isRunning = true;
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StartUpdatePos
+*	功能说明: 关闭周期性的更新坐标
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_StopUpdatePos(void)
+{
+	position.isRunning = false;
+	position.action = 0 ;
+	position.delay = 0 ;
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetCurrentPosX
+*	功能说明: 返回当前X坐标
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+int32_t bsp_GetCurrentPosX(void)
+{
+	return position.currentX;
+}
+
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StartUpdatePos
+*	功能说明: 返回当前Y坐标
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+int32_t bsp_GetCurrentPosY(void)
+{
+	return position.currentY;
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_PositionUpdate
+*	功能说明: 周期性的更新坐标
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 void bsp_PositionUpdate(void)
 {
 	if(!position.isRunning)
@@ -45,25 +86,35 @@ void bsp_PositionUpdate(void)
 		{
 			position.currentTimestamp = xTaskGetTickCount();
 			position.action++;
-		}break;
+		};/*此处故意不加break，为了上上面那条语句只运行1次*/
 		
 		case 1:
 		{
 			/*保存上一次信息*/
-			position.lastSpeed = position.currentSpeed;
 			position.lastTimestamp = position.currentTimestamp;
+			position.lastSpeed = position.currentSpeed;
 			position.lastOrientation = position.currentOrientation;
 			position.lastX = position.currentX;
 			position.lastY = position.currentY;
 			
 			/*更新当前信息*/
 			position.currentTimestamp = xTaskGetTickCount();
-			position.currentSpeed = (bsp_MotorGetSpeed(MotorLeft) + bsp_MotorGetSpeed(MotorRight)) * 0.5F * 0.001; /*单位：MM/S*/
+			position.currentSpeed = (bsp_MotorGetSpeed(MotorLeft) + bsp_MotorGetSpeed(MotorRight)) * 0.5F * 0.001F; /*单位：MM/S*/
 			position.currentOrientation = Deg2Rad(bsp_AngleReadRaw()*0.01F); /*单位：弧度*/
 			
 			position.currentX = position.lastX + (position.currentSpeed*cos(position.currentOrientation)+position.lastSpeed*cos(position.lastOrientation))*(position.currentTimestamp-position.lastTimestamp)*0.0005F;
 			position.currentY = position.lastY + (position.currentSpeed*sin(position.currentOrientation)+position.lastSpeed*sin(position.lastOrientation))*(position.currentTimestamp-position.lastTimestamp)*0.0005F;
 
+			position.delay = xTaskGetTickCount(); /*确保周期性*/
+			position.action++;
+		}break;
+		
+		case 2:
+		{
+			if(xTaskGetTickCount() - position.delay >= UPDATE_POS_T)
+			{
+				position.action = 1 ;
+			}
 		}break;
 	}
 	
@@ -74,7 +125,7 @@ void bsp_PositionUpdate(void)
 
 
 
-/**************************************************伪代码********************************************************
+/**************************************************伪代码，2019年8月20日10:09:29****************************************
 
 	int32_t leftCurrentSpeed  = 0 ;
 	int32_t rightCurrentSpeed = 0 ;
