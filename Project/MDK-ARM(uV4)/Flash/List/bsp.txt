@@ -53,7 +53,7 @@
 00003e  f7fffffe          BL       bsp_InitCollision
 ;;;58     	bsp_InitChargingPile();  /*初始化输入捕获*/
 000042  f7fffffe          BL       bsp_InitChargingPile
-;;;59     	
+;;;59     		
 ;;;60     	
 ;;;61     	/* 初始化IO拓展芯片 */	
 ;;;62     	do{

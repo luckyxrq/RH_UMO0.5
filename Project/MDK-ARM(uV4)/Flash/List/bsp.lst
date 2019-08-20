@@ -38891,7 +38891,7 @@ N	bsp_InitPid(MotorRight);
 N	
 N	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 N	bsp_InitChargingPile();  /*初始化输入捕获*/
-N	
+N		
 N	
 N	/* 初始化IO拓展芯片 */	
 N	do{
