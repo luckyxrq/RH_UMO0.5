@@ -641,8 +641,8 @@ void bsp_DetectDeal(void)
 			/*前进 且 有障碍物的同时才减速，减速是有时间限制的，开启定时器回调函数，时间到了就恢复正常速度*/
 			if(bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
 			{
-				bsp_SetMotorSpeed(MotorLeft,5);
-				bsp_SetMotorSpeed(MotorRight,5);
+				bsp_SetMotorSpeed(MotorLeft,3);
+				bsp_SetMotorSpeed(MotorRight,3);
 				
 				/*有障碍物*/
 				isObstacle = true;
@@ -656,8 +656,8 @@ void bsp_DetectDeal(void)
 	{
 		if(++noObstacleTickCnt >= 1500)
 		{
-			bsp_SetMotorSpeed(MotorLeft,12);
-			bsp_SetMotorSpeed(MotorRight,12);
+			bsp_SetMotorSpeed(MotorLeft,6);
+			bsp_SetMotorSpeed(MotorRight,6);
 		}
 	}
 	

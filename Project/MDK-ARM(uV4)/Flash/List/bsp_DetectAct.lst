@@ -39628,8 +39628,8 @@ N		{
 N			/*前进 且 有障碍物的同时才减速，减速是有时间限制的，开启定时器回调函数，时间到了就恢复正常速度*/
 N			if(bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
 N			{
-N				bsp_SetMotorSpeed(MotorLeft,5);
-N				bsp_SetMotorSpeed(MotorRight,5);
+N				bsp_SetMotorSpeed(MotorLeft,3);
+N				bsp_SetMotorSpeed(MotorRight,3);
 N				
 N				/*有障碍物*/
 N				isObstacle = true;
@@ -39645,8 +39645,8 @@ X	if(isObstacle == 0 && bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTar
 N	{
 N		if(++noObstacleTickCnt >= 1500)
 N		{
-N			bsp_SetMotorSpeed(MotorLeft,12);
-N			bsp_SetMotorSpeed(MotorRight,12);
+N			bsp_SetMotorSpeed(MotorLeft,6);
+N			bsp_SetMotorSpeed(MotorRight,6);
 N		}
 N	}
 N	

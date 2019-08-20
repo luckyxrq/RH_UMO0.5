@@ -46306,8 +46306,8 @@ N{
 N	bsp_AngleRst();
 N
 N#if 1
-N		bsp_SetMotorSpeed(MotorLeft,12);
-N		bsp_SetMotorSpeed(MotorRight,12);
+N		bsp_SetMotorSpeed(MotorLeft,6);
+N		bsp_SetMotorSpeed(MotorRight,6);
 N#endif	
 N
 N    while(1)
@@ -46416,12 +46416,12 @@ N	/*开启红外对管轮询扫描*/
 N	bsp_DetectStart(); 
 N//	/*开启寻找充电桩*/
 N//	bsp_StartSearchChargingPile();
-N	
+N	bsp_StartUpdatePos();
 N	
 N    while(1)
 N    {
 N		bsp_DetectAct();  /*红外对管轮询扫描*/
-N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N//		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 N//		bsp_EdgewiseAct();/*沿边*/
 N//		
 N//		/*四个红外接收管*/
@@ -46432,7 +46432,8 @@ N//		bsp_GetCapCnt(CapCH4);
 N//		
 N//		/*寻找充电桩*/
 N//		bsp_SearchChargingPileAct();
-N		
+N		/*更新坐标*/
+N		bsp_PositionUpdate();
 N        vTaskDelay(1);
 N		
 N		

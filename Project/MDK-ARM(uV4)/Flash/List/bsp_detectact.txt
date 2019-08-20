@@ -2197,12 +2197,12 @@
 00002e  2800              CMP      r0,#0
 000030  db0d              BLT      |L4.78|
 ;;;643    			{
-;;;644    				bsp_SetMotorSpeed(MotorLeft,5);
-000032  2105              MOVS     r1,#5
+;;;644    				bsp_SetMotorSpeed(MotorLeft,3);
+000032  2103              MOVS     r1,#3
 000034  2000              MOVS     r0,#0
 000036  f7fffffe          BL       bsp_SetMotorSpeed
-;;;645    				bsp_SetMotorSpeed(MotorRight,5);
-00003a  2105              MOVS     r1,#5
+;;;645    				bsp_SetMotorSpeed(MotorRight,3);
+00003a  2103              MOVS     r1,#3
 00003c  2001              MOVS     r0,#1
 00003e  f7fffffe          BL       bsp_SetMotorSpeed
 ;;;646    				
@@ -2249,12 +2249,12 @@
 00007e  4288              CMP      r0,r1
 000080  d307              BCC      |L4.146|
 ;;;658    		{
-;;;659    			bsp_SetMotorSpeed(MotorLeft,12);
-000082  210c              MOVS     r1,#0xc
+;;;659    			bsp_SetMotorSpeed(MotorLeft,6);
+000082  2106              MOVS     r1,#6
 000084  2000              MOVS     r0,#0
 000086  f7fffffe          BL       bsp_SetMotorSpeed
-;;;660    			bsp_SetMotorSpeed(MotorRight,12);
-00008a  210c              MOVS     r1,#0xc
+;;;660    			bsp_SetMotorSpeed(MotorRight,6);
+00008a  2106              MOVS     r1,#6
 00008c  2001              MOVS     r0,#1
 00008e  f7fffffe          BL       bsp_SetMotorSpeed
                   |L4.146|

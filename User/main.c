@@ -88,8 +88,8 @@ static void vTaskTaskUserIF(void *pvParameters)
 	bsp_AngleRst();
 
 #if 1
-		bsp_SetMotorSpeed(MotorLeft,12);
-		bsp_SetMotorSpeed(MotorRight,12);
+		bsp_SetMotorSpeed(MotorLeft,6);
+		bsp_SetMotorSpeed(MotorRight,6);
 #endif	
 
     while(1)
@@ -198,12 +198,12 @@ static void vTaskStart(void *pvParameters)
 	bsp_DetectStart(); 
 //	/*开启寻找充电桩*/
 //	bsp_StartSearchChargingPile();
-	
+	bsp_StartUpdatePos();
 	
     while(1)
     {
 		bsp_DetectAct();  /*红外对管轮询扫描*/
-		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+//		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 //		bsp_EdgewiseAct();/*沿边*/
 //		
 //		/*四个红外接收管*/
@@ -214,7 +214,8 @@ static void vTaskStart(void *pvParameters)
 //		
 //		/*寻找充电桩*/
 //		bsp_SearchChargingPileAct();
-		
+		/*更新坐标*/
+		bsp_PositionUpdate();
         vTaskDelay(1);
 		
 		

@@ -38895,7 +38895,7 @@ N		}break;
 N		
 N		case MotorRight:
 N		{
-N			if(dir != Forward)
+N			if(dir == Forward)
 N			{
 N				TIM_SetCompare1(TIM1,0);
 X				TIM_SetCompare1(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)),0);

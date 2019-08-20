@@ -57,7 +57,7 @@ void bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm)
 		
 		case MotorRight:
 		{
-			if(dir != Forward)
+			if(dir == Forward)
 			{
 				TIM_SetCompare1(TIM1,0);
 				TIM_SetCompare2(TIM1,pwm);
