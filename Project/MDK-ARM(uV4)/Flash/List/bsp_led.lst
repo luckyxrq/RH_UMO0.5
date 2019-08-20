@@ -38860,27 +38860,32 @@ N	Èç¹ûÓÃ»§µÄLEDÖ¸Ê¾µÆ¸öÊıĞ¡ÓÚ4¸ö£¬¿ÉÒÔ½«¶àÓàµÄLEDÈ«²¿¶¨ÒåÎªºÍµÚ1¸öLEDÒ»Ñù£¬²¢²»Ó
 N*/
 N
 N/*
-N	É¨µØ»ú°´¼ü¶¨Òå
+N	¾ÉÉ¨µØ»ú°´¼ü¶¨Òå
 N	PD0 : LED_POWER
 N	PD1 : LED_HOME
 N	PD2 : LED_RET
+N	
+N	ĞÂÉ¨µØ»ú°´¼ü¶¨Òå
+N	PF3 : LED_POWER
+N	PF2 : LED_HOME
+N	PF1 : LED_RET
 N*/
 N
 N
 N/* °´¼ü¿Ú¶ÔÓ¦µÄRCCÊ±ÖÓ */
-N#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOD)
+N#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOF)
 N
-N#define GPIO_PORT_LED1  GPIOD
-N#define GPIO_PIN_LED1	GPIO_Pin_0
+N#define GPIO_PORT_LED1  GPIOF
+N#define GPIO_PIN_LED1	GPIO_Pin_3
 N
-N#define GPIO_PORT_LED2  GPIOD
-N#define GPIO_PIN_LED2	GPIO_Pin_1
+N#define GPIO_PORT_LED2  GPIOF
+N#define GPIO_PIN_LED2	GPIO_Pin_2
 N
-N#define GPIO_PORT_LED3  GPIOD
-N#define GPIO_PIN_LED3	GPIO_Pin_2
+N#define GPIO_PORT_LED3  GPIOF
+N#define GPIO_PIN_LED3	GPIO_Pin_1
 N
-N#define GPIO_PORT_LED4  GPIOD
-N#define GPIO_PIN_LED4	GPIO_Pin_0
+N#define GPIO_PORT_LED4  GPIOF
+N#define GPIO_PIN_LED4	GPIO_Pin_3
 N
 N/*
 N*********************************************************************************************************
@@ -38896,7 +38901,7 @@ N	GPIO_InitTypeDef GPIO_InitStructure;
 N
 N	/* ´ò¿ªGPIOÊ±ÖÓ */
 N	RCC_APB2PeriphClockCmd(RCC_ALL_LED, ENABLE);
-X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000020)), ENABLE);
+X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000080)), ENABLE);
 N
 N	/*
 N		ÅäÖÃËùÓĞµÄLEDÖ¸Ê¾µÆGPIOÎªÍÆÍìÊä³öÄ£Ê½
@@ -38912,24 +38917,24 @@ N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* ÍÆÍìÊä³öÄ£Ê½ */
 N	
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED1;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0008);
 N	GPIO_Init(GPIO_PORT_LED1, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED2;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0004);
 N	GPIO_Init(GPIO_PORT_LED2, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED3;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0004);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
 N	GPIO_Init(GPIO_PORT_LED3, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED4;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0008);
 N	GPIO_Init(GPIO_PORT_LED4, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N}
 N
 N/*
@@ -38947,22 +38952,22 @@ N
 N	if (_no == 0)
 N	{
 N		GPIO_PORT_LED1->BRR = GPIO_PIN_LED1;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BRR = ((uint16_t)0x0008);
 N	}
 N	else if (_no == 1)
 N	{
 N		GPIO_PORT_LED2->BRR = GPIO_PIN_LED2;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0002);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BRR = ((uint16_t)0x0004);
 N	}
 N	else if (_no == 2)
 N	{
 N		GPIO_PORT_LED3->BRR = GPIO_PIN_LED3;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0004);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BRR = ((uint16_t)0x0002);
 N	}
 N	else if (_no == 3)
 N	{
 N		GPIO_PORT_LED4->BRR = GPIO_PIN_LED4;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BRR = ((uint16_t)0x0008);
 N	}
 N}
 N
@@ -38981,22 +38986,22 @@ N
 N	if (_no == 0)
 N	{
 N		GPIO_PORT_LED1->BSRR = GPIO_PIN_LED1;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BSRR = ((uint16_t)0x0008);
 N	}
 N	else if (_no == 1)
 N	{
 N		GPIO_PORT_LED2->BSRR = GPIO_PIN_LED2;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0002);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BSRR = ((uint16_t)0x0004);
 N	}
 N	else if (_no == 2)
 N	{
 N		GPIO_PORT_LED3->BSRR = GPIO_PIN_LED3;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0004);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BSRR = ((uint16_t)0x0002);
 N	}
 N	else if (_no == 3)
 N	{
 N		GPIO_PORT_LED4->BSRR = GPIO_PIN_LED4;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BSRR = ((uint16_t)0x0008);
 N	}
 N}
 N
@@ -39013,22 +39018,22 @@ N{
 N	if (_no == 1)
 N	{
 N		GPIO_PORT_LED1->ODR ^= GPIO_PIN_LED1;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR ^= ((uint16_t)0x0008);
 N	}
 N	else if (_no == 2)
 N	{
 N		GPIO_PORT_LED2->ODR ^= GPIO_PIN_LED2;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0002);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR ^= ((uint16_t)0x0004);
 N	}
 N	else if (_no == 3)
 N	{
 N		GPIO_PORT_LED3->ODR ^= GPIO_PIN_LED3;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0004);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR ^= ((uint16_t)0x0002);
 N	}
 N	else if (_no == 4)
 N	{
 N		GPIO_PORT_LED4->ODR ^= GPIO_PIN_LED4;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR ^= ((uint16_t)0x0008);
 N	}
 N}
 N
@@ -39045,7 +39050,7 @@ N{
 N	if (_no == 1)
 N	{
 N		if ((GPIO_PORT_LED1->ODR & GPIO_PIN_LED1) == 0)
-X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0001)) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR & ((uint16_t)0x0008)) == 0)
 N		{
 N			return 1;
 N		}
@@ -39054,7 +39059,7 @@ N	}
 N	else if (_no == 2)
 N	{
 N		if ((GPIO_PORT_LED2->ODR & GPIO_PIN_LED2) == 0)
-X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0002)) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR & ((uint16_t)0x0004)) == 0)
 N		{
 N			return 1;
 N		}
@@ -39063,7 +39068,7 @@ N	}
 N	else if (_no == 3)
 N	{
 N		if ((GPIO_PORT_LED3->ODR & GPIO_PIN_LED3) == 0)
-X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0004)) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR & ((uint16_t)0x0002)) == 0)
 N		{
 N			return 1;
 N		}
@@ -39072,7 +39077,7 @@ N	}
 N	else if (_no == 4)
 N	{
 N		if ((GPIO_PORT_LED4->ODR & GPIO_PIN_LED4) == 0)
-X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0001)) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR & ((uint16_t)0x0008)) == 0)
 N		{
 N			return 1;
 N		}

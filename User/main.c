@@ -95,7 +95,11 @@ static void vTaskTaskUserIF(void *pvParameters)
     while(1)
     {
 
-		vTaskDelay(6000);
+		bsp_LedToggle(1);
+		bsp_LedToggle(2);
+		bsp_LedToggle(3);
+		
+		vTaskDelay(500);
 		
 	}
 }

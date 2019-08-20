@@ -26,27 +26,32 @@
 */
 
 /*
-	扫地机按键定义
+	旧扫地机按键定义
 	PD0 : LED_POWER
 	PD1 : LED_HOME
 	PD2 : LED_RET
+	
+	新扫地机按键定义
+	PF3 : LED_POWER
+	PF2 : LED_HOME
+	PF1 : LED_RET
 */
 
 
 /* 按键口对应的RCC时钟 */
-#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOD)
+#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOF)
 
-#define GPIO_PORT_LED1  GPIOD
-#define GPIO_PIN_LED1	GPIO_Pin_0
+#define GPIO_PORT_LED1  GPIOF
+#define GPIO_PIN_LED1	GPIO_Pin_3
 
-#define GPIO_PORT_LED2  GPIOD
-#define GPIO_PIN_LED2	GPIO_Pin_1
+#define GPIO_PORT_LED2  GPIOF
+#define GPIO_PIN_LED2	GPIO_Pin_2
 
-#define GPIO_PORT_LED3  GPIOD
-#define GPIO_PIN_LED3	GPIO_Pin_2
+#define GPIO_PORT_LED3  GPIOF
+#define GPIO_PIN_LED3	GPIO_Pin_1
 
-#define GPIO_PORT_LED4  GPIOD
-#define GPIO_PIN_LED4	GPIO_Pin_0
+#define GPIO_PORT_LED4  GPIOF
+#define GPIO_PIN_LED4	GPIO_Pin_3
 
 /*
 *********************************************************************************************************

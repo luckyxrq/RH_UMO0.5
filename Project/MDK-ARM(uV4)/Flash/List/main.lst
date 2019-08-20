@@ -46313,7 +46313,11 @@ N
 N    while(1)
 N    {
 N
-N		vTaskDelay(6000);
+N		bsp_LedToggle(1);
+N		bsp_LedToggle(2);
+N		bsp_LedToggle(3);
+N		
+N		vTaskDelay(500);
 N		
 N	}
 N}
