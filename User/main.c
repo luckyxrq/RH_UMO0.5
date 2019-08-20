@@ -207,7 +207,7 @@ static void vTaskStart(void *pvParameters)
     while(1)
     {
 		bsp_DetectAct();  /*红外对管轮询扫描*/
-//		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 //		bsp_EdgewiseAct();/*沿边*/
 //		
 //		/*四个红外接收管*/

@@ -14,7 +14,7 @@
 ;;;68     	/* ´ò¿ªGPIOÊ±ÖÓ */
 ;;;69     	RCC_APB2PeriphClockCmd(RCC_ALL_LED, ENABLE);
 000002  2101              MOVS     r1,#1
-000004  2080              MOVS     r0,#0x80
+000004  2020              MOVS     r0,#0x20
 000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
 ;;;70     
 ;;;71     	/*
@@ -43,7 +43,7 @@
 00002a  f88d0003          STRB     r0,[sp,#3]
 ;;;83     	
 ;;;84     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED1;
-00002e  2008              MOVS     r0,#8
+00002e  2001              MOVS     r0,#1
 000030  f8ad0000          STRH     r0,[sp,#0]
 ;;;85     	GPIO_Init(GPIO_PORT_LED1, &GPIO_InitStructure);
 000034  4669              MOV      r1,sp
@@ -51,7 +51,7 @@
 000038  f7fffffe          BL       GPIO_Init
 ;;;86     
 ;;;87     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED2;
-00003c  2004              MOVS     r0,#4
+00003c  2002              MOVS     r0,#2
 00003e  f8ad0000          STRH     r0,[sp,#0]
 ;;;88     	GPIO_Init(GPIO_PORT_LED2, &GPIO_InitStructure);
 000042  4669              MOV      r1,sp
@@ -59,7 +59,7 @@
 000046  f7fffffe          BL       GPIO_Init
 ;;;89     
 ;;;90     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED3;
-00004a  2002              MOVS     r0,#2
+00004a  2004              MOVS     r0,#4
 00004c  f8ad0000          STRH     r0,[sp,#0]
 ;;;91     	GPIO_Init(GPIO_PORT_LED3, &GPIO_InitStructure);
 000050  4669              MOV      r1,sp
@@ -67,7 +67,7 @@
 000054  f7fffffe          BL       GPIO_Init
 ;;;92     
 ;;;93     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED4;
-000058  2008              MOVS     r0,#8
+000058  2001              MOVS     r0,#1
 00005a  f8ad0000          STRH     r0,[sp,#0]
 ;;;94     	GPIO_Init(GPIO_PORT_LED4, &GPIO_InitStructure);
 00005e  4669              MOV      r1,sp
@@ -79,7 +79,7 @@
                           ENDP
 
                   |L1.104|
-                          DCD      0x40011c00
+                          DCD      0x40011400
 
                           AREA ||i.bsp_IsLedOn||, CODE, READONLY, ALIGN=2
 
@@ -95,7 +95,7 @@
 ;;;197    		if ((GPIO_PORT_LED1->ODR & GPIO_PIN_LED1) == 0)
 000006  4816              LDR      r0,|L2.96|
 000008  6800              LDR      r0,[r0,#0]
-00000a  f0000008          AND      r0,r0,#8
+00000a  f0000001          AND      r0,r0,#1
 00000e  b908              CBNZ     r0,|L2.20|
 ;;;198    		{
 ;;;199    			return 1;
@@ -140,7 +140,7 @@
 00001a  d108              BNE      |L2.46|
 00001c  4810              LDR      r0,|L2.96|
 00001e  6800              LDR      r0,[r0,#0]            ;205
-000020  f0000004          AND      r0,r0,#4              ;205
+000020  f0000002          AND      r0,r0,#2              ;205
 000024  b908              CBNZ     r0,|L2.42|
 000026  2001              MOVS     r0,#1                 ;207
 000028  e7f3              B        |L2.18|
@@ -152,7 +152,7 @@
 000030  d108              BNE      |L2.68|
 000032  480b              LDR      r0,|L2.96|
 000034  6800              LDR      r0,[r0,#0]            ;213
-000036  f0000002          AND      r0,r0,#2              ;213
+000036  f0000004          AND      r0,r0,#4              ;213
 00003a  b908              CBNZ     r0,|L2.64|
 00003c  2001              MOVS     r0,#1                 ;215
 00003e  e7e8              B        |L2.18|
@@ -164,7 +164,7 @@
 000046  d108              BNE      |L2.90|
 000048  4805              LDR      r0,|L2.96|
 00004a  6800              LDR      r0,[r0,#0]            ;221
-00004c  f0000008          AND      r0,r0,#8              ;221
+00004c  f0000001          AND      r0,r0,#1              ;221
 000050  b908              CBNZ     r0,|L2.86|
 000052  2001              MOVS     r0,#1                 ;223
 000054  e7dd              B        |L2.18|
@@ -179,7 +179,7 @@
 
 00005e  0000              DCW      0x0000
                   |L2.96|
-                          DCD      0x40011c0c
+                          DCD      0x4001140c
 
                           AREA ||i.bsp_LedOff||, CODE, READONLY, ALIGN=2
 
@@ -195,7 +195,7 @@
 000004  b918              CBNZ     r0,|L3.14|
 ;;;140    	{
 ;;;141    		GPIO_PORT_LED1->BSRR = GPIO_PIN_LED1;
-000006  2108              MOVS     r1,#8
+000006  2101              MOVS     r1,#1
 000008  4a0a              LDR      r2,|L3.52|
 00000a  6011              STR      r1,[r2,#0]
 00000c  e010              B        |L3.48|
@@ -206,7 +206,7 @@
 000010  d103              BNE      |L3.26|
 ;;;144    	{
 ;;;145    		GPIO_PORT_LED2->BSRR = GPIO_PIN_LED2;
-000012  2104              MOVS     r1,#4
+000012  2102              MOVS     r1,#2
 000014  4a07              LDR      r2,|L3.52|
 000016  6011              STR      r1,[r2,#0]
 000018  e00a              B        |L3.48|
@@ -217,7 +217,7 @@
 00001c  d103              BNE      |L3.38|
 ;;;148    	{
 ;;;149    		GPIO_PORT_LED3->BSRR = GPIO_PIN_LED3;
-00001e  2102              MOVS     r1,#2
+00001e  2104              MOVS     r1,#4
 000020  4a04              LDR      r2,|L3.52|
 000022  6011              STR      r1,[r2,#0]
 000024  e004              B        |L3.48|
@@ -228,7 +228,7 @@
 000028  d102              BNE      |L3.48|
 ;;;152    	{
 ;;;153    		GPIO_PORT_LED4->BSRR = GPIO_PIN_LED4;
-00002a  2108              MOVS     r1,#8
+00002a  2101              MOVS     r1,#1
 00002c  4a01              LDR      r2,|L3.52|
 00002e  6011              STR      r1,[r2,#0]
                   |L3.48|
@@ -240,7 +240,7 @@
 
 000032  0000              DCW      0x0000
                   |L3.52|
-                          DCD      0x40011c10
+                          DCD      0x40011410
 
                           AREA ||i.bsp_LedOn||, CODE, READONLY, ALIGN=2
 
@@ -256,7 +256,7 @@
 000004  b918              CBNZ     r0,|L4.14|
 ;;;110    	{
 ;;;111    		GPIO_PORT_LED1->BRR = GPIO_PIN_LED1;
-000006  2108              MOVS     r1,#8
+000006  2101              MOVS     r1,#1
 000008  4a0a              LDR      r2,|L4.52|
 00000a  6011              STR      r1,[r2,#0]
 00000c  e010              B        |L4.48|
@@ -267,7 +267,7 @@
 000010  d103              BNE      |L4.26|
 ;;;114    	{
 ;;;115    		GPIO_PORT_LED2->BRR = GPIO_PIN_LED2;
-000012  2104              MOVS     r1,#4
+000012  2102              MOVS     r1,#2
 000014  4a07              LDR      r2,|L4.52|
 000016  6011              STR      r1,[r2,#0]
 000018  e00a              B        |L4.48|
@@ -278,7 +278,7 @@
 00001c  d103              BNE      |L4.38|
 ;;;118    	{
 ;;;119    		GPIO_PORT_LED3->BRR = GPIO_PIN_LED3;
-00001e  2102              MOVS     r1,#2
+00001e  2104              MOVS     r1,#4
 000020  4a04              LDR      r2,|L4.52|
 000022  6011              STR      r1,[r2,#0]
 000024  e004              B        |L4.48|
@@ -289,7 +289,7 @@
 000028  d102              BNE      |L4.48|
 ;;;122    	{
 ;;;123    		GPIO_PORT_LED4->BRR = GPIO_PIN_LED4;
-00002a  2108              MOVS     r1,#8
+00002a  2101              MOVS     r1,#1
 00002c  4a01              LDR      r2,|L4.52|
 00002e  6011              STR      r1,[r2,#0]
                   |L4.48|
@@ -301,7 +301,7 @@
 
 000032  0000              DCW      0x0000
                   |L4.52|
-                          DCD      0x40011c14
+                          DCD      0x40011414
 
                           AREA ||i.bsp_LedToggle||, CODE, READONLY, ALIGN=2
 
@@ -316,7 +316,7 @@
 ;;;169    		GPIO_PORT_LED1->ODR ^= GPIO_PIN_LED1;
 000004  4910              LDR      r1,|L5.72|
 000006  6809              LDR      r1,[r1,#0]
-000008  f0810108          EOR      r1,r1,#8
+000008  f0810101          EOR      r1,r1,#1
 00000c  4a0e              LDR      r2,|L5.72|
 00000e  6011              STR      r1,[r2,#0]
 000010  e019              B        |L5.70|
@@ -329,7 +329,7 @@
 ;;;173    		GPIO_PORT_LED2->ODR ^= GPIO_PIN_LED2;
 000016  490c              LDR      r1,|L5.72|
 000018  6809              LDR      r1,[r1,#0]
-00001a  f0810104          EOR      r1,r1,#4
+00001a  f0810102          EOR      r1,r1,#2
 00001e  4a0a              LDR      r2,|L5.72|
 000020  6011              STR      r1,[r2,#0]
 000022  e010              B        |L5.70|
@@ -342,7 +342,7 @@
 ;;;177    		GPIO_PORT_LED3->ODR ^= GPIO_PIN_LED3;
 000028  4907              LDR      r1,|L5.72|
 00002a  6809              LDR      r1,[r1,#0]
-00002c  f0810102          EOR      r1,r1,#2
+00002c  f0810104          EOR      r1,r1,#4
 000030  4a05              LDR      r2,|L5.72|
 000032  6011              STR      r1,[r2,#0]
 000034  e007              B        |L5.70|
@@ -355,7 +355,7 @@
 ;;;181    		GPIO_PORT_LED4->ODR ^= GPIO_PIN_LED4;
 00003a  4903              LDR      r1,|L5.72|
 00003c  6809              LDR      r1,[r1,#0]
-00003e  f0810108          EOR      r1,r1,#8
+00003e  f0810101          EOR      r1,r1,#1
 000042  4a01              LDR      r2,|L5.72|
 000044  6011              STR      r1,[r2,#0]
                   |L5.70|
@@ -366,7 +366,7 @@
                           ENDP
 
                   |L5.72|
-                          DCD      0x40011c0c
+                          DCD      0x4001140c
 
 ;*** Start embedded assembler ***
 

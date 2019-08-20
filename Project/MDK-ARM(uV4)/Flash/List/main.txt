@@ -381,12 +381,13 @@
 000004  f7fffffe          BL       bsp_StartUpdatePos
 ;;;206    	
 ;;;207        while(1)
-000008  e006              B        |L7.24|
+000008  e008              B        |L7.28|
                   |L7.10|
 ;;;208        {
 ;;;209    		bsp_DetectAct();  /*红外对管轮询扫描*/
 00000a  f7fffffe          BL       bsp_DetectAct
-;;;210    //		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+;;;210    		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+00000e  f7fffffe          BL       bsp_DetectDeal
 ;;;211    //		bsp_EdgewiseAct();/*沿边*/
 ;;;212    //		
 ;;;213    //		/*四个红外接收管*/
@@ -399,12 +400,12 @@
 ;;;220    //		bsp_SearchChargingPileAct();
 ;;;221    		/*更新坐标*/
 ;;;222    		bsp_PositionUpdate();
-00000e  f7fffffe          BL       bsp_PositionUpdate
+000012  f7fffffe          BL       bsp_PositionUpdate
 ;;;223            vTaskDelay(1);
-000012  2001              MOVS     r0,#1
-000014  f7fffffe          BL       vTaskDelay
-                  |L7.24|
-000018  e7f7              B        |L7.10|
+000016  2001              MOVS     r0,#1
+000018  f7fffffe          BL       vTaskDelay
+                  |L7.28|
+00001c  e7f5              B        |L7.10|
 ;;;224    		
 ;;;225    		
 ;;;226    		  
