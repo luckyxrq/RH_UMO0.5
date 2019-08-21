@@ -38822,7 +38822,14 @@ N
 N#endif
 N
 L 188 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_stflash.h"
+L 1 "..\..\User\app\inc\bsp_stflash.h" 1
+N#ifndef __BSP_STFLASH_H
+N#define __BSP_STFLASH_H
 N
+N#endif
+N
+L 189 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
@@ -39087,27 +39094,25 @@ N	reportFrame.checksum_lsb = chk & 0x00FF;
 N	
 N	
 N	/*打印调试信息*/
-N	#if 1
-N	{
-N		float data[10] = {0};
-N		
-N		DEBUG("angle:%.2F\r\n",angle/100.0F);
-X		printf ("angle:%.2F\r\n",angle/100.0F);
-N		
-N		data[0] =  angle;                                          //红外ADC值1	 
-N		data[1] =  adc2;                                          //红外ADC值2	 
-N		data[2] =  adc3;                                          //红外ADC值3	 
-N		data[3] =  adc4;                                          //红外ADC值4	 
-N		data[4] =  adc5;                                          //红外ADC值5	 
-N		data[5] =  adc6;                                          //红外ADC值6	 
-N		data[6] =  adc7;                                          //红外ADC值7	 
-N		data[7] =  adc8;                                          //红外ADC值8	 
-N		data[8] =  adc9;                                          //红外ADC值9	 
-N		data[9] =  adc10;                                         //红外ADC值10
-N		
-N		//bsp_ScopeSend(data,1);
-W "..\..\User\app\src\bsp_communication.c" 251 9 variable "data" was set but never used
-N	}
+N	#if 0
+S	{
+S		float data[10] = {0};
+S		
+S		DEBUG("angle:%.2F\r\n",angle/100.0F);
+S		
+S		data[0] =  angle;                                          //红外ADC值1	 
+S		data[1] =  adc2;                                          //红外ADC值2	 
+S		data[2] =  adc3;                                          //红外ADC值3	 
+S		data[3] =  adc4;                                          //红外ADC值4	 
+S		data[4] =  adc5;                                          //红外ADC值5	 
+S		data[5] =  adc6;                                          //红外ADC值6	 
+S		data[6] =  adc7;                                          //红外ADC值7	 
+S		data[7] =  adc8;                                          //红外ADC值8	 
+S		data[8] =  adc9;                                          //红外ADC值9	 
+S		data[9] =  adc10;                                         //红外ADC值10
+S		
+S		//bsp_ScopeSend(data,1);
+S	}
 N	#endif
 N	
 N}

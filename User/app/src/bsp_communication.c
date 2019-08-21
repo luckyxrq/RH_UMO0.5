@@ -246,7 +246,7 @@ void bsp_FillReportFrame(void)
 	
 	
 	/*打印调试信息*/
-	#if 1
+	#if 0
 	{
 		float data[10] = {0};
 		

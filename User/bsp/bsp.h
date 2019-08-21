@@ -185,7 +185,7 @@
 #include "bsp_Control.h"
 #include "bsp_Scope.h"
 #include "bsp_Position.h"
-
+#include "bsp_stflash.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

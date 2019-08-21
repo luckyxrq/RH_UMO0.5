@@ -38822,7 +38822,14 @@ N
 N#endif
 N
 L 188 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_stflash.h"
+L 1 "..\..\User\app\inc\bsp_stflash.h" 1
+N#ifndef __BSP_STFLASH_H
+N#define __BSP_STFLASH_H
 N
+N#endif
+N
+L 189 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
