@@ -2615,9 +2615,9 @@
       </Doc>
       <Doc>
         <Name>..\..\User\app\src\bsp_stflash.c</Name>
-        <ColumnNumber>25</ColumnNumber>
-        <TopLine>47</TopLine>
-        <CurrentLine>61</CurrentLine>
+        <ColumnNumber>1</ColumnNumber>
+        <TopLine>59</TopLine>
+        <CurrentLine>82</CurrentLine>
         <Folding>0</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
