@@ -239,8 +239,8 @@
 ;;;57     		
 ;;;58     		case MotorRight:
 ;;;59     		{
-;;;60     			if(dir == Forward)
-000036  b944              CBNZ     r4,|L3.74|
+;;;60     			if(dir != Forward)
+000036  b144              CBZ      r4,|L3.74|
 ;;;61     			{
 ;;;62     				TIM_SetCompare1(TIM1,0);
 000038  2100              MOVS     r1,#0
