@@ -5,66 +5,98 @@
                           AREA ||i.bsp_LoadParam||, CODE, READONLY, ALIGN=2
 
                   bsp_LoadParam PROC
-;;;31     */
-;;;32     void bsp_LoadParam(void)
+;;;38     */
+;;;39     void bsp_LoadParam(void)
 000000  b510              PUSH     {r4,lr}
-;;;33     {
-;;;34     	bsp_FlashReadPage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
-000002  2204              MOVS     r2,#4
+;;;40     {
+;;;41     	bsp_FlashReadPage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
+000002  2223              MOVS     r2,#0x23
 000004  4907              LDR      r1,|L1.36|
 000006  20ff              MOVS     r0,#0xff
 000008  f7fffffe          BL       bsp_FlashReadPage
-;;;35     	
-;;;36     	/* 填充缺省参数 */
-;;;37     	if (param.ParamVer != PARAM_VER)
+;;;42     	
+;;;43     	/* 填充缺省参数 */
+;;;44     	if (param.ParamVer != PARAM_VER)
 00000c  4805              LDR      r0,|L1.36|
 00000e  6800              LDR      r0,[r0,#0]  ; param
-000010  f5b07f82          CMP      r0,#0x104
-000014  d005              BEQ      |L1.34|
-;;;38     	{
-;;;39     		param.ParamVer = PARAM_VER;
-000016  f44f7082          MOV      r0,#0x104
+000010  f2401105          MOV      r1,#0x105
+000014  4288              CMP      r0,r1
+000016  d004              BEQ      |L1.34|
+;;;45     	{
+;;;46     		param.ParamVer = PARAM_VER;
+000018  4608              MOV      r0,r1
 00001a  4902              LDR      r1,|L1.36|
 00001c  6008              STR      r0,[r1,#0]  ; param
-;;;40     
-;;;41     
-;;;42     		bsp_SaveParam();							/* 将新参数写入Flash */
+;;;47     
+;;;48     //		param.data1 = 3.141F;
+;;;49     //		param.data2 = 66;
+;;;50     //		param.data3 = 666.123F;
+;;;51     //		param.data4 = 2345;
+;;;52     //		param.data5 = 888.632F;
+;;;53     //		param.data6 = 99;
+;;;54     //		param.data7 = 99.8F;
+;;;55     //		param.data8 = 3.141592654;
+;;;56     
+;;;57     		bsp_SaveParam();							/* 将新参数写入Flash */
 00001e  f7fffffe          BL       bsp_SaveParam
                   |L1.34|
-;;;43     	}
-;;;44     }
+;;;58     	}
+;;;59     }
 000022  bd10              POP      {r4,pc}
-;;;45     
+;;;60     
                           ENDP
 
                   |L1.36|
                           DCD      param
 
+                          AREA ||i.bsp_ParamUpdateTest||, CODE, READONLY, ALIGN=1
+
+                  bsp_ParamUpdateTest PROC
+;;;82     */
+;;;83     void bsp_ParamUpdateTest(void)
+000000  4770              BX       lr
+;;;84     {
+;;;85     //	bsp_LoadParam();
+;;;86     //	DEBUG("param.ParamVer:%03X\r\n",param.ParamVer);
+;;;87     //	DEBUG("param.data1:%f\r\n",param.data1);
+;;;88     //	DEBUG("param.data2:%d\r\n",param.data2);
+;;;89     //	DEBUG("param.data3:%f\r\n",param.data3);
+;;;90     //	DEBUG("param.data4:%d\r\n",param.data4);
+;;;91     //	DEBUG("param.data5:%f\r\n",param.data5);
+;;;92     //	DEBUG("param.data6:%d\r\n",param.data6);
+;;;93     //	DEBUG("param.data7:%f\r\n",param.data7);
+;;;94     //	DEBUG("param.data8:%f\r\n",param.data8);
+;;;95     	
+;;;96     }
+;;;97     
+                          ENDP
+
+
                           AREA ||i.bsp_SaveParam||, CODE, READONLY, ALIGN=2
 
                   bsp_SaveParam PROC
-;;;53     */
-;;;54     void bsp_SaveParam(void)
+;;;68     */
+;;;69     void bsp_SaveParam(void)
 000000  b510              PUSH     {r4,lr}
-;;;55     {
-;;;56     	bsp_FlashWritePage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
-000002  2204              MOVS     r2,#4
-000004  4902              LDR      r1,|L2.16|
+;;;70     {
+;;;71     	bsp_FlashWritePage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
+000002  2223              MOVS     r2,#0x23
+000004  4902              LDR      r1,|L3.16|
 000006  20ff              MOVS     r0,#0xff
 000008  f7fffffe          BL       bsp_FlashWritePage
-;;;57     }
+;;;72     }
 00000c  bd10              POP      {r4,pc}
-;;;58     
+;;;73     
                           ENDP
 
 00000e  0000              DCW      0x0000
-                  |L2.16|
+                  |L3.16|
                           DCD      param
 
-                          AREA ||.data||, DATA, ALIGN=1
+                          AREA ||.bss||, DATA, NOINIT, ALIGN=0
 
                   param
-                          DCDU     0x00000000
+                          %        35
 
 ;*** Start embedded assembler ***
 

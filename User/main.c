@@ -100,6 +100,7 @@ static void vTaskTaskUserIF(void *pvParameters)
     {
 
 		vTaskDelay(6000);
+		bsp_ParamUpdateTest();
 		//bsp_StFlashTest(255);
 	}
 }

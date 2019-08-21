@@ -46214,6 +46214,7 @@ N#define __BSP_PARAM_H
 N
 Nvoid bsp_LoadParam(void);
 Nvoid bsp_SaveParam(void);
+Nvoid bsp_ParamUpdateTest(void);
 N
 N#endif
 N
@@ -46342,6 +46343,7 @@ N    while(1)
 N    {
 N
 N		vTaskDelay(6000);
+N		bsp_ParamUpdateTest();
 N		//bsp_StFlashTest(255);
 N	}
 N}
