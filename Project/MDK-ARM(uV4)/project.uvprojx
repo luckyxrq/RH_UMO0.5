@@ -513,6 +513,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Position.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_stflash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_stflash.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

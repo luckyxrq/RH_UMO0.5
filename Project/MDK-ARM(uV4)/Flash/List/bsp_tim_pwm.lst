@@ -38846,6 +38846,11 @@ L 1 "..\..\User\app\inc\bsp_stflash.h" 1
 N#ifndef __BSP_STFLASH_H
 N#define __BSP_STFLASH_H
 N
+Nbool bsp_FlashWritePage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+X_Bool bsp_FlashWritePage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+Nbool bsp_FlashReadPage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+X_Bool bsp_FlashReadPage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+N
 N#endif
 N
 L 189 "..\..\User\bsp\bsp.h" 2
