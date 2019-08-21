@@ -46130,7 +46130,7 @@ Nvoid bsp_PidSched(void);
 Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 Nint32_t bsp_MotorGetSpeed(MotorSN sn);
 Nint32_t bsp_MotorGetTargetSpeed(MotorSN sn);
-Nint32_t bsp_MotorSpeedMM2Pulse(int32_t mm);
+Nint32_t bsp_MotorSpeedMM2Pulse(int16_t mm);
 Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
 N
 N#endif
@@ -46142,7 +46142,7 @@ N#ifndef __BSP_SCOPE_H
 N#define __BSP_SCOPE_H
 N
 N
-Nvoid bsp_ScopeSend(void);
+Nvoid bsp_ScopeSend(float data[10] , uint8_t chCount);
 N
 N
 N#endif
@@ -46153,7 +46153,7 @@ L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
 N#define __BSP_POSITION_H
 N
-N#define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
+N
 N
 Ntypedef struct
 N{
@@ -46305,9 +46305,9 @@ Nstatic void vTaskTaskUserIF(void *pvParameters)
 N{
 N	bsp_AngleRst();
 N
-N#if 1
-N		bsp_SetMotorSpeed(MotorLeft,12);
-N		bsp_SetMotorSpeed(MotorRight,12);
+N#if 0
+S		bsp_SetMotorSpeed(MotorLeft,12);
+S		bsp_SetMotorSpeed(MotorRight,12);
 N#endif	
 N
 N    while(1)
@@ -46340,31 +46340,31 @@ N		if(collision == CollisionLeft)
 N		{
 N			//DEBUG("%06dLeft\r\n",index++);
 N			
-N			bsp_SetMotorSpeed(MotorLeft,-5);
-N			bsp_SetMotorSpeed(MotorRight,-12);
-N			vTaskDelay(500);
-N			bsp_SetMotorSpeed(MotorLeft,5);
-N			bsp_SetMotorSpeed(MotorRight,5);
+N//			bsp_SetMotorSpeed(MotorLeft,-5);
+N//			bsp_SetMotorSpeed(MotorRight,-12);
+N//			vTaskDelay(500);
+N//			bsp_SetMotorSpeed(MotorLeft,5);
+N//			bsp_SetMotorSpeed(MotorRight,5);
 N		}
 N		else if(collision == CollisionRight)
 N		{
 N			//DEBUG("%06dRight\r\n",index++);
 N			
-N			bsp_SetMotorSpeed(MotorLeft,-12);
-N			bsp_SetMotorSpeed(MotorRight,-5);
-N			vTaskDelay(500);
-N			bsp_SetMotorSpeed(MotorLeft,5);
-N			bsp_SetMotorSpeed(MotorRight,5);
+N//			bsp_SetMotorSpeed(MotorLeft,-12);
+N//			bsp_SetMotorSpeed(MotorRight,-5);
+N//			vTaskDelay(500);
+N//			bsp_SetMotorSpeed(MotorLeft,5);
+N//			bsp_SetMotorSpeed(MotorRight,5);
 N		}
 N		else if(collision == CollisionAll)
 N		{
 N			//DEBUG("%06dBoth\r\n",index++);
 N			
-N			bsp_SetMotorSpeed(MotorLeft,-12);
-N			bsp_SetMotorSpeed(MotorRight,-12);
-N			vTaskDelay(500);
-N			bsp_SetMotorSpeed(MotorLeft,5);
-N			bsp_SetMotorSpeed(MotorRight,5);
+N//			bsp_SetMotorSpeed(MotorLeft,-12);
+N//			bsp_SetMotorSpeed(MotorRight,-12);
+N//			vTaskDelay(500);
+N//			bsp_SetMotorSpeed(MotorLeft,5);
+N//			bsp_SetMotorSpeed(MotorRight,5);
 N		}
 N#endif
 N		
@@ -46397,6 +46397,7 @@ N
 N//		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
 N//		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 N		
+N		bsp_ComAnalysis();
 N		vTaskDelay(10);
 N    }
 N}
@@ -46421,7 +46422,7 @@ N
 N    while(1)
 N    {
 N		bsp_DetectAct();  /*红外对管轮询扫描*/
-N//		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 N//		bsp_EdgewiseAct();/*沿边*/
 N//		
 N//		/*四个红外接收管*/
@@ -46434,6 +46435,7 @@ N//		/*寻找充电桩*/
 N//		bsp_SearchChargingPileAct();
 N		/*更新坐标*/
 N		bsp_PositionUpdate();
+N		
 N        vTaskDelay(1);
 N		
 N		

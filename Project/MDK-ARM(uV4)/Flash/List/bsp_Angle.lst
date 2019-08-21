@@ -38759,7 +38759,7 @@ Nvoid bsp_PidSched(void);
 Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 Nint32_t bsp_MotorGetSpeed(MotorSN sn);
 Nint32_t bsp_MotorGetTargetSpeed(MotorSN sn);
-Nint32_t bsp_MotorSpeedMM2Pulse(int32_t mm);
+Nint32_t bsp_MotorSpeedMM2Pulse(int16_t mm);
 Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
 N
 N#endif
@@ -38771,7 +38771,7 @@ N#ifndef __BSP_SCOPE_H
 N#define __BSP_SCOPE_H
 N
 N
-Nvoid bsp_ScopeSend(void);
+Nvoid bsp_ScopeSend(float data[10] , uint8_t chCount);
 N
 N
 N#endif
@@ -38782,7 +38782,7 @@ L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
 N#define __BSP_POSITION_H
 N
-N#define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
+N
 N
 Ntypedef struct
 N{

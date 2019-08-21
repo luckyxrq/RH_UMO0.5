@@ -38759,7 +38759,7 @@ Nvoid bsp_PidSched(void);
 Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 Nint32_t bsp_MotorGetSpeed(MotorSN sn);
 Nint32_t bsp_MotorGetTargetSpeed(MotorSN sn);
-Nint32_t bsp_MotorSpeedMM2Pulse(int32_t mm);
+Nint32_t bsp_MotorSpeedMM2Pulse(int16_t mm);
 Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
 N
 N#endif
@@ -38771,7 +38771,7 @@ N#ifndef __BSP_SCOPE_H
 N#define __BSP_SCOPE_H
 N
 N
-Nvoid bsp_ScopeSend(void);
+Nvoid bsp_ScopeSend(float data[10] , uint8_t chCount);
 N
 N
 N#endif
@@ -38782,7 +38782,7 @@ L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
 N#define __BSP_POSITION_H
 N
-N#define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
+N
 N
 Ntypedef struct
 N{
@@ -38940,6 +38940,15 @@ N
 N					/*设定速度*/
 N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
 N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+N					
+N					/*调试*/
+N					#if 0
+S					DEBUG("routeAnalysis.msgID:%02X\r\n",routeAnalysis.msgID);
+S					DEBUG("routeAnalysis.len:%02X\r\n",routeAnalysis.len);
+S
+S					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[5], analysisBuf[6]);
+S					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[7], analysisBuf[8]);
+N					#endif
 N				}
 N				
 N				/*重新开始计数*/
@@ -39034,27 +39043,27 @@ N	reportFrame.identifier_major = MIN_ID_ENVIRONMENT;                            
 X	reportFrame.identifier_major = 0x30;                                
 N	reportFrame.identifier_subs = 0x00;        	                                      //子识别码
 N	reportFrame.size_of_payload_field = dataLen;   	                                  //数据长度（不包括头标识3，尾标识1，校验2）
-N	reportFrame.left_wheel_pulse_count = leftPulseVector;   //左轮编码器计数
-N	reportFrame.right_wheel_pluse_count = rightPulseVector; //右轮编码器计数
-N	reportFrame.left_wheel_velocity = leftSpeedMM;  		  //左轮电机速度
-N	reportFrame.right_wheel_veloctiy = rightSpeedMM;		  //右轮电机速度
-N	reportFrame.x_coordinate = x_coordinate;				  //X坐标
-N	reportFrame.y_coordinate = y_coordinate;				  //Y坐标
-N	reportFrame.theta_angle_deg = angle;		              //航向角
+N	reportFrame.left_wheel_pulse_count = leftPulseVector;                             //左轮编码器计数
+N	reportFrame.right_wheel_pluse_count = rightPulseVector;                           //右轮编码器计数
+N	reportFrame.left_wheel_velocity = leftSpeedMM;  		                          //左轮电机速度
+N	reportFrame.right_wheel_veloctiy = rightSpeedMM;		                          //右轮电机速度
+N	reportFrame.x_coordinate = x_coordinate;				                          //X坐标
+N	reportFrame.y_coordinate = y_coordinate;				                          //Y坐标
+N	reportFrame.theta_angle_deg = angle;		                                      //航向角
 N	reportFrame.landoff_button = 0;                                                   //离地开关
 N	reportFrame.collosion_button = bsp_CollisionScan() ; 			                  //碰撞开关
 N	reportFrame.infrared_front_status = 0; 	                                          //前向红外状态 
 N	reportFrame.infrared_edge_status = 0;	                                          //沿边红外状态
-N	reportFrame.infrared_adc_value1 =  adc1;                //红外ADC值1	 
-N	reportFrame.infrared_adc_value2 =  adc2;                //红外ADC值2	 
-N	reportFrame.infrared_adc_value3 =  adc3;                //红外ADC值3	 
-N	reportFrame.infrared_adc_value4 =  adc4;                //红外ADC值4	 
-N	reportFrame.infrared_adc_value5 =  adc5;                //红外ADC值5	 
-N	reportFrame.infrared_adc_value6 =  adc6;                //红外ADC值6	 
-N	reportFrame.infrared_adc_value7 =  adc7;                //红外ADC值7	 
-N	reportFrame.infrared_adc_value8 =  adc8;                //红外ADC值8	 
-N	reportFrame.infrared_adc_value9 =  adc9;                //红外ADC值9	 
-N	reportFrame.infrared_adc_value10 = adc10;               //红外ADC值10
+N	reportFrame.infrared_adc_value1 =  adc1;                                          //红外ADC值1	 
+N	reportFrame.infrared_adc_value2 =  adc2;                                          //红外ADC值2	 
+N	reportFrame.infrared_adc_value3 =  adc3;                                          //红外ADC值3	 
+N	reportFrame.infrared_adc_value4 =  adc4;                                          //红外ADC值4	 
+N	reportFrame.infrared_adc_value5 =  adc5;                                          //红外ADC值5	 
+N	reportFrame.infrared_adc_value6 =  adc6;                                          //红外ADC值6	 
+N	reportFrame.infrared_adc_value7 =  adc7;                                          //红外ADC值7	 
+N	reportFrame.infrared_adc_value8 =  adc8;                                          //红外ADC值8	 
+N	reportFrame.infrared_adc_value9 =  adc9;                                          //红外ADC值9	 
+N	reportFrame.infrared_adc_value10 = adc10;                                         //红外ADC值10
 N	reportFrame.infrared_cliff_status = 0 ;                                           //跳崖红外状态
 N	reportFrame.infrared_cliff_adc_value1 = 0 ;                                       //跳崖ADC值1
 N	reportFrame.infrared_cliff_adc_value2 = 0 ;                                       //跳崖ADC值2
@@ -39063,7 +39072,7 @@ N	reportFrame.battery_voltage = 0;                                              
 N	reportFrame.charging_status = 0;                                                  //充电状态
 N	reportFrame.error_code = 0;         	                                          //异常状态
 N	reportFrame.machine_status = 0;                                                   //机器状态
-N	reportFrame.timestamp = timestamp;                      //时间戳
+N	reportFrame.timestamp = timestamp;                                                //时间戳
 N	reportFrame.reserved1 = 0;  	                                                  //保留位1
 N	reportFrame.reserved2 = 0;				                                          //保留位2
 N	reportFrame.reserved3 = 0;         	                                              //保留位3
@@ -39075,6 +39084,32 @@ N	/*计算校验*/
 N	chk = bsp_CalcChk(src+3,len-6);
 N	reportFrame.checksum_msb = chk >> 8;
 N	reportFrame.checksum_lsb = chk & 0x00FF;
+N	
+N	
+N	/*打印调试信息*/
+N	#if 1
+N	{
+N		float data[10] = {0};
+N		
+N		DEBUG("angle:%.2F\r\n",angle/100.0F);
+X		printf ("angle:%.2F\r\n",angle/100.0F);
+N		
+N		data[0] =  angle;                                          //红外ADC值1	 
+N		data[1] =  adc2;                                          //红外ADC值2	 
+N		data[2] =  adc3;                                          //红外ADC值3	 
+N		data[3] =  adc4;                                          //红外ADC值4	 
+N		data[4] =  adc5;                                          //红外ADC值5	 
+N		data[5] =  adc6;                                          //红外ADC值6	 
+N		data[6] =  adc7;                                          //红外ADC值7	 
+N		data[7] =  adc8;                                          //红外ADC值8	 
+N		data[8] =  adc9;                                          //红外ADC值9	 
+N		data[9] =  adc10;                                         //红外ADC值10
+N		
+N		//bsp_ScopeSend(data,1);
+W "..\..\User\app\src\bsp_communication.c" 251 9 variable "data" was set but never used
+N	}
+N	#endif
+N	
 N}
 N
 N

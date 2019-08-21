@@ -100,6 +100,15 @@ void bsp_ComAnalysis(void)
 					/*设定速度*/
 					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
 					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+					
+					/*调试*/
+					#if 0
+					DEBUG("routeAnalysis.msgID:%02X\r\n",routeAnalysis.msgID);
+					DEBUG("routeAnalysis.len:%02X\r\n",routeAnalysis.len);
+
+					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[5], analysisBuf[6]);
+					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[7], analysisBuf[8]);
+					#endif
 				}
 				
 				/*重新开始计数*/
@@ -193,27 +202,27 @@ void bsp_FillReportFrame(void)
 	reportFrame.identifier_major = MIN_ID_ENVIRONMENT;                                //主识别码
 	reportFrame.identifier_subs = 0x00;        	                                      //子识别码
 	reportFrame.size_of_payload_field = dataLen;   	                                  //数据长度（不包括头标识3，尾标识1，校验2）
-	reportFrame.left_wheel_pulse_count = leftPulseVector;   //左轮编码器计数
-	reportFrame.right_wheel_pluse_count = rightPulseVector; //右轮编码器计数
-	reportFrame.left_wheel_velocity = leftSpeedMM;  		  //左轮电机速度
-	reportFrame.right_wheel_veloctiy = rightSpeedMM;		  //右轮电机速度
-	reportFrame.x_coordinate = x_coordinate;				  //X坐标
-	reportFrame.y_coordinate = y_coordinate;				  //Y坐标
-	reportFrame.theta_angle_deg = angle;		              //航向角
+	reportFrame.left_wheel_pulse_count = leftPulseVector;                             //左轮编码器计数
+	reportFrame.right_wheel_pluse_count = rightPulseVector;                           //右轮编码器计数
+	reportFrame.left_wheel_velocity = leftSpeedMM;  		                          //左轮电机速度
+	reportFrame.right_wheel_veloctiy = rightSpeedMM;		                          //右轮电机速度
+	reportFrame.x_coordinate = x_coordinate;				                          //X坐标
+	reportFrame.y_coordinate = y_coordinate;				                          //Y坐标
+	reportFrame.theta_angle_deg = angle;		                                      //航向角
 	reportFrame.landoff_button = 0;                                                   //离地开关
 	reportFrame.collosion_button = bsp_CollisionScan() ; 			                  //碰撞开关
 	reportFrame.infrared_front_status = 0; 	                                          //前向红外状态 
 	reportFrame.infrared_edge_status = 0;	                                          //沿边红外状态
-	reportFrame.infrared_adc_value1 =  adc1;                //红外ADC值1	 
-	reportFrame.infrared_adc_value2 =  adc2;                //红外ADC值2	 
-	reportFrame.infrared_adc_value3 =  adc3;                //红外ADC值3	 
-	reportFrame.infrared_adc_value4 =  adc4;                //红外ADC值4	 
-	reportFrame.infrared_adc_value5 =  adc5;                //红外ADC值5	 
-	reportFrame.infrared_adc_value6 =  adc6;                //红外ADC值6	 
-	reportFrame.infrared_adc_value7 =  adc7;                //红外ADC值7	 
-	reportFrame.infrared_adc_value8 =  adc8;                //红外ADC值8	 
-	reportFrame.infrared_adc_value9 =  adc9;                //红外ADC值9	 
-	reportFrame.infrared_adc_value10 = adc10;               //红外ADC值10
+	reportFrame.infrared_adc_value1 =  adc1;                                          //红外ADC值1	 
+	reportFrame.infrared_adc_value2 =  adc2;                                          //红外ADC值2	 
+	reportFrame.infrared_adc_value3 =  adc3;                                          //红外ADC值3	 
+	reportFrame.infrared_adc_value4 =  adc4;                                          //红外ADC值4	 
+	reportFrame.infrared_adc_value5 =  adc5;                                          //红外ADC值5	 
+	reportFrame.infrared_adc_value6 =  adc6;                                          //红外ADC值6	 
+	reportFrame.infrared_adc_value7 =  adc7;                                          //红外ADC值7	 
+	reportFrame.infrared_adc_value8 =  adc8;                                          //红外ADC值8	 
+	reportFrame.infrared_adc_value9 =  adc9;                                          //红外ADC值9	 
+	reportFrame.infrared_adc_value10 = adc10;                                         //红外ADC值10
 	reportFrame.infrared_cliff_status = 0 ;                                           //跳崖红外状态
 	reportFrame.infrared_cliff_adc_value1 = 0 ;                                       //跳崖ADC值1
 	reportFrame.infrared_cliff_adc_value2 = 0 ;                                       //跳崖ADC值2
@@ -222,7 +231,7 @@ void bsp_FillReportFrame(void)
 	reportFrame.charging_status = 0;                                                  //充电状态
 	reportFrame.error_code = 0;         	                                          //异常状态
 	reportFrame.machine_status = 0;                                                   //机器状态
-	reportFrame.timestamp = timestamp;                      //时间戳
+	reportFrame.timestamp = timestamp;                                                //时间戳
 	reportFrame.reserved1 = 0;  	                                                  //保留位1
 	reportFrame.reserved2 = 0;				                                          //保留位2
 	reportFrame.reserved3 = 0;         	                                              //保留位3
@@ -234,6 +243,30 @@ void bsp_FillReportFrame(void)
 	chk = bsp_CalcChk(src+3,len-6);
 	reportFrame.checksum_msb = chk >> 8;
 	reportFrame.checksum_lsb = chk & 0x00FF;
+	
+	
+	/*打印调试信息*/
+	#if 1
+	{
+		float data[10] = {0};
+		
+		DEBUG("angle:%.2F\r\n",angle/100.0F);
+		
+		data[0] =  angle;                                          //红外ADC值1	 
+		data[1] =  adc2;                                          //红外ADC值2	 
+		data[2] =  adc3;                                          //红外ADC值3	 
+		data[3] =  adc4;                                          //红外ADC值4	 
+		data[4] =  adc5;                                          //红外ADC值5	 
+		data[5] =  adc6;                                          //红外ADC值6	 
+		data[6] =  adc7;                                          //红外ADC值7	 
+		data[7] =  adc8;                                          //红外ADC值8	 
+		data[8] =  adc9;                                          //红外ADC值9	 
+		data[9] =  adc10;                                         //红外ADC值10
+		
+		//bsp_ScopeSend(data,1);
+	}
+	#endif
+	
 }
 
 

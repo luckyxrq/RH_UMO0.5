@@ -2143,136 +2143,67 @@
                   |L3.228|
                           DCD      delay
 
-                          AREA ||i.bsp_DetectDeal||, CODE, READONLY, ALIGN=2
+                          AREA ||i.bsp_DetectDeal||, CODE, READONLY, ALIGN=1
 
                   bsp_DetectDeal PROC
 ;;;614    
 ;;;615    void bsp_DetectDeal(void)
-000000  b510              PUSH     {r4,lr}
+000000  2000              MOVS     r0,#0
 ;;;616    {
 ;;;617    	uint8_t i = 0 ;
-000002  2400              MOVS     r4,#0
 ;;;618    	static bool isObstacle = false;
 ;;;619    	static uint32_t noObstacleTickCnt = 0 ;
 ;;;620    	
 ;;;621    	UNUSED(i);
-;;;622    
-;;;623    	
+;;;622    	UNUSED(isObstacle);
+;;;623    	UNUSED(noObstacleTickCnt);
 ;;;624    	
-;;;625    #if 0	
-;;;626    	for(i=0;i<10;i++)
-;;;627    	{
-;;;628    		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
-;;;629    	}
-;;;630    	printf("\r\n");
-;;;631    #endif
-;;;632    
-;;;633    #if 1	
-;;;634    	/*检测障碍物之前，先认为无障碍物*/
-;;;635    	isObstacle = false;
-000004  2000              MOVS     r0,#0
-000006  4923              LDR      r1,|L4.148|
-000008  7008              STRB     r0,[r1,#0]
-;;;636    	/*只要一个管子认为有障碍物就是有障碍物*/
-;;;637    	for(i=0;i<=7;i++)
-00000a  bf00              NOP      
-00000c  e021              B        |L4.82|
-                  |L4.14|
-;;;638    	{
-;;;639    		if(adcRealTime[i] >=1.0F)
-00000e  4922              LDR      r1,|L4.152|
-000010  f8510024          LDR      r0,[r1,r4,LSL #2]
-000014  f04f517e          MOV      r1,#0x3f800000
-000018  f7fffffe          BL       __aeabi_cfrcmple
-00001c  d817              BHI      |L4.78|
-;;;640    		{
-;;;641    			/*前进 且 有障碍物的同时才减速，减速是有时间限制的，开启定时器回调函数，时间到了就恢复正常速度*/
-;;;642    			if(bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
-00001e  2000              MOVS     r0,#0
-000020  f7fffffe          BL       bsp_MotorGetTargetSpeed
-000024  2800              CMP      r0,#0
-000026  db12              BLT      |L4.78|
-000028  2001              MOVS     r0,#1
-00002a  f7fffffe          BL       bsp_MotorGetTargetSpeed
-00002e  2800              CMP      r0,#0
-000030  db0d              BLT      |L4.78|
-;;;643    			{
-;;;644    				bsp_SetMotorSpeed(MotorLeft,3);
-000032  2103              MOVS     r1,#3
-000034  2000              MOVS     r0,#0
-000036  f7fffffe          BL       bsp_SetMotorSpeed
-;;;645    				bsp_SetMotorSpeed(MotorRight,3);
-00003a  2103              MOVS     r1,#3
-00003c  2001              MOVS     r0,#1
-00003e  f7fffffe          BL       bsp_SetMotorSpeed
-;;;646    				
-;;;647    				/*有障碍物*/
-;;;648    				isObstacle = true;
-000042  2001              MOVS     r0,#1
-000044  4913              LDR      r1,|L4.148|
-000046  7008              STRB     r0,[r1,#0]
-;;;649    				noObstacleTickCnt = 0 ;
-000048  2000              MOVS     r0,#0
-00004a  4914              LDR      r1,|L4.156|
-00004c  6008              STR      r0,[r1,#0]  ; noObstacleTickCnt
-                  |L4.78|
-00004e  1c60              ADDS     r0,r4,#1              ;637
-000050  b2c4              UXTB     r4,r0                 ;637
-                  |L4.82|
-000052  2c07              CMP      r4,#7                 ;637
-000054  dddb              BLE      |L4.14|
-;;;650    			}
-;;;651    		}
-;;;652    	}
-;;;653    	
-;;;654    	/*无障碍物计时，标志必须是前进*/
-;;;655    	if(isObstacle == false && bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
-000056  480f              LDR      r0,|L4.148|
-000058  7800              LDRB     r0,[r0,#0]  ; isObstacle
-00005a  b9d0              CBNZ     r0,|L4.146|
-00005c  2000              MOVS     r0,#0
-00005e  f7fffffe          BL       bsp_MotorGetTargetSpeed
-000062  2800              CMP      r0,#0
-000064  db15              BLT      |L4.146|
-000066  2001              MOVS     r0,#1
-000068  f7fffffe          BL       bsp_MotorGetTargetSpeed
-00006c  2800              CMP      r0,#0
-00006e  db10              BLT      |L4.146|
-;;;656    	{
-;;;657    		if(++noObstacleTickCnt >= 1500)
-000070  480a              LDR      r0,|L4.156|
-000072  6800              LDR      r0,[r0,#0]  ; noObstacleTickCnt
-000074  1c40              ADDS     r0,r0,#1
-000076  4909              LDR      r1,|L4.156|
-000078  6008              STR      r0,[r1,#0]  ; noObstacleTickCnt
-00007a  f24051dc          MOV      r1,#0x5dc
-00007e  4288              CMP      r0,r1
-000080  d307              BCC      |L4.146|
-;;;658    		{
-;;;659    			bsp_SetMotorSpeed(MotorLeft,6);
-000082  2106              MOVS     r1,#6
-000084  2000              MOVS     r0,#0
-000086  f7fffffe          BL       bsp_SetMotorSpeed
-;;;660    			bsp_SetMotorSpeed(MotorRight,6);
-00008a  2106              MOVS     r1,#6
-00008c  2001              MOVS     r0,#1
-00008e  f7fffffe          BL       bsp_SetMotorSpeed
-                  |L4.146|
-;;;661    		}
-;;;662    	}
-;;;663    	
-;;;664    #endif	
-;;;665    }
-000092  bd10              POP      {r4,pc}
-;;;666    
+;;;625    	
+;;;626    #if 0	
+;;;627    	for(i=0;i<10;i++)
+;;;628    	{
+;;;629    		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
+;;;630    	}
+;;;631    	printf("\r\n");
+;;;632    #endif
+;;;633    
+;;;634    #if 0	
+;;;635    	/*检测障碍物之前，先认为无障碍物*/
+;;;636    	isObstacle = false;
+;;;637    	/*只要一个管子认为有障碍物就是有障碍物*/
+;;;638    	for(i=0;i<=7;i++)
+;;;639    	{
+;;;640    		if(adcRealTime[i] >=1.0F)
+;;;641    		{
+;;;642    			/*前进 且 有障碍物的同时才减速，减速是有时间限制的，开启定时器回调函数，时间到了就恢复正常速度*/
+;;;643    			if(bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
+;;;644    			{
+;;;645    				bsp_SetMotorSpeed(MotorLeft,3);
+;;;646    				bsp_SetMotorSpeed(MotorRight,3);
+;;;647    				
+;;;648    				/*有障碍物*/
+;;;649    				isObstacle = true;
+;;;650    				noObstacleTickCnt = 0 ;
+;;;651    			}
+;;;652    		}
+;;;653    	}
+;;;654    	
+;;;655    	/*无障碍物计时，标志必须是前进*/
+;;;656    	if(isObstacle == false && bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
+;;;657    	{
+;;;658    		if(++noObstacleTickCnt >= 1500)
+;;;659    		{
+;;;660    			bsp_SetMotorSpeed(MotorLeft,6);
+;;;661    			bsp_SetMotorSpeed(MotorRight,6);
+;;;662    		}
+;;;663    	}
+;;;664    	
+;;;665    #endif	
+;;;666    }
+000002  4770              BX       lr
+;;;667    
                           ENDP
 
-                  |L4.148|
-                          DCD      isObstacle
-                  |L4.152|
-                          DCD      adcRealTime
-                  |L4.156|
-                          DCD      noObstacleTickCnt
 
                           AREA ||i.bsp_DetectStart||, CODE, READONLY, ALIGN=2
 

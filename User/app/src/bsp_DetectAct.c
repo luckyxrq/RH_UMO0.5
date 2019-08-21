@@ -619,7 +619,8 @@ void bsp_DetectDeal(void)
 	static uint32_t noObstacleTickCnt = 0 ;
 	
 	UNUSED(i);
-
+	UNUSED(isObstacle);
+	UNUSED(noObstacleTickCnt);
 	
 	
 #if 0	
@@ -630,7 +631,7 @@ void bsp_DetectDeal(void)
 	printf("\r\n");
 #endif
 
-#if 1	
+#if 0	
 	/*检测障碍物之前，先认为无障碍物*/
 	isObstacle = false;
 	/*只要一个管子认为有障碍物就是有障碍物*/

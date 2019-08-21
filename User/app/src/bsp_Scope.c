@@ -97,23 +97,24 @@ static uint8_t DataScope_Data_Generate(uint8_t Channel_Number)
 }
 
 
-
-void bsp_ScopeSend(void)
+void bsp_ScopeSend(float data[10] , uint8_t chCount)
 {   
 		uint8_t Send_Count; //串口需要发送的数据个数
 		uint8_t i; 
 	
-		DataScope_Get_Channel_Data( bsp_MotorGetSpeed(MotorLeft), 1 ); 
-		DataScope_Get_Channel_Data( bsp_MotorGetSpeed(MotorRight), 2 ); 
-		DataScope_Get_Channel_Data( 0, 3 );                
-//		DataScope_Get_Channel_Data( 0 , 4 );   
-//		DataScope_Get_Channel_Data(0, 5 ); 
-//		DataScope_Get_Channel_Data(0 , 6 );
-//		DataScope_Get_Channel_Data(0, 7 );
-//		DataScope_Get_Channel_Data( 0, 8 ); 
-//		DataScope_Get_Channel_Data(0, 9 );  
-//		DataScope_Get_Channel_Data( 0 , 10);
-		Send_Count = DataScope_Data_Generate(3);
+		DataScope_Get_Channel_Data(data[0], 1 ); 
+		DataScope_Get_Channel_Data(data[1], 2 ); 
+		DataScope_Get_Channel_Data(data[2], 3 );                
+		DataScope_Get_Channel_Data(data[3], 4 );   
+		DataScope_Get_Channel_Data(data[4], 5 ); 
+		DataScope_Get_Channel_Data(data[5], 6 );
+		DataScope_Get_Channel_Data(data[6], 7 );
+		DataScope_Get_Channel_Data(data[7], 8 ); 
+		DataScope_Get_Channel_Data(data[8], 9 );  
+		DataScope_Get_Channel_Data(data[9], 10);
+	
+		Send_Count = DataScope_Data_Generate(chCount);
+	
 		for( i = 0 ; i < Send_Count; i++) 
 		{
 			#if 1

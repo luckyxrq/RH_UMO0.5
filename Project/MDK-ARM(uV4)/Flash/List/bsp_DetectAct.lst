@@ -38759,7 +38759,7 @@ Nvoid bsp_PidSched(void);
 Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 Nint32_t bsp_MotorGetSpeed(MotorSN sn);
 Nint32_t bsp_MotorGetTargetSpeed(MotorSN sn);
-Nint32_t bsp_MotorSpeedMM2Pulse(int32_t mm);
+Nint32_t bsp_MotorSpeedMM2Pulse(int16_t mm);
 Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
 N
 N#endif
@@ -38771,7 +38771,7 @@ N#ifndef __BSP_SCOPE_H
 N#define __BSP_SCOPE_H
 N
 N
-Nvoid bsp_ScopeSend(void);
+Nvoid bsp_ScopeSend(float data[10] , uint8_t chCount);
 N
 N
 N#endif
@@ -38782,7 +38782,7 @@ L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
 N#define __BSP_POSITION_H
 N
-N#define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
+N
 N
 Ntypedef struct
 N{
@@ -39605,7 +39605,10 @@ N	static uint32_t noObstacleTickCnt = 0 ;
 N	
 N	UNUSED(i);
 X	(void)(i);
-N
+N	UNUSED(isObstacle);
+X	(void)(isObstacle);
+N	UNUSED(noObstacleTickCnt);
+X	(void)(noObstacleTickCnt);
 N	
 N	
 N#if 0	
@@ -39616,40 +39619,37 @@ S	}
 S	printf("\r\n");
 N#endif
 N
-N#if 1	
-N	/*检测障碍物之前，先认为无障碍物*/
-N	isObstacle = false;
-X	isObstacle = 0;
-N	/*只要一个管子认为有障碍物就是有障碍物*/
-N	for(i=0;i<=7;i++)
-N	{
-N		if(adcRealTime[i] >=1.0F)
-N		{
-N			/*前进 且 有障碍物的同时才减速，减速是有时间限制的，开启定时器回调函数，时间到了就恢复正常速度*/
-N			if(bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,3);
-N				bsp_SetMotorSpeed(MotorRight,3);
-N				
-N				/*有障碍物*/
-N				isObstacle = true;
-X				isObstacle = 1;
-N				noObstacleTickCnt = 0 ;
-N			}
-N		}
-N	}
-N	
-N	/*无障碍物计时，标志必须是前进*/
-N	if(isObstacle == false && bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
-X	if(isObstacle == 0 && bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
-N	{
-N		if(++noObstacleTickCnt >= 1500)
-N		{
-N			bsp_SetMotorSpeed(MotorLeft,6);
-N			bsp_SetMotorSpeed(MotorRight,6);
-N		}
-N	}
-N	
+N#if 0	
+S	/*检测障碍物之前，先认为无障碍物*/
+S	isObstacle = false;
+S	/*只要一个管子认为有障碍物就是有障碍物*/
+S	for(i=0;i<=7;i++)
+S	{
+S		if(adcRealTime[i] >=1.0F)
+S		{
+S			/*前进 且 有障碍物的同时才减速，减速是有时间限制的，开启定时器回调函数，时间到了就恢复正常速度*/
+S			if(bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
+S			{
+S				bsp_SetMotorSpeed(MotorLeft,3);
+S				bsp_SetMotorSpeed(MotorRight,3);
+S				
+S				/*有障碍物*/
+S				isObstacle = true;
+S				noObstacleTickCnt = 0 ;
+S			}
+S		}
+S	}
+S	
+S	/*无障碍物计时，标志必须是前进*/
+S	if(isObstacle == false && bsp_MotorGetTargetSpeed(MotorLeft)>=0 && bsp_MotorGetTargetSpeed(MotorRight)>=0)
+S	{
+S		if(++noObstacleTickCnt >= 1500)
+S		{
+S			bsp_SetMotorSpeed(MotorLeft,6);
+S			bsp_SetMotorSpeed(MotorRight,6);
+S		}
+S	}
+S	
 N#endif	
 N}
 N

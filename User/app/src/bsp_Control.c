@@ -153,11 +153,16 @@ int32_t bsp_MotorGetSpeed(MotorSN sn)
 *	·µ »Ø Öµ: ÎÞ
 *********************************************************************************************************
 */
-int32_t bsp_MotorSpeedMM2Pulse(int32_t mm)
+int32_t bsp_MotorSpeedMM2Pulse(int16_t mm)
 {
 	int32_t ret = 0 ;
 	float pulse = 0 ;
-	
+
+	if(mm == 0)
+	{
+		return 0;
+	}
+
 	pulse = mm / 250.0F * 12.0F ;
 	
 	if(pulse <= 1.0F)

@@ -8,7 +8,7 @@ void bsp_PidSched(void);
 void bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
 int32_t bsp_MotorGetSpeed(MotorSN sn);
 int32_t bsp_MotorGetTargetSpeed(MotorSN sn);
-int32_t bsp_MotorSpeedMM2Pulse(int32_t mm);
+int32_t bsp_MotorSpeedMM2Pulse(int16_t mm);
 int32_t bsp_MotorGetPulseVector(MotorSN sn);
 
 #endif

@@ -1,6 +1,8 @@
 #include "bsp.h"
 #include <math.h>
 
+#define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
+
 static Position position;
 
 

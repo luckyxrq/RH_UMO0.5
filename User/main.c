@@ -87,7 +87,7 @@ static void vTaskTaskUserIF(void *pvParameters)
 {
 	bsp_AngleRst();
 
-#if 1
+#if 0
 		bsp_SetMotorSpeed(MotorLeft,12);
 		bsp_SetMotorSpeed(MotorRight,12);
 #endif	
@@ -122,31 +122,31 @@ static void vTaskLED(void *pvParameters)
 		{
 			//DEBUG("%06dLeft\r\n",index++);
 			
-			bsp_SetMotorSpeed(MotorLeft,-5);
-			bsp_SetMotorSpeed(MotorRight,-12);
-			vTaskDelay(500);
-			bsp_SetMotorSpeed(MotorLeft,5);
-			bsp_SetMotorSpeed(MotorRight,5);
+//			bsp_SetMotorSpeed(MotorLeft,-5);
+//			bsp_SetMotorSpeed(MotorRight,-12);
+//			vTaskDelay(500);
+//			bsp_SetMotorSpeed(MotorLeft,5);
+//			bsp_SetMotorSpeed(MotorRight,5);
 		}
 		else if(collision == CollisionRight)
 		{
 			//DEBUG("%06dRight\r\n",index++);
 			
-			bsp_SetMotorSpeed(MotorLeft,-12);
-			bsp_SetMotorSpeed(MotorRight,-5);
-			vTaskDelay(500);
-			bsp_SetMotorSpeed(MotorLeft,5);
-			bsp_SetMotorSpeed(MotorRight,5);
+//			bsp_SetMotorSpeed(MotorLeft,-12);
+//			bsp_SetMotorSpeed(MotorRight,-5);
+//			vTaskDelay(500);
+//			bsp_SetMotorSpeed(MotorLeft,5);
+//			bsp_SetMotorSpeed(MotorRight,5);
 		}
 		else if(collision == CollisionAll)
 		{
 			//DEBUG("%06dBoth\r\n",index++);
 			
-			bsp_SetMotorSpeed(MotorLeft,-12);
-			bsp_SetMotorSpeed(MotorRight,-12);
-			vTaskDelay(500);
-			bsp_SetMotorSpeed(MotorLeft,5);
-			bsp_SetMotorSpeed(MotorRight,5);
+//			bsp_SetMotorSpeed(MotorLeft,-12);
+//			bsp_SetMotorSpeed(MotorRight,-12);
+//			vTaskDelay(500);
+//			bsp_SetMotorSpeed(MotorLeft,5);
+//			bsp_SetMotorSpeed(MotorRight,5);
 		}
 #endif
 		
@@ -179,6 +179,7 @@ static void vTaskMsgPro(void *pvParameters)
 //		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
 //		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 		
+		bsp_ComAnalysis();
 		vTaskDelay(10);
     }
 }
@@ -203,7 +204,7 @@ static void vTaskStart(void *pvParameters)
     while(1)
     {
 		bsp_DetectAct();  /*红外对管轮询扫描*/
-//		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 //		bsp_EdgewiseAct();/*沿边*/
 //		
 //		/*四个红外接收管*/
@@ -216,6 +217,7 @@ static void vTaskStart(void *pvParameters)
 //		bsp_SearchChargingPileAct();
 		/*更新坐标*/
 		bsp_PositionUpdate();
+		
         vTaskDelay(1);
 		
 		
