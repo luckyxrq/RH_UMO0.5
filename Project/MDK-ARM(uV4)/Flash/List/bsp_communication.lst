@@ -38938,8 +38938,13 @@ N					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(a
 X					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
 N					
 N					/*设定速度*/
+N					#if 1
 N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
 N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+N					#else
+S					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+S					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+N					#endif
 N					
 N					/*调试*/
 N					#if 0
@@ -39106,7 +39111,7 @@ N		data[8] =  adc9;                                          //红外ADC值9
 N		data[9] =  adc10;                                         //红外ADC值10
 N		
 N		//bsp_ScopeSend(data,1);
-W "..\..\User\app\src\bsp_communication.c" 251 9 variable "data" was set but never used
+W "..\..\User\app\src\bsp_communication.c" 256 9 variable "data" was set but never used
 N	}
 N	#endif
 N	

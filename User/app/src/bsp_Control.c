@@ -163,11 +163,15 @@ int32_t bsp_MotorSpeedMM2Pulse(int16_t mm)
 		return 0;
 	}
 
-	pulse = mm / 250.0F * 12.0F ;
+	pulse = mm * 12.0F / 250.0F ;
 	
-	if(pulse <= 1.0F)
+	if(pulse >0 && pulse <= 1.0F)
 	{
 		ret = 1 ;
+	}
+	else if(pulse >= -1.0F && pulse < 0)
+	{
+		ret = -1 ;
 	}
 	else
 	{

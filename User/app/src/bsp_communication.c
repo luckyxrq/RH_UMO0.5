@@ -98,8 +98,13 @@ void bsp_ComAnalysis(void)
 					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
 					
 					/*设定速度*/
+					#if 1
 					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
 					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+					#else
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+					#endif
 					
 					/*调试*/
 					#if 0

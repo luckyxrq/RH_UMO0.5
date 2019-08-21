@@ -39000,11 +39000,15 @@ N	{
 N		return 0;
 N	}
 N
-N	pulse = mm / 250.0F * 12.0F ;
+N	pulse = mm * 12.0F / 250.0F ;
 N	
-N	if(pulse <= 1.0F)
+N	if(pulse >0 && pulse <= 1.0F)
 N	{
 N		ret = 1 ;
+N	}
+N	else if(pulse >= -1.0F && pulse < 0)
+N	{
+N		ret = -1 ;
 N	}
 N	else
 N	{

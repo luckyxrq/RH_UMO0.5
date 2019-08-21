@@ -46306,10 +46306,15 @@ N{
 N	bsp_AngleRst();
 N
 N#if 0
-S		bsp_SetMotorSpeed(MotorLeft,12);
-S		bsp_SetMotorSpeed(MotorRight,12);
+S		bsp_SetMotorSpeed(MotorLeft,5);
+S		bsp_SetMotorSpeed(MotorRight,5);
 N#endif	
-N
+N	
+N#if 0	
+S	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-104));
+S	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-104));
+N#endif
+N	
 N    while(1)
 N    {
 N
