@@ -85,21 +85,41 @@ int main(void)
 */
 static void vTaskTaskUserIF(void *pvParameters)
 {
-	bsp_AngleRst();
+	uint8_t ucKeyCode;		
 
-#if 1
-		bsp_SetMotorSpeed(MotorLeft,6);
-		bsp_SetMotorSpeed(MotorRight,6);
-#endif	
-
+	bsp_LedOn(1);
+	bsp_LedOn(2);
+	bsp_LedOn(3);
+	
     while(1)
     {
 
-		bsp_LedToggle(1);
-		bsp_LedToggle(2);
-		bsp_LedToggle(3);
+		ucKeyCode = bsp_GetKey();
+		if (ucKeyCode > 0)
+		{
+			/* 有键按下 */
+			switch (ucKeyCode)
+			{
+				case KEY_1_DOWN:		
+					bsp_LedToggle(1);	
+					DEBUG("key1\r\n");
+					break;
+
+				case KEY_2_DOWN:		
+					bsp_LedToggle(2);
+					DEBUG("key2\r\n");				
+					break;				
+
+				case KEY_3_DOWN:		
+					bsp_LedToggle(3);	
+					DEBUG("key3\r\n");
+					break;
+
+			}
+		}
 		
-		vTaskDelay(500);
+
+		vTaskDelay(10);
 		
 	}
 }
@@ -155,8 +175,9 @@ static void vTaskLED(void *pvParameters)
 #endif
 		
 		//bsp_ScopeSend();
-		
-		vTaskDelay(50);
+
+
+		vTaskDelay(500);
     }
 }
 
@@ -199,15 +220,15 @@ static void vTaskMsgPro(void *pvParameters)
 static void vTaskStart(void *pvParameters)
 {
 	/*开启红外对管轮询扫描*/
-	bsp_DetectStart(); 
+//	bsp_DetectStart(); 
 //	/*开启寻找充电桩*/
 //	bsp_StartSearchChargingPile();
-	bsp_StartUpdatePos();
+//	bsp_StartUpdatePos();
 	
     while(1)
     {
-		bsp_DetectAct();  /*红外对管轮询扫描*/
-		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+//		bsp_DetectAct();  /*红外对管轮询扫描*/
+//		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 //		bsp_EdgewiseAct();/*沿边*/
 //		
 //		/*四个红外接收管*/
@@ -219,7 +240,11 @@ static void vTaskStart(void *pvParameters)
 //		/*寻找充电桩*/
 //		bsp_SearchChargingPileAct();
 		/*更新坐标*/
-		bsp_PositionUpdate();
+//		bsp_PositionUpdate();
+		
+		
+		bsp_KeyScan();
+		
         vTaskDelay(1);
 		
 		

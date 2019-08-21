@@ -46303,21 +46303,44 @@ N*******************************************************************************
 N*/
 Nstatic void vTaskTaskUserIF(void *pvParameters)
 N{
-N	bsp_AngleRst();
+N	uint8_t ucKeyCode;		
 N
-N#if 1
-N		bsp_SetMotorSpeed(MotorLeft,6);
-N		bsp_SetMotorSpeed(MotorRight,6);
-N#endif	
-N
+N	bsp_LedOn(1);
+N	bsp_LedOn(2);
+N	bsp_LedOn(3);
+N	
 N    while(1)
 N    {
 N
-N		bsp_LedToggle(1);
-N		bsp_LedToggle(2);
-N		bsp_LedToggle(3);
+N		ucKeyCode = bsp_GetKey();
+N		if (ucKeyCode > 0)
+N		{
+N			/* 有键按下 */
+N			switch (ucKeyCode)
+N			{
+N				case KEY_1_DOWN:		
+N					bsp_LedToggle(1);	
+N					DEBUG("key1\r\n");
+X					printf ("key1\r\n");
+N					break;
+N
+N				case KEY_2_DOWN:		
+N					bsp_LedToggle(2);
+N					DEBUG("key2\r\n");				
+X					printf ("key2\r\n");				
+N					break;				
+N
+N				case KEY_3_DOWN:		
+N					bsp_LedToggle(3);	
+N					DEBUG("key3\r\n");
+X					printf ("key3\r\n");
+N					break;
+N
+N			}
+N		}
 N		
-N		vTaskDelay(500);
+N
+N		vTaskDelay(10);
 N		
 N	}
 N}
@@ -46373,8 +46396,9 @@ S		}
 N#endif
 N		
 N		//bsp_ScopeSend();
-N		
-N		vTaskDelay(50);
+N
+N
+N		vTaskDelay(500);
 N    }
 N}
 N
@@ -46417,15 +46441,15 @@ N*/
 Nstatic void vTaskStart(void *pvParameters)
 N{
 N	/*开启红外对管轮询扫描*/
-N	bsp_DetectStart(); 
+N//	bsp_DetectStart(); 
 N//	/*开启寻找充电桩*/
 N//	bsp_StartSearchChargingPile();
-N	bsp_StartUpdatePos();
+N//	bsp_StartUpdatePos();
 N	
 N    while(1)
 N    {
-N		bsp_DetectAct();  /*红外对管轮询扫描*/
-N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N//		bsp_DetectAct();  /*红外对管轮询扫描*/
+N//		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 N//		bsp_EdgewiseAct();/*沿边*/
 N//		
 N//		/*四个红外接收管*/
@@ -46437,7 +46461,11 @@ N//
 N//		/*寻找充电桩*/
 N//		bsp_SearchChargingPileAct();
 N		/*更新坐标*/
-N		bsp_PositionUpdate();
+N//		bsp_PositionUpdate();
+N		
+N		
+N		bsp_KeyScan();
+N		
 N        vTaskDelay(1);
 N		
 N		

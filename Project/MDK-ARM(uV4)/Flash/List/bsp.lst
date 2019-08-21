@@ -38893,22 +38893,21 @@ N	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 N	bsp_InitChargingPile();  /*初始化输入捕获*/
 N		
 N	
-N	/* 初始化IO拓展芯片 */	
-N	do{
-N		ret = bsp_InitAW9523B();		
-N		if(!ret) 
-N		{
-N			WARNING("AW9523B Init Error\r\n");
-X			printf ("AW9523B Init Error\r\n");
-N			bsp_LedOn(1);
-N			bsp_LedOn(2);
-N			bsp_LedOn(3);
-N			bsp_DelayMS(100);
-N		}
-N		bsp_LedOff(1);
-N		bsp_LedOff(2);
-N		bsp_LedOff(3);
-N	}while(!ret);
+N//	/* 初始化IO拓展芯片 */	
+N//	do{
+N//		ret = bsp_InitAW9523B();		
+N//		if(!ret) 
+N//		{
+N//			WARNING("AW9523B Init Error\r\n");
+N//			bsp_LedOn(1);
+N//			bsp_LedOn(2);
+N//			bsp_LedOn(3);
+N//			bsp_DelayMS(100);
+N//		}
+N//		bsp_LedOff(1);
+N//		bsp_LedOff(2);
+N//		bsp_LedOff(3);
+N//	}while(!ret);
 N	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 N	
 N	bsp_InitIWDG();     /*初始化看门狗*/
@@ -38916,6 +38915,7 @@ N
 N	DEBUG("初始化完毕\r\n");
 X	printf ("初始化完毕\r\n");
 N	
+W "..\..\User\bsp\bsp.c" 33 10 variable "ret" was declared but never referenced
 N}
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

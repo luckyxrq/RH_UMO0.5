@@ -38871,7 +38871,7 @@ N	PF2 : LED_HOME
 N	PF1 : LED_RET
 N*/
 N
-N
+N#if 1 //新
 N/* 按键口对应的RCC时钟 */
 N#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOF)
 N
@@ -38886,6 +38886,24 @@ N#define GPIO_PIN_LED3	GPIO_Pin_1
 N
 N#define GPIO_PORT_LED4  GPIOF
 N#define GPIO_PIN_LED4	GPIO_Pin_3
+N
+N#else //旧
+S/* 按键口对应的RCC时钟 */
+S#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOD)
+S
+S#define GPIO_PORT_LED1  GPIOD
+S#define GPIO_PIN_LED1	GPIO_Pin_0
+S
+S#define GPIO_PORT_LED2  GPIOD
+S#define GPIO_PIN_LED2	GPIO_Pin_1
+S
+S#define GPIO_PORT_LED3  GPIOD
+S#define GPIO_PIN_LED3	GPIO_Pin_2
+S
+S#define GPIO_PORT_LED4  GPIOD
+S#define GPIO_PIN_LED4	GPIO_Pin_0
+S
+N#endif
 N
 N/*
 N*********************************************************************************************************
