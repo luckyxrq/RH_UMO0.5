@@ -1,7 +1,11 @@
 #include "bsp.h"
 
-#define PARAM_VER			0x00000104					/* 参数版本 */
+#define PARAM_VER			 0x00000104      /* 参数版本 */
+#define PARAM_SAVE_PAGE      255             /* 保存参数的页序号 */
 
+
+/*按照2字节对齐，便于存储到内部FLASH，内部FLASH每次必须写2字节*/
+#pragma pack(2)
 typedef struct
 {
 	uint32_t ParamVer;			/* 参数区版本控制（可用于程序升级时，决定是否对参数区进行升级） */
@@ -9,6 +13,7 @@ typedef struct
 	
 }
 PARAM_T;
+#pragma pack()
 
 
 /* 全局参数 */
@@ -26,16 +31,8 @@ static PARAM_T param;
 */
 void bsp_LoadParam(void)
 {
-#ifdef PARAM_SAVE_TO_FLASH
-	/* 读取CPU Flash中的参数 */
-	bsp_ReadCpuFlash(PARAM_ADDR, (uint8_t *)&g_tParam, sizeof(PARAM_T));
-#endif
-
-#ifdef PARAM_SAVE_TO_EEPROM
-	/* 读取EEPROM中的参数 */
-	ee_ReadBytes((uint8_t *)&g_tParam, PARAM_ADDR, sizeof(PARAM_T));
-#endif
-
+	bsp_FlashReadPage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
+	
 	/* 填充缺省参数 */
 	if (param.ParamVer != PARAM_VER)
 	{
@@ -56,15 +53,7 @@ void bsp_LoadParam(void)
 */
 void bsp_SaveParam(void)
 {
-#ifdef PARAM_SAVE_TO_FLASH
-	/* 将全局的参数变量保存到 CPU Flash */
-	bsp_WriteCpuFlash(PARAM_ADDR, (unsigned char *)&g_tParam, sizeof(PARAM_T));
-#endif
-
-#ifdef PARAM_SAVE_TO_EEPROM
-	/* 将全局的参数变量保存到EEPROM */
-	ee_WriteBytes((uint8_t *)&g_tParam, PARAM_ADDR, sizeof(PARAM_T));
-#endif
+	bsp_FlashWritePage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
 }
 
 

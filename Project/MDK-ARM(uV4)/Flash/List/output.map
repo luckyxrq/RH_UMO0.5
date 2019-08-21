@@ -340,8 +340,11 @@ Section Cross References
     bsp_stflash.o(i.bsp_StFlashTest) refers to bsp_stflash.o(i.bsp_FlashReadPage) for bsp_FlashReadPage
     bsp_stflash.o(i.bsp_StFlashTest) refers to printf3.o(i.__0printf$3) for __2printf
     bsp_stflash.o(i.bsp_StFlashTest) refers to bsp_stflash.o(.bss) for flashBuf
+    bsp_param.o(i.bsp_LoadParam) refers to bsp_stflash.o(i.bsp_FlashReadPage) for bsp_FlashReadPage
     bsp_param.o(i.bsp_LoadParam) refers to bsp_param.o(i.bsp_SaveParam) for bsp_SaveParam
     bsp_param.o(i.bsp_LoadParam) refers to bsp_param.o(.data) for param
+    bsp_param.o(i.bsp_SaveParam) refers to bsp_stflash.o(i.bsp_FlashWritePage) for bsp_FlashWritePage
+    bsp_param.o(i.bsp_SaveParam) refers to bsp_param.o(.data) for param
     bsp.o(i.bsp_Init) refers to misc.o(i.NVIC_PriorityGroupConfig) for NVIC_PriorityGroupConfig
     bsp.o(i.bsp_Init) refers to bsp_dwt.o(i.bsp_InitDWT) for bsp_InitDWT
     bsp.o(i.bsp_Init) refers to bsp_angle.o(i.bsp_InitAngle) for bsp_InitAngle
@@ -1416,8 +1419,8 @@ Removing Unused input sections from the image.
     Removing bsp_stflash.o(.bss), (2048 bytes).
     Removing bsp_param.o(.rev16_text), (4 bytes).
     Removing bsp_param.o(.revsh_text), (4 bytes).
-    Removing bsp_param.o(i.bsp_LoadParam), (32 bytes).
-    Removing bsp_param.o(i.bsp_SaveParam), (2 bytes).
+    Removing bsp_param.o(i.bsp_LoadParam), (40 bytes).
+    Removing bsp_param.o(i.bsp_SaveParam), (20 bytes).
     Removing bsp_param.o(.data), (4 bytes).
     Removing bsp.o(.rev16_text), (4 bytes).
     Removing bsp.o(.revsh_text), (4 bytes).
@@ -1757,7 +1760,7 @@ Removing Unused input sections from the image.
     Removing dfixul.o(.text), (48 bytes).
     Removing cdrcmple.o(.text), (48 bytes).
 
-419 unused section(s) (total 22790 bytes) removed from the image.
+419 unused section(s) (total 22816 bytes) removed from the image.
 
 ==============================================================================
 

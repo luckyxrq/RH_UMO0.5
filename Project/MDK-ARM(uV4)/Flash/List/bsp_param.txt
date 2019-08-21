@@ -5,71 +5,66 @@
                           AREA ||i.bsp_LoadParam||, CODE, READONLY, ALIGN=2
 
                   bsp_LoadParam PROC
-;;;26     */
-;;;27     void bsp_LoadParam(void)
-000000  b500              PUSH     {lr}
-;;;28     {
-;;;29     #ifdef PARAM_SAVE_TO_FLASH
-;;;30     	/* 读取CPU Flash中的参数 */
-;;;31     	bsp_ReadCpuFlash(PARAM_ADDR, (uint8_t *)&g_tParam, sizeof(PARAM_T));
-;;;32     #endif
-;;;33     
-;;;34     #ifdef PARAM_SAVE_TO_EEPROM
-;;;35     	/* 读取EEPROM中的参数 */
-;;;36     	ee_ReadBytes((uint8_t *)&g_tParam, PARAM_ADDR, sizeof(PARAM_T));
-;;;37     #endif
-;;;38     
-;;;39     	/* 填充缺省参数 */
-;;;40     	if (param.ParamVer != PARAM_VER)
-000002  4806              LDR      r0,|L1.28|
-000004  6800              LDR      r0,[r0,#0]  ; param
-000006  f5b07f82          CMP      r0,#0x104
-00000a  d005              BEQ      |L1.24|
-;;;41     	{
-;;;42     		param.ParamVer = PARAM_VER;
-00000c  f44f7082          MOV      r0,#0x104
-000010  4902              LDR      r1,|L1.28|
-000012  6008              STR      r0,[r1,#0]  ; param
-;;;43     
-;;;44     
-;;;45     		bsp_SaveParam();							/* 将新参数写入Flash */
-000014  f7fffffe          BL       bsp_SaveParam
-                  |L1.24|
-;;;46     	}
-;;;47     }
-000018  bd00              POP      {pc}
-;;;48     
+;;;31     */
+;;;32     void bsp_LoadParam(void)
+000000  b510              PUSH     {r4,lr}
+;;;33     {
+;;;34     	bsp_FlashReadPage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
+000002  2204              MOVS     r2,#4
+000004  4907              LDR      r1,|L1.36|
+000006  20ff              MOVS     r0,#0xff
+000008  f7fffffe          BL       bsp_FlashReadPage
+;;;35     	
+;;;36     	/* 填充缺省参数 */
+;;;37     	if (param.ParamVer != PARAM_VER)
+00000c  4805              LDR      r0,|L1.36|
+00000e  6800              LDR      r0,[r0,#0]  ; param
+000010  f5b07f82          CMP      r0,#0x104
+000014  d005              BEQ      |L1.34|
+;;;38     	{
+;;;39     		param.ParamVer = PARAM_VER;
+000016  f44f7082          MOV      r0,#0x104
+00001a  4902              LDR      r1,|L1.36|
+00001c  6008              STR      r0,[r1,#0]  ; param
+;;;40     
+;;;41     
+;;;42     		bsp_SaveParam();							/* 将新参数写入Flash */
+00001e  f7fffffe          BL       bsp_SaveParam
+                  |L1.34|
+;;;43     	}
+;;;44     }
+000022  bd10              POP      {r4,pc}
+;;;45     
                           ENDP
 
-00001a  0000              DCW      0x0000
-                  |L1.28|
+                  |L1.36|
                           DCD      param
 
-                          AREA ||i.bsp_SaveParam||, CODE, READONLY, ALIGN=1
+                          AREA ||i.bsp_SaveParam||, CODE, READONLY, ALIGN=2
 
                   bsp_SaveParam PROC
-;;;56     */
-;;;57     void bsp_SaveParam(void)
-000000  4770              BX       lr
-;;;58     {
-;;;59     #ifdef PARAM_SAVE_TO_FLASH
-;;;60     	/* 将全局的参数变量保存到 CPU Flash */
-;;;61     	bsp_WriteCpuFlash(PARAM_ADDR, (unsigned char *)&g_tParam, sizeof(PARAM_T));
-;;;62     #endif
-;;;63     
-;;;64     #ifdef PARAM_SAVE_TO_EEPROM
-;;;65     	/* 将全局的参数变量保存到EEPROM */
-;;;66     	ee_WriteBytes((uint8_t *)&g_tParam, PARAM_ADDR, sizeof(PARAM_T));
-;;;67     #endif
-;;;68     }
-;;;69     
+;;;53     */
+;;;54     void bsp_SaveParam(void)
+000000  b510              PUSH     {r4,lr}
+;;;55     {
+;;;56     	bsp_FlashWritePage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
+000002  2204              MOVS     r2,#4
+000004  4902              LDR      r1,|L2.16|
+000006  20ff              MOVS     r0,#0xff
+000008  f7fffffe          BL       bsp_FlashWritePage
+;;;57     }
+00000c  bd10              POP      {r4,pc}
+;;;58     
                           ENDP
 
+00000e  0000              DCW      0x0000
+                  |L2.16|
+                          DCD      param
 
-                          AREA ||.data||, DATA, ALIGN=2
+                          AREA ||.data||, DATA, ALIGN=1
 
                   param
-                          DCD      0x00000000
+                          DCDU     0x00000000
 
 ;*** Start embedded assembler ***
 
