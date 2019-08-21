@@ -46202,6 +46202,7 @@ Nbool bsp_FlashWritePage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
 X_Bool bsp_FlashWritePage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
 Nbool bsp_FlashReadPage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
 X_Bool bsp_FlashReadPage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+Nvoid bsp_StFlashTest(uint16_t pageIndex);
 N
 N#endif
 N
@@ -46322,11 +46323,15 @@ S		bsp_SetMotorSpeed(MotorLeft,12);
 S		bsp_SetMotorSpeed(MotorRight,12);
 N#endif	
 N
+N	
+N	
+N	
+N	
 N    while(1)
 N    {
 N
 N		vTaskDelay(6000);
-N		
+N		//bsp_StFlashTest(255);
 N	}
 N}
 N

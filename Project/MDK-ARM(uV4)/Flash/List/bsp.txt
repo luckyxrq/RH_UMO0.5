@@ -9,7 +9,7 @@
 ;;;31     void bsp_Init(void)
 000000  b510              PUSH     {r4,lr}
 ;;;32     {
-;;;33     	uint8_t ret;
+;;;33     //	uint8_t ret;
 ;;;34     	/*
 ;;;35     		由于ST固件库的启动文件已经执行了CPU系统时钟的初始化，所以不必再次重复配置系统时钟。
 ;;;36     		启动文件配置了CPU主时钟频率、内部Flash访问速度和可选的外部SRAM FSMC初始化。
@@ -54,60 +54,39 @@
 ;;;58     	bsp_InitChargingPile();  /*初始化输入捕获*/
 000042  f7fffffe          BL       bsp_InitChargingPile
 ;;;59     	
-;;;60     	/* 初始化IO拓展芯片 */	
-;;;61     	do{
-000046  bf00              NOP      
-                  |L1.72|
-;;;62     		ret = bsp_InitAW9523B();		
-000048  f7fffffe          BL       bsp_InitAW9523B
-00004c  4604              MOV      r4,r0
-;;;63     		if(!ret) 
-00004e  b92c              CBNZ     r4,|L1.92|
-;;;64     		{
-;;;65     			WARNING("AW9523B Init Error\r\n");
-000050  a007              ADR      r0,|L1.112|
-000052  f7fffffe          BL       __2printf
-;;;66     			bsp_DelayMS(100);
-000056  2064              MOVS     r0,#0x64
-000058  f7fffffe          BL       bsp_DelayMS
-                  |L1.92|
-;;;67     		}
-;;;68     	}while(!ret);
-00005c  2c00              CMP      r4,#0
-00005e  d0f3              BEQ      |L1.72|
+;;;60     //	/* 初始化IO拓展芯片 */	
+;;;61     //	do{
+;;;62     //		ret = bsp_InitAW9523B();		
+;;;63     //		if(!ret) 
+;;;64     //		{
+;;;65     //			WARNING("AW9523B Init Error\r\n");
+;;;66     //			bsp_DelayMS(100);
+;;;67     //		}
+;;;68     //	}while(!ret);
 ;;;69     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
-000060  f7fffffe          BL       bsp_InitDetectAct
+000046  f7fffffe          BL       bsp_InitDetectAct
 ;;;70     	
 ;;;71     	bsp_InitIWDG();     /*初始化看门狗*/
-000064  f7fffffe          BL       bsp_InitIWDG
+00004a  f7fffffe          BL       bsp_InitIWDG
 ;;;72     	
 ;;;73     	DEBUG("初始化完毕\r\n");
-000068  a007              ADR      r0,|L1.136|
-00006a  f7fffffe          BL       __2printf
+00004e  a002              ADR      r0,|L1.88|
+000050  f7fffffe          BL       __2printf
 ;;;74     	
 ;;;75     }
-00006e  bd10              POP      {r4,pc}
+000054  bd10              POP      {r4,pc}
 ;;;76     
                           ENDP
 
-                  |L1.112|
-000070  41573935          DCB      "AW9523B Init Error\r\n",0
-000074  32334220
-000078  496e6974
-00007c  20457272
-000080  6f720d0a
-000084  00      
-000085  00                DCB      0
-000086  00                DCB      0
-000087  00                DCB      0
-                  |L1.136|
-000088  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
-00008c  bbafcdea
-000090  b1cf0d0a
-000094  00      
-000095  00                DCB      0
-000096  00                DCB      0
-000097  00                DCB      0
+000056  0000              DCW      0x0000
+                  |L1.88|
+000058  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
+00005c  bbafcdea
+000060  b1cf0d0a
+000064  00      
+000065  00                DCB      0
+000066  00                DCB      0
+000067  00                DCB      0
 
 ;*** Start embedded assembler ***
 

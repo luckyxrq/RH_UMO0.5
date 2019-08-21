@@ -92,11 +92,15 @@ static void vTaskTaskUserIF(void *pvParameters)
 		bsp_SetMotorSpeed(MotorRight,12);
 #endif	
 
+	
+	
+	
+	
     while(1)
     {
 
 		vTaskDelay(6000);
-		
+		//bsp_StFlashTest(255);
 	}
 }
 

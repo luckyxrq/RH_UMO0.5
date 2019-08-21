@@ -38849,6 +38849,7 @@ Nbool bsp_FlashWritePage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
 X_Bool bsp_FlashWritePage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
 Nbool bsp_FlashReadPage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
 X_Bool bsp_FlashReadPage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+Nvoid bsp_StFlashTest(uint16_t pageIndex);
 N
 N#endif
 N
@@ -38876,7 +38877,7 @@ N*******************************************************************************
 N*/
 Nvoid bsp_Init(void)
 N{
-N	uint8_t ret;
+N//	uint8_t ret;
 N	/*
 N		由于ST固件库的启动文件已经执行了CPU系统时钟的初始化，所以不必再次重复配置系统时钟。
 N		启动文件配置了CPU主时钟频率、内部Flash访问速度和可选的外部SRAM FSMC初始化。
@@ -38904,16 +38905,15 @@ N
 N	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 N	bsp_InitChargingPile();  /*初始化输入捕获*/
 N	
-N	/* 初始化IO拓展芯片 */	
-N	do{
-N		ret = bsp_InitAW9523B();		
-N		if(!ret) 
-N		{
-N			WARNING("AW9523B Init Error\r\n");
-X			printf ("AW9523B Init Error\r\n");
-N			bsp_DelayMS(100);
-N		}
-N	}while(!ret);
+N//	/* 初始化IO拓展芯片 */	
+N//	do{
+N//		ret = bsp_InitAW9523B();		
+N//		if(!ret) 
+N//		{
+N//			WARNING("AW9523B Init Error\r\n");
+N//			bsp_DelayMS(100);
+N//		}
+N//	}while(!ret);
 N	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 N	
 N	bsp_InitIWDG();     /*初始化看门狗*/

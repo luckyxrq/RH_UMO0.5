@@ -17,6 +17,9 @@
 #define MIN_PAGE_INDEX      0
 #define MAX_PAGE_INDEX      (STM32_FLASH_SIZE / (STM_PAGE_SIZE/1024) - 1)
 
+/*FLASH BUF，半字数组，用于测试*/
+static uint16_t flashBuf[1024];
+
 
 /*
 *********************************************************************************************************
@@ -79,5 +82,45 @@ bool bsp_FlashReadPage(uint16_t pageIndex , uint16_t buf[] , uint16_t len)
     }
 	
 	return true;
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StFlashTest
+*	功能说明: FLASH测试函数
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_StFlashTest(uint16_t pageIndex)
+{
+	uint16_t i = 0 ;
+
+	/*填充带保存数组*/
+	for(i=0;i<1024;i++)
+	{
+		flashBuf[i] = i;
+	}
+	
+	/*写入内部FLASH*/
+	bsp_FlashWritePage(pageIndex,flashBuf,1024);
+	
+	/*清空数组，使用memset清空，无法把512后面的内容清空，原因不知*/
+	for(i=0;i<1024;i++)
+	{
+		flashBuf[i] = 0;
+	}
+
+	/*读取内部FLASH*/
+	bsp_FlashReadPage(pageIndex,flashBuf,1024);
+	
+	/*打印信息*/
+	for(i=0;i<1024;i++)
+	{
+		DEBUG("flashBuf[%d]:%d\r\n",i,flashBuf[i]);
+	}
+	
+	DEBUG("*********************************************\r\n\r\n");
 }
 
