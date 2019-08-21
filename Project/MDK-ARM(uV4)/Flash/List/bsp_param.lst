@@ -1,4 +1,4 @@
-L 1 "..\..\User\app\src\bsp_PulseMark.c"
+L 1 "..\..\User\app\src\bsp_param.c"
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -38856,53 +38856,75 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 2 "..\..\User\app\src\bsp_PulseMark.c" 2
+L 2 "..\..\User\app\src\bsp_param.c" 2
 N
-N/* 口对应的RCC时钟 */
-N#define RCC_ALL_PULSE 	(RCC_APB2Periph_GPIOG)
+N#define PARAM_VER			0x00000104					/* 参数版本 */
 N
-N#define GPIO_PORT_PULSE  GPIOG
-N#define GPIO_PIN_PULSE	 GPIO_Pin_1
+Ntypedef struct
+N{
+N	uint32_t ParamVer;			/* 参数区版本控制（可用于程序升级时，决定是否对参数区进行升级） */
+N
+N	
+N}
+NPARAM_T;
+N
+N
+N/* 全局参数 */
+Nstatic PARAM_T param;
+N
 N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_InitPinPulse
-N*	功能说明: 初始化脉冲引脚，用于示波器协助检测
+N*	函 数 名: bsp_LoadParam
+N*	功能说明: 从Flash读参数到g_tParam
 N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid bsp_InitPinPulse(void)
+Nvoid bsp_LoadParam(void)
 N{
-N	GPIO_InitTypeDef GPIO_InitStructure;
+N#ifdef PARAM_SAVE_TO_FLASH
+S	/* 读取CPU Flash中的参数 */
+S	bsp_ReadCpuFlash(PARAM_ADDR, (uint8_t *)&g_tParam, sizeof(PARAM_T));
+N#endif
 N
-N	RCC_APB2PeriphClockCmd(RCC_ALL_PULSE, ENABLE );	 
-X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000100)), ENABLE );	 
-N                      
-N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_PULSE;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
-N	GPIO_Init(GPIO_PORT_PULSE, &GPIO_InitStructure);	
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);	
+N#ifdef PARAM_SAVE_TO_EEPROM
+S	/* 读取EEPROM中的参数 */
+S	ee_ReadBytes((uint8_t *)&g_tParam, PARAM_ADDR, sizeof(PARAM_T));
+N#endif
+N
+N	/* 填充缺省参数 */
+N	if (param.ParamVer != PARAM_VER)
+X	if (param.ParamVer != 0x00000104)
+N	{
+N		param.ParamVer = PARAM_VER;
+X		param.ParamVer = 0x00000104;
+N
+N
+N		bsp_SaveParam();							/* 将新参数写入Flash */
+N	}
 N}
-N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_SendPulse
-N*	功能说明: 发送一个10US的高电平脉冲
-N*	形    参：无
+N*	函 数 名: bsp_SaveParam
+N*	功能说明: 将全局变量g_tParam 写入到CPU内部Flash
+N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid bsp_SendPulse(void)
+Nvoid bsp_SaveParam(void)
 N{
-N	GPIO_SetBits(GPIO_PORT_PULSE,GPIO_PIN_PULSE);
-X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)),((uint16_t)0x0002));
-N	bsp_DelayUS(10);
-N	GPIO_ResetBits(GPIO_PORT_PULSE,GPIO_PIN_PULSE);
-X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)),((uint16_t)0x0002));
+N#ifdef PARAM_SAVE_TO_FLASH
+S	/* 将全局的参数变量保存到 CPU Flash */
+S	bsp_WriteCpuFlash(PARAM_ADDR, (unsigned char *)&g_tParam, sizeof(PARAM_T));
+N#endif
+N
+N#ifdef PARAM_SAVE_TO_EEPROM
+S	/* 将全局的参数变量保存到EEPROM */
+S	ee_WriteBytes((uint8_t *)&g_tParam, PARAM_ADDR, sizeof(PARAM_T));
+N#endif
 N}
+N
 N

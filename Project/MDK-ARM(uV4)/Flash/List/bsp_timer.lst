@@ -38861,6 +38861,17 @@ N
 N#endif
 N
 L 189 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_param.h"
+L 1 "..\..\User\app\inc\bsp_param.h" 1
+N#ifndef __BSP_PARAM_H
+N#define __BSP_PARAM_H
+N
+Nvoid bsp_LoadParam(void);
+Nvoid bsp_SaveParam(void);
+N
+N#endif
+N
+L 190 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);

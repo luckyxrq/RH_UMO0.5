@@ -70,4 +70,5 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_Scope.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_Position.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_stflash.h
+.\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_param.h
 .\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

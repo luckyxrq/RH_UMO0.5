@@ -518,6 +518,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_stflash.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_param.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_param.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
