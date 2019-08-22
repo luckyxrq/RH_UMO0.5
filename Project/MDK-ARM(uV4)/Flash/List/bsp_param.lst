@@ -38916,7 +38916,7 @@ N//		param.data6 = 99;
 N//		param.data7 = 99.8F;
 N//		param.data8 = 3.141592654;
 N
-N		bsp_SaveParam();							/* 将新参数写入Flash */
+N//		bsp_SaveParam();							/* 将新参数写入Flash */
 N	}
 N}
 N

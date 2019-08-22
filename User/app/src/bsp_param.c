@@ -54,7 +54,7 @@ void bsp_LoadParam(void)
 //		param.data7 = 99.8F;
 //		param.data8 = 3.141592654;
 
-		bsp_SaveParam();							/* 将新参数写入Flash */
+//		bsp_SaveParam();							/* 将新参数写入Flash */
 	}
 }
 

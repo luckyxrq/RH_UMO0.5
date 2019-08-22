@@ -11,22 +11,23 @@
 ;;;40     {
 ;;;41     	bsp_FlashReadPage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
 000002  2223              MOVS     r2,#0x23
-000004  4907              LDR      r1,|L1.36|
+000004  4906              LDR      r1,|L1.32|
 000006  20ff              MOVS     r0,#0xff
 000008  f7fffffe          BL       bsp_FlashReadPage
 ;;;42     	
 ;;;43     	/* 填充缺省参数 */
 ;;;44     	if (param.ParamVer != PARAM_VER)
-00000c  4805              LDR      r0,|L1.36|
+00000c  4804              LDR      r0,|L1.32|
 00000e  6800              LDR      r0,[r0,#0]  ; param
 000010  f2401105          MOV      r1,#0x105
 000014  4288              CMP      r0,r1
-000016  d004              BEQ      |L1.34|
+000016  d002              BEQ      |L1.30|
 ;;;45     	{
 ;;;46     		param.ParamVer = PARAM_VER;
 000018  4608              MOV      r0,r1
-00001a  4902              LDR      r1,|L1.36|
+00001a  4901              LDR      r1,|L1.32|
 00001c  6008              STR      r0,[r1,#0]  ; param
+                  |L1.30|
 ;;;47     
 ;;;48     //		param.data1 = 3.141F;
 ;;;49     //		param.data2 = 66;
@@ -37,16 +38,14 @@
 ;;;54     //		param.data7 = 99.8F;
 ;;;55     //		param.data8 = 3.141592654;
 ;;;56     
-;;;57     		bsp_SaveParam();							/* 将新参数写入Flash */
-00001e  f7fffffe          BL       bsp_SaveParam
-                  |L1.34|
+;;;57     //		bsp_SaveParam();							/* 将新参数写入Flash */
 ;;;58     	}
 ;;;59     }
-000022  bd10              POP      {r4,pc}
+00001e  bd10              POP      {r4,pc}
 ;;;60     
                           ENDP
 
-                  |L1.36|
+                  |L1.32|
                           DCD      param
 
                           AREA ||i.bsp_ParamUpdateTest||, CODE, READONLY, ALIGN=1
