@@ -99,7 +99,8 @@ static void vTaskTaskUserIF(void *pvParameters)
     while(1)
     {
 
-		vTaskDelay(6000);
+		vTaskDelay(1000);
+		DEBUG("2000ms tick\r\n");
 		bsp_ParamUpdateTest();
 		//bsp_StFlashTest(255);
 	}

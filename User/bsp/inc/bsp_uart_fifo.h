@@ -37,7 +37,7 @@
 	【串口4】 --- 不做串口用。
 	【串口5】 --- 不做串口用。
 */
-#define	UART1_FIFO_EN	0
+#define	UART1_FIFO_EN	1
 #define	UART2_FIFO_EN	1  //调试
 #define	UART3_FIFO_EN	1  //陀螺仪
 #define	UART4_FIFO_EN	1
@@ -63,7 +63,7 @@ typedef enum
 }COM_PORT_E;
 
 /* 定义串口波特率和FIFO缓冲区大小，分为发送缓冲区和接收缓冲区, 支持全双工 */
-#if UART1_FIFO_EN == 0
+#if UART1_FIFO_EN == 1
 	#define UART1_BAUD			115200
 	#define UART1_TX_BUF_SIZE	1*1024
 	#define UART1_RX_BUF_SIZE	1*1024

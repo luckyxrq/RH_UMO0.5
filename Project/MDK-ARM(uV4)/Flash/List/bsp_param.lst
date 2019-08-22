@@ -37770,7 +37770,7 @@ N
 N	【串口4】 --- 不做串口用。
 N	【串口5】 --- 不做串口用。
 N*/
-N#define	UART1_FIFO_EN	0
+N#define	UART1_FIFO_EN	1
 N#define	UART2_FIFO_EN	1  //调试
 N#define	UART3_FIFO_EN	1  //陀螺仪
 N#define	UART4_FIFO_EN	1
@@ -37796,8 +37796,8 @@ N	COM5 = 4,	/* UART5, PC12, PD2 */
 N}COM_PORT_E;
 N
 N/* 定义串口波特率和FIFO缓冲区大小，分为发送缓冲区和接收缓冲区, 支持全双工 */
-N#if UART1_FIFO_EN == 0
-X#if 0 == 0
+N#if UART1_FIFO_EN == 1
+X#if 1 == 1
 N	#define UART1_BAUD			115200
 N	#define UART1_TX_BUF_SIZE	1*1024
 N	#define UART1_RX_BUF_SIZE	1*1024
@@ -38859,24 +38859,23 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_param.c" 2
 N
-N#define PARAM_VER			 0x00000105      /* 参数版本 */
+N#define PARAM_VER			 0x00000102      /* 参数版本 */
 N#define PARAM_SAVE_PAGE      255             /* 保存参数的页序号 */
 N
 N
-N/*按照2字节对齐，便于存储到内部FLASH，内部FLASH每次必须写2字节*/
-N#pragma pack(1)
+N/*
+N 按照2字节对齐，便于存储到内部FLASH，内部FLASH每次必须写2字节
+N 切记！！虽然可以在结构体中使用float和double，但是存储的时候后面的小数不准，所以建议浮点数全部扩大倍数后再存储
+N*/
+N#pragma pack(2)
 Ntypedef struct
 N{
 N	uint32_t ParamVer;			/* 参数区版本控制（可用于程序升级时，决定是否对参数区进行升级） */
 N
-N	float data1;
-N	uint8_t data2;
-N	float data3;
-N	uint16_t data4;
-N	float data5;
-N	uint32_t data6;
-N	float data7;
-N	double data8;
+N	uint8_t data1;
+N	uint32_t data2;
+N	uint16_t data3;
+N	uint8_t data4;
 N}
 NPARAM_T;
 N#pragma pack()
@@ -38890,48 +38889,44 @@ N
 N/*
 N*********************************************************************************************************
 N*	函 数 名: bsp_LoadParam
-N*	功能说明: 从Flash读参数到g_tParam
+N*	功能说明: 从Flash读参数到g_tParam，注意长度的除2，因为每次都是读半字
 N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
 Nvoid bsp_LoadParam(void)
 N{
-N	bsp_FlashReadPage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
-X	bsp_FlashReadPage(255,(uint16_t*)&param,sizeof(param));
+N	bsp_FlashReadPage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param)/2);
+X	bsp_FlashReadPage(255,(uint16_t*)&param,sizeof(param)/2);
 N	
 N	/* 填充缺省参数 */
 N	if (param.ParamVer != PARAM_VER)
-X	if (param.ParamVer != 0x00000105)
+X	if (param.ParamVer != 0x00000102)
 N	{
 N		param.ParamVer = PARAM_VER;
-X		param.ParamVer = 0x00000105;
+X		param.ParamVer = 0x00000102;
 N
-N//		param.data1 = 3.141F;
-N//		param.data2 = 66;
-N//		param.data3 = 666.123F;
-N//		param.data4 = 2345;
-N//		param.data5 = 888.632F;
-N//		param.data6 = 99;
-N//		param.data7 = 99.8F;
-N//		param.data8 = 3.141592654;
+N		param.data1 = 101;
+N		param.data2 = 305;
+N		param.data3 = 409;
+N		param.data4 = 200;
 N
-N//		bsp_SaveParam();							/* 将新参数写入Flash */
+N		bsp_SaveParam();							/* 将新参数写入Flash */
 N	}
 N}
 N
 N/*
 N*********************************************************************************************************
 N*	函 数 名: bsp_SaveParam
-N*	功能说明: 将全局变量g_tParam 写入到CPU内部Flash
+N*	功能说明: 将全局变量g_tParam 写入到CPU内部Flash，注意长度的除2，因为每次都是写半字
 N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
 Nvoid bsp_SaveParam(void)
 N{
-N	bsp_FlashWritePage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param));
-X	bsp_FlashWritePage(255,(uint16_t*)&param,sizeof(param));
+N	bsp_FlashWritePage(PARAM_SAVE_PAGE,(uint16_t*)&param,sizeof(param)/2);
+X	bsp_FlashWritePage(255,(uint16_t*)&param,sizeof(param)/2);
 N}
 N
 N
@@ -38945,16 +38940,20 @@ N*******************************************************************************
 N*/
 Nvoid bsp_ParamUpdateTest(void)
 N{
-N//	bsp_LoadParam();
-N//	DEBUG("param.ParamVer:%03X\r\n",param.ParamVer);
-N//	DEBUG("param.data1:%f\r\n",param.data1);
-N//	DEBUG("param.data2:%d\r\n",param.data2);
-N//	DEBUG("param.data3:%f\r\n",param.data3);
-N//	DEBUG("param.data4:%d\r\n",param.data4);
-N//	DEBUG("param.data5:%f\r\n",param.data5);
-N//	DEBUG("param.data6:%d\r\n",param.data6);
-N//	DEBUG("param.data7:%f\r\n",param.data7);
-N//	DEBUG("param.data8:%f\r\n",param.data8);
+N	memset(&param,0,sizeof(param));
+N	
+N	bsp_LoadParam();
+N	DEBUG("param.ParamVer:%03X\r\n",param.ParamVer);
+X	printf ("param.ParamVer:%03X\r\n",param . ParamVer);
+N	DEBUG("param.data1:%d\r\n",param.data1);
+X	printf ("param.data1:%d\r\n",param . data1);
+N	DEBUG("param.data2:%d\r\n",param.data2);
+X	printf ("param.data2:%d\r\n",param . data2);
+N	DEBUG("param.data3:%d\r\n",param.data3);
+X	printf ("param.data3:%d\r\n",param . data3);
+N	DEBUG("param.data4:%d\r\n",param.data4);
+X	printf ("param.data4:%d\r\n",param . data4);
+N
 N	
 N}
 N
