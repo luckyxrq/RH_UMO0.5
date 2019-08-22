@@ -5,50 +5,50 @@
                           AREA ||i.bsp_CalcChk||, CODE, READONLY, ALIGN=1
 
                   bsp_CalcChk PROC
-;;;285    */
-;;;286    static uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len)
+;;;287    */
+;;;288    static uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len)
 000000  b530              PUSH     {r4,r5,lr}
-;;;287    {
+;;;289    {
 000002  4604              MOV      r4,r0
 000004  460d              MOV      r5,r1
-;;;288    	uint8_t  i;
-;;;289    	uint16_t rx_sum1=0x00FFu;
+;;;290    	uint8_t  i;
+;;;291    	uint16_t rx_sum1=0x00FFu;
 000006  21ff              MOVS     r1,#0xff
-;;;290    	uint16_t rx_sum2=0x00FFu;
+;;;292    	uint16_t rx_sum2=0x00FFu;
 000008  22ff              MOVS     r2,#0xff
-;;;291    	
-;;;292    	for(i=0; i<len; i++)
+;;;293    	
+;;;294    	for(i=0; i<len; i++)
 00000a  2300              MOVS     r3,#0
 00000c  e007              B        |L1.30|
                   |L1.14|
-;;;293    	{
-;;;294    		rx_sum2 += rx_sum1 += buf[i];
+;;;295    	{
+;;;296    		rx_sum2 += rx_sum1 += buf[i];
 00000e  5ce0              LDRB     r0,[r4,r3]
 000010  4408              ADD      r0,r0,r1
 000012  b280              UXTH     r0,r0
 000014  4601              MOV      r1,r0
 000016  4410              ADD      r0,r0,r2
 000018  b282              UXTH     r2,r0
-00001a  1c58              ADDS     r0,r3,#1              ;292
-00001c  b2c3              UXTB     r3,r0                 ;292
+00001a  1c58              ADDS     r0,r3,#1              ;294
+00001c  b2c3              UXTB     r3,r0                 ;294
                   |L1.30|
-00001e  42ab              CMP      r3,r5                 ;292
+00001e  42ab              CMP      r3,r5                 ;294
 000020  dbf5              BLT      |L1.14|
-;;;295    	}
-;;;296    	
-;;;297    	rx_sum1 = (rx_sum1&0x00FFu) + (rx_sum1>>8);
+;;;297    	}
+;;;298    	
+;;;299    	rx_sum1 = (rx_sum1&0x00FFu) + (rx_sum1>>8);
 000022  b2c8              UXTB     r0,r1
 000024  eb002121          ADD      r1,r0,r1,ASR #8
-;;;298    	rx_sum2 = (rx_sum2&0x00FFu) + (rx_sum2>>8);
+;;;300    	rx_sum2 = (rx_sum2&0x00FFu) + (rx_sum2>>8);
 000028  b2d0              UXTB     r0,r2
 00002a  eb002222          ADD      r2,r0,r2,ASR #8
-;;;299    	
-;;;300    	return rx_sum2<<8|rx_sum1;
+;;;301    	
+;;;302    	return rx_sum2<<8|rx_sum1;
 00002e  ea412002          ORR      r0,r1,r2,LSL #8
 000032  b280              UXTH     r0,r0
-;;;301    }
+;;;303    }
 000034  bd30              POP      {r4,r5,pc}
-;;;302    
+;;;304    
                           ENDP
 
 
@@ -690,7 +690,9 @@
 000212  a804              ADD      r0,sp,#0x10
 000214  f7fffffe          BL       __aeabi_memclr4
 ;;;257    		
-;;;258    		DEBUG("angle:%.2F\r\n",angle/100.0F);
+;;;258    		UNUSED(data);
+;;;259    		
+;;;260    		DEBUG("angle:%.2F\r\n",angle/100.0F);
 000218  4628              MOV      r0,r5
 00021a  f7fffffe          BL       __aeabi_i2f
 00021e  491d              LDR      r1,|L3.660|
@@ -703,56 +705,56 @@
 000230  e9cd0102          STRD     r0,r1,[sp,#8]
 000234  a018              ADR      r0,|L3.664|
 000236  f7fffffe          BL       __2printf
-;;;259    		
-;;;260    		data[0] =  angle;                                          //红外ADC值1	 
+;;;261    		
+;;;262    		data[0] =  angle;                                          //红外ADC值1	 
 00023a  4628              MOV      r0,r5
 00023c  f7fffffe          BL       __aeabi_i2f
 000240  9004              STR      r0,[sp,#0x10]
-;;;261    		data[1] =  adc2;                                          //红外ADC值2	 
+;;;263    		data[1] =  adc2;                                          //红外ADC值2	 
 000242  4630              MOV      r0,r6
 000244  f7fffffe          BL       __aeabi_ui2f
 000248  9005              STR      r0,[sp,#0x14]
-;;;262    		data[2] =  adc3;                                          //红外ADC值3	 
+;;;264    		data[2] =  adc3;                                          //红外ADC值3	 
 00024a  4638              MOV      r0,r7
 00024c  f7fffffe          BL       __aeabi_ui2f
 000250  9006              STR      r0,[sp,#0x18]
-;;;263    		data[3] =  adc4;                                          //红外ADC值4	 
+;;;265    		data[3] =  adc4;                                          //红外ADC值4	 
 000252  4640              MOV      r0,r8
 000254  f7fffffe          BL       __aeabi_ui2f
 000258  9007              STR      r0,[sp,#0x1c]
-;;;264    		data[4] =  adc5;                                          //红外ADC值5	 
+;;;266    		data[4] =  adc5;                                          //红外ADC值5	 
 00025a  4648              MOV      r0,r9
 00025c  f7fffffe          BL       __aeabi_ui2f
 000260  9008              STR      r0,[sp,#0x20]
-;;;265    		data[5] =  adc6;                                          //红外ADC值6	 
+;;;267    		data[5] =  adc6;                                          //红外ADC值6	 
 000262  4650              MOV      r0,r10
 000264  f7fffffe          BL       __aeabi_ui2f
 000268  9009              STR      r0,[sp,#0x24]
-;;;266    		data[6] =  adc7;                                          //红外ADC值7	 
+;;;268    		data[6] =  adc7;                                          //红外ADC值7	 
 00026a  4658              MOV      r0,r11
 00026c  f7fffffe          BL       __aeabi_ui2f
 000270  900a              STR      r0,[sp,#0x28]
-;;;267    		data[7] =  adc8;                                          //红外ADC值8	 
+;;;269    		data[7] =  adc8;                                          //红外ADC值8	 
 000272  9815              LDR      r0,[sp,#0x54]
 000274  f7fffffe          BL       __aeabi_ui2f
 000278  900b              STR      r0,[sp,#0x2c]
-;;;268    		data[8] =  adc9;                                          //红外ADC值9	 
+;;;270    		data[8] =  adc9;                                          //红外ADC值9	 
 00027a  9814              LDR      r0,[sp,#0x50]
 00027c  f7fffffe          BL       __aeabi_ui2f
 000280  900c              STR      r0,[sp,#0x30]
-;;;269    		data[9] =  adc10;                                         //红外ADC值10
+;;;271    		data[9] =  adc10;                                         //红外ADC值10
 000282  9813              LDR      r0,[sp,#0x4c]
 000284  f7fffffe          BL       __aeabi_ui2f
 000288  900d              STR      r0,[sp,#0x34]
-;;;270    		
-;;;271    		//bsp_ScopeSend(data,1);
-;;;272    	}
-;;;273    	#endif
-;;;274    	
-;;;275    }
+;;;272    		
+;;;273    		//bsp_ScopeSend(data,1);
+;;;274    	}
+;;;275    	#endif
+;;;276    	
+;;;277    }
 00028a  b01d              ADD      sp,sp,#0x74
 00028c  e8bd8ff0          POP      {r4-r11,pc}
-;;;276    
+;;;278    
                           ENDP
 
                   |L3.656|

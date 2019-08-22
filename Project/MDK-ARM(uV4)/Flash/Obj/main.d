@@ -78,3 +78,5 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Control.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Scope.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Position.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_stflash.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_param.h

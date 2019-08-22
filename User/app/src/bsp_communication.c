@@ -255,6 +255,8 @@ void bsp_FillReportFrame(void)
 	{
 		float data[10] = {0};
 		
+		UNUSED(data);
+		
 		DEBUG("angle:%.2F\r\n",angle/100.0F);
 		
 		data[0] =  angle;                                          //∫ÏÕ‚ADC÷µ1	 

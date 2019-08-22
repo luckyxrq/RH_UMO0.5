@@ -69,3 +69,5 @@
 .\flash\obj\bsp_collision.o: ..\..\User\app\inc\bsp_Control.h
 .\flash\obj\bsp_collision.o: ..\..\User\app\inc\bsp_Scope.h
 .\flash\obj\bsp_collision.o: ..\..\User\app\inc\bsp_Position.h
+.\flash\obj\bsp_collision.o: ..\..\User\app\inc\bsp_stflash.h
+.\flash\obj\bsp_collision.o: ..\..\User\app\inc\bsp_param.h

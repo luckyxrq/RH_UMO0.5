@@ -38847,7 +38847,32 @@ N
 N#endif
 N
 L 188 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_stflash.h"
+L 1 "..\..\User\app\inc\bsp_stflash.h" 1
+N#ifndef __BSP_STFLASH_H
+N#define __BSP_STFLASH_H
 N
+Nbool bsp_FlashWritePage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+X_Bool bsp_FlashWritePage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+Nbool bsp_FlashReadPage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+X_Bool bsp_FlashReadPage(uint16_t pageIndex , uint16_t buf[] , uint16_t len);
+Nvoid bsp_StFlashTest(uint16_t pageIndex);
+N
+N#endif
+N
+L 189 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_param.h"
+L 1 "..\..\User\app\inc\bsp_param.h" 1
+N#ifndef __BSP_PARAM_H
+N#define __BSP_PARAM_H
+N
+Nvoid bsp_LoadParam(void);
+Nvoid bsp_SaveParam(void);
+Nvoid bsp_ParamUpdateTest(void);
+N
+N#endif
+N
+L 190 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
