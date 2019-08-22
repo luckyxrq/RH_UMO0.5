@@ -46441,15 +46441,15 @@ N*/
 Nstatic void vTaskStart(void *pvParameters)
 N{
 N	/*开启红外对管轮询扫描*/
-N//	bsp_DetectStart(); 
+N	bsp_DetectStart(); 
 N//	/*开启寻找充电桩*/
 N//	bsp_StartSearchChargingPile();
 N//	bsp_StartUpdatePos();
 N	
 N    while(1)
 N    {
-N//		bsp_DetectAct();  /*红外对管轮询扫描*/
-N//		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N		bsp_DetectAct();  /*红外对管轮询扫描*/
+N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 N//		bsp_EdgewiseAct();/*沿边*/
 N//		
 N//		/*四个红外接收管*/

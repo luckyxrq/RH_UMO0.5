@@ -58,21 +58,21 @@ void bsp_Init(void)
 	bsp_InitChargingPile();  /*初始化输入捕获*/
 		
 	
-//	/* 初始化IO拓展芯片 */	
-//	do{
-//		ret = bsp_InitAW9523B();		
-//		if(!ret) 
-//		{
-//			WARNING("AW9523B Init Error\r\n");
-//			bsp_LedOn(1);
-//			bsp_LedOn(2);
-//			bsp_LedOn(3);
-//			bsp_DelayMS(100);
-//		}
-//		bsp_LedOff(1);
-//		bsp_LedOff(2);
-//		bsp_LedOff(3);
-//	}while(!ret);
+	/* 初始化IO拓展芯片 */	
+	do{
+		ret = bsp_InitAW9523B();		
+		if(!ret) 
+		{
+			WARNING("AW9523B Init Error\r\n");
+			bsp_LedOn(1);
+			bsp_LedOn(2);
+			bsp_LedOn(3);
+			bsp_DelayMS(100);
+		}
+		bsp_LedOff(1);
+		bsp_LedOff(2);
+		bsp_LedOff(3);
+	}while(!ret);
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
 	bsp_InitIWDG();     /*初始化看门狗*/

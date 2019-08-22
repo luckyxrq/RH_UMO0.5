@@ -372,19 +372,22 @@
                   vTaskStart PROC
 ;;;219    */
 ;;;220    static void vTaskStart(void *pvParameters)
-000000  e004              B        |L7.12|
-                  |L7.2|
+000000  f7fffffe          BL       bsp_DetectStart
 ;;;221    {
 ;;;222    	/*开启红外对管轮询扫描*/
-;;;223    //	bsp_DetectStart(); 
+;;;223    	bsp_DetectStart(); 
 ;;;224    //	/*开启寻找充电桩*/
 ;;;225    //	bsp_StartSearchChargingPile();
 ;;;226    //	bsp_StartUpdatePos();
 ;;;227    	
 ;;;228        while(1)
+000004  e008              B        |L7.24|
+                  |L7.6|
 ;;;229        {
-;;;230    //		bsp_DetectAct();  /*红外对管轮询扫描*/
-;;;231    //		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+;;;230    		bsp_DetectAct();  /*红外对管轮询扫描*/
+000006  f7fffffe          BL       bsp_DetectAct
+;;;231    		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+00000a  f7fffffe          BL       bsp_DetectDeal
 ;;;232    //		bsp_EdgewiseAct();/*沿边*/
 ;;;233    //		
 ;;;234    //		/*四个红外接收管*/
@@ -400,13 +403,13 @@
 ;;;244    		
 ;;;245    		
 ;;;246    		bsp_KeyScan();
-000002  f7fffffe          BL       bsp_KeyScan
+00000e  f7fffffe          BL       bsp_KeyScan
 ;;;247    		
 ;;;248            vTaskDelay(1);
-000006  2001              MOVS     r0,#1
-000008  f7fffffe          BL       vTaskDelay
-                  |L7.12|
-00000c  e7f9              B        |L7.2|
+000012  2001              MOVS     r0,#1
+000014  f7fffffe          BL       vTaskDelay
+                  |L7.24|
+000018  e7f5              B        |L7.6|
 ;;;249    		
 ;;;250    		
 ;;;251    		  
