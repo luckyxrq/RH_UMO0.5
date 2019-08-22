@@ -38942,6 +38942,10 @@ Nvoid bsp_ParamUpdateTest(void)
 N{
 N	memset(&param,0,sizeof(param));
 N	
+N	
+N	DEBUG("sizeof(param):%d\r\n",sizeof(param));
+X	printf ("sizeof(param):%d\r\n",sizeof(param));
+N	
 N	bsp_LoadParam();
 N	DEBUG("param.ParamVer:%03X\r\n",param.ParamVer);
 X	printf ("param.ParamVer:%03X\r\n",param . ParamVer);

@@ -79,6 +79,9 @@ void bsp_ParamUpdateTest(void)
 {
 	memset(&param,0,sizeof(param));
 	
+	
+	DEBUG("sizeof(param):%d\r\n",sizeof(param));
+	
 	bsp_LoadParam();
 	DEBUG("param.ParamVer:%03X\r\n",param.ParamVer);
 	DEBUG("param.data1:%d\r\n",param.data1);
