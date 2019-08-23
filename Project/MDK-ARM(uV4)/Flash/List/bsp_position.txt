@@ -7,36 +7,56 @@
                   bsp_GetCurrentPosX PROC
 ;;;48     */
 ;;;49     int32_t bsp_GetCurrentPosX(void)
-000000  4801              LDR      r0,|L1.8|
+000000  e92d41f0          PUSH     {r4-r8,lr}
 ;;;50     {
-;;;51     	return position.currentX;
-000002  6880              LDR      r0,[r0,#8]  ; position
+;;;51     	return position.currentX * 1000;
+000004  4806              LDR      r0,|L1.32|
+000006  6906              LDR      r6,[r0,#0x10]  ; position
+000008  6941              LDR      r1,[r0,#0x14]  ; position
+00000a  2200              MOVS     r2,#0
+00000c  4b05              LDR      r3,|L1.36|
+00000e  4630              MOV      r0,r6
+000010  f7fffffe          BL       __aeabi_dmul
+000014  4604              MOV      r4,r0
+000016  f7fffffe          BL       __aeabi_d2iz
 ;;;52     }
-000004  4770              BX       lr
+00001a  e8bd81f0          POP      {r4-r8,pc}
 ;;;53     
                           ENDP
 
-000006  0000              DCW      0x0000
-                  |L1.8|
+00001e  0000              DCW      0x0000
+                  |L1.32|
                           DCD      position
+                  |L1.36|
+                          DCD      0x408f4000
 
                           AREA ||i.bsp_GetCurrentPosY||, CODE, READONLY, ALIGN=2
 
                   bsp_GetCurrentPosY PROC
 ;;;63     */
 ;;;64     int32_t bsp_GetCurrentPosY(void)
-000000  4801              LDR      r0,|L2.8|
+000000  e92d41f0          PUSH     {r4-r8,lr}
 ;;;65     {
-;;;66     	return position.currentY;
-000002  68c0              LDR      r0,[r0,#0xc]  ; position
+;;;66     	return position.currentY * 1000;
+000004  4806              LDR      r0,|L2.32|
+000006  6986              LDR      r6,[r0,#0x18]  ; position
+000008  69c1              LDR      r1,[r0,#0x1c]  ; position
+00000a  2200              MOVS     r2,#0
+00000c  4b05              LDR      r3,|L2.36|
+00000e  4630              MOV      r0,r6
+000010  f7fffffe          BL       __aeabi_dmul
+000014  4604              MOV      r4,r0
+000016  f7fffffe          BL       __aeabi_d2iz
 ;;;67     }
-000004  4770              BX       lr
+00001a  e8bd81f0          POP      {r4-r8,pc}
 ;;;68     
                           ENDP
 
-000006  0000              DCW      0x0000
-                  |L2.8|
+00001e  0000              DCW      0x0000
+                  |L2.32|
                           DCD      position
+                  |L2.36|
+                          DCD      0x408f4000
 
                           AREA ||i.bsp_PositionUpdate||, CODE, READONLY, ALIGN=2
 
@@ -45,10 +65,10 @@
 ;;;78     void bsp_PositionUpdate(void)
 000000  e92d4ff0          PUSH     {r4-r11,lr}
 ;;;79     {
-000004  b08d              SUB      sp,sp,#0x34
+000004  b089              SUB      sp,sp,#0x24
 ;;;80     	if(!position.isRunning)
-000006  488d              LDR      r0,|L3.572|
-000008  f8900039          LDRB     r0,[r0,#0x39]  ; position
+000006  4888              LDR      r0,|L3.552|
+000008  f8900049          LDRB     r0,[r0,#0x49]  ; position
 00000c  b910              CBNZ     r0,|L3.20|
                   |L3.14|
 ;;;81     	{
@@ -97,242 +117,241 @@
 ;;;124    	
 ;;;125     
 ;;;126    }
-00000e  b00d              ADD      sp,sp,#0x34
+00000e  b009              ADD      sp,sp,#0x24
 000010  e8bd8ff0          POP      {r4-r11,pc}
                   |L3.20|
-000014  4889              LDR      r0,|L3.572|
-000016  f8900038          LDRB     r0,[r0,#0x38]         ;85  ; position
+000014  4884              LDR      r0,|L3.552|
+000016  f8900048          LDRB     r0,[r0,#0x48]         ;85  ; position
 00001a  b120              CBZ      r0,|L3.38|
 00001c  2801              CMP      r0,#1                 ;85
 00001e  d00d              BEQ      |L3.60|
 000020  2802              CMP      r0,#2                 ;85
-000022  d17c              BNE      |L3.286|
-000024  e0f8              B        |L3.536|
+000022  d17d              BNE      |L3.288|
+000024  e0ee              B        |L3.516|
                   |L3.38|
 000026  f7fffffe          BL       xTaskGetTickCount
-00002a  4984              LDR      r1,|L3.572|
-00002c  6248              STR      r0,[r1,#0x24]         ;89  ; position
+00002a  497f              LDR      r1,|L3.552|
+00002c  6348              STR      r0,[r1,#0x34]         ;89  ; position
 00002e  4608              MOV      r0,r1                 ;90
-000030  f8900038          LDRB     r0,[r0,#0x38]         ;90  ; position
+000030  f8900048          LDRB     r0,[r0,#0x48]         ;90  ; position
 000034  1c40              ADDS     r0,r0,#1              ;90
-000036  f8810038          STRB     r0,[r1,#0x38]         ;90
+000036  f8810048          STRB     r0,[r1,#0x48]         ;90
 00003a  bf00              NOP                            ;93
                   |L3.60|
-00003c  487f              LDR      r0,|L3.572|
-00003e  6a40              LDR      r0,[r0,#0x24]         ;96  ; position
-000040  497e              LDR      r1,|L3.572|
-000042  6208              STR      r0,[r1,#0x20]         ;96  ; position
-000044  6988              LDR      r0,[r1,#0x18]         ;97  ; position
-000046  69c9              LDR      r1,[r1,#0x1c]         ;97  ; position
-000048  4a7c              LDR      r2,|L3.572|
-00004a  6110              STR      r0,[r2,#0x10]         ;97  ; position
-00004c  6151              STR      r1,[r2,#0x14]         ;97  ; position
-00004e  4611              MOV      r1,r2                 ;98
-000050  6b08              LDR      r0,[r1,#0x30]         ;98  ; position
-000052  6b49              LDR      r1,[r1,#0x34]         ;98  ; position
-000054  6290              STR      r0,[r2,#0x28]         ;98  ; position
-000056  62d1              STR      r1,[r2,#0x2c]         ;98  ; position
+00003c  487a              LDR      r0,|L3.552|
+00003e  6b40              LDR      r0,[r0,#0x34]         ;96  ; position
+000040  4979              LDR      r1,|L3.552|
+000042  6308              STR      r0,[r1,#0x30]         ;96  ; position
+000044  6a88              LDR      r0,[r1,#0x28]         ;97  ; position
+000046  6ac9              LDR      r1,[r1,#0x2c]         ;97  ; position
+000048  4a77              LDR      r2,|L3.552|
+00004a  6210              STR      r0,[r2,#0x20]         ;97  ; position
+00004c  6251              STR      r1,[r2,#0x24]         ;97  ; position
+00004e  4610              MOV      r0,r2                 ;98
+000050  6c01              LDR      r1,[r0,#0x40]         ;98  ; position
+000052  6c40              LDR      r0,[r0,#0x44]         ;98  ; position
+000054  6391              STR      r1,[r2,#0x38]         ;98  ; position
+000056  63d0              STR      r0,[r2,#0x3c]         ;98  ; position
 000058  4610              MOV      r0,r2                 ;99
-00005a  6880              LDR      r0,[r0,#8]            ;99  ; position
-00005c  4611              MOV      r1,r2                 ;99
-00005e  6008              STR      r0,[r1,#0]            ;99  ; position
-000060  4608              MOV      r0,r1                 ;100
-000062  68c0              LDR      r0,[r0,#0xc]          ;100  ; position
-000064  6048              STR      r0,[r1,#4]            ;100  ; position
-000066  f7fffffe          BL       xTaskGetTickCount
-00006a  4974              LDR      r1,|L3.572|
-00006c  6248              STR      r0,[r1,#0x24]         ;103  ; position
-00006e  2000              MOVS     r0,#0                 ;104
-000070  f7fffffe          BL       bsp_MotorGetSpeed
-000074  4680              MOV      r8,r0                 ;104
-000076  2001              MOVS     r0,#1                 ;104
-000078  f7fffffe          BL       bsp_MotorGetSpeed
-00007c  eb080700          ADD      r7,r8,r0              ;104
-000080  4638              MOV      r0,r7                 ;104
-000082  f7fffffe          BL       __aeabi_i2f
-000086  4606              MOV      r6,r0                 ;104
-000088  f04f517c          MOV      r1,#0x3f000000        ;104
-00008c  f7fffffe          BL       __aeabi_fmul
-000090  4605              MOV      r5,r0                 ;104
-000092  496b              LDR      r1,|L3.576|
-000094  f7fffffe          BL       __aeabi_fmul
-000098  4604              MOV      r4,r0                 ;104
-00009a  f7fffffe          BL       __aeabi_f2d
-00009e  4a67              LDR      r2,|L3.572|
-0000a0  6190              STR      r0,[r2,#0x18]         ;104  ; position
-0000a2  61d1              STR      r1,[r2,#0x1c]         ;104  ; position
-0000a4  f7fffffe          BL       bsp_AngleReadRaw
-0000a8  4680              MOV      r8,r0                 ;105
-0000aa  f7fffffe          BL       __aeabi_i2f
-0000ae  4607              MOV      r7,r0                 ;105
-0000b0  4964              LDR      r1,|L3.580|
-0000b2  f7fffffe          BL       __aeabi_fmul
-0000b6  4606              MOV      r6,r0                 ;105
-0000b8  4963              LDR      r1,|L3.584|
-0000ba  f7fffffe          BL       __aeabi_fmul
-0000be  4605              MOV      r5,r0                 ;105
-0000c0  4962              LDR      r1,|L3.588|
-0000c2  f7fffffe          BL       __aeabi_fdiv
-0000c6  4604              MOV      r4,r0                 ;105
-0000c8  f7fffffe          BL       __aeabi_f2d
-0000cc  4a5b              LDR      r2,|L3.572|
-0000ce  6310              STR      r0,[r2,#0x30]         ;105  ; position
-0000d0  6351              STR      r1,[r2,#0x34]         ;105  ; position
-0000d2  4611              MOV      r1,r2                 ;107
-0000d4  6a49              LDR      r1,[r1,#0x24]         ;107  ; position
-0000d6  6a12              LDR      r2,[r2,#0x20]         ;107  ; position
-0000d8  1a88              SUBS     r0,r1,r2              ;107
-0000da  f7fffffe          BL       __aeabi_ui2d
-0000de  4680              MOV      r8,r0                 ;107
-0000e0  4689              MOV      r9,r1                 ;107
-0000e2  4856              LDR      r0,|L3.572|
-0000e4  6a82              LDR      r2,[r0,#0x28]         ;107  ; position
-0000e6  6ac1              LDR      r1,[r0,#0x2c]         ;107  ; position
-0000e8  4610              MOV      r0,r2                 ;107
-0000ea  f7fffffe          BL       ||cos||
-0000ee  4604              MOV      r4,r0                 ;107
-0000f0  460d              MOV      r5,r1                 ;107
-0000f2  4952              LDR      r1,|L3.572|
-0000f4  690e              LDR      r6,[r1,#0x10]         ;107  ; position
-0000f6  694b              LDR      r3,[r1,#0x14]         ;107  ; position
-0000f8  4632              MOV      r2,r6                 ;107
-0000fa  4629              MOV      r1,r5                 ;107
-0000fc  f7fffffe          BL       __aeabi_dmul
-000100  e9cd0100          STRD     r0,r1,[sp,#0]         ;107
-000104  484d              LDR      r0,|L3.572|
-000106  6b02              LDR      r2,[r0,#0x30]         ;107  ; position
-000108  6b41              LDR      r1,[r0,#0x34]         ;107  ; position
-00010a  4610              MOV      r0,r2                 ;107
-00010c  f7fffffe          BL       ||cos||
-000110  4604              MOV      r4,r0                 ;107
-000112  484a              LDR      r0,|L3.572|
-000114  6986              LDR      r6,[r0,#0x18]         ;107  ; position
-000116  69c3              LDR      r3,[r0,#0x1c]         ;107  ; position
-000118  4632              MOV      r2,r6                 ;107
-00011a  4620              MOV      r0,r4                 ;107
-00011c  e000              B        |L3.288|
-                  |L3.286|
-00011e  e089              B        |L3.564|
+00005a  6901              LDR      r1,[r0,#0x10]         ;99  ; position
+00005c  6940              LDR      r0,[r0,#0x14]         ;99  ; position
+00005e  6011              STR      r1,[r2,#0]            ;99  ; position
+000060  6050              STR      r0,[r2,#4]            ;99  ; position
+000062  4611              MOV      r1,r2                 ;100
+000064  6988              LDR      r0,[r1,#0x18]         ;100  ; position
+000066  69c9              LDR      r1,[r1,#0x1c]         ;100  ; position
+000068  6090              STR      r0,[r2,#8]            ;100  ; position
+00006a  60d1              STR      r1,[r2,#0xc]          ;100  ; position
+00006c  f7fffffe          BL       xTaskGetTickCount
+000070  496d              LDR      r1,|L3.552|
+000072  6348              STR      r0,[r1,#0x34]         ;103  ; position
+000074  2000              MOVS     r0,#0                 ;104
+000076  f7fffffe          BL       bsp_MotorGetSpeed
+00007a  4680              MOV      r8,r0                 ;104
+00007c  2001              MOVS     r0,#1                 ;104
+00007e  f7fffffe          BL       bsp_MotorGetSpeed
+000082  eb080700          ADD      r7,r8,r0              ;104
+000086  4638              MOV      r0,r7                 ;104
+000088  f7fffffe          BL       __aeabi_i2f
+00008c  4606              MOV      r6,r0                 ;104
+00008e  f04f517c          MOV      r1,#0x3f000000        ;104
+000092  f7fffffe          BL       __aeabi_fmul
+000096  4605              MOV      r5,r0                 ;104
+000098  4964              LDR      r1,|L3.556|
+00009a  f7fffffe          BL       __aeabi_fmul
+00009e  4604              MOV      r4,r0                 ;104
+0000a0  f7fffffe          BL       __aeabi_f2d
+0000a4  4a60              LDR      r2,|L3.552|
+0000a6  6290              STR      r0,[r2,#0x28]         ;104  ; position
+0000a8  62d1              STR      r1,[r2,#0x2c]         ;104  ; position
+0000aa  f7fffffe          BL       bsp_AngleReadRaw
+0000ae  4680              MOV      r8,r0                 ;105
+0000b0  f7fffffe          BL       __aeabi_i2f
+0000b4  4607              MOV      r7,r0                 ;105
+0000b6  495e              LDR      r1,|L3.560|
+0000b8  f7fffffe          BL       __aeabi_fmul
+0000bc  4606              MOV      r6,r0                 ;105
+0000be  495d              LDR      r1,|L3.564|
+0000c0  f7fffffe          BL       __aeabi_fmul
+0000c4  4605              MOV      r5,r0                 ;105
+0000c6  495c              LDR      r1,|L3.568|
+0000c8  f7fffffe          BL       __aeabi_fdiv
+0000cc  4604              MOV      r4,r0                 ;105
+0000ce  f7fffffe          BL       __aeabi_f2d
+0000d2  4a55              LDR      r2,|L3.552|
+0000d4  6410              STR      r0,[r2,#0x40]         ;105  ; position
+0000d6  6451              STR      r1,[r2,#0x44]         ;105  ; position
+0000d8  4611              MOV      r1,r2                 ;107
+0000da  6b49              LDR      r1,[r1,#0x34]         ;107  ; position
+0000dc  6b12              LDR      r2,[r2,#0x30]         ;107  ; position
+0000de  1a88              SUBS     r0,r1,r2              ;107
+0000e0  f7fffffe          BL       __aeabi_ui2d
+0000e4  4680              MOV      r8,r0                 ;107
+0000e6  4689              MOV      r9,r1                 ;107
+0000e8  484f              LDR      r0,|L3.552|
+0000ea  6b82              LDR      r2,[r0,#0x38]         ;107  ; position
+0000ec  6bc1              LDR      r1,[r0,#0x3c]         ;107  ; position
+0000ee  4610              MOV      r0,r2                 ;107
+0000f0  f7fffffe          BL       ||cos||
+0000f4  4604              MOV      r4,r0                 ;107
+0000f6  484c              LDR      r0,|L3.552|
+0000f8  6a06              LDR      r6,[r0,#0x20]         ;107  ; position
+0000fa  6a43              LDR      r3,[r0,#0x24]         ;107  ; position
+0000fc  4632              MOV      r2,r6                 ;107
+0000fe  4620              MOV      r0,r4                 ;107
+000100  f7fffffe          BL       __aeabi_dmul
+000104  e9cd0102          STRD     r0,r1,[sp,#8]         ;107
+000108  4847              LDR      r0,|L3.552|
+00010a  6c02              LDR      r2,[r0,#0x40]         ;107  ; position
+00010c  6c41              LDR      r1,[r0,#0x44]         ;107  ; position
+00010e  4610              MOV      r0,r2                 ;107
+000110  f7fffffe          BL       ||cos||
+000114  4604              MOV      r4,r0                 ;107
+000116  460d              MOV      r5,r1                 ;107
+000118  4943              LDR      r1,|L3.552|
+00011a  6a8e              LDR      r6,[r1,#0x28]         ;107  ; position
+00011c  6acb              LDR      r3,[r1,#0x2c]         ;107  ; position
+00011e  e000              B        |L3.290|
                   |L3.288|
-000120  f7fffffe          BL       __aeabi_dmul
-000124  4682              MOV      r10,r0                ;107
-000126  e9dd2300          LDRD     r2,r3,[sp,#0]         ;107
-00012a  f7fffffe          BL       __aeabi_dadd
-00012e  4642              MOV      r2,r8                 ;107
-000130  464b              MOV      r3,r9                 ;107
-000132  e9cd0102          STRD     r0,r1,[sp,#8]         ;107
-000136  f7fffffe          BL       __aeabi_dmul
-00013a  f04f4260          MOV      r2,#0xe0000000        ;107
-00013e  4b44              LDR      r3,|L3.592|
-000140  e9cd0104          STRD     r0,r1,[sp,#0x10]      ;107
-000144  f7fffffe          BL       __aeabi_dmul
-000148  e9cd0108          STRD     r0,r1,[sp,#0x20]      ;107
-00014c  493b              LDR      r1,|L3.572|
-00014e  6808              LDR      r0,[r1,#0]            ;107  ; position
-000150  f7fffffe          BL       __aeabi_i2d
-000154  e9cd0106          STRD     r0,r1,[sp,#0x18]      ;107
-000158  e9dd2308          LDRD     r2,r3,[sp,#0x20]      ;107
+000120  e07e              B        |L3.544|
+                  |L3.290|
+000122  4632              MOV      r2,r6                 ;107
+000124  4629              MOV      r1,r5                 ;107
+000126  f7fffffe          BL       __aeabi_dmul
+00012a  e9cd0100          STRD     r0,r1,[sp,#0]         ;107
+00012e  e9dd2302          LDRD     r2,r3,[sp,#8]         ;107
+000132  f7fffffe          BL       __aeabi_dadd
+000136  4642              MOV      r2,r8                 ;107
+000138  464b              MOV      r3,r9                 ;107
+00013a  e9cd0104          STRD     r0,r1,[sp,#0x10]      ;107
+00013e  f7fffffe          BL       __aeabi_dmul
+000142  4682              MOV      r10,r0                ;107
+000144  f04f4260          MOV      r2,#0xe0000000        ;107
+000148  4b3c              LDR      r3,|L3.572|
+00014a  f7fffffe          BL       __aeabi_dmul
+00014e  e9cd0106          STRD     r0,r1,[sp,#0x18]      ;107
+000152  4935              LDR      r1,|L3.552|
+000154  680c              LDR      r4,[r1,#0]            ;107  ; position
+000156  684b              LDR      r3,[r1,#4]            ;107  ; position
+000158  4622              MOV      r2,r4                 ;107
+00015a  9907              LDR      r1,[sp,#0x1c]         ;107
 00015c  f7fffffe          BL       __aeabi_dadd
-000160  e9cd010a          STRD     r0,r1,[sp,#0x28]      ;107
-000164  f7fffffe          BL       __aeabi_d2iz
-000168  4934              LDR      r1,|L3.572|
-00016a  6088              STR      r0,[r1,#8]            ;107  ; position
-00016c  6a49              LDR      r1,[r1,#0x24]         ;108  ; position
-00016e  4a33              LDR      r2,|L3.572|
-000170  6a12              LDR      r2,[r2,#0x20]         ;108  ; position
-000172  1a88              SUBS     r0,r1,r2              ;108
-000174  f7fffffe          BL       __aeabi_ui2d
-000178  e9cd0104          STRD     r0,r1,[sp,#0x10]      ;108
-00017c  482f              LDR      r0,|L3.572|
-00017e  6a82              LDR      r2,[r0,#0x28]         ;108  ; position
-000180  6ac1              LDR      r1,[r0,#0x2c]         ;108  ; position
-000182  4610              MOV      r0,r2                 ;108
-000184  f7fffffe          BL       ||sin||
-000188  4604              MOV      r4,r0                 ;108
-00018a  482c              LDR      r0,|L3.572|
-00018c  6906              LDR      r6,[r0,#0x10]         ;108  ; position
-00018e  6943              LDR      r3,[r0,#0x14]         ;108  ; position
-000190  4632              MOV      r2,r6                 ;108
-000192  4620              MOV      r0,r4                 ;108
-000194  f7fffffe          BL       __aeabi_dmul
-000198  4680              MOV      r8,r0                 ;108
-00019a  4689              MOV      r9,r1                 ;108
-00019c  4927              LDR      r1,|L3.572|
-00019e  6b0a              LDR      r2,[r1,#0x30]         ;108  ; position
-0001a0  6b49              LDR      r1,[r1,#0x34]         ;108  ; position
-0001a2  4610              MOV      r0,r2                 ;108
-0001a4  f7fffffe          BL       ||sin||
-0001a8  4604              MOV      r4,r0                 ;108
-0001aa  4824              LDR      r0,|L3.572|
-0001ac  6986              LDR      r6,[r0,#0x18]         ;108  ; position
-0001ae  69c3              LDR      r3,[r0,#0x1c]         ;108  ; position
-0001b0  4632              MOV      r2,r6                 ;108
-0001b2  4620              MOV      r0,r4                 ;108
-0001b4  f7fffffe          BL       __aeabi_dmul
-0001b8  4642              MOV      r2,r8                 ;108
-0001ba  464b              MOV      r3,r9                 ;108
-0001bc  e9cd0100          STRD     r0,r1,[sp,#0]         ;108
-0001c0  f7fffffe          BL       __aeabi_dadd
-0001c4  e9cd0102          STRD     r0,r1,[sp,#8]         ;108
-0001c8  e9dd2304          LDRD     r2,r3,[sp,#0x10]      ;108
-0001cc  f7fffffe          BL       __aeabi_dmul
-0001d0  f04f4260          MOV      r2,#0xe0000000        ;108
-0001d4  4b1e              LDR      r3,|L3.592|
+000160  4a31              LDR      r2,|L3.552|
+000162  6110              STR      r0,[r2,#0x10]         ;107  ; position
+000164  6151              STR      r1,[r2,#0x14]         ;107  ; position
+000166  4611              MOV      r1,r2                 ;108
+000168  6b49              LDR      r1,[r1,#0x34]         ;108  ; position
+00016a  6b12              LDR      r2,[r2,#0x30]         ;108  ; position
+00016c  1a88              SUBS     r0,r1,r2              ;108
+00016e  f7fffffe          BL       __aeabi_ui2d
+000172  4680              MOV      r8,r0                 ;108
+000174  4689              MOV      r9,r1                 ;108
+000176  492c              LDR      r1,|L3.552|
+000178  6b8a              LDR      r2,[r1,#0x38]         ;108  ; position
+00017a  6bc9              LDR      r1,[r1,#0x3c]         ;108  ; position
+00017c  4610              MOV      r0,r2                 ;108
+00017e  f7fffffe          BL       ||sin||
+000182  4604              MOV      r4,r0                 ;108
+000184  4828              LDR      r0,|L3.552|
+000186  6a06              LDR      r6,[r0,#0x20]         ;108  ; position
+000188  6a43              LDR      r3,[r0,#0x24]         ;108  ; position
+00018a  4632              MOV      r2,r6                 ;108
+00018c  4620              MOV      r0,r4                 ;108
+00018e  f7fffffe          BL       __aeabi_dmul
+000192  e9cd0102          STRD     r0,r1,[sp,#8]         ;108
+000196  4824              LDR      r0,|L3.552|
+000198  6c02              LDR      r2,[r0,#0x40]         ;108  ; position
+00019a  6c41              LDR      r1,[r0,#0x44]         ;108  ; position
+00019c  4610              MOV      r0,r2                 ;108
+00019e  f7fffffe          BL       ||sin||
+0001a2  4604              MOV      r4,r0                 ;108
+0001a4  4820              LDR      r0,|L3.552|
+0001a6  6a86              LDR      r6,[r0,#0x28]         ;108  ; position
+0001a8  6ac3              LDR      r3,[r0,#0x2c]         ;108  ; position
+0001aa  4632              MOV      r2,r6                 ;108
+0001ac  4620              MOV      r0,r4                 ;108
+0001ae  f7fffffe          BL       __aeabi_dmul
+0001b2  e9cd0100          STRD     r0,r1,[sp,#0]         ;108
+0001b6  e9dd2302          LDRD     r2,r3,[sp,#8]         ;108
+0001ba  f7fffffe          BL       __aeabi_dadd
+0001be  4682              MOV      r10,r0                ;108
+0001c0  4642              MOV      r2,r8                 ;108
+0001c2  464b              MOV      r3,r9                 ;108
+0001c4  f7fffffe          BL       __aeabi_dmul
+0001c8  f04f4260          MOV      r2,#0xe0000000        ;108
+0001cc  4b1b              LDR      r3,|L3.572|
+0001ce  e9cd0104          STRD     r0,r1,[sp,#0x10]      ;108
+0001d2  f7fffffe          BL       __aeabi_dmul
 0001d6  e9cd0106          STRD     r0,r1,[sp,#0x18]      ;108
-0001da  f7fffffe          BL       __aeabi_dmul
-0001de  4682              MOV      r10,r0                ;108
-0001e0  468b              MOV      r11,r1                ;108
-0001e2  4916              LDR      r1,|L3.572|
-0001e4  6848              LDR      r0,[r1,#4]            ;108  ; position
-0001e6  f7fffffe          BL       __aeabi_i2d
-0001ea  4652              MOV      r2,r10                ;108
-0001ec  465b              MOV      r3,r11                ;108
-0001ee  e9cd0108          STRD     r0,r1,[sp,#0x20]      ;108
-0001f2  f7fffffe          BL       __aeabi_dadd
-0001f6  e9cd010a          STRD     r0,r1,[sp,#0x28]      ;108
-0001fa  f7fffffe          BL       __aeabi_d2iz
-0001fe  490f              LDR      r1,|L3.572|
-000200  60c8              STR      r0,[r1,#0xc]          ;108  ; position
-000202  f7fffffe          BL       xTaskGetTickCount
-000206  490d              LDR      r1,|L3.572|
-000208  63c8              STR      r0,[r1,#0x3c]         ;110  ; position
-00020a  4608              MOV      r0,r1                 ;111
-00020c  f8900038          LDRB     r0,[r0,#0x38]         ;111  ; position
-000210  1c40              ADDS     r0,r0,#1              ;111
-000212  f8810038          STRB     r0,[r1,#0x38]         ;111
-000216  e00d              B        |L3.564|
-                  |L3.536|
-000218  f7fffffe          BL       xTaskGetTickCount
-00021c  4907              LDR      r1,|L3.572|
-00021e  6bc9              LDR      r1,[r1,#0x3c]         ;116  ; position
-000220  1a40              SUBS     r0,r0,r1              ;116
-000222  2814              CMP      r0,#0x14              ;116
-000224  d305              BCC      |L3.562|
-000226  f7fffffe          BL       bsp_SendReportFrame
-00022a  2001              MOVS     r0,#1                 ;120
-00022c  4903              LDR      r1,|L3.572|
-00022e  f8810038          STRB     r0,[r1,#0x38]         ;120
-                  |L3.562|
-000232  bf00              NOP                            ;122
-                  |L3.564|
-000234  bf00              NOP                            ;112
-000236  bf00              NOP      
-000238  e6e9              B        |L3.14|
+0001da  4913              LDR      r1,|L3.552|
+0001dc  688c              LDR      r4,[r1,#8]            ;108  ; position
+0001de  68cb              LDR      r3,[r1,#0xc]          ;108  ; position
+0001e0  4622              MOV      r2,r4                 ;108
+0001e2  9907              LDR      r1,[sp,#0x1c]         ;108
+0001e4  f7fffffe          BL       __aeabi_dadd
+0001e8  4a0f              LDR      r2,|L3.552|
+0001ea  6190              STR      r0,[r2,#0x18]         ;108  ; position
+0001ec  61d1              STR      r1,[r2,#0x1c]         ;108  ; position
+0001ee  f7fffffe          BL       xTaskGetTickCount
+0001f2  490d              LDR      r1,|L3.552|
+0001f4  64c8              STR      r0,[r1,#0x4c]         ;110  ; position
+0001f6  4608              MOV      r0,r1                 ;111
+0001f8  f8900048          LDRB     r0,[r0,#0x48]         ;111  ; position
+0001fc  1c40              ADDS     r0,r0,#1              ;111
+0001fe  f8810048          STRB     r0,[r1,#0x48]         ;111
+000202  e00d              B        |L3.544|
+                  |L3.516|
+000204  f7fffffe          BL       xTaskGetTickCount
+000208  4907              LDR      r1,|L3.552|
+00020a  6cc9              LDR      r1,[r1,#0x4c]         ;116  ; position
+00020c  1a40              SUBS     r0,r0,r1              ;116
+00020e  2814              CMP      r0,#0x14              ;116
+000210  d305              BCC      |L3.542|
+000212  f7fffffe          BL       bsp_SendReportFrame
+000216  2001              MOVS     r0,#1                 ;120
+000218  4903              LDR      r1,|L3.552|
+00021a  f8810048          STRB     r0,[r1,#0x48]         ;120
+                  |L3.542|
+00021e  bf00              NOP                            ;122
+                  |L3.544|
+000220  bf00              NOP                            ;112
+000222  bf00              NOP      
+000224  e6f3              B        |L3.14|
 ;;;127    
                           ENDP
 
-00023a  0000              DCW      0x0000
-                  |L3.572|
+000226  0000              DCW      0x0000
+                  |L3.552|
                           DCD      position
-                  |L3.576|
+                  |L3.556|
                           DCD      0x3a83126f
-                  |L3.580|
+                  |L3.560|
                           DCD      0x4048f5c3
-                  |L3.584|
+                  |L3.564|
                           DCD      0x3c23d70a
-                  |L3.588|
+                  |L3.568|
                           DCD      0x43340000
-                  |L3.592|
+                  |L3.572|
                           DCD      0x3f40624d
 
                           AREA ||i.bsp_StartUpdatePos||, CODE, READONLY, ALIGN=2
@@ -344,12 +363,12 @@
 ;;;18     {
 ;;;19     	position.action = 0 ;
 000002  4904              LDR      r1,|L4.20|
-000004  f8810038          STRB     r0,[r1,#0x38]
+000004  f8810048          STRB     r0,[r1,#0x48]
 ;;;20     	position.delay = 0 ;
-000008  63c8              STR      r0,[r1,#0x3c]  ; position
+000008  64c8              STR      r0,[r1,#0x4c]  ; position
 ;;;21     	position.isRunning = true;
 00000a  2001              MOVS     r0,#1
-00000c  f8810039          STRB     r0,[r1,#0x39]
+00000c  f8810049          STRB     r0,[r1,#0x49]
 ;;;22     }
 000010  4770              BX       lr
 ;;;23     
@@ -368,11 +387,11 @@
 ;;;34     {
 ;;;35     	position.isRunning = false;
 000002  4903              LDR      r1,|L5.16|
-000004  f8810039          STRB     r0,[r1,#0x39]
+000004  f8810049          STRB     r0,[r1,#0x49]
 ;;;36     	position.action = 0 ;
-000008  f8810038          STRB     r0,[r1,#0x38]
+000008  f8810048          STRB     r0,[r1,#0x48]
 ;;;37     	position.delay = 0 ;
-00000c  63c8              STR      r0,[r1,#0x3c]  ; position
+00000c  64c8              STR      r0,[r1,#0x4c]  ; position
 ;;;38     }
 00000e  4770              BX       lr
 ;;;39     
@@ -384,7 +403,7 @@
                           AREA ||.bss||, DATA, NOINIT, ALIGN=3
 
                   position
-                          %        64
+                          %        80
 
 ;*** Start embedded assembler ***
 

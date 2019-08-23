@@ -38787,12 +38787,12 @@ N
 Ntypedef struct
 N{
 N	/*上一时刻位置信息*/
-N	volatile int32_t lastX ;
-N	volatile int32_t lastY ;
+N	volatile double lastX ;
+N	volatile double lastY ;
 N	
 N	/*当前时刻位置信息*/
-N	int32_t currentX ;
-N	int32_t currentY ;
+N	volatile double currentX ;
+N	volatile double currentY ;
 N	
 N	/*上一时刻和当前速度*/
 N	volatile double lastSpeed;
@@ -40353,14 +40353,14 @@ N
 N/*
 N*********************************************************************************************************
 N*	函 数 名: bsp_GetCurrentPosX
-N*	功能说明: 返回当前X坐标
+N*	功能说明: 返回当前X坐标,MM
 N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
 Nint32_t bsp_GetCurrentPosX(void)
 N{
-N	return position.currentX;
+N	return position.currentX * 1000;
 N}
 N
 N
@@ -40368,14 +40368,14 @@ N
 N/*
 N*********************************************************************************************************
 N*	函 数 名: bsp_StartUpdatePos
-N*	功能说明: 返回当前Y坐标
+N*	功能说明: 返回当前Y坐标,MM
 N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
 Nint32_t bsp_GetCurrentPosY(void)
 N{
-N	return position.currentY;
+N	return position.currentY * 1000;
 N}
 N
 N

@@ -38806,12 +38806,12 @@ N
 Ntypedef struct
 N{
 N	/*上一时刻位置信息*/
-N	volatile int32_t lastX ;
-N	volatile int32_t lastY ;
+N	volatile double lastX ;
+N	volatile double lastY ;
 N	
 N	/*当前时刻位置信息*/
-N	int32_t currentX ;
-N	int32_t currentY ;
+N	volatile double currentX ;
+N	volatile double currentY ;
 N	
 N	/*上一时刻和当前速度*/
 N	volatile double lastSpeed;

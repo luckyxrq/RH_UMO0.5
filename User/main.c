@@ -100,44 +100,44 @@ static void vTaskTaskUserIF(void *pvParameters)
 	
     while(1)
     {
-		/* 处理按键事件 */
-		ucKeyCode = bsp_GetKey();
-		if (ucKeyCode > 0)
-		{
-			/* 有键按下 */
-			switch (ucKeyCode)
-			{
-				case KEY_1_DOWN:/*按键1按下*/
-				{
-					
-				}break;
-				
-				case KEY_2_DOWN:/*按键2按下*/
-				{
-					
-				}break;
-				
-				case KEY_3_DOWN:/*按键3按下*/	
-				{
-					
-				}break;
+//		/* 处理按键事件 */
+//		ucKeyCode = bsp_GetKey();
+//		if (ucKeyCode > 0)
+//		{
+//			/* 有键按下 */
+//			switch (ucKeyCode)
+//			{
+//				case KEY_1_DOWN:/*按键1按下*/
+//				{
+//					
+//				}break;
+//				
+//				case KEY_2_DOWN:/*按键2按下*/
+//				{
+//					
+//				}break;
+//				
+//				case KEY_3_DOWN:/*按键3按下*/	
+//				{
+//					
+//				}break;
 
-				case KEY_1_LONG:/*按键1长按*/	
-				{
-					
-				}break;
-				
-				case KEY_2_LONG:/*按键2长按*/	
-				{
-					
-				}break;
-				
-				case KEY_3_LONG:/*按键3长按*/	
-				{
-					
-				}break;
-			}
-		}
+//				case KEY_1_LONG:/*按键1长按*/	
+//				{
+//					
+//				}break;
+//				
+//				case KEY_2_LONG:/*按键2长按*/	
+//				{
+//					
+//				}break;
+//				
+//				case KEY_3_LONG:/*按键3长按*/	
+//				{
+//					
+//				}break;
+//			}
+//		}
 		vTaskDelay(20);
 		
 	}
@@ -263,7 +263,7 @@ static void vTaskStart(void *pvParameters)
 		
         vTaskDelay(1);
 		
-		bsp_KeyScan();
+//		bsp_KeyScan();
 		  
 		
     }

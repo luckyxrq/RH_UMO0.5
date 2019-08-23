@@ -257,7 +257,9 @@ void bsp_FillReportFrame(void)
 		
 		UNUSED(data);
 		
-		DEBUG("angle:%.2F\r\n",angle/100.0F);
+		//DEBUG("angle:%.2F\r\n",angle/100.0F);
+		//DEBUG("x_coordinate:%d  ",x_coordinate);
+		//DEBUG("y_coordinate:%d\r\n",y_coordinate);
 		
 		data[0] =  angle;                                          //红外ADC值1	 
 		data[1] =  adc2;                                          //红外ADC值2	 

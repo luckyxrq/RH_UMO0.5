@@ -46158,12 +46158,12 @@ N
 Ntypedef struct
 N{
 N	/*上一时刻位置信息*/
-N	volatile int32_t lastX ;
-N	volatile int32_t lastY ;
+N	volatile double lastX ;
+N	volatile double lastY ;
 N	
 N	/*当前时刻位置信息*/
-N	int32_t currentX ;
-N	int32_t currentY ;
+N	volatile double currentX ;
+N	volatile double currentY ;
 N	
 N	/*上一时刻和当前速度*/
 N	volatile double lastSpeed;
@@ -46343,47 +46343,48 @@ N#endif
 N	
 N    while(1)
 N    {
-N		/* 处理按键事件 */
-N		ucKeyCode = bsp_GetKey();
-N		if (ucKeyCode > 0)
-N		{
-N			/* 有键按下 */
-N			switch (ucKeyCode)
-N			{
-N				case KEY_1_DOWN:/*按键1按下*/
-N				{
-N					
-N				}break;
-N				
-N				case KEY_2_DOWN:/*按键2按下*/
-N				{
-N					
-N				}break;
-N				
-N				case KEY_3_DOWN:/*按键3按下*/	
-N				{
-N					
-N				}break;
+N//		/* 处理按键事件 */
+N//		ucKeyCode = bsp_GetKey();
+N//		if (ucKeyCode > 0)
+N//		{
+N//			/* 有键按下 */
+N//			switch (ucKeyCode)
+N//			{
+N//				case KEY_1_DOWN:/*按键1按下*/
+N//				{
+N//					
+N//				}break;
+N//				
+N//				case KEY_2_DOWN:/*按键2按下*/
+N//				{
+N//					
+N//				}break;
+N//				
+N//				case KEY_3_DOWN:/*按键3按下*/	
+N//				{
+N//					
+N//				}break;
 N
-N				case KEY_1_LONG:/*按键1长按*/	
-N				{
-N					
-N				}break;
-N				
-N				case KEY_2_LONG:/*按键2长按*/	
-N				{
-N					
-N				}break;
-N				
-N				case KEY_3_LONG:/*按键3长按*/	
-N				{
-N					
-N				}break;
-N			}
-N		}
+N//				case KEY_1_LONG:/*按键1长按*/	
+N//				{
+N//					
+N//				}break;
+N//				
+N//				case KEY_2_LONG:/*按键2长按*/	
+N//				{
+N//					
+N//				}break;
+N//				
+N//				case KEY_3_LONG:/*按键3长按*/	
+N//				{
+N//					
+N//				}break;
+N//			}
+N//		}
 N		vTaskDelay(20);
 N		
 N	}
+W "..\..\User\main.c" 88 10 variable "ucKeyCode" was declared but never referenced
 N}
 N
 N/*
@@ -46506,7 +46507,7 @@ N		bsp_PositionUpdate();
 N		
 N        vTaskDelay(1);
 N		
-N		bsp_KeyScan();
+N//		bsp_KeyScan();
 N		  
 N		
 N    }

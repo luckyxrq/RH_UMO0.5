@@ -6,12 +6,12 @@
 typedef struct
 {
 	/*上一时刻位置信息*/
-	volatile int32_t lastX ;
-	volatile int32_t lastY ;
+	volatile double lastX ;
+	volatile double lastY ;
 	
 	/*当前时刻位置信息*/
-	int32_t currentX ;
-	int32_t currentY ;
+	volatile double currentX ;
+	volatile double currentY ;
 	
 	/*上一时刻和当前速度*/
 	volatile double lastSpeed;
