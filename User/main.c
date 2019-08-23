@@ -4,18 +4,12 @@
 											函数声明
 **********************************************************************************************************
 */
-static void vTaskTaskUserIF(void *pvParameters);
-static void vTaskLED(void *pvParameters);
-static void vTaskMsgPro(void *pvParameters);
-static void vTaskStart(void *pvParameters);
-
-static void vTaskPerception(void *pvParameters);    //感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角
-//static void vTaskPrediction(void *pvParameters);    //预测 里程计估算
-//static void vTaskCommunication(void *pvParameters); //通信 构造协议帧 上传传感器数据
-static void vTaskDecision(void *pvParameters);      //决策 整机软件控制流程
-static void vTaskControl(void *pvParameters);       //控制 根据决策控制电机
-
-
+/*决策 整机软件控制流程*/
+static void vTaskDecision(void *pvParameters);
+/*控制 根据决策控制电机*/
+static void vTaskControl(void *pvParameters);
+/*感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角*/
+static void vTaskPerception(void *pvParameters);
 
 static void AppTaskCreate (void);
 static void AppObjCreate (void);
@@ -26,16 +20,9 @@ void  App_Printf(char *format, ...);
 											变量声明
 **********************************************************************************************************
 */
-static TaskHandle_t xHandleTaskUserIF = NULL;
-static TaskHandle_t xHandleTaskLED = NULL;
-static TaskHandle_t xHandleTaskMsgPro = NULL;
-static TaskHandle_t xHandleTaskStart = NULL;
-
-static TaskHandle_t xHandleTaskPerception    = NULL;
-//static TaskHandle_t xHandleTaskPrediction    = NULL;
-//static TaskHandle_t xHandleTaskCommunication = NULL;
 static TaskHandle_t xHandleTaskDecision      = NULL;
 static TaskHandle_t xHandleTaskControl       = NULL;
+static TaskHandle_t xHandleTaskPerception    = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
 
@@ -88,157 +75,65 @@ int main(void)
 	while(1);
 }
 
+
+
 /*
 *********************************************************************************************************
-*	函 数 名: vTaskTaskUserIF
-*	功能说明: 接口消息处理。
+*	函 数 名: vTaskStart
+*	功能说明: 启动任务，也就是最高优先级任务，这里用作按键扫描。
 *	形    参: pvParameters 是在创建该任务时传递的形参
 *	返 回 值: 无
-*   优 先 级: 1  (数值越小优先级越低，这个跟uCOS相反)
+*   优 先 级: 4  
 *********************************************************************************************************
 */
-static void vTaskTaskUserIF(void *pvParameters)
+static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
 	uint8_t ucKeyCode;	
 	bsp_AngleRst();
-
-#if 0
-		bsp_SetMotorSpeed(MotorLeft,5);
-		bsp_SetMotorSpeed(MotorRight,5);
-#endif	
 	
-#if 0	
-	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-104));
-	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-104));
-#endif
-	
-    while(1)
-    {
-//		/* 处理按键事件 */
-//		ucKeyCode = bsp_GetKey();
-//		if (ucKeyCode > 0)
-//		{
-//			/* 有键按下 */
-//			switch (ucKeyCode)
-//			{
-//				case KEY_1_DOWN:/*按键1按下*/
-//				{
-//					
-//				}break;
-//				
-//				case KEY_2_DOWN:/*按键2按下*/
-//				{
-//					
-//				}break;
-//				
-//				case KEY_3_DOWN:/*按键3按下*/	
-//				{
-//					
-//				}break;
+	while(1)
+	{
+		/* 处理按键事件 */
+		ucKeyCode = bsp_GetKey();
+		if (ucKeyCode > 0)
+		{
+			/* 有键按下 */
+			switch (ucKeyCode)
+			{
+				case KEY_1_DOWN:/*按键1按下*/
+				{
+					
+				}break;
+				
+				case KEY_2_DOWN:/*按键2按下*/
+				{
+					
+				}break;
+				
+				case KEY_3_DOWN:/*按键3按下*/	
+				{
+					
+				}break;
 
-//				case KEY_1_LONG:/*按键1长按*/	
-//				{
-//					
-//				}break;
-//				
-//				case KEY_2_LONG:/*按键2长按*/	
-//				{
-//					
-//				}break;
-//				
-//				case KEY_3_LONG:/*按键3长按*/	
-//				{
-//					
-//				}break;
-//			}
-//		}
-		vTaskDelay(20);
-		
+				case KEY_1_LONG:/*按键1长按*/	
+				{
+					
+				}break;
+				
+				case KEY_2_LONG:/*按键2长按*/	
+				{
+					
+				}break;
+				
+				case KEY_3_LONG:/*按键3长按*/	
+				{
+					
+				}break;
+			}
+		}
+
+		vTaskDelay(50);	
 	}
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: vTaskLED
-*	功能说明: LED闪烁
-*	形    参: pvParameters 是在创建该任务时传递的形参
-*	返 回 值: 无
-*   优 先 级: 2  
-*********************************************************************************************************
-*/
-static void vTaskLED(void *pvParameters)
-{
-	//static uint32_t index = 0 ;
-    while(1)
-    {
-		
-#if 1
-		Collision collision = bsp_CollisionScan();
-		
-		if(collision == CollisionLeft)
-		{
-			//DEBUG("%06dLeft\r\n",index++);
-			
-//			bsp_SetMotorSpeed(MotorLeft,-5);
-//			bsp_SetMotorSpeed(MotorRight,-12);
-//			vTaskDelay(500);
-//			bsp_SetMotorSpeed(MotorLeft,5);
-//			bsp_SetMotorSpeed(MotorRight,5);
-		}
-		else if(collision == CollisionRight)
-		{
-			//DEBUG("%06dRight\r\n",index++);
-			
-//			bsp_SetMotorSpeed(MotorLeft,-12);
-//			bsp_SetMotorSpeed(MotorRight,-5);
-//			vTaskDelay(500);
-//			bsp_SetMotorSpeed(MotorLeft,5);
-//			bsp_SetMotorSpeed(MotorRight,5);
-		}
-		else if(collision == CollisionAll)
-		{
-			//DEBUG("%06dBoth\r\n",index++);
-			
-//			bsp_SetMotorSpeed(MotorLeft,-12);
-//			bsp_SetMotorSpeed(MotorRight,-12);
-//			vTaskDelay(500);
-//			bsp_SetMotorSpeed(MotorLeft,5);
-//			bsp_SetMotorSpeed(MotorRight,5);
-		}
-#endif
-		
-		//bsp_ScopeSend();
-		
-		vTaskDelay(50);
-    }
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: vTaskMsgPro
-*	功能说明: 消息处理，这里用作DS18B20的温度采集和打印
-*	形    参: pvParameters 是在创建该任务时传递的形参
-*	返 回 值: 无
-*   优 先 级: 3  
-*********************************************************************************************************
-*/
-static void vTaskMsgPro(void *pvParameters)
-{
-    while(1)
-    {
-		//bsp_SendReportFrame();
-		//bsp_PrintRemoteState();
-		
-		bsp_IWDG_Feed(); /* 喂狗 */
-		
-		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
-		
-//		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
-//		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
-		
-		bsp_ComAnalysis();
-		vTaskDelay(10);
-    }
 }
 
 /*
@@ -250,113 +145,67 @@ static void vTaskMsgPro(void *pvParameters)
 *   优 先 级: 4  
 *********************************************************************************************************
 */
-static void vTaskStart(void *pvParameters)
-{
-	/*开启红外对管轮询扫描*/
-	bsp_DetectStart(); 
-//	/*开启寻找充电桩*/
-//	bsp_StartSearchChargingPile();
-	bsp_StartUpdatePos();
-	
-    while(1)
-    {
-		bsp_DetectAct();  /*红外对管轮询扫描*/
-		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-//		bsp_EdgewiseAct();/*沿边*/
-//		
-//		/*四个红外接收管*/
-//		bsp_GetCapCnt(CapCH1);
-//		bsp_GetCapCnt(CapCH2);
-//		bsp_GetCapCnt(CapCH3);
-//		bsp_GetCapCnt(CapCH4);
-//		
-//		/*寻找充电桩*/
-//		bsp_SearchChargingPileAct();
-		/*更新坐标*/
-		bsp_PositionUpdate();
-		
-        vTaskDelay(1);
-		
-//		bsp_KeyScan();
-			
-    }
-}
-
-
-
-
-
-
-
-
-static void vTaskPerception(void *pvParameters)   //感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角
-{
-	bsp_AngleRst();
-	
-	bsp_DetectStart();  /*开启红外对管轮询扫描*/
-	bsp_StartUpdatePos();
-	
-	 while(1)
-    {
-		bsp_DetectAct();      /*红外对管轮询扫描*/
-		bsp_DetectDeal();     /*红外对管扫描结果处理*/
-		bsp_KeyScan();	      /*按键扫描*/
-		
-		bsp_PositionUpdate(); /*更新坐标，每20ms 上传一帧数据*/
-		
-        vTaskDelay(1);
-	}		
-
-}
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
 	while(1)
     {
-
-		bsp_IWDG_Feed(); /* 喂狗 */ //1S
+#if 0
+		bsp_SendReportFrame();
+		bsp_PrintRemoteState();
+#endif
+		bsp_IWDG_Feed(); /* 喂狗 */
+		
 		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
-	
-		bsp_ComAnalysis();/* 解析上位机下发串口数据，并执行电机控制 */ 
+#if 0		
+		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
+		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
+#endif		
+		bsp_ComAnalysis();
 		vTaskDelay(10);
     }
 	
 }
-static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: vTaskStart
+*	功能说明: 感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角。
+*	形    参: pvParameters 是在创建该任务时传递的形参
+*	返 回 值: 无
+*   优 先 级: 4  
+*********************************************************************************************************
+*/
+static void vTaskPerception(void *pvParameters)   //
 {
+	/*开启红外对管轮询扫描*/
+	bsp_DetectStart(); 
+	/*开启寻找充电桩*/
+#if 0
+	bsp_StartSearchChargingPile();
+#endif
+	bsp_StartUpdatePos();
+	
 	while(1)
-	{
-		
-//		Collision collision = bsp_CollisionScan();	
-//		int16_t leftSpeedMM = bsp_MotorGetSpeed(MotorLeft);
-//		int16_t rightSpeedMM = bsp_MotorGetSpeed(MotorRight);
-//		uint16_t adc1  = bsp_GetInfraRedAdcVoltage(IR0)*100;
-//		uint16_t adc2  = bsp_GetInfraRedAdcVoltage(IR1)*100;
-//		uint16_t adc3  = bsp_GetInfraRedAdcVoltage(IR2)*100;
-//		uint16_t adc4  = bsp_GetInfraRedAdcVoltage(IR3)*100;
-//		uint16_t adc5  = bsp_GetInfraRedAdcVoltage(IR4)*100;
-//		uint16_t adc6  = bsp_GetInfraRedAdcVoltage(IR5)*100;
-//		uint16_t adc7  = bsp_GetInfraRedAdcVoltage(IR6)*100;
-//		uint16_t adc8  = bsp_GetInfraRedAdcVoltage(IR7)*100;
-//		uint16_t adc9  = bsp_GetInfraRedAdcVoltage(IR8)*100;
-//		uint16_t adc10 = bsp_GetInfraRedAdcVoltage(IR9)*100;
-//		uint32_t timestamp = xTaskGetTickCount();
-//		int32_t leftPulseVector = bsp_MotorGetPulseVector(MotorLeft);
-//		int32_t rightPulseVector = bsp_MotorGetPulseVector(MotorRight);
-//		int16_t angle = bsp_AngleReadRaw();
-//		int32_t x_coordinate = bsp_GetCurrentPosX();
-//		int32_t y_coordinate = bsp_GetCurrentPosY();
-		//DEBUG();
-		
-		
-		
-		
-		
-		
-		
-		vTaskDelay(50);	
-	}
-	
-	
+    {
+        bsp_DetectAct();  /*红外对管轮询扫描*/
+		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+
+		/*四个红外接收管*/
+#if 0 
+		bsp_GetCapCnt(CapCH1);
+		bsp_GetCapCnt(CapCH2);
+		bsp_GetCapCnt(CapCH3);
+		bsp_GetCapCnt(CapCH4);
+#endif
+		/*寻找充电桩*/
+		bsp_SearchChargingPileAct();
+		/*更新坐标*/
+		bsp_PositionUpdate();
+		bsp_KeyScan();
+        vTaskDelay(1);	
+	}		
+
 }
 
 
@@ -370,55 +219,25 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void AppTaskCreate (void)
 {
-//    xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
-//                 "vTaskUserIF",     	/* 任务名    */
-//                 1024,               	/* 任务栈大小，单位word，也就是4字节 */
-//                 NULL,              	/* 任务参数  */
-//                 1,                 	/* 任务优先级*/
-//                 &xHandleTaskUserIF );  /* 任务句柄  */
-//	
-//	
-//	xTaskCreate( vTaskLED,    		/* 任务函数  */
-//                 "vTaskLED",  		/* 任务名    */
-//                 1024,         		/* stack大小，单位word，也就是4字节 */
-//                 NULL,        		/* 任务参数  */
-//                 2,           		/* 任务优先级*/
-//                 &xHandleTaskLED ); /* 任务句柄  */
-//	
-//	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
-//                 "vTaskMsgPro",   		/* 任务名    */
-//                 1024,             		/* 任务栈大小，单位word，也就是4字节 */
-//                 NULL,           		/* 任务参数  */
-//                 3,               		/* 任务优先级*/
-//                 &xHandleTaskMsgPro );  /* 任务句柄  */
-//	
-//	
-//	xTaskCreate( vTaskStart,     		/* 任务函数  */
-//                 "vTaskStart",   		/* 任务名    */
-//                 1024,            		/* 任务栈大小，单位word，也就是4字节 */
-//                 NULL,           		/* 任务参数  */
-//                 4,              		/* 任务优先级*/
-//                 &xHandleTaskStart );   /* 任务句柄  */
-
-	xTaskCreate( vTaskPerception,     		    /* 任务函数  */
-                 "vTaskPerception",   		    /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-                 NULL,           		        /* 任务参数  */
-                 7,              		        /* 任务优先级*/
-                 &xHandleTaskPerception );      /* 任务句柄  */	
-	xTaskCreate( vTaskControl,     		        /* 任务函数  */
-                 "vTaskControl",   		        /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-                 NULL,           		        /* 任务参数  */
-                 6,              		        /* 任务优先级*/
-                 &xHandleTaskControl );         /* 任务句柄  */				 
 	xTaskCreate( vTaskDecision,     		    /* 任务函数  */
                  "vTaskDecision",   		    /* 任务名    */
                  1024,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
-                 5,              		        /* 任务优先级*/
+                 1,              		        /* 任务优先级*/
                  &xHandleTaskDecision );        /* 任务句柄  */
-				 
+	xTaskCreate( vTaskControl,     		        /* 任务函数  */
+                 "vTaskControl",   		        /* 任务名    */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 2,              		        /* 任务优先级*/
+                 &xHandleTaskControl );         /* 任务句柄  */	
+	xTaskCreate( vTaskPerception,     		    /* 任务函数  */
+                 "vTaskPerception",   		    /* 任务名    */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 3,              		        /* 任务优先级*/
+                 &xHandleTaskPerception );      /* 任务句柄  */	
+			 
 }
 
 /*

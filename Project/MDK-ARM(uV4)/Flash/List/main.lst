@@ -27,20 +27,20 @@ N*                                         标准库
 N*********************************************************************************************************
 N*/
 N#include  <stdarg.h>
-L 1 "E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h" 1
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdarg.h" 1
 N/* stdarg.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.8 */
 N/* Copyright (C) Codemist Ltd., 1988                            */
 N/* Copyright (C) ARM Ltd., 1991-1999. All rights reserved */
 N
 N/*
-N * RCS $Revision$
-N * Checkin $Date$
+N * RCS $Revision: 185525 $
+N * Checkin $Date: 2014-05-29 12:44:48 +0100 (Thu, 29 May 2014) $
 N * Revising $Author: agrant $
 N */
 N
 N#ifndef __stdarg_h
 N#define __stdarg_h
-N#define __ARMCLIB_VERSION 5060037
+N#define __ARMCLIB_VERSION 5050106
 N
 N  #ifndef __STDARG_DECLS
 N  #define __STDARG_DECLS
@@ -130,8 +130,8 @@ N    */
 N
 N#define __va_copy(dest, src) ((void)((dest) = (src)))
 N
-N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
-X#if !0L || (1L && 199901L <= 199409L) || (0L && 201103L <= __cplusplus)
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+X#if !0L || (1L && 199901L <= 199409L)
 N   /* va_copy is in C99 and non-strict C90 and non-strict C++
 N    * __va_copy is always present.
 N    */
@@ -180,14 +180,14 @@ N/* end of stdarg.h */
 N
 L 27 "..\..\User\includes.h" 2
 N#include  <stdio.h>
-L 1 "E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h" 1
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h" 1
 N/* stdio.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.9 */
 N/* Copyright (C) Codemist Ltd., 1988-1993                       */
 N/* Copyright 1991-1998 ARM Limited. All rights reserved.        */
 N
 N/*
-N * RCS $Revision$
-N * Checkin $Date$
+N * RCS $Revision: 185531 $
+N * Checkin $Date: 2014-05-29 15:16:06 +0100 (Thu, 29 May 2014) $
 N * Revising $Author: sdouglas $
 N */
 N
@@ -200,7 +200,7 @@ N */
 N
 N#ifndef __stdio_h
 N#define __stdio_h
-N#define __ARMCLIB_VERSION 5060037
+N#define __ARMCLIB_VERSION 5050106
 N
 N/*
 N * Depending on compiler version __int64 or __INT64_TYPE__ should be defined.
@@ -637,14 +637,8 @@ N    * is equivalent to sprintf, but does not support floating-point formats.
 N    * You can use instead of sprintf to improve code size.
 N    * Returns: as sprintf.
 N    */
-N
-N#pragma __printf_args
-Nextern _ARMABI int __ARM_snprintf(char * __restrict /*s*/, size_t /*n*/,
-Xextern __declspec(__nothrow) int __ARM_snprintf(char * __restrict  , size_t  ,
-N                     const char * __restrict /*format*/, ...) __attribute__((__nonnull__(3)));
-N
-N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
-X#if !0L || (1L && 199901L <= 199409L) || (0L && 201103L <= __cplusplus)
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+X#if !0L || (1L && 199901L <= 199409L)
 N#pragma __printf_args
 Nextern _ARMABI int snprintf(char * __restrict /*s*/, size_t /*n*/,
 Xextern __declspec(__nothrow) int snprintf(char * __restrict  , size_t  ,
@@ -763,8 +757,8 @@ N    * is equivalent to sscanf, but does not support floating-point formats.
 N    * You can use instead of sscanf to improve code size.
 N    * Returns: as sscanf.
 N    */
-N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
-X#if !0L || (1L && 199901L <= 199409L) || (0L && 201103L <= __cplusplus)
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+X#if !0L || (1L && 199901L <= 199409L)
 N/* C99 additions */
 Nextern _ARMABI int vfscanf(FILE * __restrict /*stream*/, const char * __restrict /*format*/, __va_list) __attribute__((__nonnull__(1,2)));
 Xextern __declspec(__nothrow) int vfscanf(FILE * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
@@ -779,8 +773,6 @@ Nextern _ARMABI int _vscanf(const char * __restrict /*format*/, __va_list) __att
 Xextern __declspec(__nothrow) int _vscanf(const char * __restrict  , __va_list) __attribute__((__nonnull__(1)));
 Nextern _ARMABI int _vsscanf(const char * __restrict /*s*/, const char * __restrict /*format*/, __va_list) __attribute__((__nonnull__(1,2)));
 Xextern __declspec(__nothrow) int _vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
-Nextern _ARMABI int __ARM_vsscanf(const char * __restrict /*s*/, const char * __restrict /*format*/, __va_list) __attribute__((__nonnull__(1,2)));
-Xextern __declspec(__nothrow) int __ARM_vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
 N
 Nextern _ARMABI int vprintf(const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(1)));
 Xextern __declspec(__nothrow) int vprintf(const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1)));
@@ -820,11 +812,8 @@ N    * va_end function.
 N    * Returns: the number of characters written in the array, not counting the
 N    *          terminating null character.
 N    */
-Nextern _ARMABI int __ARM_vsnprintf(char * __restrict /*s*/, size_t /*n*/,
-Xextern __declspec(__nothrow) int __ARM_vsnprintf(char * __restrict  , size_t  ,
-N                     const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(3)));
-N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
-X#if !0L || (1L && 199901L <= 199409L) || (0L && 201103L <= __cplusplus)
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+X#if !0L || (1L && 199901L <= 199409L)
 Nextern _ARMABI int vsnprintf(char * __restrict /*s*/, size_t /*n*/,
 Xextern __declspec(__nothrow) int vsnprintf(char * __restrict  , size_t  ,
 N                     const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(3)));
@@ -862,30 +851,6 @@ N    * is equivalent to vsnprintf, but does not support floating-point formats.
 N    * You can use instead of vsnprintf to improve code size.
 N    * Returns: as vsnprintf.
 N    */
-N#if !defined(__STRICT_ANSI__)
-X#if !0L
-N#pragma __printf_args
-Nextern _ARMABI int asprintf(char ** /*strp*/, const char * __restrict /*format*/, ...) __attribute__((__nonnull__(2)));
-Xextern __declspec(__nothrow) int asprintf(char **  , const char * __restrict  , ...) __attribute__((__nonnull__(2)));
-Nextern _ARMABI int vasprintf(char ** /*strp*/, const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(2)));
-Xextern __declspec(__nothrow) int vasprintf(char **  , const char * __restrict  , __va_list  ) __attribute__((__nonnull__(2)));
-N#endif
-N#pragma __printf_args
-Nextern _ARMABI int __ARM_asprintf(char ** /*strp*/, const char * __restrict /*format*/, ...) __attribute__((__nonnull__(2)));
-Xextern __declspec(__nothrow) int __ARM_asprintf(char **  , const char * __restrict  , ...) __attribute__((__nonnull__(2)));
-Nextern _ARMABI int __ARM_vasprintf(char ** /*strp*/, const char * __restrict /*format*/, __va_list /*arg*/) __attribute__((__nonnull__(2)));
-Xextern __declspec(__nothrow) int __ARM_vasprintf(char **  , const char * __restrict  , __va_list  ) __attribute__((__nonnull__(2)));
-N   /*
-N    * dynamically allocates a buffer of the right size for the
-N    * formatted string, and returns it in (*strp). Formal return value
-N    * is the same as any other printf variant, except that it returns
-N    * -1 if the buffer could not be allocated.
-N    *
-N    * (The functions with __ARM_ prefixed names are identical to the
-N    * ones without, but are available in all compilation modes without
-N    * violating user namespace.)
-N    */
-N
 Nextern _ARMABI int fgetc(FILE * /*stream*/) __attribute__((__nonnull__(1)));
 Xextern __declspec(__nothrow) int fgetc(FILE *  ) __attribute__((__nonnull__(1)));
 N   /*
@@ -1226,7 +1191,7 @@ S    using ::std::printf;
 S    using ::std::_printf;
 S    using ::std::sprintf;
 S    using ::std::_sprintf;
-S    #if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
+S    #if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
 S      using ::std::snprintf;
 S      using ::std::vsnprintf;
 S      using ::std::vfscanf;
@@ -1235,15 +1200,6 @@ S      using ::std::vsscanf;
 S    #endif
 S    using ::std::_snprintf;
 S    using ::std::_vsnprintf;
-S#if !defined(__STRICT_ANSI__)
-S    using ::std::asprintf;
-S    using ::std::vasprintf;
-S#endif
-S    using ::std::__ARM_asprintf;
-S    using ::std::__ARM_vasprintf;
-S    using ::std::__ARM_vsnprintf;
-S    using ::std::__ARM_snprintf;
-S    using ::std::__ARM_vsscanf;
 S    using ::std::fscanf;
 S    using ::std::_fscanf;
 S    using ::std::scanf;
@@ -1293,13 +1249,13 @@ N/* end of stdio.h */
 N
 L 28 "..\..\User\includes.h" 2
 N#include  <stdlib.h>
-L 1 "E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h" 1
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h" 1
 N/* stdlib.h: ANSI draft (X3J11 May 88) library header, section 4.10 */
 N/* Copyright (C) Codemist Ltd., 1988-1993.                          */
 N/* Copyright 1991-1998,2014 ARM Limited. All rights reserved.       */
 N/*
-N * RCS $Revision$
-N * Checkin $Date$
+N * RCS $Revision: 185525 $
+N * Checkin $Date: 2014-05-29 12:44:48 +0100 (Thu, 29 May 2014) $
 N * Revising $Author: agrant $
 N */
 N 
@@ -1310,7 +1266,7 @@ N */
 N
 N#ifndef __stdlib_h
 N#define __stdlib_h
-N#define __ARMCLIB_VERSION 5060037
+N#define __ARMCLIB_VERSION 5050106
 N
 N#if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
 X#if 0L || (1L && !0L)
@@ -1334,8 +1290,8 @@ N   * Some of these declarations are new in C99.  To access them in C++
 N   * you can use -D__USE_C99_STDLIB (or -D__USE_C99ALL).
 N   */
 N  #ifndef __USE_C99_STDLIB
-N    #if defined(__USE_C99_ALL) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
-X    #if 0L || (1L && 199901L <= 199409L) || (0L && 201103L <= __cplusplus)
+N    #if defined(__USE_C99_ALL) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+X    #if 0L || (1L && 199901L <= 199409L)
 S      #define __USE_C99_STDLIB 1
 N    #endif
 N  #endif
@@ -2266,7 +2222,7 @@ N
 N/* end of stdlib.h */
 L 29 "..\..\User\includes.h" 2
 N#include  <math.h>
-L 1 "E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h" 1
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h" 1
 N/*
 N * math.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.5
 N * Copyright (C) Codemist Ltd., 1988
@@ -2274,8 +2230,8 @@ N * Copyright 1991-1998,2004-2006,2014 ARM Limited. All rights reserved
 N */
 N
 N/*
-N * RCS $Revision$ Codemist 0.03
-N * Checkin $Date$
+N * RCS $Revision: 185525 $ Codemist 0.03
+N * Checkin $Date: 2014-05-29 12:44:48 +0100 (Thu, 29 May 2014) $
 N * Revising $Author: statham $
 N */
 N
@@ -2294,7 +2250,7 @@ N */
 N
 N#ifndef __math_h
 N#define __math_h
-N#define __ARMCLIB_VERSION 5060037
+N#define __ARMCLIB_VERSION 5050106
 N
 N#if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
 X#if 0L || (1L && !0L)
@@ -2310,8 +2266,8 @@ N * Some of these declarations are new in C99.  To access them in C++
 N * you can use -D__USE_C99_MATH (or -D__USE_C99_ALL).
 N */
 N#ifndef __USE_C99_MATH
-N  #if defined(__USE_C99_ALL) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
-X  #if 0L || (1L && 199901L <= 199409L) || (0L && 201103L <= __cplusplus)
+N  #if defined(__USE_C99_ALL) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__)
+X  #if 0L || (1L && 199901L <= 199409L)
 S    #define __USE_C99_MATH 1
 N  #endif
 N#endif
@@ -3234,8 +3190,7 @@ X__declspec(__nothrow) long double rintl(long double );
 N
 N#endif
 N
-N#if (defined(__clang__) && !defined(__STRICT_ANSI)) || defined(__USE_C99_MATH)
-X#if (0L && !0L) || 0L
+N#ifdef __USE_C99_MATH
 S/*
 S * Functions new in C99.
 S */
@@ -3339,26 +3294,7 @@ N#undef _ARMDEFLD1
 N#undef _ARMDEFLD1P
 N#undef _ARMDEFLD2
 N
-N#if defined(__cplusplus) && ((!defined(__STRICT_ANSI__) || defined(__USE_C99_MATH)) || defined(__ARMCOMPILER_LIBCXX))
-X#if 0L && ((!0L || 0L) || 0L)
-S  extern "C++" {
-S    inline int (fpclassify)(double __x) { return fpclassify(__x); }
-S    inline bool (isfinite)(double __x) { return isfinite(__x); }
-S    inline bool (isgreater)(double __x, double __y) { return isgreater(__x, __y); }
-S    inline bool (isgreaterequal)(double __x, double __y) { return isgreaterequal(__x, __y); }
-S    inline bool (isinf)(double __x) { return isinf(__x); }
-S    inline bool (isless)(double __x, double __y) { return isless(__x, __y); }
-S    inline bool (islessequal)(double __x, double __y) { return islessequal(__x, __y); }
-S    inline bool (islessgreater)(double __x, double __y) { return islessgreater(__x, __y); }
-S    inline bool (isnan)(double __x) { return isnan(__x); }
-S    inline bool (isnormal)(double __x) { return isnormal(__x); }
-S    inline bool (isunordered)(double __x, double __y) { return isunordered(__x, __y); }
-S
-S  }
-N#endif
-N
-N#if defined(__cplusplus) && !defined(__ARMCOMPILER_LIBCXX)
-X#if 0L && !0L
+N#ifdef __cplusplus
 S  extern "C++" {
 S    inline float abs(float __x)   { return fabsf(__x); }
 S    inline float acos(float __x)  { return acosf(__x); }
@@ -3479,18 +3415,6 @@ S    inline _ARMABI_FPEXCEPT float round(float __x) { return roundf(__x); }
 S    inline float tgamma(float __x) { return tgammaf(__x); }
 S    inline _ARMABI_FPEXCEPT float trunc(float __x) { return truncf(__x); }
 S
-S    inline int (fpclassify)(float __x) { return fpclassify(__x); }
-S    inline bool (isfinite)(float __x) { return isfinite(__x); }
-S    inline bool (isgreater)(float __x, float __y) { return isgreater(__x, __y); }
-S    inline bool (isgreaterequal)(float __x, float __y) { return isgreaterequal(__x, __y); }
-S    inline bool (isinf)(float __x) { return isinf(__x); }
-S    inline bool (isless)(float __x, float __y) { return isless(__x, __y); }
-S    inline bool (islessequal)(float __x, float __y) { return islessequal(__x, __y); }
-S    inline bool (islessgreater)(float __x, float __y) { return islessgreater(__x, __y); }
-S    inline bool (isnan)(float __x) { return isnan(__x); }
-S    inline bool (isnormal)(float __x) { return isnormal(__x); }
-S    inline bool (isunordered)(float __x, float __y) { return isunordered(__x, __y); }
-S
 S#ifdef __HAVE_LONGDOUBLE
 S    inline long double acosh(long double __x) { return acoshl(__x); }
 S    inline long double asinh(long double __x) { return asinhl(__x); }
@@ -3519,31 +3443,7 @@ S    inline long double remquo(long double __x, long double __y, int *__q) { ret
 S    inline _ARMABI_FPEXCEPT long double round(long double __x) { return roundl(__x); }
 S    inline long double tgamma(long double __x) { return tgammal(__x); }
 S    inline _ARMABI_FPEXCEPT long double trunc(long double __x) { return truncl(__x); }
-S    inline int (fpclassify)(long double __x) { return fpclassify(__x); }
-S    inline bool (isfinite)(long double __x) { return isfinite(__x); }
-S    inline bool (isgreater)(long double __x, long double __y) { return isgreater(__x, __y); }
-S    inline bool (isgreaterequal)(long double __x, long double __y) { return isgreaterequal(__x, __y); }
-S    inline bool (isinf)(long double __x) { return isinf(__x); }
-S    inline bool (isless)(long double __x, long double __y) { return isless(__x, __y); }
-S    inline bool (islessequal)(long double __x, long double __y) { return islessequal(__x, __y); }
-S    inline bool (islessgreater)(long double __x, long double __y) { return islessgreater(__x, __y); }
-S    inline bool (isnan)(long double __x) { return isnan(__x); }
-S    inline bool (isnormal)(long double __x) { return isnormal(__x); }
-S    inline bool (isunordered)(long double __x, long double __y) { return isunordered(__x, __y); }
 S#endif
-S
-S#undef fpclassify
-S#undef isfinite
-S#undef isgreater
-S#undef isgreaterequal
-S#undef isinf
-S#undef isless
-S#undef islessequal
-S#undef islessgreater
-S#undef isnan
-S#undef isnormal
-S#undef isunordered
-S
 S#endif
 S
 S  }
@@ -3563,9 +3463,7 @@ N
 N  #if defined(__cplusplus) && !defined(__MATH_NO_EXPORTS)
 X  #if 0L && !0L
 S    using ::std::__use_accurate_range_reduction;
-S    #ifndef __ARMCOMPILER_LIBCXX
-S      using ::std::abs;
-S    #endif
+S    using ::std::abs;
 S    using ::std::acos;
 S    using ::std::asin;
 S    using ::std::atan2;
@@ -3696,11 +3594,13 @@ S      using ::std::remainderf;
 S      using ::std::remainderl;
 S      using ::std::rintf;
 S      using ::std::rintl;
-S      /* New in C99. */
+S    #endif
+S    #if !defined(__STRICT_ANSI__) || defined(__USE_C99_MATH)
+S      /* C99 additions which appear in C99 or non-strict mode */
 S      using ::std::float_t;
 S      using ::std::double_t;
 S    #endif
-S    #if (defined(__clang__) && !defined(__STRICT_ANSI)) || defined(__USE_C99_MATH)
+S    #ifdef __USE_C99_MATH
 S      /* Functions new in C99. */
 S      using ::std::exp2;
 S      using ::std::exp2f;
@@ -3764,20 +3664,6 @@ S      using ::std::tgammal;
 S      using ::std::trunc;
 S      using ::std::truncf;
 S      using ::std::truncl;
-S    #endif
-S
-S    #if !defined(__STRICT_ANSI__) || defined(__USE_C99_MATH)
-S      using ::std::fpclassify;
-S      using ::std::isfinite;
-S      using ::std::isgreater;
-S      using ::std::isgreaterequal;
-S      using ::std::isinf;
-S      using ::std::isless;
-S      using ::std::islessequal;
-S      using ::std::islessgreater;
-S      using ::std::isnan;
-S      using ::std::isnormal;
-S      using ::std::isunordered;
 S    #endif
 N  #endif
 N
@@ -3879,13 +3765,13 @@ N/*
 N * Include the generic headers required for the FreeRTOS port being used.
 N */
 N#include <stddef.h>
-L 1 "E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h" 1
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h" 1
 N/* stddef.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.1.4 */
 N
 N/* Copyright (C) ARM Ltd., 1999
 N * All rights reserved
-N * RCS $Revision$
-N * Checkin $Date$
+N * RCS $Revision: 185525 $
+N * Checkin $Date: 2014-05-29 12:44:48 +0100 (Thu, 29 May 2014) $
 N * Revising $Author: agrant $
 N */
 N
@@ -3901,7 +3787,7 @@ N */
 N
 N#ifndef __stddef_h
 N#define __stddef_h
-N#define __ARMCLIB_VERSION 5060037
+N#define __ARMCLIB_VERSION 5050106
 N
 N  #ifndef __STDDEF_DECLS
 N  #define __STDDEF_DECLS
@@ -3978,11 +3864,6 @@ N  /* EDG uses __INTADDR__ to avoid errors when strict */
 N  #define offsetof(t, memb) ((__CLIBNS size_t)__INTADDR__(&(((t *)0)->memb)))
 N#endif
 N
-N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 201112L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
-X#if !0L || (1L && 201112L <= 199409L) || (0L && 201103L <= __cplusplus)
-N  typedef long double max_align_t;
-N#endif
-N
 N    #ifdef __cplusplus
 S         }  /* extern "C" */
 S      }  /* namespace std */
@@ -3994,9 +3875,6 @@ N  #ifdef __cplusplus
 S    #ifndef __STDDEF_NO_EXPORTS
 S      using ::std::size_t;
 S      using ::std::ptrdiff_t;
-S      #if !defined(__STRICT_ANSI__) || (defined(__cplusplus) && 201103L <= __cplusplus)
-S        using ::std::max_align_t;
-S      #endif
 S    #endif 
 N  #endif /* __cplusplus */
 N
@@ -4020,19 +3898,19 @@ N *     contains the typedefs required to build FreeRTOS.  Read the instructions
 N *     in FreeRTOS/source/stdint.readme for more information.
 N */
 N#include <stdint.h> /* READ COMMENT ABOVE. */
-L 1 "E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h" 1
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h" 1
 N/* Copyright (C) ARM Ltd., 1999,2014 */
 N/* All rights reserved */
 N
 N/*
-N * RCS $Revision$
-N * Checkin $Date$
+N * RCS $Revision: 185525 $
+N * Checkin $Date: 2014-05-29 12:44:48 +0100 (Thu, 29 May 2014) $
 N * Revising $Author: agrant $
 N */
 N
 N#ifndef __stdint_h
 N#define __stdint_h
-N#define __ARMCLIB_VERSION 5060037
+N#define __ARMCLIB_VERSION 5050106
 N
 N  #ifdef __INT64_TYPE__
 S    /* armclang predefines '__INT64_TYPE__' and '__INT64_C_SUFFIX__' */
@@ -4224,9 +4102,9 @@ N
 N    /* maximum value of pointer-holding unsigned integer type */
 N#if __sizeof_ptr == 8
 X#if 4 == 8
-S#define UINTPTR_MAX UINT64_MAX
+S#define UINTPTR_MAX INT64_MAX
 N#else
-N#define UINTPTR_MAX UINT32_MAX
+N#define UINTPTR_MAX INT32_MAX
 N#endif
 N
 N    /* 7.18.2.5 */
@@ -15370,7 +15248,7 @@ X#if   1L
 N/* ARM armcc specific functions */
 N
 N#if (__ARMCC_VERSION < 400677)
-X#if (5060750 < 400677)
+X#if (5050106 < 400677)
 S  #error "Please use ARM Compiler Toolchain V4.0.677 or later!"
 N#endif
 N
@@ -15998,7 +15876,7 @@ X#if   1L
 N/* ARM armcc specific functions */
 N
 N#if (__ARMCC_VERSION < 400677)
-X#if (5060750 < 400677)
+X#if (5050106 < 400677)
 S  #error "Please use ARM Compiler Toolchain V4.0.677 or later!"
 N#endif
 N
@@ -44591,15 +44469,15 @@ N/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****
 L 56 "..\..\User\bsp\bsp.h" 2
 N#include <stdio.h>
 N#include <string.h>
-L 1 "E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h" 1
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h" 1
 N/* string.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.11 */
 N/* Copyright (C) Codemist Ltd., 1988-1993.                        */
 N/* Copyright 1991-1993 ARM Limited. All rights reserved.          */
 N/* version 0.04 */
 N
 N/*
-N * RCS $Revision$
-N * Checkin $Date$
+N * RCS $Revision: 185525 $
+N * Checkin $Date: 2014-05-29 12:44:48 +0100 (Thu, 29 May 2014) $
 N */
 N
 N/*
@@ -44613,7 +44491,7 @@ N */
 N
 N#ifndef __string_h
 N#define __string_h
-N#define __ARMCLIB_VERSION 5060037
+N#define __ARMCLIB_VERSION 5050106
 N
 N#define _ARMABI __declspec(__nothrow)
 N
@@ -45143,19 +45021,19 @@ N
 L 58 "..\..\User\bsp\bsp.h" 2
 N#include <stdlib.h>
 N#include <stdbool.h>
-L 1 "E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
 N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
 N
 N/* Copyright (C) ARM Ltd., 2002
 N * All rights reserved
-N * RCS $Revision$
-N * Checkin $Date$
+N * RCS $Revision: 177844 $
+N * Checkin $Date: 2012-11-21 11:51:12 +0000 (Wed, 21 Nov 2012) $
 N * Revising $Author: drodgman $
 N */
 N
 N#ifndef __bool_true_false_are_defined
 N#define __bool_true_false_are_defined 1
-N#define __ARMCLIB_VERSION 5060037
+N#define __ARMCLIB_VERSION 5050106
 N
 N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
 N    #define bool _Bool
@@ -46364,18 +46242,12 @@ N*******************************************************************************
 N											函数声明
 N**********************************************************************************************************
 N*/
-Nstatic void vTaskTaskUserIF(void *pvParameters);
-Nstatic void vTaskLED(void *pvParameters);
-Nstatic void vTaskMsgPro(void *pvParameters);
-Nstatic void vTaskStart(void *pvParameters);
-N
-Nstatic void vTaskPerception(void *pvParameters);    //感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角
-N//static void vTaskPrediction(void *pvParameters);    //预测 里程计估算
-N//static void vTaskCommunication(void *pvParameters); //通信 构造协议帧 上传传感器数据
-Nstatic void vTaskDecision(void *pvParameters);      //决策 整机软件控制流程
-Nstatic void vTaskControl(void *pvParameters);       //控制 根据决策控制电机
-N
-N
+N/*决策 整机软件控制流程*/
+Nstatic void vTaskDecision(void *pvParameters);
+N/*控制 根据决策控制电机*/
+Nstatic void vTaskControl(void *pvParameters);
+N/*感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角*/
+Nstatic void vTaskPerception(void *pvParameters);
 N
 Nstatic void AppTaskCreate (void);
 Nstatic void AppObjCreate (void);
@@ -46386,23 +46258,12 @@ N*******************************************************************************
 N											变量声明
 N**********************************************************************************************************
 N*/
-Nstatic TaskHandle_t xHandleTaskUserIF = NULL;
-Xstatic TaskHandle_t xHandleTaskUserIF = 0;
-Nstatic TaskHandle_t xHandleTaskLED = NULL;
-Xstatic TaskHandle_t xHandleTaskLED = 0;
-Nstatic TaskHandle_t xHandleTaskMsgPro = NULL;
-Xstatic TaskHandle_t xHandleTaskMsgPro = 0;
-Nstatic TaskHandle_t xHandleTaskStart = NULL;
-Xstatic TaskHandle_t xHandleTaskStart = 0;
-N
-Nstatic TaskHandle_t xHandleTaskPerception    = NULL;
-Xstatic TaskHandle_t xHandleTaskPerception    = 0;
-N//static TaskHandle_t xHandleTaskPrediction    = NULL;
-N//static TaskHandle_t xHandleTaskCommunication = NULL;
 Nstatic TaskHandle_t xHandleTaskDecision      = NULL;
 Xstatic TaskHandle_t xHandleTaskDecision      = 0;
 Nstatic TaskHandle_t xHandleTaskControl       = NULL;
 Xstatic TaskHandle_t xHandleTaskControl       = 0;
+Nstatic TaskHandle_t xHandleTaskPerception    = NULL;
+Xstatic TaskHandle_t xHandleTaskPerception    = 0;
 N
 Nstatic SemaphoreHandle_t  xMutex = NULL;
 Xstatic SemaphoreHandle_t  xMutex = 0;
@@ -46456,158 +46317,65 @@ N	*/
 N	while(1);
 N}
 N
+N
+N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: vTaskTaskUserIF
-N*	功能说明: 接口消息处理。
+N*	函 数 名: vTaskStart
+N*	功能说明: 启动任务，也就是最高优先级任务，这里用作按键扫描。
 N*	形    参: pvParameters 是在创建该任务时传递的形参
 N*	返 回 值: 无
-N*   优 先 级: 1  (数值越小优先级越低，这个跟uCOS相反)
+N*   优 先 级: 4  
 N*********************************************************************************************************
 N*/
-Nstatic void vTaskTaskUserIF(void *pvParameters)
+Nstatic void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 N{
 N	uint8_t ucKeyCode;	
 N	bsp_AngleRst();
-N
-N#if 0
-S		bsp_SetMotorSpeed(MotorLeft,5);
-S		bsp_SetMotorSpeed(MotorRight,5);
-N#endif	
 N	
-N#if 0	
-S	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-104));
-S	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-104));
-N#endif
-N	
-N    while(1)
-N    {
-N//		/* 处理按键事件 */
-N//		ucKeyCode = bsp_GetKey();
-N//		if (ucKeyCode > 0)
-N//		{
-N//			/* 有键按下 */
-N//			switch (ucKeyCode)
-N//			{
-N//				case KEY_1_DOWN:/*按键1按下*/
-N//				{
-N//					
-N//				}break;
-N//				
-N//				case KEY_2_DOWN:/*按键2按下*/
-N//				{
-N//					
-N//				}break;
-N//				
-N//				case KEY_3_DOWN:/*按键3按下*/	
-N//				{
-N//					
-N//				}break;
+N	while(1)
+N	{
+N		/* 处理按键事件 */
+N		ucKeyCode = bsp_GetKey();
+N		if (ucKeyCode > 0)
+N		{
+N			/* 有键按下 */
+N			switch (ucKeyCode)
+N			{
+N				case KEY_1_DOWN:/*按键1按下*/
+N				{
+N					
+N				}break;
+N				
+N				case KEY_2_DOWN:/*按键2按下*/
+N				{
+N					
+N				}break;
+N				
+N				case KEY_3_DOWN:/*按键3按下*/	
+N				{
+N					
+N				}break;
 N
-N//				case KEY_1_LONG:/*按键1长按*/	
-N//				{
-N//					
-N//				}break;
-N//				
-N//				case KEY_2_LONG:/*按键2长按*/	
-N//				{
-N//					
-N//				}break;
-N//				
-N//				case KEY_3_LONG:/*按键3长按*/	
-N//				{
-N//					
-N//				}break;
-N//			}
-N//		}
-N		vTaskDelay(20);
-N		
+N				case KEY_1_LONG:/*按键1长按*/	
+N				{
+N					
+N				}break;
+N				
+N				case KEY_2_LONG:/*按键2长按*/	
+N				{
+N					
+N				}break;
+N				
+N				case KEY_3_LONG:/*按键3长按*/	
+N				{
+N					
+N				}break;
+N			}
+N		}
+N
+N		vTaskDelay(50);	
 N	}
-W "..\..\User\main.c" 102 10 variable "ucKeyCode"  was declared but never referenced
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: vTaskLED
-N*	功能说明: LED闪烁
-N*	形    参: pvParameters 是在创建该任务时传递的形参
-N*	返 回 值: 无
-N*   优 先 级: 2  
-N*********************************************************************************************************
-N*/
-Nstatic void vTaskLED(void *pvParameters)
-N{
-N	//static uint32_t index = 0 ;
-N    while(1)
-N    {
-N		
-N#if 1
-N		Collision collision = bsp_CollisionScan();
-N		
-N		if(collision == CollisionLeft)
-N		{
-N			//DEBUG("%06dLeft\r\n",index++);
-N			
-N//			bsp_SetMotorSpeed(MotorLeft,-5);
-N//			bsp_SetMotorSpeed(MotorRight,-12);
-N//			vTaskDelay(500);
-N//			bsp_SetMotorSpeed(MotorLeft,5);
-N//			bsp_SetMotorSpeed(MotorRight,5);
-N		}
-N		else if(collision == CollisionRight)
-N		{
-N			//DEBUG("%06dRight\r\n",index++);
-N			
-N//			bsp_SetMotorSpeed(MotorLeft,-12);
-N//			bsp_SetMotorSpeed(MotorRight,-5);
-N//			vTaskDelay(500);
-N//			bsp_SetMotorSpeed(MotorLeft,5);
-N//			bsp_SetMotorSpeed(MotorRight,5);
-N		}
-N		else if(collision == CollisionAll)
-N		{
-N			//DEBUG("%06dBoth\r\n",index++);
-N			
-N//			bsp_SetMotorSpeed(MotorLeft,-12);
-N//			bsp_SetMotorSpeed(MotorRight,-12);
-N//			vTaskDelay(500);
-N//			bsp_SetMotorSpeed(MotorLeft,5);
-N//			bsp_SetMotorSpeed(MotorRight,5);
-N		}
-N#endif
-N		
-N		//bsp_ScopeSend();
-N		
-N		vTaskDelay(50);
-N    }
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: vTaskMsgPro
-N*	功能说明: 消息处理，这里用作DS18B20的温度采集和打印
-N*	形    参: pvParameters 是在创建该任务时传递的形参
-N*	返 回 值: 无
-N*   优 先 级: 3  
-N*********************************************************************************************************
-N*/
-Nstatic void vTaskMsgPro(void *pvParameters)
-N{
-N    while(1)
-N    {
-N		//bsp_SendReportFrame();
-N		//bsp_PrintRemoteState();
-N		
-N		bsp_IWDG_Feed(); /* 喂狗 */
-N		
-N		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
-N		
-N//		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
-N//		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
-N		
-N		bsp_ComAnalysis();
-N		vTaskDelay(10);
-N    }
 N}
 N
 N/*
@@ -46619,113 +46387,67 @@ N*	返 回 值: 无
 N*   优 先 级: 4  
 N*********************************************************************************************************
 N*/
-Nstatic void vTaskStart(void *pvParameters)
-N{
-N	/*开启红外对管轮询扫描*/
-N	bsp_DetectStart(); 
-N//	/*开启寻找充电桩*/
-N//	bsp_StartSearchChargingPile();
-N	bsp_StartUpdatePos();
-N	
-N    while(1)
-N    {
-N		bsp_DetectAct();  /*红外对管轮询扫描*/
-N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-N//		bsp_EdgewiseAct();/*沿边*/
-N//		
-N//		/*四个红外接收管*/
-N//		bsp_GetCapCnt(CapCH1);
-N//		bsp_GetCapCnt(CapCH2);
-N//		bsp_GetCapCnt(CapCH3);
-N//		bsp_GetCapCnt(CapCH4);
-N//		
-N//		/*寻找充电桩*/
-N//		bsp_SearchChargingPileAct();
-N		/*更新坐标*/
-N		bsp_PositionUpdate();
-N		
-N        vTaskDelay(1);
-N		
-N//		bsp_KeyScan();
-N			
-N    }
-N}
-N
-N
-N
-N
-N
-N
-N
-N
-Nstatic void vTaskPerception(void *pvParameters)   //感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角
-N{
-N	bsp_AngleRst();
-N	
-N	bsp_DetectStart();  /*开启红外对管轮询扫描*/
-N	bsp_StartUpdatePos();
-N	
-N	 while(1)
-N    {
-N		bsp_DetectAct();      /*红外对管轮询扫描*/
-N		bsp_DetectDeal();     /*红外对管扫描结果处理*/
-N		bsp_KeyScan();	      /*按键扫描*/
-N		
-N		bsp_PositionUpdate(); /*更新坐标，每20ms 上传一帧数据*/
-N		
-N        vTaskDelay(1);
-N	}		
-N
-N}
 Nstatic void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 N{
 N	while(1)
 N    {
-N
-N		bsp_IWDG_Feed(); /* 喂狗 */ //1S
+N#if 0
+S		bsp_SendReportFrame();
+S		bsp_PrintRemoteState();
+N#endif
+N		bsp_IWDG_Feed(); /* 喂狗 */
+N		
 N		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
-N	
-N		bsp_ComAnalysis();/* 解析上位机下发串口数据，并执行电机控制 */ 
+N#if 0		
+S		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
+S		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
+N#endif		
+N		bsp_ComAnalysis();
 N		vTaskDelay(10);
 N    }
 N	
 N}
-Nstatic void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: vTaskStart
+N*	功能说明: 感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角。
+N*	形    参: pvParameters 是在创建该任务时传递的形参
+N*	返 回 值: 无
+N*   优 先 级: 4  
+N*********************************************************************************************************
+N*/
+Nstatic void vTaskPerception(void *pvParameters)   //
 N{
+N	/*开启红外对管轮询扫描*/
+N	bsp_DetectStart(); 
+N	/*开启寻找充电桩*/
+N#if 0
+S	bsp_StartSearchChargingPile();
+N#endif
+N	bsp_StartUpdatePos();
+N	
 N	while(1)
-N	{
-N		
-N//		Collision collision = bsp_CollisionScan();	
-N//		int16_t leftSpeedMM = bsp_MotorGetSpeed(MotorLeft);
-N//		int16_t rightSpeedMM = bsp_MotorGetSpeed(MotorRight);
-N//		uint16_t adc1  = bsp_GetInfraRedAdcVoltage(IR0)*100;
-N//		uint16_t adc2  = bsp_GetInfraRedAdcVoltage(IR1)*100;
-N//		uint16_t adc3  = bsp_GetInfraRedAdcVoltage(IR2)*100;
-N//		uint16_t adc4  = bsp_GetInfraRedAdcVoltage(IR3)*100;
-N//		uint16_t adc5  = bsp_GetInfraRedAdcVoltage(IR4)*100;
-N//		uint16_t adc6  = bsp_GetInfraRedAdcVoltage(IR5)*100;
-N//		uint16_t adc7  = bsp_GetInfraRedAdcVoltage(IR6)*100;
-N//		uint16_t adc8  = bsp_GetInfraRedAdcVoltage(IR7)*100;
-N//		uint16_t adc9  = bsp_GetInfraRedAdcVoltage(IR8)*100;
-N//		uint16_t adc10 = bsp_GetInfraRedAdcVoltage(IR9)*100;
-N//		uint32_t timestamp = xTaskGetTickCount();
-N//		int32_t leftPulseVector = bsp_MotorGetPulseVector(MotorLeft);
-N//		int32_t rightPulseVector = bsp_MotorGetPulseVector(MotorRight);
-N//		int16_t angle = bsp_AngleReadRaw();
-N//		int32_t x_coordinate = bsp_GetCurrentPosX();
-N//		int32_t y_coordinate = bsp_GetCurrentPosY();
-N		//DEBUG();
-N		
-N		
-N		
-N		
-N		
-N		
-N		
-N		vTaskDelay(50);	
-N	}
-N	
-N	
+N    {
+N        bsp_DetectAct();  /*红外对管轮询扫描*/
+N		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+N
+N		/*四个红外接收管*/
+N#if 0 
+S		bsp_GetCapCnt(CapCH1);
+S		bsp_GetCapCnt(CapCH2);
+S		bsp_GetCapCnt(CapCH3);
+S		bsp_GetCapCnt(CapCH4);
+N#endif
+N		/*寻找充电桩*/
+N		bsp_SearchChargingPileAct();
+N		/*更新坐标*/
+N		bsp_PositionUpdate();
+N		bsp_KeyScan();
+N        vTaskDelay(1);	
+N	}		
+N
 N}
 N
 N
@@ -46739,58 +46461,28 @@ N*******************************************************************************
 N*/
 Nstatic void AppTaskCreate (void)
 N{
-N//    xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
-N//                 "vTaskUserIF",     	/* 任务名    */
-N//                 1024,               	/* 任务栈大小，单位word，也就是4字节 */
-N//                 NULL,              	/* 任务参数  */
-N//                 1,                 	/* 任务优先级*/
-N//                 &xHandleTaskUserIF );  /* 任务句柄  */
-N//	
-N//	
-N//	xTaskCreate( vTaskLED,    		/* 任务函数  */
-N//                 "vTaskLED",  		/* 任务名    */
-N//                 1024,         		/* stack大小，单位word，也就是4字节 */
-N//                 NULL,        		/* 任务参数  */
-N//                 2,           		/* 任务优先级*/
-N//                 &xHandleTaskLED ); /* 任务句柄  */
-N//	
-N//	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
-N//                 "vTaskMsgPro",   		/* 任务名    */
-N//                 1024,             		/* 任务栈大小，单位word，也就是4字节 */
-N//                 NULL,           		/* 任务参数  */
-N//                 3,               		/* 任务优先级*/
-N//                 &xHandleTaskMsgPro );  /* 任务句柄  */
-N//	
-N//	
-N//	xTaskCreate( vTaskStart,     		/* 任务函数  */
-N//                 "vTaskStart",   		/* 任务名    */
-N//                 1024,            		/* 任务栈大小，单位word，也就是4字节 */
-N//                 NULL,           		/* 任务参数  */
-N//                 4,              		/* 任务优先级*/
-N//                 &xHandleTaskStart );   /* 任务句柄  */
-N
-N	xTaskCreate( vTaskPerception,     		    /* 任务函数  */
-N                 "vTaskPerception",   		    /* 任务名    */
-N                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-N                 NULL,           		        /* 任务参数  */
-N                 7,              		        /* 任务优先级*/
-N                 &xHandleTaskPerception );      /* 任务句柄  */	
-X	xTaskGenericCreate( ( vTaskPerception ), ( "vTaskPerception" ), ( 1024 ), ( 0 ), ( 7 ), ( &xHandleTaskPerception ), ( 0 ), ( 0 ) );       	
-N	xTaskCreate( vTaskControl,     		        /* 任务函数  */
-N                 "vTaskControl",   		        /* 任务名    */
-N                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-N                 NULL,           		        /* 任务参数  */
-N                 6,              		        /* 任务优先级*/
-N                 &xHandleTaskControl );         /* 任务句柄  */				 
-X	xTaskGenericCreate( ( vTaskControl ), ( "vTaskControl" ), ( 1024 ), ( 0 ), ( 6 ), ( &xHandleTaskControl ), ( 0 ), ( 0 ) );          				 
 N	xTaskCreate( vTaskDecision,     		    /* 任务函数  */
 N                 "vTaskDecision",   		    /* 任务名    */
 N                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
 N                 NULL,           		        /* 任务参数  */
-N                 5,              		        /* 任务优先级*/
+N                 1,              		        /* 任务优先级*/
 N                 &xHandleTaskDecision );        /* 任务句柄  */
-X	xTaskGenericCreate( ( vTaskDecision ), ( "vTaskDecision" ), ( 1024 ), ( 0 ), ( 5 ), ( &xHandleTaskDecision ), ( 0 ), ( 0 ) );         
-N				 
+X	xTaskGenericCreate( ( vTaskDecision ), ( "vTaskDecision" ), ( 1024 ), ( 0 ), ( 1 ), ( &xHandleTaskDecision ), ( 0 ), ( 0 ) );         
+N	xTaskCreate( vTaskControl,     		        /* 任务函数  */
+N                 "vTaskControl",   		        /* 任务名    */
+N                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+N                 NULL,           		        /* 任务参数  */
+N                 2,              		        /* 任务优先级*/
+N                 &xHandleTaskControl );         /* 任务句柄  */	
+X	xTaskGenericCreate( ( vTaskControl ), ( "vTaskControl" ), ( 1024 ), ( 0 ), ( 2 ), ( &xHandleTaskControl ), ( 0 ), ( 0 ) );          	
+N	xTaskCreate( vTaskPerception,     		    /* 任务函数  */
+N                 "vTaskPerception",   		    /* 任务名    */
+N                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+N                 NULL,           		        /* 任务参数  */
+N                 3,              		        /* 任务优先级*/
+N                 &xHandleTaskPerception );      /* 任务句柄  */	
+X	xTaskGenericCreate( ( vTaskPerception ), ( "vTaskPerception" ), ( 1024 ), ( 0 ), ( 3 ), ( &xHandleTaskPerception ), ( 0 ), ( 0 ) );       	
+N			 
 N}
 N
 N/*
@@ -46849,11 +46541,3 @@ X   	xQueueGenericSend( ( QueueHandle_t ) ( xMutex ), 0, ( ( TickType_t ) 0U ), 
 N}
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-W "..\..\User\main.c" 100 13 function "vTaskTaskUserIF"  was declared but never referenced
-W "..\..\User\main.c" 169 13 function "vTaskLED"  was declared but never referenced
-W "..\..\User\main.c" 225 13 function "vTaskMsgPro"  was declared but never referenced
-W "..\..\User\main.c" 253 13 function "vTaskStart"  was declared but never referenced
-W "..\..\User\main.c" 29 21 variable "xHandleTaskUserIF"  was declared but never referenced
-W "..\..\User\main.c" 30 21 variable "xHandleTaskLED"  was declared but never referenced
-W "..\..\User\main.c" 31 21 variable "xHandleTaskMsgPro"  was declared but never referenced
-W "..\..\User\main.c" 32 21 variable "xHandleTaskStart"  was declared but never referenced

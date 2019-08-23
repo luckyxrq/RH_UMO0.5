@@ -1,8 +1,8 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\src\bsp_Position.c
 .\flash\obj\bsp_position.o: ..\..\User\bsp\bsp.h
 .\flash\obj\bsp_position.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\bsp_position.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\bsp_position.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\bsp_position.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\bsp_position.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\bsp_position.o: ..\..\FreeRTOS\include\portable.h
@@ -41,10 +41,10 @@
 .\flash\obj\bsp_position.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\flash\obj\bsp_position.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\flash\obj\bsp_position.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\flash\obj\bsp_position.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\flash\obj\bsp_position.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\flash\obj\bsp_position.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\bsp_position.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_position.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
 .\flash\obj\bsp_position.o: ..\..\User\bsp\inc\bsp_led.h
 .\flash\obj\bsp_position.o: ..\..\User\bsp\inc\bsp_timer.h
@@ -71,4 +71,4 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_Position.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_stflash.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_param.h
-.\flash\obj\bsp_position.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h
