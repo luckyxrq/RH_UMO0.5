@@ -39101,6 +39101,7 @@ N*/
 Nstatic void bsp_AngleAnalyzeApp(void)
 N{	
 N	int16_t ret = angle.buf[5] << 8 | angle.buf[4];
+N	ret = -ret ;
 N	angle.angle = ret / 100.0F;
 N	angle.angleRaw = ret;
 N}

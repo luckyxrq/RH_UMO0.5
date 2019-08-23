@@ -223,6 +223,7 @@ static bool bsp_AngleCheck(void)
 static void bsp_AngleAnalyzeApp(void)
 {	
 	int16_t ret = angle.buf[5] << 8 | angle.buf[4];
+	ret = -ret ;
 	angle.angle = ret / 100.0F;
 	angle.angleRaw = ret;
 }
