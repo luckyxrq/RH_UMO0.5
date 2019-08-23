@@ -1,6 +1,4 @@
 #include "includes.h"
-
-
 /*
 **********************************************************************************************************
 											函数声明
@@ -10,6 +8,15 @@ static void vTaskTaskUserIF(void *pvParameters);
 static void vTaskLED(void *pvParameters);
 static void vTaskMsgPro(void *pvParameters);
 static void vTaskStart(void *pvParameters);
+
+static void vTaskPerception(void *pvParameters);    //感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角
+//static void vTaskPrediction(void *pvParameters);    //预测 里程计估算
+//static void vTaskCommunication(void *pvParameters); //通信 构造协议帧 上传传感器数据
+static void vTaskDecision(void *pvParameters);      //决策 整机软件控制流程
+static void vTaskControl(void *pvParameters);       //控制 根据决策控制电机
+
+
+
 static void AppTaskCreate (void);
 static void AppObjCreate (void);
 void  App_Printf(char *format, ...);
@@ -23,6 +30,13 @@ static TaskHandle_t xHandleTaskUserIF = NULL;
 static TaskHandle_t xHandleTaskLED = NULL;
 static TaskHandle_t xHandleTaskMsgPro = NULL;
 static TaskHandle_t xHandleTaskStart = NULL;
+
+static TaskHandle_t xHandleTaskPerception    = NULL;
+//static TaskHandle_t xHandleTaskPrediction    = NULL;
+//static TaskHandle_t xHandleTaskCommunication = NULL;
+static TaskHandle_t xHandleTaskDecision      = NULL;
+static TaskHandle_t xHandleTaskControl       = NULL;
+
 static SemaphoreHandle_t  xMutex = NULL;
 
 
@@ -264,11 +278,64 @@ static void vTaskStart(void *pvParameters)
         vTaskDelay(1);
 		
 //		bsp_KeyScan();
-		  
-		
+			
     }
 }
-				
+
+
+
+
+
+
+
+
+static void vTaskPerception(void *pvParameters)   //感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角
+{
+	bsp_AngleRst();
+	
+	bsp_DetectStart();  /*开启红外对管轮询扫描*/
+	bsp_StartUpdatePos();
+	
+	 while(1)
+    {
+		bsp_DetectAct();  /*红外对管轮询扫描*/
+		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		bsp_PositionUpdate(); /*更新坐标*/
+		bsp_KeyScan();	
+		
+        vTaskDelay(1);	
+	}
+	
+}
+static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
+{
+	while(1)
+    {
+
+		bsp_IWDG_Feed(); /* 喂狗 */ //1S
+		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
+	
+		bsp_ComAnalysis();
+		vTaskDelay(10);
+    }
+	
+}
+static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
+{
+	while(1)
+	{
+		Collision collision = bsp_CollisionScan();
+		
+		
+		
+		
+		vTaskDelay(50);	
+	}
+	
+	
+}
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: AppTaskCreate
@@ -279,35 +346,55 @@ static void vTaskStart(void *pvParameters)
 */
 static void AppTaskCreate (void)
 {
-    xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
-                 "vTaskUserIF",     	/* 任务名    */
-                 1024,               	/* 任务栈大小，单位word，也就是4字节 */
-                 NULL,              	/* 任务参数  */
-                 1,                 	/* 任务优先级*/
-                 &xHandleTaskUserIF );  /* 任务句柄  */
-	
-	
-	xTaskCreate( vTaskLED,    		/* 任务函数  */
-                 "vTaskLED",  		/* 任务名    */
-                 1024,         		/* stack大小，单位word，也就是4字节 */
-                 NULL,        		/* 任务参数  */
-                 2,           		/* 任务优先级*/
-                 &xHandleTaskLED ); /* 任务句柄  */
-	
-	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
-                 "vTaskMsgPro",   		/* 任务名    */
-                 1024,             		/* 任务栈大小，单位word，也就是4字节 */
-                 NULL,           		/* 任务参数  */
-                 3,               		/* 任务优先级*/
-                 &xHandleTaskMsgPro );  /* 任务句柄  */
-	
-	
-	xTaskCreate( vTaskStart,     		/* 任务函数  */
-                 "vTaskStart",   		/* 任务名    */
-                 1024,            		/* 任务栈大小，单位word，也就是4字节 */
-                 NULL,           		/* 任务参数  */
-                 4,              		/* 任务优先级*/
-                 &xHandleTaskStart );   /* 任务句柄  */
+//    xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
+//                 "vTaskUserIF",     	/* 任务名    */
+//                 1024,               	/* 任务栈大小，单位word，也就是4字节 */
+//                 NULL,              	/* 任务参数  */
+//                 1,                 	/* 任务优先级*/
+//                 &xHandleTaskUserIF );  /* 任务句柄  */
+//	
+//	
+//	xTaskCreate( vTaskLED,    		/* 任务函数  */
+//                 "vTaskLED",  		/* 任务名    */
+//                 1024,         		/* stack大小，单位word，也就是4字节 */
+//                 NULL,        		/* 任务参数  */
+//                 2,           		/* 任务优先级*/
+//                 &xHandleTaskLED ); /* 任务句柄  */
+//	
+//	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
+//                 "vTaskMsgPro",   		/* 任务名    */
+//                 1024,             		/* 任务栈大小，单位word，也就是4字节 */
+//                 NULL,           		/* 任务参数  */
+//                 3,               		/* 任务优先级*/
+//                 &xHandleTaskMsgPro );  /* 任务句柄  */
+//	
+//	
+//	xTaskCreate( vTaskStart,     		/* 任务函数  */
+//                 "vTaskStart",   		/* 任务名    */
+//                 1024,            		/* 任务栈大小，单位word，也就是4字节 */
+//                 NULL,           		/* 任务参数  */
+//                 4,              		/* 任务优先级*/
+//                 &xHandleTaskStart );   /* 任务句柄  */
+
+	xTaskCreate( vTaskPerception,     		    /* 任务函数  */
+                 "vTaskPerception",   		    /* 任务名    */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 7,              		        /* 任务优先级*/
+                 &xHandleTaskPerception );      /* 任务句柄  */	
+	xTaskCreate( vTaskControl,     		        /* 任务函数  */
+                 "vTaskControl",   		        /* 任务名    */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 6,              		        /* 任务优先级*/
+                 &xHandleTaskControl );         /* 任务句柄  */				 
+	xTaskCreate( vTaskDecision,     		    /* 任务函数  */
+                 "vTaskDecision",   		    /* 任务名    */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 5,              		        /* 任务优先级*/
+                 &xHandleTaskDecision );        /* 任务句柄  */
+				 
 }
 
 /*

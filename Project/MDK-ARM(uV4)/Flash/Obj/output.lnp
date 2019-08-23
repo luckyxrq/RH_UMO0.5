@@ -17,6 +17,8 @@
 ".\flash\obj\bsp_control.o"
 ".\flash\obj\bsp_scope.o"
 ".\flash\obj\bsp_position.o"
+".\flash\obj\bsp_param.o"
+".\flash\obj\bsp_stflash.o"
 ".\flash\obj\bsp.o"
 ".\flash\obj\bsp_dwt.o"
 ".\flash\obj\bsp_uart_fifo.o"
@@ -48,6 +50,6 @@
 ".\flash\obj\port.o"
 ".\flash\obj\heap_4.o"
 --library_type=microlib --strict --scatter ".\Flash\Obj\output.sct"
---summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Flash\List\output.map" -o .\Flash\Obj\output.axf
