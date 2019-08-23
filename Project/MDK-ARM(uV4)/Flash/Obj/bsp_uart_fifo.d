@@ -71,3 +71,4 @@
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Position.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_stflash.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_param.h
+.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_OffSiteSW.h

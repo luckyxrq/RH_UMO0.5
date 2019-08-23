@@ -80,3 +80,4 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Position.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_stflash.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_param.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_OffSiteSW.h

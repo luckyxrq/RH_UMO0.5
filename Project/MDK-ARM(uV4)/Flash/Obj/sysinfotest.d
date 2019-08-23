@@ -71,3 +71,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Position.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_stflash.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_param.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_OffSiteSW.h

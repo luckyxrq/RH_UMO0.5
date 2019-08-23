@@ -71,3 +71,4 @@
 .\flash\obj\bsp_powerswitch.o: ..\..\User\app\inc\bsp_Position.h
 .\flash\obj\bsp_powerswitch.o: ..\..\User\app\inc\bsp_stflash.h
 .\flash\obj\bsp_powerswitch.o: ..\..\User\app\inc\bsp_param.h
+.\flash\obj\bsp_powerswitch.o: ..\..\User\app\inc\bsp_OffSiteSW.h

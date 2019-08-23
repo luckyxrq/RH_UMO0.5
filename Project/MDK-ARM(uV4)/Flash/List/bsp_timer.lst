@@ -38873,7 +38873,15 @@ N
 N#endif
 N
 L 190 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_OffSiteSW.h"
+L 1 "..\..\User\app\inc\bsp_OffSiteSW.h" 1
+N#ifndef __BSP_OFFSITESW_H
+N#define __BSP_OFFSITESW_H
 N
+N
+N#endif
+N
+L 191 "..\..\User\bsp\bsp.h" 2
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);
