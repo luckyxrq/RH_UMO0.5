@@ -298,14 +298,15 @@ static void vTaskPerception(void *pvParameters)   //感知 获取传感器数据 红外对管
 	
 	 while(1)
     {
-		bsp_DetectAct();  /*红外对管轮询扫描*/
-		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-		bsp_PositionUpdate(); /*更新坐标*/
-		bsp_KeyScan();	
+		bsp_DetectAct();      /*红外对管轮询扫描*/
+		bsp_DetectDeal();     /*红外对管扫描结果处理*/
+		bsp_KeyScan();	      /*按键扫描*/
 		
-        vTaskDelay(1);	
-	}
-	
+		bsp_PositionUpdate(); /*更新坐标，每20ms 上传一帧数据*/
+		
+        vTaskDelay(1);
+	}		
+
 }
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
@@ -315,7 +316,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		bsp_IWDG_Feed(); /* 喂狗 */ //1S
 		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 	
-		bsp_ComAnalysis();
+		bsp_ComAnalysis();/* 解析上位机下发串口数据，并执行电机控制 */ 
 		vTaskDelay(10);
     }
 	
@@ -324,7 +325,30 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
 	while(1)
 	{
-		Collision collision = bsp_CollisionScan();
+		
+//		Collision collision = bsp_CollisionScan();	
+//		int16_t leftSpeedMM = bsp_MotorGetSpeed(MotorLeft);
+//		int16_t rightSpeedMM = bsp_MotorGetSpeed(MotorRight);
+//		uint16_t adc1  = bsp_GetInfraRedAdcVoltage(IR0)*100;
+//		uint16_t adc2  = bsp_GetInfraRedAdcVoltage(IR1)*100;
+//		uint16_t adc3  = bsp_GetInfraRedAdcVoltage(IR2)*100;
+//		uint16_t adc4  = bsp_GetInfraRedAdcVoltage(IR3)*100;
+//		uint16_t adc5  = bsp_GetInfraRedAdcVoltage(IR4)*100;
+//		uint16_t adc6  = bsp_GetInfraRedAdcVoltage(IR5)*100;
+//		uint16_t adc7  = bsp_GetInfraRedAdcVoltage(IR6)*100;
+//		uint16_t adc8  = bsp_GetInfraRedAdcVoltage(IR7)*100;
+//		uint16_t adc9  = bsp_GetInfraRedAdcVoltage(IR8)*100;
+//		uint16_t adc10 = bsp_GetInfraRedAdcVoltage(IR9)*100;
+//		uint32_t timestamp = xTaskGetTickCount();
+//		int32_t leftPulseVector = bsp_MotorGetPulseVector(MotorLeft);
+//		int32_t rightPulseVector = bsp_MotorGetPulseVector(MotorRight);
+//		int16_t angle = bsp_AngleReadRaw();
+//		int32_t x_coordinate = bsp_GetCurrentPosX();
+//		int32_t y_coordinate = bsp_GetCurrentPosY();
+		//DEBUG();
+		
+		
+		
 		
 		
 		

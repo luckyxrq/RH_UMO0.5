@@ -5,24 +5,24 @@
                           AREA ||i.AppObjCreate||, CODE, READONLY, ALIGN=2
 
                   AppObjCreate PROC
-;;;407    */
-;;;408    static void AppObjCreate (void)
+;;;431    */
+;;;432    static void AppObjCreate (void)
 000000  b510              PUSH     {r4,lr}
-;;;409    {
-;;;410    	/* 创建互斥信号量 */
-;;;411        xMutex = xSemaphoreCreateMutex();
+;;;433    {
+;;;434    	/* 创建互斥信号量 */
+;;;435        xMutex = xSemaphoreCreateMutex();
 000002  2001              MOVS     r0,#1
 000004  f7fffffe          BL       xQueueCreateMutex
 000008  4901              LDR      r1,|L1.16|
 00000a  6008              STR      r0,[r1,#0]  ; xMutex
-;;;412    	
-;;;413    	if(xMutex == NULL)
-;;;414        {
-;;;415            /* 没有创建成功，用户可以在这里加入创建失败的处理机制 */
-;;;416        }
-;;;417    }
+;;;436    	
+;;;437    	if(xMutex == NULL)
+;;;438        {
+;;;439            /* 没有创建成功，用户可以在这里加入创建失败的处理机制 */
+;;;440        }
+;;;441    }
 00000c  bd10              POP      {r4,pc}
-;;;418    
+;;;442    
                           ENDP
 
 00000e  0000              DCW      0x0000
@@ -32,41 +32,41 @@
                           AREA ||i.AppTaskCreate||, CODE, READONLY, ALIGN=2
 
                   AppTaskCreate PROC
-;;;346    */
-;;;347    static void AppTaskCreate (void)
+;;;370    */
+;;;371    static void AppTaskCreate (void)
 000000  b51f              PUSH     {r0-r4,lr}
-;;;348    {
-;;;349    //    xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
-;;;350    //                 "vTaskUserIF",     	/* 任务名    */
-;;;351    //                 1024,               	/* 任务栈大小，单位word，也就是4字节 */
-;;;352    //                 NULL,              	/* 任务参数  */
-;;;353    //                 1,                 	/* 任务优先级*/
-;;;354    //                 &xHandleTaskUserIF );  /* 任务句柄  */
-;;;355    //	
-;;;356    //	
-;;;357    //	xTaskCreate( vTaskLED,    		/* 任务函数  */
-;;;358    //                 "vTaskLED",  		/* 任务名    */
-;;;359    //                 1024,         		/* stack大小，单位word，也就是4字节 */
-;;;360    //                 NULL,        		/* 任务参数  */
-;;;361    //                 2,           		/* 任务优先级*/
-;;;362    //                 &xHandleTaskLED ); /* 任务句柄  */
-;;;363    //	
-;;;364    //	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
-;;;365    //                 "vTaskMsgPro",   		/* 任务名    */
-;;;366    //                 1024,             		/* 任务栈大小，单位word，也就是4字节 */
-;;;367    //                 NULL,           		/* 任务参数  */
-;;;368    //                 3,               		/* 任务优先级*/
-;;;369    //                 &xHandleTaskMsgPro );  /* 任务句柄  */
-;;;370    //	
-;;;371    //	
-;;;372    //	xTaskCreate( vTaskStart,     		/* 任务函数  */
-;;;373    //                 "vTaskStart",   		/* 任务名    */
-;;;374    //                 1024,            		/* 任务栈大小，单位word，也就是4字节 */
-;;;375    //                 NULL,           		/* 任务参数  */
-;;;376    //                 4,              		/* 任务优先级*/
-;;;377    //                 &xHandleTaskStart );   /* 任务句柄  */
-;;;378    
-;;;379    	xTaskCreate( vTaskPerception,     		    /* 任务函数  */
+;;;372    {
+;;;373    //    xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
+;;;374    //                 "vTaskUserIF",     	/* 任务名    */
+;;;375    //                 1024,               	/* 任务栈大小，单位word，也就是4字节 */
+;;;376    //                 NULL,              	/* 任务参数  */
+;;;377    //                 1,                 	/* 任务优先级*/
+;;;378    //                 &xHandleTaskUserIF );  /* 任务句柄  */
+;;;379    //	
+;;;380    //	
+;;;381    //	xTaskCreate( vTaskLED,    		/* 任务函数  */
+;;;382    //                 "vTaskLED",  		/* 任务名    */
+;;;383    //                 1024,         		/* stack大小，单位word，也就是4字节 */
+;;;384    //                 NULL,        		/* 任务参数  */
+;;;385    //                 2,           		/* 任务优先级*/
+;;;386    //                 &xHandleTaskLED ); /* 任务句柄  */
+;;;387    //	
+;;;388    //	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
+;;;389    //                 "vTaskMsgPro",   		/* 任务名    */
+;;;390    //                 1024,             		/* 任务栈大小，单位word，也就是4字节 */
+;;;391    //                 NULL,           		/* 任务参数  */
+;;;392    //                 3,               		/* 任务优先级*/
+;;;393    //                 &xHandleTaskMsgPro );  /* 任务句柄  */
+;;;394    //	
+;;;395    //	
+;;;396    //	xTaskCreate( vTaskStart,     		/* 任务函数  */
+;;;397    //                 "vTaskStart",   		/* 任务名    */
+;;;398    //                 1024,            		/* 任务栈大小，单位word，也就是4字节 */
+;;;399    //                 NULL,           		/* 任务参数  */
+;;;400    //                 4,              		/* 任务优先级*/
+;;;401    //                 &xHandleTaskStart );   /* 任务句柄  */
+;;;402    
+;;;403    	xTaskCreate( vTaskPerception,     		    /* 任务函数  */
 000002  2000              MOVS     r0,#0
 000004  4a14              LDR      r2,|L2.88|
 000006  2307              MOVS     r3,#7
@@ -78,12 +78,12 @@
 000016  a111              ADR      r1,|L2.92|
 000018  4814              LDR      r0,|L2.108|
 00001a  f7fffffe          BL       xTaskGenericCreate
-;;;380                     "vTaskPerception",   		    /* 任务名    */
-;;;381                     1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-;;;382                     NULL,           		        /* 任务参数  */
-;;;383                     7,              		        /* 任务优先级*/
-;;;384                     &xHandleTaskPerception );      /* 任务句柄  */	
-;;;385    	xTaskCreate( vTaskControl,     		        /* 任务函数  */
+;;;404                     "vTaskPerception",   		    /* 任务名    */
+;;;405                     1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+;;;406                     NULL,           		        /* 任务参数  */
+;;;407                     7,              		        /* 任务优先级*/
+;;;408                     &xHandleTaskPerception );      /* 任务句柄  */	
+;;;409    	xTaskCreate( vTaskControl,     		        /* 任务函数  */
 00001e  2000              MOVS     r0,#0
 000020  4a13              LDR      r2,|L2.112|
 000022  2306              MOVS     r3,#6
@@ -95,12 +95,12 @@
 000032  a110              ADR      r1,|L2.116|
 000034  4813              LDR      r0,|L2.132|
 000036  f7fffffe          BL       xTaskGenericCreate
-;;;386                     "vTaskControl",   		        /* 任务名    */
-;;;387                     1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-;;;388                     NULL,           		        /* 任务参数  */
-;;;389                     6,              		        /* 任务优先级*/
-;;;390                     &xHandleTaskControl );         /* 任务句柄  */				 
-;;;391    	xTaskCreate( vTaskDecision,     		    /* 任务函数  */
+;;;410                     "vTaskControl",   		        /* 任务名    */
+;;;411                     1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+;;;412                     NULL,           		        /* 任务参数  */
+;;;413                     6,              		        /* 任务优先级*/
+;;;414                     &xHandleTaskControl );         /* 任务句柄  */				 
+;;;415    	xTaskCreate( vTaskDecision,     		    /* 任务函数  */
 00003a  2000              MOVS     r0,#0
 00003c  4a12              LDR      r2,|L2.136|
 00003e  2305              MOVS     r3,#5
@@ -112,15 +112,15 @@
 00004e  a10f              ADR      r1,|L2.140|
 000050  4812              LDR      r0,|L2.156|
 000052  f7fffffe          BL       xTaskGenericCreate
-;;;392                     "vTaskDecision",   		    /* 任务名    */
-;;;393                     1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-;;;394                     NULL,           		        /* 任务参数  */
-;;;395                     5,              		        /* 任务优先级*/
-;;;396                     &xHandleTaskDecision );        /* 任务句柄  */
-;;;397    				 
-;;;398    }
+;;;416                     "vTaskDecision",   		    /* 任务名    */
+;;;417                     1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+;;;418                     NULL,           		        /* 任务参数  */
+;;;419                     5,              		        /* 任务优先级*/
+;;;420                     &xHandleTaskDecision );        /* 任务句柄  */
+;;;421    				 
+;;;422    }
 000056  bd1f              POP      {r0-r4,pc}
-;;;399    
+;;;423    
                           ENDP
 
                   |L2.88|
@@ -162,57 +162,57 @@
                           REQUIRE _printf_s
                           REQUIRE _printf_str
                   App_Printf PROC
-;;;427    */
-;;;428    void  App_Printf(char *format, ...)
+;;;451    */
+;;;452    void  App_Printf(char *format, ...)
 000000  b40f              PUSH     {r0-r3}
-;;;429    {
+;;;453    {
 000002  b500              PUSH     {lr}
 000004  b0b5              SUB      sp,sp,#0xd4
-;;;430        char  buf_str[200 + 1];
-;;;431        va_list   v_args;
-;;;432    
-;;;433    
-;;;434        va_start(v_args, format);
+;;;454        char  buf_str[200 + 1];
+;;;455        va_list   v_args;
+;;;456    
+;;;457    
+;;;458        va_start(v_args, format);
 000006  a837              ADD      r0,sp,#0xdc
 000008  9001              STR      r0,[sp,#4]
-;;;435       (void)vsnprintf((char       *)&buf_str[0],
+;;;459       (void)vsnprintf((char       *)&buf_str[0],
 00000a  21c9              MOVS     r1,#0xc9
 00000c  a802              ADD      r0,sp,#8
 00000e  9b01              LDR      r3,[sp,#4]
 000010  9a36              LDR      r2,[sp,#0xd8]
 000012  f7fffffe          BL       __c89vsnprintf
-;;;436                       (size_t      ) sizeof(buf_str),
-;;;437                       (char const *) format,
-;;;438                                      v_args);
-;;;439        va_end(v_args);
+;;;460                       (size_t      ) sizeof(buf_str),
+;;;461                       (char const *) format,
+;;;462                                      v_args);
+;;;463        va_end(v_args);
 000016  2000              MOVS     r0,#0
 000018  9001              STR      r0,[sp,#4]
-;;;440    
-;;;441    	/* 互斥信号量 */
-;;;442    	xSemaphoreTake(xMutex, portMAX_DELAY);
+;;;464    
+;;;465    	/* 互斥信号量 */
+;;;466    	xSemaphoreTake(xMutex, portMAX_DELAY);
 00001a  2300              MOVS     r3,#0
 00001c  1e42              SUBS     r2,r0,#1
 00001e  4619              MOV      r1,r3
 000020  4808              LDR      r0,|L3.68|
 000022  6800              LDR      r0,[r0,#0]  ; xMutex
 000024  f7fffffe          BL       xQueueGenericReceive
-;;;443    
-;;;444        printf("%s", buf_str);
+;;;467    
+;;;468        printf("%s", buf_str);
 000028  a902              ADD      r1,sp,#8
 00002a  a007              ADR      r0,|L3.72|
 00002c  f7fffffe          BL       __2printf
-;;;445    
-;;;446       	xSemaphoreGive(xMutex);
+;;;469    
+;;;470       	xSemaphoreGive(xMutex);
 000030  2300              MOVS     r3,#0
 000032  461a              MOV      r2,r3
 000034  4619              MOV      r1,r3
 000036  4803              LDR      r0,|L3.68|
 000038  6800              LDR      r0,[r0,#0]  ; xMutex
 00003a  f7fffffe          BL       xQueueGenericSend
-;;;447    }
+;;;471    }
 00003e  b035              ADD      sp,sp,#0xd4
 000040  f85dfb14          LDR      pc,[sp],#0x14
-;;;448    
+;;;472    
                           ENDP
 
                   |L3.68|
@@ -281,61 +281,81 @@
                           AREA ||i.vTaskControl||, CODE, READONLY, ALIGN=1
 
                   vTaskControl PROC
-;;;309    }
-;;;310    static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
+;;;310    }
+;;;311    static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 000000  e008              B        |L5.20|
                   |L5.2|
-;;;311    {
-;;;312    	while(1)
-;;;313        {
-;;;314    
-;;;315    		bsp_IWDG_Feed(); /* 喂狗 */ //1S
+;;;312    {
+;;;313    	while(1)
+;;;314        {
+;;;315    
+;;;316    		bsp_IWDG_Feed(); /* 喂狗 */ //1S
 000002  f7fffffe          BL       bsp_IWDG_Feed
-;;;316    		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
+;;;317    		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 000006  f7fffffe          BL       bsp_PidSched
-;;;317    	
-;;;318    		bsp_ComAnalysis();
+;;;318    	
+;;;319    		bsp_ComAnalysis();/* 解析上位机下发串口数据，并执行电机控制 */ 
 00000a  f7fffffe          BL       bsp_ComAnalysis
-;;;319    		vTaskDelay(10);
+;;;320    		vTaskDelay(10);
 00000e  200a              MOVS     r0,#0xa
 000010  f7fffffe          BL       vTaskDelay
                   |L5.20|
 000014  e7f5              B        |L5.2|
-;;;320        }
-;;;321    	
-;;;322    }
-;;;323    static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
+;;;321        }
+;;;322    	
+;;;323    }
+;;;324    static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
                           ENDP
 
 
                           AREA ||i.vTaskDecision||, CODE, READONLY, ALIGN=1
 
                   vTaskDecision PROC
-;;;322    }
-;;;323    static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
-000000  e006              B        |L6.16|
+;;;323    }
+;;;324    static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
+000000  e002              B        |L6.8|
                   |L6.2|
-;;;324    {
-;;;325    	while(1)
-;;;326    	{
-;;;327    		Collision collision = bsp_CollisionScan();
-000002  f7fffffe          BL       bsp_CollisionScan
-000006  4604              MOV      r4,r0
+;;;325    {
+;;;326    	while(1)
+;;;327    	{
 ;;;328    		
-;;;329    		
-;;;330    		
-;;;331    		
-;;;332    		vTaskDelay(50);	
-000008  2032              MOVS     r0,#0x32
-00000a  f7fffffe          BL       vTaskDelay
-;;;333    	}
-00000e  bf00              NOP      
-                  |L6.16|
-000010  e7f7              B        |L6.2|
-;;;334    	
-;;;335    	
-;;;336    }
-;;;337    
+;;;329    //		Collision collision = bsp_CollisionScan();	
+;;;330    //		int16_t leftSpeedMM = bsp_MotorGetSpeed(MotorLeft);
+;;;331    //		int16_t rightSpeedMM = bsp_MotorGetSpeed(MotorRight);
+;;;332    //		uint16_t adc1  = bsp_GetInfraRedAdcVoltage(IR0)*100;
+;;;333    //		uint16_t adc2  = bsp_GetInfraRedAdcVoltage(IR1)*100;
+;;;334    //		uint16_t adc3  = bsp_GetInfraRedAdcVoltage(IR2)*100;
+;;;335    //		uint16_t adc4  = bsp_GetInfraRedAdcVoltage(IR3)*100;
+;;;336    //		uint16_t adc5  = bsp_GetInfraRedAdcVoltage(IR4)*100;
+;;;337    //		uint16_t adc6  = bsp_GetInfraRedAdcVoltage(IR5)*100;
+;;;338    //		uint16_t adc7  = bsp_GetInfraRedAdcVoltage(IR6)*100;
+;;;339    //		uint16_t adc8  = bsp_GetInfraRedAdcVoltage(IR7)*100;
+;;;340    //		uint16_t adc9  = bsp_GetInfraRedAdcVoltage(IR8)*100;
+;;;341    //		uint16_t adc10 = bsp_GetInfraRedAdcVoltage(IR9)*100;
+;;;342    //		uint32_t timestamp = xTaskGetTickCount();
+;;;343    //		int32_t leftPulseVector = bsp_MotorGetPulseVector(MotorLeft);
+;;;344    //		int32_t rightPulseVector = bsp_MotorGetPulseVector(MotorRight);
+;;;345    //		int16_t angle = bsp_AngleReadRaw();
+;;;346    //		int32_t x_coordinate = bsp_GetCurrentPosX();
+;;;347    //		int32_t y_coordinate = bsp_GetCurrentPosY();
+;;;348    		//DEBUG();
+;;;349    		
+;;;350    		
+;;;351    		
+;;;352    		
+;;;353    		
+;;;354    		
+;;;355    		
+;;;356    		vTaskDelay(50);	
+000002  2032              MOVS     r0,#0x32
+000004  f7fffffe          BL       vTaskDelay
+                  |L6.8|
+000008  e7fb              B        |L6.2|
+;;;357    	}
+;;;358    	
+;;;359    	
+;;;360    }
+;;;361    
                           ENDP
 
 
@@ -460,24 +480,25 @@
 00000c  e00a              B        |L9.36|
                   |L9.14|
 ;;;300        {
-;;;301    		bsp_DetectAct();  /*红外对管轮询扫描*/
+;;;301    		bsp_DetectAct();      /*红外对管轮询扫描*/
 00000e  f7fffffe          BL       bsp_DetectAct
-;;;302    		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+;;;302    		bsp_DetectDeal();     /*红外对管扫描结果处理*/
 000012  f7fffffe          BL       bsp_DetectDeal
-;;;303    		bsp_PositionUpdate(); /*更新坐标*/
-000016  f7fffffe          BL       bsp_PositionUpdate
-;;;304    		bsp_KeyScan();	
-00001a  f7fffffe          BL       bsp_KeyScan
-;;;305    		
-;;;306            vTaskDelay(1);	
+;;;303    		bsp_KeyScan();	      /*按键扫描*/
+000016  f7fffffe          BL       bsp_KeyScan
+;;;304    		
+;;;305    		bsp_PositionUpdate(); /*更新坐标，每20ms 上传一帧数据*/
+00001a  f7fffffe          BL       bsp_PositionUpdate
+;;;306    		
+;;;307            vTaskDelay(1);
 00001e  2001              MOVS     r0,#1
 000020  f7fffffe          BL       vTaskDelay
                   |L9.36|
 000024  e7f3              B        |L9.14|
-;;;307    	}
-;;;308    	
-;;;309    }
-;;;310    static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
+;;;308    	}		
+;;;309    
+;;;310    }
+;;;311    static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
                           ENDP
 
 
