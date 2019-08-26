@@ -38871,6 +38871,17 @@ L 1 "..\..\User\app\inc\bsp_OffSiteSW.h" 1
 N#ifndef __BSP_OFFSITESW_H
 N#define __BSP_OFFSITESW_H
 N
+Ntypedef enum
+N{
+N	OffSiteNone = 0 ,
+N	OffSiteLeft,
+N	OffSiteRight,
+N	OffSiteBoth
+N}OffSiteState;
+N
+N
+Nvoid bsp_InitOffSiteSW(void);
+NOffSiteState bsp_OffSiteGetState(void);
 N
 N#endif
 N
@@ -38924,6 +38935,8 @@ N	bsp_InitPid(MotorRight);
 N	
 N	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 N	bsp_InitChargingPile();  /*初始化输入捕获*/
+N	
+N	bsp_InitOffSiteSW();     /*初始化离地开关*/
 N	
 N	/* 初始化IO拓展芯片 */	
 N	do{

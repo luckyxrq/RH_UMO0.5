@@ -57,6 +57,8 @@ void bsp_Init(void)
 	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 	bsp_InitChargingPile();  /*初始化输入捕获*/
 	
+	bsp_InitOffSiteSW();     /*初始化离地开关*/
+	
 	/* 初始化IO拓展芯片 */	
 	do{
 		ret = bsp_InitAW9523B();		

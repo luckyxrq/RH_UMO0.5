@@ -38853,6 +38853,17 @@ L 1 "..\..\User\app\inc\bsp_OffSiteSW.h" 1
 N#ifndef __BSP_OFFSITESW_H
 N#define __BSP_OFFSITESW_H
 N
+Ntypedef enum
+N{
+N	OffSiteNone = 0 ,
+N	OffSiteLeft,
+N	OffSiteRight,
+N	OffSiteBoth
+N}OffSiteState;
+N
+N
+Nvoid bsp_InitOffSiteSW(void);
+NOffSiteState bsp_OffSiteGetState(void);
 N
 N#endif
 N
@@ -38867,4 +38878,90 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_OffSiteSW.c" 2
 N
+N#define RCC_ALL_OFFSITE_SW 	(RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOE)
+N
+N#define GPIO_PORT_OFFSITE_SW_L  GPIOC
+N#define GPIO_PIN_OFFSITE_SW_L   GPIO_Pin_9
+N
+N
+N#define GPIO_PORT_OFFSITE_SW_R  GPIOE
+N#define GPIO_PIN_OFFSITE_SW_R   GPIO_Pin_12
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_InitOffSiteSW
+N*	功能说明: 初始化离地开关使能引脚
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_InitOffSiteSW(void)
+N{
+N
+N	GPIO_InitTypeDef GPIO_InitStructure;
+N
+N	/* 打开GPIO时钟 */
+N	RCC_APB2PeriphClockCmd(RCC_ALL_OFFSITE_SW, ENABLE);
+X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000010) | ((uint32_t)0x00000040)), ENABLE);
+N
+N	/*
+N		初始状态先关闭
+N	*/
+N	bsp_SwOff(SW_5V_EN_CTRL);
+N	bsp_SwOff(SW_IR_POWER);
+N
+N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+N	
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 浮空输入 */
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_OFFSITE_SW_L;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0200);
+N	GPIO_Init(GPIO_PORT_OFFSITE_SW_L, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)), &GPIO_InitStructure);
+N	
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 浮空输入 */
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_OFFSITE_SW_R;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x1000);
+N	GPIO_Init(GPIO_PORT_OFFSITE_SW_R, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
+N
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_OffSiteGetState
+N*	功能说明: 返回当前离地开关状态
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+NOffSiteState bsp_OffSiteGetState(void)
+N{
+N	OffSiteState ret ;
+N	
+N	if(!GPIO_ReadInputDataBit(GPIO_PORT_OFFSITE_SW_L,GPIO_PIN_OFFSITE_SW_L)&&
+X	if(!GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)),((uint16_t)0x0200))&&
+N		!GPIO_ReadInputDataBit(GPIO_PORT_OFFSITE_SW_R,GPIO_PIN_OFFSITE_SW_R))
+X		!GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)),((uint16_t)0x1000)))
+N	{
+N		ret = OffSiteBoth;
+N	}
+N	else if(!GPIO_ReadInputDataBit(GPIO_PORT_OFFSITE_SW_L,GPIO_PIN_OFFSITE_SW_L))
+X	else if(!GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)),((uint16_t)0x0200)))
+N	{
+N		ret = OffSiteLeft;
+N	}
+N	else if(!GPIO_ReadInputDataBit(GPIO_PORT_OFFSITE_SW_R,GPIO_PIN_OFFSITE_SW_R))
+X	else if(!GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)),((uint16_t)0x1000)))
+N	{
+N		ret = OffSiteRight;
+N	}
+N	else
+N	{
+N		ret = OffSiteNone;
+N	}
+N	
+N	return ret;
+N}
 N

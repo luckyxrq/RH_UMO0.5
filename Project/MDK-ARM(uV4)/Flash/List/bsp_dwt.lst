@@ -38870,6 +38870,17 @@ L 1 "..\..\User\app\inc\bsp_OffSiteSW.h" 1
 N#ifndef __BSP_OFFSITESW_H
 N#define __BSP_OFFSITESW_H
 N
+Ntypedef enum
+N{
+N	OffSiteNone = 0 ,
+N	OffSiteLeft,
+N	OffSiteRight,
+N	OffSiteBoth
+N}OffSiteState;
+N
+N
+Nvoid bsp_InitOffSiteSW(void);
+NOffSiteState bsp_OffSiteGetState(void);
 N
 N#endif
 N
