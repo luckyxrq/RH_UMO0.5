@@ -2,6 +2,149 @@
 ; commandline ArmCC [--list --split_sections --debug -c --asm --interleave -o.\flash\obj\bsp_cliffsw.o --asm_dir=.\Flash\List\ --list_dir=.\Flash\List\ --depend=.\flash\obj\bsp_cliffsw.d --cpu=Cortex-M3 --apcs=interwork -O0 --diag_suppress=9931,870 -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -IF:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE -ID:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include -ID:\soft\MDK5\ARM\CMSIS\Include -D__MICROLIB -D__UVISION_VERSION=514 -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD --omf_browse=.\flash\obj\bsp_cliffsw.crf ..\..\User\app\src\bsp_CliffSW.c]
                           THUMB
 
+                          AREA ||i.bsp_GetCliffVoltage||, CODE, READONLY, ALIGN=2
+
+                  bsp_GetCliffVoltage PROC
+;;;157    */
+;;;158    float bsp_GetCliffVoltage(CliffSWSN sn)
+000000  e92d41f0          PUSH     {r4-r8,lr}
+;;;159    {
+000004  4604              MOV      r4,r0
+;;;160    	float ret = 0 ;
+000006  2500              MOVS     r5,#0
+;;;161    	
+;;;162    	switch(sn)
+000008  b124              CBZ      r4,|L1.20|
+00000a  2c01              CMP      r4,#1
+00000c  d024              BEQ      |L1.88|
+00000e  2c02              CMP      r4,#2
+000010  d166              BNE      |L1.224|
+000012  e043              B        |L1.156|
+                  |L1.20|
+;;;163    	{
+;;;164    		case Cliff1:
+;;;165    		{
+;;;166    			ADC_RegularChannelConfig(ADC2, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
+000014  2307              MOVS     r3,#7
+000016  2201              MOVS     r2,#1
+000018  4619              MOV      r1,r3
+00001a  4833              LDR      r0,|L1.232|
+00001c  f7fffffe          BL       ADC_RegularChannelConfig
+;;;167    			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+000020  2101              MOVS     r1,#1
+000022  4831              LDR      r0,|L1.232|
+000024  f7fffffe          BL       ADC_SoftwareStartConvCmd
+;;;168    			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+000028  bf00              NOP      
+                  |L1.42|
+00002a  2102              MOVS     r1,#2
+00002c  482e              LDR      r0,|L1.232|
+00002e  f7fffffe          BL       ADC_GetFlagStatus
+000032  2800              CMP      r0,#0
+000034  d0f9              BEQ      |L1.42|
+;;;169    			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+000036  482c              LDR      r0,|L1.232|
+000038  f7fffffe          BL       ADC_GetConversionValue
+00003c  4680              MOV      r8,r0
+00003e  f7fffffe          BL       __aeabi_ui2f
+000042  4607              MOV      r7,r0
+000044  4929              LDR      r1,|L1.236|
+000046  f7fffffe          BL       __aeabi_fmul
+00004a  4606              MOV      r6,r0
+00004c  f04f418b          MOV      r1,#0x45800000
+000050  f7fffffe          BL       __aeabi_fdiv
+000054  4605              MOV      r5,r0
+;;;170    		}break;
+000056  e043              B        |L1.224|
+                  |L1.88|
+;;;171    		
+;;;172    		case Cliff2:
+;;;173    		{
+;;;174    			ADC_RegularChannelConfig(ADC2, ADC_Channel_6, 1, ADC_SampleTime_239Cycles5 );
+000058  2307              MOVS     r3,#7
+00005a  2201              MOVS     r2,#1
+00005c  2106              MOVS     r1,#6
+00005e  4822              LDR      r0,|L1.232|
+000060  f7fffffe          BL       ADC_RegularChannelConfig
+;;;175    			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+000064  2101              MOVS     r1,#1
+000066  4820              LDR      r0,|L1.232|
+000068  f7fffffe          BL       ADC_SoftwareStartConvCmd
+;;;176    			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+00006c  bf00              NOP      
+                  |L1.110|
+00006e  2102              MOVS     r1,#2
+000070  481d              LDR      r0,|L1.232|
+000072  f7fffffe          BL       ADC_GetFlagStatus
+000076  2800              CMP      r0,#0
+000078  d0f9              BEQ      |L1.110|
+;;;177    			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+00007a  481b              LDR      r0,|L1.232|
+00007c  f7fffffe          BL       ADC_GetConversionValue
+000080  4680              MOV      r8,r0
+000082  f7fffffe          BL       __aeabi_ui2f
+000086  4607              MOV      r7,r0
+000088  4918              LDR      r1,|L1.236|
+00008a  f7fffffe          BL       __aeabi_fmul
+00008e  4606              MOV      r6,r0
+000090  f04f418b          MOV      r1,#0x45800000
+000094  f7fffffe          BL       __aeabi_fdiv
+000098  4605              MOV      r5,r0
+;;;178    		}break;
+00009a  e021              B        |L1.224|
+                  |L1.156|
+;;;179    		
+;;;180    		case Cliff3:
+;;;181    		{
+;;;182    			ADC_RegularChannelConfig(ADC3, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
+00009c  2307              MOVS     r3,#7
+00009e  2201              MOVS     r2,#1
+0000a0  4619              MOV      r1,r3
+0000a2  4813              LDR      r0,|L1.240|
+0000a4  f7fffffe          BL       ADC_RegularChannelConfig
+;;;183    			ADC_SoftwareStartConvCmd(ADC3, ENABLE);	
+0000a8  2101              MOVS     r1,#1
+0000aa  4811              LDR      r0,|L1.240|
+0000ac  f7fffffe          BL       ADC_SoftwareStartConvCmd
+;;;184    			while(!ADC_GetFlagStatus(ADC3, ADC_FLAG_EOC ));
+0000b0  bf00              NOP      
+                  |L1.178|
+0000b2  2102              MOVS     r1,#2
+0000b4  480e              LDR      r0,|L1.240|
+0000b6  f7fffffe          BL       ADC_GetFlagStatus
+0000ba  2800              CMP      r0,#0
+0000bc  d0f9              BEQ      |L1.178|
+;;;185    			ret = ADC_GetConversionValue(ADC3) * 3.3F / 4096;
+0000be  480c              LDR      r0,|L1.240|
+0000c0  f7fffffe          BL       ADC_GetConversionValue
+0000c4  4680              MOV      r8,r0
+0000c6  f7fffffe          BL       __aeabi_ui2f
+0000ca  4607              MOV      r7,r0
+0000cc  4907              LDR      r1,|L1.236|
+0000ce  f7fffffe          BL       __aeabi_fmul
+0000d2  4606              MOV      r6,r0
+0000d4  f04f418b          MOV      r1,#0x45800000
+0000d8  f7fffffe          BL       __aeabi_fdiv
+0000dc  4605              MOV      r5,r0
+;;;186    		}break;
+0000de  bf00              NOP      
+                  |L1.224|
+0000e0  bf00              NOP                            ;170
+;;;187    	}
+;;;188    	
+;;;189    	return ret;
+0000e2  4628              MOV      r0,r5
+;;;190    }
+0000e4  e8bd81f0          POP      {r4-r8,pc}
+                          ENDP
+
+                  |L1.232|
+                          DCD      0x40012800
+                  |L1.236|
+                          DCD      0x40533333
+                  |L1.240|
+                          DCD      0x40013c00
+
                           AREA ||i.bsp_InitCliffSW||, CODE, READONLY, ALIGN=2
 
                   bsp_InitCliffSW PROC
@@ -34,12 +177,12 @@
 00001e  f88d0007          STRB     r0,[sp,#7]
 ;;;29     		GPIO_Init(GPIOA, &GPIO_InitStructure);	
 000022  a901              ADD      r1,sp,#4
-000024  485f              LDR      r0,|L1.420|
+000024  485f              LDR      r0,|L2.420|
 000026  f7fffffe          BL       GPIO_Init
 ;;;30     
 ;;;31     		/*复位ADC*/
 ;;;32     		ADC_DeInit(ADC2);
-00002a  485f              LDR      r0,|L1.424|
+00002a  485f              LDR      r0,|L2.424|
 00002c  f7fffffe          BL       ADC_DeInit
 ;;;33     
 ;;;34     		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
@@ -60,49 +203,49 @@
 000048  f88d0018          STRB     r0,[sp,#0x18]
 ;;;40     		ADC_Init(ADC2, &ADC_InitStructure);  
 00004c  a902              ADD      r1,sp,#8
-00004e  4856              LDR      r0,|L1.424|
+00004e  4856              LDR      r0,|L2.424|
 000050  f7fffffe          BL       ADC_Init
 ;;;41     
 ;;;42     		/*使能指定的ADC*/
 ;;;43     		ADC_Cmd(ADC2, ENABLE);
 000054  2101              MOVS     r1,#1
-000056  4854              LDR      r0,|L1.424|
+000056  4854              LDR      r0,|L2.424|
 000058  f7fffffe          BL       ADC_Cmd
 ;;;44     		
 ;;;45     		/*使能复位校准 */
 ;;;46     		ADC_ResetCalibration(ADC2);
-00005c  4852              LDR      r0,|L1.424|
+00005c  4852              LDR      r0,|L2.424|
 00005e  f7fffffe          BL       ADC_ResetCalibration
 ;;;47     		 
 ;;;48     		/*等待复位校准结束*/
 ;;;49     		while(ADC_GetResetCalibrationStatus(ADC2));
 000062  bf00              NOP      
-                  |L1.100|
-000064  4850              LDR      r0,|L1.424|
+                  |L2.100|
+000064  4850              LDR      r0,|L2.424|
 000066  f7fffffe          BL       ADC_GetResetCalibrationStatus
 00006a  2800              CMP      r0,#0
-00006c  d1fa              BNE      |L1.100|
+00006c  d1fa              BNE      |L2.100|
 ;;;50     		
 ;;;51     		/*开启AD校准*/
 ;;;52     		ADC_StartCalibration(ADC2);
-00006e  484e              LDR      r0,|L1.424|
+00006e  484e              LDR      r0,|L2.424|
 000070  f7fffffe          BL       ADC_StartCalibration
 ;;;53     	 
 ;;;54     		/*等待校准结束*/
 ;;;55     		while(ADC_GetCalibrationStatus(ADC2));
 000074  bf00              NOP      
-                  |L1.118|
-000076  484c              LDR      r0,|L1.424|
+                  |L2.118|
+000076  484c              LDR      r0,|L2.424|
 000078  f7fffffe          BL       ADC_GetCalibrationStatus
 00007c  2800              CMP      r0,#0
-00007e  d1fa              BNE      |L1.118|
+00007e  d1fa              BNE      |L2.118|
 ;;;56     		
 ;;;57     		/*ADC,ADC通道,采样时间为239.5周期*/
 ;;;58     		ADC_RegularChannelConfig(ADC2, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
 000080  2307              MOVS     r3,#7
 000082  2201              MOVS     r2,#1
 000084  4619              MOV      r1,r3
-000086  4848              LDR      r0,|L1.424|
+000086  4848              LDR      r0,|L2.424|
 000088  f7fffffe          BL       ADC_RegularChannelConfig
 ;;;59     	}
 ;;;60     	
@@ -128,12 +271,12 @@
 0000a6  f88d0007          STRB     r0,[sp,#7]
 ;;;72     		GPIO_Init(GPIOA, &GPIO_InitStructure);	
 0000aa  a901              ADD      r1,sp,#4
-0000ac  483d              LDR      r0,|L1.420|
+0000ac  483d              LDR      r0,|L2.420|
 0000ae  f7fffffe          BL       GPIO_Init
 ;;;73     
 ;;;74     		/*复位ADC*/
 ;;;75     		ADC_DeInit(ADC2);
-0000b2  483d              LDR      r0,|L1.424|
+0000b2  483d              LDR      r0,|L2.424|
 0000b4  f7fffffe          BL       ADC_DeInit
 ;;;76     
 ;;;77     		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
@@ -154,49 +297,49 @@
 0000d0  f88d0018          STRB     r0,[sp,#0x18]
 ;;;83     		ADC_Init(ADC2, &ADC_InitStructure);  
 0000d4  a902              ADD      r1,sp,#8
-0000d6  4834              LDR      r0,|L1.424|
+0000d6  4834              LDR      r0,|L2.424|
 0000d8  f7fffffe          BL       ADC_Init
 ;;;84     
 ;;;85     		/*使能指定的ADC*/
 ;;;86     		ADC_Cmd(ADC2, ENABLE);
 0000dc  2101              MOVS     r1,#1
-0000de  4832              LDR      r0,|L1.424|
+0000de  4832              LDR      r0,|L2.424|
 0000e0  f7fffffe          BL       ADC_Cmd
 ;;;87     		
 ;;;88     		/*使能复位校准 */
 ;;;89     		ADC_ResetCalibration(ADC2);
-0000e4  4830              LDR      r0,|L1.424|
+0000e4  4830              LDR      r0,|L2.424|
 0000e6  f7fffffe          BL       ADC_ResetCalibration
 ;;;90     		 
 ;;;91     		/*等待复位校准结束*/
 ;;;92     		while(ADC_GetResetCalibrationStatus(ADC2));
 0000ea  bf00              NOP      
-                  |L1.236|
-0000ec  482e              LDR      r0,|L1.424|
+                  |L2.236|
+0000ec  482e              LDR      r0,|L2.424|
 0000ee  f7fffffe          BL       ADC_GetResetCalibrationStatus
 0000f2  2800              CMP      r0,#0
-0000f4  d1fa              BNE      |L1.236|
+0000f4  d1fa              BNE      |L2.236|
 ;;;93     		
 ;;;94     		/*开启AD校准*/
 ;;;95     		ADC_StartCalibration(ADC2);
-0000f6  482c              LDR      r0,|L1.424|
+0000f6  482c              LDR      r0,|L2.424|
 0000f8  f7fffffe          BL       ADC_StartCalibration
 ;;;96     	 
 ;;;97     		/*等待校准结束*/
 ;;;98     		while(ADC_GetCalibrationStatus(ADC2));
 0000fc  bf00              NOP      
-                  |L1.254|
-0000fe  482a              LDR      r0,|L1.424|
+                  |L2.254|
+0000fe  482a              LDR      r0,|L2.424|
 000100  f7fffffe          BL       ADC_GetCalibrationStatus
 000104  2800              CMP      r0,#0
-000106  d1fa              BNE      |L1.254|
+000106  d1fa              BNE      |L2.254|
 ;;;99     		
 ;;;100    		/*ADC,ADC通道,采样时间为239.5周期*/
 ;;;101    		ADC_RegularChannelConfig(ADC2, ADC_Channel_6, 1, ADC_SampleTime_239Cycles5 );
 000108  2307              MOVS     r3,#7
 00010a  2201              MOVS     r2,#1
 00010c  2106              MOVS     r1,#6
-00010e  4826              LDR      r0,|L1.424|
+00010e  4826              LDR      r0,|L2.424|
 000110  f7fffffe          BL       ADC_RegularChannelConfig
 ;;;102    	}
 ;;;103    	
@@ -221,12 +364,12 @@
 000130  f88d0007          STRB     r0,[sp,#7]
 ;;;114    		GPIO_Init(GPIOF, &GPIO_InitStructure);	
 000134  a901              ADD      r1,sp,#4
-000136  481d              LDR      r0,|L1.428|
+000136  481d              LDR      r0,|L2.428|
 000138  f7fffffe          BL       GPIO_Init
 ;;;115    
 ;;;116    		/*复位ADC*/
 ;;;117    		ADC_DeInit(ADC3);
-00013c  481c              LDR      r0,|L1.432|
+00013c  481c              LDR      r0,|L2.432|
 00013e  f7fffffe          BL       ADC_DeInit
 ;;;118    
 ;;;119    		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
@@ -247,49 +390,49 @@
 00015a  f88d0018          STRB     r0,[sp,#0x18]
 ;;;125    		ADC_Init(ADC3, &ADC_InitStructure);  
 00015e  a902              ADD      r1,sp,#8
-000160  4813              LDR      r0,|L1.432|
+000160  4813              LDR      r0,|L2.432|
 000162  f7fffffe          BL       ADC_Init
 ;;;126    
 ;;;127    		/*使能指定的ADC*/
 ;;;128    		ADC_Cmd(ADC3, ENABLE);
 000166  2101              MOVS     r1,#1
-000168  4811              LDR      r0,|L1.432|
+000168  4811              LDR      r0,|L2.432|
 00016a  f7fffffe          BL       ADC_Cmd
 ;;;129    		
 ;;;130    		/*使能复位校准 */
 ;;;131    		ADC_ResetCalibration(ADC3);
-00016e  4810              LDR      r0,|L1.432|
+00016e  4810              LDR      r0,|L2.432|
 000170  f7fffffe          BL       ADC_ResetCalibration
 ;;;132    		 
 ;;;133    		/*等待复位校准结束*/
 ;;;134    		while(ADC_GetResetCalibrationStatus(ADC3));
 000174  bf00              NOP      
-                  |L1.374|
-000176  480e              LDR      r0,|L1.432|
+                  |L2.374|
+000176  480e              LDR      r0,|L2.432|
 000178  f7fffffe          BL       ADC_GetResetCalibrationStatus
 00017c  2800              CMP      r0,#0
-00017e  d1fa              BNE      |L1.374|
+00017e  d1fa              BNE      |L2.374|
 ;;;135    		
 ;;;136    		/*开启AD校准*/
 ;;;137    		ADC_StartCalibration(ADC3);
-000180  480b              LDR      r0,|L1.432|
+000180  480b              LDR      r0,|L2.432|
 000182  f7fffffe          BL       ADC_StartCalibration
 ;;;138    	 
 ;;;139    		/*等待校准结束*/
 ;;;140    		while(ADC_GetCalibrationStatus(ADC3));
 000186  bf00              NOP      
-                  |L1.392|
-000188  4809              LDR      r0,|L1.432|
+                  |L2.392|
+000188  4809              LDR      r0,|L2.432|
 00018a  f7fffffe          BL       ADC_GetCalibrationStatus
 00018e  2800              CMP      r0,#0
-000190  d1fa              BNE      |L1.392|
+000190  d1fa              BNE      |L2.392|
 ;;;141    		
 ;;;142    		/*ADC,ADC通道,采样时间为239.5周期*/
 ;;;143    		ADC_RegularChannelConfig(ADC3, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
 000192  2307              MOVS     r3,#7
 000194  2201              MOVS     r2,#1
 000196  4619              MOV      r1,r3
-000198  4805              LDR      r0,|L1.432|
+000198  4805              LDR      r0,|L2.432|
 00019a  f7fffffe          BL       ADC_RegularChannelConfig
 ;;;144    	}	
 ;;;145    
@@ -300,13 +443,13 @@
                           ENDP
 
 0001a2  0000              DCW      0x0000
-                  |L1.420|
+                  |L2.420|
                           DCD      0x40010800
-                  |L1.424|
+                  |L2.424|
                           DCD      0x40012800
-                  |L1.428|
+                  |L2.428|
                           DCD      0x40011c00
-                  |L1.432|
+                  |L2.432|
                           DCD      0x40013c00
 
 ;*** Start embedded assembler ***

@@ -145,3 +145,46 @@ void bsp_InitCliffSW(void)
 
 }
 
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetFeedbackVoltage
+*	功能说明: 返回反馈的电压
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+float bsp_GetCliffVoltage(CliffSWSN sn)
+{
+	float ret = 0 ;
+	
+	switch(sn)
+	{
+		case Cliff1:
+		{
+			ADC_RegularChannelConfig(ADC2, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
+			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+		}break;
+		
+		case Cliff2:
+		{
+			ADC_RegularChannelConfig(ADC2, ADC_Channel_6, 1, ADC_SampleTime_239Cycles5 );
+			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+		}break;
+		
+		case Cliff3:
+		{
+			ADC_RegularChannelConfig(ADC3, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
+			ADC_SoftwareStartConvCmd(ADC3, ENABLE);	
+			while(!ADC_GetFlagStatus(ADC3, ADC_FLAG_EOC ));
+			ret = ADC_GetConversionValue(ADC3) * 3.3F / 4096;
+		}break;
+	}
+	
+	return ret;
+}
