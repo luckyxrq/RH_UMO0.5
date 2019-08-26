@@ -188,6 +188,7 @@
 #include "bsp_stflash.h"
 #include "bsp_param.h"
 #include "bsp_OffSiteSW.h"
+#include "bsp_CurrentFeedback.h"
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
 void bsp_Idle(void);

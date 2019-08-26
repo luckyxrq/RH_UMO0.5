@@ -1,0 +1,7 @@
+#ifndef __BSP_CURRENTFEEDBACK_H
+#define __BSP_CURRENTFEEDBACK_H
+
+
+#endif
+
+

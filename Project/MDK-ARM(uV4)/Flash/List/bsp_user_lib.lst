@@ -38883,6 +38883,16 @@ N
 N#endif
 N
 L 191 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_CurrentFeedback.h"
+L 1 "..\..\User\app\inc\bsp_CurrentFeedback.h" 1
+N#ifndef __BSP_CURRENTFEEDBACK_H
+N#define __BSP_CURRENTFEEDBACK_H
+N
+N
+N#endif
+N
+N
+L 192 "..\..\User\bsp\bsp.h" 2
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);

@@ -72,3 +72,4 @@
 .\flash\obj\bsp_dwt.o: ..\..\User\app\inc\bsp_stflash.h
 .\flash\obj\bsp_dwt.o: ..\..\User\app\inc\bsp_param.h
 .\flash\obj\bsp_dwt.o: ..\..\User\app\inc\bsp_OffSiteSW.h
+.\flash\obj\bsp_dwt.o: ..\..\User\app\inc\bsp_CurrentFeedback.h
