@@ -14548,6 +14548,11 @@ N
 N#define STM32_V4
 N//#define STM32_X2
 N
+N/*硬件平台版本*/
+N#define OLD_BOARD      1 /*旧主板*/
+N#define NEW_BOARD      2 /*新主板*/
+N#define BOARD_VER      NEW_BOARD
+N
 N/* 检查是否定义了开发板型号 */
 N#if !defined (STM32_V4) && !defined (STM32_X2)
 X#if !1L && !0L
@@ -44466,7 +44471,7 @@ N  * @}
 N  */
 N
 N/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-L 56 "..\..\User\bsp\bsp.h" 2
+L 61 "..\..\User\bsp\bsp.h" 2
 N#include <stdio.h>
 N#include <string.h>
 L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h" 1
@@ -45018,7 +45023,7 @@ N#endif
 N
 N/* end of string.h */
 N
-L 58 "..\..\User\bsp\bsp.h" 2
+L 63 "..\..\User\bsp\bsp.h" 2
 N#include <stdlib.h>
 N#include <stdbool.h>
 L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
@@ -45049,7 +45054,7 @@ N  #endif
 N
 N#endif /* __bool_true_false_are_defined */
 N
-L 60 "..\..\User\bsp\bsp.h" 2
+L 65 "..\..\User\bsp\bsp.h" 2
 N
 N#ifndef TRUE
 N	#define TRUE  1
@@ -45248,7 +45253,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 108 "..\..\User\bsp\bsp.h" 2
+L 113 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_led.h"
 L 1 "..\..\User\bsp\inc\bsp_led.h" 1
 N/*
@@ -45277,7 +45282,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 109 "..\..\User\bsp\bsp.h" 2
+L 114 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_timer.h"
 L 1 "..\..\User\bsp\inc\bsp_timer.h" 1
 N/*
@@ -45335,7 +45340,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 110 "..\..\User\bsp\bsp.h" 2
+L 115 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_key.h"
 L 1 "..\..\User\bsp\inc\bsp_key.h" 1
 N/*
@@ -45511,7 +45516,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 111 "..\..\User\bsp\bsp.h" 2
+L 116 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_dwt.h"
 L 1 "..\..\User\bsp\inc\bsp_dwt.h" 1
 N/*
@@ -45540,7 +45545,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 112 "..\..\User\bsp\bsp.h" 2
+L 117 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_msg.h"
 N
@@ -45575,7 +45580,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 118 "..\..\User\bsp\bsp.h" 2
+L 123 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_cpu_flash.h"
 N//#include "bsp_sdio_sd.h"
@@ -45611,7 +45616,7 @@ Nvoid i2c_NAck(void);
 Nuint8_t i2c_CheckDevice(uint8_t _Address);
 N
 N#endif
-L 122 "..\..\User\bsp\bsp.h" 2
+L 127 "..\..\User\bsp\bsp.h" 2
 N//#include "bsp_eeprom_24xx.h"
 N//#include "bsp_si4730.h"
 N//#include "bsp_hmc5883l.h"
@@ -45693,7 +45698,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 164 "..\..\User\bsp\bsp.h" 2
+L 169 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_dac8501.h"
 N//#include "bsp_dac8562.h"
@@ -45722,7 +45727,7 @@ N
 N
 N#endif
 N
-L 173 "..\..\User\bsp\bsp.h" 2
+L 178 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
 L 1 "..\..\User\app\inc\bsp_Collision.h" 1
 N#ifndef __BSP_COLLISION_H
@@ -45741,7 +45746,7 @@ NCollision bsp_CollisionScan(void); /*返回碰撞结果*/
 Nvoid bsp_CollisionDemo(void);      /*碰撞测试例子*/
 N
 N#endif
-L 174 "..\..\User\bsp\bsp.h" 2
+L 179 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Angle.h"
 L 1 "..\..\User\app\inc\bsp_Angle.h" 1
 N#ifndef __BSP_ANGLE_H
@@ -45785,7 +45790,7 @@ N
 N
 N#endif
 N
-L 175 "..\..\User\bsp\bsp.h" 2
+L 180 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Action.h"
 L 1 "..\..\User\app\inc\bsp_Action.h" 1
 N#ifndef __BSP_ACTION_H
@@ -45795,7 +45800,7 @@ N
 N	
 N#endif
 N
-L 176 "..\..\User\bsp\bsp.h" 2
+L 181 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_aw9523b.h"
 L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
 N#ifndef __BSP_AW9523B_H
@@ -45868,7 +45873,7 @@ Nfloat bsp_GetInfraredVoltageRight(void);
 Nfloat bsp_GetInfraRedAdcVoltage(IR_SN sn);
 N#endif
 N
-L 177 "..\..\User\bsp\bsp.h" 2
+L 182 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_DetectAct.h"
 L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
 N#ifndef __BSP_DETECTACT_H
@@ -45892,7 +45897,7 @@ Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
 N
 N#endif
 N
-L 178 "..\..\User\bsp\bsp.h" 2
+L 183 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_PulseMark.h"
 L 1 "..\..\User\app\inc\bsp_PulseMark.h" 1
 N#ifndef __BSP_PULSEMARK_H
@@ -45902,7 +45907,7 @@ Nvoid bsp_InitPinPulse(void);
 Nvoid bsp_SendPulse(void);
 N
 N#endif
-L 179 "..\..\User\bsp\bsp.h" 2
+L 184 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_IWDG.h"
 L 1 "..\..\User\bsp\inc\bsp_IWDG.h" 1
 N/*
@@ -45929,7 +45934,7 @@ Nvoid bsp_InitIWDG(void);
 Nvoid bsp_IWDG_Feed(void);
 N
 N#endif
-L 180 "..\..\User\bsp\bsp.h" 2
+L 185 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Edgewise.h"
 L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
 N#ifndef __BSP_EDGEWISE_H
@@ -45940,7 +45945,7 @@ N
 N
 N#endif
 N
-L 181 "..\..\User\bsp\bsp.h" 2
+L 186 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Remote.h"
 L 1 "..\..\User\app\inc\bsp_Remote.h" 1
 N#ifndef __BSP_REMOTE_H
@@ -45977,7 +45982,7 @@ Nbool bsp_GetChargeFeedback(void);
 X_Bool bsp_GetChargeFeedback(void);
 N
 N#endif
-L 182 "..\..\User\bsp\bsp.h" 2
+L 187 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_communication.h"
 L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
@@ -46063,7 +46068,7 @@ Nvoid bsp_SendReportFrame(void); /*发送帧*/
 Nvoid bsp_ComAnalysis(void);     /*接收帧*/
 N
 N#endif
-L 183 "..\..\User\bsp\bsp.h" 2
+L 188 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Encoder.h"
 L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
 N#ifndef __ENCODER_H
@@ -46090,7 +46095,7 @@ Nuint32_t bsp_EncoderGetTotalMileage(EncoderSN sn);
 Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
 N
 N#endif
-L 184 "..\..\User\bsp\bsp.h" 2
+L 189 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_motor.h"
 L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
@@ -46141,7 +46146,7 @@ Nvoid bsp_StopVacuum(void);
 N
 N#endif
 N
-L 185 "..\..\User\bsp\bsp.h" 2
+L 190 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Control.h"
 L 1 "..\..\User\app\inc\bsp_Control.h" 1
 N#ifndef __BSP_CONTROL_H
@@ -46159,7 +46164,7 @@ Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
 N
 N#endif
 N
-L 186 "..\..\User\bsp\bsp.h" 2
+L 191 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Scope.h"
 L 1 "..\..\User\app\inc\bsp_Scope.h" 1
 N#ifndef __BSP_SCOPE_H
@@ -46171,7 +46176,7 @@ N
 N
 N#endif
 N
-L 187 "..\..\User\bsp\bsp.h" 2
+L 192 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Position.h"
 L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
@@ -46216,7 +46221,7 @@ Nint32_t bsp_GetCurrentPosY(void);
 N
 N#endif
 N
-L 188 "..\..\User\bsp\bsp.h" 2
+L 193 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_stflash.h"
 L 1 "..\..\User\app\inc\bsp_stflash.h" 1
 N#ifndef __BSP_STFLASH_H
@@ -46230,7 +46235,7 @@ Nvoid bsp_StFlashTest(uint16_t pageIndex);
 N
 N#endif
 N
-L 189 "..\..\User\bsp\bsp.h" 2
+L 194 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_param.h"
 L 1 "..\..\User\app\inc\bsp_param.h" 1
 N#ifndef __BSP_PARAM_H
@@ -46242,7 +46247,7 @@ Nvoid bsp_ParamUpdateTest(void);
 N
 N#endif
 N
-L 190 "..\..\User\bsp\bsp.h" 2
+L 195 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_OffSiteSW.h"
 L 1 "..\..\User\app\inc\bsp_OffSiteSW.h" 1
 N#ifndef __BSP_OFFSITESW_H
@@ -46262,7 +46267,7 @@ NOffSiteState bsp_OffSiteGetState(void);
 N
 N#endif
 N
-L 191 "..\..\User\bsp\bsp.h" 2
+L 196 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_CurrentFeedback.h"
 L 1 "..\..\User\app\inc\bsp_CurrentFeedback.h" 1
 N#ifndef __BSP_CURRENTFEEDBACK_H
@@ -46287,7 +46292,7 @@ N
 N#endif
 N
 N
-L 192 "..\..\User\bsp\bsp.h" 2
+L 197 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_CliffSW.h"
 L 1 "..\..\User\app\inc\bsp_CliffSW.h" 1
 N#ifndef __BSP_CLIFF_H
@@ -46307,7 +46312,7 @@ N
 N#endif
 N
 N
-L 193 "..\..\User\bsp\bsp.h" 2
+L 198 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_DustBox.h"
 L 1 "..\..\User\app\inc\bsp_DustBox.h" 1
 N#ifndef __DUSTBOX_H
@@ -46324,7 +46329,7 @@ NDustBoxState bsp_DustBoxGetState(void);
 N
 N#endif
 N
-L 194 "..\..\User\bsp\bsp.h" 2
+L 199 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_speaker.h"
 L 1 "..\..\User\app\inc\bsp_speaker.h" 1
 N#ifndef __BSP_SPEAKER_H
@@ -46334,7 +46339,7 @@ N#include <stdbool.h>
 N
 Ntypedef enum
 N{
-N	Song1 = 0,
+N	Song1 = 4, /*前面1 2 3没有声音*/
 N	Song2,
 N	Song3,
 N	Song4,
@@ -46373,7 +46378,7 @@ X_Bool bsp_SpeakerIsBusy(void);
 N
 N#endif
 N
-L 195 "..\..\User\bsp\bsp.h" 2
+L 200 "..\..\User\bsp\bsp.h" 2
 N
 N
 N/* 提供给其他C文件调用的函数 */
@@ -46487,6 +46492,7 @@ N*/
 Nstatic void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 N{
 N	uint8_t ucKeyCode;	
+N	uint32_t count = 0 ;
 N	bsp_AngleRst();
 N	
 N	while(1)
@@ -46530,6 +46536,21 @@ N				}break;
 N			}
 N		}
 N
+N		if(count++ % 20 == 0)
+N		{
+N			if(bsp_SpeakerIsBusy())
+N			{
+N				DEBUG("busy\r\n");
+X				printf ("busy\r\n");
+N			}
+N			else
+N			{
+N				DEBUG("play\r\n");
+X				printf ("play\r\n");
+N				bsp_SperkerPlay(Song3);
+N			}
+N		}
+N		
 N		vTaskDelay(50);	
 N	}
 N}

@@ -17,6 +17,11 @@
 #define STM32_V4
 //#define STM32_X2
 
+/*硬件平台版本*/
+#define OLD_BOARD      1 /*旧主板*/
+#define NEW_BOARD      2 /*新主板*/
+#define BOARD_VER      NEW_BOARD
+
 /* 检查是否定义了开发板型号 */
 #if !defined (STM32_V4) && !defined (STM32_X2)
 	#error "Please define the board model : STM32_X2 or STM32_V4"

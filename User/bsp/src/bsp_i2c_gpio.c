@@ -32,7 +32,7 @@
 
 #define RCC_I2C_PORT 	RCC_APB2Periph_GPIOA		/* GPIO端口时钟 */
 
-#if 0
+#if (BOARD_VER == OLD_BOARD)
 #define PORT_I2C_SCL	GPIOA			/* GPIO端口 */
 #define PIN_I2C_SCL		GPIO_Pin_4		/* GPIO引脚 */
 

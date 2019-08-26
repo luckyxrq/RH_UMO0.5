@@ -5,7 +5,7 @@
 
 typedef enum
 {
-	Song1 = 0,
+	Song1 = 4, /*前面1 2 3没有声音*/
 	Song2,
 	Song3,
 	Song4,

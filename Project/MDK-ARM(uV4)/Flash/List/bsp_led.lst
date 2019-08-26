@@ -37,6 +37,11 @@ N
 N#define STM32_V4
 N//#define STM32_X2
 N
+N/*Ó²¼þÆ½Ì¨°æ±¾*/
+N#define OLD_BOARD      1 /*¾ÉÖ÷°å*/
+N#define NEW_BOARD      2 /*ÐÂÖ÷°å*/
+N#define BOARD_VER      NEW_BOARD
+N
 N/* ¼ì²éÊÇ·ñ¶¨ÒåÁË¿ª·¢°åÐÍºÅ */
 N#if !defined (STM32_V4) && !defined (STM32_X2)
 X#if !1L && !0L
@@ -2601,7 +2606,7 @@ N#endif
 N
 N#endif /* INC_FREERTOS_H */
 N
-L 35 "..\..\User\bsp\bsp.h" 2
+L 40 "..\..\User\bsp\bsp.h" 2
 N	#include "task.h"
 L 1 "..\..\FreeRTOS\include\task.h" 1
 N/*
@@ -5171,7 +5176,7 @@ N#endif /* INC_TASK_H */
 N
 N
 N
-L 36 "..\..\User\bsp\bsp.h" 2
+L 41 "..\..\User\bsp\bsp.h" 2
 N	
 N	#if 0
 S	#define DISABLE_INT()    taskENTER_CRITICAL() /* Ê¹ÓÃÕâÖÖÄ£Ê½£¬´®¿Ú²»ÄÜÔÚÖÐ¶ÏÖÐÊ¹ÓÃ */
@@ -35072,7 +35077,7 @@ N  * @}
 N  */
 N
 N/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-L 56 "..\..\User\bsp\bsp.h" 2
+L 61 "..\..\User\bsp\bsp.h" 2
 N#include <stdio.h>
 L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h" 1
 N/* stdio.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.9 */
@@ -36141,7 +36146,7 @@ N#endif /* ndef __stdio_h */
 N
 N/* end of stdio.h */
 N
-L 57 "..\..\User\bsp\bsp.h" 2
+L 62 "..\..\User\bsp\bsp.h" 2
 N#include <string.h>
 L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h" 1
 N/* string.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.11 */
@@ -36692,7 +36697,7 @@ N#endif
 N
 N/* end of string.h */
 N
-L 58 "..\..\User\bsp\bsp.h" 2
+L 63 "..\..\User\bsp\bsp.h" 2
 N#include <stdlib.h>
 L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h" 1
 N/* stdlib.h: ANSI draft (X3J11 May 88) library header, section 4.10 */
@@ -37665,7 +37670,7 @@ N
 N#endif /* __stdlib_h */
 N
 N/* end of stdlib.h */
-L 59 "..\..\User\bsp\bsp.h" 2
+L 64 "..\..\User\bsp\bsp.h" 2
 N#include <stdbool.h>
 L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
 N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
@@ -37695,7 +37700,7 @@ N  #endif
 N
 N#endif /* __bool_true_false_are_defined */
 N
-L 60 "..\..\User\bsp\bsp.h" 2
+L 65 "..\..\User\bsp\bsp.h" 2
 N
 N#ifndef TRUE
 N	#define TRUE  1
@@ -37894,7 +37899,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 108 "..\..\User\bsp\bsp.h" 2
+L 113 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_led.h"
 L 1 "..\..\User\bsp\inc\bsp_led.h" 1
 N/*
@@ -37923,7 +37928,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 109 "..\..\User\bsp\bsp.h" 2
+L 114 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_timer.h"
 L 1 "..\..\User\bsp\inc\bsp_timer.h" 1
 N/*
@@ -37981,7 +37986,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 110 "..\..\User\bsp\bsp.h" 2
+L 115 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_key.h"
 L 1 "..\..\User\bsp\inc\bsp_key.h" 1
 N/*
@@ -38157,7 +38162,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 111 "..\..\User\bsp\bsp.h" 2
+L 116 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_dwt.h"
 L 1 "..\..\User\bsp\inc\bsp_dwt.h" 1
 N/*
@@ -38186,7 +38191,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 112 "..\..\User\bsp\bsp.h" 2
+L 117 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_msg.h"
 N
@@ -38221,7 +38226,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 118 "..\..\User\bsp\bsp.h" 2
+L 123 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_cpu_flash.h"
 N//#include "bsp_sdio_sd.h"
@@ -38257,7 +38262,7 @@ Nvoid i2c_NAck(void);
 Nuint8_t i2c_CheckDevice(uint8_t _Address);
 N
 N#endif
-L 122 "..\..\User\bsp\bsp.h" 2
+L 127 "..\..\User\bsp\bsp.h" 2
 N//#include "bsp_eeprom_24xx.h"
 N//#include "bsp_si4730.h"
 N//#include "bsp_hmc5883l.h"
@@ -38339,7 +38344,7 @@ N
 N#endif
 N
 N/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
-L 164 "..\..\User\bsp\bsp.h" 2
+L 169 "..\..\User\bsp\bsp.h" 2
 N
 N//#include "bsp_dac8501.h"
 N//#include "bsp_dac8562.h"
@@ -38368,7 +38373,7 @@ N
 N
 N#endif
 N
-L 173 "..\..\User\bsp\bsp.h" 2
+L 178 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
 L 1 "..\..\User\app\inc\bsp_Collision.h" 1
 N#ifndef __BSP_COLLISION_H
@@ -38387,7 +38392,7 @@ NCollision bsp_CollisionScan(void); /*·µ»ØÅö×²½á¹û*/
 Nvoid bsp_CollisionDemo(void);      /*Åö×²²âÊÔÀý×Ó*/
 N
 N#endif
-L 174 "..\..\User\bsp\bsp.h" 2
+L 179 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Angle.h"
 L 1 "..\..\User\app\inc\bsp_Angle.h" 1
 N#ifndef __BSP_ANGLE_H
@@ -38431,7 +38436,7 @@ N
 N
 N#endif
 N
-L 175 "..\..\User\bsp\bsp.h" 2
+L 180 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Action.h"
 L 1 "..\..\User\app\inc\bsp_Action.h" 1
 N#ifndef __BSP_ACTION_H
@@ -38441,7 +38446,7 @@ N
 N	
 N#endif
 N
-L 176 "..\..\User\bsp\bsp.h" 2
+L 181 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_aw9523b.h"
 L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
 N#ifndef __BSP_AW9523B_H
@@ -38514,7 +38519,7 @@ Nfloat bsp_GetInfraredVoltageRight(void);
 Nfloat bsp_GetInfraRedAdcVoltage(IR_SN sn);
 N#endif
 N
-L 177 "..\..\User\bsp\bsp.h" 2
+L 182 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_DetectAct.h"
 L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
 N#ifndef __BSP_DETECTACT_H
@@ -38538,7 +38543,7 @@ Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
 N
 N#endif
 N
-L 178 "..\..\User\bsp\bsp.h" 2
+L 183 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_PulseMark.h"
 L 1 "..\..\User\app\inc\bsp_PulseMark.h" 1
 N#ifndef __BSP_PULSEMARK_H
@@ -38548,7 +38553,7 @@ Nvoid bsp_InitPinPulse(void);
 Nvoid bsp_SendPulse(void);
 N
 N#endif
-L 179 "..\..\User\bsp\bsp.h" 2
+L 184 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_IWDG.h"
 L 1 "..\..\User\bsp\inc\bsp_IWDG.h" 1
 N/*
@@ -38575,7 +38580,7 @@ Nvoid bsp_InitIWDG(void);
 Nvoid bsp_IWDG_Feed(void);
 N
 N#endif
-L 180 "..\..\User\bsp\bsp.h" 2
+L 185 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Edgewise.h"
 L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
 N#ifndef __BSP_EDGEWISE_H
@@ -38586,7 +38591,7 @@ N
 N
 N#endif
 N
-L 181 "..\..\User\bsp\bsp.h" 2
+L 186 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Remote.h"
 L 1 "..\..\User\app\inc\bsp_Remote.h" 1
 N#ifndef __BSP_REMOTE_H
@@ -38623,7 +38628,7 @@ Nbool bsp_GetChargeFeedback(void);
 X_Bool bsp_GetChargeFeedback(void);
 N
 N#endif
-L 182 "..\..\User\bsp\bsp.h" 2
+L 187 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_communication.h"
 L 1 "..\..\User\app\inc\bsp_communication.h" 1
 N#ifndef __BSP_COMMUNICATION_H
@@ -38709,7 +38714,7 @@ Nvoid bsp_SendReportFrame(void); /*·¢ËÍÖ¡*/
 Nvoid bsp_ComAnalysis(void);     /*½ÓÊÕÖ¡*/
 N
 N#endif
-L 183 "..\..\User\bsp\bsp.h" 2
+L 188 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Encoder.h"
 L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
 N#ifndef __ENCODER_H
@@ -38736,7 +38741,7 @@ Nuint32_t bsp_EncoderGetTotalMileage(EncoderSN sn);
 Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
 N
 N#endif
-L 184 "..\..\User\bsp\bsp.h" 2
+L 189 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_motor.h"
 L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
@@ -38787,7 +38792,7 @@ Nvoid bsp_StopVacuum(void);
 N
 N#endif
 N
-L 185 "..\..\User\bsp\bsp.h" 2
+L 190 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Control.h"
 L 1 "..\..\User\app\inc\bsp_Control.h" 1
 N#ifndef __BSP_CONTROL_H
@@ -38805,7 +38810,7 @@ Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
 N
 N#endif
 N
-L 186 "..\..\User\bsp\bsp.h" 2
+L 191 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Scope.h"
 L 1 "..\..\User\app\inc\bsp_Scope.h" 1
 N#ifndef __BSP_SCOPE_H
@@ -38817,7 +38822,7 @@ N
 N
 N#endif
 N
-L 187 "..\..\User\bsp\bsp.h" 2
+L 192 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Position.h"
 L 1 "..\..\User\app\inc\bsp_Position.h" 1
 N#ifndef __BSP_POSITION_H
@@ -38862,7 +38867,7 @@ Nint32_t bsp_GetCurrentPosY(void);
 N
 N#endif
 N
-L 188 "..\..\User\bsp\bsp.h" 2
+L 193 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_stflash.h"
 L 1 "..\..\User\app\inc\bsp_stflash.h" 1
 N#ifndef __BSP_STFLASH_H
@@ -38876,7 +38881,7 @@ Nvoid bsp_StFlashTest(uint16_t pageIndex);
 N
 N#endif
 N
-L 189 "..\..\User\bsp\bsp.h" 2
+L 194 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_param.h"
 L 1 "..\..\User\app\inc\bsp_param.h" 1
 N#ifndef __BSP_PARAM_H
@@ -38888,7 +38893,7 @@ Nvoid bsp_ParamUpdateTest(void);
 N
 N#endif
 N
-L 190 "..\..\User\bsp\bsp.h" 2
+L 195 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_OffSiteSW.h"
 L 1 "..\..\User\app\inc\bsp_OffSiteSW.h" 1
 N#ifndef __BSP_OFFSITESW_H
@@ -38908,7 +38913,7 @@ NOffSiteState bsp_OffSiteGetState(void);
 N
 N#endif
 N
-L 191 "..\..\User\bsp\bsp.h" 2
+L 196 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_CurrentFeedback.h"
 L 1 "..\..\User\app\inc\bsp_CurrentFeedback.h" 1
 N#ifndef __BSP_CURRENTFEEDBACK_H
@@ -38933,7 +38938,7 @@ N
 N#endif
 N
 N
-L 192 "..\..\User\bsp\bsp.h" 2
+L 197 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_CliffSW.h"
 L 1 "..\..\User\app\inc\bsp_CliffSW.h" 1
 N#ifndef __BSP_CLIFF_H
@@ -38953,7 +38958,7 @@ N
 N#endif
 N
 N
-L 193 "..\..\User\bsp\bsp.h" 2
+L 198 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_DustBox.h"
 L 1 "..\..\User\app\inc\bsp_DustBox.h" 1
 N#ifndef __DUSTBOX_H
@@ -38970,7 +38975,7 @@ NDustBoxState bsp_DustBoxGetState(void);
 N
 N#endif
 N
-L 194 "..\..\User\bsp\bsp.h" 2
+L 199 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_speaker.h"
 L 1 "..\..\User\app\inc\bsp_speaker.h" 1
 N#ifndef __BSP_SPEAKER_H
@@ -38980,7 +38985,7 @@ N#include <stdbool.h>
 N
 Ntypedef enum
 N{
-N	Song1 = 0,
+N	Song1 = 4, /*Ç°Ãæ1 2 3Ã»ÓÐÉùÒô*/
 N	Song2,
 N	Song3,
 N	Song4,
@@ -39019,7 +39024,7 @@ X_Bool bsp_SpeakerIsBusy(void);
 N
 N#endif
 N
-L 195 "..\..\User\bsp\bsp.h" 2
+L 200 "..\..\User\bsp\bsp.h" 2
 N
 N
 N/* Ìá¹©¸øÆäËûCÎÄ¼þµ÷ÓÃµÄº¯Êý */
@@ -39041,28 +39046,51 @@ N	Èç¹ûÓÃ»§µÄLEDÖ¸Ê¾µÆ¸öÊýÐ¡ÓÚ4¸ö£¬¿ÉÒÔ½«¶àÓàµÄLEDÈ«²¿¶¨ÒåÎªºÍµÚ1¸öLEDÒ»Ñù£¬²¢²»Ó
 N*/
 N
 N/*
-N	É¨µØ»ú°´¼ü¶¨Òå
+N	¾É°æÉ¨µØ»ú°´¼ü¶¨Òå
 N	PD0 : LED_POWER
 N	PD1 : LED_HOME
-N	PD2 : LED_RET
+N	PD2 : LED_RST
+N	
+N	ÐÂ°æÉ¨µØ»ú°´¼ü¶¨Òå
+N	PF3 : LED_POWER
+N	PF2 : LED_HOME
+N	PF1 : LED_RST
 N*/
 N
-N
+N#if (BOARD_VER == OLD_BOARD)
+X#if (2 == 1)
+S/* °´¼ü¿Ú¶ÔÓ¦µÄRCCÊ±ÖÓ */
+S#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOD)
+S
+S#define GPIO_PORT_LED1  GPIOD
+S#define GPIO_PIN_LED1	GPIO_Pin_0
+S
+S#define GPIO_PORT_LED2  GPIOD
+S#define GPIO_PIN_LED2	GPIO_Pin_1
+S
+S#define GPIO_PORT_LED3  GPIOD
+S#define GPIO_PIN_LED3	GPIO_Pin_2
+S
+S#define GPIO_PORT_LED4  GPIOD
+S#define GPIO_PIN_LED4	GPIO_Pin_0
+S
+N#else
 N/* °´¼ü¿Ú¶ÔÓ¦µÄRCCÊ±ÖÓ */
-N#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOD)
+N#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOF)
 N
-N#define GPIO_PORT_LED1  GPIOD
-N#define GPIO_PIN_LED1	GPIO_Pin_0
+N#define GPIO_PORT_LED1  GPIOF
+N#define GPIO_PIN_LED1	GPIO_Pin_3
 N
-N#define GPIO_PORT_LED2  GPIOD
-N#define GPIO_PIN_LED2	GPIO_Pin_1
+N#define GPIO_PORT_LED2  GPIOF
+N#define GPIO_PIN_LED2	GPIO_Pin_2
 N
-N#define GPIO_PORT_LED3  GPIOD
-N#define GPIO_PIN_LED3	GPIO_Pin_2
+N#define GPIO_PORT_LED3  GPIOF
+N#define GPIO_PIN_LED3	GPIO_Pin_1
 N
-N#define GPIO_PORT_LED4  GPIOD
-N#define GPIO_PIN_LED4	GPIO_Pin_0
+N#define GPIO_PORT_LED4  GPIOF
+N#define GPIO_PIN_LED4	GPIO_Pin_3
 N
+N#endif
 N/*
 N*********************************************************************************************************
 N*	º¯ Êý Ãû: bsp_InitLed
@@ -39077,7 +39105,7 @@ N	GPIO_InitTypeDef GPIO_InitStructure;
 N
 N	/* ´ò¿ªGPIOÊ±ÖÓ */
 N	RCC_APB2PeriphClockCmd(RCC_ALL_LED, ENABLE);
-X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000020)), ENABLE);
+X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000080)), ENABLE);
 N
 N	/*
 N		ÅäÖÃËùÓÐµÄLEDÖ¸Ê¾µÆGPIOÎªÍÆÍìÊä³öÄ£Ê½
@@ -39093,24 +39121,24 @@ N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* ÍÆÍìÊä³öÄ£Ê½ */
 N	
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED1;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0008);
 N	GPIO_Init(GPIO_PORT_LED1, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED2;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0004);
 N	GPIO_Init(GPIO_PORT_LED2, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED3;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0004);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
 N	GPIO_Init(GPIO_PORT_LED3, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED4;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0008);
 N	GPIO_Init(GPIO_PORT_LED4, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N}
 N
 N/*
@@ -39128,22 +39156,22 @@ N
 N	if (_no == 0)
 N	{
 N		GPIO_PORT_LED1->BRR = GPIO_PIN_LED1;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BRR = ((uint16_t)0x0008);
 N	}
 N	else if (_no == 1)
 N	{
 N		GPIO_PORT_LED2->BRR = GPIO_PIN_LED2;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0002);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BRR = ((uint16_t)0x0004);
 N	}
 N	else if (_no == 2)
 N	{
 N		GPIO_PORT_LED3->BRR = GPIO_PIN_LED3;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0004);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BRR = ((uint16_t)0x0002);
 N	}
 N	else if (_no == 3)
 N	{
 N		GPIO_PORT_LED4->BRR = GPIO_PIN_LED4;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BRR = ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BRR = ((uint16_t)0x0008);
 N	}
 N}
 N
@@ -39162,22 +39190,22 @@ N
 N	if (_no == 0)
 N	{
 N		GPIO_PORT_LED1->BSRR = GPIO_PIN_LED1;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BSRR = ((uint16_t)0x0008);
 N	}
 N	else if (_no == 1)
 N	{
 N		GPIO_PORT_LED2->BSRR = GPIO_PIN_LED2;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0002);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BSRR = ((uint16_t)0x0004);
 N	}
 N	else if (_no == 2)
 N	{
 N		GPIO_PORT_LED3->BSRR = GPIO_PIN_LED3;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0004);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BSRR = ((uint16_t)0x0002);
 N	}
 N	else if (_no == 3)
 N	{
 N		GPIO_PORT_LED4->BSRR = GPIO_PIN_LED4;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->BSRR = ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->BSRR = ((uint16_t)0x0008);
 N	}
 N}
 N
@@ -39194,22 +39222,22 @@ N{
 N	if (_no == 1)
 N	{
 N		GPIO_PORT_LED1->ODR ^= GPIO_PIN_LED1;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR ^= ((uint16_t)0x0008);
 N	}
 N	else if (_no == 2)
 N	{
 N		GPIO_PORT_LED2->ODR ^= GPIO_PIN_LED2;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0002);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR ^= ((uint16_t)0x0004);
 N	}
 N	else if (_no == 3)
 N	{
 N		GPIO_PORT_LED3->ODR ^= GPIO_PIN_LED3;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0004);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR ^= ((uint16_t)0x0002);
 N	}
 N	else if (_no == 4)
 N	{
 N		GPIO_PORT_LED4->ODR ^= GPIO_PIN_LED4;
-X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR ^= ((uint16_t)0x0001);
+X		((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR ^= ((uint16_t)0x0008);
 N	}
 N}
 N
@@ -39226,7 +39254,7 @@ N{
 N	if (_no == 1)
 N	{
 N		if ((GPIO_PORT_LED1->ODR & GPIO_PIN_LED1) == 0)
-X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0001)) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR & ((uint16_t)0x0008)) == 0)
 N		{
 N			return 1;
 N		}
@@ -39235,7 +39263,7 @@ N	}
 N	else if (_no == 2)
 N	{
 N		if ((GPIO_PORT_LED2->ODR & GPIO_PIN_LED2) == 0)
-X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0002)) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR & ((uint16_t)0x0004)) == 0)
 N		{
 N			return 1;
 N		}
@@ -39244,7 +39272,7 @@ N	}
 N	else if (_no == 3)
 N	{
 N		if ((GPIO_PORT_LED3->ODR & GPIO_PIN_LED3) == 0)
-X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0004)) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR & ((uint16_t)0x0002)) == 0)
 N		{
 N			return 1;
 N		}
@@ -39253,7 +39281,7 @@ N	}
 N	else if (_no == 4)
 N	{
 N		if ((GPIO_PORT_LED4->ODR & GPIO_PIN_LED4) == 0)
-X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->ODR & ((uint16_t)0x0001)) == 0)
+X		if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00))->ODR & ((uint16_t)0x0008)) == 0)
 N		{
 N			return 1;
 N		}

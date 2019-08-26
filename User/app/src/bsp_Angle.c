@@ -162,14 +162,14 @@ static void bsp_AnglePoll(void)
 
 	if (angle.rxCount != 13)
 	{
-		WARNING("angle len err:%d\r\n",angle.rxCount);
+		//WARNING("angle len err:%d\r\n",angle.rxCount);
 		goto err_ret;
 	}
 	
 	/* 计算SUM校验和 */
 	if(bsp_AngleCheck() == false)
 	{
-		WARNING("angle chk err:\r\n");
+		//WARNING("angle chk err:\r\n");
 		goto err_ret;
 	}
 	

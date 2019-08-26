@@ -89,6 +89,7 @@ int main(void)
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
 	uint8_t ucKeyCode;	
+	uint32_t count = 0 ;
 	bsp_AngleRst();
 	
 	while(1)
@@ -132,6 +133,19 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			}
 		}
 
+		if(count++ % 20 == 0)
+		{
+			if(bsp_SpeakerIsBusy())
+			{
+				DEBUG("busy\r\n");
+			}
+			else
+			{
+				DEBUG("play\r\n");
+				bsp_SperkerPlay(Song3);
+			}
+		}
+		
 		vTaskDelay(50);	
 	}
 }

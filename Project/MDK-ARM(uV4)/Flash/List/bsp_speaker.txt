@@ -5,57 +5,57 @@
                           AREA ||i.bsp_InitSpeaker||, CODE, READONLY, ALIGN=2
 
                   bsp_InitSpeaker PROC
-;;;26     */
-;;;27     void bsp_InitSpeaker(void)
+;;;24     */
+;;;25     void bsp_InitSpeaker(void)
 000000  b508              PUSH     {r3,lr}
-;;;28     {
-;;;29     	GPIO_InitTypeDef GPIO_InitStructure;
-;;;30     
-;;;31     	/* 打开GPIO时钟 */
-;;;32     	RCC_APB2PeriphClockCmd(RCC_ALL_SPEAKER, ENABLE);
+;;;26     {
+;;;27     	GPIO_InitTypeDef GPIO_InitStructure;
+;;;28     
+;;;29     	/* 打开GPIO时钟 */
+;;;30     	RCC_APB2PeriphClockCmd(RCC_ALL_SPEAKER, ENABLE);
 000002  2101              MOVS     r1,#1
 000004  2020              MOVS     r0,#0x20
 000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;33     
-;;;34     	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+;;;31     
+;;;32     	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 00000a  2003              MOVS     r0,#3
 00000c  f88d0002          STRB     r0,[sp,#2]
-;;;35     	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 
+;;;33     	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 
 000010  2010              MOVS     r0,#0x10
 000012  f88d0003          STRB     r0,[sp,#3]
-;;;36     	
-;;;37     	/*DI引脚*/
-;;;38     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_SPEAKER_DI;
-000016  2004              MOVS     r0,#4
+;;;34     	
+;;;35     	/*DI引脚*/
+;;;36     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_SPEAKER_DI;
+000016  2002              MOVS     r0,#2
 000018  f8ad0000          STRH     r0,[sp,#0]
-;;;39     	GPIO_Init(GPIO_PORT_SPEAKER_DI, &GPIO_InitStructure);
+;;;37     	GPIO_Init(GPIO_PORT_SPEAKER_DI, &GPIO_InitStructure);
 00001c  4669              MOV      r1,sp
 00001e  480a              LDR      r0,|L1.72|
 000020  f7fffffe          BL       GPIO_Init
-;;;40     
-;;;41     	/*RST引脚*/
-;;;42     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_SPEAKER_RST;
-000024  2002              MOVS     r0,#2
+;;;38     
+;;;39     	/*RST引脚*/
+;;;40     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_SPEAKER_RST;
+000024  2004              MOVS     r0,#4
 000026  f8ad0000          STRH     r0,[sp,#0]
-;;;43     	GPIO_Init(GPIO_PORT_SPEAKER_RST, &GPIO_InitStructure);
+;;;41     	GPIO_Init(GPIO_PORT_SPEAKER_RST, &GPIO_InitStructure);
 00002a  4669              MOV      r1,sp
 00002c  4806              LDR      r0,|L1.72|
 00002e  f7fffffe          BL       GPIO_Init
-;;;44     	
-;;;45     	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 
+;;;42     	
+;;;43     	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 
 000032  2028              MOVS     r0,#0x28
 000034  f88d0003          STRB     r0,[sp,#3]
-;;;46     	/*BUSY引脚*/
-;;;47     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_SPEAKER_BUSY;
+;;;44     	/*BUSY引脚*/
+;;;45     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_SPEAKER_BUSY;
 000038  2001              MOVS     r0,#1
 00003a  f8ad0000          STRH     r0,[sp,#0]
-;;;48     	GPIO_Init(GPIO_PORT_SPEAKER_BUSY, &GPIO_InitStructure);
+;;;46     	GPIO_Init(GPIO_PORT_SPEAKER_BUSY, &GPIO_InitStructure);
 00003e  4669              MOV      r1,sp
 000040  4801              LDR      r0,|L1.72|
 000042  f7fffffe          BL       GPIO_Init
-;;;49     }
+;;;47     }
 000046  bd08              POP      {r3,pc}
-;;;50     
+;;;48     
                           ENDP
 
                   |L1.72|
@@ -64,36 +64,36 @@
                           AREA ||i.bsp_SpeakerIsBusy||, CODE, READONLY, ALIGN=2
 
                   bsp_SpeakerIsBusy PROC
-;;;86     */
-;;;87     bool bsp_SpeakerIsBusy(void)
+;;;84     */
+;;;85     bool bsp_SpeakerIsBusy(void)
 000000  b510              PUSH     {r4,lr}
-;;;88     {
-;;;89     	bool ret = 0 ;
+;;;86     {
+;;;87     	bool ret = 0 ;
 000002  2400              MOVS     r4,#0
-;;;90     	
-;;;91     	if(GPIO_ReadInputDataBit(GPIO_PORT_SPEAKER_BUSY,GPIO_PIN_SPEAKER_BUSY))
+;;;88     	
+;;;89     	if(GPIO_ReadInputDataBit(GPIO_PORT_SPEAKER_BUSY,GPIO_PIN_SPEAKER_BUSY))
 000004  2101              MOVS     r1,#1
 000006  4804              LDR      r0,|L2.24|
 000008  f7fffffe          BL       GPIO_ReadInputDataBit
 00000c  b108              CBZ      r0,|L2.18|
-;;;92     	{
-;;;93     		ret = true;
+;;;90     	{
+;;;91     		ret = true;
 00000e  2401              MOVS     r4,#1
 000010  e000              B        |L2.20|
                   |L2.18|
-;;;94     	}
-;;;95     	else
-;;;96     	{
-;;;97     		ret = false;
+;;;92     	}
+;;;93     	else
+;;;94     	{
+;;;95     		ret = false;
 000012  2400              MOVS     r4,#0
                   |L2.20|
-;;;98     	}
-;;;99     	
-;;;100    	return ret;
+;;;96     	}
+;;;97     	
+;;;98     	return ret;
 000014  4620              MOV      r0,r4
-;;;101    }
+;;;99     }
 000016  bd10              POP      {r4,pc}
-;;;102    
+;;;100    
                           ENDP
 
                   |L2.24|
@@ -102,59 +102,59 @@
                           AREA ||i.bsp_SperkerPlay||, CODE, READONLY, ALIGN=2
 
                   bsp_SperkerPlay PROC
-;;;58     */
-;;;59     void bsp_SperkerPlay(SongSN sn)
+;;;56     */
+;;;57     void bsp_SperkerPlay(SongSN sn)
 000000  b570              PUSH     {r4-r6,lr}
-;;;60     {
+;;;58     {
 000002  4604              MOV      r4,r0
-;;;61     	uint16_t i = 0 ;
+;;;59     	uint16_t i = 0 ;
 000004  2500              MOVS     r5,#0
-;;;62     	
-;;;63     	/*复位*/
-;;;64     	GPIO_SetBits(GPIO_PORT_SPEAKER_RST,GPIO_PIN_SPEAKER_RST);
-000006  2102              MOVS     r1,#2
+;;;60     	
+;;;61     	/*复位*/
+;;;62     	GPIO_SetBits(GPIO_PORT_SPEAKER_RST,GPIO_PIN_SPEAKER_RST);
+000006  2104              MOVS     r1,#4
 000008  4810              LDR      r0,|L3.76|
 00000a  f7fffffe          BL       GPIO_SetBits
-;;;65     	bsp_DelayUS(100);
+;;;63     	bsp_DelayUS(100);
 00000e  2064              MOVS     r0,#0x64
 000010  f7fffffe          BL       bsp_DelayUS
-;;;66     	GPIO_ResetBits(GPIO_PORT_SPEAKER_RST,GPIO_PIN_SPEAKER_RST);
-000014  2102              MOVS     r1,#2
+;;;64     	GPIO_ResetBits(GPIO_PORT_SPEAKER_RST,GPIO_PIN_SPEAKER_RST);
+000014  2104              MOVS     r1,#4
 000016  480d              LDR      r0,|L3.76|
 000018  f7fffffe          BL       GPIO_ResetBits
-;;;67     	bsp_DelayUS(100);
+;;;65     	bsp_DelayUS(100);
 00001c  2064              MOVS     r0,#0x64
 00001e  f7fffffe          BL       bsp_DelayUS
-;;;68     	
-;;;69     	/*根据曲目信息，发送曲目*/
-;;;70     	for(i=0;i<sn;i++)
+;;;66     	
+;;;67     	/*根据曲目信息，发送曲目*/
+;;;68     	for(i=0;i<sn;i++)
 000022  bf00              NOP      
 000024  e00f              B        |L3.70|
                   |L3.38|
-;;;71     	{
-;;;72     		GPIO_SetBits(GPIO_PORT_SPEAKER_DI,GPIO_PIN_SPEAKER_DI);
-000026  2104              MOVS     r1,#4
+;;;69     	{
+;;;70     		GPIO_SetBits(GPIO_PORT_SPEAKER_DI,GPIO_PIN_SPEAKER_DI);
+000026  2102              MOVS     r1,#2
 000028  4808              LDR      r0,|L3.76|
 00002a  f7fffffe          BL       GPIO_SetBits
-;;;73     		bsp_DelayUS(100);
+;;;71     		bsp_DelayUS(100);
 00002e  2064              MOVS     r0,#0x64
 000030  f7fffffe          BL       bsp_DelayUS
-;;;74     		GPIO_ResetBits(GPIO_PORT_SPEAKER_DI,GPIO_PIN_SPEAKER_DI);
-000034  2104              MOVS     r1,#4
+;;;72     		GPIO_ResetBits(GPIO_PORT_SPEAKER_DI,GPIO_PIN_SPEAKER_DI);
+000034  2102              MOVS     r1,#2
 000036  4805              LDR      r0,|L3.76|
 000038  f7fffffe          BL       GPIO_ResetBits
-;;;75     		bsp_DelayUS(100);
+;;;73     		bsp_DelayUS(100);
 00003c  2064              MOVS     r0,#0x64
 00003e  f7fffffe          BL       bsp_DelayUS
-000042  1c68              ADDS     r0,r5,#1              ;70
-000044  b285              UXTH     r5,r0                 ;70
+000042  1c68              ADDS     r0,r5,#1              ;68
+000044  b285              UXTH     r5,r0                 ;68
                   |L3.70|
-000046  42a5              CMP      r5,r4                 ;70
+000046  42a5              CMP      r5,r4                 ;68
 000048  dbed              BLT      |L3.38|
-;;;76     	}
-;;;77     }
+;;;74     	}
+;;;75     }
 00004a  bd70              POP      {r4-r6,pc}
-;;;78     
+;;;76     
                           ENDP
 
                   |L3.76|

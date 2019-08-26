@@ -5,112 +5,95 @@
                           AREA ||i.bsp_Init||, CODE, READONLY, ALIGN=2
 
                   bsp_Init PROC
-;;;30     */
-;;;31     void bsp_Init(void)
+;;;31     #if 1
+;;;32     void bsp_Init(void)
 000000  b510              PUSH     {r4,lr}
-;;;32     {
-;;;33     	uint8_t ret;
-;;;34     	/*
-;;;35     		由于ST固件库的启动文件已经执行了CPU系统时钟的初始化，所以不必再次重复配置系统时钟。
-;;;36     		启动文件配置了CPU主时钟频率、内部Flash访问速度和可选的外部SRAM FSMC初始化。
-;;;37     
-;;;38     		系统时钟缺省配置为72MHz，如果需要更改，可以修改 system_stm32f10x.c 文件
-;;;39     	*/
-;;;40     	
-;;;41     	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
-;;;42     	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+;;;33     {
+;;;34     	uint8_t ret;
+;;;35     	
+;;;36     	UNUSED(ret);
+;;;37     	
+;;;38     	/*
+;;;39     		由于ST固件库的启动文件已经执行了CPU系统时钟的初始化，所以不必再次重复配置系统时钟。
+;;;40     		启动文件配置了CPU主时钟频率、内部Flash访问速度和可选的外部SRAM FSMC初始化。
+;;;41     
+;;;42     		系统时钟缺省配置为72MHz，如果需要更改，可以修改 system_stm32f10x.c 文件
+;;;43     	*/
+;;;44     	
+;;;45     	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
+;;;46     	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 000002  f44f7040          MOV      r0,#0x300
 000006  f7fffffe          BL       NVIC_PriorityGroupConfig
-;;;43     	bsp_InitDWT();
+;;;47     	bsp_InitDWT();
 00000a  f7fffffe          BL       bsp_InitDWT
-;;;44     	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
+;;;48     	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
 00000e  f7fffffe          BL       bsp_InitAngle
-;;;45     	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
+;;;49     	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
 000012  f7fffffe          BL       bsp_InitPinPulse
-;;;46     	bsp_InitUart(); 	     /* 初始化串口 */
+;;;50     	bsp_InitUart(); 	     /* 初始化串口 */
 000016  f7fffffe          BL       bsp_InitUart
-;;;47     	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
+;;;51     	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
 00001a  f7fffffe          BL       bsp_InitSW
-;;;48     	bsp_InitLed();           /* 初始化LED */
+;;;52     	bsp_InitLed();           /* 初始化LED */
 00001e  f7fffffe          BL       bsp_InitLed
-;;;49     	bsp_InitKey();           /* 初始化按键 */
+;;;53     	bsp_InitKey();           /* 初始化按键 */
 000022  f7fffffe          BL       bsp_InitKey
-;;;50     	bsp_InitHardTimer();     /* 初始化硬件定时器 */
+;;;54     	bsp_InitHardTimer();     /* 初始化硬件定时器 */
 000026  f7fffffe          BL       bsp_InitHardTimer
-;;;51     	
-;;;52     	bsp_InitEncoder();
+;;;55     	
+;;;56     	bsp_InitEncoder();
 00002a  f7fffffe          BL       bsp_InitEncoder
-;;;53     	bsp_InitMotor();
+;;;57     	bsp_InitMotor();
 00002e  f7fffffe          BL       bsp_InitMotor
-;;;54     	bsp_InitPid(MotorLeft);
+;;;58     	bsp_InitPid(MotorLeft);
 000032  2000              MOVS     r0,#0
 000034  f7fffffe          BL       bsp_InitPid
-;;;55     	bsp_InitPid(MotorRight);
+;;;59     	bsp_InitPid(MotorRight);
 000038  2001              MOVS     r0,#1
 00003a  f7fffffe          BL       bsp_InitPid
-;;;56     	
-;;;57     	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
+;;;60     	
+;;;61     	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 00003e  f7fffffe          BL       bsp_InitCollision
-;;;58     	bsp_InitChargingPile();  /*初始化输入捕获*/
+;;;62     	bsp_InitChargingPile();  /*初始化输入捕获*/
 000042  f7fffffe          BL       bsp_InitChargingPile
-;;;59     	
-;;;60     	bsp_InitOffSiteSW();     /*初始化离地开关*/
-000046  f7fffffe          BL       bsp_InitOffSiteSW
-;;;61     	
-;;;62     	/* 初始化IO拓展芯片 */	
-;;;63     	do{
-00004a  bf00              NOP      
-                  |L1.76|
-;;;64     		ret = bsp_InitAW9523B();		
-00004c  f7fffffe          BL       bsp_InitAW9523B
-000050  4604              MOV      r4,r0
-;;;65     		if(!ret) 
-000052  b92c              CBNZ     r4,|L1.96|
-;;;66     		{
-;;;67     			WARNING("AW9523B Init Error\r\n");
-000054  a007              ADR      r0,|L1.116|
-000056  f7fffffe          BL       __2printf
-;;;68     			bsp_DelayMS(100);
-00005a  2064              MOVS     r0,#0x64
-00005c  f7fffffe          BL       bsp_DelayMS
-                  |L1.96|
-;;;69     		}
-;;;70     	}while(!ret);
-000060  2c00              CMP      r4,#0
-000062  d0f3              BEQ      |L1.76|
-;;;71     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
-000064  f7fffffe          BL       bsp_InitDetectAct
-;;;72     	
-;;;73     	bsp_InitIWDG();     /*初始化看门狗*/
-000068  f7fffffe          BL       bsp_InitIWDG
-;;;74     	
-;;;75     	DEBUG("初始化完毕\r\n");
-00006c  a007              ADR      r0,|L1.140|
-00006e  f7fffffe          BL       __2printf
-;;;76     	
-;;;77     }
-000072  bd10              POP      {r4,pc}
-;;;78     
+;;;63     	
+;;;64     	bsp_InitSpeaker();		 /*初始化扬声器*/
+000046  f7fffffe          BL       bsp_InitSpeaker
+;;;65     	
+;;;66     	
+;;;67     	/* 初始化IO拓展芯片 */	
+;;;68     //	do{
+;;;69     //		ret = bsp_InitAW9523B();		
+;;;70     //		if(!ret) 
+;;;71     //		{
+;;;72     //			WARNING("AW9523B Init Error\r\n");
+;;;73     //			bsp_DelayMS(100);
+;;;74     //		}
+;;;75     //	}while(!ret);
+;;;76     	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
+00004a  f7fffffe          BL       bsp_InitDetectAct
+;;;77     	
+;;;78     	bsp_InitIWDG();     /*初始化看门狗*/
+00004e  f7fffffe          BL       bsp_InitIWDG
+;;;79     	
+;;;80     	DEBUG("初始化完毕\r\n");
+000052  a002              ADR      r0,|L1.92|
+000054  f7fffffe          BL       __2printf
+;;;81     	
+;;;82     }
+000058  bd10              POP      {r4,pc}
+;;;83     #else
                           ENDP
 
-                  |L1.116|
-000074  41573935          DCB      "AW9523B Init Error\r\n",0
-000078  32334220
-00007c  496e6974
-000080  20457272
-000084  6f720d0a
-000088  00      
-000089  00                DCB      0
-00008a  00                DCB      0
-00008b  00                DCB      0
-                  |L1.140|
-00008c  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
-000090  bbafcdea
-000094  b1cf0d0a
-000098  00      
-000099  00                DCB      0
-00009a  00                DCB      0
-00009b  00                DCB      0
+00005a  0000              DCW      0x0000
+                  |L1.92|
+00005c  b3f5cabc          DCB      179,245,202,188,187,175,205,234,177,207,"\r\n",0
+000060  bbafcdea
+000064  b1cf0d0a
+000068  00      
+000069  00                DCB      0
+00006a  00                DCB      0
+00006b  00                DCB      0
 
 ;*** Start embedded assembler ***
 

@@ -255,16 +255,13 @@
 
                           AREA ||i.bsp_AnglePoll||, CODE, READONLY, ALIGN=2
 
-                          REQUIRE _printf_percent
-                          REQUIRE _printf_d
-                          REQUIRE _printf_int_dec
                   bsp_AnglePoll PROC
 ;;;151    */
 ;;;152    static void bsp_AnglePoll(void)
 000000  b510              PUSH     {r4,lr}
 ;;;153    {	
 ;;;154    	if (angle.timeout == false)	/* 超过3.5个字符时间后执行MODH_RxTimeOut()函数。 */
-000002  4810              LDR      r0,|L4.68|
+000002  480c              LDR      r0,|L4.52|
 000004  7800              LDRB     r0,[r0,#0]  ; angle
 000006  b900              CBNZ     r0,|L4.10|
                   |L4.8|
@@ -278,14 +275,14 @@
 ;;;162    
 ;;;163    	if (angle.rxCount != 13)
 ;;;164    	{
-;;;165    		WARNING("angle len err:%d\r\n",angle.rxCount);
+;;;165    		//WARNING("angle len err:%d\r\n",angle.rxCount);
 ;;;166    		goto err_ret;
 ;;;167    	}
 ;;;168    	
 ;;;169    	/* 计算SUM校验和 */
 ;;;170    	if(bsp_AngleCheck() == false)
 ;;;171    	{
-;;;172    		WARNING("angle chk err:\r\n");
+;;;172    		//WARNING("angle chk err:\r\n");
 ;;;173    		goto err_ret;
 ;;;174    	}
 ;;;175    	
@@ -298,54 +295,32 @@
 000008  bd10              POP      {r4,pc}
                   |L4.10|
 00000a  2000              MOVS     r0,#0                 ;161
-00000c  490d              LDR      r1,|L4.68|
+00000c  4909              LDR      r1,|L4.52|
 00000e  7008              STRB     r0,[r1,#0]            ;161
 000010  4608              MOV      r0,r1                 ;163
 000012  8840              LDRH     r0,[r0,#2]            ;163  ; angle
 000014  280d              CMP      r0,#0xd               ;163
-000016  d005              BEQ      |L4.36|
-000018  4608              MOV      r0,r1                 ;165
-00001a  8841              LDRH     r1,[r0,#2]            ;165  ; angle
-00001c  a00a              ADR      r0,|L4.72|
-00001e  f7fffffe          BL       __2printf
-000022  e009              B        |L4.56|
-                  |L4.36|
-000024  f7fffffe          BL       bsp_AngleCheck
-000028  b918              CBNZ     r0,|L4.50|
-00002a  a00c              ADR      r0,|L4.92|
-00002c  f7fffffe          BL       __2printf
-000030  e002              B        |L4.56|
-                  |L4.50|
-000032  f7fffffe          BL       bsp_AngleAnalyzeApp
-000036  bf00              NOP                            ;179
-                  |L4.56|
-000038  2000              MOVS     r0,#0                 ;180
-00003a  4902              LDR      r1,|L4.68|
-00003c  8048              STRH     r0,[r1,#2]            ;180
-00003e  bf00              NOP      
-000040  e7e2              B        |L4.8|
+000016  d000              BEQ      |L4.26|
+000018  e006              B        |L4.40|
+                  |L4.26|
+00001a  f7fffffe          BL       bsp_AngleCheck
+00001e  b900              CBNZ     r0,|L4.34|
+000020  e002              B        |L4.40|
+                  |L4.34|
+000022  f7fffffe          BL       bsp_AngleAnalyzeApp
+000026  bf00              NOP                            ;179
+                  |L4.40|
+000028  2000              MOVS     r0,#0                 ;180
+00002a  4902              LDR      r1,|L4.52|
+00002c  8048              STRH     r0,[r1,#2]            ;180
+00002e  bf00              NOP      
+000030  e7ea              B        |L4.8|
 ;;;182    
                           ENDP
 
-000042  0000              DCW      0x0000
-                  |L4.68|
+000032  0000              DCW      0x0000
+                  |L4.52|
                           DCD      angle
-                  |L4.72|
-000048  616e676c          DCB      "angle len err:%d\r\n",0
-00004c  65206c65
-000050  6e206572
-000054  723a2564
-000058  0d0a00  
-00005b  00                DCB      0
-                  |L4.92|
-00005c  616e676c          DCB      "angle chk err:\r\n",0
-000060  65206368
-000064  6b206572
-000068  723a0d0a
-00006c  00      
-00006d  00                DCB      0
-00006e  00                DCB      0
-00006f  00                DCB      0
 
                           AREA ||i.bsp_AngleRead||, CODE, READONLY, ALIGN=2
 

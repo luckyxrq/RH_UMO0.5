@@ -5,368 +5,368 @@
                           AREA ||i.bsp_InitLed||, CODE, READONLY, ALIGN=2
 
                   bsp_InitLed PROC
-;;;58     */
-;;;59     void bsp_InitLed(void)
+;;;80     */
+;;;81     void bsp_InitLed(void)
 000000  b508              PUSH     {r3,lr}
-;;;60     {
-;;;61     	GPIO_InitTypeDef GPIO_InitStructure;
-;;;62     
-;;;63     	/* 打开GPIO时钟 */
-;;;64     	RCC_APB2PeriphClockCmd(RCC_ALL_LED, ENABLE);
+;;;82     {
+;;;83     	GPIO_InitTypeDef GPIO_InitStructure;
+;;;84     
+;;;85     	/* 打开GPIO时钟 */
+;;;86     	RCC_APB2PeriphClockCmd(RCC_ALL_LED, ENABLE);
 000002  2101              MOVS     r1,#1
-000004  2020              MOVS     r0,#0x20
+000004  2080              MOVS     r0,#0x80
 000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;65     
-;;;66     	/*
-;;;67     		配置所有的LED指示灯GPIO为推挽输出模式
-;;;68     		由于将GPIO设置为输出时，GPIO输出寄存器的值缺省是0，因此会驱动LED点亮.
-;;;69     		这是我不希望的，因此在改变GPIO为输出前，先关闭LED指示灯
-;;;70     	*/
-;;;71     	bsp_LedOff(1);
+;;;87     
+;;;88     	/*
+;;;89     		配置所有的LED指示灯GPIO为推挽输出模式
+;;;90     		由于将GPIO设置为输出时，GPIO输出寄存器的值缺省是0，因此会驱动LED点亮.
+;;;91     		这是我不希望的，因此在改变GPIO为输出前，先关闭LED指示灯
+;;;92     	*/
+;;;93     	bsp_LedOff(1);
 00000a  2001              MOVS     r0,#1
 00000c  f7fffffe          BL       bsp_LedOff
-;;;72     	bsp_LedOff(2);
+;;;94     	bsp_LedOff(2);
 000010  2002              MOVS     r0,#2
 000012  f7fffffe          BL       bsp_LedOff
-;;;73     	bsp_LedOff(3);
+;;;95     	bsp_LedOff(3);
 000016  2003              MOVS     r0,#3
 000018  f7fffffe          BL       bsp_LedOff
-;;;74     	bsp_LedOff(4);
+;;;96     	bsp_LedOff(4);
 00001c  2004              MOVS     r0,#4
 00001e  f7fffffe          BL       bsp_LedOff
-;;;75     
-;;;76     	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+;;;97     
+;;;98     	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 000022  2003              MOVS     r0,#3
 000024  f88d0002          STRB     r0,[sp,#2]
-;;;77     	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
+;;;99     	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
 000028  2010              MOVS     r0,#0x10
 00002a  f88d0003          STRB     r0,[sp,#3]
-;;;78     	
-;;;79     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED1;
-00002e  2001              MOVS     r0,#1
+;;;100    	
+;;;101    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED1;
+00002e  2008              MOVS     r0,#8
 000030  f8ad0000          STRH     r0,[sp,#0]
-;;;80     	GPIO_Init(GPIO_PORT_LED1, &GPIO_InitStructure);
+;;;102    	GPIO_Init(GPIO_PORT_LED1, &GPIO_InitStructure);
 000034  4669              MOV      r1,sp
 000036  480c              LDR      r0,|L1.104|
 000038  f7fffffe          BL       GPIO_Init
-;;;81     
-;;;82     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED2;
-00003c  2002              MOVS     r0,#2
+;;;103    
+;;;104    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED2;
+00003c  2004              MOVS     r0,#4
 00003e  f8ad0000          STRH     r0,[sp,#0]
-;;;83     	GPIO_Init(GPIO_PORT_LED2, &GPIO_InitStructure);
+;;;105    	GPIO_Init(GPIO_PORT_LED2, &GPIO_InitStructure);
 000042  4669              MOV      r1,sp
 000044  4808              LDR      r0,|L1.104|
 000046  f7fffffe          BL       GPIO_Init
-;;;84     
-;;;85     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED3;
-00004a  2004              MOVS     r0,#4
+;;;106    
+;;;107    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED3;
+00004a  2002              MOVS     r0,#2
 00004c  f8ad0000          STRH     r0,[sp,#0]
-;;;86     	GPIO_Init(GPIO_PORT_LED3, &GPIO_InitStructure);
+;;;108    	GPIO_Init(GPIO_PORT_LED3, &GPIO_InitStructure);
 000050  4669              MOV      r1,sp
 000052  4805              LDR      r0,|L1.104|
 000054  f7fffffe          BL       GPIO_Init
-;;;87     
-;;;88     	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED4;
-000058  2001              MOVS     r0,#1
+;;;109    
+;;;110    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED4;
+000058  2008              MOVS     r0,#8
 00005a  f8ad0000          STRH     r0,[sp,#0]
-;;;89     	GPIO_Init(GPIO_PORT_LED4, &GPIO_InitStructure);
+;;;111    	GPIO_Init(GPIO_PORT_LED4, &GPIO_InitStructure);
 00005e  4669              MOV      r1,sp
 000060  4801              LDR      r0,|L1.104|
 000062  f7fffffe          BL       GPIO_Init
-;;;90     }
+;;;112    }
 000066  bd08              POP      {r3,pc}
-;;;91     
+;;;113    
                           ENDP
 
                   |L1.104|
-                          DCD      0x40011400
+                          DCD      0x40011c00
 
                           AREA ||i.bsp_IsLedOn||, CODE, READONLY, ALIGN=2
 
                   bsp_IsLedOn PROC
-;;;187    */
-;;;188    uint8_t bsp_IsLedOn(uint8_t _no)
+;;;209    */
+;;;210    uint8_t bsp_IsLedOn(uint8_t _no)
 000000  4601              MOV      r1,r0
-;;;189    {
-;;;190    	if (_no == 1)
+;;;211    {
+;;;212    	if (_no == 1)
 000002  2901              CMP      r1,#1
 000004  d108              BNE      |L2.24|
-;;;191    	{
-;;;192    		if ((GPIO_PORT_LED1->ODR & GPIO_PIN_LED1) == 0)
+;;;213    	{
+;;;214    		if ((GPIO_PORT_LED1->ODR & GPIO_PIN_LED1) == 0)
 000006  4816              LDR      r0,|L2.96|
 000008  6800              LDR      r0,[r0,#0]
-00000a  f0000001          AND      r0,r0,#1
+00000a  f0000008          AND      r0,r0,#8
 00000e  b908              CBNZ     r0,|L2.20|
-;;;193    		{
-;;;194    			return 1;
+;;;215    		{
+;;;216    			return 1;
 000010  2001              MOVS     r0,#1
                   |L2.18|
-;;;195    		}
-;;;196    		return 0;
-;;;197    	}
-;;;198    	else if (_no == 2)
-;;;199    	{
-;;;200    		if ((GPIO_PORT_LED2->ODR & GPIO_PIN_LED2) == 0)
-;;;201    		{
-;;;202    			return 1;
-;;;203    		}
-;;;204    		return 0;
-;;;205    	}
-;;;206    	else if (_no == 3)
-;;;207    	{
-;;;208    		if ((GPIO_PORT_LED3->ODR & GPIO_PIN_LED3) == 0)
-;;;209    		{
-;;;210    			return 1;
-;;;211    		}
-;;;212    		return 0;
-;;;213    	}
-;;;214    	else if (_no == 4)
-;;;215    	{
-;;;216    		if ((GPIO_PORT_LED4->ODR & GPIO_PIN_LED4) == 0)
-;;;217    		{
-;;;218    			return 1;
-;;;219    		}
-;;;220    		return 0;
-;;;221    	}
-;;;222    
-;;;223    	return 0;
-;;;224    }
+;;;217    		}
+;;;218    		return 0;
+;;;219    	}
+;;;220    	else if (_no == 2)
+;;;221    	{
+;;;222    		if ((GPIO_PORT_LED2->ODR & GPIO_PIN_LED2) == 0)
+;;;223    		{
+;;;224    			return 1;
+;;;225    		}
+;;;226    		return 0;
+;;;227    	}
+;;;228    	else if (_no == 3)
+;;;229    	{
+;;;230    		if ((GPIO_PORT_LED3->ODR & GPIO_PIN_LED3) == 0)
+;;;231    		{
+;;;232    			return 1;
+;;;233    		}
+;;;234    		return 0;
+;;;235    	}
+;;;236    	else if (_no == 4)
+;;;237    	{
+;;;238    		if ((GPIO_PORT_LED4->ODR & GPIO_PIN_LED4) == 0)
+;;;239    		{
+;;;240    			return 1;
+;;;241    		}
+;;;242    		return 0;
+;;;243    	}
+;;;244    
+;;;245    	return 0;
+;;;246    }
 000012  4770              BX       lr
                   |L2.20|
-000014  2000              MOVS     r0,#0                 ;196
+000014  2000              MOVS     r0,#0                 ;218
 000016  e7fc              B        |L2.18|
                   |L2.24|
-000018  2902              CMP      r1,#2                 ;198
+000018  2902              CMP      r1,#2                 ;220
 00001a  d108              BNE      |L2.46|
 00001c  4810              LDR      r0,|L2.96|
-00001e  6800              LDR      r0,[r0,#0]            ;200
-000020  f0000002          AND      r0,r0,#2              ;200
+00001e  6800              LDR      r0,[r0,#0]            ;222
+000020  f0000004          AND      r0,r0,#4              ;222
 000024  b908              CBNZ     r0,|L2.42|
-000026  2001              MOVS     r0,#1                 ;202
+000026  2001              MOVS     r0,#1                 ;224
 000028  e7f3              B        |L2.18|
                   |L2.42|
-00002a  2000              MOVS     r0,#0                 ;204
+00002a  2000              MOVS     r0,#0                 ;226
 00002c  e7f1              B        |L2.18|
                   |L2.46|
-00002e  2903              CMP      r1,#3                 ;206
+00002e  2903              CMP      r1,#3                 ;228
 000030  d108              BNE      |L2.68|
 000032  480b              LDR      r0,|L2.96|
-000034  6800              LDR      r0,[r0,#0]            ;208
-000036  f0000004          AND      r0,r0,#4              ;208
+000034  6800              LDR      r0,[r0,#0]            ;230
+000036  f0000002          AND      r0,r0,#2              ;230
 00003a  b908              CBNZ     r0,|L2.64|
-00003c  2001              MOVS     r0,#1                 ;210
+00003c  2001              MOVS     r0,#1                 ;232
 00003e  e7e8              B        |L2.18|
                   |L2.64|
-000040  2000              MOVS     r0,#0                 ;212
+000040  2000              MOVS     r0,#0                 ;234
 000042  e7e6              B        |L2.18|
                   |L2.68|
-000044  2904              CMP      r1,#4                 ;214
+000044  2904              CMP      r1,#4                 ;236
 000046  d108              BNE      |L2.90|
 000048  4805              LDR      r0,|L2.96|
-00004a  6800              LDR      r0,[r0,#0]            ;216
-00004c  f0000001          AND      r0,r0,#1              ;216
+00004a  6800              LDR      r0,[r0,#0]            ;238
+00004c  f0000008          AND      r0,r0,#8              ;238
 000050  b908              CBNZ     r0,|L2.86|
-000052  2001              MOVS     r0,#1                 ;218
+000052  2001              MOVS     r0,#1                 ;240
 000054  e7dd              B        |L2.18|
                   |L2.86|
-000056  2000              MOVS     r0,#0                 ;220
+000056  2000              MOVS     r0,#0                 ;242
 000058  e7db              B        |L2.18|
                   |L2.90|
-00005a  2000              MOVS     r0,#0                 ;223
+00005a  2000              MOVS     r0,#0                 ;245
 00005c  e7d9              B        |L2.18|
-;;;225    
+;;;247    
                           ENDP
 
 00005e  0000              DCW      0x0000
                   |L2.96|
-                          DCD      0x4001140c
+                          DCD      0x40011c0c
 
                           AREA ||i.bsp_LedOff||, CODE, READONLY, ALIGN=2
 
                   bsp_LedOff PROC
-;;;129    */
-;;;130    void bsp_LedOff(uint8_t _no)
+;;;151    */
+;;;152    void bsp_LedOff(uint8_t _no)
 000000  1e41              SUBS     r1,r0,#1
-;;;131    {
-;;;132    	_no--;
+;;;153    {
+;;;154    	_no--;
 000002  b2c8              UXTB     r0,r1
-;;;133    
-;;;134    	if (_no == 0)
+;;;155    
+;;;156    	if (_no == 0)
 000004  b918              CBNZ     r0,|L3.14|
-;;;135    	{
-;;;136    		GPIO_PORT_LED1->BSRR = GPIO_PIN_LED1;
-000006  2101              MOVS     r1,#1
+;;;157    	{
+;;;158    		GPIO_PORT_LED1->BSRR = GPIO_PIN_LED1;
+000006  2108              MOVS     r1,#8
 000008  4a0a              LDR      r2,|L3.52|
 00000a  6011              STR      r1,[r2,#0]
 00000c  e010              B        |L3.48|
                   |L3.14|
-;;;137    	}
-;;;138    	else if (_no == 1)
+;;;159    	}
+;;;160    	else if (_no == 1)
 00000e  2801              CMP      r0,#1
 000010  d103              BNE      |L3.26|
-;;;139    	{
-;;;140    		GPIO_PORT_LED2->BSRR = GPIO_PIN_LED2;
-000012  2102              MOVS     r1,#2
+;;;161    	{
+;;;162    		GPIO_PORT_LED2->BSRR = GPIO_PIN_LED2;
+000012  2104              MOVS     r1,#4
 000014  4a07              LDR      r2,|L3.52|
 000016  6011              STR      r1,[r2,#0]
 000018  e00a              B        |L3.48|
                   |L3.26|
-;;;141    	}
-;;;142    	else if (_no == 2)
+;;;163    	}
+;;;164    	else if (_no == 2)
 00001a  2802              CMP      r0,#2
 00001c  d103              BNE      |L3.38|
-;;;143    	{
-;;;144    		GPIO_PORT_LED3->BSRR = GPIO_PIN_LED3;
-00001e  2104              MOVS     r1,#4
+;;;165    	{
+;;;166    		GPIO_PORT_LED3->BSRR = GPIO_PIN_LED3;
+00001e  2102              MOVS     r1,#2
 000020  4a04              LDR      r2,|L3.52|
 000022  6011              STR      r1,[r2,#0]
 000024  e004              B        |L3.48|
                   |L3.38|
-;;;145    	}
-;;;146    	else if (_no == 3)
+;;;167    	}
+;;;168    	else if (_no == 3)
 000026  2803              CMP      r0,#3
 000028  d102              BNE      |L3.48|
-;;;147    	{
-;;;148    		GPIO_PORT_LED4->BSRR = GPIO_PIN_LED4;
-00002a  2101              MOVS     r1,#1
+;;;169    	{
+;;;170    		GPIO_PORT_LED4->BSRR = GPIO_PIN_LED4;
+00002a  2108              MOVS     r1,#8
 00002c  4a01              LDR      r2,|L3.52|
 00002e  6011              STR      r1,[r2,#0]
                   |L3.48|
-;;;149    	}
-;;;150    }
+;;;171    	}
+;;;172    }
 000030  4770              BX       lr
-;;;151    
+;;;173    
                           ENDP
 
 000032  0000              DCW      0x0000
                   |L3.52|
-                          DCD      0x40011410
+                          DCD      0x40011c10
 
                           AREA ||i.bsp_LedOn||, CODE, READONLY, ALIGN=2
 
                   bsp_LedOn PROC
-;;;99     */
-;;;100    void bsp_LedOn(uint8_t _no)
+;;;121    */
+;;;122    void bsp_LedOn(uint8_t _no)
 000000  1e41              SUBS     r1,r0,#1
-;;;101    {
-;;;102    	_no--;
+;;;123    {
+;;;124    	_no--;
 000002  b2c8              UXTB     r0,r1
-;;;103    
-;;;104    	if (_no == 0)
+;;;125    
+;;;126    	if (_no == 0)
 000004  b918              CBNZ     r0,|L4.14|
-;;;105    	{
-;;;106    		GPIO_PORT_LED1->BRR = GPIO_PIN_LED1;
-000006  2101              MOVS     r1,#1
+;;;127    	{
+;;;128    		GPIO_PORT_LED1->BRR = GPIO_PIN_LED1;
+000006  2108              MOVS     r1,#8
 000008  4a0a              LDR      r2,|L4.52|
 00000a  6011              STR      r1,[r2,#0]
 00000c  e010              B        |L4.48|
                   |L4.14|
-;;;107    	}
-;;;108    	else if (_no == 1)
+;;;129    	}
+;;;130    	else if (_no == 1)
 00000e  2801              CMP      r0,#1
 000010  d103              BNE      |L4.26|
-;;;109    	{
-;;;110    		GPIO_PORT_LED2->BRR = GPIO_PIN_LED2;
-000012  2102              MOVS     r1,#2
+;;;131    	{
+;;;132    		GPIO_PORT_LED2->BRR = GPIO_PIN_LED2;
+000012  2104              MOVS     r1,#4
 000014  4a07              LDR      r2,|L4.52|
 000016  6011              STR      r1,[r2,#0]
 000018  e00a              B        |L4.48|
                   |L4.26|
-;;;111    	}
-;;;112    	else if (_no == 2)
+;;;133    	}
+;;;134    	else if (_no == 2)
 00001a  2802              CMP      r0,#2
 00001c  d103              BNE      |L4.38|
-;;;113    	{
-;;;114    		GPIO_PORT_LED3->BRR = GPIO_PIN_LED3;
-00001e  2104              MOVS     r1,#4
+;;;135    	{
+;;;136    		GPIO_PORT_LED3->BRR = GPIO_PIN_LED3;
+00001e  2102              MOVS     r1,#2
 000020  4a04              LDR      r2,|L4.52|
 000022  6011              STR      r1,[r2,#0]
 000024  e004              B        |L4.48|
                   |L4.38|
-;;;115    	}
-;;;116    	else if (_no == 3)
+;;;137    	}
+;;;138    	else if (_no == 3)
 000026  2803              CMP      r0,#3
 000028  d102              BNE      |L4.48|
-;;;117    	{
-;;;118    		GPIO_PORT_LED4->BRR = GPIO_PIN_LED4;
-00002a  2101              MOVS     r1,#1
+;;;139    	{
+;;;140    		GPIO_PORT_LED4->BRR = GPIO_PIN_LED4;
+00002a  2108              MOVS     r1,#8
 00002c  4a01              LDR      r2,|L4.52|
 00002e  6011              STR      r1,[r2,#0]
                   |L4.48|
-;;;119    	}
-;;;120    }
+;;;141    	}
+;;;142    }
 000030  4770              BX       lr
-;;;121    
+;;;143    
                           ENDP
 
 000032  0000              DCW      0x0000
                   |L4.52|
-                          DCD      0x40011414
+                          DCD      0x40011c14
 
                           AREA ||i.bsp_LedToggle||, CODE, READONLY, ALIGN=2
 
                   bsp_LedToggle PROC
-;;;159    */
-;;;160    void bsp_LedToggle(uint8_t _no)
+;;;181    */
+;;;182    void bsp_LedToggle(uint8_t _no)
 000000  2801              CMP      r0,#1
-;;;161    {
-;;;162    	if (_no == 1)
+;;;183    {
+;;;184    	if (_no == 1)
 000002  d106              BNE      |L5.18|
-;;;163    	{
-;;;164    		GPIO_PORT_LED1->ODR ^= GPIO_PIN_LED1;
+;;;185    	{
+;;;186    		GPIO_PORT_LED1->ODR ^= GPIO_PIN_LED1;
 000004  4910              LDR      r1,|L5.72|
 000006  6809              LDR      r1,[r1,#0]
-000008  f0810101          EOR      r1,r1,#1
+000008  f0810108          EOR      r1,r1,#8
 00000c  4a0e              LDR      r2,|L5.72|
 00000e  6011              STR      r1,[r2,#0]
 000010  e019              B        |L5.70|
                   |L5.18|
-;;;165    	}
-;;;166    	else if (_no == 2)
+;;;187    	}
+;;;188    	else if (_no == 2)
 000012  2802              CMP      r0,#2
 000014  d106              BNE      |L5.36|
-;;;167    	{
-;;;168    		GPIO_PORT_LED2->ODR ^= GPIO_PIN_LED2;
+;;;189    	{
+;;;190    		GPIO_PORT_LED2->ODR ^= GPIO_PIN_LED2;
 000016  490c              LDR      r1,|L5.72|
 000018  6809              LDR      r1,[r1,#0]
-00001a  f0810102          EOR      r1,r1,#2
+00001a  f0810104          EOR      r1,r1,#4
 00001e  4a0a              LDR      r2,|L5.72|
 000020  6011              STR      r1,[r2,#0]
 000022  e010              B        |L5.70|
                   |L5.36|
-;;;169    	}
-;;;170    	else if (_no == 3)
+;;;191    	}
+;;;192    	else if (_no == 3)
 000024  2803              CMP      r0,#3
 000026  d106              BNE      |L5.54|
-;;;171    	{
-;;;172    		GPIO_PORT_LED3->ODR ^= GPIO_PIN_LED3;
+;;;193    	{
+;;;194    		GPIO_PORT_LED3->ODR ^= GPIO_PIN_LED3;
 000028  4907              LDR      r1,|L5.72|
 00002a  6809              LDR      r1,[r1,#0]
-00002c  f0810104          EOR      r1,r1,#4
+00002c  f0810102          EOR      r1,r1,#2
 000030  4a05              LDR      r2,|L5.72|
 000032  6011              STR      r1,[r2,#0]
 000034  e007              B        |L5.70|
                   |L5.54|
-;;;173    	}
-;;;174    	else if (_no == 4)
+;;;195    	}
+;;;196    	else if (_no == 4)
 000036  2804              CMP      r0,#4
 000038  d105              BNE      |L5.70|
-;;;175    	{
-;;;176    		GPIO_PORT_LED4->ODR ^= GPIO_PIN_LED4;
+;;;197    	{
+;;;198    		GPIO_PORT_LED4->ODR ^= GPIO_PIN_LED4;
 00003a  4903              LDR      r1,|L5.72|
 00003c  6809              LDR      r1,[r1,#0]
-00003e  f0810101          EOR      r1,r1,#1
+00003e  f0810108          EOR      r1,r1,#8
 000042  4a01              LDR      r2,|L5.72|
 000044  6011              STR      r1,[r2,#0]
                   |L5.70|
-;;;177    	}
-;;;178    }
+;;;199    	}
+;;;200    }
 000046  4770              BX       lr
-;;;179    
+;;;201    
                           ENDP
 
                   |L5.72|
-                          DCD      0x4001140c
+                          DCD      0x40011c0c
 
 ;*** Start embedded assembler ***
 

@@ -28,9 +28,13 @@
 *	返 回 值: 无
 *********************************************************************************************************
 */
+#if 1
 void bsp_Init(void)
 {
 	uint8_t ret;
+	
+	UNUSED(ret);
+	
 	/*
 		由于ST固件库的启动文件已经执行了CPU系统时钟的初始化，所以不必再次重复配置系统时钟。
 		启动文件配置了CPU主时钟频率、内部Flash访问速度和可选的外部SRAM FSMC初始化。
@@ -57,17 +61,18 @@ void bsp_Init(void)
 	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 	bsp_InitChargingPile();  /*初始化输入捕获*/
 	
-	bsp_InitOffSiteSW();     /*初始化离地开关*/
+	bsp_InitSpeaker();		 /*初始化扬声器*/
+	
 	
 	/* 初始化IO拓展芯片 */	
-	do{
-		ret = bsp_InitAW9523B();		
-		if(!ret) 
-		{
-			WARNING("AW9523B Init Error\r\n");
-			bsp_DelayMS(100);
-		}
-	}while(!ret);
+//	do{
+//		ret = bsp_InitAW9523B();		
+//		if(!ret) 
+//		{
+//			WARNING("AW9523B Init Error\r\n");
+//			bsp_DelayMS(100);
+//		}
+//	}while(!ret);
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
 	bsp_InitIWDG();     /*初始化看门狗*/
@@ -75,5 +80,16 @@ void bsp_Init(void)
 	DEBUG("初始化完毕\r\n");
 	
 }
+#else
+
+void bsp_Init(void)
+{
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+	bsp_InitDWT();
+	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
+	while(1);
+}
+
+#endif
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
