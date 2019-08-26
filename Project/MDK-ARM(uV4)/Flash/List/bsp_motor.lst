@@ -38737,12 +38737,36 @@ N}MotorSN;
 N
 Ntypedef enum
 N{
+N	MotorRollingBrush = 0 ,
+N	MotorSideBrush
+N}MotorCleanSN;
+N
+Ntypedef enum
+N{
 N	Forward = 0 ,
 N	Backward
 N}MotorDir;
 N
+Ntypedef enum
+N{
+N	CW = 0 ,
+N	CCW
+N}MotorCleanDir;
+N
+Ntypedef struct
+N{
+N	volatile bool isRunning;
+X	volatile _Bool isRunning;
+N	volatile uint32_t tick;
+N}Vacuum;
+N
 Nvoid bsp_InitMotor(void);
 Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
+Nvoid bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm);
+N
+Nvoid bsp_VacuumClean(void);
+Nvoid bsp_StartVacuum(void);
+Nvoid bsp_StopVacuum(void);
 N
 N#endif
 N
@@ -38910,11 +38934,19 @@ N	输出恒为0：TIM_SetCompare1(TIM1,0);
 N	输出恒为1：TIM_SetCompare1(TIM1,7200);!!!千万别写成TIM_SetCompare1(TIM1,7199);;
 N*/
 N
+N/* 防碰撞触动开关对应的RCC时钟 */
+N#define RCC_ALL_VACUUM 	(RCC_APB2Periph_GPIOA)
+N
+N#define GPIO_PORT_VACUUM   GPIOA
+N#define GPIO_PIN_VACUUM	   GPIO_Pin_0
 N
 N
 N
 N
+Nstatic Vacuum vacuum;
 Nstatic void bsp_InitTimer1(uint16_t arr,uint16_t psc);
+Nstatic void bsp_InitTimer4(uint16_t arr,uint16_t psc);
+Nstatic void bsp_InitVacuum(void);
 N
 N/*
 N*********************************************************************************************************
@@ -38926,9 +38958,11 @@ N*******************************************************************************
 N*/
 Nvoid bsp_InitMotor(void)
 N{
-N	/*初始化PWM 10KHZ，用于驱动电机*/
-N	//bsp_InitTimer1(7199,0); 
+N	/*初始化PWM 20KHZ，用于驱动电机，10KHZ会有噪声*/
 N	bsp_InitTimer1(3599,0); 
+N	bsp_InitTimer4(3599,0);
+N	bsp_InitVacuum();
+N	
 N}
 N
 N/*
@@ -38979,6 +39013,150 @@ X				TIM_SetCompare2(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C
 N			}
 N		}break;
 N	}
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_MotorCleanSetPWM
+N*	功能说明: 通过PWM直接控制电机，PWM较小的时候，电机无法转动，专门用于清扫的电机
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm)
+N{
+N	switch(sn)
+N	{
+N		case MotorRollingBrush:
+N		{
+N			if(dir == CW)
+N			{
+N				TIM_SetCompare1(TIM4,0);
+X				TIM_SetCompare1(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),0);
+N				TIM_SetCompare2(TIM4,pwm);
+X				TIM_SetCompare2(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),pwm);
+N			}
+N			else
+N			{
+N				TIM_SetCompare1(TIM4,pwm);
+X				TIM_SetCompare1(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),pwm);
+N				TIM_SetCompare2(TIM4,0);
+X				TIM_SetCompare2(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),0);
+N			}
+N		}break;
+N		
+N		case MotorSideBrush:
+N		{
+N			if(dir == CW)
+N			{
+N				TIM_SetCompare3(TIM4,0);
+X				TIM_SetCompare3(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),0);
+N				TIM_SetCompare4(TIM4,pwm);
+X				TIM_SetCompare4(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),pwm);
+N			}
+N			else
+N			{
+N				TIM_SetCompare3(TIM4,pwm);
+X				TIM_SetCompare3(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),pwm);
+N				TIM_SetCompare4(TIM4,0);
+X				TIM_SetCompare4(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),0);
+N			}
+N		}break;
+N
+N	}
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_InitVacuum
+N*	功能说明: 初始化吸尘器IO口，使用IO口模拟PWM
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nstatic void bsp_InitVacuum(void)
+N{
+N	GPIO_InitTypeDef GPIO_InitStructure;
+N
+N	/* 打开GPIO时钟 */
+N	RCC_APB2PeriphClockCmd(RCC_ALL_VACUUM, ENABLE);
+X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000004)), ENABLE);
+N
+N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	
+N	
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_VACUUM;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+N	GPIO_Init(GPIO_PORT_VACUUM, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)), &GPIO_InitStructure);
+N	
+N	GPIO_ResetBits(GPIO_PORT_VACUUM,GPIO_PIN_VACUUM);
+X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x0001));
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_VacuumClean
+N*	功能说明: 周期性调用，用于吸尘器
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_VacuumClean(void)
+N{	
+N	if(!vacuum.isRunning)
+N		return ;
+N	
+N	++vacuum.tick;
+N	
+N	if(vacuum.tick <= 20)
+N	{
+N		GPIO_SetBits(GPIOA,GPIO_Pin_0);
+X		GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x0001));
+N	}
+N	else if(vacuum.tick > 20 && vacuum.tick <=40)
+N	{
+N		GPIO_ResetBits(GPIOA,GPIO_Pin_0);
+X		GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x0001));
+N	}
+N	else
+N	{
+N		vacuum.tick = 0 ;
+N	}
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_StartVacuum
+N*	功能说明: 开启吸尘器
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_StartVacuum(void)
+N{
+N	vacuum.tick = 0 ;
+N	vacuum.isRunning = true;
+X	vacuum.isRunning = 1;
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_StopVacuum
+N*	功能说明: 关闭吸尘器
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_StopVacuum(void)
+N{
+N	vacuum.isRunning = false;
+X	vacuum.isRunning = 0;
+N	vacuum.tick = 0 ;
+N	
+N	GPIO_ResetBits(GPIO_PORT_VACUUM,GPIO_PIN_VACUUM);
+X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x0001));
 N}
 N
 N
@@ -39089,6 +39267,111 @@ X	TIM_SetCompare4(((TIM_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2C00)
 N	
 N}
 N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_InitTimer4
+N*	功能说明: 初始化PWM，注意定时器是否需要重映射
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nstatic void bsp_InitTimer4(uint16_t arr,uint16_t psc)
+N{  
+N	
+N	GPIO_InitTypeDef   GPIO_InitStructure;
+N	TIM_OCInitTypeDef  TIM_OCInitStructure;
+N	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+N	
+N	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
+X	RCC_APB1PeriphClockCmd(((uint32_t)0x00000004), ENABLE);
+N 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD|RCC_APB2Periph_AFIO, ENABLE);
+X 	RCC_APB2PeriphClockCmd(((uint32_t)0x00000020)|((uint32_t)0x00000001), ENABLE);
+N	GPIO_PinRemapConfig(GPIO_Remap_TIM4, ENABLE); /*Timer1重映射*/     	
+X	GPIO_PinRemapConfig(((uint32_t)0x00001000), ENABLE);       	
+N
+N	/*GPIO初始化*/
+N	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_12 | GPIO_Pin_13 |GPIO_Pin_14 | GPIO_Pin_15;
+X	GPIO_InitStructure.GPIO_Pin   = ((uint16_t)0x1000) | ((uint16_t)0x2000) |((uint16_t)0x4000) | ((uint16_t)0x8000);
+N	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;  //复用推挽输出
+N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+N	GPIO_Init(GPIOD, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+N	
+N	/*定时器初始化*/
+N	TIM_TimeBaseStructure.TIM_Period 		= arr; 					
+N	TIM_TimeBaseStructure.TIM_Prescaler     = psc; 					
+N	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 		
+X	TIM_TimeBaseStructure.TIM_ClockDivision = ((uint16_t)0x0000); 		
+N	TIM_TimeBaseStructure.TIM_CounterMode 	= TIM_CounterMode_Up;  	
+X	TIM_TimeBaseStructure.TIM_CounterMode 	= ((uint16_t)0x0000);  	
+N	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure); 
+X	TIM_TimeBaseInit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), &TIM_TimeBaseStructure); 
+N	
+N	/*
+N	PWM一共有两种模式，PWM1模式：CNT<CRRx为有效电平（不包括等于）。CNT>=CRRx为无效电平。PWM2模式相反。
+N	那么问题来了什么为有效电平？他又怎么确定？
+N	它是由TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;输出极性来定的。
+N	有效电平加输出极性就等于什么时候输出高电
+N	*/ 
+N	TIM_OCInitStructure.TIM_OCMode 		= TIM_OCMode_PWM1; 			
+X	TIM_OCInitStructure.TIM_OCMode 		= ((uint16_t)0x0060); 			
+N 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; 	
+X 	TIM_OCInitStructure.TIM_OutputState = ((uint16_t)0x0001); 	
+N	TIM_OCInitStructure.TIM_OCPolarity  = TIM_OCPolarity_High;	
+X	TIM_OCInitStructure.TIM_OCPolarity  = ((uint16_t)0x0000);	
+N
+N	/*TIM1，TIM8必须使用，否则在RTOS中无法使用，暂时不了解原因*/
+N	#if 0
+S	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Disable;	/* only for TIM1 and TIM8. */	
+S	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;			/* only for TIM1 and TIM8. */		
+S	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;		/* only for TIM1 and TIM8. */
+S	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;		/* only for TIM1 and TIM8. */
+N	#endif
+N	
+N	/*CH1*/
+N	TIM_OC1Init(TIM4, &TIM_OCInitStructure);	 
+X	TIM_OC1Init(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), &TIM_OCInitStructure);	 
+N	TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
+X	TIM_OC1PreloadConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), ((uint16_t)0x0008));
+N	
+N	/*CH2*/
+N	TIM_OC2Init(TIM4, &TIM_OCInitStructure); 
+X	TIM_OC2Init(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), &TIM_OCInitStructure); 
+N	TIM_OC2PreloadConfig(TIM4, TIM_OCPreload_Enable);
+X	TIM_OC2PreloadConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), ((uint16_t)0x0008));
+N	
+N	/*CH3*/
+N	TIM_OC3Init(TIM4, &TIM_OCInitStructure);	 
+X	TIM_OC3Init(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), &TIM_OCInitStructure);	 
+N	TIM_OC3PreloadConfig(TIM4, TIM_OCPreload_Enable);
+X	TIM_OC3PreloadConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), ((uint16_t)0x0008));
+N	
+N	/*CH4*/
+N	TIM_OC4Init(TIM4, &TIM_OCInitStructure);	 
+X	TIM_OC4Init(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), &TIM_OCInitStructure);	 
+N	TIM_OC4PreloadConfig(TIM4, TIM_OCPreload_Enable);
+X	TIM_OC4PreloadConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), ((uint16_t)0x0008));
+N  
+N	/*使能TIM*/
+N	TIM_Cmd(TIM4, ENABLE); 
+X	TIM_Cmd(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)), ENABLE); 
+N	
+N	/*TIM1，TIM8必须使用，其他定时器可使用或不使用*/
+N	TIM_CtrlPWMOutputs(TIM4,ENABLE);
+X	TIM_CtrlPWMOutputs(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),ENABLE);
+N	
+N	/*4个通道全部输出高电平*/
+N	TIM_SetCompare1(TIM4,CONSTANT_HIGH_PWM);
+X	TIM_SetCompare1(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),(3600));
+N	TIM_SetCompare2(TIM4,CONSTANT_HIGH_PWM);
+X	TIM_SetCompare2(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),(3600));
+N	TIM_SetCompare3(TIM4,CONSTANT_HIGH_PWM);
+X	TIM_SetCompare3(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),(3600));
+N	TIM_SetCompare4(TIM4,CONSTANT_HIGH_PWM);
+X	TIM_SetCompare4(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0800)),(3600));
+N	
+N}
 N
 N
 N

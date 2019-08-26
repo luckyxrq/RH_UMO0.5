@@ -38756,12 +38756,36 @@ N}MotorSN;
 N
 Ntypedef enum
 N{
+N	MotorRollingBrush = 0 ,
+N	MotorSideBrush
+N}MotorCleanSN;
+N
+Ntypedef enum
+N{
 N	Forward = 0 ,
 N	Backward
 N}MotorDir;
 N
+Ntypedef enum
+N{
+N	CW = 0 ,
+N	CCW
+N}MotorCleanDir;
+N
+Ntypedef struct
+N{
+N	volatile bool isRunning;
+X	volatile _Bool isRunning;
+N	volatile uint32_t tick;
+N}Vacuum;
+N
 Nvoid bsp_InitMotor(void);
 Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
+Nvoid bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm);
+N
+Nvoid bsp_VacuumClean(void);
+Nvoid bsp_StartVacuum(void);
+Nvoid bsp_StopVacuum(void);
 N
 N#endif
 N
