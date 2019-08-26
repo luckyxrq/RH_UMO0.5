@@ -1,4 +1,4 @@
-L 1 "..\..\User\app\src\bsp_Scope.c"
+L 1 "..\..\User\app\src\bsp_CurrentFeedback.c"
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -38887,130 +38887,420 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 2 "..\..\User\app\src\bsp_Scope.c" 2
-N
-N/*
-N	作者：平衡小车之家 
-N	淘宝店铺：http://shop114407458.taobao.com/
-N*/
-N
-N/*串口发送帧缓冲区*/
-Nstatic uint8_t DataScope_OutPut_Buffer[42] = {0};
-N
-N/*写通道数据至 待发送帧数据缓存区*/
-Nstatic void DataScope_Get_Channel_Data(float Data,uint8_t Channel);
-N/*发送帧数据生成函数*/
-Nstatic uint8_t DataScope_Data_Generate(uint8_t Channel_Number);
+L 2 "..\..\User\app\src\bsp_CurrentFeedback.c" 2
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: Float2Byte
-N*	功能说明: 将单精度浮点数据转成4字节数据并存入指定地址，用户无需直接操作此函数 
-N*	形    参: target:目标单精度数据，buf:待写入数组，beg:指定从数组第几个元素开始写入
+N*	函 数 名: bsp_InitCurrentFeedbackADC
+N*	功能说明: 配置电机电流反馈
+N*	形    参：无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nstatic void Float2Byte(float *target,uint8_t *buf,uint8_t beg)
+Nvoid bsp_InitCurrentFeedbackADC(void)
 N{
-N    uint8_t *point;
-N    point = (uint8_t*)target;	  //得到float的地址
-N    buf[beg]   = point[0];
-N    buf[beg+1] = point[1];
-N    buf[beg+2] = point[2];
-N    buf[beg+3] = point[3];
-N}
+N	ADC_InitTypeDef ADC_InitStructure; 
+N	GPIO_InitTypeDef GPIO_InitStructure;
 N
+N	/*左轮机*/
+N	{
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB |RCC_APB2Periph_ADC2, ENABLE );
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000008) |((uint32_t)0x00000400), ENABLE );
+N 
+N		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+N		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+X		RCC_ADCCLKConfig(((uint32_t)0x00008000));
+N                  
+N		/*配置引脚为模拟输入模式*/
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+N		GPIO_Init(GPIOB, &GPIO_InitStructure);	
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)), &GPIO_InitStructure);	
 N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: DataScope_Get_Channel_Data
-N*	功能说明: 将待发送通道的单精度浮点数据写入发送缓冲区
-N*	形    参: Data：通道数据，Channel：选择通道（1-10）
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nstatic void DataScope_Get_Channel_Data(float Data,uint8_t Channel)
-N{
-N	/*通道个数大于10或等于0，直接跳出，不执行函数*/
-N    if ( (Channel > 10) || (Channel == 0) ) 
-N		return;  
-N    else
-N    {
-N        switch (Channel)
-N        {
-N        case 1:  Float2Byte(&Data,DataScope_OutPut_Buffer,1); break;
-N        case 2:  Float2Byte(&Data,DataScope_OutPut_Buffer,5); break;
-N        case 3:  Float2Byte(&Data,DataScope_OutPut_Buffer,9); break;
-N        case 4:  Float2Byte(&Data,DataScope_OutPut_Buffer,13); break;
-N        case 5:  Float2Byte(&Data,DataScope_OutPut_Buffer,17); break;
-N        case 6:  Float2Byte(&Data,DataScope_OutPut_Buffer,21); break;
-N        case 7:  Float2Byte(&Data,DataScope_OutPut_Buffer,25); break;
-N        case 8:  Float2Byte(&Data,DataScope_OutPut_Buffer,29); break;
-N        case 9:  Float2Byte(&Data,DataScope_OutPut_Buffer,33); break;
-N        case 10: Float2Byte(&Data,DataScope_OutPut_Buffer,37); break;
-N        }
-N    }	 
-N}
+N		/*复位ADC*/
+N		ADC_DeInit(ADC2);
+X		ADC_DeInit(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
 N
+N		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+X		ADC_InitStructure.ADC_Mode = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+X		ADC_InitStructure.ADC_ExternalTrigConv = ((uint32_t)0x000E0000);
+N		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+X		ADC_InitStructure.ADC_DataAlign = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_NbrOfChannel = 1;
+N		ADC_Init(ADC2, &ADC_InitStructure);  
+X		ADC_Init(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), &ADC_InitStructure);  
 N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: DataScope_Data_Generate
-N*	功能说明: 生成 DataScopeV1.0 能正确识别的帧格式
-N*	形    参: Channel_Number，需要发送的通道个数
-N*	返 回 值: 返回发送缓冲区数据个数，返回0表示帧格式生成失败 
-N*********************************************************************************************************
-N*/
-Nstatic uint8_t DataScope_Data_Generate(uint8_t Channel_Number)
-N{
-N    if ( (Channel_Number > 10) || (Channel_Number == 0) ) { return 0; }  //通道个数大于10或等于0，直接跳出，不执行函数
-N    else
-N    {	
-N        DataScope_OutPut_Buffer[0] = '$';  //帧头
-N        
-N        switch(Channel_Number)   
-N        { 
-N        case 1:   DataScope_OutPut_Buffer[5]  =  5; return  6;  
-N        case 2:   DataScope_OutPut_Buffer[9]  =  9; return 10;
-N        case 3:   DataScope_OutPut_Buffer[13] = 13; return 14; 
-N        case 4:   DataScope_OutPut_Buffer[17] = 17; return 18;
-N        case 5:   DataScope_OutPut_Buffer[21] = 21; return 22;  
-N        case 6:   DataScope_OutPut_Buffer[25] = 25; return 26;
-N        case 7:   DataScope_OutPut_Buffer[29] = 29; return 30; 
-N        case 8:   DataScope_OutPut_Buffer[33] = 33; return 34; 
-N        case 9:   DataScope_OutPut_Buffer[37] = 37; return 38;
-N        case 10:  DataScope_OutPut_Buffer[41] = 41; return 42; 
-N        }	 
-N    }
-N    return 0;
-N}
-N
-N
-Nvoid bsp_ScopeSend(float data[10] , uint8_t chCount)
-N{   
-N		uint8_t Send_Count; //串口需要发送的数据个数
-N		uint8_t i; 
+N		/*使能指定的ADC*/
+N		ADC_Cmd(ADC2, ENABLE);
+X		ADC_Cmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);
+N		
+N		/*使能复位校准 */
+N		ADC_ResetCalibration(ADC2);
+X		ADC_ResetCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N		 
+N		/*等待复位校准结束*/
+N		while(ADC_GetResetCalibrationStatus(ADC2));
+X		while(ADC_GetResetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*开启AD校准*/
+N		ADC_StartCalibration(ADC2);
+X		ADC_StartCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N	 
+N		/*等待校准结束*/
+N		while(ADC_GetCalibrationStatus(ADC2));
+X		while(ADC_GetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*ADC,ADC通道,采样时间为239.5周期*/
+N		ADC_RegularChannelConfig(ADC2, ADC_Channel_9, 1, ADC_SampleTime_239Cycles5 );
+X		ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x09), 1, ((uint8_t)0x07) );
+N	}
 N	
-N		DataScope_Get_Channel_Data(data[0], 1 ); 
-N		DataScope_Get_Channel_Data(data[1], 2 ); 
-N		DataScope_Get_Channel_Data(data[2], 3 );                
-N		DataScope_Get_Channel_Data(data[3], 4 );   
-N		DataScope_Get_Channel_Data(data[4], 5 ); 
-N		DataScope_Get_Channel_Data(data[5], 6 );
-N		DataScope_Get_Channel_Data(data[6], 7 );
-N		DataScope_Get_Channel_Data(data[7], 8 ); 
-N		DataScope_Get_Channel_Data(data[8], 9 );  
-N		DataScope_Get_Channel_Data(data[9], 10);
+N	/*右轮机*/
+N	{
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF |RCC_APB2Periph_ADC3, ENABLE );
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000080) |((uint32_t)0x00008000), ENABLE );
+N 
+N		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+N		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+X		RCC_ADCCLKConfig(((uint32_t)0x00008000));
+N                  
+N		/*配置引脚为模拟输入模式*/
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0400);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+N		GPIO_Init(GPIOF, &GPIO_InitStructure);	
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);	
+N
+N		/*复位ADC*/
+N		ADC_DeInit(ADC3);
+X		ADC_DeInit(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)));
+N
+N		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+X		ADC_InitStructure.ADC_Mode = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+X		ADC_InitStructure.ADC_ExternalTrigConv = ((uint32_t)0x000E0000);
+N		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+X		ADC_InitStructure.ADC_DataAlign = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_NbrOfChannel = 1;
+N		ADC_Init(ADC3, &ADC_InitStructure);  
+X		ADC_Init(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), &ADC_InitStructure);  
+N
+N		/*使能指定的ADC*/
+N		ADC_Cmd(ADC3, ENABLE);
+X		ADC_Cmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ENABLE);
+N		
+N		/*使能复位校准 */
+N		ADC_ResetCalibration(ADC3);
+X		ADC_ResetCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)));
+N		 
+N		/*等待复位校准结束*/
+N		while(ADC_GetResetCalibrationStatus(ADC3));
+X		while(ADC_GetResetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00))));
+N		
+N		/*开启AD校准*/
+N		ADC_StartCalibration(ADC3);
+X		ADC_StartCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)));
+N	 
+N		/*等待校准结束*/
+N		while(ADC_GetCalibrationStatus(ADC3));
+X		while(ADC_GetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00))));
+N		
+N		/*ADC,ADC通道,采样时间为239.5周期*/
+N		ADC_RegularChannelConfig(ADC3, ADC_Channel_8, 1, ADC_SampleTime_239Cycles5 );
+X		ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ((uint8_t)0x08), 1, ((uint8_t)0x07) );
+N	}	
 N	
-N		Send_Count = DataScope_Data_Generate(chCount);
 N	
-N		for( i = 0 ; i < Send_Count; i++) 
-N		{
-N			#if 1
-N			comSendChar(COM2,DataScope_OutPut_Buffer[i]);
-N			#else
-S			while((USART1->SR&0X40)==0);  
-S			USART1->DR = DataScope_OutPut_Buffer[i]; 
-N			#endif
-N		}
+N	/*吸尘*/
+N	{
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC |RCC_APB2Periph_ADC2, ENABLE );
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000010) |((uint32_t)0x00000400), ENABLE );
+N 
+N		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+N		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+X		RCC_ADCCLKConfig(((uint32_t)0x00008000));
+N                  
+N		/*配置引脚为模拟输入模式*/
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0004);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+N		GPIO_Init(GPIOC, &GPIO_InitStructure);	
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)), &GPIO_InitStructure);	
+N
+N		/*复位ADC*/
+N		ADC_DeInit(ADC2);
+X		ADC_DeInit(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N
+N		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+X		ADC_InitStructure.ADC_Mode = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+X		ADC_InitStructure.ADC_ExternalTrigConv = ((uint32_t)0x000E0000);
+N		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+X		ADC_InitStructure.ADC_DataAlign = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_NbrOfChannel = 1;
+N		ADC_Init(ADC2, &ADC_InitStructure);  
+X		ADC_Init(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), &ADC_InitStructure);  
+N
+N		/*使能指定的ADC*/
+N		ADC_Cmd(ADC2, ENABLE);
+X		ADC_Cmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);
+N		
+N		/*使能复位校准 */
+N		ADC_ResetCalibration(ADC2);
+X		ADC_ResetCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N		 
+N		/*等待复位校准结束*/
+N		while(ADC_GetResetCalibrationStatus(ADC2));
+X		while(ADC_GetResetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*开启AD校准*/
+N		ADC_StartCalibration(ADC2);
+X		ADC_StartCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N	 
+N		/*等待校准结束*/
+N		while(ADC_GetCalibrationStatus(ADC2));
+X		while(ADC_GetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*ADC,ADC通道,采样时间为239.5周期*/
+N		ADC_RegularChannelConfig(ADC2, ADC_Channel_12, 1, ADC_SampleTime_239Cycles5 );
+X		ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x0C), 1, ((uint8_t)0x07) );
+N	}
+N	
+N	/*滚刷*/
+N	{
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC |RCC_APB2Periph_ADC2, ENABLE );
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000010) |((uint32_t)0x00000400), ENABLE );
+N 
+N		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+N		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+X		RCC_ADCCLKConfig(((uint32_t)0x00008000));
+N                  
+N		/*配置引脚为模拟输入模式*/
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+N		GPIO_Init(GPIOC, &GPIO_InitStructure);	
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)), &GPIO_InitStructure);	
+N
+N		/*复位ADC*/
+N		ADC_DeInit(ADC2);
+X		ADC_DeInit(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N
+N		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+X		ADC_InitStructure.ADC_Mode = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+X		ADC_InitStructure.ADC_ExternalTrigConv = ((uint32_t)0x000E0000);
+N		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+X		ADC_InitStructure.ADC_DataAlign = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_NbrOfChannel = 1;
+N		ADC_Init(ADC2, &ADC_InitStructure);  
+X		ADC_Init(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), &ADC_InitStructure);  
+N
+N		/*使能指定的ADC*/
+N		ADC_Cmd(ADC2, ENABLE);
+X		ADC_Cmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);
+N		
+N		/*使能复位校准 */
+N		ADC_ResetCalibration(ADC2);
+X		ADC_ResetCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N		 
+N		/*等待复位校准结束*/
+N		while(ADC_GetResetCalibrationStatus(ADC2));
+X		while(ADC_GetResetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*开启AD校准*/
+N		ADC_StartCalibration(ADC2);
+X		ADC_StartCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N	 
+N		/*等待校准结束*/
+N		while(ADC_GetCalibrationStatus(ADC2));
+X		while(ADC_GetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*ADC,ADC通道,采样时间为239.5周期*/
+N		ADC_RegularChannelConfig(ADC2, ADC_Channel_10, 1, ADC_SampleTime_239Cycles5 );
+X		ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x0A), 1, ((uint8_t)0x07) );
+N	}
+N 
+N	/*边刷*/
+N	{
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC |RCC_APB2Periph_ADC2, ENABLE );
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000010) |((uint32_t)0x00000400), ENABLE );
+N 
+N		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+N		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+X		RCC_ADCCLKConfig(((uint32_t)0x00008000));
+N                  
+N		/*配置引脚为模拟输入模式*/
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+N		GPIO_Init(GPIOC, &GPIO_InitStructure);	
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)), &GPIO_InitStructure);	
+N
+N		/*复位ADC*/
+N		ADC_DeInit(ADC2);
+X		ADC_DeInit(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N
+N		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+X		ADC_InitStructure.ADC_Mode = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+X		ADC_InitStructure.ADC_ExternalTrigConv = ((uint32_t)0x000E0000);
+N		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+X		ADC_InitStructure.ADC_DataAlign = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_NbrOfChannel = 1;
+N		ADC_Init(ADC2, &ADC_InitStructure);  
+X		ADC_Init(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), &ADC_InitStructure);  
+N
+N		/*使能指定的ADC*/
+N		ADC_Cmd(ADC2, ENABLE);
+X		ADC_Cmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);
+N		
+N		/*使能复位校准 */
+N		ADC_ResetCalibration(ADC2);
+X		ADC_ResetCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N		 
+N		/*等待复位校准结束*/
+N		while(ADC_GetResetCalibrationStatus(ADC2));
+X		while(ADC_GetResetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*开启AD校准*/
+N		ADC_StartCalibration(ADC2);
+X		ADC_StartCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N	 
+N		/*等待校准结束*/
+N		while(ADC_GetCalibrationStatus(ADC2));
+X		while(ADC_GetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*ADC,ADC通道,采样时间为239.5周期*/
+N		ADC_RegularChannelConfig(ADC2, ADC_Channel_11, 1, ADC_SampleTime_239Cycles5 );
+X		ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x0B), 1, ((uint8_t)0x07) );
+N	}
+N	
+N	
+N	/*电池电压*/
+N	{
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB |RCC_APB2Periph_ADC2, ENABLE );
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000008) |((uint32_t)0x00000400), ENABLE );
+N 
+N		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+N		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+X		RCC_ADCCLKConfig(((uint32_t)0x00008000));
+N                  
+N		/*配置引脚为模拟输入模式*/
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+N		GPIO_Init(GPIOB, &GPIO_InitStructure);	
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0C00)), &GPIO_InitStructure);	
+N
+N		/*复位ADC*/
+N		ADC_DeInit(ADC2);
+X		ADC_DeInit(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N
+N		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+X		ADC_InitStructure.ADC_Mode = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+X		ADC_InitStructure.ADC_ExternalTrigConv = ((uint32_t)0x000E0000);
+N		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+X		ADC_InitStructure.ADC_DataAlign = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_NbrOfChannel = 1;
+N		ADC_Init(ADC2, &ADC_InitStructure);  
+X		ADC_Init(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), &ADC_InitStructure);  
+N
+N		/*使能指定的ADC*/
+N		ADC_Cmd(ADC2, ENABLE);
+X		ADC_Cmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);
+N		
+N		/*使能复位校准 */
+N		ADC_ResetCalibration(ADC2);
+X		ADC_ResetCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N		 
+N		/*等待复位校准结束*/
+N		while(ADC_GetResetCalibrationStatus(ADC2));
+X		while(ADC_GetResetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*开启AD校准*/
+N		ADC_StartCalibration(ADC2);
+X		ADC_StartCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)));
+N	 
+N		/*等待校准结束*/
+N		while(ADC_GetCalibrationStatus(ADC2));
+X		while(ADC_GetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))));
+N		
+N		/*ADC,ADC通道,采样时间为239.5周期*/
+N		ADC_RegularChannelConfig(ADC2, ADC_Channel_8, 1, ADC_SampleTime_239Cycles5 );
+X		ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x08), 1, ((uint8_t)0x07) );
+N	}
+N	
+N	/*充电电流*/
+N	{
+N		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF |RCC_APB2Periph_ADC3, ENABLE );
+X		RCC_APB2PeriphClockCmd(((uint32_t)0x00000080) |((uint32_t)0x00008000), ENABLE );
+N 
+N		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+N		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+X		RCC_ADCCLKConfig(((uint32_t)0x00008000));
+N                  
+N		/*配置引脚为模拟输入模式*/
+N		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+X		GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0040);
+N		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+N		GPIO_Init(GPIOF, &GPIO_InitStructure);	
+X		GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);	
+N
+N		/*复位ADC*/
+N		ADC_DeInit(ADC3);
+X		ADC_DeInit(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)));
+N
+N		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+X		ADC_InitStructure.ADC_Mode = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+N		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+X		ADC_InitStructure.ADC_ExternalTrigConv = ((uint32_t)0x000E0000);
+N		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+X		ADC_InitStructure.ADC_DataAlign = ((uint32_t)0x00000000);
+N		ADC_InitStructure.ADC_NbrOfChannel = 1;
+N		ADC_Init(ADC3, &ADC_InitStructure);  
+X		ADC_Init(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), &ADC_InitStructure);  
+N
+N		/*使能指定的ADC*/
+N		ADC_Cmd(ADC3, ENABLE);
+X		ADC_Cmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ENABLE);
+N		
+N		/*使能复位校准 */
+N		ADC_ResetCalibration(ADC3);
+X		ADC_ResetCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)));
+N		 
+N		/*等待复位校准结束*/
+N		while(ADC_GetResetCalibrationStatus(ADC3));
+X		while(ADC_GetResetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00))));
+N		
+N		/*开启AD校准*/
+N		ADC_StartCalibration(ADC3);
+X		ADC_StartCalibration(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)));
+N	 
+N		/*等待校准结束*/
+N		while(ADC_GetCalibrationStatus(ADC3));
+X		while(ADC_GetCalibrationStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00))));
+N		
+N		/*ADC,ADC通道,采样时间为239.5周期*/
+N		ADC_RegularChannelConfig(ADC3, ADC_Channel_4, 1, ADC_SampleTime_239Cycles5 );
+X		ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ((uint8_t)0x04), 1, ((uint8_t)0x07) );
+N	}
+N	
 N}

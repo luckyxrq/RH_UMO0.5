@@ -38897,6 +38897,7 @@ L 1 "..\..\User\app\inc\bsp_CurrentFeedback.h" 1
 N#ifndef __BSP_CURRENTFEEDBACK_H
 N#define __BSP_CURRENTFEEDBACK_H
 N
+Nvoid bsp_InitCurrentFeedbackADC(void);
 N
 N#endif
 N

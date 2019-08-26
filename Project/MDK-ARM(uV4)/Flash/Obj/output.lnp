@@ -20,6 +20,7 @@
 ".\flash\obj\bsp_param.o"
 ".\flash\obj\bsp_stflash.o"
 ".\flash\obj\bsp_offsitesw.o"
+".\flash\obj\bsp_currentfeedback.o"
 ".\flash\obj\bsp.o"
 ".\flash\obj\bsp_dwt.o"
 ".\flash\obj\bsp_uart_fifo.o"
