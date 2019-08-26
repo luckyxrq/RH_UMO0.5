@@ -1,10 +1,5 @@
 #include "bsp.h"
 
-#define RCC_ALL_CLIFF_SW 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
-
-#define GPIO_PORT_CLIFF_SW_L  GPIOC
-#define GPIO_PIN_CLIFF_SW_L   GPIO_Pin_9
-
 
 /*
 *********************************************************************************************************
@@ -14,23 +9,137 @@
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_InitOffSiteSW(void)
+void bsp_InitCliffSW(void)
 {
-
+	ADC_InitTypeDef ADC_InitStructure; 
 	GPIO_InitTypeDef GPIO_InitStructure;
-
-	/* 打开GPIO时钟 */
-	RCC_APB2PeriphClockCmd(RCC_ALL_CLIFF_SW, ENABLE);
-
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 浮空输入 */
-	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_OFFSITE_SW_L;
-	GPIO_Init(GPIO_PORT_OFFSITE_SW_L, &GPIO_InitStructure);
+	/*跳崖1*/
+	{
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA |RCC_APB2Periph_ADC2, ENABLE );
+ 
+		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+                  
+		/*配置引脚为模拟输入模式*/
+		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+		GPIO_Init(GPIOA, &GPIO_InitStructure);	
+
+		/*复位ADC*/
+		ADC_DeInit(ADC2);
+
+		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+		ADC_InitStructure.ADC_NbrOfChannel = 1;
+		ADC_Init(ADC2, &ADC_InitStructure);  
+
+		/*使能指定的ADC*/
+		ADC_Cmd(ADC2, ENABLE);
+		
+		/*使能复位校准 */
+		ADC_ResetCalibration(ADC2);
+		 
+		/*等待复位校准结束*/
+		while(ADC_GetResetCalibrationStatus(ADC2));
+		
+		/*开启AD校准*/
+		ADC_StartCalibration(ADC2);
+	 
+		/*等待校准结束*/
+		while(ADC_GetCalibrationStatus(ADC2));
+		
+		/*ADC,ADC通道,采样时间为239.5周期*/
+		ADC_RegularChannelConfig(ADC2, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
+	}
 	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 浮空输入 */
-	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_OFFSITE_SW_R;
-	GPIO_Init(GPIO_PORT_OFFSITE_SW_R, &GPIO_InitStructure);
+	
+	/*跳崖2*/
+	{
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA |RCC_APB2Periph_ADC2, ENABLE );
+ 
+		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+                  
+		/*配置引脚为模拟输入模式*/
+		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+		GPIO_Init(GPIOA, &GPIO_InitStructure);	
+
+		/*复位ADC*/
+		ADC_DeInit(ADC2);
+
+		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+		ADC_InitStructure.ADC_NbrOfChannel = 1;
+		ADC_Init(ADC2, &ADC_InitStructure);  
+
+		/*使能指定的ADC*/
+		ADC_Cmd(ADC2, ENABLE);
+		
+		/*使能复位校准 */
+		ADC_ResetCalibration(ADC2);
+		 
+		/*等待复位校准结束*/
+		while(ADC_GetResetCalibrationStatus(ADC2));
+		
+		/*开启AD校准*/
+		ADC_StartCalibration(ADC2);
+	 
+		/*等待校准结束*/
+		while(ADC_GetCalibrationStatus(ADC2));
+		
+		/*ADC,ADC通道,采样时间为239.5周期*/
+		ADC_RegularChannelConfig(ADC2, ADC_Channel_6, 1, ADC_SampleTime_239Cycles5 );
+	}
+	
+	/*跳崖3*/
+	{
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF |RCC_APB2Periph_ADC3, ENABLE );
+ 
+		/*设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M*/
+		RCC_ADCCLKConfig(RCC_PCLK2_Div6);
+                  
+		/*配置引脚为模拟输入模式*/
+		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+		GPIO_Init(GPIOF, &GPIO_InitStructure);	
+
+		/*复位ADC*/
+		ADC_DeInit(ADC3);
+
+		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+		ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+		ADC_InitStructure.ADC_NbrOfChannel = 1;
+		ADC_Init(ADC3, &ADC_InitStructure);  
+
+		/*使能指定的ADC*/
+		ADC_Cmd(ADC3, ENABLE);
+		
+		/*使能复位校准 */
+		ADC_ResetCalibration(ADC3);
+		 
+		/*等待复位校准结束*/
+		while(ADC_GetResetCalibrationStatus(ADC3));
+		
+		/*开启AD校准*/
+		ADC_StartCalibration(ADC3);
+	 
+		/*等待校准结束*/
+		while(ADC_GetCalibrationStatus(ADC3));
+		
+		/*ADC,ADC通道,采样时间为239.5周期*/
+		ADC_RegularChannelConfig(ADC3, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
+	}	
 
 }
 

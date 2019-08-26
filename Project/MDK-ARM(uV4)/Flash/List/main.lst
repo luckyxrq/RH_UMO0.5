@@ -46255,6 +46255,7 @@ L 1 "..\..\User\app\inc\bsp_CliffSW.h" 1
 N#ifndef __BSP_CLIFF_H
 N#define __BSP_CLIFF_H
 N
+Nvoid bsp_InitCliffSW(void);
 N
 N#endif
 N
