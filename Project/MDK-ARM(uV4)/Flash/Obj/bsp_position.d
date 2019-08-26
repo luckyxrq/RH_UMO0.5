@@ -75,4 +75,5 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_CurrentFeedback.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_DustBox.h
+.\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

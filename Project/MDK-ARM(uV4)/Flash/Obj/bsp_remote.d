@@ -75,3 +75,4 @@
 .\flash\obj\bsp_remote.o: ..\..\User\app\inc\bsp_CurrentFeedback.h
 .\flash\obj\bsp_remote.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\bsp_remote.o: ..\..\User\app\inc\bsp_DustBox.h
+.\flash\obj\bsp_remote.o: ..\..\User\app\inc\bsp_speaker.h

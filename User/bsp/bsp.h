@@ -191,6 +191,8 @@
 #include "bsp_CurrentFeedback.h"
 #include "bsp_CliffSW.h"
 #include "bsp_DustBox.h"
+#include "bsp_speaker.h"
+
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

@@ -1,4 +1,4 @@
-L 1 "..\..\User\app\src\bsp_Remote.c"
+L 1 "..\..\User\app\src\bsp_speaker.c"
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -39013,259 +39013,19 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 2 "..\..\User\app\src\bsp_Remote.c" 2
+L 2 "..\..\User\app\src\bsp_speaker.c" 2
 N
-N#define RANGE			100         /*红外接收脉宽计数范围*/
-N#define RangeSub(x)		((x)-RANGE) /*红外接收脉宽计数范围 负*/
-N#define RangeAdd(x)		((x)+RANGE) /*红外接收脉宽计数范围 正*/
-N#define CYCLE			80          /*如果确认检测的相应宽度的脉冲，*/
+N/* 扬声器 */
+N#define RCC_ALL_SPEAKER 	(RCC_APB2Periph_GPIOD)
 N
-Ntypedef struct
-N{
-N	volatile bool is500us;
-X	volatile _Bool is500us;
-N	volatile bool is1000us;
-X	volatile _Bool is1000us;
-N	volatile bool is1500us;
-X	volatile _Bool is1500us;
-N	volatile uint32_t remoteStatistics[3]; //用于统计计数次数
-N}Remote;
+N#define GPIO_PORT_SPEAKER_DI      GPIOD
+N#define GPIO_PIN_SPEAKER_DI	      GPIO_Pin_2
+N                                  
+N#define GPIO_PORT_SPEAKER_RST     GPIOD
+N#define GPIO_PIN_SPEAKER_RST	  GPIO_Pin_1
 N
-Ntypedef enum
-N{
-N	Pulse500US  = 0 ,
-N	Pulse1000US = 1 ,
-N	Pulse1500US = 2 
-N}PulseWidth;
-N
-Nstatic volatile Remote remote[4];
-Nstatic volatile uint32_t remoteStateTimer[4][3]; //三种脉冲，4个接收管
-N
-N
-Ntypedef struct
-N{
-N	uint8_t isRunning;
-N	uint32_t action ;
-N	uint32_t delay;
-N	float angle;
-N	bool isNeedBack;
-X	_Bool isNeedBack;
-N	bool isRight;
-X	_Bool isRight;
-N}SearchCharging;
-N
-Nstatic ChargingPile chargingPile;
-Nstatic SearchCharging searchCharging;
-Nstatic void bsp_InitTIM3Cap(u16 arr,u16 psc);
-Nstatic void bsp_InitIO(void);
-N
-Nvoid bsp_InitChargingPile(void)
-N{
-N    bsp_InitTIM3Cap(0xFFFF,72-1); //1MHz采样率
-N	
-N	bsp_InitIO();
-N	
-N}
-N
-N
-N
-Nvoid bsp_StartSearchChargingPile(void)
-N{
-N	searchCharging.action = 0 ;
-N	searchCharging.isRunning = 1 ;
-N}
-N
-Nvoid bsp_StopSearchChargingPile(void)
-N{
-N	searchCharging.isRunning = 0 ;
-N	searchCharging.action = 0 ;
-N}
-N
-Nvoid bsp_SearchChargingPileAct(void)
-N{
-N	if(!searchCharging.isRunning)
-N	{
-N		return ;
-N	}
-N	
-N	/*充电*/
-N	if(bsp_GetChargeFeedback() == true)
-X	if(bsp_GetChargeFeedback() == 1)
-N	{
-N		DEBUG("is charging...\r\n");
-X		printf ("is charging...\r\n");
-N		bsp_SetMotorSpeed(MotorLeft,0);
-N		bsp_SetMotorSpeed(MotorRight,0);
-N		bsp_StopSearchChargingPile();
-N		return ;
-N	}
-N	
-N	switch(searchCharging.action)
-N	{
-N		case 0: //第一步，直走
-N		{
-N			bsp_SetMotorSpeed(MotorLeft,5);
-N			bsp_SetMotorSpeed(MotorRight,5);
-N			
-N			searchCharging.action++;
-N		}break;
-N		
-N		case 1: //直到1号能够检测到三种脉宽
-N		{
-N			if(remote[CapCH1].is500us && remote[CapCH1].is1000us && remote[CapCH1].is1500us)
-N			{
-N				DEBUG("1 detect 3 pulse\r\n");
-X				printf ("1 detect 3 pulse\r\n");
-N				bsp_SetMotorSpeed(MotorLeft,0);
-N				bsp_SetMotorSpeed(MotorRight,0);
-N
-N				searchCharging.isRight = true ; //从右边切入
-X				searchCharging.isRight = 1 ; 
-N				searchCharging.action++;
-N			}
-N			if(remote[CapCH2].is500us && remote[CapCH2].is1000us && remote[CapCH2].is1500us)
-N			{
-N				DEBUG("2 detect 3 pulse\r\n");
-X				printf ("2 detect 3 pulse\r\n");
-N				bsp_SetMotorSpeed(MotorLeft,0);
-N				bsp_SetMotorSpeed(MotorRight,0);
-N				
-N				searchCharging.isRight = false ; //从左边切入
-X				searchCharging.isRight = 0 ; 
-N				searchCharging.action++;
-N			}
-N			else if((remote[CapCH4].is500us && remote[CapCH4].is1000us)  || (remote[CapCH3].is500us && remote[CapCH3].is1000us))
-N			{
-N				searchCharging.action = 5 ;
-N			}
-N		}break;
-N		
-N
-N		case 2: //左走右不走
-N		{
-N			if(searchCharging.isRight) //右边切入
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,5);
-N				searchCharging.action++;
-N			}
-N			else //左边切入
-N			{
-N				bsp_SetMotorSpeed(MotorRight,5);
-N				searchCharging.action++;
-N			}
-N			
-N		}break;
-N		
-N		
-N		case 3: //4号同时收到
-N		{
-N			if(searchCharging.isRight) //右边切入
-N			{
-N				if(remote[CapCH4].is500us && remote[CapCH4].is1000us && (remote[CapCH3].is500us || remote[CapCH3].is1000us))
-N				{
-N					DEBUG("4 detect 3 pulse\r\n");
-X					printf ("4 detect 3 pulse\r\n");
-N					bsp_SetMotorSpeed(MotorLeft,0);
-N					bsp_SetMotorSpeed(MotorRight,0);
-N					searchCharging.action++;
-N				}
-N			}
-N			else //左边切入
-N			{
-N				if(remote[CapCH3].is500us && remote[CapCH3].is1000us && (remote[CapCH4].is500us || remote[CapCH4].is1000us))
-N				{
-N					DEBUG("3 detect 3 pulse\r\n");
-X					printf ("3 detect 3 pulse\r\n");
-N					bsp_SetMotorSpeed(MotorLeft,0);
-N					bsp_SetMotorSpeed(MotorRight,0);
-N					searchCharging.action++;
-N				}
-N			}
-N		}break;
-N		
-N		case 4: //右转
-N		{
-N			if(searchCharging.isRight) //右边切入
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,6);
-N				bsp_SetMotorSpeed(MotorRight,5);
-N				searchCharging.action++;	
-N			}
-N			else
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,5);
-N				bsp_SetMotorSpeed(MotorRight,6);
-N				searchCharging.action++;	
-N			}				
-N		}break;
-N		
-N		
-N		case 5: //前面一个都收不到了
-N		{
-N			Collision collision = bsp_CollisionScan();
-N			if(collision != CollisionNone)
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,-5);
-N				bsp_SetMotorSpeed(MotorRight,-5);
-N				
-N				searchCharging.isNeedBack = true;
-X				searchCharging.isNeedBack = 1;
-N				searchCharging.delay = xTaskGetTickCount();
-N			}
-N			else if(remote[CapCH3].is500us && remote[CapCH4].is1000us) //同时有直走
-N			{
-N				DEBUG("both\r\n");
-X				printf ("both\r\n");
-N				bsp_SetMotorSpeed(MotorLeft,5);
-N				bsp_SetMotorSpeed(MotorRight,5);
-N			}
-N			else if(remote[CapCH1].is500us || remote[CapCH1].is1000us)
-N			{
-N				DEBUG("adjust\r\n");
-X				printf ("adjust\r\n");
-N				bsp_SetMotorSpeed(MotorLeft,6);
-N				bsp_SetMotorSpeed(MotorRight,4);
-N			}
-N			else if(!remote[CapCH4].is1000us) //4收不到1000
-N			{
-N				DEBUG("4 miss 1000\r\n");
-X				printf ("4 miss 1000\r\n");
-N				bsp_SetMotorSpeed(MotorLeft,4);
-N				bsp_SetMotorSpeed(MotorRight,5);
-N			}
-N			else if(!remote[CapCH3].is500us) //3收不到500
-N			{
-N				DEBUG("3 miss 500\r\n");
-X				printf ("3 miss 500\r\n");
-N				bsp_SetMotorSpeed(MotorLeft,5);
-N				bsp_SetMotorSpeed(MotorRight,4);
-N			}
-N			
-N			
-N			searchCharging.action++;
-N		}break;
-N		
-N		case 6:
-N		{
-N			if(searchCharging.isNeedBack)
-N			{
-N				if(xTaskGetTickCount() - searchCharging.delay >= 5000)
-N				{
-N					searchCharging.isNeedBack = false;
-X					searchCharging.isNeedBack = 0;
-N				}
-N			}
-N			else
-N			{
-N				searchCharging.action = 5;
-N			}
-N		}break;
-N		
-N		
-N		
-N	}
-N}
-N
+N#define GPIO_PORT_SPEAKER_BUSY    GPIOD
+N#define GPIO_PIN_SPEAKER_BUSY	  GPIO_Pin_0
 N
 N
 N
@@ -39273,531 +39033,102 @@ N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_ClearRemoteTimerCnt
-N*	功能说明: 指定接收管，脉冲类型，清除计数器。
+N*	函 数 名: bsp_InitSpeaker
+N*	功能说明: 初始化扬声器
 N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid bsp_ClearRemoteTimerCnt(CapCH capCH , PulseWidth pulseWidth)
-N{
-N	remoteStateTimer[capCH][pulseWidth] = 0 ;
-N}
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_ClearRemoteTimerCnt
-N*	功能说明: 指定接收管，脉冲类型，计数器加1。
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_RemoteTimerCntAdd(CapCH capCH , PulseWidth pulseWidth)
-N{
-N	++remoteStateTimer[capCH][pulseWidth];
-N}
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_ClearRemotePulseState
-N*	功能说明: 清除指定管，指定宽度脉冲辐射范围状态。
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_ClearRemotePulseState(CapCH capCH , PulseWidth pulseWidth)
-N{
-N	switch(pulseWidth)
-N	{
-N		case Pulse500US:
-N		{
-N			remote[capCH].is500us = false ;
-X			remote[capCH].is500us = 0 ;
-N		}break;
-N		case Pulse1000US:
-N		{
-N			remote[capCH].is1000us = false ;
-X			remote[capCH].is1000us = 0 ;
-N		}break;
-N		case Pulse1500US:
-N		{
-N			remote[capCH].is1500us = false ;
-X			remote[capCH].is1500us = 0 ;
-N		}break;
-N	}
-N
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_SetRemotePulseState
-N*	功能说明: 设定指定管，指定宽度脉冲辐射范围状态。
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_SetRemotePulseState(CapCH capCH , PulseWidth pulseWidth)
-N{
-N	switch(pulseWidth)
-N	{
-N		case Pulse500US:
-N		{
-N			remote[capCH].is500us = true ;
-X			remote[capCH].is500us = 1 ;
-N		}break;
-N		case Pulse1000US:
-N		{
-N			remote[capCH].is1000us = true ;
-X			remote[capCH].is1000us = 1 ;
-N		}break;
-N		case Pulse1500US:
-N		{
-N			remote[capCH].is1500us = true ;
-X			remote[capCH].is1500us = 1 ;
-N		}break;
-N	}
-N
-N}
-N
-N
-N
-Nvoid bsp_PulseTimerPer1MS(void)
-N{
-N	CapCH ch = CapCH1 ;
-N	PulseWidth pulse = Pulse500US ;
-N	
-N	for(ch=CapCH1;ch<=CapCH4;ch++)
-N	{
-N		for(pulse=Pulse500US;pulse<=Pulse1500US;pulse++)
-N		{
-N			if(remoteStateTimer[ch][pulse] <= CYCLE)
-X			if(remoteStateTimer[ch][pulse] <= 80)
-N			{
-N				bsp_RemoteTimerCntAdd(ch,pulse); /*如果计数值为0，则每MS加1，直到一个循环周期*/
-N			}
-N			else
-N			{
-N				if(pulse == Pulse500US && remote[ch].is500us==true)
-X				if(pulse == Pulse500US && remote[ch].is500us==1)
-N				{
-N					remote[ch].is500us = false;
-X					remote[ch].is500us = 0;
-N				}
-N				else if(pulse == Pulse1000US && remote[ch].is1000us==true)
-X				else if(pulse == Pulse1000US && remote[ch].is1000us==1)
-N				{
-N					remote[ch].is1000us = false;
-X					remote[ch].is1000us = 0;
-N				}
-N				else if(pulse == Pulse1500US && remote[ch].is1500us==true)
-X				else if(pulse == Pulse1500US && remote[ch].is1500us==1)
-N				{
-N					remote[ch].is1500us = false;
-X					remote[ch].is1500us = 0;
-N				}
-N			}
-N		}
-N	}
-N	
-N}
-N
-N
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_GetCapCnt
-N*	功能说明: 获取这个通道的低电平持续时间
-N*	形    参: 通道
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nuint32_t bsp_GetCapCnt(CapCH capCH)
-N{
-N	uint32_t temp = 0; 
-N	CapCH ch = capCH;
-N	
-N	if(chargingPile.capState[ch]&0X80)//成功捕获到了一次上升沿
-N	{
-N		temp=chargingPile.capState[ch]&0X3F;
-N		temp*=65536;//溢出时间总和
-N		temp+=chargingPile.capValue[ch];//得到总的时间
-N		temp-=chargingPile.capStart[ch];//得到总的时间
-N		
-N		
-N		//printf("LOW:%d us\r\n",temp);   //打印总的时间
-N
-N		if(temp >= RangeSub(500) && temp <=  RangeAdd(500))
-X		if(temp >= ((500)-100) && temp <=  ((500)+100))
-N		{
-N			remote[ch].remoteStatistics[1] = 0 ;
-N			remote[ch].remoteStatistics[2] = 0 ;
-N			
-N			if(++remote[ch].remoteStatistics[0] >= 3)
-N			{
-N				bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
-N				remote[ch].is500us = true;
-X				remote[ch].is500us = 1;
-N			}
-N		}
-N		else if(temp >= RangeSub(1000) && temp <=  RangeAdd(1000))
-X		else if(temp >= ((1000)-100) && temp <=  ((1000)+100))
-N		{
-N			remote[ch].remoteStatistics[0] = 0 ;
-N			remote[ch].remoteStatistics[2] = 0 ;
-N			
-N			if(++remote[ch].remoteStatistics[1] >= 3)
-N			{
-N				bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
-N				remote[ch].is1000us = true;
-X				remote[ch].is1000us = 1;
-N			}
-N		}
-N		else if(temp >= RangeSub(1500) && temp <=  RangeAdd(1500))
-X		else if(temp >= ((1500)-100) && temp <=  ((1500)+100))
-N		{
-N			remote[ch].remoteStatistics[0] = 0 ;
-N			remote[ch].remoteStatistics[1] = 0 ;
-N			
-N			if(++remote[ch].remoteStatistics[2] >= 3)
-N			{
-N			    bsp_ClearRemoteTimerCnt(ch,Pulse1500US);//清除计数
-N				remote[ch].is1500us = true;
-X				remote[ch].is1500us = 1;
-N			}
-N			
-N		}
-N		
-N		chargingPile.capState[ch]=0;
-N		chargingPile.capValue[ch]=0;
-N	}
-N	
-N	return temp;
-N}
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_PrintRemoteState
-N*	功能说明: 获取 每个通道的低电平持续时间
-N*	形    参: 通道
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_PrintRemoteState(void)
-N{
-N	printf("*******CH(1000,1500,500)******\r\n");
-N	printf("CH1:%d %d %d\r\n",remote[CapCH1].is1000us,remote[CapCH1].is1500us,remote[CapCH1].is500us);
-N	printf("CH2:%d %d %d\r\n",remote[CapCH2].is1000us,remote[CapCH2].is1500us,remote[CapCH2].is500us);
-N	printf("CH3:%d %d %d\r\n",remote[CapCH3].is1000us,remote[CapCH3].is1500us,remote[CapCH3].is500us);
-N	printf("CH4:%d %d %d\r\n",remote[CapCH4].is1000us,remote[CapCH4].is1500us,remote[CapCH4].is500us);
-N}
-N
-N
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_InitTIM3Cap
-N*	功能说明: 定时器3输入捕获配置
-N*	形    参: 通道
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nstatic void bsp_InitTIM3Cap(u16 arr,u16 psc)
-N{	 
-N    GPIO_InitTypeDef   GPIO_InitStructure;
-N    NVIC_InitTypeDef   NVIC_InitStructure;
-N    TIM_ICInitTypeDef  TIM_ICInitStructure;  
-N    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-N    
-N    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
-X    RCC_APB2PeriphClockCmd(((uint32_t)0x00000010), ENABLE);
-N    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,  ENABLE);
-X    RCC_APB1PeriphClockCmd(((uint32_t)0x00000002),  ENABLE);
-N    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC|RCC_APB2Periph_AFIO, ENABLE);
-X    RCC_APB2PeriphClockCmd(((uint32_t)0x00000010)|((uint32_t)0x00000001), ENABLE);
-N    GPIO_PinRemapConfig(GPIO_FullRemap_TIM3, ENABLE); 
-X    GPIO_PinRemapConfig(((uint32_t)0x001A0C00), ENABLE); 
-N    
-N    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9;
-X    GPIO_InitStructure.GPIO_Pin   = ((uint16_t)0x0040)|((uint16_t)0x0080)|((uint16_t)0x0100)|((uint16_t)0x0200);
-N    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPU;
-N    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N    GPIO_Init(GPIOC, &GPIO_InitStructure);
-X    GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)), &GPIO_InitStructure);
-N    
-N    TIM_TimeBaseStructure.TIM_Period 		= arr; 				    //设定计数器自动重装值 最大10ms溢出  
-N    TIM_TimeBaseStructure.TIM_Prescaler     = psc; 				    //预分频器,1M的计数频率,1us加1.	   	
-N    TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 		//设置时钟分割:TDTS = Tck_tim
-X    TIM_TimeBaseStructure.TIM_ClockDivision = ((uint16_t)0x0000); 		
-N    TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up;  	//TIM向上计数模式
-X    TIM_TimeBaseStructure.TIM_CounterMode   = ((uint16_t)0x0000);  	
-N    TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);  
-X    TIM_TimeBaseInit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), &TIM_TimeBaseStructure);  
-N    
-N    
-N    TIM_ICInitStructure.TIM_ICPolarity  = TIM_ICPolarity_Falling;
-X    TIM_ICInitStructure.TIM_ICPolarity  = ((uint16_t)0x0002);
-N    TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-X    TIM_ICInitStructure.TIM_ICSelection = ((uint16_t)0x0001);
-N    TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	
-X    TIM_ICInitStructure.TIM_ICPrescaler = ((uint16_t)0x0000);	 	
-N    TIM_ICInitStructure.TIM_ICFilter    = 0x03;					
-N    
-N    TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_1;  		
-X    TIM_ICInitStructure.TIM_Channel 	= ((uint16_t)0x0000);  		
-N    TIM_ICInit(TIM3, &TIM_ICInitStructure);
-X    TIM_ICInit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), &TIM_ICInitStructure);
-N    
-N    TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_2;  		
-X    TIM_ICInitStructure.TIM_Channel 	= ((uint16_t)0x0004);  		
-N    TIM_ICInit(TIM3, &TIM_ICInitStructure);
-X    TIM_ICInit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), &TIM_ICInitStructure);
-N    
-N    TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_3;  		
-X    TIM_ICInitStructure.TIM_Channel 	= ((uint16_t)0x0008);  		
-N    TIM_ICInit(TIM3, &TIM_ICInitStructure);
-X    TIM_ICInit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), &TIM_ICInitStructure);
-N    
-N    TIM_ICInitStructure.TIM_Channel 	= TIM_Channel_4;  		
-X    TIM_ICInitStructure.TIM_Channel 	= ((uint16_t)0x000C);  		
-N    TIM_ICInit(TIM3, &TIM_ICInitStructure);
-X    TIM_ICInit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), &TIM_ICInitStructure);
-N    
-N    
-N    NVIC_InitStructure.NVIC_IRQChannel 			  = TIM3_IRQn;  
-N    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  	//先占优先级0级
-N    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;  		//从优先级3级
-N    NVIC_InitStructure.NVIC_IRQChannelCmd 		  = ENABLE; 	//IRQ通道被使能
-N    NVIC_Init(&NVIC_InitStructure);   	
-N    
-N    TIM_Cmd(TIM3,ENABLE ); 	
-X    TIM_Cmd(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),ENABLE ); 	
-N    
-N    
-N    TIM_ITConfig(TIM3,TIM_IT_Update|TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4, ENABLE);
-X    TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0001)|((uint16_t)0x0002)|((uint16_t)0x0004)|((uint16_t)0x0008)|((uint16_t)0x0010), ENABLE);
-N}
-N
-N
-N
-N
-N
-Nvoid TIM3_IRQHandler(void)
-N{
-N	CapCH ch = CapCH1;
-N	
-N	
-N	/************************  CH1  *********************************/
-N	ch = CapCH1;
-N	if((chargingPile.capState[ch]&0X80) == 0)
-N	{
-N		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
-X		if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0001)) != RESET) 
-N        {	    
-N            if(chargingPile.capState[ch]&0X40)
-N            {
-N                if((chargingPile.capState[ch]&0X3F)==0X3F)
-N                {
-N                    chargingPile.capState[ch]|=0X80;
-N                    chargingPile.capValue[ch]=0XFFFF;
-N                }else chargingPile.capState[ch]++;
-N            }	 
-N        }
-N        if (TIM_GetITStatus(TIM3, TIM_IT_CC1) != RESET)
-X        if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0002)) != RESET)
-N        {	
-N            if(chargingPile.capState[ch]&0X40)			
-N            {	  			
-N                chargingPile.capState[ch]|=0X80;
-N                chargingPile.capValue[ch]=TIM_GetCapture1(TIM3);
-X                chargingPile.capValue[ch]=TIM_GetCapture1(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)));
-N                TIM_OC1PolarityConfig(TIM3,TIM_ICPolarity_Falling);
-X                TIM_OC1PolarityConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0002));
-N            }else 
-N            {
-N                chargingPile.capState[ch]=0;	
-N                chargingPile.capValue[ch]=0;
-N				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
-X				chargingPile.capStart[ch]=TIM_GetCounter(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)));
-N                chargingPile.capState[ch]|=0X40;
-N                TIM_OC1PolarityConfig(TIM3,TIM_ICPolarity_Rising);
-X                TIM_OC1PolarityConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0000));
-N            }		    
-N        }			 
-N	}
-N	
-N	
-N	/************************  CH2  *********************************/
-N	ch = CapCH2;
-N	if((chargingPile.capState[ch]&0X80) == 0)
-N	{
-N		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
-X		if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0001)) != RESET) 
-N        {	    
-N            if(chargingPile.capState[ch]&0X40)
-N            {
-N                if((chargingPile.capState[ch]&0X3F)==0X3F)
-N                {
-N                    chargingPile.capState[ch]|=0X80;
-N                    chargingPile.capValue[ch]=0XFFFF;
-N                }else chargingPile.capState[ch]++;
-N            }	 
-N        }
-N        if (TIM_GetITStatus(TIM3, TIM_IT_CC2) != RESET)
-X        if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0004)) != RESET)
-N        {	
-N            if(chargingPile.capState[ch]&0X40)			
-N            {	  			
-N                chargingPile.capState[ch]|=0X80;
-N                chargingPile.capValue[ch]=TIM_GetCapture2(TIM3);
-X                chargingPile.capValue[ch]=TIM_GetCapture2(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)));
-N                TIM_OC2PolarityConfig(TIM3,TIM_ICPolarity_Falling);
-X                TIM_OC2PolarityConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0002));
-N            }else 
-N            {
-N                chargingPile.capState[ch]=0;	
-N                chargingPile.capValue[ch]=0;
-N				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
-X				chargingPile.capStart[ch]=TIM_GetCounter(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)));
-N                chargingPile.capState[ch]|=0X40;
-N                TIM_OC2PolarityConfig(TIM3,TIM_ICPolarity_Rising);
-X                TIM_OC2PolarityConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0000));
-N            }		    
-N        }			 
-N	}
-N	
-N	
-N	/************************  CH3  *********************************/
-N	ch = CapCH3;
-N	if((chargingPile.capState[ch]&0X80) == 0)
-N	{
-N		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
-X		if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0001)) != RESET) 
-N        {	    
-N            if(chargingPile.capState[ch]&0X40)
-N            {
-N                if((chargingPile.capState[ch]&0X3F)==0X3F)
-N                {
-N                    chargingPile.capState[ch]|=0X80;
-N                    chargingPile.capValue[ch]=0XFFFF;
-N                }else chargingPile.capState[ch]++;
-N            }	 
-N        }
-N        if (TIM_GetITStatus(TIM3, TIM_IT_CC3) != RESET)
-X        if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0008)) != RESET)
-N        {	
-N            if(chargingPile.capState[ch]&0X40)			
-N            {	  			
-N                chargingPile.capState[ch]|=0X80;
-N                chargingPile.capValue[ch]=TIM_GetCapture3(TIM3);
-X                chargingPile.capValue[ch]=TIM_GetCapture3(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)));
-N                TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Falling);
-X                TIM_OC3PolarityConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0002));
-N            }else 
-N            {
-N                chargingPile.capState[ch]=0;	
-N                chargingPile.capValue[ch]=0;
-N				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
-X				chargingPile.capStart[ch]=TIM_GetCounter(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)));
-N                chargingPile.capState[ch]|=0X40;
-N                TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Rising);
-X                TIM_OC3PolarityConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0000));
-N            }		    
-N        }			 
-N	}
-N	
-N	
-N	/************************  CH4  *********************************/
-N	ch = CapCH4;
-N	if((chargingPile.capState[ch]&0X80) == 0)
-N	{
-N		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) 
-X		if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0001)) != RESET) 
-N        {	    
-N            if(chargingPile.capState[ch]&0X40)
-N            {
-N                if((chargingPile.capState[ch]&0X3F)==0X3F)
-N                {
-N                    chargingPile.capState[ch]|=0X80;
-N                    chargingPile.capValue[ch]=0XFFFF;
-N                }else chargingPile.capState[ch]++;
-N            }	 
-N        }
-N        if (TIM_GetITStatus(TIM3, TIM_IT_CC4) != RESET)
-X        if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0010)) != RESET)
-N        {	
-N            if(chargingPile.capState[ch]&0X40)			
-N            {	  			
-N                chargingPile.capState[ch]|=0X80;
-N                chargingPile.capValue[ch]=TIM_GetCapture4(TIM3);
-X                chargingPile.capValue[ch]=TIM_GetCapture4(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)));
-N                TIM_OC4PolarityConfig(TIM3,TIM_ICPolarity_Falling);
-X                TIM_OC4PolarityConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0002));
-N            }else 
-N            {
-N                chargingPile.capState[ch]=0;	
-N                chargingPile.capValue[ch]=0;
-N				chargingPile.capStart[ch]=TIM_GetCounter(TIM3);
-X				chargingPile.capStart[ch]=TIM_GetCounter(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)));
-N                chargingPile.capState[ch]|=0X40;
-N                TIM_OC4PolarityConfig(TIM3,TIM_ICPolarity_Rising);
-X                TIM_OC4PolarityConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)),((uint16_t)0x0000));
-N            }		    
-N        }			 
-N	}
-N	
-N    TIM_ClearITPendingBit(TIM3, TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4|TIM_IT_Update); //清除中断标志位
-X    TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0400)), ((uint16_t)0x0002)|((uint16_t)0x0004)|((uint16_t)0x0008)|((uint16_t)0x0010)|((uint16_t)0x0001)); 
-N    
-N}
-N
-N
-Nstatic void bsp_InitIO(void)
+Nvoid bsp_InitSpeaker(void)
 N{
 N	GPIO_InitTypeDef GPIO_InitStructure;
 N
 N	/* 打开GPIO时钟 */
-N	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
-X	RCC_APB2PeriphClockCmd(((uint32_t)0x00000080), ENABLE);
+N	RCC_APB2PeriphClockCmd(RCC_ALL_SPEAKER, ENABLE);
+X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000020)), ENABLE);
 N
 N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 
 N	
-N	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
-N	GPIO_Init(GPIOF, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
-N 
+N	/*DI引脚*/
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_SPEAKER_DI;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0004);
+N	GPIO_Init(GPIO_PORT_SPEAKER_DI, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+N
+N	/*RST引脚*/
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_SPEAKER_RST;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
+N	GPIO_Init(GPIO_PORT_SPEAKER_RST, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+N	
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 
+N	/*BUSY引脚*/
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_SPEAKER_BUSY;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+N	GPIO_Init(GPIO_PORT_SPEAKER_BUSY, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
 N}
-N
-N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: AdcPro
-N*	功能说明: ADC采样处理
-N*	形    参：无
+N*	函 数 名: bsp_SperkerPlay
+N*	功能说明: 播放指定声音，在播放指定声音之前，应该首先检测模块是否处于忙状态
+N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nbool bsp_GetChargeFeedback(void)
-X_Bool bsp_GetChargeFeedback(void)
+Nvoid bsp_SperkerPlay(SongSN sn)
 N{
-N	if(GPIO_ReadInputDataBit(GPIOF,GPIO_Pin_7))
-X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)),((uint16_t)0x0080)))
+N	uint16_t i = 0 ;
+N	
+N	/*复位*/
+N	GPIO_SetBits(GPIO_PORT_SPEAKER_RST,GPIO_PIN_SPEAKER_RST);
+X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)),((uint16_t)0x0002));
+N	bsp_DelayUS(100);
+N	GPIO_ResetBits(GPIO_PORT_SPEAKER_RST,GPIO_PIN_SPEAKER_RST);
+X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)),((uint16_t)0x0002));
+N	bsp_DelayUS(100);
+N	
+N	/*根据曲目信息，发送曲目*/
+N	for(i=0;i<sn;i++)
 N	{
-N		return true ;
-X		return 1 ;
+N		GPIO_SetBits(GPIO_PORT_SPEAKER_DI,GPIO_PIN_SPEAKER_DI);
+X		GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)),((uint16_t)0x0004));
+N		bsp_DelayUS(100);
+N		GPIO_ResetBits(GPIO_PORT_SPEAKER_DI,GPIO_PIN_SPEAKER_DI);
+X		GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)),((uint16_t)0x0004));
+N		bsp_DelayUS(100);
+N	}
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_SpeakerIsBusy
+N*	功能说明: 检测扬声器是否忙状态
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nbool bsp_SpeakerIsBusy(void)
+X_Bool bsp_SpeakerIsBusy(void)
+N{
+N	bool ret = 0 ;
+X	_Bool ret = 0 ;
+N	
+N	if(GPIO_ReadInputDataBit(GPIO_PORT_SPEAKER_BUSY,GPIO_PIN_SPEAKER_BUSY))
+X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)),((uint16_t)0x0001)))
+N	{
+N		ret = true;
+X		ret = 1;
 N	}
 N	else
 N	{
-N		return false ;
-X		return 0 ;
+N		ret = false;
+X		ret = 0;
 N	}
+N	
+N	return ret;
 N}
 N
 N

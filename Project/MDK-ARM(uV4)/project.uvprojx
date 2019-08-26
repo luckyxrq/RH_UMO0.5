@@ -548,6 +548,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_DustBox.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_speaker.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_speaker.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

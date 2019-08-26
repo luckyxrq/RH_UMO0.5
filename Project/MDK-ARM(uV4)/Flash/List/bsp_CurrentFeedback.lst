@@ -38954,6 +38954,56 @@ N
 N#endif
 N
 L 194 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_speaker.h"
+L 1 "..\..\User\app\inc\bsp_speaker.h" 1
+N#ifndef __BSP_SPEAKER_H
+N#define __BSP_SPEAKER_H
+N
+N#include <stdbool.h>
+N
+Ntypedef enum
+N{
+N	Song1 = 0,
+N	Song2,
+N	Song3,
+N	Song4,
+N	Song5,
+N	Song6,
+N	Song7,
+N	Song8,
+N	Song9,
+N	Song10,
+N	Song11,
+N	Song12,
+N	Song13,
+N	Song14,
+N	Song15,
+N	Song16,
+N	Song17,
+N	Song18,
+N	Song19,
+N	Song20,
+N	Song21,
+N	Song22,
+N	Song23,
+N	Song24,
+N	Song25,
+N	Song26,
+N	Song27,
+N	Song28,
+N	Song29,
+N	Song30,
+N}SongSN;
+N
+Nvoid bsp_InitSpeaker(void);
+Nvoid bsp_SperkerPlay(SongSN sn);
+Nbool bsp_SpeakerIsBusy(void);
+X_Bool bsp_SpeakerIsBusy(void);
+N
+N#endif
+N
+L 195 "..\..\User\bsp\bsp.h" 2
+N
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);

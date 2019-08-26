@@ -75,3 +75,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_CurrentFeedback.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_DustBox.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_speaker.h
