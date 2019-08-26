@@ -538,6 +538,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_CliffSW.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_DustBox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_DustBox.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

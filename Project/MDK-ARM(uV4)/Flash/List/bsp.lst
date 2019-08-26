@@ -38932,7 +38932,23 @@ N#endif
 N
 N
 L 193 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_DustBox.h"
+L 1 "..\..\User\app\inc\bsp_DustBox.h" 1
+N#ifndef __DUSTBOX_H
+N#define __DUSTBOX_H
 N
+Ntypedef enum
+N{
+N	DustBoxInside = 0,
+N	DustBoxOutside
+N}DustBoxState;
+N
+Nvoid bsp_InitDustBox(void);
+NDustBoxState bsp_DustBoxGetState(void);
+N
+N#endif
+N
+L 194 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
