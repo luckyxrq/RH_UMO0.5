@@ -38897,7 +38897,21 @@ L 1 "..\..\User\app\inc\bsp_CurrentFeedback.h" 1
 N#ifndef __BSP_CURRENTFEEDBACK_H
 N#define __BSP_CURRENTFEEDBACK_H
 N
+N
+Ntypedef enum
+N{
+N	eMotorLeft = 0 , /*左轮机*/
+N	eMotorRight,     /*右轮机*/
+N	eVacuum,		 /*吸尘器*/
+N	eRollingBrush,   /*滚刷*/
+N	eSideBrush,      /*边刷*/
+N	eBatteryVoltage, /*电池电压*/
+N	eBatteryCurrent  /*充电电流*/
+N}FeedbackSN;
+N
+N
 Nvoid bsp_InitCurrentFeedbackADC(void);
+Nfloat bsp_GetFeedbackVoltage(FeedbackSN sn);
 N
 N#endif
 N
@@ -38941,6 +38955,8 @@ N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\bsp_CurrentFeedback.c" 2
+N
+N
 N
 N/*
 N*********************************************************************************************************
@@ -39356,4 +39372,107 @@ N		ADC_RegularChannelConfig(ADC3, ADC_Channel_4, 1, ADC_SampleTime_239Cycles5 );
 X		ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ((uint8_t)0x04), 1, ((uint8_t)0x07) );
 N	}
 N	
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_GetFeedbackVoltage
+N*	功能说明: 返回反馈的电压
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nfloat bsp_GetFeedbackVoltage(FeedbackSN sn)
+N{
+N	float ret = 0;
+N	
+N	switch(sn)
+N	{
+N		case eMotorLeft:
+N		{
+N			ADC_RegularChannelConfig(ADC2, ADC_Channel_9, 1, ADC_SampleTime_239Cycles5 );
+X			ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x09), 1, ((uint8_t)0x07) );
+N			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+X			ADC_SoftwareStartConvCmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);	
+N			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+X			while(!ADC_GetFlagStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x02) ));
+N			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+X			ret = ADC_GetConversionValue(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))) * 3.3F / 4096;
+N		}break;
+N		
+N		case eMotorRight:
+N		{
+N			ADC_RegularChannelConfig(ADC3, ADC_Channel_8, 1, ADC_SampleTime_239Cycles5 );
+X			ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ((uint8_t)0x08), 1, ((uint8_t)0x07) );
+N			ADC_SoftwareStartConvCmd(ADC3, ENABLE);	
+X			ADC_SoftwareStartConvCmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ENABLE);	
+N			while(!ADC_GetFlagStatus(ADC3, ADC_FLAG_EOC ));
+X			while(!ADC_GetFlagStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ((uint8_t)0x02) ));
+N			ret = ADC_GetConversionValue(ADC3) * 3.3F / 4096;
+X			ret = ADC_GetConversionValue(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00))) * 3.3F / 4096;
+N		}break;
+N		
+N		case eVacuum:
+N		{
+N			ADC_RegularChannelConfig(ADC2, ADC_Channel_12, 1, ADC_SampleTime_239Cycles5 );
+X			ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x0C), 1, ((uint8_t)0x07) );
+N			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+X			ADC_SoftwareStartConvCmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);	
+N			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+X			while(!ADC_GetFlagStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x02) ));
+N			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+X			ret = ADC_GetConversionValue(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))) * 3.3F / 4096;
+N		}break;
+N		
+N		case eRollingBrush:
+N		{
+N			ADC_RegularChannelConfig(ADC2, ADC_Channel_10, 1, ADC_SampleTime_239Cycles5 );
+X			ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x0A), 1, ((uint8_t)0x07) );
+N			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+X			ADC_SoftwareStartConvCmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);	
+N			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+X			while(!ADC_GetFlagStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x02) ));
+N			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+X			ret = ADC_GetConversionValue(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))) * 3.3F / 4096;
+N		}break;
+N		
+N		case eSideBrush:
+N		{
+N			ADC_RegularChannelConfig(ADC2, ADC_Channel_11, 1, ADC_SampleTime_239Cycles5 );
+X			ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x0B), 1, ((uint8_t)0x07) );
+N			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+X			ADC_SoftwareStartConvCmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);	
+N			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+X			while(!ADC_GetFlagStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x02) ));
+N			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+X			ret = ADC_GetConversionValue(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))) * 3.3F / 4096;
+N		}break;
+N		
+N		case eBatteryVoltage:
+N		{
+N			ADC_RegularChannelConfig(ADC2, ADC_Channel_8, 1, ADC_SampleTime_239Cycles5 );
+X			ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x08), 1, ((uint8_t)0x07) );
+N			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+X			ADC_SoftwareStartConvCmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ENABLE);	
+N			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+X			while(!ADC_GetFlagStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800)), ((uint8_t)0x02) ));
+N			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+X			ret = ADC_GetConversionValue(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2800))) * 3.3F / 4096;
+N		}break;
+N		
+N		case eBatteryCurrent:
+N		{
+N			ADC_RegularChannelConfig(ADC3, ADC_Channel_4, 1, ADC_SampleTime_239Cycles5 );
+X			ADC_RegularChannelConfig(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ((uint8_t)0x04), 1, ((uint8_t)0x07) );
+N			ADC_SoftwareStartConvCmd(ADC3, ENABLE);	
+X			ADC_SoftwareStartConvCmd(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ENABLE);	
+N			while(!ADC_GetFlagStatus(ADC3, ADC_FLAG_EOC ));
+X			while(!ADC_GetFlagStatus(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00)), ((uint8_t)0x02) ));
+N			ret = ADC_GetConversionValue(ADC3) * 3.3F / 4096;
+X			ret = ADC_GetConversionValue(((ADC_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3C00))) * 3.3F / 4096;
+N		}break;
+N	}
+N	
+N	return ret ;
 N}

@@ -1,6 +1,7 @@
 --cpu Cortex-M3
 ".\flash\obj\main.o"
 ".\flash\obj\sysinfotest.o"
+".\flash\obj\paste.o"
 ".\flash\obj\bsp_powerswitch.o"
 ".\flash\obj\bsp_collision.o"
 ".\flash\obj\bsp_angle.o"

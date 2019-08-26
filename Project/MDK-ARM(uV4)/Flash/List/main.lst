@@ -46268,7 +46268,21 @@ L 1 "..\..\User\app\inc\bsp_CurrentFeedback.h" 1
 N#ifndef __BSP_CURRENTFEEDBACK_H
 N#define __BSP_CURRENTFEEDBACK_H
 N
+N
+Ntypedef enum
+N{
+N	eMotorLeft = 0 , /*左轮机*/
+N	eMotorRight,     /*右轮机*/
+N	eVacuum,		 /*吸尘器*/
+N	eRollingBrush,   /*滚刷*/
+N	eSideBrush,      /*边刷*/
+N	eBatteryVoltage, /*电池电压*/
+N	eBatteryCurrent  /*充电电流*/
+N}FeedbackSN;
+N
+N
 Nvoid bsp_InitCurrentFeedbackADC(void);
+Nfloat bsp_GetFeedbackVoltage(FeedbackSN sn);
 N
 N#endif
 N

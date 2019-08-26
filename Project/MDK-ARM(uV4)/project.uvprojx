@@ -428,6 +428,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\User\FreeRTOSConfig.h</FilePath>
             </File>
+            <File>
+              <FileName>paste.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\paste.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
