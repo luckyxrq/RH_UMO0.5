@@ -26,12 +26,6 @@ void bsp_InitOffSiteSW(void)
 	/* 打开GPIO时钟 */
 	RCC_APB2PeriphClockCmd(RCC_ALL_OFFSITE_SW, ENABLE);
 
-	/*
-		初始状态先关闭
-	*/
-	bsp_SwOff(SW_5V_EN_CTRL);
-	bsp_SwOff(SW_IR_POWER);
-
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 浮空输入 */

@@ -73,3 +73,4 @@
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_param.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_OffSiteSW.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_CurrentFeedback.h
+.\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_CliffSW.h

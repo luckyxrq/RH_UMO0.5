@@ -82,3 +82,4 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_param.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_OffSiteSW.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_CurrentFeedback.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_CliffSW.h

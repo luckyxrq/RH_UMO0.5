@@ -38879,6 +38879,18 @@ N#endif
 N
 N
 L 192 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_CliffSW.h"
+L 1 "..\..\User\app\inc\bsp_CliffSW.h" 1
+N#ifndef __BSP_CLIFF_H
+N#define __BSP_CLIFF_H
+N
+N
+N#endif
+N
+N
+L 193 "..\..\User\bsp\bsp.h" 2
+N
+N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);
@@ -38915,12 +38927,6 @@ N
 N	/* 打开GPIO时钟 */
 N	RCC_APB2PeriphClockCmd(RCC_ALL_OFFSITE_SW, ENABLE);
 X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000010) | ((uint32_t)0x00000040)), ENABLE);
-N
-N	/*
-N		初始状态先关闭
-N	*/
-N	bsp_SwOff(SW_5V_EN_CTRL);
-N	bsp_SwOff(SW_IR_POWER);
 N
 N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 N	

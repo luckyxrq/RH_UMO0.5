@@ -73,3 +73,4 @@
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_param.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_OffSiteSW.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_CurrentFeedback.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_CliffSW.h

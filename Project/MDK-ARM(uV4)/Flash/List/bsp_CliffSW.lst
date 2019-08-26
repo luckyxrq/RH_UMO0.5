@@ -1,4 +1,4 @@
-L 1 "..\..\User\app\src\bsp_Collision.c"
+L 1 "..\..\User\app\src\bsp_CliffSW.c"
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -38899,143 +38899,44 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 2 "..\..\User\app\src\bsp_Collision.c" 2
+L 2 "..\..\User\app\src\bsp_CliffSW.c" 2
 N
+N#define RCC_ALL_CLIFF_SW 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
 N
-N/* 防碰撞触动开关对应的RCC时钟 */
-N#define RCC_ALL_ANTICOLLISION 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
-N
-N#define GPIO_PORT_LEFT   GPIOA
-N#define GPIO_PIN_LEFT	 GPIO_Pin_5
-N
-N#define GPIO_PORT_RIGHT  GPIOF
-N#define GPIO_PIN_RIGHT	 GPIO_Pin_8
-N
-N
+N#define GPIO_PORT_OFFSITE_SW_L  GPIOC
+N#define GPIO_PIN_OFFSITE_SW_L   GPIO_Pin_9
 N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_InitCollision
-N*	功能说明: 初始化碰撞检测引脚
+N*	函 数 名: bsp_InitOffSiteSW
+N*	功能说明: 初始化离地开关使能引脚
 N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid bsp_InitCollision(void)
+Nvoid bsp_InitOffSiteSW(void)
 N{
+N
 N	GPIO_InitTypeDef GPIO_InitStructure;
 N
 N	/* 打开GPIO时钟 */
-N	RCC_APB2PeriphClockCmd(RCC_ALL_ANTICOLLISION, ENABLE);
+N	RCC_APB2PeriphClockCmd(RCC_ALL_CLIFF_SW, ENABLE);
 X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000004) | ((uint32_t)0x00000080)), ENABLE);
 N
-N
 N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; /* 上拉输入，但是闲时被外部拉低，碰撞时恢复高电平 */
 N	
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LEFT;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0020);
-N	GPIO_Init(GPIO_PORT_LEFT, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)), &GPIO_InitStructure);
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 浮空输入 */
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_OFFSITE_SW_L;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0200);
+N	GPIO_Init(GPIO_PORT_OFFSITE_SW_L, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)), &GPIO_InitStructure);
+N	
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 浮空输入 */
+E "..\..\User\app\src\bsp_CliffSW.c" 32 32 identifier "GPIO_PIN_OFFSITE_SW_R" is undefined
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_OFFSITE_SW_R;
+E "..\..\User\app\src\bsp_CliffSW.c" 33 12 identifier "GPIO_PORT_OFFSITE_SW_R" is undefined
+N	GPIO_Init(GPIO_PORT_OFFSITE_SW_R, &GPIO_InitStructure);
 N
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_RIGHT;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0100);
-N	GPIO_Init(GPIO_PORT_RIGHT, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N}
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_CollisionScan
-N*	功能说明: 返回碰撞结果
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-NCollision bsp_CollisionScan(void)
-N{
-N	uint8_t ret = 0 ;
-N	
-N	/* 左边撞上了 */
-N	if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,GPIO_PIN_LEFT))
-X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x0020)))
-N	{
-N		ret |= 1<<0;
-N	}
-N	
-N	
-N	/* 右边撞上了 */
-N	if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,GPIO_PIN_RIGHT))
-X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)),((uint16_t)0x0100)))
-N	{
-N		ret |= 1<<1;
-N	}
-N	
-N	if(ret == 0x00)
-N	{
-N		return CollisionNone;
-N	}
-N	else if(ret == 0x01)
-N	{
-N		return CollisionLeft;
-N	}
-N	else if(ret == 0x02)
-N	{
-N		return CollisionRight;
-N	}
-N	else if(ret == 0x03)
-N	{
-N		return CollisionAll;
-N	}
-N	else
-N	{
-N		WARNING("不合理的碰撞结果\r\n");
-X		printf ("不合理的碰撞结果\r\n");
-N		return CollisionNone;
-N	}
-N	
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_CollisionDemo
-N*	功能说明: 碰撞测试
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_CollisionDemo(void)
-N{
-N	Collision ret = bsp_CollisionScan();
-N	
-N	switch(ret)
-N	{
-N		case CollisionLeft:
-N		{
-N			DEBUG("左边被碰撞了\r\n");
-X			printf ("左边被碰撞了\r\n");
-N		}break;
-N		
-N		case CollisionRight:
-N		{
-N			DEBUG("右边被碰撞了\r\n");
-X			printf ("右边被碰撞了\r\n");
-N		}break;
-N		
-N		case CollisionAll:
-N		{
-N			DEBUG("两边被碰撞了\r\n");
-X			printf ("两边被碰撞了\r\n");
-N		}break;
-N		
-N		case CollisionNone:
-N		{
-N		
-N		}break;
-N	}
-N}
-N
-N
 N
