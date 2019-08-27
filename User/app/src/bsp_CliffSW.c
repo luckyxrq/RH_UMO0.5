@@ -161,7 +161,7 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 	
 	switch(sn)
 	{
-		case Cliff1:
+		case Cliff1_left:
 		{
 			ADC_RegularChannelConfig(ADC2, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
 			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
@@ -169,7 +169,7 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
 		}break;
 		
-		case Cliff2:
+		case Cliff2_middle:
 		{
 			ADC_RegularChannelConfig(ADC2, ADC_Channel_6, 1, ADC_SampleTime_239Cycles5 );
 			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
@@ -177,7 +177,7 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
 		}break;
 		
-		case Cliff3:
+		case Cliff3_right:
 		{
 			ADC_RegularChannelConfig(ADC3, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
 			ADC_SoftwareStartConvCmd(ADC3, ENABLE);	

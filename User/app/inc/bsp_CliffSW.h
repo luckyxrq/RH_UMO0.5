@@ -4,9 +4,9 @@
 
 typedef enum
 {
-	Cliff1 = 0 ,
-	Cliff2,
-	Cliff3
+	Cliff1_left = 0 ,
+	Cliff2_middle,
+	Cliff3_right
 }CliffSWSN;
 
 void bsp_InitCliffSW(void);
