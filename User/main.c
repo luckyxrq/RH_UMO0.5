@@ -240,15 +240,14 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		}
 //*****************************************************************************************************//
 		
-		
 //*****************************************************************************************************//		
 		if(cur_robot_state == ROBOT_STATE_INIT)
 		{
 			for(uint8_t i=0;i<5;i++)
 			{
-				clifadc_left[i] = bsp_GetCliffVoltage(Cliff1_left);     //left
-				clifadc_middle[i] = bsp_GetCliffVoltage(Cliff2_middle);   //middle
-				clifadc_right[i] = bsp_GetCliffVoltage(Cliff3_right);    //right
+				clifadc_left[i]   =   bsp_GetCliffVoltage(Cliff1_left);     //left
+				clifadc_middle[i] =   bsp_GetCliffVoltage(Cliff2_middle);   //middle
+				clifadc_right[i]  =   bsp_GetCliffVoltage(Cliff3_right);    //right
 				vTaskDelay(10);	
 				clifAdcRight+=clifadc_right[i];
 				clifAdcLeft +=clifadc_left[i];
@@ -396,77 +395,68 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			//get bumper data
 			if(robot_work_way  == ROBOT_WORKWAY_HOME)
 			{
-				if(IR_CLIFFS_RX3)
+				if( CollisionLeft == bsp_CollisionScan())
 				{
-					cmd_velocity_right = -VELOCITY;
-					cmd_velocity_left = -VELOCITY;
-					auto_charge_station_flag = 1;
-					delay_ms(500);
-					cmd_velocity_right = VELOCITY;
-					cmd_velocity_left = -VELOCITY;
-					auto_charge_station_flag = 1;
-					//RobotPointTurnAround(motor_cmd.speed,CCLOCK);
-					delay_ms(800);
+					bsp_SetMotorSpeed(MotorLeft,-MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,-MOTORSPEED);
+					vTaskDelay(500);
+					bsp_SetMotorSpeed(MotorLeft,MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,-MOTORSPEED);
+					vTaskDelay(800);
 				}
-				else if(IR_CLIFFS_RX6)
+				else if(CollisionRight == bsp_CollisionScan())
 				{
-					cmd_velocity_right = -VELOCITY;
-					cmd_velocity_left = -VELOCITY;
-					auto_charge_station_flag = 1;
-					delay_ms(500);
-					cmd_velocity_right = -VELOCITY;
-					cmd_velocity_left = VELOCITY;
-					auto_charge_station_flag = 1;
-					//RobotPointTurnAround(motor_cmd.speed,CLOCK);
-					delay_ms(800);	
+					bsp_SetMotorSpeed(MotorLeft,-MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,-MOTORSPEED);
+					vTaskDelay(500);
+					bsp_SetMotorSpeed(MotorLeft,-MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,MOTORSPEED);
+					vTaskDelay(800);
 				}
-				else if(clif_right>2 )
+				else if(CollisionAll == bsp_CollisionScan())
 				{
-					clif_right = 0;
-					cmd_velocity_right = -VELOCITY;
-					cmd_velocity_left = -VELOCITY;
-					auto_charge_station_flag = 1;
-					delay_ms(500);
-					cmd_velocity_right = VELOCITY;
-					cmd_velocity_left = -VELOCITY;
-					auto_charge_station_flag = 1;
-					//RobotPointTurnAround(motor_cmd.speed,CCLOCK);
-					delay_ms(800);
+					bsp_SetMotorSpeed(MotorLeft,-MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,-MOTORSPEED);
+					vTaskDelay(500);
+					bsp_SetMotorSpeed(MotorLeft,-MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,MOTORSPEED);
+					vTaskDelay(1000);
+				}
+				else if(clifRightCnt>2 )
+				{
+					clifRightCnt = 0;
+					bsp_SetMotorSpeed(MotorLeft,-MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,-MOTORSPEED);
+					vTaskDelay(500);
+					bsp_SetMotorSpeed(MotorLeft,-MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,MOTORSPEED);
+					vTaskDelay(800);
 					
 				}
-				else if(clif_left>2)
+				else if(clifLeftCnt>2)
 				{
-					clif_left = 0;
-					cmd_velocity_right = -VELOCITY;
-					cmd_velocity_left = -VELOCITY;
-					auto_charge_station_flag = 1;
-					//RobotGoStraight(-motor_cmd.speed);
-					delay_ms(500);
-					cmd_velocity_right = -VELOCITY;
-					cmd_velocity_left = VELOCITY;
-					auto_charge_station_flag = 1;
-					//RobotPointTurnAround(motor_cmd.speed,CLOCK);
-					delay_ms(800);	
+					clifLeftCnt = 0;
+					bsp_SetMotorSpeed(MotorLeft,-MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,-MOTORSPEED);
+					vTaskDelay(500);
+					bsp_SetMotorSpeed(MotorLeft,MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,-MOTORSPEED);
+					vTaskDelay(800);
 				}
-				else if(clif_middle>2)
+				else if(clifMiddleCnt>2)
 				{
-					clif_middle = 0;
-					cmd_velocity_right = -VELOCITY;
-					cmd_velocity_left = -VELOCITY;
-					auto_charge_station_flag = 1;
-					//RobotGoStraight(-motor_cmd.speed);
-					delay_ms(500);
-					cmd_velocity_right = -VELOCITY;
-					cmd_velocity_left = VELOCITY;
-					auto_charge_station_flag = 1;
-					//RobotPointTurnAround(motor_cmd.speed,CLOCK);
-					delay_ms(800);	
+					clifMiddleCnt = 0;
+					bsp_SetMotorSpeed(MotorLeft,-MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,-MOTORSPEED);
+					vTaskDelay(500);
+					bsp_SetMotorSpeed(MotorLeft,MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,-MOTORSPEED);
+					vTaskDelay(800);
 				}
 				else
 				{
-					cmd_velocity_right = VELOCITY;
-					cmd_velocity_left = VELOCITY;
-					auto_charge_station_flag = 1;
+					bsp_SetMotorSpeed(MotorLeft,MOTORSPEED);
+					bsp_SetMotorSpeed(MotorRight,MOTORSPEED);
 				}
 				
 			}

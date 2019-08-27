@@ -1,5 +1,6 @@
 #define BRUSHMOTORRPM  					2000//660
 #define ROLLMOTORRPM   					2000
+#define MOTORSPEED                      200
 
 #define ROLLER_MOTOR_MAX_ADC_VALUE 		4000   //
 #define	BRUSH_MOTOR_MAX_ADC_VALUE 		4000   //the true value wait for debug
