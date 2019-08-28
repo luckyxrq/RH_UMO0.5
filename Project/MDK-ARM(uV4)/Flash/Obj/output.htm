@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Aug 28 14:04:23 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Aug 28 14:15:12 2019
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -750,7 +750,8 @@ Global Symbols
 <P><STRONG><a name="[85]"></a>GPIO_Init</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, stm32f10x_gpio.o(i.GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
+<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCollision
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
@@ -762,7 +763,6 @@ Global Symbols
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTIM3Cap
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitIO
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 </UL>
@@ -832,10 +832,10 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NVIC_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTIM3Cap
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 </UL>
 
 <P><STRONG><a name="[fc]"></a>NVIC_PriorityGroupConfig</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, misc.o(i.NVIC_PriorityGroupConfig))
@@ -855,7 +855,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[83]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
+<BR><BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCollision
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
@@ -868,7 +869,6 @@ Global Symbols
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTIM3Cap
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitIO
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 </UL>
@@ -1475,7 +1475,8 @@ Global Symbols
 <P><STRONG><a name="[fb]"></a>bsp_Init</STRONG> (Thumb, 90 bytes, Stack size 8 bytes, bsp.o(i.bsp_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = bsp_Init &rArr; bsp_InitUart &rArr; InitHardUart &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitDetectAct
+<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitDetectAct
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCollision
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
@@ -1491,7 +1492,6 @@ Global Symbols
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitEncoder
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitChargingPile
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitIWDG
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1628,9 +1628,9 @@ Global Symbols
 <P><STRONG><a name="[100]"></a>bsp_InitUart</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, bsp_uart_fifo.o(i.bsp_InitUart))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = bsp_InitUart &rArr; InitHardUart &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartVarInit
+<BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartVarInit
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>

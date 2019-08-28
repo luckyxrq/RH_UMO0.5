@@ -553,6 +553,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_speaker.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_RunControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_RunControl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

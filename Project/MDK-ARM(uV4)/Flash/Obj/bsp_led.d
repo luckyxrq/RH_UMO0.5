@@ -77,3 +77,4 @@
 .\flash\obj\bsp_led.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\bsp_led.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp_led.o: ..\..\User\app\inc\bsp_speaker.h
+.\flash\obj\bsp_led.o: ..\..\User\app\inc\bsp_RunControl.h

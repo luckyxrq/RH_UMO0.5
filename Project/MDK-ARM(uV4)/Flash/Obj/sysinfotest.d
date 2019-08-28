@@ -77,3 +77,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_speaker.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_RunControl.h
