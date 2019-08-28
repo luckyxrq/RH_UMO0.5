@@ -92,6 +92,7 @@ int main(void)
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     uint8_t ucKeyCode;	
+	static bool isShutdown = true;
     uint32_t count = 0 ;
    
     bsp_AngleRst();
@@ -105,49 +106,35 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
             /* 有键按下 */
             switch (ucKeyCode)
             {
-            case KEY_1_UP:/*按键1按下*/
-            {
-                DEBUG("按键1按下\r\n");
-            }break;
-                
-            case KEY_2_UP:/*按键2按下*/
-            {
-                DEBUG("按键2按下\r\n");
-            }break;
-                
-            case KEY_3_UP:/*按键3按下*/	
-            {
-                DEBUG("按键3按下\r\n");
-            }break;
-                
-            case KEY_1_LONG:/*按键1长按*/	
-            {
-                DEBUG("按键1长按\r\n");
-            }break;
-                
-            case KEY_2_LONG:/*按键2长按*/	
-            {
-                DEBUG("按键2长按\r\n");
-            }break;
-                
-            case KEY_3_LONG:/*按键3长按*/	
-            {
-                DEBUG("按键3长按\r\n");
-            }break;
-            }
+				case KEY_1_UP:/*按键1按下*/
+				{
+					//DEBUG("清扫\r\n");
+				}break;
+					
+				case KEY_2_UP:/*按键2按下*/
+				{
+					DEBUG("充电\r\n");
+				}break;
+					
+				case KEY_3_UP:/*按键3按下*/	
+				{
+					DEBUG("清扫\r\n");
+				}break;
+					
+				case KEY_1_LONG:/*按键1长按*/	
+				{
+					DEBUG("关机\r\n");
+					bsp_SwOff(SW_5V_EN_CTRL);
+					bsp_SwOff(SW_IR_POWER);
+				}break;
+			}   
         }
         
         if(count++ % 20 == 0)
         {
-            if(bsp_SpeakerIsBusy())
-            {
-                DEBUG("busy\r\n");
-            }
-            else
-            {
-                //DEBUG("play\r\n");
-                //bsp_SperkerPlay(Song3);
-            }
+            bsp_LedToggle(1);
+			bsp_LedToggle(2);
+			bsp_LedToggle(3);
         }
         
         
