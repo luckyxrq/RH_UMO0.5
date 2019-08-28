@@ -93,16 +93,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     uint8_t ucKeyCode;	
     uint32_t count = 0 ;
-    
-    
-    
-    
+   
     bsp_AngleRst();
-    
-    
-    
-    
-    
     
     while(1)
     {
@@ -113,17 +105,17 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
             /* 有键按下 */
             switch (ucKeyCode)
             {
-            case KEY_1_DOWN:/*按键1按下*/
+            case KEY_1_UP:/*按键1按下*/
             {
                 DEBUG("按键1按下\r\n");
             }break;
                 
-            case KEY_2_DOWN:/*按键2按下*/
+            case KEY_2_UP:/*按键2按下*/
             {
                 DEBUG("按键2按下\r\n");
             }break;
                 
-            case KEY_3_DOWN:/*按键3按下*/	
+            case KEY_3_UP:/*按键3按下*/	
             {
                 DEBUG("按键3按下\r\n");
             }break;

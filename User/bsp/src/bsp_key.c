@@ -350,7 +350,7 @@ static void bsp_InitKeyVar(void)
 
 	/* 如果需要单独更改某个按键的参数，可以在此单独重新赋值 */
 	/* 比如，我们希望按键1按下超过1秒后，自动重发相同键值 */
-	s_tBtn[KID_K1].LongTime = 100;
+	s_tBtn[KID_K1].LongTime = KEY_LONG_TIME;
 	s_tBtn[KID_K1].RepeatSpeed = 0;	/* 每隔x ms自动发送键值（单位10ms） */
 
 	/* 判断按键按下的函数 */
