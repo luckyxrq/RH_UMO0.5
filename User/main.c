@@ -101,8 +101,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
 	uint8_t ucKeyCode;	
 	uint32_t count = 0 ;
-	bsp_AngleRst();
-	
 	
 	uint16_t clifadc_right[5] = {0};
 	uint16_t clifadc_left[5] = {0};
@@ -116,6 +114,13 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 	uint8_t clifRightCnt = 0;
 	uint8_t clifLeftCnt = 0;
 	uint8_t clifMiddleCnt = 0;
+	uint8_t i;
+	
+	
+	bsp_AngleRst();
+	
+	
+
 	
 	
 	
@@ -243,7 +248,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //*****************************************************************************************************//		
 		if(cur_robot_state == ROBOT_STATE_INIT)
 		{
-			for(uint8_t i=0;i<5;i++)
+			for( i=0;i<5;i++)
 			{
 				clifadc_left[i]   =   bsp_GetCliffVoltage(Cliff1_left);     //left
 				clifadc_middle[i] =   bsp_GetCliffVoltage(Cliff2_middle);   //middle
