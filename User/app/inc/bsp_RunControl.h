@@ -29,6 +29,8 @@ void bsp_SetHomeKey(bool val);
 void bsp_SetPowerKey(bool val);
 void bsp_SetChargeKey(bool val);
 void bsp_SetCleanKey(bool val);
+void bsp_StartRunControl(void);
+void bsp_StopRunControl(void);
 
 #endif
 

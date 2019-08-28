@@ -166,6 +166,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
+	bsp_StartRunControl(); /*开启按键控制状态机*/
+	
     while(1)
     {
 #if 0
@@ -180,6 +182,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
         bsp_ComAnalysis();
+		bsp_RunControl();/* 整机控制 */ 
         vTaskDelay(10);
     }
     
