@@ -30,13 +30,18 @@ typedef enum
 	ROBOT_STATE_WORKING    ,
 	ROBOT_STATE_SUSPEND    ,
 	ROBOT_STATE_CHARGING   ,
-	ROBOT_STATE_DEFAULT    ,
-	                       
-	ROBOT_WORKWAY_HOME     ,
+	ROBOT_STATE_DEFAULT    
+
+}RunState;
+
+/*清扫方式*/
+typedef enum
+{
+	ROBOT_WORKWAY_HOME     = 0,
 	ROBOT_WORKWAY_CLEAN    ,
 	ROBOT_WORKWAY_CHARGE   ,
-	ROBOT_WORKWAY_DEFAULT  
-}RunState;
+	ROBOT_WORKWAY_DEFAULT 
+}WorkMethod;
 
 /*按键序号*/
 typedef enum

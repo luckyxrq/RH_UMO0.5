@@ -38,6 +38,50 @@ static uint8_t robot_error_num  = ROBOT_ERROR_NUM_DEFAULT;
 
 
 
+typedef struct
+{
+	bool isRunnng;
+	uint32_t action;
+	uint32_t delay;
+	
+	RunState lastState;
+	RunState currentState;
+	WorkMethod workMethod;
+	uint8_t errSN;
+}RunControl;
+
+
+static RunControl runControl;
+
+
+static void bsp_InitRunControl(void)
+{
+	/*状态机结构*/
+	runControl.isRunnng = false;
+	runControl.action = 0 ;
+	runControl.delay = 0 ;
+	
+	/*运行状态初始化*/
+	runControl.lastState = ROBOT_STATE_DEFAULT;
+	runControl.currentState = ROBOT_STATE_DEFAULT;
+	runControl.workMethod = ROBOT_WORKWAY_DEFAULT;
+	runControl.errSN = ROBOT_ERROR_NUM_DEFAULT;
+}
+
+static void bsp_RunControl(void)
+{
+	if(!runControl.isRunnng)
+		return;
+	
+	switch(runControl.action)
+	{
+		case 0:
+		{
+			
+		}break;
+	}
+}
+
 
 /*
 *********************************************************************************************************
