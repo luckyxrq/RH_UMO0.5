@@ -92,7 +92,7 @@ int main(void)
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     uint8_t ucKeyCode;	
-	static bool isShutdown = true;
+	static bool isShutdown = false;
     uint32_t count = 0 ;
    
     bsp_AngleRst();
@@ -108,24 +108,37 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
             {
 				case KEY_1_UP:/*按键1按下*/
 				{
-					//DEBUG("清扫\r\n");
+					if(isShutdown)
+					{
+						isShutdown = false;
+					}
+					else
+					{
+						//DEBUG("清扫\r\n");
+						bsp_SetHomeKey(true);
+					}
+					
 				}break;
 					
 				case KEY_2_UP:/*按键2按下*/
 				{
-					DEBUG("充电\r\n");
+					//DEBUG("充电\r\n");
+					bsp_SetChargeKey(true);
 				}break;
 					
 				case KEY_3_UP:/*按键3按下*/	
 				{
-					DEBUG("清扫\r\n");
+					//DEBUG("清扫\r\n");
+					bsp_SetCleanKey(true);
 				}break;
 					
 				case KEY_1_LONG:/*按键1长按*/	
 				{
-					DEBUG("关机\r\n");
-					bsp_SwOff(SW_5V_EN_CTRL);
-					bsp_SwOff(SW_IR_POWER);
+					//DEBUG("关机\r\n");
+					isShutdown = true;
+					bsp_SetPowerKey(true);
+//					bsp_SwOff(SW_5V_EN_CTRL);
+//					bsp_SwOff(SW_IR_POWER);
 				}break;
 			}   
         }

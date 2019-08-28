@@ -25,6 +25,10 @@ typedef struct
 
 void bsp_InitRunControl(void);
 void bsp_RunControl(void);
+void bsp_SetHomeKey(bool val);
+void bsp_SetPowerKey(bool val);
+void bsp_SetChargeKey(bool val);
+void bsp_SetCleanKey(bool val);
 
 #endif
 

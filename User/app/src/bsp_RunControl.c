@@ -34,6 +34,26 @@ void bsp_InitRunControl(void)
 }
 
 
+void bsp_SetHomeKey(bool val)
+{
+	runControl.isHomeKey = val;
+}
+
+void bsp_SetPowerKey(bool val)
+{
+	runControl.isPowerKey = val;
+}
+
+void bsp_SetChargeKey(bool val)
+{
+	runControl.isChargeKey = val;
+}
+
+void bsp_SetCleanKey(bool val)
+{
+	runControl.isCleanKey = val;
+}
+
 /*
 *********************************************************************************************************
 *	º¯ Êý Ãû: bsp_RunControl
