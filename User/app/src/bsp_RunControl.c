@@ -52,11 +52,48 @@ static void bsp_RunControl(void)
 	if(!runControl.isRunnng)
 		return;
 	
+	/*更新上一次状态*/
+	runControl.lastState = runControl.currentState;
+    	
+	/*HOME按键被按下*/
+    if(runControl.isHomeKey)
+    {
+        if(runControl.lastState == ROBOT_STATE_DEFAULT)       runControl.currentState = ROBOT_STATE_INIT;
+        else if(runControl.lastState == ROBOT_STATE_WORKING)  runControl.currentState = ROBOT_STATE_SUSPEND;
+        else if(runControl.lastState == ROBOT_STATE_CHARGING) runControl.currentState = ROBOT_STATE_SUSPEND;
+        else if(runControl.lastState == ROBOT_STATE_SUSPEND)  runControl.currentState = ROBOT_STATE_WORKING;
+        else if(runControl.lastState == ROBOT_STATE_STANDBY)  runControl.currentState = ROBOT_STATE_WORKING;
+        
+        runControl.workMethod  = ROBOT_WORKWAY_HOME;
+    }
+	/*Charge按键被按下*/
+    else if(runControl.isChargeKey)
+    {
+        if(runControl.lastState == ROBOT_STATE_DEFAULT)       runControl.currentState = ROBOT_STATE_INIT;
+        else if(runControl.lastState == ROBOT_STATE_WORKING)  runControl.currentState = ROBOT_STATE_CHARGING;
+        else if(runControl.lastState == ROBOT_STATE_CHARGING) runControl.currentState = ROBOT_STATE_SUSPEND;
+        else if(runControl.lastState == ROBOT_STATE_SUSPEND)  runControl.currentState = ROBOT_STATE_CHARGING;
+        else if(runControl.lastState == ROBOT_STATE_STANDBY)  runControl.currentState = ROBOT_STATE_CHARGING;
+        
+        runControl.workMethod  = ROBOT_WORKWAY_CHARGE;
+    }
+	/*Clean按键被按下*/
+    else if(runControl.isCleanKey)
+    {
+        if(runControl.lastState == ROBOT_STATE_DEFAULT)       runControl.currentState = ROBOT_STATE_INIT;
+        else if(runControl.lastState == ROBOT_STATE_WORKING)  runControl.currentState = ROBOT_STATE_SUSPEND;
+        else if(runControl.lastState == ROBOT_STATE_CHARGING) runControl.currentState = ROBOT_STATE_SUSPEND;
+        else if(runControl.lastState == ROBOT_STATE_SUSPEND)  runControl.currentState = ROBOT_STATE_WORKING;
+        else if(runControl.lastState == ROBOT_STATE_STANDBY)  runControl.currentState = ROBOT_STATE_WORKING;
+        
+        runControl.workMethod  = ROBOT_WORKWAY_CLEAN;
+    }
+	
 	switch(runControl.action)
 	{
-		case 0:
-		{
-			
-		}break;
+//		case 0:
+//		{
+//			if()
+//		}break;
 	}
 }

@@ -27,17 +27,6 @@ static TaskHandle_t xHandleTaskPerception    = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
 
-static uint8_t home_key_down_flag = 0;
-static uint8_t power_key_down_flag = 0;
-static uint8_t charge_key_down_flag = 0;
-static uint8_t clean_key_down_flag = 0;
-static uint8_t last_robot_state = ROBOT_STATE_DEFAULT;
-static uint8_t cur_robot_state  = ROBOT_STATE_DEFAULT;
-static uint8_t robot_work_way 	= ROBOT_WORKWAY_DEFAULT;
-static uint8_t robot_error_num  = ROBOT_ERROR_NUM_DEFAULT;
-
-
-
 
 /*
 *********************************************************************************************************
@@ -49,8 +38,7 @@ static uint8_t robot_error_num  = ROBOT_ERROR_NUM_DEFAULT;
 */
 int main(void)
 {
-    /*解决变量定义未使用警告*/
-    UNUSED(power_key_down_flag);
+    
     
     
     /* 
@@ -329,6 +317,14 @@ void  App_Printf(char *format, ...)
 }
 
 
+static uint8_t home_key_down_flag = 0;
+static uint8_t power_key_down_flag = 0;
+static uint8_t charge_key_down_flag = 0;
+static uint8_t clean_key_down_flag = 0;
+static uint8_t last_robot_state = ROBOT_STATE_DEFAULT;
+static uint8_t cur_robot_state  = ROBOT_STATE_DEFAULT;
+static uint8_t robot_work_way 	= ROBOT_WORKWAY_DEFAULT;
+static uint8_t robot_error_num  = ROBOT_ERROR_NUM_DEFAULT;
 
 static void bsp_func(void)
 {
@@ -346,6 +342,8 @@ static void bsp_func(void)
     uint8_t clifMiddleCnt = 0;
     uint8_t i;
     
+	/*解决变量定义未使用警告*/
+    UNUSED(power_key_down_flag);
     
     //*****************************************************************************************************//	
     // 主循环
