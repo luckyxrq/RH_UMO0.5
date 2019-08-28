@@ -419,9 +419,9 @@ static void bsp_func(void)
     {
         for( i=0;i<5;i++)
         {
-            clifadc_left[i]   =   bsp_GetCliffVoltage(Cliff1_left);     //left
-            clifadc_middle[i] =   bsp_GetCliffVoltage(Cliff2_middle);   //middle
-            clifadc_right[i]  =   bsp_GetCliffVoltage(Cliff3_right);    //right
+            clifadc_left[i]   =   bsp_GetCliffVoltage(CliffLeft);     //left
+            clifadc_middle[i] =   bsp_GetCliffVoltage(CliffMiddle);   //middle
+            clifadc_right[i]  =   bsp_GetCliffVoltage(CliffRight);    //right
             vTaskDelay(10);	
             clifAdcRight+=clifadc_right[i];
             clifAdcLeft +=clifadc_left[i];
@@ -557,13 +557,13 @@ static void bsp_func(void)
             //continue;
         }
         
-        bsp_GetCliffVoltage(Cliff1_left);     //left
-        bsp_GetCliffVoltage(Cliff2_middle);   //middle
-        bsp_GetCliffVoltage(Cliff3_right);
+        bsp_GetCliffVoltage(CliffLeft);     //left
+        bsp_GetCliffVoltage(CliffMiddle);   //middle
+        bsp_GetCliffVoltage(CliffRight);
         //get cliff infrared data
-        if((clifAdcLeft  -  bsp_GetCliffVoltage (Cliff1_left   ))>1500) clifLeftCnt++;
-        if((clifAdcMiddle - bsp_GetCliffVoltage (Cliff2_middle ))>1500) clifMiddleCnt++;
-        if((clifAdcRight -  bsp_GetCliffVoltage (Cliff3_right  ))>1500) clifRightCnt++;	
+        if((clifAdcLeft  -  bsp_GetCliffVoltage (CliffLeft   ))>1500) clifLeftCnt++;
+        if((clifAdcMiddle - bsp_GetCliffVoltage (CliffMiddle ))>1500) clifMiddleCnt++;
+        if((clifAdcRight -  bsp_GetCliffVoltage (CliffRight  ))>1500) clifRightCnt++;	
         //get  collision infrared data
         
         //get bumper data
