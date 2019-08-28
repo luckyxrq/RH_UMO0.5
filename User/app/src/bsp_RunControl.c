@@ -26,6 +26,14 @@ typedef struct
 static RunControl runControl;
 
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_InitRunControl
+*	功能说明: 初始化运行状态
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 static void bsp_InitRunControl(void)
 {
 	/*状态机结构*/
@@ -47,6 +55,15 @@ static void bsp_InitRunControl(void)
 	
 }
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_RunControl
+*	功能说明: 机器运行状态切换调度，周期性被调用
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 static void bsp_RunControl(void)
 {
 	if(!runControl.isRunnng)
@@ -58,6 +75,8 @@ static void bsp_RunControl(void)
 	/*HOME按键被按下*/
     if(runControl.isHomeKey)
     {
+		runControl.isHomeKey = false;
+		
         if(runControl.lastState == ROBOT_STATE_DEFAULT)       runControl.currentState = ROBOT_STATE_INIT;
         else if(runControl.lastState == ROBOT_STATE_WORKING)  runControl.currentState = ROBOT_STATE_SUSPEND;
         else if(runControl.lastState == ROBOT_STATE_CHARGING) runControl.currentState = ROBOT_STATE_SUSPEND;
@@ -69,6 +88,8 @@ static void bsp_RunControl(void)
 	/*Charge按键被按下*/
     else if(runControl.isChargeKey)
     {
+		runControl.isChargeKey = false;
+		
         if(runControl.lastState == ROBOT_STATE_DEFAULT)       runControl.currentState = ROBOT_STATE_INIT;
         else if(runControl.lastState == ROBOT_STATE_WORKING)  runControl.currentState = ROBOT_STATE_CHARGING;
         else if(runControl.lastState == ROBOT_STATE_CHARGING) runControl.currentState = ROBOT_STATE_SUSPEND;
@@ -80,6 +101,8 @@ static void bsp_RunControl(void)
 	/*Clean按键被按下*/
     else if(runControl.isCleanKey)
     {
+		runControl.isCleanKey = false;
+		
         if(runControl.lastState == ROBOT_STATE_DEFAULT)       runControl.currentState = ROBOT_STATE_INIT;
         else if(runControl.lastState == ROBOT_STATE_WORKING)  runControl.currentState = ROBOT_STATE_SUSPEND;
         else if(runControl.lastState == ROBOT_STATE_CHARGING) runControl.currentState = ROBOT_STATE_SUSPEND;
@@ -91,9 +114,47 @@ static void bsp_RunControl(void)
 	
 	switch(runControl.action)
 	{
-//		case 0:
-//		{
-//			if()
-//		}break;
+		case 0:/*判断当前状态，如果状态不为ROBOT_STATE_DEFAULT，则往下执行*/
+		{
+			if(runControl.currentState != ROBOT_STATE_DEFAULT)
+			{
+				runControl.action++;
+			}
+		}break;
+		
+		case 1:/*各个状态秩序井不同的操作*/
+		{
+			/*初始化硬件*/
+			if(runControl.currentState == ROBOT_STATE_INIT)
+			{
+				
+				/*初始化完毕后，根据清扫方式，进行不同的操作*/
+				runControl.currentState = (runControl.workMethod == ROBOT_WORKWAY_CHARGE)? ROBOT_STATE_CHARGING:ROBOT_STATE_WORKING;
+			}
+			/*扫地工作*/
+			else if(runControl.currentState == ROBOT_STATE_WORKING)
+			{
+				
+			}
+			/*暂停*/
+			else if(runControl.currentState == ROBOT_STATE_SUSPEND)
+			{
+				
+			}
+			/*回充*/
+			else if(runControl.currentState == ROBOT_STATE_CHARGING)
+			{
+				
+			}
+			/*待机*/
+			else if(runControl.currentState == ROBOT_STATE_STANDBY)
+			{
+				
+			}
+		}break;
+		
+		
+		
+		
 	}
 }
