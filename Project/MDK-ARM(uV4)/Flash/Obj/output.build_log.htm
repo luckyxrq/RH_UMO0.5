@@ -26,19 +26,17 @@ Project File Date:  08/28/2019
 
 <h2>Output:</h2>
 Build target 'Flash'
-compiling bsp_RunControl.c...
-..\..\User\app\src\bsp_RunControl.c(37): warning:  #177-D: function "bsp_InitRunControl" was declared but never referenced
-  static void bsp_InitRunControl(void)
-..\..\User\app\src\bsp_RunControl.c(67): warning:  #177-D: function "bsp_RunControl" was declared but never referenced
-  static void bsp_RunControl(void)
-..\..\User\app\src\bsp_RunControl.c: 2 warnings, 0 errors
+compiling main.c...
+..\..\User\main.c(329): warning:  #177-D: function "bsp_func" was declared but never referenced
+  static void bsp_func(void)
+..\..\User\main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=31008 RO-data=624 RW-data=260 ZI-data=38788  
+Program Size: Code=31016 RO-data=624 RW-data=260 ZI-data=38788  
 FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 2 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE

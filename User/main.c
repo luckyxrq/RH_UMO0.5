@@ -115,32 +115,32 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
             {
             case KEY_1_DOWN:/*按键1按下*/
             {
-                
+                DEBUG("按键1按下\r\n");
             }break;
                 
             case KEY_2_DOWN:/*按键2按下*/
             {
-                
+                DEBUG("按键2按下\r\n");
             }break;
                 
             case KEY_3_DOWN:/*按键3按下*/	
             {
-                
+                DEBUG("按键3按下\r\n");
             }break;
                 
             case KEY_1_LONG:/*按键1长按*/	
             {
-                
+                DEBUG("按键1长按\r\n");
             }break;
                 
             case KEY_2_LONG:/*按键2长按*/	
             {
-                
+                DEBUG("按键2长按\r\n");
             }break;
                 
             case KEY_3_LONG:/*按键3长按*/	
             {
-                
+                DEBUG("按键3长按\r\n");
             }break;
             }
         }
@@ -153,8 +153,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
             }
             else
             {
-                DEBUG("play\r\n");
-                bsp_SperkerPlay(Song3);
+                //DEBUG("play\r\n");
+                //bsp_SperkerPlay(Song3);
             }
         }
         
