@@ -1,5 +1,5 @@
 #include "includes.h"
-#include "main.h"
+
 /*
 **********************************************************************************************************
 											函数声明
@@ -49,6 +49,10 @@ static uint8_t robot_error_num  = ROBOT_ERROR_NUM_DEFAULT;
 */
 int main(void)
 {
+	/*解决变量定义未使用警告*/
+	UNUSED(power_key_down_flag);
+	
+	
 	/* 
 	  在启动调度前，为了防止初始化STM32外设时有中断服务程序执行，这里禁止全局中断(除了NMI和HardFault)。
 	  这样做的好处是：
