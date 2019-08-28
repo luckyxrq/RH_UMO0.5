@@ -106,19 +106,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 	uint8_t ucKeyCode;	
 	uint32_t count = 0 ;
 	
-	uint16_t clifadc_right[5] = {0};
-	uint16_t clifadc_left[5] = {0};
-	uint16_t clifadc_middle[5] = {0};
 	
-	uint32_t clifAdcRight = 0;
-	uint32_t clifAdcLeft = 0;
-	uint32_t clifAdcMiddle = 0;
-	uint16_t clifAdcRef = 0;
-	
-	uint8_t clifRightCnt = 0;
-	uint8_t clifLeftCnt = 0;
-	uint8_t clifMiddleCnt = 0;
-	uint8_t i;
 	
 	
 	bsp_AngleRst();
@@ -182,7 +170,184 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			}
 		}
 		
-//*****************************************************************************************************//	
+		
+		vTaskDelay(50);	
+	}
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: vTaskStart
+*	功能说明: 启动任务，也就是最高优先级任务，这里用作按键扫描。
+*	形    参: pvParameters 是在创建该任务时传递的形参
+*	返 回 值: 无
+*   优 先 级: 4  
+*********************************************************************************************************
+*/
+static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
+{
+	while(1)
+    {
+#if 0
+		bsp_SendReportFrame();
+		bsp_PrintRemoteState();
+#endif
+		bsp_IWDG_Feed(); /* 喂狗 */
+		
+		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
+#if 0		
+		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
+		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
+#endif		
+		bsp_ComAnalysis();
+		vTaskDelay(10);
+    }
+	
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: vTaskStart
+*	功能说明: 感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角。
+*	形    参: pvParameters 是在创建该任务时传递的形参
+*	返 回 值: 无
+*   优 先 级: 4  
+*********************************************************************************************************
+*/
+static void vTaskPerception(void *pvParameters)   //
+{
+	/*开启红外对管轮询扫描*/
+	bsp_DetectStart(); 
+	/*开启寻找充电桩*/
+#if 0
+	bsp_StartSearchChargingPile();
+#endif
+	bsp_StartUpdatePos();
+	
+	while(1)
+    {
+        bsp_DetectAct();  /*红外对管轮询扫描*/
+		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+
+		/*四个红外接收管*/
+#if 0 
+		bsp_GetCapCnt(CapCH1);
+		bsp_GetCapCnt(CapCH2);
+		bsp_GetCapCnt(CapCH3);
+		bsp_GetCapCnt(CapCH4);
+#endif
+		/*寻找充电桩*/
+		bsp_SearchChargingPileAct();
+		/*更新坐标*/
+		bsp_PositionUpdate();
+		bsp_KeyScan();
+        vTaskDelay(1);	
+	}		
+
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: AppTaskCreate
+*	功能说明: 创建应用任务
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void AppTaskCreate (void)
+{
+	xTaskCreate( vTaskDecision,     		    /* 任务函数  */
+                 "vTaskDecision",   		    /* 任务名    */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 1,              		        /* 任务优先级*/
+                 &xHandleTaskDecision );        /* 任务句柄  */
+	xTaskCreate( vTaskControl,     		        /* 任务函数  */
+                 "vTaskControl",   		        /* 任务名    */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 2,              		        /* 任务优先级*/
+                 &xHandleTaskControl );         /* 任务句柄  */	
+	xTaskCreate( vTaskPerception,     		    /* 任务函数  */
+                 "vTaskPerception",   		    /* 任务名    */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 3,              		        /* 任务优先级*/
+                 &xHandleTaskPerception );      /* 任务句柄  */	
+			 
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: AppObjCreate
+*	功能说明: 创建任务通信机制
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void AppObjCreate (void)
+{
+	/* 创建互斥信号量 */
+    xMutex = xSemaphoreCreateMutex();
+	
+	if(xMutex == NULL)
+    {
+        /* 没有创建成功，用户可以在这里加入创建失败的处理机制 */
+    }
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: App_Printf
+*	功能说明: 线程安全的printf方式		  			  
+*	形    参: 同printf的参数。
+*             在C中，当无法列出传递函数的所有实参的类型和数目时,可以用省略号指定参数表
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void  App_Printf(char *format, ...)
+{
+    char  buf_str[200 + 1];
+    va_list   v_args;
+
+
+    va_start(v_args, format);
+   (void)vsnprintf((char       *)&buf_str[0],
+                   (size_t      ) sizeof(buf_str),
+                   (char const *) format,
+                                  v_args);
+    va_end(v_args);
+
+	/* 互斥信号量 */
+	xSemaphoreTake(xMutex, portMAX_DELAY);
+
+    printf("%s", buf_str);
+
+   	xSemaphoreGive(xMutex);
+}
+
+
+
+static void bsp_func(void)
+{
+	uint16_t clifadc_right[5] = {0};
+	uint16_t clifadc_left[5] = {0};
+	uint16_t clifadc_middle[5] = {0};
+	
+	uint32_t clifAdcRight = 0;
+	uint32_t clifAdcLeft = 0;
+	uint32_t clifAdcMiddle = 0;
+	uint16_t clifAdcRef = 0;
+	
+	uint8_t clifRightCnt = 0;
+	uint8_t clifLeftCnt = 0;
+	uint8_t clifMiddleCnt = 0;
+	uint8_t i;
+	
+	
+	//*****************************************************************************************************//	
 		// 主循环
 		//a 获取按键信息标志位
 	
@@ -278,7 +443,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				robot_error_num = ROBOT_ERROR_NUM_CLIF;
 				while(bsp_SpeakerIsBusy()) vTaskDelay(100);	
 				bsp_SperkerPlay(Song11);
-				continue;
+				//continue;
 			}
 			if(((clifAdcRef>clifAdcLeft)?(clifAdcRef-clifAdcLeft):(clifAdcLeft-clifAdcRef)) > MAXCLIFFADCDT )
 			{
@@ -287,7 +452,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				robot_error_num = ROBOT_ERROR_NUM_CLIF;
 				while(bsp_SpeakerIsBusy()) vTaskDelay(100);	
 				bsp_SperkerPlay(Song11);				
-				continue;
+				//continue;
 			}
 			if(((clifAdcRef>clifAdcMiddle)?(clifAdcRef-clifAdcMiddle):(clifAdcMiddle-clifAdcRef)) > MAXCLIFFADCDT )
 			{
@@ -296,7 +461,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				robot_error_num = ROBOT_ERROR_NUM_CLIF;
 				while(bsp_SpeakerIsBusy()) vTaskDelay(100);	
 				bsp_SperkerPlay(Song11);
-				continue;
+				//continue;
 			}
 			
 			cur_robot_state = (robot_work_way == ROBOT_WORKWAY_CHARGE)? ROBOT_STATE_CHARGING:ROBOT_STATE_WORKING;
@@ -333,26 +498,26 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			{
 				cur_robot_state = ROBOT_STATE_SUSPEND;
 				robot_error_num = ROBOT_ERROR_NUM_DUST_HALL;
-				continue;
+				//continue;
 			}
 			if( OffSiteRight == bsp_OffSiteGetState())
 			{
 				cur_robot_state = ROBOT_STATE_SUSPEND;
 				robot_error_num = ROBOT_ERROR_NUM_OFFLANDR;
-				continue;
+				//continue;
 			}
 			if( OffSiteLeft ==  bsp_OffSiteGetState())
 			{
 				cur_robot_state = ROBOT_STATE_SUSPEND;
 				robot_error_num = ROBOT_ERROR_NUM_OFFLANDL;
-				continue;
+				//continue;
 			}
 			//get roller motor adc value
 			if(bsp_GetFeedbackVoltage(eRollingBrush) >ROLLER_MOTOR_MAX_ADC_VALUE)
 			{
 				cur_robot_state = ROBOT_STATE_SUSPEND;
 				robot_error_num = ROBOT_ERROR_NUM_ROLLER_MOTOR;
-				continue;
+				//continue;
 			}
 			
 			//get brush motor adc vaule
@@ -360,7 +525,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			{
 				cur_robot_state = ROBOT_STATE_SUSPEND;
 				robot_error_num = ROBOT_ERROR_NUM_BRUSH_MOTOR;
-				continue;
+				//continue;
 			}
 				
 			//get vacuum motor adc value
@@ -368,28 +533,28 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			{
 				cur_robot_state = ROBOT_STATE_SUSPEND;
 				robot_error_num = ROBOT_ERROR_NUM_VACUUM_MOTOR;
-				continue;
+				//continue;
 			}
 			//get robot battery adc value
 			if(bsp_GetFeedbackVoltage(eBatteryVoltage) <ROBOT_BATTERY_MIN_ADC_VALUE)
 			{
 				cur_robot_state = ROBOT_STATE_CHARGING;
 				robot_error_num = ROBOT_ERROR_NUM_BATTERY;
-				continue;
+				//continue;
 			}
 			//get left wheel adc value
 			if(bsp_GetFeedbackVoltage(eMotorLeft) >WHEEL_MOTOR_MAX_ADC_VALUE)
 			{
 				cur_robot_state = ROBOT_STATE_SUSPEND;
 				robot_error_num = ROBOT_ERROR_NUM_LEFT_WHEEL;
-				continue;
+				//continue;
 			}
 			//get right wheel adc value
 			if(bsp_GetFeedbackVoltage(eMotorRight) >WHEEL_MOTOR_MAX_ADC_VALUE)
 			{
 				cur_robot_state = ROBOT_STATE_SUSPEND;
 				robot_error_num = ROBOT_ERROR_NUM_RIGHT_WHEEL;
-				continue;
+				//continue;
 			}
 	
 			bsp_GetCliffVoltage(Cliff1_left);     //left
@@ -554,162 +719,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		    bsp_SetMotorSpeed(MotorRight,0);
 			//printf("AutogoChargeStation!!!! \n");	
 		}
-		
-		vTaskDelay(50);	
-	}
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: vTaskStart
-*	功能说明: 启动任务，也就是最高优先级任务，这里用作按键扫描。
-*	形    参: pvParameters 是在创建该任务时传递的形参
-*	返 回 值: 无
-*   优 先 级: 4  
-*********************************************************************************************************
-*/
-static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
-{
-	while(1)
-    {
-#if 0
-		bsp_SendReportFrame();
-		bsp_PrintRemoteState();
-#endif
-		bsp_IWDG_Feed(); /* 喂狗 */
-		
-		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
-#if 0		
-		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
-		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
-#endif		
-		bsp_ComAnalysis();
-		vTaskDelay(10);
-    }
-	
-}
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: vTaskStart
-*	功能说明: 感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角。
-*	形    参: pvParameters 是在创建该任务时传递的形参
-*	返 回 值: 无
-*   优 先 级: 4  
-*********************************************************************************************************
-*/
-static void vTaskPerception(void *pvParameters)   //
-{
-	/*开启红外对管轮询扫描*/
-	bsp_DetectStart(); 
-	/*开启寻找充电桩*/
-#if 0
-	bsp_StartSearchChargingPile();
-#endif
-	bsp_StartUpdatePos();
-	
-	while(1)
-    {
-        bsp_DetectAct();  /*红外对管轮询扫描*/
-		bsp_DetectDeal(); /*红外对管扫描结果处理*/
-
-		/*四个红外接收管*/
-#if 0 
-		bsp_GetCapCnt(CapCH1);
-		bsp_GetCapCnt(CapCH2);
-		bsp_GetCapCnt(CapCH3);
-		bsp_GetCapCnt(CapCH4);
-#endif
-		/*寻找充电桩*/
-		bsp_SearchChargingPileAct();
-		/*更新坐标*/
-		bsp_PositionUpdate();
-		bsp_KeyScan();
-        vTaskDelay(1);	
-	}		
-
-}
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: AppTaskCreate
-*	功能说明: 创建应用任务
-*	形    参：无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void AppTaskCreate (void)
-{
-	xTaskCreate( vTaskDecision,     		    /* 任务函数  */
-                 "vTaskDecision",   		    /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-                 NULL,           		        /* 任务参数  */
-                 1,              		        /* 任务优先级*/
-                 &xHandleTaskDecision );        /* 任务句柄  */
-	xTaskCreate( vTaskControl,     		        /* 任务函数  */
-                 "vTaskControl",   		        /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-                 NULL,           		        /* 任务参数  */
-                 2,              		        /* 任务优先级*/
-                 &xHandleTaskControl );         /* 任务句柄  */	
-	xTaskCreate( vTaskPerception,     		    /* 任务函数  */
-                 "vTaskPerception",   		    /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-                 NULL,           		        /* 任务参数  */
-                 3,              		        /* 任务优先级*/
-                 &xHandleTaskPerception );      /* 任务句柄  */	
-			 
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: AppObjCreate
-*	功能说明: 创建任务通信机制
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void AppObjCreate (void)
-{
-	/* 创建互斥信号量 */
-    xMutex = xSemaphoreCreateMutex();
-	
-	if(xMutex == NULL)
-    {
-        /* 没有创建成功，用户可以在这里加入创建失败的处理机制 */
-    }
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: App_Printf
-*	功能说明: 线程安全的printf方式		  			  
-*	形    参: 同printf的参数。
-*             在C中，当无法列出传递函数的所有实参的类型和数目时,可以用省略号指定参数表
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void  App_Printf(char *format, ...)
-{
-    char  buf_str[200 + 1];
-    va_list   v_args;
-
-
-    va_start(v_args, format);
-   (void)vsnprintf((char       *)&buf_str[0],
-                   (size_t      ) sizeof(buf_str),
-                   (char const *) format,
-                                  v_args);
-    va_end(v_args);
-
-	/* 互斥信号量 */
-	xSemaphoreTake(xMutex, portMAX_DELAY);
-
-    printf("%s", buf_str);
-
-   	xSemaphoreGive(xMutex);
 }
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
