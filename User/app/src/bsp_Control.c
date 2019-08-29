@@ -285,7 +285,7 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 	}
 		
 	/*计算PWM值，增量式PID*/
-	if(sn == MotorLeft)
+	if(sn == MotorLeft && Target)
 	{
 		if(pid[0].lastTarget == 0) /*从0速启动*/
 		{
@@ -305,8 +305,10 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 		pid[0].pwm = bsp_PwmLimit(pid[0].pwm);	
 		/*设置PWM*/
 		bsp_MotorSetPWM(MotorLeft,pid[0].pwm >0 ? Backward : Forward ,myabs(pid[0].pwm));
+		
+		//DEBUG("L pwm:%d\n",myabs(pid[0].pwm));
 	}
-	else if(sn == MotorRight)
+	else if(sn == MotorRight && Target)
 	{
 		if(pid[1].lastTarget == 0) /*从0速启动*/
 		{
@@ -326,6 +328,8 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 		pid[1].pwm = bsp_PwmLimit(pid[1].pwm);
 		/*设置PWM*/
 		bsp_MotorSetPWM(MotorRight,pid[1].pwm >0 ? Backward : Forward ,myabs(pid[1].pwm));
+		
+		//DEBUG("R pwm:%d\n",myabs(pid[1].pwm));
 	}
 	
 }

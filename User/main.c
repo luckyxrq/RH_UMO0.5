@@ -177,6 +177,17 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_IWDG_Feed(); /* 喂狗 */
         
         bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
+		
+		#if 0
+		{
+			TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+			TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+
+
+			TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+		}
+		#endif
+		
 #if 0		
         DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
@@ -200,6 +211,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 */
 static void vTaskPerception(void *pvParameters)   //
 {
+	uint32_t count = 0 ;
+	
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
     /*开启寻找充电桩*/
@@ -224,7 +237,12 @@ static void vTaskPerception(void *pvParameters)   //
         bsp_SearchChargingPileAct();
         /*更新坐标*/
         bsp_PositionUpdate();
-        bsp_KeyScan();
+        
+		if(count++ % 10 == 0)
+		{
+			bsp_KeyScan();
+		}
+
         vTaskDelay(1);	
     }		
     

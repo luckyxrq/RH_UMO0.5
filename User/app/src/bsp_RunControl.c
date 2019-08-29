@@ -173,7 +173,7 @@ void bsp_RunControl(void)
         
         runControl.workMethod  = ROBOT_WORKWAY_HOME;
 		
-		DEBUG("isHomeKey\r\n");
+		//DEBUG("isHomeKey\r\n");
     }
 	/*Charge按键被按下*/
     else if(runControl.isChargeKey)
@@ -188,7 +188,7 @@ void bsp_RunControl(void)
         
         runControl.workMethod  = ROBOT_WORKWAY_CHARGE;
 		
-		DEBUG("isChargeKey\r\n");
+		//DEBUG("isChargeKey\r\n");
     }
 	/*Clean按键被按下*/
     else if(runControl.isCleanKey)
@@ -203,7 +203,17 @@ void bsp_RunControl(void)
         
         runControl.workMethod  = ROBOT_WORKWAY_CLEAN;
 		
-		DEBUG("isCleanKey\r\n");
+		//DEBUG("isCleanKey\r\n");
+	}
+	/*Power按键被按下*/
+    else if(runControl.isPowerKey)
+    {
+		runControl.isPowerKey = false;
+		
+		DEBUG("关机\r\n");
+		
+		bsp_InitRunControl();
+		bsp_StartRunControl();
     }
 	
 	switch(runControl.action)
@@ -224,31 +234,30 @@ void bsp_RunControl(void)
 				
 				/*初始化完毕后，根据清扫方式，进行不同的操作*/
 				runControl.currentState = (runControl.workMethod == ROBOT_WORKWAY_CHARGE)? ROBOT_STATE_CHARGING:ROBOT_STATE_WORKING;
+				
+				DEBUG("初始化机器...\r\n");
 			}
 			/*扫地工作*/
 			else if(runControl.currentState == ROBOT_STATE_WORKING)
 			{
-				
+				DEBUG("开始清扫...\r\n");
 			}
 			/*暂停*/
 			else if(runControl.currentState == ROBOT_STATE_SUSPEND)
 			{
-				
+				DEBUG("暂停...\r\n");
 			}
 			/*回充*/
 			else if(runControl.currentState == ROBOT_STATE_CHARGING)
 			{
-				
+				DEBUG("回充...\r\n");
 			}
 			/*待机*/
 			else if(runControl.currentState == ROBOT_STATE_STANDBY)
 			{
-				
+				DEBUG("待机...\r\n");
 			}
 		}break;
-		
-		
-		
 		
 	}
 }
