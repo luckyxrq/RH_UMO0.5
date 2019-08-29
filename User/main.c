@@ -137,8 +137,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					//DEBUG("关机\r\n");
 					isShutdown = true;
 					bsp_SetPowerKey(true);
-//					bsp_SwOff(SW_5V_EN_CTRL);
-//					bsp_SwOff(SW_IR_POWER);
+
 				}break;
 			}   
         }

@@ -1099,7 +1099,7 @@ void USART6_IRQHandler(void)
 int fputc(int ch, FILE *f)
 {
 #if 1	/* 将需要printf的字符通过串口中断FIFO发送出去，printf函数会立即返回 */
-	comSendChar(COM1, ch);
+	comSendChar(COM2, ch);
 
 	return ch;
 #else	/* 采用阻塞方式发送每个字符,等待数据发送完毕 */
