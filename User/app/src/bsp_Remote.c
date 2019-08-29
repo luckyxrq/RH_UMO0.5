@@ -3,7 +3,8 @@
 #define RANGE			100         /*红外接收脉宽计数范围*/
 #define RangeSub(x)		((x)-RANGE) /*红外接收脉宽计数范围 负*/
 #define RangeAdd(x)		((x)+RANGE) /*红外接收脉宽计数范围 正*/
-#define CYCLE			50*2          /*如果确认检测的相应宽度的脉冲，*/
+#define CYCLE			50*2        /*如果确认检测的相应宽度的脉冲，*/
+#define FILTER          5           /*滤波次数，最大为10*/
 
 typedef struct
 {
@@ -387,8 +388,9 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 			//remote[ch].remoteStatistics[1] = 0 ;
 			//remote[ch].remoteStatistics[2] = 0 ;
 			
-			if(++remote[ch].remoteStatistics[0] >= 3)
+			if(++remote[ch].remoteStatistics[0] >= FILTER)
 			{
+				remote[ch].remoteStatistics[0] = 0 ;
 				bsp_ClearRemoteTimerCnt(ch,Pulse500US);//清除计数
 				remote[ch].is500us = true;
 			}
@@ -398,8 +400,9 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 			//remote[ch].remoteStatistics[0] = 0 ;
 			//remote[ch].remoteStatistics[2] = 0 ;
 			
-			if(++remote[ch].remoteStatistics[1] >= 3)
+			if(++remote[ch].remoteStatistics[1] >= FILTER)
 			{
+				remote[ch].remoteStatistics[1] = 0 ;
 				bsp_ClearRemoteTimerCnt(ch,Pulse1000US);//清除计数
 				remote[ch].is1000us = true;
 			}
@@ -409,8 +412,9 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 			//remote[ch].remoteStatistics[0] = 0 ;
 			//remote[ch].remoteStatistics[1] = 0 ;
 			
-			if(++remote[ch].remoteStatistics[2] >= 3)
+			if(++remote[ch].remoteStatistics[2] >= FILTER)
 			{
+				remote[ch].remoteStatistics[2] = 0 ;
 			    bsp_ClearRemoteTimerCnt(ch,Pulse1500US);//清除计数
 				remote[ch].is1500us = true;
 			}
