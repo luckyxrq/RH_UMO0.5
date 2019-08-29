@@ -6,21 +6,21 @@
 typedef struct
 {
 	/*状态机结构*/
-	bool isRunnng;
-	uint32_t action;
-	uint32_t delay;
+	volatile bool isRunnng;
+	volatile uint32_t action;
+	volatile uint32_t delay;
 	
 	/*运行状态*/
-	RunState lastState;
-	RunState currentState;
-	WorkMethod workMethod;
-	uint8_t errSN;
+	volatile RunState lastState;
+	volatile RunState currentState;
+	volatile WorkMethod workMethod;
+	volatile uint8_t errSN;
 	
 	/*按键值，Home按键长按就是Power关机*/
-	bool isHomeKey;
-	bool isPowerKey;
-	bool isChargeKey;
-	bool isCleanKey;
+	volatile bool isHomeKey;
+	volatile bool isPowerKey;
+	volatile bool isChargeKey;
+	volatile bool isCleanKey;
 }RunControl;
 
 void bsp_InitRunControl(void);
