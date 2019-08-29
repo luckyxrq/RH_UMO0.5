@@ -190,7 +190,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_ComAnalysis();
 		bsp_RunControl();/* 整机控制 */
 
-		if(count++ % 10 == 0)
+		if(count++ % 20 == 0)
 		{
 			bsp_PrintRemoteState();
 		}
@@ -228,7 +228,7 @@ static void vTaskPerception(void *pvParameters)   //
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
         
         /*四个红外接收管*/
-#if 1 
+#if 0 
         bsp_GetCapCnt(CapCH1);
         bsp_GetCapCnt(CapCH2);
         bsp_GetCapCnt(CapCH3);
@@ -245,7 +245,7 @@ static void vTaskPerception(void *pvParameters)   //
 		}
 
         vTaskDelay(1);	
-    }		
+    }
     
 }
 

@@ -3,7 +3,7 @@
 #define RANGE			100         /*红外接收脉宽计数范围*/
 #define RangeSub(x)		((x)-RANGE) /*红外接收脉宽计数范围 负*/
 #define RangeAdd(x)		((x)+RANGE) /*红外接收脉宽计数范围 正*/
-#define CYCLE			80          /*如果确认检测的相应宽度的脉冲，*/
+#define CYCLE			50*2          /*如果确认检测的相应宽度的脉冲，*/
 
 typedef struct
 {
@@ -384,8 +384,8 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 
 		if(temp >= RangeSub(500) && temp <=  RangeAdd(500))
 		{
-			remote[ch].remoteStatistics[1] = 0 ;
-			remote[ch].remoteStatistics[2] = 0 ;
+			//remote[ch].remoteStatistics[1] = 0 ;
+			//remote[ch].remoteStatistics[2] = 0 ;
 			
 			if(++remote[ch].remoteStatistics[0] >= 3)
 			{
@@ -395,8 +395,8 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 		}
 		else if(temp >= RangeSub(1000) && temp <=  RangeAdd(1000))
 		{
-			remote[ch].remoteStatistics[0] = 0 ;
-			remote[ch].remoteStatistics[2] = 0 ;
+			//remote[ch].remoteStatistics[0] = 0 ;
+			//remote[ch].remoteStatistics[2] = 0 ;
 			
 			if(++remote[ch].remoteStatistics[1] >= 3)
 			{
@@ -406,8 +406,8 @@ uint32_t bsp_GetCapCnt(CapCH capCH)
 		}
 		else if(temp >= RangeSub(1500) && temp <=  RangeAdd(1500))
 		{
-			remote[ch].remoteStatistics[0] = 0 ;
-			remote[ch].remoteStatistics[1] = 0 ;
+			//remote[ch].remoteStatistics[0] = 0 ;
+			//remote[ch].remoteStatistics[1] = 0 ;
 			
 			if(++remote[ch].remoteStatistics[2] >= 3)
 			{
@@ -528,6 +528,7 @@ void TIM3_IRQHandler(void)
                 {
                     chargingPile.capState[ch]|=0X80;
                     chargingPile.capValue[ch]=0XFFFF;
+					bsp_GetCapCnt(CapCH1);
                 }else chargingPile.capState[ch]++;
             }	 
         }
@@ -538,6 +539,7 @@ void TIM3_IRQHandler(void)
                 chargingPile.capState[ch]|=0X80;
                 chargingPile.capValue[ch]=TIM_GetCapture1(TIM3);
                 TIM_OC1PolarityConfig(TIM3,TIM_ICPolarity_Falling);
+				bsp_GetCapCnt(CapCH1);
             }else 
             {
                 chargingPile.capState[ch]=0;	
@@ -562,6 +564,7 @@ void TIM3_IRQHandler(void)
                 {
                     chargingPile.capState[ch]|=0X80;
                     chargingPile.capValue[ch]=0XFFFF;
+					bsp_GetCapCnt(CapCH2);
                 }else chargingPile.capState[ch]++;
             }	 
         }
@@ -572,6 +575,7 @@ void TIM3_IRQHandler(void)
                 chargingPile.capState[ch]|=0X80;
                 chargingPile.capValue[ch]=TIM_GetCapture2(TIM3);
                 TIM_OC2PolarityConfig(TIM3,TIM_ICPolarity_Falling);
+				bsp_GetCapCnt(CapCH2);
             }else 
             {
                 chargingPile.capState[ch]=0;	
@@ -596,6 +600,7 @@ void TIM3_IRQHandler(void)
                 {
                     chargingPile.capState[ch]|=0X80;
                     chargingPile.capValue[ch]=0XFFFF;
+					bsp_GetCapCnt(CapCH3);
                 }else chargingPile.capState[ch]++;
             }	 
         }
@@ -606,6 +611,7 @@ void TIM3_IRQHandler(void)
                 chargingPile.capState[ch]|=0X80;
                 chargingPile.capValue[ch]=TIM_GetCapture3(TIM3);
                 TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Falling);
+				bsp_GetCapCnt(CapCH3);
             }else 
             {
                 chargingPile.capState[ch]=0;	
@@ -630,6 +636,7 @@ void TIM3_IRQHandler(void)
                 {
                     chargingPile.capState[ch]|=0X80;
                     chargingPile.capValue[ch]=0XFFFF;
+					bsp_GetCapCnt(CapCH4);
                 }else chargingPile.capState[ch]++;
             }	 
         }
@@ -640,6 +647,7 @@ void TIM3_IRQHandler(void)
                 chargingPile.capState[ch]|=0X80;
                 chargingPile.capValue[ch]=TIM_GetCapture4(TIM3);
                 TIM_OC4PolarityConfig(TIM3,TIM_ICPolarity_Falling);
+				bsp_GetCapCnt(CapCH4);
             }else 
             {
                 chargingPile.capState[ch]=0;	
