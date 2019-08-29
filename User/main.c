@@ -98,8 +98,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     bsp_AngleRst();
     
 	
-	bsp_SetMotorSpeed(MotorLeft,3);
-	bsp_SetMotorSpeed(MotorRight,-3);
+//	bsp_SetMotorSpeed(MotorLeft,3);
+//	bsp_SetMotorSpeed(MotorRight,-3);
 	
     while(1)
     {
@@ -169,6 +169,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
+	uint32_t count = 0 ;
+	
 	bsp_StartRunControl(); /*开启按键控制状态机*/
 	
     while(1)
@@ -186,7 +188,13 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
         bsp_ComAnalysis();
-		bsp_RunControl();/* 整机控制 */ 
+		bsp_RunControl();/* 整机控制 */
+
+		if(count++ % 10 == 0)
+		{
+			bsp_PrintRemoteState();
+		}
+		
         vTaskDelay(10);
     }
     
@@ -220,7 +228,7 @@ static void vTaskPerception(void *pvParameters)   //
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
         
         /*四个红外接收管*/
-#if 0 
+#if 1 
         bsp_GetCapCnt(CapCH1);
         bsp_GetCapCnt(CapCH2);
         bsp_GetCapCnt(CapCH3);
