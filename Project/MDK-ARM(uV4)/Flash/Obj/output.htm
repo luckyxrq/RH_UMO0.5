@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Aug 29 11:41:51 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Aug 29 11:48:46 2019
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1791,6 +1791,7 @@ Global Symbols
 <P><STRONG><a name="[da]"></a>bsp_SetMotorSpeed</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_SetMotorSpeed))
 <BR><BR>[Called By]<UL><LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargingPileAct
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 </UL>
 
 <P><STRONG><a name="[167]"></a>bsp_SetPowerKey</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_runcontrol.o(i.bsp_SetPowerKey))
@@ -2305,11 +2306,12 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[49]"></a>vTaskDecision</STRONG> (Thumb, 130 bytes, Stack size 0 bytes, main.o(i.vTaskDecision))
+<P><STRONG><a name="[49]"></a>vTaskDecision</STRONG> (Thumb, 146 bytes, Stack size 0 bytes, main.o(i.vTaskDecision))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = vTaskDecision &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetPowerKey
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetHomeKey
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetCleanKey
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetChargeKey
