@@ -22,13 +22,25 @@
 
 #define IR_REPEAT_SEND_EN		0	/* 连发使能 */
 #define IR_REPEAT_FILTER		10	/* 遥控器108ms 发持续按下脉冲, 连续按下1秒后启动重发 */
+#define IR_COUNT				4   /* 红外对管的个数 */
 
 /* 定义GPIO端口 */
 #define RCC_IRD		RCC_APB2Periph_GPIOC
 #define PORT_IRD	GPIOC
 #define PIN_IRD		(GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9)
 
-IRD_T g_tIR;
+typedef struct
+{
+	volatile uint16_t LastCapture;
+	volatile uint8_t Status;
+	volatile uint8_t RxBuf[4];
+	volatile uint8_t RepeatCount;
+	
+	volatile uint8_t WaitFallEdge;	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
+	volatile uint16_t TimeOut;
+}IRD_T;
+
+static IRD_T g_tIR;
 
 /*
 *********************************************************************************************************
@@ -183,7 +195,7 @@ loop1:
 			}
 			else if ((_width > 150) && (_width < 250))	/* 2.25ms */
 			{
-				#ifdef IR_REPEAT_SEND_EN				
+				#if IR_REPEAT_SEND_EN				
 					if (g_tIR.RepeatCount >= IR_REPEAT_FILTER)
 					{
 						bsp_PutKey(g_tIR.RxBuf[2] + IR_KEY_STRAT);	/* 连发码 */
