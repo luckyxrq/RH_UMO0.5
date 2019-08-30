@@ -20,85 +20,55 @@
 
 #include "bsp.h"
 
-#define IR_REPEAT_SEND_EN		0	/* 连发使能 */
-#define IR_REPEAT_FILTER		10	/* 遥控器108ms 发持续按下脉冲, 连续按下1秒后启动重发 */
-#define IR_COUNT				4   /* 红外对管的个数 */
+
+#define IR_UPDATE_T             100 /* 软件定时器更新红外辐射范围状态，实际一轮时间为73.75MS，给点余量*/
 
 /* 定义GPIO端口 */
 #define RCC_IRD		RCC_APB2Periph_GPIOC
 #define PORT_IRD	GPIOC
 #define PIN_IRD		(GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9)
 
-typedef enum
-{
-	IR_CH1 = 0 ,
-	IR_CH2 ,
-	IR_CH3 ,
-	IR_CH4 ,
-}IR_CH;
-
-/*充电桩发送出来的码值，这里的左右指的是面对充电桩的时候人眼看到的左右*/
-typedef enum
-{
-	IR_TX_CODE_LEFT   = 0x27 ,
-	IR_TX_CODE_CENTER = 0x39 ,
-	IR_TX_CODE_RIGHT  = 0x16
-}IRCode;
-
-typedef enum
-{
-	IR_TX_SITE_LEFT   = 0 ,
-	IR_TX_SITE_CENTER ,
-	IR_TX_SITE_RIGHT  
-}IRSite;
-
-typedef struct
-{
-	volatile uint16_t LastCapture[IR_COUNT];
-	volatile uint8_t Status[IR_COUNT];
-	volatile uint8_t RxBuf[IR_COUNT][4];
-	volatile uint8_t RepeatCount[IR_COUNT];
-	
-	volatile uint8_t WaitFallEdge[IR_COUNT];	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
-	volatile uint16_t TimeOut[IR_COUNT];
-	
-	volatile bool isRev[IR_COUNT][3];           /*用于表示每个传感器的被辐射范围*/
-	volatile uint32_t softTimer[IR_COUNT][3];   /*当收到红外码，开启相应软件定时器，如果时间到了则清除接收到状态*/
-}IRD_T;
 
 static IRD_T g_tIR;
+
+static void bsp_IR_SoftTimerInit(void);
 
 
 /*
 *********************************************************************************************************
-*	函 数 名: bsp_IR_SoftTimerInit
-*	功能说明: 初始化红外软件定时器
+*	函 数 名: bsp_IR_GetRev
+*	功能说明: 获取每个红外接收管的每个通道的接收码值情况
 *	形    参: 无
 *	返 回 值: 无
 *********************************************************************************************************
 */
-static void bsp_IR_SoftTimerInit(void)
+bool bsp_IR_GetRev(IR_CH ch , IRSite site)
 {
-	g_tIR.softTimer[IR_CH1][IR_TX_SITE_LEFT]   = 0 ;
-	g_tIR.softTimer[IR_CH1][IR_TX_SITE_CENTER] = 0 ;
-	g_tIR.softTimer[IR_CH1][IR_TX_SITE_RIGHT]  = 0 ;
-	
-	g_tIR.softTimer[IR_CH2][IR_TX_SITE_LEFT]   = 0 ;
-	g_tIR.softTimer[IR_CH2][IR_TX_SITE_CENTER] = 0 ;
-	g_tIR.softTimer[IR_CH2][IR_TX_SITE_RIGHT]  = 0 ;
-	
-	g_tIR.softTimer[IR_CH3][IR_TX_SITE_LEFT]   = 0 ;
-	g_tIR.softTimer[IR_CH3][IR_TX_SITE_CENTER] = 0 ;
-	g_tIR.softTimer[IR_CH3][IR_TX_SITE_RIGHT]  = 0 ;
-	
-	g_tIR.softTimer[IR_CH4][IR_TX_SITE_LEFT]   = 0 ;
-	g_tIR.softTimer[IR_CH4][IR_TX_SITE_CENTER] = 0 ;
-	g_tIR.softTimer[IR_CH4][IR_TX_SITE_RIGHT]  = 0 ;
+	return g_tIR.isRev[ch][site];
 }
 
-void bsp_IR_SoftTimerTickPerMS(IR_CH ch , uint8_t site)
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IR_SoftTimerTickPerMS
+*	功能说明: 每个周期重先给状态值，是否在辐射范围内
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_IR_SoftTimerTickPerMS(IR_CH ch , IRSite site)
 {
-	
+	/*如果收到红外了，则软件定时器值一直给0*/
+	if(g_tIR.isRev[ch][site])
+	{
+		g_tIR.softTimer[ch][site] = 0 ;
+	}
+	else
+	{
+		if(++g_tIR.softTimer[ch][site] >= IR_UPDATE_T)
+		{
+			g_tIR.isRev[ch][site] = false;
+		}
+	}
 }
 
 /*
@@ -172,9 +142,6 @@ void bsp_IRD_StartWork(void)
 	
 	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);	/* 溢出中断使能，用于超时同步处理 */
 	
-	/* 使能定时器 */
-	TIM_Cmd(TIM3, ENABLE);
-
 	/*初始状态*/
 	g_tIR.LastCapture[IR_CH1] = 0;	
 	g_tIR.Status[IR_CH1] = 0;
@@ -191,6 +158,11 @@ void bsp_IRD_StartWork(void)
 	g_tIR.LastCapture[IR_CH4] = 0;	
 	g_tIR.Status[IR_CH4] = 0;
 	g_tIR.WaitFallEdge[IR_CH4] = 1;	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
+	
+	bsp_IR_SoftTimerInit();
+	
+	/* 使能定时器 */
+	TIM_Cmd(TIM3, ENABLE);
 }
 
 /*
@@ -459,6 +431,33 @@ static void bsp_IR_GetPulseWidth(IR_CH ch)
 	g_tIR.LastCapture[ch] = NowCapture;	/* 保存当前计数器，用于下次计算差值 */
 	
 	bsp_IRD_DecodeNec(ch , Width);		/* 解码 */	
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IR_SoftTimerInit
+*	功能说明: 初始化红外软件定时器
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_IR_SoftTimerInit(void)
+{
+	g_tIR.softTimer[IR_CH1][IR_TX_SITE_LEFT]   = 0 ;
+	g_tIR.softTimer[IR_CH1][IR_TX_SITE_CENTER] = 0 ;
+	g_tIR.softTimer[IR_CH1][IR_TX_SITE_RIGHT]  = 0 ;
+	
+	g_tIR.softTimer[IR_CH2][IR_TX_SITE_LEFT]   = 0 ;
+	g_tIR.softTimer[IR_CH2][IR_TX_SITE_CENTER] = 0 ;
+	g_tIR.softTimer[IR_CH2][IR_TX_SITE_RIGHT]  = 0 ;
+	
+	g_tIR.softTimer[IR_CH3][IR_TX_SITE_LEFT]   = 0 ;
+	g_tIR.softTimer[IR_CH3][IR_TX_SITE_CENTER] = 0 ;
+	g_tIR.softTimer[IR_CH3][IR_TX_SITE_RIGHT]  = 0 ;
+	
+	g_tIR.softTimer[IR_CH4][IR_TX_SITE_LEFT]   = 0 ;
+	g_tIR.softTimer[IR_CH4][IR_TX_SITE_CENTER] = 0 ;
+	g_tIR.softTimer[IR_CH4][IR_TX_SITE_RIGHT]  = 0 ;
 }
 
 
