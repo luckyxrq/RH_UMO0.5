@@ -20,7 +20,7 @@
 
 #include "bsp.h"
 
-#define IR_REPEAT_SEND_EN		1	/* 连发使能 */
+#define IR_REPEAT_SEND_EN		0	/* 连发使能 */
 #define IR_REPEAT_FILTER		10	/* 遥控器108ms 发持续按下脉冲, 连续按下1秒后启动重发 */
 
 /* 定义GPIO端口 */
@@ -94,10 +94,10 @@ void IRD_StartWork(void)
 	TIM_ICInit(TIM3, &TIM_ICInitStructure);
 	
 	/*配置溢出中断和输入捕获中断*/
-	TIM_ITConfig(TIM3, TIM_IT_CC1, ENABLE);
-	TIM_ITConfig(TIM3, TIM_IT_CC2, ENABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC1, DISABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC2, DISABLE);
 	TIM_ITConfig(TIM3, TIM_IT_CC3, ENABLE);
-	TIM_ITConfig(TIM3, TIM_IT_CC4, ENABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC4, DISABLE);
 	
 	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);	/* 溢出中断使能，用于超时同步处理 */
 	
