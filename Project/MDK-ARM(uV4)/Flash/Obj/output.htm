@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Aug 30 15:03:13 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Aug 30 15:16:06 2019
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -754,7 +754,7 @@ Global Symbols
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSpeaker
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitVacuum
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
@@ -763,10 +763,10 @@ Global Symbols
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
 </UL>
 
-<P><STRONG><a name="[ed]"></a>GPIO_PinRemapConfig</STRONG> (Thumb, 138 bytes, Stack size 20 bytes, stm32f10x_gpio.o(i.GPIO_PinRemapConfig))
+<P><STRONG><a name="[ec]"></a>GPIO_PinRemapConfig</STRONG> (Thumb, 138 bytes, Stack size 20 bytes, stm32f10x_gpio.o(i.GPIO_PinRemapConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_PinRemapConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 </UL>
@@ -798,8 +798,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f8]"></a>IWDG_ReloadCounter</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f10x_iwdg.o(i.IWDG_ReloadCounter))
-<BR><BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IWDG_Feed
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IWDG_Config
+<BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IWDG_Config
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IWDG_Feed
 </UL>
 
 <P><STRONG><a name="[f6]"></a>IWDG_SetPrescaler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_iwdg.o(i.IWDG_SetPrescaler))
@@ -826,7 +826,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
 </UL>
 
@@ -842,7 +842,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 </UL>
 
@@ -855,7 +855,7 @@ Global Symbols
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSpeaker
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitVacuum
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
@@ -898,7 +898,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(.text)
 </UL>
 <P><STRONG><a name="[27]"></a>TIM3_IRQHandler</STRONG> (Thumb, 142 bytes, Stack size 8 bytes, bsp_ir_decode.o(i.TIM3_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = TIM3_IRQHandler &rArr; bsp_IR_GetPulseWidth &rArr; bsp_IRD_DecodeNec &rArr; __2printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = TIM3_IRQHandler &rArr; bsp_IR_GetPulseWidth &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
@@ -936,10 +936,10 @@ Global Symbols
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 </UL>
 
-<P><STRONG><a name="[ef]"></a>TIM_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_Cmd))
+<P><STRONG><a name="[ee]"></a>TIM_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_Cmd))
 <BR><BR>[Called By]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 </UL>
@@ -949,19 +949,19 @@ Global Symbols
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 </UL>
 
-<P><STRONG><a name="[f0]"></a>TIM_GetCapture1</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture1))
+<P><STRONG><a name="[ef]"></a>TIM_GetCapture1</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture1))
 <BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
-<P><STRONG><a name="[f1]"></a>TIM_GetCapture2</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture2))
+<P><STRONG><a name="[f0]"></a>TIM_GetCapture2</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture2))
 <BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
-<P><STRONG><a name="[f2]"></a>TIM_GetCapture3</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture3))
+<P><STRONG><a name="[f1]"></a>TIM_GetCapture3</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture3))
 <BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
-<P><STRONG><a name="[f3]"></a>TIM_GetCapture4</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture4))
+<P><STRONG><a name="[f2]"></a>TIM_GetCapture4</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture4))
 <BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
@@ -989,7 +989,7 @@ Global Symbols
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC2Prescaler
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC1Prescaler
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_TimeOutProc
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
@@ -997,7 +997,7 @@ Global Symbols
 <P><STRONG><a name="[94]"></a>TIM_ITConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_ITConfig))
 <BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartHardTimer
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 </UL>
 
@@ -1097,10 +1097,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[ee]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 122 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_TimeBaseInit))
+<P><STRONG><a name="[ed]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 122 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_TimeBaseInit))
 <BR><BR>[Called By]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 </UL>
@@ -1186,7 +1186,6 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RunControl
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_DecodeNec
 </UL>
 
 <P><STRONG><a name="[ae]"></a>__ARM_fpclassify</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, fpclassify.o(i.__ARM_fpclassify))
@@ -1429,15 +1428,15 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 </UL>
 
-<P><STRONG><a name="[ec]"></a>bsp_IRD_StartWork</STRONG> (Thumb, 336 bytes, Stack size 40 bytes, bsp_ir_decode.o(i.bsp_IRD_StartWork))
+<P><STRONG><a name="[eb]"></a>bsp_IRD_StartWork</STRONG> (Thumb, 336 bytes, Stack size 40 bytes, bsp_ir_decode.o(i.bsp_IRD_StartWork))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITConfig
@@ -1466,7 +1465,7 @@ Global Symbols
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKey
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitDWT
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitRunControl
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSpeaker
@@ -1520,8 +1519,8 @@ Global Symbols
 <P><STRONG><a name="[104]"></a>bsp_InitHardTimer</STRONG> (Thumb, 94 bytes, Stack size 32 bytes, bsp_timer.o(i.bsp_InitHardTimer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = bsp_InitHardTimer &rArr; NVIC_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
@@ -1746,8 +1745,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = bsp_SetTIMforInt &rArr; NVIC_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITConfig
@@ -2395,7 +2394,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare4
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
@@ -2409,8 +2408,8 @@ Local Symbols
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1PreloadConfig
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1Init
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_CtrlPWMOutputs
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitMotor
 </UL>
@@ -2420,7 +2419,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare4
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
@@ -2434,9 +2433,9 @@ Local Symbols
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1PreloadConfig
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1Init
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_CtrlPWMOutputs
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitMotor
 </UL>
@@ -2614,23 +2613,21 @@ Local Symbols
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_SendByte
 </UL>
 
-<P><STRONG><a name="[eb]"></a>bsp_IRD_DecodeNec</STRONG> (Thumb, 292 bytes, Stack size 16 bytes, bsp_ir_decode.o(i.bsp_IRD_DecodeNec))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = bsp_IRD_DecodeNec &rArr; __2printf
-</UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<P><STRONG><a name="[f3]"></a>bsp_IRD_DecodeNec</STRONG> (Thumb, 352 bytes, Stack size 12 bytes, bsp_ir_decode.o(i.bsp_IRD_DecodeNec))
+<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = bsp_IRD_DecodeNec
 </UL>
 <BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
 <P><STRONG><a name="[93]"></a>bsp_IR_GetPulseWidth</STRONG> (Thumb, 292 bytes, Stack size 48 bytes, bsp_ir_decode.o(i.bsp_IR_GetPulseWidth))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = bsp_IR_GetPulseWidth &rArr; bsp_IRD_DecodeNec &rArr; __2printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = bsp_IR_GetPulseWidth &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture4
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture3
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture2
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture1
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_DecodeNec
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture4
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture3
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture2
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture1
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_DecodeNec
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>

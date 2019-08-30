@@ -37,6 +37,14 @@ typedef enum
 	IR_CH4 ,
 }IR_CH;
 
+/*充电桩发送出来的码值，这里的左右指的是面对充电桩的时候人眼看到的左右*/
+typedef enum
+{
+	IR_TX_LEFT   = 0x27 ,
+	IR_TX_CENTER = 0x39 ,
+	IR_TX_RIGHT  = 0x16
+}IRCode;
+
 typedef struct
 {
 	volatile uint16_t LastCapture[IR_COUNT];
@@ -46,6 +54,8 @@ typedef struct
 	
 	volatile uint8_t WaitFallEdge[IR_COUNT];	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
 	volatile uint16_t TimeOut[IR_COUNT];
+	
+	volatile bool isRev[IR_COUNT][3];           /*用于表示每个传感器的被辐射范围*/
 }IRD_T;
 
 static IRD_T g_tIR;
@@ -274,7 +284,20 @@ loop1:
 				g_tIR.RxBuf[ch][0] = s_Byte;
 				s_Byte = 0;
 				
-				DEBUG("CH%d:%02X\r\n",ch,g_tIR.RxBuf[ch][0]);
+				//DEBUG("CH%d:%02X\r\n",ch,g_tIR.RxBuf[ch][0]);
+				/*更新辐射范围*/
+				if(g_tIR.RxBuf[ch][0] == IR_TX_LEFT)
+				{
+					g_tIR.isRev[ch][0] = true;
+				}
+				else if(g_tIR.RxBuf[ch][0] == IR_TX_CENTER)
+				{
+					g_tIR.isRev[ch][1] = true;
+				}
+				else if(g_tIR.RxBuf[ch][0] == IR_TX_RIGHT)
+				{
+					g_tIR.isRev[ch][2] = true;
+				}
 				
 				g_tIR.Status[ch] = 0;	/* 等待下一组编码 */
 				break;
