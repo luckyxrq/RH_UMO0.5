@@ -59,7 +59,6 @@ void bsp_Init(void)
 	bsp_InitPid(MotorRight);
 	
 	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
-	bsp_InitChargingPile();  /*初始化输入捕获*/
 	
 	bsp_InitSpeaker();		 /*初始化扬声器*/
 	bsp_InitRunControl();    /*初始化整机控制状态机*/

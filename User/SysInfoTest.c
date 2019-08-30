@@ -64,7 +64,7 @@ void TIM6_IRQHandler( void )
 		
 		if(tick % 20 == 0)          /*1MS */
 		{
-			bsp_PulseTimerPer1MS();
+			//bsp_PulseTimerPer1MS();
 		}
 		
 		if(tick % 20*10 == 0)       /*10MS */

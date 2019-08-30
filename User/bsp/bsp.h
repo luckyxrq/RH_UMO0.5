@@ -161,7 +161,7 @@
 //#include "bsp_dac8501.h"
 //#include "bsp_dht11.h"
 
-//#include "bsp_ir_decode.h"
+#include "bsp_ir_decode.h"
 //#include "bsp_ps2.h"
 
 //#include "bsp_modbus.h"
@@ -184,7 +184,6 @@
 #include "bsp_PulseMark.h"
 #include "bsp_IWDG.h"
 #include "bsp_Edgewise.h"
-#include "bsp_Remote.h"
 #include "bsp_communication.h"
 #include "bsp_Encoder.h"
 #include "bsp_motor.h"

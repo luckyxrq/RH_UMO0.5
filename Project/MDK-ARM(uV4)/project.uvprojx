@@ -623,6 +623,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_user_lib.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_ir_decode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_ir_decode.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

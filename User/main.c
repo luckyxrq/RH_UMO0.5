@@ -208,10 +208,7 @@ static void vTaskPerception(void *pvParameters)   //
 	
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
-    /*开启寻找充电桩*/
-#if 0
-    bsp_StartSearchChargingPile();
-#endif
+
     bsp_StartUpdatePos();
     
     while(1)
@@ -227,7 +224,7 @@ static void vTaskPerception(void *pvParameters)   //
         bsp_GetCapCnt(CapCH4);
 #endif
         /*寻找充电桩*/
-        bsp_SearchChargingPileAct();
+
         /*更新坐标*/
         bsp_PositionUpdate();
         

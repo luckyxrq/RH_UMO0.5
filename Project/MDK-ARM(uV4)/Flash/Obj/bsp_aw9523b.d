@@ -53,6 +53,7 @@
 .\flash\obj\bsp_aw9523b.o: ..\..\User\bsp\inc\bsp_dwt.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\bsp\inc\bsp_tim_pwm.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\bsp\inc\bsp_i2c_gpio.h
+.\flash\obj\bsp_aw9523b.o: ..\..\User\bsp\inc\bsp_ir_decode.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\bsp\inc\bsp_user_lib.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_Collision.h
@@ -63,7 +64,6 @@
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_PulseMark.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\bsp\inc\bsp_IWDG.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_Edgewise.h
-.\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_Remote.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_communication.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_motor.h
