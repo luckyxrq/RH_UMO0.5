@@ -40,10 +40,17 @@ typedef enum
 /*充电桩发送出来的码值，这里的左右指的是面对充电桩的时候人眼看到的左右*/
 typedef enum
 {
-	IR_TX_LEFT   = 0x27 ,
-	IR_TX_CENTER = 0x39 ,
-	IR_TX_RIGHT  = 0x16
+	IR_TX_CODE_LEFT   = 0x27 ,
+	IR_TX_CODE_CENTER = 0x39 ,
+	IR_TX_CODE_RIGHT  = 0x16
 }IRCode;
+
+typedef enum
+{
+	IR_TX_SITE_LEFT   = 0 ,
+	IR_TX_SITE_CENTER ,
+	IR_TX_SITE_RIGHT  
+}IRSite;
 
 typedef struct
 {
@@ -56,9 +63,43 @@ typedef struct
 	volatile uint16_t TimeOut[IR_COUNT];
 	
 	volatile bool isRev[IR_COUNT][3];           /*用于表示每个传感器的被辐射范围*/
+	volatile uint32_t softTimer[IR_COUNT][3];   /*当收到红外码，开启相应软件定时器，如果时间到了则清除接收到状态*/
 }IRD_T;
 
 static IRD_T g_tIR;
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IR_SoftTimerInit
+*	功能说明: 初始化红外软件定时器
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_IR_SoftTimerInit(void)
+{
+	g_tIR.softTimer[IR_CH1][IR_TX_SITE_LEFT]   = 0 ;
+	g_tIR.softTimer[IR_CH1][IR_TX_SITE_CENTER] = 0 ;
+	g_tIR.softTimer[IR_CH1][IR_TX_SITE_RIGHT]  = 0 ;
+	
+	g_tIR.softTimer[IR_CH2][IR_TX_SITE_LEFT]   = 0 ;
+	g_tIR.softTimer[IR_CH2][IR_TX_SITE_CENTER] = 0 ;
+	g_tIR.softTimer[IR_CH2][IR_TX_SITE_RIGHT]  = 0 ;
+	
+	g_tIR.softTimer[IR_CH3][IR_TX_SITE_LEFT]   = 0 ;
+	g_tIR.softTimer[IR_CH3][IR_TX_SITE_CENTER] = 0 ;
+	g_tIR.softTimer[IR_CH3][IR_TX_SITE_RIGHT]  = 0 ;
+	
+	g_tIR.softTimer[IR_CH4][IR_TX_SITE_LEFT]   = 0 ;
+	g_tIR.softTimer[IR_CH4][IR_TX_SITE_CENTER] = 0 ;
+	g_tIR.softTimer[IR_CH4][IR_TX_SITE_RIGHT]  = 0 ;
+}
+
+void bsp_IR_SoftTimerTickPerMS(IR_CH ch , uint8_t site)
+{
+	
+}
 
 /*
 *********************************************************************************************************
@@ -286,17 +327,17 @@ loop1:
 				
 				//DEBUG("CH%d:%02X\r\n",ch,g_tIR.RxBuf[ch][0]);
 				/*更新辐射范围*/
-				if(g_tIR.RxBuf[ch][0] == IR_TX_LEFT)
+				if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_LEFT)
 				{
-					g_tIR.isRev[ch][0] = true;
+					g_tIR.isRev[ch][IR_TX_SITE_LEFT] = true;
 				}
-				else if(g_tIR.RxBuf[ch][0] == IR_TX_CENTER)
+				else if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_CENTER)
 				{
-					g_tIR.isRev[ch][1] = true;
+					g_tIR.isRev[ch][IR_TX_SITE_CENTER] = true;
 				}
-				else if(g_tIR.RxBuf[ch][0] == IR_TX_RIGHT)
+				else if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_RIGHT)
 				{
-					g_tIR.isRev[ch][2] = true;
+					g_tIR.isRev[ch][IR_TX_SITE_RIGHT] = true;
 				}
 				
 				g_tIR.Status[ch] = 0;	/* 等待下一组编码 */
