@@ -241,6 +241,8 @@ loop1:
 				g_tIR.RxBuf[0] = s_Byte;
 				s_Byte = 0;
 				
+				DEBUG("s_Byte:%02X\r\n",g_tIR.RxBuf[0]);
+				
 				g_tIR.Status = 0;	/* 等待下一组编码 */
 				break;
 			}
