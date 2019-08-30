@@ -240,33 +240,12 @@ loop1:
 			{
 				g_tIR.RxBuf[0] = s_Byte;
 				s_Byte = 0;
-			}
-			else if (s_Bit == 16)	/* 收齐16位 */
-			{
-				g_tIR.RxBuf[1] = s_Byte;
-				s_Byte = 0;
-			}
-			else if (s_Bit == 24)	/* 收齐24位 */
-			{
-				g_tIR.RxBuf[2] = s_Byte;
-				s_Byte = 0;
-			}
-			else if (s_Bit == 32)	/* 收齐32位 */
-			{
-				g_tIR.RxBuf[3] = s_Byte;
-								
-				if (g_tIR.RxBuf[2] + g_tIR.RxBuf[3] == 255)	/* 检查校验 */
-				{
-					bsp_PutKey(g_tIR.RxBuf[2] + IR_KEY_STRAT);	/* 将键值放入KEY FIFO */
-					
-					g_tIR.RepeatCount = 0;	/* 重发计数器 */										
-				}
 				
 				g_tIR.Status = 0;	/* 等待下一组编码 */
 				break;
 			}
 			g_tIR.Status = 2;	/* 继续下一个bit */
-			break;						
+			break;	
 	}
 }
 
