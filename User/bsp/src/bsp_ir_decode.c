@@ -22,11 +22,31 @@
 
 #define IR_REPEAT_SEND_EN		0	/* 连发使能 */
 #define IR_REPEAT_FILTER		10	/* 遥控器108ms 发持续按下脉冲, 连续按下1秒后启动重发 */
+#define IR_NUM			        4   /* 红外接收头个数*/
 
 /* 定义GPIO端口 */
 #define RCC_IRD		RCC_APB2Periph_GPIOC
 #define PORT_IRD	GPIOC
 #define PIN_IRD		(GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9)
+
+typedef enum
+{
+	IR_CH1 = 0 ,
+	IR_CH2,
+	IR_CH3,
+	IR_CH4
+}IR_CH;
+
+typedef struct
+{
+	uint16_t LastCapture[IR_NUM];
+	uint8_t Status[IR_NUM];
+	uint8_t RxBuf[IR_NUM][4];
+	uint8_t RepeatCount[IR_NUM];
+	
+	uint8_t WaitFallEdge[IR_NUM];	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
+	uint16_t TimeOut[IR_NUM];
+}IRD_T;
 
 IRD_T g_tIR;
 
@@ -94,19 +114,33 @@ void IRD_StartWork(void)
 	TIM_ICInit(TIM3, &TIM_ICInitStructure);
 	
 	/*配置溢出中断和输入捕获中断*/
-	TIM_ITConfig(TIM3, TIM_IT_CC1, DISABLE);
-	TIM_ITConfig(TIM3, TIM_IT_CC2, DISABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC1, ENABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC2, ENABLE);
 	TIM_ITConfig(TIM3, TIM_IT_CC3, ENABLE);
-	TIM_ITConfig(TIM3, TIM_IT_CC4, DISABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC4, ENABLE);
 	
 	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);	/* 溢出中断使能，用于超时同步处理 */
 	
 	/* 使能定时器 */
 	TIM_Cmd(TIM3, ENABLE);
 
-	g_tIR.LastCapture = 0;	
-	g_tIR.Status = 0;
-	g_tIR.WaitFallEdge = 1;	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
+	/* 上一次输入捕获的值 */
+	g_tIR.LastCapture[0] = 0;	
+	g_tIR.LastCapture[1] = 0;
+	g_tIR.LastCapture[2] = 0;
+	g_tIR.LastCapture[3] = 0;
+	
+	/* 上一次状态 */
+	g_tIR.Status[0] = 0;
+	g_tIR.Status[1] = 0;
+	g_tIR.Status[2] = 0;
+	g_tIR.Status[3] = 0;
+	
+	/* 上下降沿切换标志 */
+	g_tIR.WaitFallEdge[0] = 1;	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
+	g_tIR.WaitFallEdge[1] = 1;	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
+	g_tIR.WaitFallEdge[2] = 1;	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
+	g_tIR.WaitFallEdge[3] = 1;	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
 }
 
 /*
@@ -135,7 +169,7 @@ void IRD_StopWork(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void IRD_DecodeNec(uint16_t _width)
+void IRD_DecodeNec(IR_CH ch , uint16_t _width)
 {
 	static uint16_t s_LowWidth;
 	static uint8_t s_Byte;
@@ -152,12 +186,12 @@ void IRD_DecodeNec(uint16_t _width)
 
 loop1:	
 	//bsp_LedToggle(1);		//for DEBUG 观测是否能够给在两个边沿触发捕获中断
-	switch (g_tIR.Status)
+	switch (g_tIR.Status[ch])
 	{
 		case 0:			/* 929 等待引导码低信号  7ms - 11ms */
 			if ((_width > 700) && (_width < 1100))
 			{
-				g_tIR.Status = 1;
+				g_tIR.Status[ch] = 1;
 				s_Byte = 0;
 				s_Bit = 0;
 			}
@@ -179,39 +213,39 @@ loop1:
 		case 1:			/* 413 判断引导码高信号  3ms - 6ms */
 			if ((_width > 313) && (_width < 600))	/* 引导码 4.5ms */
 			{
-				g_tIR.Status = 2;
+				g_tIR.Status[ch] = 2;
 			}
 			else if ((_width > 150) && (_width < 250))	/* 2.25ms */
 			{
 				#ifdef IR_REPEAT_SEND_EN				
-					if (g_tIR.RepeatCount >= IR_REPEAT_FILTER)
+					if (g_tIR.RepeatCount[ch] >= IR_REPEAT_FILTER)
 					{
-						bsp_PutKey(g_tIR.RxBuf[2] + IR_KEY_STRAT);	/* 连发码 */
+						bsp_PutKey(g_tIR.RxBuf[ch][2] + IR_KEY_STRAT);	/* 连发码 */
 					}
 					else
 					{
-						g_tIR.RepeatCount++;
+						g_tIR.RepeatCount[ch]++;
 					}
 				#endif
-				g_tIR.Status = 0;	/* 复位解码状态 */
+				g_tIR.Status[ch] = 0;	/* 复位解码状态 */
 			}
 			else
 			{
 				/* 异常脉宽 */
-				g_tIR.Status = 0;	/* 复位解码状态 */
+				g_tIR.Status[ch] = 0;	/* 复位解码状态 */
 			}
 			break;
 		
 		case 2:			/* 低电平期间 0.56ms */
 			if ((_width > 10) && (_width < 100))
 			{		
-				g_tIR.Status = 3;
+				g_tIR.Status[ch] = 3;
 				s_LowWidth = _width;	/* 保存低电平宽度 */
 			}
 			else	/* 异常脉宽 */
 			{
 				/* 异常脉宽 */
-				g_tIR.Status = 0;	/* 复位解码器状态 */	
+				g_tIR.Status[ch] = 0;	/* 复位解码器状态 */	
 				goto loop1;		/* 继续判断同步信号 */
 			}
 			break;
@@ -231,25 +265,28 @@ loop1:
 			else
 			{
 				/* 异常脉宽 */
-				g_tIR.Status = 0;	/* 复位解码器状态 */	
+				g_tIR.Status[ch] = 0;	/* 复位解码器状态 */	
 				goto loop1;		/* 继续判断同步信号 */
 			}
 			
 			s_Bit++;
 			if (s_Bit == 8)	/* 收齐8位 */
 			{
-				g_tIR.RxBuf[0] = s_Byte;
+				g_tIR.RxBuf[ch][0] = s_Byte;
 				s_Byte = 0;
 				
-				DEBUG("s_Byte:%02X\r\n",g_tIR.RxBuf[0]);
+				DEBUG("s_Byte:%02X\r\n",g_tIR.RxBuf[ch][0]);
 				
-				g_tIR.Status = 0;	/* 等待下一组编码 */
+				g_tIR.Status[ch] = 0;	/* 等待下一组编码 */
 				break;
 			}
-			g_tIR.Status = 2;	/* 继续下一个bit */
+			g_tIR.Status[ch] = 2;	/* 继续下一个bit */
 			break;	
 	}
 }
+
+static void bsp_
+
 
 /*
 *********************************************************************************************************
@@ -263,6 +300,7 @@ void TIM3_IRQHandler(void)
 {
 	uint16_t NowCapture;
 	uint16_t Width;
+	IR_CH ch;
 	
 	/* 溢出中断 */
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update))
@@ -297,13 +335,15 @@ void TIM3_IRQHandler(void)
 	if (TIM_GetITStatus(TIM3, TIM_IT_CC3))
 	{
 		TIM_ClearITPendingBit(TIM3, TIM_IT_CC3);
-
-		g_tIR.TimeOut = 0;  /* 清零超时计数器 */
+		
+		ch = IR_CH3;
+		
+		g_tIR.TimeOut[ch] = 0;  /* 清零超时计数器 */
 		
 		NowCapture = TIM_GetCapture3(TIM3);	/* 读取捕获的计数器值，计数器值从0-65535循环计数 */
 
 		/* 	切换捕获的极性 */
-		if (g_tIR.WaitFallEdge == 0)
+		if (g_tIR.WaitFallEdge[ch] == 0)
 		{
 			TIM_ICInitTypeDef  TIM_ICInitStructure;
 			
@@ -314,7 +354,7 @@ void TIM3_IRQHandler(void)
 			TIM_ICInitStructure.TIM_ICFilter = 0x0;	
 			TIM_ICInit(TIM3, &TIM_ICInitStructure);	
 			
-			g_tIR.WaitFallEdge = 1;
+			g_tIR.WaitFallEdge[ch] = 1;
 		}			
 		else
 		{
@@ -327,27 +367,27 @@ void TIM3_IRQHandler(void)
 			TIM_ICInitStructure.TIM_ICFilter = 0x0;	
 			TIM_ICInit(TIM3, &TIM_ICInitStructure);	
 			
-			g_tIR.WaitFallEdge = 0;
+			g_tIR.WaitFallEdge[ch] = 0;
 		}
 		
-		if (NowCapture >= g_tIR.LastCapture)
+		if (NowCapture >= g_tIR.LastCapture[ch])
 		{
-			Width = NowCapture - g_tIR.LastCapture;
+			Width = NowCapture - g_tIR.LastCapture[ch];
 		}
-		else if (NowCapture < g_tIR.LastCapture)	/* 计数器抵达最大并翻转 */
+		else if (NowCapture < g_tIR.LastCapture[ch])	/* 计数器抵达最大并翻转 */
 		{
-			Width = ((0xFFFF - g_tIR.LastCapture) + NowCapture);
+			Width = ((0xFFFF - g_tIR.LastCapture[ch]) + NowCapture);
 		}			
 		
-		if ((g_tIR.Status == 0) && (g_tIR.LastCapture == 0))
+		if ((g_tIR.Status == 0) && (g_tIR.LastCapture[ch] == 0))
 		{
-			g_tIR.LastCapture = NowCapture;
+			g_tIR.LastCapture[ch] = NowCapture;
 			return;
 		}
 				
-		g_tIR.LastCapture = NowCapture;	/* 保存当前计数器，用于下次计算差值 */
+		g_tIR.LastCapture[ch] = NowCapture;	/* 保存当前计数器，用于下次计算差值 */
 		
-		IRD_DecodeNec(Width);		/* 解码 */		
+		IRD_DecodeNec(ch , Width);		/* 解码 */		
 	}
 }
 

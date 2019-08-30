@@ -27,19 +27,23 @@ Project File Date:  08/30/2019
 <h2>Output:</h2>
 Build target 'Flash'
 compiling bsp_ir_decode.c...
-linking...
-Program Size: Code=30584 RO-data=624 RW-data=272 ZI-data=40752  
-FromELF: creating hex file...
-After Build - User command #1: CopyHex_Flash.bat
-F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
-已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 0 Warning(s).
+..\..\User\bsp\src\bsp_ir_decode.c(308): error:  #42: operand types are incompatible ("uint16_t *" and "int")
+          if (g_tIR.TimeOut < 2)
+..\..\User\bsp\src\bsp_ir_decode.c(310): error:  #137: expression must be a modifiable lvalue
+              if (++g_tIR.TimeOut == 2)
+..\..\User\bsp\src\bsp_ir_decode.c(323): error:  #137: expression must be a modifiable lvalue
+                                        g_tIR.WaitFallEdge = 1;
+..\..\User\bsp\src\bsp_ir_decode.c(326): error:  #137: expression must be a modifiable lvalue
+                  g_tIR.Status = 0;     /* 等待下一组编码 */
+..\..\User\bsp\src\bsp_ir_decode.c: 0 warnings, 4 errors
+".\Flash\Obj\output.axf" - 4 Error(s), 0 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE
   D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include
 
 <h2>Collection of Component Files used:</h2>
+Target not created.
 </pre>
 </body>
 </html>

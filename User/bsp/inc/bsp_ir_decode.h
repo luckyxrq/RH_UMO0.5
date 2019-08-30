@@ -38,22 +38,11 @@ typedef enum
 	IR_KEY_9		= IR_KEY_STRAT + 0x4A,	
 }IR_KEY_E;
 
-typedef struct
-{
-	uint16_t LastCapture;
-	uint8_t Status;
-	uint8_t RxBuf[4];
-	uint8_t RepeatCount;
-	
-	uint8_t WaitFallEdge;	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
-	uint16_t TimeOut;
-}IRD_T;
+
 
 void bsp_InitIRD(void);
 void IRD_StartWork(void);
 void IRD_StopWork(void);
-
-extern IRD_T g_tIR;
 
 #endif
 
