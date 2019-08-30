@@ -58,7 +58,7 @@ static IRD_T g_tIR;
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void IRD_StartWork(void)
+void bsp_IRD_StartWork(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
@@ -150,7 +150,7 @@ void IRD_StartWork(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void IRD_StopWork(void)
+void bsp_IRD_StopWork(void)
 {
 	TIM_Cmd(TIM3, DISABLE);
 	
@@ -168,7 +168,7 @@ void IRD_StopWork(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void IRD_DecodeNec(IR_CH ch , uint16_t _width)
+static void bsp_IRD_DecodeNec(IR_CH ch , uint16_t _width)
 {
 	static uint16_t s_LowWidth;
 	static uint8_t s_Byte;
@@ -394,7 +394,7 @@ static void bsp_IR_GetPulseWidth(IR_CH ch)
 			
 	g_tIR.LastCapture[ch] = NowCapture;	/* 保存当前计数器，用于下次计算差值 */
 	
-	IRD_DecodeNec(ch , Width);		/* 解码 */	
+	bsp_IRD_DecodeNec(ch , Width);		/* 解码 */	
 }
 
 

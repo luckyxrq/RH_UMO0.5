@@ -77,7 +77,7 @@ void bsp_Init(void)
 	
 	
 	bsp_InitIWDG();     /*初始化看门狗*/
-	IRD_StartWork();
+	bsp_IRD_StartWork();
 	
 	
 	DEBUG("初始化完毕\r\n");

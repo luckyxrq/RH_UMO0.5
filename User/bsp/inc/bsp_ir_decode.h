@@ -15,8 +15,8 @@
 
 
 void bsp_InitIRD(void);
-void IRD_StartWork(void);
-void IRD_StopWork(void);
+void bsp_IRD_StartWork(void);
+void bsp_IRD_StopWork(void);
 
 
 #endif
