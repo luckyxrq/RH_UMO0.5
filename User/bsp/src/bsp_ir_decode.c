@@ -24,9 +24,9 @@
 #define IR_REPEAT_FILTER		10	/* 遥控器108ms 发持续按下脉冲, 连续按下1秒后启动重发 */
 
 /* 定义GPIO端口 */
-#define RCC_IRD		RCC_APB2Periph_GPIOB
-#define PORT_IRD	GPIOB
-#define PIN_IRD		GPIO_Pin_0
+#define RCC_IRD		RCC_APB2Periph_GPIOC
+#define PORT_IRD	GPIOC
+#define PIN_IRD		(GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9)
 
 IRD_T g_tIR;
 
@@ -42,59 +42,68 @@ void IRD_StartWork(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
-
-	/* TIM3 clock enable */
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
-
-	/* GPIOB clock enable */
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	TIM_ICInitTypeDef  TIM_ICInitStructure;
+	uint16_t PrescalerValue;
+	
+	/* 时钟，重映射 */
 	RCC_APB2PeriphClockCmd(RCC_IRD, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+	GPIO_PinRemapConfig(GPIO_FullRemap_TIM3, ENABLE);
 
-	/* TIM3 chennel3 configuration : PB.0 */
 	/* 配置为输入引脚 */
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 输入模式 */
 	GPIO_InitStructure.GPIO_Pin = PIN_IRD;
 	GPIO_Init(PORT_IRD, &GPIO_InitStructure);	
 	
-	/* Enable the TIM3 global Interrupt */
+	/* 定时器3中断分组 */
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 
-	/* 配置定时器, 启用TIM3_CH3捕获中断，和 TIM3溢出中断 */
-	{
-		TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-		TIM_ICInitTypeDef  TIM_ICInitStructure;
-		uint16_t PrescalerValue;
-		
-		/* 设置分频为, 捕获计数器值的单位正好是 10us, 方便脉宽比较。 */
-		PrescalerValue = 72000000/100000 - 1;
-		/* Time base configuration */
-		TIM_TimeBaseStructure.TIM_Period = 65535;
-		TIM_TimeBaseStructure.TIM_Prescaler = PrescalerValue;
-		TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-		TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-		TIM_TimeBaseStructure.TIM_RepetitionCounter = 0x0000;
-		TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
-  
-		TIM_ICInitStructure.TIM_Channel = TIM_Channel_3;
-		TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Falling;	// 对于TIM3，TIM_ICPolarity_BothEdge不起作用
-		TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-		TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;			/* 每次跳变都产生1次捕获事件 */
-		TIM_ICInitStructure.TIM_ICFilter = 0x0;	
-		TIM_ICInit(TIM3, &TIM_ICInitStructure);
-		
-		/* TIM enable counter */
-		TIM_Cmd(TIM3, ENABLE);
-
-		/* Enable the CC3 Interrupt Request */
-		TIM_ITConfig(TIM3, TIM_IT_CC3, ENABLE);
-		
-		TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);	/* 溢出中断使能，用于超时同步处理 */
-	}
+	/* 设置分频为, 捕获计数器值的单位正好是 10us, 方便脉宽比较。 */
+	PrescalerValue = 72000000/100000 - 1;
+	TIM_TimeBaseStructure.TIM_Period = 65535;
+	TIM_TimeBaseStructure.TIM_Prescaler = PrescalerValue;
+	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0x0000;
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
 	
+	/*输入捕获参数配置*/
+	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Falling;	/*对于TIM3，TIM_ICPolarity_BothEdge不起作用，自己切换上下降沿*/ 
+	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
+	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;			/* 每次跳变都产生1次捕获事件 */
+	TIM_ICInitStructure.TIM_ICFilter = 0x0;	
+	
+	/*每个通道*/
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_1;
+	TIM_ICInit(TIM3, &TIM_ICInitStructure);
+	
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_2;
+	TIM_ICInit(TIM3, &TIM_ICInitStructure);
+	
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_3;
+	TIM_ICInit(TIM3, &TIM_ICInitStructure);
+	
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_4;
+	TIM_ICInit(TIM3, &TIM_ICInitStructure);
+	
+	/*配置溢出中断和输入捕获中断*/
+	TIM_ITConfig(TIM3, TIM_IT_CC1, ENABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC2, ENABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC3, ENABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC4, ENABLE);
+	
+	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);	/* 溢出中断使能，用于超时同步处理 */
+	
+	/* 使能定时器 */
+	TIM_Cmd(TIM3, ENABLE);
+
 	g_tIR.LastCapture = 0;	
 	g_tIR.Status = 0;
 	g_tIR.WaitFallEdge = 1;	/* 0 表示等待上升沿，1表示等待下降沿，用于切换输入捕获极性 */
@@ -112,7 +121,10 @@ void IRD_StopWork(void)
 {
 	TIM_Cmd(TIM3, DISABLE);
 	
+	TIM_ITConfig(TIM3, TIM_IT_CC1, DISABLE);
+	TIM_ITConfig(TIM3, TIM_IT_CC2, DISABLE);	
 	TIM_ITConfig(TIM3, TIM_IT_CC3, DISABLE);	
+	TIM_ITConfig(TIM3, TIM_IT_CC4, DISABLE);		
 }
 
 /*

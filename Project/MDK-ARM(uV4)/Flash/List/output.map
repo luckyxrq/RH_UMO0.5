@@ -612,14 +612,15 @@ Section Cross References
     bsp_ir_decode.o(i.IRD_DecodeNec) refers to bsp_key.o(i.bsp_PutKey) for bsp_PutKey
     bsp_ir_decode.o(i.IRD_DecodeNec) refers to bsp_ir_decode.o(.bss) for g_tIR
     bsp_ir_decode.o(i.IRD_DecodeNec) refers to bsp_ir_decode.o(.data) for s_Byte
-    bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd) for RCC_APB1PeriphClockCmd
     bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
+    bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd) for RCC_APB1PeriphClockCmd
+    bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_gpio.o(i.GPIO_PinRemapConfig) for GPIO_PinRemapConfig
     bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_gpio.o(i.GPIO_Init) for GPIO_Init
     bsp_ir_decode.o(i.IRD_StartWork) refers to misc.o(i.NVIC_Init) for NVIC_Init
     bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_tim.o(i.TIM_TimeBaseInit) for TIM_TimeBaseInit
     bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_tim.o(i.TIM_ICInit) for TIM_ICInit
-    bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_tim.o(i.TIM_Cmd) for TIM_Cmd
     bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_tim.o(i.TIM_ITConfig) for TIM_ITConfig
+    bsp_ir_decode.o(i.IRD_StartWork) refers to stm32f10x_tim.o(i.TIM_Cmd) for TIM_Cmd
     bsp_ir_decode.o(i.IRD_StartWork) refers to bsp_ir_decode.o(.bss) for g_tIR
     bsp_ir_decode.o(i.IRD_StopWork) refers to stm32f10x_tim.o(i.TIM_Cmd) for TIM_Cmd
     bsp_ir_decode.o(i.IRD_StopWork) refers to stm32f10x_tim.o(i.TIM_ITConfig) for TIM_ITConfig
@@ -1614,8 +1615,8 @@ Removing Unused input sections from the image.
     Removing bsp_user_lib.o(.constdata), (512 bytes).
     Removing bsp_ir_decode.o(.rev16_text), (4 bytes).
     Removing bsp_ir_decode.o(.revsh_text), (4 bytes).
-    Removing bsp_ir_decode.o(i.IRD_StartWork), (204 bytes).
-    Removing bsp_ir_decode.o(i.IRD_StopWork), (28 bytes).
+    Removing bsp_ir_decode.o(i.IRD_StartWork), (300 bytes).
+    Removing bsp_ir_decode.o(i.IRD_StopWork), (56 bytes).
     Removing startup_stm32f10x_hd.o(HEAP), (512 bytes).
     Removing misc.o(.rev16_text), (4 bytes).
     Removing misc.o(.revsh_text), (4 bytes).
@@ -1891,7 +1892,7 @@ Removing Unused input sections from the image.
     Removing dfixul.o(.text), (48 bytes).
     Removing cdrcmple.o(.text), (48 bytes).
 
-442 unused section(s) (total 26128 bytes) removed from the image.
+442 unused section(s) (total 26252 bytes) removed from the image.
 
 ==============================================================================
 
