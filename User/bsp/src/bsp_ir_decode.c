@@ -274,7 +274,7 @@ loop1:
 				g_tIR.RxBuf[ch][0] = s_Byte;
 				s_Byte = 0;
 				
-				DEBUG("s_Byte:%02X\r\n",g_tIR.RxBuf[ch][0]);
+				DEBUG("CH%d:%02X\r\n",ch,g_tIR.RxBuf[ch][0]);
 				
 				g_tIR.Status[ch] = 0;	/* 等待下一组编码 */
 				break;
