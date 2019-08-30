@@ -34,17 +34,6 @@
 
 #if (BOARD_VER == OLD_BOARD)
 #define PORT_I2C_SCL	GPIOA			/* GPIO端口 */
-#define PIN_I2C_SCL		GPIO_Pin_4		/* GPIO引脚 */
-
-#define PORT_I2C_SDA	GPIOA			/* GPIO端口 */
-#define PIN_I2C_SDA		GPIO_Pin_1		/* GPIO引脚 */
-
-#define I2C_SCL_PIN		GPIO_Pin_4			/* 连接到SCL时钟线的GPIO */
-#define I2C_SDA_PIN		GPIO_Pin_1			/* 连接到SDA数据线的GPIO */
-
-#else
-
-#define PORT_I2C_SCL	GPIOA			/* GPIO端口 */
 #define PIN_I2C_SCL		GPIO_Pin_1		/* GPIO引脚 */
 
 #define PORT_I2C_SDA	GPIOA			/* GPIO端口 */
@@ -52,6 +41,17 @@
 
 #define I2C_SCL_PIN		GPIO_Pin_1			/* 连接到SCL时钟线的GPIO */
 #define I2C_SDA_PIN		GPIO_Pin_4			/* 连接到SDA数据线的GPIO */
+
+#else
+
+#define PORT_I2C_SCL	GPIOA			/* GPIO端口 */
+#define PIN_I2C_SCL		GPIO_Pin_4		/* GPIO引脚 */
+
+#define PORT_I2C_SDA	GPIOA			/* GPIO端口 */
+#define PIN_I2C_SDA		GPIO_Pin_1		/* GPIO引脚 */
+
+#define I2C_SCL_PIN		GPIO_Pin_4			/* 连接到SCL时钟线的GPIO */
+#define I2C_SDA_PIN		GPIO_Pin_1			/* 连接到SDA数据线的GPIO */
 #endif
 
 /* 定义读写SCL和SDA的宏 */
