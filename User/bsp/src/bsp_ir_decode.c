@@ -219,14 +219,14 @@ loop1:
 		case 3:			/* 85+25, 64+157 开始连续解码32bit */						
 			TotalWitdh = s_LowWidth + _width;
 			/* 0的宽度为1.125ms，1的宽度为2.25ms */				
-			s_Byte >>= 1;
+			s_Byte <<= 1;
 			if ((TotalWitdh > 92) && (TotalWitdh < 132))
 			{
 				;					/* bit = 0 */
 			}
 			else if ((TotalWitdh > 205) && (TotalWitdh < 245))
 			{
-				s_Byte += 0x80;		/* bit = 1 */
+				s_Byte += 0x01;		/* bit = 1 */
 			}	
 			else
 			{
