@@ -215,8 +215,8 @@ void bsp_RunControl(void)
 		bsp_InitRunControl();
 		bsp_StartRunControl();
 		
-		bsp_SwOff(SW_5V_EN_CTRL);
-		bsp_SwOff(SW_IR_POWER);
+//		bsp_SwOff(SW_5V_EN_CTRL);
+//		bsp_SwOff(SW_IR_POWER);
     }
 	
 	switch(runControl.action)

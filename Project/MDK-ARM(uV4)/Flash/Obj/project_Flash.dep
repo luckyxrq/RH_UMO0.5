@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5D675375)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5D67835B)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5D65FD3C)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
@@ -21,7 +21,7 @@ I (..\..\FreeRTOS\include\croutine.h)(0x5D65FD3A)
 I (..\..\FreeRTOS\include\semphr.h)(0x5D65FD3A)
 I (..\..\FreeRTOS\include\event_groups.h)(0x5D65FD3A)
 I (..\..\FreeRTOS\include\timers.h)(0x5D65FD3A)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x5D65FD3A)
 I (..\..\Libraries\CMSIS\Include\core_cm3.h)(0x5D65FD3B)
 I (..\..\Libraries\CMSIS\Include\core_cmInstr.h)(0x5D65FD3B)
@@ -61,6 +61,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -88,7 +89,7 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\includes.h)(0x5D65FD3C)()
 F (..\..\User\SysInfoTest.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\sysinfotest.o --omf_browse .\flash\obj\sysinfotest.crf --depend .\flash\obj\sysinfotest.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -141,6 +142,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -169,7 +171,7 @@ I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\FreeRTOSConfig.h)(0x5D65FD4E)()
 F (..\..\User\app\src\paste.c)(0x5D660253)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\paste.o --omf_browse .\flash\obj\paste.crf --depend .\flash\obj\paste.d)
 F (..\..\User\app\src\bsp_PowerSwitch.c)(0x5D664E23)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_powerswitch.o --omf_browse .\flash\obj\bsp_powerswitch.crf --depend .\flash\obj\bsp_powerswitch.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -222,6 +224,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -248,7 +251,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_Collision.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_collision.o --omf_browse .\flash\obj\bsp_collision.crf --depend .\flash\obj\bsp_collision.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -301,6 +304,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -327,7 +331,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_Angle.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_angle.o --omf_browse .\flash\obj\bsp_angle.crf --depend .\flash\obj\bsp_angle.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -380,6 +384,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -406,7 +411,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_Action.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_action.o --omf_browse .\flash\obj\bsp_action.crf --depend .\flash\obj\bsp_action.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -459,6 +464,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -485,7 +491,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_aw9523b.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_aw9523b.o --omf_browse .\flash\obj\bsp_aw9523b.crf --depend .\flash\obj\bsp_aw9523b.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -538,6 +544,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -564,7 +571,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_DetectAct.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -617,6 +624,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -643,7 +651,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_PulseMark.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_pulsemark.o --omf_browse .\flash\obj\bsp_pulsemark.crf --depend .\flash\obj\bsp_pulsemark.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -696,6 +704,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -722,7 +731,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_IWDG.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_iwdg.o --omf_browse .\flash\obj\bsp_iwdg.crf --depend .\flash\obj\bsp_iwdg.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -775,6 +784,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -801,7 +811,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_Edgewise.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -854,6 +864,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -879,8 +890,8 @@ I (..\..\User\app\inc\bsp_CliffSW.h)(0x5D6615B5)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
-F (..\..\User\app\src\bsp_Remote.c)(0x5D676762)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_remote.o --omf_browse .\flash\obj\bsp_remote.crf --depend .\flash\obj\bsp_remote.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+F (..\..\User\app\src\bsp_Remote.c)(0x5D677D31)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_remote.o --omf_browse .\flash\obj\bsp_remote.crf --depend .\flash\obj\bsp_remote.d)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -933,6 +944,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -959,7 +971,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_communication.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_communication.o --omf_browse .\flash\obj\bsp_communication.crf --depend .\flash\obj\bsp_communication.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1012,6 +1024,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1038,7 +1051,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_Encoder.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_encoder.o --omf_browse .\flash\obj\bsp_encoder.crf --depend .\flash\obj\bsp_encoder.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1091,6 +1104,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1117,7 +1131,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_motor.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1170,6 +1184,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1196,7 +1211,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_Control.c)(0x5D6740BA)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_control.o --omf_browse .\flash\obj\bsp_control.crf --depend .\flash\obj\bsp_control.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1249,6 +1264,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1275,7 +1291,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_Scope.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_scope.o --omf_browse .\flash\obj\bsp_scope.crf --depend .\flash\obj\bsp_scope.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1328,6 +1344,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1354,7 +1371,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_Position.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_position.o --omf_browse .\flash\obj\bsp_position.crf --depend .\flash\obj\bsp_position.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1407,6 +1424,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1434,7 +1452,7 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (..\..\User\app\src\bsp_param.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_param.o --omf_browse .\flash\obj\bsp_param.crf --depend .\flash\obj\bsp_param.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1487,6 +1505,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1513,7 +1532,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_stflash.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_stflash.o --omf_browse .\flash\obj\bsp_stflash.crf --depend .\flash\obj\bsp_stflash.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1566,6 +1585,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1592,7 +1612,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_OffSiteSW.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_offsitesw.o --omf_browse .\flash\obj\bsp_offsitesw.crf --depend .\flash\obj\bsp_offsitesw.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1645,6 +1665,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1671,7 +1692,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_CurrentFeedback.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_currentfeedback.o --omf_browse .\flash\obj\bsp_currentfeedback.crf --depend .\flash\obj\bsp_currentfeedback.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1724,6 +1745,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1750,7 +1772,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_CliffSW.c)(0x5D6615A5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cliffsw.o --omf_browse .\flash\obj\bsp_cliffsw.crf --depend .\flash\obj\bsp_cliffsw.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1803,6 +1825,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1829,7 +1852,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_DustBox.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dustbox.o --omf_browse .\flash\obj\bsp_dustbox.crf --depend .\flash\obj\bsp_dustbox.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1882,6 +1905,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1908,7 +1932,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\app\src\bsp_speaker.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_speaker.o --omf_browse .\flash\obj\bsp_speaker.crf --depend .\flash\obj\bsp_speaker.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1961,6 +1985,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -1986,8 +2011,8 @@ I (..\..\User\app\inc\bsp_CliffSW.h)(0x5D6615B5)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
-F (..\..\User\app\src\bsp_RunControl.c)(0x5D6743D2)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_runcontrol.o --omf_browse .\flash\obj\bsp_runcontrol.crf --depend .\flash\obj\bsp_runcontrol.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+F (..\..\User\app\src\bsp_RunControl.c)(0x5D677E04)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_runcontrol.o --omf_browse .\flash\obj\bsp_runcontrol.crf --depend .\flash\obj\bsp_runcontrol.d)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2040,6 +2065,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -2065,8 +2091,8 @@ I (..\..\User\app\inc\bsp_CliffSW.h)(0x5D6615B5)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
-F (..\..\User\bsp\bsp.c)(0x5D665896)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+F (..\..\User\bsp\bsp.c)(0x5D677FD4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2119,6 +2145,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -2144,9 +2171,9 @@ I (..\..\User\app\inc\bsp_CliffSW.h)(0x5D6615B5)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
-F (..\..\User\bsp\bsp.h)(0x5D661A20)()
+F (..\..\User\bsp\bsp.h)(0x5D67AC59)()
 F (..\..\User\bsp\src\bsp_dwt.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dwt.o --omf_browse .\flash\obj\bsp_dwt.crf --depend .\flash\obj\bsp_dwt.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2199,6 +2226,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -2225,7 +2253,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\bsp\src\bsp_uart_fifo.c)(0x5D6744E3)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uart_fifo.o --omf_browse .\flash\obj\bsp_uart_fifo.crf --depend .\flash\obj\bsp_uart_fifo.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2278,6 +2306,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -2336,7 +2365,7 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x5D65FD3B)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x5D65FD3B)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5D65FD3B)
 F (..\..\User\bsp\src\bsp_tim_pwm.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_tim_pwm.o --omf_browse .\flash\obj\bsp_tim_pwm.crf --depend .\flash\obj\bsp_tim_pwm.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2389,6 +2418,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -2447,7 +2477,7 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x5D65FD3B)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5D65FD3B)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 F (..\..\User\bsp\src\bsp_key.c)(0x5D664167)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_key.o --omf_browse .\flash\obj\bsp_key.crf --depend .\flash\obj\bsp_key.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2500,6 +2530,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -2526,7 +2557,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\bsp\src\bsp_led.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_led.o --omf_browse .\flash\obj\bsp_led.crf --depend .\flash\obj\bsp_led.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2579,6 +2610,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -2605,7 +2637,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\bsp\src\bsp_timer.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_timer.o --omf_browse .\flash\obj\bsp_timer.crf --depend .\flash\obj\bsp_timer.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2658,6 +2690,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -2683,8 +2716,8 @@ I (..\..\User\app\inc\bsp_CliffSW.h)(0x5D6615B5)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
-F (..\..\User\bsp\src\bsp_i2c_gpio.c)(0x5D65FD4E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_i2c_gpio.o --omf_browse .\flash\obj\bsp_i2c_gpio.crf --depend .\flash\obj\bsp_i2c_gpio.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+F (..\..\User\bsp\src\bsp_i2c_gpio.c)(0x5D6781AF)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_i2c_gpio.o --omf_browse .\flash\obj\bsp_i2c_gpio.crf --depend .\flash\obj\bsp_i2c_gpio.d)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2737,6 +2770,7 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
@@ -2763,7 +2797,7 @@ I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
 F (..\..\User\bsp\src\bsp_user_lib.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_user_lib.o --omf_browse .\flash\obj\bsp_user_lib.crf --depend .\flash\obj\bsp_user_lib.d)
-I (..\..\User\bsp\bsp.h)(0x5D661A20)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2816,6 +2850,87 @@ I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
+I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_Action.h)(0x5D65FD3C)
+I (..\..\User\app\inc\bsp_aw9523b.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D65FD3C)
+I (..\..\User\app\inc\bsp_PulseMark.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5D65FD3C)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5D65FD3C)
+I (..\..\User\app\inc\bsp_Remote.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_communication.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_Encoder.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_motor.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_Control.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_Scope.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_Position.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_stflash.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_param.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5D6615B5)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_speaker.h)(0x5D65FD4E)
+I (..\..\User\app\inc\bsp_RunControl.h)(0x5D67426F)
+F (..\..\User\bsp\src\bsp_ir_decode.c)(0x5D65FD3C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_ir_decode.o --omf_browse .\flash\obj\bsp_ir_decode.crf --depend .\flash\obj\bsp_ir_decode.d)
+I (..\..\User\bsp\bsp.h)(0x5D67AC59)
+I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D65FD3A)
+I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
+I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\..\User\FreeRTOSConfig.h)(0x5D65FD4E)
+I (..\..\FreeRTOS\include\projdefs.h)(0x5D65FD3A)
+I (..\..\FreeRTOS\include\portable.h)(0x5D65FD3A)
+I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D65FD3A)
+I (..\..\FreeRTOS\portable\RVDS\ARM_CM3\portmacro.h)(0x5D65FD3A)
+I (..\..\FreeRTOS\include\mpu_wrappers.h)(0x5D65FD3A)
+I (..\..\FreeRTOS\include\task.h)(0x5D65FD3A)
+I (..\..\FreeRTOS\include\list.h)(0x5D65FD3A)
+I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x5D65FD3A)
+I (..\..\Libraries\CMSIS\Include\core_cm3.h)(0x5D65FD3B)
+I (..\..\Libraries\CMSIS\Include\core_cmInstr.h)(0x5D65FD3B)
+I (..\..\Libraries\CMSIS\Include\core_cmFunc.h)(0x5D65FD3B)
+I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\system_stm32f10x.h)(0x5D65FD3A)
+I (..\..\User\bsp\stm32f10x_conf.h)(0x5D65FD3C)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_bkp.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_can.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_cec.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_crc.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_dac.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_dbgmcu.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_dma.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_exti.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_flash.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_fsmc.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_i2c.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_iwdg.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_pwr.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rtc.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_sdio.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_spi.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x5D65FD3B)
+I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5D65FD3B)
+I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (D:\soft\MDK5\ARM\ARMCC\include\string.h)(0x5475F300)
+I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
+I (..\..\User\main.h)(0x5D6618BD)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5D673D4A)
+I (..\..\User\bsp\inc\bsp_led.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_timer.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_key.h)(0x5D674960)
+I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D65FD3C)
+I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5D65FD3C)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5D65FD3C)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D65FD3C)

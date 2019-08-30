@@ -62,6 +62,7 @@
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_dwt.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_tim_pwm.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_i2c_gpio.h
+.\flash\obj\main.o: ..\..\User\bsp\inc\bsp_ir_decode.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_user_lib.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Collision.h

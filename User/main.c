@@ -190,7 +190,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_ComAnalysis();
 		bsp_RunControl();/* 整机控制 */
 
-		if(count++ % 20 == 0)
+		if(count++ % 200 == 0)
 		{
 			bsp_PrintRemoteState();
 		}

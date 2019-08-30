@@ -161,7 +161,7 @@
 //#include "bsp_dac8501.h"
 //#include "bsp_dht11.h"
 
-//#include "bsp_ir_decode.h"
+#include "bsp_ir_decode.h"
 //#include "bsp_ps2.h"
 
 //#include "bsp_modbus.h"
