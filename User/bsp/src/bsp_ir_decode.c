@@ -21,7 +21,7 @@
 #include "bsp.h"
 
 
-#define IR_UPDATE_T             100 /* 软件定时器更新红外辐射范围状态，实际一轮时间为73.75MS，给点余量*/
+#define IR_UPDATE_T             2000 /* 软件定时器更新红外辐射范围状态，实际一轮时间为73.75MS，给点余量*/
 
 /* 定义GPIO端口 */
 #define RCC_IRD		RCC_APB2Periph_GPIOC
@@ -47,6 +47,64 @@ bool bsp_IR_GetRev(IR_CH ch , IRSite site)
 	return g_tIR.isRev[ch][site];
 }
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_PrintIR_Rev
+*	功能说明: 打印红外接收
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_PrintIR_Rev(void)
+{
+	DEBUG("CH1  %d  %d  %d\r\n",
+	g_tIR.isRev[IR_CH1][IR_TX_SITE_LEFT],
+	g_tIR.isRev[IR_CH1][IR_TX_SITE_CENTER],
+	g_tIR.isRev[IR_CH1][IR_TX_SITE_RIGHT]);
+	
+	DEBUG("CH2  %d  %d  %d\r\n",
+	g_tIR.isRev[IR_CH2][IR_TX_SITE_LEFT],
+	g_tIR.isRev[IR_CH2][IR_TX_SITE_CENTER],
+	g_tIR.isRev[IR_CH2][IR_TX_SITE_RIGHT]);
+	
+	DEBUG("CH3  %d  %d  %d\r\n",
+	g_tIR.isRev[IR_CH3][IR_TX_SITE_LEFT],
+	g_tIR.isRev[IR_CH3][IR_TX_SITE_CENTER],
+	g_tIR.isRev[IR_CH3][IR_TX_SITE_RIGHT]);
+	
+	DEBUG("CH4  %d  %d  %d\r\n\r\n",
+	g_tIR.isRev[IR_CH4][IR_TX_SITE_LEFT],
+	g_tIR.isRev[IR_CH4][IR_TX_SITE_CENTER],
+	g_tIR.isRev[IR_CH4][IR_TX_SITE_RIGHT]);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IR_SoftTick
+*	功能说明: 每个周期重先给状态值，是否在辐射范围内
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_IR_SoftTick(IR_CH ch , IRSite site)
+{
+	/*如果收到红外了，则软件定时器值一直给0*/
+	if(g_tIR.isRev[ch][site])
+	{
+		if(++g_tIR.softTimer[ch][site] >= IR_UPDATE_T)
+		{
+			g_tIR.isRev[ch][site] = false;
+		}
+	}
+	else
+	{
+		g_tIR.softTimer[ch][site] = 0 ;
+	}
+}
+
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_IR_SoftTimerTickPerMS
@@ -55,21 +113,26 @@ bool bsp_IR_GetRev(IR_CH ch , IRSite site)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_IR_SoftTimerTickPerMS(IR_CH ch , IRSite site)
+void bsp_IR_SoftTimerTickPerMS(void)
 {
-	/*如果收到红外了，则软件定时器值一直给0*/
-	if(g_tIR.isRev[ch][site])
-	{
-		g_tIR.softTimer[ch][site] = 0 ;
-	}
-	else
-	{
-		if(++g_tIR.softTimer[ch][site] >= IR_UPDATE_T)
-		{
-			g_tIR.isRev[ch][site] = false;
-		}
-	}
+	bsp_IR_SoftTick(IR_CH1,IR_TX_SITE_LEFT);
+	bsp_IR_SoftTick(IR_CH1,IR_TX_SITE_CENTER);
+	bsp_IR_SoftTick(IR_CH1,IR_TX_SITE_RIGHT);
+	
+	bsp_IR_SoftTick(IR_CH2,IR_TX_SITE_LEFT);
+	bsp_IR_SoftTick(IR_CH2,IR_TX_SITE_CENTER);
+	bsp_IR_SoftTick(IR_CH2,IR_TX_SITE_RIGHT);
+	
+	bsp_IR_SoftTick(IR_CH3,IR_TX_SITE_LEFT);
+	bsp_IR_SoftTick(IR_CH3,IR_TX_SITE_CENTER);
+	bsp_IR_SoftTick(IR_CH3,IR_TX_SITE_RIGHT);
+	
+	bsp_IR_SoftTick(IR_CH4,IR_TX_SITE_LEFT);
+	bsp_IR_SoftTick(IR_CH4,IR_TX_SITE_CENTER);
+	bsp_IR_SoftTick(IR_CH4,IR_TX_SITE_RIGHT);
 }
+
+
 
 /*
 *********************************************************************************************************
@@ -101,7 +164,7 @@ void bsp_IRD_StartWork(void)
 	
 	/* 定时器3中断分组 */
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
