@@ -20,3 +20,10 @@ g_tIR.isRev[ch][IR_TX_SITE_LEFT] = false;
 g_tIR.isRev[ch][IR_TX_SITE_CENTER] = false;
 g_tIR.isRev[ch][IR_TX_SITE_RIGHT] = false;
 
+
+static void bsp_SearchRunStraightFast(void);
+static void bsp_SearchRunStraightSlow(void);
+static void bsp_SearchTurnRightFast(void)  ;
+static void bsp_SearchTurnRightSlow(void)  ;
+static void bsp_SearchTurnLeftFast(void)   ;
+static void bsp_SearchTurnLeftSlow(void)   ;

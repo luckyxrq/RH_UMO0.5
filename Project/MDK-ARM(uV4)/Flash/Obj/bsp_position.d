@@ -78,4 +78,5 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_RunControl.h
+.\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

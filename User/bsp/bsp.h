@@ -198,6 +198,8 @@
 #include "bsp_DustBox.h"
 #include "bsp_speaker.h"
 #include "bsp_RunControl.h"
+#include "bsp_SearchChargePile.h"
+
 
 
 /* 提供给其他C文件调用的函数 */

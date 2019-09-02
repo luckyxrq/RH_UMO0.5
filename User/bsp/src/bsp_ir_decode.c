@@ -276,7 +276,7 @@ loop1:
 				g_tIR.s_Byte[ch] = 0;
 				g_tIR.s_Bit[ch] = 0;
 			}
-			else if((_width > 7000) && (_width < 8000))
+			else if((_width > 5000))
 			{
 				//DEBUG("¼ä¸ô\r\n");
 				

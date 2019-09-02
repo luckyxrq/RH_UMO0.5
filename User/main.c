@@ -98,8 +98,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     bsp_AngleRst();
     
 	
-//	bsp_SetMotorSpeed(MotorLeft,3);
-//	bsp_SetMotorSpeed(MotorRight,-3);
+//	bsp_SetMotorSpeed(MotorLeft,1);
+//	bsp_SetMotorSpeed(MotorRight,1);
 	
     while(1)
     {
@@ -146,7 +146,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			}   
         }
         
-        if(count++ % 20 == 0)
+        if(count++ % 2 == 0)
         {
             bsp_LedToggle(1);
 			bsp_LedToggle(2);
@@ -188,7 +188,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
         bsp_ComAnalysis();
-		bsp_RunControl();/* 整机控制 */ 
+		//bsp_RunControl();/* 整机控制 */ 
         vTaskDelay(10);
     }
     
@@ -210,7 +210,8 @@ static void vTaskPerception(void *pvParameters)   //
 	
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
-
+	/*开启寻找充电桩*/
+	bsp_StartSearchChargePile();
     bsp_StartUpdatePos();
     
     while(1)
@@ -226,7 +227,7 @@ static void vTaskPerception(void *pvParameters)   //
         bsp_GetCapCnt(CapCH4);
 #endif
         /*寻找充电桩*/
-
+		bsp_SearchChargePile();
         /*更新坐标*/
         bsp_PositionUpdate();
         
