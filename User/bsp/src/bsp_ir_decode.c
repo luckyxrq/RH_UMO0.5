@@ -276,6 +276,21 @@ loop1:
 				g_tIR.s_Byte[ch] = 0;
 				g_tIR.s_Bit[ch] = 0;
 			}
+			else if((_width > 7000) && (_width < 8000))
+			{
+				//DEBUG("间隔\r\n");
+				
+				/*间隔期间进行更新值*/
+				g_tIR.isRev[ch][IR_TX_SITE_LEFT] = g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT];
+				g_tIR.isRev[ch][IR_TX_SITE_CENTER] = g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER];
+				g_tIR.isRev[ch][IR_TX_SITE_RIGHT] = g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT];
+				
+				/*滤波临时状态更新*/
+				g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT] = false;
+				g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER] = false;
+				g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT] = false;
+				
+			}
 			else
 			{
 				static uint8_t sss = 0;
@@ -361,15 +376,15 @@ loop1:
 				/*更新辐射范围*/
 				if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_LEFT)
 				{
-					g_tIR.isRev[ch][IR_TX_SITE_LEFT] = true;
+					g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT] = true;
 				}
 				else if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_CENTER)
 				{
-					g_tIR.isRev[ch][IR_TX_SITE_CENTER] = true;
+					g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER] = true;
 				}
 				else if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_RIGHT)
 				{
-					g_tIR.isRev[ch][IR_TX_SITE_RIGHT] = true;
+					g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT] = true;
 				}
 				
 				g_tIR.Status[ch] = 0;	/* 等待下一组编码 */
@@ -413,6 +428,15 @@ static void bsp_IR_TimeOutProc(IR_CH ch)
 			}
 
 			g_tIR.Status[ch] = 0;	/* 等待下一组编码 */
+			
+			/*长时间都没得脉冲了，说明没有红外信号*/
+			g_tIR.isRev[ch][IR_TX_SITE_LEFT] = false;
+			g_tIR.isRev[ch][IR_TX_SITE_CENTER] = false;
+			g_tIR.isRev[ch][IR_TX_SITE_RIGHT] = false;
+			
+			g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT] = false;
+			g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER] = false;
+			g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT] = false;
 		}
 	}
 }
@@ -518,6 +542,7 @@ static void bsp_IR_SoftTimerInit(void)
 	g_tIR.softTimer[IR_CH4][IR_TX_SITE_LEFT]   = 0 ;
 	g_tIR.softTimer[IR_CH4][IR_TX_SITE_CENTER] = 0 ;
 	g_tIR.softTimer[IR_CH4][IR_TX_SITE_RIGHT]  = 0 ;
+	
 }
 
 
