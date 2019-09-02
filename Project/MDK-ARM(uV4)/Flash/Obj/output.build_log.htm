@@ -27,13 +27,16 @@ Project File Date:  09/02/2019
 <h2>Output:</h2>
 Build target 'Flash'
 compiling bsp_ir_decode.c...
+..\..\User\bsp\src\bsp_ir_decode.c(263): warning:  #177-D: variable "isRev" was declared but never referenced
+        static bool isRev[3]; /*3个发射管*/
+..\..\User\bsp\src\bsp_ir_decode.c: 1 warning, 0 errors
 linking...
-Program Size: Code=31384 RO-data=656 RW-data=272 ZI-data=40848  
+Program Size: Code=31316 RO-data=660 RW-data=272 ZI-data=40856  
 FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 0 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE

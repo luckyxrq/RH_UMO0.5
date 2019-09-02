@@ -260,6 +260,7 @@ static void bsp_IRD_DecodeNec(IR_CH ch , uint16_t _width)
 	static uint16_t s_LowWidth;
 	static uint8_t s_Byte;
 	static uint8_t s_Bit;
+	static bool isRev[3]; /*3个发射管*/
 	uint16_t TotalWitdh;
 	
 	/* NEC 格式 （5段）
@@ -280,6 +281,18 @@ loop1:
 				g_tIR.Status[ch] = 1;
 				s_Byte = 0;
 				s_Bit = 0;
+				
+				g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT] = false;
+				g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER] = false;
+				g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT] = false;
+			}
+			else if((_width > 7000) && (_width < 8000))
+			{
+				DEBUG("间隙\r\n");
+				
+				g_tIR.isRev[ch][IR_TX_SITE_LEFT]   = g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT]   ;
+				g_tIR.isRev[ch][IR_TX_SITE_CENTER] = g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER] ;
+				g_tIR.isRev[ch][IR_TX_SITE_RIGHT]  = g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT]  ;
 			}
 			else
 			{
@@ -361,20 +374,20 @@ loop1:
 				g_tIR.RxBuf[ch][0] = s_Byte;
 				s_Byte = 0;
 				
-//				if(ch == IR_CH3)
-//					DEBUG("CH%d:%02X\r\n",ch+1,g_tIR.RxBuf[ch][0]);
+				if(ch == IR_CH3)
+					DEBUG("CH%d:%02X\r\n",ch+1,g_tIR.RxBuf[ch][0]);
 				/*更新辐射范围*/
 				if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_LEFT)
 				{
-					g_tIR.isRev[ch][IR_TX_SITE_LEFT] = true;
+					g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT] = true;
 				}
 				else if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_CENTER)
 				{
-					g_tIR.isRev[ch][IR_TX_SITE_CENTER] = true;
+					g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER] = true;
 				}
 				else if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_RIGHT)
 				{
-					g_tIR.isRev[ch][IR_TX_SITE_RIGHT] = true;
+					g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT] = true;
 				}
 				
 				g_tIR.Status[ch] = 0;	/* 等待下一组编码 */

@@ -52,6 +52,7 @@ typedef struct
 	volatile uint16_t TimeOut[IR_COUNT];
 	
 	volatile bool isRev[IR_COUNT][3];           /*用于表示每个传感器的被辐射范围*/
+	volatile bool isRevFilter[IR_COUNT][3];     /*用于表示每个传感器的被辐射范围*/
 	volatile uint32_t softTimer[IR_COUNT][3];   /*当收到红外码，开启相应软件定时器，如果时间到了则清除接收到状态*/
 }IRD_T;
 
