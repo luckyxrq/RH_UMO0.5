@@ -30,7 +30,7 @@ typedef enum
 typedef enum
 {
 	IR_TX_CODE_LEFT   = 0x27 ,
-	IR_TX_CODE_CENTER = 0x39 ,
+	IR_TX_CODE_CENTER = 0x38 ,
 	IR_TX_CODE_RIGHT  = 0x16
 }IRCode;
 

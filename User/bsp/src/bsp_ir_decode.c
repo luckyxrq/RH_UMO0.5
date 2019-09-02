@@ -21,7 +21,7 @@
 #include "bsp.h"
 
 
-#define IR_UPDATE_T             2000 /* 软件定时器更新红外辐射范围状态，实际一轮时间为73.75MS，给点余量*/
+#define IR_UPDATE_T             1500 /* 软件定时器更新红外辐射范围状态，实际一轮时间为73.75MS，给点余量*/
 
 /* 定义GPIO端口 */
 #define RCC_IRD		RCC_APB2Periph_GPIOC
@@ -94,6 +94,7 @@ static void bsp_IR_SoftTick(IR_CH ch , IRSite site)
 	{
 		if(++g_tIR.softTimer[ch][site] >= IR_UPDATE_T)
 		{
+			g_tIR.softTimer[ch][site] = 0 ;
 			g_tIR.isRev[ch][site] = false;
 		}
 	}
@@ -360,7 +361,8 @@ loop1:
 				g_tIR.RxBuf[ch][0] = s_Byte;
 				s_Byte = 0;
 				
-				//DEBUG("CH%d:%02X\r\n",ch,g_tIR.RxBuf[ch][0]);
+//				if(ch == IR_CH3)
+//					DEBUG("CH%d:%02X\r\n",ch+1,g_tIR.RxBuf[ch][0]);
 				/*更新辐射范围*/
 				if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_LEFT)
 				{
