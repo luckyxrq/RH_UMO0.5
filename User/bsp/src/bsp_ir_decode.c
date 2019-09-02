@@ -257,11 +257,6 @@ void bsp_IRD_StopWork(void)
 */
 static void bsp_IRD_DecodeNec(IR_CH ch , uint16_t _width)
 {
-	static uint16_t s_LowWidth;
-	static uint8_t s_Byte;
-	static uint8_t s_Bit;
-	uint16_t TotalWitdh;
-	
 	/* NEC 格式 （5段）
 		1、引导码  9ms低 + 4.5ms高
 		2、低8位地址码  0=1.125ms  1=2.25ms    bit0先传
@@ -278,8 +273,8 @@ loop1:
 			if ((_width > 700) && (_width < 1100))
 			{
 				g_tIR.Status[ch] = 1;
-				s_Byte = 0;
-				s_Bit = 0;
+				g_tIR.s_Byte[ch] = 0;
+				g_tIR.s_Bit[ch] = 0;
 			}
 			else
 			{
@@ -326,7 +321,7 @@ loop1:
 			if ((_width > 10) && (_width < 100))
 			{		
 				g_tIR.Status[ch] = 3;
-				s_LowWidth = _width;	/* 保存低电平宽度 */
+				g_tIR.s_LowWidth[ch] = _width;	/* 保存低电平宽度 */
 			}
 			else	/* 异常脉宽 */
 			{
@@ -337,16 +332,16 @@ loop1:
 			break;
 
 		case 3:			/* 85+25, 64+157 开始连续解码32bit */						
-			TotalWitdh = s_LowWidth + _width;
+			g_tIR.TotalWitdh[ch] = g_tIR.s_LowWidth[ch] + _width;
 			/* 0的宽度为1.125ms，1的宽度为2.25ms */				
-			s_Byte <<= 1;
-			if ((TotalWitdh > 92) && (TotalWitdh < 132))
+			g_tIR.s_Byte[ch] <<= 1;
+			if ((g_tIR.TotalWitdh[ch] > 92) && (g_tIR.TotalWitdh[ch] < 132))
 			{
 				;					/* bit = 0 */
 			}
-			else if ((TotalWitdh > 205) && (TotalWitdh < 245))
+			else if ((g_tIR.TotalWitdh[ch] > 205) && (g_tIR.TotalWitdh[ch] < 245))
 			{
-				s_Byte += 0x01;		/* bit = 1 */
+				g_tIR.s_Byte[ch] += 0x01;		/* bit = 1 */
 			}	
 			else
 			{
@@ -355,11 +350,11 @@ loop1:
 				goto loop1;		/* 继续判断同步信号 */
 			}
 			
-			s_Bit++;
-			if (s_Bit == 8)	/* 收齐8位 */
+			g_tIR.s_Bit[ch]++;
+			if (g_tIR.s_Bit[ch] == 8)	/* 收齐8位 */
 			{
-				g_tIR.RxBuf[ch][0] = s_Byte;
-				s_Byte = 0;
+				g_tIR.RxBuf[ch][0] = g_tIR.s_Byte[ch];
+				g_tIR.s_Byte[ch] = 0;
 				
 //				if(ch == IR_CH3)
 //					DEBUG("CH%d:%02X\r\n",ch+1,g_tIR.RxBuf[ch][0]);

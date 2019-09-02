@@ -10,3 +10,7 @@
 		IR_TX_SITE_LEFT   = 0 ,
 	IR_TX_SITE_CENTER ,
 	IR_TX_SITE_RIGHT  
+	
+	
+	TotalWitdh
+	g_tIR.TotalWitdh[ch]
