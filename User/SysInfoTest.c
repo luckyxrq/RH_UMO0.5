@@ -43,7 +43,7 @@ volatile uint32_t ulHighFrequencyTimerTicks = 0UL;
 */
 void vSetupSysInfoTest(void)
 {
-	bsp_SetTIMforInt(TIM6, timerINTERRUPT_FREQUENCY, timerHIGHEST_PRIORITY, 0);
+	bsp_SetTIMforInt(TIM6, timerINTERRUPT_FREQUENCY, timerHIGHEST_PRIORITY, 2);
 }
 
 /*

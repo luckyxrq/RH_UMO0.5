@@ -21,7 +21,7 @@
 #include "bsp.h"
 
 
-#define IR_UPDATE_T             1500 /* 软件定时器更新红外辐射范围状态，实际一轮时间为73.75MS，给点余量*/
+#define IR_UPDATE_T             1000 /* 软件定时器更新红外辐射范围状态，实际一轮时间为73.75MS，给点余量*/
 
 /* 定义GPIO端口 */
 #define RCC_IRD		RCC_APB2Periph_GPIOC
