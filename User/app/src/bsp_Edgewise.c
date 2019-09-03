@@ -1,59 +1,240 @@
 #include "bsp.h"
 
-#define CONSTANT	1.0F
-#define MIN_VOLTAGE	0.6F
+#define STRAIGHT_SPEED_FAST      2
+#define STRAIGHT_SPEED_SLOW      1
 
-#define NORMAL_SPEED	7000 /*正常速度*/
-#define SLOW_SPEED	    6000 /*减速后速度*/
-#define INTERVAL        1000  /*转向速度差*/
+#define TURN_RIGHT_SPEED_FAST_L  3
+#define TURN_RIGHT_SPEED_FAST_R  1
+
+#define TURN_RIGHT_SPEED_SLOW_L  2
+#define TURN_RIGHT_SPEED_SLOW_R  1
+
+
+#define TURN_LEFT_SPEED_FAST_L   1
+#define TURN_LEFT_SPEED_FAST_R   3
+                                 
+#define TURN_LEFT_SPEED_SLOW_L   1
+#define TURN_LEFT_SPEED_SLOW_R   2
+
+#define PIROUETTE_SPEED          1
+
+#define BACKWARD_SPEED           -6
 
 
 typedef struct
 {
 	volatile bool isRunning;
-	volatile uint8_t action;
-	volatile uint32_t delay;
+	uint32_t action;
+	uint32_t delay;
 	
-}Edgewise;
+	
+}EdgewiseRun;
 
+static EdgewiseRun edgewiseRun;
+static void bsp_EdgewiseRunStraightFast(void);
+static void bsp_EdgewiseRunStraightSlow(void);
+static void bsp_EdgewiseTurnRightFast(void)  ;
+static void bsp_EdgewiseTurnRightSlow(void)  ;
+static void bsp_EdgewiseTurnLeftFast(void)   ;
+static void bsp_EdgewiseTurnLeftSlow(void)   ;
+static void bsp_PirouetteCW(void)            ;
+static void bsp_PirouetteCCW(void)           ;
+static void bsp_GoBackward(void)             ;
 
-static Edgewise edgewise;
-
-
-void bsp_EdgewiseAct(void)
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StartEdgewiseRun
+*	功能说明: 开启沿边行走
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_StartEdgewiseRun(void)
 {
-	//Collision collision;
+	edgewiseRun.action = 0 ;
+	edgewiseRun.delay = 0 ;
+	edgewiseRun.isRunning = true;
 	
+	/*消除编译器警告*/
+	UNUSED(bsp_EdgewiseRunStraightFast) ;
+	UNUSED(bsp_EdgewiseRunStraightSlow) ;
+	UNUSED(bsp_EdgewiseTurnRightFast)   ;
+	UNUSED(bsp_EdgewiseTurnRightSlow)   ;
+	UNUSED(bsp_EdgewiseTurnLeftFast)    ;
+	UNUSED(bsp_EdgewiseTurnLeftSlow)    ;
+	UNUSED(bsp_PirouetteCW)             ;
+	UNUSED(bsp_PirouetteCCW)            ;
+	UNUSED(bsp_GoBackward)              ;
+}
 
-	switch(edgewise.action)
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StopEdgewiseRun
+*	功能说明: 关闭沿边行走
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_StopEdgewiseRun(void)
+{
+	edgewiseRun.isRunning = false;
+	edgewiseRun.action = 0 ;
+	edgewiseRun.delay = 0 ;
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_InitEdgewiseRun
+*	功能说明: 初始化沿边行走
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_InitEdgewiseRun(void)
+{
+	if(!edgewiseRun.isRunning)
+		return ;
+	
+	switch(edgewiseRun.action)
 	{
 		case 0:
 		{
-			/*右边沿边红外检测到了*/
-			if(bsp_GetInfraredVoltageRight() >= 1.0F)
-			{
-				edgewise.action++;
-			}
+			
 		}break;
 		
 		case 1:
 		{
-			if(bsp_GetInfraredVoltageRight() >= 1.0F)
-			{
-				bsp_SetMotorSpeed(MotorLeft,5);
-				bsp_SetMotorSpeed(MotorRight,6);
-			}
-			else
-			{
-				bsp_SetMotorSpeed(MotorLeft,6);
-				bsp_SetMotorSpeed(MotorRight,5);
-			}
+			
 		}break;
-	}	
+	}
 }
 
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_EdgewiseRunStraightFast
+*	功能说明: 快速直行
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_EdgewiseRunStraightFast(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, STRAIGHT_SPEED_FAST);
+	bsp_SetMotorSpeed(MotorRight,STRAIGHT_SPEED_FAST);
+}
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_EdgewiseRunStraightSlow
+*	功能说明: 慢速直行
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_EdgewiseRunStraightSlow(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, STRAIGHT_SPEED_SLOW);
+	bsp_SetMotorSpeed(MotorRight,STRAIGHT_SPEED_SLOW);
+}
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_EdgewiseTurnRightFast
+*	功能说明: 快速右转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_EdgewiseTurnRightFast(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, TURN_RIGHT_SPEED_FAST_L);
+	bsp_SetMotorSpeed(MotorRight,TURN_RIGHT_SPEED_FAST_R);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_EdgewiseTurnRightSlow
+*	功能说明: 慢速右转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_EdgewiseTurnRightSlow(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, TURN_RIGHT_SPEED_SLOW_L);
+	bsp_SetMotorSpeed(MotorRight,TURN_RIGHT_SPEED_SLOW_R);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_EdgewiseTurnLeftFast
+*	功能说明: 快速左转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_EdgewiseTurnLeftFast(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, TURN_LEFT_SPEED_FAST_L);
+	bsp_SetMotorSpeed(MotorRight,TURN_LEFT_SPEED_FAST_R);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_EdgewiseTurnLeftSlow
+*	功能说明: 慢速左转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_EdgewiseTurnLeftSlow(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, TURN_LEFT_SPEED_SLOW_L);
+	bsp_SetMotorSpeed(MotorRight,TURN_LEFT_SPEED_SLOW_R);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_PirouetteCW
+*	功能说明: 原地顺时针旋转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_PirouetteCW(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, PIROUETTE_SPEED);
+	bsp_SetMotorSpeed(MotorRight,0);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_PirouetteCCW
+*	功能说明: 原地逆时针旋转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_PirouetteCCW(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, 0);
+	bsp_SetMotorSpeed(MotorRight,PIROUETTE_SPEED);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GoBackward
+*	功能说明: 碰到障碍物后，快速倒退
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_GoBackward(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, BACKWARD_SPEED);
+	bsp_SetMotorSpeed(MotorRight,BACKWARD_SPEED);
+}
 
 

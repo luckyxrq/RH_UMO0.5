@@ -152,7 +152,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_LedToggle(2);
 			bsp_LedToggle(3);
 			
-			bsp_PrintIR_Rev();
+			//bsp_PrintIR_Rev();
         }
         
         
@@ -211,7 +211,7 @@ static void vTaskPerception(void *pvParameters)   //
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
 	/*开启寻找充电桩*/
-	bsp_StartSearchChargePile();
+	//bsp_StartSearchChargePile();
     bsp_StartUpdatePos();
     
     while(1)
