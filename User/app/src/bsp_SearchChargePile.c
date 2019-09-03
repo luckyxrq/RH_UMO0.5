@@ -16,6 +16,7 @@
 #define TURN_LEFT_SPEED_SLOW_L   1
 #define TURN_LEFT_SPEED_SLOW_R   2
 
+#define PIROUETTE_SPEED          1
 
 typedef struct
 {
@@ -32,7 +33,8 @@ static void bsp_SearchTurnRightFast(void)  ;
 static void bsp_SearchTurnRightSlow(void)  ;
 static void bsp_SearchTurnLeftFast(void)   ;
 static void bsp_SearchTurnLeftSlow(void)   ;
-
+static void bsp_PirouetteCW(void)          ;
+static void bsp_PirouetteCCW(void)         ;
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_StartSearchChargePile
@@ -98,20 +100,39 @@ void bsp_SearchChargePile(void)
 		
 		case 1:
 		{
+			/*前面2个，都能收到左右发射*/
 			if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
 				&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
 			{
 				bsp_SearchRunStraightSlow();
 			}
+			/*1号不能同时收到左右发射，2能同时收到左右发射*/
 			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
 				&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
 			{
 				bsp_SearchTurnLeftSlow();
 			}
+			/*1号能同时收到左右发射，2不能同时收到左右发射*/
 			else if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
 				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
 			{
 				bsp_SearchTurnRightSlow();
+			}
+			/*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+			else if(bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
+			{
+				bsp_PirouetteCW();
+			}
+			/*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+			else if(bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
+			{
+				bsp_PirouetteCCW();
+			}
+			/*1，2都不能同时收到左右发射*/
+			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+			{
+				bsp_SearchRunStraightSlow();
 			}
 			
 			search.acion++;
@@ -209,4 +230,33 @@ static void bsp_SearchTurnLeftSlow(void)
 	bsp_SetMotorSpeed(MotorRight,TURN_LEFT_SPEED_SLOW_R);
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_PirouetteCW
+*	功能说明: 原地顺时针旋转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_PirouetteCW(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, PIROUETTE_SPEED);
+	bsp_SetMotorSpeed(MotorRight,0);
+}
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_PirouetteCCW
+*	功能说明: 原地逆时针旋转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_PirouetteCCW(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, 0);
+	bsp_SetMotorSpeed(MotorRight,PIROUETTE_SPEED);
+}
+
+
+	
