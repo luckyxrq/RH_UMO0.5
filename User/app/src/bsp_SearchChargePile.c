@@ -30,7 +30,7 @@ typedef enum
 typedef struct
 {
 	volatile bool isRunning;
-	volatile uint32_t acion;
+	volatile uint32_t action;
 	volatile uint32_t delay;
 	volatile SearchChargePileCollision collision;
 }Serach;
@@ -56,7 +56,7 @@ static void bsp_GoBackward(void)           ;
 */
 void bsp_StartSearchChargePile(void)
 {
-	search.acion = 0 ;
+	search.action = 0 ;
 	search.delay = 0 ;
 	search.isRunning = true;
 	
@@ -83,7 +83,7 @@ void bsp_StopSearchChargePile(void)
 	bsp_SetMotorSpeed(MotorLeft, 0);
 	bsp_SetMotorSpeed(MotorRight,0);
 	search.isRunning = false;
-	search.acion = 0 ;
+	search.action = 0 ;
 	search.delay = 0 ;
 }	
 
@@ -101,12 +101,12 @@ void bsp_SearchChargePile(void)
 	if(!search.isRunning)
 		return;
 	
-	switch(search.acion)
+	switch(search.action)
 	{
 		case 0:
 		{
 			bsp_SearchRunStraightSlow();
-			search.acion++;
+			search.action++;
 		}break;
 		
 		case 1:
@@ -165,7 +165,7 @@ void bsp_SearchChargePile(void)
 				bsp_SearchRunStraightSlow();
 			}
 			
-			search.acion++;
+			search.action++;
 		}break;
 		
 		case 2:
@@ -175,7 +175,7 @@ void bsp_SearchChargePile(void)
 			{
 				if(xTaskGetTickCount() - search.delay >= 1500)
 				{
-					search.acion = 1 ;
+					search.action = 1 ;
 				}
 			}
 			/*瞎撞的过程中撞到了*/
@@ -185,13 +185,13 @@ void bsp_SearchChargePile(void)
 				{
 					search.delay = xTaskGetTickCount();
 					bsp_PirouetteCW();
-					search.acion = 3 ;
+					search.action = 3 ;
 				}
 			}
 			/*没有碰撞，回到上一段继续执行行走策略*/
 			else
 			{
-				search.acion = 1 ;
+				search.action = 1 ;
 			}
 		}break;
 		
@@ -201,7 +201,7 @@ void bsp_SearchChargePile(void)
 			{
 				search.collision = eNone;
 				bsp_SearchRunStraightSlow();
-				search.acion = 1 ;
+				search.action = 1 ;
 			}
 		}break;
 	}

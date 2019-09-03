@@ -211,7 +211,7 @@ static void vTaskPerception(void *pvParameters)   //
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
 	/*开启寻找充电桩*/
-	//bsp_StartSearchChargePile();
+	bsp_StartSearchChargePile();
     bsp_StartUpdatePos();
     
     while(1)

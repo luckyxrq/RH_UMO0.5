@@ -100,12 +100,17 @@ void bsp_InitEdgewiseRun(void)
 	{
 		case 0:
 		{
-			
+			bsp_EdgewiseRunStraightSlow();
+			edgewiseRun.action++;
 		}break;
 		
 		case 1:
 		{
-			
+			Collision ret = bsp_CollisionScan();
+			if(ret != CollisionNone)
+			{
+				
+			}
 		}break;
 	}
 }
