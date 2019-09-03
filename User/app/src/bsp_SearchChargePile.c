@@ -18,7 +18,7 @@
 
 #define PIROUETTE_SPEED          1
 
-#define BACKWARD_SPEED           -3
+#define BACKWARD_SPEED           -6
 
 typedef enum
 {
@@ -113,7 +113,7 @@ void bsp_SearchChargePile(void)
 		{
 			/*首先判断碰撞*/
 			Collision ret = bsp_CollisionScan();
-
+			
 			if(ret != CollisionNone)
 			{
 				bsp_GoBackward();
@@ -170,16 +170,37 @@ void bsp_SearchChargePile(void)
 		
 		case 2:
 		{
-			if(search.isCollision)
+			/*充电最后一步撞上了*/
+			if(search.collision == eHasSignalCollision)
 			{
 				if(xTaskGetTickCount() - search.delay >= 1500)
 				{
-					search.isCollision = false;
 					search.acion = 1 ;
 				}
 			}
+			/*瞎撞的过程中撞到了*/
+			else if(search.collision == eNoSignalCollision)
+			{
+				if(xTaskGetTickCount() - search.delay >= 1500)
+				{
+					search.delay = xTaskGetTickCount();
+					bsp_PirouetteCW();
+					search.acion = 3 ;
+				}
+			}
+			/*没有碰撞，回到上一段继续执行行走策略*/
 			else
 			{
+				search.acion = 1 ;
+			}
+		}break;
+		
+		case 3: /*用于处理瞎撞撞到了，倒退后，再转一小段弯道*/
+		{
+			if(xTaskGetTickCount() - search.delay >= 3000)
+			{
+				search.collision = eNone;
+				bsp_SearchRunStraightSlow();
 				search.acion = 1 ;
 			}
 		}break;

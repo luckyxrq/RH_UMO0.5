@@ -27,3 +27,10 @@ static void bsp_SearchTurnRightFast(void)  ;
 static void bsp_SearchTurnRightSlow(void)  ;
 static void bsp_SearchTurnLeftFast(void)   ;
 static void bsp_SearchTurnLeftSlow(void)   ;
+
+
+search.collision = eHasSignalCollision;
+				}
+				else
+				{
+					search.collision = eNoSignalCollision;
