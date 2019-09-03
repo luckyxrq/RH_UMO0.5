@@ -18,13 +18,23 @@
 
 #define PIROUETTE_SPEED          1
 
+#define BACKWARD_SPEED           -3
+
+typedef enum
+{
+	eNone = 0 ,          /*没有碰撞*/
+	eHasSignalCollision, /*和充电桩碰上了后碰撞*/
+	eNoSignalCollision   /*没有信号的碰撞，没有碰上充电桩，比如碰上了墙壁*/
+}SearchChargePileCollision;
+
 typedef struct
 {
 	volatile bool isRunning;
 	volatile uint32_t acion;
 	volatile uint32_t delay;
-		
+	volatile SearchChargePileCollision collision;
 }Serach;
+
 
 static Serach search;
 static void bsp_SearchRunStraightFast(void);
@@ -35,6 +45,7 @@ static void bsp_SearchTurnLeftFast(void)   ;
 static void bsp_SearchTurnLeftSlow(void)   ;
 static void bsp_PirouetteCW(void)          ;
 static void bsp_PirouetteCCW(void)         ;
+static void bsp_GoBackward(void)           ;
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_StartSearchChargePile
@@ -100,8 +111,27 @@ void bsp_SearchChargePile(void)
 		
 		case 1:
 		{
+			/*首先判断碰撞*/
+			Collision ret = bsp_CollisionScan();
+
+			if(ret != CollisionNone)
+			{
+				bsp_GoBackward();
+				
+				if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)) ||
+					(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+				{
+					search.collision = eHasSignalCollision;
+				}
+				else
+				{
+					search.collision = eNoSignalCollision;
+				}
+				
+				search.delay = xTaskGetTickCount();
+			}
 			/*前面2个，都能收到左右发射*/
-			if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
+			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
 				&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
 			{
 				bsp_SearchRunStraightSlow();
@@ -140,7 +170,18 @@ void bsp_SearchChargePile(void)
 		
 		case 2:
 		{
-			search.acion = 1 ;
+			if(search.isCollision)
+			{
+				if(xTaskGetTickCount() - search.delay >= 1500)
+				{
+					search.isCollision = false;
+					search.acion = 1 ;
+				}
+			}
+			else
+			{
+				search.acion = 1 ;
+			}
 		}break;
 	}
 }
@@ -258,5 +299,16 @@ static void bsp_PirouetteCCW(void)
 	bsp_SetMotorSpeed(MotorRight,PIROUETTE_SPEED);
 }
 
-
-	
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GoBackward
+*	功能说明: 碰到障碍物后，快速倒退
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_GoBackward(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, BACKWARD_SPEED);
+	bsp_SetMotorSpeed(MotorRight,BACKWARD_SPEED);
+}
