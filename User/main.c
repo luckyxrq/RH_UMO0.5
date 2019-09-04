@@ -204,7 +204,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 *   优 先 级: 4  
 *********************************************************************************************************
 */
-static void vTaskPerception(void *pvParameters)   //
+static void vTaskPerception(void *pvParameters)
 {
 	uint32_t count = 0 ;
 	

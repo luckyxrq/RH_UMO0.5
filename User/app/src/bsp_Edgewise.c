@@ -18,6 +18,12 @@
 
 #define PIROUETTE_SPEED          1
 
+#define ROTATE_CW_SPEED_L        1
+#define ROTATE_CW_SPEED_R        -1
+
+#define ROTATE_CCW_SPEED_L       -1
+#define ROTATE_CCW_SPEED_R       1
+
 #define BACKWARD_SPEED           -6
 
 
@@ -39,6 +45,8 @@ static void bsp_EdgewiseTurnLeftFast(void)   ;
 static void bsp_EdgewiseTurnLeftSlow(void)   ;
 static void bsp_PirouetteCW(void)            ;
 static void bsp_PirouetteCCW(void)           ;
+static void bsp_RotateCW(void)               ;
+static void bsp_RotateCCW(void)              ;
 static void bsp_GoBackward(void)             ;
 
 /*
@@ -65,6 +73,8 @@ void bsp_StartEdgewiseRun(void)
 	UNUSED(bsp_PirouetteCW)             ;
 	UNUSED(bsp_PirouetteCCW)            ;
 	UNUSED(bsp_GoBackward)              ;
+	UNUSED(bsp_RotateCW)                ;
+	UNUSED(bsp_RotateCCW)               ;
 }
 
 /*
@@ -98,18 +108,36 @@ void bsp_InitEdgewiseRun(void)
 	
 	switch(edgewiseRun.action)
 	{
-		case 0:
+		case 0:/*进入沿边模式，首先直走*/
 		{
 			bsp_EdgewiseRunStraightSlow();
 			edgewiseRun.action++;
 		}break;
 		
-		case 1:
+		case 1:/*如果发生了碰撞*/
 		{
 			Collision ret = bsp_CollisionScan();
 			if(ret != CollisionNone)
 			{
-				
+				bsp_GoBackward();
+				edgewiseRun.delay = xTaskGetTickCount();
+			}
+			edgewiseRun.action++;
+		}break;
+		
+		case 2:/*碰撞后退*/
+		{
+			if(xTaskGetTickCount() - edgewiseRun.delay >= 800)
+			{
+				edgewiseRun.action++;
+			}
+		}break;
+		
+		case 3:/*碰撞后退*/
+		{
+			if(xTaskGetTickCount() - edgewiseRun.delay >= 800)
+			{
+				edgewiseRun.action++;
 			}
 		}break;
 	}
@@ -243,3 +271,30 @@ static void bsp_GoBackward(void)
 }
 
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_RotateCW
+*	功能说明: 原地旋转，左右轮都动，顺时针
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_RotateCW(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, ROTATE_CW_SPEED_L);
+	bsp_SetMotorSpeed(MotorRight,ROTATE_CW_SPEED_R);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_RotateCCW
+*	功能说明: 原地旋转，左右轮都动，逆时针
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_RotateCCW(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, ROTATE_CCW_SPEED_L);
+	bsp_SetMotorSpeed(MotorRight,ROTATE_CCW_SPEED_R);
+}
