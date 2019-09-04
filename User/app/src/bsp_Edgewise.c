@@ -114,7 +114,7 @@ void bsp_InitEdgewiseRun(void)
 			edgewiseRun.action++;
 		}break;
 		
-		case 1:/*如果发生了碰撞*/
+		case 1:/*如果发生了碰撞，碰撞后退*/
 		{
 			Collision ret = bsp_CollisionScan();
 			if(ret != CollisionNone)
@@ -125,18 +125,21 @@ void bsp_InitEdgewiseRun(void)
 			edgewiseRun.action++;
 		}break;
 		
-		case 2:/*碰撞后退*/
+		case 2:/*后退完了再原地旋转，左右都动*/
 		{
 			if(xTaskGetTickCount() - edgewiseRun.delay >= 800)
 			{
+				bsp_RotateCCW();
+				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
 		}break;
 		
-		case 3:/*碰撞后退*/
+		case 3:/*旋转一会儿，继续直行*/
 		{
 			if(xTaskGetTickCount() - edgewiseRun.delay >= 800)
 			{
+				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.action++;
 			}
 		}break;
