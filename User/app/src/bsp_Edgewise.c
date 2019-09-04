@@ -117,12 +117,26 @@ void bsp_InitEdgewiseRun(void)
 		case 1:/*如果发生了碰撞，碰撞后退*/
 		{
 			Collision ret = bsp_CollisionScan();
+			float vol = bsp_GetInfraredVoltageRight();
+				
 			if(ret != CollisionNone)
 			{
 				bsp_GoBackward();
 				edgewiseRun.delay = xTaskGetTickCount();
+				edgewiseRun.action++;
 			}
-			edgewiseRun.action++;
+			else if(vol >= 1.2F && vol <=2.5F )
+			{
+				bsp_EdgewiseRunStraightSlow();
+			}
+			else if(vol < 1.2F)
+			{
+				bsp_EdgewiseTurnRightSlow();
+			}
+			else if(vol > 2.5F)
+			{
+				bsp_EdgewiseTurnLeftSlow();
+			}
 		}break;
 		
 		case 2:/*后退完了再原地旋转，左右都动*/
@@ -135,12 +149,12 @@ void bsp_InitEdgewiseRun(void)
 			}
 		}break;
 		
-		case 3:/*旋转一会儿，继续直行*/
+		case 3:/*旋转一会儿，继续直行，回到状态1*/
 		{
 			if(xTaskGetTickCount() - edgewiseRun.delay >= 800)
 			{
 				bsp_EdgewiseRunStraightSlow();
-				edgewiseRun.action++;
+				edgewiseRun.action = 1;
 			}
 		}break;
 	}

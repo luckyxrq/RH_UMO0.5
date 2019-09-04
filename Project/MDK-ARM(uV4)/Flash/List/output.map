@@ -188,8 +188,13 @@ Section Cross References
     bsp_edgewise.o(i.bsp_GoBackward) refers to bsp_control.o(i.bsp_SetMotorSpeed) for bsp_SetMotorSpeed
     bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to bsp_edgewise.o(i.bsp_EdgewiseRunStraightSlow) for bsp_EdgewiseRunStraightSlow
     bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to bsp_collision.o(i.bsp_CollisionScan) for bsp_CollisionScan
+    bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to bsp_detectact.o(i.bsp_GetInfraredVoltageRight) for bsp_GetInfraredVoltageRight
     bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to bsp_edgewise.o(i.bsp_GoBackward) for bsp_GoBackward
     bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
+    bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to cfrcmple.o(.text) for __aeabi_cfrcmple
+    bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to cfcmple.o(.text) for __aeabi_cfcmple
+    bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to bsp_edgewise.o(i.bsp_EdgewiseTurnRightSlow) for bsp_EdgewiseTurnRightSlow
+    bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to bsp_edgewise.o(i.bsp_EdgewiseTurnLeftSlow) for bsp_EdgewiseTurnLeftSlow
     bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to bsp_edgewise.o(i.bsp_RotateCCW) for bsp_RotateCCW
     bsp_edgewise.o(i.bsp_InitEdgewiseRun) refers to bsp_edgewise.o(.bss) for edgewiseRun
     bsp_edgewise.o(i.bsp_PirouetteCCW) refers to bsp_control.o(i.bsp_SetMotorSpeed) for bsp_SetMotorSpeed
@@ -1546,7 +1551,7 @@ Removing Unused input sections from the image.
     Removing bsp_edgewise.o(i.bsp_EdgewiseTurnRightFast), (20 bytes).
     Removing bsp_edgewise.o(i.bsp_EdgewiseTurnRightSlow), (20 bytes).
     Removing bsp_edgewise.o(i.bsp_GoBackward), (24 bytes).
-    Removing bsp_edgewise.o(i.bsp_InitEdgewiseRun), (160 bytes).
+    Removing bsp_edgewise.o(i.bsp_InitEdgewiseRun), (228 bytes).
     Removing bsp_edgewise.o(i.bsp_PirouetteCCW), (20 bytes).
     Removing bsp_edgewise.o(i.bsp_PirouetteCW), (20 bytes).
     Removing bsp_edgewise.o(i.bsp_RotateCCW), (22 bytes).
@@ -1960,7 +1965,7 @@ Removing Unused input sections from the image.
     Removing dfixul.o(.text), (48 bytes).
     Removing cdrcmple.o(.text), (48 bytes).
 
-455 unused section(s) (total 26970 bytes) removed from the image.
+455 unused section(s) (total 27038 bytes) removed from the image.
 
 ==============================================================================
 
