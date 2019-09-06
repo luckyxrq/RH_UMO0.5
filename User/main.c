@@ -156,20 +156,20 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         }
 		
 		{
-			static uint32_t tick = 0 ;
-			Collision ret = bsp_CollisionScan();
-			if(ret == CollisionLeft)
-			{
-				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
-			}
-			else if(ret == CollisionRight)
-			{
-				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
-			}
-			else if(ret == CollisionAll)
-			{
-				DEBUG("%06d两边==========\r\n",tick++);
-			}
+//			static uint32_t tick = 0 ;
+//			Collision ret = bsp_CollisionScan();
+//			if(ret == CollisionLeft)
+//			{
+//				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
+//			}
+//			else if(ret == CollisionRight)
+//			{
+//				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
+//			}
+//			else if(ret == CollisionAll)
+//			{
+//				DEBUG("%06d两边==========\r\n",tick++);
+//			}
 		}
         
         
@@ -232,7 +232,7 @@ static void vTaskPerception(void *pvParameters)
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
 	/*开启寻找充电桩*/
-	//bsp_StartSearchChargePile();
+	bsp_StartSearchChargePile();
     bsp_StartUpdatePos();
     
     while(1)

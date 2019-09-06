@@ -151,6 +151,11 @@ void bsp_SearchChargePile(void)
 			{
 				bsp_SearchRunStraightSlow();
 			}
+			/*前面2个，各收各*/
+			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+			{
+				bsp_SearchRunStraightSlow();
+			}
 			/*1号不能同时收到左右发射，2能同时收到左右发射*/
 			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
 				&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
