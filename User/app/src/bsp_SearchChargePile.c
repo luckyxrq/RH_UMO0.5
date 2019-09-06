@@ -1,22 +1,22 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      2
-#define STRAIGHT_SPEED_SLOW      1
+#define STRAIGHT_SPEED_FAST      5
+#define STRAIGHT_SPEED_SLOW      3
 
-#define TURN_RIGHT_SPEED_FAST_L  3
-#define TURN_RIGHT_SPEED_FAST_R  1
+#define TURN_RIGHT_SPEED_FAST_L  6
+#define TURN_RIGHT_SPEED_FAST_R  3
 
-#define TURN_RIGHT_SPEED_SLOW_L  2
-#define TURN_RIGHT_SPEED_SLOW_R  1
+#define TURN_RIGHT_SPEED_SLOW_L  5
+#define TURN_RIGHT_SPEED_SLOW_R  3
 
 
-#define TURN_LEFT_SPEED_FAST_L   1
-#define TURN_LEFT_SPEED_FAST_R   3
+#define TURN_LEFT_SPEED_FAST_L   3
+#define TURN_LEFT_SPEED_FAST_R   6
                                  
-#define TURN_LEFT_SPEED_SLOW_L   1
-#define TURN_LEFT_SPEED_SLOW_R   2
+#define TURN_LEFT_SPEED_SLOW_L   3
+#define TURN_LEFT_SPEED_SLOW_R   5
 
-#define PIROUETTE_SPEED          1
+#define PIROUETTE_SPEED          3
 
 #define BACKWARD_SPEED           -6
 

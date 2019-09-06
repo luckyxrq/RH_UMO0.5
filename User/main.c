@@ -98,8 +98,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     bsp_AngleRst();
     
 	
-//	bsp_SetMotorSpeed(MotorLeft,1);
-//	bsp_SetMotorSpeed(MotorRight,1);
+	bsp_SetMotorSpeed(MotorLeft, 6);
+	bsp_SetMotorSpeed(MotorRight,6);
 	
     while(1)
     {
@@ -152,8 +152,25 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_LedToggle(2);
 			bsp_LedToggle(3);
 			
-			//bsp_PrintIR_Rev();
+			bsp_PrintIR_Rev();
         }
+		
+		{
+			static uint32_t tick = 0 ;
+			Collision ret = bsp_CollisionScan();
+			if(ret == CollisionLeft)
+			{
+				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
+			}
+			else if(ret == CollisionRight)
+			{
+				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
+			}
+			else if(ret == CollisionAll)
+			{
+				DEBUG("%06d两边==========\r\n",tick++);
+			}
+		}
         
         
         vTaskDelay(50);	
@@ -187,6 +204,10 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
+		
+		
+		
+		
         bsp_ComAnalysis();
 		//bsp_RunControl();/* 整机控制 */ 
         vTaskDelay(10);
