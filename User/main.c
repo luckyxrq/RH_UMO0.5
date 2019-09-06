@@ -248,7 +248,7 @@ static void vTaskPerception(void *pvParameters)
         bsp_GetCapCnt(CapCH4);
 #endif
         /*寻找充电桩*/
-		bsp_SearchChargePile();
+		//bsp_SearchChargePile();
         /*更新坐标*/
         bsp_PositionUpdate();
         

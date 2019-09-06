@@ -276,21 +276,21 @@ loop1:
 				g_tIR.s_Byte[ch] = 0;
 				g_tIR.s_Bit[ch] = 0;
 			}
-			else if((_width > 5000))
-			{
-				//DEBUG("间隔\r\n");
-				
-				/*间隔期间进行更新值*/
-				g_tIR.isRev[ch][IR_TX_SITE_LEFT] = g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT];
-				g_tIR.isRev[ch][IR_TX_SITE_CENTER] = g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER];
-				g_tIR.isRev[ch][IR_TX_SITE_RIGHT] = g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT];
-				
-				/*滤波临时状态更新*/
-				g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT] = false;
-				g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER] = false;
-				g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT] = false;
-				
-			}
+//			else if((_width > 7000))
+//			{
+//				//DEBUG("间隔\r\n");
+//				
+//				/*间隔期间进行更新值*/
+//				g_tIR.isRev[ch][IR_TX_SITE_LEFT] = g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT];
+//				g_tIR.isRev[ch][IR_TX_SITE_CENTER] = g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER];
+//				g_tIR.isRev[ch][IR_TX_SITE_RIGHT] = g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT];
+//				
+//				/*滤波临时状态更新*/
+//				g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT] = false;
+//				g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER] = false;
+//				g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT] = false;
+//				
+//			}
 			else
 			{
 				static uint8_t sss = 0;

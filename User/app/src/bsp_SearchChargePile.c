@@ -6,19 +6,18 @@
 #define TURN_RIGHT_SPEED_FAST_L  5
 #define TURN_RIGHT_SPEED_FAST_R  3
 
-#define TURN_RIGHT_SPEED_SLOW_L  4
+#define TURN_RIGHT_SPEED_SLOW_L  5
 #define TURN_RIGHT_SPEED_SLOW_R  3
-
 
 #define TURN_LEFT_SPEED_FAST_L   3
 #define TURN_LEFT_SPEED_FAST_R   5
                                  
 #define TURN_LEFT_SPEED_SLOW_L   3
-#define TURN_LEFT_SPEED_SLOW_R   4
+#define TURN_LEFT_SPEED_SLOW_R   5
 
 #define PIROUETTE_SPEED          3
 
-#define BACKWARD_SPEED           -12
+#define BACKWARD_SPEED           -6
 
 typedef enum
 {
@@ -151,11 +150,11 @@ void bsp_SearchChargePile(void)
 			{
 				bsp_SearchRunStraightSlow();
 			}
-			/*前面2个，各收各*/
-			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
-			{
-				bsp_SearchRunStraightSlow();
-			}
+//			/*前面2个，各收各*/
+//			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+//			{
+//				bsp_SearchRunStraightSlow();
+//			}
 			/*1号不能同时收到左右发射，2能同时收到左右发射*/
 			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
 				&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
