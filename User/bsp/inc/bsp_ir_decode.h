@@ -17,7 +17,7 @@
 #define IR_REPEAT_FILTER		10	/* 遥控器108ms 发持续按下脉冲, 连续按下1秒后启动重发 */
 #define IR_COUNT				4   /* 红外对管的个数 */
 
-
+#if (BOARD_VER == OLD_BOARD) //NEW_BOARD  OLD_BOARD
 typedef enum
 {
 	IR_CH1 = 0 ,
@@ -25,6 +25,15 @@ typedef enum
 	IR_CH3 ,
 	IR_CH4 ,
 }IR_CH;
+#else
+typedef enum
+{
+	IR_CH1 = 0 ,
+	IR_CH2 ,
+	IR_CH3 ,
+	IR_CH4 ,
+}IR_CH;
+#endif
 
 /*充电桩发送出来的码值，这里的左右指的是面对充电桩的时候人眼看到的左右*/
 typedef enum

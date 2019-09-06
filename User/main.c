@@ -155,23 +155,43 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev();
         }
 		
+#if 0
 		{
-//			static uint32_t tick = 0 ;
-//			Collision ret = bsp_CollisionScan();
-//			if(ret == CollisionLeft)
-//			{
-//				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
-//			}
-//			else if(ret == CollisionRight)
-//			{
-//				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
-//			}
-//			else if(ret == CollisionAll)
-//			{
-//				DEBUG("%06d两边==========\r\n",tick++);
-//			}
+			static uint32_t tick = 0 ;
+			Collision ret = bsp_CollisionScan();
+			if(ret == CollisionLeft)
+			{
+				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
+			}
+			else if(ret == CollisionRight)
+			{
+				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
+			}
+			else if(ret == CollisionAll)
+			{
+				DEBUG("%06d两边==========\r\n",tick++);
+			}
 		}
-        
+#endif
+		
+#if 0
+		while(1)
+		{
+			bsp_SetMotorSpeed(MotorLeft, 12);
+			bsp_SetMotorSpeed(MotorRight,12);
+			vTaskDelay(3000);	
+			bsp_SetMotorSpeed(MotorLeft, 6);
+			bsp_SetMotorSpeed(MotorRight,6);
+			vTaskDelay(3000);	
+			bsp_SetMotorSpeed(MotorLeft, -12);
+			bsp_SetMotorSpeed(MotorRight,-12);
+			vTaskDelay(3000);
+			bsp_SetMotorSpeed(MotorLeft, -6);
+			bsp_SetMotorSpeed(MotorRight,-6);
+			vTaskDelay(3000);				
+		}
+#endif
+		
         
         vTaskDelay(50);	
     }
@@ -232,7 +252,7 @@ static void vTaskPerception(void *pvParameters)
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
 	/*开启寻找充电桩*/
-	bsp_StartSearchChargePile();
+	//bsp_StartSearchChargePile();
     bsp_StartUpdatePos();
     
     while(1)

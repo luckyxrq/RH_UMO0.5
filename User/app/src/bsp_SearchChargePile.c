@@ -1,24 +1,24 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      12
+#define STRAIGHT_SPEED_FAST      6
 #define STRAIGHT_SPEED_SLOW      3
 
-#define TURN_RIGHT_SPEED_FAST_L  5
+#define TURN_RIGHT_SPEED_FAST_L  6
 #define TURN_RIGHT_SPEED_FAST_R  3
 
-#define TURN_RIGHT_SPEED_SLOW_L  4
+#define TURN_RIGHT_SPEED_SLOW_L  6
 #define TURN_RIGHT_SPEED_SLOW_R  3
 
 
 #define TURN_LEFT_SPEED_FAST_L   3
-#define TURN_LEFT_SPEED_FAST_R   5
+#define TURN_LEFT_SPEED_FAST_R   6
                                  
 #define TURN_LEFT_SPEED_SLOW_L   3
-#define TURN_LEFT_SPEED_SLOW_R   4
+#define TURN_LEFT_SPEED_SLOW_R   6
 
 #define PIROUETTE_SPEED          3
 
-#define BACKWARD_SPEED           -12
+#define BACKWARD_SPEED           -6
 
 typedef enum
 {
