@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      5
+#define STRAIGHT_SPEED_FAST      6
 #define STRAIGHT_SPEED_SLOW      3
 
 #define TURN_RIGHT_SPEED_FAST_L  6
@@ -37,6 +37,8 @@ typedef struct
 
 
 static Serach search;
+static void bsp_InitIO(void);
+bool bsp_GetChargeFeedback(void);
 static void bsp_SearchRunStraightFast(void);
 static void bsp_SearchRunStraightSlow(void);
 static void bsp_SearchTurnRightFast(void)  ;
@@ -56,6 +58,8 @@ static void bsp_GoBackward(void)           ;
 */
 void bsp_StartSearchChargePile(void)
 {
+	bsp_InitIO();
+	
 	search.action = 0 ;
 	search.delay = 0 ;
 	search.isRunning = true;
@@ -100,6 +104,17 @@ void bsp_SearchChargePile(void)
 {
 	if(!search.isRunning)
 		return;
+	
+	
+	/*充电*/
+	if(bsp_GetChargeFeedback() == true)
+	{
+		DEBUG("is charging...\r\n");
+		bsp_SetMotorSpeed(MotorLeft,0);
+		bsp_SetMotorSpeed(MotorRight,0);
+		bsp_StopSearchChargePile();
+		return ;
+	}
 	
 	switch(search.action)
 	{
@@ -332,4 +347,43 @@ static void bsp_GoBackward(void)
 {
 	bsp_SetMotorSpeed(MotorLeft, BACKWARD_SPEED);
 	bsp_SetMotorSpeed(MotorRight,BACKWARD_SPEED);
+}
+
+
+
+static void bsp_InitIO(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	/* 打开GPIO时钟 */
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
+
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+	GPIO_Init(GPIOF, &GPIO_InitStructure);
+ 
+}
+
+
+	
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetChargeFeedback
+*	功能说明: 获取充电反馈
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_GetChargeFeedback(void)
+{
+	if(GPIO_ReadInputDataBit(GPIOF,GPIO_Pin_7))
+	{
+		return true ;
+	}
+	else
+	{
+		return false ;
+	}
 }
