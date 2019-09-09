@@ -45,10 +45,28 @@ void bsp_Init(void)
 	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	bsp_InitDWT();
+	
 	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
 	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
 	bsp_InitUart(); 	     /* 初始化串口 */
+	
+	bsp_DelayMS(500);
+	
+	
+	
+	
+	
 	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
+	
+	
+	
+	bsp_SwOn(SW_5V_EN_CTRL);
+	bsp_DelayMS(1000);
+	bsp_SwOn(SW_IR_POWER);
+	
+	
+	
+	
 	bsp_InitLed();           /* 初始化LED */
 	bsp_InitKey();           /* 初始化按键 */
 	bsp_InitHardTimer();     /* 初始化硬件定时器 */
@@ -64,15 +82,15 @@ void bsp_Init(void)
 	bsp_InitRunControl();    /*初始化整机控制状态机*/
 	
 	bsp_InitIWDG();     /*初始化看门狗*/
-	/* 初始化IO拓展芯片 */	
-	do{
-		ret = bsp_InitAW9523B();		
-		if(!ret) 
-		{
-			WARNING("AW9523B Init Error\r\n");
-			bsp_DelayMS(100);
-		}
-	}while(!ret);
+//	/* 初始化IO拓展芯片 */	
+//	do{
+//		ret = bsp_InitAW9523B();		
+//		if(!ret) 
+//		{
+//			WARNING("AW9523B Init Error\r\n");
+//			bsp_DelayMS(100);
+//		}
+//	}while(!ret);
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
 	bsp_IRD_StartWork();

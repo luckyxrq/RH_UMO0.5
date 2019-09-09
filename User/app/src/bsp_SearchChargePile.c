@@ -1,12 +1,12 @@
 #include "bsp.h"
 
 #define STRAIGHT_SPEED_FAST      12
-#define STRAIGHT_SPEED_SLOW      3
+#define STRAIGHT_SPEED_SLOW      4
 
 #define TURN_RIGHT_SPEED_FAST_L  5
 #define TURN_RIGHT_SPEED_FAST_R  3
 
-#define TURN_RIGHT_SPEED_SLOW_L  4
+#define TURN_RIGHT_SPEED_SLOW_L  6
 #define TURN_RIGHT_SPEED_SLOW_R  3
 
 
@@ -14,11 +14,11 @@
 #define TURN_LEFT_SPEED_FAST_R   5
                                  
 #define TURN_LEFT_SPEED_SLOW_L   3
-#define TURN_LEFT_SPEED_SLOW_R   4
+#define TURN_LEFT_SPEED_SLOW_R   5
 
-#define PIROUETTE_SPEED          3
+#define PIROUETTE_SPEED          4
 
-#define BACKWARD_SPEED           -12
+#define BACKWARD_SPEED           -4
 
 typedef enum
 {
@@ -156,6 +156,11 @@ void bsp_SearchChargePile(void)
 			{
 				bsp_SearchRunStraightSlow();
 			}
+			
+
+			
+			
+			
 			/*1号不能同时收到左右发射，2能同时收到左右发射*/
 			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
 				&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
@@ -193,7 +198,7 @@ void bsp_SearchChargePile(void)
 			/*充电最后一步撞上了*/
 			if(search.collision == eHasSignalCollision)
 			{
-				if(xTaskGetTickCount() - search.delay >= 1500)
+				if(xTaskGetTickCount() - search.delay >= 3000)
 				{
 					search.action = 1 ;
 				}
@@ -201,7 +206,7 @@ void bsp_SearchChargePile(void)
 			/*瞎撞的过程中撞到了*/
 			else if(search.collision == eNoSignalCollision)
 			{
-				if(xTaskGetTickCount() - search.delay >= 1500)
+				if(xTaskGetTickCount() - search.delay >= 5000)
 				{
 					search.delay = xTaskGetTickCount();
 					bsp_PirouetteCW();
@@ -217,7 +222,7 @@ void bsp_SearchChargePile(void)
 		
 		case 3: /*用于处理瞎撞撞到了，倒退后，再转一小段弯道*/
 		{
-			if(xTaskGetTickCount() - search.delay >= 3000)
+			if(xTaskGetTickCount() - search.delay >= 5000)
 			{
 				search.collision = eNone;
 				bsp_SearchRunStraightSlow();
