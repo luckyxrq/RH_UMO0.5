@@ -21,7 +21,7 @@
 #include "bsp.h"
 
 
-#define IR_UPDATE_T             1000 /* 软件定时器更新红外辐射范围状态，实际一轮时间为73.75MS，给点余量*/
+#define IR_UPDATE_T             200 /* 软件定时器更新红外辐射范围状态，实际一轮时间为73.75MS，给点余量*/
 
 /* 定义GPIO端口 */
 #define RCC_IRD		RCC_APB2Periph_GPIOC
@@ -371,20 +371,18 @@ loop1:
 				g_tIR.RxBuf[ch][0] = g_tIR.s_Byte[ch];
 				g_tIR.s_Byte[ch] = 0;
 				
-//				if(ch == IR_CH3)
-//					DEBUG("CH%d:%02X\r\n",ch+1,g_tIR.RxBuf[ch][0]);
 				/*更新辐射范围*/
 				if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_LEFT)
 				{
-					g_tIR.isRevFilter[ch][IR_TX_SITE_LEFT] = true;
+					g_tIR.isRev[ch][IR_TX_SITE_LEFT] = true;
 				}
 				else if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_CENTER)
 				{
-					g_tIR.isRevFilter[ch][IR_TX_SITE_CENTER] = true;
+					g_tIR.isRev[ch][IR_TX_SITE_CENTER] = true;
 				}
 				else if(g_tIR.RxBuf[ch][0] == IR_TX_CODE_RIGHT)
 				{
-					g_tIR.isRevFilter[ch][IR_TX_SITE_RIGHT] = true;
+					g_tIR.isRev[ch][IR_TX_SITE_RIGHT] = true;
 				}
 				
 				g_tIR.Status[ch] = 0;	/* 等待下一组编码 */

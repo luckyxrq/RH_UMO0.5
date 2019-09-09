@@ -152,24 +152,24 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_LedToggle(2);
 			bsp_LedToggle(3);
 			
-			bsp_PrintIR_Rev();
+//			bsp_PrintIR_Rev();
         }
 		
 		{
-//			static uint32_t tick = 0 ;
-//			Collision ret = bsp_CollisionScan();
-//			if(ret == CollisionLeft)
-//			{
-//				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
-//			}
-//			else if(ret == CollisionRight)
-//			{
-//				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
-//			}
-//			else if(ret == CollisionAll)
-//			{
-//				DEBUG("%06d两边==========\r\n",tick++);
-//			}
+			static uint32_t tick = 0 ;
+			Collision ret = bsp_CollisionScan();
+			if(ret == CollisionLeft)
+			{
+				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
+			}
+			else if(ret == CollisionRight)
+			{
+				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
+			}
+			else if(ret == CollisionAll)
+			{
+				DEBUG("%06d两边==========\r\n",tick++);
+			}
 		}
         
         
