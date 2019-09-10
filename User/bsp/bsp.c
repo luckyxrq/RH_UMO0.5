@@ -53,15 +53,10 @@ void bsp_Init(void)
 	bsp_DelayMS(500);
 	
 	
-	
-	
-	
+
 	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
 	
-	
-	
 	bsp_SwOn(SW_5V_EN_CTRL);
-	bsp_DelayMS(1000);
 	bsp_SwOn(SW_IR_POWER);
 	
 	
@@ -82,15 +77,15 @@ void bsp_Init(void)
 	bsp_InitRunControl();    /*初始化整机控制状态机*/
 	
 	bsp_InitIWDG();     /*初始化看门狗*/
-//	/* 初始化IO拓展芯片 */	
-//	do{
-//		ret = bsp_InitAW9523B();		
-//		if(!ret) 
-//		{
-//			WARNING("AW9523B Init Error\r\n");
-//			bsp_DelayMS(100);
-//		}
-//	}while(!ret);
+	/* 初始化IO拓展芯片 */	
+	do{
+		ret = bsp_InitAW9523B();		
+		if(!ret) 
+		{
+			WARNING("AW9523B Init Error\r\n");
+			bsp_DelayMS(100);
+		}
+	}while(!ret);
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
 	bsp_IRD_StartWork();

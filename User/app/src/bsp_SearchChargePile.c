@@ -1,20 +1,22 @@
 #include "bsp.h"
 
 #define STRAIGHT_SPEED_FAST      12
-#define STRAIGHT_SPEED_SLOW      4
+#define STRAIGHT_SPEED_SLOW      3
 
 #define TURN_RIGHT_SPEED_FAST_L  5
-#define TURN_RIGHT_SPEED_FAST_R  3
+#define TURN_RIGHT_SPEED_FAST_R  4
 
+//
 #define TURN_RIGHT_SPEED_SLOW_L  6
-#define TURN_RIGHT_SPEED_SLOW_R  3
+#define TURN_RIGHT_SPEED_SLOW_R  1
 
 
 #define TURN_LEFT_SPEED_FAST_L   3
 #define TURN_LEFT_SPEED_FAST_R   5
-                                 
-#define TURN_LEFT_SPEED_SLOW_L   3
-#define TURN_LEFT_SPEED_SLOW_R   5
+       
+//	   
+#define TURN_LEFT_SPEED_SLOW_L   1
+#define TURN_LEFT_SPEED_SLOW_R   6
 
 #define PIROUETTE_SPEED          4
 
@@ -157,9 +159,33 @@ void bsp_SearchChargePile(void)
 				bsp_SearchRunStraightSlow();
 			}
 			
+			
+			/*1号能收到2个 ,2号能收到左边*/
+			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+			{
+				bsp_SearchRunStraightSlow();
+			}
+			
+			/*2号能收到2个 ,1号能收到右边*/
+			else if(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+			{
+				bsp_SearchRunStraightSlow();
+			}
+			
+			
+			/*1，2号都能收到左边，都不能收到右边*/
+			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && 
+				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+			{
+				bsp_SearchTurnRightSlow();
+			}
+			/*1，2号都能收到右边，都不能收到左边*/
+			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && 
+				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+			{
+				bsp_SearchTurnLeftSlow();
+			}
 
-			
-			
 			
 			/*1号不能同时收到左右发射，2能同时收到左右发射*/
 			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
@@ -203,29 +229,8 @@ void bsp_SearchChargePile(void)
 					search.action = 1 ;
 				}
 			}
-			/*瞎撞的过程中撞到了*/
-			else if(search.collision == eNoSignalCollision)
-			{
-				if(xTaskGetTickCount() - search.delay >= 5000)
-				{
-					search.delay = xTaskGetTickCount();
-					bsp_PirouetteCW();
-					search.action = 3 ;
-				}
-			}
-			/*没有碰撞，回到上一段继续执行行走策略*/
 			else
 			{
-				search.action = 1 ;
-			}
-		}break;
-		
-		case 3: /*用于处理瞎撞撞到了，倒退后，再转一小段弯道*/
-		{
-			if(xTaskGetTickCount() - search.delay >= 5000)
-			{
-				search.collision = eNone;
-				bsp_SearchRunStraightSlow();
 				search.action = 1 ;
 			}
 		}break;
