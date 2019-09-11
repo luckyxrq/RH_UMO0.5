@@ -78,14 +78,14 @@ void bsp_Init(void)
 	
 	bsp_InitIWDG();     /*初始化看门狗*/
 	/* 初始化IO拓展芯片 */	
-//	do{
-//		ret = bsp_InitAW9523B();		
-//		if(!ret) 
-//		{
-//			WARNING("AW9523B Init Error\r\n");
-//			bsp_DelayMS(100);
-//		}
-//	}while(!ret);
+	do{
+		ret = bsp_InitAW9523B();		
+		if(!ret) 
+		{
+			WARNING("AW9523B Init Error\r\n");
+			bsp_DelayMS(100);
+		}
+	}while(!ret);
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
 	bsp_IRD_StartWork();

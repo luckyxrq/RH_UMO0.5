@@ -98,8 +98,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     bsp_AngleRst();
     
 	
-	bsp_SetMotorSpeed(MotorLeft, 2);
-	bsp_SetMotorSpeed(MotorRight,2);
+//	bsp_SetMotorSpeed(MotorLeft, 2);
+//	bsp_SetMotorSpeed(MotorRight,2);
 	
 //	bsp_MotorSetPWM(MotorLeft,Forward, 1300);
 //	bsp_MotorSetPWM(MotorRight,Forward,1300);
@@ -256,7 +256,7 @@ static void vTaskPerception(void *pvParameters)
 	/*开启寻找充电桩*/
 	//bsp_StartSearchChargePile();
 	/*开启沿边行走*/
-	//bsp_StartEdgewiseRun();
+	bsp_StartEdgewiseRun();
 	/*开启位置坐标更新*/
     bsp_StartUpdatePos();
     
