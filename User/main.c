@@ -98,8 +98,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     bsp_AngleRst();
     
 	
-//	bsp_SetMotorSpeed(MotorLeft, 2);
-//	bsp_SetMotorSpeed(MotorRight,2);
+	bsp_SetMotorSpeed(MotorLeft, 2);
+	bsp_SetMotorSpeed(MotorRight,2);
 	
 //	bsp_MotorSetPWM(MotorLeft,Forward, 1300);
 //	bsp_MotorSetPWM(MotorRight,Forward,1300);
@@ -192,8 +192,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //		}
         
 		
-		DEBUG("L:%d  ",bsp_EncoderGetTotalMileage(EncoderLeft));
-		DEBUG("R:%d\r\n",bsp_EncoderGetTotalMileage(EncoderRight));
+//		DEBUG("L:%d  ",bsp_EncoderGetTotalMileage(EncoderLeft));
+//		DEBUG("R:%d\r\n",bsp_EncoderGetTotalMileage(EncoderRight));
 		
         vTaskDelay(50);	
     }
@@ -254,7 +254,10 @@ static void vTaskPerception(void *pvParameters)
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
 	/*开启寻找充电桩*/
-	bsp_StartSearchChargePile();
+	//bsp_StartSearchChargePile();
+	/*开启沿边行走*/
+	//bsp_StartEdgewiseRun();
+	/*开启位置坐标更新*/
     bsp_StartUpdatePos();
     
     while(1)
@@ -271,6 +274,8 @@ static void vTaskPerception(void *pvParameters)
 #endif
         /*寻找充电桩*/
 		bsp_SearchChargePile();
+		/*沿边行走*/
+		bsp_EdgewiseRun();
         /*更新坐标*/
         bsp_PositionUpdate();
         
@@ -393,7 +398,7 @@ static void bsp_func(void)
     
 	/*解决变量定义未使用警告*/
     UNUSED(power_key_down_flag);
-    
+    UNUSED(bsp_func);
     //*****************************************************************************************************//	
     // 主循环
     //a 获取按键信息标志位

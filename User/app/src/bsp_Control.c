@@ -285,7 +285,7 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 	}
 		
 	/*计算PWM值，增量式PID*/
-	if(sn == MotorLeft && Target)
+	if(sn == MotorLeft && Target!=0)
 	{
 		if(pid[0].lastTarget == 0) /*从0速启动*/
 		{
@@ -304,11 +304,18 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 		/*限幅*/
 		pid[0].pwm = bsp_PwmLimit(pid[0].pwm);	
 		/*设置PWM*/
-		bsp_MotorSetPWM(MotorLeft,pid[0].pwm >0 ? Backward : Forward ,myabs(pid[0].pwm));
 		
-		//DEBUG("L pwm:%d\n",myabs(pid[0].pwm));
+		DEBUG("L Target:%d  Current:%d  PWM:%03d   ",Target,Encoder,pid[0].pwm);
+		
+		/*轮机卡死时会出现，重新开始PID*/
+		if(myabs(Encoder)-myabs(Target) >= 4)
+		{
+			bsp_PidClear(sn);;
+		}
+		
+		bsp_MotorSetPWM(MotorLeft,Target >0 ? Forward : Backward ,myabs(pid[0].pwm));
 	}
-	else if(sn == MotorRight && Target)
+	else if(sn == MotorRight && Target!=0)
 	{
 		if(pid[1].lastTarget == 0) /*从0速启动*/
 		{
@@ -327,9 +334,18 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 		/*限幅*/
 		pid[1].pwm = bsp_PwmLimit(pid[1].pwm);
 		/*设置PWM*/
-		bsp_MotorSetPWM(MotorRight,pid[1].pwm >0 ? Backward : Forward ,myabs(pid[1].pwm));
 		
-		//DEBUG("R pwm:%d\n",myabs(pid[1].pwm));
+		DEBUG("R Target:%d  Current:%d  PWM:%03d\r\n",Target,Encoder,pid[1].pwm);
+		
+		/*轮机卡死时会出现，重新开始PID*/
+		if(myabs(Encoder)-myabs(Target) >= 4)
+		{
+			bsp_PidClear(sn);;
+		}
+		
+		bsp_MotorSetPWM(MotorRight,Target >0 ? Forward : Backward ,myabs(pid[1].pwm));
+		
+		
 	}
 	
 }

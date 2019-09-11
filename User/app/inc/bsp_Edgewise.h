@@ -3,7 +3,7 @@
 
 void bsp_StartEdgewiseRun(void);
 void bsp_StopEdgewiseRun(void);
-void bsp_InitEdgewiseRun(void);
+void bsp_EdgewiseRun(void);
 
 #endif
 

@@ -22,18 +22,23 @@ Dialog DLL:      TARMSTM.DLL V1.64.0.0
  
 <h2>Project:</h2>
 F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\project.uvprojx
-Project File Date:  09/09/2019
+Project File Date:  09/11/2019
 
 <h2>Output:</h2>
 Build target 'Flash'
-compiling bsp_SearchChargePile.c...
+compiling bsp_Control.c...
+..\..\User\app\src\bsp_Control.c(308): warning:  #181-D: argument is incompatible with corresponding format string conversion
+                DEBUG("L Target:%d  Current:%d  PWM:%03d   ",Target,Encoder,pid[0].pwm);
+..\..\User\app\src\bsp_Control.c(338): warning:  #181-D: argument is incompatible with corresponding format string conversion
+                DEBUG("R Target:%d  Current:%d  PWM:%03d\r\n",Target,Encoder,pid[1].pwm);
+..\..\User\app\src\bsp_Control.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=32028 RO-data=660 RW-data=268 ZI-data=40900  
+Program Size: Code=32040 RO-data=656 RW-data=268 ZI-data=40908  
 FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 0 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE

@@ -1,28 +1,30 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      2
-#define STRAIGHT_SPEED_SLOW      1
+#define STRAIGHT_SPEED_FAST      3
+#define STRAIGHT_SPEED_SLOW      3
 
 #define TURN_RIGHT_SPEED_FAST_L  3
 #define TURN_RIGHT_SPEED_FAST_R  1
 
-#define TURN_RIGHT_SPEED_SLOW_L  2
-#define TURN_RIGHT_SPEED_SLOW_R  1
+//
+#define TURN_RIGHT_SPEED_SLOW_L  4
+#define TURN_RIGHT_SPEED_SLOW_R  2
 
 
 #define TURN_LEFT_SPEED_FAST_L   1
 #define TURN_LEFT_SPEED_FAST_R   3
-                                 
-#define TURN_LEFT_SPEED_SLOW_L   1
-#define TURN_LEFT_SPEED_SLOW_R   2
+                     
+//					 
+#define TURN_LEFT_SPEED_SLOW_L   2
+#define TURN_LEFT_SPEED_SLOW_R   4
 
 #define PIROUETTE_SPEED          1
 
-#define ROTATE_CW_SPEED_L        1
-#define ROTATE_CW_SPEED_R        -1
+#define ROTATE_CW_SPEED_L        2
+#define ROTATE_CW_SPEED_R        -2
 
-#define ROTATE_CCW_SPEED_L       -1
-#define ROTATE_CCW_SPEED_R       1
+#define ROTATE_CCW_SPEED_L       -2
+#define ROTATE_CCW_SPEED_R       2
 
 #define BACKWARD_SPEED           -6
 
@@ -101,7 +103,7 @@ void bsp_StopEdgewiseRun(void)
 *	·µ »Ø Öµ: ÎÞ
 *********************************************************************************************************
 */
-void bsp_InitEdgewiseRun(void)
+void bsp_EdgewiseRun(void)
 {
 	if(!edgewiseRun.isRunning)
 		return ;
