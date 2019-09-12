@@ -155,47 +155,55 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_LedToggle(2);
 			bsp_LedToggle(3);
 			
-			bsp_PrintIR_Rev();
+			//bsp_PrintIR_Rev();
         }
+
+#if 0		
+		{
+			static uint32_t tick = 0 ;
+			Collision ret = bsp_CollisionScan();
+			if(ret == CollisionLeft)
+			{
+				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
+			}
+			else if(ret == CollisionRight)
+			{
+				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
+			}
+			else if(ret == CollisionAll)
+			{
+				DEBUG("%06d两边==========\r\n",tick++);
+			}
+		}
+#endif
 		
-//		{
-//			static uint32_t tick = 0 ;
-//			Collision ret = bsp_CollisionScan();
-//			if(ret == CollisionLeft)
-//			{
-//				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
-//			}
-//			else if(ret == CollisionRight)
-//			{
-//				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
-//			}
-//			else if(ret == CollisionAll)
-//			{
-//				DEBUG("%06d两边==========\r\n",tick++);
-//			}
-//		}
-		
-//		while(0)
-//		{
-//			bsp_SetMotorSpeed(MotorLeft, 12);
-//			bsp_SetMotorSpeed(MotorRight,12);
-//			vTaskDelay(1500);
-//			bsp_SetMotorSpeed(MotorLeft, 6);
-//			bsp_SetMotorSpeed(MotorRight,6);
-//			vTaskDelay(1500);
-//			bsp_SetMotorSpeed(MotorLeft, -12);
-//			bsp_SetMotorSpeed(MotorRight,-12);
-//			vTaskDelay(1500); 
-//			bsp_SetMotorSpeed(MotorLeft, -6);
-//			bsp_SetMotorSpeed(MotorRight,-6);
-//			vTaskDelay(1500); 
-//		}
-        
-		
-//		DEBUG("L:%d  ",bsp_EncoderGetTotalMileage(EncoderLeft));
-//		DEBUG("R:%d\r\n",bsp_EncoderGetTotalMileage(EncoderRight));
+#if 0
+		while(0)
+		{
+			bsp_SetMotorSpeed(MotorLeft, 12);
+			bsp_SetMotorSpeed(MotorRight,12);
+			vTaskDelay(1500);
+			bsp_SetMotorSpeed(MotorLeft, 6);
+			bsp_SetMotorSpeed(MotorRight,6);
+			vTaskDelay(1500);
+			bsp_SetMotorSpeed(MotorLeft, -12);
+			bsp_SetMotorSpeed(MotorRight,-12);
+			vTaskDelay(1500); 
+			bsp_SetMotorSpeed(MotorLeft, -6);
+			bsp_SetMotorSpeed(MotorRight,-6);
+			vTaskDelay(1500); 
+		}
+#endif
+
+#if 0		
+		DEBUG("L:%d  ",bsp_EncoderGetTotalMileage(EncoderLeft));
+		DEBUG("R:%d\r\n",bsp_EncoderGetTotalMileage(EncoderRight));
+#endif
 		
         vTaskDelay(50);	
+		
+		
+		DEBUG("angle:%.2F\r\n",bsp_AngleRead());
     }
 }
 

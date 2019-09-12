@@ -38,7 +38,7 @@ typedef struct
 	uint32_t delay;
 	
 	uint32_t pulse;
-	
+	float angle;
 }EdgewiseRun;
 
 static EdgewiseRun edgewiseRun;
@@ -151,6 +151,8 @@ void bsp_EdgewiseRun(void)
 			if((xTaskGetTickCount() - edgewiseRun.delay >= 3000) || (bsp_GetCurrentBothPulse()-edgewiseRun.pulse)>=GO_BACK_PULSE)
 			{
 				bsp_RotateCCW();
+				/*获取角度和时间，转动固定角度，时间太久还没转到代表异常*/
+				edgewiseRun.angle = bsp_AngleRead();
 				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
