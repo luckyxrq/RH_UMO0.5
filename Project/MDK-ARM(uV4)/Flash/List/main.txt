@@ -5,24 +5,24 @@
                           AREA ||i.AppObjCreate||, CODE, READONLY, ALIGN=2
 
                   AppObjCreate PROC
-;;;320    */
-;;;321    static void AppObjCreate (void)
+;;;323    */
+;;;324    static void AppObjCreate (void)
 000000  b510              PUSH     {r4,lr}
-;;;322    {
-;;;323    	/* 创建互斥信号量 */
-;;;324        xMutex = xSemaphoreCreateMutex();
+;;;325    {
+;;;326    	/* 创建互斥信号量 */
+;;;327        xMutex = xSemaphoreCreateMutex();
 000002  2001              MOVS     r0,#1
 000004  f7fffffe          BL       xQueueCreateMutex
 000008  4901              LDR      r1,|L1.16|
 00000a  6008              STR      r0,[r1,#0]  ; xMutex
-;;;325    	
-;;;326    	if(xMutex == NULL)
-;;;327        {
-;;;328            /* 没有创建成功，用户可以在这里加入创建失败的处理机制 */
-;;;329        }
-;;;330    }
+;;;328    	
+;;;329    	if(xMutex == NULL)
+;;;330        {
+;;;331            /* 没有创建成功，用户可以在这里加入创建失败的处理机制 */
+;;;332        }
+;;;333    }
 00000c  bd10              POP      {r4,pc}
-;;;331    
+;;;334    
                           ENDP
 
 00000e  0000              DCW      0x0000
@@ -32,11 +32,11 @@
                           AREA ||i.AppTaskCreate||, CODE, READONLY, ALIGN=2
 
                   AppTaskCreate PROC
-;;;279    */
-;;;280    static void AppTaskCreate (void)
+;;;282    */
+;;;283    static void AppTaskCreate (void)
 000000  b51f              PUSH     {r0-r4,lr}
-;;;281    {
-;;;282        xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
+;;;284    {
+;;;285        xTaskCreate( vTaskTaskUserIF,   	/* 任务函数  */
 000002  2000              MOVS     r0,#0
 000004  4a1b              LDR      r2,|L2.116|
 000006  2301              MOVS     r3,#1
@@ -48,14 +48,14 @@
 000016  a118              ADR      r1,|L2.120|
 000018  481a              LDR      r0,|L2.132|
 00001a  f7fffffe          BL       xTaskGenericCreate
-;;;283                     "vTaskUserIF",     	/* 任务名    */
-;;;284                     1024,               	/* 任务栈大小，单位word，也就是4字节 */
-;;;285                     NULL,              	/* 任务参数  */
-;;;286                     1,                 	/* 任务优先级*/
-;;;287                     &xHandleTaskUserIF );  /* 任务句柄  */
-;;;288    	
-;;;289    	
-;;;290    	xTaskCreate( vTaskLED,    		/* 任务函数  */
+;;;286                     "vTaskUserIF",     	/* 任务名    */
+;;;287                     1024,               	/* 任务栈大小，单位word，也就是4字节 */
+;;;288                     NULL,              	/* 任务参数  */
+;;;289                     1,                 	/* 任务优先级*/
+;;;290                     &xHandleTaskUserIF );  /* 任务句柄  */
+;;;291    	
+;;;292    	
+;;;293    	xTaskCreate( vTaskLED,    		/* 任务函数  */
 00001e  2000              MOVS     r0,#0
 000020  4a19              LDR      r2,|L2.136|
 000022  2302              MOVS     r3,#2
@@ -67,13 +67,13 @@
 000032  a116              ADR      r1,|L2.140|
 000034  4818              LDR      r0,|L2.152|
 000036  f7fffffe          BL       xTaskGenericCreate
-;;;291                     "vTaskLED",  		/* 任务名    */
-;;;292                     1024,         		/* stack大小，单位word，也就是4字节 */
-;;;293                     NULL,        		/* 任务参数  */
-;;;294                     2,           		/* 任务优先级*/
-;;;295                     &xHandleTaskLED ); /* 任务句柄  */
-;;;296    	
-;;;297    	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
+;;;294                     "vTaskLED",  		/* 任务名    */
+;;;295                     1024,         		/* stack大小，单位word，也就是4字节 */
+;;;296                     NULL,        		/* 任务参数  */
+;;;297                     2,           		/* 任务优先级*/
+;;;298                     &xHandleTaskLED ); /* 任务句柄  */
+;;;299    	
+;;;300    	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
 00003a  2000              MOVS     r0,#0
 00003c  4a17              LDR      r2,|L2.156|
 00003e  2303              MOVS     r3,#3
@@ -85,14 +85,14 @@
 00004e  a114              ADR      r1,|L2.160|
 000050  4816              LDR      r0,|L2.172|
 000052  f7fffffe          BL       xTaskGenericCreate
-;;;298                     "vTaskMsgPro",   		/* 任务名    */
-;;;299                     1024,             		/* 任务栈大小，单位word，也就是4字节 */
-;;;300                     NULL,           		/* 任务参数  */
-;;;301                     3,               		/* 任务优先级*/
-;;;302                     &xHandleTaskMsgPro );  /* 任务句柄  */
-;;;303    	
-;;;304    	
-;;;305    	xTaskCreate( vTaskStart,     		/* 任务函数  */
+;;;301                     "vTaskMsgPro",   		/* 任务名    */
+;;;302                     1024,             		/* 任务栈大小，单位word，也就是4字节 */
+;;;303                     NULL,           		/* 任务参数  */
+;;;304                     3,               		/* 任务优先级*/
+;;;305                     &xHandleTaskMsgPro );  /* 任务句柄  */
+;;;306    	
+;;;307    	
+;;;308    	xTaskCreate( vTaskStart,     		/* 任务函数  */
 000056  2000              MOVS     r0,#0
 000058  4a15              LDR      r2,|L2.176|
 00005a  2304              MOVS     r3,#4
@@ -104,14 +104,14 @@
 00006a  a112              ADR      r1,|L2.180|
 00006c  4814              LDR      r0,|L2.192|
 00006e  f7fffffe          BL       xTaskGenericCreate
-;;;306                     "vTaskStart",   		/* 任务名    */
-;;;307                     1024,            		/* 任务栈大小，单位word，也就是4字节 */
-;;;308                     NULL,           		/* 任务参数  */
-;;;309                     4,              		/* 任务优先级*/
-;;;310                     &xHandleTaskStart );   /* 任务句柄  */
-;;;311    }
+;;;309                     "vTaskStart",   		/* 任务名    */
+;;;310                     1024,            		/* 任务栈大小，单位word，也就是4字节 */
+;;;311                     NULL,           		/* 任务参数  */
+;;;312                     4,              		/* 任务优先级*/
+;;;313                     &xHandleTaskStart );   /* 任务句柄  */
+;;;314    }
 000072  bd1f              POP      {r0-r4,pc}
-;;;312    
+;;;315    
                           ENDP
 
                   |L2.116|
@@ -157,57 +157,57 @@
                           REQUIRE _printf_s
                           REQUIRE _printf_str
                   App_Printf PROC
-;;;340    */
-;;;341    void  App_Printf(char *format, ...)
+;;;343    */
+;;;344    void  App_Printf(char *format, ...)
 000000  b40f              PUSH     {r0-r3}
-;;;342    {
+;;;345    {
 000002  b500              PUSH     {lr}
 000004  b0b5              SUB      sp,sp,#0xd4
-;;;343        char  buf_str[200 + 1];
-;;;344        va_list   v_args;
-;;;345    
-;;;346    
-;;;347        va_start(v_args, format);
+;;;346        char  buf_str[200 + 1];
+;;;347        va_list   v_args;
+;;;348    
+;;;349    
+;;;350        va_start(v_args, format);
 000006  a837              ADD      r0,sp,#0xdc
 000008  9001              STR      r0,[sp,#4]
-;;;348       (void)vsnprintf((char       *)&buf_str[0],
+;;;351       (void)vsnprintf((char       *)&buf_str[0],
 00000a  21c9              MOVS     r1,#0xc9
 00000c  a802              ADD      r0,sp,#8
 00000e  9b01              LDR      r3,[sp,#4]
 000010  9a36              LDR      r2,[sp,#0xd8]
 000012  f7fffffe          BL       __c89vsnprintf
-;;;349                       (size_t      ) sizeof(buf_str),
-;;;350                       (char const *) format,
-;;;351                                      v_args);
-;;;352        va_end(v_args);
+;;;352                       (size_t      ) sizeof(buf_str),
+;;;353                       (char const *) format,
+;;;354                                      v_args);
+;;;355        va_end(v_args);
 000016  2000              MOVS     r0,#0
 000018  9001              STR      r0,[sp,#4]
-;;;353    
-;;;354    	/* 互斥信号量 */
-;;;355    	xSemaphoreTake(xMutex, portMAX_DELAY);
+;;;356    
+;;;357    	/* 互斥信号量 */
+;;;358    	xSemaphoreTake(xMutex, portMAX_DELAY);
 00001a  2300              MOVS     r3,#0
 00001c  1e42              SUBS     r2,r0,#1
 00001e  4619              MOV      r1,r3
 000020  4808              LDR      r0,|L3.68|
 000022  6800              LDR      r0,[r0,#0]  ; xMutex
 000024  f7fffffe          BL       xQueueGenericReceive
-;;;356    
-;;;357        printf("%s", buf_str);
+;;;359    
+;;;360        printf("%s", buf_str);
 000028  a902              ADD      r1,sp,#8
 00002a  a007              ADR      r0,|L3.72|
 00002c  f7fffffe          BL       __2printf
-;;;358    
-;;;359       	xSemaphoreGive(xMutex);
+;;;361    
+;;;362       	xSemaphoreGive(xMutex);
 000030  2300              MOVS     r3,#0
 000032  461a              MOV      r2,r3
 000034  4619              MOV      r1,r3
 000036  4803              LDR      r0,|L3.68|
 000038  6800              LDR      r0,[r0,#0]  ; xMutex
 00003a  f7fffffe          BL       xQueueGenericSend
-;;;360    }
+;;;363    }
 00003e  b035              ADD      sp,sp,#0xd4
 000040  f85dfb14          LDR      pc,[sp],#0x14
-;;;361    
+;;;364    
                           ENDP
 
                   |L3.68|
@@ -273,15 +273,21 @@
                           ENDP
 
 
-                          AREA ||i.vTaskLED||, CODE, READONLY, ALIGN=1
+                          AREA ||i.vTaskLED||, CODE, READONLY, ALIGN=2
 
+                          REQUIRE _printf_pre_padding
+                          REQUIRE _printf_percent
+                          REQUIRE _printf_flags
+                          REQUIRE _printf_widthprec
+                          REQUIRE _printf_d
+                          REQUIRE _printf_int_dec
                   vTaskLED PROC
 ;;;154    */
 ;;;155    static void vTaskLED(void *pvParameters)
-000000  e00a              B        |L5.24|
+000000  e028              B        |L5.84|
                   |L5.2|
 ;;;156    {
-;;;157    	//static uint32_t index = 0 ;
+;;;157    	static uint32_t index = 0 ;
 ;;;158        while(1)
 ;;;159        {
 ;;;160    		
@@ -291,9 +297,19 @@
 000006  4604              MOV      r4,r0
 ;;;163    		
 ;;;164    		if(collision == CollisionLeft)
-000008  b114              CBZ      r4,|L5.16|
+000008  b94c              CBNZ     r4,|L5.30|
 ;;;165    		{
-;;;166    			//DEBUG("%06dLeft\r\n",index++);
+;;;166    			DEBUG("%06dLeft\r\n",index++);
+00000a  4813              LDR      r0,|L5.88|
+00000c  6801              LDR      r1,[r0,#0]  ; index
+00000e  6800              LDR      r0,[r0,#0]  ; index
+000010  1c40              ADDS     r0,r0,#1
+000012  4b11              LDR      r3,|L5.88|
+000014  6018              STR      r0,[r3,#0]  ; index
+000016  a011              ADR      r0,|L5.92|
+000018  f7fffffe          BL       __2printf
+00001c  e016              B        |L5.76|
+                  |L5.30|
 ;;;167    			
 ;;;168    //			bsp_SetMotorSpeed(MotorLeft,-5);
 ;;;169    //			bsp_SetMotorSpeed(MotorRight,-12);
@@ -302,10 +318,20 @@
 ;;;172    //			bsp_SetMotorSpeed(MotorRight,5);
 ;;;173    		}
 ;;;174    		else if(collision == CollisionRight)
-00000a  2c01              CMP      r4,#1
-00000c  d000              BEQ      |L5.16|
+00001e  2c01              CMP      r4,#1
+000020  d109              BNE      |L5.54|
 ;;;175    		{
-;;;176    			//DEBUG("%06dRight\r\n",index++);
+;;;176    			DEBUG("%06dRight\r\n",index++);
+000022  480d              LDR      r0,|L5.88|
+000024  6801              LDR      r1,[r0,#0]  ; index
+000026  6800              LDR      r0,[r0,#0]  ; index
+000028  1c40              ADDS     r0,r0,#1
+00002a  4b0b              LDR      r3,|L5.88|
+00002c  6018              STR      r0,[r3,#0]  ; index
+00002e  a00e              ADR      r0,|L5.104|
+000030  f7fffffe          BL       __2printf
+000034  e00a              B        |L5.76|
+                  |L5.54|
 ;;;177    			
 ;;;178    //			bsp_SetMotorSpeed(MotorLeft,-12);
 ;;;179    //			bsp_SetMotorSpeed(MotorRight,-5);
@@ -314,10 +340,19 @@
 ;;;182    //			bsp_SetMotorSpeed(MotorRight,5);
 ;;;183    		}
 ;;;184    		else if(collision == CollisionAll)
-00000e  bf00              NOP      
-                  |L5.16|
+000036  2c02              CMP      r4,#2
+000038  d108              BNE      |L5.76|
 ;;;185    		{
-;;;186    			//DEBUG("%06dBoth\r\n",index++);
+;;;186    			DEBUG("%06dBoth\r\n",index++);
+00003a  4807              LDR      r0,|L5.88|
+00003c  6801              LDR      r1,[r0,#0]  ; index
+00003e  6800              LDR      r0,[r0,#0]  ; index
+000040  1c40              ADDS     r0,r0,#1
+000042  4b05              LDR      r3,|L5.88|
+000044  6018              STR      r0,[r3,#0]  ; index
+000046  a00b              ADR      r0,|L5.116|
+000048  f7fffffe          BL       __2printf
+                  |L5.76|
 ;;;187    			
 ;;;188    //			bsp_SetMotorSpeed(MotorLeft,-12);
 ;;;189    //			bsp_SetMotorSpeed(MotorRight,-12);
@@ -330,100 +365,120 @@
 ;;;196    		//bsp_ScopeSend();
 ;;;197    		
 ;;;198    		vTaskDelay(50);
-000010  2032              MOVS     r0,#0x32
-000012  f7fffffe          BL       vTaskDelay
-;;;199        }
-000016  bf00              NOP      
-                  |L5.24|
-000018  e7f3              B        |L5.2|
-;;;200    }
-;;;201    
+00004c  2032              MOVS     r0,#0x32
+00004e  f7fffffe          BL       vTaskDelay
+;;;199    		
+;;;200    		
+;;;201    		//DEBUG("angle:%.2F\r\n",bsp_AngleRead());
+;;;202        }
+000052  bf00              NOP      
+                  |L5.84|
+000054  e7d5              B        |L5.2|
+;;;203    }
+;;;204    
                           ENDP
 
+000056  0000              DCW      0x0000
+                  |L5.88|
+                          DCD      index
+                  |L5.92|
+00005c  25303664          DCB      "%06dLeft\r\n",0
+000060  4c656674
+000064  0d0a00  
+000067  00                DCB      0
+                  |L5.104|
+000068  25303664          DCB      "%06dRight\r\n",0
+00006c  52696768
+000070  740d0a00
+                  |L5.116|
+000074  25303664          DCB      "%06dBoth\r\n",0
+000078  426f7468
+00007c  0d0a00  
+00007f  00                DCB      0
 
                           AREA ||i.vTaskMsgPro||, CODE, READONLY, ALIGN=1
 
                   vTaskMsgPro PROC
-;;;210    */
-;;;211    static void vTaskMsgPro(void *pvParameters)
+;;;213    */
+;;;214    static void vTaskMsgPro(void *pvParameters)
 000000  e008              B        |L6.20|
                   |L6.2|
-;;;212    {
-;;;213        while(1)
-;;;214        {
-;;;215    		//bsp_SendReportFrame();
-;;;216    		//bsp_PrintRemoteState();
-;;;217    		
-;;;218    		bsp_IWDG_Feed(); /* 喂狗 */
+;;;215    {
+;;;216        while(1)
+;;;217        {
+;;;218    		//bsp_SendReportFrame();
+;;;219    		//bsp_PrintRemoteState();
+;;;220    		
+;;;221    		bsp_IWDG_Feed(); /* 喂狗 */
 000002  f7fffffe          BL       bsp_IWDG_Feed
-;;;219    		
-;;;220    		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
+;;;222    		
+;;;223    		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 000006  f7fffffe          BL       bsp_PidSched
-;;;221    		
-;;;222    //		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
-;;;223    //		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 ;;;224    		
-;;;225    		bsp_ComAnalysis();
+;;;225    //		DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
+;;;226    //		DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
+;;;227    		
+;;;228    		bsp_ComAnalysis();
 00000a  f7fffffe          BL       bsp_ComAnalysis
-;;;226    		vTaskDelay(10);
+;;;229    		vTaskDelay(10);
 00000e  200a              MOVS     r0,#0xa
 000010  f7fffffe          BL       vTaskDelay
                   |L6.20|
 000014  e7f5              B        |L6.2|
-;;;227        }
-;;;228    }
-;;;229    
+;;;230        }
+;;;231    }
+;;;232    
                           ENDP
 
 
                           AREA ||i.vTaskStart||, CODE, READONLY, ALIGN=1
 
                   vTaskStart PROC
-;;;238    */
-;;;239    static void vTaskStart(void *pvParameters)
+;;;241    */
+;;;242    static void vTaskStart(void *pvParameters)
 000000  f7fffffe          BL       bsp_DetectStart
-;;;240    {
-;;;241    	/*开启红外对管轮询扫描*/
-;;;242    	bsp_DetectStart(); 
-;;;243    //	/*开启寻找充电桩*/
-;;;244    //	bsp_StartSearchChargingPile();
-;;;245    	bsp_StartUpdatePos();
+;;;243    {
+;;;244    	/*开启红外对管轮询扫描*/
+;;;245    	bsp_DetectStart(); 
+;;;246    //	/*开启寻找充电桩*/
+;;;247    //	bsp_StartSearchChargingPile();
+;;;248    	bsp_StartUpdatePos();
 000004  f7fffffe          BL       bsp_StartUpdatePos
-;;;246    	
-;;;247        while(1)
+;;;249    	
+;;;250        while(1)
 000008  e008              B        |L7.28|
                   |L7.10|
-;;;248        {
-;;;249    		bsp_DetectAct();  /*红外对管轮询扫描*/
+;;;251        {
+;;;252    		bsp_DetectAct();  /*红外对管轮询扫描*/
 00000a  f7fffffe          BL       bsp_DetectAct
-;;;250    		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+;;;253    		bsp_DetectDeal(); /*红外对管扫描结果处理*/
 00000e  f7fffffe          BL       bsp_DetectDeal
-;;;251    //		bsp_EdgewiseAct();/*沿边*/
-;;;252    //		
-;;;253    //		/*四个红外接收管*/
-;;;254    //		bsp_GetCapCnt(CapCH1);
-;;;255    //		bsp_GetCapCnt(CapCH2);
-;;;256    //		bsp_GetCapCnt(CapCH3);
-;;;257    //		bsp_GetCapCnt(CapCH4);
-;;;258    //		
-;;;259    //		/*寻找充电桩*/
-;;;260    //		bsp_SearchChargingPileAct();
-;;;261    		/*更新坐标*/
-;;;262    		bsp_PositionUpdate();
+;;;254    //		bsp_EdgewiseAct();/*沿边*/
+;;;255    //		
+;;;256    //		/*四个红外接收管*/
+;;;257    //		bsp_GetCapCnt(CapCH1);
+;;;258    //		bsp_GetCapCnt(CapCH2);
+;;;259    //		bsp_GetCapCnt(CapCH3);
+;;;260    //		bsp_GetCapCnt(CapCH4);
+;;;261    //		
+;;;262    //		/*寻找充电桩*/
+;;;263    //		bsp_SearchChargingPileAct();
+;;;264    		/*更新坐标*/
+;;;265    		bsp_PositionUpdate();
 000012  f7fffffe          BL       bsp_PositionUpdate
-;;;263    		
-;;;264            vTaskDelay(1);
+;;;266    		
+;;;267            vTaskDelay(1);
 000016  2001              MOVS     r0,#1
 000018  f7fffffe          BL       vTaskDelay
                   |L7.28|
 00001c  e7f5              B        |L7.10|
-;;;265    		
-;;;266    //		bsp_KeyScan();
-;;;267    		  
 ;;;268    		
-;;;269        }
-;;;270    }
-;;;271    				
+;;;269    //		bsp_KeyScan();
+;;;270    		  
+;;;271    		
+;;;272        }
+;;;273    }
+;;;274    				
                           ENDP
 
 
@@ -512,6 +567,8 @@
                   xHandleTaskStart
                           DCD      0x00000000
                   xMutex
+                          DCD      0x00000000
+                  index
                           DCD      0x00000000
 
 ;*** Start embedded assembler ***
