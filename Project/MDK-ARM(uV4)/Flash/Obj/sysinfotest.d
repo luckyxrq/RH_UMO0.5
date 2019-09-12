@@ -79,3 +79,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_SearchChargePile.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h

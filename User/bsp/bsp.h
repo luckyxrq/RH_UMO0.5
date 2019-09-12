@@ -199,7 +199,7 @@
 #include "bsp_speaker.h"
 #include "bsp_RunControl.h"
 #include "bsp_SearchChargePile.h"
-
+#include "bsp_assistJudgeDirection.h"
 
 
 /* 提供给其他C文件调用的函数 */

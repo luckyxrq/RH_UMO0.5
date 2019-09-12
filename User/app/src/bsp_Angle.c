@@ -223,7 +223,9 @@ static bool bsp_AngleCheck(void)
 static void bsp_AngleAnalyzeApp(void)
 {	
 	int16_t ret = angle.buf[5] << 8 | angle.buf[4];
+	#if 0 /*根据装配决定是否改变符号，逆时针转动角度为正*/
 	ret = -ret ;
+	#endif
 	angle.angle = ret / 100.0F;
 	angle.angleRaw = ret;
 }
@@ -240,38 +242,18 @@ static void bsp_AngleAnalyzeApp(void)
 */
 float bsp_AngleAdd(float angle1 , float angle2)
 {
-	float ret = 0.0F;
-	
-	ret = angle1 + angle2;
-	
-	if(angle1>=0.0F)
-	{
-		if(ret >= 0.0F && ret <= 180.0F)
-		{
-			return ret ;
-		}
-		else if(ret > 180.0F)
-		{
-			return -(180 - (ret-180.0F));
-		}
-		else
-		{
-			return ret ;
-		}
-	}
-	else
-	{
-		if(ret < 0.0F && ret > -180.0F)
-		{
-			return ret ;
-		}
-		else if(ret < -180.0F)
-		{
-			return (180-(-ret-180));
-		}
-		else
-		{
-			return ret ;
-		}
-	}
+	float angle;
+    
+	angle = angle1 + angle2;
+    
+    if(angle >= 180)
+    {
+        angle = -180 + (angle - 180);
+    }
+    else if(angle <= -180)
+    {
+        angle = 180 - (-180 - angle);
+    }
+    
+    return angle;
 }

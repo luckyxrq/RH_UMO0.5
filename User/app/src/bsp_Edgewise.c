@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      3
+#define STRAIGHT_SPEED_FAST      12
 #define STRAIGHT_SPEED_SLOW      12
 
 #define TURN_RIGHT_SPEED_FAST_L  3
@@ -15,21 +15,22 @@
 #define TURN_LEFT_SPEED_FAST_R   3
                      
 //					 
-#define TURN_LEFT_SPEED_SLOW_L   10
-#define TURN_LEFT_SPEED_SLOW_R   12
-
-#define PIROUETTE_SPEED          1
-
-#define ROTATE_CW_SPEED_L        2
-#define ROTATE_CW_SPEED_R        -2
-
-#define ROTATE_CCW_SPEED_L       -2
-#define ROTATE_CCW_SPEED_R       2
-
-#define BACKWARD_SPEED           -6
-
-/*轮子后退20MM，脉冲数*/
-#define GO_BACK_PULSE            (20/(3.14F*70)*1024)
+#define TURN_LEFT_SPEED_SLOW_L         10
+#define TURN_LEFT_SPEED_SLOW_R         12
+                                       
+#define PIROUETTE_SPEED                1
+                                       
+#define ROTATE_CW_SPEED_L              2
+#define ROTATE_CW_SPEED_R              -2
+                                       
+#define ROTATE_CCW_SPEED_L             -2
+#define ROTATE_CCW_SPEED_R             2
+                                       
+#define BACKWARD_SPEED                 -12
+                                       
+/*轮子后退20MM，脉冲数*/               
+#define GO_BACK_PULSE                  (30/(3.14F*70)*1024)
+#define COLLISION_STEERING_ANGLE       60.0F
 
 typedef struct
 {
@@ -54,6 +55,7 @@ static void bsp_RotateCW(void)               ;
 static void bsp_RotateCCW(void)              ;
 static void bsp_GoBackward(void)             ;
 static uint32_t bsp_GetCurrentBothPulse(void);
+static float myabs(float val)                ;
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_StartEdgewiseRun
@@ -115,7 +117,7 @@ void bsp_EdgewiseRun(void)
 	{
 		case 0:/*进入沿边模式，首先直走*/
 		{
-			bsp_EdgewiseRunStraightSlow();
+			bsp_EdgewiseRunStraightFast();
 			edgewiseRun.action++;
 		}break;
 		
@@ -160,7 +162,8 @@ void bsp_EdgewiseRun(void)
 		
 		case 3:/*旋转一会儿，继续直行，回到状态1*/
 		{
-			if(xTaskGetTickCount() - edgewiseRun.delay >= 1000)
+			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,COLLISION_STEERING_ANGLE) - (bsp_AngleRead())) <= 5.0F || 
+				bsp_GetInfraredVoltageRight() >= 2.5F)
 			{
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.action = 1;
@@ -171,6 +174,9 @@ void bsp_EdgewiseRun(void)
 		
 	}
 }
+
+
+    
 
 
 /*
@@ -362,5 +368,14 @@ static uint32_t bsp_GetCurrentBothPulse(void)
 }
 
 
+static float myabs(float val)
+{
+	if(val < 0)
+	{
+		val = - val;
+	}
+	
+	return val;
+}
 
 

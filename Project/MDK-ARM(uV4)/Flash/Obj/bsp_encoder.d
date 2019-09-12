@@ -79,3 +79,4 @@
 .\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_SearchChargePile.h
+.\flash\obj\bsp_encoder.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
