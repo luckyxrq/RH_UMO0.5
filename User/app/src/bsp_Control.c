@@ -305,7 +305,7 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 		pid[0].pwm = bsp_PwmLimit(pid[0].pwm);	
 		/*设置PWM*/
 		
-		DEBUG("L Target:%d  Current:%d  PWM:%03d   ",Target,Encoder,pid[0].pwm);
+		//DEBUG("L Target:%d  Current:%d  PWM:%03d   ",Target,Encoder,pid[0].pwm);
 		
 		/*轮机卡死时会出现，重新开始PID*/
 		if(myabs(Encoder)-myabs(Target) >= 4)
@@ -335,7 +335,7 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 		pid[1].pwm = bsp_PwmLimit(pid[1].pwm);
 		/*设置PWM*/
 		
-		DEBUG("R Target:%d  Current:%d  PWM:%03d\r\n",Target,Encoder,pid[1].pwm);
+		//DEBUG("R Target:%d  Current:%d  PWM:%03d\r\n",Target,Encoder,pid[1].pwm);
 		
 		/*轮机卡死时会出现，重新开始PID*/
 		if(myabs(Encoder)-myabs(Target) >= 4)

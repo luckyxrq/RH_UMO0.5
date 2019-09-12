@@ -1,22 +1,22 @@
 #include "bsp.h"
 
 #define STRAIGHT_SPEED_FAST      3
-#define STRAIGHT_SPEED_SLOW      3
+#define STRAIGHT_SPEED_SLOW      12
 
 #define TURN_RIGHT_SPEED_FAST_L  3
 #define TURN_RIGHT_SPEED_FAST_R  1
 
 //
-#define TURN_RIGHT_SPEED_SLOW_L  4
-#define TURN_RIGHT_SPEED_SLOW_R  2
+#define TURN_RIGHT_SPEED_SLOW_L  12
+#define TURN_RIGHT_SPEED_SLOW_R  10
 
 
 #define TURN_LEFT_SPEED_FAST_L   1
 #define TURN_LEFT_SPEED_FAST_R   3
                      
 //					 
-#define TURN_LEFT_SPEED_SLOW_L   2
-#define TURN_LEFT_SPEED_SLOW_R   4
+#define TURN_LEFT_SPEED_SLOW_L   10
+#define TURN_LEFT_SPEED_SLOW_R   12
 
 #define PIROUETTE_SPEED          1
 
@@ -28,6 +28,8 @@
 
 #define BACKWARD_SPEED           -6
 
+/*轮子后退20MM，脉冲数*/
+#define GO_BACK_PULSE            (20/(3.14F*70)*1024)
 
 typedef struct
 {
@@ -35,6 +37,7 @@ typedef struct
 	uint32_t action;
 	uint32_t delay;
 	
+	uint32_t pulse;
 	
 }EdgewiseRun;
 
@@ -124,6 +127,8 @@ void bsp_EdgewiseRun(void)
 			if(ret != CollisionNone)
 			{
 				bsp_GoBackward();
+				/*记录下当前的脉冲，用于退后指定脉冲数（距离），同时记录下当前时间，放置退了很久还没知道*/
+//				edgewiseRun.pulse = ;
 				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
@@ -143,12 +148,12 @@ void bsp_EdgewiseRun(void)
 		
 		case 2:/*后退完了再原地旋转，左右都动*/
 		{
-			if(xTaskGetTickCount() - edgewiseRun.delay >= 800)
-			{
-				bsp_RotateCCW();
-				edgewiseRun.delay = xTaskGetTickCount();
-				edgewiseRun.action++;
-			}
+//			if((xTaskGetTickCount() - edgewiseRun.delay >= 3000) || )
+//			{
+//				bsp_RotateCCW();
+//				edgewiseRun.delay = xTaskGetTickCount();
+//				edgewiseRun.action++;
+//			}
 		}break;
 		
 		case 3:/*旋转一会儿，继续直行，回到状态1*/
@@ -320,3 +325,40 @@ static void bsp_RotateCCW(void)
 	bsp_SetMotorSpeed(MotorLeft, ROTATE_CCW_SPEED_L);
 	bsp_SetMotorSpeed(MotorRight,ROTATE_CCW_SPEED_R);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///*
+//*********************************************************************************************************
+//*	函 数 名: bsp_bsp_GoBackwardMM
+//*	功能说明: 后退
+//*	形    参: 无
+//*	返 回 值: 无
+//*********************************************************************************************************
+//*/
+//uint32_t bsp_bsp_GoBackwardMM(uint32_t mm)
+//{
+//	uint32_t pulse;
+//	
+//	pulse = (bsp_EncoderGetTotalMileage(EncoderLeft) + bsp_EncoderGetTotalMileage(EncoderRight))/2.0F
+//	
+//	return pulse;
+//}
+
+
+
+
