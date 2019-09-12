@@ -39152,7 +39152,7 @@ N		sampleIndex[sn] = 0 ;
 N	}
 N		
 N	/*计算PWM值，增量式PID*/
-N	if(sn == MotorLeft)
+N	if(sn == MotorLeft && Target!=0)
 N	{
 N		if(pid[0].lastTarget == 0) /*从0速启动*/
 N		{
@@ -39173,7 +39173,7 @@ N		pid[0].pwm = bsp_PwmLimit(pid[0].pwm);
 N		/*设置PWM*/
 N		bsp_MotorSetPWM(MotorLeft,pid[0].pwm >0 ? Backward : Forward ,myabs(pid[0].pwm));
 N	}
-N	else if(sn == MotorRight)
+N	else if(sn == MotorRight && Target!=0)
 N	{
 N		if(pid[1].lastTarget == 0) /*从0速启动*/
 N		{
