@@ -256,7 +256,7 @@ static void vTaskPerception(void *pvParameters)
 	/*开启寻找充电桩*/
 	//bsp_StartSearchChargePile();
 	/*开启沿边行走*/
-	//bsp_StartEdgewiseRun();
+	bsp_StartEdgewiseRun();
 	/*开启位置坐标更新*/
     bsp_StartUpdatePos();
     

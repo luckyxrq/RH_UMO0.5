@@ -53,7 +53,7 @@ static void bsp_PirouetteCCW(void)           ;
 static void bsp_RotateCW(void)               ;
 static void bsp_RotateCCW(void)              ;
 static void bsp_GoBackward(void)             ;
-
+static uint32_t bsp_GetCurrentBothPulse(void);
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_StartEdgewiseRun
@@ -128,7 +128,7 @@ void bsp_EdgewiseRun(void)
 			{
 				bsp_GoBackward();
 				/*记录下当前的脉冲，用于退后指定脉冲数（距离），同时记录下当前时间，放置退了很久还没知道*/
-//				edgewiseRun.pulse = ;
+				edgewiseRun.pulse = bsp_GetCurrentBothPulse();
 				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
@@ -148,17 +148,17 @@ void bsp_EdgewiseRun(void)
 		
 		case 2:/*后退完了再原地旋转，左右都动*/
 		{
-//			if((xTaskGetTickCount() - edgewiseRun.delay >= 3000) || )
-//			{
-//				bsp_RotateCCW();
-//				edgewiseRun.delay = xTaskGetTickCount();
-//				edgewiseRun.action++;
-//			}
+			if((xTaskGetTickCount() - edgewiseRun.delay >= 3000) || (bsp_GetCurrentBothPulse()-edgewiseRun.pulse)>=GO_BACK_PULSE)
+			{
+				bsp_RotateCCW();
+				edgewiseRun.delay = xTaskGetTickCount();
+				edgewiseRun.action++;
+			}
 		}break;
 		
 		case 3:/*旋转一会儿，继续直行，回到状态1*/
 		{
-			if(xTaskGetTickCount() - edgewiseRun.delay >= 800)
+			if(xTaskGetTickCount() - edgewiseRun.delay >= 1000)
 			{
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.action = 1;
@@ -342,22 +342,22 @@ static void bsp_RotateCCW(void)
 
 
 
-///*
-//*********************************************************************************************************
-//*	函 数 名: bsp_bsp_GoBackwardMM
-//*	功能说明: 后退
-//*	形    参: 无
-//*	返 回 值: 无
-//*********************************************************************************************************
-//*/
-//uint32_t bsp_bsp_GoBackwardMM(uint32_t mm)
-//{
-//	uint32_t pulse;
-//	
-//	pulse = (bsp_EncoderGetTotalMileage(EncoderLeft) + bsp_EncoderGetTotalMileage(EncoderRight))/2.0F
-//	
-//	return pulse;
-//}
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetCurrentBothPulse
+*	功能说明: 获取整体脉冲
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static uint32_t bsp_GetCurrentBothPulse(void)
+{
+	uint32_t pulse;
+	
+	pulse = (bsp_EncoderGetTotalMileage(EncoderLeft) + bsp_EncoderGetTotalMileage(EncoderRight))/2.0F;
+	
+	return pulse;
+}
 
 
 
