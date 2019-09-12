@@ -88,3 +88,39 @@ void bsp_AssistJudgeDirection(void)
 	}
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_AssistIsFaceObstacles
+*	功能说明: 协助判断是否是前面碰撞。
+*	形    参: 无
+*	返 回 值: 无
+*   优 先 级: 4  
+*********************************************************************************************************
+*/
+bool bsp_AssistIsFaceObstacles(void)
+{
+	uint8_t trueCount = 0 ;
+	uint8_t i = 0 ;
+	bool ret;
+	
+	for(i=0;i<HISTORICAL_RECORD_COUNT;i++)
+	{
+		if(assistJudgeDirection.historyRemote[i] == true)
+		{
+			trueCount++;
+		}
+	}
+	
+	if(trueCount >= HISTORICAL_RECORD_COUNT / 3.0F)
+	{
+		ret = true;
+	}
+	else
+	{
+		ret = false;
+	}
+	
+	return ret;
+	
+}
+
