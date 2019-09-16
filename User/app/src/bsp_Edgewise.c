@@ -187,15 +187,12 @@ void bsp_EdgewiseRun(void)
 		
 		case 3:/*旋转一会儿，继续直行，回到状态1*/
 		{
-			/*右面碰撞，转45度*/
-			if(edgewiseRun.collision != CollisionNone)
+			float val = bsp_GetInfraredVoltageRight();
+			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,50) - (bsp_AngleRead())) <= 2.0F ||
+				(val>=1.2F && val<=2.5F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=20.0F ))
 			{
-				float val = bsp_GetInfraredVoltageRight();
-				if(myabs(bsp_AngleAdd(edgewiseRun.angle ,45) - (bsp_AngleRead())) <= 5.0F || (val>=1.2F && val<=2.5F))
-				{
-					bsp_EdgewiseRunStraightSlow();
-					edgewiseRun.action = 1;
-				}
+				bsp_EdgewiseRunStraightSlow();
+				edgewiseRun.action = 1;
 			}
 
 		}break;
@@ -375,20 +372,6 @@ static void bsp_RotateCCW(void)
 	bsp_SetMotorSpeed(MotorLeft, ROTATE_CCW_SPEED_L);
 	bsp_SetMotorSpeed(MotorRight,ROTATE_CCW_SPEED_R);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

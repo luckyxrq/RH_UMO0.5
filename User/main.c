@@ -202,8 +202,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		
         vTaskDelay(50);	
 		
-//		
-//		DEBUG("angle:%.2F\r\n",bsp_AngleRead());
+		
+		DEBUG("angle:%.2F\r\n",bsp_AngleRead());
     }
 }
 
@@ -271,7 +271,7 @@ static void vTaskPerception(void *pvParameters)
 	bsp_StartAssistJudgeDirection();
 	
 	
-	//vTaskDelay(5000);
+	vTaskDelay(5000);
 	
     while(1)
     {
