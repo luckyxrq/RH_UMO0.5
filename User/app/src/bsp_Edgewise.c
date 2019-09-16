@@ -1,22 +1,22 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      6
-#define STRAIGHT_SPEED_SLOW      6
+#define STRAIGHT_SPEED_FAST      10
+#define STRAIGHT_SPEED_SLOW      10
 
 #define TURN_RIGHT_SPEED_FAST_L  3
 #define TURN_RIGHT_SPEED_FAST_R  1
 
 //
-#define TURN_RIGHT_SPEED_SLOW_L  6
-#define TURN_RIGHT_SPEED_SLOW_R  4
+#define TURN_RIGHT_SPEED_SLOW_L  10
+#define TURN_RIGHT_SPEED_SLOW_R  8
 
 
 #define TURN_LEFT_SPEED_FAST_L   1
 #define TURN_LEFT_SPEED_FAST_R   3
                      
 //					 
-#define TURN_LEFT_SPEED_SLOW_L         4
-#define TURN_LEFT_SPEED_SLOW_R         6
+#define TURN_LEFT_SPEED_SLOW_L         8
+#define TURN_LEFT_SPEED_SLOW_R         10
                                        
 #define PIROUETTE_SPEED                6
                                        
@@ -145,25 +145,25 @@ void bsp_EdgewiseRun(void)
 				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
-			else if(vol >= 1.2F && vol <=2.5F )
+			else if(vol >= 2.0F && vol <=2.6F )
 			{
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.possibleEnd = 0 ;
 			}
 			/*向右靠近的过程中还需要检测靠近的时间，如果靠近了很久还是没能找到电压值，那么就是走到了尽头*/
-			else if(vol < 1.2F)
+			else if(vol < 2.0F)
 			{
 				bsp_EdgewiseTurnRightSlow();
 				if(vol < 0.2F)
 				{
-					if(edgewiseRun.possibleEnd++ >= 2000)
+					if(edgewiseRun.possibleEnd++ >= 500)
 					{
 						edgewiseRun.possibleEnd = 0 ;
 						edgewiseRun.action = 4 ;
 					}
 				}
 			}
-			else if(vol > 2.5F)
+			else if(vol > 2.6F)
 			{
 				bsp_EdgewiseTurnLeftSlow();
 				edgewiseRun.possibleEnd = 0 ;
