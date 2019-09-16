@@ -50,6 +50,7 @@ void bsp_InitCollision(void)
 */
 Collision bsp_CollisionScan(void)
 {
+#if 0 /*没有红外协助的碰撞*/
 	uint8_t ret = 0 ;
 	
 	/* 左边撞上了 */
@@ -87,6 +88,38 @@ Collision bsp_CollisionScan(void)
 		return CollisionNone;
 	}
 	
+#else /*有红外协助的碰撞*/
+	
+	Collision ret;
+	
+	if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,GPIO_PIN_LEFT) && GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,GPIO_PIN_RIGHT))
+	{
+		ret = CollisionAll;
+	}
+	else if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,GPIO_PIN_LEFT) && bsp_AssistIsFaceObstacles())
+	{
+		ret = CollisionAll;
+	}
+	else if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,GPIO_PIN_RIGHT) && bsp_AssistIsFaceObstacles())
+	{
+		ret = CollisionAll;
+	}
+	else if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,GPIO_PIN_LEFT))
+	{
+		ret = CollisionLeft;
+	}
+	else if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,GPIO_PIN_RIGHT))
+	{
+		ret = CollisionRight;
+	}
+	else
+	{
+		ret = CollisionNone;
+	}
+	
+	return ret;
+	
+#endif
 }
 
 /*

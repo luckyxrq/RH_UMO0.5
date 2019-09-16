@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-#define HISTORICAL_RECORD_COUNT      10
+#define HISTORICAL_RECORD_COUNT      20
 #define THRESHOLD_OBSTACLE           1.0F
 
 typedef struct
@@ -70,7 +70,7 @@ void bsp_AssistJudgeDirection(void)
 		return;
 	
 	/*前面红外的状态*/
-	if(bsp_GetInfraRedAdcVoltage(IR2) >= THRESHOLD_OBSTACLE || bsp_GetInfraRedAdcVoltage(IR3) >= THRESHOLD_OBSTACLE || bsp_GetInfraRedAdcVoltage(IR4) >= THRESHOLD_OBSTACLE)
+	if(bsp_GetInfraRedAdcVoltage(IR3) >= THRESHOLD_OBSTACLE)
 	{
 		assistJudgeDirection.historyRemote[assistJudgeDirection.historyIndex] = true;
 	}
@@ -111,7 +111,7 @@ bool bsp_AssistIsFaceObstacles(void)
 		}
 	}
 	
-	if(trueCount >= HISTORICAL_RECORD_COUNT / 3.0F)
+	if(trueCount >= 2)
 	{
 		ret = true;
 	}

@@ -158,7 +158,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			//bsp_PrintIR_Rev();
         }
 
-#if 1		
+#if 0		
 		{
 			static uint32_t tick = 0 ;
 			Collision ret = bsp_CollisionScan();
@@ -267,16 +267,18 @@ static void vTaskPerception(void *pvParameters)
 	bsp_StartEdgewiseRun();
 	/*开启位置坐标更新*/
     bsp_StartUpdatePos();
-    
+    /*开启正面碰撞协助*/
+	bsp_StartAssistJudgeDirection();
 	
 	
-	vTaskDelay(5000);
+	//vTaskDelay(5000);
 	
     while(1)
     {
         bsp_DetectAct();  /*红外对管轮询扫描*/
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
         
+		
         /*四个红外接收管*/
 #if 0 
         bsp_GetCapCnt(CapCH1);
@@ -294,6 +296,7 @@ static void vTaskPerception(void *pvParameters)
 		if(count++ % 10 == 0)
 		{
 			bsp_KeyScan();
+			bsp_AssistJudgeDirection();
 		}
 
         vTaskDelay(1);	

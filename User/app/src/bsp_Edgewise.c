@@ -1,22 +1,22 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      12
-#define STRAIGHT_SPEED_SLOW      12
+#define STRAIGHT_SPEED_FAST      6
+#define STRAIGHT_SPEED_SLOW      6
 
 #define TURN_RIGHT_SPEED_FAST_L  3
 #define TURN_RIGHT_SPEED_FAST_R  1
 
 //
-#define TURN_RIGHT_SPEED_SLOW_L  12
-#define TURN_RIGHT_SPEED_SLOW_R  10
+#define TURN_RIGHT_SPEED_SLOW_L  6
+#define TURN_RIGHT_SPEED_SLOW_R  5
 
 
 #define TURN_LEFT_SPEED_FAST_L   1
 #define TURN_LEFT_SPEED_FAST_R   3
                      
 //					 
-#define TURN_LEFT_SPEED_SLOW_L         10
-#define TURN_LEFT_SPEED_SLOW_R         12
+#define TURN_LEFT_SPEED_SLOW_L         5
+#define TURN_LEFT_SPEED_SLOW_R         6
                                        
 #define PIROUETTE_SPEED                1
                                        
@@ -26,11 +26,11 @@
 #define ROTATE_CCW_SPEED_L             -2
 #define ROTATE_CCW_SPEED_R             2
                                        
-#define BACKWARD_SPEED                 -12
+#define BACKWARD_SPEED                 -6
                                        
 /*轮子后退20MM，脉冲数*/               
 #define GO_BACK_PULSE                  (30/(3.14F*70)*1024)
-#define COLLISION_STEERING_ANGLE       60.0F
+#define COLLISION_STEERING_ANGLE       30.0F
 
 typedef struct
 {
@@ -40,6 +40,9 @@ typedef struct
 	
 	uint32_t pulse;
 	float angle;
+	Collision collision;
+	uint32_t possibleEnd;
+	
 }EdgewiseRun;
 
 static EdgewiseRun edgewiseRun;
@@ -68,6 +71,8 @@ void bsp_StartEdgewiseRun(void)
 {
 	edgewiseRun.action = 0 ;
 	edgewiseRun.delay = 0 ;
+	edgewiseRun.collision = CollisionNone;
+	edgewiseRun.possibleEnd = 0 ;
 	edgewiseRun.isRunning = true;
 	
 	/*消除编译器警告*/
@@ -97,6 +102,9 @@ void bsp_StopEdgewiseRun(void)
 	edgewiseRun.isRunning = false;
 	edgewiseRun.action = 0 ;
 	edgewiseRun.delay = 0 ;
+	edgewiseRun.collision = CollisionNone;
+	edgewiseRun.possibleEnd = 0 ;
+
 }
 
 
@@ -118,15 +126,18 @@ void bsp_EdgewiseRun(void)
 		case 0:/*进入沿边模式，首先直走*/
 		{
 			bsp_EdgewiseRunStraightFast();
-			edgewiseRun.action++;
+			if(bsp_CollisionScan() != CollisionNone)
+			{
+				edgewiseRun.action++;
+			}
 		}break;
 		
 		case 1:/*如果发生了碰撞，碰撞后退*/
 		{
-			Collision ret = bsp_CollisionScan();
 			float vol = bsp_GetInfraredVoltageRight();
-				
-			if(ret != CollisionNone)
+			edgewiseRun.collision = bsp_CollisionScan();
+			
+			if(edgewiseRun.collision != CollisionNone)
 			{
 				bsp_GoBackward();
 				/*记录下当前的脉冲，用于退后指定脉冲数（距离），同时记录下当前时间，放置退了很久还没知道*/
@@ -137,15 +148,29 @@ void bsp_EdgewiseRun(void)
 			else if(vol >= 1.2F && vol <=2.5F )
 			{
 				bsp_EdgewiseRunStraightSlow();
+				edgewiseRun.possibleEnd = 0 ;
 			}
-			else if(vol < 1.2F)
+			else if(vol < 1.2F && vol >0.2F)
 			{
 				bsp_EdgewiseTurnRightSlow();
+
+			}
+			else if(vol <=0.2F)/*可能是完全丢失，可能是走到了尽头，先往右靠，靠一会儿还不行，则转大弯*/
+			{
+				bsp_EdgewiseTurnRightSlow();
+				if(edgewiseRun.possibleEnd++ >= 500)
+				{
+					edgewiseRun.possibleEnd = 0 ;
+//					edgewiseRun.action = 4;
+				}
+				
 			}
 			else if(vol > 2.5F)
 			{
 				bsp_EdgewiseTurnLeftSlow();
+
 			}
+
 		}break;
 		
 		case 2:/*后退完了再原地旋转，左右都动*/
@@ -162,15 +187,32 @@ void bsp_EdgewiseRun(void)
 		
 		case 3:/*旋转一会儿，继续直行，回到状态1*/
 		{
-			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,COLLISION_STEERING_ANGLE) - (bsp_AngleRead())) <= 5.0F || 
-				bsp_GetInfraredVoltageRight() >= 2.5F)
+			/*右面碰撞，转45度*/
+			if(edgewiseRun.collision != CollisionNone)
 			{
-				bsp_EdgewiseRunStraightSlow();
-				edgewiseRun.action = 1;
+				float val = bsp_GetInfraredVoltageRight();
+				if(myabs(bsp_AngleAdd(edgewiseRun.angle ,45) - (bsp_AngleRead())) <= 5.0F || (val>=1.2F && val<=2.5F))
+				{
+					bsp_EdgewiseRunStraightSlow();
+					edgewiseRun.action = 1;
+				}
 			}
+
 		}break;
 
+		case 4: /*完全丢失，画大弧线，最大旋转角度*/
+		{
+			bsp_PirouetteCW();
+			edgewiseRun.action++;
+		}break;
 		
+		case 5:
+		{
+			if(bsp_CollisionScan()!=CollisionNone)
+			{
+				edgewiseRun.action = 1 ;
+			}
+		}break;
 		
 	}
 }
