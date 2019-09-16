@@ -8,23 +8,23 @@
 
 //
 #define TURN_RIGHT_SPEED_SLOW_L  6
-#define TURN_RIGHT_SPEED_SLOW_R  5
+#define TURN_RIGHT_SPEED_SLOW_R  4
 
 
 #define TURN_LEFT_SPEED_FAST_L   1
 #define TURN_LEFT_SPEED_FAST_R   3
                      
 //					 
-#define TURN_LEFT_SPEED_SLOW_L         5
+#define TURN_LEFT_SPEED_SLOW_L         4
 #define TURN_LEFT_SPEED_SLOW_R         6
                                        
-#define PIROUETTE_SPEED                1
+#define PIROUETTE_SPEED                6
                                        
-#define ROTATE_CW_SPEED_L              2
-#define ROTATE_CW_SPEED_R              -2
+#define ROTATE_CW_SPEED_L              5
+#define ROTATE_CW_SPEED_R              -5
                                        
-#define ROTATE_CCW_SPEED_L             -2
-#define ROTATE_CCW_SPEED_R             2
+#define ROTATE_CCW_SPEED_L             -5
+#define ROTATE_CCW_SPEED_R             5
                                        
 #define BACKWARD_SPEED                 -6
                                        
@@ -150,32 +150,30 @@ void bsp_EdgewiseRun(void)
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.possibleEnd = 0 ;
 			}
-			else if(vol < 1.2F && vol >0.2F)
+			/*向右靠近的过程中还需要检测靠近的时间，如果靠近了很久还是没能找到电压值，那么就是走到了尽头*/
+			else if(vol < 1.2F)
 			{
 				bsp_EdgewiseTurnRightSlow();
-
-			}
-			else if(vol <=0.2F)/*可能是完全丢失，可能是走到了尽头，先往右靠，靠一会儿还不行，则转大弯*/
-			{
-				bsp_EdgewiseTurnRightSlow();
-				if(edgewiseRun.possibleEnd++ >= 500)
+				if(vol < 0.2F)
 				{
-					edgewiseRun.possibleEnd = 0 ;
-//					edgewiseRun.action = 4;
+					if(edgewiseRun.possibleEnd++ >= 2000)
+					{
+						edgewiseRun.possibleEnd = 0 ;
+						edgewiseRun.action = 4 ;
+					}
 				}
-				
 			}
 			else if(vol > 2.5F)
 			{
 				bsp_EdgewiseTurnLeftSlow();
-
+				edgewiseRun.possibleEnd = 0 ;
 			}
 
 		}break;
 		
 		case 2:/*后退完了再原地旋转，左右都动*/
 		{
-			if((xTaskGetTickCount() - edgewiseRun.delay >= 3000) || (bsp_GetCurrentBothPulse()-edgewiseRun.pulse)>=GO_BACK_PULSE)
+			if((xTaskGetTickCount() - edgewiseRun.delay >= 2000) || (bsp_GetCurrentBothPulse()-edgewiseRun.pulse)>=GO_BACK_PULSE)
 			{
 				bsp_RotateCCW();
 				/*获取角度和时间，转动固定角度，时间太久还没转到代表异常*/
@@ -188,7 +186,7 @@ void bsp_EdgewiseRun(void)
 		case 3:/*旋转一会儿，继续直行，回到状态1*/
 		{
 			float val = bsp_GetInfraredVoltageRight();
-			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,50) - (bsp_AngleRead())) <= 2.0F ||
+			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,30) - (bsp_AngleRead())) <= 2.0F ||
 				(val>=1.2F && val<=2.5F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=20.0F ))
 			{
 				bsp_EdgewiseRunStraightSlow();
