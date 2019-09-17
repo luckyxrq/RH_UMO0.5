@@ -98,8 +98,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     bsp_AngleRst();
     
 	
-//	bsp_SetMotorSpeed(MotorLeft, 2);
-//	bsp_SetMotorSpeed(MotorRight,2);
+//	bsp_SetMotorSpeed(MotorLeft, 6);
+//	bsp_SetMotorSpeed(MotorRight,6);
 	
 //	bsp_MotorSetPWM(MotorLeft,Forward, 1300);
 //	bsp_MotorSetPWM(MotorRight,Forward,1300);

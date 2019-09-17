@@ -108,6 +108,7 @@ void bsp_StopEdgewiseRun(void)
 }
 
 
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_InitEdgewiseRun
@@ -145,13 +146,13 @@ void bsp_EdgewiseRun(void)
 				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
-			else if(vol >= 2.0F && vol <=2.4F )
+			else if(vol >= 1.5F && vol <=2.0F )
 			{
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.possibleEnd = 0 ;
 			}
 			/*向右靠近的过程中还需要检测靠近的时间，如果靠近了很久还是没能找到电压值，那么就是走到了尽头*/
-			else if(vol < 2.0F)
+			else if(vol < 1.5F)
 			{
 				bsp_EdgewiseTurnRightSlow();
 				if(vol < 0.2F)
@@ -163,7 +164,7 @@ void bsp_EdgewiseRun(void)
 					}
 				}
 			}
-			else if(vol > 2.4F)
+			else if(vol > 2.0F)
 			{
 				bsp_EdgewiseTurnLeftSlow();
 				edgewiseRun.possibleEnd = 0 ;
@@ -187,7 +188,7 @@ void bsp_EdgewiseRun(void)
 		{
 			float val = bsp_GetInfraredVoltageRight();
 			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,15) - (bsp_AngleRead())) <= 2.0F ||
-				(val>=1.2F && val<=2.5F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=20.0F ))
+				(val>=0.5F && val<=3.3F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=10.0F ))
 			{
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.action = 1;
@@ -203,7 +204,9 @@ void bsp_EdgewiseRun(void)
 		
 		case 5:
 		{
-			if(bsp_CollisionScan()!=CollisionNone)
+			float vol = bsp_GetInfraredVoltageRight();
+
+			if(bsp_CollisionScan()!=CollisionNone || (vol >= 0.5F && vol <=3.3F ))
 			{
 				edgewiseRun.action = 1 ;
 			}
@@ -367,8 +370,34 @@ static void bsp_RotateCW(void)
 */
 static void bsp_RotateCCW(void)
 {
+#if 1
+	
 	bsp_SetMotorSpeed(MotorLeft, ROTATE_CCW_SPEED_L);
 	bsp_SetMotorSpeed(MotorRight,ROTATE_CCW_SPEED_R);
+
+#else
+	
+/*
+	linearVelocity   线速度（毫米/s）
+	angularVelocity  角速度（度/s）
+	r                后退距离，也是转弯半径（毫米）
+*/
+	
+	/*基本参数，计算合理的线速度和角速度*/
+	double r = 15;
+	double linearVelocity = 50;
+	double angularVelocity = Deg2Rad(linearVelocity / r);
+
+	/*计算出速度，单位MM/S */
+	int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+	int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+	
+	/*设置速度，单位MM/S */
+	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
+	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+	
+#endif
+
 }
 
 
