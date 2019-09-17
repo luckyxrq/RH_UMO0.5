@@ -1,22 +1,22 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      10
-#define STRAIGHT_SPEED_SLOW      10
+#define STRAIGHT_SPEED_FAST      6
+#define STRAIGHT_SPEED_SLOW      6
 
 #define TURN_RIGHT_SPEED_FAST_L  3
 #define TURN_RIGHT_SPEED_FAST_R  1
 
 //
-#define TURN_RIGHT_SPEED_SLOW_L  10
-#define TURN_RIGHT_SPEED_SLOW_R  8
+#define TURN_RIGHT_SPEED_SLOW_L  6
+#define TURN_RIGHT_SPEED_SLOW_R  5
 
 
 #define TURN_LEFT_SPEED_FAST_L   1
 #define TURN_LEFT_SPEED_FAST_R   3
                      
 //					 
-#define TURN_LEFT_SPEED_SLOW_L         8
-#define TURN_LEFT_SPEED_SLOW_R         10
+#define TURN_LEFT_SPEED_SLOW_L         5
+#define TURN_LEFT_SPEED_SLOW_R         6
                                        
 #define PIROUETTE_SPEED                6
                                        
@@ -29,7 +29,7 @@
 #define BACKWARD_SPEED                 -6
                                        
 /*轮子后退20MM，脉冲数*/               
-#define GO_BACK_PULSE                  (30/(3.14F*70)*1024)
+#define GO_BACK_PULSE                  (10/(3.14F*70)*1024)
 #define COLLISION_STEERING_ANGLE       30.0F
 
 typedef struct
@@ -145,7 +145,7 @@ void bsp_EdgewiseRun(void)
 				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
-			else if(vol >= 2.0F && vol <=2.6F )
+			else if(vol >= 2.0F && vol <=2.4F )
 			{
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.possibleEnd = 0 ;
@@ -163,7 +163,7 @@ void bsp_EdgewiseRun(void)
 					}
 				}
 			}
-			else if(vol > 2.6F)
+			else if(vol > 2.4F)
 			{
 				bsp_EdgewiseTurnLeftSlow();
 				edgewiseRun.possibleEnd = 0 ;
@@ -186,7 +186,7 @@ void bsp_EdgewiseRun(void)
 		case 3:/*旋转一会儿，继续直行，回到状态1*/
 		{
 			float val = bsp_GetInfraredVoltageRight();
-			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,30) - (bsp_AngleRead())) <= 2.0F ||
+			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,15) - (bsp_AngleRead())) <= 2.0F ||
 				(val>=1.2F && val<=2.5F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=20.0F ))
 			{
 				bsp_EdgewiseRunStraightSlow();
