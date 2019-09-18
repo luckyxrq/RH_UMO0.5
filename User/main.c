@@ -151,9 +151,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         
         if(count++ % 2 == 0)
         {
-            bsp_LedToggle(1);
-			bsp_LedToggle(2);
-			bsp_LedToggle(3);
+//          bsp_LedToggle(1);
+//			bsp_LedToggle(2);
+//			bsp_LedToggle(3);
 			
 			//bsp_PrintIR_Rev();
         }

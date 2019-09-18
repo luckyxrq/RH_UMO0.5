@@ -206,7 +206,7 @@ void bsp_EdgewiseRun(void)
 		{
 			float vol = bsp_GetInfraredVoltageRight();
 
-			if(bsp_CollisionScan()!=CollisionNone || (vol >= 0.5F && vol <=3.3F ))
+			if(bsp_CollisionScan()!=CollisionNone || (vol >= 1.2F && vol <=3.3F ))
 			{
 				edgewiseRun.action = 1 ;
 			}
