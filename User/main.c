@@ -264,7 +264,7 @@ static void vTaskPerception(void *pvParameters)
 	/*开启寻找充电桩*/
 	//bsp_StartSearchChargePile();
 	/*开启沿边行走*/
-	bsp_StartEdgewiseRun();
+	//bsp_StartEdgewiseRun();
 	/*开启位置坐标更新*/
     bsp_StartUpdatePos();
     /*开启正面碰撞协助*/
@@ -277,7 +277,8 @@ static void vTaskPerception(void *pvParameters)
     {
         bsp_DetectAct();  /*红外对管轮询扫描*/
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
-        
+       
+		bsp_DetectMeasureTest();
 		
         /*四个红外接收管*/
 #if 0 

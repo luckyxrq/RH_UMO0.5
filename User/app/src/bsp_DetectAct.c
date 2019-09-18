@@ -666,4 +666,33 @@ void bsp_DetectDeal(void)
 }
 
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_DetectMeasureTest
+*	功能说明: 检测到障碍物就停下来，直到障碍物离开
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_DetectMeasureTest(void)
+{
+	if(bsp_GetInfraRedAdcVoltage(IR0)>=1.0F ||
+	bsp_GetInfraRedAdcVoltage(IR1)>=1.0F ||
+	bsp_GetInfraRedAdcVoltage(IR2)>=1.0F ||
+	bsp_GetInfraRedAdcVoltage(IR3)>=1.0F ||
+	bsp_GetInfraRedAdcVoltage(IR4)>=1.0F ||
+	bsp_GetInfraRedAdcVoltage(IR5)>=1.0F ||
+	bsp_GetInfraRedAdcVoltage(IR6)>=1.0F ||
+	bsp_GetInfraRedAdcVoltage(IR7)>=1.0F)
+	{
+		bsp_SetMotorSpeed(MotorLeft, 0);
+		bsp_SetMotorSpeed(MotorRight,0);
+	}
+	else
+	{
+		bsp_SetMotorSpeed(MotorLeft, 12);
+		bsp_SetMotorSpeed(MotorRight,12);
+	}
+}
+
 

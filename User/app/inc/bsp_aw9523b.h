@@ -66,5 +66,6 @@ void bsp_DetectDeal(void);
 float bsp_GetInfraredVoltageLeft(void);
 float bsp_GetInfraredVoltageRight(void);
 float bsp_GetInfraRedAdcVoltage(IR_SN sn);
+void bsp_DetectMeasureTest(void);
 #endif
 
