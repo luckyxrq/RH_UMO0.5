@@ -187,8 +187,8 @@ void bsp_EdgewiseRun(void)
 		case 3:/*旋转一会儿，继续直行，回到状态1*/
 		{
 			float val = bsp_GetInfraredVoltageRight();
-			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,15) - (bsp_AngleRead())) <= 2.0F ||
-				(val>=0.5F && val<=3.3F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=10.0F ))
+			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,20) - (bsp_AngleRead())) <= 2.0F ||
+				(val>=1.0F && val<=3.3F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=10.0F ))
 			{
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.action = 1;

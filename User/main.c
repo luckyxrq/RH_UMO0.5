@@ -158,6 +158,22 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			//bsp_PrintIR_Rev();
         }
 
+#if 0
+		{
+			static uint8_t songNum = 0 ;
+			bsp_SperkerPlay(Song1 + songNum++);
+			vTaskDelay(1000);
+			while(bsp_SpeakerIsBusy())
+			{
+				vTaskDelay(1000);
+			}
+			if(songNum >= 20)
+			{
+				songNum = 0 ;
+			}
+		}
+#endif
+		
 #if 0		
 		{
 			static uint32_t tick = 0 ;
@@ -278,7 +294,9 @@ static void vTaskPerception(void *pvParameters)
         bsp_DetectAct();  /*红外对管轮询扫描*/
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
        
+#if 0   /*测试红外测距的距离，测到后就停下来*/
 		bsp_DetectMeasureTest();
+#endif
 		
         /*四个红外接收管*/
 #if 0 
