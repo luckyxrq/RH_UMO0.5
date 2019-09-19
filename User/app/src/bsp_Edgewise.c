@@ -57,7 +57,6 @@ static void bsp_PirouetteCCW(void)           ;
 static void bsp_RotateCW(void)               ;
 static void bsp_RotateCCW(void)              ;
 static void bsp_GoBackward(void)             ;
-static uint32_t bsp_GetCurrentBothPulse(void);
 static float myabs(float val)                ;
 /*
 *********************************************************************************************************
@@ -400,24 +399,6 @@ static void bsp_RotateCCW(void)
 
 }
 
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_GetCurrentBothPulse
-*	功能说明: 获取整体脉冲
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static uint32_t bsp_GetCurrentBothPulse(void)
-{
-	uint32_t pulse;
-	
-	pulse = (bsp_EncoderGetTotalMileage(EncoderLeft) + bsp_EncoderGetTotalMileage(EncoderRight))/2.0F;
-	
-	return pulse;
-}
 
 
 static float myabs(float val)

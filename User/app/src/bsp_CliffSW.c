@@ -6,7 +6,7 @@
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_InitOffSiteSW
-*	功能说明: 初始化离地开关使能引脚
+*	功能说明: 初始化跳崖传感器
 *	形    参: 无
 *	返 回 值: 无
 *********************************************************************************************************
@@ -141,7 +141,10 @@ void bsp_InitCliffSW(void)
 		
 		/*ADC,ADC通道,采样时间为239.5周期*/
 		ADC_RegularChannelConfig(ADC3, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
-	}	
+	}
+
+	/*开机初始化ADC的时候，校准一次悬崖传感器校准值*/
+	bsp_CliffCalibration();
 
 }
 
@@ -187,4 +190,166 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 	}
 	
 	return ret;
+}
+
+
+#define DEFAULT_DANGEROUS_THRESHOLD    1.2F        /*默认的跳崖阈值*/
+#define CLIFF_COUNT                    3           /*跳崖传感器个数*/   
+
+typedef struct
+{
+	float threshold;          /*跳崖阈值，每个通道的阈值独立*/
+	float initializeVoltage;  /*初始化电压，适应新环境的电压*/
+	float currentVoltage;     /*当前电压，实时检测的电压*/
+}Cliff;
+
+
+static Cliff cliff[CLIFF_COUNT];
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_CliffCalibration
+*	功能说明: 开机校准悬崖初始值
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_CliffCalibration(void)
+{
+	UNUSED(cliff);
+	
+	/*初始值*/
+#if 0
+	cliff[CliffLeft].initializeVoltage = bsp_GetCliffVoltage(CliffLeft);
+	cliff[CliffMiddle].initializeVoltage = bsp_GetCliffVoltage(CliffMiddle);
+	cliff[CliffRight].initializeVoltage = bsp_GetCliffVoltage(CliffRight);
+#else
+	cliff[CliffLeft].initializeVoltage =   3.3F;
+	cliff[CliffMiddle].initializeVoltage = 3.3F;
+	cliff[CliffRight].initializeVoltage =  3.3F;
+	
+	cliff[CliffLeft].threshold =   1.2F;
+	cliff[CliffMiddle].threshold = 1.2F;
+	cliff[CliffRight].threshold =  1.2F;
+#endif
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_CliffIsDangerous
+*	功能说明: 判断跳崖是否危险
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_CliffIsDangerous(CliffSWSN sn)
+{
+
+	cliff[sn].currentVoltage = bsp_GetCliffVoltage(sn);
+	if(cliff[sn].initializeVoltage - cliff[sn].currentVoltage >= cliff[sn].threshold)
+	{
+		bsp_SetMotorSpeed(MotorLeft, 0);
+		bsp_SetMotorSpeed(MotorRight,0);
+		
+		return true;
+	}
+	
+	return false;
+}
+
+#define GO_BACK_PULSE                  (10/(3.14F*70)*1024)
+#define ROTATE_CCW_SPEED_L             -5
+#define ROTATE_CCW_SPEED_R             5
+
+static void bsp_RotateCCW(void);
+static float myabs(float val);
+
+
+void bsp_CliffTest(void)
+{
+	static uint8_t action = 0 ;
+	static uint32_t pulse = 0 ;
+	static float angle = 0 ;
+	
+	switch(action)
+	{
+		case 0: /*直行*/
+		{
+			bsp_SetMotorSpeed(MotorLeft, 6);
+			bsp_SetMotorSpeed(MotorRight,6);
+			action++;
+		}break;
+		
+		case 1: /*检测是否有悬崖触发了*/
+		{
+			if(bsp_CliffIsDangerous(CliffLeft) ||
+				bsp_CliffIsDangerous(CliffMiddle) ||
+			    bsp_CliffIsDangerous(CliffRight))
+			{
+				DEBUG("悬崖触发\r\n");
+				bsp_SetMotorSpeed(MotorLeft, 0);
+			    bsp_SetMotorSpeed(MotorRight,0);
+				action++;
+			}
+			else
+				
+			{
+				action = 0 ;
+			}
+		}break;
+		
+		case 2:
+		{
+			pulse = bsp_GetCurrentBothPulse();
+			bsp_SetMotorSpeed(MotorLeft, -6);
+			bsp_SetMotorSpeed(MotorRight,-6);
+			action++;
+		}break;
+		
+		case 3:
+		{
+			if(bsp_GetCurrentBothPulse()-pulse >= GO_BACK_PULSE*10)
+			{
+				angle = bsp_AngleRead();
+				bsp_RotateCCW();
+				action++;
+			}
+		}break;
+		
+		case 4:
+		{
+			if(myabs(bsp_AngleAdd(angle ,20) - (bsp_AngleRead())) <= 2.0F)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 6);
+				bsp_SetMotorSpeed(MotorRight,6);
+				action = 0 ;
+			}
+		}break;
+	}
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_RotateCCW
+*	功能说明: 原地旋转，左右轮都动，逆时针
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_RotateCCW(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, ROTATE_CCW_SPEED_L);
+	bsp_SetMotorSpeed(MotorRight,ROTATE_CCW_SPEED_R);
+}
+
+
+static float myabs(float val)
+{
+	if(val < 0)
+	{
+		val = - val;
+	}
+	
+	return val;
 }

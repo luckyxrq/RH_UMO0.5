@@ -156,6 +156,19 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //			bsp_LedToggle(3);
 			
 			//bsp_PrintIR_Rev();
+			
+			float cliff = 0.0F;
+			
+			memset(&cliff,0,sizeof(cliff));
+			cliff = bsp_GetCliffVoltage(CliffLeft);
+			DEBUG("跳崖左边：%.2F\r\n",cliff);
+			memset(&cliff,0,sizeof(cliff));
+			cliff = bsp_GetCliffVoltage(CliffMiddle);
+			DEBUG("跳崖中间：%.2F\r\n",cliff);
+			memset(&cliff,0,sizeof(cliff));
+			cliff = bsp_GetCliffVoltage(CliffRight);
+			DEBUG("跳崖右边：%.2F\r\n",cliff);
+			
         }
 
 #if 0
@@ -251,9 +264,6 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
 		
-		
-		
-		
         bsp_ComAnalysis();
 		//bsp_RunControl();/* 整机控制 */ 
         vTaskDelay(10);
@@ -296,6 +306,10 @@ static void vTaskPerception(void *pvParameters)
        
 #if 0   /*测试红外测距的距离，测到后就停下来*/
 		bsp_DetectMeasureTest();
+#endif
+
+#if 1   /*测试跳崖传感器*/		
+		bsp_CliffTest();
 #endif
 		
         /*四个红外接收管*/

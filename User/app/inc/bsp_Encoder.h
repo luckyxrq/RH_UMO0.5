@@ -20,5 +20,6 @@ typedef struct
 void bsp_InitEncoder(void);
 uint32_t bsp_EncoderGetTotalMileage(EncoderSN sn);
 int32_t bsp_EncoderGetPulseT(EncoderSN sn);
+uint32_t bsp_GetCurrentBothPulse(void);
 
 #endif

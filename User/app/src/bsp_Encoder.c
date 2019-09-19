@@ -203,6 +203,25 @@ void EXTI3_IRQHandler(void)
 }
 
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetCurrentBothPulse
+*	功能说明: 获取整体脉冲
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+uint32_t bsp_GetCurrentBothPulse(void)
+{
+	uint32_t pulse;
+	
+	pulse = (bsp_EncoderGetTotalMileage(EncoderLeft) + bsp_EncoderGetTotalMileage(EncoderRight))/2.0F;
+	
+	return pulse;
+}
+
+
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 
 
