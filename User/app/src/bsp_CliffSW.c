@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-
+#define VOLTAGE_FILTERING_COUNT      50
 
 
 /*
@@ -216,22 +216,50 @@ static Cliff cliff[CLIFF_COUNT];
 */
 void bsp_CliffCalibration(void)
 {
-	UNUSED(cliff);
-	
 	/*初始值*/
-#if 0
-	cliff[CliffLeft].initializeVoltage = bsp_GetCliffVoltage(CliffLeft);
-	cliff[CliffMiddle].initializeVoltage = bsp_GetCliffVoltage(CliffMiddle);
-	cliff[CliffRight].initializeVoltage = bsp_GetCliffVoltage(CliffRight);
+#if 1
+	uint8_t i = 0 ;
+	double sum = 0 ;
+	
+	/*左边初始值*/
+	sum = 0 ;
+	for(i=0;i<VOLTAGE_FILTERING_COUNT;i++)
+	{
+		sum += bsp_GetCliffVoltage(CliffLeft);
+	}
+	cliff[CliffLeft].initializeVoltage = sum / VOLTAGE_FILTERING_COUNT;
+	
+	/*中间初始值*/
+	sum = 0 ;
+	for(i=0;i<VOLTAGE_FILTERING_COUNT;i++)
+	{
+		sum += bsp_GetCliffVoltage(CliffMiddle);
+	}
+	cliff[CliffMiddle].initializeVoltage = sum / VOLTAGE_FILTERING_COUNT;
+	
+	/*右边初始值*/
+	sum = 0 ;
+	for(i=0;i<VOLTAGE_FILTERING_COUNT;i++)
+	{
+		sum += bsp_GetCliffVoltage(CliffRight);
+	}
+	cliff[CliffRight].initializeVoltage = sum / VOLTAGE_FILTERING_COUNT;
+	
+	/*阈值*/
+	cliff[CliffLeft].threshold =   1.6F;
+	cliff[CliffMiddle].threshold = 1.6F;
+	cliff[CliffRight].threshold =  1.6F;
 #else
 	cliff[CliffLeft].initializeVoltage =   3.3F;
 	cliff[CliffMiddle].initializeVoltage = 3.3F;
 	cliff[CliffRight].initializeVoltage =  3.3F;
 	
-	cliff[CliffLeft].threshold =   1.2F;
-	cliff[CliffMiddle].threshold = 1.2F;
-	cliff[CliffRight].threshold =  1.2F;
+	cliff[CliffLeft].threshold =   1.6F;
+	cliff[CliffMiddle].threshold = 1.6F;
+	cliff[CliffRight].threshold =  1.6F;
 #endif
+	
+	UNUSED(cliff);
 }
 
 /*
@@ -284,7 +312,8 @@ void bsp_CliffTest(void)
 		{
 			if(bsp_CliffIsDangerous(CliffLeft) ||
 				bsp_CliffIsDangerous(CliffMiddle) ||
-			    bsp_CliffIsDangerous(CliffRight))
+			    bsp_CliffIsDangerous(CliffRight) ||
+			    bsp_CollisionScan() != CollisionNone)
 			{
 				DEBUG("悬崖触发\r\n");
 				bsp_SetMotorSpeed(MotorLeft, 0);
