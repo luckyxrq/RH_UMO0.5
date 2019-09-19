@@ -146,6 +146,13 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					bsp_SetPowerKey(true);
 					
 					bsp_DISABLE_ALL_EXIT();
+					bsp_SwOff(SW_IR_POWER);
+					
+					bsp_InitKeyStopMODE();   /* 外部中断按键，用作唤醒按键 */
+					DEBUG("即将进入STOP模式\r\n");
+					vTaskDelay(100);
+					
+					
 					bsp_EnterStopMODE();
 					
 
@@ -155,23 +162,23 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         
         if(count++ % 2 == 0)
         {
-//          bsp_LedToggle(1);
-//			bsp_LedToggle(2);
-//			bsp_LedToggle(3);
+            bsp_LedToggle(1);
+			bsp_LedToggle(2);
+			bsp_LedToggle(3);
 			
 			//bsp_PrintIR_Rev();
 			
-			float cliff = 0.0F;
-			
-			memset(&cliff,0,sizeof(cliff));
-			cliff = bsp_GetCliffVoltage(CliffLeft);
-			DEBUG("跳崖左边：%.2F\r\n",cliff);
-			memset(&cliff,0,sizeof(cliff));
-			cliff = bsp_GetCliffVoltage(CliffMiddle);
-			DEBUG("跳崖中间：%.2F\r\n",cliff);
-			memset(&cliff,0,sizeof(cliff));
-			cliff = bsp_GetCliffVoltage(CliffRight);
-			DEBUG("跳崖右边：%.2F\r\n",cliff);
+//			float cliff = 0.0F;
+//			
+//			memset(&cliff,0,sizeof(cliff));
+//			cliff = bsp_GetCliffVoltage(CliffLeft);
+//			DEBUG("跳崖左边：%.2F\r\n",cliff);
+//			memset(&cliff,0,sizeof(cliff));
+//			cliff = bsp_GetCliffVoltage(CliffMiddle);
+//			DEBUG("跳崖中间：%.2F\r\n",cliff);
+//			memset(&cliff,0,sizeof(cliff));
+//			cliff = bsp_GetCliffVoltage(CliffRight);
+//			DEBUG("跳崖右边：%.2F\r\n",cliff);
 			
         }
 
