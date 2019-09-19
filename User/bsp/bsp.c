@@ -51,9 +51,9 @@ void bsp_Init(void)
 	bsp_InitUart(); 	     /* 初始化串口 */
 	bsp_InitLed();           /* 初始化LED */
 	
-	bsp_LedOn(1);
-	bsp_LedOn(2);
-	bsp_LedOn(3);
+//	bsp_LedOn(1);
+//	bsp_LedOn(2);
+//	bsp_LedOn(3);
 	
 	
 	

@@ -301,14 +301,16 @@ static void vTaskPerception(void *pvParameters)
 	
     while(1)
     {
+#if 0
         bsp_DetectAct();  /*红外对管轮询扫描*/
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
+#endif
        
 #if 0   /*测试红外测距的距离，测到后就停下来*/
 		bsp_DetectMeasureTest();
 #endif
 
-#if 1   /*测试跳崖传感器*/		
+#if 0   /*测试跳崖传感器*/		
 		bsp_CliffTest();
 #endif
 		

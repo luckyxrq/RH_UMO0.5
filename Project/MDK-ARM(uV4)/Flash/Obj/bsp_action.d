@@ -80,3 +80,4 @@
 .\flash\obj\bsp_action.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\bsp_action.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_action.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
+.\flash\obj\bsp_action.o: ..\..\User\app\inc\bsp_StopMode.h
