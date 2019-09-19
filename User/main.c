@@ -144,6 +144,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					//DEBUG("关机\r\n");
 					isShutdown = true;
 					bsp_SetPowerKey(true);
+					
+					bsp_DISABLE_ALL_EXIT();
+					bsp_EnterStopMODE();
+					
 
 				}break;
 			}   
@@ -255,7 +259,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_SendReportFrame();
         bsp_PrintRemoteState();
 #endif
-        bsp_IWDG_Feed(); /* 喂狗 */
+//        bsp_IWDG_Feed(); /* 喂狗 */
         
         bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 			

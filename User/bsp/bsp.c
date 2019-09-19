@@ -42,6 +42,9 @@ void bsp_Init(void)
 		系统时钟缺省配置为72MHz，如果需要更改，可以修改 system_stm32f10x.c 文件
 	*/
 	
+	/* 保证停机模式下调试器继续可以连接使用 */
+	DBGMCU_Config(DBGMCU_STOP, ENABLE);
+	
 	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	bsp_InitDWT();
@@ -83,7 +86,7 @@ void bsp_Init(void)
 	bsp_InitSpeaker();		 /*初始化扬声器*/
 	bsp_InitRunControl();    /*初始化整机控制状态机*/
 	
-	bsp_InitIWDG();     /*初始化看门狗*/
+//	bsp_InitIWDG();     /*初始化看门狗*/
 //	/* 初始化IO拓展芯片 */	
 //	do{
 //		ret = bsp_InitAW9523B();		

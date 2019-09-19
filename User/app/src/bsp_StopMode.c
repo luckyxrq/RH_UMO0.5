@@ -4,7 +4,7 @@
 
 /*用于唤醒离开stop模式的按键*/
 #define GPIO_PORT_K    GPIOE
-#define GPIO_PIN_K     GPIO_Pin_2
+#define GPIO_PIN_K     GPIO_Pin_7
 
 /*
 *********************************************************************************************************
@@ -28,17 +28,17 @@ void bsp_InitKeyStopMODE(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
 	GPIO_Init(GPIO_PORT_K, &GPIO_InitStructure);
 
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource2);
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource7);
 
     /* 配置外部中断事件 */
-    EXTI_InitStructure.EXTI_Line = EXTI_Line2;
+    EXTI_InitStructure.EXTI_Line = EXTI_Line7;
     EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
     EXTI_Init(&EXTI_InitStructure);
 
 	/* 16个抢占式优先级，0个响应式优先级 */
-    NVIC_InitStructure.NVIC_IRQChannel = EXTI2_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -83,11 +83,53 @@ void bsp_EnterStopMODE(void)
 }
 
 
-void EXTI2_IRQHandler(void)
+void EXTI9_5_IRQHandler(void)
 {
-	if(EXTI_GetITStatus(EXTI_Line2) == SET)
+	if(EXTI_GetITStatus(EXTI_Line7) == SET)
 	{	
-		EXTI_ClearITPendingBit(EXTI_Line2); /* 清除中断标志位 */
+		bsp_InitEncoder();
+		
+		EXTI_ClearITPendingBit(EXTI_Line7); /* 清除中断标志位 */
 	}
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_DISABLE_ALL_EXIT
+*	功能说明: 关闭所有的外部中断
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_DISABLE_ALL_EXIT(void)
+{
+	NVIC_InitTypeDef  NVIC_InitStructure;
+	
+    NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;
+    NVIC_Init(&NVIC_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI1_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI2_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI3_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
 }
 
