@@ -156,7 +156,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					DEBUG("即将进入STOP模式\r\n");
 					vTaskDelay(100);
 					
-					bsp_FrequencyReduction();
 					bsp_EnterStopMODE();
 					
 

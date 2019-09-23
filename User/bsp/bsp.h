@@ -201,6 +201,7 @@
 #include "bsp_SearchChargePile.h"
 #include "bsp_assistJudgeDirection.h"
 #include "bsp_StopMode.h"
+#include "bsp_Gridmap.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

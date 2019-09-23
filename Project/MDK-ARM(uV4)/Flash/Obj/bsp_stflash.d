@@ -81,3 +81,4 @@
 .\flash\obj\bsp_stflash.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_stflash.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
 .\flash\obj\bsp_stflash.o: ..\..\User\app\inc\bsp_StopMode.h
+.\flash\obj\bsp_stflash.o: ..\..\User\app\inc\bsp_Gridmap.h

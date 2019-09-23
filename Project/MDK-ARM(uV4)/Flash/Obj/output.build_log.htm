@@ -26,10 +26,23 @@ Project File Date:  09/19/2019
 
 <h2>Output:</h2>
 Build target 'Flash'
+compiling bsp_Gridmap.c...
+..\..\User\app\src\bsp_Gridmap.c(73): warning:  #111-D: statement is unreachable
+                break;
+..\..\User\app\src\bsp_Gridmap.c(162): warning:  #940-D: missing return statement at end of non-void function "inverseSensorModel"
+  }
+..\..\User\app\src\bsp_Gridmap.c(14): warning:  #177-D: variable "Zk" was declared but never referenced
+        double Zk=0;
+..\..\User\app\src\bsp_Gridmap.c(20): warning:  #177-D: variable "minDelta" was declared but never referenced
+        double minDelta = -1;
+..\..\User\app\src\bsp_Gridmap.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=29788 RO-data=660 RW-data=220 ZI-data=40996  
+FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 0 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE

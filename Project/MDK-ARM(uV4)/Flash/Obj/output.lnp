@@ -27,6 +27,7 @@
 ".\flash\obj\bsp_searchchargepile.o"
 ".\flash\obj\bsp_assistjudgedirection.o"
 ".\flash\obj\bsp_stopmode.o"
+".\flash\obj\bsp_gridmap.o"
 ".\flash\obj\bsp.o"
 ".\flash\obj\bsp_dwt.o"
 ".\flash\obj\bsp_uart_fifo.o"
