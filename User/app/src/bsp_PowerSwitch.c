@@ -11,6 +11,10 @@
 #define GPIO_PIN_IR_POWER   GPIO_Pin_0
 
 
+#define GPIO_PORT_MOTOR_POWER  GPIOA
+#define GPIO_PIN_MOTOR_POWER   GPIO_Pin_9
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_InitSW
@@ -32,6 +36,7 @@ void bsp_InitSW(void)
 	*/
 	bsp_SwOff(SW_5V_EN_CTRL);
 	bsp_SwOff(SW_IR_POWER);
+	bsp_SwOff(SW_MOTOR_POWER);
 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	
@@ -42,6 +47,10 @@ void bsp_InitSW(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;	/* 开漏输出模式 */
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_IR_POWER;
 	GPIO_Init(GPIO_PORT_IR_POWER, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_MOTOR_POWER;
+	GPIO_Init(GPIO_PORT_MOTOR_POWER, &GPIO_InitStructure);
 	
 }
 
@@ -69,6 +78,11 @@ void bsp_SwOn(SW_ID sw)
 			GPIO_ResetBits(GPIO_PORT_IR_POWER,GPIO_PIN_IR_POWER);
 		}break;
 		
+		case SW_MOTOR_POWER:
+		{
+			GPIO_SetBits(GPIO_PORT_IR_POWER,GPIO_PIN_IR_POWER);
+		}break;
+		
 		default: break;
 	}
 
@@ -94,6 +108,11 @@ void bsp_SwOff(SW_ID sw)
 		case SW_IR_POWER:
 		{
 			GPIO_SetBits(GPIO_PORT_IR_POWER,GPIO_PIN_IR_POWER);
+		}break;
+		
+		case SW_MOTOR_POWER:
+		{
+			GPIO_ResetBits(GPIO_PORT_IR_POWER,GPIO_PIN_IR_POWER);
 		}break;
 		
 		default: break;

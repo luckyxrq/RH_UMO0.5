@@ -68,10 +68,7 @@ void bsp_Init(void)
 	
 	bsp_SwOn(SW_5V_EN_CTRL);
 	bsp_SwOn(SW_IR_POWER);
-	
-	
-	
-	
+	bsp_SwOn(SW_MOTOR_POWER);
 	
 	bsp_InitKey();           /* 初始化按键 */
 	bsp_InitHardTimer();     /* 初始化硬件定时器 */

@@ -147,6 +147,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					
 					bsp_DISABLE_ALL_EXIT();
 					bsp_SwOff(SW_IR_POWER);
+					bsp_SwOff(SW_MOTOR_POWER);
 					
 					bsp_InitKeyStopMODE();   /* 外部中断按键，用作唤醒按键 */
 					DEBUG("即将进入STOP模式\r\n");

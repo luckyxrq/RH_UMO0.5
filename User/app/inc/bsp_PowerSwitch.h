@@ -5,7 +5,8 @@
 typedef enum
 {
 	SW_5V_EN_CTRL = 0 ,
-	SW_IR_POWER
+	SW_IR_POWER,
+	SW_MOTOR_POWER
 }SW_ID;
 
 

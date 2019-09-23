@@ -89,6 +89,7 @@ void EXTI9_5_IRQHandler(void)
 	{	
 		bsp_InitEncoder();
 		bsp_SwOn(SW_IR_POWER);
+		bsp_SwOn(SW_MOTOR_POWER);
 		
 		EXTI_ClearITPendingBit(EXTI_Line7); /* 清除中断标志位 */
 	}
