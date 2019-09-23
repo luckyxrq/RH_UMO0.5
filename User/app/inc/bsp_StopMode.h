@@ -4,6 +4,7 @@
 void bsp_InitKeyStopMODE(void);
 void bsp_EnterStopMODE(void);
 void bsp_DISABLE_ALL_EXIT(void);
+void bsp_FrequencyReduction(void);
 
 #endif
 
