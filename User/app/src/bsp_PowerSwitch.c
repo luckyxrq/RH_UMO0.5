@@ -80,7 +80,7 @@ void bsp_SwOn(SW_ID sw)
 		
 		case SW_MOTOR_POWER:
 		{
-			GPIO_SetBits(GPIO_PORT_IR_POWER,GPIO_PIN_IR_POWER);
+			GPIO_SetBits(GPIO_PORT_MOTOR_POWER,GPIO_PIN_MOTOR_POWER);
 		}break;
 		
 		default: break;
@@ -112,7 +112,7 @@ void bsp_SwOff(SW_ID sw)
 		
 		case SW_MOTOR_POWER:
 		{
-			GPIO_ResetBits(GPIO_PORT_IR_POWER,GPIO_PIN_IR_POWER);
+			GPIO_ResetBits(GPIO_PORT_MOTOR_POWER,GPIO_PIN_MOTOR_POWER);
 		}break;
 		
 		default: break;
