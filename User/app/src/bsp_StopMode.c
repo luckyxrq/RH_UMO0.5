@@ -6,44 +6,9 @@
 #define GPIO_PORT_K    GPIOE
 #define GPIO_PIN_K     GPIO_Pin_7
 
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_InitKeyStopMODE
-*	功能说明: 离开stop模式的按键
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_InitKeyStopMODE(void)
-{
-    GPIO_InitTypeDef  GPIO_InitStructure;
-	EXTI_InitTypeDef  EXTI_InitStructure;
-	NVIC_InitTypeDef  NVIC_InitStructure;
-
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_ALL_RCC, ENABLE);
-
-	/* 配置引脚 */
-	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-	GPIO_Init(GPIO_PORT_K, &GPIO_InitStructure);
-
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource7);
-
-    /* 配置外部中断事件 */
-    EXTI_InitStructure.EXTI_Line = EXTI_Line7;
-    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-    EXTI_Init(&EXTI_InitStructure);
-
-	/* 16个抢占式优先级，0个响应式优先级 */
-    NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    NVIC_Init(&NVIC_InitStructure);
-}
+static void bsp_InitKeyStopMODE(void);
+static void bsp_DISABLE_ALL_EXIT(void);
+static void bsp_SetAllPinLowPower(void);
 
 /*
 *********************************************************************************************************
@@ -55,6 +20,18 @@ void bsp_InitKeyStopMODE(void)
 */
 void bsp_EnterStopMODE(void)
 {
+	/*断掉部分外设电源*/
+	bsp_DISABLE_ALL_EXIT();
+	bsp_SwOff(SW_IR_POWER);
+	bsp_SwOff(SW_MOTOR_POWER);
+	
+	/*禁止所有外部中断*/
+	bsp_DISABLE_ALL_EXIT();
+	/*设置所有引脚为低功耗，高阻抗模式*/
+	bsp_SetAllPinLowPower();
+	/*初始化外部中断引脚，专门用作唤醒MCU*/
+	bsp_InitKeyStopMODE();
+	
 	/*
 		1. 停止模式是在Cortex-M3的深睡眠模式基础上结合了外设的时钟控制机制，在停止模式下电压
 		调节器可运行在正常或低功耗模式。此时在1.8V供电区域的的所有时钟都被停止， PLL、 HSI和
@@ -87,11 +64,8 @@ void EXTI9_5_IRQHandler(void)
 {
 	if(EXTI_GetITStatus(EXTI_Line7) == SET)
 	{	
-		bsp_InitEncoder();
-		bsp_SwOn(SW_IR_POWER);
-		bsp_SwOn(SW_MOTOR_POWER);
-		bsp_InitCliffSW();
-		
+		/*唤醒了后重新初始化外设*/
+		bsp_Init();
 		
 		
 		EXTI_ClearITPendingBit(EXTI_Line7); /* 清除中断标志位 */
@@ -106,7 +80,7 @@ void EXTI9_5_IRQHandler(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_DISABLE_ALL_EXIT(void)
+static void bsp_DISABLE_ALL_EXIT(void)
 {
 	NVIC_InitTypeDef  NVIC_InitStructure;
 	
@@ -138,43 +112,77 @@ void bsp_DISABLE_ALL_EXIT(void)
 	NVIC_Init(&NVIC_InitStructure);
 }
 
-
 /*
 *********************************************************************************************************
-*	函 数 名: bsp_FrequencyReduction
-*	功能说明: 降频运行
+*	函 数 名: bsp_SetAllPinLowPower
+*	功能说明: 所以引脚全部设置为低功耗模式
 *	形    参: 无
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_FrequencyReduction(void)
+static void bsp_SetAllPinLowPower(void)
 {
-    RCC_DeInit();//将外设 RCC寄存器重设为缺省值  
-  
-    RCC_HSICmd(ENABLE);//使能HSI    
-    while(RCC_GetFlagStatus(RCC_FLAG_HSIRDY) == RESET);//等待HSI使能成功  
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	/* 打开GPIO时钟 */
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC | 
+	RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOF | RCC_APB2Periph_GPIOG | RCC_APB2Periph_AFIO, ENABLE);
 	
-#if 0
-    //加上这两句才能到64M
-    FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);  
-    FLASH_SetLatency(FLASH_Latency_2);  
-     
-    RCC_HCLKConfig(RCC_SYSCLK_Div1);     
-    RCC_PCLK1Config(RCC_HCLK_Div2);  
-    RCC_PCLK2Config(RCC_HCLK_Div1);  
-      
-    //设置 PLL 时钟源及倍频系数  
-    RCC_PLLConfig(RCC_PLLSource_HSI_Div2, RCC_PLLMul_2);//使能或者失能 PLL,这个参数可以取：ENABLE或者DISABLE   
-    RCC_PLLCmd(ENABLE);//如果PLL被用于系统时钟,那么它不能被失能  
-    //等待指定的 RCC 标志位设置成功 等待PLL初始化成功  
-    while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);  
-#endif
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, DISABLE);
+
+
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	/* 推挽输出模式 */
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
 	
-    //设置系统时钟（SYSCLK） 设置PLL为系统时钟源  
-    RCC_SYSCLKConfig(RCC_SYSCLKSource_HSI);//选择想要的系统时钟   
-    //等待PLL成功用作于系统时钟的时钟源  
-    //  0x00：HSI 作为系统时钟   
-    //  0x04：HSE作为系统时钟   
-    //  0x08：PLL作为系统时钟    
-    while(RCC_GetSYSCLKSource() != 0x00);//需与被选择的系统时钟对应起来，RCC_SYSCLKSource_PLL  
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
+	GPIO_Init(GPIOF, &GPIO_InitStructure);
+	GPIO_Init(GPIOG, &GPIO_InitStructure);
+	
+	ADC_Cmd(ADC1,DISABLE);
+	ADC_Cmd(ADC2,DISABLE);
+	ADC_Cmd(ADC3,DISABLE);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_InitKeyStopMODE
+*	功能说明: 离开stop模式的按键
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_InitKeyStopMODE(void)
+{
+    GPIO_InitTypeDef  GPIO_InitStructure;
+	EXTI_InitTypeDef  EXTI_InitStructure;
+	NVIC_InitTypeDef  NVIC_InitStructure;
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_ALL_RCC, ENABLE);
+
+	/* 配置引脚 */
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+	GPIO_Init(GPIO_PORT_K, &GPIO_InitStructure);
+
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource7);
+
+    /* 配置外部中断事件 */
+    EXTI_InitStructure.EXTI_Line = EXTI_Line7;
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
+	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+    EXTI_Init(&EXTI_InitStructure);
+
+	/* 16个抢占式优先级，0个响应式优先级 */
+    NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);
 }
