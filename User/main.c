@@ -310,7 +310,7 @@ static void vTaskPerception(void *pvParameters)
     /*开启正面碰撞协助*/
 	bsp_StartAssistJudgeDirection();
 	/*开启栅格地图跟新*/
-	bsp_StartUpdateMap();
+	bsp_StartUpdateGridMap();
 
 	
 	
@@ -344,6 +344,9 @@ static void vTaskPerception(void *pvParameters)
 		bsp_EdgewiseRun();
         /*更新坐标*/
         bsp_PositionUpdate();
+		/*更新地图*/
+		
+		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
         
 		if(count++ % 10 == 0)
 		{

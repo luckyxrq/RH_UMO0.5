@@ -20,6 +20,11 @@
 #define RIGHT_OBSTACLE_SIGNAL 1
 #define NONE_OBSTACLE_SIGNAL 3
 
+
+
+#define OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07 250 
+#define OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM89 50
+
 // Initialize GridMapping
 //l0,  locc,  lfree,  alpha,  alpha1,  beta,  Zmax,  Zmin,  sensorType
 //l0     :  Init default grid map data   0.5
@@ -53,10 +58,14 @@ typedef struct
 
 void bsp_StartUpdateGridMap(void);
 void bsp_StopUpdateGridMap(void);
-void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char* IRSensorData);
+void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[]);
+unsigned char* bsp_GetIRSensorData(void);
 //int* bsp_GetGridMap(void);
 
 
 
+
 #endif
+
+
 

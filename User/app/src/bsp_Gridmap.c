@@ -3,7 +3,6 @@
 
 static GridMap gridmap;
 
-
 static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,int robotY,double robotTheta,int xi,int yi,unsigned char obstacleSignal,unsigned char* IRSensorData)
 {
 
@@ -166,7 +165,7 @@ static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_StartUpdateMap(void)
+void bsp_StartUpdateGridMap(void)
 {
 	int x,y;
 	gridmap.grid_default = 1;
@@ -203,7 +202,7 @@ void bsp_StartUpdateMap(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_StopUpdateMap(void)
+void bsp_StopUpdateGridMap(void)
 {
 	gridmap.isRunning = false;
 	gridmap.action = 0 ;
@@ -217,7 +216,7 @@ void bsp_StopUpdateMap(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_MapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char* IRSensorData)
+void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[])
 {
 	int x,y;
 	int xi, yi;
@@ -272,5 +271,25 @@ void bsp_MapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstac
 	}
 	
  
+}
+
+unsigned char* bsp_GetIRSensorData(void)
+{
+	
+	static unsigned char IRSensorData[10] = {0};
+	
+	((bsp_GetInfraRedAdcVoltage(IR0)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)?(IRSensorData[0]=1):(IRSensorData[0]=0);
+	((bsp_GetInfraRedAdcVoltage(IR1)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)?(IRSensorData[1]=1):(IRSensorData[1]=0);
+	((bsp_GetInfraRedAdcVoltage(IR2)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)?(IRSensorData[2]=1):(IRSensorData[2]=0);
+	((bsp_GetInfraRedAdcVoltage(IR3)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)?(IRSensorData[3]=1):(IRSensorData[3]=0);
+	((bsp_GetInfraRedAdcVoltage(IR4)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)?(IRSensorData[4]=1):(IRSensorData[4]=0);
+	((bsp_GetInfraRedAdcVoltage(IR5)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)?(IRSensorData[5]=1):(IRSensorData[5]=0);
+	((bsp_GetInfraRedAdcVoltage(IR6)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)?(IRSensorData[6]=1):(IRSensorData[6]=0);
+    ((bsp_GetInfraRedAdcVoltage(IR7)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)?(IRSensorData[7]=1):(IRSensorData[7]=0);
+    ((bsp_GetInfraRedAdcVoltage(IR8)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM89) >=0)?(IRSensorData[8]=1):(IRSensorData[8]=0);
+	((bsp_GetInfraRedAdcVoltage(IR9)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM89) >=0)?(IRSensorData[9]=1):(IRSensorData[9]=0);
+	
+	return IRSensorData;
+
 }
 
