@@ -161,7 +161,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_LedToggle(2);
 			bsp_LedToggle(3);
 			
-			DEBUG("alive\r\n");
 			
 			//bsp_PrintIR_Rev();
 			
@@ -258,9 +257,6 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 	bsp_StartRunControl(); /*开启按键控制状态机*/
 	
 	
-//	vTaskDelay(8000);
-//	bsp_EnterStopMODE();
-	
     while(1)
     {
 #if 0
@@ -310,7 +306,7 @@ static void vTaskPerception(void *pvParameters)
 	/*开启栅格地图跟新*/
 	
 	
-	//bsp_StartUpdateGridMap();
+	bsp_StartUpdateGridMap();
 
 	
 	
@@ -346,8 +342,10 @@ static void vTaskPerception(void *pvParameters)
         bsp_PositionUpdate();
 		/*更新地图*/
 		
-		//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
-        
+		DEBUG("Start:%d\r\n",xTaskGetTickCount());
+		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+        DEBUG("End:%d\r\n",xTaskGetTickCount());
+		
 		if(count++ % 10 == 0)
 		{
 			bsp_KeyScan();
