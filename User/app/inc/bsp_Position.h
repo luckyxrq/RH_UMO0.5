@@ -36,6 +36,7 @@ void bsp_StopUpdatePos(void);
 void bsp_PositionUpdate(void);
 int32_t bsp_GetCurrentPosX(void);
 int32_t bsp_GetCurrentPosY(void);
+double  bsp_GetCurrentOrientation(void);
 
 #endif
 
