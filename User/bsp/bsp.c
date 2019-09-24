@@ -54,13 +54,12 @@ void bsp_Init(void)
 	bsp_InitUart(); 	     /* 初始化串口 */
 	bsp_InitLed();           /* 初始化LED */
 	
-//	bsp_DelayMS(500);
-	
 	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
 	
 	bsp_SwOn(SW_5V_EN_CTRL);
+	bsp_DelayMS(1000);
 	bsp_SwOn(SW_IR_POWER);
-	bsp_SwOn(SW_MOTOR_POWER);
+	
 	
 	bsp_InitKey();           /* 初始化按键 */
 	bsp_InitHardTimer();     /* 初始化硬件定时器 */

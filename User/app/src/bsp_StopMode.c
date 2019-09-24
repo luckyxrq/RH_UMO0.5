@@ -22,8 +22,9 @@ void bsp_EnterStopMODE(void)
 {
 	/*断掉部分外设电源*/
 	bsp_DISABLE_ALL_EXIT();
+	bsp_SwOff(SW_5V_EN_CTRL);
 	bsp_SwOff(SW_IR_POWER);
-	bsp_SwOff(SW_MOTOR_POWER);
+	bsp_SwOn(SW_MOTOR_POWER);
 	
 	/*禁止所有外部中断*/
 	bsp_DISABLE_ALL_EXIT();
