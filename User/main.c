@@ -309,6 +309,9 @@ static void vTaskPerception(void *pvParameters)
     bsp_StartUpdatePos();
     /*开启正面碰撞协助*/
 	bsp_StartAssistJudgeDirection();
+	/*开启栅格地图跟新*/
+	bsp_StartUpdateMap();
+
 	
 	
 	vTaskDelay(5000);

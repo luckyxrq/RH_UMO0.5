@@ -4,22 +4,20 @@
 static GridMap gridmap;
 
 
-static unsigned char inverseSensorModel(double robotXY_from_gridXY_dist,int robotX,int robotY,double robotTheta,double xi,double yi,unsigned char obstacleSignal,unsigned char* IRSensorData)
+static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,int robotY,double robotTheta,int xi,int yi,unsigned char obstacleSignal,unsigned char* IRSensorData)
 {
 
-	double o_x = robotX;
-	double o_y = robotY;
+	int o_x = robotX;
+	int o_y = robotY;
 	
 	
-	double Zk=0;
 	double thetaK;
-
 	double sensorTheta;
+	
 	int SensorData_signal = 0;
 	int SensorData_signal_flag = 0;
-	double minDelta = -1;
 	
-	double r = robotXY_from_gridXY_dist;
+	int r = robotXY_from_gridXY_dist;
 	double phi = atan2(yi - o_y, xi - o_x) - robotTheta;
 	unsigned char IR_index;
 	 
@@ -222,9 +220,9 @@ void bsp_StopUpdateMap(void)
 void bsp_MapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char* IRSensorData)
 {
 	int x,y;
-	double xi, yi;
-	double robotXY_from_gridXY_dist;
-	double grid_status;
+	int xi, yi;
+	int robotXY_from_gridXY_dist;
+	unsigned char grid_status;
 	
 	
 	if(!gridmap.isRunning)
