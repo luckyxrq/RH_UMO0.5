@@ -207,6 +207,7 @@
 void bsp_Init(void);
 void bsp_Idle(void);
 void BSP_Tick_Init (void);
+void bsp_InitFormAwaken(void);
 
 #endif
 

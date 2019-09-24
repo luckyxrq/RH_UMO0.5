@@ -436,6 +436,7 @@ static void UartVarInit(void)
 	g_tUart1.SendBefor = 0;						/* 发送数据前的回调函数 */
 	g_tUart1.SendOver = 0;						/* 发送完毕后的回调函数 */
 	g_tUart1.ReciveNew = 0;						/* 接收到新数据后的回调函数 */
+	
 #endif
 
 #if UART2_FIFO_EN == 1
@@ -453,6 +454,7 @@ static void UartVarInit(void)
 	g_tUart2.SendBefor = 0;						/* 发送数据前的回调函数 */
 	g_tUart2.SendOver = 0;						/* 发送完毕后的回调函数 */
 	g_tUart2.ReciveNew = 0;						/* 接收到新数据后的回调函数 */
+	
 #endif
 
 #if UART3_FIFO_EN == 1
@@ -470,6 +472,7 @@ static void UartVarInit(void)
 	g_tUart3.SendBefor = 0;		                /* 发送数据前的回调函数 */
 	g_tUart3.SendOver = 0;			            /* 发送完毕后的回调函数 */
 	g_tUart3.ReciveNew = RS485_ReciveNew;		/* 接收到新数据后的回调函数 */
+	
 #endif
 
 #if UART4_FIFO_EN == 1
@@ -487,6 +490,7 @@ static void UartVarInit(void)
 	g_tUart4.SendBefor = 0;						/* 发送数据前的回调函数 */
 	g_tUart4.SendOver = 0;						/* 发送完毕后的回调函数 */
 	g_tUart4.ReciveNew = 0;						/* 接收到新数据后的回调函数 */
+	
 #endif
 
 #if UART5_FIFO_EN == 1
@@ -504,6 +508,7 @@ static void UartVarInit(void)
 	g_tUart5.SendBefor = 0;						/* 发送数据前的回调函数 */
 	g_tUart5.SendOver = 0;						/* 发送完毕后的回调函数 */
 	g_tUart5.ReciveNew = 0;						/* 接收到新数据后的回调函数 */
+	
 #endif
 
 

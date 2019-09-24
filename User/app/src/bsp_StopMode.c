@@ -65,8 +65,12 @@ void EXTI9_5_IRQHandler(void)
 	if(EXTI_GetITStatus(EXTI_Line7) == SET)
 	{	
 		/*唤醒了后重新初始化外设*/
-		bsp_Init();
+		bsp_InitFormAwaken();
 		
+		DEBUG("Awaken\r\n");
+
+		__disable_fault_irq();
+		NVIC_SystemReset();
 		
 		EXTI_ClearITPendingBit(EXTI_Line7); /* 清除中断标志位 */
 	}
@@ -181,7 +185,7 @@ static void bsp_InitKeyStopMODE(void)
 
 	/* 16个抢占式优先级，0个响应式优先级 */
     NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);

@@ -121,7 +121,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					}
 					else
 					{
-						//DEBUG("清扫\r\n");
+						DEBUG("KEY_1_UP\r\n");
 						bsp_SetHomeKey(true);
 					}
 					
@@ -129,13 +129,13 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					
 				case KEY_2_UP:/*按键2按下*/
 				{
-					//DEBUG("充电\r\n");
+					DEBUG("KEY_2_UP\r\n");
 					bsp_SetChargeKey(true);
 				}break;
 					
 				case KEY_3_UP:/*按键3按下*/	
 				{
-					//DEBUG("清扫\r\n");
+					DEBUG("KEY_3_UP\r\n");
 					bsp_SetCleanKey(true);
 				}break;
 					
@@ -160,6 +160,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
             bsp_LedToggle(1);
 			bsp_LedToggle(2);
 			bsp_LedToggle(3);
+			
+			DEBUG("alive\r\n");
 			
 			//bsp_PrintIR_Rev();
 			
@@ -256,8 +258,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 	bsp_StartRunControl(); /*开启按键控制状态机*/
 	
 	
-	vTaskDelay(8000);
-	bsp_EnterStopMODE();
+//	vTaskDelay(8000);
+//	bsp_EnterStopMODE();
 	
     while(1)
     {
@@ -306,11 +308,13 @@ static void vTaskPerception(void *pvParameters)
     /*开启正面碰撞协助*/
 	bsp_StartAssistJudgeDirection();
 	/*开启栅格地图跟新*/
-	bsp_StartUpdateGridMap();
+	
+	
+	//bsp_StartUpdateGridMap();
 
 	
 	
-	vTaskDelay(5000);
+//	vTaskDelay(5000);
 	
     while(1)
     {
@@ -342,7 +346,7 @@ static void vTaskPerception(void *pvParameters)
         bsp_PositionUpdate();
 		/*更新地图*/
 		
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+		//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
         
 		if(count++ % 10 == 0)
 		{

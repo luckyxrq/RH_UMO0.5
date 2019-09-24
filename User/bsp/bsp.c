@@ -28,7 +28,7 @@
 *	返 回 值: 无
 *********************************************************************************************************
 */
-#if 1
+
 void bsp_Init(void)
 {
 	uint8_t ret;
@@ -54,16 +54,8 @@ void bsp_Init(void)
 	bsp_InitUart(); 	     /* 初始化串口 */
 	bsp_InitLed();           /* 初始化LED */
 	
-//	bsp_LedOn(1);
-//	bsp_LedOn(2);
-//	bsp_LedOn(3);
+//	bsp_DelayMS(500);
 	
-	
-	
-	bsp_DelayMS(500);
-	
-	
-
 	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
 	
 	bsp_SwOn(SW_5V_EN_CTRL);
@@ -103,16 +95,56 @@ void bsp_Init(void)
 	DEBUG("初始化完毕\r\n");
 	
 }
-#else
 
-void bsp_Init(void)
+
+void bsp_InitFormAwaken(void)
 {
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
-	bsp_InitDWT();
+	uint8_t ret;
+	
+	UNUSED(ret);
+	
+	
+	
+	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
+	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
+	bsp_InitUart(); 	     /* 初始化串口 */
+	bsp_InitLed();           /* 初始化LED */
 	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
-	while(1);
+	
+	bsp_SwOn(SW_5V_EN_CTRL);
+	bsp_SwOn(SW_IR_POWER);
+	bsp_SwOn(SW_MOTOR_POWER);
+	
+	bsp_InitKey();           /* 初始化按键 */
+	bsp_InitHardTimer();     /* 初始化硬件定时器 */
+	
+	bsp_InitEncoder();
+	bsp_InitMotor();
+	bsp_InitPid(MotorLeft);
+	bsp_InitPid(MotorRight);
+	
+	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
+	
+	bsp_InitSpeaker();		 /*初始化扬声器*/
+	bsp_InitRunControl();    /*初始化整机控制状态机*/
+	
+//	bsp_InitIWDG();     /*初始化看门狗*/
+//	/* 初始化IO拓展芯片 */	
+//	do{
+//		ret = bsp_InitAW9523B();		
+//		if(!ret) 
+//		{
+//			WARNING("AW9523B Init Error\r\n");
+//			bsp_DelayMS(100);
+//		}
+//	}while(!ret);
+	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
+	
+	bsp_IRD_StartWork();
+	bsp_InitCliffSW();
+	
 }
 
-#endif
+
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
