@@ -342,9 +342,9 @@ static void vTaskPerception(void *pvParameters)
         bsp_PositionUpdate();
 		/*¸üÐÂµØÍ¼*/
 		
-		DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
-        DEBUG("End:%d\r\n",xTaskGetTickCount());
+//		DEBUG("Start:%d\r\n",xTaskGetTickCount());
+//		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+//      DEBUG("End:%d\r\n",xTaskGetTickCount());
 		
 		if(count++ % 10 == 0)
 		{

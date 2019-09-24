@@ -3,6 +3,8 @@
 
 static GridMap gridmap;
 
+static unsigned long mysqrt(unsigned long x);
+
 static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,int robotY,double robotTheta,int xi,int yi,unsigned char obstacleSignal,unsigned char* IRSensorData)
 {
 
@@ -241,7 +243,7 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 					xi = x * GRIDWIDTH + GRIDWIDTH / 2 - ROBOTXOFFSET;
 					yi = -(y * GRIDHEIGHT + GRIDHEIGHT / 2) + ROBOTYOFFSET;
 					
-					robotXY_from_gridXY_dist = sqrt(pow(xi - robotX, 2) + pow(yi - robotY, 2));
+					robotXY_from_gridXY_dist = mysqrt(pow(xi - robotX, 2) + pow(yi - robotY, 2));
 					
 					if (robotXY_from_gridXY_dist <= gridmap.refresh_zone_max_radius)
 					{
@@ -293,3 +295,44 @@ unsigned char* bsp_GetIRSensorData(void)
 
 }
 
+
+/*! \brief Square root routine.
+ *
+ * sqrt routine 'grupe', from comp.sys.ibm.pc.programmer
+ * Subject: Summary: SQRT(int) algorithm (with profiling)
+ *    From: warwick@cs.uq.oz.au (Warwick Allison)
+ *    Date: Tue Oct 8 09:16:35 1991
+ *
+ *  \param x  Value to find square root of.
+ *  \return  Square root of x.
+ */
+static unsigned long mysqrt(unsigned long x)
+{
+  register unsigned long xr;  // result register
+  register unsigned long q2;  // scan-bit register
+  register unsigned char f;   // flag (one bit)
+
+  xr = 0;                     // clear result
+  q2 = 0x40000000L;           // higest possible result bit
+  do
+  {
+    if((xr + q2) <= x)
+    {
+      x -= xr + q2;
+      f = 1;                  // set flag
+    }
+    else{
+      f = 0;                  // clear flag
+    }
+    xr >>= 1;
+    if(f){
+      xr += q2;               // test flag
+    }
+  } while(q2 >>= 2);          // shift twice
+  if(xr < x){
+    return xr +1;             // add for rounding
+  }
+  else{
+    return xr;
+  }
+}

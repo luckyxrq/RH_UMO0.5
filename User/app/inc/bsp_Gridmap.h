@@ -9,8 +9,8 @@
 #define GRIDHEIGHT 100
 /** Map Size (mm) */ 
 // 10m * 10m
-#define MAPWIDTH  2000
-#define MAPHEIGHT 4000
+#define MAPWIDTH  500
+#define MAPHEIGHT 500
 
 #define ROBOTXOFFSET   MAPWIDTH/2
 #define ROBOTYOFFSET   MAPHEIGHT/2
