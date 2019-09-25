@@ -61,7 +61,7 @@ void bsp_SwOn(SW_ID sw)
 	{
 		case SW_5V_EN_CTRL:
 		{
-			GPIO_ResetBits(GPIO_PORT_5V_EN_CTR,GPIO_PIN_5V_EN_CTR);
+			GPIO_SetBits(GPIO_PORT_5V_EN_CTR,GPIO_PIN_5V_EN_CTR);
 		}break;
 		
 		case SW_IR_POWER:
@@ -93,7 +93,7 @@ void bsp_SwOff(SW_ID sw)
 	{
 		case SW_5V_EN_CTRL:
 		{
-			GPIO_SetBits(GPIO_PORT_5V_EN_CTR,GPIO_PIN_5V_EN_CTR);
+			GPIO_ResetBits(GPIO_PORT_5V_EN_CTR,GPIO_PIN_5V_EN_CTR);
 		}break;
 		
 		case SW_IR_POWER:

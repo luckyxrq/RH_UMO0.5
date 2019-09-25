@@ -65,8 +65,7 @@ void EXTI9_5_IRQHandler(void)
 		/*唤醒了后重新初始化外设*/
 		bsp_InitFormAwaken();
 		
-		DEBUG("Awaken\r\n");
-
+		/*软重启*/
 		__disable_fault_irq();
 		NVIC_SystemReset();
 		

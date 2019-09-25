@@ -54,10 +54,10 @@ Section Cross References
     bsp_powerswitch.o(i.bsp_InitSW) refers to stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
     bsp_powerswitch.o(i.bsp_InitSW) refers to bsp_powerswitch.o(i.bsp_SwOff) for bsp_SwOff
     bsp_powerswitch.o(i.bsp_InitSW) refers to stm32f10x_gpio.o(i.GPIO_Init) for GPIO_Init
-    bsp_powerswitch.o(i.bsp_SwOff) refers to stm32f10x_gpio.o(i.GPIO_SetBits) for GPIO_SetBits
     bsp_powerswitch.o(i.bsp_SwOff) refers to stm32f10x_gpio.o(i.GPIO_ResetBits) for GPIO_ResetBits
-    bsp_powerswitch.o(i.bsp_SwOn) refers to stm32f10x_gpio.o(i.GPIO_ResetBits) for GPIO_ResetBits
+    bsp_powerswitch.o(i.bsp_SwOff) refers to stm32f10x_gpio.o(i.GPIO_SetBits) for GPIO_SetBits
     bsp_powerswitch.o(i.bsp_SwOn) refers to stm32f10x_gpio.o(i.GPIO_SetBits) for GPIO_SetBits
+    bsp_powerswitch.o(i.bsp_SwOn) refers to stm32f10x_gpio.o(i.GPIO_ResetBits) for GPIO_ResetBits
     bsp_collision.o(i.bsp_CollisionDemo) refers to bsp_collision.o(i.bsp_CollisionScan) for bsp_CollisionScan
     bsp_collision.o(i.bsp_CollisionDemo) refers to printf8.o(i.__0printf$8) for __2printf
     bsp_collision.o(i.bsp_CollisionScan) refers to stm32f10x_gpio.o(i.GPIO_ReadInputDataBit) for GPIO_ReadInputDataBit
@@ -516,7 +516,6 @@ Section Cross References
     bsp_assistjudgedirection.o(i.bsp_StopAssistJudgeDirection) refers to bsp_assistjudgedirection.o(.bss) for assistJudgeDirection
     bsp_stopmode.o(i.EXTI9_5_IRQHandler) refers to stm32f10x_exti.o(i.EXTI_GetITStatus) for EXTI_GetITStatus
     bsp_stopmode.o(i.EXTI9_5_IRQHandler) refers to bsp.o(i.bsp_InitFormAwaken) for bsp_InitFormAwaken
-    bsp_stopmode.o(i.EXTI9_5_IRQHandler) refers to printf8.o(i.__0printf$8) for __2printf
     bsp_stopmode.o(i.bsp_DISABLE_ALL_EXIT) refers to misc.o(i.NVIC_Init) for NVIC_Init
     bsp_stopmode.o(i.bsp_EnterStopMODE) refers to bsp_stopmode.o(i.bsp_DISABLE_ALL_EXIT) for bsp_DISABLE_ALL_EXIT
     bsp_stopmode.o(i.bsp_EnterStopMODE) refers to bsp_stopmode.o(i.bsp_SetAllPinLowPower) for bsp_SetAllPinLowPower
@@ -2494,375 +2493,375 @@ Image Symbol Table
     i.EXTI15_10_IRQHandler                   0x08000e2c   Section        0  bsp_encoder.o(i.EXTI15_10_IRQHandler)
     i.EXTI3_IRQHandler                       0x08000e58   Section        0  bsp_encoder.o(i.EXTI3_IRQHandler)
     i.EXTI9_5_IRQHandler                     0x08000e80   Section        0  bsp_stopmode.o(i.EXTI9_5_IRQHandler)
-    i.EXTI_ClearITPendingBit                 0x08000ed0   Section        0  stm32f10x_exti.o(i.EXTI_ClearITPendingBit)
-    i.EXTI_GetITStatus                       0x08000edc   Section        0  stm32f10x_exti.o(i.EXTI_GetITStatus)
-    i.EXTI_Init                              0x08000f04   Section        0  stm32f10x_exti.o(i.EXTI_Init)
-    i.GPIO_EXTILineConfig                    0x08000f98   Section        0  stm32f10x_gpio.o(i.GPIO_EXTILineConfig)
-    i.GPIO_Init                              0x08000fd8   Section        0  stm32f10x_gpio.o(i.GPIO_Init)
-    i.GPIO_PinRemapConfig                    0x080010f0   Section        0  stm32f10x_gpio.o(i.GPIO_PinRemapConfig)
-    i.GPIO_ReadInputDataBit                  0x08001180   Section        0  stm32f10x_gpio.o(i.GPIO_ReadInputDataBit)
-    i.GPIO_ResetBits                         0x08001192   Section        0  stm32f10x_gpio.o(i.GPIO_ResetBits)
-    i.GPIO_SetBits                           0x08001196   Section        0  stm32f10x_gpio.o(i.GPIO_SetBits)
-    i.HardFault_Handler                      0x0800119c   Section        0  stm32f10x_it.o(i.HardFault_Handler)
-    i.InitHardUart                           0x080011f4   Section        0  bsp_uart_fifo.o(i.InitHardUart)
-    InitHardUart                             0x080011f5   Thumb Code   582  bsp_uart_fifo.o(i.InitHardUart)
-    i.IsKeyDown1                             0x08001458   Section        0  bsp_key.o(i.IsKeyDown1)
-    IsKeyDown1                               0x08001459   Thumb Code    38  bsp_key.o(i.IsKeyDown1)
-    i.IsKeyDown10                            0x08001484   Section        0  bsp_key.o(i.IsKeyDown10)
-    IsKeyDown10                              0x08001485   Thumb Code    38  bsp_key.o(i.IsKeyDown10)
-    i.IsKeyDown2                             0x080014b0   Section        0  bsp_key.o(i.IsKeyDown2)
-    IsKeyDown2                               0x080014b1   Thumb Code    38  bsp_key.o(i.IsKeyDown2)
-    i.IsKeyDown3                             0x080014dc   Section        0  bsp_key.o(i.IsKeyDown3)
-    IsKeyDown3                               0x080014dd   Thumb Code    38  bsp_key.o(i.IsKeyDown3)
-    i.IsKeyDown4                             0x08001508   Section        0  bsp_key.o(i.IsKeyDown4)
-    IsKeyDown4                               0x08001509   Thumb Code    18  bsp_key.o(i.IsKeyDown4)
-    i.IsKeyDown5                             0x08001520   Section        0  bsp_key.o(i.IsKeyDown5)
-    IsKeyDown5                               0x08001521   Thumb Code    18  bsp_key.o(i.IsKeyDown5)
-    i.IsKeyDown6                             0x08001538   Section        0  bsp_key.o(i.IsKeyDown6)
-    IsKeyDown6                               0x08001539   Thumb Code    18  bsp_key.o(i.IsKeyDown6)
-    i.IsKeyDown7                             0x08001550   Section        0  bsp_key.o(i.IsKeyDown7)
-    IsKeyDown7                               0x08001551   Thumb Code    18  bsp_key.o(i.IsKeyDown7)
-    i.IsKeyDown8                             0x08001568   Section        0  bsp_key.o(i.IsKeyDown8)
-    IsKeyDown8                               0x08001569   Thumb Code    18  bsp_key.o(i.IsKeyDown8)
-    i.IsKeyDown9                             0x08001580   Section        0  bsp_key.o(i.IsKeyDown9)
-    IsKeyDown9                               0x08001581   Thumb Code    38  bsp_key.o(i.IsKeyDown9)
-    i.MemManage_Handler                      0x080015ac   Section        0  stm32f10x_it.o(i.MemManage_Handler)
-    i.NMI_Handler                            0x080015b0   Section        0  stm32f10x_it.o(i.NMI_Handler)
-    i.NVIC_Init                              0x080015b4   Section        0  misc.o(i.NVIC_Init)
-    i.NVIC_PriorityGroupConfig               0x08001624   Section        0  misc.o(i.NVIC_PriorityGroupConfig)
-    i.PWR_EnterSTOPMode                      0x08001638   Section        0  stm32f10x_pwr.o(i.PWR_EnterSTOPMode)
-    i.RCC_ADCCLKConfig                       0x08001678   Section        0  stm32f10x_rcc.o(i.RCC_ADCCLKConfig)
-    i.RCC_APB1PeriphClockCmd                 0x08001690   Section        0  stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd)
-    i.RCC_APB2PeriphClockCmd                 0x080016b0   Section        0  stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd)
-    i.RCC_APB2PeriphResetCmd                 0x080016d0   Section        0  stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd)
-    i.RCC_GetClocksFreq                      0x080016f0   Section        0  stm32f10x_rcc.o(i.RCC_GetClocksFreq)
-    i.RCC_GetFlagStatus                      0x080017c4   Section        0  stm32f10x_rcc.o(i.RCC_GetFlagStatus)
-    i.RCC_GetSYSCLKSource                    0x08001800   Section        0  stm32f10x_rcc.o(i.RCC_GetSYSCLKSource)
-    i.RCC_HSEConfig                          0x08001810   Section        0  stm32f10x_rcc.o(i.RCC_HSEConfig)
-    i.RCC_PLLCmd                             0x0800185c   Section        0  stm32f10x_rcc.o(i.RCC_PLLCmd)
-    i.RCC_SYSCLKConfig                       0x08001868   Section        0  stm32f10x_rcc.o(i.RCC_SYSCLKConfig)
-    i.RS485_ReciveNew                        0x08001880   Section        0  bsp_uart_fifo.o(i.RS485_ReciveNew)
-    i.SetSysClock                            0x0800188c   Section        0  system_stm32f10x.o(i.SetSysClock)
-    SetSysClock                              0x0800188d   Thumb Code     8  system_stm32f10x.o(i.SetSysClock)
-    i.SetSysClockTo72                        0x08001894   Section        0  system_stm32f10x.o(i.SetSysClockTo72)
-    SetSysClockTo72                          0x08001895   Thumb Code   214  system_stm32f10x.o(i.SetSysClockTo72)
-    i.SysTick_Handler                        0x08001974   Section        0  port.o(i.SysTick_Handler)
-    i.SystemInit                             0x08001994   Section        0  system_stm32f10x.o(i.SystemInit)
-    i.TI1_Config                             0x080019f4   Section        0  stm32f10x_tim.o(i.TI1_Config)
-    TI1_Config                               0x080019f5   Thumb Code   108  stm32f10x_tim.o(i.TI1_Config)
-    i.TI2_Config                             0x08001a74   Section        0  stm32f10x_tim.o(i.TI2_Config)
-    TI2_Config                               0x08001a75   Thumb Code   130  stm32f10x_tim.o(i.TI2_Config)
-    i.TI3_Config                             0x08001b0c   Section        0  stm32f10x_tim.o(i.TI3_Config)
-    TI3_Config                               0x08001b0d   Thumb Code   122  stm32f10x_tim.o(i.TI3_Config)
-    i.TI4_Config                             0x08001b9c   Section        0  stm32f10x_tim.o(i.TI4_Config)
-    TI4_Config                               0x08001b9d   Thumb Code   130  stm32f10x_tim.o(i.TI4_Config)
-    i.TIM3_IRQHandler                        0x08001c34   Section        0  bsp_ir_decode.o(i.TIM3_IRQHandler)
-    i.TIM5_IRQHandler                        0x08001cc8   Section        0  bsp_timer.o(i.TIM5_IRQHandler)
-    i.TIM6_IRQHandler                        0x08001d68   Section        0  sysinfotest.o(i.TIM6_IRQHandler)
-    i.TIM_ARRPreloadConfig                   0x08001db8   Section        0  stm32f10x_tim.o(i.TIM_ARRPreloadConfig)
-    i.TIM_ClearITPendingBit                  0x08001dd0   Section        0  stm32f10x_tim.o(i.TIM_ClearITPendingBit)
-    i.TIM_Cmd                                0x08001dd6   Section        0  stm32f10x_tim.o(i.TIM_Cmd)
-    i.TIM_CtrlPWMOutputs                     0x08001dee   Section        0  stm32f10x_tim.o(i.TIM_CtrlPWMOutputs)
-    i.TIM_GetCapture1                        0x08001e0c   Section        0  stm32f10x_tim.o(i.TIM_GetCapture1)
-    i.TIM_GetCapture2                        0x08001e12   Section        0  stm32f10x_tim.o(i.TIM_GetCapture2)
-    i.TIM_GetCapture3                        0x08001e18   Section        0  stm32f10x_tim.o(i.TIM_GetCapture3)
-    i.TIM_GetCapture4                        0x08001e1e   Section        0  stm32f10x_tim.o(i.TIM_GetCapture4)
-    i.TIM_GetCounter                         0x08001e26   Section        0  stm32f10x_tim.o(i.TIM_GetCounter)
-    i.TIM_GetITStatus                        0x08001e2c   Section        0  stm32f10x_tim.o(i.TIM_GetITStatus)
-    i.TIM_ICInit                             0x08001e50   Section        0  stm32f10x_tim.o(i.TIM_ICInit)
-    i.TIM_ITConfig                           0x08001efc   Section        0  stm32f10x_tim.o(i.TIM_ITConfig)
-    i.TIM_OC1Init                            0x08001f10   Section        0  stm32f10x_tim.o(i.TIM_OC1Init)
-    i.TIM_OC1PreloadConfig                   0x08001fa8   Section        0  stm32f10x_tim.o(i.TIM_OC1PreloadConfig)
-    i.TIM_OC2Init                            0x08001fbc   Section        0  stm32f10x_tim.o(i.TIM_OC2Init)
-    i.TIM_OC2PreloadConfig                   0x08002060   Section        0  stm32f10x_tim.o(i.TIM_OC2PreloadConfig)
-    i.TIM_OC3Init                            0x0800207c   Section        0  stm32f10x_tim.o(i.TIM_OC3Init)
-    i.TIM_OC3PreloadConfig                   0x0800211c   Section        0  stm32f10x_tim.o(i.TIM_OC3PreloadConfig)
-    i.TIM_OC4Init                            0x08002130   Section        0  stm32f10x_tim.o(i.TIM_OC4Init)
-    i.TIM_OC4PreloadConfig                   0x080021ac   Section        0  stm32f10x_tim.o(i.TIM_OC4PreloadConfig)
-    i.TIM_SetCompare1                        0x080021c6   Section        0  stm32f10x_tim.o(i.TIM_SetCompare1)
-    i.TIM_SetCompare2                        0x080021ca   Section        0  stm32f10x_tim.o(i.TIM_SetCompare2)
-    i.TIM_SetCompare3                        0x080021ce   Section        0  stm32f10x_tim.o(i.TIM_SetCompare3)
-    i.TIM_SetCompare4                        0x080021d2   Section        0  stm32f10x_tim.o(i.TIM_SetCompare4)
-    i.TIM_SetIC1Prescaler                    0x080021d8   Section        0  stm32f10x_tim.o(i.TIM_SetIC1Prescaler)
-    i.TIM_SetIC2Prescaler                    0x080021ea   Section        0  stm32f10x_tim.o(i.TIM_SetIC2Prescaler)
-    i.TIM_SetIC3Prescaler                    0x08002204   Section        0  stm32f10x_tim.o(i.TIM_SetIC3Prescaler)
-    i.TIM_SetIC4Prescaler                    0x08002216   Section        0  stm32f10x_tim.o(i.TIM_SetIC4Prescaler)
-    i.TIM_TimeBaseInit                       0x08002230   Section        0  stm32f10x_tim.o(i.TIM_TimeBaseInit)
-    i.UART4_IRQHandler                       0x080022d4   Section        0  bsp_uart_fifo.o(i.UART4_IRQHandler)
-    i.USART1_IRQHandler                      0x080022e4   Section        0  bsp_uart_fifo.o(i.USART1_IRQHandler)
-    i.USART2_IRQHandler                      0x080022f4   Section        0  bsp_uart_fifo.o(i.USART2_IRQHandler)
-    i.USART3_IRQHandler                      0x08002304   Section        0  bsp_uart_fifo.o(i.USART3_IRQHandler)
-    i.USART_ClearFlag                        0x08002314   Section        0  stm32f10x_usart.o(i.USART_ClearFlag)
-    i.USART_Cmd                              0x08002326   Section        0  stm32f10x_usart.o(i.USART_Cmd)
-    i.USART_GetITStatus                      0x0800233e   Section        0  stm32f10x_usart.o(i.USART_GetITStatus)
-    i.USART_ITConfig                         0x08002392   Section        0  stm32f10x_usart.o(i.USART_ITConfig)
-    i.USART_Init                             0x080023dc   Section        0  stm32f10x_usart.o(i.USART_Init)
-    i.USART_ReceiveData                      0x080024b4   Section        0  stm32f10x_usart.o(i.USART_ReceiveData)
-    i.USART_SendData                         0x080024be   Section        0  stm32f10x_usart.o(i.USART_SendData)
-    i.UartGetChar                            0x080024c6   Section        0  bsp_uart_fifo.o(i.UartGetChar)
-    UartGetChar                              0x080024c7   Thumb Code    74  bsp_uart_fifo.o(i.UartGetChar)
-    i.UartIRQ                                0x08002510   Section        0  bsp_uart_fifo.o(i.UartIRQ)
-    UartIRQ                                  0x08002511   Thumb Code   230  bsp_uart_fifo.o(i.UartIRQ)
-    i.UartSend                               0x080025f6   Section        0  bsp_uart_fifo.o(i.UartSend)
-    UartSend                                 0x080025f7   Thumb Code   114  bsp_uart_fifo.o(i.UartSend)
-    i.UartVarInit                            0x08002668   Section        0  bsp_uart_fifo.o(i.UartVarInit)
-    UartVarInit                              0x08002669   Thumb Code   172  bsp_uart_fifo.o(i.UartVarInit)
-    i.UsageFault_Handler                     0x08002758   Section        0  stm32f10x_it.o(i.UsageFault_Handler)
-    i.__0printf$8                            0x0800275c   Section        0  printf8.o(i.__0printf$8)
-    i.__ARM_fpclassify                       0x0800277c   Section        0  fpclassify.o(i.__ARM_fpclassify)
-    i.__ieee754_rem_pio2                     0x080027a4   Section        0  rred.o(i.__ieee754_rem_pio2)
-    i.__kernel_cos                           0x08002b2c   Section        0  cos_i.o(i.__kernel_cos)
-    i.__kernel_poly                          0x08002c28   Section        0  poly.o(i.__kernel_poly)
-    i.__kernel_sin                           0x08002cd4   Section        0  sin_i.o(i.__kernel_sin)
-    i.__mathlib_dbl_infnan                   0x08002dc0   Section        0  dunder.o(i.__mathlib_dbl_infnan)
-    i.__mathlib_dbl_invalid                  0x08002dc6   Section        0  dunder.o(i.__mathlib_dbl_invalid)
-    i.__mathlib_dbl_underflow                0x08002dd4   Section        0  dunder.o(i.__mathlib_dbl_underflow)
-    i.__scatterload_copy                     0x08002de4   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x08002df2   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x08002df4   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i.__set_PRIMASK                          0x08002e02   Section        0  bsp_uart_fifo.o(i.__set_PRIMASK)
-    __set_PRIMASK                            0x08002e03   Thumb Code     6  bsp_uart_fifo.o(i.__set_PRIMASK)
-    i.__set_errno                            0x08002e08   Section        0  errno.o(i.__set_errno)
-    i._printf_core                           0x08002e14   Section        0  printf8.o(i._printf_core)
-    _printf_core                             0x08002e15   Thumb Code   996  printf8.o(i._printf_core)
-    i._printf_post_padding                   0x08003224   Section        0  printf8.o(i._printf_post_padding)
-    _printf_post_padding                     0x08003225   Thumb Code    36  printf8.o(i._printf_post_padding)
-    i._printf_pre_padding                    0x08003248   Section        0  printf8.o(i._printf_pre_padding)
-    _printf_pre_padding                      0x08003249   Thumb Code    46  printf8.o(i._printf_pre_padding)
-    i.bsp_ADCConfig                          0x08003278   Section        0  bsp_detectact.o(i.bsp_ADCConfig)
-    bsp_ADCConfig                            0x08003279   Thumb Code   132  bsp_detectact.o(i.bsp_ADCConfig)
-    i.bsp_AngleAdd                           0x08003304   Section        0  bsp_angle.o(i.bsp_AngleAdd)
-    i.bsp_AngleAnalyzeApp                    0x08003360   Section        0  bsp_angle.o(i.bsp_AngleAnalyzeApp)
-    bsp_AngleAnalyzeApp                      0x08003361   Thumb Code    38  bsp_angle.o(i.bsp_AngleAnalyzeApp)
-    i.bsp_AngleCheck                         0x08003390   Section        0  bsp_angle.o(i.bsp_AngleCheck)
-    bsp_AngleCheck                           0x08003391   Thumb Code   142  bsp_angle.o(i.bsp_AngleCheck)
-    i.bsp_AnglePoll                          0x08003428   Section        0  bsp_angle.o(i.bsp_AnglePoll)
-    bsp_AnglePoll                            0x08003429   Thumb Code    50  bsp_angle.o(i.bsp_AnglePoll)
-    i.bsp_AngleRead                          0x08003460   Section        0  bsp_angle.o(i.bsp_AngleRead)
-    i.bsp_AngleReadRaw                       0x0800346c   Section        0  bsp_angle.o(i.bsp_AngleReadRaw)
-    i.bsp_AngleRevByte                       0x08003478   Section        0  bsp_angle.o(i.bsp_AngleRevByte)
-    i.bsp_AngleRst                           0x080034b0   Section        0  bsp_angle.o(i.bsp_AngleRst)
-    i.bsp_AngleTimeout                       0x080034e4   Section        0  bsp_angle.o(i.bsp_AngleTimeout)
-    bsp_AngleTimeout                         0x080034e5   Thumb Code    14  bsp_angle.o(i.bsp_AngleTimeout)
-    i.bsp_AssistIsFaceObstacles              0x080034f8   Section        0  bsp_assistjudgedirection.o(i.bsp_AssistIsFaceObstacles)
-    i.bsp_AssistJudgeDirection               0x08003524   Section        0  bsp_assistjudgedirection.o(i.bsp_AssistJudgeDirection)
-    i.bsp_CalcChk                            0x08003574   Section        0  bsp_communication.o(i.bsp_CalcChk)
-    bsp_CalcChk                              0x08003575   Thumb Code    54  bsp_communication.o(i.bsp_CalcChk)
-    i.bsp_CliffCalibration                   0x080035ac   Section        0  bsp_cliffsw.o(i.bsp_CliffCalibration)
-    i.bsp_CollisionScan                      0x08003694   Section        0  bsp_collision.o(i.bsp_CollisionScan)
-    i.bsp_ComAnalysis                        0x08003708   Section        0  bsp_communication.o(i.bsp_ComAnalysis)
-    i.bsp_DISABLE_ALL_EXIT                   0x0800393c   Section        0  bsp_stopmode.o(i.bsp_DISABLE_ALL_EXIT)
-    bsp_DISABLE_ALL_EXIT                     0x0800393d   Thumb Code   116  bsp_stopmode.o(i.bsp_DISABLE_ALL_EXIT)
-    i.bsp_DelayMS                            0x080039b0   Section        0  bsp_dwt.o(i.bsp_DelayMS)
-    i.bsp_DelayUS                            0x080039c4   Section        0  bsp_dwt.o(i.bsp_DelayUS)
-    i.bsp_DetectKey                          0x080039f4   Section        0  bsp_key.o(i.bsp_DetectKey)
-    bsp_DetectKey                            0x080039f5   Thumb Code   198  bsp_key.o(i.bsp_DetectKey)
-    i.bsp_DetectStart                        0x08003ac0   Section        0  bsp_detectact.o(i.bsp_DetectStart)
-    i.bsp_EXTI_Config                        0x08003ad8   Section        0  bsp_encoder.o(i.bsp_EXTI_Config)
-    bsp_EXTI_Config                          0x08003ad9   Thumb Code   212  bsp_encoder.o(i.bsp_EXTI_Config)
-    i.bsp_EdgewiseRun                        0x08003bb4   Section        0  bsp_edgewise.o(i.bsp_EdgewiseRun)
-    i.bsp_EdgewiseRunStraightFast            0x08003dac   Section        0  bsp_edgewise.o(i.bsp_EdgewiseRunStraightFast)
-    bsp_EdgewiseRunStraightFast              0x08003dad   Thumb Code    20  bsp_edgewise.o(i.bsp_EdgewiseRunStraightFast)
-    i.bsp_EdgewiseRunStraightSlow            0x08003dc0   Section        0  bsp_edgewise.o(i.bsp_EdgewiseRunStraightSlow)
-    bsp_EdgewiseRunStraightSlow              0x08003dc1   Thumb Code    20  bsp_edgewise.o(i.bsp_EdgewiseRunStraightSlow)
-    i.bsp_EdgewiseTurnLeftSlow               0x08003dd4   Section        0  bsp_edgewise.o(i.bsp_EdgewiseTurnLeftSlow)
-    bsp_EdgewiseTurnLeftSlow                 0x08003dd5   Thumb Code    20  bsp_edgewise.o(i.bsp_EdgewiseTurnLeftSlow)
-    i.bsp_EdgewiseTurnRightSlow              0x08003de8   Section        0  bsp_edgewise.o(i.bsp_EdgewiseTurnRightSlow)
-    bsp_EdgewiseTurnRightSlow                0x08003de9   Thumb Code    20  bsp_edgewise.o(i.bsp_EdgewiseTurnRightSlow)
-    i.bsp_EncoderGetPulseT                   0x08003dfc   Section        0  bsp_encoder.o(i.bsp_EncoderGetPulseT)
-    i.bsp_EncoderGetTotalMileage             0x08003e18   Section        0  bsp_encoder.o(i.bsp_EncoderGetTotalMileage)
-    i.bsp_EnterStopMODE                      0x08003e28   Section        0  bsp_stopmode.o(i.bsp_EnterStopMODE)
-    i.bsp_FillReportFrame                    0x08003eb0   Section        0  bsp_communication.o(i.bsp_FillReportFrame)
-    bsp_FillReportFrame                      0x08003eb1   Thumb Code   622  bsp_communication.o(i.bsp_FillReportFrame)
-    i.bsp_GetChargeFeedback                  0x08004128   Section        0  bsp_searchchargepile.o(i.bsp_GetChargeFeedback)
-    i.bsp_GetCliffVoltage                    0x08004140   Section        0  bsp_cliffsw.o(i.bsp_GetCliffVoltage)
-    i.bsp_GetCurrentBothPulse                0x08004234   Section        0  bsp_encoder.o(i.bsp_GetCurrentBothPulse)
-    i.bsp_GetCurrentPosX                     0x08004268   Section        0  bsp_position.o(i.bsp_GetCurrentPosX)
-    i.bsp_GetCurrentPosY                     0x08004290   Section        0  bsp_position.o(i.bsp_GetCurrentPosY)
-    i.bsp_GetInfraRedAdcVoltage              0x080042b8   Section        0  bsp_detectact.o(i.bsp_GetInfraRedAdcVoltage)
-    i.bsp_GetInfraredVoltageRight            0x080042c8   Section        0  bsp_detectact.o(i.bsp_GetInfraredVoltageRight)
-    i.bsp_GetKey                             0x080042d4   Section        0  bsp_key.o(i.bsp_GetKey)
-    i.bsp_GetRCCofTIM                        0x08004308   Section        0  bsp_tim_pwm.o(i.bsp_GetRCCofTIM)
-    i.bsp_GoBackward                         0x080043d4   Section        0  bsp_edgewise.o(i.bsp_GoBackward)
-    bsp_GoBackward                           0x080043d5   Thumb Code    24  bsp_edgewise.o(i.bsp_GoBackward)
-    i.bsp_GoBackward                         0x080043ec   Section        0  bsp_searchchargepile.o(i.bsp_GoBackward)
-    bsp_GoBackward                           0x080043ed   Thumb Code    24  bsp_searchchargepile.o(i.bsp_GoBackward)
-    i.bsp_IRD_DecodeNec                      0x08004404   Section        0  bsp_ir_decode.o(i.bsp_IRD_DecodeNec)
-    bsp_IRD_DecodeNec                        0x08004405   Thumb Code   512  bsp_ir_decode.o(i.bsp_IRD_DecodeNec)
-    i.bsp_IRD_StartWork                      0x0800460c   Section        0  bsp_ir_decode.o(i.bsp_IRD_StartWork)
-    i.bsp_IR_GetPulseWidth                   0x08004770   Section        0  bsp_ir_decode.o(i.bsp_IR_GetPulseWidth)
-    bsp_IR_GetPulseWidth                     0x08004771   Thumb Code   292  bsp_ir_decode.o(i.bsp_IR_GetPulseWidth)
-    i.bsp_IR_GetRev                          0x080048a0   Section        0  bsp_ir_decode.o(i.bsp_IR_GetRev)
-    i.bsp_IR_SoftTimerInit                   0x080048b4   Section        0  bsp_ir_decode.o(i.bsp_IR_SoftTimerInit)
-    bsp_IR_SoftTimerInit                     0x080048b5   Thumb Code    34  bsp_ir_decode.o(i.bsp_IR_SoftTimerInit)
-    i.bsp_IR_TimeOutProc                     0x080048dc   Section        0  bsp_ir_decode.o(i.bsp_IR_TimeOutProc)
-    bsp_IR_TimeOutProc                       0x080048dd   Thumb Code   166  bsp_ir_decode.o(i.bsp_IR_TimeOutProc)
-    i.bsp_Init                               0x08004990   Section        0  bsp.o(i.bsp_Init)
-    i.bsp_InitAngle                          0x08004a20   Section        0  bsp_angle.o(i.bsp_InitAngle)
-    i.bsp_InitCliffSW                        0x08004a4c   Section        0  bsp_cliffsw.o(i.bsp_InitCliffSW)
-    i.bsp_InitCollision                      0x08004c04   Section        0  bsp_collision.o(i.bsp_InitCollision)
-    i.bsp_InitDWT                            0x08004c44   Section        0  bsp_dwt.o(i.bsp_InitDWT)
-    i.bsp_InitDetectAct                      0x08004c6c   Section        0  bsp_detectact.o(i.bsp_InitDetectAct)
-    i.bsp_InitEncoder                        0x08004c88   Section        0  bsp_encoder.o(i.bsp_InitEncoder)
-    i.bsp_InitFormAwaken                     0x08004c90   Section        0  bsp.o(i.bsp_InitFormAwaken)
-    i.bsp_InitGPIO                           0x08004cee   Section        0  bsp_encoder.o(i.bsp_InitGPIO)
-    bsp_InitGPIO                             0x08004cef   Thumb Code     8  bsp_encoder.o(i.bsp_InitGPIO)
-    i.bsp_InitHardTimer                      0x08004cf8   Section        0  bsp_timer.o(i.bsp_InitHardTimer)
-    i.bsp_InitKey                            0x08004d64   Section        0  bsp_key.o(i.bsp_InitKey)
-    i.bsp_InitKeyHard                        0x08004d70   Section        0  bsp_key.o(i.bsp_InitKeyHard)
-    bsp_InitKeyHard                          0x08004d71   Thumb Code   140  bsp_key.o(i.bsp_InitKeyHard)
-    i.bsp_InitKeyStopMODE                    0x08004e00   Section        0  bsp_stopmode.o(i.bsp_InitKeyStopMODE)
-    bsp_InitKeyStopMODE                      0x08004e01   Thumb Code   104  bsp_stopmode.o(i.bsp_InitKeyStopMODE)
-    i.bsp_InitKeyVar                         0x08004e6c   Section        0  bsp_key.o(i.bsp_InitKeyVar)
-    bsp_InitKeyVar                           0x08004e6d   Thumb Code   124  bsp_key.o(i.bsp_InitKeyVar)
-    i.bsp_InitLed                            0x08004f18   Section        0  bsp_led.o(i.bsp_InitLed)
-    i.bsp_InitMotor                          0x08004f84   Section        0  bsp_motor.o(i.bsp_InitMotor)
-    i.bsp_InitPid                            0x08004fa0   Section        0  bsp_control.o(i.bsp_InitPid)
-    i.bsp_InitPinPulse                       0x08004fe4   Section        0  bsp_pulsemark.o(i.bsp_InitPinPulse)
-    i.bsp_InitRunControl                     0x08005010   Section        0  bsp_runcontrol.o(i.bsp_InitRunControl)
-    i.bsp_InitSW                             0x08005038   Section        0  bsp_powerswitch.o(i.bsp_InitSW)
-    i.bsp_InitSpeaker                        0x080050a4   Section        0  bsp_speaker.o(i.bsp_InitSpeaker)
-    i.bsp_InitTimer1                         0x080050f0   Section        0  bsp_motor.o(i.bsp_InitTimer1)
-    bsp_InitTimer1                           0x080050f1   Thumb Code   244  bsp_motor.o(i.bsp_InitTimer1)
-    i.bsp_InitTimer4                         0x080051f0   Section        0  bsp_motor.o(i.bsp_InitTimer4)
-    bsp_InitTimer4                           0x080051f1   Thumb Code   228  bsp_motor.o(i.bsp_InitTimer4)
-    i.bsp_InitUart                           0x080052dc   Section        0  bsp_uart_fifo.o(i.bsp_InitUart)
-    i.bsp_InitVacuum                         0x080052ec   Section        0  bsp_motor.o(i.bsp_InitVacuum)
-    bsp_InitVacuum                           0x080052ed   Thumb Code    46  bsp_motor.o(i.bsp_InitVacuum)
-    i.bsp_KeyScan                            0x08005320   Section        0  bsp_key.o(i.bsp_KeyScan)
-    i.bsp_LedOff                             0x08005338   Section        0  bsp_led.o(i.bsp_LedOff)
-    i.bsp_LedToggle                          0x08005370   Section        0  bsp_led.o(i.bsp_LedToggle)
-    i.bsp_MotorBrake                         0x080053bc   Section        0  bsp_control.o(i.bsp_MotorBrake)
-    bsp_MotorBrake                           0x080053bd   Thumb Code    54  bsp_control.o(i.bsp_MotorBrake)
-    i.bsp_MotorGetPulseVector                0x080053f8   Section        0  bsp_control.o(i.bsp_MotorGetPulseVector)
-    i.bsp_MotorGetSpeed                      0x08005408   Section        0  bsp_control.o(i.bsp_MotorGetSpeed)
-    i.bsp_MotorSetPWM                        0x08005454   Section        0  bsp_motor.o(i.bsp_MotorSetPWM)
-    i.bsp_MotorSpeedMM2Pulse                 0x080054b8   Section        0  bsp_control.o(i.bsp_MotorSpeedMM2Pulse)
-    i.bsp_PidClear                           0x08005530   Section        0  bsp_control.o(i.bsp_PidClear)
-    bsp_PidClear                             0x08005531   Thumb Code    34  bsp_control.o(i.bsp_PidClear)
-    i.bsp_PidExec                            0x08005558   Section        0  bsp_control.o(i.bsp_PidExec)
-    bsp_PidExec                              0x08005559   Thumb Code   576  bsp_control.o(i.bsp_PidExec)
-    i.bsp_PidSched                           0x080057b0   Section        0  bsp_control.o(i.bsp_PidSched)
-    i.bsp_PirouetteCCW                       0x080057e0   Section        0  bsp_searchchargepile.o(i.bsp_PirouetteCCW)
-    bsp_PirouetteCCW                         0x080057e1   Thumb Code    20  bsp_searchchargepile.o(i.bsp_PirouetteCCW)
-    i.bsp_PirouetteCW                        0x080057f4   Section        0  bsp_edgewise.o(i.bsp_PirouetteCW)
-    bsp_PirouetteCW                          0x080057f5   Thumb Code    20  bsp_edgewise.o(i.bsp_PirouetteCW)
-    i.bsp_PirouetteCW                        0x08005808   Section        0  bsp_searchchargepile.o(i.bsp_PirouetteCW)
-    bsp_PirouetteCW                          0x08005809   Thumb Code    20  bsp_searchchargepile.o(i.bsp_PirouetteCW)
-    i.bsp_PositionUpdate                     0x0800581c   Section        0  bsp_position.o(i.bsp_PositionUpdate)
-    i.bsp_PutKey                             0x08005a5c   Section        0  bsp_key.o(i.bsp_PutKey)
-    i.bsp_PwmLimit                           0x08005a7c   Section        0  bsp_control.o(i.bsp_PwmLimit)
-    bsp_PwmLimit                             0x08005a7d   Thumb Code    30  bsp_control.o(i.bsp_PwmLimit)
-    i.bsp_RotateCCW                          0x08005aa0   Section        0  bsp_edgewise.o(i.bsp_RotateCCW)
-    bsp_RotateCCW                            0x08005aa1   Thumb Code    22  bsp_edgewise.o(i.bsp_RotateCCW)
-    i.bsp_SearchChargePile                   0x08005ab8   Section        0  bsp_searchchargepile.o(i.bsp_SearchChargePile)
-    i.bsp_SearchRunStraightSlow              0x08005d64   Section        0  bsp_searchchargepile.o(i.bsp_SearchRunStraightSlow)
-    bsp_SearchRunStraightSlow                0x08005d65   Thumb Code    20  bsp_searchchargepile.o(i.bsp_SearchRunStraightSlow)
-    i.bsp_SearchTurnLeftSlow                 0x08005d78   Section        0  bsp_searchchargepile.o(i.bsp_SearchTurnLeftSlow)
-    bsp_SearchTurnLeftSlow                   0x08005d79   Thumb Code    20  bsp_searchchargepile.o(i.bsp_SearchTurnLeftSlow)
-    i.bsp_SearchTurnRightSlow                0x08005d8c   Section        0  bsp_searchchargepile.o(i.bsp_SearchTurnRightSlow)
-    bsp_SearchTurnRightSlow                  0x08005d8d   Thumb Code    20  bsp_searchchargepile.o(i.bsp_SearchTurnRightSlow)
-    i.bsp_SendReportFrame                    0x08005da0   Section        0  bsp_communication.o(i.bsp_SendReportFrame)
-    i.bsp_SetAllPinLowPower                  0x08005dd0   Section        0  bsp_stopmode.o(i.bsp_SetAllPinLowPower)
-    bsp_SetAllPinLowPower                    0x08005dd1   Thumb Code   178  bsp_stopmode.o(i.bsp_SetAllPinLowPower)
-    i.bsp_SetChargeKey                       0x08005eac   Section        0  bsp_runcontrol.o(i.bsp_SetChargeKey)
-    i.bsp_SetCleanKey                        0x08005eb8   Section        0  bsp_runcontrol.o(i.bsp_SetCleanKey)
-    i.bsp_SetHomeKey                         0x08005ec4   Section        0  bsp_runcontrol.o(i.bsp_SetHomeKey)
-    i.bsp_SetMotorSpeed                      0x08005ed0   Section        0  bsp_control.o(i.bsp_SetMotorSpeed)
-    i.bsp_SetPowerKey                        0x08005ee8   Section        0  bsp_runcontrol.o(i.bsp_SetPowerKey)
-    i.bsp_SetTIMforInt                       0x08005ef4   Section        0  bsp_tim_pwm.o(i.bsp_SetTIMforInt)
-    i.bsp_StartAssistJudgeDirection          0x08006100   Section        0  bsp_assistjudgedirection.o(i.bsp_StartAssistJudgeDirection)
-    i.bsp_StartHardTimer                     0x08006124   Section        0  bsp_timer.o(i.bsp_StartHardTimer)
-    i.bsp_StartRunControl                    0x080061ec   Section        0  bsp_runcontrol.o(i.bsp_StartRunControl)
-    i.bsp_StartUpdateGridMap                 0x08006218   Section        0  bsp_gridmap.o(i.bsp_StartUpdateGridMap)
-    i.bsp_StartUpdatePos                     0x0800627c   Section        0  bsp_position.o(i.bsp_StartUpdatePos)
-    i.bsp_StopSearchChargePile               0x08006294   Section        0  bsp_searchchargepile.o(i.bsp_StopSearchChargePile)
-    i.bsp_SwOff                              0x080062b8   Section        0  bsp_powerswitch.o(i.bsp_SwOff)
-    i.bsp_SwOn                               0x080062fc   Section        0  bsp_powerswitch.o(i.bsp_SwOn)
-    i.bsp_VacuumClean                        0x08006340   Section        0  bsp_motor.o(i.bsp_VacuumClean)
-    i.comGetChar                             0x08006394   Section        0  bsp_uart_fifo.o(i.comGetChar)
-    i.comSendBuf                             0x080063b2   Section        0  bsp_uart_fifo.o(i.comSendBuf)
-    i.comSendChar                            0x080063e0   Section        0  bsp_uart_fifo.o(i.comSendChar)
-    i.cos                                    0x080063f0   Section        0  cos.o(i.cos)
-    i.fputc                                  0x0800648c   Section        0  bsp_uart_fifo.o(i.fputc)
-    i.main                                   0x0800649e   Section        0  main.o(i.main)
-    i.myabs                                  0x080064be   Section        0  bsp_edgewise.o(i.myabs)
-    myabs                                    0x080064bf   Thumb Code    22  bsp_edgewise.o(i.myabs)
-    i.myabs                                  0x080064d4   Section        0  bsp_control.o(i.myabs)
-    myabs                                    0x080064d5   Thumb Code    14  bsp_control.o(i.myabs)
-    i.prvAddCurrentTaskToDelayedList         0x080064e4   Section        0  tasks.o(i.prvAddCurrentTaskToDelayedList)
-    prvAddCurrentTaskToDelayedList           0x080064e5   Thumb Code    62  tasks.o(i.prvAddCurrentTaskToDelayedList)
-    i.prvAllocateTCBAndStack                 0x08006538   Section        0  tasks.o(i.prvAllocateTCBAndStack)
-    prvAllocateTCBAndStack                   0x08006539   Thumb Code    66  tasks.o(i.prvAllocateTCBAndStack)
-    i.prvCheckTasksWaitingTermination        0x0800657c   Section        0  tasks.o(i.prvCheckTasksWaitingTermination)
-    prvCheckTasksWaitingTermination          0x0800657d   Thumb Code    86  tasks.o(i.prvCheckTasksWaitingTermination)
-    i.prvCopyDataToQueue                     0x080065e0   Section        0  queue.o(i.prvCopyDataToQueue)
-    prvCopyDataToQueue                       0x080065e1   Thumb Code   128  queue.o(i.prvCopyDataToQueue)
-    i.prvDeleteTCB                           0x08006660   Section        0  tasks.o(i.prvDeleteTCB)
-    prvDeleteTCB                             0x08006661   Thumb Code    18  tasks.o(i.prvDeleteTCB)
-    i.prvHeapInit                            0x08006674   Section        0  heap_4.o(i.prvHeapInit)
-    prvHeapInit                              0x08006675   Thumb Code    98  heap_4.o(i.prvHeapInit)
-    i.prvIdleTask                            0x080066f0   Section        0  tasks.o(i.prvIdleTask)
-    prvIdleTask                              0x080066f1   Thumb Code    20  tasks.o(i.prvIdleTask)
-    i.prvInitialiseTCBVariables              0x08006708   Section        0  tasks.o(i.prvInitialiseTCBVariables)
-    prvInitialiseTCBVariables                0x08006709   Thumb Code   100  tasks.o(i.prvInitialiseTCBVariables)
-    i.prvInitialiseTaskLists                 0x0800676c   Section        0  tasks.o(i.prvInitialiseTaskLists)
-    prvInitialiseTaskLists                   0x0800676d   Thumb Code    70  tasks.o(i.prvInitialiseTaskLists)
-    i.prvInsertBlockIntoFreeList             0x080067d4   Section        0  heap_4.o(i.prvInsertBlockIntoFreeList)
-    prvInsertBlockIntoFreeList               0x080067d5   Thumb Code    96  heap_4.o(i.prvInsertBlockIntoFreeList)
-    i.prvIsQueueFull                         0x0800683c   Section        0  queue.o(i.prvIsQueueFull)
-    prvIsQueueFull                           0x0800683d   Thumb Code    30  queue.o(i.prvIsQueueFull)
-    i.prvResetNextTaskUnblockTime            0x0800685c   Section        0  tasks.o(i.prvResetNextTaskUnblockTime)
-    prvResetNextTaskUnblockTime              0x0800685d   Thumb Code    42  tasks.o(i.prvResetNextTaskUnblockTime)
-    i.prvTaskExitError                       0x08006890   Section        0  port.o(i.prvTaskExitError)
-    prvTaskExitError                         0x08006891   Thumb Code    32  port.o(i.prvTaskExitError)
-    i.prvUnlockQueue                         0x080068b4   Section        0  queue.o(i.prvUnlockQueue)
-    prvUnlockQueue                           0x080068b5   Thumb Code   126  queue.o(i.prvUnlockQueue)
-    i.pvPortMalloc                           0x08006934   Section        0  heap_4.o(i.pvPortMalloc)
-    i.pxPortInitialiseStack                  0x08006a48   Section        0  port.o(i.pxPortInitialiseStack)
-    i.sin                                    0x08006a68   Section        0  sin.o(i.sin)
-    i.uxListRemove                           0x08006b08   Section        0  list.o(i.uxListRemove)
-    i.vListInitialise                        0x08006b30   Section        0  list.o(i.vListInitialise)
-    i.vListInitialiseItem                    0x08006b4a   Section        0  list.o(i.vListInitialiseItem)
-    i.vListInsert                            0x08006b50   Section        0  list.o(i.vListInsert)
-    i.vListInsertEnd                         0x08006b84   Section        0  list.o(i.vListInsertEnd)
-    i.vPortEnterCritical                     0x08006b9c   Section        0  port.o(i.vPortEnterCritical)
-    i.vPortExitCritical                      0x08006be0   Section        0  port.o(i.vPortExitCritical)
-    i.vPortFree                              0x08006c0c   Section        0  heap_4.o(i.vPortFree)
-    i.vPortSetupTimerInterrupt               0x08006c84   Section        0  port.o(i.vPortSetupTimerInterrupt)
-    i.vPortYield                             0x08006c98   Section        0  port.o(i.vPortYield)
-    i.vSetupSysInfoTest                      0x08006cb0   Section        0  sysinfotest.o(i.vSetupSysInfoTest)
-    i.vTaskControl                           0x08006cc8   Section        0  main.o(i.vTaskControl)
-    vTaskControl                             0x08006cc9   Thumb Code    22  main.o(i.vTaskControl)
-    i.vTaskDecision                          0x08006ce0   Section        0  main.o(i.vTaskDecision)
-    vTaskDecision                            0x08006ce1   Thumb Code   158  main.o(i.vTaskDecision)
-    i.vTaskDelay                             0x08006dbc   Section        0  tasks.o(i.vTaskDelay)
-    i.vTaskMissedYield                       0x08006e2c   Section        0  tasks.o(i.vTaskMissedYield)
-    i.vTaskPerception                        0x08006e38   Section        0  main.o(i.vTaskPerception)
-    vTaskPerception                          0x08006e39   Thumb Code    64  main.o(i.vTaskPerception)
-    i.vTaskPlaceOnEventList                  0x08006e78   Section        0  tasks.o(i.vTaskPlaceOnEventList)
-    i.vTaskSetTimeOutState                   0x08006ee8   Section        0  tasks.o(i.vTaskSetTimeOutState)
-    i.vTaskStartScheduler                    0x08006f0c   Section        0  tasks.o(i.vTaskStartScheduler)
-    i.vTaskSuspendAll                        0x08006f74   Section        0  tasks.o(i.vTaskSuspendAll)
-    i.vTaskSwitchContext                     0x08006f84   Section        0  tasks.o(i.vTaskSwitchContext)
-    i.xPortStartScheduler                    0x08007044   Section        0  port.o(i.xPortStartScheduler)
-    i.xQueueCreateMutex                      0x080070e4   Section        0  queue.o(i.xQueueCreateMutex)
-    i.xQueueGenericSend                      0x08007130   Section        0  queue.o(i.xQueueGenericSend)
-    i.xTaskCheckForTimeOut                   0x08007258   Section        0  tasks.o(i.xTaskCheckForTimeOut)
-    i.xTaskGenericCreate                     0x080072cc   Section        0  tasks.o(i.xTaskGenericCreate)
-    i.xTaskGetTickCount                      0x08007404   Section        0  tasks.o(i.xTaskGetTickCount)
-    i.xTaskIncrementTick                     0x08007410   Section        0  tasks.o(i.xTaskIncrementTick)
-    i.xTaskPriorityDisinherit                0x0800754c   Section        0  tasks.o(i.xTaskPriorityDisinherit)
-    i.xTaskRemoveFromEventList               0x080075f8   Section        0  tasks.o(i.xTaskRemoveFromEventList)
-    i.xTaskResumeAll                         0x08007684   Section        0  tasks.o(i.xTaskResumeAll)
-    .constdata                               0x0800776c   Section       32  bsp_ir_decode.o(.constdata)
-    .constdata                               0x08007790   Section       48  cos_i.o(.constdata)
-    C                                        0x08007790   Data          48  cos_i.o(.constdata)
-    .constdata                               0x080077c0   Section      200  rred.o(.constdata)
-    pio2s                                    0x080077c0   Data          48  rred.o(.constdata)
-    twooverpi                                0x080077f0   Data         152  rred.o(.constdata)
-    .constdata                               0x08007888   Section       40  sin_i.o(.constdata)
-    S                                        0x08007888   Data          40  sin_i.o(.constdata)
+    i.EXTI_ClearITPendingBit                 0x08000ec0   Section        0  stm32f10x_exti.o(i.EXTI_ClearITPendingBit)
+    i.EXTI_GetITStatus                       0x08000ecc   Section        0  stm32f10x_exti.o(i.EXTI_GetITStatus)
+    i.EXTI_Init                              0x08000ef4   Section        0  stm32f10x_exti.o(i.EXTI_Init)
+    i.GPIO_EXTILineConfig                    0x08000f88   Section        0  stm32f10x_gpio.o(i.GPIO_EXTILineConfig)
+    i.GPIO_Init                              0x08000fc8   Section        0  stm32f10x_gpio.o(i.GPIO_Init)
+    i.GPIO_PinRemapConfig                    0x080010e0   Section        0  stm32f10x_gpio.o(i.GPIO_PinRemapConfig)
+    i.GPIO_ReadInputDataBit                  0x08001170   Section        0  stm32f10x_gpio.o(i.GPIO_ReadInputDataBit)
+    i.GPIO_ResetBits                         0x08001182   Section        0  stm32f10x_gpio.o(i.GPIO_ResetBits)
+    i.GPIO_SetBits                           0x08001186   Section        0  stm32f10x_gpio.o(i.GPIO_SetBits)
+    i.HardFault_Handler                      0x0800118c   Section        0  stm32f10x_it.o(i.HardFault_Handler)
+    i.InitHardUart                           0x080011e4   Section        0  bsp_uart_fifo.o(i.InitHardUart)
+    InitHardUart                             0x080011e5   Thumb Code   582  bsp_uart_fifo.o(i.InitHardUart)
+    i.IsKeyDown1                             0x08001448   Section        0  bsp_key.o(i.IsKeyDown1)
+    IsKeyDown1                               0x08001449   Thumb Code    38  bsp_key.o(i.IsKeyDown1)
+    i.IsKeyDown10                            0x08001474   Section        0  bsp_key.o(i.IsKeyDown10)
+    IsKeyDown10                              0x08001475   Thumb Code    38  bsp_key.o(i.IsKeyDown10)
+    i.IsKeyDown2                             0x080014a0   Section        0  bsp_key.o(i.IsKeyDown2)
+    IsKeyDown2                               0x080014a1   Thumb Code    38  bsp_key.o(i.IsKeyDown2)
+    i.IsKeyDown3                             0x080014cc   Section        0  bsp_key.o(i.IsKeyDown3)
+    IsKeyDown3                               0x080014cd   Thumb Code    38  bsp_key.o(i.IsKeyDown3)
+    i.IsKeyDown4                             0x080014f8   Section        0  bsp_key.o(i.IsKeyDown4)
+    IsKeyDown4                               0x080014f9   Thumb Code    18  bsp_key.o(i.IsKeyDown4)
+    i.IsKeyDown5                             0x08001510   Section        0  bsp_key.o(i.IsKeyDown5)
+    IsKeyDown5                               0x08001511   Thumb Code    18  bsp_key.o(i.IsKeyDown5)
+    i.IsKeyDown6                             0x08001528   Section        0  bsp_key.o(i.IsKeyDown6)
+    IsKeyDown6                               0x08001529   Thumb Code    18  bsp_key.o(i.IsKeyDown6)
+    i.IsKeyDown7                             0x08001540   Section        0  bsp_key.o(i.IsKeyDown7)
+    IsKeyDown7                               0x08001541   Thumb Code    18  bsp_key.o(i.IsKeyDown7)
+    i.IsKeyDown8                             0x08001558   Section        0  bsp_key.o(i.IsKeyDown8)
+    IsKeyDown8                               0x08001559   Thumb Code    18  bsp_key.o(i.IsKeyDown8)
+    i.IsKeyDown9                             0x08001570   Section        0  bsp_key.o(i.IsKeyDown9)
+    IsKeyDown9                               0x08001571   Thumb Code    38  bsp_key.o(i.IsKeyDown9)
+    i.MemManage_Handler                      0x0800159c   Section        0  stm32f10x_it.o(i.MemManage_Handler)
+    i.NMI_Handler                            0x080015a0   Section        0  stm32f10x_it.o(i.NMI_Handler)
+    i.NVIC_Init                              0x080015a4   Section        0  misc.o(i.NVIC_Init)
+    i.NVIC_PriorityGroupConfig               0x08001614   Section        0  misc.o(i.NVIC_PriorityGroupConfig)
+    i.PWR_EnterSTOPMode                      0x08001628   Section        0  stm32f10x_pwr.o(i.PWR_EnterSTOPMode)
+    i.RCC_ADCCLKConfig                       0x08001668   Section        0  stm32f10x_rcc.o(i.RCC_ADCCLKConfig)
+    i.RCC_APB1PeriphClockCmd                 0x08001680   Section        0  stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd)
+    i.RCC_APB2PeriphClockCmd                 0x080016a0   Section        0  stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd)
+    i.RCC_APB2PeriphResetCmd                 0x080016c0   Section        0  stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd)
+    i.RCC_GetClocksFreq                      0x080016e0   Section        0  stm32f10x_rcc.o(i.RCC_GetClocksFreq)
+    i.RCC_GetFlagStatus                      0x080017b4   Section        0  stm32f10x_rcc.o(i.RCC_GetFlagStatus)
+    i.RCC_GetSYSCLKSource                    0x080017f0   Section        0  stm32f10x_rcc.o(i.RCC_GetSYSCLKSource)
+    i.RCC_HSEConfig                          0x08001800   Section        0  stm32f10x_rcc.o(i.RCC_HSEConfig)
+    i.RCC_PLLCmd                             0x0800184c   Section        0  stm32f10x_rcc.o(i.RCC_PLLCmd)
+    i.RCC_SYSCLKConfig                       0x08001858   Section        0  stm32f10x_rcc.o(i.RCC_SYSCLKConfig)
+    i.RS485_ReciveNew                        0x08001870   Section        0  bsp_uart_fifo.o(i.RS485_ReciveNew)
+    i.SetSysClock                            0x0800187c   Section        0  system_stm32f10x.o(i.SetSysClock)
+    SetSysClock                              0x0800187d   Thumb Code     8  system_stm32f10x.o(i.SetSysClock)
+    i.SetSysClockTo72                        0x08001884   Section        0  system_stm32f10x.o(i.SetSysClockTo72)
+    SetSysClockTo72                          0x08001885   Thumb Code   214  system_stm32f10x.o(i.SetSysClockTo72)
+    i.SysTick_Handler                        0x08001964   Section        0  port.o(i.SysTick_Handler)
+    i.SystemInit                             0x08001984   Section        0  system_stm32f10x.o(i.SystemInit)
+    i.TI1_Config                             0x080019e4   Section        0  stm32f10x_tim.o(i.TI1_Config)
+    TI1_Config                               0x080019e5   Thumb Code   108  stm32f10x_tim.o(i.TI1_Config)
+    i.TI2_Config                             0x08001a64   Section        0  stm32f10x_tim.o(i.TI2_Config)
+    TI2_Config                               0x08001a65   Thumb Code   130  stm32f10x_tim.o(i.TI2_Config)
+    i.TI3_Config                             0x08001afc   Section        0  stm32f10x_tim.o(i.TI3_Config)
+    TI3_Config                               0x08001afd   Thumb Code   122  stm32f10x_tim.o(i.TI3_Config)
+    i.TI4_Config                             0x08001b8c   Section        0  stm32f10x_tim.o(i.TI4_Config)
+    TI4_Config                               0x08001b8d   Thumb Code   130  stm32f10x_tim.o(i.TI4_Config)
+    i.TIM3_IRQHandler                        0x08001c24   Section        0  bsp_ir_decode.o(i.TIM3_IRQHandler)
+    i.TIM5_IRQHandler                        0x08001cb8   Section        0  bsp_timer.o(i.TIM5_IRQHandler)
+    i.TIM6_IRQHandler                        0x08001d58   Section        0  sysinfotest.o(i.TIM6_IRQHandler)
+    i.TIM_ARRPreloadConfig                   0x08001da8   Section        0  stm32f10x_tim.o(i.TIM_ARRPreloadConfig)
+    i.TIM_ClearITPendingBit                  0x08001dc0   Section        0  stm32f10x_tim.o(i.TIM_ClearITPendingBit)
+    i.TIM_Cmd                                0x08001dc6   Section        0  stm32f10x_tim.o(i.TIM_Cmd)
+    i.TIM_CtrlPWMOutputs                     0x08001dde   Section        0  stm32f10x_tim.o(i.TIM_CtrlPWMOutputs)
+    i.TIM_GetCapture1                        0x08001dfc   Section        0  stm32f10x_tim.o(i.TIM_GetCapture1)
+    i.TIM_GetCapture2                        0x08001e02   Section        0  stm32f10x_tim.o(i.TIM_GetCapture2)
+    i.TIM_GetCapture3                        0x08001e08   Section        0  stm32f10x_tim.o(i.TIM_GetCapture3)
+    i.TIM_GetCapture4                        0x08001e0e   Section        0  stm32f10x_tim.o(i.TIM_GetCapture4)
+    i.TIM_GetCounter                         0x08001e16   Section        0  stm32f10x_tim.o(i.TIM_GetCounter)
+    i.TIM_GetITStatus                        0x08001e1c   Section        0  stm32f10x_tim.o(i.TIM_GetITStatus)
+    i.TIM_ICInit                             0x08001e40   Section        0  stm32f10x_tim.o(i.TIM_ICInit)
+    i.TIM_ITConfig                           0x08001eec   Section        0  stm32f10x_tim.o(i.TIM_ITConfig)
+    i.TIM_OC1Init                            0x08001f00   Section        0  stm32f10x_tim.o(i.TIM_OC1Init)
+    i.TIM_OC1PreloadConfig                   0x08001f98   Section        0  stm32f10x_tim.o(i.TIM_OC1PreloadConfig)
+    i.TIM_OC2Init                            0x08001fac   Section        0  stm32f10x_tim.o(i.TIM_OC2Init)
+    i.TIM_OC2PreloadConfig                   0x08002050   Section        0  stm32f10x_tim.o(i.TIM_OC2PreloadConfig)
+    i.TIM_OC3Init                            0x0800206c   Section        0  stm32f10x_tim.o(i.TIM_OC3Init)
+    i.TIM_OC3PreloadConfig                   0x0800210c   Section        0  stm32f10x_tim.o(i.TIM_OC3PreloadConfig)
+    i.TIM_OC4Init                            0x08002120   Section        0  stm32f10x_tim.o(i.TIM_OC4Init)
+    i.TIM_OC4PreloadConfig                   0x0800219c   Section        0  stm32f10x_tim.o(i.TIM_OC4PreloadConfig)
+    i.TIM_SetCompare1                        0x080021b6   Section        0  stm32f10x_tim.o(i.TIM_SetCompare1)
+    i.TIM_SetCompare2                        0x080021ba   Section        0  stm32f10x_tim.o(i.TIM_SetCompare2)
+    i.TIM_SetCompare3                        0x080021be   Section        0  stm32f10x_tim.o(i.TIM_SetCompare3)
+    i.TIM_SetCompare4                        0x080021c2   Section        0  stm32f10x_tim.o(i.TIM_SetCompare4)
+    i.TIM_SetIC1Prescaler                    0x080021c8   Section        0  stm32f10x_tim.o(i.TIM_SetIC1Prescaler)
+    i.TIM_SetIC2Prescaler                    0x080021da   Section        0  stm32f10x_tim.o(i.TIM_SetIC2Prescaler)
+    i.TIM_SetIC3Prescaler                    0x080021f4   Section        0  stm32f10x_tim.o(i.TIM_SetIC3Prescaler)
+    i.TIM_SetIC4Prescaler                    0x08002206   Section        0  stm32f10x_tim.o(i.TIM_SetIC4Prescaler)
+    i.TIM_TimeBaseInit                       0x08002220   Section        0  stm32f10x_tim.o(i.TIM_TimeBaseInit)
+    i.UART4_IRQHandler                       0x080022c4   Section        0  bsp_uart_fifo.o(i.UART4_IRQHandler)
+    i.USART1_IRQHandler                      0x080022d4   Section        0  bsp_uart_fifo.o(i.USART1_IRQHandler)
+    i.USART2_IRQHandler                      0x080022e4   Section        0  bsp_uart_fifo.o(i.USART2_IRQHandler)
+    i.USART3_IRQHandler                      0x080022f4   Section        0  bsp_uart_fifo.o(i.USART3_IRQHandler)
+    i.USART_ClearFlag                        0x08002304   Section        0  stm32f10x_usart.o(i.USART_ClearFlag)
+    i.USART_Cmd                              0x08002316   Section        0  stm32f10x_usart.o(i.USART_Cmd)
+    i.USART_GetITStatus                      0x0800232e   Section        0  stm32f10x_usart.o(i.USART_GetITStatus)
+    i.USART_ITConfig                         0x08002382   Section        0  stm32f10x_usart.o(i.USART_ITConfig)
+    i.USART_Init                             0x080023cc   Section        0  stm32f10x_usart.o(i.USART_Init)
+    i.USART_ReceiveData                      0x080024a4   Section        0  stm32f10x_usart.o(i.USART_ReceiveData)
+    i.USART_SendData                         0x080024ae   Section        0  stm32f10x_usart.o(i.USART_SendData)
+    i.UartGetChar                            0x080024b6   Section        0  bsp_uart_fifo.o(i.UartGetChar)
+    UartGetChar                              0x080024b7   Thumb Code    74  bsp_uart_fifo.o(i.UartGetChar)
+    i.UartIRQ                                0x08002500   Section        0  bsp_uart_fifo.o(i.UartIRQ)
+    UartIRQ                                  0x08002501   Thumb Code   230  bsp_uart_fifo.o(i.UartIRQ)
+    i.UartSend                               0x080025e6   Section        0  bsp_uart_fifo.o(i.UartSend)
+    UartSend                                 0x080025e7   Thumb Code   114  bsp_uart_fifo.o(i.UartSend)
+    i.UartVarInit                            0x08002658   Section        0  bsp_uart_fifo.o(i.UartVarInit)
+    UartVarInit                              0x08002659   Thumb Code   172  bsp_uart_fifo.o(i.UartVarInit)
+    i.UsageFault_Handler                     0x08002748   Section        0  stm32f10x_it.o(i.UsageFault_Handler)
+    i.__0printf$8                            0x0800274c   Section        0  printf8.o(i.__0printf$8)
+    i.__ARM_fpclassify                       0x0800276c   Section        0  fpclassify.o(i.__ARM_fpclassify)
+    i.__ieee754_rem_pio2                     0x08002794   Section        0  rred.o(i.__ieee754_rem_pio2)
+    i.__kernel_cos                           0x08002b1c   Section        0  cos_i.o(i.__kernel_cos)
+    i.__kernel_poly                          0x08002c18   Section        0  poly.o(i.__kernel_poly)
+    i.__kernel_sin                           0x08002cc4   Section        0  sin_i.o(i.__kernel_sin)
+    i.__mathlib_dbl_infnan                   0x08002db0   Section        0  dunder.o(i.__mathlib_dbl_infnan)
+    i.__mathlib_dbl_invalid                  0x08002db6   Section        0  dunder.o(i.__mathlib_dbl_invalid)
+    i.__mathlib_dbl_underflow                0x08002dc4   Section        0  dunder.o(i.__mathlib_dbl_underflow)
+    i.__scatterload_copy                     0x08002dd4   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x08002de2   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x08002de4   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.__set_PRIMASK                          0x08002df2   Section        0  bsp_uart_fifo.o(i.__set_PRIMASK)
+    __set_PRIMASK                            0x08002df3   Thumb Code     6  bsp_uart_fifo.o(i.__set_PRIMASK)
+    i.__set_errno                            0x08002df8   Section        0  errno.o(i.__set_errno)
+    i._printf_core                           0x08002e04   Section        0  printf8.o(i._printf_core)
+    _printf_core                             0x08002e05   Thumb Code   996  printf8.o(i._printf_core)
+    i._printf_post_padding                   0x08003214   Section        0  printf8.o(i._printf_post_padding)
+    _printf_post_padding                     0x08003215   Thumb Code    36  printf8.o(i._printf_post_padding)
+    i._printf_pre_padding                    0x08003238   Section        0  printf8.o(i._printf_pre_padding)
+    _printf_pre_padding                      0x08003239   Thumb Code    46  printf8.o(i._printf_pre_padding)
+    i.bsp_ADCConfig                          0x08003268   Section        0  bsp_detectact.o(i.bsp_ADCConfig)
+    bsp_ADCConfig                            0x08003269   Thumb Code   132  bsp_detectact.o(i.bsp_ADCConfig)
+    i.bsp_AngleAdd                           0x080032f4   Section        0  bsp_angle.o(i.bsp_AngleAdd)
+    i.bsp_AngleAnalyzeApp                    0x08003350   Section        0  bsp_angle.o(i.bsp_AngleAnalyzeApp)
+    bsp_AngleAnalyzeApp                      0x08003351   Thumb Code    38  bsp_angle.o(i.bsp_AngleAnalyzeApp)
+    i.bsp_AngleCheck                         0x08003380   Section        0  bsp_angle.o(i.bsp_AngleCheck)
+    bsp_AngleCheck                           0x08003381   Thumb Code   142  bsp_angle.o(i.bsp_AngleCheck)
+    i.bsp_AnglePoll                          0x08003418   Section        0  bsp_angle.o(i.bsp_AnglePoll)
+    bsp_AnglePoll                            0x08003419   Thumb Code    50  bsp_angle.o(i.bsp_AnglePoll)
+    i.bsp_AngleRead                          0x08003450   Section        0  bsp_angle.o(i.bsp_AngleRead)
+    i.bsp_AngleReadRaw                       0x0800345c   Section        0  bsp_angle.o(i.bsp_AngleReadRaw)
+    i.bsp_AngleRevByte                       0x08003468   Section        0  bsp_angle.o(i.bsp_AngleRevByte)
+    i.bsp_AngleRst                           0x080034a0   Section        0  bsp_angle.o(i.bsp_AngleRst)
+    i.bsp_AngleTimeout                       0x080034d4   Section        0  bsp_angle.o(i.bsp_AngleTimeout)
+    bsp_AngleTimeout                         0x080034d5   Thumb Code    14  bsp_angle.o(i.bsp_AngleTimeout)
+    i.bsp_AssistIsFaceObstacles              0x080034e8   Section        0  bsp_assistjudgedirection.o(i.bsp_AssistIsFaceObstacles)
+    i.bsp_AssistJudgeDirection               0x08003514   Section        0  bsp_assistjudgedirection.o(i.bsp_AssistJudgeDirection)
+    i.bsp_CalcChk                            0x08003564   Section        0  bsp_communication.o(i.bsp_CalcChk)
+    bsp_CalcChk                              0x08003565   Thumb Code    54  bsp_communication.o(i.bsp_CalcChk)
+    i.bsp_CliffCalibration                   0x0800359c   Section        0  bsp_cliffsw.o(i.bsp_CliffCalibration)
+    i.bsp_CollisionScan                      0x08003684   Section        0  bsp_collision.o(i.bsp_CollisionScan)
+    i.bsp_ComAnalysis                        0x080036f8   Section        0  bsp_communication.o(i.bsp_ComAnalysis)
+    i.bsp_DISABLE_ALL_EXIT                   0x0800392c   Section        0  bsp_stopmode.o(i.bsp_DISABLE_ALL_EXIT)
+    bsp_DISABLE_ALL_EXIT                     0x0800392d   Thumb Code   116  bsp_stopmode.o(i.bsp_DISABLE_ALL_EXIT)
+    i.bsp_DelayMS                            0x080039a0   Section        0  bsp_dwt.o(i.bsp_DelayMS)
+    i.bsp_DelayUS                            0x080039b4   Section        0  bsp_dwt.o(i.bsp_DelayUS)
+    i.bsp_DetectKey                          0x080039e4   Section        0  bsp_key.o(i.bsp_DetectKey)
+    bsp_DetectKey                            0x080039e5   Thumb Code   198  bsp_key.o(i.bsp_DetectKey)
+    i.bsp_DetectStart                        0x08003ab0   Section        0  bsp_detectact.o(i.bsp_DetectStart)
+    i.bsp_EXTI_Config                        0x08003ac8   Section        0  bsp_encoder.o(i.bsp_EXTI_Config)
+    bsp_EXTI_Config                          0x08003ac9   Thumb Code   212  bsp_encoder.o(i.bsp_EXTI_Config)
+    i.bsp_EdgewiseRun                        0x08003ba4   Section        0  bsp_edgewise.o(i.bsp_EdgewiseRun)
+    i.bsp_EdgewiseRunStraightFast            0x08003d9c   Section        0  bsp_edgewise.o(i.bsp_EdgewiseRunStraightFast)
+    bsp_EdgewiseRunStraightFast              0x08003d9d   Thumb Code    20  bsp_edgewise.o(i.bsp_EdgewiseRunStraightFast)
+    i.bsp_EdgewiseRunStraightSlow            0x08003db0   Section        0  bsp_edgewise.o(i.bsp_EdgewiseRunStraightSlow)
+    bsp_EdgewiseRunStraightSlow              0x08003db1   Thumb Code    20  bsp_edgewise.o(i.bsp_EdgewiseRunStraightSlow)
+    i.bsp_EdgewiseTurnLeftSlow               0x08003dc4   Section        0  bsp_edgewise.o(i.bsp_EdgewiseTurnLeftSlow)
+    bsp_EdgewiseTurnLeftSlow                 0x08003dc5   Thumb Code    20  bsp_edgewise.o(i.bsp_EdgewiseTurnLeftSlow)
+    i.bsp_EdgewiseTurnRightSlow              0x08003dd8   Section        0  bsp_edgewise.o(i.bsp_EdgewiseTurnRightSlow)
+    bsp_EdgewiseTurnRightSlow                0x08003dd9   Thumb Code    20  bsp_edgewise.o(i.bsp_EdgewiseTurnRightSlow)
+    i.bsp_EncoderGetPulseT                   0x08003dec   Section        0  bsp_encoder.o(i.bsp_EncoderGetPulseT)
+    i.bsp_EncoderGetTotalMileage             0x08003e08   Section        0  bsp_encoder.o(i.bsp_EncoderGetTotalMileage)
+    i.bsp_EnterStopMODE                      0x08003e18   Section        0  bsp_stopmode.o(i.bsp_EnterStopMODE)
+    i.bsp_FillReportFrame                    0x08003ea0   Section        0  bsp_communication.o(i.bsp_FillReportFrame)
+    bsp_FillReportFrame                      0x08003ea1   Thumb Code   622  bsp_communication.o(i.bsp_FillReportFrame)
+    i.bsp_GetChargeFeedback                  0x08004118   Section        0  bsp_searchchargepile.o(i.bsp_GetChargeFeedback)
+    i.bsp_GetCliffVoltage                    0x08004130   Section        0  bsp_cliffsw.o(i.bsp_GetCliffVoltage)
+    i.bsp_GetCurrentBothPulse                0x08004224   Section        0  bsp_encoder.o(i.bsp_GetCurrentBothPulse)
+    i.bsp_GetCurrentPosX                     0x08004258   Section        0  bsp_position.o(i.bsp_GetCurrentPosX)
+    i.bsp_GetCurrentPosY                     0x08004280   Section        0  bsp_position.o(i.bsp_GetCurrentPosY)
+    i.bsp_GetInfraRedAdcVoltage              0x080042a8   Section        0  bsp_detectact.o(i.bsp_GetInfraRedAdcVoltage)
+    i.bsp_GetInfraredVoltageRight            0x080042b8   Section        0  bsp_detectact.o(i.bsp_GetInfraredVoltageRight)
+    i.bsp_GetKey                             0x080042c4   Section        0  bsp_key.o(i.bsp_GetKey)
+    i.bsp_GetRCCofTIM                        0x080042f8   Section        0  bsp_tim_pwm.o(i.bsp_GetRCCofTIM)
+    i.bsp_GoBackward                         0x080043c4   Section        0  bsp_edgewise.o(i.bsp_GoBackward)
+    bsp_GoBackward                           0x080043c5   Thumb Code    24  bsp_edgewise.o(i.bsp_GoBackward)
+    i.bsp_GoBackward                         0x080043dc   Section        0  bsp_searchchargepile.o(i.bsp_GoBackward)
+    bsp_GoBackward                           0x080043dd   Thumb Code    24  bsp_searchchargepile.o(i.bsp_GoBackward)
+    i.bsp_IRD_DecodeNec                      0x080043f4   Section        0  bsp_ir_decode.o(i.bsp_IRD_DecodeNec)
+    bsp_IRD_DecodeNec                        0x080043f5   Thumb Code   512  bsp_ir_decode.o(i.bsp_IRD_DecodeNec)
+    i.bsp_IRD_StartWork                      0x080045fc   Section        0  bsp_ir_decode.o(i.bsp_IRD_StartWork)
+    i.bsp_IR_GetPulseWidth                   0x08004760   Section        0  bsp_ir_decode.o(i.bsp_IR_GetPulseWidth)
+    bsp_IR_GetPulseWidth                     0x08004761   Thumb Code   292  bsp_ir_decode.o(i.bsp_IR_GetPulseWidth)
+    i.bsp_IR_GetRev                          0x08004890   Section        0  bsp_ir_decode.o(i.bsp_IR_GetRev)
+    i.bsp_IR_SoftTimerInit                   0x080048a4   Section        0  bsp_ir_decode.o(i.bsp_IR_SoftTimerInit)
+    bsp_IR_SoftTimerInit                     0x080048a5   Thumb Code    34  bsp_ir_decode.o(i.bsp_IR_SoftTimerInit)
+    i.bsp_IR_TimeOutProc                     0x080048cc   Section        0  bsp_ir_decode.o(i.bsp_IR_TimeOutProc)
+    bsp_IR_TimeOutProc                       0x080048cd   Thumb Code   166  bsp_ir_decode.o(i.bsp_IR_TimeOutProc)
+    i.bsp_Init                               0x08004980   Section        0  bsp.o(i.bsp_Init)
+    i.bsp_InitAngle                          0x08004a10   Section        0  bsp_angle.o(i.bsp_InitAngle)
+    i.bsp_InitCliffSW                        0x08004a3c   Section        0  bsp_cliffsw.o(i.bsp_InitCliffSW)
+    i.bsp_InitCollision                      0x08004bf4   Section        0  bsp_collision.o(i.bsp_InitCollision)
+    i.bsp_InitDWT                            0x08004c34   Section        0  bsp_dwt.o(i.bsp_InitDWT)
+    i.bsp_InitDetectAct                      0x08004c5c   Section        0  bsp_detectact.o(i.bsp_InitDetectAct)
+    i.bsp_InitEncoder                        0x08004c78   Section        0  bsp_encoder.o(i.bsp_InitEncoder)
+    i.bsp_InitFormAwaken                     0x08004c80   Section        0  bsp.o(i.bsp_InitFormAwaken)
+    i.bsp_InitGPIO                           0x08004cde   Section        0  bsp_encoder.o(i.bsp_InitGPIO)
+    bsp_InitGPIO                             0x08004cdf   Thumb Code     8  bsp_encoder.o(i.bsp_InitGPIO)
+    i.bsp_InitHardTimer                      0x08004ce8   Section        0  bsp_timer.o(i.bsp_InitHardTimer)
+    i.bsp_InitKey                            0x08004d54   Section        0  bsp_key.o(i.bsp_InitKey)
+    i.bsp_InitKeyHard                        0x08004d60   Section        0  bsp_key.o(i.bsp_InitKeyHard)
+    bsp_InitKeyHard                          0x08004d61   Thumb Code   140  bsp_key.o(i.bsp_InitKeyHard)
+    i.bsp_InitKeyStopMODE                    0x08004df0   Section        0  bsp_stopmode.o(i.bsp_InitKeyStopMODE)
+    bsp_InitKeyStopMODE                      0x08004df1   Thumb Code   104  bsp_stopmode.o(i.bsp_InitKeyStopMODE)
+    i.bsp_InitKeyVar                         0x08004e5c   Section        0  bsp_key.o(i.bsp_InitKeyVar)
+    bsp_InitKeyVar                           0x08004e5d   Thumb Code   124  bsp_key.o(i.bsp_InitKeyVar)
+    i.bsp_InitLed                            0x08004f08   Section        0  bsp_led.o(i.bsp_InitLed)
+    i.bsp_InitMotor                          0x08004f74   Section        0  bsp_motor.o(i.bsp_InitMotor)
+    i.bsp_InitPid                            0x08004f90   Section        0  bsp_control.o(i.bsp_InitPid)
+    i.bsp_InitPinPulse                       0x08004fd4   Section        0  bsp_pulsemark.o(i.bsp_InitPinPulse)
+    i.bsp_InitRunControl                     0x08005000   Section        0  bsp_runcontrol.o(i.bsp_InitRunControl)
+    i.bsp_InitSW                             0x08005028   Section        0  bsp_powerswitch.o(i.bsp_InitSW)
+    i.bsp_InitSpeaker                        0x08005094   Section        0  bsp_speaker.o(i.bsp_InitSpeaker)
+    i.bsp_InitTimer1                         0x080050e0   Section        0  bsp_motor.o(i.bsp_InitTimer1)
+    bsp_InitTimer1                           0x080050e1   Thumb Code   244  bsp_motor.o(i.bsp_InitTimer1)
+    i.bsp_InitTimer4                         0x080051e0   Section        0  bsp_motor.o(i.bsp_InitTimer4)
+    bsp_InitTimer4                           0x080051e1   Thumb Code   228  bsp_motor.o(i.bsp_InitTimer4)
+    i.bsp_InitUart                           0x080052cc   Section        0  bsp_uart_fifo.o(i.bsp_InitUart)
+    i.bsp_InitVacuum                         0x080052dc   Section        0  bsp_motor.o(i.bsp_InitVacuum)
+    bsp_InitVacuum                           0x080052dd   Thumb Code    46  bsp_motor.o(i.bsp_InitVacuum)
+    i.bsp_KeyScan                            0x08005310   Section        0  bsp_key.o(i.bsp_KeyScan)
+    i.bsp_LedOff                             0x08005328   Section        0  bsp_led.o(i.bsp_LedOff)
+    i.bsp_LedToggle                          0x08005360   Section        0  bsp_led.o(i.bsp_LedToggle)
+    i.bsp_MotorBrake                         0x080053ac   Section        0  bsp_control.o(i.bsp_MotorBrake)
+    bsp_MotorBrake                           0x080053ad   Thumb Code    54  bsp_control.o(i.bsp_MotorBrake)
+    i.bsp_MotorGetPulseVector                0x080053e8   Section        0  bsp_control.o(i.bsp_MotorGetPulseVector)
+    i.bsp_MotorGetSpeed                      0x080053f8   Section        0  bsp_control.o(i.bsp_MotorGetSpeed)
+    i.bsp_MotorSetPWM                        0x08005444   Section        0  bsp_motor.o(i.bsp_MotorSetPWM)
+    i.bsp_MotorSpeedMM2Pulse                 0x080054a8   Section        0  bsp_control.o(i.bsp_MotorSpeedMM2Pulse)
+    i.bsp_PidClear                           0x08005520   Section        0  bsp_control.o(i.bsp_PidClear)
+    bsp_PidClear                             0x08005521   Thumb Code    34  bsp_control.o(i.bsp_PidClear)
+    i.bsp_PidExec                            0x08005548   Section        0  bsp_control.o(i.bsp_PidExec)
+    bsp_PidExec                              0x08005549   Thumb Code   576  bsp_control.o(i.bsp_PidExec)
+    i.bsp_PidSched                           0x080057a0   Section        0  bsp_control.o(i.bsp_PidSched)
+    i.bsp_PirouetteCCW                       0x080057d0   Section        0  bsp_searchchargepile.o(i.bsp_PirouetteCCW)
+    bsp_PirouetteCCW                         0x080057d1   Thumb Code    20  bsp_searchchargepile.o(i.bsp_PirouetteCCW)
+    i.bsp_PirouetteCW                        0x080057e4   Section        0  bsp_edgewise.o(i.bsp_PirouetteCW)
+    bsp_PirouetteCW                          0x080057e5   Thumb Code    20  bsp_edgewise.o(i.bsp_PirouetteCW)
+    i.bsp_PirouetteCW                        0x080057f8   Section        0  bsp_searchchargepile.o(i.bsp_PirouetteCW)
+    bsp_PirouetteCW                          0x080057f9   Thumb Code    20  bsp_searchchargepile.o(i.bsp_PirouetteCW)
+    i.bsp_PositionUpdate                     0x0800580c   Section        0  bsp_position.o(i.bsp_PositionUpdate)
+    i.bsp_PutKey                             0x08005a4c   Section        0  bsp_key.o(i.bsp_PutKey)
+    i.bsp_PwmLimit                           0x08005a6c   Section        0  bsp_control.o(i.bsp_PwmLimit)
+    bsp_PwmLimit                             0x08005a6d   Thumb Code    30  bsp_control.o(i.bsp_PwmLimit)
+    i.bsp_RotateCCW                          0x08005a90   Section        0  bsp_edgewise.o(i.bsp_RotateCCW)
+    bsp_RotateCCW                            0x08005a91   Thumb Code    22  bsp_edgewise.o(i.bsp_RotateCCW)
+    i.bsp_SearchChargePile                   0x08005aa8   Section        0  bsp_searchchargepile.o(i.bsp_SearchChargePile)
+    i.bsp_SearchRunStraightSlow              0x08005d54   Section        0  bsp_searchchargepile.o(i.bsp_SearchRunStraightSlow)
+    bsp_SearchRunStraightSlow                0x08005d55   Thumb Code    20  bsp_searchchargepile.o(i.bsp_SearchRunStraightSlow)
+    i.bsp_SearchTurnLeftSlow                 0x08005d68   Section        0  bsp_searchchargepile.o(i.bsp_SearchTurnLeftSlow)
+    bsp_SearchTurnLeftSlow                   0x08005d69   Thumb Code    20  bsp_searchchargepile.o(i.bsp_SearchTurnLeftSlow)
+    i.bsp_SearchTurnRightSlow                0x08005d7c   Section        0  bsp_searchchargepile.o(i.bsp_SearchTurnRightSlow)
+    bsp_SearchTurnRightSlow                  0x08005d7d   Thumb Code    20  bsp_searchchargepile.o(i.bsp_SearchTurnRightSlow)
+    i.bsp_SendReportFrame                    0x08005d90   Section        0  bsp_communication.o(i.bsp_SendReportFrame)
+    i.bsp_SetAllPinLowPower                  0x08005dc0   Section        0  bsp_stopmode.o(i.bsp_SetAllPinLowPower)
+    bsp_SetAllPinLowPower                    0x08005dc1   Thumb Code   178  bsp_stopmode.o(i.bsp_SetAllPinLowPower)
+    i.bsp_SetChargeKey                       0x08005e9c   Section        0  bsp_runcontrol.o(i.bsp_SetChargeKey)
+    i.bsp_SetCleanKey                        0x08005ea8   Section        0  bsp_runcontrol.o(i.bsp_SetCleanKey)
+    i.bsp_SetHomeKey                         0x08005eb4   Section        0  bsp_runcontrol.o(i.bsp_SetHomeKey)
+    i.bsp_SetMotorSpeed                      0x08005ec0   Section        0  bsp_control.o(i.bsp_SetMotorSpeed)
+    i.bsp_SetPowerKey                        0x08005ed8   Section        0  bsp_runcontrol.o(i.bsp_SetPowerKey)
+    i.bsp_SetTIMforInt                       0x08005ee4   Section        0  bsp_tim_pwm.o(i.bsp_SetTIMforInt)
+    i.bsp_StartAssistJudgeDirection          0x080060f0   Section        0  bsp_assistjudgedirection.o(i.bsp_StartAssistJudgeDirection)
+    i.bsp_StartHardTimer                     0x08006114   Section        0  bsp_timer.o(i.bsp_StartHardTimer)
+    i.bsp_StartRunControl                    0x080061dc   Section        0  bsp_runcontrol.o(i.bsp_StartRunControl)
+    i.bsp_StartUpdateGridMap                 0x08006208   Section        0  bsp_gridmap.o(i.bsp_StartUpdateGridMap)
+    i.bsp_StartUpdatePos                     0x0800626c   Section        0  bsp_position.o(i.bsp_StartUpdatePos)
+    i.bsp_StopSearchChargePile               0x08006284   Section        0  bsp_searchchargepile.o(i.bsp_StopSearchChargePile)
+    i.bsp_SwOff                              0x080062a8   Section        0  bsp_powerswitch.o(i.bsp_SwOff)
+    i.bsp_SwOn                               0x080062ec   Section        0  bsp_powerswitch.o(i.bsp_SwOn)
+    i.bsp_VacuumClean                        0x08006330   Section        0  bsp_motor.o(i.bsp_VacuumClean)
+    i.comGetChar                             0x08006384   Section        0  bsp_uart_fifo.o(i.comGetChar)
+    i.comSendBuf                             0x080063a2   Section        0  bsp_uart_fifo.o(i.comSendBuf)
+    i.comSendChar                            0x080063d0   Section        0  bsp_uart_fifo.o(i.comSendChar)
+    i.cos                                    0x080063e0   Section        0  cos.o(i.cos)
+    i.fputc                                  0x0800647c   Section        0  bsp_uart_fifo.o(i.fputc)
+    i.main                                   0x0800648e   Section        0  main.o(i.main)
+    i.myabs                                  0x080064ae   Section        0  bsp_edgewise.o(i.myabs)
+    myabs                                    0x080064af   Thumb Code    22  bsp_edgewise.o(i.myabs)
+    i.myabs                                  0x080064c4   Section        0  bsp_control.o(i.myabs)
+    myabs                                    0x080064c5   Thumb Code    14  bsp_control.o(i.myabs)
+    i.prvAddCurrentTaskToDelayedList         0x080064d4   Section        0  tasks.o(i.prvAddCurrentTaskToDelayedList)
+    prvAddCurrentTaskToDelayedList           0x080064d5   Thumb Code    62  tasks.o(i.prvAddCurrentTaskToDelayedList)
+    i.prvAllocateTCBAndStack                 0x08006528   Section        0  tasks.o(i.prvAllocateTCBAndStack)
+    prvAllocateTCBAndStack                   0x08006529   Thumb Code    66  tasks.o(i.prvAllocateTCBAndStack)
+    i.prvCheckTasksWaitingTermination        0x0800656c   Section        0  tasks.o(i.prvCheckTasksWaitingTermination)
+    prvCheckTasksWaitingTermination          0x0800656d   Thumb Code    86  tasks.o(i.prvCheckTasksWaitingTermination)
+    i.prvCopyDataToQueue                     0x080065d0   Section        0  queue.o(i.prvCopyDataToQueue)
+    prvCopyDataToQueue                       0x080065d1   Thumb Code   128  queue.o(i.prvCopyDataToQueue)
+    i.prvDeleteTCB                           0x08006650   Section        0  tasks.o(i.prvDeleteTCB)
+    prvDeleteTCB                             0x08006651   Thumb Code    18  tasks.o(i.prvDeleteTCB)
+    i.prvHeapInit                            0x08006664   Section        0  heap_4.o(i.prvHeapInit)
+    prvHeapInit                              0x08006665   Thumb Code    98  heap_4.o(i.prvHeapInit)
+    i.prvIdleTask                            0x080066e0   Section        0  tasks.o(i.prvIdleTask)
+    prvIdleTask                              0x080066e1   Thumb Code    20  tasks.o(i.prvIdleTask)
+    i.prvInitialiseTCBVariables              0x080066f8   Section        0  tasks.o(i.prvInitialiseTCBVariables)
+    prvInitialiseTCBVariables                0x080066f9   Thumb Code   100  tasks.o(i.prvInitialiseTCBVariables)
+    i.prvInitialiseTaskLists                 0x0800675c   Section        0  tasks.o(i.prvInitialiseTaskLists)
+    prvInitialiseTaskLists                   0x0800675d   Thumb Code    70  tasks.o(i.prvInitialiseTaskLists)
+    i.prvInsertBlockIntoFreeList             0x080067c4   Section        0  heap_4.o(i.prvInsertBlockIntoFreeList)
+    prvInsertBlockIntoFreeList               0x080067c5   Thumb Code    96  heap_4.o(i.prvInsertBlockIntoFreeList)
+    i.prvIsQueueFull                         0x0800682c   Section        0  queue.o(i.prvIsQueueFull)
+    prvIsQueueFull                           0x0800682d   Thumb Code    30  queue.o(i.prvIsQueueFull)
+    i.prvResetNextTaskUnblockTime            0x0800684c   Section        0  tasks.o(i.prvResetNextTaskUnblockTime)
+    prvResetNextTaskUnblockTime              0x0800684d   Thumb Code    42  tasks.o(i.prvResetNextTaskUnblockTime)
+    i.prvTaskExitError                       0x08006880   Section        0  port.o(i.prvTaskExitError)
+    prvTaskExitError                         0x08006881   Thumb Code    32  port.o(i.prvTaskExitError)
+    i.prvUnlockQueue                         0x080068a4   Section        0  queue.o(i.prvUnlockQueue)
+    prvUnlockQueue                           0x080068a5   Thumb Code   126  queue.o(i.prvUnlockQueue)
+    i.pvPortMalloc                           0x08006924   Section        0  heap_4.o(i.pvPortMalloc)
+    i.pxPortInitialiseStack                  0x08006a38   Section        0  port.o(i.pxPortInitialiseStack)
+    i.sin                                    0x08006a58   Section        0  sin.o(i.sin)
+    i.uxListRemove                           0x08006af8   Section        0  list.o(i.uxListRemove)
+    i.vListInitialise                        0x08006b20   Section        0  list.o(i.vListInitialise)
+    i.vListInitialiseItem                    0x08006b3a   Section        0  list.o(i.vListInitialiseItem)
+    i.vListInsert                            0x08006b40   Section        0  list.o(i.vListInsert)
+    i.vListInsertEnd                         0x08006b74   Section        0  list.o(i.vListInsertEnd)
+    i.vPortEnterCritical                     0x08006b8c   Section        0  port.o(i.vPortEnterCritical)
+    i.vPortExitCritical                      0x08006bd0   Section        0  port.o(i.vPortExitCritical)
+    i.vPortFree                              0x08006bfc   Section        0  heap_4.o(i.vPortFree)
+    i.vPortSetupTimerInterrupt               0x08006c74   Section        0  port.o(i.vPortSetupTimerInterrupt)
+    i.vPortYield                             0x08006c88   Section        0  port.o(i.vPortYield)
+    i.vSetupSysInfoTest                      0x08006ca0   Section        0  sysinfotest.o(i.vSetupSysInfoTest)
+    i.vTaskControl                           0x08006cb8   Section        0  main.o(i.vTaskControl)
+    vTaskControl                             0x08006cb9   Thumb Code    22  main.o(i.vTaskControl)
+    i.vTaskDecision                          0x08006cd0   Section        0  main.o(i.vTaskDecision)
+    vTaskDecision                            0x08006cd1   Thumb Code   158  main.o(i.vTaskDecision)
+    i.vTaskDelay                             0x08006dac   Section        0  tasks.o(i.vTaskDelay)
+    i.vTaskMissedYield                       0x08006e1c   Section        0  tasks.o(i.vTaskMissedYield)
+    i.vTaskPerception                        0x08006e28   Section        0  main.o(i.vTaskPerception)
+    vTaskPerception                          0x08006e29   Thumb Code    64  main.o(i.vTaskPerception)
+    i.vTaskPlaceOnEventList                  0x08006e68   Section        0  tasks.o(i.vTaskPlaceOnEventList)
+    i.vTaskSetTimeOutState                   0x08006ed8   Section        0  tasks.o(i.vTaskSetTimeOutState)
+    i.vTaskStartScheduler                    0x08006efc   Section        0  tasks.o(i.vTaskStartScheduler)
+    i.vTaskSuspendAll                        0x08006f64   Section        0  tasks.o(i.vTaskSuspendAll)
+    i.vTaskSwitchContext                     0x08006f74   Section        0  tasks.o(i.vTaskSwitchContext)
+    i.xPortStartScheduler                    0x08007034   Section        0  port.o(i.xPortStartScheduler)
+    i.xQueueCreateMutex                      0x080070d4   Section        0  queue.o(i.xQueueCreateMutex)
+    i.xQueueGenericSend                      0x08007120   Section        0  queue.o(i.xQueueGenericSend)
+    i.xTaskCheckForTimeOut                   0x08007248   Section        0  tasks.o(i.xTaskCheckForTimeOut)
+    i.xTaskGenericCreate                     0x080072bc   Section        0  tasks.o(i.xTaskGenericCreate)
+    i.xTaskGetTickCount                      0x080073f4   Section        0  tasks.o(i.xTaskGetTickCount)
+    i.xTaskIncrementTick                     0x08007400   Section        0  tasks.o(i.xTaskIncrementTick)
+    i.xTaskPriorityDisinherit                0x0800753c   Section        0  tasks.o(i.xTaskPriorityDisinherit)
+    i.xTaskRemoveFromEventList               0x080075e8   Section        0  tasks.o(i.xTaskRemoveFromEventList)
+    i.xTaskResumeAll                         0x08007674   Section        0  tasks.o(i.xTaskResumeAll)
+    .constdata                               0x0800775c   Section       32  bsp_ir_decode.o(.constdata)
+    .constdata                               0x08007780   Section       48  cos_i.o(.constdata)
+    C                                        0x08007780   Data          48  cos_i.o(.constdata)
+    .constdata                               0x080077b0   Section      200  rred.o(.constdata)
+    pio2s                                    0x080077b0   Data          48  rred.o(.constdata)
+    twooverpi                                0x080077e0   Data         152  rred.o(.constdata)
+    .constdata                               0x08007878   Section       40  sin_i.o(.constdata)
+    S                                        0x08007878   Data          40  sin_i.o(.constdata)
     .data                                    0x20000000   Section       17  main.o(.data)
     xHandleTaskDecision                      0x20000000   Data           4  main.o(.data)
     xHandleTaskControl                       0x20000004   Data           4  main.o(.data)
@@ -3165,206 +3164,206 @@ Image Symbol Table
     DebugMon_Handler                         0x08000e29   Thumb Code     2  stm32f10x_it.o(i.DebugMon_Handler)
     EXTI15_10_IRQHandler                     0x08000e2d   Thumb Code    40  bsp_encoder.o(i.EXTI15_10_IRQHandler)
     EXTI3_IRQHandler                         0x08000e59   Thumb Code    36  bsp_encoder.o(i.EXTI3_IRQHandler)
-    EXTI9_5_IRQHandler                       0x08000e81   Thumb Code    60  bsp_stopmode.o(i.EXTI9_5_IRQHandler)
-    EXTI_ClearITPendingBit                   0x08000ed1   Thumb Code     6  stm32f10x_exti.o(i.EXTI_ClearITPendingBit)
-    EXTI_GetITStatus                         0x08000edd   Thumb Code    34  stm32f10x_exti.o(i.EXTI_GetITStatus)
-    EXTI_Init                                0x08000f05   Thumb Code   142  stm32f10x_exti.o(i.EXTI_Init)
-    GPIO_EXTILineConfig                      0x08000f99   Thumb Code    60  stm32f10x_gpio.o(i.GPIO_EXTILineConfig)
-    GPIO_Init                                0x08000fd9   Thumb Code   278  stm32f10x_gpio.o(i.GPIO_Init)
-    GPIO_PinRemapConfig                      0x080010f1   Thumb Code   138  stm32f10x_gpio.o(i.GPIO_PinRemapConfig)
-    GPIO_ReadInputDataBit                    0x08001181   Thumb Code    18  stm32f10x_gpio.o(i.GPIO_ReadInputDataBit)
-    GPIO_ResetBits                           0x08001193   Thumb Code     4  stm32f10x_gpio.o(i.GPIO_ResetBits)
-    GPIO_SetBits                             0x08001197   Thumb Code     4  stm32f10x_gpio.o(i.GPIO_SetBits)
-    HardFault_Handler                        0x0800119d   Thumb Code    40  stm32f10x_it.o(i.HardFault_Handler)
-    MemManage_Handler                        0x080015ad   Thumb Code     4  stm32f10x_it.o(i.MemManage_Handler)
-    NMI_Handler                              0x080015b1   Thumb Code     2  stm32f10x_it.o(i.NMI_Handler)
-    NVIC_Init                                0x080015b5   Thumb Code   100  misc.o(i.NVIC_Init)
-    NVIC_PriorityGroupConfig                 0x08001625   Thumb Code    10  misc.o(i.NVIC_PriorityGroupConfig)
-    PWR_EnterSTOPMode                        0x08001639   Thumb Code    54  stm32f10x_pwr.o(i.PWR_EnterSTOPMode)
-    RCC_ADCCLKConfig                         0x08001679   Thumb Code    18  stm32f10x_rcc.o(i.RCC_ADCCLKConfig)
-    RCC_APB1PeriphClockCmd                   0x08001691   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd)
-    RCC_APB2PeriphClockCmd                   0x080016b1   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd)
-    RCC_APB2PeriphResetCmd                   0x080016d1   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd)
-    RCC_GetClocksFreq                        0x080016f1   Thumb Code   192  stm32f10x_rcc.o(i.RCC_GetClocksFreq)
-    RCC_GetFlagStatus                        0x080017c5   Thumb Code    56  stm32f10x_rcc.o(i.RCC_GetFlagStatus)
-    RCC_GetSYSCLKSource                      0x08001801   Thumb Code    10  stm32f10x_rcc.o(i.RCC_GetSYSCLKSource)
-    RCC_HSEConfig                            0x08001811   Thumb Code    70  stm32f10x_rcc.o(i.RCC_HSEConfig)
-    RCC_PLLCmd                               0x0800185d   Thumb Code     6  stm32f10x_rcc.o(i.RCC_PLLCmd)
-    RCC_SYSCLKConfig                         0x08001869   Thumb Code    18  stm32f10x_rcc.o(i.RCC_SYSCLKConfig)
-    RS485_ReciveNew                          0x08001881   Thumb Code    12  bsp_uart_fifo.o(i.RS485_ReciveNew)
-    SysTick_Handler                          0x08001975   Thumb Code    28  port.o(i.SysTick_Handler)
-    SystemInit                               0x08001995   Thumb Code    78  system_stm32f10x.o(i.SystemInit)
-    TIM3_IRQHandler                          0x08001c35   Thumb Code   142  bsp_ir_decode.o(i.TIM3_IRQHandler)
-    TIM5_IRQHandler                          0x08001cc9   Thumb Code   140  bsp_timer.o(i.TIM5_IRQHandler)
-    TIM6_IRQHandler                          0x08001d69   Thumb Code    68  sysinfotest.o(i.TIM6_IRQHandler)
-    TIM_ARRPreloadConfig                     0x08001db9   Thumb Code    24  stm32f10x_tim.o(i.TIM_ARRPreloadConfig)
-    TIM_ClearITPendingBit                    0x08001dd1   Thumb Code     6  stm32f10x_tim.o(i.TIM_ClearITPendingBit)
-    TIM_Cmd                                  0x08001dd7   Thumb Code    24  stm32f10x_tim.o(i.TIM_Cmd)
-    TIM_CtrlPWMOutputs                       0x08001def   Thumb Code    30  stm32f10x_tim.o(i.TIM_CtrlPWMOutputs)
-    TIM_GetCapture1                          0x08001e0d   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture1)
-    TIM_GetCapture2                          0x08001e13   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture2)
-    TIM_GetCapture3                          0x08001e19   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture3)
-    TIM_GetCapture4                          0x08001e1f   Thumb Code     8  stm32f10x_tim.o(i.TIM_GetCapture4)
-    TIM_GetCounter                           0x08001e27   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCounter)
-    TIM_GetITStatus                          0x08001e2d   Thumb Code    34  stm32f10x_tim.o(i.TIM_GetITStatus)
-    TIM_ICInit                               0x08001e51   Thumb Code   150  stm32f10x_tim.o(i.TIM_ICInit)
-    TIM_ITConfig                             0x08001efd   Thumb Code    18  stm32f10x_tim.o(i.TIM_ITConfig)
-    TIM_OC1Init                              0x08001f11   Thumb Code   132  stm32f10x_tim.o(i.TIM_OC1Init)
-    TIM_OC1PreloadConfig                     0x08001fa9   Thumb Code    18  stm32f10x_tim.o(i.TIM_OC1PreloadConfig)
-    TIM_OC2Init                              0x08001fbd   Thumb Code   154  stm32f10x_tim.o(i.TIM_OC2Init)
-    TIM_OC2PreloadConfig                     0x08002061   Thumb Code    26  stm32f10x_tim.o(i.TIM_OC2PreloadConfig)
-    TIM_OC3Init                              0x0800207d   Thumb Code   150  stm32f10x_tim.o(i.TIM_OC3Init)
-    TIM_OC3PreloadConfig                     0x0800211d   Thumb Code    18  stm32f10x_tim.o(i.TIM_OC3PreloadConfig)
-    TIM_OC4Init                              0x08002131   Thumb Code   114  stm32f10x_tim.o(i.TIM_OC4Init)
-    TIM_OC4PreloadConfig                     0x080021ad   Thumb Code    26  stm32f10x_tim.o(i.TIM_OC4PreloadConfig)
-    TIM_SetCompare1                          0x080021c7   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare1)
-    TIM_SetCompare2                          0x080021cb   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare2)
-    TIM_SetCompare3                          0x080021cf   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare3)
-    TIM_SetCompare4                          0x080021d3   Thumb Code     6  stm32f10x_tim.o(i.TIM_SetCompare4)
-    TIM_SetIC1Prescaler                      0x080021d9   Thumb Code    18  stm32f10x_tim.o(i.TIM_SetIC1Prescaler)
-    TIM_SetIC2Prescaler                      0x080021eb   Thumb Code    26  stm32f10x_tim.o(i.TIM_SetIC2Prescaler)
-    TIM_SetIC3Prescaler                      0x08002205   Thumb Code    18  stm32f10x_tim.o(i.TIM_SetIC3Prescaler)
-    TIM_SetIC4Prescaler                      0x08002217   Thumb Code    26  stm32f10x_tim.o(i.TIM_SetIC4Prescaler)
-    TIM_TimeBaseInit                         0x08002231   Thumb Code   122  stm32f10x_tim.o(i.TIM_TimeBaseInit)
-    UART4_IRQHandler                         0x080022d5   Thumb Code    10  bsp_uart_fifo.o(i.UART4_IRQHandler)
-    USART1_IRQHandler                        0x080022e5   Thumb Code    10  bsp_uart_fifo.o(i.USART1_IRQHandler)
-    USART2_IRQHandler                        0x080022f5   Thumb Code    10  bsp_uart_fifo.o(i.USART2_IRQHandler)
-    USART3_IRQHandler                        0x08002305   Thumb Code    10  bsp_uart_fifo.o(i.USART3_IRQHandler)
-    USART_ClearFlag                          0x08002315   Thumb Code    18  stm32f10x_usart.o(i.USART_ClearFlag)
-    USART_Cmd                                0x08002327   Thumb Code    24  stm32f10x_usart.o(i.USART_Cmd)
-    USART_GetITStatus                        0x0800233f   Thumb Code    84  stm32f10x_usart.o(i.USART_GetITStatus)
-    USART_ITConfig                           0x08002393   Thumb Code    74  stm32f10x_usart.o(i.USART_ITConfig)
-    USART_Init                               0x080023dd   Thumb Code   210  stm32f10x_usart.o(i.USART_Init)
-    USART_ReceiveData                        0x080024b5   Thumb Code    10  stm32f10x_usart.o(i.USART_ReceiveData)
-    USART_SendData                           0x080024bf   Thumb Code     8  stm32f10x_usart.o(i.USART_SendData)
-    UsageFault_Handler                       0x08002759   Thumb Code     4  stm32f10x_it.o(i.UsageFault_Handler)
-    __0printf$8                              0x0800275d   Thumb Code    22  printf8.o(i.__0printf$8)
-    __1printf$8                              0x0800275d   Thumb Code     0  printf8.o(i.__0printf$8)
-    __2printf                                0x0800275d   Thumb Code     0  printf8.o(i.__0printf$8)
-    __ARM_fpclassify                         0x0800277d   Thumb Code    40  fpclassify.o(i.__ARM_fpclassify)
-    __ieee754_rem_pio2                       0x080027a5   Thumb Code   828  rred.o(i.__ieee754_rem_pio2)
-    __kernel_cos                             0x08002b2d   Thumb Code   230  cos_i.o(i.__kernel_cos)
-    __kernel_poly                            0x08002c29   Thumb Code   170  poly.o(i.__kernel_poly)
-    __kernel_sin                             0x08002cd5   Thumb Code   224  sin_i.o(i.__kernel_sin)
-    __mathlib_dbl_infnan                     0x08002dc1   Thumb Code     6  dunder.o(i.__mathlib_dbl_infnan)
-    __mathlib_dbl_invalid                    0x08002dc7   Thumb Code    12  dunder.o(i.__mathlib_dbl_invalid)
-    __mathlib_dbl_underflow                  0x08002dd5   Thumb Code    10  dunder.o(i.__mathlib_dbl_underflow)
-    __scatterload_copy                       0x08002de5   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x08002df3   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x08002df5   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    __set_errno                              0x08002e09   Thumb Code     6  errno.o(i.__set_errno)
-    bsp_AngleAdd                             0x08003305   Thumb Code    82  bsp_angle.o(i.bsp_AngleAdd)
-    bsp_AngleRead                            0x08003461   Thumb Code     6  bsp_angle.o(i.bsp_AngleRead)
-    bsp_AngleReadRaw                         0x0800346d   Thumb Code     8  bsp_angle.o(i.bsp_AngleReadRaw)
-    bsp_AngleRevByte                         0x08003479   Thumb Code    48  bsp_angle.o(i.bsp_AngleRevByte)
-    bsp_AngleRst                             0x080034b1   Thumb Code    46  bsp_angle.o(i.bsp_AngleRst)
-    bsp_AssistIsFaceObstacles                0x080034f9   Thumb Code    40  bsp_assistjudgedirection.o(i.bsp_AssistIsFaceObstacles)
-    bsp_AssistJudgeDirection                 0x08003525   Thumb Code    76  bsp_assistjudgedirection.o(i.bsp_AssistJudgeDirection)
-    bsp_CliffCalibration                     0x080035ad   Thumb Code   218  bsp_cliffsw.o(i.bsp_CliffCalibration)
-    bsp_CollisionScan                        0x08003695   Thumb Code   106  bsp_collision.o(i.bsp_CollisionScan)
-    bsp_ComAnalysis                          0x08003709   Thumb Code   526  bsp_communication.o(i.bsp_ComAnalysis)
-    bsp_DelayMS                              0x080039b1   Thumb Code    18  bsp_dwt.o(i.bsp_DelayMS)
-    bsp_DelayUS                              0x080039c5   Thumb Code    36  bsp_dwt.o(i.bsp_DelayUS)
-    bsp_DetectStart                          0x08003ac1   Thumb Code    18  bsp_detectact.o(i.bsp_DetectStart)
-    bsp_EdgewiseRun                          0x08003bb5   Thumb Code   474  bsp_edgewise.o(i.bsp_EdgewiseRun)
-    bsp_EncoderGetPulseT                     0x08003dfd   Thumb Code    24  bsp_encoder.o(i.bsp_EncoderGetPulseT)
-    bsp_EncoderGetTotalMileage               0x08003e19   Thumb Code    10  bsp_encoder.o(i.bsp_EncoderGetTotalMileage)
-    bsp_EnterStopMODE                        0x08003e29   Thumb Code   136  bsp_stopmode.o(i.bsp_EnterStopMODE)
-    bsp_GetChargeFeedback                    0x08004129   Thumb Code    20  bsp_searchchargepile.o(i.bsp_GetChargeFeedback)
-    bsp_GetCliffVoltage                      0x08004141   Thumb Code   232  bsp_cliffsw.o(i.bsp_GetCliffVoltage)
-    bsp_GetCurrentBothPulse                  0x08004235   Thumb Code    50  bsp_encoder.o(i.bsp_GetCurrentBothPulse)
-    bsp_GetCurrentPosX                       0x08004269   Thumb Code    30  bsp_position.o(i.bsp_GetCurrentPosX)
-    bsp_GetCurrentPosY                       0x08004291   Thumb Code    30  bsp_position.o(i.bsp_GetCurrentPosY)
-    bsp_GetInfraRedAdcVoltage                0x080042b9   Thumb Code    10  bsp_detectact.o(i.bsp_GetInfraRedAdcVoltage)
-    bsp_GetInfraredVoltageRight              0x080042c9   Thumb Code     6  bsp_detectact.o(i.bsp_GetInfraredVoltageRight)
-    bsp_GetKey                               0x080042d5   Thumb Code    46  bsp_key.o(i.bsp_GetKey)
-    bsp_GetRCCofTIM                          0x08004309   Thumb Code   150  bsp_tim_pwm.o(i.bsp_GetRCCofTIM)
-    bsp_IRD_StartWork                        0x0800460d   Thumb Code   338  bsp_ir_decode.o(i.bsp_IRD_StartWork)
-    bsp_IR_GetRev                            0x080048a1   Thumb Code    14  bsp_ir_decode.o(i.bsp_IR_GetRev)
-    bsp_Init                                 0x08004991   Thumb Code   128  bsp.o(i.bsp_Init)
-    bsp_InitAngle                            0x08004a21   Thumb Code    40  bsp_angle.o(i.bsp_InitAngle)
-    bsp_InitCliffSW                          0x08004a4d   Thumb Code   422  bsp_cliffsw.o(i.bsp_InitCliffSW)
-    bsp_InitCollision                        0x08004c05   Thumb Code    54  bsp_collision.o(i.bsp_InitCollision)
-    bsp_InitDWT                              0x08004c45   Thumb Code    30  bsp_dwt.o(i.bsp_InitDWT)
-    bsp_InitDetectAct                        0x08004c6d   Thumb Code    22  bsp_detectact.o(i.bsp_InitDetectAct)
-    bsp_InitEncoder                          0x08004c89   Thumb Code     8  bsp_encoder.o(i.bsp_InitEncoder)
-    bsp_InitFormAwaken                       0x08004c91   Thumb Code    94  bsp.o(i.bsp_InitFormAwaken)
-    bsp_InitHardTimer                        0x08004cf9   Thumb Code    94  bsp_timer.o(i.bsp_InitHardTimer)
-    bsp_InitKey                              0x08004d65   Thumb Code    12  bsp_key.o(i.bsp_InitKey)
-    bsp_InitLed                              0x08004f19   Thumb Code   104  bsp_led.o(i.bsp_InitLed)
-    bsp_InitMotor                            0x08004f85   Thumb Code    28  bsp_motor.o(i.bsp_InitMotor)
-    bsp_InitPid                              0x08004fa1   Thumb Code    56  bsp_control.o(i.bsp_InitPid)
-    bsp_InitPinPulse                         0x08004fe5   Thumb Code    38  bsp_pulsemark.o(i.bsp_InitPinPulse)
-    bsp_InitRunControl                       0x08005011   Thumb Code    36  bsp_runcontrol.o(i.bsp_InitRunControl)
-    bsp_InitSW                               0x08005039   Thumb Code    96  bsp_powerswitch.o(i.bsp_InitSW)
-    bsp_InitSpeaker                          0x080050a5   Thumb Code    72  bsp_speaker.o(i.bsp_InitSpeaker)
-    bsp_InitUart                             0x080052dd   Thumb Code    16  bsp_uart_fifo.o(i.bsp_InitUart)
-    bsp_KeyScan                              0x08005321   Thumb Code    22  bsp_key.o(i.bsp_KeyScan)
-    bsp_LedOff                               0x08005339   Thumb Code    50  bsp_led.o(i.bsp_LedOff)
-    bsp_LedToggle                            0x08005371   Thumb Code    72  bsp_led.o(i.bsp_LedToggle)
-    bsp_MotorGetPulseVector                  0x080053f9   Thumb Code    10  bsp_control.o(i.bsp_MotorGetPulseVector)
-    bsp_MotorGetSpeed                        0x08005409   Thumb Code    68  bsp_control.o(i.bsp_MotorGetSpeed)
-    bsp_MotorSetPWM                          0x08005455   Thumb Code    96  bsp_motor.o(i.bsp_MotorSetPWM)
-    bsp_MotorSpeedMM2Pulse                   0x080054b9   Thumb Code   106  bsp_control.o(i.bsp_MotorSpeedMM2Pulse)
-    bsp_PidSched                             0x080057b1   Thumb Code    44  bsp_control.o(i.bsp_PidSched)
-    bsp_PositionUpdate                       0x0800581d   Thumb Code   550  bsp_position.o(i.bsp_PositionUpdate)
-    bsp_PutKey                               0x08005a5d   Thumb Code    28  bsp_key.o(i.bsp_PutKey)
-    bsp_SearchChargePile                     0x08005ab9   Thumb Code   658  bsp_searchchargepile.o(i.bsp_SearchChargePile)
-    bsp_SendReportFrame                      0x08005da1   Thumb Code    40  bsp_communication.o(i.bsp_SendReportFrame)
-    bsp_SetChargeKey                         0x08005ead   Thumb Code     6  bsp_runcontrol.o(i.bsp_SetChargeKey)
-    bsp_SetCleanKey                          0x08005eb9   Thumb Code     6  bsp_runcontrol.o(i.bsp_SetCleanKey)
-    bsp_SetHomeKey                           0x08005ec5   Thumb Code     6  bsp_runcontrol.o(i.bsp_SetHomeKey)
-    bsp_SetMotorSpeed                        0x08005ed1   Thumb Code    18  bsp_control.o(i.bsp_SetMotorSpeed)
-    bsp_SetPowerKey                          0x08005ee9   Thumb Code     6  bsp_runcontrol.o(i.bsp_SetPowerKey)
-    bsp_SetTIMforInt                         0x08005ef5   Thumb Code   478  bsp_tim_pwm.o(i.bsp_SetTIMforInt)
-    bsp_StartAssistJudgeDirection            0x08006101   Thumb Code    32  bsp_assistjudgedirection.o(i.bsp_StartAssistJudgeDirection)
-    bsp_StartHardTimer                       0x08006125   Thumb Code   180  bsp_timer.o(i.bsp_StartHardTimer)
-    bsp_StartRunControl                      0x080061ed   Thumb Code    38  bsp_runcontrol.o(i.bsp_StartRunControl)
-    bsp_StartUpdateGridMap                   0x08006219   Thumb Code    94  bsp_gridmap.o(i.bsp_StartUpdateGridMap)
-    bsp_StartUpdatePos                       0x0800627d   Thumb Code    18  bsp_position.o(i.bsp_StartUpdatePos)
-    bsp_StopSearchChargePile                 0x08006295   Thumb Code    30  bsp_searchchargepile.o(i.bsp_StopSearchChargePile)
-    bsp_SwOff                                0x080062b9   Thumb Code    56  bsp_powerswitch.o(i.bsp_SwOff)
-    bsp_SwOn                                 0x080062fd   Thumb Code    56  bsp_powerswitch.o(i.bsp_SwOn)
-    bsp_VacuumClean                          0x08006341   Thumb Code    74  bsp_motor.o(i.bsp_VacuumClean)
-    comGetChar                               0x08006395   Thumb Code    30  bsp_uart_fifo.o(i.comGetChar)
-    comSendBuf                               0x080063b3   Thumb Code    46  bsp_uart_fifo.o(i.comSendBuf)
-    comSendChar                              0x080063e1   Thumb Code    16  bsp_uart_fifo.o(i.comSendChar)
-    cos                                      0x080063f1   Thumb Code   148  cos.o(i.cos)
-    fputc                                    0x0800648d   Thumb Code    18  bsp_uart_fifo.o(i.fputc)
-    main                                     0x0800649f   Thumb Code    32  main.o(i.main)
-    pvPortMalloc                             0x08006935   Thumb Code   254  heap_4.o(i.pvPortMalloc)
-    pxPortInitialiseStack                    0x08006a49   Thumb Code    26  port.o(i.pxPortInitialiseStack)
-    sin                                      0x08006a69   Thumb Code   150  sin.o(i.sin)
-    uxListRemove                             0x08006b09   Thumb Code    40  list.o(i.uxListRemove)
-    vListInitialise                          0x08006b31   Thumb Code    26  list.o(i.vListInitialise)
-    vListInitialiseItem                      0x08006b4b   Thumb Code     6  list.o(i.vListInitialiseItem)
-    vListInsert                              0x08006b51   Thumb Code    52  list.o(i.vListInsert)
-    vListInsertEnd                           0x08006b85   Thumb Code    24  list.o(i.vListInsertEnd)
-    vPortEnterCritical                       0x08006b9d   Thumb Code    58  port.o(i.vPortEnterCritical)
-    vPortExitCritical                        0x08006be1   Thumb Code    40  port.o(i.vPortExitCritical)
-    vPortFree                                0x08006c0d   Thumb Code   112  heap_4.o(i.vPortFree)
-    vPortSetupTimerInterrupt                 0x08006c85   Thumb Code    14  port.o(i.vPortSetupTimerInterrupt)
-    vPortYield                               0x08006c99   Thumb Code    18  port.o(i.vPortYield)
-    vSetupSysInfoTest                        0x08006cb1   Thumb Code    18  sysinfotest.o(i.vSetupSysInfoTest)
-    vTaskDelay                               0x08006dbd   Thumb Code    94  tasks.o(i.vTaskDelay)
-    vTaskMissedYield                         0x08006e2d   Thumb Code     8  tasks.o(i.vTaskMissedYield)
-    vTaskPlaceOnEventList                    0x08006e79   Thumb Code    94  tasks.o(i.vTaskPlaceOnEventList)
-    vTaskSetTimeOutState                     0x08006ee9   Thumb Code    28  tasks.o(i.vTaskSetTimeOutState)
-    vTaskStartScheduler                      0x08006f0d   Thumb Code    74  tasks.o(i.vTaskStartScheduler)
-    vTaskSuspendAll                          0x08006f75   Thumb Code    12  tasks.o(i.vTaskSuspendAll)
-    vTaskSwitchContext                       0x08006f85   Thumb Code   158  tasks.o(i.vTaskSwitchContext)
-    xPortStartScheduler                      0x08007045   Thumb Code   140  port.o(i.xPortStartScheduler)
-    xQueueCreateMutex                        0x080070e5   Thumb Code    76  queue.o(i.xQueueCreateMutex)
-    xQueueGenericSend                        0x08007131   Thumb Code   296  queue.o(i.xQueueGenericSend)
-    xTaskCheckForTimeOut                     0x08007259   Thumb Code   108  tasks.o(i.xTaskCheckForTimeOut)
-    xTaskGenericCreate                       0x080072cd   Thumb Code   288  tasks.o(i.xTaskGenericCreate)
-    xTaskGetTickCount                        0x08007405   Thumb Code     6  tasks.o(i.xTaskGetTickCount)
-    xTaskIncrementTick                       0x08007411   Thumb Code   272  tasks.o(i.xTaskIncrementTick)
-    xTaskPriorityDisinherit                  0x0800754d   Thumb Code   160  tasks.o(i.xTaskPriorityDisinherit)
-    xTaskRemoveFromEventList                 0x080075f9   Thumb Code   114  tasks.o(i.xTaskRemoveFromEventList)
-    xTaskResumeAll                           0x08007685   Thumb Code   200  tasks.o(i.xTaskResumeAll)
-    Region$$Table$$Base                      0x080078b0   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080078d0   Number         0  anon$$obj.o(Region$$Table)
+    EXTI9_5_IRQHandler                       0x08000e81   Thumb Code    54  bsp_stopmode.o(i.EXTI9_5_IRQHandler)
+    EXTI_ClearITPendingBit                   0x08000ec1   Thumb Code     6  stm32f10x_exti.o(i.EXTI_ClearITPendingBit)
+    EXTI_GetITStatus                         0x08000ecd   Thumb Code    34  stm32f10x_exti.o(i.EXTI_GetITStatus)
+    EXTI_Init                                0x08000ef5   Thumb Code   142  stm32f10x_exti.o(i.EXTI_Init)
+    GPIO_EXTILineConfig                      0x08000f89   Thumb Code    60  stm32f10x_gpio.o(i.GPIO_EXTILineConfig)
+    GPIO_Init                                0x08000fc9   Thumb Code   278  stm32f10x_gpio.o(i.GPIO_Init)
+    GPIO_PinRemapConfig                      0x080010e1   Thumb Code   138  stm32f10x_gpio.o(i.GPIO_PinRemapConfig)
+    GPIO_ReadInputDataBit                    0x08001171   Thumb Code    18  stm32f10x_gpio.o(i.GPIO_ReadInputDataBit)
+    GPIO_ResetBits                           0x08001183   Thumb Code     4  stm32f10x_gpio.o(i.GPIO_ResetBits)
+    GPIO_SetBits                             0x08001187   Thumb Code     4  stm32f10x_gpio.o(i.GPIO_SetBits)
+    HardFault_Handler                        0x0800118d   Thumb Code    40  stm32f10x_it.o(i.HardFault_Handler)
+    MemManage_Handler                        0x0800159d   Thumb Code     4  stm32f10x_it.o(i.MemManage_Handler)
+    NMI_Handler                              0x080015a1   Thumb Code     2  stm32f10x_it.o(i.NMI_Handler)
+    NVIC_Init                                0x080015a5   Thumb Code   100  misc.o(i.NVIC_Init)
+    NVIC_PriorityGroupConfig                 0x08001615   Thumb Code    10  misc.o(i.NVIC_PriorityGroupConfig)
+    PWR_EnterSTOPMode                        0x08001629   Thumb Code    54  stm32f10x_pwr.o(i.PWR_EnterSTOPMode)
+    RCC_ADCCLKConfig                         0x08001669   Thumb Code    18  stm32f10x_rcc.o(i.RCC_ADCCLKConfig)
+    RCC_APB1PeriphClockCmd                   0x08001681   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd)
+    RCC_APB2PeriphClockCmd                   0x080016a1   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd)
+    RCC_APB2PeriphResetCmd                   0x080016c1   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd)
+    RCC_GetClocksFreq                        0x080016e1   Thumb Code   192  stm32f10x_rcc.o(i.RCC_GetClocksFreq)
+    RCC_GetFlagStatus                        0x080017b5   Thumb Code    56  stm32f10x_rcc.o(i.RCC_GetFlagStatus)
+    RCC_GetSYSCLKSource                      0x080017f1   Thumb Code    10  stm32f10x_rcc.o(i.RCC_GetSYSCLKSource)
+    RCC_HSEConfig                            0x08001801   Thumb Code    70  stm32f10x_rcc.o(i.RCC_HSEConfig)
+    RCC_PLLCmd                               0x0800184d   Thumb Code     6  stm32f10x_rcc.o(i.RCC_PLLCmd)
+    RCC_SYSCLKConfig                         0x08001859   Thumb Code    18  stm32f10x_rcc.o(i.RCC_SYSCLKConfig)
+    RS485_ReciveNew                          0x08001871   Thumb Code    12  bsp_uart_fifo.o(i.RS485_ReciveNew)
+    SysTick_Handler                          0x08001965   Thumb Code    28  port.o(i.SysTick_Handler)
+    SystemInit                               0x08001985   Thumb Code    78  system_stm32f10x.o(i.SystemInit)
+    TIM3_IRQHandler                          0x08001c25   Thumb Code   142  bsp_ir_decode.o(i.TIM3_IRQHandler)
+    TIM5_IRQHandler                          0x08001cb9   Thumb Code   140  bsp_timer.o(i.TIM5_IRQHandler)
+    TIM6_IRQHandler                          0x08001d59   Thumb Code    68  sysinfotest.o(i.TIM6_IRQHandler)
+    TIM_ARRPreloadConfig                     0x08001da9   Thumb Code    24  stm32f10x_tim.o(i.TIM_ARRPreloadConfig)
+    TIM_ClearITPendingBit                    0x08001dc1   Thumb Code     6  stm32f10x_tim.o(i.TIM_ClearITPendingBit)
+    TIM_Cmd                                  0x08001dc7   Thumb Code    24  stm32f10x_tim.o(i.TIM_Cmd)
+    TIM_CtrlPWMOutputs                       0x08001ddf   Thumb Code    30  stm32f10x_tim.o(i.TIM_CtrlPWMOutputs)
+    TIM_GetCapture1                          0x08001dfd   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture1)
+    TIM_GetCapture2                          0x08001e03   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture2)
+    TIM_GetCapture3                          0x08001e09   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture3)
+    TIM_GetCapture4                          0x08001e0f   Thumb Code     8  stm32f10x_tim.o(i.TIM_GetCapture4)
+    TIM_GetCounter                           0x08001e17   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCounter)
+    TIM_GetITStatus                          0x08001e1d   Thumb Code    34  stm32f10x_tim.o(i.TIM_GetITStatus)
+    TIM_ICInit                               0x08001e41   Thumb Code   150  stm32f10x_tim.o(i.TIM_ICInit)
+    TIM_ITConfig                             0x08001eed   Thumb Code    18  stm32f10x_tim.o(i.TIM_ITConfig)
+    TIM_OC1Init                              0x08001f01   Thumb Code   132  stm32f10x_tim.o(i.TIM_OC1Init)
+    TIM_OC1PreloadConfig                     0x08001f99   Thumb Code    18  stm32f10x_tim.o(i.TIM_OC1PreloadConfig)
+    TIM_OC2Init                              0x08001fad   Thumb Code   154  stm32f10x_tim.o(i.TIM_OC2Init)
+    TIM_OC2PreloadConfig                     0x08002051   Thumb Code    26  stm32f10x_tim.o(i.TIM_OC2PreloadConfig)
+    TIM_OC3Init                              0x0800206d   Thumb Code   150  stm32f10x_tim.o(i.TIM_OC3Init)
+    TIM_OC3PreloadConfig                     0x0800210d   Thumb Code    18  stm32f10x_tim.o(i.TIM_OC3PreloadConfig)
+    TIM_OC4Init                              0x08002121   Thumb Code   114  stm32f10x_tim.o(i.TIM_OC4Init)
+    TIM_OC4PreloadConfig                     0x0800219d   Thumb Code    26  stm32f10x_tim.o(i.TIM_OC4PreloadConfig)
+    TIM_SetCompare1                          0x080021b7   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare1)
+    TIM_SetCompare2                          0x080021bb   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare2)
+    TIM_SetCompare3                          0x080021bf   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare3)
+    TIM_SetCompare4                          0x080021c3   Thumb Code     6  stm32f10x_tim.o(i.TIM_SetCompare4)
+    TIM_SetIC1Prescaler                      0x080021c9   Thumb Code    18  stm32f10x_tim.o(i.TIM_SetIC1Prescaler)
+    TIM_SetIC2Prescaler                      0x080021db   Thumb Code    26  stm32f10x_tim.o(i.TIM_SetIC2Prescaler)
+    TIM_SetIC3Prescaler                      0x080021f5   Thumb Code    18  stm32f10x_tim.o(i.TIM_SetIC3Prescaler)
+    TIM_SetIC4Prescaler                      0x08002207   Thumb Code    26  stm32f10x_tim.o(i.TIM_SetIC4Prescaler)
+    TIM_TimeBaseInit                         0x08002221   Thumb Code   122  stm32f10x_tim.o(i.TIM_TimeBaseInit)
+    UART4_IRQHandler                         0x080022c5   Thumb Code    10  bsp_uart_fifo.o(i.UART4_IRQHandler)
+    USART1_IRQHandler                        0x080022d5   Thumb Code    10  bsp_uart_fifo.o(i.USART1_IRQHandler)
+    USART2_IRQHandler                        0x080022e5   Thumb Code    10  bsp_uart_fifo.o(i.USART2_IRQHandler)
+    USART3_IRQHandler                        0x080022f5   Thumb Code    10  bsp_uart_fifo.o(i.USART3_IRQHandler)
+    USART_ClearFlag                          0x08002305   Thumb Code    18  stm32f10x_usart.o(i.USART_ClearFlag)
+    USART_Cmd                                0x08002317   Thumb Code    24  stm32f10x_usart.o(i.USART_Cmd)
+    USART_GetITStatus                        0x0800232f   Thumb Code    84  stm32f10x_usart.o(i.USART_GetITStatus)
+    USART_ITConfig                           0x08002383   Thumb Code    74  stm32f10x_usart.o(i.USART_ITConfig)
+    USART_Init                               0x080023cd   Thumb Code   210  stm32f10x_usart.o(i.USART_Init)
+    USART_ReceiveData                        0x080024a5   Thumb Code    10  stm32f10x_usart.o(i.USART_ReceiveData)
+    USART_SendData                           0x080024af   Thumb Code     8  stm32f10x_usart.o(i.USART_SendData)
+    UsageFault_Handler                       0x08002749   Thumb Code     4  stm32f10x_it.o(i.UsageFault_Handler)
+    __0printf$8                              0x0800274d   Thumb Code    22  printf8.o(i.__0printf$8)
+    __1printf$8                              0x0800274d   Thumb Code     0  printf8.o(i.__0printf$8)
+    __2printf                                0x0800274d   Thumb Code     0  printf8.o(i.__0printf$8)
+    __ARM_fpclassify                         0x0800276d   Thumb Code    40  fpclassify.o(i.__ARM_fpclassify)
+    __ieee754_rem_pio2                       0x08002795   Thumb Code   828  rred.o(i.__ieee754_rem_pio2)
+    __kernel_cos                             0x08002b1d   Thumb Code   230  cos_i.o(i.__kernel_cos)
+    __kernel_poly                            0x08002c19   Thumb Code   170  poly.o(i.__kernel_poly)
+    __kernel_sin                             0x08002cc5   Thumb Code   224  sin_i.o(i.__kernel_sin)
+    __mathlib_dbl_infnan                     0x08002db1   Thumb Code     6  dunder.o(i.__mathlib_dbl_infnan)
+    __mathlib_dbl_invalid                    0x08002db7   Thumb Code    12  dunder.o(i.__mathlib_dbl_invalid)
+    __mathlib_dbl_underflow                  0x08002dc5   Thumb Code    10  dunder.o(i.__mathlib_dbl_underflow)
+    __scatterload_copy                       0x08002dd5   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x08002de3   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x08002de5   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    __set_errno                              0x08002df9   Thumb Code     6  errno.o(i.__set_errno)
+    bsp_AngleAdd                             0x080032f5   Thumb Code    82  bsp_angle.o(i.bsp_AngleAdd)
+    bsp_AngleRead                            0x08003451   Thumb Code     6  bsp_angle.o(i.bsp_AngleRead)
+    bsp_AngleReadRaw                         0x0800345d   Thumb Code     8  bsp_angle.o(i.bsp_AngleReadRaw)
+    bsp_AngleRevByte                         0x08003469   Thumb Code    48  bsp_angle.o(i.bsp_AngleRevByte)
+    bsp_AngleRst                             0x080034a1   Thumb Code    46  bsp_angle.o(i.bsp_AngleRst)
+    bsp_AssistIsFaceObstacles                0x080034e9   Thumb Code    40  bsp_assistjudgedirection.o(i.bsp_AssistIsFaceObstacles)
+    bsp_AssistJudgeDirection                 0x08003515   Thumb Code    76  bsp_assistjudgedirection.o(i.bsp_AssistJudgeDirection)
+    bsp_CliffCalibration                     0x0800359d   Thumb Code   218  bsp_cliffsw.o(i.bsp_CliffCalibration)
+    bsp_CollisionScan                        0x08003685   Thumb Code   106  bsp_collision.o(i.bsp_CollisionScan)
+    bsp_ComAnalysis                          0x080036f9   Thumb Code   526  bsp_communication.o(i.bsp_ComAnalysis)
+    bsp_DelayMS                              0x080039a1   Thumb Code    18  bsp_dwt.o(i.bsp_DelayMS)
+    bsp_DelayUS                              0x080039b5   Thumb Code    36  bsp_dwt.o(i.bsp_DelayUS)
+    bsp_DetectStart                          0x08003ab1   Thumb Code    18  bsp_detectact.o(i.bsp_DetectStart)
+    bsp_EdgewiseRun                          0x08003ba5   Thumb Code   474  bsp_edgewise.o(i.bsp_EdgewiseRun)
+    bsp_EncoderGetPulseT                     0x08003ded   Thumb Code    24  bsp_encoder.o(i.bsp_EncoderGetPulseT)
+    bsp_EncoderGetTotalMileage               0x08003e09   Thumb Code    10  bsp_encoder.o(i.bsp_EncoderGetTotalMileage)
+    bsp_EnterStopMODE                        0x08003e19   Thumb Code   136  bsp_stopmode.o(i.bsp_EnterStopMODE)
+    bsp_GetChargeFeedback                    0x08004119   Thumb Code    20  bsp_searchchargepile.o(i.bsp_GetChargeFeedback)
+    bsp_GetCliffVoltage                      0x08004131   Thumb Code   232  bsp_cliffsw.o(i.bsp_GetCliffVoltage)
+    bsp_GetCurrentBothPulse                  0x08004225   Thumb Code    50  bsp_encoder.o(i.bsp_GetCurrentBothPulse)
+    bsp_GetCurrentPosX                       0x08004259   Thumb Code    30  bsp_position.o(i.bsp_GetCurrentPosX)
+    bsp_GetCurrentPosY                       0x08004281   Thumb Code    30  bsp_position.o(i.bsp_GetCurrentPosY)
+    bsp_GetInfraRedAdcVoltage                0x080042a9   Thumb Code    10  bsp_detectact.o(i.bsp_GetInfraRedAdcVoltage)
+    bsp_GetInfraredVoltageRight              0x080042b9   Thumb Code     6  bsp_detectact.o(i.bsp_GetInfraredVoltageRight)
+    bsp_GetKey                               0x080042c5   Thumb Code    46  bsp_key.o(i.bsp_GetKey)
+    bsp_GetRCCofTIM                          0x080042f9   Thumb Code   150  bsp_tim_pwm.o(i.bsp_GetRCCofTIM)
+    bsp_IRD_StartWork                        0x080045fd   Thumb Code   338  bsp_ir_decode.o(i.bsp_IRD_StartWork)
+    bsp_IR_GetRev                            0x08004891   Thumb Code    14  bsp_ir_decode.o(i.bsp_IR_GetRev)
+    bsp_Init                                 0x08004981   Thumb Code   128  bsp.o(i.bsp_Init)
+    bsp_InitAngle                            0x08004a11   Thumb Code    40  bsp_angle.o(i.bsp_InitAngle)
+    bsp_InitCliffSW                          0x08004a3d   Thumb Code   422  bsp_cliffsw.o(i.bsp_InitCliffSW)
+    bsp_InitCollision                        0x08004bf5   Thumb Code    54  bsp_collision.o(i.bsp_InitCollision)
+    bsp_InitDWT                              0x08004c35   Thumb Code    30  bsp_dwt.o(i.bsp_InitDWT)
+    bsp_InitDetectAct                        0x08004c5d   Thumb Code    22  bsp_detectact.o(i.bsp_InitDetectAct)
+    bsp_InitEncoder                          0x08004c79   Thumb Code     8  bsp_encoder.o(i.bsp_InitEncoder)
+    bsp_InitFormAwaken                       0x08004c81   Thumb Code    94  bsp.o(i.bsp_InitFormAwaken)
+    bsp_InitHardTimer                        0x08004ce9   Thumb Code    94  bsp_timer.o(i.bsp_InitHardTimer)
+    bsp_InitKey                              0x08004d55   Thumb Code    12  bsp_key.o(i.bsp_InitKey)
+    bsp_InitLed                              0x08004f09   Thumb Code   104  bsp_led.o(i.bsp_InitLed)
+    bsp_InitMotor                            0x08004f75   Thumb Code    28  bsp_motor.o(i.bsp_InitMotor)
+    bsp_InitPid                              0x08004f91   Thumb Code    56  bsp_control.o(i.bsp_InitPid)
+    bsp_InitPinPulse                         0x08004fd5   Thumb Code    38  bsp_pulsemark.o(i.bsp_InitPinPulse)
+    bsp_InitRunControl                       0x08005001   Thumb Code    36  bsp_runcontrol.o(i.bsp_InitRunControl)
+    bsp_InitSW                               0x08005029   Thumb Code    96  bsp_powerswitch.o(i.bsp_InitSW)
+    bsp_InitSpeaker                          0x08005095   Thumb Code    72  bsp_speaker.o(i.bsp_InitSpeaker)
+    bsp_InitUart                             0x080052cd   Thumb Code    16  bsp_uart_fifo.o(i.bsp_InitUart)
+    bsp_KeyScan                              0x08005311   Thumb Code    22  bsp_key.o(i.bsp_KeyScan)
+    bsp_LedOff                               0x08005329   Thumb Code    50  bsp_led.o(i.bsp_LedOff)
+    bsp_LedToggle                            0x08005361   Thumb Code    72  bsp_led.o(i.bsp_LedToggle)
+    bsp_MotorGetPulseVector                  0x080053e9   Thumb Code    10  bsp_control.o(i.bsp_MotorGetPulseVector)
+    bsp_MotorGetSpeed                        0x080053f9   Thumb Code    68  bsp_control.o(i.bsp_MotorGetSpeed)
+    bsp_MotorSetPWM                          0x08005445   Thumb Code    96  bsp_motor.o(i.bsp_MotorSetPWM)
+    bsp_MotorSpeedMM2Pulse                   0x080054a9   Thumb Code   106  bsp_control.o(i.bsp_MotorSpeedMM2Pulse)
+    bsp_PidSched                             0x080057a1   Thumb Code    44  bsp_control.o(i.bsp_PidSched)
+    bsp_PositionUpdate                       0x0800580d   Thumb Code   550  bsp_position.o(i.bsp_PositionUpdate)
+    bsp_PutKey                               0x08005a4d   Thumb Code    28  bsp_key.o(i.bsp_PutKey)
+    bsp_SearchChargePile                     0x08005aa9   Thumb Code   658  bsp_searchchargepile.o(i.bsp_SearchChargePile)
+    bsp_SendReportFrame                      0x08005d91   Thumb Code    40  bsp_communication.o(i.bsp_SendReportFrame)
+    bsp_SetChargeKey                         0x08005e9d   Thumb Code     6  bsp_runcontrol.o(i.bsp_SetChargeKey)
+    bsp_SetCleanKey                          0x08005ea9   Thumb Code     6  bsp_runcontrol.o(i.bsp_SetCleanKey)
+    bsp_SetHomeKey                           0x08005eb5   Thumb Code     6  bsp_runcontrol.o(i.bsp_SetHomeKey)
+    bsp_SetMotorSpeed                        0x08005ec1   Thumb Code    18  bsp_control.o(i.bsp_SetMotorSpeed)
+    bsp_SetPowerKey                          0x08005ed9   Thumb Code     6  bsp_runcontrol.o(i.bsp_SetPowerKey)
+    bsp_SetTIMforInt                         0x08005ee5   Thumb Code   478  bsp_tim_pwm.o(i.bsp_SetTIMforInt)
+    bsp_StartAssistJudgeDirection            0x080060f1   Thumb Code    32  bsp_assistjudgedirection.o(i.bsp_StartAssistJudgeDirection)
+    bsp_StartHardTimer                       0x08006115   Thumb Code   180  bsp_timer.o(i.bsp_StartHardTimer)
+    bsp_StartRunControl                      0x080061dd   Thumb Code    38  bsp_runcontrol.o(i.bsp_StartRunControl)
+    bsp_StartUpdateGridMap                   0x08006209   Thumb Code    94  bsp_gridmap.o(i.bsp_StartUpdateGridMap)
+    bsp_StartUpdatePos                       0x0800626d   Thumb Code    18  bsp_position.o(i.bsp_StartUpdatePos)
+    bsp_StopSearchChargePile                 0x08006285   Thumb Code    30  bsp_searchchargepile.o(i.bsp_StopSearchChargePile)
+    bsp_SwOff                                0x080062a9   Thumb Code    56  bsp_powerswitch.o(i.bsp_SwOff)
+    bsp_SwOn                                 0x080062ed   Thumb Code    56  bsp_powerswitch.o(i.bsp_SwOn)
+    bsp_VacuumClean                          0x08006331   Thumb Code    74  bsp_motor.o(i.bsp_VacuumClean)
+    comGetChar                               0x08006385   Thumb Code    30  bsp_uart_fifo.o(i.comGetChar)
+    comSendBuf                               0x080063a3   Thumb Code    46  bsp_uart_fifo.o(i.comSendBuf)
+    comSendChar                              0x080063d1   Thumb Code    16  bsp_uart_fifo.o(i.comSendChar)
+    cos                                      0x080063e1   Thumb Code   148  cos.o(i.cos)
+    fputc                                    0x0800647d   Thumb Code    18  bsp_uart_fifo.o(i.fputc)
+    main                                     0x0800648f   Thumb Code    32  main.o(i.main)
+    pvPortMalloc                             0x08006925   Thumb Code   254  heap_4.o(i.pvPortMalloc)
+    pxPortInitialiseStack                    0x08006a39   Thumb Code    26  port.o(i.pxPortInitialiseStack)
+    sin                                      0x08006a59   Thumb Code   150  sin.o(i.sin)
+    uxListRemove                             0x08006af9   Thumb Code    40  list.o(i.uxListRemove)
+    vListInitialise                          0x08006b21   Thumb Code    26  list.o(i.vListInitialise)
+    vListInitialiseItem                      0x08006b3b   Thumb Code     6  list.o(i.vListInitialiseItem)
+    vListInsert                              0x08006b41   Thumb Code    52  list.o(i.vListInsert)
+    vListInsertEnd                           0x08006b75   Thumb Code    24  list.o(i.vListInsertEnd)
+    vPortEnterCritical                       0x08006b8d   Thumb Code    58  port.o(i.vPortEnterCritical)
+    vPortExitCritical                        0x08006bd1   Thumb Code    40  port.o(i.vPortExitCritical)
+    vPortFree                                0x08006bfd   Thumb Code   112  heap_4.o(i.vPortFree)
+    vPortSetupTimerInterrupt                 0x08006c75   Thumb Code    14  port.o(i.vPortSetupTimerInterrupt)
+    vPortYield                               0x08006c89   Thumb Code    18  port.o(i.vPortYield)
+    vSetupSysInfoTest                        0x08006ca1   Thumb Code    18  sysinfotest.o(i.vSetupSysInfoTest)
+    vTaskDelay                               0x08006dad   Thumb Code    94  tasks.o(i.vTaskDelay)
+    vTaskMissedYield                         0x08006e1d   Thumb Code     8  tasks.o(i.vTaskMissedYield)
+    vTaskPlaceOnEventList                    0x08006e69   Thumb Code    94  tasks.o(i.vTaskPlaceOnEventList)
+    vTaskSetTimeOutState                     0x08006ed9   Thumb Code    28  tasks.o(i.vTaskSetTimeOutState)
+    vTaskStartScheduler                      0x08006efd   Thumb Code    74  tasks.o(i.vTaskStartScheduler)
+    vTaskSuspendAll                          0x08006f65   Thumb Code    12  tasks.o(i.vTaskSuspendAll)
+    vTaskSwitchContext                       0x08006f75   Thumb Code   158  tasks.o(i.vTaskSwitchContext)
+    xPortStartScheduler                      0x08007035   Thumb Code   140  port.o(i.xPortStartScheduler)
+    xQueueCreateMutex                        0x080070d5   Thumb Code    76  queue.o(i.xQueueCreateMutex)
+    xQueueGenericSend                        0x08007121   Thumb Code   296  queue.o(i.xQueueGenericSend)
+    xTaskCheckForTimeOut                     0x08007249   Thumb Code   108  tasks.o(i.xTaskCheckForTimeOut)
+    xTaskGenericCreate                       0x080072bd   Thumb Code   288  tasks.o(i.xTaskGenericCreate)
+    xTaskGetTickCount                        0x080073f5   Thumb Code     6  tasks.o(i.xTaskGetTickCount)
+    xTaskIncrementTick                       0x08007401   Thumb Code   272  tasks.o(i.xTaskIncrementTick)
+    xTaskPriorityDisinherit                  0x0800753d   Thumb Code   160  tasks.o(i.xTaskPriorityDisinherit)
+    xTaskRemoveFromEventList                 0x080075e9   Thumb Code   114  tasks.o(i.xTaskRemoveFromEventList)
+    xTaskResumeAll                           0x08007675   Thumb Code   200  tasks.o(i.xTaskResumeAll)
+    Region$$Table$$Base                      0x080078a0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080078c0   Number         0  anon$$obj.o(Region$$Table)
     ulHighFrequencyTimerTicks                0x20000014   Data           4  sysinfotest.o(.data)
     SystemCoreClock                          0x2000005c   Data           4  system_stm32f10x.o(.data)
     AHBPrescTable                            0x20000060   Data          16  system_stm32f10x.o(.data)
@@ -3380,9 +3379,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000131
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000079ac, Max: 0x00080000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000799c, Max: 0x00080000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000078d0, Max: 0x00080000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000078c0, Max: 0x00080000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3453,314 +3452,314 @@ Memory Map of the image
     0x08000e2a   0x00000002   PAD
     0x08000e2c   0x0000002c   Code   RO          882    i.EXTI15_10_IRQHandler  bsp_encoder.o
     0x08000e58   0x00000028   Code   RO          883    i.EXTI3_IRQHandler  bsp_encoder.o
-    0x08000e80   0x00000050   Code   RO         1613    i.EXTI9_5_IRQHandler  bsp_stopmode.o
-    0x08000ed0   0x0000000c   Code   RO         4130    i.EXTI_ClearITPendingBit  stm32f10x_exti.o
-    0x08000edc   0x00000028   Code   RO         4134    i.EXTI_GetITStatus  stm32f10x_exti.o
-    0x08000f04   0x00000094   Code   RO         4135    i.EXTI_Init         stm32f10x_exti.o
-    0x08000f98   0x00000040   Code   RO         2596    i.GPIO_EXTILineConfig  stm32f10x_gpio.o
-    0x08000fd8   0x00000116   Code   RO         2599    i.GPIO_Init         stm32f10x_gpio.o
-    0x080010ee   0x00000002   PAD
-    0x080010f0   0x00000090   Code   RO         2601    i.GPIO_PinRemapConfig  stm32f10x_gpio.o
-    0x08001180   0x00000012   Code   RO         2603    i.GPIO_ReadInputDataBit  stm32f10x_gpio.o
-    0x08001192   0x00000004   Code   RO         2606    i.GPIO_ResetBits    stm32f10x_gpio.o
-    0x08001196   0x00000004   Code   RO         2607    i.GPIO_SetBits      stm32f10x_gpio.o
-    0x0800119a   0x00000002   PAD
-    0x0800119c   0x00000058   Code   RO         1951    i.HardFault_Handler  stm32f10x_it.o
-    0x080011f4   0x00000264   Code   RO         1768    i.InitHardUart      bsp_uart_fifo.o
-    0x08001458   0x0000002c   Code   RO         2076    i.IsKeyDown1        bsp_key.o
-    0x08001484   0x0000002c   Code   RO         2077    i.IsKeyDown10       bsp_key.o
-    0x080014b0   0x0000002c   Code   RO         2078    i.IsKeyDown2        bsp_key.o
-    0x080014dc   0x0000002c   Code   RO         2079    i.IsKeyDown3        bsp_key.o
-    0x08001508   0x00000018   Code   RO         2080    i.IsKeyDown4        bsp_key.o
-    0x08001520   0x00000018   Code   RO         2081    i.IsKeyDown5        bsp_key.o
-    0x08001538   0x00000018   Code   RO         2082    i.IsKeyDown6        bsp_key.o
-    0x08001550   0x00000018   Code   RO         2083    i.IsKeyDown7        bsp_key.o
-    0x08001568   0x00000018   Code   RO         2084    i.IsKeyDown8        bsp_key.o
-    0x08001580   0x0000002c   Code   RO         2085    i.IsKeyDown9        bsp_key.o
-    0x080015ac   0x00000004   Code   RO         1952    i.MemManage_Handler  stm32f10x_it.o
-    0x080015b0   0x00000002   Code   RO         1953    i.NMI_Handler       stm32f10x_it.o
-    0x080015b2   0x00000002   PAD
-    0x080015b4   0x00000070   Code   RO         2549    i.NVIC_Init         misc.o
-    0x08001624   0x00000014   Code   RO         2550    i.NVIC_PriorityGroupConfig  misc.o
-    0x08001638   0x00000040   Code   RO         4227    i.PWR_EnterSTOPMode  stm32f10x_pwr.o
-    0x08001678   0x00000018   Code   RO         2715    i.RCC_ADCCLKConfig  stm32f10x_rcc.o
-    0x08001690   0x00000020   Code   RO         2717    i.RCC_APB1PeriphClockCmd  stm32f10x_rcc.o
-    0x080016b0   0x00000020   Code   RO         2719    i.RCC_APB2PeriphClockCmd  stm32f10x_rcc.o
-    0x080016d0   0x00000020   Code   RO         2720    i.RCC_APB2PeriphResetCmd  stm32f10x_rcc.o
-    0x080016f0   0x000000d4   Code   RO         2727    i.RCC_GetClocksFreq  stm32f10x_rcc.o
-    0x080017c4   0x0000003c   Code   RO         2728    i.RCC_GetFlagStatus  stm32f10x_rcc.o
-    0x08001800   0x00000010   Code   RO         2730    i.RCC_GetSYSCLKSource  stm32f10x_rcc.o
-    0x08001810   0x0000004c   Code   RO         2732    i.RCC_HSEConfig     stm32f10x_rcc.o
-    0x0800185c   0x0000000c   Code   RO         2740    i.RCC_PLLCmd        stm32f10x_rcc.o
-    0x08001868   0x00000018   Code   RO         2744    i.RCC_SYSCLKConfig  stm32f10x_rcc.o
-    0x08001880   0x0000000c   Code   RO         1770    i.RS485_ReciveNew   bsp_uart_fifo.o
-    0x0800188c   0x00000008   Code   RO         4291    i.SetSysClock       system_stm32f10x.o
-    0x08001894   0x000000e0   Code   RO         4292    i.SetSysClockTo72   system_stm32f10x.o
-    0x08001974   0x00000020   Code   RO         4931    i.SysTick_Handler   port.o
-    0x08001994   0x00000060   Code   RO         4294    i.SystemInit        system_stm32f10x.o
-    0x080019f4   0x00000080   Code   RO         3293    i.TI1_Config        stm32f10x_tim.o
-    0x08001a74   0x00000098   Code   RO         3294    i.TI2_Config        stm32f10x_tim.o
-    0x08001b0c   0x00000090   Code   RO         3295    i.TI3_Config        stm32f10x_tim.o
-    0x08001b9c   0x00000098   Code   RO         3296    i.TI4_Config        stm32f10x_tim.o
-    0x08001c34   0x00000094   Code   RO         2463    i.TIM3_IRQHandler   bsp_ir_decode.o
-    0x08001cc8   0x000000a0   Code   RO         2249    i.TIM5_IRQHandler   bsp_timer.o
-    0x08001d68   0x00000050   Code   RO          334    i.TIM6_IRQHandler   sysinfotest.o
-    0x08001db8   0x00000018   Code   RO         3297    i.TIM_ARRPreloadConfig  stm32f10x_tim.o
-    0x08001dd0   0x00000006   Code   RO         3304    i.TIM_ClearITPendingBit  stm32f10x_tim.o
-    0x08001dd6   0x00000018   Code   RO         3309    i.TIM_Cmd           stm32f10x_tim.o
-    0x08001dee   0x0000001e   Code   RO         3311    i.TIM_CtrlPWMOutputs  stm32f10x_tim.o
-    0x08001e0c   0x00000006   Code   RO         3324    i.TIM_GetCapture1   stm32f10x_tim.o
-    0x08001e12   0x00000006   Code   RO         3325    i.TIM_GetCapture2   stm32f10x_tim.o
-    0x08001e18   0x00000006   Code   RO         3326    i.TIM_GetCapture3   stm32f10x_tim.o
-    0x08001e1e   0x00000008   Code   RO         3327    i.TIM_GetCapture4   stm32f10x_tim.o
-    0x08001e26   0x00000006   Code   RO         3328    i.TIM_GetCounter    stm32f10x_tim.o
-    0x08001e2c   0x00000022   Code   RO         3330    i.TIM_GetITStatus   stm32f10x_tim.o
-    0x08001e4e   0x00000002   PAD
-    0x08001e50   0x000000ac   Code   RO         3332    i.TIM_ICInit        stm32f10x_tim.o
-    0x08001efc   0x00000012   Code   RO         3334    i.TIM_ITConfig      stm32f10x_tim.o
-    0x08001f0e   0x00000002   PAD
-    0x08001f10   0x00000098   Code   RO         3338    i.TIM_OC1Init       stm32f10x_tim.o
-    0x08001fa8   0x00000012   Code   RO         3341    i.TIM_OC1PreloadConfig  stm32f10x_tim.o
-    0x08001fba   0x00000002   PAD
-    0x08001fbc   0x000000a4   Code   RO         3343    i.TIM_OC2Init       stm32f10x_tim.o
-    0x08002060   0x0000001a   Code   RO         3346    i.TIM_OC2PreloadConfig  stm32f10x_tim.o
-    0x0800207a   0x00000002   PAD
-    0x0800207c   0x000000a0   Code   RO         3348    i.TIM_OC3Init       stm32f10x_tim.o
-    0x0800211c   0x00000012   Code   RO         3351    i.TIM_OC3PreloadConfig  stm32f10x_tim.o
-    0x0800212e   0x00000002   PAD
-    0x08002130   0x0000007c   Code   RO         3353    i.TIM_OC4Init       stm32f10x_tim.o
-    0x080021ac   0x0000001a   Code   RO         3355    i.TIM_OC4PreloadConfig  stm32f10x_tim.o
-    0x080021c6   0x00000004   Code   RO         3370    i.TIM_SetCompare1   stm32f10x_tim.o
-    0x080021ca   0x00000004   Code   RO         3371    i.TIM_SetCompare2   stm32f10x_tim.o
-    0x080021ce   0x00000004   Code   RO         3372    i.TIM_SetCompare3   stm32f10x_tim.o
-    0x080021d2   0x00000006   Code   RO         3373    i.TIM_SetCompare4   stm32f10x_tim.o
-    0x080021d8   0x00000012   Code   RO         3375    i.TIM_SetIC1Prescaler  stm32f10x_tim.o
-    0x080021ea   0x0000001a   Code   RO         3376    i.TIM_SetIC2Prescaler  stm32f10x_tim.o
-    0x08002204   0x00000012   Code   RO         3377    i.TIM_SetIC3Prescaler  stm32f10x_tim.o
-    0x08002216   0x0000001a   Code   RO         3378    i.TIM_SetIC4Prescaler  stm32f10x_tim.o
-    0x08002230   0x000000a4   Code   RO         3380    i.TIM_TimeBaseInit  stm32f10x_tim.o
-    0x080022d4   0x00000010   Code   RO         1775    i.UART4_IRQHandler  bsp_uart_fifo.o
-    0x080022e4   0x00000010   Code   RO         1776    i.USART1_IRQHandler  bsp_uart_fifo.o
-    0x080022f4   0x00000010   Code   RO         1777    i.USART2_IRQHandler  bsp_uart_fifo.o
-    0x08002304   0x00000010   Code   RO         1778    i.USART3_IRQHandler  bsp_uart_fifo.o
-    0x08002314   0x00000012   Code   RO         2923    i.USART_ClearFlag   stm32f10x_usart.o
-    0x08002326   0x00000018   Code   RO         2927    i.USART_Cmd         stm32f10x_usart.o
-    0x0800233e   0x00000054   Code   RO         2931    i.USART_GetITStatus  stm32f10x_usart.o
-    0x08002392   0x0000004a   Code   RO         2933    i.USART_ITConfig    stm32f10x_usart.o
-    0x080023dc   0x000000d8   Code   RO         2934    i.USART_Init        stm32f10x_usart.o
-    0x080024b4   0x0000000a   Code   RO         2941    i.USART_ReceiveData  stm32f10x_usart.o
-    0x080024be   0x00000008   Code   RO         2944    i.USART_SendData    stm32f10x_usart.o
-    0x080024c6   0x0000004a   Code   RO         1779    i.UartGetChar       bsp_uart_fifo.o
-    0x08002510   0x000000e6   Code   RO         1780    i.UartIRQ           bsp_uart_fifo.o
-    0x080025f6   0x00000072   Code   RO         1781    i.UartSend          bsp_uart_fifo.o
-    0x08002668   0x000000f0   Code   RO         1782    i.UartVarInit       bsp_uart_fifo.o
-    0x08002758   0x00000004   Code   RO         1954    i.UsageFault_Handler  stm32f10x_it.o
-    0x0800275c   0x00000020   Code   RO         5306    i.__0printf$8       mc_w.l(printf8.o)
-    0x0800277c   0x00000028   Code   RO         5425    i.__ARM_fpclassify  m_ws.l(fpclassify.o)
-    0x080027a4   0x00000388   Code   RO         5430    i.__ieee754_rem_pio2  m_ws.l(rred.o)
-    0x08002b2c   0x000000fc   Code   RO         5408    i.__kernel_cos      m_ws.l(cos_i.o)
-    0x08002c28   0x000000aa   Code   RO         5427    i.__kernel_poly     m_ws.l(poly.o)
-    0x08002cd2   0x00000002   PAD
-    0x08002cd4   0x000000ec   Code   RO         5435    i.__kernel_sin      m_ws.l(sin_i.o)
-    0x08002dc0   0x00000006   Code   RO         5412    i.__mathlib_dbl_infnan  m_ws.l(dunder.o)
-    0x08002dc6   0x0000000c   Code   RO         5414    i.__mathlib_dbl_invalid  m_ws.l(dunder.o)
-    0x08002dd2   0x00000002   PAD
-    0x08002dd4   0x00000010   Code   RO         5417    i.__mathlib_dbl_underflow  m_ws.l(dunder.o)
-    0x08002de4   0x0000000e   Code   RO         5498    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x08002df2   0x00000002   Code   RO         5499    i.__scatterload_null  mc_w.l(handlers.o)
-    0x08002df4   0x0000000e   Code   RO         5500    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x08002e02   0x00000006   Code   RO         1783    i.__set_PRIMASK     bsp_uart_fifo.o
-    0x08002e08   0x0000000c   Code   RO         5476    i.__set_errno       mc_w.l(errno.o)
-    0x08002e14   0x00000410   Code   RO         5313    i._printf_core      mc_w.l(printf8.o)
-    0x08003224   0x00000024   Code   RO         5314    i._printf_post_padding  mc_w.l(printf8.o)
-    0x08003248   0x0000002e   Code   RO         5315    i._printf_pre_padding  mc_w.l(printf8.o)
-    0x08003276   0x00000002   PAD
-    0x08003278   0x0000008c   Code   RO          603    i.bsp_ADCConfig     bsp_detectact.o
-    0x08003304   0x0000005c   Code   RO          452    i.bsp_AngleAdd      bsp_angle.o
-    0x08003360   0x00000030   Code   RO          453    i.bsp_AngleAnalyzeApp  bsp_angle.o
-    0x08003390   0x00000098   Code   RO          454    i.bsp_AngleCheck    bsp_angle.o
-    0x08003428   0x00000038   Code   RO          455    i.bsp_AnglePoll     bsp_angle.o
-    0x08003460   0x0000000c   Code   RO          456    i.bsp_AngleRead     bsp_angle.o
-    0x0800346c   0x0000000c   Code   RO          457    i.bsp_AngleReadRaw  bsp_angle.o
-    0x08003478   0x00000038   Code   RO          458    i.bsp_AngleRevByte  bsp_angle.o
-    0x080034b0   0x00000034   Code   RO          459    i.bsp_AngleRst      bsp_angle.o
-    0x080034e4   0x00000014   Code   RO          460    i.bsp_AngleTimeout  bsp_angle.o
-    0x080034f8   0x0000002c   Code   RO         1573    i.bsp_AssistIsFaceObstacles  bsp_assistjudgedirection.o
-    0x08003524   0x00000050   Code   RO         1574    i.bsp_AssistJudgeDirection  bsp_assistjudgedirection.o
-    0x08003574   0x00000036   Code   RO          843    i.bsp_CalcChk       bsp_communication.o
-    0x080035aa   0x00000002   PAD
-    0x080035ac   0x000000e8   Code   RO         1304    i.bsp_CliffCalibration  bsp_cliffsw.o
-    0x08003694   0x00000074   Code   RO          421    i.bsp_CollisionScan  bsp_collision.o
-    0x08003708   0x00000234   Code   RO          844    i.bsp_ComAnalysis   bsp_communication.o
-    0x0800393c   0x00000074   Code   RO         1614    i.bsp_DISABLE_ALL_EXIT  bsp_stopmode.o
-    0x080039b0   0x00000012   Code   RO         1734    i.bsp_DelayMS       bsp_dwt.o
-    0x080039c2   0x00000002   PAD
-    0x080039c4   0x00000030   Code   RO         1735    i.bsp_DelayUS       bsp_dwt.o
-    0x080039f4   0x000000cc   Code   RO         2087    i.bsp_DetectKey     bsp_key.o
-    0x08003ac0   0x00000018   Code   RO          608    i.bsp_DetectStart   bsp_detectact.o
-    0x08003ad8   0x000000dc   Code   RO          884    i.bsp_EXTI_Config   bsp_encoder.o
-    0x08003bb4   0x000001f8   Code   RO          749    i.bsp_EdgewiseRun   bsp_edgewise.o
-    0x08003dac   0x00000014   Code   RO          750    i.bsp_EdgewiseRunStraightFast  bsp_edgewise.o
-    0x08003dc0   0x00000014   Code   RO          751    i.bsp_EdgewiseRunStraightSlow  bsp_edgewise.o
-    0x08003dd4   0x00000014   Code   RO          753    i.bsp_EdgewiseTurnLeftSlow  bsp_edgewise.o
-    0x08003de8   0x00000014   Code   RO          755    i.bsp_EdgewiseTurnRightSlow  bsp_edgewise.o
-    0x08003dfc   0x0000001c   Code   RO          885    i.bsp_EncoderGetPulseT  bsp_encoder.o
-    0x08003e18   0x00000010   Code   RO          886    i.bsp_EncoderGetTotalMileage  bsp_encoder.o
-    0x08003e28   0x00000088   Code   RO         1615    i.bsp_EnterStopMODE  bsp_stopmode.o
-    0x08003eb0   0x00000278   Code   RO          845    i.bsp_FillReportFrame  bsp_communication.o
-    0x08004128   0x00000018   Code   RO         1483    i.bsp_GetChargeFeedback  bsp_searchchargepile.o
-    0x08004140   0x000000f4   Code   RO         1307    i.bsp_GetCliffVoltage  bsp_cliffsw.o
-    0x08004234   0x00000032   Code   RO          887    i.bsp_GetCurrentBothPulse  bsp_encoder.o
-    0x08004266   0x00000002   PAD
-    0x08004268   0x00000028   Code   RO         1133    i.bsp_GetCurrentPosX  bsp_position.o
-    0x08004290   0x00000028   Code   RO         1134    i.bsp_GetCurrentPosY  bsp_position.o
-    0x080042b8   0x00000010   Code   RO          611    i.bsp_GetInfraRedAdcVoltage  bsp_detectact.o
-    0x080042c8   0x0000000c   Code   RO          613    i.bsp_GetInfraredVoltageRight  bsp_detectact.o
-    0x080042d4   0x00000034   Code   RO         2088    i.bsp_GetKey        bsp_key.o
-    0x08004308   0x000000cc   Code   RO         2005    i.bsp_GetRCCofTIM   bsp_tim_pwm.o
-    0x080043d4   0x00000018   Code   RO          756    i.bsp_GoBackward    bsp_edgewise.o
-    0x080043ec   0x00000018   Code   RO         1484    i.bsp_GoBackward    bsp_searchchargepile.o
-    0x08004404   0x00000208   Code   RO         2464    i.bsp_IRD_DecodeNec  bsp_ir_decode.o
-    0x0800460c   0x00000164   Code   RO         2465    i.bsp_IRD_StartWork  bsp_ir_decode.o
-    0x08004770   0x00000130   Code   RO         2467    i.bsp_IR_GetPulseWidth  bsp_ir_decode.o
-    0x080048a0   0x00000014   Code   RO         2468    i.bsp_IR_GetRev     bsp_ir_decode.o
-    0x080048b4   0x00000028   Code   RO         2470    i.bsp_IR_SoftTimerInit  bsp_ir_decode.o
-    0x080048dc   0x000000b4   Code   RO         2472    i.bsp_IR_TimeOutProc  bsp_ir_decode.o
-    0x08004990   0x00000090   Code   RO         1708    i.bsp_Init          bsp.o
-    0x08004a20   0x0000002c   Code   RO          461    i.bsp_InitAngle     bsp_angle.o
-    0x08004a4c   0x000001b8   Code   RO         1308    i.bsp_InitCliffSW   bsp_cliffsw.o
-    0x08004c04   0x00000040   Code   RO          422    i.bsp_InitCollision  bsp_collision.o
-    0x08004c44   0x00000028   Code   RO         1736    i.bsp_InitDWT       bsp_dwt.o
-    0x08004c6c   0x0000001c   Code   RO          614    i.bsp_InitDetectAct  bsp_detectact.o
-    0x08004c88   0x00000008   Code   RO          888    i.bsp_InitEncoder   bsp_encoder.o
-    0x08004c90   0x0000005e   Code   RO         1709    i.bsp_InitFormAwaken  bsp.o
-    0x08004cee   0x00000008   Code   RO          889    i.bsp_InitGPIO      bsp_encoder.o
-    0x08004cf6   0x00000002   PAD
-    0x08004cf8   0x0000006c   Code   RO         2250    i.bsp_InitHardTimer  bsp_timer.o
-    0x08004d64   0x0000000c   Code   RO         2091    i.bsp_InitKey       bsp_key.o
-    0x08004d70   0x00000090   Code   RO         2092    i.bsp_InitKeyHard   bsp_key.o
-    0x08004e00   0x0000006c   Code   RO         1616    i.bsp_InitKeyStopMODE  bsp_stopmode.o
-    0x08004e6c   0x000000ac   Code   RO         2093    i.bsp_InitKeyVar    bsp_key.o
-    0x08004f18   0x0000006c   Code   RO         2205    i.bsp_InitLed       bsp_led.o
-    0x08004f84   0x0000001c   Code   RO          944    i.bsp_InitMotor     bsp_motor.o
-    0x08004fa0   0x00000044   Code   RO         1011    i.bsp_InitPid       bsp_control.o
-    0x08004fe4   0x0000002c   Code   RO          692    i.bsp_InitPinPulse  bsp_pulsemark.o
-    0x08005010   0x00000028   Code   RO         1419    i.bsp_InitRunControl  bsp_runcontrol.o
-    0x08005038   0x0000006c   Code   RO          388    i.bsp_InitSW        bsp_powerswitch.o
-    0x080050a4   0x0000004c   Code   RO         1387    i.bsp_InitSpeaker   bsp_speaker.o
-    0x080050f0   0x00000100   Code   RO          945    i.bsp_InitTimer1    bsp_motor.o
-    0x080051f0   0x000000ec   Code   RO          946    i.bsp_InitTimer4    bsp_motor.o
-    0x080052dc   0x00000010   Code   RO         1784    i.bsp_InitUart      bsp_uart_fifo.o
-    0x080052ec   0x00000034   Code   RO          947    i.bsp_InitVacuum    bsp_motor.o
-    0x08005320   0x00000016   Code   RO         2094    i.bsp_KeyScan       bsp_key.o
-    0x08005336   0x00000002   PAD
-    0x08005338   0x00000038   Code   RO         2207    i.bsp_LedOff        bsp_led.o
-    0x08005370   0x0000004c   Code   RO         2209    i.bsp_LedToggle     bsp_led.o
-    0x080053bc   0x0000003c   Code   RO         1012    i.bsp_MotorBrake    bsp_control.o
-    0x080053f8   0x00000010   Code   RO         1013    i.bsp_MotorGetPulseVector  bsp_control.o
-    0x08005408   0x0000004c   Code   RO         1014    i.bsp_MotorGetSpeed  bsp_control.o
-    0x08005454   0x00000064   Code   RO          949    i.bsp_MotorSetPWM   bsp_motor.o
-    0x080054b8   0x00000078   Code   RO         1016    i.bsp_MotorSpeedMM2Pulse  bsp_control.o
-    0x08005530   0x00000028   Code   RO         1017    i.bsp_PidClear      bsp_control.o
-    0x08005558   0x00000258   Code   RO         1018    i.bsp_PidExec       bsp_control.o
-    0x080057b0   0x00000030   Code   RO         1019    i.bsp_PidSched      bsp_control.o
-    0x080057e0   0x00000014   Code   RO         1486    i.bsp_PirouetteCCW  bsp_searchchargepile.o
-    0x080057f4   0x00000014   Code   RO          758    i.bsp_PirouetteCW   bsp_edgewise.o
-    0x08005808   0x00000014   Code   RO         1487    i.bsp_PirouetteCW   bsp_searchchargepile.o
-    0x0800581c   0x00000240   Code   RO         1135    i.bsp_PositionUpdate  bsp_position.o
-    0x08005a5c   0x00000020   Code   RO         2095    i.bsp_PutKey        bsp_key.o
-    0x08005a7c   0x00000024   Code   RO         1020    i.bsp_PwmLimit      bsp_control.o
-    0x08005aa0   0x00000016   Code   RO          759    i.bsp_RotateCCW     bsp_edgewise.o
-    0x08005ab6   0x00000002   PAD
-    0x08005ab8   0x000002ac   Code   RO         1488    i.bsp_SearchChargePile  bsp_searchchargepile.o
-    0x08005d64   0x00000014   Code   RO         1490    i.bsp_SearchRunStraightSlow  bsp_searchchargepile.o
-    0x08005d78   0x00000014   Code   RO         1492    i.bsp_SearchTurnLeftSlow  bsp_searchchargepile.o
-    0x08005d8c   0x00000014   Code   RO         1494    i.bsp_SearchTurnRightSlow  bsp_searchchargepile.o
-    0x08005da0   0x00000030   Code   RO          846    i.bsp_SendReportFrame  bsp_communication.o
-    0x08005dd0   0x000000dc   Code   RO         1617    i.bsp_SetAllPinLowPower  bsp_stopmode.o
-    0x08005eac   0x0000000c   Code   RO         1421    i.bsp_SetChargeKey  bsp_runcontrol.o
-    0x08005eb8   0x0000000c   Code   RO         1422    i.bsp_SetCleanKey   bsp_runcontrol.o
-    0x08005ec4   0x0000000c   Code   RO         1423    i.bsp_SetHomeKey    bsp_runcontrol.o
-    0x08005ed0   0x00000018   Code   RO         1021    i.bsp_SetMotorSpeed  bsp_control.o
-    0x08005ee8   0x0000000c   Code   RO         1424    i.bsp_SetPowerKey   bsp_runcontrol.o
-    0x08005ef4   0x0000020c   Code   RO         2008    i.bsp_SetTIMforInt  bsp_tim_pwm.o
-    0x08006100   0x00000024   Code   RO         1575    i.bsp_StartAssistJudgeDirection  bsp_assistjudgedirection.o
-    0x08006124   0x000000c8   Code   RO         2251    i.bsp_StartHardTimer  bsp_timer.o
-    0x080061ec   0x0000002c   Code   RO         1425    i.bsp_StartRunControl  bsp_runcontrol.o
-    0x08006218   0x00000064   Code   RO         1660    i.bsp_StartUpdateGridMap  bsp_gridmap.o
-    0x0800627c   0x00000018   Code   RO         1136    i.bsp_StartUpdatePos  bsp_position.o
-    0x08006294   0x00000024   Code   RO         1496    i.bsp_StopSearchChargePile  bsp_searchchargepile.o
-    0x080062b8   0x00000044   Code   RO          389    i.bsp_SwOff         bsp_powerswitch.o
-    0x080062fc   0x00000044   Code   RO          390    i.bsp_SwOn          bsp_powerswitch.o
-    0x08006340   0x00000054   Code   RO          952    i.bsp_VacuumClean   bsp_motor.o
-    0x08006394   0x0000001e   Code   RO         1790    i.comGetChar        bsp_uart_fifo.o
-    0x080063b2   0x0000002e   Code   RO         1791    i.comSendBuf        bsp_uart_fifo.o
-    0x080063e0   0x00000010   Code   RO         1792    i.comSendChar       bsp_uart_fifo.o
-    0x080063f0   0x0000009c   Code   RO         5059    i.cos               m_ws.l(cos.o)
-    0x0800648c   0x00000012   Code   RO         1794    i.fputc             bsp_uart_fifo.o
-    0x0800649e   0x00000020   Code   RO            6    i.main              main.o
-    0x080064be   0x00000016   Code   RO          763    i.myabs             bsp_edgewise.o
-    0x080064d4   0x0000000e   Code   RO         1022    i.myabs             bsp_control.o
-    0x080064e2   0x00000002   PAD
-    0x080064e4   0x00000054   Code   RO         4595    i.prvAddCurrentTaskToDelayedList  tasks.o
-    0x08006538   0x00000042   Code   RO         4596    i.prvAllocateTCBAndStack  tasks.o
-    0x0800657a   0x00000002   PAD
-    0x0800657c   0x00000064   Code   RO         4597    i.prvCheckTasksWaitingTermination  tasks.o
-    0x080065e0   0x00000080   Code   RO         4454    i.prvCopyDataToQueue  queue.o
-    0x08006660   0x00000012   Code   RO         4598    i.prvDeleteTCB      tasks.o
-    0x08006672   0x00000002   PAD
-    0x08006674   0x0000007c   Code   RO         5001    i.prvHeapInit       heap_4.o
-    0x080066f0   0x00000018   Code   RO         4599    i.prvIdleTask       tasks.o
-    0x08006708   0x00000064   Code   RO         4600    i.prvInitialiseTCBVariables  tasks.o
-    0x0800676c   0x00000068   Code   RO         4601    i.prvInitialiseTaskLists  tasks.o
-    0x080067d4   0x00000068   Code   RO         5002    i.prvInsertBlockIntoFreeList  heap_4.o
-    0x0800683c   0x0000001e   Code   RO         4456    i.prvIsQueueFull    queue.o
-    0x0800685a   0x00000002   PAD
-    0x0800685c   0x00000034   Code   RO         4603    i.prvResetNextTaskUnblockTime  tasks.o
-    0x08006890   0x00000024   Code   RO         4932    i.prvTaskExitError  port.o
-    0x080068b4   0x0000007e   Code   RO         4457    i.prvUnlockQueue    queue.o
-    0x08006932   0x00000002   PAD
-    0x08006934   0x00000114   Code   RO         5003    i.pvPortMalloc      heap_4.o
-    0x08006a48   0x00000020   Code   RO         4933    i.pxPortInitialiseStack  port.o
-    0x08006a68   0x000000a0   Code   RO         5077    i.sin               m_ws.l(sin.o)
-    0x08006b08   0x00000028   Code   RO         4417    i.uxListRemove      list.o
-    0x08006b30   0x0000001a   Code   RO         4418    i.vListInitialise   list.o
-    0x08006b4a   0x00000006   Code   RO         4419    i.vListInitialiseItem  list.o
-    0x08006b50   0x00000034   Code   RO         4420    i.vListInsert       list.o
-    0x08006b84   0x00000018   Code   RO         4421    i.vListInsertEnd    list.o
-    0x08006b9c   0x00000044   Code   RO         4935    i.vPortEnterCritical  port.o
-    0x08006be0   0x0000002c   Code   RO         4936    i.vPortExitCritical  port.o
-    0x08006c0c   0x00000078   Code   RO         5004    i.vPortFree         heap_4.o
-    0x08006c84   0x00000014   Code   RO         4937    i.vPortSetupTimerInterrupt  port.o
-    0x08006c98   0x00000018   Code   RO         4939    i.vPortYield        port.o
-    0x08006cb0   0x00000018   Code   RO          335    i.vSetupSysInfoTest  sysinfotest.o
-    0x08006cc8   0x00000016   Code   RO            7    i.vTaskControl      main.o
-    0x08006cde   0x00000002   PAD
-    0x08006ce0   0x000000dc   Code   RO            8    i.vTaskDecision     main.o
-    0x08006dbc   0x00000070   Code   RO         4615    i.vTaskDelay        tasks.o
-    0x08006e2c   0x0000000c   Code   RO         4621    i.vTaskMissedYield  tasks.o
-    0x08006e38   0x00000040   Code   RO            9    i.vTaskPerception   main.o
-    0x08006e78   0x00000070   Code   RO         4623    i.vTaskPlaceOnEventList  tasks.o
-    0x08006ee8   0x00000024   Code   RO         4629    i.vTaskSetTimeOutState  tasks.o
-    0x08006f0c   0x00000068   Code   RO         4630    i.vTaskStartScheduler  tasks.o
-    0x08006f74   0x00000010   Code   RO         4632    i.vTaskSuspendAll   tasks.o
-    0x08006f84   0x000000c0   Code   RO         4633    i.vTaskSwitchContext  tasks.o
-    0x08007044   0x000000a0   Code   RO         4940    i.xPortStartScheduler  port.o
-    0x080070e4   0x0000004c   Code   RO         4465    i.xQueueCreateMutex  queue.o
-    0x08007130   0x00000128   Code   RO         4469    i.xQueueGenericSend  queue.o
-    0x08007258   0x00000074   Code   RO         4634    i.xTaskCheckForTimeOut  tasks.o
-    0x080072cc   0x00000138   Code   RO         4635    i.xTaskGenericCreate  tasks.o
-    0x08007404   0x0000000c   Code   RO         4639    i.xTaskGetTickCount  tasks.o
-    0x08007410   0x0000013c   Code   RO         4641    i.xTaskIncrementTick  tasks.o
-    0x0800754c   0x000000ac   Code   RO         4644    i.xTaskPriorityDisinherit  tasks.o
-    0x080075f8   0x0000008c   Code   RO         4645    i.xTaskRemoveFromEventList  tasks.o
-    0x08007684   0x000000e8   Code   RO         4647    i.xTaskResumeAll    tasks.o
-    0x0800776c   0x00000020   Data   RO         2475    .constdata          bsp_ir_decode.o
-    0x0800778c   0x00000004   PAD
-    0x08007790   0x00000030   Data   RO         5409    .constdata          m_ws.l(cos_i.o)
-    0x080077c0   0x000000c8   Data   RO         5432    .constdata          m_ws.l(rred.o)
-    0x08007888   0x00000028   Data   RO         5436    .constdata          m_ws.l(sin_i.o)
-    0x080078b0   0x00000020   Data   RO         5496    Region$$Table       anon$$obj.o
+    0x08000e80   0x00000040   Code   RO         1613    i.EXTI9_5_IRQHandler  bsp_stopmode.o
+    0x08000ec0   0x0000000c   Code   RO         4130    i.EXTI_ClearITPendingBit  stm32f10x_exti.o
+    0x08000ecc   0x00000028   Code   RO         4134    i.EXTI_GetITStatus  stm32f10x_exti.o
+    0x08000ef4   0x00000094   Code   RO         4135    i.EXTI_Init         stm32f10x_exti.o
+    0x08000f88   0x00000040   Code   RO         2596    i.GPIO_EXTILineConfig  stm32f10x_gpio.o
+    0x08000fc8   0x00000116   Code   RO         2599    i.GPIO_Init         stm32f10x_gpio.o
+    0x080010de   0x00000002   PAD
+    0x080010e0   0x00000090   Code   RO         2601    i.GPIO_PinRemapConfig  stm32f10x_gpio.o
+    0x08001170   0x00000012   Code   RO         2603    i.GPIO_ReadInputDataBit  stm32f10x_gpio.o
+    0x08001182   0x00000004   Code   RO         2606    i.GPIO_ResetBits    stm32f10x_gpio.o
+    0x08001186   0x00000004   Code   RO         2607    i.GPIO_SetBits      stm32f10x_gpio.o
+    0x0800118a   0x00000002   PAD
+    0x0800118c   0x00000058   Code   RO         1951    i.HardFault_Handler  stm32f10x_it.o
+    0x080011e4   0x00000264   Code   RO         1768    i.InitHardUart      bsp_uart_fifo.o
+    0x08001448   0x0000002c   Code   RO         2076    i.IsKeyDown1        bsp_key.o
+    0x08001474   0x0000002c   Code   RO         2077    i.IsKeyDown10       bsp_key.o
+    0x080014a0   0x0000002c   Code   RO         2078    i.IsKeyDown2        bsp_key.o
+    0x080014cc   0x0000002c   Code   RO         2079    i.IsKeyDown3        bsp_key.o
+    0x080014f8   0x00000018   Code   RO         2080    i.IsKeyDown4        bsp_key.o
+    0x08001510   0x00000018   Code   RO         2081    i.IsKeyDown5        bsp_key.o
+    0x08001528   0x00000018   Code   RO         2082    i.IsKeyDown6        bsp_key.o
+    0x08001540   0x00000018   Code   RO         2083    i.IsKeyDown7        bsp_key.o
+    0x08001558   0x00000018   Code   RO         2084    i.IsKeyDown8        bsp_key.o
+    0x08001570   0x0000002c   Code   RO         2085    i.IsKeyDown9        bsp_key.o
+    0x0800159c   0x00000004   Code   RO         1952    i.MemManage_Handler  stm32f10x_it.o
+    0x080015a0   0x00000002   Code   RO         1953    i.NMI_Handler       stm32f10x_it.o
+    0x080015a2   0x00000002   PAD
+    0x080015a4   0x00000070   Code   RO         2549    i.NVIC_Init         misc.o
+    0x08001614   0x00000014   Code   RO         2550    i.NVIC_PriorityGroupConfig  misc.o
+    0x08001628   0x00000040   Code   RO         4227    i.PWR_EnterSTOPMode  stm32f10x_pwr.o
+    0x08001668   0x00000018   Code   RO         2715    i.RCC_ADCCLKConfig  stm32f10x_rcc.o
+    0x08001680   0x00000020   Code   RO         2717    i.RCC_APB1PeriphClockCmd  stm32f10x_rcc.o
+    0x080016a0   0x00000020   Code   RO         2719    i.RCC_APB2PeriphClockCmd  stm32f10x_rcc.o
+    0x080016c0   0x00000020   Code   RO         2720    i.RCC_APB2PeriphResetCmd  stm32f10x_rcc.o
+    0x080016e0   0x000000d4   Code   RO         2727    i.RCC_GetClocksFreq  stm32f10x_rcc.o
+    0x080017b4   0x0000003c   Code   RO         2728    i.RCC_GetFlagStatus  stm32f10x_rcc.o
+    0x080017f0   0x00000010   Code   RO         2730    i.RCC_GetSYSCLKSource  stm32f10x_rcc.o
+    0x08001800   0x0000004c   Code   RO         2732    i.RCC_HSEConfig     stm32f10x_rcc.o
+    0x0800184c   0x0000000c   Code   RO         2740    i.RCC_PLLCmd        stm32f10x_rcc.o
+    0x08001858   0x00000018   Code   RO         2744    i.RCC_SYSCLKConfig  stm32f10x_rcc.o
+    0x08001870   0x0000000c   Code   RO         1770    i.RS485_ReciveNew   bsp_uart_fifo.o
+    0x0800187c   0x00000008   Code   RO         4291    i.SetSysClock       system_stm32f10x.o
+    0x08001884   0x000000e0   Code   RO         4292    i.SetSysClockTo72   system_stm32f10x.o
+    0x08001964   0x00000020   Code   RO         4931    i.SysTick_Handler   port.o
+    0x08001984   0x00000060   Code   RO         4294    i.SystemInit        system_stm32f10x.o
+    0x080019e4   0x00000080   Code   RO         3293    i.TI1_Config        stm32f10x_tim.o
+    0x08001a64   0x00000098   Code   RO         3294    i.TI2_Config        stm32f10x_tim.o
+    0x08001afc   0x00000090   Code   RO         3295    i.TI3_Config        stm32f10x_tim.o
+    0x08001b8c   0x00000098   Code   RO         3296    i.TI4_Config        stm32f10x_tim.o
+    0x08001c24   0x00000094   Code   RO         2463    i.TIM3_IRQHandler   bsp_ir_decode.o
+    0x08001cb8   0x000000a0   Code   RO         2249    i.TIM5_IRQHandler   bsp_timer.o
+    0x08001d58   0x00000050   Code   RO          334    i.TIM6_IRQHandler   sysinfotest.o
+    0x08001da8   0x00000018   Code   RO         3297    i.TIM_ARRPreloadConfig  stm32f10x_tim.o
+    0x08001dc0   0x00000006   Code   RO         3304    i.TIM_ClearITPendingBit  stm32f10x_tim.o
+    0x08001dc6   0x00000018   Code   RO         3309    i.TIM_Cmd           stm32f10x_tim.o
+    0x08001dde   0x0000001e   Code   RO         3311    i.TIM_CtrlPWMOutputs  stm32f10x_tim.o
+    0x08001dfc   0x00000006   Code   RO         3324    i.TIM_GetCapture1   stm32f10x_tim.o
+    0x08001e02   0x00000006   Code   RO         3325    i.TIM_GetCapture2   stm32f10x_tim.o
+    0x08001e08   0x00000006   Code   RO         3326    i.TIM_GetCapture3   stm32f10x_tim.o
+    0x08001e0e   0x00000008   Code   RO         3327    i.TIM_GetCapture4   stm32f10x_tim.o
+    0x08001e16   0x00000006   Code   RO         3328    i.TIM_GetCounter    stm32f10x_tim.o
+    0x08001e1c   0x00000022   Code   RO         3330    i.TIM_GetITStatus   stm32f10x_tim.o
+    0x08001e3e   0x00000002   PAD
+    0x08001e40   0x000000ac   Code   RO         3332    i.TIM_ICInit        stm32f10x_tim.o
+    0x08001eec   0x00000012   Code   RO         3334    i.TIM_ITConfig      stm32f10x_tim.o
+    0x08001efe   0x00000002   PAD
+    0x08001f00   0x00000098   Code   RO         3338    i.TIM_OC1Init       stm32f10x_tim.o
+    0x08001f98   0x00000012   Code   RO         3341    i.TIM_OC1PreloadConfig  stm32f10x_tim.o
+    0x08001faa   0x00000002   PAD
+    0x08001fac   0x000000a4   Code   RO         3343    i.TIM_OC2Init       stm32f10x_tim.o
+    0x08002050   0x0000001a   Code   RO         3346    i.TIM_OC2PreloadConfig  stm32f10x_tim.o
+    0x0800206a   0x00000002   PAD
+    0x0800206c   0x000000a0   Code   RO         3348    i.TIM_OC3Init       stm32f10x_tim.o
+    0x0800210c   0x00000012   Code   RO         3351    i.TIM_OC3PreloadConfig  stm32f10x_tim.o
+    0x0800211e   0x00000002   PAD
+    0x08002120   0x0000007c   Code   RO         3353    i.TIM_OC4Init       stm32f10x_tim.o
+    0x0800219c   0x0000001a   Code   RO         3355    i.TIM_OC4PreloadConfig  stm32f10x_tim.o
+    0x080021b6   0x00000004   Code   RO         3370    i.TIM_SetCompare1   stm32f10x_tim.o
+    0x080021ba   0x00000004   Code   RO         3371    i.TIM_SetCompare2   stm32f10x_tim.o
+    0x080021be   0x00000004   Code   RO         3372    i.TIM_SetCompare3   stm32f10x_tim.o
+    0x080021c2   0x00000006   Code   RO         3373    i.TIM_SetCompare4   stm32f10x_tim.o
+    0x080021c8   0x00000012   Code   RO         3375    i.TIM_SetIC1Prescaler  stm32f10x_tim.o
+    0x080021da   0x0000001a   Code   RO         3376    i.TIM_SetIC2Prescaler  stm32f10x_tim.o
+    0x080021f4   0x00000012   Code   RO         3377    i.TIM_SetIC3Prescaler  stm32f10x_tim.o
+    0x08002206   0x0000001a   Code   RO         3378    i.TIM_SetIC4Prescaler  stm32f10x_tim.o
+    0x08002220   0x000000a4   Code   RO         3380    i.TIM_TimeBaseInit  stm32f10x_tim.o
+    0x080022c4   0x00000010   Code   RO         1775    i.UART4_IRQHandler  bsp_uart_fifo.o
+    0x080022d4   0x00000010   Code   RO         1776    i.USART1_IRQHandler  bsp_uart_fifo.o
+    0x080022e4   0x00000010   Code   RO         1777    i.USART2_IRQHandler  bsp_uart_fifo.o
+    0x080022f4   0x00000010   Code   RO         1778    i.USART3_IRQHandler  bsp_uart_fifo.o
+    0x08002304   0x00000012   Code   RO         2923    i.USART_ClearFlag   stm32f10x_usart.o
+    0x08002316   0x00000018   Code   RO         2927    i.USART_Cmd         stm32f10x_usart.o
+    0x0800232e   0x00000054   Code   RO         2931    i.USART_GetITStatus  stm32f10x_usart.o
+    0x08002382   0x0000004a   Code   RO         2933    i.USART_ITConfig    stm32f10x_usart.o
+    0x080023cc   0x000000d8   Code   RO         2934    i.USART_Init        stm32f10x_usart.o
+    0x080024a4   0x0000000a   Code   RO         2941    i.USART_ReceiveData  stm32f10x_usart.o
+    0x080024ae   0x00000008   Code   RO         2944    i.USART_SendData    stm32f10x_usart.o
+    0x080024b6   0x0000004a   Code   RO         1779    i.UartGetChar       bsp_uart_fifo.o
+    0x08002500   0x000000e6   Code   RO         1780    i.UartIRQ           bsp_uart_fifo.o
+    0x080025e6   0x00000072   Code   RO         1781    i.UartSend          bsp_uart_fifo.o
+    0x08002658   0x000000f0   Code   RO         1782    i.UartVarInit       bsp_uart_fifo.o
+    0x08002748   0x00000004   Code   RO         1954    i.UsageFault_Handler  stm32f10x_it.o
+    0x0800274c   0x00000020   Code   RO         5306    i.__0printf$8       mc_w.l(printf8.o)
+    0x0800276c   0x00000028   Code   RO         5425    i.__ARM_fpclassify  m_ws.l(fpclassify.o)
+    0x08002794   0x00000388   Code   RO         5430    i.__ieee754_rem_pio2  m_ws.l(rred.o)
+    0x08002b1c   0x000000fc   Code   RO         5408    i.__kernel_cos      m_ws.l(cos_i.o)
+    0x08002c18   0x000000aa   Code   RO         5427    i.__kernel_poly     m_ws.l(poly.o)
+    0x08002cc2   0x00000002   PAD
+    0x08002cc4   0x000000ec   Code   RO         5435    i.__kernel_sin      m_ws.l(sin_i.o)
+    0x08002db0   0x00000006   Code   RO         5412    i.__mathlib_dbl_infnan  m_ws.l(dunder.o)
+    0x08002db6   0x0000000c   Code   RO         5414    i.__mathlib_dbl_invalid  m_ws.l(dunder.o)
+    0x08002dc2   0x00000002   PAD
+    0x08002dc4   0x00000010   Code   RO         5417    i.__mathlib_dbl_underflow  m_ws.l(dunder.o)
+    0x08002dd4   0x0000000e   Code   RO         5498    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x08002de2   0x00000002   Code   RO         5499    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08002de4   0x0000000e   Code   RO         5500    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x08002df2   0x00000006   Code   RO         1783    i.__set_PRIMASK     bsp_uart_fifo.o
+    0x08002df8   0x0000000c   Code   RO         5476    i.__set_errno       mc_w.l(errno.o)
+    0x08002e04   0x00000410   Code   RO         5313    i._printf_core      mc_w.l(printf8.o)
+    0x08003214   0x00000024   Code   RO         5314    i._printf_post_padding  mc_w.l(printf8.o)
+    0x08003238   0x0000002e   Code   RO         5315    i._printf_pre_padding  mc_w.l(printf8.o)
+    0x08003266   0x00000002   PAD
+    0x08003268   0x0000008c   Code   RO          603    i.bsp_ADCConfig     bsp_detectact.o
+    0x080032f4   0x0000005c   Code   RO          452    i.bsp_AngleAdd      bsp_angle.o
+    0x08003350   0x00000030   Code   RO          453    i.bsp_AngleAnalyzeApp  bsp_angle.o
+    0x08003380   0x00000098   Code   RO          454    i.bsp_AngleCheck    bsp_angle.o
+    0x08003418   0x00000038   Code   RO          455    i.bsp_AnglePoll     bsp_angle.o
+    0x08003450   0x0000000c   Code   RO          456    i.bsp_AngleRead     bsp_angle.o
+    0x0800345c   0x0000000c   Code   RO          457    i.bsp_AngleReadRaw  bsp_angle.o
+    0x08003468   0x00000038   Code   RO          458    i.bsp_AngleRevByte  bsp_angle.o
+    0x080034a0   0x00000034   Code   RO          459    i.bsp_AngleRst      bsp_angle.o
+    0x080034d4   0x00000014   Code   RO          460    i.bsp_AngleTimeout  bsp_angle.o
+    0x080034e8   0x0000002c   Code   RO         1573    i.bsp_AssistIsFaceObstacles  bsp_assistjudgedirection.o
+    0x08003514   0x00000050   Code   RO         1574    i.bsp_AssistJudgeDirection  bsp_assistjudgedirection.o
+    0x08003564   0x00000036   Code   RO          843    i.bsp_CalcChk       bsp_communication.o
+    0x0800359a   0x00000002   PAD
+    0x0800359c   0x000000e8   Code   RO         1304    i.bsp_CliffCalibration  bsp_cliffsw.o
+    0x08003684   0x00000074   Code   RO          421    i.bsp_CollisionScan  bsp_collision.o
+    0x080036f8   0x00000234   Code   RO          844    i.bsp_ComAnalysis   bsp_communication.o
+    0x0800392c   0x00000074   Code   RO         1614    i.bsp_DISABLE_ALL_EXIT  bsp_stopmode.o
+    0x080039a0   0x00000012   Code   RO         1734    i.bsp_DelayMS       bsp_dwt.o
+    0x080039b2   0x00000002   PAD
+    0x080039b4   0x00000030   Code   RO         1735    i.bsp_DelayUS       bsp_dwt.o
+    0x080039e4   0x000000cc   Code   RO         2087    i.bsp_DetectKey     bsp_key.o
+    0x08003ab0   0x00000018   Code   RO          608    i.bsp_DetectStart   bsp_detectact.o
+    0x08003ac8   0x000000dc   Code   RO          884    i.bsp_EXTI_Config   bsp_encoder.o
+    0x08003ba4   0x000001f8   Code   RO          749    i.bsp_EdgewiseRun   bsp_edgewise.o
+    0x08003d9c   0x00000014   Code   RO          750    i.bsp_EdgewiseRunStraightFast  bsp_edgewise.o
+    0x08003db0   0x00000014   Code   RO          751    i.bsp_EdgewiseRunStraightSlow  bsp_edgewise.o
+    0x08003dc4   0x00000014   Code   RO          753    i.bsp_EdgewiseTurnLeftSlow  bsp_edgewise.o
+    0x08003dd8   0x00000014   Code   RO          755    i.bsp_EdgewiseTurnRightSlow  bsp_edgewise.o
+    0x08003dec   0x0000001c   Code   RO          885    i.bsp_EncoderGetPulseT  bsp_encoder.o
+    0x08003e08   0x00000010   Code   RO          886    i.bsp_EncoderGetTotalMileage  bsp_encoder.o
+    0x08003e18   0x00000088   Code   RO         1615    i.bsp_EnterStopMODE  bsp_stopmode.o
+    0x08003ea0   0x00000278   Code   RO          845    i.bsp_FillReportFrame  bsp_communication.o
+    0x08004118   0x00000018   Code   RO         1483    i.bsp_GetChargeFeedback  bsp_searchchargepile.o
+    0x08004130   0x000000f4   Code   RO         1307    i.bsp_GetCliffVoltage  bsp_cliffsw.o
+    0x08004224   0x00000032   Code   RO          887    i.bsp_GetCurrentBothPulse  bsp_encoder.o
+    0x08004256   0x00000002   PAD
+    0x08004258   0x00000028   Code   RO         1133    i.bsp_GetCurrentPosX  bsp_position.o
+    0x08004280   0x00000028   Code   RO         1134    i.bsp_GetCurrentPosY  bsp_position.o
+    0x080042a8   0x00000010   Code   RO          611    i.bsp_GetInfraRedAdcVoltage  bsp_detectact.o
+    0x080042b8   0x0000000c   Code   RO          613    i.bsp_GetInfraredVoltageRight  bsp_detectact.o
+    0x080042c4   0x00000034   Code   RO         2088    i.bsp_GetKey        bsp_key.o
+    0x080042f8   0x000000cc   Code   RO         2005    i.bsp_GetRCCofTIM   bsp_tim_pwm.o
+    0x080043c4   0x00000018   Code   RO          756    i.bsp_GoBackward    bsp_edgewise.o
+    0x080043dc   0x00000018   Code   RO         1484    i.bsp_GoBackward    bsp_searchchargepile.o
+    0x080043f4   0x00000208   Code   RO         2464    i.bsp_IRD_DecodeNec  bsp_ir_decode.o
+    0x080045fc   0x00000164   Code   RO         2465    i.bsp_IRD_StartWork  bsp_ir_decode.o
+    0x08004760   0x00000130   Code   RO         2467    i.bsp_IR_GetPulseWidth  bsp_ir_decode.o
+    0x08004890   0x00000014   Code   RO         2468    i.bsp_IR_GetRev     bsp_ir_decode.o
+    0x080048a4   0x00000028   Code   RO         2470    i.bsp_IR_SoftTimerInit  bsp_ir_decode.o
+    0x080048cc   0x000000b4   Code   RO         2472    i.bsp_IR_TimeOutProc  bsp_ir_decode.o
+    0x08004980   0x00000090   Code   RO         1708    i.bsp_Init          bsp.o
+    0x08004a10   0x0000002c   Code   RO          461    i.bsp_InitAngle     bsp_angle.o
+    0x08004a3c   0x000001b8   Code   RO         1308    i.bsp_InitCliffSW   bsp_cliffsw.o
+    0x08004bf4   0x00000040   Code   RO          422    i.bsp_InitCollision  bsp_collision.o
+    0x08004c34   0x00000028   Code   RO         1736    i.bsp_InitDWT       bsp_dwt.o
+    0x08004c5c   0x0000001c   Code   RO          614    i.bsp_InitDetectAct  bsp_detectact.o
+    0x08004c78   0x00000008   Code   RO          888    i.bsp_InitEncoder   bsp_encoder.o
+    0x08004c80   0x0000005e   Code   RO         1709    i.bsp_InitFormAwaken  bsp.o
+    0x08004cde   0x00000008   Code   RO          889    i.bsp_InitGPIO      bsp_encoder.o
+    0x08004ce6   0x00000002   PAD
+    0x08004ce8   0x0000006c   Code   RO         2250    i.bsp_InitHardTimer  bsp_timer.o
+    0x08004d54   0x0000000c   Code   RO         2091    i.bsp_InitKey       bsp_key.o
+    0x08004d60   0x00000090   Code   RO         2092    i.bsp_InitKeyHard   bsp_key.o
+    0x08004df0   0x0000006c   Code   RO         1616    i.bsp_InitKeyStopMODE  bsp_stopmode.o
+    0x08004e5c   0x000000ac   Code   RO         2093    i.bsp_InitKeyVar    bsp_key.o
+    0x08004f08   0x0000006c   Code   RO         2205    i.bsp_InitLed       bsp_led.o
+    0x08004f74   0x0000001c   Code   RO          944    i.bsp_InitMotor     bsp_motor.o
+    0x08004f90   0x00000044   Code   RO         1011    i.bsp_InitPid       bsp_control.o
+    0x08004fd4   0x0000002c   Code   RO          692    i.bsp_InitPinPulse  bsp_pulsemark.o
+    0x08005000   0x00000028   Code   RO         1419    i.bsp_InitRunControl  bsp_runcontrol.o
+    0x08005028   0x0000006c   Code   RO          388    i.bsp_InitSW        bsp_powerswitch.o
+    0x08005094   0x0000004c   Code   RO         1387    i.bsp_InitSpeaker   bsp_speaker.o
+    0x080050e0   0x00000100   Code   RO          945    i.bsp_InitTimer1    bsp_motor.o
+    0x080051e0   0x000000ec   Code   RO          946    i.bsp_InitTimer4    bsp_motor.o
+    0x080052cc   0x00000010   Code   RO         1784    i.bsp_InitUart      bsp_uart_fifo.o
+    0x080052dc   0x00000034   Code   RO          947    i.bsp_InitVacuum    bsp_motor.o
+    0x08005310   0x00000016   Code   RO         2094    i.bsp_KeyScan       bsp_key.o
+    0x08005326   0x00000002   PAD
+    0x08005328   0x00000038   Code   RO         2207    i.bsp_LedOff        bsp_led.o
+    0x08005360   0x0000004c   Code   RO         2209    i.bsp_LedToggle     bsp_led.o
+    0x080053ac   0x0000003c   Code   RO         1012    i.bsp_MotorBrake    bsp_control.o
+    0x080053e8   0x00000010   Code   RO         1013    i.bsp_MotorGetPulseVector  bsp_control.o
+    0x080053f8   0x0000004c   Code   RO         1014    i.bsp_MotorGetSpeed  bsp_control.o
+    0x08005444   0x00000064   Code   RO          949    i.bsp_MotorSetPWM   bsp_motor.o
+    0x080054a8   0x00000078   Code   RO         1016    i.bsp_MotorSpeedMM2Pulse  bsp_control.o
+    0x08005520   0x00000028   Code   RO         1017    i.bsp_PidClear      bsp_control.o
+    0x08005548   0x00000258   Code   RO         1018    i.bsp_PidExec       bsp_control.o
+    0x080057a0   0x00000030   Code   RO         1019    i.bsp_PidSched      bsp_control.o
+    0x080057d0   0x00000014   Code   RO         1486    i.bsp_PirouetteCCW  bsp_searchchargepile.o
+    0x080057e4   0x00000014   Code   RO          758    i.bsp_PirouetteCW   bsp_edgewise.o
+    0x080057f8   0x00000014   Code   RO         1487    i.bsp_PirouetteCW   bsp_searchchargepile.o
+    0x0800580c   0x00000240   Code   RO         1135    i.bsp_PositionUpdate  bsp_position.o
+    0x08005a4c   0x00000020   Code   RO         2095    i.bsp_PutKey        bsp_key.o
+    0x08005a6c   0x00000024   Code   RO         1020    i.bsp_PwmLimit      bsp_control.o
+    0x08005a90   0x00000016   Code   RO          759    i.bsp_RotateCCW     bsp_edgewise.o
+    0x08005aa6   0x00000002   PAD
+    0x08005aa8   0x000002ac   Code   RO         1488    i.bsp_SearchChargePile  bsp_searchchargepile.o
+    0x08005d54   0x00000014   Code   RO         1490    i.bsp_SearchRunStraightSlow  bsp_searchchargepile.o
+    0x08005d68   0x00000014   Code   RO         1492    i.bsp_SearchTurnLeftSlow  bsp_searchchargepile.o
+    0x08005d7c   0x00000014   Code   RO         1494    i.bsp_SearchTurnRightSlow  bsp_searchchargepile.o
+    0x08005d90   0x00000030   Code   RO          846    i.bsp_SendReportFrame  bsp_communication.o
+    0x08005dc0   0x000000dc   Code   RO         1617    i.bsp_SetAllPinLowPower  bsp_stopmode.o
+    0x08005e9c   0x0000000c   Code   RO         1421    i.bsp_SetChargeKey  bsp_runcontrol.o
+    0x08005ea8   0x0000000c   Code   RO         1422    i.bsp_SetCleanKey   bsp_runcontrol.o
+    0x08005eb4   0x0000000c   Code   RO         1423    i.bsp_SetHomeKey    bsp_runcontrol.o
+    0x08005ec0   0x00000018   Code   RO         1021    i.bsp_SetMotorSpeed  bsp_control.o
+    0x08005ed8   0x0000000c   Code   RO         1424    i.bsp_SetPowerKey   bsp_runcontrol.o
+    0x08005ee4   0x0000020c   Code   RO         2008    i.bsp_SetTIMforInt  bsp_tim_pwm.o
+    0x080060f0   0x00000024   Code   RO         1575    i.bsp_StartAssistJudgeDirection  bsp_assistjudgedirection.o
+    0x08006114   0x000000c8   Code   RO         2251    i.bsp_StartHardTimer  bsp_timer.o
+    0x080061dc   0x0000002c   Code   RO         1425    i.bsp_StartRunControl  bsp_runcontrol.o
+    0x08006208   0x00000064   Code   RO         1660    i.bsp_StartUpdateGridMap  bsp_gridmap.o
+    0x0800626c   0x00000018   Code   RO         1136    i.bsp_StartUpdatePos  bsp_position.o
+    0x08006284   0x00000024   Code   RO         1496    i.bsp_StopSearchChargePile  bsp_searchchargepile.o
+    0x080062a8   0x00000044   Code   RO          389    i.bsp_SwOff         bsp_powerswitch.o
+    0x080062ec   0x00000044   Code   RO          390    i.bsp_SwOn          bsp_powerswitch.o
+    0x08006330   0x00000054   Code   RO          952    i.bsp_VacuumClean   bsp_motor.o
+    0x08006384   0x0000001e   Code   RO         1790    i.comGetChar        bsp_uart_fifo.o
+    0x080063a2   0x0000002e   Code   RO         1791    i.comSendBuf        bsp_uart_fifo.o
+    0x080063d0   0x00000010   Code   RO         1792    i.comSendChar       bsp_uart_fifo.o
+    0x080063e0   0x0000009c   Code   RO         5059    i.cos               m_ws.l(cos.o)
+    0x0800647c   0x00000012   Code   RO         1794    i.fputc             bsp_uart_fifo.o
+    0x0800648e   0x00000020   Code   RO            6    i.main              main.o
+    0x080064ae   0x00000016   Code   RO          763    i.myabs             bsp_edgewise.o
+    0x080064c4   0x0000000e   Code   RO         1022    i.myabs             bsp_control.o
+    0x080064d2   0x00000002   PAD
+    0x080064d4   0x00000054   Code   RO         4595    i.prvAddCurrentTaskToDelayedList  tasks.o
+    0x08006528   0x00000042   Code   RO         4596    i.prvAllocateTCBAndStack  tasks.o
+    0x0800656a   0x00000002   PAD
+    0x0800656c   0x00000064   Code   RO         4597    i.prvCheckTasksWaitingTermination  tasks.o
+    0x080065d0   0x00000080   Code   RO         4454    i.prvCopyDataToQueue  queue.o
+    0x08006650   0x00000012   Code   RO         4598    i.prvDeleteTCB      tasks.o
+    0x08006662   0x00000002   PAD
+    0x08006664   0x0000007c   Code   RO         5001    i.prvHeapInit       heap_4.o
+    0x080066e0   0x00000018   Code   RO         4599    i.prvIdleTask       tasks.o
+    0x080066f8   0x00000064   Code   RO         4600    i.prvInitialiseTCBVariables  tasks.o
+    0x0800675c   0x00000068   Code   RO         4601    i.prvInitialiseTaskLists  tasks.o
+    0x080067c4   0x00000068   Code   RO         5002    i.prvInsertBlockIntoFreeList  heap_4.o
+    0x0800682c   0x0000001e   Code   RO         4456    i.prvIsQueueFull    queue.o
+    0x0800684a   0x00000002   PAD
+    0x0800684c   0x00000034   Code   RO         4603    i.prvResetNextTaskUnblockTime  tasks.o
+    0x08006880   0x00000024   Code   RO         4932    i.prvTaskExitError  port.o
+    0x080068a4   0x0000007e   Code   RO         4457    i.prvUnlockQueue    queue.o
+    0x08006922   0x00000002   PAD
+    0x08006924   0x00000114   Code   RO         5003    i.pvPortMalloc      heap_4.o
+    0x08006a38   0x00000020   Code   RO         4933    i.pxPortInitialiseStack  port.o
+    0x08006a58   0x000000a0   Code   RO         5077    i.sin               m_ws.l(sin.o)
+    0x08006af8   0x00000028   Code   RO         4417    i.uxListRemove      list.o
+    0x08006b20   0x0000001a   Code   RO         4418    i.vListInitialise   list.o
+    0x08006b3a   0x00000006   Code   RO         4419    i.vListInitialiseItem  list.o
+    0x08006b40   0x00000034   Code   RO         4420    i.vListInsert       list.o
+    0x08006b74   0x00000018   Code   RO         4421    i.vListInsertEnd    list.o
+    0x08006b8c   0x00000044   Code   RO         4935    i.vPortEnterCritical  port.o
+    0x08006bd0   0x0000002c   Code   RO         4936    i.vPortExitCritical  port.o
+    0x08006bfc   0x00000078   Code   RO         5004    i.vPortFree         heap_4.o
+    0x08006c74   0x00000014   Code   RO         4937    i.vPortSetupTimerInterrupt  port.o
+    0x08006c88   0x00000018   Code   RO         4939    i.vPortYield        port.o
+    0x08006ca0   0x00000018   Code   RO          335    i.vSetupSysInfoTest  sysinfotest.o
+    0x08006cb8   0x00000016   Code   RO            7    i.vTaskControl      main.o
+    0x08006cce   0x00000002   PAD
+    0x08006cd0   0x000000dc   Code   RO            8    i.vTaskDecision     main.o
+    0x08006dac   0x00000070   Code   RO         4615    i.vTaskDelay        tasks.o
+    0x08006e1c   0x0000000c   Code   RO         4621    i.vTaskMissedYield  tasks.o
+    0x08006e28   0x00000040   Code   RO            9    i.vTaskPerception   main.o
+    0x08006e68   0x00000070   Code   RO         4623    i.vTaskPlaceOnEventList  tasks.o
+    0x08006ed8   0x00000024   Code   RO         4629    i.vTaskSetTimeOutState  tasks.o
+    0x08006efc   0x00000068   Code   RO         4630    i.vTaskStartScheduler  tasks.o
+    0x08006f64   0x00000010   Code   RO         4632    i.vTaskSuspendAll   tasks.o
+    0x08006f74   0x000000c0   Code   RO         4633    i.vTaskSwitchContext  tasks.o
+    0x08007034   0x000000a0   Code   RO         4940    i.xPortStartScheduler  port.o
+    0x080070d4   0x0000004c   Code   RO         4465    i.xQueueCreateMutex  queue.o
+    0x08007120   0x00000128   Code   RO         4469    i.xQueueGenericSend  queue.o
+    0x08007248   0x00000074   Code   RO         4634    i.xTaskCheckForTimeOut  tasks.o
+    0x080072bc   0x00000138   Code   RO         4635    i.xTaskGenericCreate  tasks.o
+    0x080073f4   0x0000000c   Code   RO         4639    i.xTaskGetTickCount  tasks.o
+    0x08007400   0x0000013c   Code   RO         4641    i.xTaskIncrementTick  tasks.o
+    0x0800753c   0x000000ac   Code   RO         4644    i.xTaskPriorityDisinherit  tasks.o
+    0x080075e8   0x0000008c   Code   RO         4645    i.xTaskRemoveFromEventList  tasks.o
+    0x08007674   0x000000e8   Code   RO         4647    i.xTaskResumeAll    tasks.o
+    0x0800775c   0x00000020   Data   RO         2475    .constdata          bsp_ir_decode.o
+    0x0800777c   0x00000004   PAD
+    0x08007780   0x00000030   Data   RO         5409    .constdata          m_ws.l(cos_i.o)
+    0x080077b0   0x000000c8   Data   RO         5432    .constdata          m_ws.l(rred.o)
+    0x08007878   0x00000028   Data   RO         5436    .constdata          m_ws.l(sin_i.o)
+    0x080078a0   0x00000020   Data   RO         5496    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x0000a140, Max: 0x00010000, ABSOLUTE)
@@ -3839,7 +3838,7 @@ Image component sizes
        132         34          0          0         20       3031   bsp_runcontrol.o
        868         36          0          0         16       5670   bsp_searchchargepile.o
         76          4          0          0          0        518   bsp_speaker.o
-       660         66          0          0          0      24720   bsp_stopmode.o
+       644         56          0          0          0      24716   bsp_stopmode.o
        728        100          0          0          0       2313   bsp_tim_pwm.o
        468         54          0         16          0       2635   bsp_timer.o
       1662        138          0          0       8352      10752   bsp_uart_fifo.o
@@ -3865,7 +3864,7 @@ Image component sizes
       2432        352          0         64        200      16510   tasks.o
 
     ----------------------------------------------------------------------
-     24886       2308        372        212      41060     511194   Object Totals
+     24870       2298        372        212      41060     511190   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         50          0          4          8         14          0   (incl. Padding)
 
@@ -3944,15 +3943,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     30268       2518        660        220      41060     498662   Grand Totals
-     30268       2518        660        220      41060     498662   ELF Image Totals
-     30268       2518        660        220          0          0   ROM Totals
+     30252       2508        660        220      41060     498658   Grand Totals
+     30252       2508        660        220      41060     498658   ELF Image Totals
+     30252       2508        660        220          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                30928 (  30.20kB)
+    Total RO  Size (Code + RO Data)                30912 (  30.19kB)
     Total RW  Size (RW Data + ZI Data)             41280 (  40.31kB)
-    Total ROM Size (Code + RO Data + RW Data)      31148 (  30.42kB)
+    Total ROM Size (Code + RO Data + RW Data)      31132 (  30.40kB)
 
 ==============================================================================
 
