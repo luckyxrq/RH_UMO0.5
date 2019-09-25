@@ -22,14 +22,11 @@ void bsp_EnterStopMODE(void)
 {
 	/*断掉部分外设电源*/
 	bsp_DISABLE_ALL_EXIT();
-	bsp_SwOff(SW_5V_EN_CTRL);
-	bsp_SwOff(SW_IR_POWER);
-	bsp_SwOn(SW_MOTOR_POWER);
-	
-	/*禁止所有外部中断*/
-	bsp_DISABLE_ALL_EXIT();
-	/*设置所有引脚为低功耗，高阻抗模式*/
 	bsp_SetAllPinLowPower();
+	bsp_SwOff(SW_IR_POWER);
+	bsp_SwOff(SW_MOTOR_POWER);
+	bsp_SwOff(SW_5V_EN_CTRL);
+	
 	/*初始化外部中断引脚，专门用作唤醒MCU*/
 	bsp_InitKeyStopMODE();
 	
@@ -117,6 +114,7 @@ static void bsp_DISABLE_ALL_EXIT(void)
 	NVIC_Init(&NVIC_InitStructure);
 }
 
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_SetAllPinLowPower
@@ -127,6 +125,22 @@ static void bsp_DISABLE_ALL_EXIT(void)
 */
 static void bsp_SetAllPinLowPower(void)
 {
+	/*
+		电源使能引脚不改变
+		#define RCC_ALL_SW 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOF)
+
+		#define GPIO_PORT_5V_EN_CTR  GPIOE
+		#define GPIO_PIN_5V_EN_CTR   GPIO_Pin_15
+
+
+		#define GPIO_PORT_IR_POWER  GPIOF
+		#define GPIO_PIN_IR_POWER   GPIO_Pin_0
+
+
+		#define GPIO_PORT_MOTOR_POWER  GPIOA
+		#define GPIO_PIN_MOTOR_POWER   GPIO_Pin_9
+	*/
+	
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 	/* 打开GPIO时钟 */
@@ -140,12 +154,25 @@ static void bsp_SetAllPinLowPower(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	/* 推挽输出模式 */
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
 	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & (~GPIO_PIN_MOTOR_POWER);
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
 	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & (~GPIO_PIN_5V_EN_CTR);
 	GPIO_Init(GPIOE, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & (~GPIO_PIN_IR_POWER);
 	GPIO_Init(GPIOF, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
 	GPIO_Init(GPIOG, &GPIO_InitStructure);
 	
 	ADC_Cmd(ADC1,DISABLE);

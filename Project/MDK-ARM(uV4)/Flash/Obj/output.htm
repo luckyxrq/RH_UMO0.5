@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Sep 24 18:49:18 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Sep 25 14:01:40 2019
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -155,8 +155,8 @@ Global Symbols
 <LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
@@ -172,7 +172,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[92]"></a>vPortClearInterruptMask</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, port.o(.emb_text))
-<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<BR><BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
@@ -357,9 +357,9 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
 
-<P><STRONG><a name="[100]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
+<P><STRONG><a name="[ff]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartAssistJudgeDirection
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
 <P><STRONG><a name="[193]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
@@ -406,7 +406,7 @@ Global Symbols
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
 <LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
 <P><STRONG><a name="[66]"></a>__aeabi_fdiv</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, fdiv.o(.text))
@@ -420,7 +420,7 @@ Global Symbols
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
 <LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentBothPulse
 </UL>
 
@@ -470,8 +470,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
+<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
@@ -497,8 +497,8 @@ Global Symbols
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
 <LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
 <P><STRONG><a name="[71]"></a>__aeabi_ui2f</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, ffltui.o(.text))
@@ -508,7 +508,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentBothPulse
 </UL>
 
@@ -533,11 +533,11 @@ Global Symbols
 <P><STRONG><a name="[13c]"></a>__aeabi_f2iz</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, ffixi.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 </UL>
 
-<P><STRONG><a name="[fc]"></a>__aeabi_f2uiz</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, ffixui.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<P><STRONG><a name="[fb]"></a>__aeabi_f2uiz</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, ffixui.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentBothPulse
 </UL>
 
@@ -547,8 +547,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
+<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 </UL>
@@ -673,7 +673,7 @@ Global Symbols
 <P><STRONG><a name="[ba]"></a>ADC_Cmd</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, stm32f10x_adc.o(i.ADC_Cmd))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetAllPinLowPower
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetAllPinLowPower
 </UL>
 
 <P><STRONG><a name="[79]"></a>ADC_DeInit</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, stm32f10x_adc.o(i.ADC_DeInit))
@@ -690,11 +690,11 @@ Global Symbols
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 </UL>
 
-<P><STRONG><a name="[105]"></a>ADC_GetConversionValue</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_adc.o(i.ADC_GetConversionValue))
+<P><STRONG><a name="[104]"></a>ADC_GetConversionValue</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_adc.o(i.ADC_GetConversionValue))
 <BR><BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
 </UL>
 
-<P><STRONG><a name="[104]"></a>ADC_GetFlagStatus</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_adc.o(i.ADC_GetFlagStatus))
+<P><STRONG><a name="[103]"></a>ADC_GetFlagStatus</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_adc.o(i.ADC_GetFlagStatus))
 <BR><BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
 </UL>
 
@@ -710,7 +710,7 @@ Global Symbols
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 </UL>
 
-<P><STRONG><a name="[102]"></a>ADC_RegularChannelConfig</STRONG> (Thumb, 184 bytes, Stack size 20 bytes, stm32f10x_adc.o(i.ADC_RegularChannelConfig))
+<P><STRONG><a name="[101]"></a>ADC_RegularChannelConfig</STRONG> (Thumb, 184 bytes, Stack size 20 bytes, stm32f10x_adc.o(i.ADC_RegularChannelConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = ADC_RegularChannelConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
@@ -722,7 +722,7 @@ Global Symbols
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 </UL>
 
-<P><STRONG><a name="[103]"></a>ADC_SoftwareStartConvCmd</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, stm32f10x_adc.o(i.ADC_SoftwareStartConvCmd))
+<P><STRONG><a name="[102]"></a>ADC_SoftwareStartConvCmd</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, stm32f10x_adc.o(i.ADC_SoftwareStartConvCmd))
 <BR><BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
 </UL>
 
@@ -739,8 +739,8 @@ Global Symbols
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comGetChar
 </UL>
 
-<P><STRONG><a name="[113]"></a>DBGMCU_Config</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_dbgmcu.o(i.DBGMCU_Config))
-<BR><BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<P><STRONG><a name="[112]"></a>DBGMCU_Config</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_dbgmcu.o(i.DBGMCU_Config))
+<BR><BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
 
 <P><STRONG><a name="[7]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.DebugMon_Handler))
@@ -784,62 +784,62 @@ Global Symbols
 
 <P><STRONG><a name="[de]"></a>EXTI_Init</STRONG> (Thumb, 142 bytes, Stack size 0 bytes, stm32f10x_exti.o(i.EXTI_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
 </UL>
 
 <P><STRONG><a name="[dd]"></a>GPIO_EXTILineConfig</STRONG> (Thumb, 60 bytes, Stack size 12 bytes, stm32f10x_gpio.o(i.GPIO_EXTILineConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = GPIO_EXTILineConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
 </UL>
 
 <P><STRONG><a name="[87]"></a>GPIO_Init</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, stm32f10x_gpio.o(i.GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCollision
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSpeaker
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitVacuum
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetAllPinLowPower
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
+<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetAllPinLowPower
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
 </UL>
 
-<P><STRONG><a name="[109]"></a>GPIO_PinRemapConfig</STRONG> (Thumb, 138 bytes, Stack size 20 bytes, stm32f10x_gpio.o(i.GPIO_PinRemapConfig))
+<P><STRONG><a name="[108]"></a>GPIO_PinRemapConfig</STRONG> (Thumb, 138 bytes, Stack size 20 bytes, stm32f10x_gpio.o(i.GPIO_PinRemapConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_PinRemapConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 </UL>
 
 <P><STRONG><a name="[d0]"></a>GPIO_ReadInputDataBit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ReadInputDataBit))
 <BR><BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetChargeFeedback
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetChargeFeedback
 </UL>
 
 <P><STRONG><a name="[c9]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ResetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOff
+<BR><BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOff
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_VacuumClean
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRst
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitVacuum
 </UL>
 
 <P><STRONG><a name="[c7]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_SetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOff
+<BR><BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOff
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_VacuumClean
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRst
 </UL>
@@ -860,16 +860,16 @@ Global Symbols
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DISABLE_ALL_EXIT
 </UL>
 
-<P><STRONG><a name="[114]"></a>NVIC_PriorityGroupConfig</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, misc.o(i.NVIC_PriorityGroupConfig))
-<BR><BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<P><STRONG><a name="[113]"></a>NVIC_PriorityGroupConfig</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, misc.o(i.NVIC_PriorityGroupConfig))
+<BR><BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
 
-<P><STRONG><a name="[f1]"></a>PWR_EnterSTOPMode</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, stm32f10x_pwr.o(i.PWR_EnterSTOPMode))
+<P><STRONG><a name="[f0]"></a>PWR_EnterSTOPMode</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, stm32f10x_pwr.o(i.PWR_EnterSTOPMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PWR_EnterSTOPMode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
@@ -885,15 +885,15 @@ Global Symbols
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
 </UL>
 
 <P><STRONG><a name="[86]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd))
 <BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCollision
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSpeaker
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
@@ -901,13 +901,13 @@ Global Symbols
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetAllPinLowPower
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
+<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetAllPinLowPower
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
 </UL>
 
 <P><STRONG><a name="[7a]"></a>RCC_APB2PeriphResetCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd))
@@ -920,25 +920,25 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 </UL>
 
-<P><STRONG><a name="[f4]"></a>RCC_GetFlagStatus</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, stm32f10x_rcc.o(i.RCC_GetFlagStatus))
+<P><STRONG><a name="[f3]"></a>RCC_GetFlagStatus</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, stm32f10x_rcc.o(i.RCC_GetFlagStatus))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = RCC_GetFlagStatus
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
-<P><STRONG><a name="[f7]"></a>RCC_GetSYSCLKSource</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_GetSYSCLKSource))
+<P><STRONG><a name="[f6]"></a>RCC_GetSYSCLKSource</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_GetSYSCLKSource))
 <BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
-<P><STRONG><a name="[f3]"></a>RCC_HSEConfig</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_HSEConfig))
+<P><STRONG><a name="[f2]"></a>RCC_HSEConfig</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_HSEConfig))
 <BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
-<P><STRONG><a name="[f5]"></a>RCC_PLLCmd</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_PLLCmd))
+<P><STRONG><a name="[f4]"></a>RCC_PLLCmd</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_PLLCmd))
 <BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
-<P><STRONG><a name="[f6]"></a>RCC_SYSCLKConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_SYSCLKConfig))
+<P><STRONG><a name="[f5]"></a>RCC_SYSCLKConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_SYSCLKConfig))
 <BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
@@ -1004,12 +1004,12 @@ Global Symbols
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 </UL>
 
-<P><STRONG><a name="[10c]"></a>TIM_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_Cmd))
+<P><STRONG><a name="[10b]"></a>TIM_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_Cmd))
 <BR><BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 </UL>
 
 <P><STRONG><a name="[134]"></a>TIM_CtrlPWMOutputs</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_CtrlPWMOutputs))
@@ -1017,19 +1017,19 @@ Global Symbols
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 </UL>
 
-<P><STRONG><a name="[10d]"></a>TIM_GetCapture1</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture1))
+<P><STRONG><a name="[10c]"></a>TIM_GetCapture1</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture1))
 <BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
-<P><STRONG><a name="[10e]"></a>TIM_GetCapture2</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture2))
+<P><STRONG><a name="[10d]"></a>TIM_GetCapture2</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture2))
 <BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
-<P><STRONG><a name="[10f]"></a>TIM_GetCapture3</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture3))
+<P><STRONG><a name="[10e]"></a>TIM_GetCapture3</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture3))
 <BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
-<P><STRONG><a name="[110]"></a>TIM_GetCapture4</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture4))
+<P><STRONG><a name="[10f]"></a>TIM_GetCapture4</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCapture4))
 <BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
@@ -1057,7 +1057,7 @@ Global Symbols
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
 </UL>
-<BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_TimeOutProc
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
@@ -1065,7 +1065,7 @@ Global Symbols
 <P><STRONG><a name="[97]"></a>TIM_ITConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_ITConfig))
 <BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartHardTimer
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 </UL>
 
@@ -1165,12 +1165,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[10a]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 122 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_TimeBaseInit))
+<P><STRONG><a name="[109]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 122 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_TimeBaseInit))
 <BR><BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 </UL>
 
 <P><STRONG><a name="[3e]"></a>UART4_IRQHandler</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, bsp_uart_fifo.o(i.UART4_IRQHandler))
@@ -1252,7 +1252,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 <LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI9_5_IRQHandler
 </UL>
@@ -1370,9 +1370,9 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 </UL>
 
-<P><STRONG><a name="[fa]"></a>bsp_AngleReadRaw</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_angle.o(i.bsp_AngleReadRaw))
+<P><STRONG><a name="[f9]"></a>bsp_AngleReadRaw</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_angle.o(i.bsp_AngleReadRaw))
 <BR><BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
 <P><STRONG><a name="[8d]"></a>bsp_AngleRevByte</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, bsp_angle.o(i.bsp_AngleRevByte))
@@ -1426,7 +1426,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
 <P><STRONG><a name="[d2]"></a>bsp_ComAnalysis</STRONG> (Thumb, 526 bytes, Stack size 96 bytes, bsp_communication.o(i.bsp_ComAnalysis))
@@ -1454,7 +1454,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRst
 </UL>
 
@@ -1497,31 +1497,30 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidSched
 </UL>
 
-<P><STRONG><a name="[106]"></a>bsp_EncoderGetTotalMileage</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, bsp_encoder.o(i.bsp_EncoderGetTotalMileage))
+<P><STRONG><a name="[105]"></a>bsp_EncoderGetTotalMileage</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, bsp_encoder.o(i.bsp_EncoderGetTotalMileage))
 <BR><BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentBothPulse
 </UL>
 
-<P><STRONG><a name="[ec]"></a>bsp_EnterStopMODE</STRONG> (Thumb, 140 bytes, Stack size 8 bytes, bsp_stopmode.o(i.bsp_EnterStopMODE))
+<P><STRONG><a name="[ec]"></a>bsp_EnterStopMODE</STRONG> (Thumb, 136 bytes, Stack size 8 bytes, bsp_stopmode.o(i.bsp_EnterStopMODE))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = bsp_EnterStopMODE &rArr; bsp_InitKeyStopMODE &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOff
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_SYSCLKConfig
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_PLLCmd
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_HSEConfig
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetSYSCLKSource
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetFlagStatus
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWR_EnterSTOPMode
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetAllPinLowPower
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
+<BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOff
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_SYSCLKConfig
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_PLLCmd
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_HSEConfig
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetSYSCLKSource
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetFlagStatus
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWR_EnterSTOPMode
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetAllPinLowPower
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DISABLE_ALL_EXIT
 </UL>
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 </UL>
 
-<P><STRONG><a name="[101]"></a>bsp_GetChargeFeedback</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_GetChargeFeedback))
+<P><STRONG><a name="[100]"></a>bsp_GetChargeFeedback</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_GetChargeFeedback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_GetChargeFeedback
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
@@ -1534,10 +1533,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_SoftwareStartConvCmd
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_RegularChannelConfig
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetFlagStatus
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetConversionValue
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_SoftwareStartConvCmd
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_RegularChannelConfig
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetFlagStatus
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetConversionValue
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CliffCalibration
@@ -1548,33 +1547,33 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EncoderGetTotalMileage
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EncoderGetTotalMileage
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 </UL>
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 </UL>
 
-<P><STRONG><a name="[fe]"></a>bsp_GetCurrentPosX</STRONG> (Thumb, 30 bytes, Stack size 24 bytes, bsp_position.o(i.bsp_GetCurrentPosX))
+<P><STRONG><a name="[fd]"></a>bsp_GetCurrentPosX</STRONG> (Thumb, 30 bytes, Stack size 24 bytes, bsp_position.o(i.bsp_GetCurrentPosX))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = bsp_GetCurrentPosX &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
-<P><STRONG><a name="[ff]"></a>bsp_GetCurrentPosY</STRONG> (Thumb, 30 bytes, Stack size 24 bytes, bsp_position.o(i.bsp_GetCurrentPosY))
+<P><STRONG><a name="[fe]"></a>bsp_GetCurrentPosY</STRONG> (Thumb, 30 bytes, Stack size 24 bytes, bsp_position.o(i.bsp_GetCurrentPosY))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = bsp_GetCurrentPosY &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
 <P><STRONG><a name="[cb]"></a>bsp_GetInfraRedAdcVoltage</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, bsp_detectact.o(i.bsp_GetInfraRedAdcVoltage))
 <BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AssistJudgeDirection
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
 <P><STRONG><a name="[e1]"></a>bsp_GetInfraredVoltageRight</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_detectact.o(i.bsp_GetInfraredVoltageRight))
@@ -1589,21 +1588,21 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 </UL>
 
-<P><STRONG><a name="[108]"></a>bsp_IRD_StartWork</STRONG> (Thumb, 338 bytes, Stack size 40 bytes, bsp_ir_decode.o(i.bsp_IRD_StartWork))
+<P><STRONG><a name="[107]"></a>bsp_IRD_StartWork</STRONG> (Thumb, 338 bytes, Stack size 40 bytes, bsp_ir_decode.o(i.bsp_IRD_StartWork))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
-<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITConfig
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
-<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_SoftTimerInit
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_SoftTimerInit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -1611,42 +1610,42 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[112]"></a>bsp_Init</STRONG> (Thumb, 122 bytes, Stack size 8 bytes, bsp.o(i.bsp_Init))
+<P><STRONG><a name="[111]"></a>bsp_Init</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, bsp.o(i.bsp_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = bsp_Init &rArr; bsp_InitCliffSW &rArr; bsp_CliffCalibration &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitDetectAct
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayMS
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCollision
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
+<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitRunControl
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSpeaker
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPid
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitMotor
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitEncoder
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
+<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKey
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitDWT
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBGMCU_Config
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitDWT
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBGMCU_Config
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[116]"></a>bsp_InitAngle</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, bsp_angle.o(i.bsp_InitAngle))
+<P><STRONG><a name="[115]"></a>bsp_InitAngle</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, bsp_angle.o(i.bsp_InitAngle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_InitAngle &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -1656,7 +1655,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_ADCCLKConfig
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_StartCalibration
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_ResetCalibration
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_RegularChannelConfig
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_RegularChannelConfig
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Init
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetResetCalibrationStatus
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetCalibrationStatus
@@ -1666,7 +1665,7 @@ Global Symbols
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CliffCalibration
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -1676,12 +1675,12 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
-<P><STRONG><a name="[115]"></a>bsp_InitDWT</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, bsp_dwt.o(i.bsp_InitDWT))
-<BR><BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<P><STRONG><a name="[114]"></a>bsp_InitDWT</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, bsp_dwt.o(i.bsp_InitDWT))
+<BR><BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
 
 <P><STRONG><a name="[123]"></a>bsp_InitDetectAct</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_detectact.o(i.bsp_InitDetectAct))
@@ -1689,7 +1688,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -1698,7 +1697,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitGPIO
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -1706,22 +1705,22 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = bsp_InitFormAwaken &rArr; bsp_InitCliffSW &rArr; bsp_CliffCalibration &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitDetectAct
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCollision
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
+<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitRunControl
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSpeaker
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPid
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitMotor
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitEncoder
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
+<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKey
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI9_5_IRQHandler
 </UL>
@@ -1729,12 +1728,12 @@ Global Symbols
 <P><STRONG><a name="[11c]"></a>bsp_InitHardTimer</STRONG> (Thumb, 94 bytes, Stack size 32 bytes, bsp_timer.o(i.bsp_InitHardTimer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = bsp_InitHardTimer &rArr; NVIC_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
-<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -1744,18 +1743,18 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyVar
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
-<P><STRONG><a name="[119]"></a>bsp_InitLed</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, bsp_led.o(i.bsp_InitLed))
+<P><STRONG><a name="[118]"></a>bsp_InitLed</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, bsp_led.o(i.bsp_InitLed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_InitLed &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -1766,38 +1765,38 @@ Global Symbols
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
 <P><STRONG><a name="[11f]"></a>bsp_InitPid</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_InitPid))
-<BR><BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR><BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
-<P><STRONG><a name="[117]"></a>bsp_InitPinPulse</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, bsp_pulsemark.o(i.bsp_InitPinPulse))
+<P><STRONG><a name="[116]"></a>bsp_InitPinPulse</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, bsp_pulsemark.o(i.bsp_InitPinPulse))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_InitPinPulse &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
 <P><STRONG><a name="[122]"></a>bsp_InitRunControl</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, bsp_runcontrol.o(i.bsp_InitRunControl))
-<BR><BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR><BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
-<P><STRONG><a name="[11a]"></a>bsp_InitSW</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, bsp_powerswitch.o(i.bsp_InitSW))
+<P><STRONG><a name="[119]"></a>bsp_InitSW</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, bsp_powerswitch.o(i.bsp_InitSW))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_InitSW &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOff
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOff
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -1807,18 +1806,18 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
-<P><STRONG><a name="[118]"></a>bsp_InitUart</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, bsp_uart_fifo.o(i.bsp_InitUart))
+<P><STRONG><a name="[117]"></a>bsp_InitUart</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, bsp_uart_fifo.o(i.bsp_InitUart))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = bsp_InitUart &rArr; InitHardUart &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartVarInit
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -1831,18 +1830,18 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[128]"></a>bsp_LedOff</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOff))
-<BR><BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
+<BR><BR>[Called By]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 </UL>
 
 <P><STRONG><a name="[17a]"></a>bsp_LedToggle</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedToggle))
 <BR><BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 </UL>
 
-<P><STRONG><a name="[fd]"></a>bsp_MotorGetPulseVector</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_MotorGetPulseVector))
-<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<P><STRONG><a name="[fc]"></a>bsp_MotorGetPulseVector</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_MotorGetPulseVector))
+<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
-<P><STRONG><a name="[fb]"></a>bsp_MotorGetSpeed</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, bsp_control.o(i.bsp_MotorGetSpeed))
+<P><STRONG><a name="[fa]"></a>bsp_MotorGetSpeed</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, bsp_control.o(i.bsp_MotorGetSpeed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = bsp_MotorGetSpeed &rArr; __aeabi_fdiv
 </UL>
 <BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
@@ -1850,7 +1849,7 @@ Global Symbols
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 </UL>
 <BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
 <P><STRONG><a name="[13d]"></a>bsp_MotorSetPWM</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, bsp_motor.o(i.bsp_MotorSetPWM))
@@ -1893,9 +1892,9 @@ Global Symbols
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
@@ -1918,13 +1917,13 @@ Global Symbols
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetRev
 <LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopSearchChargePile
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetChargeFeedback
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetChargeFeedback
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlow
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlow
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCW
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCCW
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GoBackward
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GoBackward
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
@@ -1934,7 +1933,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = bsp_SendReportFrame &rArr; bsp_FillReportFrame &rArr; bsp_GetCurrentPosY &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comSendBuf
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
@@ -1967,7 +1966,7 @@ Global Symbols
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCW
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCCW
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GoBackward
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GoBackward
 </UL>
 
 <P><STRONG><a name="[179]"></a>bsp_SetPowerKey</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_runcontrol.o(i.bsp_SetPowerKey))
@@ -1978,8 +1977,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = bsp_SetTIMforInt &rArr; NVIC_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
-<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITConfig
@@ -1992,7 +1991,7 @@ Global Symbols
 <P><STRONG><a name="[154]"></a>bsp_StartAssistJudgeDirection</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bsp_assistjudgedirection.o(i.bsp_StartAssistJudgeDirection))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_StartAssistJudgeDirection
 </UL>
-<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -2033,24 +2032,23 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[ed]"></a>bsp_SwOff</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, bsp_powerswitch.o(i.bsp_SwOff))
+<P><STRONG><a name="[ee]"></a>bsp_SwOff</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, bsp_powerswitch.o(i.bsp_SwOff))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_SwOff
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
+<BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
-<P><STRONG><a name="[ee]"></a>bsp_SwOn</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, bsp_powerswitch.o(i.bsp_SwOn))
+<P><STRONG><a name="[11a]"></a>bsp_SwOn</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, bsp_powerswitch.o(i.bsp_SwOn))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_SwOn
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
@@ -2115,7 +2113,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vSetupSysInfoTest
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppTaskCreate
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppObjCreate
 </UL>
@@ -2186,7 +2184,7 @@ Global Symbols
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 </UL>
 
-<P><STRONG><a name="[f2]"></a>vPortEnterCritical</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, port.o(i.vPortEnterCritical))
+<P><STRONG><a name="[f1]"></a>vPortEnterCritical</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, port.o(i.vPortEnterCritical))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = vPortEnterCritical
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
@@ -2201,7 +2199,7 @@ Global Symbols
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 </UL>
 
-<P><STRONG><a name="[f8]"></a>vPortExitCritical</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, port.o(i.vPortExitCritical))
+<P><STRONG><a name="[f7]"></a>vPortExitCritical</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, port.o(i.vPortExitCritical))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = vPortExitCritical
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortClearInterruptMask
@@ -2337,8 +2335,8 @@ Global Symbols
 <P><STRONG><a name="[184]"></a>xQueueGenericSend</STRONG> (Thumb, 296 bytes, Stack size 56 bytes, queue.o(i.xQueueGenericSend))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = xQueueGenericSend &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
@@ -2357,8 +2355,8 @@ Global Symbols
 <P><STRONG><a name="[185]"></a>xTaskCheckForTimeOut</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, tasks.o(i.xTaskCheckForTimeOut))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = xTaskCheckForTimeOut &rArr; vPortExitCritical
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
@@ -2368,8 +2366,8 @@ Global Symbols
 <P><STRONG><a name="[7e]"></a>xTaskGenericCreate</STRONG> (Thumb, 288 bytes, Stack size 56 bytes, tasks.o(i.xTaskGenericCreate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = xTaskGenericCreate &rArr; prvAllocateTCBAndStack &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
@@ -2386,7 +2384,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
 <P><STRONG><a name="[91]"></a>xTaskIncrementTick</STRONG> (Thumb, 272 bytes, Stack size 24 bytes, tasks.o(i.xTaskIncrementTick))
@@ -2425,8 +2423,8 @@ Global Symbols
 <P><STRONG><a name="[162]"></a>xTaskResumeAll</STRONG> (Thumb, 200 bytes, Stack size 16 bytes, tasks.o(i.xTaskResumeAll))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
@@ -2615,10 +2613,10 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = bsp_CalcChk
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
-<P><STRONG><a name="[f9]"></a>bsp_FillReportFrame</STRONG> (Thumb, 622 bytes, Stack size 136 bytes, bsp_communication.o(i.bsp_FillReportFrame))
+<P><STRONG><a name="[f8]"></a>bsp_FillReportFrame</STRONG> (Thumb, 622 bytes, Stack size 136 bytes, bsp_communication.o(i.bsp_FillReportFrame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = bsp_FillReportFrame &rArr; bsp_GetCurrentPosY &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
@@ -2626,15 +2624,15 @@ Local Symbols
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetInfraRedAdcVoltage
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
-<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetPulseVector
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
+<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetPulseVector
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
+<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CalcChk
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrame
 </UL>
@@ -2664,7 +2662,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare4
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
@@ -2678,8 +2676,8 @@ Local Symbols
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1PreloadConfig
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1Init
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_CtrlPWMOutputs
-<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitMotor
 </UL>
@@ -2689,7 +2687,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare4
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
@@ -2703,9 +2701,9 @@ Local Symbols
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1PreloadConfig
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1Init
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_CtrlPWMOutputs
-<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinRemapConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitMotor
 </UL>
@@ -2762,7 +2760,7 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
-<P><STRONG><a name="[107]"></a>bsp_GoBackward</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_GoBackward))
+<P><STRONG><a name="[106]"></a>bsp_GoBackward</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_GoBackward))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_GoBackward
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
@@ -2818,7 +2816,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
-<P><STRONG><a name="[f0]"></a>bsp_InitKeyStopMODE</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, bsp_stopmode.o(i.bsp_InitKeyStopMODE))
+<P><STRONG><a name="[ef]"></a>bsp_InitKeyStopMODE</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, bsp_stopmode.o(i.bsp_InitKeyStopMODE))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = bsp_InitKeyStopMODE &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
@@ -2831,7 +2829,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
-<P><STRONG><a name="[ef]"></a>bsp_SetAllPinLowPower</STRONG> (Thumb, 122 bytes, Stack size 8 bytes, bsp_stopmode.o(i.bsp_SetAllPinLowPower))
+<P><STRONG><a name="[ed]"></a>bsp_SetAllPinLowPower</STRONG> (Thumb, 178 bytes, Stack size 8 bytes, bsp_stopmode.o(i.bsp_SetAllPinLowPower))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_SetAllPinLowPower &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Cmd
@@ -2846,7 +2844,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
+<BR>[Called By]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
 </UL>
 
 <P><STRONG><a name="[85]"></a>InitHardUart</STRONG> (Thumb, 582 bytes, Stack size 24 bytes, bsp_uart_fifo.o(i.InitHardUart))
@@ -2860,7 +2858,7 @@ Local Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ClearFlag
 </UL>
-<BR>[Called By]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
+<BR>[Called By]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
 </UL>
 
 <P><STRONG><a name="[a4]"></a>UartGetChar</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, bsp_uart_fifo.o(i.UartGetChar))
@@ -2895,7 +2893,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[139]"></a>UartVarInit</STRONG> (Thumb, 172 bytes, Stack size 0 bytes, bsp_uart_fifo.o(i.UartVarInit))
-<BR><BR>[Called By]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
+<BR><BR>[Called By]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitUart
 </UL>
 
 <P><STRONG><a name="[a5]"></a>__set_PRIMASK</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_uart_fifo.o(i.__set_PRIMASK))
@@ -2954,7 +2952,7 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKey
 </UL>
 
-<P><STRONG><a name="[111]"></a>bsp_IRD_DecodeNec</STRONG> (Thumb, 512 bytes, Stack size 8 bytes, bsp_ir_decode.o(i.bsp_IRD_DecodeNec))
+<P><STRONG><a name="[110]"></a>bsp_IRD_DecodeNec</STRONG> (Thumb, 512 bytes, Stack size 8 bytes, bsp_ir_decode.o(i.bsp_IRD_DecodeNec))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_IRD_DecodeNec
 </UL>
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
@@ -2964,17 +2962,17 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = bsp_IR_GetPulseWidth &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture4
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture3
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture2
-<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture1
-<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_DecodeNec
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture4
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture3
+<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture2
+<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture1
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_DecodeNec
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 </UL>
 
-<P><STRONG><a name="[10b]"></a>bsp_IR_SoftTimerInit</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, bsp_ir_decode.o(i.bsp_IR_SoftTimerInit))
-<BR><BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<P><STRONG><a name="[10a]"></a>bsp_IR_SoftTimerInit</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, bsp_ir_decode.o(i.bsp_IR_SoftTimerInit))
+<BR><BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 </UL>
 
 <P><STRONG><a name="[95]"></a>bsp_IR_TimeOutProc</STRONG> (Thumb, 166 bytes, Stack size 40 bytes, bsp_ir_decode.o(i.bsp_IR_TimeOutProc))
@@ -3035,8 +3033,8 @@ Local Symbols
 <P><STRONG><a name="[16d]"></a>prvIsQueueFull</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, queue.o(i.prvIsQueueFull))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = prvIsQueueFull &rArr; vPortExitCritical
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 </UL>
 <BR>[Called By]<UL><LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
@@ -3044,8 +3042,8 @@ Local Symbols
 <P><STRONG><a name="[16e]"></a>prvUnlockQueue</STRONG> (Thumb, 126 bytes, Stack size 8 bytes, queue.o(i.prvUnlockQueue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = prvUnlockQueue &rArr; xTaskRemoveFromEventList
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMissedYield
 </UL>
@@ -3074,8 +3072,8 @@ Local Symbols
 <P><STRONG><a name="[160]"></a>prvCheckTasksWaitingTermination</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, tasks.o(i.prvCheckTasksWaitingTermination))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = prvCheckTasksWaitingTermination &rArr; prvDeleteTCB &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll

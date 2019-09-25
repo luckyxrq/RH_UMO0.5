@@ -1,18 +1,9 @@
 #include "bsp.h"
 
 
-#define RCC_ALL_SW 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOF)
-
-#define GPIO_PORT_5V_EN_CTR  GPIOE
-#define GPIO_PIN_5V_EN_CTR   GPIO_Pin_15
-
-
-#define GPIO_PORT_IR_POWER  GPIOF
-#define GPIO_PIN_IR_POWER   GPIO_Pin_0
-
-
-#define GPIO_PORT_MOTOR_POWER  GPIOA
-#define GPIO_PIN_MOTOR_POWER   GPIO_Pin_9
+/*
+	引脚定义在头文件，方便与低功耗引脚同步
+*/
 
 
 /*
@@ -70,7 +61,7 @@ void bsp_SwOn(SW_ID sw)
 	{
 		case SW_5V_EN_CTRL:
 		{
-			GPIO_SetBits(GPIO_PORT_5V_EN_CTR,GPIO_PIN_5V_EN_CTR);
+			GPIO_ResetBits(GPIO_PORT_5V_EN_CTR,GPIO_PIN_5V_EN_CTR);
 		}break;
 		
 		case SW_IR_POWER:
@@ -102,7 +93,7 @@ void bsp_SwOff(SW_ID sw)
 	{
 		case SW_5V_EN_CTRL:
 		{
-			GPIO_ResetBits(GPIO_PORT_5V_EN_CTR,GPIO_PIN_5V_EN_CTR);
+			GPIO_SetBits(GPIO_PORT_5V_EN_CTR,GPIO_PIN_5V_EN_CTR);
 		}break;
 		
 		case SW_IR_POWER:

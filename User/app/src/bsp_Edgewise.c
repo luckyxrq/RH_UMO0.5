@@ -384,7 +384,7 @@ static void bsp_RotateCCW(void)
 	
 	/*基本参数，计算合理的线速度和角速度*/
 	double r = 15;
-	double linearVelocity = 50;
+	double linearVelocity = 20;
 	double angularVelocity = Deg2Rad(linearVelocity / r);
 
 	/*计算出速度，单位MM/S */
