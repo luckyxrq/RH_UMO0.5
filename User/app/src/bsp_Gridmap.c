@@ -5,13 +5,9 @@ static GridMap gridmap;
 
 static unsigned long mysqrt(unsigned long x);
 
-static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,int robotY,double robotTheta,int xi,int yi,unsigned char obstacleSignal,unsigned char* IRSensorData)
+static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,int robotY,double robotTheta,int grid_real_center_x,int grid_real_center_y,unsigned char obstacleSignal,unsigned char* IRSensorData)
 {
 
-	int o_x = robotX;
-	int o_y = robotY;
-	
-	
 	double thetaK;
 	double sensorTheta;
 	
@@ -19,146 +15,163 @@ static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,
 	int SensorData_signal_flag = 0;
 	
 	int r = robotXY_from_gridXY_dist;
-	double phi = atan2(yi - o_y, xi - o_x) - robotTheta;
+	double phi = atan2(grid_real_center_y - robotY, grid_real_center_x - robotX) - robotTheta;
 	unsigned char IR_index;
 	 
 
 	switch (gridmap.sensor_type)
 	{
-	case 0:
-		
-		if (obstacleSignal == NONE_OBSTACLE_SIGNAL) // Free
-		{
-			sensorTheta = 0;
-		}
-		else if (obstacleSignal == RIGHT_OBSTACLE_SIGNAL) // The barriers in right front
-		{
-			sensorTheta = -gridmap.collision_sensor_installation_angle_on_robot; //-45;
-		}
-		else if (obstacleSignal == LEFT_OBSTACLE_SIGNAL) // The barriers in left front
-		{
-			sensorTheta = gridmap.collision_sensor_installation_angle_on_robot; //45;
-		}
-		else if (obstacleSignal == FRONT_OBSTACLE_SIGNAL) // The barriers in front
-		{
-			sensorTheta = 0;
-		}
-		if ((obstacleSignal == FRONT_OBSTACLE_SIGNAL) &&\
-			(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
-			(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
-		{ 
-			return gridmap.grid_occcupancy; // Front
-		}
-		else if ((obstacleSignal == LEFT_OBSTACLE_SIGNAL) &&\
-			(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
-		    (fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
-		{ 
-			return gridmap.grid_occcupancy; // Left
-		}
-		else if ((obstacleSignal == RIGHT_OBSTACLE_SIGNAL) &&\
-			(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
-     		(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
-		{
-			return gridmap.grid_occcupancy; // Right
-		}
-		else if ((obstacleSignal == NONE_OBSTACLE_SIGNAL) && (r < gridmap.free_zone_from_robot_center))
-		{
-			return gridmap.grid_free;
-		}
-		else
-		{
-			return gridmap.grid_default;
-		}
-		break;
-	case 1: // IR Laser
-		/**  65.5 52.5 35.7 17.3 0 0 -17.3 -35.7 -52.5 -65.5  */
-		for (IR_index = 0; IR_index < 10; IR_index++)
-		{
-			if (IR_index == 0)
+		case 0:
+			
+			if (obstacleSignal == NONE_OBSTACLE_SIGNAL) // Free
 			{
-				sensorTheta = Deg2Rad(52.5);
-				SensorData_signal = IRSensorData[0];
+				sensorTheta = 0;
 			}
-			else if (IR_index == 1)
+			else if (obstacleSignal == RIGHT_OBSTACLE_SIGNAL) // The barriers in right front
 			{
-				sensorTheta = Deg2Rad(35.7);
-				SensorData_signal = IRSensorData[1];
+				sensorTheta = -gridmap.collision_sensor_installation_angle_on_robot; //-45;
 			}
-			else if (IR_index == 2)
+			else if (obstacleSignal == LEFT_OBSTACLE_SIGNAL) // The barriers in left front
 			{
-				sensorTheta = Deg2Rad(17.3);
-				SensorData_signal = IRSensorData[2];
+				sensorTheta = gridmap.collision_sensor_installation_angle_on_robot; //45;
 			}
-			else if (IR_index == 3)
+			else if (obstacleSignal == FRONT_OBSTACLE_SIGNAL) // The barriers in front
 			{
-				sensorTheta = Deg2Rad(0);
-				SensorData_signal = IRSensorData[3];
+				sensorTheta = 0;
 			}
-			else if (IR_index == 4)
+			if ((obstacleSignal == FRONT_OBSTACLE_SIGNAL) &&\
+				(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
+				(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
+			{ 
+				return gridmap.grid_occcupancy; // Front
+			}
+			else if ((obstacleSignal == LEFT_OBSTACLE_SIGNAL) &&\
+				(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
+				(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
+			{ 
+				return gridmap.grid_occcupancy; // Left
+			}
+			else if ((obstacleSignal == RIGHT_OBSTACLE_SIGNAL) &&\
+				(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
+				(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
 			{
-				sensorTheta = Deg2Rad(-17.3);
-				SensorData_signal = IRSensorData[4];
+				return gridmap.grid_occcupancy; // Right
 			}
-			else if (IR_index == 5)
-			{
-				sensorTheta = Deg2Rad(-35.7);
-				SensorData_signal = IRSensorData[5];
-			}
-			else if (IR_index == 6)
-			{
-				sensorTheta = Deg2Rad(-52.5);
-				SensorData_signal = IRSensorData[6];
-			}
-			else if (IR_index == 7)
-			{ // Head
-				sensorTheta = Deg2Rad(0);
-				SensorData_signal = IRSensorData[7];
-			}
-			else if (IR_index == 8)
-			{
-				sensorTheta = Deg2Rad(65.5);
-				SensorData_signal = IRSensorData[8];
-			}
-			else if (IR_index == 9)
-			{
-				sensorTheta = Deg2Rad(-65.5);
-				SensorData_signal = IRSensorData[9];
-			}
-
-			//if (fabs(phi - sensorTheta) < minDelta || minDelta == -1) {
-			if (fabs(phi - sensorTheta) < gridmap.collision_sensor_installation_angle_on_robot)
-			{ //deg:10(Rad 0.17)
-				//Zk = SensorData_signal;//SensorData[i];
-				SensorData_signal_flag = SensorData_signal;
-				thetaK = sensorTheta;
-				//minDelta = fabs(phi - sensorTheta);
-			}
-		}
-		if (SensorData_signal_flag == 1)
-		{
-			if ((r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
-				(fabs(phi - thetaK) <= gridmap.collision_sensor_installation_angle_on_robot))
-			{ //deg:10(Rad 0.17)
-				return gridmap.grid_occcupancy;
-			}
-			else if (r < gridmap.obstacle_distance_from_robot_center)
+			else if ((obstacleSignal == NONE_OBSTACLE_SIGNAL) && (r < gridmap.free_zone_from_robot_center))
 			{
 				return gridmap.grid_free;
 			}
-		}
-		else if (r < gridmap.free_zone_from_robot_center)
-		{
-			return gridmap.grid_free; // -2.2
-		}
-		else
-		{
-			return gridmap.grid_default;
-		}
-		break;
-	default:
-		DEBUG(" Unknown Sensor Type ");
+			else
+			{
+				return gridmap.grid_default;
+			}
+			break;
+		case 1: // IR Laser
+			/**  65.5 52.5 35.7 17.3 0 0 -17.3 -35.7 -52.5 -65.5  */
+			for (IR_index = 0; IR_index < 10; IR_index++)
+			{
+				if (IR_index == 0)
+				{
+					sensorTheta = Deg2Rad(52.5);
+					SensorData_signal = IRSensorData[0];
+				}
+				else if (IR_index == 1)
+				{
+					sensorTheta = Deg2Rad(35.7);
+					SensorData_signal = IRSensorData[1];
+				}
+				else if (IR_index == 2)
+				{
+					sensorTheta = Deg2Rad(17.3);
+					SensorData_signal = IRSensorData[2];
+				}
+				else if (IR_index == 3)
+				{
+					sensorTheta = Deg2Rad(0);
+					SensorData_signal = IRSensorData[3];
+				}
+				else if (IR_index == 4)
+				{
+					sensorTheta = Deg2Rad(-17.3);
+					SensorData_signal = IRSensorData[4];
+				}
+				else if (IR_index == 5)
+				{
+					sensorTheta = Deg2Rad(-35.7);
+					SensorData_signal = IRSensorData[5];
+				}
+				else if (IR_index == 6)
+				{
+					sensorTheta = Deg2Rad(-52.5);
+					SensorData_signal = IRSensorData[6];
+				}
+				else if (IR_index == 7)
+				{ // Head
+					sensorTheta = Deg2Rad(0);
+					SensorData_signal = IRSensorData[7];
+				}
+				else if (IR_index == 8)
+				{
+					sensorTheta = Deg2Rad(65.5);
+					SensorData_signal = IRSensorData[8];
+				}
+				else if (IR_index == 9)
+				{
+					sensorTheta = Deg2Rad(-65.5);
+					SensorData_signal = IRSensorData[9];
+				}
+
+				//if (fabs(phi - sensorTheta) < minDelta || minDelta == -1) {
+				if (fabs(phi - sensorTheta) < gridmap.collision_sensor_installation_angle_on_robot)
+				{ //deg:10(Rad 0.17)
+					//Zk = SensorData_signal;//SensorData[i];
+					SensorData_signal_flag = SensorData_signal;
+					thetaK = sensorTheta;
+					//minDelta = fabs(phi - sensorTheta);
+				}
+			}
+			if (SensorData_signal_flag == 1)
+			{
+				if ((r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
+					(fabs(phi - thetaK) <= gridmap.collision_sensor_installation_angle_on_robot))
+				{ //deg:10(Rad 0.17)
+					return gridmap.grid_occcupancy;
+				}
+				else if (r < gridmap.obstacle_distance_from_robot_center)
+				{
+					return gridmap.grid_free;
+				}
+			}
+			else if (r < gridmap.free_zone_from_robot_center)
+			{
+				return gridmap.grid_free; // -2.2
+			}
+			else
+			{
+				return gridmap.grid_default;
+			}
+			break;
+		default:
+			DEBUG(" Unknown Sensor Type ");
 	}
 }
+
+
+static void GridToXY( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
+    
+    *x_point = *x_grid * GRIDWIDTH + GRIDWIDTH / 2 - ROBOTXOFFSET;
+    *y_point = -(*y_grid * GRIDHEIGHT + GRIDHEIGHT / 2 ) + ROBOTXOFFSET;
+
+}
+static void XYToGrid( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
+    
+    *x_grid = (*x_point + ROBOTXOFFSET - GRIDWIDTH / 2) / GRIDWIDTH;
+    *y_grid = (-*y_point + ROBOTXOFFSET - GRIDHEIGHT / 2) / GRIDHEIGHT;
+    
+}
+
+
+
 /*
 *********************************************************************************************************
 *	º¯ Êý Ãû: bsp_StartUpdateMap
@@ -169,7 +182,7 @@ static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,
 */
 void bsp_StartUpdateGridMap(void)
 {
-	int x,y;
+	int grid_index_x,grid_index_y;
 	gridmap.grid_default = 1;
 	gridmap.grid_occcupancy = 2;
 	gridmap.grid_free = 0;
@@ -180,11 +193,11 @@ void bsp_StartUpdateGridMap(void)
 	gridmap.refresh_zone_min_radius=170;
 	gridmap.sensor_type=0;
 	
-	for (x = 0; x < MAPWIDTH / GRIDWIDTH; x++)
+	for (grid_index_x = 0; grid_index_x < MAPWIDTH / GRIDWIDTH; grid_index_x++)
 	{ // The number of cells
-		for (y = 0; y < MAPHEIGHT / GRIDHEIGHT; y++)
+		for (grid_index_y = 0; grid_index_y < MAPHEIGHT / GRIDHEIGHT; grid_index_y++)
 		{
-			gridmap.map[x][y] = gridmap.grid_default; // initialization
+			gridmap.map[grid_index_x][grid_index_y] = gridmap.grid_default; // initialization
 		}
 	}
 	
@@ -220,10 +233,12 @@ void bsp_StopUpdateGridMap(void)
 */
 void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[])
 {
-	int x,y;
-	int xi, yi;
+	int grid_real_center_x, grid_real_center_y;
+	int grid_index_x,grid_index_y;
 	int robotXY_from_gridXY_dist;
 	unsigned char grid_status;
+	int min_x,min_y,max_x,max_y;
+	
 	
 	
 	if(!gridmap.isRunning)
@@ -235,26 +250,37 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 	{
 		case 0:
 		{
-			for ( x = 0; x < MAPWIDTH / GRIDWIDTH; x++)
+			robotX += X_BIAS;
+			robotY += Y_BIAS;
+			
+			XYToGrid(&robotX, &robotY,&grid_index_x, &grid_index_y);
+			
+			min_x = grid_index_x - REFRESH_ZONE_SIZE;
+			min_y = grid_index_y - REFRESH_ZONE_SIZE;
+			max_x = grid_index_x + REFRESH_ZONE_SIZE;
+			max_y = grid_index_y + REFRESH_ZONE_SIZE;
+			
+			
+			for ( grid_index_x = min_x; grid_index_x < max_x; grid_index_x++)
 			{
-				for ( y = 0; y < MAPHEIGHT / GRIDHEIGHT; y++)
+				for ( grid_index_y = min_x; grid_index_y < max_y; grid_index_y++)
 				{
+					GridToXY( &grid_real_center_x,  &grid_real_center_y, &grid_index_x, &grid_index_y);
+//					grid_real_center_x = grid_index_x * GRIDWIDTH + GRIDWIDTH / 2 - ROBOTXOFFSET;
+//					grid_real_center_y = -(grid_index_y * GRIDHEIGHT + GRIDHEIGHT / 2) + ROBOTYOFFSET;
 					
-					xi = x * GRIDWIDTH + GRIDWIDTH / 2 - ROBOTXOFFSET;
-					yi = -(y * GRIDHEIGHT + GRIDHEIGHT / 2) + ROBOTYOFFSET;
-					
-					robotXY_from_gridXY_dist = mysqrt(pow(xi - robotX, 2) + pow(yi - robotY, 2));
+					robotXY_from_gridXY_dist = mysqrt(pow(grid_real_center_x - robotX, 2) + pow(grid_real_center_y - robotY, 2));
 					
 					if (robotXY_from_gridXY_dist <= gridmap.refresh_zone_max_radius)
 					{
-						grid_status = inverseSensorModel(robotXY_from_gridXY_dist,robotX, robotY, robotTheta, xi, yi, obstacleSignal, IRSensorData);
+						grid_status = inverseSensorModel(robotXY_from_gridXY_dist,robotX, robotY, robotTheta, grid_real_center_x, grid_real_center_y, obstacleSignal, IRSensorData);
 						
 						if (grid_status == gridmap.grid_default)
 						{
-							gridmap.map[x][y] = gridmap.map[x][y];
+							gridmap.map[grid_index_x][grid_index_y] = gridmap.map[grid_index_x][grid_index_y];
 						}
 						else
-							gridmap.map[x][y] = grid_status;
+							gridmap.map[grid_index_x][grid_index_y] = grid_status;
 					}
 				}
 			}
