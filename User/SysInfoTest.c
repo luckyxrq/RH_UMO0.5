@@ -65,13 +65,9 @@ void TIM6_IRQHandler( void )
 		if(tick % 20 == 0)          /*1MS */
 		{
 			//bsp_IR_SoftTimerTickPerMS();
-		}
-		
-		if(tick % 20*10 == 0)       /*10MS */
-		{
 			bsp_VacuumClean();
 		}
-		
+
 		
 		ulHighFrequencyTimerTicks++;
 		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);

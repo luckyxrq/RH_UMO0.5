@@ -310,6 +310,7 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 		/*轮机卡死时会出现，重新开始PID*/
 		if(myabs(Encoder)-myabs(Target) >= 4)
 		{
+			bsp_MotorBrake(sn);
 			bsp_PidClear(sn);;
 		}
 		
@@ -340,6 +341,7 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 		/*轮机卡死时会出现，重新开始PID*/
 		if(myabs(Encoder)-myabs(Target) >= 4)
 		{
+			bsp_MotorBrake(sn);
 			bsp_PidClear(sn);;
 		}
 		

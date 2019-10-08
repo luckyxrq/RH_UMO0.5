@@ -148,7 +148,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					DEBUG("即将进入STOP模式\r\n");
 					vTaskDelay(100);
 					
-					bsp_EnterStopMODE();
+//					bsp_EnterStopMODE();
 					
 
 				}break;
@@ -157,11 +157,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         
         if(count++ % 2 == 0)
         {
-            bsp_LedToggle(1);
-			bsp_LedToggle(2);
-			bsp_LedToggle(3);
-			
-			
 			//bsp_PrintIR_Rev();
 			
 //			float cliff = 0.0F;
@@ -214,19 +209,21 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #endif
 		
 #if 0
-		while(0)
+		bsp_StartVacuum();
+		while(1)
 		{
-			bsp_SetMotorSpeed(MotorLeft, 12);
-			bsp_SetMotorSpeed(MotorRight,12);
-			vTaskDelay(1500);
 			bsp_SetMotorSpeed(MotorLeft, 6);
 			bsp_SetMotorSpeed(MotorRight,6);
 			vTaskDelay(1500);
-			bsp_SetMotorSpeed(MotorLeft, -12);
-			bsp_SetMotorSpeed(MotorRight,-12);
-			vTaskDelay(1500); 
+			bsp_SetMotorSpeed(MotorLeft, 12);
+			bsp_SetMotorSpeed(MotorRight,12);
+			vTaskDelay(1500);
+
 			bsp_SetMotorSpeed(MotorLeft, -6);
 			bsp_SetMotorSpeed(MotorRight,-6);
+			vTaskDelay(1500); 
+			bsp_SetMotorSpeed(MotorLeft, -12);
+			bsp_SetMotorSpeed(MotorRight,-12);
 			vTaskDelay(1500); 
 		}
 #endif

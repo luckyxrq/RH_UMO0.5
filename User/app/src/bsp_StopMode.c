@@ -25,6 +25,7 @@ void bsp_EnterStopMODE(void)
 	bsp_SetAllPinLowPower();
 	bsp_SwOff(SW_IR_POWER);
 	bsp_SwOff(SW_MOTOR_POWER);
+	bsp_SwOff(SW_ENCODER_POWER);
 	bsp_SwOff(SW_5V_EN_CTRL);
 	
 	/*初始化外部中断引脚，专门用作唤醒MCU*/
@@ -125,8 +126,7 @@ static void bsp_DISABLE_ALL_EXIT(void)
 static void bsp_SetAllPinLowPower(void)
 {
 	/*
-		电源使能引脚不改变
-		#define RCC_ALL_SW 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOF)
+		#define RCC_ALL_SW 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOF)
 
 		#define GPIO_PORT_5V_EN_CTR  GPIOE
 		#define GPIO_PIN_5V_EN_CTR   GPIO_Pin_15
@@ -138,6 +138,10 @@ static void bsp_SetAllPinLowPower(void)
 
 		#define GPIO_PORT_MOTOR_POWER  GPIOA
 		#define GPIO_PIN_MOTOR_POWER   GPIO_Pin_9
+
+
+		#define GPIO_PORT_ENCODER_POWER  GPIOA
+		#define GPIO_PIN_ENCODER_POWER   GPIO_Pin_8
 	*/
 	
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -153,7 +157,7 @@ static void bsp_SetAllPinLowPower(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	/* 推挽输出模式 */
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & (~GPIO_PIN_MOTOR_POWER);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & ~(GPIO_PIN_MOTOR_POWER | GPIO_PIN_ENCODER_POWER);
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;

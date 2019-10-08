@@ -60,6 +60,10 @@ void bsp_Init(void)
 	bsp_DelayMS(1000);
 	bsp_SwOn(SW_IR_POWER);
 	bsp_SwOn(SW_MOTOR_POWER);
+	bsp_SwOn(SW_ENCODER_POWER);
+	
+	/*测试充电时，关掉PA9 ，PA8不仅仅是编码器，还包括陀螺仪*/
+	//bsp_SwOff(SW_MOTOR_POWER);
 	
 	bsp_InitKey();           /* 初始化按键 */
 	bsp_InitHardTimer();     /* 初始化硬件定时器 */
@@ -127,16 +131,16 @@ void bsp_InitFormAwaken(void)
 	bsp_InitSpeaker();		 /*初始化扬声器*/
 	bsp_InitRunControl();    /*初始化整机控制状态机*/
 	
-//	bsp_InitIWDG();     /*初始化看门狗*/
-//	/* 初始化IO拓展芯片 */	
-//	do{
-//		ret = bsp_InitAW9523B();		
-//		if(!ret) 
-//		{
-//			WARNING("AW9523B Init Error\r\n");
-//			bsp_DelayMS(100);
-//		}
-//	}while(!ret);
+	bsp_InitIWDG();     /*初始化看门狗*/
+	/* 初始化IO拓展芯片 */	
+	do{
+		ret = bsp_InitAW9523B();		
+		if(!ret) 
+		{
+			WARNING("AW9523B Init Error\r\n");
+			bsp_DelayMS(100);
+		}
+	}while(!ret);
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
 	bsp_IRD_StartWork();
