@@ -623,7 +623,7 @@ void bsp_DetectDeal(void)
 	UNUSED(noObstacleTickCnt);
 	
 	
-#if 0	
+#if 1	
 	for(i=0;i<10;i++)
 	{
 		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);

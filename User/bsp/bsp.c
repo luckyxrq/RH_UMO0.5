@@ -78,16 +78,16 @@ void bsp_Init(void)
 	bsp_InitSpeaker();		 /*初始化扬声器*/
 	bsp_InitRunControl();    /*初始化整机控制状态机*/
 	
-//	bsp_InitIWDG();     /*初始化看门狗*/
-//	/* 初始化IO拓展芯片 */	
-//	do{
-//		ret = bsp_InitAW9523B();		
-//		if(!ret) 
-//		{
-//			WARNING("AW9523B Init Error\r\n");
-//			bsp_DelayMS(100);
-//		}
-//	}while(!ret);
+//	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
+	/* 初始化IO拓展芯片 */	
+	do{
+		ret = bsp_InitAW9523B();		
+		if(!ret) 
+		{
+			WARNING("AW9523B Init Error\r\n");
+			bsp_DelayMS(100);
+		}
+	}while(!ret);
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
 	bsp_IRD_StartWork();
