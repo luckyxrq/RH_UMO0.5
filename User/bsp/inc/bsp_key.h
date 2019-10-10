@@ -180,7 +180,7 @@ void bsp_ClearKey(void);
 
 /* 自定义扩展添加 */
 bool bsp_IsLongPressedAgo(KEY_SN sn);
-bool bsp_SetIsLongPressedAgo(KEY_SN sn , bool state);
+void bsp_SetIsLongPressedAgo(KEY_SN sn , bool state);
 
 #endif
 

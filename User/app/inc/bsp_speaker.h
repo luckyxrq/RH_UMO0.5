@@ -5,36 +5,36 @@
 
 typedef enum
 {
-	Song1 = 4, /*前面1 2 3没有声音*/
-	Song2,
-	Song3,
-	Song4,
-	Song5,
-	Song6,
-	Song7,
-	Song8,
-	Song9,
-	Song10,
-	Song11,
-	Song12,
-	Song13,
-	Song14,
-	Song15,
-	Song16,
-	Song17,
-	Song18,
-	Song19,
-	Song20,
-	Song21,
-	Song22,
-	Song23,
-	Song24,
-	Song25,
-	Song26,
-	Song27,
-	Song28,
-	Song29,
-	Song30,
+	Song1 = 4, /*开机   前面1 2 3没有声音*/
+	Song2,     /*关机*/
+	Song3,     /*开始清扫*/
+	Song4,     /*暂停清扫*/
+	Song5,     /*返回充电*/
+	Song6,     /*电池电量低，请回充*/
+	Song7,     /*电池异常*/
+	Song8,     /*陀螺仪异常*/
+	Song9,     /*尘盒取出*/
+	Song10,    /*尘盒装回*/
+	Song11,    /*请擦拭跳崖传感器*/
+	Song12,    /*右轮机异常*/
+	Song13,    /*左轮机异常*/
+	Song14,    /*滚刷异常*/
+	Song15,    /*边刷异常*/
+	Song16,    /*主机悬空*/
+	Song17,    /*主机被困*/
+	Song18,    /*碰撞开关异常*/
+	Song19,    /*吸尘电机异常*/
+	Song20,    /*滤网阻塞*/
+	Song21,    /*未找到充电桩，请将主机移动到充电桩附近*/
+	Song22,    /*开始充电*/
+	Song23,    /*充电完成*/
+	Song24,    /*回充点位失败，帮助返回充电桩*/
+	Song25,    /*定位失败，重先开始建图*/
+	Song26,    /*重定位成功，继续开始清扫*/
+	Song27,    /*网络已连接*/
+	Song28,    /*网络未连接*/
+	Song29,    /*开始连接网络*/
+	Song30,    /**/
 }SongSN;
 
 //  Song1 开机

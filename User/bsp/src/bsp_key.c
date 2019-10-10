@@ -501,7 +501,7 @@ bool bsp_IsLongPressedAgo(KEY_SN sn)
 *	·µ »Ø Öµ: ÎÞ
 *********************************************************************************************************
 */
-bool bsp_SetIsLongPressedAgo(KEY_SN sn , bool state)
+void bsp_SetIsLongPressedAgo(KEY_SN sn , bool state)
 {
 	isLongPressedAgo[sn] = state;
 }

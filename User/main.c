@@ -113,7 +113,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					}
 					else
 					{
+						static uint8_t i = 0 ;
 						DEBUG("按键1短按\r\n");
+						
+						bsp_SperkerPlay((SongSN)(Song1 + i++));
 					}
 				}break;
 					
