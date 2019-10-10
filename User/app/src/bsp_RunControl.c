@@ -102,6 +102,7 @@ void bsp_PowerOnToggle(void)
 			bsp_LedOn(LED_LOGO_CLEAN);
 			bsp_LedOn(LED_LOGO_POWER);
 			bsp_LedOn(LED_LOGO_CHARGE);
+
 			powerOnToggle.delay = xTaskGetTickCount();
 			powerOnToggle.action++;
 		}break;
@@ -134,6 +135,7 @@ void bsp_PowerOnToggle(void)
 					bsp_LedOn(LED_LOGO_CHARGE);
 					
 					bsp_SetSelfCheckingReady(true);
+					bsp_StartRunControl();    /*开机整机逻辑控制*/
 					
 					powerOnToggle.action = 3;
 				}

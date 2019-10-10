@@ -95,7 +95,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     uint32_t count = 0 ;
    
     bsp_AngleRst();
- 
+	bsp_SperkerPlay(Song1);
+	
     while(1)
     {
         /* 处理按键事件 */
@@ -113,10 +114,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					}
 					else
 					{
-						static uint8_t i = 0 ;
-						DEBUG("按键1短按\r\n");
-						
-						bsp_SperkerPlay((SongSN)(Song1 + i++));
+						//DEBUG("按键1短按\r\n");
+						bsp_SetHomeKey(true);
 					}
 				}break;
 					
@@ -128,7 +127,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					}
 					else
 					{
-						DEBUG("按键2短按\r\n");
+						//DEBUG("按键2短按\r\n");
+						bsp_SetChargeKey(true);
 					}
 				}break;
 					
@@ -140,7 +140,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					}
 					else
 					{
-						DEBUG("按键3短按\r\n");
+						//DEBUG("按键3短按\r\n");
+						bsp_SetCleanKey(true);
 					}
 				}break;
 				
@@ -148,7 +149,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				{
 					bsp_SetIsLongPressedAgo(KEY_POWER , true);
 					
-					DEBUG("按键1长按\r\n");
+					//DEBUG("按键1长按\r\n");
+					//bsp_SperkerPlay(Song3);
+					bsp_SetHomeKey(true);
 					
 				}break;
 				
@@ -156,16 +159,18 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				{
 					bsp_SetIsLongPressedAgo(KEY_CLEAN , true);
 					
-					
-					DEBUG("按键2长按\r\n");
+					//DEBUG("按键2长按\r\n");
+					//bsp_SperkerPlay(Song5);
+					bsp_SetChargeKey(true);
 				}break;
 				
 				case KEY_3_LONG:/*按键3长按*/	
 				{
 					bsp_SetIsLongPressedAgo(KEY_CHARGE , true);
 					
-					
-					DEBUG("按键3长按\r\n");
+					//DEBUG("按键3长按\r\n");
+					//bsp_SperkerPlay(Song3);
+					bsp_SetCleanKey(true);
 				}break;
 
 				
