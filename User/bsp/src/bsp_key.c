@@ -68,6 +68,7 @@
 
 static KEY_T s_tBtn[KEY_COUNT];
 static KEY_FIFO_T s_tKey;		/* 按键FIFO变量,结构体 */
+static bool isLongPressedAgo[MAX_KEY_COUNT];
 
 static void bsp_InitKeyVar(void);
 static void bsp_InitKeyHard(void);
@@ -478,5 +479,32 @@ void bsp_KeyScan(void)
 		bsp_DetectKey(i);
 	}
 }
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_isLongPressedAgo
+*	功能说明: 之前有没有被长按
+*	形    参:  无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_IsLongPressedAgo(KEY_SN sn)
+{
+	return isLongPressedAgo[sn];
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SetIsLongPressedAgo
+*	功能说明: 设置之前有没有被长按
+*	形    参:  无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_SetIsLongPressedAgo(KEY_SN sn , bool state)
+{
+	isLongPressedAgo[sn] = state;
+}
+
 
 /****************** Copyright (C), 2013-2020, 码农闰土 QQ：1085081059 (END OF FILE) **********************/

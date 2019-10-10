@@ -92,7 +92,6 @@ int main(void)
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     uint8_t ucKeyCode;	
-	static bool isShutdown = false;
     uint32_t count = 0 ;
    
     bsp_AngleRst();
@@ -108,43 +107,65 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
             {
 				case KEY_1_UP:/*按键1按下*/
 				{
-					if(isShutdown)
+					if(bsp_IsLongPressedAgo(KEY_POWER))
 					{
-						isShutdown = false;
+						bsp_SetIsLongPressedAgo(KEY_POWER , false);
 					}
 					else
 					{
-						DEBUG("KEY_1_UP\r\n");
-						bsp_SetHomeKey(true);
+						DEBUG("按键1短按\r\n");
 					}
-					
 				}break;
 					
 				case KEY_2_UP:/*按键2按下*/
 				{
-					DEBUG("KEY_2_UP\r\n");
-					bsp_SetChargeKey(true);
+					if(bsp_IsLongPressedAgo(KEY_CLEAN))
+					{
+						bsp_SetIsLongPressedAgo(KEY_CLEAN , false);
+					}
+					else
+					{
+						DEBUG("按键2短按\r\n");
+					}
 				}break;
 					
 				case KEY_3_UP:/*按键3按下*/	
 				{
-					DEBUG("KEY_3_UP\r\n");
-					bsp_SetCleanKey(true);
+					if(bsp_IsLongPressedAgo(KEY_CHARGE))
+					{
+						bsp_SetIsLongPressedAgo(KEY_CHARGE , false);
+					}
+					else
+					{
+						DEBUG("按键3短按\r\n");
+					}
 				}break;
-					
+				
 				case KEY_1_LONG:/*按键1长按*/	
 				{
-					//DEBUG("关机\r\n");
-					isShutdown = true;
-					bsp_SetPowerKey(true);
+					bsp_SetIsLongPressedAgo(KEY_POWER , true);
 					
-					DEBUG("即将进入STOP模式\r\n");
-					vTaskDelay(100);
+					DEBUG("按键1长按\r\n");
 					
-//					bsp_EnterStopMODE();
-					
-
 				}break;
+				
+				case KEY_2_LONG:/*按键2长按*/	
+				{
+					bsp_SetIsLongPressedAgo(KEY_CLEAN , true);
+					
+					
+					DEBUG("按键2长按\r\n");
+				}break;
+				
+				case KEY_3_LONG:/*按键3长按*/	
+				{
+					bsp_SetIsLongPressedAgo(KEY_CHARGE , true);
+					
+					
+					DEBUG("按键3长按\r\n");
+				}break;
+
+				
 			}   
         }
         

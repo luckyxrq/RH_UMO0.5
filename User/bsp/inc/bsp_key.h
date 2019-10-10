@@ -157,6 +157,17 @@ typedef struct
 	uint8_t Read2;					/* 缓冲区读指针2 */
 }KEY_FIFO_T;
 
+/* 自定义扩展添加 */
+#define MAX_KEY_COUNT      3
+
+typedef enum
+{
+	KEY_CLEAN = 0 ,
+	KEY_POWER,
+	KEY_CHARGE
+}KEY_SN;
+
+
 /* 供外部调用的函数声明 */
 void bsp_InitKey(void);
 void bsp_KeyScan(void);
@@ -166,6 +177,10 @@ uint8_t bsp_GetKey2(void);
 uint8_t bsp_GetKeyState(KEY_ID_E _ucKeyID);
 void bsp_SetKeyParam(uint8_t _ucKeyID, uint16_t _LongTime, uint8_t  _RepeatSpeed);
 void bsp_ClearKey(void);
+
+/* 自定义扩展添加 */
+bool bsp_IsLongPressedAgo(KEY_SN sn);
+bool bsp_SetIsLongPressedAgo(KEY_SN sn , bool state);
 
 #endif
 
