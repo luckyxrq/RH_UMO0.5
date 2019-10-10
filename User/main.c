@@ -339,7 +339,7 @@ static void vTaskPerception(void *pvParameters)
 		bsp_DetectMeasureTest();
 #endif
 
-#if 0   /*²âÊÔÌøÑÂ´«¸ĞÆ÷*/		
+#if 1   /*²âÊÔÌøÑÂ´«¸ĞÆ÷*/		
 		bsp_CliffTest();
 #endif
 		

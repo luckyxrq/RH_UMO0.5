@@ -293,19 +293,58 @@ static void bsp_RotateCCW(void);
 static float myabs(float val);
 
 
+typedef struct
+{
+	bool isRunning;
+	uint32_t delay;
+	
+	volatile uint8_t action  ;
+	volatile uint32_t pulse  ;
+	volatile float angle ;
+	
+}CliffTest;
+
+static CliffTest cliffTest;
+
+
+void bsp_StartCliffTest(void)
+{
+	cliffTest.delay = 0 ;
+	cliffTest.action = 0;
+	cliffTest.pulse = 0 ;
+	cliffTest.angle = 0 ;
+	
+	cliffTest.isRunning = true;
+}
+
+void bsp_StopCliffTest(void)
+{
+	cliffTest.isRunning = false;
+	
+	cliffTest.delay = 0 ;
+	cliffTest.action = 0;
+	cliffTest.pulse = 0 ;
+	cliffTest.angle = 0 ;
+	
+	bsp_SetMotorSpeed(MotorLeft, 0);
+	bsp_SetMotorSpeed(MotorRight,0);
+	
+}
+
 void bsp_CliffTest(void)
 {
-	static uint8_t action = 0 ;
-	static uint32_t pulse = 0 ;
-	static float angle = 0 ;
+	if(!cliffTest.isRunning)
+	{
+		return;
+	}
 	
-	switch(action)
+	switch(cliffTest.action)
 	{
 		case 0: /*直行*/
 		{
 			bsp_SetMotorSpeed(MotorLeft, 6);
 			bsp_SetMotorSpeed(MotorRight,6);
-			action++;
+			cliffTest.action++;
 		}break;
 		
 		case 1: /*检测是否有悬崖触发了*/
@@ -318,40 +357,40 @@ void bsp_CliffTest(void)
 				DEBUG("悬崖触发\r\n");
 				bsp_SetMotorSpeed(MotorLeft, 0);
 			    bsp_SetMotorSpeed(MotorRight,0);
-				action++;
+				cliffTest.action++;
 			}
 			else
 				
 			{
-				action = 0 ;
+				cliffTest.action = 0 ;
 			}
 		}break;
 		
 		case 2:
 		{
-			pulse = bsp_GetCurrentBothPulse();
+			cliffTest.pulse = bsp_GetCurrentBothPulse();
 			bsp_SetMotorSpeed(MotorLeft, -6);
 			bsp_SetMotorSpeed(MotorRight,-6);
-			action++;
+			cliffTest.action++;
 		}break;
 		
 		case 3:
 		{
-			if(bsp_GetCurrentBothPulse()-pulse >= GO_BACK_PULSE*10)
+			if(bsp_GetCurrentBothPulse()-cliffTest.pulse >= GO_BACK_PULSE*10)
 			{
-				angle = bsp_AngleRead();
+				cliffTest.angle = bsp_AngleRead();
 				bsp_RotateCCW();
-				action++;
+				cliffTest.action++;
 			}
 		}break;
 		
 		case 4:
 		{
-			if(myabs(bsp_AngleAdd(angle ,20) - (bsp_AngleRead())) <= 2.0F)
+			if(myabs(bsp_AngleAdd(cliffTest.angle ,20) - (bsp_AngleRead())) <= 2.0F)
 			{
 				bsp_SetMotorSpeed(MotorLeft, 6);
 				bsp_SetMotorSpeed(MotorRight,6);
-				action = 0 ;
+				cliffTest.action = 0 ;
 			}
 		}break;
 	}

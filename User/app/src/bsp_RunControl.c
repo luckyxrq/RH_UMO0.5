@@ -336,7 +336,9 @@ void bsp_RunControl(void)
 				runControl.lastState = RUN_STATE_HOME;
 				bsp_SperkerPlay(Song3);
 				bsp_StartRunToggleLED(LED_LOGO_POWER);
-
+				bsp_StartCliffTest();
+				bsp_ClearKey();
+				
 				runControl.action++;
 			}
 			/*Charge按键被按下*/
@@ -345,7 +347,9 @@ void bsp_RunControl(void)
 				runControl.isChargeKey = false;
 				runControl.lastState = RUN_STATE_CHARGE;
 				bsp_SperkerPlay(Song5);
-				bsp_StartRunToggleLED(LED_LOGO_CHARGE);
+				bsp_StartRunToggleLED(LED_COLOR_YELLOW);
+				bsp_StartCliffTest();
+				bsp_ClearKey();
 				
 				runControl.action++;
 			}
@@ -356,6 +360,8 @@ void bsp_RunControl(void)
 				runControl.lastState = RUN_STATE_CLEAN;
 				bsp_SperkerPlay(Song3);
 				bsp_StartRunToggleLED(LED_LOGO_CLEAN);
+				bsp_StartCliffTest();
+				bsp_ClearKey();
 				
 				runControl.action++;
 			}
@@ -391,6 +397,7 @@ void bsp_RunControl(void)
 					bsp_StopRunToggleLED();
 				}
 				
+				bsp_StopCliffTest();
 				runControl.action = 0 ;
 			}
 		}break;
