@@ -157,7 +157,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         
         if(count++ % 2 == 0)
         {
-			//bsp_PrintIR_Rev();
+			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 			
 //			float cliff = 0.0F;
 //			
@@ -188,6 +188,24 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			}
 		}
 #endif
+		while(1)
+		{
+			bsp_LedOn(LED_COLOR_YELLOW);
+			bsp_LedOff(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
+			vTaskDelay(1000);
+			
+			bsp_LedOff(LED_COLOR_YELLOW);
+			bsp_LedOn(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
+			vTaskDelay(1000);
+			
+			bsp_LedOff(LED_COLOR_YELLOW);
+			bsp_LedOff(LED_COLOR_GREEN);
+			bsp_LedOn(LED_COLOR_RED);
+			vTaskDelay(1000);
+	
+		}
 		
 #if 0		
 		{
@@ -256,10 +274,6 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 	
     while(1)
     {
-#if 0
-        bsp_SendReportFrame();
-        bsp_PrintRemoteState();
-#endif
 //        bsp_IWDG_Feed(); /* 喂狗 */
         
         bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
@@ -305,9 +319,7 @@ static void vTaskPerception(void *pvParameters)
 	
 	bsp_StartUpdateGridMap();
 
-	
-	
-//	vTaskDelay(5000);
+	vTaskDelay(5000);
 	
     while(1)
     {
@@ -315,6 +327,7 @@ static void vTaskPerception(void *pvParameters)
         bsp_DetectAct();  /*红外对管轮询扫描*/
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
 #endif
+		
        
 #if 0   /*测试红外测距的距离，测到后就停下来*/
 		bsp_DetectMeasureTest();
@@ -337,12 +350,14 @@ static void vTaskPerception(void *pvParameters)
 		bsp_EdgewiseRun();
         /*更新坐标*/
         bsp_PositionUpdate();
+		
 		/*更新地图*/
-		
-//		DEBUG("Start:%d\r\n",xTaskGetTickCount());
-//		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
-//      DEBUG("End:%d\r\n",xTaskGetTickCount());
-		
+#if 0
+		DEBUG("Start:%d\r\n",xTaskGetTickCount());
+		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+		DEBUG("End:%d\r\n",xTaskGetTickCount());
+#endif
+
 		if(count++ % 10 == 0)
 		{
 			bsp_KeyScan();

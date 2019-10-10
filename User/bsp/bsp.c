@@ -77,8 +77,12 @@ void bsp_Init(void)
 	
 	bsp_InitSpeaker();		 /*初始化扬声器*/
 	bsp_InitRunControl();    /*初始化整机控制状态机*/
-	
-//	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
+
+#if 0
+	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
+#endif
+
+#if 0
 	/* 初始化IO拓展芯片 */	
 	do{
 		ret = bsp_InitAW9523B();		
@@ -88,15 +92,20 @@ void bsp_Init(void)
 			bsp_DelayMS(100);
 		}
 	}while(!ret);
+#endif
+	
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
 	bsp_IRD_StartWork();
 	bsp_InitCliffSW();
 	
+	/*播放开机音乐*/
+#if 0
+	bsp_SperkerPlay(Song1);
+#endif
 	
-	
+	/*打印初始化完毕，还可以检测是否被看门狗重启了*/
 	DEBUG("初始化完毕\r\n");
-	
 }
 
 
@@ -105,9 +114,7 @@ void bsp_InitFormAwaken(void)
 	uint8_t ret;
 	
 	UNUSED(ret);
-	
-	
-	
+
 	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
 	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
 	bsp_InitUart(); 	     /* 初始化串口 */
