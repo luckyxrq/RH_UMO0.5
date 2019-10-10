@@ -189,6 +189,8 @@ void bsp_InitRunControl(void)
 	
 }
 
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_SetHomeKey
@@ -200,6 +202,7 @@ void bsp_InitRunControl(void)
 void bsp_SetHomeKey(bool val)
 {
 	runControl.isHomeKey = val;
+
 }
 
 /*
@@ -213,6 +216,7 @@ void bsp_SetHomeKey(bool val)
 void bsp_SetPowerKey(bool val)
 {
 	runControl.isPowerKey = val;
+
 }
 
 /*
@@ -226,6 +230,7 @@ void bsp_SetPowerKey(bool val)
 void bsp_SetChargeKey(bool val)
 {
 	runControl.isChargeKey = val;
+
 }
 
 /*
@@ -239,6 +244,21 @@ void bsp_SetChargeKey(bool val)
 void bsp_SetCleanKey(bool val)
 {
 	runControl.isCleanKey = val;
+
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SetSuspendKey
+*	功能说明: 三个物理按键短按，都对应的逻辑按键暂停
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_SetSuspendKey(bool val)
+{
+	runControl.isSuspendKey = val;
+
 }
 
 
@@ -321,104 +341,28 @@ void bsp_RunControl(void)
     {
 		runControl.isHomeKey = false;
 		
-        if(runControl.lastState == ROBOT_STATE_DEFAULT)       runControl.currentState = ROBOT_STATE_INIT;
-        else if(runControl.lastState == ROBOT_STATE_WORKING)  runControl.currentState = ROBOT_STATE_SUSPEND;
-        else if(runControl.lastState == ROBOT_STATE_CHARGING) runControl.currentState = ROBOT_STATE_SUSPEND;
-        else if(runControl.lastState == ROBOT_STATE_SUSPEND)  runControl.currentState = ROBOT_STATE_WORKING;
-        else if(runControl.lastState == ROBOT_STATE_STANDBY)  runControl.currentState = ROBOT_STATE_WORKING;
-        
-        runControl.workMethod  = ROBOT_WORKWAY_HOME;
+		/*长按开始清扫*/
 		
-		//DEBUG("isHomeKey\r\n");
     }
 	/*Charge按键被按下*/
     else if(runControl.isChargeKey)
     {
 		runControl.isChargeKey = false;
-		
-        if(runControl.lastState == ROBOT_STATE_DEFAULT)       runControl.currentState = ROBOT_STATE_INIT;
-        else if(runControl.lastState == ROBOT_STATE_WORKING)  runControl.currentState = ROBOT_STATE_CHARGING;
-        else if(runControl.lastState == ROBOT_STATE_CHARGING) runControl.currentState = ROBOT_STATE_SUSPEND;
-        else if(runControl.lastState == ROBOT_STATE_SUSPEND)  runControl.currentState = ROBOT_STATE_CHARGING;
-        else if(runControl.lastState == ROBOT_STATE_STANDBY)  runControl.currentState = ROBOT_STATE_CHARGING;
-        
-        runControl.workMethod  = ROBOT_WORKWAY_CHARGE;
-		
-		//DEBUG("isChargeKey\r\n");
+
     }
 	/*Clean按键被按下*/
     else if(runControl.isCleanKey)
     {
 		runControl.isCleanKey = false;
-		
-        if(runControl.lastState == ROBOT_STATE_DEFAULT)       runControl.currentState = ROBOT_STATE_INIT;
-        else if(runControl.lastState == ROBOT_STATE_WORKING)  runControl.currentState = ROBOT_STATE_SUSPEND;
-        else if(runControl.lastState == ROBOT_STATE_CHARGING) runControl.currentState = ROBOT_STATE_SUSPEND;
-        else if(runControl.lastState == ROBOT_STATE_SUSPEND)  runControl.currentState = ROBOT_STATE_WORKING;
-        else if(runControl.lastState == ROBOT_STATE_STANDBY)  runControl.currentState = ROBOT_STATE_WORKING;
-        
-        runControl.workMethod  = ROBOT_WORKWAY_CLEAN;
-		
-		//DEBUG("isCleanKey\r\n");
+
 	}
 	/*Power按键被按下*/
     else if(runControl.isPowerKey)
     {
 		runControl.isPowerKey = false;
 		
-		DEBUG("关机\r\n");
-		
-		bsp_InitRunControl();
-		bsp_StartRunControl();
-		
-		bsp_SwOff(SW_5V_EN_CTRL);
-		bsp_SwOff(SW_IR_POWER);
     }
-	
-	switch(runControl.action)
-	{
-		case 0:/*判断当前状态，如果状态不为ROBOT_STATE_DEFAULT，则往下执行*/
-		{
-			if(runControl.currentState != ROBOT_STATE_DEFAULT)
-			{
-				runControl.action++;
-			}
-		}break;
-		
-		case 1:/*各个状态秩序井不同的操作*/
-		{
-			/*初始化硬件*/
-			if(runControl.currentState == ROBOT_STATE_INIT)
-			{
-				
-				/*初始化完毕后，根据清扫方式，进行不同的操作*/
-				runControl.currentState = (runControl.workMethod == ROBOT_WORKWAY_CHARGE)? ROBOT_STATE_CHARGING:ROBOT_STATE_WORKING;
-				
-				DEBUG("初始化机器...\r\n");
-			}
-			/*扫地工作*/
-			else if(runControl.currentState == ROBOT_STATE_WORKING)
-			{
-				DEBUG("开始清扫...\r\n");
-			}
-			/*暂停*/
-			else if(runControl.currentState == ROBOT_STATE_SUSPEND)
-			{
-				DEBUG("暂停...\r\n");
-			}
-			/*回充*/
-			else if(runControl.currentState == ROBOT_STATE_CHARGING)
-			{
-				DEBUG("回充...\r\n");
-			}
-			/*待机*/
-			else if(runControl.currentState == ROBOT_STATE_STANDBY)
-			{
-				DEBUG("待机...\r\n");
-			}
-		}break;
-		
-	}
+
 }
 
 

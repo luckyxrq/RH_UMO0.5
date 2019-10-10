@@ -115,7 +115,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					else
 					{
 						//DEBUG("按键1短按\r\n");
-						bsp_SetHomeKey(true);
+						bsp_SetSuspendKey(true);
 					}
 				}break;
 					
@@ -128,7 +128,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					else
 					{
 						//DEBUG("按键2短按\r\n");
-						bsp_SetChargeKey(true);
+						bsp_SetSuspendKey(true);
 					}
 				}break;
 					
@@ -141,7 +141,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					else
 					{
 						//DEBUG("按键3短按\r\n");
-						bsp_SetCleanKey(true);
+						bsp_SetSuspendKey(true);
 					}
 				}break;
 				

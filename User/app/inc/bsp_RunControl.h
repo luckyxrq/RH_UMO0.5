@@ -21,7 +21,7 @@ typedef struct
 	volatile bool isPowerKey;
 	volatile bool isChargeKey;
 	volatile bool isCleanKey;
-
+	volatile bool isSuspendKey;
 }RunControl;
 
 bool bsp_IsSelfCheckingReady(void);
@@ -37,6 +37,7 @@ void bsp_SetHomeKey(bool val);
 void bsp_SetPowerKey(bool val);
 void bsp_SetChargeKey(bool val);
 void bsp_SetCleanKey(bool val);
+void bsp_SetSuspendKey(bool val);
 void bsp_StartRunControl(void);
 void bsp_StopRunControl(void);
 
