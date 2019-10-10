@@ -290,6 +290,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_ComAnalysis();
 		bsp_RunControl();   /* 整机控制 */ 
 		bsp_PowerOnToggle();/* 开机状态灯 */ 
+		bsp_RunToggleLED();
         vTaskDelay(10);
     }
     
@@ -363,7 +364,7 @@ static void vTaskPerception(void *pvParameters)
 		DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
 
-		if(count++ % 10 == 0)
+		if(count++ % 5 == 0)
 		{
 			bsp_KeyScan();
 			bsp_AssistJudgeDirection();

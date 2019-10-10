@@ -2,7 +2,7 @@
 #define __BSP_RUN_CONTROL_H
 
 #include <stdbool.h>
-
+#include "bsp_led.h"
 
 /*ÔËÐÐ×´Ì¬*/
 typedef enum
@@ -38,6 +38,10 @@ void bsp_SetSelfCheckingReady(bool chk);
 void bsp_StartPowerOnToggle(void);
 void bsp_StopPowerOnToggle(void);
 void bsp_PowerOnToggle(void);
+
+void bsp_StartRunToggleLED(LED_SN sn);
+void bsp_StopRunToggleLED(void);
+void bsp_RunToggleLED(void);
 
 void bsp_InitRunControl(void);
 void bsp_RunControl(void);

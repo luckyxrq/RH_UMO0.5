@@ -335,7 +335,8 @@ void bsp_RunControl(void)
 				runControl.isHomeKey = false;
 				runControl.lastState = RUN_STATE_HOME;
 				bsp_SperkerPlay(Song3);
-				
+				bsp_StartRunToggleLED(LED_LOGO_POWER);
+
 				runControl.action++;
 			}
 			/*Charge按键被按下*/
@@ -344,6 +345,7 @@ void bsp_RunControl(void)
 				runControl.isChargeKey = false;
 				runControl.lastState = RUN_STATE_CHARGE;
 				bsp_SperkerPlay(Song5);
+				bsp_StartRunToggleLED(LED_LOGO_CHARGE);
 				
 				runControl.action++;
 			}
@@ -353,6 +355,7 @@ void bsp_RunControl(void)
 				runControl.isCleanKey = false;
 				runControl.lastState = RUN_STATE_CLEAN;
 				bsp_SperkerPlay(Song3);
+				bsp_StartRunToggleLED(LED_LOGO_CLEAN);
 				
 				runControl.action++;
 			}
@@ -376,14 +379,16 @@ void bsp_RunControl(void)
 				if(runControl.lastState == RUN_STATE_HOME)
 				{
 					bsp_SperkerPlay(Song4);
+					bsp_StopRunToggleLED();
 				}
 				else if(runControl.lastState == RUN_STATE_CHARGE)
 				{
-					
+					bsp_StopRunToggleLED();
 				}
 				else if(runControl.lastState == RUN_STATE_CLEAN)
 				{
 					bsp_SperkerPlay(Song4);
+					bsp_StopRunToggleLED();
 				}
 				
 				runControl.action = 0 ;
@@ -391,9 +396,144 @@ void bsp_RunControl(void)
 		}break;
 	}
     	
-	
-
 }
 
 
+typedef struct
+{
+	bool isRunning;
+	uint32_t action;
+	uint32_t delay;
+	
+	LED_SN sn;
+	
+}RunToggleLED;
+
+static RunToggleLED runToggleLED;
+
+void bsp_StartRunToggleLED(LED_SN sn)
+{
+	runToggleLED.sn = sn;
+	
+	runToggleLED.action = 0 ;
+	runToggleLED.delay = 0 ;
+	runToggleLED.isRunning = true;
+
+}
+
+void bsp_StopRunToggleLED(void)
+{
+	runToggleLED.isRunning = false;
+	runToggleLED.action = 0 ;
+	runToggleLED.delay = 0 ;
+	
+	bsp_LedOn(LED_LOGO_CLEAN);
+	bsp_LedOn(LED_LOGO_POWER);
+	bsp_LedOn(LED_LOGO_CHARGE);
+	bsp_LedOff(LED_COLOR_YELLOW);
+	bsp_LedOff(LED_COLOR_GREEN);
+	bsp_LedOff(LED_COLOR_RED);
+	
+}
+
+void bsp_RunToggleLED(void)
+{
+	if(!runToggleLED.isRunning)
+		return;
+	
+	switch(runToggleLED.action)
+	{
+		case 0:
+		{
+			switch(runToggleLED.sn)
+			{
+				case LED_LOGO_CLEAN:
+				{
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOn(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+				}break;
+				
+				case LED_LOGO_POWER:
+				{
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOn(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+				}break;
+				
+				case LED_LOGO_CHARGE:
+				{
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOn(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+				}break;
+				
+				case LED_COLOR_YELLOW:
+				{
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOff(LED_LOGO_CHARGE);
+					bsp_LedOn(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+				}break;
+				
+				case LED_COLOR_GREEN:
+				{
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOff(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOn(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+				}break;
+				
+				case LED_COLOR_RED:
+				{
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOff(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOn(LED_COLOR_RED);
+				}break;
+			}
+			
+			runToggleLED.delay = xTaskGetTickCount();
+			runToggleLED.action++;
+		}break;
+		
+		case 1:
+		{
+			if(xTaskGetTickCount() - runToggleLED.delay >= 500)
+			{
+				bsp_LedToggle(runToggleLED.sn);
+				
+				runToggleLED.delay = xTaskGetTickCount();
+				runToggleLED.action++;
+			}
+		}break;
+		
+		case 2:
+		{
+			if(xTaskGetTickCount() - runToggleLED.delay >= 500)
+			{
+				bsp_LedToggle(runToggleLED.sn);
+				
+				runToggleLED.delay = xTaskGetTickCount();
+				runToggleLED.action = 1;
+			}
+			
+		}break;
+	}
+}
 
