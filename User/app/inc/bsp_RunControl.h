@@ -3,6 +3,17 @@
 
 #include <stdbool.h>
 
+
+/*运行状态*/
+typedef enum
+{
+	RUN_STATE_DEFAULT = 0 ,
+	RUN_STATE_CLEAN,
+	RUN_STATE_HOME,
+	RUN_STATE_CHARGE,
+
+}RunState;
+
 typedef struct
 {
 	/*状态机结构*/
@@ -12,9 +23,6 @@ typedef struct
 	
 	/*运行状态*/
 	volatile RunState lastState;
-	volatile RunState currentState;
-	volatile WorkMethod workMethod;
-	volatile uint8_t errSN;
 	
 	/*按键值，Home按键长按就是Power关机*/
 	volatile bool isHomeKey;

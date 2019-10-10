@@ -176,10 +176,7 @@ void bsp_InitRunControl(void)
 	runControl.delay = 0 ;
 	
 	/*运行状态初始化*/
-	runControl.lastState = ROBOT_STATE_DEFAULT;
-	runControl.currentState = ROBOT_STATE_DEFAULT;
-	runControl.workMethod = ROBOT_WORKWAY_DEFAULT;
-	runControl.errSN = ROBOT_ERROR_NUM_DEFAULT;
+	runControl.lastState = RUN_STATE_DEFAULT;
 	
 	/*按键值初始化*/
 	runControl.isHomeKey = false;
@@ -277,10 +274,7 @@ void bsp_StartRunControl(void)
 	runControl.delay = 0 ;
 	
 	/*运行状态初始化*/
-	runControl.lastState = ROBOT_STATE_DEFAULT;
-	runControl.currentState = ROBOT_STATE_DEFAULT;
-	runControl.workMethod = ROBOT_WORKWAY_DEFAULT;
-	runControl.errSN = ROBOT_ERROR_NUM_DEFAULT;
+	runControl.lastState = RUN_STATE_DEFAULT;
 	
 	/*按键值初始化*/
 	runControl.isHomeKey = false;
@@ -308,10 +302,8 @@ void bsp_StopRunControl(void)
 	runControl.delay = 0 ;
 	
 	/*运行状态初始化*/
-	runControl.lastState = ROBOT_STATE_DEFAULT;
-	runControl.currentState = ROBOT_STATE_DEFAULT;
-	runControl.workMethod = ROBOT_WORKWAY_DEFAULT;
-	runControl.errSN = ROBOT_ERROR_NUM_DEFAULT;
+	runControl.lastState = RUN_STATE_DEFAULT;
+
 	
 	/*按键值初始化*/
 	runControl.isHomeKey = false;
@@ -333,35 +325,73 @@ void bsp_RunControl(void)
 	if(!runControl.isRunnng)
 		return;
 	
-	/*更新上一次状态*/
-	runControl.lastState = runControl.currentState;
-    	
-	/*HOME按键被按下*/
-    if(runControl.isHomeKey)
-    {
-		runControl.isHomeKey = false;
+	switch(runControl.action)
+	{
+		case 0:
+		{
+			/*HOME按键被按下*/
+			if(runControl.isHomeKey)
+			{
+				runControl.isHomeKey = false;
+				runControl.lastState = RUN_STATE_HOME;
+				bsp_SperkerPlay(Song3);
+				
+				runControl.action++;
+			}
+			/*Charge按键被按下*/
+			else if(runControl.isChargeKey)
+			{
+				runControl.isChargeKey = false;
+				runControl.lastState = RUN_STATE_CHARGE;
+				bsp_SperkerPlay(Song5);
+				
+				runControl.action++;
+			}
+			/*Clean按键被按下*/
+			else if(runControl.isCleanKey)
+			{
+				runControl.isCleanKey = false;
+				runControl.lastState = RUN_STATE_CLEAN;
+				bsp_SperkerPlay(Song3);
+				
+				runControl.action++;
+			}
+			/*Power按键被按下*/
+			else if(runControl.isPowerKey)
+			{
+				runControl.isPowerKey = false;
+				bsp_SperkerPlay(Song2);
+				
+				runControl.action++;
+			}
+			
+		}break;
 		
-		/*长按开始清扫*/
-		
-    }
-	/*Charge按键被按下*/
-    else if(runControl.isChargeKey)
-    {
-		runControl.isChargeKey = false;
-
-    }
-	/*Clean按键被按下*/
-    else if(runControl.isCleanKey)
-    {
-		runControl.isCleanKey = false;
-
+		case 1:
+		{
+			if(runControl.isSuspendKey)
+			{
+				runControl.isSuspendKey = false;
+				
+				if(runControl.lastState == RUN_STATE_HOME)
+				{
+					bsp_SperkerPlay(Song4);
+				}
+				else if(runControl.lastState == RUN_STATE_CHARGE)
+				{
+					
+				}
+				else if(runControl.lastState == RUN_STATE_CLEAN)
+				{
+					bsp_SperkerPlay(Song4);
+				}
+				
+				runControl.action = 0 ;
+			}
+		}break;
 	}
-	/*Power按键被按下*/
-    else if(runControl.isPowerKey)
-    {
-		runControl.isPowerKey = false;
-		
-    }
+    	
+	
 
 }
 
