@@ -17,6 +17,34 @@ typedef struct
 
 static PowerOnToggle powerOnToggle;
 static RunControl runControl;
+static bool isSelfCheckingReady = false;
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IsSelfCheckingReady
+*	功能说明: 返回是否自检完毕
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_IsSelfCheckingReady(void)
+{
+	return isSelfCheckingReady;
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SetSelfCheckingReady
+*	功能说明: 设置是否自检完毕
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_SetSelfCheckingReady(bool chk)
+{
+	isSelfCheckingReady = chk;
+}
 
 
 /*
@@ -104,6 +132,8 @@ void bsp_PowerOnToggle(void)
 					bsp_LedOn(LED_LOGO_CLEAN);
 					bsp_LedOn(LED_LOGO_POWER);
 					bsp_LedOn(LED_LOGO_CHARGE);
+					
+					bsp_SetSelfCheckingReady(true);
 					
 					powerOnToggle.action = 3;
 				}

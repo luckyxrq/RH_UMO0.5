@@ -24,7 +24,8 @@ typedef struct
 
 }RunControl;
 
-
+bool bsp_IsSelfCheckingReady(void);
+void bsp_SetSelfCheckingReady(bool chk);
 
 void bsp_StartPowerOnToggle(void);
 void bsp_StopPowerOnToggle(void);
