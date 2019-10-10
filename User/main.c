@@ -96,14 +96,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     uint32_t count = 0 ;
    
     bsp_AngleRst();
-    
-	
-//	bsp_SetMotorSpeed(MotorLeft, 6);
-//	bsp_SetMotorSpeed(MotorRight,6);
-	
-//	bsp_MotorSetPWM(MotorLeft,Forward, 1300);
-//	bsp_MotorSetPWM(MotorRight,Forward,1300);
-	
+ 
     while(1)
     {
         /* 处理按键事件 */
@@ -157,8 +150,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         
         if(count++ % 2 == 0)
         {
-			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
-			
+//			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
+//			
 //			float cliff = 0.0F;
 //			
 //			memset(&cliff,0,sizeof(cliff));
@@ -170,7 +163,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //			memset(&cliff,0,sizeof(cliff));
 //			cliff = bsp_GetCliffVoltage(CliffRight);
 //			DEBUG("跳崖右边：%.2F\r\n",cliff);
-			
+//			
         }
 
 #if 0
@@ -188,25 +181,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			}
 		}
 #endif
-		while(1)
-		{
-			bsp_LedOn(LED_COLOR_YELLOW);
-			bsp_LedOff(LED_COLOR_GREEN);
-			bsp_LedOff(LED_COLOR_RED);
-			vTaskDelay(1000);
-			
-			bsp_LedOff(LED_COLOR_YELLOW);
-			bsp_LedOn(LED_COLOR_GREEN);
-			bsp_LedOff(LED_COLOR_RED);
-			vTaskDelay(1000);
-			
-			bsp_LedOff(LED_COLOR_YELLOW);
-			bsp_LedOff(LED_COLOR_GREEN);
-			bsp_LedOn(LED_COLOR_RED);
-			vTaskDelay(1000);
-	
-		}
-		
+
 #if 0		
 		{
 			static uint32_t tick = 0 ;
@@ -269,8 +244,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
-	bsp_StartRunControl(); /*开启按键控制状态机*/
-	
+	bsp_StopRunControl();    /*关闭按键控制状态机*/
+	bsp_StartPowerOnToggle();/*开机先闪烁，闪烁期间对按键操作不响应*/
 	
     while(1)
     {
@@ -284,7 +259,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 #endif		
 		
         bsp_ComAnalysis();
-		//bsp_RunControl();/* 整机控制 */ 
+		bsp_RunControl();   /* 整机控制 */ 
+		bsp_PowerOnToggle();/* 开机状态灯 */ 
         vTaskDelay(10);
     }
     

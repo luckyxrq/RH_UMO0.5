@@ -21,7 +21,14 @@ typedef struct
 	volatile bool isPowerKey;
 	volatile bool isChargeKey;
 	volatile bool isCleanKey;
+
 }RunControl;
+
+
+
+void bsp_StartPowerOnToggle(void);
+void bsp_StopPowerOnToggle(void);
+void bsp_PowerOnToggle(void);
 
 void bsp_InitRunControl(void);
 void bsp_RunControl(void);

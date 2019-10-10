@@ -62,9 +62,6 @@ void bsp_Init(void)
 	bsp_SwOn(SW_MOTOR_POWER);
 	bsp_SwOn(SW_ENCODER_POWER);
 	
-	/*测试充电时，关掉PA9 ，PA8不仅仅是编码器，还包括陀螺仪*/
-	//bsp_SwOff(SW_MOTOR_POWER);
-	
 	bsp_InitKey();           /* 初始化按键 */
 	bsp_InitHardTimer();     /* 初始化硬件定时器 */
 	

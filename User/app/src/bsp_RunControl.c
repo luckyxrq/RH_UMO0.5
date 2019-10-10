@@ -1,7 +1,131 @@
 #include "bsp.h"
 
+#define POWER_ON_LED_TIME_INTERVAL            500
+#define POWER_ON_LED_MAX_TIMES                5
+#define POWER_ON_LED_ON_CONSTANT_MAX_TIME     10*60*1000         
 
+typedef struct
+{
+	/*上电闪烁10S，500MS闪烁一次，共20次*/
+	volatile bool isRunning;
+	volatile uint32_t action;
+	volatile uint32_t delay;
+	
+	/*闪烁次数计数*/
+	volatile uint8_t times;
+}PowerOnToggle;
+
+static PowerOnToggle powerOnToggle;
 static RunControl runControl;
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StartPowerOnToggle
+*	功能说明: 开启开机时刻的初始化状态灯
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_StartPowerOnToggle(void)
+{
+	powerOnToggle.action = 0 ;
+	powerOnToggle.delay = 0 ;
+	powerOnToggle.times = 0 ;
+	powerOnToggle.isRunning = true;
+	
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StopPowerOnToggle
+*	功能说明: 关闭开机时刻的初始化状态灯
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_StopPowerOnToggle(void)
+{
+	powerOnToggle.isRunning = false;
+	powerOnToggle.action = 0 ;
+	powerOnToggle.delay = 0 ;
+	powerOnToggle.times = 0 ;
+	
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_PowerOnToggle
+*	功能说明: 开机时刻的初始化状态灯
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_PowerOnToggle(void)
+{
+	if(!powerOnToggle.isRunning)
+		return;
+	
+	switch(powerOnToggle.action)
+	{
+		case 0: /*亮  POWER_ON_LED_TIME_INTERVAL*/
+		{
+			bsp_LedOn(LED_LOGO_CLEAN);
+			bsp_LedOn(LED_LOGO_POWER);
+			bsp_LedOn(LED_LOGO_CHARGE);
+			powerOnToggle.delay = xTaskGetTickCount();
+			powerOnToggle.action++;
+		}break;
+		
+		case 1: /*灭  POWER_ON_LED_TIME_INTERVAL*/
+		{
+			if(xTaskGetTickCount() - powerOnToggle.delay >= POWER_ON_LED_TIME_INTERVAL)
+			{
+				bsp_LedOff(LED_LOGO_CLEAN);
+				bsp_LedOff(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				powerOnToggle.delay = xTaskGetTickCount();
+				powerOnToggle.action++;
+			}
+		}break;
+		
+		case 2: /*灭  POWER_ON_LED_TIME_INTERVAL*/
+		{
+			if(xTaskGetTickCount() - powerOnToggle.delay >= POWER_ON_LED_TIME_INTERVAL)
+			{
+				powerOnToggle.action = 0;
+				
+				/*闪烁的次数到了*/
+				if(++powerOnToggle.times >=  POWER_ON_LED_MAX_TIMES)
+				{
+					powerOnToggle.delay = xTaskGetTickCount();
+					/*常亮10 min*/
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOn(LED_LOGO_CHARGE);
+					
+					powerOnToggle.action = 3;
+				}
+			}
+		}break;
+		
+		case 3: /*10  分钟后熄灭LED，进入低功耗*/
+		{
+			if(xTaskGetTickCount() - powerOnToggle.delay >=  POWER_ON_LED_ON_CONSTANT_MAX_TIME)
+			{
+				bsp_LedOff(LED_LOGO_CLEAN);
+				bsp_LedOff(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+
+				bsp_StopPowerOnToggle();
+			}
+			
+		}break;
+	}
+	
+	
+}
 
 
 /*
@@ -264,3 +388,6 @@ void bsp_RunControl(void)
 		
 	}
 }
+
+
+
