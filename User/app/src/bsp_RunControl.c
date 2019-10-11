@@ -332,14 +332,20 @@ void bsp_RunControl(void)
 			/*HOME按键被按下*/
 			if(runControl.isHomeKey)
 			{
-				runControl.isHomeKey = false;
-				runControl.lastState = RUN_STATE_HOME;
-				bsp_SperkerPlay(Song3);
-				bsp_StartRunToggleLED(LED_LOGO_POWER);
-				bsp_StartCliffTest();
-				bsp_StartVacuum();
-				
-				runControl.action++;
+//				runControl.isHomeKey = false;
+//				runControl.lastState = RUN_STATE_HOME;
+//				bsp_SperkerPlay(Song3);
+//				bsp_StartRunToggleLED(LED_LOGO_POWER);
+//				bsp_StartCliffTest();
+//				bsp_StartVacuum();
+
+//				
+//				vTaskDelay(100);	
+//				while(bsp_SpeakerIsBusy()){}
+//				bsp_ClearKey();
+//				
+//				
+//				runControl.action++;
 			}
 			/*Charge按键被按下*/
 			else if(runControl.isChargeKey)
@@ -347,8 +353,12 @@ void bsp_RunControl(void)
 				runControl.isChargeKey = false;
 				runControl.lastState = RUN_STATE_CHARGE;
 				bsp_SperkerPlay(Song5);
-				bsp_StartRunToggleLED(LED_COLOR_YELLOW);
+				bsp_StartRunToggleLED(LED_LOGO_CHARGE);
 				bsp_StartCliffTest();
+				
+				vTaskDelay(100);	
+				while(bsp_SpeakerIsBusy()){}
+				bsp_ClearKey();
 				
 				runControl.action++;
 			}
@@ -362,6 +372,10 @@ void bsp_RunControl(void)
 				bsp_StartCliffTest();
 				bsp_StartVacuum();
 				
+				vTaskDelay(100);	
+				while(bsp_SpeakerIsBusy()){}
+				bsp_ClearKey();
+				
 				runControl.action++;
 			}
 			/*Power按键被按下*/
@@ -369,6 +383,17 @@ void bsp_RunControl(void)
 			{
 				runControl.isPowerKey = false;
 				bsp_SperkerPlay(Song2);
+				
+				bsp_LedOff(LED_LOGO_CLEAN);
+				bsp_LedOff(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				bsp_LedOff(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED);
+				
+				vTaskDelay(100);	
+				while(bsp_SpeakerIsBusy()){}
+				bsp_ClearKey();
 				
 				runControl.action++;
 			}
@@ -379,28 +404,29 @@ void bsp_RunControl(void)
 		{
 			if(runControl.isSuspendKey)
 			{
-				runControl.isSuspendKey = false;
-				
-				if(runControl.lastState == RUN_STATE_HOME)
-				{
-					bsp_SperkerPlay(Song4);
-					bsp_StopRunToggleLED();
-					bsp_StopVacuum();
-				}
-				else if(runControl.lastState == RUN_STATE_CHARGE)
-				{
-					bsp_StopRunToggleLED();
-					bsp_StopVacuum();
-				}
-				else if(runControl.lastState == RUN_STATE_CLEAN)
-				{
-					bsp_SperkerPlay(Song4);
-					bsp_StopRunToggleLED();
-					bsp_StopVacuum();
-				}
-				
-				bsp_StopCliffTest();
-				runControl.action = 0 ;
+//				runControl.isSuspendKey = false;
+//				
+//				if(runControl.lastState == RUN_STATE_HOME)
+//				{
+//					bsp_SperkerPlay(Song4);
+//					bsp_StopRunToggleLED();
+//					bsp_StopVacuum();
+//				}
+//				else if(runControl.lastState == RUN_STATE_CHARGE)
+//				{
+//					bsp_StopRunToggleLED();
+//					bsp_StopVacuum();
+//				}
+//				else if(runControl.lastState == RUN_STATE_CLEAN)
+//				{
+//					bsp_SperkerPlay(Song4);
+//					bsp_StopRunToggleLED();
+//					bsp_StopVacuum();
+//				}
+//				
+//				bsp_StopCliffTest();
+//				runControl.action = 0 ;
+//				runControl.lastState = RUN_STATE_DEFAULT;
 			}
 		}break;
 	}

@@ -9,9 +9,8 @@ typedef enum
 {
 	RUN_STATE_DEFAULT = 0 ,
 	RUN_STATE_CLEAN,
-	RUN_STATE_HOME,
 	RUN_STATE_CHARGE,
-
+	RUN_STATE_SHUTDOWN
 }RunState;
 
 typedef struct

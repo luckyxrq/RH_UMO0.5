@@ -1,5 +1,7 @@
 #include "includes.h"
 
+#define PAUSE_INTERVAL_RESPONSE_TIME      400
+
 /*
 **********************************************************************************************************
                                             函数声明
@@ -26,7 +28,8 @@ static TaskHandle_t xHandleTaskControl       = NULL;
 static TaskHandle_t xHandleTaskPerception    = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
-
+static RunState lastRunState = RUN_STATE_DEFAULT;
+static uint32_t keyTick = 0 ;
 
 /*
 *********************************************************************************************************
@@ -79,6 +82,39 @@ int main(void)
 }
 
 
+void bsp_KeySuspend(void)
+{
+	if(lastRunState != RUN_STATE_DEFAULT)
+	{
+		/*记录下短按的时间*/
+		keyTick = xTaskGetTickCount();
+		
+		if(lastRunState == RUN_STATE_CHARGE)
+		{
+			bsp_StopRunToggleLED();
+			bsp_StopVacuum();
+		}
+		else if(lastRunState == RUN_STATE_CLEAN)
+		{
+			bsp_SperkerPlay(Song4);
+			bsp_StopRunToggleLED();
+			bsp_StopVacuum();
+		}
+		else if(lastRunState == RUN_STATE_SHUTDOWN)
+		{
+			bsp_LedOn(LED_LOGO_CLEAN);
+			bsp_LedOn(LED_LOGO_POWER);
+			bsp_LedOn(LED_LOGO_CHARGE);
+			bsp_LedOff(LED_COLOR_YELLOW);
+			bsp_LedOff(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
+		}
+		
+		bsp_StopCliffTest();
+		lastRunState = RUN_STATE_DEFAULT;
+	}
+}
+
 
 /*
 *********************************************************************************************************
@@ -93,8 +129,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     uint8_t ucKeyCode;	
     uint32_t count = 0 ;
-    static uint32_t keyFilterTime = 0 ;
-	static uint32_t FilterTime = 1500 ;
+    
 	
     bsp_AngleRst();
 	bsp_SperkerPlay(Song1);
@@ -108,93 +143,95 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
             /* 有键按下 */
             switch (ucKeyCode)
             {
-				case KEY_1_UP:/*按键1按下*/
+				case KEY_1_DOWN:
 				{
-					if(bsp_IsLongPressedAgo(KEY_POWER))
-					{
-						bsp_SetIsLongPressedAgo(KEY_POWER , false);
-					}
-					else
-					{
-						if(xTaskGetTickCount() - keyFilterTime >= FilterTime)
-						{
-							DEBUG("按键1短按\r\n");
-							bsp_SetSuspendKey(true);
-						}
-						
-					}
+					bsp_KeySuspend();
 				}break;
 					
-				case KEY_2_UP:/*按键2按下*/
+				case KEY_2_DOWN:
 				{
-					if(bsp_IsLongPressedAgo(KEY_CLEAN))
-					{
-						bsp_SetIsLongPressedAgo(KEY_CLEAN , false);
-					}
-					else
-					{
-						if(xTaskGetTickCount() - keyFilterTime >= FilterTime)
-						{
-							DEBUG("按键2短按\r\n");
-							bsp_SetSuspendKey(true);
-						}
-						
-					}
+					bsp_KeySuspend();
 				}break;
 					
-				case KEY_3_UP:/*按键3按下*/	
+				case KEY_3_DOWN:	
 				{
-					if(bsp_IsLongPressedAgo(KEY_CHARGE))
-					{
-						bsp_SetIsLongPressedAgo(KEY_CHARGE , false);
-					}
-					else
-					{
-						if(xTaskGetTickCount() - keyFilterTime >= FilterTime)
-						{
-							DEBUG("按键3短按\r\n");
-							bsp_SetSuspendKey(true);
-						}
-						
-					}
+					bsp_KeySuspend();
 				}break;
 				
-				case KEY_1_LONG:/*按键1长按*/	
+				case KEY_1_UP:
 				{
-					bsp_SetIsLongPressedAgo(KEY_POWER , true);
-					keyFilterTime = xTaskGetTickCount();
 					
-					DEBUG("按键1长按\r\n");
-					//bsp_SperkerPlay(Song3);
-					bsp_SetHomeKey(true);
+				}break;
+					
+				case KEY_2_UP:
+				{
+
+				}break;
+					
+				case KEY_3_UP:
+				{
+	
+				}break;
+				
+				case KEY_1_LONG: /*关机*/
+				{
+					if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
+					{
+						lastRunState = RUN_STATE_SHUTDOWN;
+						bsp_SperkerPlay(Song2);
+						
+						bsp_LedOff(LED_LOGO_CLEAN);
+						bsp_LedOff(LED_LOGO_POWER);
+						bsp_LedOff(LED_LOGO_CHARGE);
+						bsp_LedOff(LED_COLOR_YELLOW);
+						bsp_LedOff(LED_COLOR_GREEN);
+						bsp_LedOff(LED_COLOR_RED);
+						
+						vTaskDelay(100);	
+						while(bsp_SpeakerIsBusy()){}
+						bsp_ClearKey();
+					}
 					
 				}break;
 				
-				case KEY_2_LONG:/*按键2长按*/	
+				case KEY_2_LONG: /*充电*/	
 				{
-					bsp_SetIsLongPressedAgo(KEY_CLEAN , true);
-					keyFilterTime = xTaskGetTickCount();
+					if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
+					{
+						lastRunState = RUN_STATE_CHARGE;
+						bsp_SperkerPlay(Song5);
+						bsp_StartRunToggleLED(LED_LOGO_CHARGE);
+						bsp_StartCliffTest();
+						
+						vTaskDelay(200);	
+						while(bsp_SpeakerIsBusy()){}
+						bsp_ClearKey();
+					}
 					
-					DEBUG("按键2长按\r\n");
-					//bsp_SperkerPlay(Song5);
-					bsp_SetChargeKey(true);
 				}break;
 				
-				case KEY_3_LONG:/*按键3长按*/	
+				case KEY_3_LONG: /*清扫*/
 				{
-					bsp_SetIsLongPressedAgo(KEY_CHARGE , true);
-					keyFilterTime = xTaskGetTickCount();
+					if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
+					{
+						lastRunState = RUN_STATE_CLEAN;
+						bsp_SperkerPlay(Song3);
+						bsp_StartRunToggleLED(LED_LOGO_CLEAN);
+						bsp_StartCliffTest();
+						bsp_StartVacuum();
+						
+						vTaskDelay(200);	
+						while(bsp_SpeakerIsBusy()){}
+						bsp_ClearKey();
+					}
 					
-					DEBUG("按键3长按\r\n");
-					//bsp_SperkerPlay(Song3);
-					bsp_SetCleanKey(true);
 				}break;
 
 				
 			}   
         }
-        
-		bsp_RunControl();   /* 整机控制 */ 
+		
+		//bsp_RunControl();   /* 整机控制 */ 
 		
         if(count++ % 2 == 0)
         {
