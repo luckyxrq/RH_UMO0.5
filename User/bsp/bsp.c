@@ -73,7 +73,6 @@ void bsp_Init(void)
 	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 	
 	bsp_InitSpeaker();		 /*初始化扬声器*/
-	bsp_InitRunControl();    /*初始化整机控制状态机*/
 
 #if 0
 	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
@@ -133,7 +132,6 @@ void bsp_InitFormAwaken(void)
 	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 	
 	bsp_InitSpeaker();		 /*初始化扬声器*/
-	bsp_InitRunControl();    /*初始化整机控制状态机*/
 	
 	bsp_InitIWDG();     /*初始化看门狗*/
 	/* 初始化IO拓展芯片 */	

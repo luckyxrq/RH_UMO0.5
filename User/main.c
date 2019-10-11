@@ -231,7 +231,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			}   
         }
 		
-		//bsp_RunControl();   /* 整机控制 */ 
 		
         if(count++ % 2 == 0)
         {
@@ -329,7 +328,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
-	bsp_StopRunControl();    /*关闭按键控制状态机*/
 	bsp_StartPowerOnToggle();/*开机先闪烁，闪烁期间对按键操作不响应*/
 	
     while(1)
