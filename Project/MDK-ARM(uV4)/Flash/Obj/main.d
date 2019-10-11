@@ -55,8 +55,9 @@
 .\flash\obj\main.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\main.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\main.o: ..\..\User\main.h
-.\flash\obj\main.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_led.h
+.\flash\obj\main.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_timer.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_key.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_dwt.h
@@ -86,7 +87,6 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_speaker.h
-.\flash\obj\main.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_StopMode.h

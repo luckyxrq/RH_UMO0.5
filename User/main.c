@@ -29,9 +29,7 @@ static TaskHandle_t xHandleTaskControl       = NULL;
 static TaskHandle_t xHandleTaskPerception    = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
-static RunState lastRunState = RUN_STATE_DEFAULT;
-static uint32_t keyTick = 0 ;
-
+static KeyProc keyProc;
 /*
 *********************************************************************************************************
 *	函 数 名: main
@@ -143,6 +141,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_ComAnalysis();
 		bsp_PowerOnToggle();/* 开机状态灯 */ 
 		bsp_RunToggleLED();
+		
         vTaskDelay(10);
     }
     
@@ -164,6 +163,9 @@ static void vTaskPerception(void *pvParameters)
 	
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
+	
+	/*检测主机悬空*/
+	bsp_StartOffSiteProc();
 	
 	/*开启寻找充电桩*/
 	//bsp_StartSearchChargePile();
@@ -197,13 +199,15 @@ static void vTaskPerception(void *pvParameters)
 #if 1   /*测试跳崖传感器*/		
 		bsp_CliffTest();
 #endif
-		
+		/*检测主机悬空*/
+		bsp_OffSiteProc();
         /*寻找充电桩*/
 		bsp_SearchChargePile();
 		/*沿边行走*/
 		bsp_EdgewiseRun();
         /*更新坐标*/
         bsp_PositionUpdate();
+		
 		
 		/*更新地图*/
 #if 0
@@ -314,10 +318,12 @@ void  App_Printf(char *format, ...)
 */
 static void bsp_KeySuspend(void)
 {
+	RunState lastRunState = bsp_GetKeyRunLastState();
+	
 	if(lastRunState != RUN_STATE_DEFAULT)
 	{
 		/*记录下短按的时间*/
-		keyTick = xTaskGetTickCount();
+		bsp_SetLastKeyTick(xTaskGetTickCount());
 		
 		if(lastRunState == RUN_STATE_CHARGE)
 		{
@@ -341,9 +347,63 @@ static void bsp_KeySuspend(void)
 		}
 		
 		bsp_StopCliffTest();
-		lastRunState = RUN_STATE_DEFAULT;
+		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
 	}
 }
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SetKeyRunLastState
+*	功能说明: 设置上次的按键状态	  			  
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_SetKeyRunLastState(RunState state)
+{
+	keyProc.lastRunState = state;
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetKeyRunLastState
+*	功能说明: 获取上次的按键状态	  			  
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+RunState bsp_GetKeyRunLastState(void)
+{
+	return keyProc.lastRunState;
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SetLastKeyTick
+*	功能说明: 记录上次按键的时间 			  
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_SetLastKeyTick(uint32_t tick)
+{
+	keyProc.lastKeyTick = tick;
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetLastKeyTick
+*	功能说明: 获取上次按键的时间 			  
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+uint32_t bsp_GetLastKeyTick(void)
+{
+	return keyProc.lastKeyTick;
+}
+
 
 /*
 *********************************************************************************************************
@@ -395,9 +455,9 @@ static void bsp_KeyProc(void)
 			
 			case KEY_1_LONG: /*关机*/
 			{
-				if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
+				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
 				{
-					lastRunState = RUN_STATE_SHUTDOWN;
+					bsp_SetKeyRunLastState(RUN_STATE_SHUTDOWN);
 					bsp_SperkerPlay(Song2);
 					
 					bsp_LedOff(LED_LOGO_CLEAN);
@@ -416,9 +476,9 @@ static void bsp_KeyProc(void)
 			
 			case KEY_2_LONG: /*充电*/	
 			{
-				if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
+				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
 				{
-					lastRunState = RUN_STATE_CHARGE;
+					bsp_SetKeyRunLastState(RUN_STATE_CHARGE);
 					bsp_SperkerPlay(Song5);
 					bsp_StartRunToggleLED(LED_LOGO_CHARGE);
 					bsp_StartCliffTest();
@@ -432,9 +492,9 @@ static void bsp_KeyProc(void)
 			
 			case KEY_3_LONG: /*清扫*/
 			{
-				if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
+				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
 				{
-					lastRunState = RUN_STATE_CLEAN;
+					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
 					bsp_SperkerPlay(Song3);
 					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
 					bsp_StartCliffTest();

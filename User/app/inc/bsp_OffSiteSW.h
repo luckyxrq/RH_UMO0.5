@@ -12,6 +12,9 @@ typedef enum
 
 void bsp_InitOffSiteSW(void);
 OffSiteState bsp_OffSiteGetState(void);
+void bsp_OffSiteProc(void);
+void bsp_StartOffSiteProc(void);
+void bsp_StopOffSiteProc(void);
 
 #endif
 

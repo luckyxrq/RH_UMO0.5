@@ -46,8 +46,9 @@
 .\flash\obj\bsp_motor.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\bsp_motor.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_motor.o: ..\..\User\main.h
-.\flash\obj\bsp_motor.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
+.\flash\obj\bsp_motor.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\bsp_motor.o: ..\..\User\bsp\inc\bsp_led.h
+.\flash\obj\bsp_motor.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
 .\flash\obj\bsp_motor.o: ..\..\User\bsp\inc\bsp_timer.h
 .\flash\obj\bsp_motor.o: ..\..\User\bsp\inc\bsp_key.h
 .\flash\obj\bsp_motor.o: ..\..\User\bsp\inc\bsp_dwt.h
@@ -77,7 +78,6 @@
 .\flash\obj\bsp_motor.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\bsp_motor.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp_motor.o: ..\..\User\app\inc\bsp_speaker.h
-.\flash\obj\bsp_motor.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\bsp_motor.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_motor.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
 .\flash\obj\bsp_motor.o: ..\..\User\app\inc\bsp_StopMode.h

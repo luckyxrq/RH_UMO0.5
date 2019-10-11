@@ -72,3 +72,88 @@ OffSiteState bsp_OffSiteGetState(void)
 	return ret;
 }
 
+
+typedef struct
+{
+	volatile bool isRunning;
+	volatile uint32_t action;
+	volatile uint32_t delay;
+}OffSiteProc;
+
+static OffSiteProc offSiteProc;
+
+
+void bsp_StartOffSiteProc(void)
+{
+	offSiteProc.action = 0 ;
+	offSiteProc.delay = 0 ;
+	offSiteProc.isRunning = true;
+}
+
+void bsp_StopOffSiteProc(void)
+{
+	offSiteProc.isRunning = false;
+	offSiteProc.action = 0 ;
+	offSiteProc.delay = 0 ;
+}
+
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_OffSiteProc
+*	功能说明: 离地开关处理函数
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_OffSiteProc(void)
+{
+	OffSiteState state;
+	
+	if(!offSiteProc.isRunning)
+		return;
+	
+	switch(offSiteProc.action)
+	{
+		case 0:
+		{
+			state = bsp_OffSiteGetState();
+			if(state != OffSiteNone)
+			{
+				/*语音报警*/
+				bsp_SperkerPlay(Song16);
+				
+				/*灯光恢复最开始*/
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOn(LED_LOGO_CHARGE);
+				bsp_LedOff(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED);
+				
+				/*复位上一次的按键状态*/
+				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
+				
+				/*关闭各种状态机*/
+				bsp_StopCliffTest();
+				
+				/*关闭电机*/
+				bsp_SetMotorSpeed(MotorLeft, 0);
+				bsp_SetMotorSpeed(MotorRight,0);
+				
+				offSiteProc.action++;
+			}
+		}break;
+		
+		case 1: /*等待主机不悬空*/
+		{
+			state = bsp_OffSiteGetState();
+			if(state == OffSiteNone)
+			{
+				offSiteProc.action = 0 ;
+			}
+		}break;
+	}
+}
+
