@@ -93,7 +93,7 @@ void bsp_StopSearchChargePile(void)
 	search.delay = 0 ;
 }	
 
-
+static bool iSCharging = false;
 /*
 *********************************************************************************************************
 *	º¯ Êý Ãû: bsp_SearchChargePile
@@ -105,7 +105,16 @@ void bsp_StopSearchChargePile(void)
 void bsp_SearchChargePile(void)
 {
 	if(!search.isRunning)
+	{
+		if(iSCharging && !bsp_GetChargeFeedback())
+		{
+			iSCharging = false;
+			bsp_StopRunToggleLED();
+		}
+		
 		return;
+	}
+		
 	
 	
 	/*³äµç*/
@@ -115,6 +124,18 @@ void bsp_SearchChargePile(void)
 		bsp_SetMotorSpeed(MotorLeft,0);
 		bsp_SetMotorSpeed(MotorRight,0);
 		bsp_StopSearchChargePile();
+		
+		bsp_StopRunToggleLED();
+		
+		bsp_LedOn(LED_LOGO_CLEAN);
+		bsp_LedOn(LED_LOGO_POWER);
+		bsp_LedOff(LED_LOGO_CHARGE);
+		bsp_LedOn(LED_COLOR_YELLOW);
+		bsp_LedOff(LED_COLOR_GREEN);
+		bsp_LedOff(LED_COLOR_RED);
+		
+		iSCharging = true ;
+		
 		return ;
 	}
 	

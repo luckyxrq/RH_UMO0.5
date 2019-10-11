@@ -170,7 +170,7 @@ static void vTaskPerception(void *pvParameters)
     bsp_DetectStart(); 
 	
 	/*¼ì²âÖ÷»úÐü¿Õ*/
-	bsp_StartOffSiteProc();
+	//bsp_StartOffSiteProc();
 	
 	/*¿ªÆôÑ°ÕÒ³äµç×®*/
 	//bsp_StartSearchChargePile();
@@ -351,6 +351,7 @@ static void bsp_KeySuspend(void)
 			bsp_LedOff(LED_COLOR_RED);
 		}
 		
+		bsp_StopSearchChargePile();
 		bsp_StopCliffTest();
 		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
 	}
@@ -486,7 +487,8 @@ static void bsp_KeyProc(void)
 					bsp_SetKeyRunLastState(RUN_STATE_CHARGE);
 					bsp_SperkerPlay(Song5);
 					bsp_StartRunToggleLED(LED_LOGO_CHARGE);
-					bsp_StartCliffTest();
+					//bsp_StartCliffTest();
+					bsp_StartSearchChargePile();
 					
 					vTaskDelay(200);	
 					while(bsp_SpeakerIsBusy()){}
