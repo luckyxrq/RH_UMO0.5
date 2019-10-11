@@ -17,7 +17,7 @@ static void vTaskPerception(void *pvParameters);
 static void AppTaskCreate (void);
 static void AppObjCreate (void);
 void  App_Printf(char *format, ...);
-
+static void bsp_KeySuspend(void);
 /*
 **********************************************************************************************************
                                             变量声明
@@ -76,40 +76,6 @@ int main(void)
       #define configTOTAL_HEAP_SIZE	      ( ( size_t ) ( 17 * 1024 ) )
     */
     while(1);
-}
-
-
-void bsp_KeySuspend(void)
-{
-	if(lastRunState != RUN_STATE_DEFAULT)
-	{
-		/*记录下短按的时间*/
-		keyTick = xTaskGetTickCount();
-		
-		if(lastRunState == RUN_STATE_CHARGE)
-		{
-			bsp_StopRunToggleLED();
-			bsp_StopVacuum();
-		}
-		else if(lastRunState == RUN_STATE_CLEAN)
-		{
-			bsp_SperkerPlay(Song4);
-			bsp_StopRunToggleLED();
-			bsp_StopVacuum();
-		}
-		else if(lastRunState == RUN_STATE_SHUTDOWN)
-		{
-			bsp_LedOn(LED_LOGO_CLEAN);
-			bsp_LedOn(LED_LOGO_POWER);
-			bsp_LedOn(LED_LOGO_CHARGE);
-			bsp_LedOff(LED_COLOR_YELLOW);
-			bsp_LedOff(LED_COLOR_GREEN);
-			bsp_LedOff(LED_COLOR_RED);
-		}
-		
-		bsp_StopCliffTest();
-		lastRunState = RUN_STATE_DEFAULT;
-	}
 }
 
 
@@ -419,6 +385,47 @@ void  App_Printf(char *format, ...)
     printf("%s", buf_str);
     
     xSemaphoreGive(xMutex);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_KeySuspend
+*	功能说明: 不同状态暂停键的效果不同	  			  
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_KeySuspend(void)
+{
+	if(lastRunState != RUN_STATE_DEFAULT)
+	{
+		/*记录下短按的时间*/
+		keyTick = xTaskGetTickCount();
+		
+		if(lastRunState == RUN_STATE_CHARGE)
+		{
+			bsp_StopRunToggleLED();
+			bsp_StopVacuum();
+		}
+		else if(lastRunState == RUN_STATE_CLEAN)
+		{
+			bsp_SperkerPlay(Song4);
+			bsp_StopRunToggleLED();
+			bsp_StopVacuum();
+		}
+		else if(lastRunState == RUN_STATE_SHUTDOWN)
+		{
+			bsp_LedOn(LED_LOGO_CLEAN);
+			bsp_LedOn(LED_LOGO_POWER);
+			bsp_LedOn(LED_LOGO_CHARGE);
+			bsp_LedOff(LED_COLOR_YELLOW);
+			bsp_LedOff(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
+		}
+		
+		bsp_StopCliffTest();
+		lastRunState = RUN_STATE_DEFAULT;
+	}
 }
 
 

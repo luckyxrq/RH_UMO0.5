@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Oct 11 14:22:56 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Oct 11 14:25:44 2019
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1929,26 +1929,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[147]"></a>bsp_KeySuspend</STRONG> (Thumb, 116 bytes, Stack size 8 bytes, main.o(i.bsp_KeySuspend))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = bsp_KeySuspend &rArr; bsp_SperkerPlay &rArr; bsp_DelayUS
-</UL>
-<BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopRunToggleLED
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopCliffTest
-<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
-<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
-<LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
-</UL>
-<BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
-</UL>
-
 <P><STRONG><a name="[133]"></a>bsp_LedOff</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOff))
 <BR><BR>[Called By]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopRunToggleLED
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RunToggleLED
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PowerOnToggle
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 </UL>
 
@@ -2144,8 +2130,8 @@ Global Symbols
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
+<BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 </UL>
 
 <P><STRONG><a name="[16c]"></a>bsp_StartAssistJudgeDirection</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bsp_assistjudgedirection.o(i.bsp_StartAssistJudgeDirection))
@@ -2634,8 +2620,8 @@ Global Symbols
 <LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FillReportFrame
 </UL>
 
@@ -2707,6 +2693,20 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[147]"></a>bsp_KeySuspend</STRONG> (Thumb, 116 bytes, Stack size 8 bytes, main.o(i.bsp_KeySuspend))
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = bsp_KeySuspend &rArr; bsp_SperkerPlay &rArr; bsp_DelayUS
+</UL>
+<BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopRunToggleLED
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopCliffTest
+<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
+<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
+<LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
+</UL>
+<BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 </UL>
 
 <P><STRONG><a name="[4a]"></a>vTaskControl</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, main.o(i.vTaskControl))
