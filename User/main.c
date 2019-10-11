@@ -93,7 +93,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     uint8_t ucKeyCode;	
     uint32_t count = 0 ;
-   
+    static uint32_t keyFilterTime = 0 ;
+	static uint32_t FilterTime = 1500 ;
+	
     bsp_AngleRst();
 	bsp_SperkerPlay(Song1);
 	
@@ -114,8 +116,12 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					}
 					else
 					{
-						//DEBUG("按键1短按\r\n");
-						bsp_SetSuspendKey(true);
+						if(xTaskGetTickCount() - keyFilterTime >= FilterTime)
+						{
+							DEBUG("按键1短按\r\n");
+							bsp_SetSuspendKey(true);
+						}
+						
 					}
 				}break;
 					
@@ -127,8 +133,12 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					}
 					else
 					{
-						//DEBUG("按键2短按\r\n");
-						bsp_SetSuspendKey(true);
+						if(xTaskGetTickCount() - keyFilterTime >= FilterTime)
+						{
+							DEBUG("按键2短按\r\n");
+							bsp_SetSuspendKey(true);
+						}
+						
 					}
 				}break;
 					
@@ -140,16 +150,21 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					}
 					else
 					{
-						//DEBUG("按键3短按\r\n");
-						bsp_SetSuspendKey(true);
+						if(xTaskGetTickCount() - keyFilterTime >= FilterTime)
+						{
+							DEBUG("按键3短按\r\n");
+							bsp_SetSuspendKey(true);
+						}
+						
 					}
 				}break;
 				
 				case KEY_1_LONG:/*按键1长按*/	
 				{
 					bsp_SetIsLongPressedAgo(KEY_POWER , true);
+					keyFilterTime = xTaskGetTickCount();
 					
-					//DEBUG("按键1长按\r\n");
+					DEBUG("按键1长按\r\n");
 					//bsp_SperkerPlay(Song3);
 					bsp_SetHomeKey(true);
 					
@@ -158,8 +173,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				case KEY_2_LONG:/*按键2长按*/	
 				{
 					bsp_SetIsLongPressedAgo(KEY_CLEAN , true);
+					keyFilterTime = xTaskGetTickCount();
 					
-					//DEBUG("按键2长按\r\n");
+					DEBUG("按键2长按\r\n");
 					//bsp_SperkerPlay(Song5);
 					bsp_SetChargeKey(true);
 				}break;
@@ -167,8 +183,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				case KEY_3_LONG:/*按键3长按*/	
 				{
 					bsp_SetIsLongPressedAgo(KEY_CHARGE , true);
+					keyFilterTime = xTaskGetTickCount();
 					
-					//DEBUG("按键3长按\r\n");
+					DEBUG("按键3长按\r\n");
 					//bsp_SperkerPlay(Song3);
 					bsp_SetCleanKey(true);
 				}break;
@@ -177,6 +194,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			}   
         }
         
+		bsp_RunControl();   /* 整机控制 */ 
+		
         if(count++ % 2 == 0)
         {
 //			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
@@ -288,7 +307,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 #endif		
 		
         bsp_ComAnalysis();
-		bsp_RunControl();   /* 整机控制 */ 
+		
 		bsp_PowerOnToggle();/* 开机状态灯 */ 
 		bsp_RunToggleLED();
         vTaskDelay(10);

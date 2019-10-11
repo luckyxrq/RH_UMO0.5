@@ -337,7 +337,7 @@ void bsp_RunControl(void)
 				bsp_SperkerPlay(Song3);
 				bsp_StartRunToggleLED(LED_LOGO_POWER);
 				bsp_StartCliffTest();
-				bsp_ClearKey();
+				bsp_StartVacuum();
 				
 				runControl.action++;
 			}
@@ -349,7 +349,6 @@ void bsp_RunControl(void)
 				bsp_SperkerPlay(Song5);
 				bsp_StartRunToggleLED(LED_COLOR_YELLOW);
 				bsp_StartCliffTest();
-				bsp_ClearKey();
 				
 				runControl.action++;
 			}
@@ -361,7 +360,7 @@ void bsp_RunControl(void)
 				bsp_SperkerPlay(Song3);
 				bsp_StartRunToggleLED(LED_LOGO_CLEAN);
 				bsp_StartCliffTest();
-				bsp_ClearKey();
+				bsp_StartVacuum();
 				
 				runControl.action++;
 			}
@@ -386,15 +385,18 @@ void bsp_RunControl(void)
 				{
 					bsp_SperkerPlay(Song4);
 					bsp_StopRunToggleLED();
+					bsp_StopVacuum();
 				}
 				else if(runControl.lastState == RUN_STATE_CHARGE)
 				{
 					bsp_StopRunToggleLED();
+					bsp_StopVacuum();
 				}
 				else if(runControl.lastState == RUN_STATE_CLEAN)
 				{
 					bsp_SperkerPlay(Song4);
 					bsp_StopRunToggleLED();
+					bsp_StopVacuum();
 				}
 				
 				bsp_StopCliffTest();
