@@ -138,7 +138,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     {
         /* 处理按键事件 */
         ucKeyCode = bsp_GetKey();
-        if (ucKeyCode > 0)
+        if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
         {
             /* 有键按下 */
             switch (ucKeyCode)
@@ -420,7 +420,7 @@ static void vTaskPerception(void *pvParameters)
 		DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
 
-		if(count++ % 5 == 0)
+		if(count++ % 3 == 0)
 		{
 			bsp_KeyScan();
 			bsp_AssistJudgeDirection();
