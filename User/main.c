@@ -133,14 +133,13 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 #if 0
         bsp_IWDG_Feed(); /* 喂狗 */
 #endif
-        
-        bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
-			
+        		
 #if 0		
         DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
 		
+		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
         bsp_ComAnalysis();
 		bsp_PowerOnToggle();/* 开机状态灯 */ 
 		bsp_RunToggleLED();
@@ -165,17 +164,20 @@ static void vTaskPerception(void *pvParameters)
 	
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
+	
 	/*开启寻找充电桩*/
 	//bsp_StartSearchChargePile();
+	
 	/*开启沿边行走*/
 	//bsp_StartEdgewiseRun();
+	
 	/*开启位置坐标更新*/
     bsp_StartUpdatePos();
+	
     /*开启正面碰撞协助*/
 	bsp_StartAssistJudgeDirection();
+	
 	/*开启栅格地图跟新*/
-	
-	
 	bsp_StartUpdateGridMap();
 
 	vTaskDelay(5000);
@@ -210,7 +212,7 @@ static void vTaskPerception(void *pvParameters)
 		DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
 
-		if(count++ % 3 == 0)
+		if(count++ % 4 == 0)
 		{
 			bsp_KeyScan();
 			bsp_AssistJudgeDirection();
