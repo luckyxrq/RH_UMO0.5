@@ -18,6 +18,7 @@ static void AppTaskCreate (void);
 static void AppObjCreate (void);
 void  App_Printf(char *format, ...);
 static void bsp_KeySuspend(void);
+static void bsp_KeyProc(void);
 /*
 **********************************************************************************************************
                                             变量声明
@@ -90,7 +91,7 @@ int main(void)
 */
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
-    uint8_t ucKeyCode;	
+    
     uint32_t count = 0 ;
     
 	
@@ -100,102 +101,14 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     while(1)
     {
         /* 处理按键事件 */
-        ucKeyCode = bsp_GetKey();
-        if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
-        {
-            /* 有键按下 */
-            switch (ucKeyCode)
-            {
-				case KEY_1_DOWN:
-				{
-					bsp_KeySuspend();
-				}break;
-					
-				case KEY_2_DOWN:
-				{
-					bsp_KeySuspend();
-				}break;
-					
-				case KEY_3_DOWN:	
-				{
-					bsp_KeySuspend();
-				}break;
-				
-				case KEY_1_UP:
-				{
-					
-				}break;
-					
-				case KEY_2_UP:
-				{
-
-				}break;
-					
-				case KEY_3_UP:
-				{
-	
-				}break;
-				
-				case KEY_1_LONG: /*关机*/
-				{
-					if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
-					{
-						lastRunState = RUN_STATE_SHUTDOWN;
-						bsp_SperkerPlay(Song2);
-						
-						bsp_LedOff(LED_LOGO_CLEAN);
-						bsp_LedOff(LED_LOGO_POWER);
-						bsp_LedOff(LED_LOGO_CHARGE);
-						bsp_LedOff(LED_COLOR_YELLOW);
-						bsp_LedOff(LED_COLOR_GREEN);
-						bsp_LedOff(LED_COLOR_RED);
-						
-						vTaskDelay(100);	
-						while(bsp_SpeakerIsBusy()){}
-						bsp_ClearKey();
-					}
-					
-				}break;
-				
-				case KEY_2_LONG: /*充电*/	
-				{
-					if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
-					{
-						lastRunState = RUN_STATE_CHARGE;
-						bsp_SperkerPlay(Song5);
-						bsp_StartRunToggleLED(LED_LOGO_CHARGE);
-						bsp_StartCliffTest();
-						
-						vTaskDelay(200);	
-						while(bsp_SpeakerIsBusy()){}
-						bsp_ClearKey();
-					}
-					
-				}break;
-				
-				case KEY_3_LONG: /*清扫*/
-				{
-					if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
-					{
-						lastRunState = RUN_STATE_CLEAN;
-						bsp_SperkerPlay(Song3);
-						bsp_StartRunToggleLED(LED_LOGO_CLEAN);
-						bsp_StartCliffTest();
-						bsp_StartVacuum();
-						
-						vTaskDelay(200);	
-						while(bsp_SpeakerIsBusy()){}
-						bsp_ClearKey();
-					}
-					
-				}break;
-			}   
-        }
+        bsp_KeyProc();
 		
 		
         if(count++ % 2 == 0)
         {
-			//bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
+#if 0 
+			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
+#endif
         }
 
         vTaskDelay(50);	
@@ -217,7 +130,9 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 	
     while(1)
     {
-//        bsp_IWDG_Feed(); /* 喂狗 */
+#if 0
+        bsp_IWDG_Feed(); /* 喂狗 */
+#endif
         
         bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 			
@@ -428,6 +343,110 @@ static void bsp_KeySuspend(void)
 	}
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_KeyProc
+*	功能说明: 按键处理函数	  			  
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_KeyProc(void)
+{
+	uint8_t ucKeyCode;	
+	
+	ucKeyCode = bsp_GetKey();
+	if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
+	{
+		/* 有键按下 */
+		switch (ucKeyCode)
+		{
+			case KEY_1_DOWN:
+			{
+				bsp_KeySuspend();
+			}break;
+				
+			case KEY_2_DOWN:
+			{
+				bsp_KeySuspend();
+			}break;
+				
+			case KEY_3_DOWN:	
+			{
+				bsp_KeySuspend();
+			}break;
+			
+			case KEY_1_UP:
+			{
+				
+			}break;
+				
+			case KEY_2_UP:
+			{
+
+			}break;
+				
+			case KEY_3_UP:
+			{
+
+			}break;
+			
+			case KEY_1_LONG: /*关机*/
+			{
+				if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
+				{
+					lastRunState = RUN_STATE_SHUTDOWN;
+					bsp_SperkerPlay(Song2);
+					
+					bsp_LedOff(LED_LOGO_CLEAN);
+					bsp_LedOff(LED_LOGO_POWER);
+					bsp_LedOff(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+					
+					vTaskDelay(100);	
+					while(bsp_SpeakerIsBusy()){}
+					bsp_ClearKey();
+				}
+				
+			}break;
+			
+			case KEY_2_LONG: /*充电*/	
+			{
+				if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
+				{
+					lastRunState = RUN_STATE_CHARGE;
+					bsp_SperkerPlay(Song5);
+					bsp_StartRunToggleLED(LED_LOGO_CHARGE);
+					bsp_StartCliffTest();
+					
+					vTaskDelay(200);	
+					while(bsp_SpeakerIsBusy()){}
+					bsp_ClearKey();
+				}
+				
+			}break;
+			
+			case KEY_3_LONG: /*清扫*/
+			{
+				if(xTaskGetTickCount() - keyTick >= PAUSE_INTERVAL_RESPONSE_TIME)
+				{
+					lastRunState = RUN_STATE_CLEAN;
+					bsp_SperkerPlay(Song3);
+					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
+					bsp_StartCliffTest();
+					bsp_StartVacuum();
+					
+					vTaskDelay(200);	
+					while(bsp_SpeakerIsBusy()){}
+					bsp_ClearKey();
+				}
+				
+			}break;
+		}   
+	}
+}
 
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
