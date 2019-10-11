@@ -175,6 +175,7 @@ I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5D8B33E4)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5D8B33E4)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5D8C29EC)
 F (..\..\User\FreeRTOSConfig.h)(0x5D785072)()
+F (..\..\User\main.h)(0x5DA028DD)()
 F (..\..\User\app\src\paste.c)(0x5D8B33E4)()
 F (..\..\User\app\src\bsp_PowerSwitch.c)(0x5D91B65B)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc --diag_suppress=870-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_powerswitch.o --omf_browse .\flash\obj\bsp_powerswitch.crf --depend .\flash\obj\bsp_powerswitch.d)
 I (..\..\User\bsp\bsp.h)(0x5D8B33E4)
