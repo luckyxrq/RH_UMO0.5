@@ -41,9 +41,6 @@ static uint32_t keyTick = 0 ;
 */
 int main(void)
 {
-    
-    
-    
     /* 
       在启动调度前，为了防止初始化STM32外设时有中断服务程序执行，这里禁止全局中断(除了NMI和HardFault)。
       这样做的好处是：
@@ -226,94 +223,16 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					}
 					
 				}break;
-
-				
 			}   
         }
 		
 		
         if(count++ % 2 == 0)
         {
-//			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
-//			
-//			float cliff = 0.0F;
-//			
-//			memset(&cliff,0,sizeof(cliff));
-//			cliff = bsp_GetCliffVoltage(CliffLeft);
-//			DEBUG("跳崖左边：%.2F\r\n",cliff);
-//			memset(&cliff,0,sizeof(cliff));
-//			cliff = bsp_GetCliffVoltage(CliffMiddle);
-//			DEBUG("跳崖中间：%.2F\r\n",cliff);
-//			memset(&cliff,0,sizeof(cliff));
-//			cliff = bsp_GetCliffVoltage(CliffRight);
-//			DEBUG("跳崖右边：%.2F\r\n",cliff);
-//			
+			//bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
         }
 
-#if 0
-		{
-			static uint8_t songNum = 0 ;
-			bsp_SperkerPlay(Song1 + songNum++);
-			vTaskDelay(1000);
-			while(bsp_SpeakerIsBusy())
-			{
-				vTaskDelay(1000);
-			}
-			if(songNum >= 20)
-			{
-				songNum = 0 ;
-			}
-		}
-#endif
-
-#if 0		
-		{
-			static uint32_t tick = 0 ;
-			Collision ret = bsp_CollisionScan();
-			if(ret == CollisionLeft)
-			{
-				DEBUG("%06d左边<<<<<<<<<<\r\n",tick++);
-			}
-			else if(ret == CollisionRight)
-			{
-				DEBUG("%06d右边>>>>>>>>>>\r\n",tick++);
-			}
-			else if(ret == CollisionAll)
-			{
-				DEBUG("%06d两边==========\r\n",tick++);
-			}
-		}
-#endif
-		
-#if 0
-		bsp_StartVacuum();
-		while(1)
-		{
-			bsp_SetMotorSpeed(MotorLeft, 6);
-			bsp_SetMotorSpeed(MotorRight,6);
-			vTaskDelay(1500);
-			bsp_SetMotorSpeed(MotorLeft, 12);
-			bsp_SetMotorSpeed(MotorRight,12);
-			vTaskDelay(1500);
-
-			bsp_SetMotorSpeed(MotorLeft, -6);
-			bsp_SetMotorSpeed(MotorRight,-6);
-			vTaskDelay(1500); 
-			bsp_SetMotorSpeed(MotorLeft, -12);
-			bsp_SetMotorSpeed(MotorRight,-12);
-			vTaskDelay(1500); 
-		}
-#endif
-
-#if 0		
-		DEBUG("L:%d  ",bsp_EncoderGetTotalMileage(EncoderLeft));
-		DEBUG("R:%d\r\n",bsp_EncoderGetTotalMileage(EncoderRight));
-#endif
-		
         vTaskDelay(50);	
-		
-		
-//		DEBUG("angle:%.2F\r\n",bsp_AngleRead());
     }
 }
 
@@ -342,7 +261,6 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 #endif		
 		
         bsp_ComAnalysis();
-		
 		bsp_PowerOnToggle();/* 开机状态灯 */ 
 		bsp_RunToggleLED();
         vTaskDelay(10);
@@ -397,13 +315,6 @@ static void vTaskPerception(void *pvParameters)
 		bsp_CliffTest();
 #endif
 		
-        /*四个红外接收管*/
-#if 0 
-        bsp_GetCapCnt(CapCH1);
-        bsp_GetCapCnt(CapCH2);
-        bsp_GetCapCnt(CapCH3);
-        bsp_GetCapCnt(CapCH4);
-#endif
         /*寻找充电桩*/
 		bsp_SearchChargePile();
 		/*沿边行走*/
