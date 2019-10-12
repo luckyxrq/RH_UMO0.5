@@ -331,10 +331,14 @@ void bsp_StopCliffTest(void)
 	
 }
 
+
+static bool isErlangGod = false;
+
 void bsp_CliffTest(void)
 {
 	if(!cliffTest.isRunning)
 	{
+		isErlangGod = false;
 		return;
 	}
 	
@@ -342,8 +346,16 @@ void bsp_CliffTest(void)
 	{
 		case 0: /*Ö±ÐÐ*/
 		{
-			bsp_SetMotorSpeed(MotorLeft, 6);
-			bsp_SetMotorSpeed(MotorRight,6);
+
+			if(bsp_GetInfraRedAdcVoltage(IR7) >= 1.0F
+				||bsp_GetInfraRedAdcVoltage(IR2) >= 1.0F
+				||bsp_GetInfraRedAdcVoltage(IR3) >= 1.0F
+				||bsp_GetInfraRedAdcVoltage(IR4) >= 1.0F)
+			{
+				isErlangGod = true;
+			}
+			
+			
 			cliffTest.action++;
 		}break;
 		
@@ -358,10 +370,22 @@ void bsp_CliffTest(void)
 				bsp_SetMotorSpeed(MotorLeft, 0);
 			    bsp_SetMotorSpeed(MotorRight,0);
 				cliffTest.action++;
+				
+				isErlangGod = false;
 			}
 			else
 				
 			{
+				if(isErlangGod)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 6);
+					bsp_SetMotorSpeed(MotorRight,6);
+				}
+				else
+				{
+					bsp_SetMotorSpeed(MotorLeft, 12);
+					bsp_SetMotorSpeed(MotorRight,12);
+				}
 				cliffTest.action = 0 ;
 			}
 		}break;

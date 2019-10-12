@@ -516,6 +516,18 @@ static void bsp_KeyProc(void)
 			
 			case KEY_9_DOWN:
 			{
+				bsp_StopRunToggleLED();
+				
+				/*复位上一次的按键状态*/
+				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
+				
+				/*关闭各种状态机*/
+				bsp_StopCliffTest();
+				bsp_StopVacuum();
+				/*关闭电机*/
+				bsp_SetMotorSpeed(MotorLeft, 0);
+				bsp_SetMotorSpeed(MotorRight,0);
+				bsp_StartEdgewiseRun();
 				
 			}break;
 		}   
