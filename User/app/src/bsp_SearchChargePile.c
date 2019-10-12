@@ -48,6 +48,9 @@ typedef struct
 	volatile uint32_t action;
 	volatile uint32_t delay;
 	volatile SearchChargePileCollision collision;
+	
+	volatile bool isOnChargePile;
+	volatile uint32_t disconnectTimes;
 }Serach;
 
 
@@ -111,8 +114,6 @@ void bsp_StopSearchChargePile(void)
 }	
 
 
-static bool isOnChargePile = false;
-static uint32_t disconnectTimes = 0 ;
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_SearchChargePile
@@ -126,7 +127,7 @@ void bsp_SearchChargePile(void)
 	
 	if(!search.isRunning)
 	{
-		if(isOnChargePile)
+		if(search.isOnChargePile) /*之前别标记为正在充电状态了，但是现在没有上桩反馈，可能是脱落了，可能是充电桩正在PWM充电*/
 		{
 			if(bsp_IsCharging()) /*充电中*/
 			{
@@ -160,9 +161,9 @@ void bsp_SearchChargePile(void)
 			/*检测是不是挪开了*/
 			if(!bsp_IsTouchChargePile())
 			{
-				if(++disconnectTimes >= 1000)
+				if(++search.disconnectTimes >= 300)
 				{
-					isOnChargePile = false;
+					search.isOnChargePile = false;
 					bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
 					
 					bsp_LedOn(LED_LOGO_CLEAN);
@@ -175,7 +176,30 @@ void bsp_SearchChargePile(void)
 			}
 			else
 			{
-				disconnectTimes = 0 ;
+				search.disconnectTimes = 0 ;
+			}
+		}
+		else /*之前没有被标记为已经上桩状态，但是现在有上涨反馈，应该是人为抱上去了*/
+		{
+			if(bsp_IsTouchChargePile() == true)
+			{
+				DEBUG("is charging...\r\n");
+				bsp_SetMotorSpeed(MotorLeft,0);
+				bsp_SetMotorSpeed(MotorRight,0);
+				bsp_StopSearchChargePile();
+				
+				bsp_StopRunToggleLED();
+				
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				bsp_LedOn(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED);
+				bsp_SperkerPlay(Song22);
+				
+				
+				search.isOnChargePile = true;
 			}
 		}
 		
@@ -200,8 +224,10 @@ void bsp_SearchChargePile(void)
 		bsp_LedOn(LED_COLOR_YELLOW);
 		bsp_LedOff(LED_COLOR_GREEN);
 		bsp_LedOff(LED_COLOR_RED);
+		bsp_SperkerPlay(Song22);
 		
-		isOnChargePile = true;
+		
+		search.isOnChargePile = true;
 		
 		return ;
 	}
