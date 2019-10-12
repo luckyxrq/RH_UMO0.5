@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sat Oct 12 14:54:26 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sat Oct 12 17:38:12 2019
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2006,10 +2006,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffSiteProc
 </UL>
 
-<P><STRONG><a name="[163]"></a>bsp_OffSiteProc</STRONG> (Thumb, 138 bytes, Stack size 8 bytes, bsp_offsitesw.o(i.bsp_OffSiteProc))
+<P><STRONG><a name="[163]"></a>bsp_OffSiteProc</STRONG> (Thumb, 146 bytes, Stack size 8 bytes, bsp_offsitesw.o(i.bsp_OffSiteProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = bsp_OffSiteProc &rArr; bsp_SperkerPlay &rArr; bsp_DelayUS
 </UL>
-<BR>[Calls]<UL><LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopCliffTest
+<BR>[Calls]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopRunToggleLED
+<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopCliffTest
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
@@ -2269,6 +2271,7 @@ Global Symbols
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
 </UL>
 <BR>[Called By]<UL><LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffSiteProc
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 </UL>
 
@@ -2286,7 +2289,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
+<BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffSiteProc
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 </UL>
 
 <P><STRONG><a name="[137]"></a>bsp_SwOff</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, bsp_powerswitch.o(i.bsp_SwOff))
@@ -2766,7 +2770,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[149]"></a>bsp_KeyProc</STRONG> (Thumb, 286 bytes, Stack size 8 bytes, main.o(i.bsp_KeyProc))
+<P><STRONG><a name="[149]"></a>bsp_KeyProc</STRONG> (Thumb, 306 bytes, Stack size 8 bytes, main.o(i.bsp_KeyProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = bsp_KeyProc &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
