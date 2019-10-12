@@ -111,6 +111,8 @@ void bsp_StopSearchChargePile(void)
 }	
 
 
+static bool isOnChargePile = false;
+static uint32_t disconnectTimes = 0 ;
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_SearchChargePile
@@ -121,34 +123,60 @@ void bsp_StopSearchChargePile(void)
 */
 void bsp_SearchChargePile(void)
 {
+	
 	if(!search.isRunning)
 	{
-		if(bsp_IsCharging()) /*充电中*/
+		if(isOnChargePile)
 		{
-			bsp_LedOn(LED_LOGO_CLEAN);
-			bsp_LedOn(LED_LOGO_POWER);
-			bsp_LedOff(LED_LOGO_CHARGE);
-			bsp_LedOn(LED_COLOR_YELLOW);
-			bsp_LedOff(LED_COLOR_GREEN);
-			bsp_LedOff(LED_COLOR_RED);
-		}
-	    else if(bsp_IsChargeDone()) /*充满*/
-		{
-			bsp_LedOn(LED_LOGO_CLEAN);
-			bsp_LedOn(LED_LOGO_POWER);
-			bsp_LedOff(LED_LOGO_CHARGE);
-			bsp_LedOff(LED_COLOR_YELLOW);
-			bsp_LedOn(LED_COLOR_GREEN);
-			bsp_LedOff(LED_COLOR_RED);
-		}
-		else
-		{
-			bsp_LedOn(LED_LOGO_CLEAN);
-			bsp_LedOn(LED_LOGO_POWER);
-			bsp_LedOn(LED_LOGO_CHARGE);
-			bsp_LedOff(LED_COLOR_YELLOW);
-			bsp_LedOff(LED_COLOR_GREEN);
-			bsp_LedOff(LED_COLOR_RED);
+			if(bsp_IsCharging()) /*充电中*/
+			{
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				bsp_LedOn(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED);
+			}
+			else if(bsp_IsChargeDone()) /*充满*/
+			{
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				bsp_LedOff(LED_COLOR_YELLOW);
+				bsp_LedOn(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED);
+			}
+			else
+			{
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOn(LED_LOGO_CHARGE);
+				bsp_LedOff(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED);
+			}
+			
+			
+			/*检测是不是挪开了*/
+			if(!bsp_IsTouchChargePile())
+			{
+				if(++disconnectTimes >= 1000)
+				{
+					isOnChargePile = false;
+					bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
+					
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOn(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+				}
+			}
+			else
+			{
+				disconnectTimes = 0 ;
+			}
 		}
 		
 		return;
@@ -172,6 +200,8 @@ void bsp_SearchChargePile(void)
 		bsp_LedOn(LED_COLOR_YELLOW);
 		bsp_LedOff(LED_COLOR_GREEN);
 		bsp_LedOff(LED_COLOR_RED);
+		
+		isOnChargePile = true;
 		
 		return ;
 	}
