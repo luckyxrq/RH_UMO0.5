@@ -1,5 +1,18 @@
 #include "bsp.h"
 
+
+#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOF)
+
+#define GPIO_PORT_CHARGE_TOUCH_PILE  GPIOF
+#define GPIO_PIN_CHARGE_TOUCH_PILE	 GPIO_Pin_7
+
+#define GPIO_PORT_CHARGE_IS_CHARGING  GPIOB
+#define GPIO_PIN_CHARGE_IS_CHARGING	  GPIO_Pin_3
+
+#define GPIO_PORT_CHARGE_IS_DONE      GPIOB
+#define GPIO_PIN_CHARGE_IS_DONE	      GPIO_Pin_4
+
+
 #define STRAIGHT_SPEED_FAST      12
 #define STRAIGHT_SPEED_SLOW      3
 
@@ -40,7 +53,9 @@ typedef struct
 
 static Serach search;
 static void bsp_InitIO(void);
-bool bsp_GetChargeFeedback(void);
+static bool bsp_IsCharging(void);
+static bool bsp_IsChargeDone(void);
+static bool bsp_IsTouchChargePile(void);
 static void bsp_SearchRunStraightFast(void);
 static void bsp_SearchRunStraightSlow(void);
 static void bsp_SearchTurnRightFast(void)  ;
@@ -73,6 +88,8 @@ void bsp_StartSearchChargePile(void)
 	UNUSED(bsp_SearchTurnRightSlow)  ;
 	UNUSED(bsp_SearchTurnLeftFast)   ;
 	UNUSED(bsp_SearchTurnLeftSlow)   ;
+	UNUSED(bsp_IsCharging);
+	UNUSED(bsp_IsChargeDone);
 }
 
 /*
@@ -93,7 +110,7 @@ void bsp_StopSearchChargePile(void)
 	search.delay = 0 ;
 }	
 
-static bool iSCharging = false;
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_SearchChargePile
@@ -106,10 +123,32 @@ void bsp_SearchChargePile(void)
 {
 	if(!search.isRunning)
 	{
-		if(iSCharging && !bsp_GetChargeFeedback())
+		if(bsp_IsCharging()) /*充电中*/
 		{
-			iSCharging = false;
-			bsp_StopRunToggleLED();
+			bsp_LedOn(LED_LOGO_CLEAN);
+			bsp_LedOn(LED_LOGO_POWER);
+			bsp_LedOff(LED_LOGO_CHARGE);
+			bsp_LedOn(LED_COLOR_YELLOW);
+			bsp_LedOff(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
+		}
+	    else if(bsp_IsChargeDone()) /*充满*/
+		{
+			bsp_LedOn(LED_LOGO_CLEAN);
+			bsp_LedOn(LED_LOGO_POWER);
+			bsp_LedOff(LED_LOGO_CHARGE);
+			bsp_LedOff(LED_COLOR_YELLOW);
+			bsp_LedOn(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
+		}
+		else
+		{
+			bsp_LedOn(LED_LOGO_CLEAN);
+			bsp_LedOn(LED_LOGO_POWER);
+			bsp_LedOn(LED_LOGO_CHARGE);
+			bsp_LedOff(LED_COLOR_YELLOW);
+			bsp_LedOff(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
 		}
 		
 		return;
@@ -118,7 +157,7 @@ void bsp_SearchChargePile(void)
 	
 	
 	/*充电*/
-	if(bsp_GetChargeFeedback() == true)
+	if(bsp_IsTouchChargePile() == true)
 	{
 		DEBUG("is charging...\r\n");
 		bsp_SetMotorSpeed(MotorLeft,0);
@@ -133,8 +172,6 @@ void bsp_SearchChargePile(void)
 		bsp_LedOn(LED_COLOR_YELLOW);
 		bsp_LedOff(LED_COLOR_GREEN);
 		bsp_LedOff(LED_COLOR_RED);
-		
-		iSCharging = true ;
 		
 		return ;
 	}
@@ -387,6 +424,17 @@ static void bsp_GoBackward(void)
 
 
 
+
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_InitIO
+*	功能说明: 初始化充电相关的IO
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 static void bsp_InitIO(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -397,24 +445,33 @@ static void bsp_InitIO(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
-	GPIO_Init(GPIOF, &GPIO_InitStructure);
- 
+	/*上桩检测*/
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_TOUCH_PILE;
+	GPIO_Init(GPIO_PORT_CHARGE_TOUCH_PILE, &GPIO_InitStructure);
+	
+	/*正在充电中*/
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_CHARGING;
+	GPIO_Init(GPIO_PORT_CHARGE_IS_CHARGING, &GPIO_InitStructure);
+	
+	/*充电完成*/
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_DONE;
+	GPIO_Init(GPIO_PORT_CHARGE_IS_DONE, &GPIO_InitStructure);
+	
 }
 
 
 	
 /*
 *********************************************************************************************************
-*	函 数 名: bsp_GetChargeFeedback
+*	函 数 名: bsp_IsTouchChargePile
 *	功能说明: 获取充电反馈
 *	形    参：无
 *	返 回 值: 无
 *********************************************************************************************************
 */
-bool bsp_GetChargeFeedback(void)
+static bool bsp_IsTouchChargePile(void)
 {
-	if(GPIO_ReadInputDataBit(GPIOF,GPIO_Pin_7))
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
 	{
 		return true ;
 	}
@@ -423,3 +480,29 @@ bool bsp_GetChargeFeedback(void)
 		return false ;
 	}
 }
+
+static bool bsp_IsCharging(void)
+{
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING) == 0)
+	{
+		return true ;
+	}
+	else
+	{
+		return false ;
+	}
+}
+
+
+static bool bsp_IsChargeDone(void)
+{
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE))
+	{
+		return true ;
+	}
+	else
+	{
+		return false ;
+	}
+}
+
