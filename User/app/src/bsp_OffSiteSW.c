@@ -1,9 +1,9 @@
 #include "bsp.h"
 
-#define RCC_ALL_OFFSITE_SW 	(RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOE)
+#define RCC_ALL_OFFSITE_SW 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOE)
 
-#define GPIO_PORT_OFFSITE_SW_L  GPIOC
-#define GPIO_PIN_OFFSITE_SW_L   GPIO_Pin_9
+#define GPIO_PORT_OFFSITE_SW_L  GPIOA
+#define GPIO_PIN_OFFSITE_SW_L   GPIO_Pin_12
 
 
 #define GPIO_PORT_OFFSITE_SW_R  GPIOE
@@ -123,7 +123,9 @@ void bsp_OffSiteProc(void)
 			{
 				/*语音报警*/
 				bsp_SperkerPlay(Song16);
-				
+
+				DEBUG("离地开关\r\n");
+	
 				/*灯光恢复最开始*/
 				bsp_LedOn(LED_LOGO_CLEAN);
 				bsp_LedOn(LED_LOGO_POWER);

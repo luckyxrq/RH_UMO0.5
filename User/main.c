@@ -170,7 +170,7 @@ static void vTaskPerception(void *pvParameters)
     bsp_DetectStart(); 
 	
 	/*检测主机悬空*/
-	//bsp_StartOffSiteProc();
+	bsp_StartOffSiteProc();
 	
 	/*开启寻找充电桩*/
 	//bsp_StartSearchChargePile();
