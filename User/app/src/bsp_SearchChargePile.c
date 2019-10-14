@@ -129,22 +129,23 @@ void bsp_SearchChargePile(void)
 	{
 		if(search.isOnChargePile) /*之前别标记为正在充电状态了，但是现在没有上桩反馈，可能是脱落了，可能是充电桩正在PWM充电*/
 		{
-			if(bsp_IsCharging()) /*充电中*/
-			{
-				bsp_LedOn(LED_LOGO_CLEAN);
-				bsp_LedOn(LED_LOGO_POWER);
-				bsp_LedOff(LED_LOGO_CHARGE);
-				bsp_LedOn(LED_COLOR_YELLOW);
-				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED);
-			}
-			else if(bsp_IsChargeDone()) /*充满*/
+			
+			if(bsp_IsChargeDone()) /*充满*/
 			{
 				bsp_LedOn(LED_LOGO_CLEAN);
 				bsp_LedOn(LED_LOGO_POWER);
 				bsp_LedOff(LED_LOGO_CHARGE);
 				bsp_LedOff(LED_COLOR_YELLOW);
 				bsp_LedOn(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED);
+			}
+			else if(bsp_IsCharging()) /*充电中*/
+			{
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				bsp_LedOn(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_GREEN);
 				bsp_LedOff(LED_COLOR_RED);
 			}
 			else
@@ -345,7 +346,10 @@ void bsp_SearchChargePile(void)
 			}
 			else
 			{
-				search.action = 1 ;
+				if(xTaskGetTickCount() - search.delay >= 1500)
+				{
+					search.action = 1 ;
+				}
 			}
 		}break;
 	}
@@ -552,7 +556,7 @@ static bool bsp_IsCharging(void)
 
 static bool bsp_IsChargeDone(void)
 {
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE))
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE) == 0)
 	{
 		return true ;
 	}
