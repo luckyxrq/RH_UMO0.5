@@ -187,6 +187,9 @@ static void vTaskPerception(void *pvParameters)
 	/*开启栅格地图跟新*/
 	bsp_StartUpdateGridMap();
 
+	/*开清扫策略*/
+	bsp_StartUpdateCleanStrategy();
+
 	vTaskDelay(5000);
 	
     while(1)
@@ -221,12 +224,18 @@ static void vTaskPerception(void *pvParameters)
 		DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
 
-		if(count++ % 4 == 0)
+		if(count % 4 == 0)
 		{
 			bsp_KeyScan();
 			bsp_AssistJudgeDirection();
 		}
+		
+		if(count % 50 == 0)
+		{
+			bsp_CleanStrategyUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
+		}
 
+		count++;
         vTaskDelay(1);	
     }		
     
