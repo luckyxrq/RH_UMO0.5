@@ -17,9 +17,9 @@
 #define MAX_ANALYSIS_LEN	    512
 
 
+
 #define Deg2Rad(deg) (M_PI * deg / 180.0F)
 #define Rad2Deg(rad) (180.0F * rad / M_PI)
-
 
 /*按照1字节对齐，便于存储到uint8_t类型buf*/
 #pragma pack(1)
