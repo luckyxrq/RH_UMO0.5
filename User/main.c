@@ -230,9 +230,10 @@ static void vTaskPerception(void *pvParameters)
 			bsp_AssistJudgeDirection();
 		}
 		
-		if(count % 50 == 0)
+		if(count % 100 == 0)
 		{
 			bsp_CleanStrategyUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
+			
 		}
 
 		count++;

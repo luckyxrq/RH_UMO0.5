@@ -44,6 +44,9 @@ static CleanStrategy cleanstrategy;
 
 static void WheelBrake()
 {
+	cleanstrategy.linear_velocity = 0;
+	cleanstrategy.angular_velocity = 0;
+	
 	bsp_SetMotorSpeed(MotorLeft, 0);
 	bsp_SetMotorSpeed(MotorRight,0);
 }
@@ -61,6 +64,8 @@ static void WheelControl(short linear_velocity,short angular_velocity)
 }
 static void StraightSlowDowm()
 {
+	cleanstrategy.linear_velocity = DEFAULT_STRAIGHT_VEL_HALF;
+	cleanstrategy.angular_velocity = 0;
 	WheelControl((short)(DEFAULT_STRAIGHT_VEL_HALF),0);
 }
 static void CalculateDistanceByWheelPulse(int wheel_pulse_l, int wheel_pulse_r, int last_wheel_pulse_l, int last_wheel_pulse_r, int* wheel_distance)
@@ -72,7 +77,10 @@ static void CalculateDistanceByWheelPulse(int wheel_pulse_l, int wheel_pulse_r, 
 }
 static void MoveBack()
 {
-	WheelControl((short)(GO_BACK_VEL),0);
+	cleanstrategy.linear_velocity = (GO_BACK_VEL)*-1;
+	cleanstrategy.angular_velocity = 0;
+	
+	WheelControl((short)(GO_BACK_VEL)*-1,0);
 }
 
 
@@ -176,7 +184,7 @@ static void ObstacleAvoidanceStrategy(int ir_adc_x_sensordata, uint8_t obstacleS
 	}
 	case 4:
 	{
-		if (((abs(RadToDeg(current_pose.orientation)) > LEVEL_180) && (Symbol_dir == 1)) || ((abs(RadToDeg(current_pose.orientation)) < LEVEL_0) && (Symbol_dir == -1)))
+		if (((abs((int)RadToDeg(current_pose.orientation)) > LEVEL_180) && (Symbol_dir == 1)) || ((abs((int)RadToDeg(current_pose.orientation)) < LEVEL_0) && (Symbol_dir == -1)))
 		{
 			WheelBrake();
 			cleanstrategy.obstacle_avoidance_case = 0;
@@ -398,13 +406,13 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 	}
 	case 30: // Front and left
 	{
-		if ((IRSensorData[9] == 1) && (abs(RadToDeg(current_pose.orientation)) > LEVEL_90))
+		if ((IRSensorData[9] == 1) && (abs((int)RadToDeg(current_pose.orientation)) > LEVEL_90))
 		{
 			WheelBrake();
 			cleanstrategy.obstacle_avoidance_case = 0;
 			cleanstrategy.route_case = 5;
 		}
-		else if ((abs(RadToDeg(current_pose.orientation)) > LEVEL_90) && (IRSensorData[9] == 0))
+		else if ((abs((int)RadToDeg(current_pose.orientation)) > LEVEL_90) && (IRSensorData[9] == 0))
 		{
 			WheelBrake();
 			cleanstrategy.obstacle_avoidance_case = 0;
@@ -430,7 +438,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 				cleanstrategy.set_turn_radius = TURN_RADIUS;
 				cleanstrategy.route_case = 2;
 			}
-			else if ((abs(RadToDeg(current_pose.orientation)) > LEVEL_180))
+			else if ((abs((int)RadToDeg(current_pose.orientation)) > LEVEL_180))
 			{
 				WheelBrake();
 				cleanstrategy.route_case = 6;
@@ -446,7 +454,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 			cleanstrategy.obstacle_avoidance_case = 0;
 			cleanstrategy.route_case = 5;
 		}
-		else if ((abs(RadToDeg(current_pose.orientation)) > LEVEL_90) && (IRSensorData[9] == 0))
+		else if ((abs((int)RadToDeg(current_pose.orientation)) > LEVEL_90) && (IRSensorData[9] == 0))
 		{
 			WheelBrake();
 			cleanstrategy.obstacle_avoidance_case = 0;
@@ -470,7 +478,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 				cleanstrategy.set_turn_radius = TURN_RADIUS;
 				cleanstrategy.route_case = 2;
 			}
-			else if ((abs(RadToDeg(current_pose.orientation)) > LEVEL_180))
+			else if ((abs((int)RadToDeg(current_pose.orientation)) > LEVEL_180))
 			{
 				WheelBrake();
 				cleanstrategy.route_case = 6;
@@ -493,7 +501,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 			cleanstrategy.set_turn_radius = TURN_RADIUS;
 			cleanstrategy.route_case = 2;
 		}
-		else if ((abs(RadToDeg(current_pose.orientation)) > LEVEL_180))
+		else if ((abs((int)RadToDeg(current_pose.orientation)) > LEVEL_180))
 		{
 			WheelBrake();
 			cleanstrategy.route_case = 6;
@@ -503,14 +511,14 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 
 	case 5:
 	{
-		if ((abs(RadToDeg(current_pose.orientation)) > LEVEL_180))
+		if ((abs((int)RadToDeg(current_pose.orientation)) > LEVEL_180))
 		{
 			WheelBrake();
 			cleanstrategy.route_case = 6;
 			cleanstrategy.is_one_task = 0;
 		}
 		//------------- problem -------------------------//
-		else if (abs(RadToDeg(current_pose.orientation)) < LEVEL_0)
+		else if (abs((int)RadToDeg(current_pose.orientation)) < LEVEL_0)
 		{
 			WheelBrake();
 			cleanstrategy.route_case = 0;
@@ -641,7 +649,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 			cleanstrategy.route_case = 12;
 			break;
 		}
-		else if ((abs(RadToDeg(current_pose.orientation)) < SECOND_LEVEL_90) && (IRSensorData[8] == 0))
+		else if ((abs((int)RadToDeg(current_pose.orientation)) < SECOND_LEVEL_90) && (IRSensorData[8] == 0))
 		{
 			WheelBrake();
 			cleanstrategy.obstacle_avoidance_case = 0;
@@ -661,7 +669,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 				cleanstrategy.last_wheel_pulse_r = wheel_pulse_r;
 				cleanstrategy.route_case = 8;
 			}
-			else if (abs(RadToDeg(current_pose.orientation)) < LEVEL_0)
+			else if (abs((int)RadToDeg(current_pose.orientation)) < LEVEL_0)
 			{
 				WheelBrake();
 				cleanstrategy.route_case = 0;
@@ -684,7 +692,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 			cleanstrategy.set_turn_radius = TURN_RADIUS;
 			cleanstrategy.route_case = 8;
 		}
-		else if (abs(RadToDeg(current_pose.orientation)) < LEVEL_0)
+		else if (abs((int)RadToDeg(current_pose.orientation)) < LEVEL_0)
 		{
 			WheelBrake();
 			cleanstrategy.route_case = 0;
@@ -697,7 +705,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 		//cout << " case 11 " << endl;
 		double delt_y_distance = current_pose.y - cleanstrategy.last_adjustment_pose.y;
 		double off_delt_y = delt_y_distance - DELT_Y_DISTANCE;
-		if (abs(off_delt_y) <= OFF_DELT_Y_DISTANCE)
+		if (abs((int)off_delt_y) <= OFF_DELT_Y_DISTANCE)
 		{
 			WheelBrake();
 			cleanstrategy.obstacle_avoidance_case = 0;
@@ -713,13 +721,13 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 	case 12:
 	{
 		//cout << "-------------- case 12 ------------" << endl;
-		if (abs(RadToDeg(current_pose.orientation)) < LEVEL_0)
+		if (abs((int)RadToDeg(current_pose.orientation)) < LEVEL_0)
 		{
 			WheelBrake();
 			cleanstrategy.route_case = 0;
 			cleanstrategy.is_one_task = 0;
 		}
-		if ((abs(RadToDeg(current_pose.orientation)) > LEVEL_180))
+		if ((abs((int)RadToDeg(current_pose.orientation)) > LEVEL_180))
 		{
 			WheelBrake();
 			cleanstrategy.route_case = 6;
