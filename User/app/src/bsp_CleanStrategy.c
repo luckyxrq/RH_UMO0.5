@@ -31,8 +31,8 @@
 
 #define WHEEL_PULSE_R 0.2085f 	        // c/pulse (pi*d/1024)
 
-#define MAP_WIDTH_W 1000 //4000 // Unit: mm
-#define MAP_HEIGHT_H 2000
+#define MAP_WIDTH_W    4000 //4000 // Unit: mm
+#define MAP_HEIGHT_H   4000
 
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
