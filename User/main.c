@@ -96,6 +96,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
 	bsp_SetMotorSpeed(MotorLeft ,  12*1.5);
 	bsp_SetMotorSpeed(MotorRight , 12*1.5);
+	
     while(1)
     {
         vTaskDelay(50);	
@@ -120,7 +121,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 
         		
 #if 1		
-        DEBUG("L %d MM/S\  ",bsp_MotorGetSpeed(MotorLeft));
+        DEBUG("L %d MM/S  ",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
 		
