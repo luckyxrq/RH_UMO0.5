@@ -94,26 +94,10 @@ int main(void)
 */
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
-    
-    uint32_t count = 0 ;
-    
-	
-    bsp_AngleRst();
-	bsp_SperkerPlay(Song1);
-	
+	bsp_SetMotorSpeed(MotorLeft ,  12*1.5);
+	bsp_SetMotorSpeed(MotorRight , 12*1.5);
     while(1)
     {
-        /* 处理按键事件 */
-        bsp_KeyProc();
-		
-		
-        if(count++ % 2 == 0)
-        {
-#if 0 
-			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
-#endif
-        }
-
         vTaskDelay(50);	
     }
 }
@@ -129,23 +113,18 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
-	bsp_StartPowerOnToggle();/*开机先闪烁，闪烁期间对按键操作不响应*/
+
 	
     while(1)
     {
-#if 0
-        bsp_IWDG_Feed(); /* 喂狗 */
-#endif
+
         		
-#if 0		
-        DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
+#if 1		
+        DEBUG("L %d MM/S\  ",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
 		
 		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
-        bsp_ComAnalysis();
-		bsp_PowerOnToggle();/* 开机状态灯 */ 
-		bsp_RunToggleLED();
 		
         vTaskDelay(10);
     }
@@ -164,79 +143,13 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 */
 static void vTaskPerception(void *pvParameters)
 {
-	uint32_t count = 0 ;
-	
-    /*开启红外对管轮询扫描*/
-    bsp_DetectStart(); 
-	
-	/*检测主机悬空*/
-	bsp_StartOffSiteProc();
-	
-	/*开启寻找充电桩*/
-	//bsp_StartSearchChargePile();
-	
-	/*开启沿边行走*/
-	//bsp_StartEdgewiseRun();
-	
-	/*开启位置坐标更新*/
-    bsp_StartUpdatePos();
-	
-    /*开启正面碰撞协助*/
-	bsp_StartAssistJudgeDirection();
-	
-	/*开启栅格地图跟新*/
-	bsp_StartUpdateGridMap();
 
-	/*开清扫策略*/
-	bsp_StartUpdateCleanStrategy();
-
-	vTaskDelay(5000);
 	
     while(1)
     {
-#if 1
-        bsp_DetectAct();  /*红外对管轮询扫描*/
-        bsp_DetectDeal(); /*红外对管扫描结果处理*/
-#endif
-		
-       
-#if 0   /*测试红外测距的距离，测到后就停下来*/
-		bsp_DetectMeasureTest();
-#endif
+		bsp_KeyScan();
 
-#if 1   /*测试跳崖传感器*/		
-		bsp_CliffTest();
-#endif
-		/*检测主机悬空*/
-		bsp_OffSiteProc();
-        /*寻找充电桩*/
-		bsp_SearchChargePile();
-		/*沿边行走*/
-		bsp_EdgewiseRun();
-        /*更新坐标*/
-        bsp_PositionUpdate();
 		
-		
-		/*更新地图*/
-#if 0
-		DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
-		DEBUG("End:%d\r\n",xTaskGetTickCount());
-#endif
-
-		if(count % 4 == 0)
-		{
-			bsp_KeyScan();
-			bsp_AssistJudgeDirection();
-		}
-		
-		if(count % 100 == 0)
-		{
-			bsp_CleanStrategyUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
-			
-		}
-
-		count++;
         vTaskDelay(1);	
     }		
     

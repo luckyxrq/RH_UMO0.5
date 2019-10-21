@@ -5,7 +5,7 @@
 #define RCC_ALL_SW 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOF)
 
 #define GPIO_PORT_5V_EN_CTR  GPIOE
-#define GPIO_PIN_5V_EN_CTR   GPIO_Pin_15
+#define GPIO_PIN_5V_EN_CTR   GPIO_Pin_2
 
 
 #define GPIO_PORT_IR_POWER  GPIOF
