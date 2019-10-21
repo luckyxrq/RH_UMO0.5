@@ -94,8 +94,8 @@ int main(void)
 */
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
-	bsp_SetMotorSpeed(MotorLeft ,  12*1.5);
-	bsp_SetMotorSpeed(MotorRight , 12*1.5);
+	bsp_SetMotorSpeed(MotorLeft ,  12);
+	bsp_SetMotorSpeed(MotorRight , 12);
 	
     while(1)
     {
@@ -144,7 +144,6 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 */
 static void vTaskPerception(void *pvParameters)
 {
-
 	
     while(1)
     {
@@ -152,7 +151,7 @@ static void vTaskPerception(void *pvParameters)
 
 		
         vTaskDelay(1);	
-    }		
+    }
     
 }
 
