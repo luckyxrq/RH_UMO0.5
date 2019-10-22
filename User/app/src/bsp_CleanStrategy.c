@@ -146,7 +146,8 @@ static void ObstacleAvoidanceStrategy(int ir_adc_x_sensordata, uint8_t obstacleS
 	{
 		delt_y_distance = current_pose.y - cleanstrategy.last_adjustment_pose.y;
 		off_delt_y = delt_y_distance - DELT_Y_DISTANCE;
-		if (abs(off_delt_y) <= OFF_DELT_Y_DISTANCE)
+		if(delt_y_distance >= DELT_Y_DISTANCE)
+		//if (abs(off_delt_y) <= OFF_DELT_Y_DISTANCE)
 		{
 			WheelBrake();
 			cleanstrategy.obstacle_avoidance_case = 4;
@@ -564,7 +565,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 			cleanstrategy.last_wheel_pulse_r = wheel_pulse_r;
 			cleanstrategy.route_case = 7;
 		}
-		else if (current_pose.x < INT_COOR_X) //250 initial point: (25cm,25cm)
+		else if (abs((int)current_pose.x) > MAP_WIDTH_W) //250 initial point: (25cm,25cm)
 		{
 			WheelBrake();
 			cleanstrategy.set_turn_velocity = NONE_OBSTACLE_TURN_VEL;
@@ -704,8 +705,9 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 	{
 		//cout << " case 11 " << endl;
 		double delt_y_distance = current_pose.y - cleanstrategy.last_adjustment_pose.y;
-		double off_delt_y = delt_y_distance - DELT_Y_DISTANCE;
-		if (abs((int)off_delt_y) <= OFF_DELT_Y_DISTANCE)
+		//double off_delt_y = delt_y_distance - DELT_Y_DISTANCE;
+		if(delt_y_distance >= DELT_Y_DISTANCE)
+		//if (abs((int)off_delt_y) <= OFF_DELT_Y_DISTANCE)
 		{
 			WheelBrake();
 			cleanstrategy.obstacle_avoidance_case = 0;
