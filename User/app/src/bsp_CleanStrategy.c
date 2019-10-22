@@ -356,7 +356,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 			else
 				cleanstrategy.route_case = 20;
 		}
-		else if (current_pose.x > MAP_WIDTH_W)
+		else if (abs((int)current_pose.x) > MAP_WIDTH_W)
 		{
 			WheelBrake();
 			cleanstrategy.set_turn_velocity = NONE_OBSTACLE_TURN_VEL;
@@ -603,7 +603,7 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 			else
 				;
 		}
-		else if (current_pose.x < INT_COOR_X)
+		else if (abs((int)current_pose.x) > MAP_WIDTH_W)
 		{
 			WheelBrake(); // Slow down
 			cleanstrategy.set_turn_velocity = NONE_OBSTACLE_TURN_VEL;
