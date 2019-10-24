@@ -93,7 +93,9 @@ int main(void)
 */
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
-    
+    vTaskDelay(5000);	
+	mcu_start_wifitest();
+	
     while(1)
     {
 		

@@ -97,6 +97,7 @@
 ******************************************************************************/
 
 #include "wifi.h"
+#include "bsp.h"
 
 #ifdef WEATHER_ENABLE
 /******************************************************************************
@@ -727,16 +728,19 @@ void wifi_test_result(unsigned char result,unsigned char rssi)
     if(rssi == 0x00)
     {
       //未扫描到名称为tuya_mdev_test路由器,请检查
+		DEBUG("未扫描到名称为tuya_mdev_test路由器,请检查\r\n");
     }
     else if(rssi == 0x01)
     {
       //模块未授权
+		DEBUG("模块未授权\r\n");
     }
   }
   else
   {
     //测试成功
     //rssi为信号强度(0-100, 0信号最差，100信号最强)
+	  DEBUG("测试成功 rssi为信号强度(0-100, 0信号最差，100信号最强)\r\n");
   }
   
 }
