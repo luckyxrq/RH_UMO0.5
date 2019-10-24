@@ -733,7 +733,8 @@ void wifi_test_result(unsigned char result,unsigned char rssi)
 *****************************************************************************/
 void wifi_connect_test_result(unsigned char result)
 {
-  #error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
+  //"请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
+	
   if(result == 0)
   {
     //路由信息接收失败，请检查发出的路由信息包是否是完整的JSON数据包

@@ -95,6 +95,7 @@ int main(void)
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     
+	mcu_start_connect_wifitest("123456","123456789");
     while(1)
     {
 		
@@ -136,7 +137,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 */
 static void vTaskPerception(void *pvParameters)
 {
-	wifi_protocol_init();    /*请在main函数中添加wifi_protocol_init()完成wifi协议初始化,并删除该行*/
+	
 	
     while(1)
     {

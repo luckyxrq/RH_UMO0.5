@@ -215,7 +215,7 @@ STREM_PACK_LEN为流服务传输一包的大小，目前模块串口最大可以
 并在protocol.c文件wifi_connect_test_result函数内查看测试结果,
 wifi_connect_test_result内部有#err提示,完成函数后请删除该#err
 ******************************************************************************/
-//#define         WIFI_CONNECT_TEST_ENABLE                //开启WIFI产测功能（连接指定路由）
+#define         WIFI_CONNECT_TEST_ENABLE                //开启WIFI产测功能（连接指定路由）
 
 /******************************************************************************
                       11:MCU是否需要开启获取当前WIFI联网状态功能                 
