@@ -728,19 +728,19 @@ void wifi_test_result(unsigned char result,unsigned char rssi)
     if(rssi == 0x00)
     {
       //未扫描到名称为tuya_mdev_test路由器,请检查
-		DEBUG("未扫描到名称为tuya_mdev_test路由器,请检查\r\n");
+		DEBUG("no wifi named tuya_mdev_test, please check\r\n");
     }
     else if(rssi == 0x01)
     {
       //模块未授权
-		DEBUG("模块未授权\r\n");
+		DEBUG("permission denied\r\n");
     }
   }
   else
   {
     //测试成功
     //rssi为信号强度(0-100, 0信号最差，100信号最强)
-	  DEBUG("测试成功 rssi为信号强度(0-100, 0信号最差，100信号最强)\r\n");
+	  DEBUG("TEST OK rssi(0-100, 0 ugly, 100 perfect)\r\n");
   }
   
 }
