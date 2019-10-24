@@ -49,7 +49,8 @@ void bsp_Init(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	bsp_InitDWT();
 	bsp_InitUart(); 	     /* ³õÊ¼»¯´®¿Ú */
-
+	bsp_InitKey();
+	
 	wifi_protocol_init();
 
 	

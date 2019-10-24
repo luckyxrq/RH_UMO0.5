@@ -93,15 +93,46 @@ int main(void)
 */
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
-    vTaskDelay(5000);	
-	mcu_start_wifitest();
+	uint8_t ucKeyCode;
+	
+//    vTaskDelay(5000);	
+//	mcu_start_wifitest();
 	
     while(1)
     {
-		
-		DEBUG("心跳\r\n");
+		/* 处理按键事件 */
+		ucKeyCode = bsp_GetKey();
+		if (ucKeyCode > 0)
+		{
+			/* 有键按下 */
+			switch (ucKeyCode)
+			{
+				case KEY_1_DOWN:
+				{
+					DEBUG("按键1\r\n");
+				}break;	
+				
+				case KEY_2_DOWN:
+				{
+					DEBUG("按键2\r\n");
+				}break;	
+				
+				case KEY_3_DOWN:
+				{
+					DEBUG("按键3\r\n");
+				}break;	
+				
+				case KEY_4_DOWN:
+				{
+					DEBUG("按键4\r\n");
+				}break;	
+				
+				default:
+					break;
+			}
+		}
 
-        vTaskDelay(1000);	
+        vTaskDelay(50);	
     }
 }
 
@@ -137,10 +168,19 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 */
 static void vTaskPerception(void *pvParameters)
 {
-
+	uint32_t i = 0 ;
+	
     while(1)
     {
 		wifi_uart_service();
+		
+		/*按键扫描*/
+		if(i%10 == 0)
+		{
+			bsp_KeyScan();
+		}
+		
+		i++;
         vTaskDelay(1);	
     }		
     

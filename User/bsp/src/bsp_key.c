@@ -40,31 +40,31 @@
 */
 
 /* 按键口对应的RCC时钟 */
-#define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
+#define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOA)
 
 #define GPIO_PORT_K1    GPIOE
-#define GPIO_PIN_K1	    GPIO_Pin_7
+#define GPIO_PIN_K1	    GPIO_Pin_4
 
 #define GPIO_PORT_K2    GPIOE
-#define GPIO_PIN_K2	    GPIO_Pin_8
+#define GPIO_PIN_K2	    GPIO_Pin_3
 
 #define GPIO_PORT_K3    GPIOE
-#define GPIO_PIN_K3	    GPIO_Pin_10
+#define GPIO_PIN_K3	    GPIO_Pin_2
 
-#define GPIO_PORT_K4    GPIOE
-#define GPIO_PIN_K4	    GPIO_Pin_7
+#define GPIO_PORT_K4    GPIOA
+#define GPIO_PIN_K4	    GPIO_Pin_0
 
 #define GPIO_PORT_K5    GPIOE
-#define GPIO_PIN_K5	    GPIO_Pin_7
+#define GPIO_PIN_K5	    GPIO_Pin_4
 
 #define GPIO_PORT_K6    GPIOE
-#define GPIO_PIN_K6	    GPIO_Pin_7
+#define GPIO_PIN_K6	    GPIO_Pin_4
 
 #define GPIO_PORT_K7    GPIOE
-#define GPIO_PIN_K7	    GPIO_Pin_7
+#define GPIO_PIN_K7	    GPIO_Pin_4
 
 #define GPIO_PORT_K8    GPIOE
-#define GPIO_PIN_K8	    GPIO_Pin_7
+#define GPIO_PIN_K8	    GPIO_Pin_4
 
 static KEY_T s_tBtn[KEY_COUNT];
 static KEY_FIFO_T s_tKey;		/* 按键FIFO变量,结构体 */
@@ -135,7 +135,7 @@ static uint8_t IsKeyDown10(void) {if (IsKeyDown2() && IsKeyDown3()) return 1;els
 
 /* 5方向摇杆 */
 static uint8_t IsKeyDown4(void) {if ((GPIO_PORT_K4->IDR & GPIO_PIN_K4) == 1) return 1;else return 0;}
-static uint8_t IsKeyDown5(void) {if ((GPIO_PORT_K5->IDR & GPIO_PIN_K5) == 1) return 1;else return 0;}
+static uint8_t IsKeyDown5(void) {if ((GPIO_PORT_K5->IDR & GPIO_PIN_K5) == 0) return 1;else return 0;}
 static uint8_t IsKeyDown6(void) {if ((GPIO_PORT_K6->IDR & GPIO_PIN_K6) == 0) return 1;else return 0;}
 static uint8_t IsKeyDown7(void) {if ((GPIO_PORT_K7->IDR & GPIO_PIN_K7) == 0) return 1;else return 0;}
 static uint8_t IsKeyDown8(void) {if ((GPIO_PORT_K8->IDR & GPIO_PIN_K8) == 0) return 1;else return 0;}
@@ -302,9 +302,13 @@ static void bsp_InitKeyHard(void)
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K3;
 	GPIO_Init(GPIO_PORT_K3, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;	/* 输入浮空模式 */
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K4;
 	GPIO_Init(GPIO_PORT_K4, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;	/* 输入浮空模式 */
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K5;
 	GPIO_Init(GPIO_PORT_K5, &GPIO_InitStructure);
