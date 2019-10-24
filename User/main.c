@@ -1,4 +1,5 @@
 #include "includes.h"
+#include "wifi.h"
 
 /*
 **********************************************************************************************************
@@ -135,9 +136,13 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 */
 static void vTaskPerception(void *pvParameters)
 {
-
+	wifi_protocol_init();    /*请在main函数中添加wifi_protocol_init()完成wifi协议初始化,并删除该行*/
+	
     while(1)
     {
+		
+		wifi_uart_service(); /*请直接在main函数的while(1){}中添加wifi_uart_service(),调用该函数不要加任何条件判断,完成后删除该行*/
+		
         vTaskDelay(1);	
     }		
     
