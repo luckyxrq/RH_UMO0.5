@@ -22,8 +22,7 @@ static void vTaskPerception(void *pvParameters);
 static void AppTaskCreate (void);
 static void AppObjCreate (void);
 void  App_Printf(char *format, ...);
-static void bsp_KeySuspend(void);
-static void bsp_KeyProc(void);
+
 /*
 **********************************************************************************************************
                                             变量声明
@@ -95,26 +94,12 @@ int main(void)
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     
-    uint32_t count = 0 ;
-    
-	
-    bsp_AngleRst();
-	bsp_SperkerPlay(Song1);
-	
     while(1)
     {
-        /* 处理按键事件 */
-        bsp_KeyProc();
 		
-		
-        if(count++ % 2 == 0)
-        {
-#if 0 
-			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
-#endif
-        }
+		DEBUG("心跳\r\n");
 
-        vTaskDelay(50);	
+        vTaskDelay(1000);	
     }
 }
 
@@ -129,24 +114,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
-	bsp_StartPowerOnToggle();/*开机先闪烁，闪烁期间对按键操作不响应*/
-	
+
     while(1)
     {
-#if 0
-        bsp_IWDG_Feed(); /* 喂狗 */
-#endif
-        		
-#if 0		
-        DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
-        DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
-#endif		
-		
-		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
-        bsp_ComAnalysis();
-		bsp_PowerOnToggle();/* 开机状态灯 */ 
-		bsp_RunToggleLED();
-		
+
         vTaskDelay(10);
     }
     
@@ -164,79 +135,9 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 */
 static void vTaskPerception(void *pvParameters)
 {
-	uint32_t count = 0 ;
-	
-    /*开启红外对管轮询扫描*/
-    bsp_DetectStart(); 
-	
-	/*检测主机悬空*/
-	bsp_StartOffSiteProc();
-	
-	/*开启寻找充电桩*/
-	//bsp_StartSearchChargePile();
-	
-	/*开启沿边行走*/
-	//bsp_StartEdgewiseRun();
-	
-	/*开启位置坐标更新*/
-    bsp_StartUpdatePos();
-	
-    /*开启正面碰撞协助*/
-	bsp_StartAssistJudgeDirection();
-	
-	/*开启栅格地图跟新*/
-	bsp_StartUpdateGridMap();
 
-	/*开清扫策略*/
-	bsp_StartUpdateCleanStrategy();
-
-	vTaskDelay(5000);
-	
     while(1)
     {
-#if 1
-        bsp_DetectAct();  /*红外对管轮询扫描*/
-        bsp_DetectDeal(); /*红外对管扫描结果处理*/
-#endif
-		
-       
-#if 0   /*测试红外测距的距离，测到后就停下来*/
-		bsp_DetectMeasureTest();
-#endif
-
-#if 1   /*测试跳崖传感器*/		
-		bsp_CliffTest();
-#endif
-		/*检测主机悬空*/
-		bsp_OffSiteProc();
-        /*寻找充电桩*/
-		bsp_SearchChargePile();
-		/*沿边行走*/
-		bsp_EdgewiseRun();
-        /*更新坐标*/
-        bsp_PositionUpdate();
-		
-		
-		/*更新地图*/
-#if 0
-		DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
-		DEBUG("End:%d\r\n",xTaskGetTickCount());
-#endif
-
-		if(count % 4 == 0)
-		{
-			bsp_KeyScan();
-			bsp_AssistJudgeDirection();
-		}
-		
-		if(count % 100 == 0)
-		{
-			bsp_CleanStrategyUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
-			DEBUG("%+4d,%+4d#%+3d",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
-		}
-
-		count++;
         vTaskDelay(1);	
     }		
     
@@ -321,227 +222,6 @@ void  App_Printf(char *format, ...)
     printf("%s", buf_str);
     
     xSemaphoreGive(xMutex);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_KeySuspend
-*	功能说明: 不同状态暂停键的效果不同	  			  
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_KeySuspend(void)
-{
-	RunState lastRunState = bsp_GetKeyRunLastState();
-	
-	if(lastRunState != RUN_STATE_DEFAULT)
-	{
-		/*记录下短按的时间*/
-		bsp_SetLastKeyTick(xTaskGetTickCount());
-		
-		if(lastRunState == RUN_STATE_CHARGE)
-		{
-			bsp_StopRunToggleLED();
-			bsp_StopVacuum();
-		}
-		else if(lastRunState == RUN_STATE_CLEAN)
-		{
-			bsp_SperkerPlay(Song4);
-			bsp_StopRunToggleLED();
-			bsp_StopVacuum();
-		}
-		else if(lastRunState == RUN_STATE_SHUTDOWN)
-		{
-			bsp_LedOn(LED_LOGO_CLEAN);
-			bsp_LedOn(LED_LOGO_POWER);
-			bsp_LedOn(LED_LOGO_CHARGE);
-			bsp_LedOff(LED_COLOR_YELLOW);
-			bsp_LedOff(LED_COLOR_GREEN);
-			bsp_LedOff(LED_COLOR_RED);
-		}
-		
-		bsp_StopSearchChargePile();
-		bsp_StopCliffTest();
-		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
-	}
-}
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SetKeyRunLastState
-*	功能说明: 设置上次的按键状态	  			  
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_SetKeyRunLastState(RunState state)
-{
-	keyProc.lastRunState = state;
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_GetKeyRunLastState
-*	功能说明: 获取上次的按键状态	  			  
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-RunState bsp_GetKeyRunLastState(void)
-{
-	return keyProc.lastRunState;
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SetLastKeyTick
-*	功能说明: 记录上次按键的时间 			  
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_SetLastKeyTick(uint32_t tick)
-{
-	keyProc.lastKeyTick = tick;
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_GetLastKeyTick
-*	功能说明: 获取上次按键的时间 			  
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-uint32_t bsp_GetLastKeyTick(void)
-{
-	return keyProc.lastKeyTick;
-}
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_KeyProc
-*	功能说明: 按键处理函数	  			  
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_KeyProc(void)
-{
-	uint8_t ucKeyCode;	
-	
-	ucKeyCode = bsp_GetKey();
-	if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
-	{
-		/* 有键按下 */
-		switch (ucKeyCode)
-		{
-			case KEY_1_DOWN:
-			{
-				bsp_KeySuspend();
-			}break;
-				
-			case KEY_2_DOWN:
-			{
-				bsp_KeySuspend();
-			}break;
-				
-			case KEY_3_DOWN:	
-			{
-				bsp_KeySuspend();
-			}break;
-			
-			case KEY_1_UP:
-			{
-				
-			}break;
-				
-			case KEY_2_UP:
-			{
-
-			}break;
-				
-			case KEY_3_UP:
-			{
-
-			}break;
-			
-			case KEY_1_LONG: /*关机*/
-			{
-				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
-				{
-					bsp_SetKeyRunLastState(RUN_STATE_SHUTDOWN);
-					bsp_SperkerPlay(Song2);
-					
-					bsp_LedOff(LED_LOGO_CLEAN);
-					bsp_LedOff(LED_LOGO_POWER);
-					bsp_LedOff(LED_LOGO_CHARGE);
-					bsp_LedOff(LED_COLOR_YELLOW);
-					bsp_LedOff(LED_COLOR_GREEN);
-					bsp_LedOff(LED_COLOR_RED);
-					
-					vTaskDelay(100);	
-					while(bsp_SpeakerIsBusy()){}
-					bsp_ClearKey();
-				}
-				
-			}break;
-			
-			case KEY_2_LONG: /*充电*/	
-			{
-				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
-				{
-					bsp_SetKeyRunLastState(RUN_STATE_CHARGE);
-					bsp_SperkerPlay(Song5);
-					bsp_StartRunToggleLED(LED_LOGO_CHARGE);
-					//bsp_StartCliffTest();
-					bsp_StartSearchChargePile();
-					
-					vTaskDelay(200);	
-					while(bsp_SpeakerIsBusy()){}
-					bsp_ClearKey();
-				}
-				
-			}break;
-			
-			case KEY_3_LONG: /*清扫*/
-			{
-				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
-				{
-					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
-					bsp_SperkerPlay(Song3);
-					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
-					bsp_StartCliffTest();
-					bsp_StartVacuum();
-					
-					vTaskDelay(200);	
-					while(bsp_SpeakerIsBusy()){}
-					bsp_ClearKey();
-				}
-				
-			}break;
-			
-			case KEY_9_DOWN:
-			{
-				bsp_StopRunToggleLED();
-				
-				/*复位上一次的按键状态*/
-				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
-				
-				/*关闭各种状态机*/
-				bsp_StopCliffTest();
-				bsp_StopVacuum();
-				/*关闭电机*/
-				bsp_SetMotorSpeed(MotorLeft, 0);
-				bsp_SetMotorSpeed(MotorRight,0);
-				bsp_StartEdgewiseRun();
-				
-			}break;
-		}   
-	}
 }
 
 

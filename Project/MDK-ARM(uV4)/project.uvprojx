@@ -572,11 +572,6 @@
               <FilePath>..\..\User\app\src\bsp_stflash.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_OffSiteSW.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_OffSiteSW.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_CurrentFeedback.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_CurrentFeedback.c</FilePath>
@@ -602,19 +597,9 @@
               <FilePath>..\..\User\app\src\bsp_RunControl.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_SearchChargePile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_SearchChargePile.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_assistJudgeDirection.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_assistJudgeDirection.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_StopMode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_StopMode.c</FilePath>
             </File>
             <File>
               <FileName>bsp_Gridmap.c</FileName>
