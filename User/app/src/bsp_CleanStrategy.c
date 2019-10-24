@@ -95,6 +95,8 @@ static void ObstacleAvoidanceStrategy(int ir_adc_x_sensordata, uint8_t obstacleS
 	int off_delt_y = 0;
 	
 	
+	UNUSED(off_delt_y);
+	
 	switch (cleanstrategy.obstacle_avoidance_case)
 	{
 	case 0:
@@ -275,6 +277,8 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 	current_pose.y = INT_COOR_Y + robotY;
 	current_pose.orientation = robotTheta;
 	
+	
+	UNUSED(current_distance);
 	
 	//loop route
 	switch (cleanstrategy.route_case)

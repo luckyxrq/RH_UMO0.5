@@ -1,8 +1,8 @@
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\app\src\bsp_CleanStrategy.c
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\bsp\bsp.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\bsp_cleanstrategy.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\bsp_cleanstrategy.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\bsp_cleanstrategy.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\bsp_cleanstrategy.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\FreeRTOS\include\portable.h
@@ -41,10 +41,10 @@
 .\flash\obj\bsp_cleanstrategy.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\flash\obj\bsp_cleanstrategy.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\flash\obj\bsp_cleanstrategy.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\flash\obj\bsp_cleanstrategy.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\bsp_cleanstrategy.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_cleanstrategy.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\bsp_cleanstrategy.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\bsp_cleanstrategy.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\bsp_cleanstrategy.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\main.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\bsp\inc\bsp_led.h
@@ -83,4 +83,4 @@
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\app\inc\bsp_Gridmap.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\app\inc\bsp_CleanStrategy.h
-.\flash\obj\bsp_cleanstrategy.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\flash\obj\bsp_cleanstrategy.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

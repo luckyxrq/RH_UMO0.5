@@ -240,6 +240,7 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 	int min_x,min_y,max_x,max_y;
 	
 	
+	UNUSED(min_y);
 	
 	if(!gridmap.isRunning)
 	{
