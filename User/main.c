@@ -98,6 +98,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //    vTaskDelay(5000);	
 //	mcu_start_wifitest();
 	
+	
+//	bsp_LedOn(LED_COLOR_YELLOW); 
+//	bsp_LedOff(LED_COLOR_GREEN);
+
     while(1)
     {
 		/* 处理按键事件 */

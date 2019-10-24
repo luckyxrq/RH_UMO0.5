@@ -50,6 +50,7 @@ void bsp_Init(void)
 	bsp_InitDWT();
 	bsp_InitUart(); 	     /* ³õÊ¼»¯´®¿Ú */
 	bsp_InitKey();
+	bsp_InitLed();
 	
 	wifi_protocol_init();
 

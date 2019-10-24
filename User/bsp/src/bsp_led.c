@@ -37,50 +37,27 @@
 	PF1 : LED_RST
 */
 
-#if (BOARD_VER == OLD_BOARD)
+
 /* 按键口对应的RCC时钟 */
-#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOD)
+#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOB)
 
-#define GPIO_PORT_LED1  GPIOD
-#define GPIO_PIN_LED1	GPIO_Pin_0
+#define GPIO_PORT_LED1  GPIOE
+#define GPIO_PIN_LED1	GPIO_Pin_5
 
-#define GPIO_PORT_LED2  GPIOD
-#define GPIO_PIN_LED2	GPIO_Pin_1
+#define GPIO_PORT_LED2  GPIOB
+#define GPIO_PIN_LED2	GPIO_Pin_5
 
-#define GPIO_PORT_LED3  GPIOD
-#define GPIO_PIN_LED3	GPIO_Pin_2
+#define GPIO_PORT_LED3  GPIOE
+#define GPIO_PIN_LED3	GPIO_Pin_5
 
-#define GPIO_PORT_LED4  GPIOD
-#define GPIO_PIN_LED4	GPIO_Pin_0
+#define GPIO_PORT_LED4  GPIOE
+#define GPIO_PIN_LED4	GPIO_Pin_5
 
-#else
-/* 按键口对应的RCC时钟 */
-#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOF | RCC_APB2Periph_GPIOG | RCC_APB2Periph_GPIOE)
-
-#define GPIO_PORT_LED1  GPIOF
-#define GPIO_PIN_LED1	GPIO_Pin_3
-
-#define GPIO_PORT_LED2  GPIOF
-#define GPIO_PIN_LED2	GPIO_Pin_2
-
-#define GPIO_PORT_LED3  GPIOF
-#define GPIO_PIN_LED3	GPIO_Pin_1
-
-#define GPIO_PORT_LED4  GPIOG
-#define GPIO_PIN_LED4	GPIO_Pin_7
-
-#define GPIO_PORT_LED5  GPIOG
-#define GPIO_PIN_LED5	GPIO_Pin_3
+#define GPIO_PORT_LED5  GPIOE
+#define GPIO_PIN_LED5	GPIO_Pin_5
 
 #define GPIO_PORT_LED6  GPIOE
-#define GPIO_PIN_LED6	GPIO_Pin_1
-
-#endif
-
-
-
-
-
+#define GPIO_PIN_LED6	GPIO_Pin_5
 
 
 /*
