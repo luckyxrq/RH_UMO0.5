@@ -203,7 +203,7 @@
 #include "bsp_StopMode.h"
 #include "bsp_Gridmap.h"
 #include "bsp_CleanStrategy.h"
-
+#include "wifi.h"
 
 
 /* 提供给其他C文件调用的函数 */

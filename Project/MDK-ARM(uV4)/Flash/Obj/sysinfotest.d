@@ -83,3 +83,7 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Gridmap.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_CleanStrategy.h
+.\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\wifi.h
+.\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\protocol.h
+.\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\system.h
+.\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\mcu_api.h

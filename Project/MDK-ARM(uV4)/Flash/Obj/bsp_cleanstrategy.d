@@ -83,4 +83,8 @@
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\app\inc\bsp_Gridmap.h
 .\flash\obj\bsp_cleanstrategy.o: ..\..\User\app\inc\bsp_CleanStrategy.h
+.\flash\obj\bsp_cleanstrategy.o: ..\..\User\tuya_sdk\wifi.h
+.\flash\obj\bsp_cleanstrategy.o: ..\..\User\tuya_sdk\protocol.h
+.\flash\obj\bsp_cleanstrategy.o: ..\..\User\tuya_sdk\system.h
+.\flash\obj\bsp_cleanstrategy.o: ..\..\User\tuya_sdk\mcu_api.h
 .\flash\obj\bsp_cleanstrategy.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

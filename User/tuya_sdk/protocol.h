@@ -299,7 +299,7 @@ mcu在wifi模块正确联网后可调用mcu_get_green_time()函数发起校时�
 #define DPID_CLEAN_RECORD 15
 //清扫面积(只上报)
 //备注:【非必选】
-兼容一位小数显示，选择倍数为1即可。
+//兼容一位小数显示，选择倍数为1即可。
 #define DPID_CLEAN_AREA 16
 //清扫时间(只上报)
 //备注:【非必选】 MCU上报本次清扫时间，实时更新
