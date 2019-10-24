@@ -186,12 +186,17 @@ const DOWNLOAD_CMD_S download_cmd[] =
 *****************************************************************************/
 void uart_transmit_output(unsigned char value)
 {
-  #error "请将MCU串口发送函数填入该函数,并删除该行"
+  //#error "请将MCU串口发送函数填入该函数,并删除该行"
 /*
   //示例:
   extern void Uart_PutChar(unsigned char value);
   Uart_PutChar(value);	                                //串口发送函数
 */
+	
+
+	USART_SendData(USART2, (uint8_t) value);
+	while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET)
+	{}
 }
 /******************************************************************************
                            第二步:实现具体用户函数
@@ -221,7 +226,9 @@ void uart_transmit_output(unsigned char value)
 *****************************************************************************/
 void all_data_update(void)
 {
-  #error "请在此处理可下发可上报数据及只上报数据示例,处理完成后删除该行"
+  //#error "请在此处理可下发可上报数据及只上报数据示例,处理完成后删除该行"
+	
+	
   /* 
   //此代码为平台自动生成，请按照实际数据修改每个可下发可上报函数和只上报函数
   mcu_dp_bool_update(DPID_SWITCH,当前开关); //BOOL型数据上报;
@@ -245,6 +252,27 @@ void all_data_update(void)
   mcu_dp_raw_update(DPID_MAP_CONFIG,当前地图参数配置指针,当前地图参数配置数据长度); //RAW型数据上报;
 
  */
+ 
+ 
+	mcu_dp_bool_update(DPID_SWITCH,0); //BOOL型数据上报;
+	mcu_dp_bool_update(DPID_SWITCH_GO,0); //BOOL型数据上报;
+	mcu_dp_enum_update(DPID_MODE,0); //枚举型数据上报;
+	mcu_dp_enum_update(DPID_DIRECTION_CONTROL,0); //枚举型数据上报;
+	mcu_dp_enum_update(DPID_STATUS,0); //枚举型数据上报;
+	mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,0); //VALUE型数据上报;
+	mcu_dp_value_update(DPID_EDGE_BRUSH,0); //VALUE型数据上报;
+	mcu_dp_value_update(DPID_ROLL_BRUSH,0); //VALUE型数据上报;
+	mcu_dp_value_update(DPID_FILTER,0); //VALUE型数据上报;
+	mcu_dp_bool_update(DPID_RESET_EDGE_BRUSH,0); //BOOL型数据上报;
+	mcu_dp_bool_update(DPID_RESET_ROLL_BRUSH,0); //BOOL型数据上报;
+	mcu_dp_bool_update(DPID_RESET_FILTER,0); //BOOL型数据上报;
+	mcu_dp_bool_update(DPID_SEEK,0); //BOOL型数据上报;
+	mcu_dp_enum_update(DPID_SUCTION,0); //枚举型数据上报;
+	mcu_dp_string_update(DPID_CLEAN_RECORD,"HelloLuvkyXRQ",sizeof("HelloLuvkyXRQ")); //STRING型数据上报;
+	mcu_dp_value_update(DPID_CLEAN_AREA,0); //VALUE型数据上报;
+	mcu_dp_value_update(DPID_CLEAN_TIME,0); //VALUE型数据上报;
+	mcu_dp_fault_update(DPID_FAULT,0); //故障型数据上报;
+	mcu_dp_raw_update(DPID_MAP_CONFIG,"HelloLuvkyXRQ",sizeof("HelloLuvkyXRQ")); //RAW型数据上报;
 }
 
 
@@ -268,10 +296,10 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
   //示例:当前DP类型为BOOL
   unsigned char ret;
   //0:关/1:开
-  unsigned char switch;
+  unsigned char switch_val;
   
-  switch = mcu_get_dp_download_bool(value,length);
-  if(switch == 0)
+  switch_val = mcu_get_dp_download_bool(value,length);
+  if(switch_val == 0)
   {
     //开关关
   }
@@ -281,7 +309,7 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
   }
   
   //处理完DP数据后应有反馈
-  ret = mcu_dp_bool_update(DPID_SWITCH,switch);
+  ret = mcu_dp_bool_update(DPID_SWITCH,switch_val);
   if(ret == SUCCESS)
     return SUCCESS;
   else
@@ -691,7 +719,8 @@ void mcu_write_rtctime(unsigned char time[])
 *****************************************************************************/
 void wifi_test_result(unsigned char result,unsigned char rssi)
 {
-  #error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
+  //#error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
+	
   if(result == 0)
   {
     //测试失败

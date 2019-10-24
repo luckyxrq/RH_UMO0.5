@@ -50,7 +50,7 @@ void bsp_Init(void)
 	bsp_InitDWT();
 	bsp_InitUart(); 	     /* 初始化串口 */
 
-	
+	wifi_protocol_init();
 
 	
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/

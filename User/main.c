@@ -138,6 +138,7 @@ static void vTaskPerception(void *pvParameters)
 
     while(1)
     {
+		wifi_uart_service();
         vTaskDelay(1);	
     }		
     

@@ -453,7 +453,7 @@ static void UartVarInit(void)
 	g_tUart2.usTxCount = 0;						/* 待发送的数据个数 */
 	g_tUart2.SendBefor = 0;						/* 发送数据前的回调函数 */
 	g_tUart2.SendOver = 0;						/* 发送完毕后的回调函数 */
-	g_tUart2.ReciveNew = 0;						/* 接收到新数据后的回调函数 */
+	g_tUart2.ReciveNew = uart_receive_input;	/* 接收到新数据后的回调函数 */
 	
 #endif
 

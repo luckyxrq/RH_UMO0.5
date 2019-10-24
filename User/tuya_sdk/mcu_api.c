@@ -880,7 +880,7 @@ unsigned long mcu_get_dp_download_value(const unsigned char value[],unsigned sho
 *****************************************************************************/
 void uart_receive_input(unsigned char value)
 {
-  #error "请在串口接收中断中调用uart_receive_input(value),串口数据由MCU_SDK处理,用户请勿再另行处理,完成后删除该行" 
+  //#error "请在串口接收中断中调用uart_receive_input(value),串口数据由MCU_SDK处理,用户请勿再另行处理,完成后删除该行" 
 
   if((queue_in > queue_out) && ((queue_in - queue_out) >= sizeof(wifi_queue_buf)))
   {
@@ -910,7 +910,7 @@ void uart_receive_input(unsigned char value)
 *****************************************************************************/
 void wifi_uart_service(void)
 {
-  #error "请直接在main函数的while(1){}中添加wifi_uart_service(),调用该函数不要加任何条件判断,完成后删除该行" 
+  //#error "请直接在main函数的while(1){}中添加wifi_uart_service(),调用该函数不要加任何条件判断,完成后删除该行" 
   static unsigned short rx_in = 0;
   unsigned short offset = 0;
   unsigned short rx_value_len = 0;             //数据帧长度
@@ -983,7 +983,7 @@ void wifi_uart_service(void)
 *****************************************************************************/
 void wifi_protocol_init(void)
 {
-  #error " 请在main函数中添加wifi_protocol_init()完成wifi协议初始化,并删除该行"
+  //#error " 请在main函数中添加wifi_protocol_init()完成wifi协议初始化,并删除该行"
   queue_in = (unsigned char *)wifi_queue_buf;
   queue_out = (unsigned char *)wifi_queue_buf;
   //
