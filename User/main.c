@@ -113,22 +113,26 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			{
 				case KEY_1_DOWN:
 				{
-					DEBUG("按键1\r\n");
+					mcu_start_wifitest();
+					DEBUG("测试WIFI功能\r\n");
 				}break;	
 				
 				case KEY_2_DOWN:
 				{
-					DEBUG("按键2\r\n");
+					mcu_reset_wifi();
+					DEBUG("复位WIFI\r\n");
 				}break;	
 				
 				case KEY_3_DOWN:
 				{
-					DEBUG("按键3\r\n");
+					mcu_set_wifi_mode(SMART_CONFIG);
+					DEBUG("SMART_CONFIG 模式\r\n");
 				}break;	
 				
 				case KEY_4_DOWN:
 				{
-					DEBUG("按键4\r\n");
+					mcu_set_wifi_mode(AP_CONFIG);
+					DEBUG("AP_CONFIG 模式\r\n");
 				}break;	
 				
 				default:
@@ -139,6 +143,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         vTaskDelay(50);	
     }
 }
+
+
+
 
 /*
 *********************************************************************************************************
@@ -154,13 +161,37 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 
     while(1)
     {
+		switch(mcu_get_wifi_work_state())
+		{
+			case SMART_CONFIG_STATE:
+			//smart config 配置状态 LED快闪 ，led闪烁请用户完成
+			DEBUG("smart config 配置状态 LED快闪 ，led闪烁请用户完成\r\n");
+			break;
+			
+			case AP_STATE:
+			//AP配置状态 LED慢闪
+			DEBUG("AP配置状态 LED慢闪\r\n");
+			break;
+			
+			case WIFI_NOT_CONNECTED:
+			//WIFI配置完成，正在连接路由器，LED常暗
+			DEBUG("WIFI配置完成，正在连接路由器，LED常暗\r\n");
+			break;
+			
+			case WIFI_CONNECTED:
+			//路由器连接成功 LED常亮
+			DEBUG("路由器连接成功 LED常亮\r\n");
+			break;
+			
+			default:break;
+		}
 
-        vTaskDelay(10);
+        vTaskDelay(100);
     }
     
 }
 
-
+uint8_t val = 0 ;
 /*
 *********************************************************************************************************
 *	函 数 名: vTaskStart
@@ -182,6 +213,13 @@ static void vTaskPerception(void *pvParameters)
 		if(i%10 == 0)
 		{
 			bsp_KeyScan();
+		}
+		
+		if(i%2000 == 0)
+		{
+			val = (val + 1) % 100;
+			DEBUG("val:%d\r\n",val);
+			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,val); //VALUE型数据上报;
 		}
 		
 		i++;

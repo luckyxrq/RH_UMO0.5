@@ -254,13 +254,14 @@ void all_data_update(void)
 
  */
  
+    extern uint8_t val;
  
 	mcu_dp_bool_update(DPID_SWITCH,0); //BOOL型数据上报;
 	mcu_dp_bool_update(DPID_SWITCH_GO,0); //BOOL型数据上报;
 	mcu_dp_enum_update(DPID_MODE,0); //枚举型数据上报;
 	mcu_dp_enum_update(DPID_DIRECTION_CONTROL,0); //枚举型数据上报;
 	mcu_dp_enum_update(DPID_STATUS,0); //枚举型数据上报;
-	mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,0); //VALUE型数据上报;
+	mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,val); //VALUE型数据上报;
 	mcu_dp_value_update(DPID_EDGE_BRUSH,0); //VALUE型数据上报;
 	mcu_dp_value_update(DPID_ROLL_BRUSH,0); //VALUE型数据上报;
 	mcu_dp_value_update(DPID_FILTER,0); //VALUE型数据上报;
