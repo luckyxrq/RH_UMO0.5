@@ -215,10 +215,10 @@ static void vTaskPerception(void *pvParameters)
 			bsp_KeyScan();
 		}
 		
-		if(i%2000 == 0)
+		if(i%1000 == 0)
 		{
 			val = (val + 1) % 100;
-			DEBUG("val:%d\r\n",val);
+			//DEBUG("val:%d\r\n",val);
 			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,val); //VALUE型数据上报;
 		}
 		

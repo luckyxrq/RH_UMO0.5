@@ -305,11 +305,15 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
   {
     //开关关
 	  DEBUG("SW CLOSE\r\n");
+	  bsp_LedOff(LED_COLOR_YELLOW); 
+	  bsp_LedOff(LED_COLOR_GREEN);
   }
   else
   {
     //开关开
 	  DEBUG("SW OPEN\r\n");
+	bsp_LedOn(LED_COLOR_YELLOW); 
+	bsp_LedOn(LED_COLOR_GREEN);
   }
   
   //处理完DP数据后应有反馈
