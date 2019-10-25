@@ -304,10 +304,12 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
   if(switch_val == 0)
   {
     //开关关
+	  DEBUG("SW CLOSE\r\n");
   }
   else
   {
     //开关开
+	  DEBUG("SW OPEN\r\n");
   }
   
   //处理完DP数据后应有反馈
