@@ -220,6 +220,13 @@ static void vTaskPerception(void *pvParameters)
 			val = (val + 1) % 100;
 			//DEBUG("val:%d\r\n",val);
 			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,val); //VALUE型数据上报;
+			mcu_dp_fault_update(DPID_FAULT,1);
+			mcu_dp_fault_update(DPID_FAULT,2);
+			mcu_dp_fault_update(DPID_FAULT,3);
+			mcu_dp_fault_update(DPID_FAULT,4);
+			mcu_dp_fault_update(DPID_FAULT,5);
+			mcu_dp_fault_update(DPID_FAULT,6);
+			mcu_dp_fault_update(DPID_FAULT,7);
 		}
 		
 		i++;
