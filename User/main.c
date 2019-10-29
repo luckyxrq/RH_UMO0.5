@@ -112,11 +112,15 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			{
 				case KEY_1_DOWN:
 				{
+					bsp_SetMotorSpeed(MotorLeft ,  12);
+					bsp_SetMotorSpeed(MotorRight , 12);
 					DEBUG("KEY1\r\n");
 				}break;
 				
 				case KEY_2_DOWN:
 				{
+					bsp_SetMotorSpeed(MotorLeft ,  0);
+					bsp_SetMotorSpeed(MotorRight , 0);
 					DEBUG("KEY2\r\n");
 				}break;
 				
@@ -155,7 +159,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
     {
 
         		
-#if 1		
+#if 0		
         DEBUG("L %d MM/S  ",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
