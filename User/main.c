@@ -94,11 +94,46 @@ int main(void)
 */
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
-	bsp_SetMotorSpeed(MotorLeft ,  12);
-	bsp_SetMotorSpeed(MotorRight , 12);
+	uint8_t ucKeyCode;
+	uint32_t i = 0 ;
+	
+//	bsp_SetMotorSpeed(MotorLeft ,  12);
+//	bsp_SetMotorSpeed(MotorRight , 12);
 	
     while(1)
     {
+		
+		/* 处理按键事件 */
+		ucKeyCode = bsp_GetKey();
+		if (ucKeyCode > 0)
+		{
+			/* 有键按下 */
+			switch (ucKeyCode)
+			{
+				case KEY_1_DOWN:
+				{
+					DEBUG("KEY1\r\n");
+				}break;
+				
+				case KEY_2_DOWN:
+				{
+					DEBUG("KEY2\r\n");
+				}break;
+				
+				case KEY_3_DOWN:
+				{
+					DEBUG("KEY3\r\n");
+				}break;
+
+			}
+		}
+		
+		if(i % 20 == 0)
+		{
+			//DEBUG("alive\r\n");
+		}
+		
+		++i;
         vTaskDelay(50);	
     }
 }
@@ -150,7 +185,7 @@ static void vTaskPerception(void *pvParameters)
 		bsp_KeyScan();
 
 		
-        vTaskDelay(1);	
+        vTaskDelay(10);	
     }
     
 }
