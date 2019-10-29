@@ -95,10 +95,9 @@ int main(void)
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
 	uint8_t ucKeyCode;
-	uint32_t i = 0 ;
+	uint32_t tick = 0 ;
 	
-//	bsp_SetMotorSpeed(MotorLeft ,  12);
-//	bsp_SetMotorSpeed(MotorRight , 12);
+	UNUSED(bsp_KeyProc);
 	
     while(1)
     {
@@ -114,6 +113,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				{
 					bsp_SetMotorSpeed(MotorLeft ,  12);
 					bsp_SetMotorSpeed(MotorRight , 12);
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM );
 					DEBUG("KEY1\r\n");
 				}break;
 				
@@ -121,6 +121,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				{
 					bsp_SetMotorSpeed(MotorLeft ,  0);
 					bsp_SetMotorSpeed(MotorRight , 0);
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
 					DEBUG("KEY2\r\n");
 				}break;
 				
@@ -132,12 +133,12 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			}
 		}
 		
-		if(i % 20 == 0)
+		if(tick % 20 == 0)
 		{
-			//DEBUG("alive\r\n");
-		}
-		
-		++i;
+			bsp_LedToggle(LED_COLOR_YELLOW);
+		}   bsp_LedToggle(LED_COLOR_GREEN);
+		    bsp_LedToggle(LED_COLOR_RED);
+		++tick;
         vTaskDelay(50);	
     }
 }
