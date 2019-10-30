@@ -102,9 +102,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 	UNUSED(bsp_KeyProc);
 	
 	
-	TIM_SetCompare3(TIM4,0);
-	//TIM_SetCompare3(TIM4,3500);
-	
     while(1)
     {
 		
@@ -117,8 +114,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			{
 				case KEY_1_DOWN:
 				{
-					bsp_SetMotorSpeed(MotorLeft ,  12);
-					bsp_SetMotorSpeed(MotorRight , 12);
+					bsp_SetMotorSpeed(MotorLeft ,  bsp_MotorSpeedMM2Pulse(120));
+					bsp_SetMotorSpeed(MotorRight , bsp_MotorSpeedMM2Pulse(120));
 					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM );
 					bsp_StartPumpRun();
 					

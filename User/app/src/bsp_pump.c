@@ -1,7 +1,7 @@
 #include "bsp.h"
 
-#define PUMP_OPEN_MS       500   /*水泵开时间*/
-#define PUMP_CLOSE_MS      500   /*水泵关时间*/
+#define PUMP_OPEN_MS       2000   /*水泵开时间*/
+#define PUMP_CLOSE_MS      4000   /*水泵关时间*/
 
 /*水泵控制*/
 #define  bsp_PumpOpen()   TIM_SetCompare3(TIM4,CONSTANT_HIGH_PWM)
