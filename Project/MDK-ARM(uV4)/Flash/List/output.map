@@ -57,13 +57,17 @@ Section Cross References
     main.o(i.main) refers to main.o(i.AppObjCreate) for AppObjCreate
     main.o(i.main) refers to tasks.o(i.vTaskStartScheduler) for vTaskStartScheduler
     main.o(i.vTaskControl) refers to bsp_control.o(i.bsp_PidSched) for bsp_PidSched
+    main.o(i.vTaskControl) refers to stm32f10x_tim.o(i.TIM_SetCompare3) for TIM_SetCompare3
     main.o(i.vTaskControl) refers to tasks.o(i.vTaskDelay) for vTaskDelay
+    main.o(i.vTaskControl) refers to main.o(.data) for isStartPump
     main.o(i.vTaskDecision) refers to bsp_key.o(i.bsp_GetKey) for bsp_GetKey
     main.o(i.vTaskDecision) refers to bsp_control.o(i.bsp_SetMotorSpeed) for bsp_SetMotorSpeed
     main.o(i.vTaskDecision) refers to bsp_motor.o(i.bsp_MotorCleanSetPWM) for bsp_MotorCleanSetPWM
     main.o(i.vTaskDecision) refers to printf8.o(i.__0printf$8) for __2printf
+    main.o(i.vTaskDecision) refers to stm32f10x_tim.o(i.TIM_SetCompare3) for TIM_SetCompare3
     main.o(i.vTaskDecision) refers to bsp_led.o(i.bsp_LedToggle) for bsp_LedToggle
     main.o(i.vTaskDecision) refers to tasks.o(i.vTaskDelay) for vTaskDelay
+    main.o(i.vTaskDecision) refers to main.o(.data) for isStartPump
     main.o(i.vTaskPerception) refers to bsp_key.o(i.bsp_KeyScan) for bsp_KeyScan
     main.o(i.vTaskPerception) refers to tasks.o(i.vTaskDelay) for vTaskDelay
     sysinfotest.o(i.TIM6_IRQHandler) refers to stm32f10x_tim.o(i.TIM_GetITStatus) for TIM_GetITStatus
@@ -2440,86 +2444,86 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
+    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  ldiv.o ABSOLUTE
-    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
     ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
     ../clib/microlib/string/strcpy.c         0x00000000   Number         0  strcpy.o ABSOLUTE
     ../clib/microlib/string/strlen.c         0x00000000   Number         0  strlen.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/d2f.c                  0x00000000   Number         0  d2f.o ABSOLUTE
     ../fplib/microlib/f2d.c                  0x00000000   Number         0  f2d.o ABSOLUTE
-    ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  fadd.o ABSOLUTE
+    ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  fdiv.o ABSOLUTE
-    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
+    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixul.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  ffixi.o ABSOLUTE
+    ../fplib/microlib/fpfix.c                0x00000000   Number         0  ffixui.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixi.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixui.o ABSOLUTE
-    ../fplib/microlib/fpfix.c                0x00000000   Number         0  ffixui.o ABSOLUTE
-    ../fplib/microlib/fpflt.c                0x00000000   Number         0  ffltui.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
-    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
+    ../fplib/microlib/fpflt.c                0x00000000   Number         0  ffltui.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  fflti.o ABSOLUTE
+    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  fmul.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
     ../fplib/microlib/fpscalb.c              0x00000000   Number         0  dscalb.o ABSOLUTE
     ../fplib/microlib/fpsqrt.c               0x00000000   Number         0  dsqrt.o ABSOLUTE
-    ../mathlib/atan.c                        0x00000000   Number         0  atan_x.o ABSOLUTE
     ../mathlib/atan.c                        0x00000000   Number         0  atan.o ABSOLUTE
-    ../mathlib/atan2.c                       0x00000000   Number         0  atan2.o ABSOLUTE
+    ../mathlib/atan.c                        0x00000000   Number         0  atan_x.o ABSOLUTE
     ../mathlib/atan2.c                       0x00000000   Number         0  atan2_x.o ABSOLUTE
-    ../mathlib/cos.c                         0x00000000   Number         0  cos_x.o ABSOLUTE
+    ../mathlib/atan2.c                       0x00000000   Number         0  atan2.o ABSOLUTE
     ../mathlib/cos.c                         0x00000000   Number         0  cos.o ABSOLUTE
+    ../mathlib/cos.c                         0x00000000   Number         0  cos_x.o ABSOLUTE
     ../mathlib/cos_i.c                       0x00000000   Number         0  cos_i.o ABSOLUTE
     ../mathlib/dunder.c                      0x00000000   Number         0  dunder.o ABSOLUTE
     ../mathlib/fpclassify.c                  0x00000000   Number         0  fpclassify.o ABSOLUTE
     ../mathlib/poly.c                        0x00000000   Number         0  poly.o ABSOLUTE
-    ../mathlib/pow.c                         0x00000000   Number         0  pow_x.o ABSOLUTE
     ../mathlib/pow.c                         0x00000000   Number         0  pow.o ABSOLUTE
+    ../mathlib/pow.c                         0x00000000   Number         0  pow_x.o ABSOLUTE
     ../mathlib/qnan.c                        0x00000000   Number         0  qnan.o ABSOLUTE
     ../mathlib/rred.c                        0x00000000   Number         0  rred.o ABSOLUTE
-    ../mathlib/sin.c                         0x00000000   Number         0  sin.o ABSOLUTE
     ../mathlib/sin.c                         0x00000000   Number         0  sin_x.o ABSOLUTE
-    ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i.o ABSOLUTE
+    ../mathlib/sin.c                         0x00000000   Number         0  sin.o ABSOLUTE
     ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i_x.o ABSOLUTE
-    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt.o ABSOLUTE
+    ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i.o ABSOLUTE
     ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_x.o ABSOLUTE
+    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt.o ABSOLUTE
     ..\..\FreeRTOS\croutine.c                0x00000000   Number         0  croutine.o ABSOLUTE
     ..\..\FreeRTOS\event_groups.c            0x00000000   Number         0  event_groups.o ABSOLUTE
     ..\..\FreeRTOS\list.c                    0x00000000   Number         0  list.o ABSOLUTE
@@ -2675,8 +2679,8 @@ Image Symbol Table
     .text                                    0x08000732   Section        0  llshl.o(.text)
     .text                                    0x08000750   Section        0  llushr.o(.text)
     .text                                    0x08000770   Section        0  llsshr.o(.text)
-    .text                                    0x08000794   Section        0  iusefp.o(.text)
     .text                                    0x08000794   Section        0  fepilogue.o(.text)
+    .text                                    0x08000794   Section        0  iusefp.o(.text)
     .text                                    0x08000802   Section        0  depilogue.o(.text)
     .text                                    0x080008bc   Section       36  init.o(.text)
     i.ADC_Cmd                                0x080008e0   Section        0  stm32f10x_adc.o(i.ADC_Cmd)
@@ -2975,131 +2979,134 @@ Image Symbol Table
     i.vPortYield                             0x08005248   Section        0  port.o(i.vPortYield)
     i.vSetupSysInfoTest                      0x08005260   Section        0  sysinfotest.o(i.vSetupSysInfoTest)
     i.vTaskControl                           0x08005278   Section        0  main.o(i.vTaskControl)
-    vTaskControl                             0x08005279   Thumb Code    14  main.o(i.vTaskControl)
-    i.vTaskDecision                          0x08005288   Section        0  main.o(i.vTaskDecision)
-    vTaskDecision                            0x08005289   Thumb Code   148  main.o(i.vTaskDecision)
-    i.vTaskDelay                             0x08005334   Section        0  tasks.o(i.vTaskDelay)
-    i.vTaskMissedYield                       0x080053a4   Section        0  tasks.o(i.vTaskMissedYield)
-    i.vTaskPerception                        0x080053b0   Section        0  main.o(i.vTaskPerception)
-    vTaskPerception                          0x080053b1   Thumb Code    14  main.o(i.vTaskPerception)
-    i.vTaskPlaceOnEventList                  0x080053c0   Section        0  tasks.o(i.vTaskPlaceOnEventList)
-    i.vTaskSetTimeOutState                   0x08005430   Section        0  tasks.o(i.vTaskSetTimeOutState)
-    i.vTaskStartScheduler                    0x08005454   Section        0  tasks.o(i.vTaskStartScheduler)
-    i.vTaskSuspendAll                        0x080054bc   Section        0  tasks.o(i.vTaskSuspendAll)
-    i.vTaskSwitchContext                     0x080054cc   Section        0  tasks.o(i.vTaskSwitchContext)
-    i.xPortStartScheduler                    0x0800558c   Section        0  port.o(i.xPortStartScheduler)
-    i.xQueueCreateMutex                      0x0800562c   Section        0  queue.o(i.xQueueCreateMutex)
-    i.xQueueGenericSend                      0x08005678   Section        0  queue.o(i.xQueueGenericSend)
-    i.xTaskCheckForTimeOut                   0x080057a0   Section        0  tasks.o(i.xTaskCheckForTimeOut)
-    i.xTaskGenericCreate                     0x08005814   Section        0  tasks.o(i.xTaskGenericCreate)
-    i.xTaskIncrementTick                     0x0800594c   Section        0  tasks.o(i.xTaskIncrementTick)
-    i.xTaskPriorityDisinherit                0x08005a88   Section        0  tasks.o(i.xTaskPriorityDisinherit)
-    i.xTaskRemoveFromEventList               0x08005b34   Section        0  tasks.o(i.xTaskRemoveFromEventList)
-    i.xTaskResumeAll                         0x08005bc0   Section        0  tasks.o(i.xTaskResumeAll)
-    .constdata                               0x08005ca8   Section       32  bsp_ir_decode.o(.constdata)
-    .data                                    0x20000000   Section       24  main.o(.data)
+    vTaskControl                             0x08005279   Thumb Code    80  main.o(i.vTaskControl)
+    i.vTaskDecision                          0x080052d8   Section        0  main.o(i.vTaskDecision)
+    vTaskDecision                            0x080052d9   Thumb Code   168  main.o(i.vTaskDecision)
+    i.vTaskDelay                             0x080053a0   Section        0  tasks.o(i.vTaskDelay)
+    i.vTaskMissedYield                       0x08005410   Section        0  tasks.o(i.vTaskMissedYield)
+    i.vTaskPerception                        0x0800541c   Section        0  main.o(i.vTaskPerception)
+    vTaskPerception                          0x0800541d   Thumb Code    14  main.o(i.vTaskPerception)
+    i.vTaskPlaceOnEventList                  0x0800542c   Section        0  tasks.o(i.vTaskPlaceOnEventList)
+    i.vTaskSetTimeOutState                   0x0800549c   Section        0  tasks.o(i.vTaskSetTimeOutState)
+    i.vTaskStartScheduler                    0x080054c0   Section        0  tasks.o(i.vTaskStartScheduler)
+    i.vTaskSuspendAll                        0x08005528   Section        0  tasks.o(i.vTaskSuspendAll)
+    i.vTaskSwitchContext                     0x08005538   Section        0  tasks.o(i.vTaskSwitchContext)
+    i.xPortStartScheduler                    0x080055f8   Section        0  port.o(i.xPortStartScheduler)
+    i.xQueueCreateMutex                      0x08005698   Section        0  queue.o(i.xQueueCreateMutex)
+    i.xQueueGenericSend                      0x080056e4   Section        0  queue.o(i.xQueueGenericSend)
+    i.xTaskCheckForTimeOut                   0x0800580c   Section        0  tasks.o(i.xTaskCheckForTimeOut)
+    i.xTaskGenericCreate                     0x08005880   Section        0  tasks.o(i.xTaskGenericCreate)
+    i.xTaskIncrementTick                     0x080059b8   Section        0  tasks.o(i.xTaskIncrementTick)
+    i.xTaskPriorityDisinherit                0x08005af4   Section        0  tasks.o(i.xTaskPriorityDisinherit)
+    i.xTaskRemoveFromEventList               0x08005ba0   Section        0  tasks.o(i.xTaskRemoveFromEventList)
+    i.xTaskResumeAll                         0x08005c2c   Section        0  tasks.o(i.xTaskResumeAll)
+    .constdata                               0x08005d14   Section       32  bsp_ir_decode.o(.constdata)
+    .data                                    0x20000000   Section       33  main.o(.data)
     xHandleTaskDecision                      0x20000000   Data           4  main.o(.data)
     xHandleTaskControl                       0x20000004   Data           4  main.o(.data)
     xHandleTaskPerception                    0x20000008   Data           4  main.o(.data)
     xMutex                                   0x2000000c   Data           4  main.o(.data)
     keyProc                                  0x20000010   Data           8  main.o(.data)
-    .data                                    0x20000018   Section        8  sysinfotest.o(.data)
-    tick                                     0x2000001c   Data           4  sysinfotest.o(.data)
-    .data                                    0x20000020   Section        8  bsp_motor.o(.data)
-    vacuum                                   0x20000020   Data           8  bsp_motor.o(.data)
-    .data                                    0x20000028   Section       10  bsp_control.o(.data)
-    encoderPulseVector                       0x20000028   Data           8  bsp_control.o(.data)
-    sampleIndex                              0x20000030   Data           2  bsp_control.o(.data)
-    .data                                    0x20000034   Section       16  bsp_timer.o(.data)
-    s_TIM_CallBack1                          0x20000034   Data           4  bsp_timer.o(.data)
-    s_TIM_CallBack2                          0x20000038   Data           4  bsp_timer.o(.data)
-    s_TIM_CallBack3                          0x2000003c   Data           4  bsp_timer.o(.data)
-    s_TIM_CallBack4                          0x20000040   Data           4  bsp_timer.o(.data)
-    .data                                    0x20000044   Section        1  bsp_ir_decode.o(.data)
-    sss                                      0x20000044   Data           1  bsp_ir_decode.o(.data)
-    .data                                    0x20000045   Section       20  stm32f10x_rcc.o(.data)
-    APBAHBPrescTable                         0x20000045   Data          16  stm32f10x_rcc.o(.data)
-    ADCPrescTable                            0x20000055   Data           4  stm32f10x_rcc.o(.data)
-    .data                                    0x2000005c   Section       20  system_stm32f10x.o(.data)
-    .data                                    0x20000070   Section       64  tasks.o(.data)
-    pxDelayedTaskList                        0x20000074   Data           4  tasks.o(.data)
-    pxOverflowDelayedTaskList                0x20000078   Data           4  tasks.o(.data)
-    uxTasksDeleted                           0x2000007c   Data           4  tasks.o(.data)
-    uxCurrentNumberOfTasks                   0x20000080   Data           4  tasks.o(.data)
-    xTickCount                               0x20000084   Data           4  tasks.o(.data)
-    uxTopReadyPriority                       0x20000088   Data           4  tasks.o(.data)
-    xSchedulerRunning                        0x2000008c   Data           4  tasks.o(.data)
-    uxPendedTicks                            0x20000090   Data           4  tasks.o(.data)
-    xYieldPending                            0x20000094   Data           4  tasks.o(.data)
-    xNumOfOverflows                          0x20000098   Data           4  tasks.o(.data)
-    uxTaskNumber                             0x2000009c   Data           4  tasks.o(.data)
-    xNextTaskUnblockTime                     0x200000a0   Data           4  tasks.o(.data)
-    uxSchedulerSuspended                     0x200000a4   Data           4  tasks.o(.data)
-    ulTaskSwitchedInTime                     0x200000a8   Data           4  tasks.o(.data)
-    ulTotalRunTime                           0x200000ac   Data           4  tasks.o(.data)
-    .data                                    0x200000b0   Section       12  port.o(.data)
-    uxCriticalNesting                        0x200000b0   Data           4  port.o(.data)
-    ucMaxSysCallPriority                     0x200000b4   Data           1  port.o(.data)
-    ulMaxPRIGROUPValue                       0x200000b8   Data           4  port.o(.data)
-    .data                                    0x200000bc   Section       24  heap_4.o(.data)
-    xStart                                   0x200000bc   Data           8  heap_4.o(.data)
-    pxEnd                                    0x200000c4   Data           4  heap_4.o(.data)
-    xFreeBytesRemaining                      0x200000c8   Data           4  heap_4.o(.data)
-    xMinimumEverFreeBytesRemaining           0x200000cc   Data           4  heap_4.o(.data)
-    xBlockAllocatedBit                       0x200000d0   Data           4  heap_4.o(.data)
-    .data                                    0x200000d4   Section        4  stdout.o(.data)
-    .bss                                     0x200000d8   Section     1066  bsp_angle.o(.bss)
-    flashBuf                                 0x200000d8   Data        1024  bsp_angle.o(.bss)
-    angle                                    0x200004d8   Data          28  bsp_angle.o(.bss)
-    angleFrame                               0x200004f4   Data          14  bsp_angle.o(.bss)
-    .bss                                     0x20000504   Section     1166  bsp_detectact.o(.bss)
-    flashBuf                                 0x20000504   Data        1024  bsp_detectact.o(.bss)
-    detectAct                                0x20000904   Data          12  bsp_detectact.o(.bss)
-    adcContrast                              0x20000910   Data          80  bsp_detectact.o(.bss)
-    adcRealTime                              0x20000960   Data          40  bsp_detectact.o(.bss)
-    adcIsSunlight                            0x20000988   Data          10  bsp_detectact.o(.bss)
-    .bss                                     0x20000994   Section     1040  bsp_encoder.o(.bss)
-    flashBuf                                 0x20000994   Data        1024  bsp_encoder.o(.bss)
-    encoder                                  0x20000d94   Data          16  bsp_encoder.o(.bss)
-    .bss                                     0x20000da4   Section     1160  bsp_control.o(.bss)
-    flashBuf                                 0x20000da4   Data        1024  bsp_control.o(.bss)
-    pid                                      0x200011a4   Data          56  bsp_control.o(.bss)
-    speed                                    0x200011dc   Data          80  bsp_control.o(.bss)
-    .bss                                     0x2000122c   Section     1080  bsp_cliffsw.o(.bss)
-    flashBuf                                 0x2000122c   Data        1024  bsp_cliffsw.o(.bss)
-    cliff                                    0x2000162c   Data          36  bsp_cliffsw.o(.bss)
-    cliffTest                                0x20001650   Data          20  bsp_cliffsw.o(.bss)
-    .bss                                     0x20001664   Section     9376  bsp_uart_fifo.o(.bss)
-    flashBuf                                 0x20001664   Data        1024  bsp_uart_fifo.o(.bss)
-    g_tUart1                                 0x20001a64   Data          40  bsp_uart_fifo.o(.bss)
-    g_TxBuf1                                 0x20001a8c   Data        1024  bsp_uart_fifo.o(.bss)
-    g_RxBuf1                                 0x20001e8c   Data        1024  bsp_uart_fifo.o(.bss)
-    g_tUart2                                 0x2000228c   Data          40  bsp_uart_fifo.o(.bss)
-    g_TxBuf2                                 0x200022b4   Data        1024  bsp_uart_fifo.o(.bss)
-    g_RxBuf2                                 0x200026b4   Data        1024  bsp_uart_fifo.o(.bss)
-    g_tUart3                                 0x20002ab4   Data          40  bsp_uart_fifo.o(.bss)
-    g_TxBuf3                                 0x20002adc   Data        1024  bsp_uart_fifo.o(.bss)
-    g_RxBuf3                                 0x20002edc   Data        1024  bsp_uart_fifo.o(.bss)
-    g_tUart4                                 0x200032dc   Data          40  bsp_uart_fifo.o(.bss)
-    g_TxBuf4                                 0x20003304   Data        1024  bsp_uart_fifo.o(.bss)
-    g_RxBuf4                                 0x20003704   Data        1024  bsp_uart_fifo.o(.bss)
-    .bss                                     0x20003b04   Section     1197  bsp_key.o(.bss)
-    flashBuf                                 0x20003b04   Data        1024  bsp_key.o(.bss)
-    s_tBtn                                   0x20003f04   Data         160  bsp_key.o(.bss)
-    s_tKey                                   0x20003fa4   Data          13  bsp_key.o(.bss)
-    .bss                                     0x20003fb4   Section     1164  bsp_ir_decode.o(.bss)
-    flashBuf                                 0x20003fb4   Data        1024  bsp_ir_decode.o(.bss)
-    g_tIR                                    0x200043b4   Data         140  bsp_ir_decode.o(.bss)
-    .bss                                     0x20004440   Section      200  tasks.o(.bss)
-    pxReadyTasksLists                        0x20004440   Data         100  tasks.o(.bss)
-    xDelayedTaskList1                        0x200044a4   Data          20  tasks.o(.bss)
-    xDelayedTaskList2                        0x200044b8   Data          20  tasks.o(.bss)
-    xPendingReadyList                        0x200044cc   Data          20  tasks.o(.bss)
-    xTasksWaitingTermination                 0x200044e0   Data          20  tasks.o(.bss)
-    xSuspendedTaskList                       0x200044f4   Data          20  tasks.o(.bss)
-    .bss                                     0x20004508   Section    28672  heap_4.o(.bss)
-    ucHeap                                   0x20004508   Data       28672  heap_4.o(.bss)
-    STACK                                    0x2000b508   Section     2048  startup_stm32f10x_hd.o(STACK)
+    isStartPump                              0x20000018   Data           1  main.o(.data)
+    tick                                     0x2000001c   Data           4  main.o(.data)
+    isStop                                   0x20000020   Data           1  main.o(.data)
+    .data                                    0x20000024   Section        8  sysinfotest.o(.data)
+    tick                                     0x20000028   Data           4  sysinfotest.o(.data)
+    .data                                    0x2000002c   Section        8  bsp_motor.o(.data)
+    vacuum                                   0x2000002c   Data           8  bsp_motor.o(.data)
+    .data                                    0x20000034   Section       10  bsp_control.o(.data)
+    encoderPulseVector                       0x20000034   Data           8  bsp_control.o(.data)
+    sampleIndex                              0x2000003c   Data           2  bsp_control.o(.data)
+    .data                                    0x20000040   Section       16  bsp_timer.o(.data)
+    s_TIM_CallBack1                          0x20000040   Data           4  bsp_timer.o(.data)
+    s_TIM_CallBack2                          0x20000044   Data           4  bsp_timer.o(.data)
+    s_TIM_CallBack3                          0x20000048   Data           4  bsp_timer.o(.data)
+    s_TIM_CallBack4                          0x2000004c   Data           4  bsp_timer.o(.data)
+    .data                                    0x20000050   Section        1  bsp_ir_decode.o(.data)
+    sss                                      0x20000050   Data           1  bsp_ir_decode.o(.data)
+    .data                                    0x20000051   Section       20  stm32f10x_rcc.o(.data)
+    APBAHBPrescTable                         0x20000051   Data          16  stm32f10x_rcc.o(.data)
+    ADCPrescTable                            0x20000061   Data           4  stm32f10x_rcc.o(.data)
+    .data                                    0x20000068   Section       20  system_stm32f10x.o(.data)
+    .data                                    0x2000007c   Section       64  tasks.o(.data)
+    pxDelayedTaskList                        0x20000080   Data           4  tasks.o(.data)
+    pxOverflowDelayedTaskList                0x20000084   Data           4  tasks.o(.data)
+    uxTasksDeleted                           0x20000088   Data           4  tasks.o(.data)
+    uxCurrentNumberOfTasks                   0x2000008c   Data           4  tasks.o(.data)
+    xTickCount                               0x20000090   Data           4  tasks.o(.data)
+    uxTopReadyPriority                       0x20000094   Data           4  tasks.o(.data)
+    xSchedulerRunning                        0x20000098   Data           4  tasks.o(.data)
+    uxPendedTicks                            0x2000009c   Data           4  tasks.o(.data)
+    xYieldPending                            0x200000a0   Data           4  tasks.o(.data)
+    xNumOfOverflows                          0x200000a4   Data           4  tasks.o(.data)
+    uxTaskNumber                             0x200000a8   Data           4  tasks.o(.data)
+    xNextTaskUnblockTime                     0x200000ac   Data           4  tasks.o(.data)
+    uxSchedulerSuspended                     0x200000b0   Data           4  tasks.o(.data)
+    ulTaskSwitchedInTime                     0x200000b4   Data           4  tasks.o(.data)
+    ulTotalRunTime                           0x200000b8   Data           4  tasks.o(.data)
+    .data                                    0x200000bc   Section       12  port.o(.data)
+    uxCriticalNesting                        0x200000bc   Data           4  port.o(.data)
+    ucMaxSysCallPriority                     0x200000c0   Data           1  port.o(.data)
+    ulMaxPRIGROUPValue                       0x200000c4   Data           4  port.o(.data)
+    .data                                    0x200000c8   Section       24  heap_4.o(.data)
+    xStart                                   0x200000c8   Data           8  heap_4.o(.data)
+    pxEnd                                    0x200000d0   Data           4  heap_4.o(.data)
+    xFreeBytesRemaining                      0x200000d4   Data           4  heap_4.o(.data)
+    xMinimumEverFreeBytesRemaining           0x200000d8   Data           4  heap_4.o(.data)
+    xBlockAllocatedBit                       0x200000dc   Data           4  heap_4.o(.data)
+    .data                                    0x200000e0   Section        4  stdout.o(.data)
+    .bss                                     0x200000e4   Section     1066  bsp_angle.o(.bss)
+    flashBuf                                 0x200000e4   Data        1024  bsp_angle.o(.bss)
+    angle                                    0x200004e4   Data          28  bsp_angle.o(.bss)
+    angleFrame                               0x20000500   Data          14  bsp_angle.o(.bss)
+    .bss                                     0x20000510   Section     1166  bsp_detectact.o(.bss)
+    flashBuf                                 0x20000510   Data        1024  bsp_detectact.o(.bss)
+    detectAct                                0x20000910   Data          12  bsp_detectact.o(.bss)
+    adcContrast                              0x2000091c   Data          80  bsp_detectact.o(.bss)
+    adcRealTime                              0x2000096c   Data          40  bsp_detectact.o(.bss)
+    adcIsSunlight                            0x20000994   Data          10  bsp_detectact.o(.bss)
+    .bss                                     0x200009a0   Section     1040  bsp_encoder.o(.bss)
+    flashBuf                                 0x200009a0   Data        1024  bsp_encoder.o(.bss)
+    encoder                                  0x20000da0   Data          16  bsp_encoder.o(.bss)
+    .bss                                     0x20000db0   Section     1160  bsp_control.o(.bss)
+    flashBuf                                 0x20000db0   Data        1024  bsp_control.o(.bss)
+    pid                                      0x200011b0   Data          56  bsp_control.o(.bss)
+    speed                                    0x200011e8   Data          80  bsp_control.o(.bss)
+    .bss                                     0x20001238   Section     1080  bsp_cliffsw.o(.bss)
+    flashBuf                                 0x20001238   Data        1024  bsp_cliffsw.o(.bss)
+    cliff                                    0x20001638   Data          36  bsp_cliffsw.o(.bss)
+    cliffTest                                0x2000165c   Data          20  bsp_cliffsw.o(.bss)
+    .bss                                     0x20001670   Section     9376  bsp_uart_fifo.o(.bss)
+    flashBuf                                 0x20001670   Data        1024  bsp_uart_fifo.o(.bss)
+    g_tUart1                                 0x20001a70   Data          40  bsp_uart_fifo.o(.bss)
+    g_TxBuf1                                 0x20001a98   Data        1024  bsp_uart_fifo.o(.bss)
+    g_RxBuf1                                 0x20001e98   Data        1024  bsp_uart_fifo.o(.bss)
+    g_tUart2                                 0x20002298   Data          40  bsp_uart_fifo.o(.bss)
+    g_TxBuf2                                 0x200022c0   Data        1024  bsp_uart_fifo.o(.bss)
+    g_RxBuf2                                 0x200026c0   Data        1024  bsp_uart_fifo.o(.bss)
+    g_tUart3                                 0x20002ac0   Data          40  bsp_uart_fifo.o(.bss)
+    g_TxBuf3                                 0x20002ae8   Data        1024  bsp_uart_fifo.o(.bss)
+    g_RxBuf3                                 0x20002ee8   Data        1024  bsp_uart_fifo.o(.bss)
+    g_tUart4                                 0x200032e8   Data          40  bsp_uart_fifo.o(.bss)
+    g_TxBuf4                                 0x20003310   Data        1024  bsp_uart_fifo.o(.bss)
+    g_RxBuf4                                 0x20003710   Data        1024  bsp_uart_fifo.o(.bss)
+    .bss                                     0x20003b10   Section     1197  bsp_key.o(.bss)
+    flashBuf                                 0x20003b10   Data        1024  bsp_key.o(.bss)
+    s_tBtn                                   0x20003f10   Data         160  bsp_key.o(.bss)
+    s_tKey                                   0x20003fb0   Data          13  bsp_key.o(.bss)
+    .bss                                     0x20003fc0   Section     1164  bsp_ir_decode.o(.bss)
+    flashBuf                                 0x20003fc0   Data        1024  bsp_ir_decode.o(.bss)
+    g_tIR                                    0x200043c0   Data         140  bsp_ir_decode.o(.bss)
+    .bss                                     0x2000444c   Section      200  tasks.o(.bss)
+    pxReadyTasksLists                        0x2000444c   Data         100  tasks.o(.bss)
+    xDelayedTaskList1                        0x200044b0   Data          20  tasks.o(.bss)
+    xDelayedTaskList2                        0x200044c4   Data          20  tasks.o(.bss)
+    xPendingReadyList                        0x200044d8   Data          20  tasks.o(.bss)
+    xTasksWaitingTermination                 0x200044ec   Data          20  tasks.o(.bss)
+    xSuspendedTaskList                       0x20004500   Data          20  tasks.o(.bss)
+    .bss                                     0x20004514   Section    28672  heap_4.o(.bss)
+    ucHeap                                   0x20004514   Data       28672  heap_4.o(.bss)
+    STACK                                    0x2000b518   Section     2048  startup_stm32f10x_hd.o(STACK)
 
     Global Symbols
 
@@ -3421,30 +3428,30 @@ Image Symbol Table
     vPortSetupTimerInterrupt                 0x08005235   Thumb Code    14  port.o(i.vPortSetupTimerInterrupt)
     vPortYield                               0x08005249   Thumb Code    18  port.o(i.vPortYield)
     vSetupSysInfoTest                        0x08005261   Thumb Code    18  sysinfotest.o(i.vSetupSysInfoTest)
-    vTaskDelay                               0x08005335   Thumb Code    94  tasks.o(i.vTaskDelay)
-    vTaskMissedYield                         0x080053a5   Thumb Code     8  tasks.o(i.vTaskMissedYield)
-    vTaskPlaceOnEventList                    0x080053c1   Thumb Code    94  tasks.o(i.vTaskPlaceOnEventList)
-    vTaskSetTimeOutState                     0x08005431   Thumb Code    28  tasks.o(i.vTaskSetTimeOutState)
-    vTaskStartScheduler                      0x08005455   Thumb Code    74  tasks.o(i.vTaskStartScheduler)
-    vTaskSuspendAll                          0x080054bd   Thumb Code    12  tasks.o(i.vTaskSuspendAll)
-    vTaskSwitchContext                       0x080054cd   Thumb Code   158  tasks.o(i.vTaskSwitchContext)
-    xPortStartScheduler                      0x0800558d   Thumb Code   140  port.o(i.xPortStartScheduler)
-    xQueueCreateMutex                        0x0800562d   Thumb Code    76  queue.o(i.xQueueCreateMutex)
-    xQueueGenericSend                        0x08005679   Thumb Code   296  queue.o(i.xQueueGenericSend)
-    xTaskCheckForTimeOut                     0x080057a1   Thumb Code   108  tasks.o(i.xTaskCheckForTimeOut)
-    xTaskGenericCreate                       0x08005815   Thumb Code   288  tasks.o(i.xTaskGenericCreate)
-    xTaskIncrementTick                       0x0800594d   Thumb Code   272  tasks.o(i.xTaskIncrementTick)
-    xTaskPriorityDisinherit                  0x08005a89   Thumb Code   160  tasks.o(i.xTaskPriorityDisinherit)
-    xTaskRemoveFromEventList                 0x08005b35   Thumb Code   114  tasks.o(i.xTaskRemoveFromEventList)
-    xTaskResumeAll                           0x08005bc1   Thumb Code   200  tasks.o(i.xTaskResumeAll)
-    Region$$Table$$Base                      0x08005cc8   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08005ce8   Number         0  anon$$obj.o(Region$$Table)
-    ulHighFrequencyTimerTicks                0x20000018   Data           4  sysinfotest.o(.data)
-    SystemCoreClock                          0x2000005c   Data           4  system_stm32f10x.o(.data)
-    AHBPrescTable                            0x20000060   Data          16  system_stm32f10x.o(.data)
-    pxCurrentTCB                             0x20000070   Data           4  tasks.o(.data)
-    __stdout                                 0x200000d4   Data           4  stdout.o(.data)
-    __initial_sp                             0x2000bd08   Data           0  startup_stm32f10x_hd.o(STACK)
+    vTaskDelay                               0x080053a1   Thumb Code    94  tasks.o(i.vTaskDelay)
+    vTaskMissedYield                         0x08005411   Thumb Code     8  tasks.o(i.vTaskMissedYield)
+    vTaskPlaceOnEventList                    0x0800542d   Thumb Code    94  tasks.o(i.vTaskPlaceOnEventList)
+    vTaskSetTimeOutState                     0x0800549d   Thumb Code    28  tasks.o(i.vTaskSetTimeOutState)
+    vTaskStartScheduler                      0x080054c1   Thumb Code    74  tasks.o(i.vTaskStartScheduler)
+    vTaskSuspendAll                          0x08005529   Thumb Code    12  tasks.o(i.vTaskSuspendAll)
+    vTaskSwitchContext                       0x08005539   Thumb Code   158  tasks.o(i.vTaskSwitchContext)
+    xPortStartScheduler                      0x080055f9   Thumb Code   140  port.o(i.xPortStartScheduler)
+    xQueueCreateMutex                        0x08005699   Thumb Code    76  queue.o(i.xQueueCreateMutex)
+    xQueueGenericSend                        0x080056e5   Thumb Code   296  queue.o(i.xQueueGenericSend)
+    xTaskCheckForTimeOut                     0x0800580d   Thumb Code   108  tasks.o(i.xTaskCheckForTimeOut)
+    xTaskGenericCreate                       0x08005881   Thumb Code   288  tasks.o(i.xTaskGenericCreate)
+    xTaskIncrementTick                       0x080059b9   Thumb Code   272  tasks.o(i.xTaskIncrementTick)
+    xTaskPriorityDisinherit                  0x08005af5   Thumb Code   160  tasks.o(i.xTaskPriorityDisinherit)
+    xTaskRemoveFromEventList                 0x08005ba1   Thumb Code   114  tasks.o(i.xTaskRemoveFromEventList)
+    xTaskResumeAll                           0x08005c2d   Thumb Code   200  tasks.o(i.xTaskResumeAll)
+    Region$$Table$$Base                      0x08005d34   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08005d54   Number         0  anon$$obj.o(Region$$Table)
+    ulHighFrequencyTimerTicks                0x20000024   Data           4  sysinfotest.o(.data)
+    SystemCoreClock                          0x20000068   Data           4  system_stm32f10x.o(.data)
+    AHBPrescTable                            0x2000006c   Data          16  system_stm32f10x.o(.data)
+    pxCurrentTCB                             0x2000007c   Data           4  tasks.o(.data)
+    __stdout                                 0x200000e0   Data           4  stdout.o(.data)
+    __initial_sp                             0x2000bd18   Data           0  startup_stm32f10x_hd.o(STACK)
 
 
 
@@ -3454,9 +3461,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000131
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00005dc0, Max: 0x00080000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00005e38, Max: 0x00080000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00005ce8, Max: 0x00080000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00005d54, Max: 0x00080000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3743,63 +3750,64 @@ Memory Map of the image
     0x08005234   0x00000014   Code   RO         5137    i.vPortSetupTimerInterrupt  port.o
     0x08005248   0x00000018   Code   RO         5139    i.vPortYield        port.o
     0x08005260   0x00000018   Code   RO          373    i.vSetupSysInfoTest  sysinfotest.o
-    0x08005278   0x0000000e   Code   RO           13    i.vTaskControl      main.o
-    0x08005286   0x00000002   PAD
-    0x08005288   0x000000ac   Code   RO           14    i.vTaskDecision     main.o
-    0x08005334   0x00000070   Code   RO         4815    i.vTaskDelay        tasks.o
-    0x080053a4   0x0000000c   Code   RO         4821    i.vTaskMissedYield  tasks.o
-    0x080053b0   0x0000000e   Code   RO           15    i.vTaskPerception   main.o
-    0x080053be   0x00000002   PAD
-    0x080053c0   0x00000070   Code   RO         4823    i.vTaskPlaceOnEventList  tasks.o
-    0x08005430   0x00000024   Code   RO         4829    i.vTaskSetTimeOutState  tasks.o
-    0x08005454   0x00000068   Code   RO         4830    i.vTaskStartScheduler  tasks.o
-    0x080054bc   0x00000010   Code   RO         4832    i.vTaskSuspendAll   tasks.o
-    0x080054cc   0x000000c0   Code   RO         4833    i.vTaskSwitchContext  tasks.o
-    0x0800558c   0x000000a0   Code   RO         5140    i.xPortStartScheduler  port.o
-    0x0800562c   0x0000004c   Code   RO         4665    i.xQueueCreateMutex  queue.o
-    0x08005678   0x00000128   Code   RO         4669    i.xQueueGenericSend  queue.o
-    0x080057a0   0x00000074   Code   RO         4834    i.xTaskCheckForTimeOut  tasks.o
-    0x08005814   0x00000138   Code   RO         4835    i.xTaskGenericCreate  tasks.o
-    0x0800594c   0x0000013c   Code   RO         4841    i.xTaskIncrementTick  tasks.o
-    0x08005a88   0x000000ac   Code   RO         4844    i.xTaskPriorityDisinherit  tasks.o
-    0x08005b34   0x0000008c   Code   RO         4845    i.xTaskRemoveFromEventList  tasks.o
-    0x08005bc0   0x000000e8   Code   RO         4847    i.xTaskResumeAll    tasks.o
-    0x08005ca8   0x00000020   Data   RO         2675    .constdata          bsp_ir_decode.o
-    0x08005cc8   0x00000020   Data   RO         5696    Region$$Table       anon$$obj.o
+    0x08005278   0x00000060   Code   RO           13    i.vTaskControl      main.o
+    0x080052d8   0x000000c8   Code   RO           14    i.vTaskDecision     main.o
+    0x080053a0   0x00000070   Code   RO         4815    i.vTaskDelay        tasks.o
+    0x08005410   0x0000000c   Code   RO         4821    i.vTaskMissedYield  tasks.o
+    0x0800541c   0x0000000e   Code   RO           15    i.vTaskPerception   main.o
+    0x0800542a   0x00000002   PAD
+    0x0800542c   0x00000070   Code   RO         4823    i.vTaskPlaceOnEventList  tasks.o
+    0x0800549c   0x00000024   Code   RO         4829    i.vTaskSetTimeOutState  tasks.o
+    0x080054c0   0x00000068   Code   RO         4830    i.vTaskStartScheduler  tasks.o
+    0x08005528   0x00000010   Code   RO         4832    i.vTaskSuspendAll   tasks.o
+    0x08005538   0x000000c0   Code   RO         4833    i.vTaskSwitchContext  tasks.o
+    0x080055f8   0x000000a0   Code   RO         5140    i.xPortStartScheduler  port.o
+    0x08005698   0x0000004c   Code   RO         4665    i.xQueueCreateMutex  queue.o
+    0x080056e4   0x00000128   Code   RO         4669    i.xQueueGenericSend  queue.o
+    0x0800580c   0x00000074   Code   RO         4834    i.xTaskCheckForTimeOut  tasks.o
+    0x08005880   0x00000138   Code   RO         4835    i.xTaskGenericCreate  tasks.o
+    0x080059b8   0x0000013c   Code   RO         4841    i.xTaskIncrementTick  tasks.o
+    0x08005af4   0x000000ac   Code   RO         4844    i.xTaskPriorityDisinherit  tasks.o
+    0x08005ba0   0x0000008c   Code   RO         4845    i.xTaskRemoveFromEventList  tasks.o
+    0x08005c2c   0x000000e8   Code   RO         4847    i.xTaskResumeAll    tasks.o
+    0x08005d14   0x00000020   Data   RO         2675    .constdata          bsp_ir_decode.o
+    0x08005d34   0x00000020   Data   RO         5696    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x0000bd08, Max: 0x00010000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x0000bd18, Max: 0x00010000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000018   Data   RW           17    .data               main.o
-    0x20000018   0x00000008   Data   RW          375    .data               sysinfotest.o
-    0x20000020   0x00000008   Data   RW         1004    .data               bsp_motor.o
-    0x20000028   0x0000000a   Data   RW         1075    .data               bsp_control.o
-    0x20000032   0x00000002   PAD
-    0x20000034   0x00000010   Data   RW         2449    .data               bsp_timer.o
-    0x20000044   0x00000001   Data   RW         2676    .data               bsp_ir_decode.o
-    0x20000045   0x00000014   Data   RW         2947    .data               stm32f10x_rcc.o
-    0x20000059   0x00000003   PAD
-    0x2000005c   0x00000014   Data   RW         4495    .data               system_stm32f10x.o
-    0x20000070   0x00000040   Data   RW         4850    .data               tasks.o
-    0x200000b0   0x0000000c   Data   RW         5141    .data               port.o
-    0x200000bc   0x00000018   Data   RW         5209    .data               heap_4.o
-    0x200000d4   0x00000004   Data   RW         5663    .data               mc_w.l(stdout.o)
-    0x200000d8   0x0000042a   Zero   RW          505    .bss                bsp_angle.o
-    0x20000502   0x00000002   PAD
-    0x20000504   0x0000048e   Zero   RW          661    .bss                bsp_detectact.o
-    0x20000992   0x00000002   PAD
-    0x20000994   0x00000410   Zero   RW          940    .bss                bsp_encoder.o
-    0x20000da4   0x00000488   Zero   RW         1074    .bss                bsp_control.o
-    0x2000122c   0x00000438   Zero   RW         1386    .bss                bsp_cliffsw.o
-    0x20001664   0x000024a0   Zero   RW         1974    .bss                bsp_uart_fifo.o
-    0x20003b04   0x000004ad   Zero   RW         2280    .bss                bsp_key.o
-    0x20003fb1   0x00000003   PAD
-    0x20003fb4   0x0000048c   Zero   RW         2674    .bss                bsp_ir_decode.o
-    0x20004440   0x000000c8   Zero   RW         4849    .bss                tasks.o
-    0x20004508   0x00007000   Zero   RW         5208    .bss                heap_4.o
-    0x2000b508   0x00000800   Zero   RW         2740    STACK               startup_stm32f10x_hd.o
+    0x20000000   0x00000021   Data   RW           17    .data               main.o
+    0x20000021   0x00000003   PAD
+    0x20000024   0x00000008   Data   RW          375    .data               sysinfotest.o
+    0x2000002c   0x00000008   Data   RW         1004    .data               bsp_motor.o
+    0x20000034   0x0000000a   Data   RW         1075    .data               bsp_control.o
+    0x2000003e   0x00000002   PAD
+    0x20000040   0x00000010   Data   RW         2449    .data               bsp_timer.o
+    0x20000050   0x00000001   Data   RW         2676    .data               bsp_ir_decode.o
+    0x20000051   0x00000014   Data   RW         2947    .data               stm32f10x_rcc.o
+    0x20000065   0x00000003   PAD
+    0x20000068   0x00000014   Data   RW         4495    .data               system_stm32f10x.o
+    0x2000007c   0x00000040   Data   RW         4850    .data               tasks.o
+    0x200000bc   0x0000000c   Data   RW         5141    .data               port.o
+    0x200000c8   0x00000018   Data   RW         5209    .data               heap_4.o
+    0x200000e0   0x00000004   Data   RW         5663    .data               mc_w.l(stdout.o)
+    0x200000e4   0x0000042a   Zero   RW          505    .bss                bsp_angle.o
+    0x2000050e   0x00000002   PAD
+    0x20000510   0x0000048e   Zero   RW          661    .bss                bsp_detectact.o
+    0x2000099e   0x00000002   PAD
+    0x200009a0   0x00000410   Zero   RW          940    .bss                bsp_encoder.o
+    0x20000db0   0x00000488   Zero   RW         1074    .bss                bsp_control.o
+    0x20001238   0x00000438   Zero   RW         1386    .bss                bsp_cliffsw.o
+    0x20001670   0x000024a0   Zero   RW         1974    .bss                bsp_uart_fifo.o
+    0x20003b10   0x000004ad   Zero   RW         2280    .bss                bsp_key.o
+    0x20003fbd   0x00000003   PAD
+    0x20003fc0   0x0000048c   Zero   RW         2674    .bss                bsp_ir_decode.o
+    0x2000444c   0x000000c8   Zero   RW         4849    .bss                tasks.o
+    0x20004514   0x00007000   Zero   RW         5208    .bss                heap_4.o
+    0x2000b514   0x00000004   PAD
+    0x2000b518   0x00000800   Zero   RW         2740    STACK               startup_stm32f10x_hd.o
 
 
 ==============================================================================
@@ -3834,7 +3842,7 @@ Image component sizes
          0          0          0          0          0       1456   event_groups.o
        624         64          0         24      28672       3731   heap_4.o
        148          0          0          0          0       2914   list.o
-       412        102          0         24          0     295271   main.o
+       522        126          0         33          0     295395   main.o
        132         22          0          0          0       1631   misc.o
        578         72          0         12          0       6945   port.o
        656          0          0          0          0       4884   queue.o
@@ -3853,9 +3861,9 @@ Image component sizes
       2420        346          0         64        200      16058   tasks.o
 
     ----------------------------------------------------------------------
-     20464       1976        368        212      48176     479661   Object Totals
+     20572       2000        368        224      48180     479785   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        52          0          0          5          7          0   (incl. Padding)
+        50          0          0          8         11          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -3915,15 +3923,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     23416       2046        368        216      48176     468665   Grand Totals
-     23416       2046        368        216      48176     468665   ELF Image Totals
-     23416       2046        368        216          0          0   ROM Totals
+     23524       2070        368        228      48180     468789   Grand Totals
+     23524       2070        368        228      48180     468789   ELF Image Totals
+     23524       2070        368        228          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                23784 (  23.23kB)
-    Total RW  Size (RW Data + ZI Data)             48392 (  47.26kB)
-    Total ROM Size (Code + RO Data + RW Data)      24000 (  23.44kB)
+    Total RO  Size (Code + RO Data)                23892 (  23.33kB)
+    Total RW  Size (RW Data + ZI Data)             48408 (  47.27kB)
+    Total ROM Size (Code + RO Data + RW Data)      24120 (  23.55kB)
 
 ==============================================================================
 

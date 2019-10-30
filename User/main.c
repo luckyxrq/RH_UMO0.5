@@ -35,6 +35,8 @@ static TaskHandle_t xHandleTaskPerception    = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
 static KeyProc keyProc;
+
+static bool isStartPump = false;
 /*
 *********************************************************************************************************
 *	函 数 名: main
@@ -99,6 +101,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 	
 	UNUSED(bsp_KeyProc);
 	
+	
+	
+	//TIM_SetCompare3(TIM4,3500);
+	
     while(1)
     {
 		
@@ -114,6 +120,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					bsp_SetMotorSpeed(MotorLeft ,  12);
 					bsp_SetMotorSpeed(MotorRight , 12);
 					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM );
+					//bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM / 2);
+					//TIM_SetCompare3(TIM4,CONSTANT_HIGH_PWM);
+					isStartPump = true;
 					DEBUG("KEY1\r\n");
 				}break;
 				
@@ -122,6 +131,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 					bsp_SetMotorSpeed(MotorLeft ,  0);
 					bsp_SetMotorSpeed(MotorRight , 0);
 					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
+					//bsp_MotorCleanSetPWM(MotorSideBrush, CCW , 0);
+					TIM_SetCompare3(TIM4,0);
+					isStartPump = false;
 					DEBUG("KEY2\r\n");
 				}break;
 				
@@ -154,7 +166,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
-
+	static uint32_t tick = 0 ;
+	static bool isStop = false;
 	
     while(1)
     {
@@ -166,6 +179,19 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 #endif		
 		
 		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
+		
+		if(isStartPump)
+		{
+			if(++tick % 100 == 0)
+			{
+				if(isStop)
+					TIM_SetCompare3(TIM4,0);
+				else
+					TIM_SetCompare3(TIM4,CONSTANT_HIGH_PWM);
+				
+				isStop = !isStop;
+			}
+		}
 		
         vTaskDelay(10);
     }
