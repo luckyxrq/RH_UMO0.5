@@ -626,6 +626,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_CleanStrategy.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_pump.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_pump.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

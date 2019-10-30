@@ -83,4 +83,5 @@
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_Gridmap.h
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_CleanStrategy.h
+.\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_pump.h
 .\flash\obj\bsp_gridmap.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

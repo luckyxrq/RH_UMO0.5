@@ -83,3 +83,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_Gridmap.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_CleanStrategy.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_pump.h

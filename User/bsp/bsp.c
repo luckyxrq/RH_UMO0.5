@@ -67,7 +67,7 @@ void bsp_Init(void)
 	bsp_InitMotor();
 	bsp_InitPid(MotorLeft);
 	bsp_InitPid(MotorRight);
-	
+	bsp_InitPump();
 	
 	bsp_LedOn(LED_COLOR_YELLOW);
 	bsp_LedOn(LED_COLOR_GREEN);
