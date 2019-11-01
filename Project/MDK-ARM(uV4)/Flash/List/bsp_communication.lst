@@ -38623,7 +38623,7 @@ N#define  CMD_ID_SPEED 	        0x25
 N#define  CMD_ID_DISTANCE  		0x35
 N#define  CMD_ID_ANGLE  			0x45
 N
-N#define WHEEL_LENGTH  			0.23F
+N#define WHEEL_LENGTH  			0.235F
 N#define M_PI 					3.14F
 N#define MAX_ANALYSIS_LEN	    512
 N
@@ -38957,10 +38957,12 @@ N					int16_t linearVelocity  = analysisBuf[5]<<8 | analysisBuf[6];
 N					int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
 N					
 N					/*计算出速度，单位MM/S */
+N					/*角速度范围：5~60 度/秒*/
+N					/*线速度范围：20~250 毫米/秒*/
 N					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-X					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
+X					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - (3.14F * angularVelocity / 180.0F)*0.235F))* 1000);
 N					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-X					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
+X					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + (3.14F * angularVelocity / 180.0F)*0.235F))* 1000);
 N					
 N					const int16_t limitSameDirSpeed = 250 ;
 N					const int16_t limitDiffrentDirSpeed = 150 ;

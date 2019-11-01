@@ -38642,7 +38642,7 @@ N#define  CMD_ID_SPEED 	        0x25
 N#define  CMD_ID_DISTANCE  		0x35
 N#define  CMD_ID_ANGLE  			0x45
 N
-N#define WHEEL_LENGTH  			0.23F
+N#define WHEEL_LENGTH  			0.235F
 N#define M_PI 					3.14F
 N#define MAX_ANALYSIS_LEN	    512
 N

@@ -94,6 +94,8 @@ void bsp_ComAnalysis(void)
 					int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
 					
 					/*计算出速度，单位MM/S */
+					/*角速度范围：5~60 度/秒*/
+					/*线速度范围：20~250 毫米/秒*/
 					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
 					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
 					

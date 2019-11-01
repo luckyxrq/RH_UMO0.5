@@ -12,7 +12,7 @@
 #define  CMD_ID_DISTANCE  		0x35
 #define  CMD_ID_ANGLE  			0x45
 
-#define WHEEL_LENGTH  			0.23F
+#define WHEEL_LENGTH  			0.235F
 #define M_PI 					3.14F
 #define MAX_ANALYSIS_LEN	    512
 
