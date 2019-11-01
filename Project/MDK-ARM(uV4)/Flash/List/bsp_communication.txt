@@ -5,50 +5,50 @@
                           AREA ||i.bsp_CalcChk||, CODE, READONLY, ALIGN=1
 
                   bsp_CalcChk PROC
-;;;289    */
-;;;290    static uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len)
+;;;314    */
+;;;315    static uint16_t bsp_CalcChk(uint8_t *buf, uint8_t len)
 000000  b530              PUSH     {r4,r5,lr}
-;;;291    {
+;;;316    {
 000002  4604              MOV      r4,r0
 000004  460d              MOV      r5,r1
-;;;292    	uint8_t  i;
-;;;293    	uint16_t rx_sum1=0x00FFu;
+;;;317    	uint8_t  i;
+;;;318    	uint16_t rx_sum1=0x00FFu;
 000006  21ff              MOVS     r1,#0xff
-;;;294    	uint16_t rx_sum2=0x00FFu;
+;;;319    	uint16_t rx_sum2=0x00FFu;
 000008  22ff              MOVS     r2,#0xff
-;;;295    	
-;;;296    	for(i=0; i<len; i++)
+;;;320    	
+;;;321    	for(i=0; i<len; i++)
 00000a  2300              MOVS     r3,#0
 00000c  e007              B        |L1.30|
                   |L1.14|
-;;;297    	{
-;;;298    		rx_sum2 += rx_sum1 += buf[i];
+;;;322    	{
+;;;323    		rx_sum2 += rx_sum1 += buf[i];
 00000e  5ce0              LDRB     r0,[r4,r3]
 000010  4408              ADD      r0,r0,r1
 000012  b280              UXTH     r0,r0
 000014  4601              MOV      r1,r0
 000016  4410              ADD      r0,r0,r2
 000018  b282              UXTH     r2,r0
-00001a  1c58              ADDS     r0,r3,#1              ;296
-00001c  b2c3              UXTB     r3,r0                 ;296
+00001a  1c58              ADDS     r0,r3,#1              ;321
+00001c  b2c3              UXTB     r3,r0                 ;321
                   |L1.30|
-00001e  42ab              CMP      r3,r5                 ;296
+00001e  42ab              CMP      r3,r5                 ;321
 000020  dbf5              BLT      |L1.14|
-;;;299    	}
-;;;300    	
-;;;301    	rx_sum1 = (rx_sum1&0x00FFu) + (rx_sum1>>8);
+;;;324    	}
+;;;325    	
+;;;326    	rx_sum1 = (rx_sum1&0x00FFu) + (rx_sum1>>8);
 000022  b2c8              UXTB     r0,r1
 000024  eb002121          ADD      r1,r0,r1,ASR #8
-;;;302    	rx_sum2 = (rx_sum2&0x00FFu) + (rx_sum2>>8);
+;;;327    	rx_sum2 = (rx_sum2&0x00FFu) + (rx_sum2>>8);
 000028  b2d0              UXTB     r0,r2
 00002a  eb002222          ADD      r2,r0,r2,ASR #8
-;;;303    	
-;;;304    	return rx_sum2<<8|rx_sum1;
+;;;328    	
+;;;329    	return rx_sum2<<8|rx_sum1;
 00002e  ea412002          ORR      r0,r1,r2,LSL #8
 000032  b280              UXTH     r0,r0
-;;;305    }
+;;;330    }
 000034  bd30              POP      {r4,r5,pc}
-;;;306    
+;;;331    
                           ENDP
 
 
@@ -59,33 +59,33 @@
 ;;;32     void bsp_ComAnalysis(void)
 000000  e92d4ff0          PUSH     {r4-r11,lr}
 ;;;33     {
-000004  b08f              SUB      sp,sp,#0x3c
+000004  b091              SUB      sp,sp,#0x44
 ;;;34     	COM_PORT_E port ; 
 ;;;35     	uint8_t ch = 0 ;
 000006  2000              MOVS     r0,#0
-000008  900d              STR      r0,[sp,#0x34]
+000008  900f              STR      r0,[sp,#0x3c]
 ;;;36     	uint16_t index = 0 ;
 00000a  2400              MOVS     r4,#0
 ;;;37     	
 ;;;38     	/*选定串口*/
 ;;;39     	port = COM4;
 00000c  2003              MOVS     r0,#3
-00000e  900e              STR      r0,[sp,#0x38]
+00000e  9010              STR      r0,[sp,#0x40]
                   |L2.16|
 ;;;40     	
 ;;;41     	while(comGetChar(port, &ch))
-000010  e0ee              B        |L2.496|
+000010  e117              B        |L2.578|
                   |L2.18|
 ;;;42     	{
 ;;;43     		/*依次获取串口缓冲区每个字节*/
 ;;;44     		analysisBuf[index % MAX_ANALYSIS_LEN] = ch ;
-000012  f89d1034          LDRB     r1,[sp,#0x34]
+000012  f89d103c          LDRB     r1,[sp,#0x3c]
 000016  4620              MOV      r0,r4
 000018  17e2              ASRS     r2,r4,#31
 00001a  eb0452d2          ADD      r2,r4,r2,LSR #23
 00001e  1252              ASRS     r2,r2,#9
 000020  eba42242          SUB      r2,r4,r2,LSL #9
-000024  4b7a              LDR      r3,|L2.528|
+000024  4b8e              LDR      r3,|L2.608|
 000026  5499              STRB     r1,[r3,r2]
 ;;;45     		index++;
 000028  1c60              ADDS     r0,r4,#1
@@ -96,13 +96,13 @@
 00002e  d105              BNE      |L2.60|
 ;;;48     		{
 ;;;49     			if(ch != 0xAA)
-000030  f89d0034          LDRB     r0,[sp,#0x34]
+000030  f89d003c          LDRB     r0,[sp,#0x3c]
 000034  28aa              CMP      r0,#0xaa
 000036  d0eb              BEQ      |L2.16|
 ;;;50     			{
 ;;;51     				index = 0 ;
 000038  2400              MOVS     r4,#0
-00003a  e0d9              B        |L2.496|
+00003a  e102              B        |L2.578|
                   |L2.60|
 ;;;52     			}
 ;;;53     		}
@@ -111,13 +111,13 @@
 00003e  d105              BNE      |L2.76|
 ;;;55     		{
 ;;;56     			if(ch != 0xAA)
-000040  f89d0034          LDRB     r0,[sp,#0x34]
+000040  f89d003c          LDRB     r0,[sp,#0x3c]
 000044  28aa              CMP      r0,#0xaa
 000046  d0e3              BEQ      |L2.16|
 ;;;57     			{
 ;;;58     				index = 0 ;
 000048  2400              MOVS     r4,#0
-00004a  e0d1              B        |L2.496|
+00004a  e0fa              B        |L2.578|
                   |L2.76|
 ;;;59     			}
 ;;;60     		}
@@ -126,13 +126,13 @@
 00004e  d105              BNE      |L2.92|
 ;;;62     		{
 ;;;63     			if(ch != 0xAA)
-000050  f89d0034          LDRB     r0,[sp,#0x34]
+000050  f89d003c          LDRB     r0,[sp,#0x3c]
 000054  28aa              CMP      r0,#0xaa
 000056  d0db              BEQ      |L2.16|
 ;;;64     			{
 ;;;65     				index = 0 ;
 000058  2400              MOVS     r4,#0
-00005a  e0c9              B        |L2.496|
+00005a  e0f2              B        |L2.578|
                   |L2.92|
 ;;;66     			}
 ;;;67     		}
@@ -141,23 +141,23 @@
 00005e  d111              BNE      |L2.132|
 ;;;69     		{
 ;;;70     			routeAnalysis.msgID = ch;
-000060  f89d0034          LDRB     r0,[sp,#0x34]
-000064  496b              LDR      r1,|L2.532|
+000060  f89d003c          LDRB     r0,[sp,#0x3c]
+000064  497f              LDR      r1,|L2.612|
 000066  7088              STRB     r0,[r1,#2]
 ;;;71     			if(ch != CMD_ID_SPEED && ch != CMD_ID_DISTANCE && ch != CMD_ID_ANGLE)
-000068  f89d0034          LDRB     r0,[sp,#0x34]
+000068  f89d003c          LDRB     r0,[sp,#0x3c]
 00006c  2825              CMP      r0,#0x25
 00006e  d0cf              BEQ      |L2.16|
-000070  f89d0034          LDRB     r0,[sp,#0x34]
+000070  f89d003c          LDRB     r0,[sp,#0x3c]
 000074  2835              CMP      r0,#0x35
 000076  d0cb              BEQ      |L2.16|
-000078  f89d0034          LDRB     r0,[sp,#0x34]
+000078  f89d003c          LDRB     r0,[sp,#0x3c]
 00007c  2845              CMP      r0,#0x45
 00007e  d0c7              BEQ      |L2.16|
 ;;;72     			{
 ;;;73     				index = 0 ;
 000080  2400              MOVS     r4,#0
-000082  e0b5              B        |L2.496|
+000082  e0de              B        |L2.578|
                   |L2.132|
 ;;;74     			}
 ;;;75     		}
@@ -166,14 +166,14 @@
 000086  d104              BNE      |L2.146|
 ;;;77     		{
 ;;;78     			routeAnalysis.len = ch;
-000088  f89d0034          LDRB     r0,[sp,#0x34]
-00008c  4961              LDR      r1,|L2.532|
+000088  f89d003c          LDRB     r0,[sp,#0x3c]
+00008c  4975              LDR      r1,|L2.612|
 00008e  8008              STRH     r0,[r1,#0]
-000090  e0ae              B        |L2.496|
+000090  e0d7              B        |L2.578|
                   |L2.146|
 ;;;79     		}
 ;;;80     		else if(index >= (routeAnalysis.len+ 8))/*数据接收完毕（帧头帧尾4，检验2，ID 1，长度1）*/
-000092  4860              LDR      r0,|L2.532|
+000092  4874              LDR      r0,|L2.612|
 000094  8800              LDRH     r0,[r0,#0]  ; routeAnalysis
 000096  3008              ADDS     r0,r0,#8
 000098  42a0              CMP      r0,r4
@@ -182,19 +182,19 @@
 ;;;82     			uint16_t calcChk = bsp_CalcChk(analysisBuf+3,index-6); /*计算校验数据，用于校验的数据不包括前面的3个帧头和后面的1个帧尾，2个校验字节*/
 00009c  1fa0              SUBS     r0,r4,#6
 00009e  b2c1              UXTB     r1,r0
-0000a0  485b              LDR      r0,|L2.528|
+0000a0  486f              LDR      r0,|L2.608|
 0000a2  1cc0              ADDS     r0,r0,#3
 0000a4  f7fffffe          BL       bsp_CalcChk
-0000a8  900c              STR      r0,[sp,#0x30]
+0000a8  900e              STR      r0,[sp,#0x38]
 ;;;83     			uint16_t rxChk   = analysisBuf[index-1-2] << 8 | analysisBuf[index-1-1];
 0000aa  1ea0              SUBS     r0,r4,#2
-0000ac  4958              LDR      r1,|L2.528|
+0000ac  496c              LDR      r1,|L2.608|
 0000ae  5c09              LDRB     r1,[r1,r0]
 0000b0  1ee0              SUBS     r0,r4,#3
-0000b2  4a57              LDR      r2,|L2.528|
+0000b2  4a6b              LDR      r2,|L2.608|
 0000b4  5c10              LDRB     r0,[r2,r0]
 0000b6  ea412000          ORR      r0,r1,r0,LSL #8
-0000ba  900b              STR      r0,[sp,#0x2c]
+0000ba  900d              STR      r0,[sp,#0x34]
 ;;;84     			
 ;;;85     			if(analysisBuf[index-1] != 0x55 || calcChk != rxChk)
 0000bc  1e60              SUBS     r0,r4,#1
@@ -202,240 +202,303 @@
 0000c0  5c08              LDRB     r0,[r1,r0]
 0000c2  2855              CMP      r0,#0x55
 0000c4  d103              BNE      |L2.206|
-0000c6  e9dd100b          LDRD     r1,r0,[sp,#0x2c]
+0000c6  e9dd100d          LDRD     r1,r0,[sp,#0x34]
 0000ca  4288              CMP      r0,r1
 0000cc  d001              BEQ      |L2.210|
                   |L2.206|
 ;;;86     			{
 ;;;87     				index = 0 ;
 0000ce  2400              MOVS     r4,#0
-0000d0  e08d              B        |L2.494|
+0000d0  e0b6              B        |L2.576|
                   |L2.210|
 ;;;88     			}
 ;;;89     			else /*获得了正确的解析数据*/
 ;;;90     			{
 ;;;91     				if(routeAnalysis.msgID == CMD_ID_SPEED)
-0000d2  4850              LDR      r0,|L2.532|
+0000d2  4864              LDR      r0,|L2.612|
 0000d4  7880              LDRB     r0,[r0,#2]  ; routeAnalysis
 0000d6  2825              CMP      r0,#0x25
 0000d8  d17e              BNE      |L2.472|
 ;;;92     				{
 ;;;93     					int16_t linearVelocity  = analysisBuf[5]<<8 | analysisBuf[6];
-0000da  484d              LDR      r0,|L2.528|
+0000da  4861              LDR      r0,|L2.608|
 0000dc  7980              LDRB     r0,[r0,#6]  ; analysisBuf
-0000de  494c              LDR      r1,|L2.528|
+0000de  4960              LDR      r1,|L2.608|
 0000e0  7949              LDRB     r1,[r1,#5]  ; analysisBuf
 0000e2  ea402001          ORR      r0,r0,r1,LSL #8
 0000e6  fa0ff980          SXTH     r9,r0
 ;;;94     					int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
-0000ea  4849              LDR      r0,|L2.528|
+0000ea  485d              LDR      r0,|L2.608|
 0000ec  7a00              LDRB     r0,[r0,#8]  ; analysisBuf
-0000ee  4948              LDR      r1,|L2.528|
+0000ee  495c              LDR      r1,|L2.608|
 0000f0  79c9              LDRB     r1,[r1,#7]  ; analysisBuf
 0000f2  ea402001          ORR      r0,r0,r1,LSL #8
 0000f6  b200              SXTH     r0,r0
-0000f8  900a              STR      r0,[sp,#0x28]
+0000f8  900c              STR      r0,[sp,#0x30]
 ;;;95     					
 ;;;96     					/*计算出速度，单位MM/S */
 ;;;97     					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-0000fa  980a              LDR      r0,[sp,#0x28]
+0000fa  980c              LDR      r0,[sp,#0x30]
 0000fc  f7fffffe          BL       __aeabi_i2f
-000100  4945              LDR      r1,|L2.536|
+000100  4959              LDR      r1,|L2.616|
 000102  9000              STR      r0,[sp,#0]
 000104  f7fffffe          BL       __aeabi_fmul
-000108  4944              LDR      r1,|L2.540|
+000108  4958              LDR      r1,|L2.620|
 00010a  9001              STR      r0,[sp,#4]
 00010c  f7fffffe          BL       __aeabi_fdiv
 000110  4680              MOV      r8,r0
-000112  4943              LDR      r1,|L2.544|
+000112  4957              LDR      r1,|L2.624|
 000114  f7fffffe          BL       __aeabi_fmul
 000118  4607              MOV      r7,r0
 00011a  f7fffffe          BL       __aeabi_f2d
-00011e  e9cd0104          STRD     r0,r1,[sp,#0x10]
+00011e  e9cd0102          STRD     r0,r1,[sp,#8]
 000122  ea4f0049          LSL      r0,r9,#1
 000126  f7fffffe          BL       __aeabi_i2d
 00012a  4607              MOV      r7,r0
-00012c  4a3d              LDR      r2,|L2.548|
-00012e  4b3e              LDR      r3,|L2.552|
+00012c  4a51              LDR      r2,|L2.628|
+00012e  4b52              LDR      r3,|L2.632|
 000130  f7fffffe          BL       __aeabi_dmul
-000134  e9cd0102          STRD     r0,r1,[sp,#8]
-000138  e9dd2304          LDRD     r2,r3,[sp,#0x10]
-00013c  f7fffffe          BL       __aeabi_dsub
-000140  2200              MOVS     r2,#0
-000142  4b3a              LDR      r3,|L2.556|
-000144  e9cd0106          STRD     r0,r1,[sp,#0x18]
-000148  f7fffffe          BL       __aeabi_dmul
-00014c  4605              MOV      r5,r0
-00014e  2200              MOVS     r2,#0
-000150  4b37              LDR      r3,|L2.560|
+000134  4682              MOV      r10,r0
+000136  e9dd2302          LDRD     r2,r3,[sp,#8]
+00013a  f7fffffe          BL       __aeabi_dsub
+00013e  2200              MOVS     r2,#0
+000140  4b4e              LDR      r3,|L2.636|
+000142  e9cd0104          STRD     r0,r1,[sp,#0x10]
+000146  f7fffffe          BL       __aeabi_dmul
+00014a  2200              MOVS     r2,#0
+00014c  4b4c              LDR      r3,|L2.640|
+00014e  e9cd0106          STRD     r0,r1,[sp,#0x18]
 000152  f7fffffe          BL       __aeabi_dmul
-000156  4682              MOV      r10,r0
-000158  f7fffffe          BL       __aeabi_d2iz
-00015c  b200              SXTH     r0,r0
-00015e  9009              STR      r0,[sp,#0x24]
+000156  e9cd0108          STRD     r0,r1,[sp,#0x20]
+00015a  f7fffffe          BL       __aeabi_d2iz
+00015e  b205              SXTH     r5,r0
 ;;;98     					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-000160  980a              LDR      r0,[sp,#0x28]
+000160  980c              LDR      r0,[sp,#0x30]
 000162  f7fffffe          BL       __aeabi_i2f
-000166  492c              LDR      r1,|L2.536|
+000166  4940              LDR      r1,|L2.616|
 000168  9000              STR      r0,[sp,#0]
 00016a  f7fffffe          BL       __aeabi_fmul
-00016e  492b              LDR      r1,|L2.540|
+00016e  493f              LDR      r1,|L2.620|
 000170  9001              STR      r0,[sp,#4]
 000172  f7fffffe          BL       __aeabi_fdiv
-000176  4683              MOV      r11,r0
-000178  4929              LDR      r1,|L2.544|
+000176  4680              MOV      r8,r0
+000178  493d              LDR      r1,|L2.624|
 00017a  f7fffffe          BL       __aeabi_fmul
-00017e  4682              MOV      r10,r0
+00017e  4607              MOV      r7,r0
 000180  f7fffffe          BL       __aeabi_f2d
-000184  e9cd0104          STRD     r0,r1,[sp,#0x10]
+000184  4682              MOV      r10,r0
+000186  468b              MOV      r11,r1
 000188  ea4f0049          LSL      r0,r9,#1
 00018c  f7fffffe          BL       __aeabi_i2d
-000190  4682              MOV      r10,r0
-000192  4a24              LDR      r2,|L2.548|
-000194  4b24              LDR      r3,|L2.552|
+000190  4607              MOV      r7,r0
+000192  4a38              LDR      r2,|L2.628|
+000194  4b38              LDR      r3,|L2.632|
 000196  f7fffffe          BL       __aeabi_dmul
-00019a  e9cd0102          STRD     r0,r1,[sp,#8]
-00019e  e9dd2304          LDRD     r2,r3,[sp,#0x10]
+00019a  4652              MOV      r2,r10
+00019c  465b              MOV      r3,r11
+00019e  e9cd0102          STRD     r0,r1,[sp,#8]
 0001a2  f7fffffe          BL       __aeabi_dadd
-0001a6  4605              MOV      r5,r0
-0001a8  2200              MOVS     r2,#0
-0001aa  4b20              LDR      r3,|L2.556|
-0001ac  f7fffffe          BL       __aeabi_dmul
-0001b0  4607              MOV      r7,r0
+0001a6  2200              MOVS     r2,#0
+0001a8  4b34              LDR      r3,|L2.636|
+0001aa  e9cd0104          STRD     r0,r1,[sp,#0x10]
+0001ae  f7fffffe          BL       __aeabi_dmul
 0001b2  2200              MOVS     r2,#0
-0001b4  4b1e              LDR      r3,|L2.560|
-0001b6  f7fffffe          BL       __aeabi_dmul
-0001ba  e9cd0106          STRD     r0,r1,[sp,#0x18]
-0001be  f7fffffe          BL       __aeabi_d2iz
-0001c2  b200              SXTH     r0,r0
-0001c4  9008              STR      r0,[sp,#0x20]
+0001b4  4b32              LDR      r3,|L2.640|
+0001b6  e9cd0106          STRD     r0,r1,[sp,#0x18]
+0001ba  f7fffffe          BL       __aeabi_dmul
+0001be  e9cd0108          STRD     r0,r1,[sp,#0x20]
+0001c2  f7fffffe          BL       __aeabi_d2iz
+0001c6  b206              SXTH     r6,r0
 ;;;99     					
-;;;100    					/*设定速度*/
-;;;101    					#if 1
-;;;102    					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
-0001c6  9809              LDR      r0,[sp,#0x24]
-0001c8  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
-0001cc  4605              MOV      r5,r0
-0001ce  4629              MOV      r1,r5
-0001d0  2000              MOVS     r0,#0
-0001d2  f7fffffe          BL       bsp_SetMotorSpeed
-;;;103    					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+;;;100    					const int16_t limitSameDirSpeed = 250 ;
+0001c8  20fa              MOVS     r0,#0xfa
+0001ca  900b              STR      r0,[sp,#0x2c]
+;;;101    					const int16_t limitDiffrentDirSpeed = 150 ;
+0001cc  2096              MOVS     r0,#0x96
+0001ce  900a              STR      r0,[sp,#0x28]
+;;;102    					
+;;;103    					if(leftVelocity > limitSameDirSpeed )
+0001d0  2dfa              CMP      r5,#0xfa
+0001d2  dd00              BLE      |L2.470|
+;;;104    						leftVelocity = limitSameDirSpeed;
+0001d4  25fa              MOVS     r5,#0xfa
+                  |L2.470|
+;;;105    					
+;;;106    					if(rightVelocity > limitSameDirSpeed )
 0001d6  e000              B        |L2.474|
                   |L2.472|
-0001d8  e008              B        |L2.492|
+0001d8  e031              B        |L2.574|
                   |L2.474|
-0001da  9808              LDR      r0,[sp,#0x20]
-0001dc  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
-0001e0  4605              MOV      r5,r0
-0001e2  4629              MOV      r1,r5
-0001e4  2001              MOVS     r0,#1
-0001e6  f7fffffe          BL       bsp_SetMotorSpeed
-;;;104    					#else
-;;;105    					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
-;;;106    					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-;;;107    					#endif
+0001da  2efa              CMP      r6,#0xfa
+0001dc  dd00              BLE      |L2.480|
+;;;107    						rightVelocity = limitSameDirSpeed;
+0001de  26fa              MOVS     r6,#0xfa
+                  |L2.480|
 ;;;108    					
-;;;109    					/*调试*/
-;;;110    					#if 0
-;;;111    					DEBUG("routeAnalysis.msgID:%02X\r\n",routeAnalysis.msgID);
-;;;112    					DEBUG("routeAnalysis.len:%02X\r\n",routeAnalysis.len);
-;;;113    
-;;;114    					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[5], analysisBuf[6]);
-;;;115    					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[7], analysisBuf[8]);
-;;;116    					#endif
-;;;117    				}
-0001ea  bf00              NOP      
-                  |L2.492|
-;;;118    				
-;;;119    				/*重新开始计数*/
-;;;120    				index = 0 ;
-0001ec  2400              MOVS     r4,#0
-                  |L2.494|
-;;;121    			}
-;;;122    		}
-0001ee  bf00              NOP      
-                  |L2.496|
-0001f0  a90d              ADD      r1,sp,#0x34           ;41
-0001f2  980e              LDR      r0,[sp,#0x38]         ;41
-0001f4  f7fffffe          BL       comGetChar
-0001f8  2800              CMP      r0,#0                 ;41
-0001fa  f47faf0a          BNE      |L2.18|
-;;;123    	}
-;;;124    	
-;;;125    	
-;;;126    	/*选定串口*/
-;;;127    	port = COM1;
-0001fe  900e              STR      r0,[sp,#0x38]
-;;;128    	
-;;;129    	/*选定串口*/
-;;;130    	port = COM2;
-000200  2001              MOVS     r0,#1
-000202  900e              STR      r0,[sp,#0x38]
-;;;131    	
-;;;132    	/*选定串口*/
-;;;133    	port = COM3;
-000204  2002              MOVS     r0,#2
-000206  900e              STR      r0,[sp,#0x38]
-;;;134    }
-000208  b00f              ADD      sp,sp,#0x3c
-00020a  e8bd8ff0          POP      {r4-r11,pc}
-;;;135    
+;;;109    					if(leftVelocity < -limitSameDirSpeed )
+0001e0  f1150ffa          CMN      r5,#0xfa
+0001e4  da01              BGE      |L2.490|
+;;;110    						leftVelocity = -limitSameDirSpeed;
+0001e6  f06f05f9          MVN      r5,#0xf9
+                  |L2.490|
+;;;111    					
+;;;112    					if(rightVelocity < -limitSameDirSpeed )
+0001ea  f1160ffa          CMN      r6,#0xfa
+0001ee  da01              BGE      |L2.500|
+;;;113    						rightVelocity = -limitSameDirSpeed;
+0001f0  f06f06f9          MVN      r6,#0xf9
+                  |L2.500|
+;;;114    					
+;;;115    					if(leftVelocity * rightVelocity < 0)
+0001f4  fb05f006          MUL      r0,r5,r6
+0001f8  2800              CMP      r0,#0
+0001fa  da0f              BGE      |L2.540|
+;;;116    					{
+;;;117    						if(leftVelocity > limitDiffrentDirSpeed )
+0001fc  2d96              CMP      r5,#0x96
+0001fe  dd00              BLE      |L2.514|
+;;;118    						leftVelocity = limitDiffrentDirSpeed;
+000200  2596              MOVS     r5,#0x96
+                  |L2.514|
+;;;119    					
+;;;120    						if(rightVelocity > limitDiffrentDirSpeed )
+000202  2e96              CMP      r6,#0x96
+000204  dd00              BLE      |L2.520|
+;;;121    							rightVelocity = limitDiffrentDirSpeed;
+000206  2696              MOVS     r6,#0x96
+                  |L2.520|
+;;;122    						
+;;;123    						if(leftVelocity < -limitDiffrentDirSpeed )
+000208  f1150f96          CMN      r5,#0x96
+00020c  da01              BGE      |L2.530|
+;;;124    							leftVelocity = -limitDiffrentDirSpeed;
+00020e  f06f0595          MVN      r5,#0x95
+                  |L2.530|
+;;;125    						
+;;;126    						if(rightVelocity < -limitDiffrentDirSpeed )
+000212  f1160f96          CMN      r6,#0x96
+000216  da01              BGE      |L2.540|
+;;;127    							rightVelocity = -limitDiffrentDirSpeed;
+000218  f06f0695          MVN      r6,#0x95
+                  |L2.540|
+;;;128    					}
+;;;129    					
+;;;130    					/*设定速度*/
+;;;131    					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
+00021c  4628              MOV      r0,r5
+00021e  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000222  4607              MOV      r7,r0
+000224  4639              MOV      r1,r7
+000226  2000              MOVS     r0,#0
+000228  f7fffffe          BL       bsp_SetMotorSpeed
+;;;132    					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+00022c  4630              MOV      r0,r6
+00022e  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000232  4607              MOV      r7,r0
+000234  4639              MOV      r1,r7
+000236  2001              MOVS     r0,#1
+000238  f7fffffe          BL       bsp_SetMotorSpeed
+;;;133    					
+;;;134    					/*调试*/
+;;;135    					#if 0
+;;;136    					DEBUG("routeAnalysis.msgID:%02X\r\n",routeAnalysis.msgID);
+;;;137    					DEBUG("routeAnalysis.len:%02X\r\n",routeAnalysis.len);
+;;;138    
+;;;139    					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[5], analysisBuf[6]);
+;;;140    					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[7], analysisBuf[8]);
+;;;141    					#endif
+;;;142    				}
+00023c  bf00              NOP      
+                  |L2.574|
+;;;143    				
+;;;144    				/*重新开始计数*/
+;;;145    				index = 0 ;
+00023e  2400              MOVS     r4,#0
+                  |L2.576|
+;;;146    			}
+;;;147    		}
+000240  bf00              NOP      
+                  |L2.578|
+000242  a90f              ADD      r1,sp,#0x3c           ;41
+000244  9810              LDR      r0,[sp,#0x40]         ;41
+000246  f7fffffe          BL       comGetChar
+00024a  2800              CMP      r0,#0                 ;41
+00024c  f47faee1          BNE      |L2.18|
+;;;148    	}
+;;;149    	
+;;;150    	
+;;;151    	/*选定串口*/
+;;;152    	port = COM1;
+000250  9010              STR      r0,[sp,#0x40]
+;;;153    	
+;;;154    	/*选定串口*/
+;;;155    	port = COM2;
+000252  2001              MOVS     r0,#1
+000254  9010              STR      r0,[sp,#0x40]
+;;;156    	
+;;;157    	/*选定串口*/
+;;;158    	port = COM3;
+000256  2002              MOVS     r0,#2
+000258  9010              STR      r0,[sp,#0x40]
+;;;159    }
+00025a  b011              ADD      sp,sp,#0x44
+00025c  e8bd8ff0          POP      {r4-r11,pc}
+;;;160    
                           ENDP
 
-00020e  0000              DCW      0x0000
-                  |L2.528|
+                  |L2.608|
                           DCD      analysisBuf
-                  |L2.532|
+                  |L2.612|
                           DCD      routeAnalysis
-                  |L2.536|
+                  |L2.616|
                           DCD      0x4048f5c3
-                  |L2.540|
+                  |L2.620|
                           DCD      0x43340000
-                  |L2.544|
+                  |L2.624|
                           DCD      0x3e6b851f
-                  |L2.548|
+                  |L2.628|
                           DCD      0xd2f1a9fc
-                  |L2.552|
+                  |L2.632|
                           DCD      0x3f50624d
-                  |L2.556|
+                  |L2.636|
                           DCD      0x3fe00000
-                  |L2.560|
+                  |L2.640|
                           DCD      0x408f4000
 
                           AREA ||i.bsp_FillReportFrame||, CODE, READONLY, ALIGN=2
 
                   bsp_FillReportFrame PROC
-;;;174    */
-;;;175    void bsp_FillReportFrame(void)
+;;;199    */
+;;;200    void bsp_FillReportFrame(void)
 000000  e92d4ff0          PUSH     {r4-r11,lr}
-;;;176    {
+;;;201    {
 000004  b099              SUB      sp,sp,#0x64
-;;;177    	uint16_t chk = 0 ;
+;;;202    	uint16_t chk = 0 ;
 000006  2400              MOVS     r4,#0
-;;;178    	uint32_t len = sizeof(reportFrame);  /*帧大小*/
+;;;203    	uint32_t len = sizeof(reportFrame);  /*帧大小*/
 000008  2053              MOVS     r0,#0x53
 00000a  9018              STR      r0,[sp,#0x60]
-;;;179    	uint8_t* src = (uint8_t*)&reportFrame;
+;;;204    	uint8_t* src = (uint8_t*)&reportFrame;
 00000c  4898              LDR      r0,|L3.624|
 00000e  9017              STR      r0,[sp,#0x5c]
-;;;180    	
-;;;181    	int16_t angle = bsp_AngleReadRaw();  /*角度*/ 
+;;;205    	
+;;;206    	int16_t angle = bsp_AngleReadRaw();  /*角度*/ 
 000010  f7fffffe          BL       bsp_AngleReadRaw
 000014  4605              MOV      r5,r0
-;;;182    	uint8_t dataLen = sizeof(reportFrame) - 6;
+;;;207    	uint8_t dataLen = sizeof(reportFrame) - 6;
 000016  204d              MOVS     r0,#0x4d
 000018  9016              STR      r0,[sp,#0x58]
-;;;183    	int16_t leftSpeedMM = bsp_MotorGetSpeed(MotorLeft);
+;;;208    	int16_t leftSpeedMM = bsp_MotorGetSpeed(MotorLeft);
 00001a  2000              MOVS     r0,#0
 00001c  f7fffffe          BL       bsp_MotorGetSpeed
 000020  b200              SXTH     r0,r0
 000022  9015              STR      r0,[sp,#0x54]
-;;;184    	int16_t rightSpeedMM = bsp_MotorGetSpeed(MotorRight);
+;;;209    	int16_t rightSpeedMM = bsp_MotorGetSpeed(MotorRight);
 000024  2001              MOVS     r0,#1
 000026  f7fffffe          BL       bsp_MotorGetSpeed
 00002a  b200              SXTH     r0,r0
 00002c  9014              STR      r0,[sp,#0x50]
-;;;185    	uint16_t adc1  = bsp_GetInfraRedAdcVoltage(IR0)*100;
+;;;210    	uint16_t adc1  = bsp_GetInfraRedAdcVoltage(IR0)*100;
 00002e  2000              MOVS     r0,#0
 000030  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 000034  498f              LDR      r1,|L3.628|
@@ -445,7 +508,7 @@
 00003e  f7fffffe          BL       __aeabi_f2uiz
 000042  b280              UXTH     r0,r0
 000044  9013              STR      r0,[sp,#0x4c]
-;;;186    	uint16_t adc2  = bsp_GetInfraRedAdcVoltage(IR1)*100;
+;;;211    	uint16_t adc2  = bsp_GetInfraRedAdcVoltage(IR1)*100;
 000046  2001              MOVS     r0,#1
 000048  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 00004c  4989              LDR      r1,|L3.628|
@@ -454,7 +517,7 @@
 000054  900a              STR      r0,[sp,#0x28]
 000056  f7fffffe          BL       __aeabi_f2uiz
 00005a  b286              UXTH     r6,r0
-;;;187    	uint16_t adc3  = bsp_GetInfraRedAdcVoltage(IR2)*100;
+;;;212    	uint16_t adc3  = bsp_GetInfraRedAdcVoltage(IR2)*100;
 00005c  2002              MOVS     r0,#2
 00005e  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 000062  4984              LDR      r1,|L3.628|
@@ -463,7 +526,7 @@
 00006a  900a              STR      r0,[sp,#0x28]
 00006c  f7fffffe          BL       __aeabi_f2uiz
 000070  b287              UXTH     r7,r0
-;;;188    	uint16_t adc4  = bsp_GetInfraRedAdcVoltage(IR3)*100;
+;;;213    	uint16_t adc4  = bsp_GetInfraRedAdcVoltage(IR3)*100;
 000072  2003              MOVS     r0,#3
 000074  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 000078  497e              LDR      r1,|L3.628|
@@ -472,7 +535,7 @@
 000080  900a              STR      r0,[sp,#0x28]
 000082  f7fffffe          BL       __aeabi_f2uiz
 000086  fa1ff880          UXTH     r8,r0
-;;;189    	uint16_t adc5  = bsp_GetInfraRedAdcVoltage(IR4)*100;
+;;;214    	uint16_t adc5  = bsp_GetInfraRedAdcVoltage(IR4)*100;
 00008a  2004              MOVS     r0,#4
 00008c  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 000090  4978              LDR      r1,|L3.628|
@@ -481,7 +544,7 @@
 000098  900a              STR      r0,[sp,#0x28]
 00009a  f7fffffe          BL       __aeabi_f2uiz
 00009e  fa1ff980          UXTH     r9,r0
-;;;190    	uint16_t adc6  = bsp_GetInfraRedAdcVoltage(IR5)*100;
+;;;215    	uint16_t adc6  = bsp_GetInfraRedAdcVoltage(IR5)*100;
 0000a2  2005              MOVS     r0,#5
 0000a4  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 0000a8  4972              LDR      r1,|L3.628|
@@ -490,7 +553,7 @@
 0000b0  900a              STR      r0,[sp,#0x28]
 0000b2  f7fffffe          BL       __aeabi_f2uiz
 0000b6  fa1ffa80          UXTH     r10,r0
-;;;191    	uint16_t adc7  = bsp_GetInfraRedAdcVoltage(IR6)*100;
+;;;216    	uint16_t adc7  = bsp_GetInfraRedAdcVoltage(IR6)*100;
 0000ba  2006              MOVS     r0,#6
 0000bc  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 0000c0  496c              LDR      r1,|L3.628|
@@ -499,7 +562,7 @@
 0000c8  900a              STR      r0,[sp,#0x28]
 0000ca  f7fffffe          BL       __aeabi_f2uiz
 0000ce  fa1ffb80          UXTH     r11,r0
-;;;192    	uint16_t adc8  = bsp_GetInfraRedAdcVoltage(IR7)*100;
+;;;217    	uint16_t adc8  = bsp_GetInfraRedAdcVoltage(IR7)*100;
 0000d2  2007              MOVS     r0,#7
 0000d4  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 0000d8  4966              LDR      r1,|L3.628|
@@ -509,7 +572,7 @@
 0000e2  f7fffffe          BL       __aeabi_f2uiz
 0000e6  b280              UXTH     r0,r0
 0000e8  9012              STR      r0,[sp,#0x48]
-;;;193    	uint16_t adc9  = bsp_GetInfraRedAdcVoltage(IR8)*100;
+;;;218    	uint16_t adc9  = bsp_GetInfraRedAdcVoltage(IR8)*100;
 0000ea  2008              MOVS     r0,#8
 0000ec  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 0000f0  4960              LDR      r1,|L3.628|
@@ -519,7 +582,7 @@
 0000fa  f7fffffe          BL       __aeabi_f2uiz
 0000fe  b280              UXTH     r0,r0
 000100  9011              STR      r0,[sp,#0x44]
-;;;194    	uint16_t adc10 = bsp_GetInfraRedAdcVoltage(IR9)*100;
+;;;219    	uint16_t adc10 = bsp_GetInfraRedAdcVoltage(IR9)*100;
 000102  2009              MOVS     r0,#9
 000104  f7fffffe          BL       bsp_GetInfraRedAdcVoltage
 000108  495a              LDR      r1,|L3.628|
@@ -529,139 +592,139 @@
 000112  f7fffffe          BL       __aeabi_f2uiz
 000116  b280              UXTH     r0,r0
 000118  9010              STR      r0,[sp,#0x40]
-;;;195    	uint32_t timestamp = xTaskGetTickCount();
+;;;220    	uint32_t timestamp = xTaskGetTickCount();
 00011a  f7fffffe          BL       xTaskGetTickCount
 00011e  900f              STR      r0,[sp,#0x3c]
-;;;196    	int32_t leftPulseVector = bsp_MotorGetPulseVector(MotorLeft);
+;;;221    	int32_t leftPulseVector = bsp_MotorGetPulseVector(MotorLeft);
 000120  2000              MOVS     r0,#0
 000122  f7fffffe          BL       bsp_MotorGetPulseVector
 000126  900e              STR      r0,[sp,#0x38]
-;;;197    	int32_t rightPulseVector = bsp_MotorGetPulseVector(MotorRight);
+;;;222    	int32_t rightPulseVector = bsp_MotorGetPulseVector(MotorRight);
 000128  2001              MOVS     r0,#1
 00012a  f7fffffe          BL       bsp_MotorGetPulseVector
 00012e  900d              STR      r0,[sp,#0x34]
-;;;198    	int32_t x_coordinate = bsp_GetCurrentPosX();
+;;;223    	int32_t x_coordinate = bsp_GetCurrentPosX();
 000130  f7fffffe          BL       bsp_GetCurrentPosX
 000134  900c              STR      r0,[sp,#0x30]
-;;;199    	int32_t y_coordinate = bsp_GetCurrentPosY();
+;;;224    	int32_t y_coordinate = bsp_GetCurrentPosY();
 000136  f7fffffe          BL       bsp_GetCurrentPosY
 00013a  900b              STR      r0,[sp,#0x2c]
-;;;200    	
-;;;201    	
-;;;202    	
-;;;203    	
-;;;204    	reportFrame.sof1 = 0xAA;                  		                                  //0xAA
+;;;225    	
+;;;226    	
+;;;227    	
+;;;228    	
+;;;229    	reportFrame.sof1 = 0xAA;                  		                                  //0xAA
 00013c  20aa              MOVS     r0,#0xaa
 00013e  494c              LDR      r1,|L3.624|
 000140  7008              STRB     r0,[r1,#0]
-;;;205    	reportFrame.sof2 = 0xAA;                  		                                  //0xAA
+;;;230    	reportFrame.sof2 = 0xAA;                  		                                  //0xAA
 000142  7048              STRB     r0,[r1,#1]
-;;;206    	reportFrame.sof3 = 0xAA;                  		                                  //0xAA
+;;;231    	reportFrame.sof3 = 0xAA;                  		                                  //0xAA
 000144  7088              STRB     r0,[r1,#2]
-;;;207    	reportFrame.identifier_major = MIN_ID_ENVIRONMENT;                                //主识别码
+;;;232    	reportFrame.identifier_major = MIN_ID_ENVIRONMENT;                                //主识别码
 000146  2030              MOVS     r0,#0x30
 000148  70c8              STRB     r0,[r1,#3]
-;;;208    	reportFrame.identifier_subs = 0x00;        	                                      //子识别码
+;;;233    	reportFrame.identifier_subs = 0x00;        	                                      //子识别码
 00014a  2000              MOVS     r0,#0
 00014c  7108              STRB     r0,[r1,#4]
-;;;209    	reportFrame.size_of_payload_field = dataLen;   	                                  //数据长度（不包括头标识3，尾标识1，校验2）
+;;;234    	reportFrame.size_of_payload_field = dataLen;   	                                  //数据长度（不包括头标识3，尾标识1，校验2）
 00014e  9816              LDR      r0,[sp,#0x58]
 000150  7148              STRB     r0,[r1,#5]
-;;;210    	reportFrame.left_wheel_pulse_count = leftPulseVector;                             //左轮编码器计数
+;;;235    	reportFrame.left_wheel_pulse_count = leftPulseVector;                             //左轮编码器计数
 000152  980e              LDR      r0,[sp,#0x38]
 000154  f8c10006          STR      r0,[r1,#6]  ; reportFrame
-;;;211    	reportFrame.right_wheel_pluse_count = rightPulseVector;                           //右轮编码器计数
+;;;236    	reportFrame.right_wheel_pluse_count = rightPulseVector;                           //右轮编码器计数
 000158  980d              LDR      r0,[sp,#0x34]
 00015a  f8c1000a          STR      r0,[r1,#0xa]  ; reportFrame
-;;;212    	reportFrame.left_wheel_velocity = leftSpeedMM;  		                          //左轮电机速度
+;;;237    	reportFrame.left_wheel_velocity = leftSpeedMM;  		                          //左轮电机速度
 00015e  9815              LDR      r0,[sp,#0x54]
 000160  81c8              STRH     r0,[r1,#0xe]
-;;;213    	reportFrame.right_wheel_veloctiy = rightSpeedMM;		                          //右轮电机速度
+;;;238    	reportFrame.right_wheel_veloctiy = rightSpeedMM;		                          //右轮电机速度
 000162  9814              LDR      r0,[sp,#0x50]
 000164  8208              STRH     r0,[r1,#0x10]
-;;;214    	reportFrame.x_coordinate = x_coordinate;				                          //X坐标
+;;;239    	reportFrame.x_coordinate = x_coordinate;				                          //X坐标
 000166  980c              LDR      r0,[sp,#0x30]
 000168  f8c10012          STR      r0,[r1,#0x12]  ; reportFrame
-;;;215    	reportFrame.y_coordinate = y_coordinate;				                          //Y坐标
+;;;240    	reportFrame.y_coordinate = y_coordinate;				                          //Y坐标
 00016c  980b              LDR      r0,[sp,#0x2c]
 00016e  f8c10016          STR      r0,[r1,#0x16]  ; reportFrame
-;;;216    	reportFrame.theta_angle_deg = angle;		                                      //航向角
+;;;241    	reportFrame.theta_angle_deg = angle;		                                      //航向角
 000172  4608              MOV      r0,r1
 000174  8345              STRH     r5,[r0,#0x1a]
-;;;217    	reportFrame.landoff_button = 0;                                                   //离地开关
+;;;242    	reportFrame.landoff_button = 0;                                                   //离地开关
 000176  2000              MOVS     r0,#0
 000178  7708              STRB     r0,[r1,#0x1c]
-;;;218    	reportFrame.collosion_button = bsp_CollisionScan() ; 			                  //碰撞开关
+;;;243    	reportFrame.collosion_button = bsp_CollisionScan() ; 			                  //碰撞开关
 00017a  f7fffffe          BL       bsp_CollisionScan
 00017e  493c              LDR      r1,|L3.624|
 000180  7748              STRB     r0,[r1,#0x1d]
-;;;219    	reportFrame.infrared_front_status = 0; 	                                          //前向红外状态 
+;;;244    	reportFrame.infrared_front_status = 0; 	                                          //前向红外状态 
 000182  2000              MOVS     r0,#0
 000184  83c8              STRH     r0,[r1,#0x1e]
-;;;220    	reportFrame.infrared_edge_status = 0;	                                          //沿边红外状态
+;;;245    	reportFrame.infrared_edge_status = 0;	                                          //沿边红外状态
 000186  f8810020          STRB     r0,[r1,#0x20]
-;;;221    	reportFrame.infrared_adc_value1 =  adc1;                                          //红外ADC值1	 
+;;;246    	reportFrame.infrared_adc_value1 =  adc1;                                          //红外ADC值1	 
 00018a  9813              LDR      r0,[sp,#0x4c]
 00018c  f8a10021          STRH     r0,[r1,#0x21]
-;;;222    	reportFrame.infrared_adc_value2 =  adc2;                                          //红外ADC值2	 
+;;;247    	reportFrame.infrared_adc_value2 =  adc2;                                          //红外ADC值2	 
 000190  4608              MOV      r0,r1
 000192  f8a06023          STRH     r6,[r0,#0x23]
-;;;223    	reportFrame.infrared_adc_value3 =  adc3;                                          //红外ADC值3	 
+;;;248    	reportFrame.infrared_adc_value3 =  adc3;                                          //红外ADC值3	 
 000196  f8a07025          STRH     r7,[r0,#0x25]
-;;;224    	reportFrame.infrared_adc_value4 =  adc4;                                          //红外ADC值4	 
+;;;249    	reportFrame.infrared_adc_value4 =  adc4;                                          //红外ADC值4	 
 00019a  f8a08027          STRH     r8,[r0,#0x27]
-;;;225    	reportFrame.infrared_adc_value5 =  adc5;                                          //红外ADC值5	 
+;;;250    	reportFrame.infrared_adc_value5 =  adc5;                                          //红外ADC值5	 
 00019e  f8a09029          STRH     r9,[r0,#0x29]
-;;;226    	reportFrame.infrared_adc_value6 =  adc6;                                          //红外ADC值6	 
+;;;251    	reportFrame.infrared_adc_value6 =  adc6;                                          //红外ADC值6	 
 0001a2  f8a0a02b          STRH     r10,[r0,#0x2b]
-;;;227    	reportFrame.infrared_adc_value7 =  adc7;                                          //红外ADC值7	 
+;;;252    	reportFrame.infrared_adc_value7 =  adc7;                                          //红外ADC值7	 
 0001a6  f8a0b02d          STRH     r11,[r0,#0x2d]
-;;;228    	reportFrame.infrared_adc_value8 =  adc8;                                          //红外ADC值8	 
+;;;253    	reportFrame.infrared_adc_value8 =  adc8;                                          //红外ADC值8	 
 0001aa  9812              LDR      r0,[sp,#0x48]
 0001ac  f8a1002f          STRH     r0,[r1,#0x2f]
-;;;229    	reportFrame.infrared_adc_value9 =  adc9;                                          //红外ADC值9	 
+;;;254    	reportFrame.infrared_adc_value9 =  adc9;                                          //红外ADC值9	 
 0001b0  9811              LDR      r0,[sp,#0x44]
 0001b2  f8a10031          STRH     r0,[r1,#0x31]
-;;;230    	reportFrame.infrared_adc_value10 = adc10;                                         //红外ADC值10
+;;;255    	reportFrame.infrared_adc_value10 = adc10;                                         //红外ADC值10
 0001b6  9810              LDR      r0,[sp,#0x40]
 0001b8  f8a10033          STRH     r0,[r1,#0x33]
-;;;231    	reportFrame.infrared_cliff_status = 0 ;                                           //跳崖红外状态
+;;;256    	reportFrame.infrared_cliff_status = 0 ;                                           //跳崖红外状态
 0001bc  2000              MOVS     r0,#0
 0001be  f8810035          STRB     r0,[r1,#0x35]
-;;;232    	reportFrame.infrared_cliff_adc_value1 = 0 ;                                       //跳崖ADC值1
+;;;257    	reportFrame.infrared_cliff_adc_value1 = 0 ;                                       //跳崖ADC值1
 0001c2  86c8              STRH     r0,[r1,#0x36]
-;;;233    	reportFrame.infrared_cliff_adc_value2 = 0 ;                                       //跳崖ADC值2
+;;;258    	reportFrame.infrared_cliff_adc_value2 = 0 ;                                       //跳崖ADC值2
 0001c4  8708              STRH     r0,[r1,#0x38]
-;;;234    	reportFrame.infrared_cliff_adc_value3 = 0 ;                                       //跳崖ADC值3
+;;;259    	reportFrame.infrared_cliff_adc_value3 = 0 ;                                       //跳崖ADC值3
 0001c6  8748              STRH     r0,[r1,#0x3a]
-;;;235    	reportFrame.battery_voltage = 0;                                                  //电池电压
+;;;260    	reportFrame.battery_voltage = 0;                                                  //电池电压
 0001c8  f881003c          STRB     r0,[r1,#0x3c]
-;;;236    	reportFrame.charging_status = 0;                                                  //充电状态
+;;;261    	reportFrame.charging_status = 0;                                                  //充电状态
 0001cc  f881003d          STRB     r0,[r1,#0x3d]
-;;;237    	reportFrame.error_code = 0;         	                                          //异常状态
+;;;262    	reportFrame.error_code = 0;         	                                          //异常状态
 0001d0  f881003e          STRB     r0,[r1,#0x3e]
-;;;238    	reportFrame.machine_status = 0;                                                   //机器状态
+;;;263    	reportFrame.machine_status = 0;                                                   //机器状态
 0001d4  f881003f          STRB     r0,[r1,#0x3f]
-;;;239    	reportFrame.timestamp = timestamp;                                                //时间戳
+;;;264    	reportFrame.timestamp = timestamp;                                                //时间戳
 0001d8  980f              LDR      r0,[sp,#0x3c]
 0001da  6408              STR      r0,[r1,#0x40]  ; reportFrame
-;;;240    	reportFrame.reserved1 = 0;  	                                                  //保留位1
+;;;265    	reportFrame.reserved1 = 0;  	                                                  //保留位1
 0001dc  2000              MOVS     r0,#0
 0001de  6448              STR      r0,[r1,#0x44]  ; reportFrame
-;;;241    	reportFrame.reserved2 = 0;				                                          //保留位2
+;;;266    	reportFrame.reserved2 = 0;				                                          //保留位2
 0001e0  6488              STR      r0,[r1,#0x48]  ; reportFrame
-;;;242    	reportFrame.reserved3 = 0;         	                                              //保留位3
+;;;267    	reportFrame.reserved3 = 0;         	                                              //保留位3
 0001e2  64c8              STR      r0,[r1,#0x4c]  ; reportFrame
-;;;243    	reportFrame.checksum_msb = 0;                                                     //校验
+;;;268    	reportFrame.checksum_msb = 0;                                                     //校验
 0001e4  f8810050          STRB     r0,[r1,#0x50]
-;;;244    	reportFrame.checksum_lsb = 0;                                                     //校验
+;;;269    	reportFrame.checksum_lsb = 0;                                                     //校验
 0001e8  f8810051          STRB     r0,[r1,#0x51]
-;;;245    	reportFrame.end_of_falg = 0x55;                                                   //帧结尾恒定为0x55
+;;;270    	reportFrame.end_of_falg = 0x55;                                                   //帧结尾恒定为0x55
 0001ec  2055              MOVS     r0,#0x55
 0001ee  f8810052          STRB     r0,[r1,#0x52]
-;;;246    	
-;;;247    	/*计算校验*/
-;;;248    	chk = bsp_CalcChk(src+3,len-6);
+;;;271    	
+;;;272    	/*计算校验*/
+;;;273    	chk = bsp_CalcChk(src+3,len-6);
 0001f2  9818              LDR      r0,[sp,#0x60]
 0001f4  1f80              SUBS     r0,r0,#6
 0001f6  b2c1              UXTB     r1,r0
@@ -669,78 +732,78 @@
 0001fa  1cc0              ADDS     r0,r0,#3
 0001fc  f7fffffe          BL       bsp_CalcChk
 000200  4604              MOV      r4,r0
-;;;249    	reportFrame.checksum_msb = chk >> 8;
+;;;274    	reportFrame.checksum_msb = chk >> 8;
 000202  1220              ASRS     r0,r4,#8
 000204  491a              LDR      r1,|L3.624|
 000206  f8810050          STRB     r0,[r1,#0x50]
-;;;250    	reportFrame.checksum_lsb = chk & 0x00FF;
+;;;275    	reportFrame.checksum_lsb = chk & 0x00FF;
 00020a  f8814051          STRB     r4,[r1,#0x51]
-;;;251    	
-;;;252    	
-;;;253    	/*打印调试信息*/
-;;;254    	#if 1
-;;;255    	{
-;;;256    		float data[10] = {0};
+;;;276    	
+;;;277    	
+;;;278    	/*打印调试信息*/
+;;;279    	#if 1
+;;;280    	{
+;;;281    		float data[10] = {0};
 00020e  bf00              NOP      
 000210  2128              MOVS     r1,#0x28
 000212  a801              ADD      r0,sp,#4
 000214  f7fffffe          BL       __aeabi_memclr4
-;;;257    		
-;;;258    		UNUSED(data);
-;;;259    		
-;;;260    		//DEBUG("angle:%.2F\r\n",angle/100.0F);
-;;;261    		//DEBUG("x_coordinate:%d  ",x_coordinate);
-;;;262    		//DEBUG("y_coordinate:%d\r\n",y_coordinate);
-;;;263    		
-;;;264    		data[0] =  angle;                                          //红外ADC值1	 
+;;;282    		
+;;;283    		UNUSED(data);
+;;;284    		
+;;;285    		//DEBUG("angle:%.2F\r\n",angle/100.0F);
+;;;286    		//DEBUG("x_coordinate:%d  ",x_coordinate);
+;;;287    		//DEBUG("y_coordinate:%d\r\n",y_coordinate);
+;;;288    		
+;;;289    		data[0] =  angle;                                          //红外ADC值1	 
 000218  4628              MOV      r0,r5
 00021a  f7fffffe          BL       __aeabi_i2f
 00021e  9001              STR      r0,[sp,#4]
-;;;265    		data[1] =  adc2;                                          //红外ADC值2	 
+;;;290    		data[1] =  adc2;                                          //红外ADC值2	 
 000220  4630              MOV      r0,r6
 000222  f7fffffe          BL       __aeabi_ui2f
 000226  9002              STR      r0,[sp,#8]
-;;;266    		data[2] =  adc3;                                          //红外ADC值3	 
+;;;291    		data[2] =  adc3;                                          //红外ADC值3	 
 000228  4638              MOV      r0,r7
 00022a  f7fffffe          BL       __aeabi_ui2f
 00022e  9003              STR      r0,[sp,#0xc]
-;;;267    		data[3] =  adc4;                                          //红外ADC值4	 
+;;;292    		data[3] =  adc4;                                          //红外ADC值4	 
 000230  4640              MOV      r0,r8
 000232  f7fffffe          BL       __aeabi_ui2f
 000236  9004              STR      r0,[sp,#0x10]
-;;;268    		data[4] =  adc5;                                          //红外ADC值5	 
+;;;293    		data[4] =  adc5;                                          //红外ADC值5	 
 000238  4648              MOV      r0,r9
 00023a  f7fffffe          BL       __aeabi_ui2f
 00023e  9005              STR      r0,[sp,#0x14]
-;;;269    		data[5] =  adc6;                                          //红外ADC值6	 
+;;;294    		data[5] =  adc6;                                          //红外ADC值6	 
 000240  4650              MOV      r0,r10
 000242  f7fffffe          BL       __aeabi_ui2f
 000246  9006              STR      r0,[sp,#0x18]
-;;;270    		data[6] =  adc7;                                          //红外ADC值7	 
+;;;295    		data[6] =  adc7;                                          //红外ADC值7	 
 000248  4658              MOV      r0,r11
 00024a  f7fffffe          BL       __aeabi_ui2f
 00024e  9007              STR      r0,[sp,#0x1c]
-;;;271    		data[7] =  adc8;                                          //红外ADC值8	 
+;;;296    		data[7] =  adc8;                                          //红外ADC值8	 
 000250  9812              LDR      r0,[sp,#0x48]
 000252  f7fffffe          BL       __aeabi_ui2f
 000256  9008              STR      r0,[sp,#0x20]
-;;;272    		data[8] =  adc9;                                          //红外ADC值9	 
+;;;297    		data[8] =  adc9;                                          //红外ADC值9	 
 000258  9811              LDR      r0,[sp,#0x44]
 00025a  f7fffffe          BL       __aeabi_ui2f
 00025e  9009              STR      r0,[sp,#0x24]
-;;;273    		data[9] =  adc10;                                         //红外ADC值10
+;;;298    		data[9] =  adc10;                                         //红外ADC值10
 000260  9810              LDR      r0,[sp,#0x40]
 000262  f7fffffe          BL       __aeabi_ui2f
 000266  900a              STR      r0,[sp,#0x28]
-;;;274    		
-;;;275    		//bsp_ScopeSend(data,1);
-;;;276    	}
-;;;277    	#endif
-;;;278    	
-;;;279    }
+;;;299    		
+;;;300    		//bsp_ScopeSend(data,1);
+;;;301    	}
+;;;302    	#endif
+;;;303    	
+;;;304    }
 000268  b019              ADD      sp,sp,#0x64
 00026a  e8bd8ff0          POP      {r4-r11,pc}
-;;;280    
+;;;305    
                           ENDP
 
 00026e  0000              DCW      0x0000
@@ -752,47 +815,47 @@
                           AREA ||i.bsp_SendReportFrame||, CODE, READONLY, ALIGN=2
 
                   bsp_SendReportFrame PROC
-;;;145    */
-;;;146    void bsp_SendReportFrame(void)
+;;;170    */
+;;;171    void bsp_SendReportFrame(void)
 000000  b570              PUSH     {r4-r6,lr}
-;;;147    {
-;;;148    	
-;;;149    	uint32_t len = sizeof(reportFrame);/*帧大小*/
+;;;172    {
+;;;173    	
+;;;174    	uint32_t len = sizeof(reportFrame);/*帧大小*/
 000002  2553              MOVS     r5,#0x53
-;;;150    	uint8_t* src = (uint8_t*)&reportFrame;
+;;;175    	uint8_t* src = (uint8_t*)&reportFrame;
 000004  4e08              LDR      r6,|L4.40|
-;;;151    	uint32_t i = 0 ;
+;;;176    	uint32_t i = 0 ;
 000006  2400              MOVS     r4,#0
-;;;152    	
-;;;153    	/*填充数据*/
-;;;154    	bsp_FillReportFrame();
+;;;177    	
+;;;178    	/*填充数据*/
+;;;179    	bsp_FillReportFrame();
 000008  f7fffffe          BL       bsp_FillReportFrame
-;;;155    	
-;;;156    	/*填充帧*/
-;;;157    	for(i=0;i<len;i++)
+;;;180    	
+;;;181    	/*填充帧*/
+;;;182    	for(i=0;i<len;i++)
 00000c  bf00              NOP      
 00000e  e003              B        |L4.24|
                   |L4.16|
-;;;158    	{
-;;;159    		sendBuf[i] = src[i];
+;;;183    	{
+;;;184    		sendBuf[i] = src[i];
 000010  5d30              LDRB     r0,[r6,r4]
 000012  4906              LDR      r1,|L4.44|
 000014  5508              STRB     r0,[r1,r4]
-000016  1c64              ADDS     r4,r4,#1              ;157
+000016  1c64              ADDS     r4,r4,#1              ;182
                   |L4.24|
-000018  42ac              CMP      r4,r5                 ;157
+000018  42ac              CMP      r4,r5                 ;182
 00001a  d3f9              BCC      |L4.16|
-;;;160    	}
-;;;161    	
-;;;162    	comSendBuf(COM4,sendBuf,len);
+;;;185    	}
+;;;186    	
+;;;187    	comSendBuf(COM4,sendBuf,len);
 00001c  b2aa              UXTH     r2,r5
 00001e  4903              LDR      r1,|L4.44|
 000020  2003              MOVS     r0,#3
 000022  f7fffffe          BL       comSendBuf
-;;;163    	
-;;;164    }
+;;;188    	
+;;;189    }
 000026  bd70              POP      {r4-r6,pc}
-;;;165    
+;;;190    
                           ENDP
 
                   |L4.40|

@@ -38962,14 +38962,39 @@ X					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - (3.14F * a
 N					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
 X					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + (3.14F * angularVelocity / 180.0F)*0.23F))* 1000);
 N					
+N					const int16_t limitSameDirSpeed = 250 ;
+N					const int16_t limitDiffrentDirSpeed = 150 ;
+N					
+N					if(leftVelocity > limitSameDirSpeed )
+N						leftVelocity = limitSameDirSpeed;
+N					
+N					if(rightVelocity > limitSameDirSpeed )
+N						rightVelocity = limitSameDirSpeed;
+N					
+N					if(leftVelocity < -limitSameDirSpeed )
+N						leftVelocity = -limitSameDirSpeed;
+N					
+N					if(rightVelocity < -limitSameDirSpeed )
+N						rightVelocity = -limitSameDirSpeed;
+N					
+N					if(leftVelocity * rightVelocity < 0)
+N					{
+N						if(leftVelocity > limitDiffrentDirSpeed )
+N						leftVelocity = limitDiffrentDirSpeed;
+N					
+N						if(rightVelocity > limitDiffrentDirSpeed )
+N							rightVelocity = limitDiffrentDirSpeed;
+N						
+N						if(leftVelocity < -limitDiffrentDirSpeed )
+N							leftVelocity = -limitDiffrentDirSpeed;
+N						
+N						if(rightVelocity < -limitDiffrentDirSpeed )
+N							rightVelocity = -limitDiffrentDirSpeed;
+N					}
+N					
 N					/*设定速度*/
-N					#if 1
 N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
 N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
-N					#else
-S					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
-S					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-N					#endif
 N					
 N					/*调试*/
 N					#if 0
