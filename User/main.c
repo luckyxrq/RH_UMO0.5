@@ -116,7 +116,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				{
 					bsp_SetMotorSpeed(MotorLeft ,  bsp_MotorSpeedMM2Pulse(120));
 					bsp_SetMotorSpeed(MotorRight , bsp_MotorSpeedMM2Pulse(120));
-					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM );
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM * 0.7F );
 					bsp_StartPumpRun();
 					
 					DEBUG("KEY1\r\n");
