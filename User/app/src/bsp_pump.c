@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-#define PUMP_OPEN_MS       2000   /*水泵开时间*/
+#define PUMP_OPEN_MS       1000   /*水泵开时间*/
 #define PUMP_CLOSE_MS      4000   /*水泵关时间*/
 
 /*水泵控制*/
