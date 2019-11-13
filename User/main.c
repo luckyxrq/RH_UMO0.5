@@ -160,7 +160,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
-
+	bsp_StartUploadMap();
+	
     while(1)
     {
 		switch(mcu_get_wifi_work_state())
@@ -185,10 +186,27 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			DEBUG("路由器连接成功 LED常亮\r\n");
 			break;
 			
+//			case WIFI_CONN_CLOUD:
+//			//路由器连接成功 LED常亮
+//			DEBUG("已经连接上云服务器\r\n");
+//			break;
+			
+			case WIFI_LOW_POWER:
+			//路由器连接成功 LED常亮
+			DEBUG("处于低功耗模式\r\n");
+			break;
+			
+			case WIFI_SATE_UNKNOW:
+			//路由器连接成功 LED常亮
+			DEBUG("未知WIFI状态\r\n");
+			break;
+			
 			default:break;
 		}
-
-        vTaskDelay(100);
+		
+		bsp_UploadMap();
+		
+        vTaskDelay(500);
     }
     
 }
@@ -217,19 +235,19 @@ static void vTaskPerception(void *pvParameters)
 			bsp_KeyScan();
 		}
 		
-		if(i%1000 == 0)
-		{
-			val = (val + 1) % 100;
-			//DEBUG("val:%d\r\n",val);
-			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,val); //VALUE型数据上报;
-			mcu_dp_fault_update(DPID_FAULT,1);
-			mcu_dp_fault_update(DPID_FAULT,2);
-			mcu_dp_fault_update(DPID_FAULT,3);
-			mcu_dp_fault_update(DPID_FAULT,4);
-			mcu_dp_fault_update(DPID_FAULT,5);
-			mcu_dp_fault_update(DPID_FAULT,6);
-			mcu_dp_fault_update(DPID_FAULT,7);
-		}
+//		if(i%1000 == 0)
+//		{
+//			val = (val + 1) % 100;
+//			//DEBUG("val:%d\r\n",val);
+//			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,val); //VALUE型数据上报;
+//			mcu_dp_fault_update(DPID_FAULT,1);
+//			mcu_dp_fault_update(DPID_FAULT,2);
+//			mcu_dp_fault_update(DPID_FAULT,3);
+//			mcu_dp_fault_update(DPID_FAULT,4);
+//			mcu_dp_fault_update(DPID_FAULT,5);
+//			mcu_dp_fault_update(DPID_FAULT,6);
+//			mcu_dp_fault_update(DPID_FAULT,7);
+//		}
 		
 		i++;
         vTaskDelay(1);	
