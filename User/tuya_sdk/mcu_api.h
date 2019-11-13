@@ -309,6 +309,9 @@ void mcu_get_module_mac(void);
 返回参数 : 无
 *****************************************************************************/
 unsigned char stream_trans(unsigned short id, unsigned int offset, unsigned char *buffer, unsigned short buf_len);
+void bsp_OpenStreamService(void);
+void bsp_StreamTransOpen(uint16_t id);
+void bsp_StreamTransClose(uint16_t id , uint32_t offset);
 #endif
 
 /*****************************************************************************

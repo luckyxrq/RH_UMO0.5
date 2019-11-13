@@ -1009,7 +1009,7 @@ unsigned char stream_trans(unsigned short id, unsigned int offset, unsigned char
     return SUCCESS;
 
   //ID
-  length = set_wifi_uart_byte(length,id / 0x100);
+  length = set_wifi_uart_byte(length,id / 0x100); /*传入 buf 偏移数 ， 新写入的字节 ， 返回新的 buf 偏移数*/
   length = set_wifi_uart_byte(length,id % 0x100);
   //偏移量
   length = set_wifi_uart_byte(length,offset >> 24);
@@ -1021,6 +1021,85 @@ unsigned char stream_trans(unsigned short id, unsigned int offset, unsigned char
   wifi_uart_write_frame(STREAM_TRANS_CMD, length);
   
   return 0 ;
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_OpenStreamService
+*	功能说明: 开启流服务
+*	形    参:  无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_OpenStreamService(void)
+{
+	unsigned short length = 0;
+
+	stream_status = 0xff;
+
+	if(stop_update_flag == ENABLE)
+		return ;
+	
+	/*本指令没有数据*/
+	
+	wifi_uart_write_frame(STREAM_SERVICE_OPEN, length);
+
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StreamTransOpen
+*	功能说明: 开启流服务
+*	形    参:  无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_StreamTransOpen(uint16_t id)
+{
+	unsigned short length = 0;
+
+	stream_status = 0xff;
+
+	if(stop_update_flag == ENABLE)
+		return ;
+	
+	//ID
+	length = set_wifi_uart_byte(length,id / 0x100); /*传入 buf 偏移数 ， 新写入的字节 ， 返回新的 buf 偏移数*/
+	length = set_wifi_uart_byte(length,id % 0x100);
+	
+	wifi_uart_write_frame(STREAM_TRANS_OPEN, length);
+
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StreamTransClose
+*	功能说明: 开启流服务
+*	形    参:  无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_StreamTransClose(uint16_t id , uint32_t offset)
+{
+	unsigned short length = 0;
+
+	stream_status = 0xff;
+
+	if(stop_update_flag == ENABLE)
+		return ;
+	
+	//ID
+	length = set_wifi_uart_byte(length,id / 0x100); /*传入 buf 偏移数 ， 新写入的字节 ， 返回新的 buf 偏移数*/
+	length = set_wifi_uart_byte(length,id % 0x100);
+	//偏移量
+	length = set_wifi_uart_byte(length,offset >> 24);
+	length = set_wifi_uart_byte(length,offset >> 16);
+	length = set_wifi_uart_byte(length,offset >> 8);
+	length = set_wifi_uart_byte(length,offset % 256);
+	
+	wifi_uart_write_frame(STREAM_TRANS_OPEN, length);
+
 }
 
 #endif
