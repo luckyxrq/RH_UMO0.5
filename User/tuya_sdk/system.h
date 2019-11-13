@@ -138,6 +138,10 @@
 #define         WIFI_CONNECT_TEST_CMD           0x2c                            //wifi功能测试(连接指定路由)
 #define         GET_MAC_CMD                     0x2d                            //获取模块mac
 
+#define         STREAM_SERVICE_OPEN             0x26                            //自己额外添加-->开启流服务功能
+#define         STREAM_TRANS_OPEN               0x27                            //自己额外添加-->开启流数据传输
+#define         STREAM_TRANS_CLOSE              0x29                            //自己额外添加-->结束流数据传输
+
 
 
 //=============================================================================
