@@ -87,3 +87,4 @@
 .\flash\obj\bsp_timer.o: ..\..\User\tuya_sdk\protocol.h
 .\flash\obj\bsp_timer.o: ..\..\User\tuya_sdk\system.h
 .\flash\obj\bsp_timer.o: ..\..\User\tuya_sdk\mcu_api.h
+.\flash\obj\bsp_timer.o: ..\..\User\app\inc\bsp_UploadMap.h

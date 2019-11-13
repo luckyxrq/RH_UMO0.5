@@ -113,8 +113,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			{
 				case KEY_1_DOWN:
 				{
-					mcu_start_wifitest();
-					DEBUG("测试WIFI功能\r\n");
+					bsp_OpenStreamService();
+					DEBUG("开启流服务\r\n");
+//					bsp_StreamTransOpen(0);
+//					DEBUG("开启流传输\r\n");
 				}break;	
 				
 				case KEY_2_DOWN:
@@ -131,8 +133,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 				
 				case KEY_4_DOWN:
 				{
-					mcu_set_wifi_mode(AP_CONFIG);
-					DEBUG("AP_CONFIG 模式\r\n");
+					//mcu_set_wifi_mode(AP_CONFIG);
+					
 				}break;	
 				
 				default:

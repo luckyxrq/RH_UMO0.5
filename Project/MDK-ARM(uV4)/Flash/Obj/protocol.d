@@ -87,3 +87,4 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_Gridmap.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_CleanStrategy.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_UploadMap.h

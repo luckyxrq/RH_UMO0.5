@@ -1,93 +1,93 @@
 /****************************************Copyright (c)*************************
-**                               ç‰ˆæƒæ‰€æœ‰ (C), 2015-2020, æ¶‚é¸¦ç§‘æŠ€
+**                               °æÈ¨ËùÓĞ (C), 2015-2020, Í¿Ñ»¿Æ¼¼
 **
 **                                 http://www.tuya.com
 **
-**--------------æ–‡ä»¶ä¿¡æ¯-------------------------------------------------------
-**æ–‡   ä»¶   å: system.c
-**æ        è¿°: wifiæ•°æ®å¤„ç†å‡½æ•°
-**ä½¿ ç”¨ è¯´ æ˜ : ç”¨æˆ·æ— éœ€å…³å¿ƒè¯¥æ–‡ä»¶å®ç°å†…å®¹
+**--------------ÎÄ¼şĞÅÏ¢-------------------------------------------------------
+**ÎÄ   ¼ş   Ãû: system.c
+**Ãè        Êö: wifiÊı¾İ´¦Àíº¯Êı
+**Ê¹ ÓÃ Ëµ Ã÷ : ÓÃ»§ÎŞĞè¹ØĞÄ¸ÃÎÄ¼şÊµÏÖÄÚÈİ
 **
 **
-**--------------å½“å‰ç‰ˆæœ¬ä¿®è®¢---------------------------------------------------
-** ç‰ˆ  æœ¬: v2.5.2
-** æ—¥ã€€æœŸ: 2019å¹´7æœˆ5æ—¥
-** æã€€è¿°: 1:å¢åŠ WiFiåŠŸèƒ½æ€§æµ‹è¯•ï¼ˆè¿æ¥æŒ‡å®šè·¯ç”±ï¼‰
-           2:ç®€åŒ–æµæœåŠ¡è¿‡ç¨‹ï¼Œç”¨æˆ·åªéœ€è¦è°ƒç”¨æµæœåŠ¡ä¼ è¾“æ¥å£å³å¯ä½¿ç”¨æµæœåŠ¡
-           3:å¢åŠ åŒæ­¥ä¸ŠæŠ¥æŒ‡ä»¤
-           4:å¢åŠ è·å–å½“å‰wifiè”ç½‘çŠ¶æ€æŒ‡ä»¤
-           5:å¢åŠ è·å–æ ¼æ—æ—¶é—´æŒ‡ä»¤
-           6:ä¼˜åŒ–otaå‡çº§æµç¨‹ï¼Œå¯åŠ¨otaå‡çº§æ—¶ç”¨æˆ·å¯ä»¥é€‰æ‹©ä¼ è¾“åŒ…å¤§å°
-           7:å¢åŠ è·å–æ¨¡å—macåœ°å€æŒ‡ä»¤
+**--------------µ±Ç°°æ±¾ĞŞ¶©---------------------------------------------------
+** °æ  ±¾: v2.5.2
+** ÈÕ¡¡ÆÚ: 2019Äê7ÔÂ5ÈÕ
+** Ãè¡¡Êö: 1:Ôö¼ÓWiFi¹¦ÄÜĞÔ²âÊÔ£¨Á¬½ÓÖ¸¶¨Â·ÓÉ£©
+           2:¼ò»¯Á÷·şÎñ¹ı³Ì£¬ÓÃ»§Ö»ĞèÒªµ÷ÓÃÁ÷·şÎñ´«Êä½Ó¿Ú¼´¿ÉÊ¹ÓÃÁ÷·şÎñ
+           3:Ôö¼ÓÍ¬²½ÉÏ±¨Ö¸Áî
+           4:Ôö¼Ó»ñÈ¡µ±Ç°wifiÁªÍø×´Ì¬Ö¸Áî
+           5:Ôö¼Ó»ñÈ¡¸ñÁÖÊ±¼äÖ¸Áî
+           6:ÓÅ»¯otaÉı¼¶Á÷³Ì£¬Æô¶¯otaÉı¼¶Ê±ÓÃ»§¿ÉÒÔÑ¡Ôñ´«Êä°ü´óĞ¡
+           7:Ôö¼Ó»ñÈ¡Ä£¿émacµØÖ·Ö¸Áî
 
-** ç‰ˆ  æœ¬: v2.5.1
-** æ—¥ã€€æœŸ: 2018å¹´10æœˆ27æ—¥
-** æã€€è¿°: 1:é»˜è®¤å…³é—­æµæœåŠ¡åŠŸèƒ½
-           2:å¢åŠ 03åè®®wifiçŠ¶æ€å®å®šä¹‰
-		   3:æ›´æ–°ä¸ä¿®æ”¹éƒ¨åˆ†å‡½æ•°æ³¨é‡Š
+** °æ  ±¾: v2.5.1
+** ÈÕ¡¡ÆÚ: 2018Äê10ÔÂ27ÈÕ
+** Ãè¡¡Êö: 1:Ä¬ÈÏ¹Ø±ÕÁ÷·şÎñ¹¦ÄÜ
+           2:Ôö¼Ó03Ğ­Òéwifi×´Ì¬ºê¶¨Òå
+		   3:¸üĞÂÓëĞŞ¸Ä²¿·Öº¯Êı×¢ÊÍ
 
-** ç‰ˆ  æœ¬: v2.5.0
-** æ—¥ã€€æœŸ: 2018å¹´4æœˆ18æ—¥
-** æã€€è¿°: 1:åè®®ç‰ˆæœ¬æ”¹ä¸º0x03
-           2:å¢åŠ WIFIæ¨¡ç»„å¿ƒè·³å…³é—­åŠŸèƒ½
-           3:å¢åŠ å¤©æ°”åŠŸèƒ½
-		   4:æµæœåŠ¡åŠŸèƒ½
+** °æ  ±¾: v2.5.0
+** ÈÕ¡¡ÆÚ: 2018Äê4ÔÂ18ÈÕ
+** Ãè¡¡Êö: 1:Ğ­Òé°æ±¾¸ÄÎª0x03
+           2:Ôö¼ÓWIFIÄ£×éĞÄÌø¹Ø±Õ¹¦ÄÜ
+           3:Ôö¼ÓÌìÆø¹¦ÄÜ
+		   4:Á÷·şÎñ¹¦ÄÜ
 
-** ç‰ˆ  æœ¬: v2.3.8
-** æ—¥ã€€æœŸ: 2018å¹´1æœˆ17æ—¥
-** æã€€è¿°: 1:å˜é‡æ·»åŠ volatileé˜²æ­¢ç¼–è¯‘å™¨ä¼˜åŒ–
-           2:æ·»åŠ #erroræç¤º
+** °æ  ±¾: v2.3.8
+** ÈÕ¡¡ÆÚ: 2018Äê1ÔÂ17ÈÕ
+** Ãè¡¡Êö: 1:±äÁ¿Ìí¼Óvolatile·ÀÖ¹±àÒëÆ÷ÓÅ»¯
+           2:Ìí¼Ó#errorÌáÊ¾
 
-** ç‰ˆ  æœ¬: v2.3.7
-** æ—¥ã€€æœŸ: 2017å¹´4æœˆ18æ—¥
-** æã€€è¿°: 1:ä¼˜åŒ–ä¸²å£é˜Ÿåˆ—æ¥æ”¶å¤„ç†
+** °æ  ±¾: v2.3.7
+** ÈÕ¡¡ÆÚ: 2017Äê4ÔÂ18ÈÕ
+** Ãè¡¡Êö: 1:ÓÅ»¯´®¿Ú¶ÓÁĞ½ÓÊÕ´¦Àí
 		   
-** ç‰ˆ  æœ¬: v2.3.6
-** æ—¥ã€€æœŸ: 2016å¹´7æœˆ21æ—¥
-** æã€€è¿°: 1:ä¿®å¤è·å–æœ¬åœ°æ—¶é—´é”™è¯¯
-           2:æ·»åŠ hex_to_bcdè½¬æ¢å‡½æ•°
+** °æ  ±¾: v2.3.6
+** ÈÕ¡¡ÆÚ: 2016Äê7ÔÂ21ÈÕ
+** Ãè¡¡Êö: 1:ĞŞ¸´»ñÈ¡±¾µØÊ±¼ä´íÎó
+           2:Ìí¼Óhex_to_bcd×ª»»º¯Êı
 		   
-** ç‰ˆ  æœ¬: v2.3.5
-** æ—¥ã€€æœŸ: 2016å¹´6æœˆ3æ—¥
-** æã€€è¿°: 1:ä¿®æ”¹è¿”å›åè®®ç‰ˆæœ¬ä¸º0x01
-           2:å›ºä»¶å‡çº§æ•°æ®åç§»é‡ä¿®æ”¹ä¸º4å­—èŠ‚
+** °æ  ±¾: v2.3.5
+** ÈÕ¡¡ÆÚ: 2016Äê6ÔÂ3ÈÕ
+** Ãè¡¡Êö: 1:ĞŞ¸Ä·µ»ØĞ­Òé°æ±¾Îª0x01
+           2:¹Ì¼şÉı¼¶Êı¾İÆ«ÒÆÁ¿ĞŞ¸ÄÎª4×Ö½Ú
 
-** ç‰ˆ  æœ¬: v2.3.4
-** æ—¥ã€€æœŸ: 2016å¹´5æœˆ26æ—¥
-** æã€€è¿°: 1:ä¼˜åŒ–ä¸²å£è§£æå‡½æ•°
-           2:ä¼˜åŒ–ç¼–è¯‘å™¨å…¼å®¹æ€§,å–æ¶ˆenumç±»å‹å®šä¹‰
+** °æ  ±¾: v2.3.4
+** ÈÕ¡¡ÆÚ: 2016Äê5ÔÂ26ÈÕ
+** Ãè¡¡Êö: 1:ÓÅ»¯´®¿Ú½âÎöº¯Êı
+           2:ÓÅ»¯±àÒëÆ÷¼æÈİĞÔ,È¡ÏûenumÀàĞÍ¶¨Òå
 
-** ç‰ˆ  æœ¬: v2.3.3
-** æ—¥ã€€æœŸ: 2016å¹´5æœˆ24æ—¥
-** æã€€è¿°: 1:ä¿®æ”¹mcuè·å–æœ¬åœ°æ—¶é—´å‡½æ•°
-           2:æ·»åŠ wifiåŠŸèƒ½æµ‹è¯•
+** °æ  ±¾: v2.3.3
+** ÈÕ¡¡ÆÚ: 2016Äê5ÔÂ24ÈÕ
+** Ãè¡¡Êö: 1:ĞŞ¸Ämcu»ñÈ¡±¾µØÊ±¼äº¯Êı
+           2:Ìí¼Ówifi¹¦ÄÜ²âÊÔ
 
-** ç‰ˆ  æœ¬: v2.3.2
-** æ—¥ã€€æœŸ: 2016å¹´4æœˆ23æ—¥
-** æã€€è¿°: 1:ä¼˜åŒ–ä¸²å£æ•°æ®è§£æ
-           2:ä¼˜åŒ–MCUå›ºä»¶å‡çº§æµç¨‹
-           3:ä¼˜åŒ–ä¸ŠæŠ¥æµç¨‹
+** °æ  ±¾: v2.3.2
+** ÈÕ¡¡ÆÚ: 2016Äê4ÔÂ23ÈÕ
+** Ãè¡¡Êö: 1:ÓÅ»¯´®¿ÚÊı¾İ½âÎö
+           2:ÓÅ»¯MCU¹Ì¼şÉı¼¶Á÷³Ì
+           3:ÓÅ»¯ÉÏ±¨Á÷³Ì
 
-** ç‰ˆ  æœ¬: v2.3.1
-** æ—¥ã€€æœŸ: 2016å¹´4æœˆ15æ—¥
-** æã€€è¿°: 1:ä¼˜åŒ–ä¸²å£æ•°æ®è§£æ
+** °æ  ±¾: v2.3.1
+** ÈÕ¡¡ÆÚ: 2016Äê4ÔÂ15ÈÕ
+** Ãè¡¡Êö: 1:ÓÅ»¯´®¿ÚÊı¾İ½âÎö
 
-** ç‰ˆ  æœ¬: v2.3
-** æ—¥ã€€æœŸ: 2016å¹´4æœˆ14æ—¥
-** æã€€è¿°: 1:æ”¯æŒMCUå›ºä»¶åœ¨çº¿å‡çº§
+** °æ  ±¾: v2.3
+** ÈÕ¡¡ÆÚ: 2016Äê4ÔÂ14ÈÕ
+** Ãè¡¡Êö: 1:Ö§³ÖMCU¹Ì¼şÔÚÏßÉı¼¶
 
-** ç‰ˆ  æœ¬: v2.2
-** æ—¥ã€€æœŸ: 2016å¹´4æœˆ11æ—¥
-** æã€€è¿°: 1:ä¿®æ”¹ä¸²å£æ•°æ®æ¥æ”¶æ–¹å¼
+** °æ  ±¾: v2.2
+** ÈÕ¡¡ÆÚ: 2016Äê4ÔÂ11ÈÕ
+** Ãè¡¡Êö: 1:ĞŞ¸Ä´®¿ÚÊı¾İ½ÓÊÕ·½Ê½
 
-** ç‰ˆ  æœ¬: v2.1
-** æ—¥ã€€æœŸ: 2016å¹´4æœˆ8æ—¥
-** æã€€è¿°: 1:åŠ å…¥æŸäº›ç¼–è¯‘å™¨ä¸æ”¯æŒå‡½æ•°æŒ‡é’ˆå…¼å®¹é€‰é¡¹
+** °æ  ±¾: v2.1
+** ÈÕ¡¡ÆÚ: 2016Äê4ÔÂ8ÈÕ
+** Ãè¡¡Êö: 1:¼ÓÈëÄ³Ğ©±àÒëÆ÷²»Ö§³Öº¯ÊıÖ¸Õë¼æÈİÑ¡Ïî
 
-** ç‰ˆ  æœ¬: v2.0
-** æ—¥ã€€æœŸ: 2016å¹´3æœˆ29æ—¥
-** æã€€è¿°: 1:ä¼˜åŒ–ä»£ç ç»“æ„
-           2:èŠ‚çœRAMç©ºé—´
+** °æ  ±¾: v2.0
+** ÈÕ¡¡ÆÚ: 2016Äê3ÔÂ29ÈÕ
+** Ãè¡¡Êö: 1:ÓÅ»¯´úÂë½á¹¹
+           2:½ÚÊ¡RAM¿Õ¼ä
 **
 **-----------------------------------------------------------------------------
 ******************************************************************************/
@@ -99,14 +99,14 @@
 //
 //
 extern const DOWNLOAD_CMD_S download_cmd[];
-unsigned short firm_size;                                                      //å‡çº§åŒ…ä¸€åŒ…çš„å¤§å°
+unsigned short firm_size;                                                      //Éı¼¶°üÒ»°üµÄ´óĞ¡
 
 /*****************************************************************************
-å‡½æ•°åç§° : set_wifi_uart_byte
-åŠŸèƒ½æè¿° : å†™wifi_uartå­—èŠ‚
-è¾“å…¥å‚æ•° : dest:ç¼“å­˜åŒºå…¶å®åœ°å€;
-           byte:å†™å…¥å­—èŠ‚å€¼
-è¿”å›å‚æ•° : å†™å…¥å®Œæˆåçš„æ€»é•¿åº¦
+º¯ÊıÃû³Æ : set_wifi_uart_byte
+¹¦ÄÜÃèÊö : Ğ´wifi_uart×Ö½Ú
+ÊäÈë²ÎÊı : dest:»º´æÇøÆäÊµµØÖ·;
+           byte:Ğ´Èë×Ö½ÚÖµ
+·µ»Ø²ÎÊı : Ğ´ÈëÍê³ÉºóµÄ×Ü³¤¶È
 *****************************************************************************/
 unsigned short set_wifi_uart_byte(unsigned short dest, unsigned char byte)
 {
@@ -118,12 +118,12 @@ unsigned short set_wifi_uart_byte(unsigned short dest, unsigned char byte)
   return dest;
 }
 /*****************************************************************************
-å‡½æ•°åç§° : set_wifi_uart_buffer
-åŠŸèƒ½æè¿° : å†™wifi_uart_buffer
-è¾“å…¥å‚æ•° : dest:ç›®æ ‡åœ°å€
-           src:æºåœ°å€
-           len:æ•°æ®é•¿åº¦
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ : set_wifi_uart_buffer
+¹¦ÄÜÃèÊö : Ğ´wifi_uart_buffer
+ÊäÈë²ÎÊı : dest:Ä¿±êµØÖ·
+           src:Ô´µØÖ·
+           len:Êı¾İ³¤¶È
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 unsigned short set_wifi_uart_buffer(unsigned short dest, unsigned char *src, unsigned short len)
 {
@@ -135,11 +135,11 @@ unsigned short set_wifi_uart_buffer(unsigned short dest, unsigned char *src, uns
   return dest;
 }
 /*****************************************************************************
-å‡½æ•°åç§° : wifi_uart_write_data
-åŠŸèƒ½æè¿° : å‘wifi uartå†™å…¥è¿ç»­æ•°æ®
-è¾“å…¥å‚æ•° : in:å‘é€ç¼“å­˜æŒ‡é’ˆ
-           len:æ•°æ®å‘é€é•¿åº¦
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ : wifi_uart_write_data
+¹¦ÄÜÃèÊö : Ïòwifi uartĞ´ÈëÁ¬ĞøÊı¾İ
+ÊäÈë²ÎÊı : in:·¢ËÍ»º´æÖ¸Õë
+           len:Êı¾İ·¢ËÍ³¤¶È
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 static void wifi_uart_write_data(unsigned char *in, unsigned short len)
 {
@@ -155,11 +155,11 @@ static void wifi_uart_write_data(unsigned char *in, unsigned short len)
   }
 }
 /*****************************************************************************
-å‡½æ•°åç§° : get_check_sum
-åŠŸèƒ½æè¿° : è®¡ç®—æ ¡éªŒå’Œ
-è¾“å…¥å‚æ•° : pack:æ•°æ®æºæŒ‡é’ˆ
-           pack_len:è®¡ç®—æ ¡éªŒå’Œé•¿åº¦
-è¿”å›å‚æ•° : æ ¡éªŒå’Œ
+º¯ÊıÃû³Æ : get_check_sum
+¹¦ÄÜÃèÊö : ¼ÆËãĞ£ÑéºÍ
+ÊäÈë²ÎÊı : pack:Êı¾İÔ´Ö¸Õë
+           pack_len:¼ÆËãĞ£ÑéºÍ³¤¶È
+·µ»Ø²ÎÊı : Ğ£ÑéºÍ
 *****************************************************************************/
 unsigned char get_check_sum(unsigned char *pack, unsigned short pack_len)
 {
@@ -174,11 +174,11 @@ unsigned char get_check_sum(unsigned char *pack, unsigned short pack_len)
   return check_sum;
 }
 /*****************************************************************************
-å‡½æ•°åç§° : wifi_uart_write_frame
-åŠŸèƒ½æè¿° : å‘wifiä¸²å£å‘é€ä¸€å¸§æ•°æ®
-è¾“å…¥å‚æ•° : fr_type:å¸§ç±»å‹
-           len:æ•°æ®é•¿åº¦
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ : wifi_uart_write_frame
+¹¦ÄÜÃèÊö : Ïòwifi´®¿Ú·¢ËÍÒ»Ö¡Êı¾İ
+ÊäÈë²ÎÊı : fr_type:Ö¡ÀàĞÍ
+           len:Êı¾İ³¤¶È
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 void wifi_uart_write_frame(unsigned char fr_type, unsigned short len)
 {
@@ -198,10 +198,10 @@ void wifi_uart_write_frame(unsigned char fr_type, unsigned short len)
   wifi_uart_write_data((unsigned char *)wifi_uart_tx_buf, len);
 }
 /*****************************************************************************
-å‡½æ•°åç§° : heat_beat_check
-åŠŸèƒ½æè¿° : å¿ƒè·³åŒ…æ£€æµ‹
-è¾“å…¥å‚æ•° : æ— 
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ : heat_beat_check
+¹¦ÄÜÃèÊö : ĞÄÌø°ü¼ì²â
+ÊäÈë²ÎÊı : ÎŞ
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 static void heat_beat_check(void)
 {
@@ -221,10 +221,10 @@ static void heat_beat_check(void)
   wifi_uart_write_frame(HEAT_BEAT_CMD, length);
 }
 /*****************************************************************************
-å‡½æ•°åç§°  : product_info_update
-åŠŸèƒ½æè¿°  : äº§å“ä¿¡æ¯ä¸Šä¼ 
-è¾“å…¥å‚æ•° : æ— 
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ  : product_info_update
+¹¦ÄÜÃèÊö  : ²úÆ·ĞÅÏ¢ÉÏ´«
+ÊäÈë²ÎÊı : ÎŞ
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 static void product_info_update(void)
 {
@@ -241,29 +241,29 @@ static void product_info_update(void)
   wifi_uart_write_frame(PRODUCT_INFO_CMD, length);
 }
 /*****************************************************************************
-å‡½æ•°åç§° : get_mcu_wifi_mode
-åŠŸèƒ½æè¿° : æŸ¥è¯¢mcuå’Œwifiçš„å·¥ä½œæ¨¡å¼
-è¾“å…¥å‚æ•° : æ— 
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ : get_mcu_wifi_mode
+¹¦ÄÜÃèÊö : ²éÑ¯mcuºÍwifiµÄ¹¤×÷Ä£Ê½
+ÊäÈë²ÎÊı : ÎŞ
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 static void get_mcu_wifi_mode(void)
 {
   unsigned char length = 0;
   
-#ifdef WIFI_CONTROL_SELF_MODE                                   //æ¨¡å—è‡ªå¤„ç†
+#ifdef WIFI_CONTROL_SELF_MODE                                   //Ä£¿é×Ô´¦Àí
   length = set_wifi_uart_byte(length, WF_STATE_KEY);
   length = set_wifi_uart_byte(length, WF_RESERT_KEY);
 #else                                                           
-  //æ— éœ€å¤„ç†æ•°æ®
+  //ÎŞĞè´¦ÀíÊı¾İ
 #endif
   
   wifi_uart_write_frame(WORK_MODE_CMD, length);
 }
 /*****************************************************************************
-å‡½æ•°åç§° : get_update_dpid_index
-åŠŸèƒ½æè¿° : è·å–åˆ¶å®šDPIDåœ¨æ•°ç»„ä¸­çš„åºå·
-è¾“å…¥å‚æ•° : dpid:dpid
-è¿”å›å‚æ•° : index:dpåºå·
+º¯ÊıÃû³Æ : get_update_dpid_index
+¹¦ÄÜÃèÊö : »ñÈ¡ÖÆ¶¨DPIDÔÚÊı×éÖĞµÄĞòºÅ
+ÊäÈë²ÎÊı : dpid:dpid
+·µ»Ø²ÎÊı : index:dpĞòºÅ
 *****************************************************************************/
 static unsigned char get_dowmload_dpid_index(unsigned char dpid)
 {
@@ -281,10 +281,10 @@ static unsigned char get_dowmload_dpid_index(unsigned char dpid)
   return index;
 }
 /*****************************************************************************
-å‡½æ•°åç§° : data_point_handle
-åŠŸèƒ½æè¿° : ä¸‹å‘æ•°æ®å¤„ç†
-è¾“å…¥å‚æ•° : value:ä¸‹å‘æ•°æ®æºæŒ‡é’ˆ
-è¿”å›å‚æ•° : ret:è¿”å›æ•°æ®å¤„ç†ç»“æœ
+º¯ÊıÃû³Æ : data_point_handle
+¹¦ÄÜÃèÊö : ÏÂ·¢Êı¾İ´¦Àí
+ÊäÈë²ÎÊı : value:ÏÂ·¢Êı¾İÔ´Ö¸Õë
+·µ»Ø²ÎÊı : ret:·µ»ØÊı¾İ´¦Àí½á¹û
 *****************************************************************************/
 static unsigned char data_point_handle(const unsigned char value[])
 {
@@ -302,7 +302,7 @@ static unsigned char data_point_handle(const unsigned char value[])
 
   if(dp_type != download_cmd[index].dp_type)
   {
-    //é”™è¯¯æç¤º
+    //´íÎóÌáÊ¾
     return FALSE;
   }
   else
@@ -315,10 +315,10 @@ static unsigned char data_point_handle(const unsigned char value[])
 
 #ifdef WEATHER_ENABLE
 /*****************************************************************************
-å‡½æ•°åç§° : data_point_handle
-åŠŸèƒ½æè¿° : ä¸‹å‘æ•°æ®å¤„ç†
-è¾“å…¥å‚æ•° : value:ä¸‹å‘æ•°æ®æºæŒ‡é’ˆ
-è¿”å›å‚æ•° : ret:è¿”å›æ•°æ®å¤„ç†ç»“æœ
+º¯ÊıÃû³Æ : data_point_handle
+¹¦ÄÜÃèÊö : ÏÂ·¢Êı¾İ´¦Àí
+ÊäÈë²ÎÊı : value:ÏÂ·¢Êı¾İÔ´Ö¸Õë
+·µ»Ø²ÎÊı : ret:·µ»ØÊı¾İ´¦Àí½á¹û
 *****************************************************************************/
 void mcu_open_weather(void)
 {
@@ -358,10 +358,10 @@ void mcu_open_weather(void)
 }
 
 /*****************************************************************************
-å‡½æ•°åç§° : weather_data_raw_handle
-åŠŸèƒ½æè¿° : å¤©æ°”æ•°æ®è§£æ
-è¾“å…¥å‚æ•° : buffer:æ¥æ”¶æ•°æ®æŒ‡é’ˆ
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ : weather_data_raw_handle
+¹¦ÄÜÃèÊö : ÌìÆøÊı¾İ½âÎö
+ÊäÈë²ÎÊı : buffer:½ÓÊÕÊı¾İÖ¸Õë
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 void weather_data_raw_handle(char *buffer)
 {
@@ -377,13 +377,13 @@ void weather_data_raw_handle(char *buffer)
   
   if(buffer[DATA_START] != 1 || length < 1)
   {
-    //æ¥æ”¶å¤±è´¥
+    //½ÓÊÕÊ§°Ü
   }
   else
   {
     if(length < 4)
     {
-      //æ•°æ®ä¸ºç©º
+      //Êı¾İÎª¿Õ
     }
     
     while (i < length + 7 - 1)
@@ -421,19 +421,19 @@ void weather_data_raw_handle(char *buffer)
 #endif
 
 /*****************************************************************************
-å‡½æ•°åç§° : data_handle
-åŠŸèƒ½æè¿° : æ•°æ®å¸§å¤„ç†
-è¾“å…¥å‚æ•° : offset:æ•°æ®èµ·å§‹ä½
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ : data_handle
+¹¦ÄÜÃèÊö : Êı¾İÖ¡´¦Àí
+ÊäÈë²ÎÊı : offset:Êı¾İÆğÊ¼Î»
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 void data_handle(unsigned short offset)
 {
 #ifdef SUPPORT_MCU_FIRM_UPDATE
   unsigned char *firmware_addr;
-  static unsigned long firm_length;                                             //MCUå‡çº§æ–‡ä»¶é•¿åº¦
-  static unsigned char firm_update_flag;                                        //MCUå‡çº§æ ‡å¿—
+  static unsigned long firm_length;                                             //MCUÉı¼¶ÎÄ¼ş³¤¶È
+  static unsigned char firm_update_flag;                                        //MCUÉı¼¶±êÖ¾
   unsigned long dp_len;
-  unsigned char firm_flag;                                                      //å‡çº§åŒ…å¤§å°æ ‡å¿—
+  unsigned char firm_flag;                                                      //Éı¼¶°ü´óĞ¡±êÖ¾
 #else
   unsigned short dp_len;
 #endif
@@ -443,7 +443,7 @@ void data_handle(unsigned short offset)
   unsigned char cmd_type = wifi_uart_rx_buf[offset + FRAME_TYPE];
 
 #ifdef WEATHER_ENABLE
-  static unsigned char isWoSend = 0;                    //æ˜¯å¦å·²ç»æ‰“å¼€è¿‡å¤©æ°”æ•°æ®,0:æ˜¯;1:å¦
+  static unsigned char isWoSend = 0;                    //ÊÇ·ñÒÑ¾­´ò¿ª¹ıÌìÆøÊı¾İ,0:ÊÇ;1:·ñ
 #endif
 
 #ifdef WIFI_TEST_ENABLE
@@ -453,24 +453,24 @@ void data_handle(unsigned short offset)
   
   switch(cmd_type)
   {
-  case HEAT_BEAT_CMD:                                   //å¿ƒè·³åŒ…
+  case HEAT_BEAT_CMD:                                   //ĞÄÌø°ü
     heat_beat_check();
     break;
     
-  case PRODUCT_INFO_CMD:                                //äº§å“ä¿¡æ¯
+  case PRODUCT_INFO_CMD:                                //²úÆ·ĞÅÏ¢
     product_info_update();
     break;
     
-  case WORK_MODE_CMD:                                   //æŸ¥è¯¢MCUè®¾å®šçš„æ¨¡å—å·¥ä½œæ¨¡å¼
+  case WORK_MODE_CMD:                                   //²éÑ¯MCUÉè¶¨µÄÄ£¿é¹¤×÷Ä£Ê½
     get_mcu_wifi_mode();
     break;
     
 #ifndef WIFI_CONTROL_SELF_MODE
-  case WIFI_STATE_CMD:                                  //wifiå·¥ä½œçŠ¶æ€	
+  case WIFI_STATE_CMD:                                  //wifi¹¤×÷×´Ì¬	
     wifi_work_state = wifi_uart_rx_buf[offset + DATA_START];
     wifi_uart_write_frame(WIFI_STATE_CMD,0);
 #ifdef WEATHER_ENABLE
-    if(wifi_work_state == WIFI_CONNECTED && isWoSend == 0)   //å½“WIFIè¿æ¥æˆåŠŸï¼Œæ‰“å¼€å¤©æ°”æ•°æ®ä¸”ä»…ä¸€æ¬¡
+    if(wifi_work_state == WIFI_CONNECTED && isWoSend == 0)   //µ±WIFIÁ¬½Ó³É¹¦£¬´ò¿ªÌìÆøÊı¾İÇÒ½öÒ»´Î
     {
       mcu_open_weather();
       isWoSend = 1;
@@ -478,16 +478,16 @@ void data_handle(unsigned short offset)
 #endif
     break;
 
-  case WIFI_RESET_CMD:                                  //é‡ç½®wifi(wifiè¿”å›æˆåŠŸ)
+  case WIFI_RESET_CMD:                                  //ÖØÖÃwifi(wifi·µ»Ø³É¹¦)
     reset_wifi_flag = RESET_WIFI_SUCCESS;
     break;
     
-  case WIFI_MODE_CMD:                                   //é€‰æ‹©smartconfig/APæ¨¡å¼(wifiè¿”å›æˆåŠŸ)	
+  case WIFI_MODE_CMD:                                   //Ñ¡Ôñsmartconfig/APÄ£Ê½(wifi·µ»Ø³É¹¦)	
     set_wifimode_flag = SET_WIFICONFIG_SUCCESS;
     break;
 #endif
     
-  case DATA_QUERT_CMD:                                  //å‘½ä»¤ä¸‹å‘
+  case DATA_QUERT_CMD:                                  //ÃüÁîÏÂ·¢
     total_len = wifi_uart_rx_buf[offset + LENGTH_HIGH] * 0x100;
     total_len += wifi_uart_rx_buf[offset + LENGTH_LOW];
     
@@ -500,11 +500,11 @@ void data_handle(unsigned short offset)
       
       if(SUCCESS == ret)
       {
-        //æˆåŠŸæç¤º
+        //³É¹¦ÌáÊ¾
       }
       else
       {
-        //é”™è¯¯æç¤º
+        //´íÎóÌáÊ¾
       }
       
       i += (dp_len + 4);
@@ -512,13 +512,13 @@ void data_handle(unsigned short offset)
     
     break;
     
-  case STATE_QUERY_CMD:                                 //çŠ¶æ€æŸ¥è¯¢
+  case STATE_QUERY_CMD:                                 //×´Ì¬²éÑ¯
     all_data_update();                               
     break;
     
 #ifdef SUPPORT_MCU_FIRM_UPDATE
-  case UPDATE_START_CMD:                                //å‡çº§å¼€å§‹
-    //è·å–å‡çº§åŒ…å¤§å°å…¨å±€å˜é‡
+  case UPDATE_START_CMD:                                //Éı¼¶¿ªÊ¼
+    //»ñÈ¡Éı¼¶°ü´óĞ¡È«¾Ö±äÁ¿
     firm_flag = PACKAGE_SIZE;
     if(firm_flag == 0) {
       firm_size = 256;
@@ -540,10 +540,10 @@ void data_handle(unsigned short offset)
     firm_update_flag = UPDATE_START_CMD;
      break;
     
-  case UPDATE_TRANS_CMD:                                //å‡çº§ä¼ è¾“
+  case UPDATE_TRANS_CMD:                                //Éı¼¶´«Êä
     if(firm_update_flag == UPDATE_START_CMD)
     {
-      //åœæ­¢ä¸€åˆ‡æ•°æ®ä¸ŠæŠ¥
+      //Í£Ö¹Ò»ÇĞÊı¾İÉÏ±¨
       stop_update_flag = ENABLE;
       
       total_len = wifi_uart_rx_buf[offset + LENGTH_HIGH] * 0x100;
@@ -562,7 +562,7 @@ void data_handle(unsigned short offset)
       
       if((total_len == 4) && (dp_len == firm_length))
       {
-        //æœ€åä¸€åŒ…
+        //×îºóÒ»°ü
         ret = mcu_firm_update_handle(firmware_addr,dp_len,0);
         
         firm_update_flag = 0;
@@ -581,26 +581,26 @@ void data_handle(unsigned short offset)
       {
         wifi_uart_write_frame(UPDATE_TRANS_CMD,0);
       }
-      //æ¢å¤ä¸€åˆ‡æ•°æ®ä¸ŠæŠ¥
+      //»Ö¸´Ò»ÇĞÊı¾İÉÏ±¨
       stop_update_flag = DISABLE;    
     }
     break;
 #endif      
 
 #ifdef SUPPORT_GREEN_TIME
-  case GET_ONLINE_TIME_CMD:                              //è·å–æ ¼æ—æ—¶é—´
+  case GET_ONLINE_TIME_CMD:                              //»ñÈ¡¸ñÁÖÊ±¼ä
     mcu_get_greentime((unsigned char *)(wifi_uart_rx_buf + offset + DATA_START));
   break;
 #endif
 
 #ifdef SUPPORT_MCU_RTC_CHECK
-  case GET_LOCAL_TIME_CMD:                             //è·å–æœ¬åœ°æ—¶é—´
+  case GET_LOCAL_TIME_CMD:                             //»ñÈ¡±¾µØÊ±¼ä
       mcu_write_rtctime((unsigned char *)(wifi_uart_rx_buf + offset + DATA_START));
     break;
 #endif
  
 #ifdef WIFI_TEST_ENABLE
-  case WIFI_TEST_CMD:                                   //wifiåŠŸèƒ½æµ‹è¯•ï¼ˆæ‰«ææŒ‡å®šè·¯ç”±ï¼‰
+  case WIFI_TEST_CMD:                                   //wifi¹¦ÄÜ²âÊÔ£¨É¨ÃèÖ¸¶¨Â·ÓÉ£©
     result = wifi_uart_rx_buf[offset + DATA_START];
     rssi = wifi_uart_rx_buf[offset + DATA_START + 1];
     wifi_test_result(result, rssi);
@@ -620,102 +620,102 @@ void data_handle(unsigned short offset)
 
 #ifdef WIFI_STREAM_ENABLE
   case STREAM_TRANS_CMD:
-    stream_status = wifi_uart_rx_buf[offset + DATA_START];//æµæœåŠ¡ä¼ è¾“è¿”å›æ¥æ”¶
+    stream_status = wifi_uart_rx_buf[offset + DATA_START];//Á÷·şÎñ´«Êä·µ»Ø½ÓÊÕ
     break;
   
 #endif
 
 #ifdef WIFI_CONNECT_TEST_ENABLE
-      case WIFI_CONNECT_TEST_CMD:                           //wifiåŠŸèƒ½æµ‹è¯•ï¼ˆè¿æ¥æŒ‡å®šè·¯ç”±ï¼‰
+      case WIFI_CONNECT_TEST_CMD:                           //wifi¹¦ÄÜ²âÊÔ£¨Á¬½ÓÖ¸¶¨Â·ÓÉ£©
         result = wifi_uart_rx_buf[offset + DATA_START];
         wifi_connect_test_result(result);
         break;
 #endif
 
 #ifdef GET_MODULE_MAC_ENABLE
-      case GET_MAC_CMD:                                     //è·å–æ¨¡å—mac
+      case GET_MAC_CMD:                                     //»ñÈ¡Ä£¿émac
         mcu_get_mac((unsigned char *)(wifi_uart_rx_buf + offset + DATA_START));
       break;
 #endif
 
 #ifdef GET_WIFI_STATUS_ENABLE
-      case GET_WIFI_STATUS_CMD:                             //è·å–å½“å‰wifiè”ç½‘çŠ¶æ€
+      case GET_WIFI_STATUS_CMD:                             //»ñÈ¡µ±Ç°wifiÁªÍø×´Ì¬
           wifi_work_state = wifi_uart_rx_buf[offset + DATA_START];
       break;
 #endif
 
 #ifdef MCU_DP_UPLOAD_SYN
-      case STATE_UPLOAD_SYN_RECV_CMD:                             //çŠ¶æ€ä¸ŠæŠ¥ï¼ˆåŒæ­¥ï¼‰
+      case STATE_UPLOAD_SYN_RECV_CMD:                             //×´Ì¬ÉÏ±¨£¨Í¬²½£©
         result = wifi_uart_rx_buf[offset + DATA_START];
         get_upload_syn_result(result);
       break;
       
 #endif
       
-		case STREAM_SERVICE_OPEN://è‡ªå·±é¢å¤–æ·»åŠ -->å¼€å¯æµæœåŠ¡åŠŸèƒ½
+		case STREAM_SERVICE_OPEN://×Ô¼º¶îÍâÌí¼Ó-->¿ªÆôÁ÷·şÎñ¹¦ÄÜ
 		{
 			uint8_t data = wifi_uart_rx_buf[offset + DATA_START];
 			if(data == 0x00)
 			{
-				printf("æµæœåŠ¡å¼€å¯æˆåŠŸ\r\n");
+				printf("Á÷·şÎñ¿ªÆô³É¹¦\r\n");
 			}
 			else if(data == 0x01)
 			{
-				printf("æµæœåŠ¡å¼€å¯å¤±è´¥\r\n");
+				printf("Á÷·şÎñ¿ªÆôÊ§°Ü\r\n");
 			}
 			else
 			{
-				printf("æµæœåŠ¡å¼€å¯çŠ¶æ€å¼‚å¸¸\r\n");
+				printf("Á÷·şÎñ¿ªÆô×´Ì¬Òì³£\r\n");
 			}
 		}break;
 
-		case STREAM_TRANS_OPEN://è‡ªå·±é¢å¤–æ·»åŠ -->å¼€å¯æµæ•°æ®ä¼ è¾“
+		case STREAM_TRANS_OPEN://×Ô¼º¶îÍâÌí¼Ó-->¿ªÆôÁ÷Êı¾İ´«Êä
 		{
 			uint8_t data = wifi_uart_rx_buf[offset + DATA_START];
 			if(data == 0x00)
 			{
-				printf("[å¼€å¯æŒ‡ä»¤]å¼€å¯æµæ•°æ®ä¼ è¾“æˆåŠŸ\r\n");
+				printf("[¿ªÆôÖ¸Áî]¿ªÆôÁ÷Êı¾İ´«Êä³É¹¦\r\n");
 			}
 			else if(data == 0x01)
 			{
-				printf("[å¼€å¯æŒ‡ä»¤]æµæœåŠ¡åŠŸèƒ½æœªå¼€å¯\r\n");
+				printf("[¿ªÆôÖ¸Áî]Á÷·şÎñ¹¦ÄÜÎ´¿ªÆô\r\n");
 			}
 			else if(data == 0x02)
 			{
-				printf("[å¼€å¯æŒ‡ä»¤]æµæœåŠ¡å™¨æœªè¿æ¥æˆåŠŸ\r\n");
+				printf("[¿ªÆôÖ¸Áî]Á÷·şÎñÆ÷Î´Á¬½Ó³É¹¦\r\n");
 			}
 			else if(data == 0x03)
 			{
-				printf("[å¼€å¯æŒ‡ä»¤]æ•°æ®æ¨é€è¶…æ—¶\r\n");
+				printf("[¿ªÆôÖ¸Áî]Êı¾İÍÆËÍ³¬Ê±\r\n");
 			}
 			else
 			{
-				printf("[å¼€å¯æŒ‡ä»¤]çŠ¶æ€å¼‚å¸¸\r\n");
+				printf("[¿ªÆôÖ¸Áî]×´Ì¬Òì³£\r\n");
 			}
 		}break;
 
-		case STREAM_TRANS_CLOSE://è‡ªå·±é¢å¤–æ·»åŠ -->ç»“æŸæµæ•°æ®ä¼ è¾“
+		case STREAM_TRANS_CLOSE://×Ô¼º¶îÍâÌí¼Ó-->½áÊøÁ÷Êı¾İ´«Êä
 		{
 			uint8_t data = wifi_uart_rx_buf[offset + DATA_START];
 			if(data == 0x00)
 			{
-				printf("[å…³é—­æŒ‡ä»¤]ç»“æŸæµæ•°æ®ä¼ è¾“æˆåŠŸ\r\n");
+				printf("[¹Ø±ÕÖ¸Áî]½áÊøÁ÷Êı¾İ´«Êä³É¹¦\r\n");
 			}
 			else if(data == 0x01)
 			{
-				printf("[å…³é—­æŒ‡ä»¤]æµæœåŠ¡åŠŸèƒ½æœªå¼€å¯\r\n");
+				printf("[¹Ø±ÕÖ¸Áî]Á÷·şÎñ¹¦ÄÜÎ´¿ªÆô\r\n");
 			}
 			else if(data == 0x02)
 			{
-				printf("[å…³é—­æŒ‡ä»¤]æµæœåŠ¡å™¨æœªè¿æ¥æˆåŠŸ\r\n");
+				printf("[¹Ø±ÕÖ¸Áî]Á÷·şÎñÆ÷Î´Á¬½Ó³É¹¦\r\n");
 			}
 			else if(data == 0x03)
 			{
-				printf("[å…³é—­æŒ‡ä»¤]æ•°æ®æ¨é€è¶…æ—¶\r\n");
+				printf("[¹Ø±ÕÖ¸Áî]Êı¾İÍÆËÍ³¬Ê±\r\n");
 			}
 			else
 			{
-				printf("[å…³é—­æŒ‡ä»¤]çŠ¶æ€å¼‚å¸¸\r\n");
+				printf("[¹Ø±ÕÖ¸Áî]×´Ì¬Òì³£\r\n");
 			}
 		}break;
 	  
@@ -724,10 +724,10 @@ void data_handle(unsigned short offset)
   }
 }
 /*****************************************************************************
-å‡½æ•°åç§° : get_queue_total_data
-åŠŸèƒ½æè¿° : è¯»å–é˜Ÿåˆ—å†…æ•°æ®
-è¾“å…¥å‚æ•° : æ— 
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ : get_queue_total_data
+¹¦ÄÜÃèÊö : ¶ÁÈ¡¶ÓÁĞÄÚÊı¾İ
+ÊäÈë²ÎÊı : ÎŞ
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 unsigned char get_queue_total_data(void)
 {
@@ -737,10 +737,10 @@ unsigned char get_queue_total_data(void)
     return 0;
 }
 /*****************************************************************************
-å‡½æ•°åç§° : Queue_Read_Byte
-åŠŸèƒ½æè¿° : è¯»å–é˜Ÿåˆ—1å­—èŠ‚æ•°æ®
-è¾“å…¥å‚æ•° : æ— 
-è¿”å›å‚æ•° : æ— 
+º¯ÊıÃû³Æ : Queue_Read_Byte
+¹¦ÄÜÃèÊö : ¶ÁÈ¡¶ÓÁĞ1×Ö½ÚÊı¾İ
+ÊäÈë²ÎÊı : ÎŞ
+·µ»Ø²ÎÊı : ÎŞ
 *****************************************************************************/
 unsigned char Queue_Read_Byte(void)
 {
@@ -748,10 +748,10 @@ unsigned char Queue_Read_Byte(void)
   
   if(queue_out != queue_in)
   {
-    //æœ‰æ•°æ®
+    //ÓĞÊı¾İ
     if(queue_out >= (unsigned char *)(wifi_queue_buf + sizeof(wifi_queue_buf)))
     {
-      //æ•°æ®å·²ç»åˆ°æœ«å°¾
+      //Êı¾İÒÑ¾­µ½Ä©Î²
       queue_out = (unsigned char *)(wifi_queue_buf);
     }
     

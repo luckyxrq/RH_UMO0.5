@@ -87,3 +87,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\protocol.h
 .\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\system.h
 .\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\mcu_api.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_UploadMap.h
