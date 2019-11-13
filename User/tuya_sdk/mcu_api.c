@@ -1098,7 +1098,7 @@ void bsp_StreamTransClose(uint16_t id , uint32_t offset)
 	length = set_wifi_uart_byte(length,offset >> 8);
 	length = set_wifi_uart_byte(length,offset % 256);
 	
-	wifi_uart_write_frame(STREAM_TRANS_OPEN, length);
+	wifi_uart_write_frame(STREAM_TRANS_CLOSE, length);
 
 }
 
