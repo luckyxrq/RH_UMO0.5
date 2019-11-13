@@ -2513,7 +2513,8 @@ I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DC0D842)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DC0D842)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DC0D842)
 I (..\..\User\app\inc\bsp_CleanStrategy.h)(0x5DCA25A0)
-F (..\..\User\tuya_sdk\system.c)(0x5DCA25A0)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\tuya_sdk --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\system.o --omf_browse .\flash\obj\system.crf --depend .\flash\obj\system.d)
+F (..\..\User\tuya_sdk\system.c)(0x5DCB75F4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\tuya_sdk --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\system.o --omf_browse .\flash\obj\system.crf --depend .\flash\obj\system.d)
+I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (..\..\User\tuya_sdk\wifi.h)(0x5DCA25A0)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x5DBB951A)
 I (..\..\Libraries\CMSIS\Include\core_cm3.h)(0x5DBB951A)

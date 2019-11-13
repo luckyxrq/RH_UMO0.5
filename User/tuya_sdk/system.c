@@ -93,6 +93,7 @@
 ******************************************************************************/
 #define SYSTEM_GLOBAL
 
+#include "stdio.h"
 #include "wifi.h"
 #include "protocol.h"
 //
@@ -651,6 +652,73 @@ void data_handle(unsigned short offset)
       
 #endif
       
+		case STREAM_SERVICE_OPEN://自己额外添加-->开启流服务功能
+		{
+			uint8_t data = wifi_uart_rx_buf[offset + DATA_START];
+			if(data == 0x00)
+			{
+				printf("流服务开启成功\r\n");
+			}
+			else if(data == 0x01)
+			{
+				printf("流服务开启失败\r\n");
+			}
+			else
+			{
+				printf("流服务开启状态异常\r\n");
+			}
+		}break;
+
+		case STREAM_TRANS_OPEN://自己额外添加-->开启流数据传输
+		{
+			uint8_t data = wifi_uart_rx_buf[offset + DATA_START];
+			if(data == 0x00)
+			{
+				printf("[开启指令]开启流数据传输成功\r\n");
+			}
+			else if(data == 0x01)
+			{
+				printf("[开启指令]流服务功能未开启\r\n");
+			}
+			else if(data == 0x02)
+			{
+				printf("[开启指令]流服务器未连接成功\r\n");
+			}
+			else if(data == 0x03)
+			{
+				printf("[开启指令]数据推送超时\r\n");
+			}
+			else
+			{
+				printf("[开启指令]状态异常\r\n");
+			}
+		}break;
+
+		case STREAM_TRANS_CLOSE://自己额外添加-->结束流数据传输
+		{
+			uint8_t data = wifi_uart_rx_buf[offset + DATA_START];
+			if(data == 0x00)
+			{
+				printf("[关闭指令]结束流数据传输成功\r\n");
+			}
+			else if(data == 0x01)
+			{
+				printf("[关闭指令]流服务功能未开启\r\n");
+			}
+			else if(data == 0x02)
+			{
+				printf("[关闭指令]流服务器未连接成功\r\n");
+			}
+			else if(data == 0x03)
+			{
+				printf("[关闭指令]数据推送超时\r\n");
+			}
+			else
+			{
+				printf("[关闭指令]状态异常\r\n");
+			}
+		}break;
+	  
   default:
     break;
   }
