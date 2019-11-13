@@ -1089,12 +1089,16 @@ void weather_data_user_handle(char *name, unsigned char type, char *data)
 *****************************************************************************/
 unsigned char stream_file_trans(unsigned int id, unsigned char *buffer, unsigned long buf_len)
 {
-  #error "这里仅给出示例，请自行完善流服务处理代码,完成后请删除该行"
+  //#error "这里仅给出示例，请自行完善流服务处理代码,完成后请删除该行"
+  //流文件传输还未写完，下面的是自带的	
+	
   unsigned short length = 0;
   unsigned long map_offset = 0;
   unsigned int pack_num = 0;
   unsigned int rest_length = 0;
 
+	(void)(length);
+	
   if(stop_update_flag == ENABLE)
     return SUCCESS;
 

@@ -204,7 +204,7 @@ ser_handle两个用户处理函数中实现显示等代码
 STREM_PACK_LEN为流服务传输一包的大小，目前模块串口最大可以缓存的数据部分可以达到 1024 字节，一包地图 
 数据包数据部分不能超过 1024 字节，每包地图数据内容建议 512 字节每包。
 ******************************************************************************/
-//#define         WIFI_STREAM_ENABLE              //支持流服务相关功能
+#define         WIFI_STREAM_ENABLE              //支持流服务相关功能
 #ifdef WIFI_STREAM_ENABLE
 #define         STREM_PACK_LEN                 256
 #endif

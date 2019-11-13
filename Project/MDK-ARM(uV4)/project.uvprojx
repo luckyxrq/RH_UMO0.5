@@ -362,7 +362,7 @@
             <uC99>0</uC99>
             <useXO>0</useXO>
             <VariousControls>
-              <MiscControls>--diag_suppress=870</MiscControls>
+              <MiscControls>--diag_suppress=870 --C99</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_HD</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include;..\..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\User\bsp;..\..\User\bsp\inc;..\..\User;..\..\Libraries\CMSIS\Include;..\..\FreeRTOS\include;..\..\FreeRTOS\portable\RVDS\ARM_CM3;..\..\User\app\inc;..\..\User\tuya_sdk</IncludePath>

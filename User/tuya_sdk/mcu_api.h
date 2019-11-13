@@ -308,7 +308,7 @@ void mcu_get_module_mac(void);
 输入参数 : id:流服务标识;offset:偏移量;buffer:数据地址;buf_len:数据长度
 返回参数 : 无
 *****************************************************************************/
-unsigned char stream_trans(unsigned int id, unsigned char offset, unsigned char *buffer, unsigned long buf_len);
+unsigned char stream_trans(unsigned short id, unsigned int offset, unsigned char *buffer, unsigned short buf_len);
 #endif
 
 /*****************************************************************************

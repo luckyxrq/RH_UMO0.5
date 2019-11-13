@@ -1019,6 +1019,8 @@ unsigned char stream_trans(unsigned short id, unsigned int offset, unsigned char
   //数据
   length = set_wifi_uart_buffer(length, buffer, buf_len);
   wifi_uart_write_frame(STREAM_TRANS_CMD, length);
+  
+  return 0 ;
 }
 
 #endif
