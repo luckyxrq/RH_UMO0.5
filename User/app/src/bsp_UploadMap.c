@@ -40,7 +40,7 @@ void bsp_StartUploadMap(void)
 	/*将点信息全部初始化为保留信息*/
 	for(i=0;i<PER_UPLOAD_POINT_CNT;i++)
 	{
-		mapInfo[i].posInfo = CLEANED_POS;
+		mapInfo[i].posInfo = RESERVE_POS;
 	}
 	
 	uploadMap.action = 0 ;
@@ -79,33 +79,55 @@ void bsp_UploadMap(void)
 	
 	switch(uploadMap.action)
 	{
-//		case 0:
-//		{
-//			/*已经连接到云服务器了*/
-//			if(mcu_get_wifi_work_state() == WIFI_CONN_CLOUD)
-//			{
-//				bsp_OpenStreamService();
-//			    DEBUG("开启流服务\r\n");
-//				
-//				uploadMap.action++;
-//			}
-//		}break;
-//		
-//		case 1:
-//		{
-//			/*传输地图数据，1字节对齐的结构体数组 转unsigned char*  */
-//			stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)mapInfo, PER_UPLOAD_POINT_CNT*3);
-//			uploadMap.delay = xTaskGetTickCount();
-//			uploadMap.action++;
-//		}break;
-//		
-//		case 2:
-//		{
-//			if(xTaskGetTickCount() - uploadMap.delay >= UPLOAD_MAP_INTERVAL)
-//			{
-//				uploadMap.action = 1 ;
-//			}
-//		}break;
+		case 0:
+		{
+			/*已经连接到云服务器了*/
+			if(mcu_get_wifi_work_state() == WIFI_CONN_CLOUD)
+			{
+				bsp_OpenStreamService();
+			    DEBUG("开启流服务\r\n");
+				
+				uploadMap.delay = xTaskGetTickCount();
+				uploadMap.action++;
+			}
+		}break;
+		
+		
+		case 1:
+		{
+			if(xTaskGetTickCount() - uploadMap.delay >= UPLOAD_MAP_INTERVAL)
+			{
+				bsp_StreamTransOpen(uploadMap.id);
+				uploadMap.delay = xTaskGetTickCount();
+				uploadMap.action++ ;
+			}
+		}break;
+		
+		
+		case 2:
+		{
+			if(xTaskGetTickCount() - uploadMap.delay >= UPLOAD_MAP_INTERVAL)
+			{
+				uploadMap.action++ ;
+			}
+		}break;
+		
+		case 3:
+		{
+			printf("发送地图数据\r\n");
+			/*传输地图数据，1字节对齐的结构体数组 转unsigned char*  */
+			stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)mapInfo, PER_UPLOAD_POINT_CNT*3);
+			uploadMap.delay = xTaskGetTickCount();
+			uploadMap.action++;
+		}break;
+		
+		case 4:
+		{
+			if(xTaskGetTickCount() - uploadMap.delay >= UPLOAD_MAP_INTERVAL)
+			{
+				uploadMap.action = 3 ;
+			}
+		}break;
 	}		
 }
 
