@@ -278,6 +278,10 @@ void all_data_update(void)
 	mcu_dp_raw_update(DPID_MAP_CONFIG,"HelloLuvkyXRQ",sizeof("HelloLuvkyXRQ")); //RAW型数据上报;
 	
 */
+
+	/*共3个字节,第一个字节为原点（0,0）位置，二三字节为地图最大的长宽 0x00 左上角 0x01 左下角 例：0x0000ff 左上角，最大长宽值为255*/
+	uint8_t map_config[] = {0x00,0x00,0xFF};
+	mcu_dp_raw_update(DPID_MAP_CONFIG,map_config,3); //RAW型数据上报;
 }
 
 
