@@ -25,6 +25,14 @@ void bsp_FillMapInfo(void)
 	
 }
 
+void bsp_SetCurPos(uint8_t i)
+{
+	if(i >= 1 && i <= 80)
+	mapInfo[i].posInfo = CUR_POS;
+	mapInfo[i-1].posInfo = CLEANED_POS;
+}
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_StartUploadMap
@@ -40,6 +48,8 @@ void bsp_StartUploadMap(void)
 	/*将点信息全部初始化为保留信息*/
 	for(i=0;i<PER_UPLOAD_POINT_CNT;i++)
 	{
+		mapInfo[i].x = i;
+		mapInfo[i].y = i;
 		mapInfo[i].posInfo = RESERVE_POS;
 	}
 	
@@ -114,6 +124,8 @@ void bsp_UploadMap(void)
 		
 		case 3:
 		{
+			bsp_SetCurPos(uploadMap.offset + 1);
+			
 			printf("发送地图数据\r\n");
 			/*传输地图数据，1字节对齐的结构体数组 转unsigned char*  */
 			stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)mapInfo, PER_UPLOAD_POINT_CNT*3);
