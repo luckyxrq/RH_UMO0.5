@@ -254,6 +254,7 @@ void all_data_update(void)
 
  */
  
+ /*
     extern uint8_t val;
  
 	mcu_dp_bool_update(DPID_SWITCH,0); //BOOL型数据上报;
@@ -275,6 +276,8 @@ void all_data_update(void)
 	mcu_dp_value_update(DPID_CLEAN_TIME,0); //VALUE型数据上报;
 	mcu_dp_fault_update(DPID_FAULT,0); //故障型数据上报;
 	mcu_dp_raw_update(DPID_MAP_CONFIG,"HelloLuvkyXRQ",sizeof("HelloLuvkyXRQ")); //RAW型数据上报;
+	
+*/
 }
 
 
