@@ -1,3 +1,4 @@
+#ifdef A
 #include "bsp.h"
 #include <math.h>
 
@@ -759,9 +760,10 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta, unsigned c
 	}
 	
 	WheelControl((short)cleanstrategy.linear_velocity,(short)cleanstrategy.angular_velocity);
-	
 	cleanstrategy.last_pose = current_pose;
 	
+	
 }
+#endif
 
 

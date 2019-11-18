@@ -1,3 +1,4 @@
+#ifdef A
 #ifndef __BSP_CLEANSTRATEGY_H
 #define __BSP_CLEANSTRATEGY_H
 
@@ -40,5 +41,5 @@ void bsp_CleanStrategyUpdate(int robotX,int robotY,double robotTheta,unsigned ch
 
 #endif
 
-
+#endif
 	

@@ -91,4 +91,4 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Gridmap.h
-.\flash\obj\main.o: ..\..\User\app\inc\bsp_CleanStrategy.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_CleanStrategyB.h

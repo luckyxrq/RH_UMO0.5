@@ -27,23 +27,33 @@ Project File Date:  11/18/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Flash'
-compiling bsp_Gridmap.c...
-..\..\User\app\inc\bsp_Gridmap.h(70): warning:  #1295-D: Deprecated declaration bsp_Edge_length - give arg types
-  int bsp_Edge_length();
-..\..\User\app\inc\bsp_Gridmap.h(74): warning:  #1295-D: Deprecated declaration bsp_Leakingsweep - give arg types
-  int bsp_Leakingsweep();
-..\..\User\app\src\bsp_Gridmap.c(68): warning:  #111-D: statement is unreachable
-  			break;
-..\..\User\app\src\bsp_Gridmap.c(157): warning:  #940-D: missing return statement at end of non-void function "inverseSensorModel" 
+compiling bsp_CleanStrategyB.c...
+..\..\User\app\src\bsp_CleanStrategyB.c(168): warning:  #111-D: statement is unreachable
+          return 0;
+..\..\User\app\src\bsp_CleanStrategyB.c(171): warning:  #940-D: missing return statement at end of non-void function "clean_strategy" 
   }
-..\..\User\app\src\bsp_Gridmap.c: 4 warnings, 0 errors
+..\..\User\app\src\bsp_CleanStrategyB.c(1130): warning:  #111-D: statement is unreachable
+              break;
+..\..\User\app\src\bsp_CleanStrategyB.c(1462): warning:  #111-D: statement is unreachable
+              break;
+..\..\User\app\src\bsp_CleanStrategyB.c(1576): warning:  #111-D: statement is unreachable
+              break;
+..\..\User\app\src\bsp_CleanStrategyB.c(2729): warning:  #111-D: statement is unreachable
+              break;                                              
+..\..\User\app\src\bsp_CleanStrategyB.c(2886): warning:  #940-D: missing return statement at end of non-void function "RightReadyLeakingSweep" 
+  {}
+..\..\User\app\src\bsp_CleanStrategyB.c(2888): warning:  #940-D: missing return statement at end of non-void function "LeftReadyLeakingSweep" 
+  {}
+..\..\User\app\src\bsp_CleanStrategyB.c(2890): warning:  #940-D: missing return statement at end of non-void function "ForwardBoundaryRightRunStep" 
+  {}
+..\..\User\app\src\bsp_CleanStrategyB.c: 9 warnings, 0 errors
 linking...
-Program Size: Code=42204 RO-data=660 RW-data=264 ZI-data=58616  
+Program Size: Code=37460 RO-data=660 RW-data=264 ZI-data=57496  
 FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 C:\Users\User020\Documents\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 4 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 9 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -57,7 +67,7 @@ Package Vendor: Keil
   E:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

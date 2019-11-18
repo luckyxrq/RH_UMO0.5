@@ -202,7 +202,10 @@
 #include "bsp_assistJudgeDirection.h"
 #include "bsp_StopMode.h"
 #include "bsp_Gridmap.h"
+#ifdef A
 #include "bsp_CleanStrategy.h"
+#endif
+#include "bsp_CleanStrategyB.h"
 
 
 

@@ -180,8 +180,6 @@ static double my_abs(double x){
     return x;}
 
 
-
-
 /*
 *********************************************************************************************************
 *	º¯ Êý Ãû: bsp_StartUpdateMap
@@ -376,7 +374,7 @@ static unsigned long mysqrt(unsigned long x)
 
 
 
-int bsp_Edge_length()
+int bsp_Edge_length(void)
 {
 	bool end_x=false;
 	int firsttrap;

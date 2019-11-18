@@ -67,11 +67,11 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 unsigned char* bsp_GetIRSensorData(void);
 //int* bsp_GetGridMap(void);
 
-int bsp_Edge_length();
+int bsp_Edge_length(void);
 
 int bsp_Right_ReturnExtreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal);
 int bsp_Left_Return_Extreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal);
-int bsp_Leakingsweep();
+int bsp_Leakingsweep(void);
 
 
 

@@ -29,6 +29,7 @@
 ".\flash\obj\bsp_stopmode.o"
 ".\flash\obj\bsp_gridmap.o"
 ".\flash\obj\bsp_cleanstrategy.o"
+".\flash\obj\bsp_cleanstrategyb.o"
 ".\flash\obj\bsp.o"
 ".\flash\obj\bsp_dwt.o"
 ".\flash\obj\bsp_uart_fifo.o"

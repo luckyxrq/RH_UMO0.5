@@ -188,7 +188,7 @@ static void vTaskPerception(void *pvParameters)
 	bsp_StartUpdateGridMap();
 
 	/*¿ªÇåÉ¨²ßÂÔ*/
-	bsp_StartUpdateCleanStrategy();
+	//bsp_StartUpdateCleanStrategy();
 
 	vTaskDelay(5000);
 	
@@ -232,7 +232,7 @@ static void vTaskPerception(void *pvParameters)
 		
 		if(count % 100 == 0)
 		{
-			bsp_CleanStrategyUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
+			//bsp_CleanStrategyUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
 			DEBUG("%+4d,%+4d#%+3d",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 

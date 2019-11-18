@@ -82,5 +82,5 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_Gridmap.h
-.\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_CleanStrategy.h
+.\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_CleanStrategyB.h
 .\flash\obj\bsp_position.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
