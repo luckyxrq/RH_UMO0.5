@@ -114,6 +114,21 @@
         #define COMPLETE_CF_DRYM                               0x43A      
 
 #define LEAKING_SWEEP_RIGHTRUN_STEP              0x50
+#define RIGHT_LEAKING_SWEEP_COLLISION                                0x0501                  
+#define RIGHT_LEAKING_SWEEP_YAW_MORE_ABS90                           0x0502                       
+#define RIGHT_LEAKING_SWEEP_CLOCK_TARGET_YAW_LESS_ABS90              0x0503                                    
+#define RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS90_COLLISION    0x0504                                              
+#define RIGHT_LEAKING_SWEEP_GOSTRAIGHT_MORE                          0x0505                        
+#define RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3               0x0506                                   
+#define RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3_COLLISION     0x0507                                             
+#define RIGHT_LEAKING_SWEEP_YAW_OTHER                                0x0508                  
+#define RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS90             0x0509                                     
+#define RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS90_COLLISION   0x050A                                               
+#define RIGHT_LEAKING_SWEEP_GOSTRAIGHT_OTHER                         0x050B                         
+#define RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS178             0x050C                                     
+#define RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MOEE_ABS178_COLLISIION  0x050D                                                
+#define RIGHT_LEAKING_SWEEP_COMPLETE                                 0x050E                
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 #define FORWARD_BOUNDARY_RIGHTRUN_STEP           0x60
@@ -276,8 +291,8 @@ unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal);
 
-unsigned char RightReadyLeakingSweep(void);
-unsigned char LeftReadyLeakingSweep(void);
+unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
+unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
 
 
 #endif

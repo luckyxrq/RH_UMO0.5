@@ -35,7 +35,8 @@ int right_reverse_walk_edge_status = 0;
 int right_edge_dilemma_status = 0;
 int number = 0;
 int right_forward_boundary_status = 0;
-
+int right_ready_leaking_sweep_status = 0;
+int leakingsweep = 0;
 
 
 static CleanStrategyB cleanstrategy;
@@ -181,7 +182,7 @@ uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
 void RightRuningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 {
     double Yaw;
-    unsigned char leakingsweep = 0;
+	
     Yaw = Rad2Deg(current_pose->orientation);
 
     switch(right_running_step_status)
@@ -242,6 +243,7 @@ void RightRuningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
                 linear_velocity = 0;
                 angular_velocity = 0;
                 //leakingsweep = gridmap.ReturnExtreme_point(Yaw / 100, obstacleSignal);
+				leakingsweep = bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
                 if (0 != leakingsweep)
                 {
                     log_debug("right obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP");
@@ -262,6 +264,7 @@ void RightRuningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
                 linear_velocity = 0;
                 angular_velocity = 0;
                 //leakingsweep = gridmap.ReturnExtreme_point(Yaw / 100, obstacleSignal);
+				leakingsweep = bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
                 if (0 != leakingsweep)
                 {
                     log_debug("front obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP");
@@ -282,6 +285,7 @@ void RightRuningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
                 linear_velocity = 0;
                 angular_velocity = 0;
                 //leakingsweep = gridmap.ReturnExtreme_point(Yaw / 100, obstacleSignal);
+				leakingsweep = bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
                 if (0 != leakingsweep)
                 {
                     log_debug("left obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP");
@@ -334,7 +338,7 @@ void RightRuningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
             break;
         case LEAKING_SWEEP_RIGHTRUN_STEP:
             log_debug("leaking sweep right run step!");
-            if(RightReadyLeakingSweep())
+            if(RightReadyLeakingSweep(current_pose,obstacleSignal))
             {
                 right_running_step_status = GOSTR_RIGHTRUN_STEP;
             }
@@ -344,7 +348,6 @@ void RightRuningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
     }
     sendvelocity(&linear_velocity,&angular_velocity);
 }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2982,8 +2985,221 @@ unsigned char ForwardBoundaryRightRunStep(POSE *current_pose,unsigned char obsta
     return complete_flag;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal)
+{
+    double Yaw;
+    unsigned char complete_flag = 0;
+    Yaw = Rad2Deg(current_pose->orientation);
+    switch(right_ready_leaking_sweep_status) 
+    {
 
+        case 0:
+            right_ready_leaking_sweep_status = RIGHT_LEAKING_SWEEP_COLLISION;
+            break;
+        case RIGHT_LEAKING_SWEEP_COLLISION                              : 
+            if(turn_start_update == 0)
+            {   
+                turn_start_x = current_pose->x;
+                turn_start_y = current_pose->y;
+                turn_start_update = 1;
+            }
+            linear_velocity = -long_stra_vel;
+            angular_velocity = 0;
+            if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+            {
+                linear_velocity = 0;
+                angular_velocity = 0;
+                turn_start_update = 0;
 
+                if(my_abs(Yaw/100)>90)
+                {    
+                    right_forward_boundary_status = RIGHT_LEAKING_SWEEP_YAW_MORE_ABS90;
+                    break;
+                }
+                else
+                {
+                    right_forward_boundary_status = RIGHT_LEAKING_SWEEP_YAW_OTHER;
+                    break;
+                }
+            }  
+            break;
+        case RIGHT_LEAKING_SWEEP_YAW_MORE_ABS90                         :
+            right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CLOCK_TARGET_YAW_LESS_ABS90;
+            break;
+        case RIGHT_LEAKING_SWEEP_CLOCK_TARGET_YAW_LESS_ABS90            :
+            if(my_abs(Yaw/100)<90){
+                linear_velocity=0;
+                angular_velocity=0;
+                last_position_y=current_pose->y;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_GOSTRAIGHT_MORE;
+                break;
+            }
+            if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
+            {
+                linear_velocity=0;
+                angular_velocity=0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS90_COLLISION;
+            }
+            linear_velocity=0;
+            angular_velocity=-turn_vel;
+            break;
+        case RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS90_COLLISION  :
+            if(turn_start_update == 0)
+            {   
+                turn_start_x = current_pose->x;
+                turn_start_y = current_pose->y;
+                turn_start_update = 1;
+            }
+            linear_velocity = -long_stra_vel;
+            angular_velocity = 0;
+            if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+            {
+                linear_velocity = 0;
+                angular_velocity = 0;
+                turn_start_update = 0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CLOCK_TARGET_YAW_LESS_ABS90;
+                break;
+            }  
+            break;
+        case RIGHT_LEAKING_SWEEP_GOSTRAIGHT_MORE                        :
+            linear_velocity=long_stra_vel;
+            angular_velocity=0;
+            if(obstacleSignal==front_obstacle||obstacleSignal==left_obstacle||obstacleSignal==right_obstacle){
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3;
+                break;
+            }
+            if(my_abs(last_position_y-current_pose->y)>leakingsweep){
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3;
+                break;
+            }
+            break;
+        case RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3             :
+            if(my_abs(Yaw/100)<3){
+                linear_velocity=0;
+                angular_velocity=0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_COMPLETE;
+                break;
+            }
+            if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
+            {
+                linear_velocity=0;
+                angular_velocity=0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3_COLLISION;
+            }
+            linear_velocity=0;
+            angular_velocity=-turn_vel;
+            break;
+        case RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3_COLLISION   :
+            if(turn_start_update == 0)
+            {   
+                turn_start_x = current_pose->x;
+                turn_start_y = current_pose->y;
+                turn_start_update = 1;
+            }
+            linear_velocity = -long_stra_vel;
+            angular_velocity = 0;
+            if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+            {
+                linear_velocity = 0;
+                angular_velocity = 0;
+                turn_start_update = 0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3;
+                break;
+            }  
+            break;
+        case RIGHT_LEAKING_SWEEP_YAW_OTHER                              :
+            right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS90;
+            break;
+        case RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS90           :
+            if(my_abs(Yaw/100)>90){
+                linear_velocity=0;
+                angular_velocity=0;
+                last_position_y=current_pose->y;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_GOSTRAIGHT_OTHER;
+                break;
+            }
+            if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
+            {
+                linear_velocity=0;
+                angular_velocity=0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS90_COLLISION;
+            }
+            linear_velocity=0;
+            angular_velocity=turn_vel;
+            break;
+        case RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS90_COLLISION :
+            if(turn_start_update == 0)
+            {   
+                turn_start_x = current_pose->x;
+                turn_start_y = current_pose->y;
+                turn_start_update = 1;
+            }
+            linear_velocity = -long_stra_vel;
+            angular_velocity = 0;
+            if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+            {
+                linear_velocity = 0;
+                angular_velocity = 0;
+                turn_start_update = 0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS90;
+                break;
+            }  
+            break;
+            break;
+        case RIGHT_LEAKING_SWEEP_GOSTRAIGHT_OTHER                       :
+            linear_velocity=long_stra_vel;
+            angular_velocity=0;
+            if(obstacleSignal==front_obstacle||obstacleSignal==left_obstacle||obstacleSignal==right_obstacle){
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS178;
+                break;
+            }
+            if(my_abs(last_position_y-current_pose->y)>leakingsweep){
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS178;
+                break;
+            }
+            break;
+        case RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS178           :
+            if(my_abs(Yaw/100)>178){
+                linear_velocity=0;
+                angular_velocity=0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_COMPLETE;
+                break;
+            }
+            if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
+            {
+                linear_velocity=0;
+                angular_velocity=0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MOEE_ABS178_COLLISIION;
+            }
+            linear_velocity=0;
+            angular_velocity=turn_vel;
+            break;
+        case RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MOEE_ABS178_COLLISIION:
+            if(turn_start_update == 0)
+            {   
+                turn_start_x = current_pose->x;
+                turn_start_y = current_pose->y;
+                turn_start_update = 1;
+            }
+            linear_velocity = -long_stra_vel;
+            angular_velocity = 0;
+            if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+            {
+                linear_velocity = 0;
+                angular_velocity = 0;
+                turn_start_update = 0;
+                right_forward_boundary_status = RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS178;
+                break;
+            }  
+            break;
+        case RIGHT_LEAKING_SWEEP_COMPLETE                               :
+            right_forward_boundary_status = 0;
+            complete_flag = 1;
+            break;
+    }
+    return complete_flag;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void RightReturnOriginWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 {}
@@ -2992,7 +3208,10 @@ void LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 void LeftReturnOriginWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 {}
 
-unsigned char RightReadyLeakingSweep(void)
+
+unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal)
 {}
-unsigned char LeftReadyLeakingSweep(void)
-{}
+	
+	
+	
+	

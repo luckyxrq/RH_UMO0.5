@@ -721,6 +721,18 @@ Section Cross References
     bsp_cleanstrategyb.o(i.RightEdgeDilemma) refers to ddiv.o(.text) for __aeabi_ddiv
     bsp_cleanstrategyb.o(i.RightEdgeDilemma) refers to cdcmple.o(.text) for __aeabi_cdcmple
     bsp_cleanstrategyb.o(i.RightEdgeDilemma) refers to bsp_cleanstrategyb.o(.data) for right_edge_dilemma_status
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to fmul.o(.text) for __aeabi_fmul
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to fdiv.o(.text) for __aeabi_fdiv
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to f2d.o(.text) for __aeabi_f2d
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to ffixi.o(.text) for __aeabi_f2iz
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to fflti.o(.text) for __aeabi_i2f
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to fadd.o(.text) for __aeabi_fsub
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to bsp_cleanstrategyb.o(i.my_abs) for my_abs
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to ddiv.o(.text) for __aeabi_ddiv
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to cdcmple.o(.text) for __aeabi_cdcmple
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to dflti.o(.text) for __aeabi_i2d
+    bsp_cleanstrategyb.o(i.RightReadyLeakingSweep) refers to bsp_cleanstrategyb.o(.data) for right_ready_leaking_sweep_status
     bsp_cleanstrategyb.o(i.RightReverseWalkEdge) refers to fmul.o(.text) for __aeabi_fmul
     bsp_cleanstrategyb.o(i.RightReverseWalkEdge) refers to fdiv.o(.text) for __aeabi_fdiv
     bsp_cleanstrategyb.o(i.RightReverseWalkEdge) refers to f2d.o(.text) for __aeabi_f2d
@@ -746,6 +758,8 @@ Section Cross References
     bsp_cleanstrategyb.o(i.RightRuningWorkStep) refers to bsp_cleanstrategyb.o(i.my_abs) for my_abs
     bsp_cleanstrategyb.o(i.RightRuningWorkStep) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
     bsp_cleanstrategyb.o(i.RightRuningWorkStep) refers to cdcmple.o(.text) for __aeabi_cdcmple
+    bsp_cleanstrategyb.o(i.RightRuningWorkStep) refers to ffixi.o(.text) for __aeabi_f2iz
+    bsp_cleanstrategyb.o(i.RightRuningWorkStep) refers to bsp_gridmap.o(i.bsp_Right_ReturnExtreme_point) for bsp_Right_ReturnExtreme_point
     bsp_cleanstrategyb.o(i.RightRuningWorkStep) refers to bsp_cleanstrategyb.o(i.ForwardBoundaryRightRunStep) for ForwardBoundaryRightRunStep
     bsp_cleanstrategyb.o(i.RightRuningWorkStep) refers to bsp_cleanstrategyb.o(i.CollisionRightRightRunStep) for CollisionRightRightRunStep
     bsp_cleanstrategyb.o(i.RightRuningWorkStep) refers to bsp_cleanstrategyb.o(i.CollisionLeftRightRunStep) for CollisionLeftRightRunStep
@@ -2089,14 +2103,14 @@ Removing Unused input sections from the image.
     Removing bsp_cleanstrategyb.o(i.CollisionLeftRightRunStep), (5240 bytes).
     Removing bsp_cleanstrategyb.o(i.CollisionRightRightRunStep), (5200 bytes).
     Removing bsp_cleanstrategyb.o(i.ForwardBoundaryRightRunStep), (800 bytes).
-    Removing bsp_cleanstrategyb.o(i.LeftReadyLeakingSweep), (2 bytes).
+    Removing bsp_cleanstrategyb.o(i.LeftReadyLeakingSweep), (4 bytes).
     Removing bsp_cleanstrategyb.o(i.LeftReturnOriginWorkStep), (2 bytes).
     Removing bsp_cleanstrategyb.o(i.LeftRunningWorkStep), (2 bytes).
     Removing bsp_cleanstrategyb.o(i.RightEdgeDilemma), (2976 bytes).
-    Removing bsp_cleanstrategyb.o(i.RightReadyLeakingSweep), (2 bytes).
+    Removing bsp_cleanstrategyb.o(i.RightReadyLeakingSweep), (1848 bytes).
     Removing bsp_cleanstrategyb.o(i.RightReturnOriginWorkStep), (2 bytes).
     Removing bsp_cleanstrategyb.o(i.RightReverseWalkEdge), (3280 bytes).
-    Removing bsp_cleanstrategyb.o(i.RightRuningWorkStep), (1564 bytes).
+    Removing bsp_cleanstrategyb.o(i.RightRuningWorkStep), (1680 bytes).
     Removing bsp_cleanstrategyb.o(i.RightWalkEdge), (3260 bytes).
     Removing bsp_cleanstrategyb.o(i.bsp_CleanStrategyUpdateB), (80 bytes).
     Removing bsp_cleanstrategyb.o(i.bsp_StartUpdateCleanStrategyB), (28 bytes).
@@ -2106,7 +2120,7 @@ Removing Unused input sections from the image.
     Removing bsp_cleanstrategyb.o(i.my_abs), (30 bytes).
     Removing bsp_cleanstrategyb.o(i.sendvelocity), (308 bytes).
     Removing bsp_cleanstrategyb.o(.bss), (1040 bytes).
-    Removing bsp_cleanstrategyb.o(.data), (112 bytes).
+    Removing bsp_cleanstrategyb.o(.data), (120 bytes).
     Removing bsp.o(.rev16_text), (4 bytes).
     Removing bsp.o(.revsh_text), (4 bytes).
     Removing bsp.o(.bss), (1024 bytes).
@@ -2474,7 +2488,7 @@ Removing Unused input sections from the image.
     Removing dfixul.o(.text), (48 bytes).
     Removing dsqrt.o(.text), (162 bytes).
 
-518 unused section(s) (total 77465 bytes) removed from the image.
+518 unused section(s) (total 79437 bytes) removed from the image.
 
 ==============================================================================
 
