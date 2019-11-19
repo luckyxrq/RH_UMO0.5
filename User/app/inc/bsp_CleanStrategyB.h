@@ -114,7 +114,17 @@
         #define COMPLETE_CF_DRYM                               0x43A      
 
 #define LEAKING_SWEEP_RIGHTRUN_STEP              0x50
+
+///////////////////////////////////////////////////////////////////////////////////
 #define FORWARD_BOUNDARY_RIGHTRUN_STEP           0x60
+#define FORWARDBOUNDARY_YAW_LESS_ABS10                                    0x0601
+#define FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178                      0x0602
+#define FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178_COLLISION            0x0603
+#define FORWARDBOUNDARY_YAW_OTHER                                         0x0604
+#define FORWARDBOUNDARY_CCLOCK_TARGET_YAW_LESS_ABS3                       0x0605
+#define FORWARDBOUNDARY_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION             0x0606
+#define FORWARDBOUNDARY_GOSTRAIGHT                                        0x0607
+#define FORWARDBOUNDARY_COMPLETE                                          0x0608
 
 ///////////////////////////////////////////////////////////////////////////////////
 #define GOBACK_WALK_EDGE                                                   0x60                                                                      

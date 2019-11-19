@@ -153,7 +153,9 @@ static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,
 			break;
 		default:
 			DEBUG(" Unknown Sensor Type ");
+			break;
 	}
+	return gridmap.grid_default;
 }
 
 
@@ -412,7 +414,6 @@ int bsp_Edge_length(void)
 	
 	return edgelength;
 }
-
 
 
 int bsp_Right_ReturnExtreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal)
@@ -798,9 +799,6 @@ int bsp_Left_Return_Extreme_point(int robotX,int robotY,double robotTheta,unsign
     }
     return 0;
 }
-
-
-
 
 
 
