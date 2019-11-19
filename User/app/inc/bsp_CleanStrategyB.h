@@ -283,6 +283,7 @@ void RightReturnOriginWorkStep(POSE *current_pose,unsigned char obstacleSignal);
 void LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
 void LeftReturnOriginWorkStep(POSE *current_pose,unsigned char obstacleSignal);
 
+unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char ForwardBoundaryRightRunStep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char CollisionRightRightRunStep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacleSignal);
@@ -291,7 +292,7 @@ unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal);
 
-unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
+
 unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
 
 

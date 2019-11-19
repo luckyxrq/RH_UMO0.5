@@ -663,7 +663,7 @@ unsigned char CollisionRightRightRunStep(POSE *current_pose,unsigned char obstac
                 linear_velocity = 0;
                 angular_velocity = 0;
                 turn_start_update = 0;
-                collision_right_rightrun_step_status = GOSTR_YAW_EQUAL_ABS153_CR_DRYM;
+                collision_right_rightrun_step_status = TURN_CCLCOK_TARGET_YAW_ABS153_CR_DRYM;
                 break;
             }
             break;
@@ -1036,7 +1036,7 @@ unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacl
                 linear_velocity = 0;
                 angular_velocity = 0;
                 turn_start_update = 0;
-                collision_left_rightrun_step_status = GOSTR_YAW_MORE_ABS30_CL_DRYL;
+                collision_left_rightrun_step_status = TURN_CLOCK_TARGET_YAW_ABS30_CL_DRYL;
                 break;
             }
             break;
@@ -1060,7 +1060,7 @@ unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacl
             collision_left_rightrun_step_status = GOSTR_BYPASS_LOOP_CL_DRYL;  
             break;
         case  GOSTR_BYPASS_LOOP_CL_DRYL:
-            if (obstacleSignal == right_obstacle)
+            if (obstacleSignal == left_obstacle)
             {
                 collision_left_rightrun_step_status = LEFT_COLLISION_BYPASS_CL_DRYL;   
                 break;
@@ -1070,7 +1070,7 @@ unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacl
                 collision_left_rightrun_step_status = GOSTR_X_MORE_ONE_THIRD_LATERALDIS_BYPASS_CL_DRYL; 
                 break;
             }
-            if (my_abs(last_position_y - current_pose->y) > close_edge || obstacleSignal == front_obstacle || obstacleSignal == left_obstacle)
+            if (my_abs(last_position_y - current_pose->y) > close_edge || obstacleSignal == front_obstacle || obstacleSignal == right_obstacle)
             {
                 collision_left_rightrun_step_status = GOSTR_BYPASS_BOW_CONTINUE_CL_DRYL;
                 break;
@@ -1130,7 +1130,6 @@ unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacl
                 turn_start_update = 0;
                 break;
             }
-            break;
             break;
         case  GOSTR_BYPASS_BOW_CONTINUE_EXIT_CL_DRYL:
             collision_left_rightrun_step_status = COMPLETE_CL_DRYL;
@@ -3207,8 +3206,6 @@ void LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 {}
 void LeftReturnOriginWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 {}
-
-
 unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal)
 {}
 	
