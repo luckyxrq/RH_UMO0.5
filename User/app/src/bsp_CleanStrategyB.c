@@ -1070,7 +1070,7 @@ unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacl
                 collision_left_rightrun_step_status = GOSTR_X_MORE_ONE_THIRD_LATERALDIS_BYPASS_CL_DRYL; 
                 break;
             }
-            if (my_abs(last_position_y - current_pose->y) > close_edge || obstacleSignal == front_obstacle || obstacleSignal == right_obstacle)
+            if (my_abs(last_position_y - current_pose->y) > close_edge || obstacleSignal == front_obstacle || obstacleSignal == left_obstacle)
             {
                 collision_left_rightrun_step_status = GOSTR_BYPASS_BOW_CONTINUE_CL_DRYL;
                 break;
