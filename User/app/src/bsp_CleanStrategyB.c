@@ -2460,7 +2460,7 @@ unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         case TURN_CCLOCK_TARGET_YAW_LESS_0_WE:
             linear_velocity = 0;
             angular_velocity = turn_vel;
-            if (my_abs(Yaw / 100) < 0 )
+            if (Yaw / 100  < 0 )
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
@@ -2507,7 +2507,7 @@ unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = TURN_CLOCK_TARGET_YAW_MORE_ABS117_COLLISION_WE;
+                right_walk_edge_status = TURN_CCLOCK_TARGET_YAW_LESS_135_DETAL_YAW_MORE_30_COLLISION_WE;
                 break;
             }
             break; 
@@ -2790,7 +2790,7 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         case TURN_CLOCK_TARGET_YAW_LESS_0_RWE                 :
             linear_velocity = 0;
             angular_velocity = -turn_vel;
-            if (my_abs(Yaw / 100) < 0 )
+            if (Yaw / 100 < 0 )
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
