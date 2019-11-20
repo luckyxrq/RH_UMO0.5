@@ -1054,7 +1054,7 @@ unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacl
             if(cnt_update > 4)
             {
                 cnt_update = 0;
-                collision_left_rightrun_step_status = MORE_TRY_BREAK_BYPASS_CR_DRYM;  
+                collision_left_rightrun_step_status = MORE_TRY_BREAK_BYPASS_CL_DRYL;  
                 break;     
             }
             collision_left_rightrun_step_status = GOSTR_BYPASS_LOOP_CL_DRYL;  
