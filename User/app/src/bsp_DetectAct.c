@@ -630,6 +630,11 @@ void bsp_DetectDeal(void)
 	}
 	printf("\r\n");
 #endif
+	
+#if 0	
+	printf("adcRealTime[%d]:%.2F\r\n",7,adcRealTime[7]);
+#endif	
+
 
 #if 0	
 	/*检测障碍物之前，先认为无障碍物*/

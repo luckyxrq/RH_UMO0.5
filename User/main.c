@@ -104,7 +104,25 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     while(1)
     {
         /* 处理按键事件 */
-        bsp_KeyProc();
+        //bsp_KeyProc();
+		
+		
+		
+		{
+			if(bsp_GetInfraRedAdcVoltage(IR7) >= 1.0F)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 0);
+				bsp_SetMotorSpeed(MotorRight,0);
+			}
+			else
+			{
+				bsp_SetMotorSpeed(MotorLeft, 12);
+				bsp_SetMotorSpeed(MotorRight,12);
+			}
+		}
+		
+		
+		
 		
 		
         if(count++ % 2 == 0)
