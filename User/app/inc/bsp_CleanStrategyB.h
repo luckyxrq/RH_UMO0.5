@@ -223,7 +223,6 @@
 
 //all define  right
 
-
 #define GOSTR_LEFTRUN_STEP                               0x1 //go straight  
 #define GOSTR_RIGHT_DEV_LEFTRUN_STEP                     0x11 //go straight left deviation 
 #define GOSTR_LEFT_DEV_LEFTRUN_STEP                      0x12 //go srtaight right deviation
@@ -266,6 +265,14 @@
         #define GOSTR_BYPASS_BOW_CONTINUE_EXIT_LRUN_CR_DLYL                      0x243
         #define GOSTR_BYPASS_BOW_CONTINUE_TARGET_YAW_ABS3_LRUN_CR_DLYL            0x244
         #define GOSTR_BYPASS_BOW_CONTINUE_TARGET_YAW_ABS3_COLLISION_LRUN_CR_DLYL  0x245
+
+
+        #define TURN_CCLOCK_TARGET_YAW_LESS_ABS15_COLLISION_LRUN_CR_DLYL        0x250
+        #define TURN_CCLOCK_TARGET_YAW_MORE_ABS15_COLLISION_LRUN_CR_DLYL        0x251
+        #define MORE_TRY_BREAK_BYPASS_COLLISION_LRUN_CR_DLYL                 0x252
+
+
+
     
 #define COLLISION_LEFT_LEFTRUN_STEP                   0x3
     #define GOBACK_DISTANCE_CLLRS                                  0x31      
@@ -305,8 +312,12 @@
         #define LEFT_WALK_EDGE_LRUN_CL_DLYL                            0x33A         
         #define TURN_CCLOCK_TARGET_YAW_ABS173_LRUN_CL_DLYL               0x33B          
         #define TURN_CCLOCK_TARGET_YAW_ABS173_COLLISION_LRUN_CL_DLYL      0x33C            
-        #define COMPLETE_LRUN_CL_DLYL                                  0x33D      
+        #define COMPLETE_LRUN_CL_DLYL                                  0x33D
 
+
+        #define TURN_CLCOK_TARGET_YAW_MORE_ABS150_COLLISION_LRUN_CL_DLYM           0x340
+        #define TURN_CLCOK_TARGET_YAW_LESS_ABS150_COLLISION_LRUN_CL_DLYM           0x341
+        #define MORE_TRY_BREAK_BYPASS_COLLISION_LRUN_CL_DLYM                       0x342
 
 #define COLLISION_FRONT_LEFTRUN_STEP                  0x4
     #define GOBACK_DISTANCE_CFLRS                             0x41
@@ -384,7 +395,12 @@
     #define LEFT_EDGE_TURN_CLOCK_TARGET_YAW_LESS_135_DETAL_YAW_MORE_30_COLLISION_WE  0x71                                                                    
     #define LEFT_EDGE_BOW_CONTINUE_WE                                                0x72                              
     #define LEFT_EDGE_RETURN_ORIGIN_WE                                               0x73 
-    #define LEFT_EDGE_REBACK_GOSTR_BYPASS_CHECK_WE                                   0x74                             
+    #define LEFT_EDGE_REBACK_GOSTR_BYPASS_CHECK_WE                                   0x74
+
+
+
+    #define LEFT_EDGE_GOSTR_BYPASS_WE_X                                                0x75
+
 
 #define LEFT_GOBACK_REVERSE_WALK_EDGE                                             0x80                                                        
     #define LEFT_REVERSE_EDGE_TURN_CLOCK_TARGET_YAW_LESS_ABS63_RWE                            0x81                                              
@@ -407,7 +423,11 @@
     #define LEFT_REVERSE_EDGE_TURN_CCLOCK_TARGET_YAW_MORE_ABS45_DETAL_YAW_MORE_30_COLLISION_RWE  0x91
     #define LEFT_REVERSE_EDGE_BOW_CONTINUE_RWE                                                 0x92                        
     #define LEFT_REVERSE_EDGE_RETURN_ORIGIN_RWE                                                0x93
-    #define LEFT_REVERSE_EDGE_REBACK_GOSTR_BYPASS_CHECK_RWE                                    0x94      
+    #define LEFT_REVERSE_EDGE_REBACK_GOSTR_BYPASS_CHECK_RWE                                    0x94
+
+
+    #define LEFT_REVERSE_EDGE_GOSTR_BYPASS_RWE_X                                               0x95
+
 
 
 //left dilemma function

@@ -70,7 +70,7 @@ unsigned char* bsp_GetIRSensorData(void);
 int bsp_Edge_length(void);
 
 int bsp_Right_ReturnExtreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal);
-int bsp_Left_Return_Extreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal);
+int bsp_Left_ReturnExtreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal);
 int bsp_Leakingsweep(void);
 
 

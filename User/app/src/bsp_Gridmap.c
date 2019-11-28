@@ -608,7 +608,7 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,double robotTheta,unsign
 	return 0;
 }
 
-int bsp_Left_Return_Extreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal)
+int bsp_Left_ReturnExtreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal)
 {
     if(obstacleSignal == FRONT_OBSTACLE_SIGNAL||obstacleSignal == LEFT_OBSTACLE_SIGNAL||obstacleSignal == RIGHT_OBSTACLE_SIGNAL){
         int y_boundary=robotY/100;
