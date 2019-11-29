@@ -233,7 +233,7 @@ static void vTaskPerception(void *pvParameters)
 		if(count % 100 == 0)
 		{
 			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
-			DEBUG("%+4d,%+4d#%+3d",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
+			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 
 		count++;
@@ -514,7 +514,10 @@ static void bsp_KeyProc(void)
 					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
 					bsp_SperkerPlay(Song3);
 					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
-					bsp_StartCliffTest();
+					
+					//bsp_StartCliffTest();
+					
+					
 					bsp_StartVacuum();
 					
 					vTaskDelay(200);	
