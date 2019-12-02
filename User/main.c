@@ -113,6 +113,15 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
         }
+		
+		/*更新地图*/
+#if 1
+		
+		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
+		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
+		//DEBUG("End:%d\r\n",xTaskGetTickCount());
+#endif
 
         vTaskDelay(50);	
     }
@@ -216,16 +225,6 @@ static void vTaskPerception(void *pvParameters)
         /*更新坐标*/
         bsp_PositionUpdate();
 		
-		
-		/*更新地图*/
-#if 0
-		if(count % 100 == 0)
-		{
-			//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
-			//DEBUG("End:%d\r\n",xTaskGetTickCount());
-		}
-#endif
 
 		if(count % 4 == 0)
 		{

@@ -1,6 +1,9 @@
 #include "bsp.h"
 #include <math.h>
 
+static int map_last_robotX = 0, map_last_robotY = 0;
+static char map_update = 0;
+
 static GridMap gridmap;
 
 static unsigned long mysqrt(unsigned long x);
@@ -140,7 +143,7 @@ static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,
 				else if (r < gridmap.obstacle_distance_from_robot_center)
 				{
 					return gridmap.grid_free;
-				}
+		}
 			}
 			else if (r < gridmap.free_zone_from_robot_center)
 			{
@@ -152,7 +155,7 @@ static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,
 			}
 			break;
 		default:
-			DEBUG(" Unknown Sensor Type ");
+			//DEBUG(" Unknown Sensor Type ");
 			break;
 	}
 	return gridmap.grid_default;
@@ -245,10 +248,28 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 {
 	int grid_real_center_x, grid_real_center_y;
 	int grid_index_x,grid_index_y;
+	int map_robot_x,map_robot_y;
 	int robotXY_from_gridXY_dist;
 	unsigned char grid_status;
 	int min_x,min_y,max_x,max_y;
 	
+	
+	if ((abs(map_last_robotX - robotX) >100 || abs(map_last_robotY - robotY) >100) || obstacleSignal!=3)
+	{
+		gridmap.action = 0;
+		map_last_robotX = robotX;
+		map_last_robotY = robotY;
+	}
+	else 
+	{
+		gridmap.action = 1;
+	}
+	
+	if(map_update==0)
+	{
+		gridmap.action = 0;
+		map_update = 1;
+	}
 	
 	UNUSED(min_y);
 	
@@ -261,42 +282,58 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 	{
 		case 0:
 		{
-			robotX += X_BIAS;
-			robotY += Y_BIAS;
+			map_robot_x  = robotX + X_BIAS;
+			map_robot_y  = robotY + Y_BIAS;
 			
-			XYToGrid(&robotX, &robotY,&grid_index_x, &grid_index_y);
+			XYToGrid(&map_robot_x, &map_robot_y,&grid_index_x, &grid_index_y);
 			
 			min_x = grid_index_x - REFRESH_ZONE_SIZE;
 			min_y = grid_index_y - REFRESH_ZONE_SIZE;
 			max_x = grid_index_x + REFRESH_ZONE_SIZE;
 			max_y = grid_index_y + REFRESH_ZONE_SIZE;
 			
+			DEBUG("____________________________________________________________________\r\n");
+			//DEBUG("map_robot_x:%d, &map_robot_y:%d,&grid_index_x:%d, &grid_index_y:%d",map_robot_x,map_robot_y,grid_index_x, grid_index_y);
+			//DEBUG("____________________________________________________________________\r\n");
+			
 			
 			for ( grid_index_x = min_x; grid_index_x < max_x; grid_index_x++)
 			{
-				for ( grid_index_y = min_x; grid_index_y < max_y; grid_index_y++)
+				for ( grid_index_y = min_y; grid_index_y < max_y; grid_index_y++)
 				{
 					GridToXY( &grid_real_center_x,  &grid_real_center_y, &grid_index_x, &grid_index_y);
 //					grid_real_center_x = grid_index_x * GRIDWIDTH + GRIDWIDTH / 2 - ROBOTXOFFSET;
 //					grid_real_center_y = -(grid_index_y * GRIDHEIGHT + GRIDHEIGHT / 2) + ROBOTYOFFSET;
 					
-					robotXY_from_gridXY_dist = mysqrt(pow(grid_real_center_x - robotX, 2) + pow(grid_real_center_y - robotY, 2));
+					robotXY_from_gridXY_dist = mysqrt(pow(grid_real_center_x - map_robot_x, 2) + pow(grid_real_center_y - map_robot_y, 2));
 					
 					if (robotXY_from_gridXY_dist <= gridmap.refresh_zone_max_radius)
 					{
-						grid_status = inverseSensorModel(robotXY_from_gridXY_dist,robotX, robotY, robotTheta, grid_real_center_x, grid_real_center_y, obstacleSignal, IRSensorData);
+						grid_status = inverseSensorModel(robotXY_from_gridXY_dist,map_robot_x, map_robot_y, robotTheta, grid_real_center_x, grid_real_center_y, obstacleSignal, IRSensorData);
 						
 						if (grid_status == gridmap.grid_default)
 						{
 							gridmap.map[grid_index_x][grid_index_y] = gridmap.map[grid_index_x][grid_index_y];
 						}
 						else
+						{
 							gridmap.map[grid_index_x][grid_index_y] = grid_status;
+						}	
 					}
 				}
 			}
-					
-
+			
+			for ( grid_index_x = 0; grid_index_x < MAPWIDTH/GRIDWIDTH; grid_index_x++)
+			{
+				for ( grid_index_y = 0; grid_index_y < MAPHEIGHT/GRIDHEIGHT; grid_index_y++)
+				{
+					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) DEBUG(" -");
+					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occcupancy) DEBUG(" #");
+					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) DEBUG(" +");
+				}
+				DEBUG("\r\n");
+			}
+			
 		};
 		case 1:
 		{

@@ -65,7 +65,7 @@ static double my_abs(double x){
 static void log_debug(char* str)
 {
     //########################
-    DEBUG("%s\n",str);
+    //DEBUG("%s\n",str);
     //########################
 }
 static void sendvelocity(double* linear_velocity,double* angular_velocity)
@@ -448,7 +448,7 @@ unsigned char CollisionRightRightRunStep(POSE *current_pose,unsigned char obstac
 {
     unsigned char complete_flag = 0;
     Yaw =current_pose->orientation;
-	DEBUG("CollisionRightRightRunStep:YAW%f",Yaw);
+	//DEBUG("CollisionRightRightRunStep:YAW%f",Yaw);
     switch(collision_right_rightrun_step_status)
     {
         case 0:
