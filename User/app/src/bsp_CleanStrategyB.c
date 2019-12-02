@@ -52,6 +52,7 @@ int left_ready_leaking_sweep_status = 0;
 static CleanStrategyB cleanstrategy;
 static POSE current_pose;
 static int Yaw;
+static short speed_pid_cnt = 0;
 
 static double my_abs(double x){
     if (x<0){
@@ -68,6 +69,29 @@ static void log_debug(char* str)
 static void sendvelocity(double* linear_velocity,double* angular_velocity)
 {
     short leftVelocity,rightVelocity;
+	if(*linear_velocity == -long_stra_vel)
+	{
+		if(*angular_velocity == 0)
+		{
+			*linear_velocity = -150;
+		}
+	}
+	
+//	if(*linear_velocity == long_stra_vel)
+//	{
+//		if(speed_pid_cnt <=50) speed_pid_cnt +=1;
+//	
+//		*linear_velocity = speed_pid_cnt*0.02**linear_velocity;	
+//	}
+//	else
+//	{
+//		speed_pid_cnt = 20;
+//	}
+//	
+	
+		
+	
+	
     leftVelocity = (short)((0.5*(2**linear_velocity*0.001 - Deg2Rad(*angular_velocity)*WHEEL_LENGTH))* 1000);
     rightVelocity = (short)((0.5*(2**linear_velocity*0.001 + Deg2Rad(*angular_velocity)*WHEEL_LENGTH))* 1000);
 	
@@ -2710,7 +2734,7 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 linear_velocity = 0;
                 angular_velocity = 0;
                 turn_start_update = 0;
-                right_walk_edge_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS63_RWE;
+                right_reverse_walk_edge_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS63_RWE;
                 break;
             }
             break;                                                         
@@ -2721,14 +2745,14 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = READY_GOSTR_BYPASS_RWE;
+                right_reverse_walk_edge_status = READY_GOSTR_BYPASS_RWE;
                 break;
             }
             if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS63_COLLISION_RWE;
+                right_reverse_walk_edge_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS63_COLLISION_RWE;
                 break;
             }
             break;                                                
@@ -2746,7 +2770,7 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 linear_velocity = 0;
                 angular_velocity = 0;
                 turn_start_update = 0;
-                right_walk_edge_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS63_RWE;
+                right_reverse_walk_edge_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS63_RWE;
                 break;
             }
             break;                                                         
@@ -2757,33 +2781,33 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             last_position_y = current_pose->y;
             last_position_yy = 0;
             temporary_close_edge = close_edge;
-            right_walk_edge_status = GOSTR_BYPASS_RWE_X;
+            right_reverse_walk_edge_status = GOSTR_BYPASS_RWE_X;
             break;
 		case GOSTR_BYPASS_RWE_X:
 			last_position_x = current_pose->x;
-			right_walk_edge_status = GOSTR_BYPASS_RWE;
+			right_reverse_walk_edge_status = GOSTR_BYPASS_RWE;
 			break;
         case GOSTR_BYPASS_RWE                                               :
             linear_velocity = long_stra_vel;
             angular_velocity =0;
             if (obstacleSignal == front_obstacle || obstacleSignal == right_obstacle || obstacleSignal == left_obstacle)
             {
-                right_walk_edge_status = COLLISION_BYPASS_RWE;
+                right_reverse_walk_edge_status = COLLISION_BYPASS_RWE;
                 break;
             }
             if (my_abs(last_position_x - current_pose->x) > lateral_move_distance)
             {
-                right_walk_edge_status = GOSTR_X_MORE_LATERALDIS_BYPASS_RWE;
+                right_reverse_walk_edge_status = GOSTR_X_MORE_LATERALDIS_BYPASS_RWE;
                 break;
             }
             if (last_position_y - current_pose->y > temporary_close_edge++)
             {
-                right_walk_edge_status = BOW_CONTINUE_RWE;
+                right_reverse_walk_edge_status = BOW_CONTINUE_RWE;
                 break;
             }
             if (b_last_position_yy == true && my_abs(last_position_yy - current_pose->y) > 3 * lateral_move_distance)
             {
-                right_walk_edge_status = BOW_CONTINUE_RWE;
+                right_reverse_walk_edge_status = BOW_CONTINUE_RWE;
                 break;
             }
             if (my_abs(Yaw / 100) < 120 && (Yaw / 100 > 0) && (b_last_position_yy == false))
@@ -2795,15 +2819,15 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         case REBACK_GOSTR_BYPASS_CHECK_RWE:
             if (my_abs(Yaw / 100) > 75 && (Yaw / 100 > 0))
             {
-                right_walk_edge_status = TARGET_YAW_MORE_ABS75_MORE_ABS0_RWE;
+                right_reverse_walk_edge_status = TARGET_YAW_MORE_ABS75_MORE_ABS0_RWE;
                 break;
             }
             if ((my_abs(current_pose->x + W - edge_length_start) > 3 * bsp_Edge_length() / 4))
             {
-                right_walk_edge_status = DELTA_X_MORE_ONE_FOURTH_CLEANED_MAP_WIDTH_RWE;
+                right_reverse_walk_edge_status = DELTA_X_MORE_ONE_FOURTH_CLEANED_MAP_WIDTH_RWE;
                 break; 
             }
-            right_walk_edge_status = GOSTR_BYPASS_RWE_X;
+            right_reverse_walk_edge_status = GOSTR_BYPASS_RWE_X;
             break;                           
         case COLLISION_BYPASS_RWE                                            :
             if(turn_start_update == 0)
@@ -2820,7 +2844,7 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 angular_velocity = 0;
                 turn_start_update = 0;
                 temporary_yaw = Yaw / 100;
-                right_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_RWE;
+                right_reverse_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_RWE;
                 break;
             }
             break;                              
@@ -2831,14 +2855,14 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = REBACK_GOSTR_BYPASS_CHECK_RWE;
+                right_reverse_walk_edge_status = REBACK_GOSTR_BYPASS_CHECK_RWE;
                 break;
             }
             if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_COLLISION_RWE;
+                right_reverse_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_COLLISION_RWE;
                 break;
             }
             break;                                        
@@ -2856,36 +2880,36 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 linear_velocity = 0;
                 angular_velocity = 0;
                 turn_start_update = 0;
-                right_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_RWE;
+                right_reverse_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_RWE;
                 break;
             }
             break;                                                 
         case TARGET_YAW_MORE_ABS75_MORE_ABS0_RWE                            :
             if (my_abs(current_pose->x + W - edge_length_start) > (bsp_Edge_length() / 4))
             {
-                right_walk_edge_status = RETURN_ORIGIN_RWE;
+                right_reverse_walk_edge_status = RETURN_ORIGIN_RWE;
                 break;
             }
             else
             {
-                right_walk_edge_status = TURN_CCLOCK_YAW_MORE_178ABS_RWE;
+                right_reverse_walk_edge_status = TURN_CCLOCK_YAW_MORE_178ABS_RWE;
                 break;
             }
             break;                                              
         case DELTA_X_MORE_ONE_FOURTH_CLEANED_MAP_WIDTH_RWE                  :
-            right_walk_edge_status = RETURN_ORIGIN_RWE;
+            right_reverse_walk_edge_status = RETURN_ORIGIN_RWE;
             break;                                                       
         case TURN_CCLOCK_YAW_MORE_178ABS_RWE                                :
             if (my_abs(Yaw / 100) > 178)
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = RIGHT_EDGE_DILEMMA_RWE;
+                right_reverse_walk_edge_status = RIGHT_EDGE_DILEMMA_RWE;
                 break;
             }
             if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
             {
-                right_walk_edge_status = TURN_CCLOCK_YAW_MORE_178ABS_COLLISION_RWE;
+                right_reverse_walk_edge_status = TURN_CCLOCK_YAW_MORE_178ABS_COLLISION_RWE;
             }
             linear_velocity = 0;
             angular_velocity = -turn_vel;
@@ -2904,29 +2928,29 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 linear_velocity = 0;
                 angular_velocity = 0;
                 turn_start_update = 0;
-                right_walk_edge_status = TURN_CCLOCK_YAW_MORE_178ABS_RWE;
+                right_reverse_walk_edge_status = TURN_CCLOCK_YAW_MORE_178ABS_RWE;
                 break;
             }
             break;                                                   
         case RIGHT_EDGE_DILEMMA_RWE                                         :
             if(RightEdgeDilemma(current_pose,obstacleSignal))
             {
-                right_walk_edge_status = BOW_CONTINUE_RWE;
+                right_reverse_walk_edge_status = BOW_CONTINUE_RWE;
             }
             break;                       
         case GOSTR_X_MORE_LATERALDIS_BYPASS_RWE                             :
             temporary_yaw = Yaw / 100;
             if (my_abs(Yaw / 100) > 45 && (Yaw / 100 > 0))
             {
-                right_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_0_RWE;                
+                right_reverse_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_0_RWE;                
                 break;
             }
             else if (my_abs(Yaw / 100) <= 45 )
             {
-                right_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_ABS45_DETAL_YAW_MORE_30_RWE;
+                right_reverse_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_ABS45_DETAL_YAW_MORE_30_RWE;
                 break;
             }
-            right_walk_edge_status = GOSTR_BYPASS_RWE_X;
+            right_reverse_walk_edge_status = GOSTR_BYPASS_RWE_X;
             break;                                         
         case TURN_CLOCK_TARGET_YAW_LESS_0_RWE                 :
             linear_velocity = 0;
@@ -2935,14 +2959,14 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = GOSTR_BYPASS_RWE_X;
+                right_reverse_walk_edge_status = GOSTR_BYPASS_RWE_X;
                 break;
             }
             if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_0_COLLISION_RWE;
+                right_reverse_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_0_COLLISION_RWE;
                 break;
             }
             break;                                                         
@@ -2960,7 +2984,7 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 linear_velocity = 0;
                 angular_velocity = 0;
                 turn_start_update = 0;
-                right_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_0_RWE;
+                right_reverse_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_0_RWE;
                 break;
             }
             break;                                                                   
@@ -2971,14 +2995,14 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = GOSTR_BYPASS_RWE_X;
+                right_reverse_walk_edge_status = GOSTR_BYPASS_RWE_X;
                 break;
             }
             if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                right_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_ABS45_DETAL_YAW_MORE_30_COLLISION_RWE;
+                right_reverse_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_ABS45_DETAL_YAW_MORE_30_COLLISION_RWE;
                 break;
             }
             break;                                                                 
@@ -2996,7 +3020,7 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 linear_velocity = 0;
                 angular_velocity = 0;
                 turn_start_update = 0;
-                right_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_ABS45_DETAL_YAW_MORE_30_RWE;
+                right_reverse_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_ABS45_DETAL_YAW_MORE_30_RWE;
                 break;
             }
             break;  
@@ -3004,13 +3028,13 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             linear_velocity = long_stra_vel;
             angular_velocity = 0;
             complete_flag = 1;
-            right_walk_edge_status = 0;
+            right_reverse_walk_edge_status = 0;
             break;                          
         case RETURN_ORIGIN_RWE                                              :
             linear_velocity = long_stra_vel;
             angular_velocity = 0;
             complete_flag = 2;
-            right_walk_edge_status = 0;
+            right_reverse_walk_edge_status = 0;
             break;  
     }   
     return complete_flag;     
@@ -5489,9 +5513,9 @@ unsigned char LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             left_walk_edge_status = LEFT_EDGE_GOSTR_BYPASS_WE_X;
             break;
         case LEFT_EDGE_GOSTR_BYPASS_WE_X:
-         last_position_x = current_pose->x;
-         left_walk_edge_status = LEFT_EDGE_GOSTR_BYPASS_WE;
-        break;
+			 last_position_x = current_pose->x;
+			 left_walk_edge_status = LEFT_EDGE_GOSTR_BYPASS_WE;
+			break;
         case LEFT_EDGE_GOSTR_BYPASS_WE:
             linear_velocity = long_stra_vel;
             angular_velocity =0;
@@ -5520,9 +5544,7 @@ unsigned char LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
                 last_position_yy = current_pose->y;
                 b_last_position_yy = true;
             }
-
             break;
-
         case LEFT_EDGE_REBACK_GOSTR_BYPASS_CHECK_WE:
             if (my_abs(Yaw / 100) < 105 && (Yaw / 100 < 0))
             {

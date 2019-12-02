@@ -28,26 +28,28 @@ Project File Date:  11/27/2019
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Flash'
 compiling bsp_CleanStrategyB.c...
-..\..\User\app\src\bsp_CleanStrategyB.c(237): warning:  #111-D: statement is unreachable
+..\..\User\app\src\bsp_CleanStrategyB.c(261): warning:  #111-D: statement is unreachable
           return 0;
-..\..\User\app\src\bsp_CleanStrategyB.c(240): warning:  #940-D: missing return statement at end of non-void function "clean_strategy" 
+..\..\User\app\src\bsp_CleanStrategyB.c(264): warning:  #940-D: missing return statement at end of non-void function "clean_strategy" 
   }
-..\..\User\app\src\bsp_CleanStrategyB.c(420): warning:  #181-D: argument is incompatible with corresponding format string conversion
+..\..\User\app\src\bsp_CleanStrategyB.c(444): warning:  #181-D: argument is incompatible with corresponding format string conversion
   	DEBUG("CollisionRightRightRunStep:YAW%f",Yaw);
-..\..\User\app\src\bsp_CleanStrategyB.c(2874): warning:  #111-D: statement is unreachable
+..\..\User\app\src\bsp_CleanStrategyB.c(2898): warning:  #111-D: statement is unreachable
               break;                                              
-..\..\User\app\src\bsp_CleanStrategyB.c(3315): warning:  #111-D: statement is unreachable
+..\..\User\app\src\bsp_CleanStrategyB.c(3339): warning:  #111-D: statement is unreachable
               break;
-..\..\User\app\src\bsp_CleanStrategyB.c(5938): warning:  #111-D: statement is unreachable
+..\..\User\app\src\bsp_CleanStrategyB.c(5960): warning:  #111-D: statement is unreachable
               break;                                              
-..\..\User\app\src\bsp_CleanStrategyB.c: 6 warnings, 0 errors
+..\..\User\app\src\bsp_CleanStrategyB.c(55): warning:  #177-D: variable "speed_pid_cnt"  was declared but never referenced
+  static short speed_pid_cnt = 0;
+..\..\User\app\src\bsp_CleanStrategyB.c: 7 warnings, 0 errors
 linking...
-Program Size: Code=89860 RO-data=660 RW-data=424 ZI-data=52128  
+Program Size: Code=89908 RO-data=660 RW-data=428 ZI-data=52124  
 FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 C:\Users\User020\Documents\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 6 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 
