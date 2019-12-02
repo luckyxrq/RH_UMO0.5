@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Dec 02 12:08:45 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Dec 02 14:49:04 2019
 <BR><P>
 <H3>Maximum Stack Usage =        360 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -556,6 +556,7 @@ Global Symbols
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionLeftLeftRunStep
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionFrontRightRunStep
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionFrontLeftRunStep
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
 
@@ -865,7 +866,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[86]"></a>CollisionFrontRightRunStep</STRONG> (Thumb, 2478 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionFrontRightRunStep))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = CollisionFrontRightRunStep &rArr; RightWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = CollisionFrontRightRunStep &rArr; RightWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightWalkEdge
@@ -890,7 +891,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8a]"></a>CollisionLeftRightRunStep</STRONG> (Thumb, 4894 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionLeftRightRunStep))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = CollisionLeftRightRunStep &rArr; RightReverseWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = CollisionLeftRightRunStep &rArr; RightReverseWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightReverseWalkEdge
@@ -914,7 +915,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8c]"></a>CollisionRightRightRunStep</STRONG> (Thumb, 4894 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionRightRightRunStep))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = CollisionRightRightRunStep &rArr; RightWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = CollisionRightRightRunStep &rArr; RightWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightWalkEdge
@@ -1262,22 +1263,21 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategy
 </UL>
 
-<P><STRONG><a name="[88]"></a>RightReverseWalkEdge</STRONG> (Thumb, 2520 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.RightReverseWalkEdge))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = RightReverseWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[88]"></a>RightReverseWalkEdge</STRONG> (Thumb, 2476 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightReverseWalkEdge))
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = RightReverseWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightEdgeDilemma
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Edge_length
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionLeftRightRunStep
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionFrontRightRunStep
 </UL>
 
 <P><STRONG><a name="[a6]"></a>RightRunningWorkStep</STRONG> (Thumb, 726 bytes, Stack size 32 bytes, bsp_cleanstrategyb.o(i.RightRunningWorkStep))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = RightRunningWorkStep &rArr; CollisionRightRightRunStep &rArr; RightWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = RightRunningWorkStep &rArr; CollisionRightRightRunStep &rArr; RightWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightReadyLeakingSweep
@@ -1294,15 +1294,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategy
 </UL>
 
-<P><STRONG><a name="[87]"></a>RightWalkEdge</STRONG> (Thumb, 2516 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.RightWalkEdge))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = RightWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[87]"></a>RightWalkEdge</STRONG> (Thumb, 2476 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightWalkEdge))
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = RightWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightEdgeDilemma
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Edge_length
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionRightRightRunStep
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionFrontRightRunStep
@@ -1775,7 +1774,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[ef]"></a>bsp_CleanStrategyUpdateB</STRONG> (Thumb, 94 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.bsp_CleanStrategyUpdateB))
+<P><STRONG><a name="[ef]"></a>bsp_CleanStrategyUpdateB</STRONG> (Thumb, 100 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.bsp_CleanStrategyUpdateB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = bsp_CleanStrategyUpdateB &rArr; clean_strategy &rArr; LeftRunningWorkStep &rArr; CollisionRightLeftRunStep &rArr; LeftReverseWalkEdge &rArr; LeftEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
@@ -1911,9 +1910,7 @@ Global Symbols
 <P><STRONG><a name="[9e]"></a>bsp_Edge_length</STRONG> (Thumb, 180 bytes, Stack size 16 bytes, bsp_gridmap.o(i.bsp_Edge_length))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_Edge_length
 </UL>
-<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightWalkEdge
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightReverseWalkEdge
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightEdgeDilemma
+<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightEdgeDilemma
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftWalkEdge
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftReverseWalkEdge
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftEdgeDilemma
@@ -3739,12 +3736,13 @@ Local Symbols
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionFrontLeftRunStep
 </UL>
 
-<P><STRONG><a name="[a2]"></a>sendvelocity</STRONG> (Thumb, 322 bytes, Stack size 88 bytes, bsp_cleanstrategyb.o(i.sendvelocity))
+<P><STRONG><a name="[a2]"></a>sendvelocity</STRONG> (Thumb, 478 bytes, Stack size 88 bytes, bsp_cleanstrategyb.o(i.sendvelocity))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = sendvelocity &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
