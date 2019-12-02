@@ -50,13 +50,14 @@ int left_forward_boundary_status = 0;
 int left_ready_leaking_sweep_status = 0;
 
 static CleanStrategyB cleanstrategy;
+static POSE current_pose;
+static int Yaw;
 
 static double my_abs(double x){
     if (x<0){
         x= -x;
     }
     return x;}
-
 	
 static void log_debug(char* str)
 {
@@ -87,7 +88,51 @@ void bsp_StartUpdateCleanStrategyB(void)
 	cleanstrategy.action = 0 ;
 	cleanstrategy.delay = 0 ;
 	cleanstrategy.isRunning = true;
+	linear_velocity = 0,angular_velocity = 0;
+//right running
+	right_running_step_status = 0;
+	collision_right_rightrun_step_status = 0;
+	collision_left_rightrun_step_status = 0;
+	collision_front_rightrun_step_status = 0;
+//left running	
+	left_running_step_status = 0;
+	collision_right_leftrun_step_status = 0;
+	collision_left_leftrun_step_status = 0;
+	collision_front_leftrun_step_status = 0;
 	
+//for  collision step
+	distance_uptate  = 0;
+	turn_start_update = 0;
+	last_position_x = 0;
+	last_position_xx = 0;
+	last_position_y = 0;
+	last_position_yy = 0;
+	b_last_position_yy = false;
+	turn_start_x = 0;
+	turn_start_y = 0;
+	maintain_bow_distance = 0;
+	cnt_update = 0;
+	bow_continue = false;
+	old_bow_continue = false;
+	temporary_yaw = 0;
+	temporary_close_edge = 0;
+	returnorigin = false;
+	edge_length_start = 0;
+//for right walk edge
+	right_walk_edge_status = 0;
+	right_reverse_walk_edge_status = 0;
+	right_edge_dilemma_status = 0;
+	number = 0;
+	right_forward_boundary_status = 0;
+	right_ready_leaking_sweep_status = 0;
+	leakingsweep = 0;
+//for left walk edge
+	left_walk_edge_status = 0;
+	left_reverse_walk_edge_status = 0;
+	left_edge_dilemma_status = 0;
+	left_forward_boundary_status = 0;
+	left_ready_leaking_sweep_status = 0;
+
 }
 
 void bsp_StopUpdateCleanStrategyB(void)
@@ -102,6 +147,11 @@ void bsp_StopUpdateCleanStrategyB(void)
 	cleanstrategy.right_return_origin_complete = 0;
 	cleanstrategy.left_running_complete = 0;
 	cleanstrategy.left_return_origin_complete = 0;
+
+	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+	
+	
 	
 }
 
@@ -109,11 +159,13 @@ void bsp_StopUpdateCleanStrategyB(void)
 
 void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal, int wheel_pulse_l, int wheel_pulse_r, unsigned char IRSensorData[])
 {
-	POSE current_pose;
 	
-	current_pose.x = INT_COOR_X + robotX;
-	current_pose.y = INT_COOR_Y + robotY;
-	current_pose.orientation = robotTheta;
+	
+	//current_pose.x = INT_COOR_X + robotX;
+	//current_pose.y = INT_COOR_Y + robotY;
+	current_pose.x =  robotX;
+	current_pose.y =  robotY;
+	current_pose.orientation = Rad2Deg(robotTheta)*100;
 	if(cleanstrategy.isRunning)
 	{
 		if(clean_strategy(&current_pose,obstacleSignal) != ALL_CLEAN_COMPLETE)
@@ -124,6 +176,7 @@ void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned 
 			bsp_StopUpdateCleanStrategyB();
 		}
 	}
+	
 }	
 
 
@@ -190,10 +243,8 @@ uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+    Yaw = current_pose->orientation;
 	
-    Yaw = Rad2Deg(current_pose->orientation)*100;
-
     switch(right_running_step_status)
     {
         case 0:
@@ -320,7 +371,11 @@ void RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
             break;
         case FORWARD_BOUNDARY_RIGHTRUN_STEP:
             log_debug("forward boundary rightrun step!");
-            ForwardBoundaryRightRunStep(current_pose,obstacleSignal);
+            if(ForwardBoundaryRightRunStep(current_pose,obstacleSignal))
+			{
+				right_running_step_status = GOSTR_RIGHTRUN_STEP;
+                right_forward_boundary_status = 0;
+			}
             break;
 
         case COLLISION_RIGHT_RIGHTRUN_STEP:
@@ -360,9 +415,8 @@ void RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 
 unsigned char CollisionRightRightRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation)*100;
+    Yaw =current_pose->orientation;
 	DEBUG("CollisionRightRightRunStep:YAW%f",Yaw);
     switch(collision_right_rightrun_step_status)
     {
@@ -985,9 +1039,8 @@ unsigned char CollisionRightRightRunStep(POSE *current_pose,unsigned char obstac
 
 unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation)*100;
+    Yaw = current_pose->orientation;
     switch(collision_left_rightrun_step_status)
     {
         case 0:
@@ -1610,9 +1663,9 @@ unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacl
 
 unsigned char CollisionFrontRightRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+    
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation)*100;
+    Yaw =current_pose->orientation;
     switch(collision_front_rightrun_step_status)
     {
         case 0:
@@ -1986,9 +2039,8 @@ unsigned char CollisionFrontRightRunStep(POSE *current_pose,unsigned char obstac
 
 unsigned char RightEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation)*100;
+    Yaw = current_pose->orientation;
     switch(right_edge_dilemma_status)
     {
         case 0:
@@ -2301,9 +2353,9 @@ unsigned char RightEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal)
 
 unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+   
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation)*100;
+    Yaw = current_pose->orientation;
     switch(right_walk_edge_status)
     {
         case 0:
@@ -2637,9 +2689,9 @@ unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
 
 unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+  
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation)*100;
+    Yaw = current_pose->orientation;
     switch(right_reverse_walk_edge_status)
     {
         case 0:
@@ -2966,13 +3018,13 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
 
 unsigned char ForwardBoundaryRightRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+  
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation)*100;
-    switch(right_forward_boundary_status) 
+    Yaw = current_pose->orientation;
+    switch(right_forward_boundary_status)
     {
         case 0:
-            if (my_abs(Yaw / 100) < 10)
+            if (my_abs(Yaw / 100) < 90)
             {
                 right_forward_boundary_status = FORWARDBOUNDARY_YAW_LESS_ABS10;
             }
@@ -2985,9 +3037,9 @@ unsigned char ForwardBoundaryRightRunStep(POSE *current_pose,unsigned char obsta
             right_forward_boundary_status = FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178;
             break;
         case FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178:
-            linear_velocity = long_stra_vel / 2;
+            linear_velocity = 100;
             angular_velocity = -57;
-            if (my_abs(Yaw / 100) > 178)
+            if (my_abs(Yaw / 100) >175)
             {
                 right_forward_boundary_status = FORWARDBOUNDARY_GOSTRAIGHT;
                 break;
@@ -2999,30 +3051,30 @@ unsigned char ForwardBoundaryRightRunStep(POSE *current_pose,unsigned char obsta
             }
             break;
         case FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178_COLLISION:
-            if(turn_start_update == 0)
-            {   
-                turn_start_x = current_pose->x;
-                turn_start_y = current_pose->y;
-                turn_start_update = 1;
-            }
-            linear_velocity = -long_stra_vel;
-            angular_velocity = 0;
-            if (my_abs(turn_start_x - current_pose->x) > turn_backward_distance || my_abs(turn_start_y - current_pose->y) > turn_backward_distance)
-            {
-                linear_velocity = 0;
-                angular_velocity = 0;
-                turn_start_update = 0;
-                right_walk_edge_status = FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178;
-                break;
-            }
-            break;
+			if(turn_start_update == 0)
+			{
+				turn_start_x = current_pose->x;
+				turn_start_y = current_pose->y;
+				turn_start_update = 1;
+			}
+			linear_velocity = -long_stra_vel;
+			angular_velocity = 0;
+			if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+			{
+				linear_velocity = 0;
+				angular_velocity = 0;
+				turn_start_update = 0;
+				right_forward_boundary_status = FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178;
+				break;
+			}
+			break;
         case FORWARDBOUNDARY_YAW_OTHER:
             right_forward_boundary_status = FORWARDBOUNDARY_CCLOCK_TARGET_YAW_LESS_ABS3;
             break;
         case FORWARDBOUNDARY_CCLOCK_TARGET_YAW_LESS_ABS3:
-            linear_velocity = long_stra_vel / 2;
+            linear_velocity = 100;
             angular_velocity = 57;
-            if (my_abs(Yaw / 100) < 3)
+            if (my_abs(Yaw / 100) < 5)
             {
                 right_forward_boundary_status = FORWARDBOUNDARY_GOSTRAIGHT;
                 break;
@@ -3035,30 +3087,46 @@ unsigned char ForwardBoundaryRightRunStep(POSE *current_pose,unsigned char obsta
 
             break;
         case FORWARDBOUNDARY_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION:
-            if(turn_start_update == 0)
-            {   
-                turn_start_x = current_pose->x;
-                turn_start_y = current_pose->y;
-                turn_start_update = 1;
-            }
-            linear_velocity = -long_stra_vel;
-            angular_velocity = 0;
-            if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
-            {
-                linear_velocity = 0;
-                angular_velocity = 0;
-                turn_start_update = 0;
-                right_forward_boundary_status = FORWARDBOUNDARY_CCLOCK_TARGET_YAW_LESS_ABS3;
-                break;
-            }
-            break;
+			if(turn_start_update == 0)
+			{
+				turn_start_x = current_pose->x;
+				turn_start_y = current_pose->y;
+				turn_start_update = 1;
+			}
+			linear_velocity = -long_stra_vel;
+			angular_velocity = 0;
+			if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+			{
+				linear_velocity = 0;
+				angular_velocity = 0;
+				turn_start_update = 0;
+				right_forward_boundary_status = FORWARDBOUNDARY_CCLOCK_TARGET_YAW_LESS_ABS3;
+				break;
+			}
+			break;
         case FORWARDBOUNDARY_GOSTRAIGHT:
-        if(turn_start_update == 0)
-        {
-            turn_start_x = current_pose->x;
-            turn_start_y = current_pose->y;
-            turn_start_update = 1;
-        }
+			if(turn_start_update == 0)
+			{
+				turn_start_x = current_pose->x;
+				turn_start_y = current_pose->y;
+				turn_start_update = 1;
+			}
+			if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) >50)&&my_abs(Yaw / 100) < 90&&current_pose->x>0)
+			{
+				linear_velocity = 0;
+				angular_velocity = 0;
+				turn_start_update = 0;
+				right_forward_boundary_status = FORWARDBOUNDARY_COMPLETE;
+				break;
+			}
+			if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) >50)&&my_abs(Yaw / 100) >90&&current_pose->x<0)
+			{
+				linear_velocity = 0;
+				angular_velocity = 0;
+				turn_start_update = 0;
+				right_forward_boundary_status = FORWARDBOUNDARY_COMPLETE;
+				break;
+			}
             linear_velocity = long_stra_vel;
             angular_velocity = 0;
             if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
@@ -3066,11 +3134,10 @@ unsigned char ForwardBoundaryRightRunStep(POSE *current_pose,unsigned char obsta
                 right_forward_boundary_status = FORWARDBOUNDARY_COMPLETE;
                 break;
             }
-            if (my_abs(turn_start_x - current_pose->x) > lateral_move_distance|| my_abs(turn_start_y - current_pose->y) > lateral_move_distance)
+            if (my_abs(current_pose->x)<W)
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
-                turn_start_update = 0;
                 right_forward_boundary_status = FORWARDBOUNDARY_COMPLETE;
                 break;
             }
@@ -3080,16 +3147,16 @@ unsigned char ForwardBoundaryRightRunStep(POSE *current_pose,unsigned char obsta
             complete_flag = 1;
             maintain_bow_distance = current_pose->y;
             break;
-
     }
     return complete_flag;
 }
 
+
 unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+    
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation)*100;
+    Yaw = current_pose->orientation;
     switch(right_ready_leaking_sweep_status) 
     {
 
@@ -3312,9 +3379,9 @@ void RightReturnOriginWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////	
 void LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+    
     unsigned char leakingsweep = 0;    
-    Yaw = Rad2Deg(current_pose->orientation);
+    Yaw = current_pose->orientation;
 
     switch(left_running_step_status)
     {
@@ -3479,9 +3546,9 @@ void LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 
 unsigned char ForwardBoundaryLeftRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+   
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation);
+    Yaw = current_pose->orientation;
     switch(left_forward_boundary_status) 
     {
         case 0:
@@ -3602,9 +3669,9 @@ unsigned char ForwardBoundaryLeftRunStep(POSE *current_pose,unsigned char obstac
 
 unsigned char CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+    
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation);
+    Yaw =current_pose->orientation;
     switch(collision_right_leftrun_step_status)
     {
         case 0:
@@ -4309,9 +4376,8 @@ unsigned char CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstacl
 
 unsigned char CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation);
+    Yaw = current_pose->orientation;
     switch(collision_left_leftrun_step_status)
     {
         case 0:
@@ -4974,9 +5040,9 @@ unsigned char CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacle
 
 unsigned char CollisionFrontLeftRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+   
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation);
+    Yaw = current_pose->orientation;
     switch(collision_front_leftrun_step_status)
     {
         case 0:
@@ -5350,9 +5416,9 @@ unsigned char CollisionFrontLeftRunStep(POSE *current_pose,unsigned char obstacl
 
 unsigned char LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+    
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation);
+    Yaw = current_pose->orientation;
 
     switch(left_walk_edge_status)
     {
@@ -5685,9 +5751,9 @@ unsigned char LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
 
 unsigned char LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+    
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation);
+    Yaw = current_pose->orientation;
     switch(left_reverse_walk_edge_status)
     {
         case 0:
@@ -6018,9 +6084,9 @@ unsigned char LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSigna
 
 unsigned char LeftEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+    
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation);
+    Yaw = current_pose->orientation;
     
     switch(left_edge_dilemma_status)
     {
@@ -6337,9 +6403,9 @@ unsigned char LeftEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal)
 
 unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    double Yaw;
+   
     unsigned char complete_flag = 0;
-    Yaw = Rad2Deg(current_pose->orientation);
+    Yaw = current_pose->orientation;
     switch(left_ready_leaking_sweep_status) 
     {
         case 0:

@@ -188,7 +188,7 @@ static void vTaskPerception(void *pvParameters)
 	bsp_StartUpdateGridMap();
 
 	/*开清扫策略*/
-	bsp_StartUpdateCleanStrategyB();
+	//bsp_StartUpdateCleanStrategyB();
 
 	vTaskDelay(5000);
 	
@@ -219,9 +219,12 @@ static void vTaskPerception(void *pvParameters)
 		
 		/*更新地图*/
 #if 0
-		DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
-		DEBUG("End:%d\r\n",xTaskGetTickCount());
+		if(count % 100 == 0)
+		{
+			//DEBUG("Start:%d\r\n",xTaskGetTickCount());
+			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+			//DEBUG("End:%d\r\n",xTaskGetTickCount());
+		}
 #endif
 
 		if(count % 4 == 0)
@@ -230,7 +233,7 @@ static void vTaskPerception(void *pvParameters)
 			bsp_AssistJudgeDirection();
 		}
 		
-		if(count % 100 == 0)
+		if(count % 20 == 0)
 		{
 			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
@@ -364,6 +367,8 @@ static void bsp_KeySuspend(void)
 		bsp_StopSearchChargePile();
 		bsp_StopCliffTest();
 		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
+		
+		bsp_StopUpdateCleanStrategyB();
 	}
 }
 
@@ -516,7 +521,8 @@ static void bsp_KeyProc(void)
 					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
 					
 					//bsp_StartCliffTest();
-					
+					/*开清扫策略*/
+					bsp_StartUpdateCleanStrategyB();
 					
 					bsp_StartVacuum();
 					
@@ -533,6 +539,8 @@ static void bsp_KeyProc(void)
 				
 				/*复位上一次的按键状态*/
 				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
+				
+				
 				
 				/*关闭各种状态机*/
 				bsp_StopCliffTest();

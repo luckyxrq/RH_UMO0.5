@@ -472,7 +472,7 @@
 
 #define W 5000
 #define long_stra_vel 250
-#define turn_vel 60
+#define turn_vel 50
 //#define Deg2Rad(deg) (PI * deg / 180.0F)
 //#define Rad2Deg(rad) (180.0F * rad / PI)
 
@@ -492,10 +492,9 @@
 #define uint8_t unsigned char
 
 typedef struct POSE{
-    float x;
-    float y;
-    float orientation;}POSE;
-
+    int x;
+    int y;
+    int orientation;}POSE;
 
 typedef struct
 {
