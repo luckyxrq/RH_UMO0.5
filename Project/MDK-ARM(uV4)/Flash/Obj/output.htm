@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Dec 02 17:58:03 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Dec 03 09:36:01 2019
 <BR><P>
 <H3>Maximum Stack Usage =        408 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1259,14 +1259,13 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bsp_uart_fifo.o(i.UartVarInit)
 </UL>
-<P><STRONG><a name="[a4]"></a>RightEdgeDilemma</STRONG> (Thumb, 2348 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightEdgeDilemma))
+<P><STRONG><a name="[a4]"></a>RightEdgeDilemma</STRONG> (Thumb, 2328 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightEdgeDilemma))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Edge_length
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightWalkEdge
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightReverseWalkEdge
@@ -1287,7 +1286,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategy
 </UL>
 
-<P><STRONG><a name="[89]"></a>RightReverseWalkEdge</STRONG> (Thumb, 2476 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightReverseWalkEdge))
+<P><STRONG><a name="[89]"></a>RightReverseWalkEdge</STRONG> (Thumb, 2478 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightReverseWalkEdge))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = RightReverseWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1318,7 +1317,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategy
 </UL>
 
-<P><STRONG><a name="[88]"></a>RightWalkEdge</STRONG> (Thumb, 2476 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightWalkEdge))
+<P><STRONG><a name="[88]"></a>RightWalkEdge</STRONG> (Thumb, 2478 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightWalkEdge))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = RightWalkEdge &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1999,8 +1998,7 @@ Global Symbols
 <P><STRONG><a name="[9e]"></a>bsp_Edge_length</STRONG> (Thumb, 180 bytes, Stack size 16 bytes, bsp_gridmap.o(i.bsp_Edge_length))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_Edge_length
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightEdgeDilemma
-<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftWalkEdge
+<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftWalkEdge
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftReverseWalkEdge
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftEdgeDilemma
 </UL>
