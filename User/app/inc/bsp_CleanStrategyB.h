@@ -220,6 +220,7 @@
     #define GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA                             0x6B13                                                        
     #define CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA                                        0x6B14                                            
     #define CCLOCK_TARGET_YAW_MORE_ABS178_COLLISION_DILEMMA                              0x6B15
+	#define COMPLETE_DEILEMMA                 											 0x6B16
 
 //all define  right
 

@@ -75,7 +75,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 	{
 		if(*linear_velocity == long_stra_vel)
 		{
-			*linear_velocity = 0.5**linear_velocity;	
+			*linear_velocity = 0.7**linear_velocity;	
 		}
 	}
 
@@ -2083,7 +2083,7 @@ unsigned char RightEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal)
             if (my_abs(last_position_x - (current_pose->x + W)) > 1000)
             {
                 complete_flag = 1;
-                right_edge_dilemma_status = 0;
+                right_edge_dilemma_status = COMPLETE_DEILEMMA;
                 number = 0;
                 break;
             }
@@ -2093,12 +2093,17 @@ unsigned char RightEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal)
             if(number >4)
             {
                 complete_flag = 1;
-                right_edge_dilemma_status = 0;
+                right_edge_dilemma_status = COMPLETE_DEILEMMA;
                 number = 0;
                 break;
             }
             right_edge_dilemma_status = YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
             break;
+		case COMPLETE_DEILEMMA:
+			complete_flag = 1;
+			right_edge_dilemma_status = 0;
+			number = 0;
+			break;
         case YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA:
             if (my_abs(Yaw / 100) > 90 && my_abs(Yaw / 100) < 175)
             {
@@ -2128,7 +2133,7 @@ unsigned char RightEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal)
             }
             else
             {
-                linear_velocity = long_stra_vel;
+                linear_velocity = 200;
                 angular_velocity = 0;
             }
             right_edge_dilemma_status = GOSTR_DILEMMA;
