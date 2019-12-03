@@ -71,6 +71,7 @@ static void log_debug(char* str)
 static void sendvelocity(double* linear_velocity,double* angular_velocity)
 {
     short leftVelocity,rightVelocity;
+	
 	if(IRSensorData_StrategyB[1] == 1 || IRSensorData_StrategyB[3] == 1 || IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1)
 	{
 		if(*linear_velocity == long_stra_vel)
@@ -86,7 +87,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 			*linear_velocity = -150;
 		}
 	}
-	
+
 	if(*linear_velocity == long_stra_vel)
 	{
 		if(speed_pid_cnt <=100) speed_pid_cnt +=1;
@@ -2482,7 +2483,7 @@ unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
                 right_walk_edge_status = GOSTR_X_MORE_LATERALDIS_BYPASS_WE;
                 break;
             }
-            if (last_position_y - current_pose->y > temporary_close_edge++)
+            if (last_position_y - current_pose->y > temporary_close_edge)
             {
                 right_walk_edge_status = BOW_CONTINUE_WE;
                 break;
@@ -2816,7 +2817,7 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 right_reverse_walk_edge_status = GOSTR_X_MORE_LATERALDIS_BYPASS_RWE;
                 break;
             }
-            if (last_position_y - current_pose->y > temporary_close_edge++)
+            if (last_position_y - current_pose->y > temporary_close_edge)
             {
                 right_reverse_walk_edge_status = BOW_CONTINUE_RWE;
                 break;

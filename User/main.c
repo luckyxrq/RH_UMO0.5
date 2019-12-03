@@ -269,7 +269,7 @@ static void AppTaskCreate (void)
                  &xHandleTaskControl );         /* 任务句柄  */	
     xTaskCreate( vTaskPerception,     		    /* 任务函数  */
                  "vTaskPerception",   		    /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 1024*2,            		    /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  3,              		        /* 任务优先级*/
                  &xHandleTaskPerception );      /* 任务句柄  */	
