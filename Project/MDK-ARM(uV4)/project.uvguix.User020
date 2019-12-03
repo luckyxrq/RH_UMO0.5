@@ -3650,11 +3650,11 @@
       </Doc>
       <Doc>
         <Name>..\..\User\app\src\bsp_CleanStrategyB.c</Name>
-        <ColumnNumber>0</ColumnNumber>
-        <TopLine>82</TopLine>
-        <CurrentLine>2072</CurrentLine>
+        <ColumnNumber>16</ColumnNumber>
+        <TopLine>325</TopLine>
+        <CurrentLine>2968</CurrentLine>
         <Folding>1</Folding>
-        <ContractedFolders>71,111,169,191,221,275,447,1071,1695,2071,2387,2725,3055,3191,3406,3416,3583,3706,4413,5077,5453,5786,6119,6438,6653</ContractedFolders>
+        <ContractedFolders>71,111,169,191,221,275,447,1071,1695,2071,2387,3059,3195,3410,3420,3587,3710,4417,5081,5457,5790,6123,6442,6657</ContractedFolders>
         <PaneID>0</PaneID>
       </Doc>
     </MDIGroup>

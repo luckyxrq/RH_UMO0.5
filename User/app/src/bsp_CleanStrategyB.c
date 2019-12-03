@@ -2962,7 +2962,11 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 right_reverse_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_ABS45_DETAL_YAW_MORE_30_RWE;
                 break;
             }
-            right_reverse_walk_edge_status = GOSTR_BYPASS_RWE_X;
+			else
+			{
+				 right_reverse_walk_edge_status = GOSTR_BYPASS_RWE_X;
+				break;
+			}
             break;
         case TURN_CLOCK_TARGET_YAW_LESS_0_RWE                 :
             linear_velocity = 0;
