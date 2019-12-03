@@ -297,9 +297,9 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 			//DEBUG("____________________________________________________________________\r\n");
 			
 			
-			for ( grid_index_x = min_x; grid_index_x < max_x; grid_index_x++)
+			for ( grid_index_x = min_x; grid_index_x <= max_x; grid_index_x++)
 			{
-				for ( grid_index_y = min_y; grid_index_y < max_y; grid_index_y++)
+				for ( grid_index_y = min_y; grid_index_y <= max_y; grid_index_y++)
 				{
 					GridToXY( &grid_real_center_x,  &grid_real_center_y, &grid_index_x, &grid_index_y);
 //					grid_real_center_x = grid_index_x * GRIDWIDTH + GRIDWIDTH / 2 - ROBOTXOFFSET;
@@ -327,9 +327,9 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 			{
 				for ( grid_index_y = 0; grid_index_y < MAPHEIGHT/GRIDHEIGHT; grid_index_y++)
 				{
-					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) DEBUG(" -");
-					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occcupancy) DEBUG(" #");
-					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) DEBUG(" +");
+					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) DEBUG("-");
+					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occcupancy) DEBUG("#");
+					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) DEBUG("+");
 				}
 				DEBUG("\r\n");
 			}
