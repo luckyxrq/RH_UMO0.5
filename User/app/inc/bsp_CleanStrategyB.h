@@ -9,6 +9,11 @@
 #define LEFTRETURN_ORIGIN_WORK_SETP   0x04
 #define ALL_FINSHED_WORK_SETP         0x05
 
+#define RIGHTWALKEDGE                 0x0A
+#define RIGHTREVERSEWALKEDGE          0x0B
+#define RIGHTEDGEDILEMMA              0x0C
+
+
 #define GOSTR_RIGHTRUN_STEP                               0x1 //go straight  
 #define GOSTR_RIGHT_DEV_RIGHTRUN_STEP                     0x11 //go straight left deviation 
 #define GOSTR_LEFT_DEV_RIGHTRUN_STEP                      0x12 //go srtaight right deviation
@@ -504,9 +509,7 @@ typedef struct
 	uint8_t right_return_origin_complete;
 	uint8_t left_running_complete;
 	uint8_t left_return_origin_complete;
-	
 
-	/*״̬��*/
 	volatile unsigned char action ;
 	volatile bool isRunning ;
 	volatile unsigned int delay ;
@@ -519,8 +522,8 @@ uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
 
 
 
-void RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
-void RightReturnOriginWorkStep(POSE *current_pose,unsigned char obstacleSignal);
+unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
+unsigned char RightReturnOriginWorkStep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char ForwardBoundaryRightRunStep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char CollisionRightRightRunStep(POSE *current_pose,unsigned char obstacleSignal);
@@ -541,7 +544,6 @@ unsigned char CollisionFrontLeftRunStep(POSE *current_pose,unsigned char obstacl
 unsigned char LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char LeftEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal);
-
 
 #endif
 
