@@ -5,6 +5,7 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 6
+#define ONES_CLEAN_WORK_TIME 5*60*1000
 
 
 
@@ -55,6 +56,8 @@ int left_forward_boundary_status = 0;
 int left_ready_leaking_sweep_status = 0;
 
 int FunctionStatus=0;
+unsigned int LastCleanTimeStamp = 0;
+unsigned int CurrentCleanTimeStamp  = 0;
 
 
 static CleanStrategyB cleanstrategy;
@@ -118,7 +121,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 
 void bsp_StartUpdateCleanStrategyB(void)
 {
-	cleanstrategy.work_step_status =LEFTRUNNING_WORK_SETP;
+	cleanstrategy.work_step_status = RIGHTRUNNING_WORK_SETP;
 	cleanstrategy.right_running_complete  = 0;
 	cleanstrategy.right_return_origin_complete = 0;
 	cleanstrategy.left_running_complete = 0;
@@ -128,6 +131,14 @@ void bsp_StartUpdateCleanStrategyB(void)
 	cleanstrategy.delay = 0 ;
 	cleanstrategy.isRunning = true;
 	linear_velocity = 0,angular_velocity = 0;
+	
+	bsp_ResetCleanStrategyBStatus();
+
+}
+
+void bsp_ResetCleanStrategyBStatus(void)
+{
+	LastCleanTimeStamp = xTaskGetTickCount();
 //right running
 	right_running_step_status = 0;
 	collision_right_rightrun_step_status = 0;
@@ -138,7 +149,6 @@ void bsp_StartUpdateCleanStrategyB(void)
 	collision_right_leftrun_step_status = 0;
 	collision_left_leftrun_step_status = 0;
 	collision_front_leftrun_step_status = 0;
-	
 //for  collision step
 	distance_uptate  = 0;
 	turn_start_update = 0;
@@ -171,7 +181,7 @@ void bsp_StartUpdateCleanStrategyB(void)
 	left_edge_dilemma_status = 0;
 	left_forward_boundary_status = 0;
 	left_ready_leaking_sweep_status = 0;
-
+	
 }
 
 void bsp_StopUpdateCleanStrategyB(void)
@@ -225,12 +235,15 @@ void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
 {
+	CurrentCleanTimeStamp = xTaskGetTickCount();
+	
     switch (cleanstrategy.work_step_status)
     {
         case RIGHTRUNNING_WORK_SETP:
-			if(RightRunningWorkStep(current_pose,obstacleSignal))
+			if(RightRunningWorkStep(current_pose,obstacleSignal) || ((CurrentCleanTimeStamp - LastCleanTimeStamp) > ONES_CLEAN_WORK_TIME))
 			{
 				cleanstrategy.work_step_status  = RIGHTRETURN_ORIGIN_WORK_SETP;
+				bsp_ResetCleanStrategyBStatus();
 			}
 			else
 			{
@@ -238,9 +251,10 @@ uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
 			}
             break;	 
         case RIGHTRETURN_ORIGIN_WORK_SETP:
-			if(RightReturnOriginWorkStep(current_pose,obstacleSignal))
+			if(RightReturnOriginWorkStep(current_pose,obstacleSignal) || ((CurrentCleanTimeStamp - LastCleanTimeStamp) > ONES_CLEAN_WORK_TIME))
 			{
 				cleanstrategy.work_step_status  = LEFTRUNNING_WORK_SETP;
+				bsp_ResetCleanStrategyBStatus();
 			}
 			else
 			{
@@ -248,9 +262,10 @@ uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
 			}
             break;
         case LEFTRUNNING_WORK_SETP:
-			if(LeftRunningWorkStep(current_pose,obstacleSignal))
+			if(LeftRunningWorkStep(current_pose,obstacleSignal) || ((CurrentCleanTimeStamp - LastCleanTimeStamp) > ONES_CLEAN_WORK_TIME))
 			{
 				cleanstrategy.work_step_status  = LEFTRETURN_ORIGIN_WORK_SETP;
+				bsp_ResetCleanStrategyBStatus();
 			}
 			else
 			{
@@ -258,9 +273,10 @@ uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
 			}
             break;
         case LEFTRETURN_ORIGIN_WORK_SETP:
-			if(LeftReturnOriginWorkStep(current_pose,obstacleSignal))
+			if(LeftReturnOriginWorkStep(current_pose,obstacleSignal) || ((CurrentCleanTimeStamp - LastCleanTimeStamp) > ONES_CLEAN_WORK_TIME))
 			{
 				cleanstrategy.work_step_status  = ALL_FINSHED_WORK_SETP;
+				bsp_ResetCleanStrategyBStatus();
 			}
 			else
 			{
@@ -268,6 +284,8 @@ uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
 			}
             break;
         case ALL_FINSHED_WORK_SETP:
+			bsp_SperkerPlay(Song24);
+			cleanstrategy.work_step_status  = 0;
             return ALL_CLEAN_COMPLETE;//" clean complete"
         default:
             break;
@@ -445,6 +463,13 @@ unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSign
             FunctionStatus=0;
             break;
         }
+		if(3==FunctionStatus){
+            right_running_step_status =0;
+            right_walk_edge_status = 0;
+            FunctionStatus=0;
+			complete_flag = 1;
+            break;
+        }
         break;
     case RIGHTEDGEDILEMMA:
         log_debug("RIGHTEDGEDILEMMA!");
@@ -486,6 +511,13 @@ unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSign
             right_running_step_status =RIGHTEDGEDILEMMA;
             right_reverse_walk_edge_status = 0;
             FunctionStatus=0;
+            break;
+        }
+		if(3==FunctionStatus){
+            right_running_step_status =0;
+            right_reverse_walk_edge_status = 0;
+            FunctionStatus=0;
+			complete_flag = 1;
             break;
         }
         break;
@@ -2643,15 +2675,10 @@ unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             break;
         }
         break;
-
-
-
-
-
         //  *********************************************************************************************//
     case TARGET_YAW_LESS_ABS105_MORE_0_BYPASS_WE:
         //if (my_abs(current_pose->x + W - edge_length_start) > (gridmap.Edge_length() / 4))
-        if (my_abs(current_pose->x + W - edge_length_start) > 1000)
+        if (my_abs(current_pose->x + W - edge_length_start) > 2000)
         {
             right_walk_edge_status = RETURN_ORIGIN_WE;
             break;
@@ -2672,9 +2699,6 @@ unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             right_walk_edge_status = RIGHT_EDGE_DILEMMA_WE;
             break;
         }
-
-
-
 
         //   ***********************************************************************************************/////////////
         if (obstacleSignal == front_obstacle || obstacleSignal == left_obstacle || obstacleSignal == right_obstacle)
@@ -2999,7 +3023,7 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         break;
     case TARGET_YAW_MORE_ABS75_MORE_ABS0_RWE                            :
 
-        if (my_abs(current_pose->x + W - edge_length_start) >1000)//if (my_abs(current_pose->x + W - edge_length_start) > (gridmap.Edge_length() / 4))
+        if (my_abs(current_pose->x + W - edge_length_start) >2000)//if (my_abs(current_pose->x + W - edge_length_start) > (gridmap.Edge_length() / 4))
         {
             right_reverse_walk_edge_status = RETURN_ORIGIN_RWE;
             break;
@@ -3684,6 +3708,13 @@ unsigned char LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSigna
                 FunctionStatus=0;
                 break;
             }
+			if(3==FunctionStatus){
+				left_running_step_status =0;
+				left_reverse_walk_edge_status = 0;
+				FunctionStatus=0;
+				complete_flag = 1;
+				break;
+			}
             break;
         case LEFTEDGEDILEMMA:
             log_debug("LEFTEDGEDILEMMA");
@@ -3724,6 +3755,13 @@ unsigned char LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSigna
                 FunctionStatus=0;
                 break;
             }
+			if(3==FunctionStatus){
+				left_running_step_status =0;
+				left_walk_edge_status = 0;
+				FunctionStatus=0;
+				complete_flag = 1;
+				break;
+			}
             break;
         case COLLISION_FRONT_LEFTRUN_STEP:
             log_debug("collsion front left run step!");
@@ -5822,7 +5860,7 @@ unsigned char LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             }
             break;
         case LEFT_EDGE_TARGET_YAW_LESS_ABS105_LESS_0_BYPASS_WE:
-            if (my_abs(current_pose->x + W - edge_length_start) > 3000) // if (my_abs(current_pose->x + W - edge_length_start) > (gridmap.Edge_length() / 4))
+            if (my_abs(current_pose->x + W - edge_length_start) > 2000) // if (my_abs(current_pose->x + W - edge_length_start) > (gridmap.Edge_length() / 4))
             {
                 left_walk_edge_status = LEFT_EDGE_DELTA_X_MORE_ONE_FOURTH_CLEANED_MAP_WIDTH_WE;
                 break;
@@ -5973,7 +6011,7 @@ unsigned char LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         case LEFT_EDGE_RETURN_ORIGIN_WE:
             linear_velocity = 0;
             angular_velocity = 0;
-            complete_flag = 2;
+            complete_flag = 3;
             left_walk_edge_status = 0;
             break;
     }
@@ -6156,7 +6194,7 @@ unsigned char LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSigna
             }
             break;
         case LEFT_REVERSE_EDGE_TARGET_YAW_MORE_ABS75_LESS_ABS0_RWE:
-            if (my_abs(current_pose->x + W - edge_length_start) > 3000)//if (my_abs(current_pose->x + W - edge_length_start) > (gridmap.Edge_length() / 4))
+            if (my_abs(current_pose->x + W - edge_length_start) > 2000)//if (my_abs(current_pose->x + W - edge_length_start) > (gridmap.Edge_length() / 4))
             {
                 left_reverse_walk_edge_status = LEFT_REVERSE_EDGE_RETURN_ORIGIN_RWE;
                 break;
@@ -6306,7 +6344,7 @@ unsigned char LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSigna
         case LEFT_REVERSE_EDGE_RETURN_ORIGIN_RWE                                              :
             linear_velocity = 0;
             angular_velocity = 0;
-            complete_flag = 2;
+            complete_flag = 3;
             left_reverse_walk_edge_status = 0;
             break;
     }

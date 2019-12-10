@@ -517,6 +517,7 @@ typedef struct
 }CleanStrategyB;
 
 void bsp_StartUpdateCleanStrategyB(void);
+void bsp_ResetCleanStrategyBStatus(void);
 void bsp_StopUpdateCleanStrategyB(void);
 void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal, int wheel_pulse_l, int wheel_pulse_r, unsigned char IRSensorData[]);
 uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
