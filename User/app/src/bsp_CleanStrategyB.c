@@ -6109,7 +6109,7 @@ unsigned char LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSigna
                 left_reverse_walk_edge_status = LEFT_REVERSE_EDGE_GOSTR_X_MORE_LATERALDIS_BYPASS_RWE;
                 break;
             }
-            if (last_position_y - current_pose->y > temporary_close_edge)
+            if (current_pose->y - last_position_y > temporary_close_edge)
             {
                 left_reverse_walk_edge_status = LEFT_REVERSE_EDGE_BOW_CONTINUE_RWE;
                 break;
