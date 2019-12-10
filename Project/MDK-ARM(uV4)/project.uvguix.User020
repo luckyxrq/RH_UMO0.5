@@ -3597,8 +3597,8 @@
       <Doc>
         <Name>..\..\User\app\src\bsp_CleanStrategyB.c</Name>
         <ColumnNumber>0</ColumnNumber>
-        <TopLine>110</TopLine>
-        <CurrentLine>6635</CurrentLine>
+        <TopLine>1</TopLine>
+        <CurrentLine>1151</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders>78,119,177,199,226,285,528,1150,1771,2140,2462,2823,3163,3298,3515,3525,3765,3769,3901,4607,5282,5652,5983,6316,6634,6640</ContractedFolders>
         <PaneID>0</PaneID>

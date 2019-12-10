@@ -850,7 +850,7 @@ unsigned char CollisionRightRightRunStep(POSE *current_pose,unsigned char obstac
     case GOSTR_BYPASS_CR_DRYM:
         last_position_x = current_pose->x;
         cnt_update +=1;
-        linear_velocity = long_stra_vel;
+        linear_velocity = bypass_velocity;
         angular_velocity = 0;
         if(cnt_update > 4&&my_abs(last_position_xx - current_pose->x)<20&&my_abs(last_position_y - current_pose->y)<20)
         {
@@ -1262,7 +1262,7 @@ unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacl
     case  GOSTR_BYPASS_CL_DRYL:
         last_position_x = current_pose->x;
         cnt_update +=1;
-        linear_velocity = long_stra_vel;
+        linear_velocity = bypass_velocity;
         angular_velocity = 0;
         if(cnt_update > 4&&my_abs(last_position_xx - current_pose->x)<20&&my_abs(last_position_y - current_pose->y)<20)
         {
