@@ -118,7 +118,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 1
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
@@ -368,6 +368,8 @@ static void bsp_KeySuspend(void)
 		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
 		
 		bsp_StopUpdateCleanStrategyB();
+		bsp_MotorCleanSetPWM(MotorRollingBrush, CW , 0);
+		bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 	}
 }
 
@@ -522,8 +524,9 @@ static void bsp_KeyProc(void)
 					//bsp_StartCliffTest();
 					/*开清扫策略*/
 					bsp_StartUpdateCleanStrategyB();
-					
 					bsp_StartVacuum();
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.9F);
 					
 					vTaskDelay(200);	
 					while(bsp_SpeakerIsBusy()){}

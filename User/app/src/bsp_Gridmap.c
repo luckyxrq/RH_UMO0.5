@@ -26,11 +26,11 @@ static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,
 	{
 		case 0:
 			
-			if (obstacleSignal == NONE_OBSTACLE_SIGNAL) // Free
-			{
-				sensorTheta = 0;
-			}
-			else if (obstacleSignal == RIGHT_OBSTACLE_SIGNAL) // The barriers in right front
+			//if (obstacleSignal == NONE_OBSTACLE_SIGNAL) // Free
+			//{
+			//	sensorTheta = 0;
+			//}
+			if (obstacleSignal == RIGHT_OBSTACLE_SIGNAL) // The barriers in right front
 			{
 				sensorTheta = -gridmap.collision_sensor_installation_angle_on_robot; //-45;
 			}
@@ -38,32 +38,41 @@ static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,
 			{
 				sensorTheta = gridmap.collision_sensor_installation_angle_on_robot; //45;
 			}
-			else if (obstacleSignal == FRONT_OBSTACLE_SIGNAL) // The barriers in front
+			//else if (obstacleSignal == FRONT_OBSTACLE_SIGNAL) // The barriers in front
+			//{
+			//	sensorTheta = 0;
+			//}
+			else 
 			{
 				sensorTheta = 0;
 			}
-			if ((obstacleSignal == FRONT_OBSTACLE_SIGNAL) &&\
+			
+			if(r < gridmap.free_zone_from_robot_center)
+			{
+				return gridmap.grid_free;
+			}
+			else if ((obstacleSignal == FRONT_OBSTACLE_SIGNAL) &&\
 				(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
 				(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
 			{ 
-				return gridmap.grid_occcupancy; // Front
+				return gridmap.grid_occupancy; // Front
 			}
 			else if ((obstacleSignal == LEFT_OBSTACLE_SIGNAL) &&\
 				(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
 				(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
 			{ 
-				return gridmap.grid_occcupancy; // Left
+				return gridmap.grid_occupancy; // Left
 			}
 			else if ((obstacleSignal == RIGHT_OBSTACLE_SIGNAL) &&\
 				(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
 				(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
 			{
-				return gridmap.grid_occcupancy; // Right
+				return gridmap.grid_occupancy; // Right
 			}
-			else if ((obstacleSignal == NONE_OBSTACLE_SIGNAL) && (r < gridmap.free_zone_from_robot_center))
-			{
-				return gridmap.grid_free;
-			}
+			//else if ((obstacleSignal == NONE_OBSTACLE_SIGNAL) && (r < gridmap.free_zone_from_robot_center))
+			//{
+			//	return gridmap.grid_free;
+			//}
 			else
 			{
 				return gridmap.grid_default;
@@ -138,12 +147,12 @@ static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,
 				if ((r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
 					(fabs(phi - thetaK) <= gridmap.collision_sensor_installation_angle_on_robot))
 				{ //deg:10(Rad 0.17)
-					return gridmap.grid_occcupancy;
+					return gridmap.grid_occupancy;
 				}
 				else if (r < gridmap.obstacle_distance_from_robot_center)
 				{
 					return gridmap.grid_free;
-		}
+				}
 			}
 			else if (r < gridmap.free_zone_from_robot_center)
 			{
@@ -197,7 +206,8 @@ void bsp_StartUpdateGridMap(void)
 {
 	int grid_index_x,grid_index_y;
 	gridmap.grid_default = 125;
-	gridmap.grid_occcupancy = 0;
+	gridmap.grid_occupancy = 0;
+	gridmap.grid_half_occupancy = 1;
 	gridmap.grid_free = 250;
 	gridmap.obstacle_distance_from_robot_center=170;
 	gridmap.free_zone_from_robot_center=140;
@@ -292,7 +302,7 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 			max_x = grid_index_x + REFRESH_ZONE_SIZE;
 			max_y = grid_index_y + REFRESH_ZONE_SIZE;
 			
-			DEBUG("____________________________________________________________________\r\n");
+			DEBUG("______obstacleSignal____________%d________________________________\r\n",obstacleSignal);
 			//DEBUG("map_robot_x:%d, &map_robot_y:%d,&grid_index_x:%d, &grid_index_y:%d",map_robot_x,map_robot_y,grid_index_x, grid_index_y);
 			//DEBUG("____________________________________________________________________\r\n");
 			
@@ -315,6 +325,15 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 						{
 							gridmap.map[grid_index_x][grid_index_y] = gridmap.map[grid_index_x][grid_index_y];
 						}
+//						else if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy)
+//						{
+//							
+//							gridmap.map[grid_index_x][grid_index_y] = gridmap.grid_occupancy;
+//						}
+//						else if(grid_status == gridmap.grid_half_occupancy)
+//						{
+//							gridmap.map[grid_index_x][grid_index_y] = gridmap.grid_half_occupancy;
+//						}
 						else
 						{
 							gridmap.map[grid_index_x][grid_index_y] = grid_status;
@@ -328,7 +347,7 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 				for ( grid_index_y = 0; grid_index_y < MAPHEIGHT/GRIDHEIGHT; grid_index_y++)
 				{
 					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) DEBUG("-");
-					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occcupancy) DEBUG("#");
+					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy) DEBUG("#");
 					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) DEBUG("+");
 				}
 				DEBUG("\r\n");
@@ -841,6 +860,49 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,double robotTheta,unsigne
 
 
 
+//------------------------------------------------------------------------------------+++#-##--##-----
+//---------------------------------------------------------------------------#----+++++++++++#-+++----
+//---------------------------------------------------------------------------++--+++++++++++++++++----
+//--------------------------------------------------------------------------++++-+++#+++++++++++++----
+//--------------------------------------------------------------------------++++-+++#-++++++++++++----
+//--------------------------------------------------------------------------++++-+++##++++++++++++----
+//-------------------------------------------------------------------------++++++++++-++++++++++++----
+//-------------------------------------------------------------------------+++++++++++++++++++++++----
+//-------------------------------------------------------------------------+++++++++++++++++++++++----
+//-------------------------------------------------------------------------+++++++++++++++++++++++----
+//-------------------------------------------------------------------------+++++++++++++++++++++++----
+//-------------------------------------------------------------------------+++++++++++++++++++++++----
+//--------------------------------------------------------------##---------+++++++++++++++++++++++----
+//--------------------------------------------------##----#++--+++---------++++++++-+##+++++++++++----
+//--------------------------------------------------++#---+++-+++++--------+++++++#####+++++++++++----
+//-------------------------------------------------+++---++++-+++++--------+++-+++-----+++++++++++----
+//-------------------------------------------------++++--++++++++++--------++#####-----+++++++++++----
+//-------------------------------------------------++++--++++++++++--------++--#-------+++++++++++----
+//-------------------------------------------------++++--++++++++++--------++----------+++++++++++----
+//-----------------------------------------------++++++--++++++++++--------++-----------+++-++++++----
+//----------------------------------------------+++++++--++++++++++-------+++---------------++++++----
+//----------------------------------------------++++++++-++++++++++-------+++---------------++++++----
+//----------------------------------------------+++++++++++++++++++-------+++---------------++++++----
+//----------------------------------------------+++++++++++++++++++-------+++---------------++++++----
+//----------------------------------------------+++++++++++++++++++-------+++---------------++++++----
+//----------------------------------------------+++++++++++++++++++-------+++---------------+++++-----
+//----------------------------------------------+++++++++++++++++++-------+++---------------+++++-----
+//----------------------------------------------+++++++++++++++++++-------+++---------------+++++-----
+//----------------------------------------------+++++++++++++++++++-------+++---------------+++++-----
+//----------------------------------------------+++++++++++++++++++-------+++---------------+++++-----
+//----------------------------------------------+++++++++++++++++++------#+++---------------+++++-----
+//----------------------------------------------++++-++++++++++++++----##++++---------------+++++-----
+//----------------------------------------------++++-++++++++++++++---##+++++---------------+++++-----
+//----------------------------------------------++++--++++--+++-+++##-#++++++---------------++++#-----
+//----------------------------------------------++++--++++###+#-+++####++++++---------------++++##----
+//----------------------------------------------++++--++++-###--+++++#++++++----------------+++++#----
+//----------------------------------------------++++--++++-------+++++++++++--------------##+++++#----
+//----------------------------------------------++++--++++-----####+++++++++--------------##++++##----
+//-----------------------------------------------++#--++++----------++++++++---------------##++-#-----
+//-----------------------------------------------##---++++----------+++#####---------------##++#------
+//-----------------------------------------------------++-----------++++###-----------------####------
+//---------------------------------------------------####------------++##-----------------------------
+//------------------------------------------------------------------####------------------------------
 
 
 

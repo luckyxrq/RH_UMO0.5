@@ -164,11 +164,11 @@ void bsp_VacuumClean(void)
 	
 	++vacuum.tick;
 	
-	if(vacuum.tick <= 20)
+	if(vacuum.tick <= 35)
 	{
 		GPIO_SetBits(GPIOA,GPIO_Pin_0);
 	}
-	else if(vacuum.tick > 20 && vacuum.tick <=40)
+	else if(vacuum.tick > 35 && vacuum.tick <=40)
 	{
 		GPIO_ResetBits(GPIOA,GPIO_Pin_0);
 	}

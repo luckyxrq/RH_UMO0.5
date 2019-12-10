@@ -46,11 +46,13 @@
 typedef struct
 {
 	unsigned char grid_default;
-	unsigned char grid_occcupancy;
+	unsigned char grid_occupancy;
+	unsigned char grid_half_occupancy;
 	unsigned char grid_free;
 	short obstacle_distance_from_robot_center;
 	short free_zone_from_robot_center;
-	short collision_sensor_installation_angle_on_robot;
+	//short collision_sensor_installation_angle_on_robot;
+	double collision_sensor_installation_angle_on_robot;
 	short refresh_zone_max_radius;
 	short refresh_zone_min_radius;
 	short sensor_type;
