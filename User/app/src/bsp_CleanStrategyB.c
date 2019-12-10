@@ -6,11 +6,16 @@
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 6
 
+
+
+
 int right_running_step_status = 0;
 int collision_right_rightrun_step_status = 0;
 int collision_left_rightrun_step_status = 0;
 int collision_front_rightrun_step_status = 0;
 double linear_velocity = 0,angular_velocity = 0;
+int bypass_velocity = 150;
+	
 //for  collision step
 unsigned char distance_uptate  = 0;
 unsigned char turn_start_update = 0;
@@ -57,7 +62,6 @@ static POSE current_pose;
 static int Yaw;
 static short speed_pid_cnt = 0;
 static unsigned char* IRSensorData_StrategyB;
-
 
 static double my_abs(double x){
     if (x<0){
@@ -2799,13 +2803,13 @@ unsigned char RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         }
         break;
     case BOW_CONTINUE_WE:
-        linear_velocity = long_stra_vel;
+        linear_velocity = 0;
         angular_velocity = 0;
         complete_flag = 1;
         right_walk_edge_status = 0;
         break;
     case RETURN_ORIGIN_WE:
-        linear_velocity = long_stra_vel;
+        linear_velocity = 0;
         angular_velocity = 0;
         complete_flag = 3;
         right_walk_edge_status = 0;
@@ -2995,12 +2999,7 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         break;
     case TARGET_YAW_MORE_ABS75_MORE_ABS0_RWE                            :
 
-
-
-
-
-        //if (my_abs(current_pose->x + W - edge_length_start) > (gridmap.Edge_length() / 4))
-        if (my_abs(current_pose->x + W - edge_length_start) >1000)
+        if (my_abs(current_pose->x + W - edge_length_start) >1000)//if (my_abs(current_pose->x + W - edge_length_start) > (gridmap.Edge_length() / 4))
         {
             right_reverse_walk_edge_status = RETURN_ORIGIN_RWE;
             break;
@@ -3146,13 +3145,13 @@ unsigned char RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         }
         break;
     case BOW_CONTINUE_RWE                                               :
-        linear_velocity = long_stra_vel;
+        linear_velocity = 0;
         angular_velocity = 0;
         complete_flag = 1;
         right_reverse_walk_edge_status = 0;
         break;
     case RETURN_ORIGIN_RWE                                              :
-        linear_velocity = long_stra_vel;
+        linear_velocity = 0;
         angular_velocity = 0;
         complete_flag = 3;
         right_reverse_walk_edge_status = 0;
@@ -4220,7 +4219,7 @@ unsigned char CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstacl
         case GOSTR_BYPASS_LRUN_CR_DLYL:
             last_position_x = current_pose->x;
             cnt_update +=1;
-            linear_velocity = long_stra_vel;
+            linear_velocity = bypass_velocity;
             angular_velocity = 0;
             if(cnt_update > 4&&my_abs(last_position_xx - current_pose->x)<20&&my_abs(last_position_y - current_pose->y)<20)
             {
@@ -4718,7 +4717,7 @@ unsigned char CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacle
         case  GOSTR_BYPASS_LRUN_CL_DLYM:
             last_position_x = current_pose->x;
             cnt_update +=1;
-            linear_velocity = long_stra_vel;
+            linear_velocity = bypass_velocity;
             angular_velocity = 0;
             if(cnt_update > 4&&my_abs(last_position_xx - current_pose->x)<20&&my_abs(last_position_y - current_pose->y)<20)
             {
@@ -5966,13 +5965,13 @@ unsigned char LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             }
             break;
         case LEFT_EDGE_BOW_CONTINUE_WE:
-            linear_velocity = long_stra_vel;
+            linear_velocity = 0;
             angular_velocity = 0;
             complete_flag = 1;
             left_walk_edge_status = 0;
             break;
         case LEFT_EDGE_RETURN_ORIGIN_WE:
-            linear_velocity = long_stra_vel;
+            linear_velocity = 0;
             angular_velocity = 0;
             complete_flag = 2;
             left_walk_edge_status = 0;
@@ -6299,13 +6298,13 @@ unsigned char LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSigna
             }
             break;
         case LEFT_REVERSE_EDGE_BOW_CONTINUE_RWE                                               :
-            linear_velocity = long_stra_vel;
+            linear_velocity = 0;
             angular_velocity = 0;
             complete_flag = 1;
             left_reverse_walk_edge_status = 0;
             break;
         case LEFT_REVERSE_EDGE_RETURN_ORIGIN_RWE                                              :
-            linear_velocity = long_stra_vel;
+            linear_velocity = 0;
             angular_velocity = 0;
             complete_flag = 2;
             left_reverse_walk_edge_status = 0;
@@ -6375,7 +6374,7 @@ unsigned char LeftEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal)
             }
             else
             {
-                linear_velocity = long_stra_vel;
+                linear_velocity = 200; // leave dilemma speed
                 angular_velocity = 0;
             }
             left_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DILEMMA;
