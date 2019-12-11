@@ -25,7 +25,7 @@ void bsp_EnterStopMODE(void)
 	bsp_SetAllPinLowPower();
 	bsp_SwOff(SW_IR_POWER);
 	bsp_SwOff(SW_MOTOR_POWER);
-	bsp_SwOff(SW_ENCODER_POWER);
+	bsp_SwOff(SW_VSLAM_POWER);
 	bsp_SwOff(SW_5V_EN_CTRL);
 	
 	/*初始化外部中断引脚，专门用作唤醒MCU*/
@@ -157,7 +157,7 @@ static void bsp_SetAllPinLowPower(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	/* 推挽输出模式 */
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & ~(GPIO_PIN_MOTOR_POWER | GPIO_PIN_ENCODER_POWER);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & ~(GPIO_PIN_MOTOR_POWER | GPIO_PIN_VSLAM_POWER);
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;

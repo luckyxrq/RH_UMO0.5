@@ -60,7 +60,7 @@ void bsp_Init(void)
 	bsp_DelayMS(1000);
 	bsp_SwOn(SW_IR_POWER);
 	bsp_SwOn(SW_MOTOR_POWER);
-	bsp_SwOn(SW_ENCODER_POWER);
+	bsp_SwOn(SW_VSLAM_POWER);
 	
 	bsp_InitKey();           /* 初始化按键 */
 	bsp_InitHardTimer();     /* 初始化硬件定时器 */

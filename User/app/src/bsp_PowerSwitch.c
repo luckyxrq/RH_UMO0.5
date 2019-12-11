@@ -28,7 +28,7 @@ void bsp_InitSW(void)
 	bsp_SwOff(SW_5V_EN_CTRL);
 	bsp_SwOff(SW_IR_POWER);
 	bsp_SwOff(SW_MOTOR_POWER);
-	bsp_SwOff(SW_ENCODER_POWER);
+	bsp_SwOff(SW_VSLAM_POWER);
 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	
@@ -45,8 +45,8 @@ void bsp_InitSW(void)
 	GPIO_Init(GPIO_PORT_MOTOR_POWER, &GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
-	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_ENCODER_POWER;
-	GPIO_Init(GPIO_PORT_ENCODER_POWER, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_VSLAM_POWER;
+	GPIO_Init(GPIO_PORT_VSLAM_POWER, &GPIO_InitStructure);
 	
 }
 
@@ -79,9 +79,9 @@ void bsp_SwOn(SW_ID sw)
 			GPIO_SetBits(GPIO_PORT_MOTOR_POWER,GPIO_PIN_MOTOR_POWER);
 		}break;
 		
-		case SW_ENCODER_POWER:
+		case SW_VSLAM_POWER:
 		{
-			GPIO_ResetBits(GPIO_PORT_ENCODER_POWER,GPIO_PIN_ENCODER_POWER);
+			GPIO_ResetBits(GPIO_PORT_VSLAM_POWER,GPIO_PIN_VSLAM_POWER);
 		}break;
 		
 		default: break;
@@ -116,9 +116,9 @@ void bsp_SwOff(SW_ID sw)
 			GPIO_ResetBits(GPIO_PORT_MOTOR_POWER,GPIO_PIN_MOTOR_POWER);
 		}break;
 		
-		case SW_ENCODER_POWER:
+		case SW_VSLAM_POWER:
 		{
-			GPIO_SetBits(GPIO_PORT_ENCODER_POWER,GPIO_PIN_ENCODER_POWER);
+			GPIO_SetBits(GPIO_PORT_VSLAM_POWER,GPIO_PIN_VSLAM_POWER);
 		}break;
 		
 		default: break;
