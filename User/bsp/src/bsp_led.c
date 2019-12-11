@@ -55,7 +55,7 @@
 
 #else
 /* 按键口对应的RCC时钟 */
-#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOF | RCC_APB2Periph_GPIOG | RCC_APB2Periph_GPIOE)
+#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOF)
 
 #define GPIO_PORT_LED1  GPIOF
 #define GPIO_PIN_LED1	GPIO_Pin_3
@@ -66,14 +66,14 @@
 #define GPIO_PORT_LED3  GPIOF
 #define GPIO_PIN_LED3	GPIO_Pin_1
 
-#define GPIO_PORT_LED4  GPIOG
-#define GPIO_PIN_LED4	GPIO_Pin_7
+#define GPIO_PORT_LED4  GPIOB
+#define GPIO_PIN_LED4	GPIO_Pin_15
 
-#define GPIO_PORT_LED5  GPIOG
-#define GPIO_PIN_LED5	GPIO_Pin_3
+#define GPIO_PORT_LED5  GPIOF
+#define GPIO_PIN_LED5	GPIO_Pin_12
 
-#define GPIO_PORT_LED6  GPIOE
-#define GPIO_PIN_LED6	GPIO_Pin_1
+#define GPIO_PORT_LED6  GPIOF
+#define GPIO_PIN_LED6	GPIO_Pin_4
 
 #endif
 

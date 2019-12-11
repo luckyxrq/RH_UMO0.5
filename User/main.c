@@ -107,11 +107,18 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         bsp_KeyProc();
 		
 		
-        if(count++ % 2 == 0)
+        if(count++ % 10 == 0)
         {
 #if 0 
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
+			
+			bsp_LedToggle(LED_LOGO_CLEAN);
+			bsp_LedToggle(LED_LOGO_POWER);
+			bsp_LedToggle(LED_LOGO_CHARGE);
+			bsp_LedToggle(LED_COLOR_YELLOW);
+			bsp_LedToggle(LED_COLOR_GREEN);
+			bsp_LedToggle(LED_COLOR_RED);
         }
 		
 		/*更新地图*/

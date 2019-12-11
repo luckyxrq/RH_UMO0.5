@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Dec 11 16:44:47 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Dec 11 16:55:19 2019
 <BR><P>
 <H3>Maximum Stack Usage =        408 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2334,7 +2334,7 @@ Global Symbols
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
 </UL>
 
-<P><STRONG><a name="[146]"></a>bsp_InitLed</STRONG> (Thumb, 146 bytes, Stack size 8 bytes, bsp_led.o(i.bsp_InitLed))
+<P><STRONG><a name="[146]"></a>bsp_InitLed</STRONG> (Thumb, 148 bytes, Stack size 8 bytes, bsp_led.o(i.bsp_InitLed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_InitLed &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
@@ -2415,7 +2415,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[15b]"></a>bsp_LedOff</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOff))
+<P><STRONG><a name="[15b]"></a>bsp_LedOff</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOff))
 <BR><BR>[Called By]<UL><LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopRunToggleLED
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RunToggleLED
@@ -2426,7 +2426,7 @@ Global Symbols
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 </UL>
 
-<P><STRONG><a name="[185]"></a>bsp_LedOn</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOn))
+<P><STRONG><a name="[185]"></a>bsp_LedOn</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOn))
 <BR><BR>[Called By]<UL><LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopRunToggleLED
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RunToggleLED
@@ -2437,6 +2437,7 @@ Global Symbols
 
 <P><STRONG><a name="[19e]"></a>bsp_LedToggle</STRONG> (Thumb, 108 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedToggle))
 <BR><BR>[Called By]<UL><LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RunToggleLED
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 </UL>
 
 <P><STRONG><a name="[187]"></a>bsp_MotorCleanSetPWM</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, bsp_motor.o(i.bsp_MotorCleanSetPWM))
@@ -2575,9 +2576,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_RunToggleLED
 </UL>
 <BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
-<LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 </UL>
@@ -3393,11 +3394,12 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[49]"></a>vTaskDecision</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, main.o(i.vTaskDecision))
+<P><STRONG><a name="[49]"></a>vTaskDecision</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, main.o(i.vTaskDecision))
 <BR><BR>[Stack]<UL><LI>Max Depth = 408<LI>Call Chain = vTaskDecision &rArr; bsp_GridMapUpdate &rArr; inverseSensorModel &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
+<LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetIRSensorData
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
