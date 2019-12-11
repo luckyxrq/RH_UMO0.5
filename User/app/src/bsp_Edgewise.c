@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      6
+#define STRAIGHT_SPEED_FAST      12
 #define STRAIGHT_SPEED_SLOW      6
 
 #define TURN_RIGHT_SPEED_FAST_L  3
@@ -42,7 +42,7 @@ typedef struct
 	float angle;
 	Collision collision;
 	uint32_t possibleEnd;
-	
+	uint32_t ErlangGodStartTime ;
 }EdgewiseRun;
 
 static EdgewiseRun edgewiseRun;
@@ -72,6 +72,7 @@ void bsp_StartEdgewiseRun(void)
 	edgewiseRun.delay = 0 ;
 	edgewiseRun.collision = CollisionNone;
 	edgewiseRun.possibleEnd = 0 ;
+	edgewiseRun.ErlangGodStartTime = 0 ;
 	edgewiseRun.isRunning = true;
 	
 	/*消除编译器警告*/
@@ -103,6 +104,7 @@ void bsp_StopEdgewiseRun(void)
 	edgewiseRun.delay = 0 ;
 	edgewiseRun.collision = CollisionNone;
 	edgewiseRun.possibleEnd = 0 ;
+	edgewiseRun.ErlangGodStartTime = 0 ;
 
 }
 
@@ -125,7 +127,18 @@ void bsp_EdgewiseRun(void)
 	{
 		case 0:/*进入沿边模式，首先直走*/
 		{
-			bsp_EdgewiseRunStraightFast();
+			if(bsp_GetInfraRedAdcVoltage(IR7) >= 1.0F )
+			{
+				edgewiseRun.ErlangGodStartTime = xTaskGetTickCount() ;
+				bsp_EdgewiseRunStraightSlow();
+			}
+			else
+			{
+				if(xTaskGetTickCount() - edgewiseRun.ErlangGodStartTime >= 1000)
+				{
+					bsp_EdgewiseRunStraightFast();
+				}
+			}
 			if(bsp_CollisionScan() != CollisionNone)
 			{
 				edgewiseRun.action++;
@@ -197,6 +210,10 @@ void bsp_EdgewiseRun(void)
 
 		case 4: /*完全丢失，画大弧线，最大旋转角度*/
 		{
+			edgewiseRun.angle = bsp_AngleRead();
+			edgewiseRun.delay = xTaskGetTickCount();
+			
+			
 			bsp_PirouetteCW();
 			edgewiseRun.action++;
 		}break;
@@ -204,6 +221,15 @@ void bsp_EdgewiseRun(void)
 		case 5:
 		{
 			float vol = bsp_GetInfraredVoltageRight();
+			
+			
+			/*判断下旋转了太久了*/
+			if((xTaskGetTickCount() - edgewiseRun.delay)>= 3000 && 
+				myabs(bsp_AngleAdd(edgewiseRun.angle ,360) - (bsp_AngleRead())) <= 10.0F)
+			{
+				edgewiseRun.action = 0 ;
+			}
+			
 
 			if(bsp_CollisionScan()!=CollisionNone || (vol >= 1.2F && vol <=3.3F ))
 			{
