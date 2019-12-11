@@ -16,11 +16,30 @@ static Position position;
 */
 void bsp_StartUpdatePos(void)
 {
+	
+	
 	position.action = 0 ;
 	position.delay = 0 ;
 	position.isRunning = true;
 }
 
+void bsp_ResetPosArgument(void)
+{
+	
+	/*上一时刻位置信息*/
+	position.lastX = 0;
+	position.lastY = 0;
+	/*当前时刻位置信息*/
+	position.currentX = 0;
+	position.currentY = 0;
+	/*上一时刻和当前速度*/
+	position.lastSpeed = 0;
+	position.currentSpeed = 0;
+	/*上一时刻和当前时刻角度*/
+	position.lastOrientation = 0;
+	position.currentOrientation = 0;
+	
+}
 
 /*
 *********************************************************************************************************

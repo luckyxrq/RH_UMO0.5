@@ -3856,7 +3856,7 @@ unsigned char ForwardBoundaryLeftRunStep(POSE *current_pose,unsigned char obstac
 			break;
 		case LEFT_FORWARDBOUNDARY_CLOCK_TARGET_YAW_LESS_ABS3:
 			linear_velocity = 100;
-			angular_velocity = 57;
+			angular_velocity = -57;
 			if (my_abs(Yaw / 100) < 5)
 			{
 				left_forward_boundary_status = LEFT_FORWARDBOUNDARY_GOSTRAIGHT;

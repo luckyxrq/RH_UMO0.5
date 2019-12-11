@@ -34,6 +34,7 @@ typedef struct
 void bsp_StartUpdatePos(void);
 void bsp_StopUpdatePos(void);
 void bsp_PositionUpdate(void);
+void bsp_ResetPosArgument(void);
 int32_t bsp_GetCurrentPosX(void);
 int32_t bsp_GetCurrentPosY(void);
 double  bsp_GetCurrentOrientation(void);
