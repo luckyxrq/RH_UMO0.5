@@ -22,11 +22,14 @@ void bsp_EnterStopMODE(void)
 {
 	/*断掉部分外设电源*/
 	bsp_DISABLE_ALL_EXIT();
-	bsp_SetAllPinLowPower();
+	//bsp_SetAllPinLowPower();
 	bsp_SwOff(SW_IR_POWER);
 	bsp_SwOff(SW_MOTOR_POWER);
 	bsp_SwOff(SW_VSLAM_POWER);
+	bsp_SwOff(SW_WIFI_POWER);
 	bsp_SwOff(SW_5V_EN_CTRL);
+	bsp_SwOff(SW_3V3_EN_CTRL);
+	
 	
 	/*初始化外部中断引脚，专门用作唤醒MCU*/
 	bsp_InitKeyStopMODE();

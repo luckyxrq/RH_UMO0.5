@@ -29,6 +29,8 @@ void bsp_InitSW(void)
 	bsp_SwOff(SW_IR_POWER);
 	bsp_SwOff(SW_MOTOR_POWER);
 	bsp_SwOff(SW_VSLAM_POWER);
+	bsp_SwOff(SW_WIFI_POWER);
+	bsp_SwOff(SW_3V3_EN_CTRL);
 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	
@@ -47,6 +49,14 @@ void bsp_InitSW(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_VSLAM_POWER;
 	GPIO_Init(GPIO_PORT_VSLAM_POWER, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_WIFI_POWER;
+	GPIO_Init(GPIO_PORT_WIFI_POWER, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_3V3_EN_CTR;
+	GPIO_Init(GPIO_PORT_3V3_EN_CTR, &GPIO_InitStructure);
 	
 }
 
@@ -84,6 +94,16 @@ void bsp_SwOn(SW_ID sw)
 			GPIO_ResetBits(GPIO_PORT_VSLAM_POWER,GPIO_PIN_VSLAM_POWER);
 		}break;
 		
+		case SW_WIFI_POWER:
+		{
+			GPIO_SetBits(GPIO_PORT_WIFI_POWER,GPIO_PIN_WIFI_POWER);
+		}break;
+		
+		case SW_3V3_EN_CTRL:
+		{
+			GPIO_ResetBits(GPIO_PORT_3V3_EN_CTR,GPIO_PIN_3V3_EN_CTR);
+		}break;
+		
 		default: break;
 	}
 
@@ -119,6 +139,16 @@ void bsp_SwOff(SW_ID sw)
 		case SW_VSLAM_POWER:
 		{
 			GPIO_SetBits(GPIO_PORT_VSLAM_POWER,GPIO_PIN_VSLAM_POWER);
+		}break;
+		
+		case SW_WIFI_POWER:
+		{
+			GPIO_ResetBits(GPIO_PORT_WIFI_POWER,GPIO_PIN_WIFI_POWER);
+		}break;
+		
+		case SW_3V3_EN_CTRL:
+		{
+			GPIO_SetBits(GPIO_PORT_3V3_EN_CTR,GPIO_PIN_3V3_EN_CTR);
 		}break;
 		
 		default: break;
