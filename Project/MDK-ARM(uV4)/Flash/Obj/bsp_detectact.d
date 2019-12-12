@@ -83,3 +83,5 @@
 .\flash\obj\bsp_detectact.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\bsp_detectact.o: ..\..\User\app\inc\bsp_Gridmap.h
 .\flash\obj\bsp_detectact.o: ..\..\User\app\inc\bsp_CleanStrategyB.h
+.\flash\obj\bsp_detectact.o: ..\..\User\dx8\inc\DX8_API.h
+.\flash\obj\bsp_detectact.o: ..\..\User\dx8\inc\dx8_engineer.h

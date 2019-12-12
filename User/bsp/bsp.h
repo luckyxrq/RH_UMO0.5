@@ -206,7 +206,8 @@
 #include "bsp_CleanStrategy.h"
 #endif
 #include "bsp_CleanStrategyB.h"
-
+#include "DX8_API.h"
+#include "dx8_engineer.h"
 
 
 /* 提供给其他C文件调用的函数 */
