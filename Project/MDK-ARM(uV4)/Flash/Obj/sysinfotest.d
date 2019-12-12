@@ -85,3 +85,7 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_CleanStrategyB.h
 .\flash\obj\sysinfotest.o: ..\..\User\dx8\inc\DX8_API.h
 .\flash\obj\sysinfotest.o: ..\..\User\dx8\inc\dx8_engineer.h
+.\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\wifi.h
+.\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\protocol.h
+.\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\system.h
+.\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\mcu_api.h

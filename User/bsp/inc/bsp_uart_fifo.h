@@ -41,7 +41,7 @@
 #define	UART2_FIFO_EN	1  //调试
 #define	UART3_FIFO_EN	1  //陀螺仪
 #define	UART4_FIFO_EN	1  //BOT3
-#define	UART5_FIFO_EN	0
+#define	UART5_FIFO_EN	1  //WIFI模块
 
 /* RS485芯片发送使能GPIO, PB2 */
 #define RCC_RS485_TXEN 	 RCC_APB2Periph_GPIOB

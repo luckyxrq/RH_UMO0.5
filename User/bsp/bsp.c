@@ -163,7 +163,7 @@ void bsp_Init(void)
 	bsp_SperkerPlay(Song1);
 #endif
 	
-	
+	wifi_protocol_init();/* 初始化WIFI协议栈 */	
 	
 	{
 		char *dx8Version;

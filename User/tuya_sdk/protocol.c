@@ -195,8 +195,8 @@ void uart_transmit_output(unsigned char value)
 */
 	
 
-	USART_SendData(USART2, (uint8_t) value);
-	while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET)
+	USART_SendData(UART5, (uint8_t) value);
+	while (USART_GetFlagStatus(UART5, USART_FLAG_TC) == RESET)
 	{}
 }
 /******************************************************************************

@@ -208,7 +208,7 @@
 #include "bsp_CleanStrategyB.h"
 #include "DX8_API.h"
 #include "dx8_engineer.h"
-
+#include "wifi.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

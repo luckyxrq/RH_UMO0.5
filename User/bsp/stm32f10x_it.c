@@ -63,9 +63,9 @@ void HardFault_Handler(void)
 
   for (i = 0; i < sizeof(ERR_INFO); i++)
   {
-     USART1->DR = pError[i];
+     USART2->DR = pError[i];
      /* 等待发送结束 */
-     while ((USART1->SR & USART_FLAG_TC) == (uint16_t)RESET);
+     while ((USART2->SR & USART_FLAG_TC) == (uint16_t)RESET);
   }
 #endif	
   /* 当硬件失效异常发生时进入死循环 */
