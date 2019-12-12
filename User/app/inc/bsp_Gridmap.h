@@ -22,8 +22,8 @@
 
 #define REFRESH_ZONE_SIZE 4
 
-#define X_BIAS 250
-#define Y_BIAS 250
+#define X_BIAS 5000
+#define Y_BIAS 5000
 
 
 
@@ -71,8 +71,8 @@ unsigned char* bsp_GetIRSensorData(void);
 
 int bsp_Edge_length(void);
 
-int bsp_Right_ReturnExtreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal);
-int bsp_Left_ReturnExtreme_point(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal);
+int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
+int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
 int bsp_Leakingsweep(void);
 
 
