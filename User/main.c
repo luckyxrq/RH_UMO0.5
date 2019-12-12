@@ -119,6 +119,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_LedToggle(LED_COLOR_YELLOW);
 			bsp_LedToggle(LED_COLOR_GREEN);
 			bsp_LedToggle(LED_COLOR_RED);
+			
+			
+			DEBUG("角度:%.2F\r\n",bsp_AngleRead());
         }
 		
 		/*更新地图*/
