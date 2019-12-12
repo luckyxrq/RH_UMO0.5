@@ -128,7 +128,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 1
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+		//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
@@ -279,7 +279,7 @@ static void AppTaskCreate (void)
                  &xHandleTaskControl );         /* 任务句柄  */	
     xTaskCreate( vTaskPerception,     		    /* 任务函数  */
                  "vTaskPerception",   		    /* 任务名    */
-                 1024*2,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 1024,            		    /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  3,              		        /* 任务优先级*/
                  &xHandleTaskPerception );      /* 任务句柄  */	
