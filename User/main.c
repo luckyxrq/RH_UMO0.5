@@ -122,6 +122,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 			
 			//DEBUG("角度:%.2F\r\n",bsp_AngleRead());
+			
+			bsp_WifiStateProc();
         }
 		
 		/*更新地图*/
@@ -209,11 +211,11 @@ static void vTaskPerception(void *pvParameters)
 	/*开清扫策略*/
 	//bsp_StartUpdateCleanStrategyB();
 
-	vTaskDelay(5000);
+	//vTaskDelay(5000);
 	
     while(1)
     {
-#if 1
+#if 0
         bsp_DetectAct();  /*红外对管轮询扫描*/
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
 #endif
@@ -457,16 +459,19 @@ static void bsp_KeyProc(void)
 		{
 			case KEY_1_DOWN:
 			{
+				DEBUG("按键 1\r\n");
 				bsp_KeySuspend();
 			}break;
 				
 			case KEY_2_DOWN:
 			{
+				DEBUG("按键 2\r\n");
 				bsp_KeySuspend();
 			}break;
 				
 			case KEY_3_DOWN:	
 			{
+				DEBUG("按键 3\r\n");
 				bsp_KeySuspend();
 			}break;
 			
