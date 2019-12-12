@@ -80,7 +80,7 @@ void bsp_Init(void)
 	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
 #endif
 
-#if 1
+#if 0
 	/* 初始化IO拓展芯片 */	
 	do{
 		ret = bsp_InitAW9523B();		

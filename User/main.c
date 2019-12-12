@@ -160,8 +160,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		
 		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
         bsp_ComAnalysis();
-		bsp_PowerOnToggle();/* 开机状态灯 */ 
-		bsp_RunToggleLED();
+//		bsp_PowerOnToggle();/* 开机状态灯 */ 
+//		bsp_RunToggleLED();
 		
         vTaskDelay(10);
     }
@@ -201,7 +201,7 @@ static void vTaskPerception(void *pvParameters)
 	bsp_StartAssistJudgeDirection();
 	
 	/*开启栅格地图跟新*/
-	bsp_StartUpdateGridMap();
+	//bsp_StartUpdateGridMap();
 
 	/*开清扫策略*/
 	//bsp_StartUpdateCleanStrategyB();
@@ -226,7 +226,7 @@ static void vTaskPerception(void *pvParameters)
 		/*检测主机悬空*/
 		bsp_OffSiteProc();
         /*寻找充电桩*/
-		bsp_SearchChargePile();
+		//bsp_SearchChargePile();
 		/*沿边行走*/
 		bsp_EdgewiseRun();
         /*更新坐标*/
@@ -241,7 +241,7 @@ static void vTaskPerception(void *pvParameters)
 		
 		if(count % 20 == 0)
 		{
-			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
+			//bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 
