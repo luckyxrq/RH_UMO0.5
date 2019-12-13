@@ -437,13 +437,16 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 				}
 			}
 			
+			//gridmap.map[(map_robot_x  + GRIDWIDTH / 2) / GRIDWIDTH][(map_robot_y  + GRIDWIDTH / 2) / GRIDWIDTH] = 6;
+			
 			for ( grid_index_x = 0; grid_index_x < MAPWIDTH/GRIDWIDTH; grid_index_x++)
 			{
 				for ( grid_index_y = 0; grid_index_y < MAPHEIGHT/GRIDHEIGHT; grid_index_y++)
 				{
-					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) DEBUG("-");
-					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy) DEBUG("#");
-					if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) DEBUG("+");
+						if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) DEBUG("-");
+						if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy) DEBUG("¡ö");
+						if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) DEBUG("¡õ");
+						//if(gridmap.map[grid_index_x][grid_index_y] == 6) DEBUG("¡ø");
 				}
 				DEBUG("\r\n");
 			}

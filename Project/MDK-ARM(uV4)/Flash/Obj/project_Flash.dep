@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5DF1E8A7)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5DF30B5D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5D89D90C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x599ECD2A)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
@@ -8,7 +8,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -21,7 +21,7 @@ I (..\..\FreeRTOS\include\croutine.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\semphr.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\event_groups.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\timers.h)(0x5D89D909)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x5D89D909)
 I (..\..\Libraries\CMSIS\Include\core_cm3.h)(0x5D89D90A)
 I (..\..\Libraries\CMSIS\Include\core_cmInstr.h)(0x5D89D90A)
@@ -56,7 +56,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -64,9 +64,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -89,15 +89,15 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\includes.h)(0x5D89D90C)()
 F (..\..\User\SysInfoTest.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\sysinfotest.o --omf_browse .\flash\obj\sysinfotest.crf --depend .\flash\obj\sysinfotest.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -141,7 +141,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -149,9 +149,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -174,17 +174,17 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
-F (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)()
+F (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)()
 F (..\..\User\main.h)(0x5DE4B655)()
 F (..\..\User\app\src\paste.c)(0x5DE4B655)()
-F (..\..\User\app\src\bsp_PowerSwitch.c)(0x5DF1AFAA)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_powerswitch.o --omf_browse .\flash\obj\bsp_powerswitch.crf --depend .\flash\obj\bsp_powerswitch.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+F (..\..\User\app\src\bsp_PowerSwitch.c)(0x5DF30B5D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_powerswitch.o --omf_browse .\flash\obj\bsp_powerswitch.crf --depend .\flash\obj\bsp_powerswitch.d)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -228,7 +228,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -236,9 +236,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -261,14 +261,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_Collision.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_collision.o --omf_browse .\flash\obj\bsp_collision.crf --depend .\flash\obj\bsp_collision.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -312,7 +312,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -320,9 +320,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -345,14 +345,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
-F (..\..\User\app\src\bsp_Angle.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_angle.o --omf_browse .\flash\obj\bsp_angle.crf --depend .\flash\obj\bsp_angle.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+F (..\..\User\app\src\bsp_Angle.c)(0x5DF30B5D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_angle.o --omf_browse .\flash\obj\bsp_angle.crf --depend .\flash\obj\bsp_angle.d)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -396,7 +396,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -404,9 +404,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -429,14 +429,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_Action.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_action.o --omf_browse .\flash\obj\bsp_action.crf --depend .\flash\obj\bsp_action.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -480,7 +480,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -488,9 +488,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -513,14 +513,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_aw9523b.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_aw9523b.o --omf_browse .\flash\obj\bsp_aw9523b.crf --depend .\flash\obj\bsp_aw9523b.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -564,7 +564,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -572,9 +572,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -597,14 +597,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_DetectAct.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -648,7 +648,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -656,9 +656,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -681,14 +681,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_PulseMark.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_pulsemark.o --omf_browse .\flash\obj\bsp_pulsemark.crf --depend .\flash\obj\bsp_pulsemark.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -732,7 +732,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -740,9 +740,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -765,14 +765,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_IWDG.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_iwdg.o --omf_browse .\flash\obj\bsp_iwdg.crf --depend .\flash\obj\bsp_iwdg.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -816,7 +816,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -824,9 +824,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -849,14 +849,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_Edgewise.c)(0x5DF04B06)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -900,7 +900,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -908,9 +908,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -933,14 +933,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_communication.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_communication.o --omf_browse .\flash\obj\bsp_communication.crf --depend .\flash\obj\bsp_communication.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -984,7 +984,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -992,9 +992,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1017,14 +1017,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_Encoder.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_encoder.o --omf_browse .\flash\obj\bsp_encoder.crf --depend .\flash\obj\bsp_encoder.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1068,7 +1068,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1076,9 +1076,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1101,14 +1101,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_motor.c)(0x5DE779B0)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1152,7 +1152,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1160,9 +1160,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1185,14 +1185,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_Control.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_control.o --omf_browse .\flash\obj\bsp_control.crf --depend .\flash\obj\bsp_control.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1236,7 +1236,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1244,9 +1244,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1269,14 +1269,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_Scope.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_scope.o --omf_browse .\flash\obj\bsp_scope.crf --depend .\flash\obj\bsp_scope.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1320,7 +1320,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1328,9 +1328,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1353,14 +1353,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_Position.c)(0x5DF051A3)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_position.o --omf_browse .\flash\obj\bsp_position.crf --depend .\flash\obj\bsp_position.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1404,7 +1404,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1412,9 +1412,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1437,15 +1437,15 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
 F (..\..\User\app\src\bsp_param.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_param.o --omf_browse .\flash\obj\bsp_param.crf --depend .\flash\obj\bsp_param.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1489,7 +1489,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1497,9 +1497,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1522,14 +1522,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_stflash.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_stflash.o --omf_browse .\flash\obj\bsp_stflash.crf --depend .\flash\obj\bsp_stflash.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1573,7 +1573,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1581,9 +1581,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1606,14 +1606,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_OffSiteSW.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_offsitesw.o --omf_browse .\flash\obj\bsp_offsitesw.crf --depend .\flash\obj\bsp_offsitesw.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1657,7 +1657,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1665,9 +1665,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1690,14 +1690,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_CurrentFeedback.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_currentfeedback.o --omf_browse .\flash\obj\bsp_currentfeedback.crf --depend .\flash\obj\bsp_currentfeedback.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1741,7 +1741,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1749,9 +1749,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1774,14 +1774,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_CliffSW.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cliffsw.o --omf_browse .\flash\obj\bsp_cliffsw.crf --depend .\flash\obj\bsp_cliffsw.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1825,7 +1825,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1833,9 +1833,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1858,14 +1858,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_DustBox.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dustbox.o --omf_browse .\flash\obj\bsp_dustbox.crf --depend .\flash\obj\bsp_dustbox.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1909,7 +1909,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -1917,9 +1917,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -1942,14 +1942,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_speaker.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_speaker.o --omf_browse .\flash\obj\bsp_speaker.crf --depend .\flash\obj\bsp_speaker.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -1993,7 +1993,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2001,9 +2001,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2026,14 +2026,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_RunControl.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_runcontrol.o --omf_browse .\flash\obj\bsp_runcontrol.crf --depend .\flash\obj\bsp_runcontrol.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2077,7 +2077,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2085,9 +2085,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2110,14 +2110,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_SearchChargePile.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_searchchargepile.o --omf_browse .\flash\obj\bsp_searchchargepile.crf --depend .\flash\obj\bsp_searchchargepile.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2161,7 +2161,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2169,9 +2169,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2194,14 +2194,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\app\src\bsp_assistJudgeDirection.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_assistjudgedirection.o --omf_browse .\flash\obj\bsp_assistjudgedirection.crf --depend .\flash\obj\bsp_assistjudgedirection.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2245,7 +2245,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2253,9 +2253,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2278,14 +2278,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
-F (..\..\User\app\src\bsp_StopMode.c)(0x5DF1AFAA)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_stopmode.o --omf_browse .\flash\obj\bsp_stopmode.crf --depend .\flash\obj\bsp_stopmode.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+F (..\..\User\app\src\bsp_StopMode.c)(0x5DF30B5D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_stopmode.o --omf_browse .\flash\obj\bsp_stopmode.crf --depend .\flash\obj\bsp_stopmode.d)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2329,7 +2329,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2337,9 +2337,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2362,14 +2362,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
-F (..\..\User\app\src\bsp_Gridmap.c)(0x5DF30321)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_gridmap.o --omf_browse .\flash\obj\bsp_gridmap.crf --depend .\flash\obj\bsp_gridmap.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+F (..\..\User\app\src\bsp_Gridmap.c)(0x5DF32791)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_gridmap.o --omf_browse .\flash\obj\bsp_gridmap.crf --depend .\flash\obj\bsp_gridmap.d)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2413,7 +2413,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2421,9 +2421,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2446,16 +2446,16 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
 F (..\..\User\app\src\bsp_CleanStrategy.c)(0x5DE5B909)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategy.o --omf_browse .\flash\obj\bsp_cleanstrategy.crf --depend .\flash\obj\bsp_cleanstrategy.d)
-F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5DF308CB)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5DF328A5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2499,7 +2499,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2507,9 +2507,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2532,15 +2532,15 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
-F (..\..\User\bsp\bsp.c)(0x5DF1AFAA)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+F (..\..\User\bsp\bsp.c)(0x5DF30B5D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2584,7 +2584,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2592,9 +2592,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2617,15 +2617,15 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
-F (..\..\User\bsp\bsp.h)(0x5DE5D94C)()
+F (..\..\User\bsp\bsp.h)(0x5DF30B5D)()
 F (..\..\User\bsp\src\bsp_dwt.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dwt.o --omf_browse .\flash\obj\bsp_dwt.crf --depend .\flash\obj\bsp_dwt.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2669,7 +2669,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2677,9 +2677,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2702,14 +2702,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
-F (..\..\User\bsp\src\bsp_uart_fifo.c)(0x5DE4C56B)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uart_fifo.o --omf_browse .\flash\obj\bsp_uart_fifo.crf --depend .\flash\obj\bsp_uart_fifo.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+F (..\..\User\bsp\src\bsp_uart_fifo.c)(0x5DF30B5D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uart_fifo.o --omf_browse .\flash\obj\bsp_uart_fifo.crf --depend .\flash\obj\bsp_uart_fifo.d)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2753,7 +2753,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2761,9 +2761,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2786,9 +2786,9 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
-F (..\..\User\bsp\stm32f10x_it.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_it.o --omf_browse .\flash\obj\stm32f10x_it.crf --depend .\flash\obj\stm32f10x_it.d)
+F (..\..\User\bsp\stm32f10x_it.c)(0x5DF30B5D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_it.o --omf_browse .\flash\obj\stm32f10x_it.crf --depend .\flash\obj\stm32f10x_it.d)
 I (..\..\User\bsp\stm32f10x_it.h)(0x5D89D90C)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x5D89D909)
 I (..\..\Libraries\CMSIS\Include\core_cm3.h)(0x5D89D90A)
@@ -2821,11 +2821,11 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x5D89D90A)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x5D89D90A)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5D89D90A)
 F (..\..\User\bsp\src\bsp_tim_pwm.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_tim_pwm.o --omf_browse .\flash\obj\bsp_tim_pwm.crf --depend .\flash\obj\bsp_tim_pwm.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2869,7 +2869,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2877,9 +2877,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -2902,7 +2902,7 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\bsp\stm32f10x_assert.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_assert.o --omf_browse .\flash\obj\stm32f10x_assert.crf --depend .\flash\obj\stm32f10x_assert.d)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x5D89D909)
@@ -2937,11 +2937,11 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x5D89D90A)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5D89D90A)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
 F (..\..\User\bsp\src\bsp_key.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_key.o --omf_browse .\flash\obj\bsp_key.crf --depend .\flash\obj\bsp_key.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -2985,7 +2985,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -2993,9 +2993,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -3018,14 +3018,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
-F (..\..\User\bsp\src\bsp_led.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_led.o --omf_browse .\flash\obj\bsp_led.crf --depend .\flash\obj\bsp_led.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+F (..\..\User\bsp\src\bsp_led.c)(0x5DF30B5D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_led.o --omf_browse .\flash\obj\bsp_led.crf --depend .\flash\obj\bsp_led.d)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3069,7 +3069,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -3077,9 +3077,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -3102,14 +3102,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\bsp\src\bsp_timer.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_timer.o --omf_browse .\flash\obj\bsp_timer.crf --depend .\flash\obj\bsp_timer.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3153,7 +3153,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -3161,9 +3161,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -3186,14 +3186,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\bsp\src\bsp_i2c_gpio.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_i2c_gpio.o --omf_browse .\flash\obj\bsp_i2c_gpio.crf --depend .\flash\obj\bsp_i2c_gpio.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3237,7 +3237,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -3245,9 +3245,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -3270,14 +3270,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\bsp\src\bsp_user_lib.c)(0x5D89D90C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_user_lib.o --omf_browse .\flash\obj\bsp_user_lib.crf --depend .\flash\obj\bsp_user_lib.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3321,7 +3321,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -3329,9 +3329,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -3354,14 +3354,14 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\User\bsp\src\bsp_ir_decode.c)(0x5DE4B655)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_ir_decode.o --omf_browse .\flash\obj\bsp_ir_decode.crf --depend .\flash\obj\bsp_ir_decode.d)
-I (..\..\User\bsp\bsp.h)(0x5DE5D94C)
+I (..\..\User\bsp\bsp.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3405,7 +3405,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\..\User\main.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5DE4B655)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DE897DF)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5DF30B5D)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_dwt.h)(0x5D89D90C)
@@ -3413,9 +3413,9 @@ I (..\..\User\bsp\inc\bsp_tim_pwm.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_i2c_gpio.h)(0x5D89D90C)
 I (..\..\User\bsp\inc\bsp_ir_decode.h)(0x5DE4B655)
 I (..\..\User\bsp\inc\bsp_user_lib.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF1AFAA)
+I (..\..\User\app\inc\bsp_PowerSwitch.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Collision.h)(0x5D89D90C)
-I (..\..\User\app\inc\bsp_Angle.h)(0x5DE4B655)
+I (..\..\User\app\inc\bsp_Angle.h)(0x5DF30B5D)
 I (..\..\User\app\inc\bsp_Action.h)(0x5D89D90C)
 I (..\..\User\app\inc\bsp_aw9523b.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5D89D90C)
@@ -3438,7 +3438,7 @@ I (..\..\User\app\inc\bsp_speaker.h)(0x5DEF528F)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5DE4B655)
-I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30139)
+I (..\..\User\app\inc\bsp_Gridmap.h)(0x5DF30BE3)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5DEF4C0D)
 F (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Source\Templates\arm\startup_stm32f10x_hd.s)(0x5D89D90A)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 525" --pd "STM32F10X_HD SETA 1"--list .\flash\list\startup_stm32f10x_hd.lst --xref -o .\flash\obj\startup_stm32f10x_hd.o --depend .\flash\obj\startup_stm32f10x_hd.d)
 F (..\..\Libraries\STM32F10x_StdPeriph_Driver\src\misc.c)(0x5D89D90A)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc --diag_suppress=870-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\misc.o --omf_browse .\flash\obj\misc.crf --depend .\flash\obj\misc.d)
@@ -3817,7 +3817,7 @@ F (..\..\FreeRTOS\croutine.c)(0x5D89D909)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3831,7 +3831,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599ECD2C)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3846,7 +3846,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599ECD2C)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3859,7 +3859,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x599ECD2C)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3874,7 +3874,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x599ECD2C)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3890,7 +3890,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599ECD2C)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3904,7 +3904,7 @@ F (..\..\FreeRTOS\portable\RVDS\ARM_CM3\port.c)(0x5D89D909)(-c --cpu Cortex-M3 -
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
@@ -3917,7 +3917,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599ECD2C)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CFE0EAC)
-I (..\..\User\FreeRTOSConfig.h)(0x5DEF500E)
+I (..\..\User\FreeRTOSConfig.h)(0x5DF30B5D)
 I (..\..\FreeRTOS\include\projdefs.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\portable.h)(0x5D89D909)
 I (..\..\FreeRTOS\include\deprecated_definitions.h)(0x5D89D909)
