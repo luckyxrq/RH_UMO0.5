@@ -1,16 +1,16 @@
 #include "bsp.h"
 
 /* 扬声器 ,原理图的RST和DI引脚是反的*/
-#define RCC_ALL_SPEAKER 	(RCC_APB2Periph_GPIOD)
+#define RCC_ALL_SPEAKER 	(RCC_APB2Periph_GPIOA)
 
-#define GPIO_PORT_SPEAKER_DI      GPIOD
-#define GPIO_PIN_SPEAKER_DI	      GPIO_Pin_1
+#define GPIO_PORT_SPEAKER_DI      GPIOA
+#define GPIO_PIN_SPEAKER_DI	      GPIO_Pin_10
                                   
-#define GPIO_PORT_SPEAKER_RST     GPIOD
-#define GPIO_PIN_SPEAKER_RST	  GPIO_Pin_2
+#define GPIO_PORT_SPEAKER_RST     GPIOA
+#define GPIO_PIN_SPEAKER_RST	  GPIO_Pin_9
 
-#define GPIO_PORT_SPEAKER_BUSY    GPIOD
-#define GPIO_PIN_SPEAKER_BUSY	  GPIO_Pin_0
+#define GPIO_PORT_SPEAKER_BUSY    GPIOA
+#define GPIO_PIN_SPEAKER_BUSY	  GPIO_Pin_8
 
 
 
