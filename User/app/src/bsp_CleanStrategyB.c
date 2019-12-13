@@ -368,7 +368,9 @@ unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSign
             //leakingsweep = gridmap.ReturnExtreme_point(Yaw / 100, obstacleSignal);
 			//leakingsweep = bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
 			if(my_abs(leakingsweep_x-current_pose->x)>leakingsweep_X_interval&&my_abs(leakingsweep_y-current_pose->y)>leakingsweep_Y_interval){
-                leakingsweep_x=current_pose->x;
+                
+				//sendvelocity(&linear_velocity,&angular_velocity);
+				leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
                 leakingsweep =bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
             }
@@ -393,7 +395,9 @@ unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSign
             //leakingsweep = gridmap.ReturnExtreme_point(Yaw / 100, obstacleSignal);
             //leakingsweep = bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
 			if(my_abs(leakingsweep_x-current_pose->x)>leakingsweep_X_interval&&my_abs(leakingsweep_y-current_pose->y)>leakingsweep_Y_interval){
-                leakingsweep_x=current_pose->x;
+                
+				//sendvelocity(&linear_velocity,&angular_velocity);
+				leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
                 leakingsweep =bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
             }
@@ -418,7 +422,9 @@ unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSign
             //leakingsweep = gridmap.ReturnExtreme_point(Yaw / 100, obstacleSignal);
             //leakingsweep = bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
 			if(my_abs(leakingsweep_x-current_pose->x)>leakingsweep_X_interval&&my_abs(leakingsweep_y-current_pose->y)>leakingsweep_Y_interval){
-                leakingsweep_x=current_pose->x;
+                
+				//sendvelocity(&linear_velocity,&angular_velocity);
+				leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
                 leakingsweep =bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
             }
@@ -3630,6 +3636,8 @@ unsigned char LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSigna
                 //leakingsweep = gridmap.Left_Return_Extreme_point(Yaw / 100, obstacleSignal);
 				//leakingsweep = bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
 				if(my_abs(leakingsweep_x-current_pose->x)>leakingsweep_X_interval&&my_abs(leakingsweep_y-current_pose->y)>leakingsweep_Y_interval){
+					
+					//sendvelocity(&linear_velocity,&angular_velocity);
 					leakingsweep_x=current_pose->x;
 					leakingsweep_y=current_pose->y;
 					leakingsweep =bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
@@ -3655,6 +3663,8 @@ unsigned char LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSigna
                 //leakingsweep = gridmap.Left_Return_Extreme_point(Yaw / 100, obstacleSignal);
                 //leakingsweep = bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
 				if(my_abs(leakingsweep_x-current_pose->x)>leakingsweep_X_interval&&my_abs(leakingsweep_y-current_pose->y)>leakingsweep_Y_interval){
+					
+					//sendvelocity(&linear_velocity,&angular_velocity);
 					leakingsweep_x=current_pose->x;
 					leakingsweep_y=current_pose->y;
 					leakingsweep =bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
@@ -3680,6 +3690,8 @@ unsigned char LeftRunningWorkStep(POSE *current_pose,unsigned char obstacleSigna
                 //leakingsweep = gridmap.Left_Return_Extreme_point(Yaw / 100, obstacleSignal);
                 //leakingsweep = bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
 				if(my_abs(leakingsweep_x-current_pose->x)>leakingsweep_X_interval&&my_abs(leakingsweep_y-current_pose->y)>leakingsweep_Y_interval){
+					
+					//sendvelocity(&linear_velocity,&angular_velocity);
 					leakingsweep_x=current_pose->x;
 					leakingsweep_y=current_pose->y;
 					leakingsweep =bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,current_pose->orientation,obstacleSignal);
