@@ -123,7 +123,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 			//DEBUG("角度:%.2F\r\n",bsp_AngleRead());
 			
-			bsp_WifiStateProc();
+			//bsp_WifiStateProc();
         }
 		
 		/*更新地图*/
@@ -225,23 +225,23 @@ static void vTaskPerception(void *pvParameters)
 		bsp_DetectMeasureTest();
 #endif
 
-#if 1   /*测试跳崖传感器*/		
+#if 0   /*测试跳崖传感器*/		
 		bsp_CliffTest();
 #endif
-		/*检测主机悬空*/
-		bsp_OffSiteProc();
-        /*寻找充电桩*/
-		//bsp_SearchChargePile();
-		/*沿边行走*/
-		bsp_EdgewiseRun();
-        /*更新坐标*/
-        bsp_PositionUpdate();
+//		/*检测主机悬空*/
+//		bsp_OffSiteProc();
+//        /*寻找充电桩*/
+//		//bsp_SearchChargePile();
+//		/*沿边行走*/
+//		bsp_EdgewiseRun();
+//        /*更新坐标*/
+//        bsp_PositionUpdate();
 		
 
-		if(count % 4 == 0)
+		if(count % 10 == 0)
 		{
 			bsp_KeyScan();
-			bsp_AssistJudgeDirection();
+			//bsp_AssistJudgeDirection();
 		}
 		
 		if(count % 20 == 0)
@@ -452,7 +452,8 @@ static void bsp_KeyProc(void)
 	uint8_t ucKeyCode;	
 	
 	ucKeyCode = bsp_GetKey();
-	if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
+	//if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
+	if (ucKeyCode > 0)
 	{
 		/* 有键按下 */
 		switch (ucKeyCode)
