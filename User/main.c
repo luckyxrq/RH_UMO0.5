@@ -121,7 +121,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_LedToggle(LED_COLOR_RED);
 			
 			
-			//DEBUG("角度:%.2F\r\n",bsp_AngleRead());
+			DEBUG("角度:%.2F\r\n",bsp_AngleRead());
 			
 			//bsp_WifiStateProc();
         }
