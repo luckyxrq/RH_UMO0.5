@@ -90,3 +90,4 @@
 .\flash\obj\protocol.o: ..\..\User\dx8\inc\DX8_API.h
 .\flash\obj\protocol.o: ..\..\User\dx8\inc\dx8_engineer.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_wifi_app.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_passwd.h

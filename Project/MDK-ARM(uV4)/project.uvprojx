@@ -636,6 +636,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_wifi_app.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_passwd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_passwd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

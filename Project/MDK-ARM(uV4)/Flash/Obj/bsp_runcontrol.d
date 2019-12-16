@@ -90,3 +90,4 @@
 .\flash\obj\bsp_runcontrol.o: ..\..\User\tuya_sdk\system.h
 .\flash\obj\bsp_runcontrol.o: ..\..\User\tuya_sdk\mcu_api.h
 .\flash\obj\bsp_runcontrol.o: ..\..\User\app\inc\bsp_wifi_app.h
+.\flash\obj\bsp_runcontrol.o: ..\..\User\app\inc\bsp_passwd.h

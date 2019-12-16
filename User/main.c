@@ -113,16 +113,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
 			
-			bsp_LedToggle(LED_LOGO_CLEAN);
-			bsp_LedToggle(LED_LOGO_POWER);
-			bsp_LedToggle(LED_LOGO_CHARGE);
-			bsp_LedToggle(LED_COLOR_YELLOW);
-			bsp_LedToggle(LED_COLOR_GREEN);
-			bsp_LedToggle(LED_COLOR_RED);
-			
-			
-			DEBUG("角度:%.2F\r\n",bsp_AngleRead());
-			
 			//bsp_WifiStateProc();
         }
 		
@@ -165,10 +155,10 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		
 		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
         bsp_ComAnalysis();
-//		bsp_PowerOnToggle();/* 开机状态灯 */ 
-//		bsp_RunToggleLED();
+		bsp_PowerOnToggle();/* 开机状态灯 */ 
+		bsp_RunToggleLED();
 		
-		bsp_PrintCollision();
+		//bsp_PrintCollision();
 		
         vTaskDelay(10);
     }
@@ -202,7 +192,7 @@ static void vTaskPerception(void *pvParameters)
 	//bsp_StartEdgewiseRun();
 	
 	/*开启位置坐标更新*/
-    //bsp_StartUpdatePos();
+    bsp_StartUpdatePos();
 	
     /*开启正面碰撞协助*/
 	//bsp_StartAssistJudgeDirection();
@@ -232,14 +222,14 @@ static void vTaskPerception(void *pvParameters)
 #if 0   /*测试跳崖传感器*/		
 		bsp_CliffTest();
 #endif
-//		/*检测主机悬空*/
-//		bsp_OffSiteProc();
-//        /*寻找充电桩*/
-//		//bsp_SearchChargePile();
-//		/*沿边行走*/
-//		bsp_EdgewiseRun();
-//        /*更新坐标*/
-//        bsp_PositionUpdate();
+		/*检测主机悬空*/
+		//bsp_OffSiteProc();
+        /*寻找充电桩*/
+		bsp_SearchChargePile();
+		/*沿边行走*/
+		bsp_EdgewiseRun();
+        /*更新坐标*/
+        bsp_PositionUpdate();
 		
 
 		if(count % 10 == 0)
@@ -250,7 +240,7 @@ static void vTaskPerception(void *pvParameters)
 		
 		if(count % 20 == 0)
 		{
-			//bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
+			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 		
@@ -458,125 +448,125 @@ static void bsp_KeyProc(void)
 	uint8_t ucKeyCode;	
 	
 	ucKeyCode = bsp_GetKey();
-	//if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
+	if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
 	if (ucKeyCode > 0)
 	{
 		/* 有键按下 */
 		switch (ucKeyCode)
 		{
-//			case KEY_1_DOWN:
-//			{
-//				DEBUG("按键 1\r\n");
-//				bsp_KeySuspend();
-//			}break;
-//				
-//			case KEY_2_DOWN:
-//			{
-//				DEBUG("按键 2\r\n");
-//				bsp_KeySuspend();
-//			}break;
-//				
-//			case KEY_3_DOWN:	
-//			{
-//				DEBUG("按键 3\r\n");
-//				bsp_KeySuspend();
-//			}break;
+			case KEY_1_DOWN:
+			{
+				DEBUG("按键 1\r\n");
+				bsp_KeySuspend();
+			}break;
+				
+			case KEY_2_DOWN:
+			{
+				DEBUG("按键 2\r\n");
+				bsp_KeySuspend();
+			}break;
+				
+			case KEY_3_DOWN:	
+			{
+				DEBUG("按键 3\r\n");
+				bsp_KeySuspend();
+			}break;
 			
-			case KEY_1_UP:
-			{
-				mcu_reset_wifi();
-			    DEBUG("复位WIFI\r\n");
-			}break;
-				
-			case KEY_2_UP:
-			{
-				mcu_set_wifi_mode(SMART_CONFIG);
-				DEBUG("SMART_CONFIG 模式\r\n");
-			}break;
-				
-			case KEY_3_UP:
-			{
+//			case KEY_1_UP:
+//			{
+//				mcu_reset_wifi();
+//			    DEBUG("复位WIFI\r\n");
+//			}break;
+//				
+//			case KEY_2_UP:
+//			{
+//				mcu_set_wifi_mode(SMART_CONFIG);
+//				DEBUG("SMART_CONFIG 模式\r\n");
+//			}break;
+//				
+//			case KEY_3_UP:
+//			{
 
+//			}break;
+			
+			case KEY_1_LONG: /*关机*/
+			{
+				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
+				{
+					bsp_SetKeyRunLastState(RUN_STATE_SHUTDOWN);
+					bsp_SperkerPlay(Song2);
+					
+					bsp_LedOff(LED_LOGO_CLEAN);
+					bsp_LedOff(LED_LOGO_POWER);
+					bsp_LedOff(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+					
+					vTaskDelay(100);	
+					while(bsp_SpeakerIsBusy()){}
+					bsp_ClearKey();
+				}
+				
 			}break;
 			
-//			case KEY_1_LONG: /*关机*/
-//			{
-//				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
-//				{
-//					bsp_SetKeyRunLastState(RUN_STATE_SHUTDOWN);
-//					bsp_SperkerPlay(Song2);
-//					
-//					bsp_LedOff(LED_LOGO_CLEAN);
-//					bsp_LedOff(LED_LOGO_POWER);
-//					bsp_LedOff(LED_LOGO_CHARGE);
-//					bsp_LedOff(LED_COLOR_YELLOW);
-//					bsp_LedOff(LED_COLOR_GREEN);
-//					bsp_LedOff(LED_COLOR_RED);
-//					
-//					vTaskDelay(100);	
-//					while(bsp_SpeakerIsBusy()){}
-//					bsp_ClearKey();
-//				}
-//				
-//			}break;
-//			
-//			case KEY_2_LONG: /*充电*/	
-//			{
-//				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
-//				{
-//					bsp_SetKeyRunLastState(RUN_STATE_CHARGE);
-//					bsp_SperkerPlay(Song5);
-//					bsp_StartRunToggleLED(LED_LOGO_CHARGE);
-//					//bsp_StartCliffTest();
-//					bsp_StartSearchChargePile();
-//					
-//					vTaskDelay(200);	
-//					while(bsp_SpeakerIsBusy()){}
-//					bsp_ClearKey();
-//				}
-//				
-//			}break;
-//			
-//			case KEY_3_LONG: /*清扫*/
-//			{
-//				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
-//				{
-//					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
-//					bsp_SperkerPlay(Song3);
-//					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
-//					
-//					//bsp_StartCliffTest();
-//					/*开清扫策略*/
-//					bsp_StartUpdateCleanStrategyB();
-////					bsp_StartVacuum();
-////					bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-////					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.9F);
-//					
-//					vTaskDelay(200);	
-//					while(bsp_SpeakerIsBusy()){}
-//					bsp_ClearKey();
-//				}
-//				
-//			}break;
-//			
-//			case KEY_9_DOWN:
-//			{
-//				bsp_StopRunToggleLED();
-//				
-//				/*复位上一次的按键状态*/
-//				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
-//				
-//				
-//				
-//				/*关闭各种状态机*/
-//				bsp_StopCliffTest();
-//				bsp_StopVacuum();
-//				/*关闭电机*/
-//				bsp_SetMotorSpeed(MotorLeft, 0);
-//				bsp_SetMotorSpeed(MotorRight,0);
-//				bsp_StartEdgewiseRun();
-//				
-//			}break;
+			case KEY_2_LONG: /*充电*/	
+			{
+				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
+				{
+					bsp_SetKeyRunLastState(RUN_STATE_CHARGE);
+					bsp_SperkerPlay(Song5);
+					bsp_StartRunToggleLED(LED_LOGO_CHARGE);
+					//bsp_StartCliffTest();
+					bsp_StartSearchChargePile();
+					
+					vTaskDelay(200);	
+					while(bsp_SpeakerIsBusy()){}
+					bsp_ClearKey();
+				}
+				
+			}break;
+			
+			case KEY_3_LONG: /*清扫*/
+			{
+				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
+				{
+					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
+					bsp_SperkerPlay(Song3);
+					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
+					
+					//bsp_StartCliffTest();
+					/*开清扫策略*/
+					bsp_StartUpdateCleanStrategyB();
+//					bsp_StartVacuum();
+//					bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+//					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.9F);
+					
+					vTaskDelay(200);	
+					while(bsp_SpeakerIsBusy()){}
+					bsp_ClearKey();
+				}
+				
+			}break;
+			
+			case KEY_9_DOWN:
+			{
+				bsp_StopRunToggleLED();
+				
+				/*复位上一次的按键状态*/
+				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
+				
+				
+				
+				/*关闭各种状态机*/
+				bsp_StopCliffTest();
+				bsp_StopVacuum();
+				/*关闭电机*/
+				bsp_SetMotorSpeed(MotorLeft, 0);
+				bsp_SetMotorSpeed(MotorRight,0);
+				bsp_StartEdgewiseRun();
+				
+			}break;
 		}   
 	}
 }
