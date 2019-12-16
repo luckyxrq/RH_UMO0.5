@@ -81,7 +81,7 @@ void bsp_Init(void)
 	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
 #endif
 
-#if 0
+#if 1
 	/* 初始化IO拓展芯片 */	
 	do{
 		ret = bsp_InitAW9523B();		
@@ -135,6 +135,21 @@ void bsp_Init(void)
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/
 	DEBUG("初始化完毕\r\n");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 void bsp_InitFormAwaken(void)
