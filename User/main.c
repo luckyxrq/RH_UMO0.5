@@ -123,7 +123,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 			//DEBUG("角度:%.2F\r\n",bsp_AngleRead());
 			
-			bsp_WifiStateProc();
+			//bsp_WifiStateProc();
         }
 		
 		/*更新地图*/
@@ -168,6 +168,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 //		bsp_PowerOnToggle();/* 开机状态灯 */ 
 //		bsp_RunToggleLED();
 		
+		bsp_PrintCollision();
+		
         vTaskDelay(10);
     }
     
@@ -200,16 +202,18 @@ static void vTaskPerception(void *pvParameters)
 	//bsp_StartEdgewiseRun();
 	
 	/*开启位置坐标更新*/
-    bsp_StartUpdatePos();
+    //bsp_StartUpdatePos();
 	
     /*开启正面碰撞协助*/
-	bsp_StartAssistJudgeDirection();
+	//bsp_StartAssistJudgeDirection();
 	
 	/*开启栅格地图跟新*/
 	//bsp_StartUpdateGridMap();
 
 	/*开清扫策略*/
 	//bsp_StartUpdateCleanStrategyB();
+
+	
 
 	//vTaskDelay(5000);
 	

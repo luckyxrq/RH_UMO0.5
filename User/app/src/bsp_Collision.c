@@ -122,41 +122,30 @@ Collision bsp_CollisionScan(void)
 #endif
 }
 
+
+
 /*
 *********************************************************************************************************
-*	函 数 名: bsp_CollisionDemo
-*	功能说明: 碰撞测试
+*	函 数 名: bsp_PrintCollision
+*	功能说明: 打印碰撞信息
 *	形    参: 无
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_CollisionDemo(void)
+void bsp_PrintCollision(void)
 {
-	Collision ret = bsp_CollisionScan();
-	
-	switch(ret)
+	if(bsp_CollisionScan() == CollisionLeft)
 	{
-		case CollisionLeft:
-		{
-			DEBUG("左边被碰撞了\r\n");
-		}break;
-		
-		case CollisionRight:
-		{
-			DEBUG("右边被碰撞了\r\n");
-		}break;
-		
-		case CollisionAll:
-		{
-			DEBUG("两边被碰撞了\r\n");
-		}break;
-		
-		case CollisionNone:
-		{
-		
-		}break;
+		DEBUG("左边\r\n");
+	}
+	else if(bsp_CollisionScan() == CollisionRight)
+	{
+		DEBUG("右边\r\n");
+	}
+	else if(bsp_CollisionScan() == CollisionAll)
+	{
+		DEBUG("两边\r\n");
 	}
 }
-
 
 

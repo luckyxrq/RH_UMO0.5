@@ -11,6 +11,6 @@ typedef enum
 
 void bsp_InitCollision(void);      /*初始化碰撞检测引脚*/
 Collision bsp_CollisionScan(void); /*返回碰撞结果*/
-void bsp_CollisionDemo(void);      /*碰撞测试例子*/
+void bsp_PrintCollision(void);
 
 #endif
