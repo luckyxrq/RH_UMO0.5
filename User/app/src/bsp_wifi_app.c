@@ -10,6 +10,10 @@
 */
 void bsp_WifiStateProc(void)
 {
+	static bool isStartConnectWIFI = true;
+	static bool isStartConnectClound = true;
+	
+	
 	switch(mcu_get_wifi_work_state())
 	{
 		case SMART_CONFIG_STATE:
@@ -25,6 +29,12 @@ void bsp_WifiStateProc(void)
 		case WIFI_NOT_CONNECTED:
 		//WIFI配置完成，正在连接路由器，LED常暗
 		DEBUG("WIFI配置完成，正在连接路由器，LED常暗\r\n");
+		if(isStartConnectWIFI)
+		{
+			isStartConnectWIFI = false;
+			bsp_SperkerPlay(Song29);
+		}
+		
 		break;
 		
 		case WIFI_CONNECTED:
@@ -35,6 +45,12 @@ void bsp_WifiStateProc(void)
 		case WIFI_CONN_CLOUD:
 		//路由器连接成功 LED常亮
 		DEBUG("已经连接上云服务器\r\n");
+		if(isStartConnectClound)
+		{
+			isStartConnectClound = false;
+			bsp_SperkerPlay(Song27);
+		}
+		
 		break;
 		
 		case WIFI_LOW_POWER:
@@ -45,6 +61,8 @@ void bsp_WifiStateProc(void)
 		case WIFI_SATE_UNKNOW:
 		//路由器连接成功 LED常亮
 		DEBUG("未知WIFI状态\r\n");
+	    isStartConnectWIFI = true;
+	    isStartConnectClound = true;
 		break;
 		
 		default:break;
