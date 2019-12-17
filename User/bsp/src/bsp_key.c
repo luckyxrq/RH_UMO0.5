@@ -43,13 +43,13 @@
 #define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
 
 #define GPIO_PORT_K1    GPIOE
-#define GPIO_PIN_K1	    GPIO_Pin_7
+#define GPIO_PIN_K1	    GPIO_Pin_10
 
 #define GPIO_PORT_K2    GPIOE
 #define GPIO_PIN_K2	    GPIO_Pin_8
 
 #define GPIO_PORT_K3    GPIOE
-#define GPIO_PIN_K3	    GPIO_Pin_10
+#define GPIO_PIN_K3	    GPIO_Pin_7
 
 #define GPIO_PORT_K4    GPIOE
 #define GPIO_PIN_K4	    GPIO_Pin_7

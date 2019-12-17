@@ -113,7 +113,24 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
 			
+			//DEBUG("angle:%f\r\n",bsp_AngleRead());
+			
 			//bsp_WifiStateProc();
+			
+			{
+			#define GPIO_PORT_K1    GPIOE
+			#define GPIO_PIN_K1	    GPIO_Pin_7
+
+			#define GPIO_PORT_K2    GPIOE
+			#define GPIO_PIN_K2	    GPIO_Pin_8
+
+			#define GPIO_PORT_K3    GPIOE
+			#define GPIO_PIN_K3	    GPIO_Pin_10
+				
+				DEBUG("K1 K2 K3 : %d %d %d\r\n",GPIO_ReadInputDataBit(GPIO_PORT_K1,GPIO_PIN_K1),
+				GPIO_ReadInputDataBit(GPIO_PORT_K2,GPIO_PIN_K2),
+				GPIO_ReadInputDataBit(GPIO_PORT_K3,GPIO_PIN_K3));
+			}
         }
 		
 		/*更新地图*/
@@ -157,8 +174,6 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_ComAnalysis();
 		bsp_PowerOnToggle();/* 开机状态灯 */ 
 		bsp_RunToggleLED();
-		
-		//bsp_PrintCollision();
 		
         vTaskDelay(10);
     }
@@ -207,30 +222,7 @@ static void vTaskPerception(void *pvParameters)
 
 	vTaskDelay(5000);
 	
-	
-	{
-//		bsp_StopRunToggleLED();
-//				
-//		/*复位上一次的按键状态*/
-//		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
-//		
-//		
-//		
-//		/*关闭各种状态机*/
-//		bsp_StopCliffTest();
-//		bsp_StopVacuum();
-//		/*关闭电机*/
-//		bsp_SetMotorSpeed(MotorLeft, 0);
-//		bsp_SetMotorSpeed(MotorRight,0);
-//		bsp_StartEdgewiseRun();
-		
-//		bsp_SetMotorSpeed(MotorLeft, 12);
-//		bsp_SetMotorSpeed(MotorRight,12);
-		
-//		bsp_MotorSetPWM(MotorLeft ,Forward,CONSTANT_HIGH_PWM * 0.6F);
-//		bsp_MotorSetPWM(MotorRight ,Forward,CONSTANT_HIGH_PWM * 0.6F);
-	}
-	
+	//bsp_PutKey(KEY_9_DOWN);
 	
     while(1)
     {
@@ -473,7 +465,7 @@ static void bsp_KeyProc(void)
 	uint8_t ucKeyCode;	
 	
 	ucKeyCode = bsp_GetKey();
-	if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
+	//if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
 	if (ucKeyCode > 0)
 	{
 		/* 有键按下 */

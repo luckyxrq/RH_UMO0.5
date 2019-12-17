@@ -471,7 +471,7 @@ static void UartVarInit(void)
 	g_tUart3.usTxCount = 0;						/* 待发送的数据个数 */
 	g_tUart3.SendBefor = 0;		                /* 发送数据前的回调函数 */
 	g_tUart3.SendOver = 0;			            /* 发送完毕后的回调函数 */
-	g_tUart3.ReciveNew = 0;		                /* 接收到新数据后的回调函数 bsp_AngleRevByte*/
+	g_tUart3.ReciveNew = bsp_AngleRevByte;		/* 接收到新数据后的回调函数 */
 	
 #endif
 
