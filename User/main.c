@@ -115,7 +115,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 			//DEBUG("angle:%f\r\n",bsp_AngleRead());
 			
-			//bsp_WifiStateProc();
+			bsp_WifiStateProc();
 			
 			{
 			#define GPIO_PORT_K1    GPIOE
@@ -127,9 +127,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			#define GPIO_PORT_K3    GPIOE
 			#define GPIO_PIN_K3	    GPIO_Pin_10
 				
-				DEBUG("K1 K2 K3 : %d %d %d\r\n",GPIO_ReadInputDataBit(GPIO_PORT_K1,GPIO_PIN_K1),
-				GPIO_ReadInputDataBit(GPIO_PORT_K2,GPIO_PIN_K2),
-				GPIO_ReadInputDataBit(GPIO_PORT_K3,GPIO_PIN_K3));
+//				DEBUG("K1 K2 K3 : %d %d %d\r\n",GPIO_ReadInputDataBit(GPIO_PORT_K1,GPIO_PIN_K1),
+//				GPIO_ReadInputDataBit(GPIO_PORT_K2,GPIO_PIN_K2),
+//				GPIO_ReadInputDataBit(GPIO_PORT_K3,GPIO_PIN_K3));
 			}
         }
 		
@@ -489,22 +489,7 @@ static void bsp_KeyProc(void)
 				bsp_KeySuspend();
 			}break;
 			
-//			case KEY_1_UP:
-//			{
-//				mcu_reset_wifi();
-//			    DEBUG("复位WIFI\r\n");
-//			}break;
-//				
-//			case KEY_2_UP:
-//			{
-//				mcu_set_wifi_mode(SMART_CONFIG);
-//				DEBUG("SMART_CONFIG 模式\r\n");
-//			}break;
-//				
-//			case KEY_3_UP:
-//			{
 
-//			}break;
 			
 			case KEY_1_LONG: /*关机*/
 			{
