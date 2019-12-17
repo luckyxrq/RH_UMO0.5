@@ -205,7 +205,32 @@ static void vTaskPerception(void *pvParameters)
 
 	
 
-	//vTaskDelay(5000);
+	vTaskDelay(5000);
+	
+	
+	{
+//		bsp_StopRunToggleLED();
+//				
+//		/*复位上一次的按键状态*/
+//		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
+//		
+//		
+//		
+//		/*关闭各种状态机*/
+//		bsp_StopCliffTest();
+//		bsp_StopVacuum();
+//		/*关闭电机*/
+//		bsp_SetMotorSpeed(MotorLeft, 0);
+//		bsp_SetMotorSpeed(MotorRight,0);
+//		bsp_StartEdgewiseRun();
+		
+//		bsp_SetMotorSpeed(MotorLeft, 12);
+//		bsp_SetMotorSpeed(MotorRight,12);
+		
+//		bsp_MotorSetPWM(MotorLeft ,Forward,CONSTANT_HIGH_PWM * 0.6F);
+//		bsp_MotorSetPWM(MotorRight ,Forward,CONSTANT_HIGH_PWM * 0.6F);
+	}
+	
 	
     while(1)
     {
