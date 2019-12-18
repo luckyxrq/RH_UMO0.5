@@ -104,7 +104,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     while(1)
     {
         /* 处理按键事件 */
-        bsp_KeyProc();
+        //bsp_KeyProc();
 		
 		
         if(count++ % 10 == 0)

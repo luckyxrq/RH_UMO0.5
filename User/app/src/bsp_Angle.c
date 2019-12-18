@@ -3,13 +3,11 @@
 #define CALIBRATION_SIZE      8
 
 static Angle angle;
-static uint8_t CalibrationBuf[CALIBRATION_SIZE] = {0x41,0x78,0xFF,0x06,0x02,0x00,0xC2,0x6D};
 
 static void bsp_AngleTimeout(void);
 static void bsp_AnglePoll(void);
 static void bsp_AngleAnalyzeApp(void);
 static bool bsp_AngleCheck(void);
-static uint8_t bsp_AngleChkXorCalc(uint8_t buf[] , uint8_t len);
 
 
 /* 按键口对应的RCC时钟 */
@@ -17,6 +15,7 @@ static uint8_t bsp_AngleChkXorCalc(uint8_t buf[] , uint8_t len);
 
 #define GPIO_PORT_RST    GPIOA
 #define GPIO_PIN_RST	 GPIO_Pin_1
+
 
 /*
 *********************************************************************************************************
@@ -43,8 +42,6 @@ int16_t bsp_AngleReadRaw(void)
 {
 	return bsp_IMU_GetData(YAW)*100;
 }
-
-
 
 /*
 *********************************************************************************************************
@@ -236,60 +233,24 @@ err_ret:
 */
 static bool bsp_AngleCheck(void)
 {
-	uint8_t i = 0 ;
-	uint8_t sum = 0 ;
-	
-	/*HEAD1*/
-	if( angle.buf[POS_HEAD1_CHK + 0] != 0x41 || 
-		angle.buf[POS_HEAD1_CHK + 1] != 0x78 || 
-		angle.buf[POS_HEAD1_CHK + 2] != 0xFF || 
-		angle.buf[POS_HEAD1_CHK + 3] != 0x06 || 
-		angle.buf[POS_HEAD1_CHK + 4] != 0x81 || 
-		angle.buf[POS_HEAD1_CHK + 5] != 0x47)
+	/*HEAD*/
+	if( angle.buf[0] != 0xA5 || 
+		angle.buf[1] != 0xA5 )
 	{
 		return false;
 	}
 	
-	/*HEAD2*/
-	if( angle.buf[POS_HEAD2_CHK + 0] != 0x00 || 
-		angle.buf[POS_HEAD2_CHK + 1] != 0x8C || 
-		angle.buf[POS_HEAD2_CHK + 2] != 0x0C)
-	{
-		return false;
-	}
-	
-	/*HEAD3*/
-	if( angle.buf[POS_HEAD3_CHK + 0] != 0x02 || 
-		angle.buf[POS_HEAD3_CHK + 1] != 0x8C || 
-		angle.buf[POS_HEAD3_CHK + 2] != 0x0C)
-	{
-		return false;
-	}
-	
-	/*HEAD4*/
-	if( angle.buf[POS_HEAD4_CHK + 0] != 0x01 || 
-		angle.buf[POS_HEAD4_CHK + 1] != 0xB0 || 
-		angle.buf[POS_HEAD4_CHK + 2] != 0x10)
-	{
-		return false;
-	}
-	
-	/*TAIL*/
-	if( angle.buf[POS_TAIL_CHK + 0] != 0x6D )
-	{
-		return false;
-	}
-	
-	for(i=0;i<SIZE_WITH_ROLL_PITCH - 2 ;i++)
-	{
-		sum += angle.buf[i];
-	}
-	
-	if(bsp_AngleChkXorCalc((uint8_t*)angle.buf,SIZE_WITH_ROLL_PITCH - 2) != angle.buf[POS_ANGLE_CHK])
-	{
-		return false;
-	}
+    angle.temp_angular_velocity  =  angle.buf[9] << 8  | angle.buf[8] ;
+    angle.temp_yaw               =  angle.buf[11] << 8 | angle.buf[10] ;
+    angle.temp_pitch             =  angle.buf[13] << 8 | angle.buf[12] ;
+    angle.temp_roll              =  angle.buf[15] << 8 | angle.buf[14] ;
+    angle.temp_chk               =  angle.buf[17] << 8 | angle.buf[16] ;
 
+	if((uint16_t)(angle.temp_angular_velocity+angle.temp_yaw+angle.temp_pitch+angle.temp_roll) != angle.temp_chk)
+	{
+		return false;
+	}
+	
 	return true;
 }	
 
@@ -303,50 +264,26 @@ static bool bsp_AngleCheck(void)
 */
 static void bsp_AngleAnalyzeApp(void)
 {	
-	uint32_t val = 0;
+	int16_t val = 0;
 	
 	/*加速度X Y Z*/
-	val = angle.buf[12] << 24 | angle.buf[11] << 16 | angle.buf[10] << 8 | angle.buf[9];
-	memcpy(&angle.accX , &val , 4);
+	val = angle.buf[3] << 24 | angle.buf[2];
+	angle.accX = val / 1024.0F;
 	
-	val = angle.buf[16] << 24 | angle.buf[15] << 16 | angle.buf[14] << 8 | angle.buf[13];
-	memcpy(&angle.accY , &val , 4);
+	val = angle.buf[5] << 24 | angle.buf[4];
+	angle.accY = val / 1024.0F;
 	
-	val = angle.buf[20] << 24 | angle.buf[19] << 16 | angle.buf[18] << 8 | angle.buf[17];
-	memcpy(&angle.accZ , &val , 4);
+	val = angle.buf[7] << 24 | angle.buf[6];
+	angle.accZ = val / 1024.0F;
 	
 	
 	/*角度X Y Z*/
-	val = angle.buf[57] << 24 | angle.buf[56] << 16 | angle.buf[55] << 8 | angle.buf[54];
-	memcpy(&angle.roll , &val , 4);
-	
-	val = angle.buf[61] << 24 | angle.buf[60] << 16 | angle.buf[59] << 8 | angle.buf[58];
-	memcpy(&angle.pitch , &val , 4);
-	
-	val = angle.buf[65] << 24 | angle.buf[64] << 16 | angle.buf[63] << 8 | angle.buf[62];
-	memcpy(&angle.yaw , &val , 4);
+	angle.yaw   =  (int16_t)(angle.buf[11] << 8 | angle.buf[10])  / 100.0F;
+    angle.pitch =  (int16_t)(angle.buf[13] << 8 | angle.buf[12])  / 100.0F;
+    angle.roll  =  (int16_t)(angle.buf[15] << 8 | angle.buf[14])  / 100.0F;
 	
 }
 
-
-static uint8_t bsp_AngleChkXorCalc(uint8_t buf[] , uint8_t len)
-{
-	uint8_t i = 0 ;
-	uint8_t chk = 0 ;
-	
-	for(i=0;i<len;i++)
-	{
-		chk ^= buf[i];
-	}
-	
-	return chk;
-}
-
-
-void bsp_IMU_Calibration(void)
-{
-	comSendBuf(COM2,CalibrationBuf,CALIBRATION_SIZE);
-}
 
 
 /*
