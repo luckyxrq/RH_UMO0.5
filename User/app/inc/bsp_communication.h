@@ -12,14 +12,14 @@
 #define  CMD_ID_DISTANCE  		0x35
 #define  CMD_ID_ANGLE  			0x45
 
-#define WHEEL_LENGTH  			0.23F
+#define WHEEL_LENGTH  			0.235F
 #define M_PI 					3.14F
 #define MAX_ANALYSIS_LEN	    512
 
 
-
 #define Deg2Rad(deg) (M_PI * deg / 180.0F)
 #define Rad2Deg(rad) (180.0F * rad / M_PI)
+
 
 /*按照1字节对齐，便于存储到uint8_t类型buf*/
 #pragma pack(1)
