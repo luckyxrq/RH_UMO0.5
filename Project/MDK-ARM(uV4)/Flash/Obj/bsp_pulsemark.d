@@ -59,6 +59,7 @@
 .\flash\obj\bsp_pulsemark.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_pulsemark.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\bsp_pulsemark.o: ..\..\User\app\inc\bsp_Angle.h
+.\flash\obj\bsp_pulsemark.o: ..\..\User\angle\gan_rui_Angle\bsp_gan_rui_Angle.h
 .\flash\obj\bsp_pulsemark.o: ..\..\User\app\inc\bsp_Action.h
 .\flash\obj\bsp_pulsemark.o: ..\..\User\app\inc\bsp_aw9523b.h
 .\flash\obj\bsp_pulsemark.o: ..\..\User\app\inc\bsp_DetectAct.h

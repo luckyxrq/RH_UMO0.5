@@ -59,6 +59,7 @@
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_Angle.h
+.\flash\obj\bsp_angle.o: ..\..\User\angle\gan_rui_Angle\bsp_gan_rui_Angle.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_Action.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_aw9523b.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_DetectAct.h
@@ -91,3 +92,5 @@
 .\flash\obj\bsp_angle.o: ..\..\User\tuya_sdk\mcu_api.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_wifi_app.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_passwd.h
+.\flash\obj\bsp_angle.o: ..\..\User\angle\gan_rui_Angle\bsp_gan_rui_Angle.c
+.\flash\obj\bsp_angle.o: ..\..\User\bsp\bsp.h
