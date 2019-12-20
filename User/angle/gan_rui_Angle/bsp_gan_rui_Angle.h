@@ -1,21 +1,9 @@
 #include <stdbool.h>
 #include "stm32f10x.h"
 
-
 #define RX_BUF_SIZE   96             /*用于接收解析数据的缓冲区大小*/
 #define RX_BAUD       115200         /*陀螺仪通信速率*/
-#define SIZE_WITH_ROLL_PITCH      79 /*一帧角度信息的总字节大小*/
-
-/*各个信息在数据帧中的起始位置*/
-typedef enum
-{
-	POS_ANGLE_CHK = 77,
-	POS_HEAD1_CHK = 0,
-	POS_HEAD2_CHK = 21,
-	POS_HEAD3_CHK = 36,
-	POS_HEAD4_CHK = 51,
-	POS_TAIL_CHK = 78,
-}POS_ANGLE;
+#define SIZE_WITH_ROLL_PITCH      18 /*一帧角度信息的总字节大小*/
 
 typedef enum
 {
@@ -42,18 +30,20 @@ typedef struct
 	float roll;
 	float pitch;
 	float yaw;
+	
+	uint16_t temp_angular_velocity;  /*临时变量，用作校验*/
+	uint16_t temp_roll;              /*临时变量，用作校验*/
+	uint16_t temp_pitch;             /*临时变量，用作校验*/
+	uint16_t temp_yaw;               /*临时变量，用作校验*/
+	uint16_t temp_chk;               /*临时变量，用作校验*/
 }Angle;
 
-void bsp_IMU_Calibration(void);
+
 float bsp_IMU_GetData(IMU_DATA_TYPE type);
 void bsp_AngleRevByte(uint8_t byte);
 float bsp_AngleAdd(float angle1 , float angle2);
 void bsp_InitAngle(void);
 void bsp_AngleRst(void);
-
-/*为了兼容旧版驱动接口，故提供此函数*/
 float bsp_AngleRead(void);
 int16_t bsp_AngleReadRaw(void);
-
-
 
