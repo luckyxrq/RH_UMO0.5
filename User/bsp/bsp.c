@@ -81,7 +81,7 @@ void bsp_Init(void)
 	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
 #endif
 
-#if 1
+#if 0
 	/* 初始化IO拓展芯片 */	
 	do{
 		ret = bsp_InitAW9523B();		
@@ -91,6 +91,14 @@ void bsp_Init(void)
 			bsp_DelayMS(100);
 		}
 	}while(!ret);
+#else
+
+	ret = bsp_InitAW9523B();
+	if(!ret)
+	{
+		WARNING("AW9523B Init Error\r\n");
+	}
+
 #endif
 	
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
