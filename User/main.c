@@ -141,7 +141,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
-
+		
+		bsp_PrintCollision();
+		
         vTaskDelay(50);	
     }
 }
