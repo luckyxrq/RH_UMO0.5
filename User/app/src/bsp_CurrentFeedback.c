@@ -398,6 +398,8 @@ void bsp_PrintAllVoltage(void)
 	float wheelL = bsp_GetFeedbackVoltage(eMotorLeft);
 	float wheelR = bsp_GetFeedbackVoltage(eMotorRight);
 	float roll = bsp_GetFeedbackVoltage(eRollingBrush);
+	float vacuum = bsp_GetFeedbackVoltage(eVacuum);
+	float sideBrush = bsp_GetFeedbackVoltage(eSideBrush);
 	
 	/*430  66.5是电阻分压  0.2是根据实际情况补偿电压*/
 	batteryVoltage = (batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F; 
@@ -405,14 +407,16 @@ void bsp_PrintAllVoltage(void)
 	wheelL = wheelL * 1000.0F * 1000.0F / 33.0F / 50.0F;
 	wheelR = wheelR * 1000.0F * 1000.0F / 33.0F / 50.0F;
 	roll = roll * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	vacuum = vacuum * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	sideBrush = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
 	
 	
-	DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2f  滚刷:%.2fmA  边刷:%.2f  电池电压:%.2fV  电池电流:%.2fmA\r\n",
+	DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA\r\n",
 	wheelL,
 	wheelR,
-	bsp_GetFeedbackVoltage(eVacuum),
+	vacuum,
 	roll,
-	bsp_GetFeedbackVoltage(eSideBrush),
+	sideBrush,
 	batteryVoltage,
 	batteryCurrent);
 }

@@ -547,7 +547,7 @@ static void bsp_KeyProc(void)
 					bsp_StartUpdateCleanStrategyB();
 					bsp_StartVacuum();
 					bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.9F);
-					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.9F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 					
 					vTaskDelay(200);	
 					while(bsp_SpeakerIsBusy()){}
