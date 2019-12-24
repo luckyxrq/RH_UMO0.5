@@ -1,3 +1,5 @@
+#include "stm32f10x.h"
+#include <stdbool.h>
 
 
 #define RX_BUF_SIZE   96             /*用于接收解析数据的缓冲区大小*/
