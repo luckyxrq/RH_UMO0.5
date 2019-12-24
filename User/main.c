@@ -104,7 +104,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     while(1)
     {
         /* 处理按键事件 */
-        //bsp_KeyProc();
+        bsp_KeyProc();
 		
 		
         if(count++ % 10 == 0)
@@ -118,14 +118,14 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_WifiStateProc();
 			
 			{
-			#define GPIO_PORT_K1    GPIOE
-			#define GPIO_PIN_K1	    GPIO_Pin_7
+//			#define GPIO_PORT_K1    GPIOE
+//			#define GPIO_PIN_K1	    GPIO_Pin_7
 
-			#define GPIO_PORT_K2    GPIOE
-			#define GPIO_PIN_K2	    GPIO_Pin_8
+//			#define GPIO_PORT_K2    GPIOE
+//			#define GPIO_PIN_K2	    GPIO_Pin_8
 
-			#define GPIO_PORT_K3    GPIOE
-			#define GPIO_PIN_K3	    GPIO_Pin_10
+//			#define GPIO_PORT_K3    GPIOE
+//			#define GPIO_PIN_K3	    GPIO_Pin_10
 				
 //				DEBUG("K1 K2 K3 : %d %d %d\r\n",GPIO_ReadInputDataBit(GPIO_PORT_K1,GPIO_PIN_K1),
 //				GPIO_ReadInputDataBit(GPIO_PORT_K2,GPIO_PIN_K2),
@@ -542,9 +542,9 @@ static void bsp_KeyProc(void)
 					//bsp_StartCliffTest();
 					/*开清扫策略*/
 					bsp_StartUpdateCleanStrategyB();
-//					bsp_StartVacuum();
-//					bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-//					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.9F);
+					bsp_StartVacuum();
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.9F);
 					
 					vTaskDelay(200);	
 					while(bsp_SpeakerIsBusy()){}
