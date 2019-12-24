@@ -5,7 +5,7 @@
 #define ANGLE_TYPE_YUAN_ZI      0
 #define ANGLE_TYPE_GAN_RUI      1
 
-#define ANGLE_TYPE      ANGLE_TYPE_GAN_RUI
+#define ANGLE_TYPE      ANGLE_TYPE_YUAN_ZI
 
 
 

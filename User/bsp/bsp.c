@@ -76,7 +76,9 @@ void bsp_Init(void)
 	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 	
 	bsp_InitSpeaker();		 /*初始化扬声器*/
-
+	bsp_InitCurrentFeedbackADC();
+	
+	
 #if 0
 	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
 #endif
