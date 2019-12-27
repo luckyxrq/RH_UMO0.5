@@ -35,6 +35,7 @@ static TaskHandle_t xHandleTaskPerception    = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
 static KeyProc keyProc;
+static bool isExpandPcbOK = false;
 /*
 *********************************************************************************************************
 *	函 数 名: main
@@ -113,7 +114,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
 			
-			//DEBUG("angle:%f\r\n",bsp_AngleRead());
+			DEBUG("angle:%f\r\n",bsp_AngleRead());
 			
 			bsp_WifiStateProc();
 			
@@ -143,6 +144,16 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #endif
 		
 		bsp_PrintCollision();
+		
+		if(!isExpandPcbOK)
+		{
+			isExpandPcbOK = bsp_InitAW9523B();
+			if(!isExpandPcbOK)
+			{
+				WARNING("AW9523B Init Error\r\n");
+			}
+		}
+		
 		
         vTaskDelay(50);	
     }
@@ -228,11 +239,14 @@ static void vTaskPerception(void *pvParameters)
 	
     while(1)
     {
+		if(isExpandPcbOK)
+		{
 #if 1
-        bsp_DetectAct();  /*红外对管轮询扫描*/
-        bsp_DetectDeal(); /*红外对管扫描结果处理*/
+			bsp_DetectAct();  /*红外对管轮询扫描*/
+			bsp_DetectDeal(); /*红外对管扫描结果处理*/
 #endif
-		
+		}
+
        
 #if 0   /*测试红外测距的距离，测到后就停下来*/
 		bsp_DetectMeasureTest();
