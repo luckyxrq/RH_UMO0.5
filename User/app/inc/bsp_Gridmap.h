@@ -27,6 +27,24 @@
 #define OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07 250 
 #define OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM89 50
 
+
+
+#define CUR_POS             (uint8_t)0x00    /*当前点*/
+#define OBSTACLE_POS        (uint8_t)0x01    /*障碍物*/
+#define CLEANED_POS         (uint8_t)0x02    /*已清扫*/
+#define CHARGING_PILE_POS   (uint8_t)0x03    /*充电桩*/
+#define RESERVE_POS         (uint8_t)0x04    /*保留*/
+
+
+#pragma pack(1)
+typedef struct 
+{
+	unsigned char x ; 
+	unsigned char y ;
+	unsigned char posInfo;
+}MapInfo;
+#pragma pack()
+
 // Initialize GridMapping
 //l0,  locc,  lfree,  alpha,  alpha1,  beta,  Zmax,  Zmin,  sensorType
 //l0     :  Init default grid map data   0.5
@@ -71,6 +89,9 @@ int bsp_Edge_length(void);
 int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
 int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
 int bsp_Leakingsweep(void);
+
+unsigned char* bsp_Get_GridMap(int robotX,int robotY);
+
 
 
 

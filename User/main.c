@@ -140,7 +140,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 1
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
@@ -218,10 +218,10 @@ static void vTaskPerception(void *pvParameters)
 	//bsp_StartAssistJudgeDirection();
 	
 	/*开启栅格地图跟新*/
-	//bsp_StartUpdateGridMap();
+	bsp_StartUpdateGridMap();
 
 	/*开清扫策略*/
-	//bsp_StartUpdateCleanStrategyB();
+	bsp_StartUpdateCleanStrategyB();
 
 	
 
