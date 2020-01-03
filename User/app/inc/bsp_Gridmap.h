@@ -90,7 +90,7 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned 
 int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
 int bsp_Leakingsweep(void);
 
-unsigned char* bsp_Get_GridMap(int robotX,int robotY);
+const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 
 
 

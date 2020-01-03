@@ -470,7 +470,7 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 
 
 
-unsigned char* bsp_Get_GridMap(int robotX,int robotY)
+const unsigned char*  bsp_Get_GridMap(int robotX,int robotY)
 {
 	int grid_index_x,grid_index_y;
 	int map_robot_x,map_robot_y;
