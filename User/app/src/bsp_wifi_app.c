@@ -50,7 +50,10 @@ void bsp_WifiStateProc(void)
 			isStartConnectClound = false;
 			bsp_SperkerPlay(Song27);
 			
-			bsp_StartUploadMap();
+			if(!isStartConnectClound)
+			{
+				bsp_StartUploadMap();
+			}
 		}
 		
 		break;
