@@ -112,41 +112,21 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 0 
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
-			
-			//DEBUG("angle:%f\r\n",bsp_AngleRead());
-			
-			//bsp_WifiStateProc();
-			
-			{
-				#define GPIO_PORT_K1    GPIOE
-				#define GPIO_PIN_K1	    GPIO_Pin_7
 
-				#define GPIO_PORT_K2    GPIOE
-				#define GPIO_PIN_K2	    GPIO_Pin_8
-
-				#define GPIO_PORT_K3    GPIOE
-				#define GPIO_PIN_K3	    GPIO_Pin_10
-					
-//				DEBUG("K1 K2 K3 : %d %d %d\r\n",GPIO_ReadInputDataBit(GPIO_PORT_K1,GPIO_PIN_K1),
-//				GPIO_ReadInputDataBit(GPIO_PORT_K2,GPIO_PIN_K2),
-//				GPIO_ReadInputDataBit(GPIO_PORT_K3,GPIO_PIN_K3));
-					
-					
-				bsp_PrintAllVoltage();
-			}
+			bsp_WifiStateProc();
+			
         }
 		
 		/*更新地图*/
 #if 1
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+		//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
 		
-//		bsp_PrintCollision();
-		
+		bsp_UploadMap();
         vTaskDelay(50);	
     }
 }
@@ -262,7 +242,7 @@ static void vTaskPerception(void *pvParameters)
 		
 		if(count % 20 == 0)
 		{
-			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
+			//bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 		

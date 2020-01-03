@@ -92,3 +92,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\tuya_sdk\mcu_api.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_wifi_app.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_passwd.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_UploadMap.h

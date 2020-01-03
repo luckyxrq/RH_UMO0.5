@@ -212,6 +212,8 @@
 #include "wifi.h"
 #include "bsp_wifi_app.h"
 #include "bsp_passwd.h"
+#include "bsp_UploadMap.h"
+
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

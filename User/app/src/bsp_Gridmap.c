@@ -4,7 +4,7 @@
 static int map_last_robotX = 0, map_last_robotY = 0;
 static char map_update = 0;
 static GridMap gridmap;
-static MapInfo TuYa_map[81] = {0};
+static MapInfo TuYa_map[PER_UPLOAD_POINT_CNT] = {0};
 
 static double my_abs(double x){
     if (x<0){

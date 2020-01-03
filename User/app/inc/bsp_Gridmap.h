@@ -29,21 +29,21 @@
 
 
 
-#define CUR_POS             (uint8_t)0x00    /*当前点*/
-#define OBSTACLE_POS        (uint8_t)0x01    /*障碍物*/
-#define CLEANED_POS         (uint8_t)0x02    /*已清扫*/
-#define CHARGING_PILE_POS   (uint8_t)0x03    /*充电桩*/
-#define RESERVE_POS         (uint8_t)0x04    /*保留*/
+//#define CUR_POS             (uint8_t)0x00    /*当前点*/
+//#define OBSTACLE_POS        (uint8_t)0x01    /*障碍物*/
+//#define CLEANED_POS         (uint8_t)0x02    /*已清扫*/
+//#define CHARGING_PILE_POS   (uint8_t)0x03    /*充电桩*/
+//#define RESERVE_POS         (uint8_t)0x04    /*保留*/
 
 
-#pragma pack(1)
-typedef struct 
-{
-	unsigned char x ; 
-	unsigned char y ;
-	unsigned char posInfo;
-}MapInfo;
-#pragma pack()
+//#pragma pack(1)
+//typedef struct 
+//{
+//	unsigned char x ; 
+//	unsigned char y ;
+//	unsigned char posInfo;
+//}MapInfo;
+//#pragma pack()
 
 // Initialize GridMapping
 //l0,  locc,  lfree,  alpha,  alpha1,  beta,  Zmax,  Zmin,  sensorType

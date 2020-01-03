@@ -92,3 +92,4 @@
 .\flash\obj\bsp_action.o: ..\..\User\tuya_sdk\mcu_api.h
 .\flash\obj\bsp_action.o: ..\..\User\app\inc\bsp_wifi_app.h
 .\flash\obj\bsp_action.o: ..\..\User\app\inc\bsp_passwd.h
+.\flash\obj\bsp_action.o: ..\..\User\app\inc\bsp_UploadMap.h

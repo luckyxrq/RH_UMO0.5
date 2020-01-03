@@ -26,23 +26,10 @@ Project File Date:  01/03/2020
 
 <h2>Output:</h2>
 Build target 'Flash'
-compiling bsp_Gridmap.c...
-..\..\User\app\src\bsp_Gridmap.c(87): warning:  #111-D: statement is unreachable
-                        break;
-..\..\User\app\src\bsp_Gridmap.c(18): warning:  #177-D: function "inverseSensorModel" was declared but never referenced
-  static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,int robotY,double robotTheta,int grid_real_center_x,int grid_real_center_y,unsigned char obstacleSignal,unsigned char* IRSensorData)
-..\..\User\app\src\bsp_Gridmap.c(263): warning:  #177-D: function "GridToXY" was declared but never referenced
-  static void GridToXY( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
-..\..\User\app\src\bsp_Gridmap.c(269): warning:  #177-D: function "XYToGrid" was declared but never referenced
-  static void XYToGrid( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
-..\..\User\app\src\bsp_Gridmap.c: 4 warnings, 0 errors
-linking...
-Program Size: Code=109536 RO-data=1308 RW-data=556 ZI-data=59116  
-FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 4 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE
