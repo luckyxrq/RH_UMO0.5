@@ -569,7 +569,7 @@ const unsigned char*  bsp_Get_GridMap(int robotX,int robotY)
 			TuYa_map[i].y = grid_index_y;
 			if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) TuYa_map[i].posInfo = RESERVE_POS;
 			else if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy) TuYa_map[i].posInfo = OBSTACLE_POS;
-			else if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) TuYa_map[i].posInfo = CLEANED_POS;
+			else if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) TuYa_map[i].posInfo = OBSTACLE_POS;//CLEANED_POS;
 			i++;
 		}
 	}
