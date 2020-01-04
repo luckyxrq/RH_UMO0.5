@@ -149,7 +149,7 @@ MCU可调用mcu_api.c文件内的mcu_firm_update_query()函数获取当前MCU固
 
 #endif
 
-#define WIFIR_UART_SEND_BUF_LMT         48              //根据用户DP数据大小量定,必须大于48
+#define WIFIR_UART_SEND_BUF_LMT         512              //根据用户DP数据大小量定,必须大于48
 /******************************************************************************
                         4:定义模块工作方式
 模块自处理:

@@ -268,7 +268,7 @@ static void AppTaskCreate (void)
 {
     xTaskCreate( vTaskDecision,     		    /* 任务函数  */
                  "vTaskDecision",   		    /* 任务名    */
-                 1024*2,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskDecision );        /* 任务句柄  */
@@ -558,6 +558,7 @@ static void bsp_KeyProc(void)
 		}   
 	}
 }
+
 
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

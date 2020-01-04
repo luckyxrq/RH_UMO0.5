@@ -14,3 +14,7 @@
 //			{
 
 //			}break;
+
+
+
+WIFIR_UART_SEND_BUF_LMT

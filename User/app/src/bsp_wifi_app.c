@@ -54,7 +54,7 @@ void bsp_WifiStateProc(void)
 			{
 				isOpenUploadMap = true;
 				bsp_StartUploadMap();
-			    //bsp_PutKey(KEY_3_LONG);
+			    bsp_PutKey(KEY_3_LONG);
 			}
 		}
 		
