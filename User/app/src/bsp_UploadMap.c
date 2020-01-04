@@ -107,7 +107,7 @@ void bsp_UploadMap(void)
 		{
 			if(xTaskGetTickCount() - uploadMap.delay >= UPLOAD_MAP_INTERVAL)
 			{
-				bsp_StreamTransOpen(uploadMap.id);
+				bsp_StreamTransClose(0,0);
 				uploadMap.delay = xTaskGetTickCount();
 				uploadMap.action++ ;
 			}
@@ -118,26 +118,37 @@ void bsp_UploadMap(void)
 		{
 			if(xTaskGetTickCount() - uploadMap.delay >= UPLOAD_MAP_INTERVAL)
 			{
+				bsp_StreamTransOpen(uploadMap.id);
+				
+				uploadMap.delay = xTaskGetTickCount();
 				uploadMap.action++ ;
 			}
 		}break;
 		
 		case 3:
 		{
-			bsp_SetCurPos(uploadMap.offset + 1);
-			printf("发送地图数据\r\n");
-			/*传输地图数据，1字节对齐的结构体数组 转unsigned char*  */
-			//stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)bsp_Get_GridMap(bsp_GetCurrentPosX(),bsp_GetCurrentPosY()), PER_UPLOAD_POINT_CNT*3);
-			stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)mapInfo, PER_UPLOAD_POINT_CNT*3);
-			uploadMap.delay = xTaskGetTickCount();
-			uploadMap.action++;
+			if(xTaskGetTickCount() - uploadMap.delay >= UPLOAD_MAP_INTERVAL)
+			{
+				uploadMap.action++ ;
+			}
 		}break;
 		
 		case 4:
 		{
+			printf("发送地图数据\r\n");
+			/*传输地图数据，1字节对齐的结构体数组 转unsigned char*  */
+			stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)bsp_Get_GridMap(bsp_GetCurrentPosX(),bsp_GetCurrentPosY()), 8*3);
+			//stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)map, 3);
+			//stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)mapInfo, PER_UPLOAD_POINT_CNT*3);
+			uploadMap.delay = xTaskGetTickCount();
+			uploadMap.action++;
+		}break;
+		
+		case 5:
+		{
 			if(xTaskGetTickCount() - uploadMap.delay >= UPLOAD_MAP_INTERVAL)
 			{
-				uploadMap.action = 3 ;
+				uploadMap.action = 4 ;
 			}
 		}break;
 	}		

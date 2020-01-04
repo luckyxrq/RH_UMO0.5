@@ -121,10 +121,11 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 1
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
+
 		
 		bsp_UploadMap();
         vTaskDelay(50);	
@@ -201,13 +202,13 @@ static void vTaskPerception(void *pvParameters)
 	bsp_StartUpdateGridMap();
 
 	/*开清扫策略*/
-	bsp_StartUpdateCleanStrategyB();
+	//bsp_StartUpdateCleanStrategyB();
 
 	
 
 	vTaskDelay(5000);
 	
-	bsp_PutKey(KEY_3_LONG);
+	//bsp_PutKey(KEY_9_DOWN);
 	
     while(1)
     {
@@ -242,7 +243,7 @@ static void vTaskPerception(void *pvParameters)
 		
 		if(count % 20 == 0)
 		{
-			//bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
+			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 		
@@ -267,7 +268,7 @@ static void AppTaskCreate (void)
 {
     xTaskCreate( vTaskDecision,     		    /* 任务函数  */
                  "vTaskDecision",   		    /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 1024*2,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskDecision );        /* 任务句柄  */
@@ -525,9 +526,9 @@ static void bsp_KeyProc(void)
 					//bsp_StartCliffTest();
 					/*开清扫策略*/
 					bsp_StartUpdateCleanStrategyB();
-					bsp_StartVacuum();
-					bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.9F);
-					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+//					bsp_StartVacuum();
+//					bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.9F);
+//					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 					
 					vTaskDelay(200);	
 					while(bsp_SpeakerIsBusy()){}

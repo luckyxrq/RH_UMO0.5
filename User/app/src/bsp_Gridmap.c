@@ -476,12 +476,14 @@ const unsigned char*  bsp_Get_GridMap(int robotX,int robotY)
 	int map_robot_x,map_robot_y;
 	int min_x,min_y,max_x,max_y;
 	int i = 0;
+	unsigned char current_x = 0,current_y = 0;
 	
 	map_robot_x  = robotX + ROBOTXOFFSET;
 	map_robot_y  = robotY + ROBOTYOFFSET;
 	
 	grid_index_x = (map_robot_x  + GRIDWIDTH / 2) / GRIDWIDTH;
 	grid_index_y = (map_robot_y  + GRIDWIDTH / 2) / GRIDWIDTH;
+	
 	
 	min_x = grid_index_x - REFRESH_ZONE_SIZE;
 	min_y = grid_index_y - REFRESH_ZONE_SIZE;
@@ -494,22 +496,87 @@ const unsigned char*  bsp_Get_GridMap(int robotX,int robotY)
 	if(max_x > 99) max_x =99;
 	if(max_y > 99) max_y =99;
 	
-	for ( grid_index_x = min_x; grid_index_x <= max_x; grid_index_x++)
-	{
-		for ( grid_index_y = min_y; grid_index_y <= max_y; grid_index_y++)
-		{
-			TuYa_map[i].x = grid_index_x;
-			TuYa_map[i].y = grid_index_y;
-			if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) TuYa_map[i].posInfo = RESERVE_POS;
-			else if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy) TuYa_map[i].posInfo = OBSTACLE_POS;
-			else if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) TuYa_map[i].posInfo = CLEANED_POS;
-			i++;
-		}
-	}
+	current_x = grid_index_x - 1;
+	current_y = grid_index_y - 2;
+	TuYa_map[0].x = current_x;
+	TuYa_map[0].y = current_y;
+	if(gridmap.map[current_x][current_y] == gridmap.grid_default) TuYa_map[0].posInfo = RESERVE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_occupancy) TuYa_map[0].posInfo = OBSTACLE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_free) TuYa_map[0].posInfo = CLEANED_POS;
 	
-	TuYa_map[40].x = (map_robot_x  + GRIDWIDTH / 2) / GRIDWIDTH;;
-	TuYa_map[40].y = (map_robot_y  + GRIDWIDTH / 2) / GRIDWIDTH;;
-	TuYa_map[40].posInfo = CUR_POS;
+	current_x = grid_index_x - 2;
+	current_y = grid_index_y - 1;
+	TuYa_map[1].x = current_x;
+	TuYa_map[1].y = current_y;
+	if(gridmap.map[current_x][current_y] == gridmap.grid_default) TuYa_map[1].posInfo = RESERVE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_occupancy) TuYa_map[1].posInfo = OBSTACLE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_free) TuYa_map[1].posInfo = CLEANED_POS;
+
+	current_x = grid_index_x - 2;
+	current_y = grid_index_y ;
+	TuYa_map[2].x = current_x;
+	TuYa_map[2].y = current_y;
+	if(gridmap.map[current_x][current_y] == gridmap.grid_default) TuYa_map[2].posInfo = RESERVE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_occupancy) TuYa_map[2].posInfo = OBSTACLE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_free) TuYa_map[2].posInfo = CLEANED_POS;
+	
+	current_x = grid_index_x - 2;
+	current_y = grid_index_y + 1;
+	TuYa_map[3].x = current_x;
+	TuYa_map[3].y = current_y;
+	if(gridmap.map[current_x][current_y] == gridmap.grid_default) TuYa_map[3].posInfo = RESERVE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_occupancy) TuYa_map[3].posInfo = OBSTACLE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_free) TuYa_map[3].posInfo = CLEANED_POS;
+
+	current_x = grid_index_x - 1;
+	current_y = grid_index_y + 2;
+	TuYa_map[4].x = current_x;
+	TuYa_map[4].y = current_y;
+	if(gridmap.map[current_x][current_y] == gridmap.grid_default) TuYa_map[4].posInfo = RESERVE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_occupancy) TuYa_map[4].posInfo = OBSTACLE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_free) TuYa_map[4].posInfo = CLEANED_POS;
+
+	current_x = grid_index_x ;
+	current_y = grid_index_y - 1;
+	TuYa_map[5].x = current_x;
+	TuYa_map[5].y = current_y;
+	if(gridmap.map[current_x][current_y] == gridmap.grid_default) TuYa_map[5].posInfo = RESERVE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_occupancy) TuYa_map[5].posInfo = OBSTACLE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_free) TuYa_map[5].posInfo = CLEANED_POS;
+	
+	current_x = grid_index_x ;
+	current_y = grid_index_y + 1;
+	TuYa_map[6].x = current_x;
+	TuYa_map[6].y = current_y;
+	if(gridmap.map[current_x][current_y] == gridmap.grid_default) TuYa_map[6].posInfo = RESERVE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_occupancy) TuYa_map[6].posInfo = OBSTACLE_POS;
+	else if (gridmap.map[current_x][current_y] == gridmap.grid_free) TuYa_map[6].posInfo = CLEANED_POS;
+	
+	current_x = grid_index_x ;
+	current_y = grid_index_y ;
+	TuYa_map[7].x = current_x;
+	TuYa_map[7].y = current_y;
+	TuYa_map[7].posInfo = CUR_POS;
+	
+	
+	
+	
+//	for ( grid_index_x = min_x; grid_index_x <= max_x; grid_index_x++)
+//	{
+//		for ( grid_index_y = min_y; grid_index_y <= max_y; grid_index_y++)
+//		{
+//			TuYa_map[i].x = grid_index_x;
+//			TuYa_map[i].y = grid_index_y;
+//			if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) TuYa_map[i].posInfo = RESERVE_POS;
+//			else if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy) TuYa_map[i].posInfo = OBSTACLE_POS;
+//			else if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) TuYa_map[i].posInfo = CLEANED_POS;
+//			i++;
+//		}
+//	}
+//	
+//	TuYa_map[4].x = (map_robot_x  + GRIDWIDTH / 2) / GRIDWIDTH;;
+//	TuYa_map[4].y = (map_robot_y  + GRIDWIDTH / 2) / GRIDWIDTH;;
+//	TuYa_map[4].posInfo = CUR_POS;
 	
 	return (unsigned char*)TuYa_map;
 	

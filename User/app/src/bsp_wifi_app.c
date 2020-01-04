@@ -12,7 +12,7 @@ void bsp_WifiStateProc(void)
 {
 	static bool isStartConnectWIFI = true;
 	static bool isStartConnectClound = true;
-	
+	static bool isOpenUploadMap = false;
 	
 	switch(mcu_get_wifi_work_state())
 	{
@@ -50,9 +50,11 @@ void bsp_WifiStateProc(void)
 			isStartConnectClound = false;
 			bsp_SperkerPlay(Song27);
 			
-			if(!isStartConnectClound)
+			if(isOpenUploadMap == false)
 			{
+				isOpenUploadMap = true;
 				bsp_StartUploadMap();
+			    //bsp_PutKey(KEY_3_LONG);
 			}
 		}
 		
