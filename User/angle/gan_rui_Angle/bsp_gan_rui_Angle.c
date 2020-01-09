@@ -332,3 +332,4 @@ float bsp_AngleAdd(float angle1 , float angle2)
 		}
 	}
 }
+
