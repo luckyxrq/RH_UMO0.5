@@ -160,7 +160,7 @@ static void bsp_InitVacuum(void)
 void bsp_VacuumClean(void)
 {	
 	const uint32_t max_tick = 100;
-	const uint32_t changeTick = 50;
+	const uint32_t changeTick = 90;
 	
 	if(!vacuum.isRunning)
 		return ;
