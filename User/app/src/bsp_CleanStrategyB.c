@@ -81,7 +81,7 @@ int motionSteps = 0;
 int a_star_not_motion = 0;
 
 AStar_MapNode AStar_graph[AStar_Height][AStar_Width];
-int AStar_srcX, AStar_srcY, AStar_dstX, AStar_dstY;
+short AStar_srcX, AStar_srcY, AStar_dstX, AStar_dstY;
 AStar_Close astar_close[AStar_Height][AStar_Width];
 AStar_Close *AStar_start;
 int AStar_shortestep;
@@ -304,12 +304,7 @@ void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned 
 	}
 	
 }	
-
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#################################################################################
 uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
 {
 	CurrentCleanTimeStamp = xTaskGetTickCount();
@@ -366,9 +361,133 @@ uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
             return ALL_CLEAN_COMPLETE;//" clean complete"
         default:
             break;
-        return 0;
-        
     }
+	return 0;
+}
+
+
+//#################################################################################
+uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
+{
+	switch (OVERALL_CLEANING_STRATEGY)
+    {
+        case 0:
+            OVERALL_CLEANING_STRATEGY = START_OVERALL_CLEANING_STRATEGY;
+            break;
+        case START_OVERALL_CLEANING_STRATEGY:
+            log_debug("START_OVERALL_CLEANING_STRATEGY");
+            OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+            break;
+        case RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
+            log_debug("RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY");
+            FunctionStatus = RightRunningWorkStep(current_pose, obstacleSignal);
+            if (1 == FunctionStatus)
+            {
+                selectside = 'L';
+                OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+                right_running_step_status = 0;
+                FunctionStatus = 0;
+                break;
+            }
+            break;
+
+        case A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
+            log_debug("A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
+            AStarReturnOrigin(current_pose, obstacleSignal);
+            OVERALL_CLEANING_STRATEGY = A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+            break;
+
+        case A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
+            log_debug("A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
+            FunctionStatus = AStarMotionReturnOrigin(current_pose, obstacleSignal);
+            if (1 == FunctionStatus)
+            {
+                a_star_motion_return_origin = 0;
+                OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+                FunctionStatus = 0;
+                break;
+            }
+            if (2 == FunctionStatus)
+            {
+                OVERALL_CLEANING_STRATEGY = A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+                FunctionStatus = 0;
+                break;
+            }
+            if (3 == FunctionStatus)
+            {
+                a_star_motion_return_origin = 0;
+                OVERALL_CLEANING_STRATEGY = A_STAR_NOT_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+                FunctionStatus = 0;
+                break;
+            }
+            if (4 == FunctionStatus)
+            {
+                OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+                a_star_motion_return_origin = 0;
+                FunctionStatus = 0;
+                break;
+            }
+            break;
+        case A_STAR_NOT_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
+            log_debug("A_STAR_NOT_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
+            FunctionStatus = AStarNotMotionReturnOrigin(current_pose, obstacleSignal);
+            if (1 == FunctionStatus)
+            {
+                //a_star_motion_return_origin=0;
+                OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+                FunctionStatus = 0;
+                break;
+            }
+            break;
+        case A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
+            log_debug("A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
+            FunctionStatus = AStarCollision(current_pose, obstacleSignal);
+            if (1 == FunctionStatus)
+            {
+                OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+                FunctionStatus = 0;
+                break;
+            }
+            if (2 == FunctionStatus)
+            {
+                OVERALL_CLEANING_STRATEGY = A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+                FunctionStatus = 0;
+                break;
+            }
+            break;
+        case RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
+            log_debug("RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
+            FunctionStatus = RightReturnOrigin(current_pose, obstacleSignal);
+            if (1 == FunctionStatus)
+            {
+                if (selectside == 'L')
+                {
+                    OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+                }
+                if (selectside == 'R')
+                {
+                    OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+                }
+                return_origin_step_status = 0;
+                FunctionStatus = 0;
+                break;
+            }
+            break;
+        case LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
+            log_debug("LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY");
+            FunctionStatus = LeftRunningWorkStep(current_pose, obstacleSignal);
+            if (1 == FunctionStatus)
+            {
+                selectside = 'R';
+                OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+                left_running_step_status = 0;
+                FunctionStatus = 0;
+                break;
+            }
+            break;
+        }
+	
+		return 0;
 }
 
 
@@ -3633,7 +3752,6 @@ unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSi
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 unsigned char RightReturnOriginWorkStep(POSE *current_pose,unsigned char obstacleSignal)
 {
 	return 1;
@@ -7013,7 +7131,7 @@ unsigned char LeftReturnOriginWorkStep(POSE *current_pose,unsigned char obstacle
 //#################################################################################
 //##############A* return origin function define###################################
 //#################################################################################
-unsigned char within(int x, int y)
+unsigned char within(short x, short y)
 {
     return (x >= 0 && y >= 0 && x < AStar_Height && y < AStar_Width);
 }
@@ -7023,10 +7141,10 @@ void initOpen(AStar_Open *q)
     q->length = 0;
 }
 
-void push(AStar_Open *q, AStar_Close cls[AStar_Height][AStar_Width], int x, int y, float g)
+void push(AStar_Open *q, AStar_Close cls[AStar_Height][AStar_Width], short x, short y, short g)
 {
     AStar_Close *t;
-    int i, mintag;
+    short i, mintag;
     cls[x][y].AStar_G = g;
     cls[x][y].AStar_F = cls[x][y].AStar_G + cls[x][y].AStar_H;
     q->Array[q->length++] = &(cls[x][y]);
@@ -7048,9 +7166,9 @@ AStar_Close *shift(AStar_Open *q)
     return q->Array[--q->length];
 }
 
-void initClose(AStar_Close cls[AStar_Height][AStar_Width], int sx, int sy, int dx, int dy)
+void initClose(AStar_Close cls[AStar_Height][AStar_Width], short sx, short sy, short dx, short dy)
 {
-    int i, j;
+    short i, j;
     for (i = 0; i < AStar_Height; i++)
     {
         for (j = 0; j < AStar_Width; j++)
@@ -7066,9 +7184,9 @@ void initClose(AStar_Close cls[AStar_Height][AStar_Width], int sx, int sy, int d
     cls[dx][dy].AStar_G = AStar_Infinity;
 }
 
-void initGraph(bool maze[AStar_Height][AStar_Width], int sx, int sy, int dx, int dy)
+void initGraph(bool maze[AStar_Height][AStar_Width], short sx, short sy, short dx, short dy)
 {
-    int i, j;
+    short i, j;
     AStar_srcX = sx;
     AStar_srcY = sy;
     AStar_dstX = dx;
@@ -7122,10 +7240,10 @@ void initGraph(bool maze[AStar_Height][AStar_Width], int sx, int sy, int dx, int
     }
 }
 
-int astar()
+short astar(void)
 {
-    int i, curX, curY, surX, surY;
-    float surG;
+    short i, curX, curY, surX, surY;
+    short surG;
     AStar_Open q;
     AStar_Close *p;
     initOpen(&q);
@@ -7161,9 +7279,9 @@ int astar()
     return AStar_NoSolution;
 }
 
-AStar_Close *getShortest()
+AStar_Close *getShortest(void)
 {
-    int result = astar();
+    short result = astar();
     AStar_Close *p, *t, *q = NULL;
     switch (result)
     {
@@ -7185,10 +7303,11 @@ AStar_Close *getShortest()
     return NULL;
 }
 
-int printShortest()
+short printShortest(void)
 {
     AStar_Close *p;
-    int step = 0;
+    short step = 0;
+	short previous_x = -3, previous_y = -3;
     p = getShortest();
     AStar_start = p;
     if (!p)
@@ -7197,10 +7316,9 @@ int printShortest()
     }
     else
     {
-        int previous_x = -3, previous_y = -3;
+        
         while (p->from)
         {
-
             AStar_graph[p->cur->x][p->cur->y].value = AStar_Pass;
             if (p->cur->x - previous_x == 1 && p->cur->y - previous_y == 1)
             {
@@ -7285,22 +7403,23 @@ unsigned char AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
     int robot_y = current_pose_y;
     int goal_robot_x = 0;
     int goal_robot_y = 0;
-    int jk = 0;
-    int firsttrap = 0;
-    int secondtrap = 0;
-    int thirdtrap = 0;
-    int forthtrap = 0;
-    int astar_underboundary;
-    int astar_onboundary;
-    int leftboundary = 0;
-    int rightboundary = 0;
+    short jk = 0,ij=0;
+	short i = 0,j=0,k=0;
+    short firsttrap = 0;
+    short secondtrap = 0;
+    short thirdtrap = 0;
+    short forthtrap = 0;
+    short astar_underboundary;
+    short astar_onboundary;
+    short leftboundary = 0;
+    short rightboundary = 0;
     bool end_x = false;
-    int a_map_x = (robot_x + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
-    int a_map_y = (robot_y + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
-    int goal_map_x = (goal_robot_x + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
-    int goal_map_y = (goal_robot_y + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
+    short a_map_x = (robot_x + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
+    short a_map_y = (robot_y + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
+    short goal_map_x = (goal_robot_x + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
+    short goal_map_y = (goal_robot_y + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
 
-    for (int i = 0; i < 4; i++)
+    for (i = 0; i < 4; i++)
     {
         jk = i > 0 ? 1 : 0;
         for (int j = 0; j < GRIDWIDTH; j++)
@@ -7340,7 +7459,7 @@ unsigned char AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             }
         }
         astar_onboundary = (secondtrap - i) / 4 < MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - 1 ? (secondtrap - i) / 4 + 1 : MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - 1;
-        for (int j = 0; j < GRIDWIDTH; j++)
+        for (j = 0; j < GRIDWIDTH; j++)
         {
             for (int k = 0; k < GRIDWIDTH; k++)
             {
@@ -7359,9 +7478,9 @@ unsigned char AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
         }
         leftboundary = thirdtrap / 4 > 0 ? (firsttrap - i) / 4 - 1 : 0;
 
-        for (int j = GRIDWIDTH - 1; j >= 0; j--)
+        for (j = GRIDWIDTH - 1; j >= 0; j--)
         {
-            for (int k = 0; k < GRIDWIDTH; k++)
+            for (k = 0; k < GRIDWIDTH; k++)
             {
                 if (gridmap.map[k][j] == 250 || gridmap.map[k][j] == 0)
                 {
@@ -7377,11 +7496,11 @@ unsigned char AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             }
         }
         rightboundary = forthtrap / 4 > MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - 2 ? MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - 1 : forthtrap / 4 + 1;
-        for (int j = 0; j < MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - jk; j++)
+        for (j = 0; j < MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - jk; j++)
         {
             if (j == astar_onboundary || j == astar_underboundary)
             {
-                for (int k = 0; k < MAPWIDTH / (ZoomMultiple * GRIDWIDTH); k++)
+                for (k = 0; k < MAPWIDTH / (ZoomMultiple * GRIDWIDTH); k++)
                 {
                     if ((j == a_map_x && k == a_map_y) || (j == goal_map_x && k == goal_map_y))
                     {
@@ -7395,7 +7514,7 @@ unsigned char AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             }
             else
             {
-                for (int k = 0; k < MAPWIDTH / (ZoomMultiple * GRIDWIDTH); k++)
+                for (k = 0; k < MAPWIDTH / (ZoomMultiple * GRIDWIDTH); k++)
                 {
                     if (k == leftboundary || k == rightboundary)
                     {
@@ -7403,9 +7522,9 @@ unsigned char AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
                     }
                     else
                     {
-                        for (int ij = 0; ij < ZoomMultiple; ij++)
+                        for (ij = 0; ij < ZoomMultiple; ij++)
                         {
-                            for (int jk = 0; jk < ZoomMultiple; jk++)
+                            for ( jk = 0; jk < ZoomMultiple; jk++)
                             {
                                 if (gridmap.map[ZoomMultiple * ij + jk + i][ZoomMultiple * k + jk] == 0)
                                 {
@@ -7450,7 +7569,6 @@ unsigned char AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
 unsigned char AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obstacleSignal)
 {
     unsigned char complete_flag = 0;
-    int Yaw;
     Yaw = current_pose->orientation;
     switch (a_star_not_motion)
     {
@@ -7535,7 +7653,6 @@ unsigned char AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obsta
 unsigned char AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacleSignal)
 {
     unsigned char complete_flag = 0;
-    int Yaw;
     Yaw = current_pose->orientation;
     //cout << "AStarMotionReturnOrigin................." << endl;
     switch (a_star_motion_return_origin)
@@ -8519,7 +8636,6 @@ unsigned char AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacle
 unsigned char AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
 {
     unsigned char complete_flag = 0;
-    int Yaw;
     Yaw = current_pose->orientation;
     switch (a_star_collision)
     {
@@ -8820,7 +8936,6 @@ unsigned char AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
 unsigned char RightReturnOrigin(POSE *current_pose, unsigned char obstacleSignal)
 {
     unsigned char complete_flag = 0;
-    int Yaw;
     Yaw = current_pose->orientation;
     switch (return_origin_step_status)
     {

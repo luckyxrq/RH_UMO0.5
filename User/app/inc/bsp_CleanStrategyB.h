@@ -670,7 +670,7 @@
 #define AStar_Destination 4
 #define AStar_Sequential 0
 #define AStar_NoSolution 2
-#define AStar_Infinity 0xfffffff
+#define AStar_Infinity 0xFFFF
 
 #define AStar_East (1 << 0)
 #define AStar_South_East (1 << 1)
@@ -688,7 +688,7 @@ typedef struct AStarPoint
 
 typedef struct AStar_MapNode
 {
-    int x, y;
+    short x, y;
     unsigned char reachable, sur, value;
 } AStar_MapNode;
 
@@ -697,8 +697,8 @@ typedef struct AStar_Close
     AStar_MapNode *cur;
     char vis;
     struct AStar_Close *from;
-    float AStar_F, AStar_G;
-    int AStar_H;
+    short AStar_F, AStar_G;
+    short AStar_H;
 } AStar_Close;
 
 typedef struct AStar_Open
@@ -733,7 +733,7 @@ void bsp_ResetCleanStrategyBStatus(void);
 void bsp_StopUpdateCleanStrategyB(void);
 void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal, int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[]);
 uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
-
+uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal);
 
 
 unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
@@ -767,15 +767,15 @@ unsigned char StuckRightRunStep(POSE *current_pose, unsigned char obstacleSignal
 /////////////////////////////////
 
 //return origin
-unsigned char within(int x, int y);
+unsigned char within(short x, short y);
 void initOpen(AStar_Open *q);
-void push(AStar_Open *q, AStar_Close cls[AStar_Height][AStar_Width], int x, int y, float g);
+void push(AStar_Open *q, AStar_Close cls[AStar_Height][AStar_Width], short x, short y, short g);
 AStar_Close *shift(AStar_Open *q);
-void initClose(AStar_Close cls[AStar_Height][AStar_Width], int sx, int sy, int dx, int dy);
-void initGraph(bool maze[AStar_Height][AStar_Width], int sx, int sy, int dx, int dy);
-int astar(void);
+void initClose(AStar_Close cls[AStar_Height][AStar_Width], short sx, short sy, short dx, short dy);
+void initGraph(bool maze[AStar_Height][AStar_Width], short sx, short sy, short dx, short dy);
+short astar(void);
 AStar_Close *getShortest(void);
-int printShortest(void);
+short printShortest(void);
 
 unsigned char RightReturnOrigin(POSE *current_pose, unsigned char obstacleSignal);
 unsigned char AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal);
