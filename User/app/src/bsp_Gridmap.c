@@ -1,11 +1,11 @@
 #include "bsp.h"
 #include <math.h>
 
+
+GridMap gridmap;
 static int map_last_robotX = 0, map_last_robotY = 0;
 static char map_update = 0;
-static GridMap gridmap;
 static MapInfo TuYa_map[PER_UPLOAD_POINT_CNT] = {0};
-
 static double my_abs(double x){
     if (x<0){
         x= -x;
@@ -260,18 +260,18 @@ static unsigned char inverseSensorModelB(int  grid_x,int  grid_y,double x,double
 
 
 
-static void GridToXY( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
-    
-    *x_point = *x_grid * GRIDWIDTH + GRIDWIDTH / 2;
-    *y_point = *y_grid * GRIDHEIGHT + GRIDHEIGHT / 2;
+//static void GridToXY( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
+//    
+//    *x_point = *x_grid * GRIDWIDTH + GRIDWIDTH / 2;
+//    *y_point = *y_grid * GRIDHEIGHT + GRIDHEIGHT / 2;
 
-}
-static void XYToGrid( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
-    
-    *x_grid = (*x_point  + GRIDWIDTH / 2) / GRIDWIDTH;
-    *y_grid = (*y_point  + GRIDHEIGHT / 2) / GRIDHEIGHT;
-    
-}
+//}
+//static void XYToGrid( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
+//    
+//    *x_grid = (*x_point  + GRIDWIDTH / 2) / GRIDWIDTH;
+//    *y_grid = (*y_point  + GRIDHEIGHT / 2) / GRIDHEIGHT;
+//    
+//}
 
 
 
@@ -476,7 +476,7 @@ const unsigned char*  bsp_Get_GridMap(int robotX,int robotY)
 	int map_robot_x,map_robot_y;
 	int min_x,min_y,max_x,max_y;
 	int i = 0;
-	unsigned char current_x = 0,current_y = 0;
+	//unsigned char current_x = 0,current_y = 0;
 	
 	map_robot_x  = robotX + ROBOTXOFFSET;
 	map_robot_y  = robotY + ROBOTYOFFSET;

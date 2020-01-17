@@ -8,6 +8,10 @@
 #define LEFT_CLEAN_WORK_TIME 10*60*1000
 #define RIGHT_CLEAN_WORK_TIME 30*1000
 
+#define ZoomMultiple 4
+#define compression_map_x 25
+#define compression_map_y 25
+
 
 
 
@@ -63,6 +67,68 @@ int left_ready_leaking_sweep_status = 0;
 int FunctionStatus=0;
 unsigned int LastCleanTimeStamp = 0;
 unsigned int CurrentCleanTimeStamp  = 0;
+
+//**************return origin value************************************
+int x_more_number = 0;
+int x_less_number = 0;
+int y_more_number = 0;
+int y_less_number = 0;
+
+char return_origin_positive_start = 1;
+int return_origin_step_status = 0;
+char plansteps[100];
+int motionSteps = 0;
+int a_star_not_motion = 0;
+
+AStar_MapNode AStar_graph[AStar_Height][AStar_Width];
+int AStar_srcX, AStar_srcY, AStar_dstX, AStar_dstY;
+AStar_Close astar_close[AStar_Height][AStar_Width];
+AStar_Close *AStar_start;
+int AStar_shortestep;
+bool maze[compression_map_x][compression_map_y];
+
+int a_star_motion_return_origin = 0;
+int startMotionStep = 0;
+int AStarMotionNumber = 0;
+bool return_origin_collision;
+int temporary_wheel_pulse_r;
+int temporary_wheel_pulse_l;
+int wheel_pulse_l;
+int wheel_pulse_r;
+bool astar_coll = false;
+
+int temporary_returnorigin = 0;
+char selectside;
+int a_star_collision = 0;
+int a_star_collision_total = 0;
+int markingobstacle = 0;
+
+const AStarPoint astar_dir[8] =
+{
+	{0, 1},
+	{1, 1},
+	{1, 0},
+	{1, -1},
+	{0, -1},
+	{-1, -1},
+	{-1, 0},
+	{-1, 1}
+};
+
+//**************************************************
+
+
+//***********stuck status******************************
+int OVERALL_CLEANING_STRATEGY = 0;
+int judgment_Stuck_status = 0;
+int judgment_Stuck_status_x = 0;
+int judgment_Stuck_status_y = 0;
+int judgment_Stuck_status_yaw = 0;
+bool stuck_x = false;
+bool stuck_y = false;
+int x_error = 0;
+int y_error = 0;
+//
 
 
 static CleanStrategyB cleanstrategy;
@@ -154,7 +220,7 @@ void bsp_ResetCleanStrategyBStatus(void)
 	collision_right_leftrun_step_status = 0;
 	collision_left_leftrun_step_status = 0;
 	collision_front_leftrun_step_status = 0;
-//for  collision step
+//for collision step
 	distance_uptate  = 0;
 	turn_start_update = 0;
 	last_position_x = 0;
@@ -213,7 +279,7 @@ void bsp_StopUpdateCleanStrategyB(void)
 
 
 
-void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal, int wheel_pulse_l, int wheel_pulse_r, unsigned char IRSensorData[])
+void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal, int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[])
 {
 	
 	IRSensorData_StrategyB = IRSensorData;
@@ -222,6 +288,10 @@ void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned 
 	current_pose.x =  robotX;
 	current_pose.y =  robotY;
 	current_pose.orientation = Rad2Deg(robotTheta)*100;
+	
+	wheel_pulse_r = current_wheel_pulse_r;
+	wheel_pulse_l = current_wheel_pulse_l;
+	
 	if(cleanstrategy.isRunning)
 	{
 		if(clean_strategy(&current_pose,obstacleSignal) != ALL_CLEAN_COMPLETE)
@@ -587,7 +657,7 @@ unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSign
 }
 unsigned char CollisionRightRightRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    //cout<<"CollisionRighttemporary_current_pose.x................============>>>>>>>>>>>"<<temporary_current_pose.x<<endl;
+    ////cout<<"CollisionRighttemporary_current_pose.x................============>>>>>>>>>>>"<<temporary_current_pose.x<<endl;
     //int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
@@ -1212,7 +1282,7 @@ unsigned char CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacl
     //int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
-    //cout<<"collision_left_rightrun_step_status................============>>>>>>>>>>>"<<collision_left_rightrun_step_status<<endl;
+    ////cout<<"collision_left_rightrun_step_status................============>>>>>>>>>>>"<<collision_left_rightrun_step_status<<endl;
     switch(collision_left_rightrun_step_status)
     {
     case 0:
@@ -6937,6 +7007,2620 @@ unsigned char LeftReturnOriginWorkStep(POSE *current_pose,unsigned char obstacle
 {
 	return 1;
 }
+
+
+
+//#################################################################################
+//##############A* return origin function define###################################
+//#################################################################################
+unsigned char within(int x, int y)
+{
+    return (x >= 0 && y >= 0 && x < AStar_Height && y < AStar_Width);
+}
+
+void initOpen(AStar_Open *q)
+{
+    q->length = 0;
+}
+
+void push(AStar_Open *q, AStar_Close cls[AStar_Height][AStar_Width], int x, int y, float g)
+{
+    AStar_Close *t;
+    int i, mintag;
+    cls[x][y].AStar_G = g;
+    cls[x][y].AStar_F = cls[x][y].AStar_G + cls[x][y].AStar_H;
+    q->Array[q->length++] = &(cls[x][y]);
+    mintag = q->length - 1;
+    for (i = 0; i < q->length - 1; i++)
+    {
+        if (q->Array[i]->AStar_F < q->Array[mintag]->AStar_F)
+        {
+            mintag = i;
+        }
+    }
+    t = q->Array[q->length - 1];
+    q->Array[q->length - 1] = q->Array[mintag];
+    q->Array[mintag] = t;
+}
+
+AStar_Close *shift(AStar_Open *q)
+{
+    return q->Array[--q->length];
+}
+
+void initClose(AStar_Close cls[AStar_Height][AStar_Width], int sx, int sy, int dx, int dy)
+{
+    int i, j;
+    for (i = 0; i < AStar_Height; i++)
+    {
+        for (j = 0; j < AStar_Width; j++)
+        {
+            cls[i][j].cur = &AStar_graph[i][j];
+            cls[i][j].vis = !AStar_graph[i][j].reachable;
+            cls[i][j].from = NULL;
+            cls[i][j].AStar_G = cls[i][j].AStar_F = 0;
+            cls[i][j].AStar_H = abs(dx - i) + abs(dy - j);
+        }
+    }
+    cls[sx][sy].AStar_F = cls[sx][sy].AStar_H;
+    cls[dx][dy].AStar_G = AStar_Infinity;
+}
+
+void initGraph(bool maze[AStar_Height][AStar_Width], int sx, int sy, int dx, int dy)
+{
+    int i, j;
+    AStar_srcX = sx;
+    AStar_srcY = sy;
+    AStar_dstX = dx;
+    AStar_dstY = dy;
+    for (i = 0; i < AStar_Height; i++)
+    {
+        for (j = 0; j < AStar_Width; j++)
+        {
+            AStar_graph[i][j].x = i;
+            AStar_graph[i][j].y = j;
+            AStar_graph[i][j].value = maze[i][j];
+            AStar_graph[i][j].reachable = (AStar_graph[i][j].value == AStar_Reachable);
+            AStar_graph[i][j].sur = 0;
+            if (!AStar_graph[i][j].reachable)
+            {
+                continue;
+            }
+            if (j > 0)
+            {
+                if (AStar_graph[i][j - 1].reachable)
+                {
+                    AStar_graph[i][j].sur |= AStar_West;
+                    AStar_graph[i][j - 1].sur |= AStar_East;
+                }
+                if (i > 0)
+                {
+                    if (AStar_graph[i - 1][j - 1].reachable && AStar_graph[i - 1][j].reachable && AStar_graph[i][j - 1].reachable)
+                    {
+                        AStar_graph[i][j].sur |= AStar_North_West;
+                        AStar_graph[i - 1][j - 1].sur |= AStar_South_East;
+                    }
+                }
+            }
+            if (i > 0)
+            {
+                if (AStar_graph[i - 1][j].reachable)
+                {
+                    AStar_graph[i][j].sur |= AStar_North;
+                    AStar_graph[i - 1][j].sur |= AStar_South;
+                }
+                if (j < AStar_Width - 1)
+                {
+                    if (AStar_graph[i - 1][j + 1].reachable && AStar_graph[i - 1][j].reachable && maze[i][j + 1] == AStar_Reachable)
+                    {
+                        AStar_graph[i][j].sur |= AStar_North_East;
+                        AStar_graph[i - 1][j + 1].sur |= AStar_South_West;
+                    }
+                }
+            }
+        }
+    }
+}
+
+int astar()
+{
+    int i, curX, curY, surX, surY;
+    float surG;
+    AStar_Open q;
+    AStar_Close *p;
+    initOpen(&q);
+    initClose(astar_close, AStar_srcX, AStar_srcY, AStar_dstX, AStar_dstY);
+    astar_close[AStar_srcX][AStar_srcY].vis = 1;
+    push(&q, astar_close, AStar_srcX, AStar_srcY, 0);
+    while (q.length)
+    {
+        p = shift(&q);
+        curX = p->cur->x;
+        curY = p->cur->y;
+        if (!p->AStar_H)
+        {
+            return AStar_Sequential;
+        }
+        for (i = 0; i < 8; i++)
+        {
+            if (!(p->cur->sur & (1 << i)))
+            {
+                continue;
+            }
+            surX = curX + astar_dir[i].x;
+            surY = curY + astar_dir[i].y;
+            if (!astar_close[surX][surY].vis)
+            {
+                astar_close[surX][surY].vis = 1;
+                astar_close[surX][surY].from = p;
+                surG = p->AStar_G + sqrt((curX - surX) * (curX - surX) + (curY - surY) * (curY - surY));
+                push(&q, astar_close, surX, surY, surG);
+            }
+        }
+    }
+    return AStar_NoSolution;
+}
+
+AStar_Close *getShortest()
+{
+    int result = astar();
+    AStar_Close *p, *t, *q = NULL;
+    switch (result)
+    {
+    case AStar_Sequential:
+        p = &(astar_close[AStar_dstX][AStar_dstY]);
+        while (p)
+        {
+            t = p->from;
+            p->from = q;
+            q = p;
+            p = t;
+        }
+        astar_close[AStar_srcX][AStar_srcY].from = q->from;
+
+        return &(astar_close[AStar_srcX][AStar_srcY]);
+    case AStar_NoSolution:
+        return NULL;
+    }
+    return NULL;
+}
+
+int printShortest()
+{
+    AStar_Close *p;
+    int step = 0;
+    p = getShortest();
+    AStar_start = p;
+    if (!p)
+    {
+        return 0;
+    }
+    else
+    {
+        int previous_x = -3, previous_y = -3;
+        while (p->from)
+        {
+
+            AStar_graph[p->cur->x][p->cur->y].value = AStar_Pass;
+            if (p->cur->x - previous_x == 1 && p->cur->y - previous_y == 1)
+            {
+                plansteps[motionSteps] = 'g';
+                motionSteps++;
+                plansteps[motionSteps] = 'g';
+                motionSteps++;
+            }
+            else if (p->cur->x - previous_x == 0 && p->cur->y - previous_y == 1)
+            {
+                plansteps[motionSteps] = 'h';
+                motionSteps++;
+                plansteps[motionSteps] = 'h';
+                motionSteps++;
+            }
+            else if (p->cur->x - previous_x == -1 && p->cur->y - previous_y == 1)
+            {
+                plansteps[motionSteps] = 'a';
+                motionSteps++;
+                plansteps[motionSteps] = 'a';
+                motionSteps++;
+            }
+            else if (p->cur->x - previous_x == -1 && p->cur->y - previous_y == 0)
+            {
+                plansteps[motionSteps] = 'b';
+                motionSteps++;
+                plansteps[motionSteps] = 'b';
+                motionSteps++;
+            }
+            else if (p->cur->x - previous_x == -1 && p->cur->y - previous_y == -1)
+            {
+                plansteps[motionSteps] = 'c';
+                motionSteps++;
+                plansteps[motionSteps] = 'c';
+                motionSteps++;
+            }
+            else if (p->cur->x - previous_x == 0 && p->cur->y - previous_y == -1)
+            {
+                plansteps[motionSteps] = 'd';
+                motionSteps++;
+                plansteps[motionSteps] = 'd';
+                motionSteps++;
+            }
+            else if (p->cur->x - previous_x == 1 && p->cur->y - previous_y == -1)
+            {
+                plansteps[motionSteps] = 'e';
+                motionSteps++;
+                plansteps[motionSteps] = 'e';
+                motionSteps++;
+            }
+            else if (p->cur->x - previous_x == 1 && p->cur->y - previous_y == 0)
+            {
+                plansteps[motionSteps] = 'f';
+                motionSteps++;
+                plansteps[motionSteps] = 'f';
+                motionSteps++;
+            }
+            else
+            {
+            }
+            //cout << plansteps[motionSteps - 1] << endl;
+            //cout << '(' << p->cur->x << ',' << p->cur->y << ')' << endl;
+            maze[p->cur->x][p->cur->y] = 1;
+            previous_x = p->cur->x;
+            previous_y = p->cur->y;
+            p = p->from;
+            step++;
+        }
+        AStar_graph[AStar_srcX][AStar_srcY].value = AStar_Source;
+        AStar_graph[AStar_dstX][AStar_dstY].value = AStar_Destination;
+        return step;
+    }
+}
+
+unsigned char AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal)
+{
+    unsigned char complete_flag = 0;
+    int current_pose_x = current_pose->x;
+    int current_pose_y = current_pose->y;
+    bool canmove = true;
+    int robot_x = current_pose_x;
+    int robot_y = current_pose_y;
+    int goal_robot_x = 0;
+    int goal_robot_y = 0;
+    int jk = 0;
+    int firsttrap = 0;
+    int secondtrap = 0;
+    int thirdtrap = 0;
+    int forthtrap = 0;
+    int astar_underboundary;
+    int astar_onboundary;
+    int leftboundary = 0;
+    int rightboundary = 0;
+    bool end_x = false;
+    int a_map_x = (robot_x + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
+    int a_map_y = (robot_y + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
+    int goal_map_x = (goal_robot_x + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
+    int goal_map_y = (goal_robot_y + MAPHEIGHT / 2) / (ZoomMultiple * GRIDWIDTH);
+
+    for (int i = 0; i < 4; i++)
+    {
+        jk = i > 0 ? 1 : 0;
+        for (int j = 0; j < GRIDWIDTH; j++)
+        {
+            for (int k = 0; k < GRIDWIDTH; k++)
+            {
+                if (gridmap.map[j][k] == 250 || gridmap.map[j][k] == 0)
+                {
+                    firsttrap = j;
+                    end_x = true;
+                    break;
+                }
+            }
+            if (end_x == true)
+            {
+                end_x = false;
+                break;
+            }
+        }
+        astar_underboundary = (firsttrap - i) / 4 > 0 ? (firsttrap - i) / 4 - 1 : 0;
+
+        for (int j = GRIDWIDTH - 1; j >= 0; j--)
+        {
+            for (int k = 0; k < GRIDWIDTH; k++)
+            {
+                if (gridmap.map[j][k] == 250 || gridmap.map[j][k] == 0)
+                {
+                    secondtrap = j;
+                    end_x = true;
+                    break;
+                }
+            }
+            if (end_x == true)
+            {
+                end_x = false;
+                break;
+            }
+        }
+        astar_onboundary = (secondtrap - i) / 4 < MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - 1 ? (secondtrap - i) / 4 + 1 : MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - 1;
+        for (int j = 0; j < GRIDWIDTH; j++)
+        {
+            for (int k = 0; k < GRIDWIDTH; k++)
+            {
+                if (gridmap.map[k][j] == 250 || gridmap.map[k][j] == 0)
+                {
+                    thirdtrap = j;
+                    end_x = true;
+                    break;
+                }
+            }
+            if (end_x == true)
+            {
+                end_x = false;
+                break;
+            }
+        }
+        leftboundary = thirdtrap / 4 > 0 ? (firsttrap - i) / 4 - 1 : 0;
+
+        for (int j = GRIDWIDTH - 1; j >= 0; j--)
+        {
+            for (int k = 0; k < GRIDWIDTH; k++)
+            {
+                if (gridmap.map[k][j] == 250 || gridmap.map[k][j] == 0)
+                {
+                    forthtrap = j;
+                    end_x = true;
+                    break;
+                }
+            }
+            if (end_x == true)
+            {
+                end_x = false;
+                break;
+            }
+        }
+        rightboundary = forthtrap / 4 > MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - 2 ? MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - 1 : forthtrap / 4 + 1;
+        for (int j = 0; j < MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) - jk; j++)
+        {
+            if (j == astar_onboundary || j == astar_underboundary)
+            {
+                for (int k = 0; k < MAPWIDTH / (ZoomMultiple * GRIDWIDTH); k++)
+                {
+                    if ((j == a_map_x && k == a_map_y) || (j == goal_map_x && k == goal_map_y))
+                    {
+                        maze[j][k] = 0;
+                    }
+                    else
+                    {
+                        maze[j][k] = 1;
+                    }
+                }
+            }
+            else
+            {
+                for (int k = 0; k < MAPWIDTH / (ZoomMultiple * GRIDWIDTH); k++)
+                {
+                    if (k == leftboundary || k == rightboundary)
+                    {
+                        maze[j][k] = 1;
+                    }
+                    else
+                    {
+                        for (int ij = 0; ij < ZoomMultiple; ij++)
+                        {
+                            for (int jk = 0; jk < ZoomMultiple; jk++)
+                            {
+                                if (gridmap.map[ZoomMultiple * ij + jk + i][ZoomMultiple * k + jk] == 0)
+                                {
+                                    canmove = false;
+                                    break;
+                                }
+                                else
+                                {
+                                }
+                            }
+                            if (canmove == false)
+                            {
+                                break;
+                            }
+                        }
+                        if (canmove == true)
+                        {
+                            maze[j][k] = 0;
+                        }
+                        else
+                        {
+                            if ((i == a_map_x && k == a_map_y) || (i == MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT) && k == MAPHEIGHT / (ZoomMultiple * GRIDHEIGHT)))
+                            {
+                                maze[j][k] = 0;
+                            }
+                            else
+                            {
+                                maze[j][k] = 1;
+                            }
+                            canmove = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    initGraph(maze, a_map_x, a_map_x, goal_map_x, goal_map_x);
+    AStar_shortestep = printShortest();
+    return complete_flag;
+}
+
+unsigned char AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obstacleSignal)
+{
+    unsigned char complete_flag = 0;
+    int Yaw;
+    Yaw = current_pose->orientation;
+    switch (a_star_not_motion)
+    {
+    case 0:
+        temporary_wheel_pulse_r = wheel_pulse_r;
+        a_star_not_motion = START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        break;
+    case START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (obstacleSignal != none_obstacle)
+        {
+            a_star_not_motion = COLLISION_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (my_abs(wheel_pulse_r - temporary_wheel_pulse_r) > 958)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_not_motion = 0;
+            complete_flag = 1;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case COLLISION_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            temporary_yaw = Yaw / 100;
+            a_star_not_motion = TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_not_motion = START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_not_motion = COLLISION_TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_not_motion = TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    }
+    return complete_flag;
+}
+
+unsigned char AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacleSignal)
+{
+    unsigned char complete_flag = 0;
+    int Yaw;
+    Yaw = current_pose->orientation;
+    //cout << "AStarMotionReturnOrigin................." << endl;
+    switch (a_star_motion_return_origin)
+    {
+    case 0:
+        a_star_motion_return_origin = ASTAR_MOTION_GOSTR_RETURN;
+        break;
+    case ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(current_pose->x) > return_origin_distance || my_abs(current_pose->y) > return_origin_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        else
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            complete_flag = 1;
+            a_star_motion_return_origin = A_STAR_COMPLETED;
+            break;
+        }
+    case PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (motionSteps == 0)
+        {
+            AStarMotionNumber++;
+            if (AStarMotionNumber > 10)
+            {
+                linear_velocity = 0;
+                angular_velocity = 0;
+                complete_flag = 4;
+            }
+            else
+            {
+                complete_flag = 3;
+            }
+            break;
+        }
+        if (motionSteps > 0)
+        {
+            AStarMotionNumber = 0;
+            a_star_motion_return_origin = DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        break;
+    case DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(current_pose->x) < return_origin_distance && my_abs(current_pose->y) < return_origin_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = A_STAR_COMPLETED;
+            complete_flag = 1;
+            break;
+        }
+        if (startMotionStep >= motionSteps)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = A_STAR_COMPLETED;
+            complete_flag = 1;
+            break;
+        }
+        if (plansteps[startMotionStep] == 'a')
+        {
+            a_star_motion_return_origin = A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (plansteps[startMotionStep] == 'b')
+        {
+            a_star_motion_return_origin = B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (plansteps[startMotionStep] == 'c')
+        {
+            a_star_motion_return_origin = C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (plansteps[startMotionStep] == 'd')
+        {
+            a_star_motion_return_origin = D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (plansteps[startMotionStep] == 'e')
+        {
+            a_star_motion_return_origin = E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (plansteps[startMotionStep] == 'f')
+        {
+            a_star_motion_return_origin = F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (plansteps[startMotionStep] == 'g')
+        {
+            a_star_motion_return_origin = G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (plansteps[startMotionStep] == 'h')
+        {
+            a_star_motion_return_origin = H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else
+        {
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        startMotionStep++;
+        break;
+    case A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) <= 45 || (Yaw / 100 > 45 && Yaw / 100 < 130))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (my_abs(Yaw / 100) > 140 || (Yaw / 100 >= -140 && Yaw / 100 < -45))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else
+        {
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 < 138 && Yaw / 100 > 132)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 < 138 && Yaw / 100 > 132)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -turn_vel;
+        break;
+    case COLLISION_MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            complete_flag = 2;
+            break;
+        }
+        if (wheel_pulse_l - temporary_wheel_pulse_l > 1255)
+        {
+            a_star_motion_return_origin = DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+
+    case B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) < 175 && Yaw / 100 >= 0)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (my_abs(Yaw / 100) < 175 && Yaw / 100 < 0)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else
+        {
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) > 178)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) > 178)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -turn_vel;
+        break;
+    case COLLISION_MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            complete_flag = 2;
+            break;
+        }
+        if (wheel_pulse_l - temporary_wheel_pulse_l > 908)
+        {
+            a_star_motion_return_origin = DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) > 140 || (Yaw / 100 > 45 && Yaw / 100 <= 140))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (my_abs(Yaw / 100) <= 45 || (Yaw / 100 > -130 && Yaw / 100 < -45))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else
+        {
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 > -138 && Yaw / 100 < -132)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 > -138 && Yaw / 100 < -132)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -turn_vel;
+        break;
+    case COLLISION_MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case GO_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = GO_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            complete_flag = 2;
+            break;
+        }
+        if (wheel_pulse_l - temporary_wheel_pulse_l > 1255)
+        {
+            a_star_motion_return_origin = DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) > 95)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (my_abs(Yaw / 100) < 85 || (Yaw / 100 >= 85 && Yaw / 100 <= 95))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else
+        {
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 > -138 && Yaw / 100 < -132)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 > -138 && Yaw / 100 < -132)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -turn_vel;
+        break;
+    case COLLISION_MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            complete_flag = 2;
+            break;
+        }
+        if (wheel_pulse_l - temporary_wheel_pulse_l > 908)
+        {
+            a_star_motion_return_origin = DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) >= 135 || (Yaw / 100 < -135 && Yaw / 100 > -50))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (my_abs(Yaw / 100) < 40 || (Yaw / 100 >= 40 && Yaw / 100 < 135))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else
+        {
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 < -42 && Yaw / 100 > -48)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 < -42 && Yaw / 100 > -48)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -turn_vel;
+        break;
+    case COLLISION_MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            complete_flag = 2;
+            break;
+        }
+        if (wheel_pulse_l - temporary_wheel_pulse_l > 1255)
+        {
+            a_star_motion_return_origin = DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+
+    case F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) > 5 && Yaw / 100 < 0)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (my_abs(Yaw / 100) > 5 && Yaw / 100 > 0)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else
+        {
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) < 3)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) < 3)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -turn_vel;
+        break;
+    case COLLISION_MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            complete_flag = 2;
+            break;
+        }
+        if (wheel_pulse_l - temporary_wheel_pulse_l > 908)
+        {
+            a_star_motion_return_origin = DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) <= 40 || (Yaw / 100 < -40 && Yaw / 100 > -135))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (my_abs(Yaw / 100) >= 135 || (Yaw / 100 > 50 && Yaw / 100 < 135))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else
+        {
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 < 48 && Yaw / 100 > 42)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 < 48 && Yaw / 100 > 42)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -turn_vel;
+        break;
+    case COLLISION_MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            complete_flag = 2;
+            break;
+        }
+        if (wheel_pulse_l - temporary_wheel_pulse_l > 1255)
+        {
+            a_star_motion_return_origin = DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (my_abs(Yaw / 100) < 85)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else if (my_abs(Yaw / 100) > 95 || (Yaw / 100 >= -95 && Yaw / 100 <= -85))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        else
+        {
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 > 87 && Yaw / 100 < 93)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (Yaw / 100 > 87 && Yaw / 100 < 93)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            temporary_wheel_pulse_l = wheel_pulse_l;
+            a_star_motion_return_origin = GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = COLLISION_MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -turn_vel;
+        break;
+    case COLLISION_MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_motion_return_origin = MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+        }
+        break;
+    case GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_motion_return_origin = GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            complete_flag = 2;
+            break;
+        }
+        if (wheel_pulse_l - temporary_wheel_pulse_l > 908)
+        {
+            a_star_motion_return_origin = DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case A_STAR_COMPLETED:
+        linear_velocity = 0;
+        angular_velocity = 0;
+        startMotionStep = 0;
+        motionSteps = 0;
+        AStarMotionNumber = 0;
+        a_star_motion_return_origin = 0;
+        break;
+    }
+    return complete_flag;
+}
+
+unsigned char AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
+{
+    unsigned char complete_flag = 0;
+    int Yaw;
+    Yaw = current_pose->orientation;
+    switch (a_star_collision)
+    {
+    case 0:
+        a_star_collision = A_STAR_COLLISION;
+        break;
+    case A_STAR_COLLISION:
+        log_debug("A_STAR_COLLISION_GOSTR");
+        if (my_abs(current_pose->x) > return_origin_distance || my_abs(current_pose->y) > return_origin_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_collision = START_A_STAR_COLLISION;
+        }
+        else
+        {
+            log_debug("A_STAR_COLLISION_COMPLETED");
+            linear_velocity = 0;
+            angular_velocity = 0;
+            complete_flag = 2;
+            a_star_collision = A_STAR_COLLISION_COMPLETED;
+        }
+        break;
+    case START_A_STAR_COLLISION:
+        if (obstacleSignal == left_obstacle)
+        {
+            markingobstacle = left_obstacle;
+        }
+        else if (obstacleSignal == right_obstacle)
+        {
+            markingobstacle = right_obstacle;
+        }
+        else
+        {
+            markingobstacle = front_obstacle;
+        }
+        a_star_collision = BACK_START_A_STAR_COLLISION;
+        break;
+    case BACK_START_A_STAR_COLLISION:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > side_backward_distance || my_abs(turn_start_y - current_pose->y) > side_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            temporary_yaw = Yaw / 100;
+            if (markingobstacle == left_obstacle)
+            {
+                a_star_collision = LEFT_OBSTACLE_START_A_STAR_COLLISION;
+            }
+            else if (markingobstacle == right_obstacle)
+            {
+                a_star_collision = RIGHT_OBSTACLE_START_A_STAR_COLLISION;
+            }
+            else
+            {
+                a_star_collision = FRONT_OBSTACLE_START_A_STAR_COLLISION;
+            }
+        }
+        break;
+    case LEFT_OBSTACLE_START_A_STAR_COLLISION:
+        if (my_abs(temporary_yaw - Yaw / 100) > 5)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_collision = GO_LEFT_OBSTACLE_START_A_STAR_COLLISION;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_collision = COLLISION_LEFT_OBSTACLE_START_A_STAR_COLLISION;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -turn_vel;
+        break;
+    case COLLISION_LEFT_OBSTACLE_START_A_STAR_COLLISION:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision = LEFT_OBSTACLE_START_A_STAR_COLLISION;
+        }
+        break;
+    case GO_LEFT_OBSTACLE_START_A_STAR_COLLISION:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision_total++;
+            a_star_collision = BACK_START_A_STAR_COLLISION;
+            break;
+        }
+        if (a_star_collision_total > 10)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision = RECALCULATE_A_STAR_COLLISION_COMPLETED;
+            break;
+        }
+        if (my_abs(turn_start_x - current_pose->x) > side_backward_distance || my_abs(turn_start_y - current_pose->y) > side_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision = A_STAR_COLLISION_COMPLETED;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case RIGHT_OBSTACLE_START_A_STAR_COLLISION:
+        if (my_abs(temporary_yaw - Yaw / 100) > 5)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_collision = GO_RIGHT_OBSTACLE_START_A_STAR_COLLISION;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_collision = COLLISION_RIGHT_OBSTACLE_START_A_STAR_COLLISION;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_RIGHT_OBSTACLE_START_A_STAR_COLLISION:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision = RIGHT_OBSTACLE_START_A_STAR_COLLISION;
+        }
+        break;
+    case GO_RIGHT_OBSTACLE_START_A_STAR_COLLISION:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision_total++;
+            a_star_collision = BACK_START_A_STAR_COLLISION;
+            break;
+        }
+        if (a_star_collision_total > 10)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision = RECALCULATE_A_STAR_COLLISION_COMPLETED;
+            break;
+        }
+        if (my_abs(turn_start_x - current_pose->x) > side_backward_distance || my_abs(turn_start_y - current_pose->y) > side_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision = A_STAR_COLLISION_COMPLETED;
+        }
+        break;
+    case FRONT_OBSTACLE_START_A_STAR_COLLISION:
+        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_collision = GO_FRONT_OBSTACLE_START_A_STAR_COLLISION;
+            break;
+        }
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            a_star_collision = COLLISION_FRONT_OBSTACLE_START_A_STAR_COLLISION;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = turn_vel;
+        break;
+    case COLLISION_FRONT_OBSTACLE_START_A_STAR_COLLISION:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision = FRONT_OBSTACLE_START_A_STAR_COLLISION;
+        }
+        break;
+    case GO_FRONT_OBSTACLE_START_A_STAR_COLLISION:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision_total++;
+            a_star_collision = BACK_START_A_STAR_COLLISION;
+            break;
+        }
+        if (a_star_collision_total > 5)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision = RECALCULATE_A_STAR_COLLISION_COMPLETED;
+            break;
+        }
+        if (my_abs(turn_start_x - current_pose->x) > side_backward_distance || my_abs(turn_start_y - current_pose->y) > side_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            a_star_collision = A_STAR_COLLISION_COMPLETED;
+        }
+        break;
+    case RECALCULATE_A_STAR_COLLISION_COMPLETED:
+        linear_velocity = 0;
+        angular_velocity = 0;
+        a_star_collision = 0;
+        a_star_collision_total = 0;
+        complete_flag = 1;
+        break;
+    case A_STAR_COLLISION_COMPLETED:
+        linear_velocity = 0;
+        angular_velocity = 0;
+        a_star_collision = 0;
+        a_star_collision_total = 0;
+        complete_flag = 2;
+        break;
+    }
+    return complete_flag;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+//#################################################################################
+//#############  return origin function define  ###################################
+//#################################################################################
+unsigned char RightReturnOrigin(POSE *current_pose, unsigned char obstacleSignal)
+{
+    unsigned char complete_flag = 0;
+    int Yaw;
+    Yaw = current_pose->orientation;
+    switch (return_origin_step_status)
+    {
+    case 0:
+        return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
+        break;
+    case GOSTR_RETURN_ORIGIN_STEP:
+        log_debug("return origin");
+        if (my_abs(current_pose->x) > return_origin_distance || my_abs(current_pose->y) > return_origin_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            log_debug("return origin");
+            if (my_abs(current_pose->y) > return_origin_distance)
+            {
+                if (current_pose->y > 0)
+                {
+                    return_origin_step_status = DIR_Y_MORE_POSITIVE_200;
+                }
+                else
+                {
+                    return_origin_step_status = DIR_Y_LESS_NEGATIVE_200;
+                }
+            }
+            else
+            {
+                if (current_pose->x > 0)
+                {
+                    return_origin_step_status = DIR_X_MORE_POSITIVE_200;
+                }
+                else
+                {
+                    return_origin_step_status = DIR_X_LESS_NEGATIVE_200;
+                }
+            }
+        }
+        else
+        {
+            log_debug("Has returned to the origin");
+            linear_velocity = 0;
+            angular_velocity = 0;
+
+            complete_flag = 1;
+        }
+        break;
+    case DIR_Y_MORE_POSITIVE_200:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = TURN_CLOCK_DIR_Y_MORE_POSITIVE_200;
+            break;
+        }
+        if (my_abs(Yaw / 100) <= 90)
+        {
+            angular_velocity = -turn_vel;
+            linear_velocity = 0;
+        }
+        else
+        {
+            angular_velocity = turn_vel;
+            linear_velocity = 0;
+        }
+        if ((-95 < Yaw / 100) && (Yaw / 100 < -85))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = TURN_CLOCK_TARGET_YAW_NEGATIVE_90_RETURN_ORIGIN;
+        }
+        break;
+    case TURN_CLOCK_DIR_Y_MORE_POSITIVE_200:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = DIR_Y_MORE_POSITIVE_200;
+        }
+        break;
+    case DIR_Y_LESS_NEGATIVE_200:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = TURN_CLOCK_DIR_Y_LESS_NEGATIVE_200;
+            break;
+        }
+        if (my_abs(Yaw / 100) <= 90)
+        {
+            angular_velocity = turn_vel;
+            linear_velocity = 0;
+        }
+        else
+        {
+            angular_velocity = -turn_vel;
+            linear_velocity = 0;
+        }
+        if ((95 > Yaw / 100) && (Yaw / 100 > 85))
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = TURN_CLOCK_TARGET_YAW_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        break;
+    case TURN_CLOCK_DIR_Y_LESS_NEGATIVE_200:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = DIR_Y_LESS_NEGATIVE_200;
+        }
+        break;
+    case DIR_X_MORE_POSITIVE_200:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = TURN_CLOCK_DIR_X_MORE_POSITIVE_200;
+            break;
+        }
+        if (Yaw > 0)
+        {
+            angular_velocity = turn_vel;
+            linear_velocity = 0;
+        }
+        else
+        {
+            angular_velocity = -turn_vel;
+            linear_velocity = 0;
+        }
+        if (my_abs(Yaw / 100) > 175)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = TURN_CLOCK_TARGET_YAW_180_RETURN_ORIGIN;
+        }
+        break;
+    case TURN_CLOCK_DIR_X_MORE_POSITIVE_200:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = DIR_X_MORE_POSITIVE_200;
+        }
+        break;
+    case DIR_X_LESS_NEGATIVE_200:
+        if (obstacleSignal != none_obstacle)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = TURN_CLOCK_DIR_X_LESS_NEGATIVE_200;
+            break;
+        }
+        if (Yaw > 0)
+        {
+            angular_velocity = -turn_vel;
+            linear_velocity = 0;
+        }
+        else
+        {
+            angular_velocity = turn_vel;
+            linear_velocity = 0;
+        }
+        if (my_abs(Yaw / 100) < 5)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = TURN_CLOCK_TARGET_YAW_5_RETURN_ORIGIN;
+        }
+        break;
+    case TURN_CLOCK_DIR_X_LESS_NEGATIVE_200:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = DIR_X_LESS_NEGATIVE_200;
+        }
+        break;
+    case TURN_CLOCK_TARGET_YAW_POSITIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = COLLISION_Y_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(current_pose->y) < return_origin_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case COLLISION_Y_POSITIVE_90_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = TURN_CLOCK_Y_POSITIVE_90_RETURN_ORIGIN;
+        }
+        break;
+    case TURN_CLOCK_Y_POSITIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = TURN_CLOCK_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (current_pose->x > 0)
+        {
+            return_origin_positive_start = 1;
+        }
+        else
+        {
+            return_origin_positive_start = -1;
+        }
+        linear_velocity = 0;
+        angular_velocity = return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = TURN_CLOCK_Y_POSITIVE_90_RETURN_ORIGIN;
+        }
+        break;
+    case BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN:
+        last_position_y = current_pose->y;
+        last_position_x = current_pose->x;
+        return_origin_step_status = LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
+        break;
+    case LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2 || my_abs(last_position_x - current_pose->x) > lateral_move_distance / 2)
+        {
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = Y_MORE_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (((100 > Yaw / 100) && (Yaw / 100 > 80)) || my_abs(current_pose->y) < return_origin_distance)
+        {
+            return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case COLLISION_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = TURN_CLOCK_LOOP_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_LOOP_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
+        }
+        break;
+    case Y_MORE_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (((100 > Yaw / 100) && (Yaw / 100 > 80)) || my_abs(Yaw / 100 - temporary_yaw) > 30)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_TARGET_YAW_NEGATIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(current_pose->y) < return_origin_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = TURN_CLOCK_Y_NEGATIVE_90_RETURN_ORIGIN;
+        }
+        break;
+    case TURN_CLOCK_Y_NEGATIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = TURN_CLOCK_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (current_pose->x > 0)
+        {
+            return_origin_positive_start = 1;
+        }
+        else
+        {
+            return_origin_positive_start = -1;
+        }
+        linear_velocity = 0;
+        angular_velocity = -return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = TURN_CLOCK_Y_NEGATIVE_90_RETURN_ORIGIN;
+        }
+        break;
+    case BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN:
+        last_position_y = current_pose->y;
+        last_position_x = current_pose->x;
+        return_origin_step_status = LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
+        break;
+    case LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2 || my_abs(last_position_x - current_pose->x) > lateral_move_distance / 2)
+        {
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = Y_MORE_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (((-100 < Yaw / 100) && (Yaw / 100 < -80)) || my_abs(current_pose->y) < return_origin_distance)
+        {
+            return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case COLLISION_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = TURN_CLOCK_LOOP_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_LOOP_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
+        }
+        break;
+    case Y_MORE_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        if ((-100 < Yaw / 100) && (Yaw / 100 < -80) || my_abs(Yaw / 100 - temporary_yaw) > 30)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_TARGET_YAW_180_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = COLLISION_X_POSITIVE_180_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(current_pose->x) < return_origin_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case COLLISION_X_POSITIVE_180_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = TURN_CLOCK_X_POSITIVE_180_RETURN_ORIGIN;
+        }
+        break;
+    case TURN_CLOCK_X_POSITIVE_180_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = TURN_CLOCK_COLLISION_X_POSITIVE_180_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
+            break;
+        }
+        if (current_pose->y > 0)
+        {
+            return_origin_positive_start = 1;
+        }
+        else
+        {
+            return_origin_positive_start = -1;
+        }
+        linear_velocity = 0;
+        angular_velocity = -return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_COLLISION_X_POSITIVE_180_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = TURN_CLOCK_X_POSITIVE_180_RETURN_ORIGIN;
+        }
+        break;
+    case BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN:
+        last_position_y = current_pose->y;
+        last_position_x = current_pose->x;
+        return_origin_step_status = LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
+        break;
+    case LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(last_position_y - current_pose->y) > 2 * lateral_move_distance / 3 || my_abs(last_position_x - current_pose->x) > 2 * lateral_move_distance / 3)
+        {
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = X_MORE_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100) > 170 || my_abs(current_pose->x) < return_origin_distance)
+        {
+            return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case COLLISION_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = TURN_CLOCK_LOOP_COLLISION_X_POSITIVE_180_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_LOOP_COLLISION_X_POSITIVE_180_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
+        }
+        break;
+    case X_MORE_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100) > 170 || my_abs(Yaw / 100 - temporary_yaw) > 30)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = return_origin_positive_start * turn_vel;
+        break;
+
+    case TURN_CLOCK_TARGET_YAW_5_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = COLLISION_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(current_pose->x) < return_origin_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case COLLISION_X_NEGATIVE_5_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = TURN_CLOCK_X_NEGATIVE_5_RETURN_ORIGIN;
+        }
+        break;
+    case TURN_CLOCK_X_NEGATIVE_5_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = TURN_CLOCK_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        if (current_pose->y > 0)
+        {
+            return_origin_positive_start = 1;
+        }
+        else
+        {
+            return_origin_positive_start = -1;
+        }
+        linear_velocity = 0;
+        angular_velocity = -return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = TURN_CLOCK_X_NEGATIVE_5_RETURN_ORIGIN;
+        }
+        break;
+    case BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN:
+        last_position_y = current_pose->y;
+        last_position_x = current_pose->x;
+        return_origin_step_status = LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
+        break;
+    case LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2 || my_abs(last_position_x - current_pose->x) > lateral_move_distance / 2)
+        {
+            temporary_yaw = Yaw / 100;
+            return_origin_step_status = X_MORE_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100) < 10 || my_abs(current_pose->x) < return_origin_distance)
+        {
+            return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
+            break;
+        }
+        linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+        break;
+    case COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = TURN_CLOCK_LOOP_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = -return_origin_positive_start * turn_vel;
+        break;
+    case TURN_CLOCK_LOOP_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN:
+        if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
+        }
+        break;
+    case X_MORE_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN:
+        if (obstacleSignal != none_obstacle)
+        {
+            return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        if (my_abs(Yaw / 100) < 10 || my_abs(Yaw / 100 - temporary_yaw) > 30)
+        {
+            return_origin_step_status = BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
+            break;
+        }
+        linear_velocity = 0;
+        angular_velocity = return_origin_positive_start * turn_vel;
+        break;
+    }
+    return complete_flag;
+}
 	
+///////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 	

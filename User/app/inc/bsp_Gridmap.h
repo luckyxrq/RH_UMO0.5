@@ -2,7 +2,6 @@
 #define __BSP_GRIDMAP_H
 
 #include <stdbool.h>
-
 /** Grid Size (mm) */
 // 10cm * 10cm
 #define GRIDWIDTH  100
@@ -58,6 +57,8 @@
 //sensorType: collision or  infrared
 
 
+
+
 typedef struct
 {
 	unsigned char grid_default;
@@ -92,7 +93,7 @@ int bsp_Leakingsweep(void);
 
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 
-
+extern GridMap gridmap;
 
 
 #endif
