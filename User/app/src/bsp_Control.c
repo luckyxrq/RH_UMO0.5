@@ -177,8 +177,8 @@ int32_t bsp_MotorSpeedMM2Pulse(int16_t mm)
 	{
 		ret = pulse;
 	}
-	
 	return ret;
+	//return ret/2;
 }
 
 /*
