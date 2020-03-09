@@ -113,7 +113,11 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
 
-			bsp_WifiStateProc();
+			//bsp_WifiStateProc();
+			
+		//	/*打印各个电机电流*/
+		//bsp_PrintAllVoltage();	
+		//printf("DustBoxGetState:%d",bsp_DustBoxGetState());
 			
         }
 		
@@ -203,6 +207,8 @@ static void vTaskPerception(void *pvParameters)
 
 	/*开清扫策略*/
 	//bsp_StartUpdateCleanStrategyB();
+	
+	//bsp_StartCliffTest();
 
 	
 
@@ -222,11 +228,13 @@ static void vTaskPerception(void *pvParameters)
 		bsp_DetectMeasureTest();
 #endif
 
-#if 0   /*测试跳崖传感器*/		
+#if 0   /*测试跳崖传感器 、红外、碰撞共同测试*/	 	
 		bsp_CliffTest();
 #endif
+		
+	
 		/*检测主机悬空*/
-		//bsp_OffSiteProc();
+		bsp_OffSiteProc();
         /*寻找充电桩*/
 		bsp_SearchChargePile();
 		/*沿边行走*/
