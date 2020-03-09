@@ -113,7 +113,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
 
-			bsp_WifiStateProc();
+			//bsp_WifiStateProc();
+			
+			
+			//DEBUG("bsp_AngleRead:%.2F\r\n",bsp_AngleRead());
 			
         }
 		
@@ -208,7 +211,7 @@ static void vTaskPerception(void *pvParameters)
 
 	vTaskDelay(5000);
 	
-	bsp_PutKey(KEY_3_LONG);
+	//bsp_PutKey(KEY_3_LONG);
 	
     while(1)
     {

@@ -1,8 +1,8 @@
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\src\bsp_CleanStrategyB.c
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\bsp\bsp.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\bsp_cleanstrategyb.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\bsp_cleanstrategyb.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\FreeRTOS\include\portable.h
@@ -41,10 +41,10 @@
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_cleanstrategyb.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\bsp_cleanstrategyb.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\bsp_cleanstrategyb.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\bsp_cleanstrategyb.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\main.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\bsp\inc\bsp_led.h
@@ -59,7 +59,7 @@
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_Angle.h
-.\flash\obj\bsp_cleanstrategyb.o: ..\..\User\angle\gan_rui_Angle\bsp_gan_rui_Angle.h
+.\flash\obj\bsp_cleanstrategyb.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_Action.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_aw9523b.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_DetectAct.h
@@ -93,4 +93,4 @@
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_wifi_app.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_UploadMap.h
-.\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\flash\obj\bsp_cleanstrategyb.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h
