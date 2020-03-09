@@ -122,7 +122,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         }
 		
 		/*更新地图*/
-#if 1
+#if 0
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
 		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
@@ -188,7 +188,7 @@ static void vTaskPerception(void *pvParameters)
     bsp_DetectStart(); 
 	
 	/*检测主机悬空*/
-	bsp_StartOffSiteProc();
+	//bsp_StartOffSiteProc();
 	
 	/*开启寻找充电桩*/
 	//bsp_StartSearchChargePile();
@@ -203,7 +203,7 @@ static void vTaskPerception(void *pvParameters)
 	//bsp_StartAssistJudgeDirection();
 	
 	/*开启栅格地图跟新*/
-	bsp_StartUpdateGridMap();
+	//bsp_StartUpdateGridMap();
 
 	/*开清扫策略*/
 	//bsp_StartUpdateCleanStrategyB();
@@ -214,7 +214,7 @@ static void vTaskPerception(void *pvParameters)
 
 	vTaskDelay(5000);
 	
-	bsp_PutKey(KEY_3_LONG);
+	//bsp_PutKey(KEY_3_LONG);
 	
     while(1)
     {
@@ -251,11 +251,11 @@ static void vTaskPerception(void *pvParameters)
 		
 		if(count % 20 == 0)
 		{
-			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
+			//bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 		
-		wifi_uart_service();
+		//wifi_uart_service();
 		
 		count++;
         vTaskDelay(1);	
