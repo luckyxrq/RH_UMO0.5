@@ -387,3 +387,43 @@ float bsp_GetFeedbackVoltage(FeedbackSN sn)
 	
 	return ret ;
 }
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_PrintAllVoltage
+*	功能说明: 打印所有电压
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_PrintAllVoltage(void)
+{
+	
+	float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+	float batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
+	float wheelL = bsp_GetFeedbackVoltage(eMotorLeft);
+	float wheelR = bsp_GetFeedbackVoltage(eMotorRight);
+	float roll = bsp_GetFeedbackVoltage(eRollingBrush);
+	float vacuum = bsp_GetFeedbackVoltage(eVacuum);
+	float sideBrush = bsp_GetFeedbackVoltage(eSideBrush);
+	
+	/*430  66.5是电阻分压  0.2是根据实际情况补偿电压*/
+	batteryVoltage = (batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F; 
+	batteryCurrent = batteryCurrent*1000.0F * 1000.0F / 10.0F / 50.0F; 
+	wheelL = wheelL * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	wheelR = wheelR * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	roll = roll * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	vacuum = vacuum * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	sideBrush = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
+	
+	
+	DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷(地刷):%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA\r\n",
+	wheelL,
+	wheelR,
+	vacuum,
+	roll,
+	sideBrush,
+	batteryVoltage,
+	batteryCurrent);
+}

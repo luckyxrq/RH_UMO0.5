@@ -101,6 +101,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 	
 	UNUSED(bsp_KeyProc);
 	
+	bsp_SetMotorSpeed(MotorLeft ,  bsp_MotorSpeedMM2Pulse(120));
+	bsp_SetMotorSpeed(MotorRight , bsp_MotorSpeedMM2Pulse(120));
+	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM );
+	bsp_StartPumpRun();
 	
     while(1)
     {
@@ -114,10 +118,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			{
 				case KEY_1_DOWN:
 				{
-					bsp_SetMotorSpeed(MotorLeft ,  bsp_MotorSpeedMM2Pulse(120));
-					bsp_SetMotorSpeed(MotorRight , bsp_MotorSpeedMM2Pulse(120));
-					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM * 0.7F );
-					bsp_StartPumpRun();
+					
 					
 					DEBUG("KEY1\r\n");
 				}break;
@@ -146,10 +147,12 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_LedToggle(LED_COLOR_GREEN);
 			bsp_LedToggle(LED_COLOR_RED);
 			
-			DEBUG("左轮机 右轮机 水泵 %.2F  %.2F  %.2F\r\n",
-			bsp_GetFeedbackVoltage(eMotorLeft),
-			bsp_GetFeedbackVoltage(eMotorRight),
-			bsp_GetFeedbackVoltage(eRollingBrush));
+//			DEBUG("左轮机 右轮机 水泵 %.2F  %.2F  %.2F\r\n",
+//			bsp_GetFeedbackVoltage(eMotorLeft),
+//			bsp_GetFeedbackVoltage(eMotorRight),
+//			bsp_GetFeedbackVoltage(eRollingBrush));
+			
+			bsp_PrintAllVoltage();
 			
 		}   
 		    
