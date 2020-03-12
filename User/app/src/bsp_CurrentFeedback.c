@@ -387,3 +387,60 @@ float bsp_GetFeedbackVoltage(FeedbackSN sn)
 	
 	return ret ;
 }
+
+/*用于直接返回电压*/
+static float motorLeftVoltage = 0.0F;
+static float motorRightVoltage = 0.0F;
+static float motorVacuumVoltage = 0.0F;
+static float motorRollingBrushVoltage = 0.0F;
+static float motorSideBrushVoltage = 0.0F;
+
+/*用于累加求和取平均值*/
+static float motorLeftVoltageSum = 0.0F;
+static float motorRightVoltageSum = 0.0F;
+static float motorVacuumVoltageSum = 0.0F;
+static float motorRollingBrushVoltageSum = 0.0F;
+static float motorSideBrushVoltageSum = 0.0F;
+
+
+
+
+void bsp_bsp_takeSampleVoltagePer10ms(void)
+{
+	static uint8_t action = 0 ;
+	static uint16_t sampleCnt = 0 ;
+	static uint16_t sampleMaxCnt = 100 ;
+		
+	switch(action)
+	{
+		case 0:
+		{
+			motorLeftVoltageSum += bsp_GetFeedbackVoltage(eMotorLeft);
+			motorRightVoltageSum += bsp_GetFeedbackVoltage(eMotorRight);
+			motorVacuumVoltageSum += bsp_GetFeedbackVoltage(eVacuum);
+			motorRollingBrushVoltageSum += bsp_GetFeedbackVoltage(eRollingBrush);
+			motorSideBrushVoltageSum += bsp_GetFeedbackVoltage(eSideBrush);
+			
+			sampleCnt++;
+			action++;
+		}break;
+		
+		case 1:
+		{
+			if(sampleCnt < sampleMaxCnt)
+			{
+				action = 0 ;
+			}
+			else
+			{
+			    motorLeftVoltage         = motorLeftVoltageSum / sampleMaxCnt;
+			    motorRightVoltage        = motorRightVoltageSum / sampleMaxCnt;
+			    motorVacuumVoltage       = motorVacuumVoltageSum / sampleMaxCnt;
+			    motorRollingBrushVoltage = motorRollingBrushVoltageSum / sampleMaxCnt;
+			    motorSideBrushVoltage    = motorSideBrushVoltageSum / sampleMaxCnt;
+			}
+		}break;
+	}
+}
+
+
