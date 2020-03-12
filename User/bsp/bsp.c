@@ -73,6 +73,7 @@ void bsp_Init(void)
 	bsp_LedOn(LED_COLOR_GREEN);
 	bsp_LedOn(LED_COLOR_RED);
 	
+	bsp_InitCurrentFeedbackADC(); /* 初始化电流检测 */
 	
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/
 	DEBUG("初始化完毕\r\n");

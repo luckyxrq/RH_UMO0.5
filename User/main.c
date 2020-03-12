@@ -143,8 +143,16 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		if(tick % 20 == 0)
 		{
 			bsp_LedToggle(LED_COLOR_YELLOW);
-		}   bsp_LedToggle(LED_COLOR_GREEN);
-		    bsp_LedToggle(LED_COLOR_RED);
+			bsp_LedToggle(LED_COLOR_GREEN);
+			bsp_LedToggle(LED_COLOR_RED);
+			
+			DEBUG("左轮机 右轮机 水泵 %.2F  %.2F  %.2F\r\n",
+			bsp_GetFeedbackVoltage(eMotorLeft),
+			bsp_GetFeedbackVoltage(eMotorRight),
+			bsp_GetFeedbackVoltage(eRollingBrush));
+			
+		}   
+		    
 		++tick;
         vTaskDelay(50);	
     }
