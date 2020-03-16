@@ -226,8 +226,26 @@ void bsp_FillReportFrame(void)
 	int32_t y_coordinate = bsp_GetCurrentPosY();
 	
 	
+	uint8_t  cliffstatus = 1;
+	if(bsp_CliffIsDangerous(CliffLeft)) cliffstatus+=2;
+	if(bsp_CliffIsDangerous(CliffMiddle)) cliffstatus+=4;
+	if(bsp_CliffIsDangerous(CliffRight)) cliffstatus+=8;
+	uint16_t adcCliffLeft = bsp_GetCliffVoltage(CliffLeft)*100;
+	uint16_t adcCliffMiddle = bsp_GetCliffVoltage(CliffMiddle)*100;
+	uint16_t adcCliffRight = bsp_GetCliffVoltage(CliffRight)*100;
 	
+	uint16_t motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft);
+	uint16_t motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight);
+	uint16_t motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum);
+	uint16_t motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush);
+	uint16_t motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush);
+	uint16_t batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
 	
+	uint16_t batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+	
+
+ 
+
 	reportFrame.sof1 = 0xAA;                  		                                  //0xAA
 	reportFrame.sof2 = 0xAA;                  		                                  //0xAA
 	reportFrame.sof3 = 0xAA;                  		                                  //0xAA
@@ -255,18 +273,21 @@ void bsp_FillReportFrame(void)
 	reportFrame.infrared_adc_value8 =  adc8;                                          //红外ADC值8	 
 	reportFrame.infrared_adc_value9 =  adc9;                                          //红外ADC值9	 
 	reportFrame.infrared_adc_value10 = adc10;                                         //红外ADC值10
-	reportFrame.infrared_cliff_status = 0 ;                                           //跳崖红外状态
-	reportFrame.infrared_cliff_adc_value1 = 0 ;                                       //跳崖ADC值1
-	reportFrame.infrared_cliff_adc_value2 = 0 ;                                       //跳崖ADC值2
-	reportFrame.infrared_cliff_adc_value3 = 0 ;                                       //跳崖ADC值3
-	reportFrame.battery_voltage = 0;                                                  //电池电压
+	reportFrame.infrared_cliff_status = cliffstatus;                                 //跳崖红外状态
+	reportFrame.infrared_cliff_adc_value1 = adcCliffLeft;                            //跳崖ADC值1
+	reportFrame.infrared_cliff_adc_value2 = adcCliffMiddle;                          //跳崖ADC值2
+	reportFrame.infrared_cliff_adc_value3 = adcCliffRight;                           //跳崖ADC值3
+	reportFrame.battery_voltage = batteryvoltage;                                     //电池电压
 	reportFrame.charging_status = 0;                                                  //充电状态
 	reportFrame.error_code = 0;         	                                          //异常状态
 	reportFrame.machine_status = 0;                                                   //机器状态
 	reportFrame.timestamp = timestamp;                                                //时间戳
-	reportFrame.reserved1 = 0;  	                                                  //保留位1
-	reportFrame.reserved2 = 0;				                                          //保留位2
-	reportFrame.reserved3 = 0;         	                                              //保留位3
+	reportFrame.motor_left_voltage    = motorLeftVoltage;     
+	reportFrame.motor_right_voltage   = motorRightVoltage;    
+	reportFrame.motor_vacuum_voltage  = motorVacuumVoltage;   
+	reportFrame.motor_rolling_voltage = motorRollingVoltage;  
+	reportFrame.motor_side_voltage    = motorSideVoltage;     
+	reportFrame.motor_battery_current = batteryCurrent;  
 	reportFrame.checksum_msb = 0;                                                     //校验
 	reportFrame.checksum_lsb = 0;                                                     //校验
 	reportFrame.end_of_falg = 0x55;                                                   //帧结尾恒定为0x55

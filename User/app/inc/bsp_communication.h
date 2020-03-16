@@ -61,9 +61,12 @@ typedef struct
 	uint8_t  error_code;         	    //30	异常状态 	 		u8
 	uint8_t  machine_status;            //31	机器状态	 		u8
 	uint32_t timestamp;                 //32	时间戳	     		u32
-	uint32_t reserved1;  	            //33	保留位1	     		u32
-	uint32_t reserved2;				    //34	保留位2	     		u32
-	uint32_t reserved3;         	    //35	保留位3	     		u32
+	uint16_t motor_left_voltage;        //      左轮电机电压        u16
+	uint16_t motor_right_voltage;       //      右轮电机电压        u16
+	uint16_t motor_vacuum_voltage;      //      吸尘电机电压        u16 
+	uint16_t motor_rolling_voltage;     //      滚刷电机电压        u16  
+	uint16_t motor_side_voltage;        //      边刷电机电压        u16
+	uint16_t motor_battery_current;     //      电池放电电流        u16    
 	uint8_t checksum_msb;
 	uint8_t checksum_lsb;
 	uint8_t end_of_falg;           //0x55
