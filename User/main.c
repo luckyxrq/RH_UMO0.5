@@ -118,6 +118,14 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 			//DEBUG("bsp_AngleRead:%.2F\r\n",bsp_AngleRead());
 			
+			
+			DEBUG("%.2F %.2F %.2F  %d %d %d\r\n",bsp_GetCliffVoltage(CliffLeft),
+			bsp_GetCliffVoltage(CliffMiddle),
+			bsp_GetCliffVoltage(CliffRight),
+			bsp_CliffIsDangerous(CliffLeft),
+			bsp_CliffIsDangerous(CliffMiddle),
+			bsp_CliffIsDangerous(CliffRight));
+			
         }
 		
 		/*更新地图*/
@@ -210,7 +218,7 @@ static void vTaskPerception(void *pvParameters)
 	
 
 	vTaskDelay(5000);
-	
+	bsp_InitCliffSW();
 	//bsp_PutKey(KEY_3_LONG);
 	
     while(1)

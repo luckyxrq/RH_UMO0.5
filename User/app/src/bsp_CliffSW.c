@@ -204,7 +204,7 @@ typedef struct
 }Cliff;
 
 
-static Cliff cliff[CLIFF_COUNT];
+static Cliff cliff[CLIFF_COUNT] = {0};
 
 /*
 *********************************************************************************************************
@@ -220,6 +220,12 @@ void bsp_CliffCalibration(void)
 #if 1
 	uint8_t i = 0 ;
 	double sum = 0 ;
+	
+	cliff[CliffLeft].initializeVoltage = 0.0F;
+	cliff[CliffMiddle].initializeVoltage = 0.0F;
+	cliff[CliffRight].initializeVoltage = 0.0F;
+	
+	
 	
 	/*×ó±ß³õÊ¼Öµ*/
 	sum = 0 ;
@@ -246,9 +252,9 @@ void bsp_CliffCalibration(void)
 	cliff[CliffRight].initializeVoltage = sum / VOLTAGE_FILTERING_COUNT;
 	
 	/*ãÐÖµ*/
-	cliff[CliffLeft].threshold =   1.6F;
-	cliff[CliffMiddle].threshold = 1.6F;
-	cliff[CliffRight].threshold =  1.6F;
+	cliff[CliffLeft].threshold =   1.3F;
+	cliff[CliffMiddle].threshold = 1.3F;
+	cliff[CliffRight].threshold =  1.3F;
 #else
 	cliff[CliffLeft].initializeVoltage =   3.3F;
 	cliff[CliffMiddle].initializeVoltage = 3.3F;
@@ -260,6 +266,12 @@ void bsp_CliffCalibration(void)
 #endif
 	
 	UNUSED(cliff);
+	
+	
+	
+	DEBUG("ÌøÑÂ³õÊ¼Öµ£¨L M R£©:%.2F  %.2F  %.2F\r\n",cliff[CliffLeft].initializeVoltage,
+	cliff[CliffMiddle].initializeVoltage,
+	cliff[CliffRight].initializeVoltage);
 }
 
 /*
@@ -273,7 +285,18 @@ void bsp_CliffCalibration(void)
 bool bsp_CliffIsDangerous(CliffSWSN sn)
 {
 
+	
+	
 	cliff[sn].currentVoltage = bsp_GetCliffVoltage(sn);
+	
+	
+//	if(sn == CliffRight)
+//	{
+//		DEBUG("ÓÒÌøÑÂ£º%.2F  %.2F  %.2F\r\n",cliff[CliffRight].initializeVoltage,cliff[CliffRight].currentVoltage,cliff[sn].initializeVoltage - cliff[sn].currentVoltage);
+//	}
+	
+	
+	
 	if(cliff[sn].initializeVoltage - cliff[sn].currentVoltage >= cliff[sn].threshold)
 	{
 		bsp_SetMotorSpeed(MotorLeft, 0);
