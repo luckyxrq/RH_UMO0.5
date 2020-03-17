@@ -107,7 +107,7 @@ void bsp_Init(void)
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
 	
 	bsp_IRD_StartWork();
-	bsp_InitCliffSW();
+	
 	
 	/*播放开机音乐*/
 #if 0

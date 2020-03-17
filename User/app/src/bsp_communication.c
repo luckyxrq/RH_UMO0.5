@@ -234,14 +234,14 @@ void bsp_FillReportFrame(void)
 	uint16_t adcCliffMiddle = bsp_GetCliffVoltage(CliffMiddle)*100;
 	uint16_t adcCliffRight = bsp_GetCliffVoltage(CliffRight)*100;
 	
-	uint16_t motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft);
-	uint16_t motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight);
-	uint16_t motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum);
-	uint16_t motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush);
-	uint16_t motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush);
-	uint16_t batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
+	uint16_t motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*100;
+	uint16_t motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight)*100;
+	uint16_t motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum)*100;
+	uint16_t motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush)*100;
+	uint16_t motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush)*100;
+	uint16_t batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
 	
-	uint16_t batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+	uint8_t batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage)*10;
 	
 
  

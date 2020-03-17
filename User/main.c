@@ -213,7 +213,7 @@ static void vTaskPerception(void *pvParameters)
 	
 
 	vTaskDelay(5000);
-	
+	bsp_InitCliffSW();
 	//bsp_PutKey(KEY_3_LONG);
 	
     while(1)
