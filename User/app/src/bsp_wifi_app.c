@@ -50,13 +50,10 @@ void bsp_WifiStateProc(void)
 		if(isStartConnectClound)
 		{
 			isStartConnectClound = false;
-			bsp_SperkerPlay(Song27);
 			
 			if(isOpenUploadMap == false)
 			{
 				isOpenUploadMap = true;
-				bsp_StartUploadMap();
-			    bsp_PutKey(KEY_3_LONG);
 			}
 		}
 		

@@ -96,10 +96,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     
     uint32_t count = 0 ;
-    
-	
-    bsp_AngleRst();
-	bsp_SperkerPlay(Song1);
 	
     while(1)
     {
@@ -109,25 +105,17 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		
         if(count++ % 10 == 0)
         {
-#if 0 
-			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
-#endif
-
 			bsp_WifiStateProc();
 			
         }
 		
 		/*更新地图*/
-#if 1
+#if 0
 		
-		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
 		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
-		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
-		//DEBUG("End:%d\r\n",xTaskGetTickCount());
-#endif
-
-		
 		bsp_UploadMap();
+#endif
+	
         vTaskDelay(50);	
     }
 }
@@ -143,8 +131,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
-	bsp_StartPowerOnToggle();/*开机先闪烁，闪烁期间对按键操作不响应*/
+	vTaskDelay(2000);
 	
+	mcu_reset_wifi();
     while(1)
     {
 #if 0
@@ -156,9 +145,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
 		
-		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
         bsp_ComAnalysis();
-		bsp_PowerOnToggle();/* 开机状态灯 */ 
 		bsp_RunToggleLED();
 		
         vTaskDelay(10);
@@ -180,72 +167,17 @@ static void vTaskPerception(void *pvParameters)
 {
 	uint32_t count = 0 ;
 	
-    /*开启红外对管轮询扫描*/
-    bsp_DetectStart(); 
-	
-	/*检测主机悬空*/
-	bsp_StartOffSiteProc();
-	
-	/*开启寻找充电桩*/
-	//bsp_StartSearchChargePile();
-	
-	/*开启沿边行走*/
-	//bsp_StartEdgewiseRun();
-	
-	/*开启位置坐标更新*/
-    bsp_StartUpdatePos();
-	
-    /*开启正面碰撞协助*/
-	//bsp_StartAssistJudgeDirection();
-	
-	/*开启栅格地图跟新*/
-	bsp_StartUpdateGridMap();
-
-	/*开清扫策略*/
-	//bsp_StartUpdateCleanStrategyB();
-
 	
 
-	vTaskDelay(5000);
-	
-	//bsp_PutKey(KEY_9_DOWN);
-	
+
     while(1)
     {
-#if 1
-        bsp_DetectAct();  /*红外对管轮询扫描*/
-        bsp_DetectDeal(); /*红外对管扫描结果处理*/
-#endif
-		
-       
-#if 0   /*测试红外测距的距离，测到后就停下来*/
-		bsp_DetectMeasureTest();
-#endif
-
-#if 0   /*测试跳崖传感器*/		
-		bsp_CliffTest();
-#endif
-		/*检测主机悬空*/
-		//bsp_OffSiteProc();
-        /*寻找充电桩*/
-		bsp_SearchChargePile();
-		/*沿边行走*/
-		bsp_EdgewiseRun();
-        /*更新坐标*/
-        bsp_PositionUpdate();
-		
 
 		if(count % 10 == 0)
 		{
 			bsp_KeyScan();
-			//bsp_AssistJudgeDirection();
 		}
 		
-		if(count % 20 == 0)
-		{
-			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
-			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
-		}
 		
 		wifi_uart_service();
 		

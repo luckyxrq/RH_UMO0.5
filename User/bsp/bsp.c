@@ -50,96 +50,15 @@ void bsp_Init(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	bsp_InitDWT();
 	
-	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
-	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
 	bsp_InitUart(); 	     /* 初始化串口 */
 	bsp_InitLed();           /* 初始化LED */
 	
-	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
-	
-	bsp_SwOn(SW_5V_EN_CTRL);
-	bsp_DelayMS(1000);
-	bsp_SwOn(SW_3V3_EN_CTRL);
-	bsp_SwOn(SW_IR_POWER);
-	bsp_SwOn(SW_MOTOR_POWER);
-	bsp_SwOn(SW_VSLAM_POWER);
-	bsp_SwOn(SW_WIFI_POWER);
 	
 	bsp_InitKey();           /* 初始化按键 */
 	bsp_InitHardTimer();     /* 初始化硬件定时器 */
 	
-	bsp_InitEncoder();
-	bsp_InitMotor();
-	bsp_InitPid(MotorLeft);
-	bsp_InitPid(MotorRight);
-	
-	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
-	
-	bsp_InitSpeaker();		 /*初始化扬声器*/
-	bsp_InitCurrentFeedbackADC();
-	
-	
-#if 0
-	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
-#endif
-
-#if 0
-	/* 初始化IO拓展芯片 */	
-	do{
-		ret = bsp_InitAW9523B();		
-		if(!ret) 
-		{
-			WARNING("AW9523B Init Error\r\n");
-			bsp_DelayMS(100);
-		}
-	}while(!ret);
-#else
-
-	ret = bsp_InitAW9523B();
-	if(!ret)
-	{
-		WARNING("AW9523B Init Error\r\n");
-	}
-
-#endif
-	
-	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
-	
-	bsp_IRD_StartWork();
-	bsp_InitCliffSW();
-	
-	/*播放开机音乐*/
-#if 0
-	bsp_SperkerPlay(Song1);
-#endif
 	
 	wifi_protocol_init();/* 初始化WIFI协议栈 */	
-	
-	{
-		char *dx8Version;
-		unsigned char rv;
-		
-		dx8_Init();
-		
-		/*获取加密版本信息*/
-		dx8Version = DX8_Version();
-		DEBUG("加密版本：%s\r\n",dx8Version);
-		
-		// Authention Test
-		rv = AuthenticationTest();
-		if(rv)
-		{
-			DEBUG("未能通过加密认证\r\n");
-		}
-		else
-		{
-			DEBUG("恭喜，通过加密认证\r\n");
-		}
-		
-		
-	}
-	
-	
 	
 	
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/

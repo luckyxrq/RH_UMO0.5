@@ -37,7 +37,7 @@
 	【串口4】 --- 不做串口用。
 	【串口5】 --- 不做串口用。
 */
-#define	UART1_FIFO_EN	0
+#define	UART1_FIFO_EN	1
 #define	UART2_FIFO_EN	1  //调试
 #define	UART3_FIFO_EN	1  //陀螺仪
 #define	UART4_FIFO_EN	1  //BOT3
@@ -72,12 +72,12 @@ typedef enum
 #if UART2_FIFO_EN == 1
 	#define UART2_BAUD			115200
 	#define UART2_TX_BUF_SIZE	1*1024   /*调试串口只发，不收*/
-	#define UART2_RX_BUF_SIZE	1*16     /*调试串口只发，不收，接收尽可能小*/
+	#define UART2_RX_BUF_SIZE	1*1024     /*调试串口只发，不收，接收尽可能小*/
 #endif
 
 #if UART3_FIFO_EN == 1
 	#define UART3_BAUD			115200
-	#define UART3_TX_BUF_SIZE	1*16     /*陀螺仪，只收不发，发送BUF尽量小*/
+	#define UART3_TX_BUF_SIZE	1*1024     /*陀螺仪，只收不发，发送BUF尽量小*/
 	#define UART3_RX_BUF_SIZE	1*1024   /*陀螺仪，只收不发*/
 #endif
 

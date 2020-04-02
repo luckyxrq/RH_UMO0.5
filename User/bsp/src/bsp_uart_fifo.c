@@ -453,7 +453,7 @@ static void UartVarInit(void)
 	g_tUart2.usTxCount = 0;						/* 待发送的数据个数 */
 	g_tUart2.SendBefor = 0;						/* 发送数据前的回调函数 */
 	g_tUart2.SendOver = 0;						/* 发送完毕后的回调函数 */
-	g_tUart2.ReciveNew = 0;						/* 接收到新数据后的回调函数 */
+	g_tUart2.ReciveNew = uart_receive_input;	/* 接收到新数据后的回调函数 */
 	
 #endif
 
@@ -471,7 +471,7 @@ static void UartVarInit(void)
 	g_tUart3.usTxCount = 0;						/* 待发送的数据个数 */
 	g_tUart3.SendBefor = 0;		                /* 发送数据前的回调函数 */
 	g_tUart3.SendOver = 0;			            /* 发送完毕后的回调函数 */
-	g_tUart3.ReciveNew = bsp_AngleRevByte;		/* 接收到新数据后的回调函数 */
+	g_tUart3.ReciveNew = 0;		                /* 接收到新数据后的回调函数 */
 	
 #endif
 
@@ -507,7 +507,7 @@ static void UartVarInit(void)
 	g_tUart5.usTxCount = 0;						/* 待发送的数据个数 */
 	g_tUart5.SendBefor = 0;						/* 发送数据前的回调函数 */
 	g_tUart5.SendOver = 0;						/* 发送完毕后的回调函数 */
-	g_tUart5.ReciveNew = uart_receive_input;	/* 接收到新数据后的回调函数 */
+	g_tUart5.ReciveNew = 0;	                    /* 接收到新数据后的回调函数 */
 	
 #endif
 
@@ -1104,7 +1104,7 @@ void USART6_IRQHandler(void)
 int fputc(int ch, FILE *f)
 {
 #if 1	/* 将需要printf的字符通过串口中断FIFO发送出去，printf函数会立即返回 */
-	comSendChar(COM2, ch);
+	comSendChar(COM1, ch);
 
 	return ch;
 #else	/* 采用阻塞方式发送每个字符,等待数据发送完毕 */
