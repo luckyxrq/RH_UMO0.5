@@ -131,7 +131,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
-	vTaskDelay(2000);
+	vTaskDelay(500);
 	
 	mcu_reset_wifi();
     while(1)
@@ -166,7 +166,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 static void vTaskPerception(void *pvParameters)
 {
 	uint32_t count = 0 ;
-	
+	uint32_t val = 0 ;
 	
 
 
@@ -180,6 +180,15 @@ static void vTaskPerception(void *pvParameters)
 		
 		
 		wifi_uart_service();
+		
+		
+		if(count % 3000 == 0)
+		{
+			val = (val + 1) % 100;
+			DEBUG("val:%d\r\n",val);
+			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,val); //VALUE型数据上报;
+		}
+		
 		
 		count++;
         vTaskDelay(1);	
