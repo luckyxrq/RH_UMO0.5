@@ -19,6 +19,7 @@ void bsp_WifiStateProc(void)
 		case SMART_CONFIG_STATE:
 		//smart config 配置状态 LED快闪 ，led闪烁请用户完成
 		DEBUG("smart config 配置状态 LED快闪 ，led闪烁请用户完成\r\n");
+		bsp_StartRunToggleLED(LED_LOGO_POWER);
 		break;
 		
 		case AP_STATE:
@@ -45,6 +46,7 @@ void bsp_WifiStateProc(void)
 		case WIFI_CONN_CLOUD:
 		//路由器连接成功 LED常亮
 		DEBUG("已经连接上云服务器\r\n");
+		bsp_StopRunToggleLED();
 		if(isStartConnectClound)
 		{
 			isStartConnectClound = false;

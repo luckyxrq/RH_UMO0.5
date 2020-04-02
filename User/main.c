@@ -555,6 +555,13 @@ static void bsp_KeyProc(void)
 				bsp_StartEdgewiseRun();
 				
 			}break;
+			
+			case KEY_10_DOWN:
+			{
+				DEBUG("¸´Î»WIFIÄ£¿é\r\n");
+				
+				mcu_reset_wifi();
+			}break;
 		}   
 	}
 }
