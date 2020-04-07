@@ -155,7 +155,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_IWDG_Feed(); /* 喂狗 */
 #endif
         		
-#if 0		
+#if 1		
         DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
@@ -215,6 +215,13 @@ static void vTaskPerception(void *pvParameters)
 	vTaskDelay(5000);
 	bsp_InitCliffSW();
 	//bsp_PutKey(KEY_3_LONG);
+	
+	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+	
+	bsp_StartVacuum();
+	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 	
     while(1)
     {
