@@ -6,7 +6,7 @@
 **********************************************************************************************************
 */
 #define PAUSE_INTERVAL_RESPONSE_TIME         400
-#define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
+#define AT_POWER_ON_OPEN_ALL_MODULE_EN       1     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
 /*
 **********************************************************************************************************
@@ -113,8 +113,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 0 
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
-
-			bsp_WifiStateProc();
 			
         }
 		
@@ -471,116 +469,71 @@ static void bsp_KeyProc(void)
 		{
 			case KEY_DOWN_POWER:
 			{
-				static uint8_t i = 0 ;
 				DEBUG("电源按键按下\r\n");
-				DEBUG("播放歌曲:%d\r\n",i);
-				bsp_SperkerPlay(i);
-				++i;
-				bsp_KeySuspend();
+				bsp_LedOff(LED_LOGO_CLEAN);
+				bsp_LedOff(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				
+				bsp_LedToggle(LED_COLOR_YELLOW);
+
 			}break;
 				
 			case KEY_DOWN_CHARGE:
 			{
 				DEBUG("充电按键按下\r\n");
-				bsp_KeySuspend();
+				
+				DEBUG("电源按键按下\r\n");
+				bsp_LedOff(LED_LOGO_CLEAN);
+				bsp_LedOff(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				
+				bsp_LedToggle(LED_COLOR_GREEN);
+
 			}break;
 				
 			case KEY_DOWN_CLEAN:	
 			{
 				DEBUG("清扫按键按下\r\n");
-				bsp_KeySuspend();
+				
+				DEBUG("电源按键按下\r\n");
+				bsp_LedOff(LED_LOGO_CLEAN);
+				bsp_LedOff(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				
+				bsp_LedToggle(LED_COLOR_RED);
+
 			}break;
 			
 
 			
 			case KEY_LONG_POWER: /*关机*/
 			{
-				DEBUG("电源按键长按\r\n");
-				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
-				{
-					bsp_SetKeyRunLastState(RUN_STATE_SHUTDOWN);
-					bsp_SperkerPlay(Song31);
-					
-					bsp_LedOff(LED_LOGO_CLEAN);
-					bsp_LedOff(LED_LOGO_POWER);
-					bsp_LedOff(LED_LOGO_CHARGE);
-					bsp_LedOff(LED_COLOR_YELLOW);
-					bsp_LedOff(LED_COLOR_GREEN);
-					bsp_LedOff(LED_COLOR_RED);
-					
-					vTaskDelay(100);	
-					while(bsp_SpeakerIsBusy()){}
-					bsp_ClearKey();
-				}
+
 				
 			}break;
 			
 			case KEY_LONG_CHARGE: /*充电*/	
 			{
-				DEBUG("充电按键长按\r\n");
-				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
-				{
-					bsp_SetKeyRunLastState(RUN_STATE_CHARGE);
-					bsp_SperkerPlay(Song5);
-					bsp_StartRunToggleLED(LED_LOGO_CHARGE);
-					//bsp_StartCliffTest();
-					bsp_StartSearchChargePile();
-					
-					vTaskDelay(200);	
-					while(bsp_SpeakerIsBusy()){}
-					bsp_ClearKey();
-				}
+
 				
 			}break;
 			
 			case KEY_LONG_CLEAN: /*清扫*/
 			{
-				DEBUG("清扫按键长按\r\n");
-				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
-				{
-					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
-					bsp_SperkerPlay(Song3);
-					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
-					
-					//bsp_StartCliffTest();
-					/*开清扫策略*/
-					bsp_StartUpdateCleanStrategyB();
-					bsp_StartVacuum();
-					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-					
-					//bsp_StartEdgewiseRun();
-					
-					vTaskDelay(200);	
-					while(bsp_SpeakerIsBusy()){}
-					bsp_ClearKey();
-				}
+
 				
 			}break;
 			
 			case KEY_9_DOWN:
 			{
-				bsp_StopRunToggleLED();
-				
-				/*复位上一次的按键状态*/
-				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
-				
-				
-				
-				/*关闭各种状态机*/
-				bsp_StopCliffTest();
-				bsp_StopVacuum();
-				/*关闭电机*/
-				bsp_SetMotorSpeed(MotorLeft, 0);
-				bsp_SetMotorSpeed(MotorRight,0);
-				bsp_StartEdgewiseRun();
+
 				
 			}break;
 			
 			
 			case KEY_10_DOWN:
 			{
-				DEBUG("重新配网：同时按充电和清扫\r\n");
+
 				
 			}break;
 		}   
