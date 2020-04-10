@@ -22,7 +22,10 @@ typedef enum
 	LED_LOGO_CHARGE  = 6,
 	LED_COLOR_YELLOW = 1,
 	LED_COLOR_GREEN  = 2,
-	LED_COLOR_RED    = 3
+	LED_COLOR_RED    = 3,
+	
+	
+	LED_WIFI_LINK = 10
 }LED_SN;
 
 /* 供外部调用的函数声明 */

@@ -581,7 +581,9 @@ static void bsp_KeyProc(void)
 			case KEY_10_DOWN:
 			{
 				DEBUG("重新配网：同时按充电和清扫\r\n");
-				
+				bsp_SperkerPlay(Song29);
+				mcu_reset_wifi(); /*调用涂鸦的WIFI重置WIFI函数*/
+				bsp_StartRunToggleLED(LED_WIFI_LINK);
 			}break;
 		}   
 	}

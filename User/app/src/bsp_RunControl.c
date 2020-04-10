@@ -265,6 +265,16 @@ void bsp_RunToggleLED(void)
 					bsp_LedOff(LED_COLOR_GREEN);
 					bsp_LedOn(LED_COLOR_RED);
 				}break;
+				
+				case LED_WIFI_LINK:
+				{
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOn(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+				}break;
 			}
 			
 			runToggleLED.delay = xTaskGetTickCount();
@@ -275,7 +285,16 @@ void bsp_RunToggleLED(void)
 		{
 			if(xTaskGetTickCount() - runToggleLED.delay >= 500)
 			{
-				bsp_LedToggle(runToggleLED.sn);
+				if(runToggleLED.sn == LED_WIFI_LINK) /*用于重置WIFI连接*/
+				{
+					bsp_LedToggle(LED_LOGO_CLEAN);
+					bsp_LedToggle(LED_LOGO_CHARGE);
+				}
+				else
+				{
+					bsp_LedToggle(runToggleLED.sn);
+				}
+				
 				
 				runToggleLED.delay = xTaskGetTickCount();
 				runToggleLED.action++;
@@ -284,9 +303,17 @@ void bsp_RunToggleLED(void)
 		
 		case 2:
 		{
-			if(xTaskGetTickCount() - runToggleLED.delay >= 500)
+			if(xTaskGetTickCount() - runToggleLED.delay >= 500) 
 			{
-				bsp_LedToggle(runToggleLED.sn);
+				if(runToggleLED.sn == LED_WIFI_LINK) /*用于重置WIFI连接*/
+				{
+					bsp_LedToggle(LED_LOGO_CLEAN);
+					bsp_LedToggle(LED_LOGO_CHARGE);
+				}
+				else
+				{
+					bsp_LedToggle(runToggleLED.sn);
+				}
 				
 				runToggleLED.delay = xTaskGetTickCount();
 				runToggleLED.action = 1;
