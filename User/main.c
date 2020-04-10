@@ -576,6 +576,13 @@ static void bsp_KeyProc(void)
 				bsp_StartEdgewiseRun();
 				
 			}break;
+			
+			
+			case KEY_10_DOWN:
+			{
+				DEBUG("重新配网：同时按充电和清扫\r\n");
+				
+			}break;
 		}   
 	}
 }
