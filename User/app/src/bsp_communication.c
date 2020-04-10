@@ -155,7 +155,10 @@ void bsp_ComAnalysis(void)
 	
 	/*选定串口*/
 	port = COM2;
-	
+	while(comGetChar(port, &ch))
+	{
+		comSendChar(COM2, ch);
+	}
 	/*选定串口*/
 	port = COM3;
 }

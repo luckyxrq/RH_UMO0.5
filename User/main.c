@@ -214,6 +214,15 @@ static void vTaskPerception(void *pvParameters)
 
 	vTaskDelay(5000);
 	bsp_InitCliffSW();
+	
+	
+//	bsp_StartVacuum();
+//	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+//	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+//	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+//	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+	
+	
 	//bsp_PutKey(KEY_3_LONG);
 	
     while(1)
@@ -465,28 +474,29 @@ static void bsp_KeyProc(void)
 		/* 有键按下 */
 		switch (ucKeyCode)
 		{
-			case KEY_1_DOWN:
+			case KEY_DOWN_POWER:
 			{
-				DEBUG("按键 1\r\n");
+				DEBUG("电源按键按下\r\n");
 				bsp_KeySuspend();
 			}break;
 				
-			case KEY_2_DOWN:
+			case KEY_DOWN_CHARGE:
 			{
-				DEBUG("按键 2\r\n");
+				DEBUG("充电按键按下\r\n");
 				bsp_KeySuspend();
 			}break;
 				
-			case KEY_3_DOWN:	
+			case KEY_DOWN_CLEAN:	
 			{
-				DEBUG("按键 3\r\n");
+				DEBUG("清扫按键按下\r\n");
 				bsp_KeySuspend();
 			}break;
 			
 
 			
-			case KEY_1_LONG: /*关机*/
+			case KEY_LONG_POWER: /*关机*/
 			{
+				DEBUG("电源按键长按\r\n");
 				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
 				{
 					bsp_SetKeyRunLastState(RUN_STATE_SHUTDOWN);
@@ -506,8 +516,9 @@ static void bsp_KeyProc(void)
 				
 			}break;
 			
-			case KEY_2_LONG: /*充电*/	
+			case KEY_LONG_CHARGE: /*充电*/	
 			{
+				DEBUG("充电按键长按\r\n");
 				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
 				{
 					bsp_SetKeyRunLastState(RUN_STATE_CHARGE);
@@ -523,8 +534,9 @@ static void bsp_KeyProc(void)
 				
 			}break;
 			
-			case KEY_3_LONG: /*清扫*/
+			case KEY_LONG_CLEAN: /*清扫*/
 			{
+				DEBUG("清扫按键长按\r\n");
 				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
 				{
 					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
