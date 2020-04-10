@@ -5,7 +5,8 @@
                                             宏定义
 **********************************************************************************************************
 */
-#define PAUSE_INTERVAL_RESPONSE_TIME      400
+#define PAUSE_INTERVAL_RESPONSE_TIME         400
+#define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
 /*
 **********************************************************************************************************
@@ -113,19 +114,14 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
 
-			//bsp_WifiStateProc();
-			
-		//	/*打印各个电机电流*/
-		//bsp_PrintAllVoltage();	
-		//printf("DustBoxGetState:%d",bsp_DustBoxGetState());
+			bsp_WifiStateProc();
 			
         }
 		
-		/*更新地图*/
-#if 0
+#if 0 /*更新地图*/
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
+		//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData());
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
@@ -215,15 +211,14 @@ static void vTaskPerception(void *pvParameters)
 	vTaskDelay(5000);
 	bsp_InitCliffSW();
 	
+#if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
+	bsp_StartVacuum();
+	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+#endif
 	
-//	bsp_StartVacuum();
-//	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-//	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-//	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-//	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
-	
-	
-	//bsp_PutKey(KEY_3_LONG);
 	
     while(1)
     {
@@ -264,7 +259,7 @@ static void vTaskPerception(void *pvParameters)
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 		
-		//wifi_uart_service();
+		wifi_uart_service();
 		
 		count++;
         vTaskDelay(1);	
@@ -297,7 +292,7 @@ static void AppTaskCreate (void)
                  &xHandleTaskControl );         /* 任务句柄  */	
     xTaskCreate( vTaskPerception,     		    /* 任务函数  */
                  "vTaskPerception",   		    /* 任务名    */
-                 1024,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  3,              		        /* 任务优先级*/
                  &xHandleTaskPerception );      /* 任务句柄  */	
@@ -476,7 +471,11 @@ static void bsp_KeyProc(void)
 		{
 			case KEY_DOWN_POWER:
 			{
+				static uint8_t i = 0 ;
 				DEBUG("电源按键按下\r\n");
+				DEBUG("播放歌曲:%d\r\n",i);
+				bsp_SperkerPlay(i);
+				++i;
 				bsp_KeySuspend();
 			}break;
 				
@@ -500,7 +499,7 @@ static void bsp_KeyProc(void)
 				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
 				{
 					bsp_SetKeyRunLastState(RUN_STATE_SHUTDOWN);
-					bsp_SperkerPlay(Song2);
+					bsp_SperkerPlay(Song31);
 					
 					bsp_LedOff(LED_LOGO_CLEAN);
 					bsp_LedOff(LED_LOGO_POWER);
