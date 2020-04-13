@@ -2,7 +2,9 @@
 
 #define POWER_ON_LED_TIME_INTERVAL            500
 #define POWER_ON_LED_MAX_TIMES                5
-#define POWER_ON_LED_ON_CONSTANT_MAX_TIME     10*60*1000         
+#define POWER_ON_LED_ON_CONSTANT_MAX_TIME     10*60*1000     
+
+#define WIFI_SMART_CONFIG_TOGGLE_TIMES        20
 
 typedef struct
 {
@@ -163,6 +165,7 @@ typedef struct
 	bool isRunning;
 	uint32_t action;
 	uint32_t delay;
+	uint32_t times;
 	
 	LED_SN sn;
 	
@@ -274,6 +277,8 @@ void bsp_RunToggleLED(void)
 					bsp_LedOff(LED_COLOR_YELLOW);
 					bsp_LedOff(LED_COLOR_GREEN);
 					bsp_LedOff(LED_COLOR_RED);
+					
+					runToggleLED.times = WIFI_SMART_CONFIG_TOGGLE_TIMES;
 				}break;
 			}
 			
@@ -283,12 +288,22 @@ void bsp_RunToggleLED(void)
 		
 		case 1:
 		{
-			if(xTaskGetTickCount() - runToggleLED.delay >= 500)
+			if(xTaskGetTickCount() - runToggleLED.delay >= (runToggleLED.sn == LED_WIFI_LINK ? 300 : 500))
 			{
 				if(runToggleLED.sn == LED_WIFI_LINK) /*用于重置WIFI连接*/
 				{
-					bsp_LedToggle(LED_LOGO_CLEAN);
-					bsp_LedToggle(LED_LOGO_CHARGE);
+					if(runToggleLED.times >= 1)
+					{
+						bsp_LedToggle(LED_LOGO_CLEAN);
+						bsp_LedToggle(LED_LOGO_CHARGE);
+						--runToggleLED.times;
+					}
+					else
+					{
+						bsp_LedOn(LED_LOGO_CLEAN);
+						bsp_LedOn(LED_LOGO_CHARGE);
+					}
+					
 				}
 				else
 				{
@@ -303,12 +318,22 @@ void bsp_RunToggleLED(void)
 		
 		case 2:
 		{
-			if(xTaskGetTickCount() - runToggleLED.delay >= 500) 
+			if(xTaskGetTickCount() - runToggleLED.delay >= (runToggleLED.sn == LED_WIFI_LINK ? 300 : 500)) 
 			{
 				if(runToggleLED.sn == LED_WIFI_LINK) /*用于重置WIFI连接*/
 				{
-					bsp_LedToggle(LED_LOGO_CLEAN);
-					bsp_LedToggle(LED_LOGO_CHARGE);
+					
+					if(runToggleLED.times >= 1)
+					{
+						bsp_LedToggle(LED_LOGO_CLEAN);
+						bsp_LedToggle(LED_LOGO_CHARGE);
+						--runToggleLED.times;
+					}
+					else
+					{
+						bsp_LedOn(LED_LOGO_CLEAN);
+						bsp_LedOn(LED_LOGO_CHARGE);
+					}
 				}
 				else
 				{
