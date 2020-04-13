@@ -113,8 +113,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 0 
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
-
-			//bsp_WifiStateProc();
+			bsp_ChangeWifi2SmartConfigStateProc();
+			bsp_WifiStateProc();
+			bsp_PrintCollision();
 			
         }
 		
@@ -143,7 +144,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 */
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
-	bsp_StartPowerOnToggle();/*开机先闪烁，闪烁期间对按键操作不响应*/
+	
 	
     while(1)
     {
@@ -208,7 +209,12 @@ static void vTaskPerception(void *pvParameters)
 
 	
 
-	vTaskDelay(5000);
+	if( !bsp_IsSelfCheckingReady())
+	{
+		 vTaskDelay(1);	
+	}	
+	
+	
 	bsp_InitCliffSW();
 	
 #if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
@@ -471,11 +477,7 @@ static void bsp_KeyProc(void)
 		{
 			case KEY_DOWN_POWER:
 			{
-				static uint8_t i = 0 ;
 				DEBUG("电源按键按下\r\n");
-				DEBUG("播放歌曲:%d\r\n",i);
-				bsp_SperkerPlay(i);
-				++i;
 				bsp_KeySuspend();
 			}break;
 				
@@ -582,7 +584,7 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("重新配网：同时按充电和清扫\r\n");
 				bsp_SperkerPlay(Song29);
-				mcu_reset_wifi(); /*调用涂鸦的WIFI重置WIFI函数*/
+				bsp_StartChangeWifi2SmartConfigState();
 				bsp_StartRunToggleLED(LED_WIFI_LINK);
 			}break;
 		}   

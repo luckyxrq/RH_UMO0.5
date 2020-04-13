@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5E93C6B4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5E94067C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5E65F953)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
@@ -98,7 +98,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\includes.h)(0x5E65F953)()
@@ -193,7 +193,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\FreeRTOSConfig.h)(0x5E85561F)()
@@ -290,7 +290,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_Collision.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_collision.o --omf_browse .\flash\obj\bsp_collision.crf --depend .\flash\obj\bsp_collision.d)
@@ -384,7 +384,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_Angle.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_angle.o --omf_browse .\flash\obj\bsp_angle.crf --depend .\flash\obj\bsp_angle.d)
@@ -478,7 +478,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 I (..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.c)(0x5E85561F)
@@ -573,7 +573,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_aw9523b.c)(0x5E65F953)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_aw9523b.o --omf_browse .\flash\obj\bsp_aw9523b.crf --depend .\flash\obj\bsp_aw9523b.d)
@@ -667,10 +667,10 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\app\src\bsp_DetectAct.c)(0x5E93C685)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
+F (..\..\User\app\src\bsp_DetectAct.c)(0x5E93FBC4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
 I (..\..\User\bsp\bsp.h)(0x5E85561F)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -761,7 +761,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_PulseMark.c)(0x5E65F953)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_pulsemark.o --omf_browse .\flash\obj\bsp_pulsemark.crf --depend .\flash\obj\bsp_pulsemark.d)
@@ -855,7 +855,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_IWDG.c)(0x5E65F953)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_iwdg.o --omf_browse .\flash\obj\bsp_iwdg.crf --depend .\flash\obj\bsp_iwdg.d)
@@ -949,7 +949,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_Edgewise.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
@@ -1043,7 +1043,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_communication.c)(0x5E902546)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_communication.o --omf_browse .\flash\obj\bsp_communication.crf --depend .\flash\obj\bsp_communication.d)
@@ -1137,7 +1137,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_Encoder.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_encoder.o --omf_browse .\flash\obj\bsp_encoder.crf --depend .\flash\obj\bsp_encoder.d)
@@ -1231,7 +1231,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_motor.c)(0x5E86E5D0)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
@@ -1325,7 +1325,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_Control.c)(0x5E8C2AEE)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_control.o --omf_browse .\flash\obj\bsp_control.crf --depend .\flash\obj\bsp_control.d)
@@ -1419,7 +1419,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_Scope.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_scope.o --omf_browse .\flash\obj\bsp_scope.crf --depend .\flash\obj\bsp_scope.d)
@@ -1513,7 +1513,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_Position.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_position.o --omf_browse .\flash\obj\bsp_position.crf --depend .\flash\obj\bsp_position.d)
@@ -1607,7 +1607,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
@@ -1702,7 +1702,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_stflash.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_stflash.o --omf_browse .\flash\obj\bsp_stflash.crf --depend .\flash\obj\bsp_stflash.d)
@@ -1796,7 +1796,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_OffSiteSW.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_offsitesw.o --omf_browse .\flash\obj\bsp_offsitesw.crf --depend .\flash\obj\bsp_offsitesw.d)
@@ -1890,7 +1890,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_CurrentFeedback.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_currentfeedback.o --omf_browse .\flash\obj\bsp_currentfeedback.crf --depend .\flash\obj\bsp_currentfeedback.d)
@@ -1984,7 +1984,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_CliffSW.c)(0x5E8C2AEE)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cliffsw.o --omf_browse .\flash\obj\bsp_cliffsw.crf --depend .\flash\obj\bsp_cliffsw.d)
@@ -2078,7 +2078,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_DustBox.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dustbox.o --omf_browse .\flash\obj\bsp_dustbox.crf --depend .\flash\obj\bsp_dustbox.d)
@@ -2172,7 +2172,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_speaker.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_speaker.o --omf_browse .\flash\obj\bsp_speaker.crf --depend .\flash\obj\bsp_speaker.d)
@@ -2266,7 +2266,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_RunControl.c)(0x5E903AE9)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_runcontrol.o --omf_browse .\flash\obj\bsp_runcontrol.crf --depend .\flash\obj\bsp_runcontrol.d)
@@ -2360,7 +2360,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_SearchChargePile.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_searchchargepile.o --omf_browse .\flash\obj\bsp_searchchargepile.crf --depend .\flash\obj\bsp_searchchargepile.d)
@@ -2454,7 +2454,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_assistJudgeDirection.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_assistjudgedirection.o --omf_browse .\flash\obj\bsp_assistjudgedirection.crf --depend .\flash\obj\bsp_assistjudgedirection.d)
@@ -2548,7 +2548,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_StopMode.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_stopmode.o --omf_browse .\flash\obj\bsp_stopmode.crf --depend .\flash\obj\bsp_stopmode.d)
@@ -2642,7 +2642,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_Gridmap.c)(0x5E8C2AEE)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_gridmap.o --omf_browse .\flash\obj\bsp_gridmap.crf --depend .\flash\obj\bsp_gridmap.d)
@@ -2736,7 +2736,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
@@ -2832,11 +2832,11 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\..\User\app\src\bsp_wifi_app.c)(0x5E86E5D0)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_wifi_app.o --omf_browse .\flash\obj\bsp_wifi_app.crf --depend .\flash\obj\bsp_wifi_app.d)
+F (..\..\User\app\src\bsp_wifi_app.c)(0x5E940614)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_wifi_app.o --omf_browse .\flash\obj\bsp_wifi_app.crf --depend .\flash\obj\bsp_wifi_app.d)
 I (..\..\User\bsp\bsp.h)(0x5E85561F)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -2927,7 +2927,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_passwd.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_passwd.o --omf_browse .\flash\obj\bsp_passwd.crf --depend .\flash\obj\bsp_passwd.d)
@@ -3021,7 +3021,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\app\src\bsp_UploadMap.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uploadmap.o --omf_browse .\flash\obj\bsp_uploadmap.crf --depend .\flash\obj\bsp_uploadmap.d)
@@ -3115,10 +3115,10 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\bsp\bsp.c)(0x5E8C2AEE)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
+F (..\..\User\bsp\bsp.c)(0x5E93FD5D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
 I (..\..\User\bsp\bsp.h)(0x5E85561F)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -3209,7 +3209,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\bsp\bsp.h)(0x5E85561F)()
@@ -3304,7 +3304,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\bsp\src\bsp_uart_fifo.c)(0x5E86E5D0)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uart_fifo.o --omf_browse .\flash\obj\bsp_uart_fifo.crf --depend .\flash\obj\bsp_uart_fifo.d)
@@ -3398,7 +3398,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\bsp\stm32f10x_it.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_it.o --omf_browse .\flash\obj\stm32f10x_it.crf --depend .\flash\obj\stm32f10x_it.d)
@@ -3524,7 +3524,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\bsp\stm32f10x_assert.c)(0x5E65F953)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_assert.o --omf_browse .\flash\obj\stm32f10x_assert.crf --depend .\flash\obj\stm32f10x_assert.d)
@@ -3650,7 +3650,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\bsp\src\bsp_led.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_led.o --omf_browse .\flash\obj\bsp_led.crf --depend .\flash\obj\bsp_led.d)
@@ -3744,7 +3744,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\bsp\src\bsp_timer.c)(0x5E65F953)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_timer.o --omf_browse .\flash\obj\bsp_timer.crf --depend .\flash\obj\bsp_timer.d)
@@ -3838,7 +3838,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\bsp\src\bsp_i2c_gpio.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_i2c_gpio.o --omf_browse .\flash\obj\bsp_i2c_gpio.crf --depend .\flash\obj\bsp_i2c_gpio.d)
@@ -3932,7 +3932,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\bsp\src\bsp_user_lib.c)(0x5E65F953)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_user_lib.o --omf_browse .\flash\obj\bsp_user_lib.crf --depend .\flash\obj\bsp_user_lib.d)
@@ -4026,7 +4026,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\bsp\src\bsp_ir_decode.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_ir_decode.o --omf_browse .\flash\obj\bsp_ir_decode.crf --depend .\flash\obj\bsp_ir_decode.d)
@@ -4120,7 +4120,7 @@ I (..\..\User\tuya_sdk\wifi.h)(0x5E843294)
 I (..\..\User\tuya_sdk\protocol.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\system.h)(0x5E85561F)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\dx8\src\dxi2c_gpio_stm32f1.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\dxi2c_gpio_stm32f1.o --omf_browse .\flash\obj\dxi2c_gpio_stm32f1.crf --depend .\flash\obj\dxi2c_gpio_stm32f1.d)
@@ -4623,7 +4623,7 @@ I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E8C2AEE)
 I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E8C2AEE)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E85561F)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E85561F)
+I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\tuya_sdk\system.c)(0x5E8BE579)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\system.o --omf_browse .\flash\obj\system.crf --depend .\flash\obj\system.d)
