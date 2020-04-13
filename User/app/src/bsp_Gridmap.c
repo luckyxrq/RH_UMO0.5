@@ -4,6 +4,10 @@
 
 GridMap gridmap;
 static int map_last_robotX = 0, map_last_robotY = 0;
+static short last_map_x=0;
+static short last_map_y=0;
+
+
 static char map_update = 0;
 static MapInfo TuYa_map[PER_UPLOAD_POINT_CNT] = {0};
 static double my_abs(double x){
@@ -15,246 +19,101 @@ static double my_abs(double x){
 
 static unsigned long mysqrt(unsigned long x);
 
-static unsigned char inverseSensorModel(int robotXY_from_gridXY_dist,int robotX,int robotY,double robotTheta,int grid_real_center_x,int grid_real_center_y,unsigned char obstacleSignal,unsigned char* IRSensorData)
+
+static unsigned char Under_extreme_point_x[10] = {0};
+static unsigned char Under_extreme_point_x_index = 0;
+static unsigned char Under_extreme_point_y[10]={0};
+static unsigned char Under_extreme_point_y_index=0;
+static unsigned char On_extreme_point_x[10] = {0};
+static unsigned char On_extreme_point_x_index = 0;
+static unsigned char On_extreme_point_y[10] = {0};
+static unsigned char On_extreme_point_y_index = 0;
+static unsigned char Left_Under_extreme_point_x[10] = {0};
+static unsigned char Left_Under_extreme_point_x_index = 0;
+static unsigned char Left_On_extreme_point_x[10] = {0};
+static unsigned char Left_On_extreme_point_x_index = 0;
+static unsigned char Left_Under_extreme_point_y[10]={0};
+static unsigned char Left_Under_extreme_point_y_index;
+static unsigned char Left_On_extreme_point_y[10] = {0};
+static unsigned char Left_On_extreme_point_y_index = 0;
+
+static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid_y,short x,short y,short theta,short xi,short yi,unsigned char obstacleSignal,int grid_dist,CLIFFADCVALUE *cliff_value)
 {
-
-	double thetaK;
-	double sensorTheta;
-	
-	int SensorData_signal = 0;
-	int SensorData_signal_flag = 0;
-	
-	int r = robotXY_from_gridXY_dist;
-	double phi = atan2(grid_real_center_y - robotY, grid_real_center_x - robotX) - robotTheta;
-	unsigned char IR_index;
-	 
-
-	switch (gridmap.sensor_type)
-	{
-		case 0:
-			
-			//if (obstacleSignal == NONE_OBSTACLE_SIGNAL) // Free
-			//{
-			//	sensorTheta = 0;
-			//}
-			if (obstacleSignal == RIGHT_OBSTACLE_SIGNAL) // The barriers in right front
-			{
-				sensorTheta = -gridmap.collision_sensor_installation_angle_on_robot; //-45;
-			}
-			else if (obstacleSignal == LEFT_OBSTACLE_SIGNAL) // The barriers in left front
-			{
-				sensorTheta = gridmap.collision_sensor_installation_angle_on_robot; //45;
-			}
-			//else if (obstacleSignal == FRONT_OBSTACLE_SIGNAL) // The barriers in front
-			//{
-			//	sensorTheta = 0;
-			//}
-			else 
-			{
-				sensorTheta = 0;
-			}
-			
-			if(r < gridmap.free_zone_from_robot_center)
-			{
-				return gridmap.grid_free;
-			}
-			else if ((obstacleSignal == FRONT_OBSTACLE_SIGNAL) &&\
-				(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
-				(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
-			{ 
-				return gridmap.grid_occupancy; // Front
-			}
-			else if ((obstacleSignal == LEFT_OBSTACLE_SIGNAL) &&\
-				(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
-				(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
-			{ 
-				return gridmap.grid_occupancy; // Left
-			}
-			else if ((obstacleSignal == RIGHT_OBSTACLE_SIGNAL) &&\
-				(r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
-				(fabs(phi - sensorTheta) <= gridmap.collision_sensor_installation_angle_on_robot))
-			{
-				return gridmap.grid_occupancy; // Right
-			}
-			//else if ((obstacleSignal == NONE_OBSTACLE_SIGNAL) && (r < gridmap.free_zone_from_robot_center))
-			//{
-			//	return gridmap.grid_free;
-			//}
-			else
-			{
-				return gridmap.grid_default;
-			}
-			break;
-		case 1: // IR Laser
-			/**  65.5 52.5 35.7 17.3 0 0 -17.3 -35.7 -52.5 -65.5  */
-			for (IR_index = 0; IR_index < 10; IR_index++)
-			{
-				if (IR_index == 0)
-				{
-					sensorTheta = Deg2Rad(52.5);
-					SensorData_signal = IRSensorData[0];
-				}
-				else if (IR_index == 1)
-				{
-					sensorTheta = Deg2Rad(35.7);
-					SensorData_signal = IRSensorData[1];
-				}
-				else if (IR_index == 2)
-				{
-					sensorTheta = Deg2Rad(17.3);
-					SensorData_signal = IRSensorData[2];
-				}
-				else if (IR_index == 3)
-				{
-					sensorTheta = Deg2Rad(0);
-					SensorData_signal = IRSensorData[3];
-				}
-				else if (IR_index == 4)
-				{
-					sensorTheta = Deg2Rad(-17.3);
-					SensorData_signal = IRSensorData[4];
-				}
-				else if (IR_index == 5)
-				{
-					sensorTheta = Deg2Rad(-35.7);
-					SensorData_signal = IRSensorData[5];
-				}
-				else if (IR_index == 6)
-				{
-					sensorTheta = Deg2Rad(-52.5);
-					SensorData_signal = IRSensorData[6];
-				}
-				else if (IR_index == 7)
-				{ // Head
-					sensorTheta = Deg2Rad(0);
-					SensorData_signal = IRSensorData[7];
-				}
-				else if (IR_index == 8)
-				{
-					sensorTheta = Deg2Rad(65.5);
-					SensorData_signal = IRSensorData[8];
-				}
-				else if (IR_index == 9)
-				{
-					sensorTheta = Deg2Rad(-65.5);
-					SensorData_signal = IRSensorData[9];
-				}
-
-				//if (fabs(phi - sensorTheta) < minDelta || minDelta == -1) {
-				if (fabs(phi - sensorTheta) < gridmap.collision_sensor_installation_angle_on_robot)
-				{ //deg:10(Rad 0.17)
-					//Zk = SensorData_signal;//SensorData[i];
-					SensorData_signal_flag = SensorData_signal;
-					thetaK = sensorTheta;
-					//minDelta = fabs(phi - sensorTheta);
-				}
-			}
-			if (SensorData_signal_flag == 1)
-			{
-				if ((r < gridmap.refresh_zone_max_radius && r >= gridmap.obstacle_distance_from_robot_center) &&\
-					(fabs(phi - thetaK) <= gridmap.collision_sensor_installation_angle_on_robot))
-				{ //deg:10(Rad 0.17)
-					return gridmap.grid_occupancy;
-				}
-				else if (r < gridmap.obstacle_distance_from_robot_center)
-				{
-					return gridmap.grid_free;
-				}
-			}
-			else if (r < gridmap.free_zone_from_robot_center)
-			{
-				return gridmap.grid_free; // -2.2
-			}
-			else
-			{
-				return gridmap.grid_default;
-			}
-			break;
-		default:
-			//DEBUG(" Unknown Sensor Type ");
-			break;
-	}
-	return gridmap.grid_default;
-}
-
-
-
-static unsigned char inverseSensorModelB(int  grid_x,int  grid_y,double x,double y,double theta, double xi, double yi,int obstacleSignal,double grid_dist) {
-    double o_x = x;
-    double o_y = y;
-    double r=grid_dist;
-    double phi;
-    double temporary_phi;
-    double temporary_theta;
-    double phi_temporaryphi;
-    double theta_phi = atan2(xi - o_x,yi - o_y);
-    theta_phi =theta_phi*180/3.14;
-    if(theta_phi<0){
-        temporary_phi=theta_phi+360;
+    short o_x = x;
+    short o_y = y;
+    short r=grid_dist;
+    short phi= 180*atan2(yi - o_y,xi - o_x)/3.1415926;;
+    short theta_phi=phi-theta;
+    if(my_abs(theta_phi)>180){
+        if(theta_phi>180){
+            theta_phi=theta_phi-360;
+        }else{
+            theta_phi=theta_phi+360;
+        }
+    }
+    if(my_abs(theta_phi)>65){
+        return gridmap.map[grid_x][grid_y];
     }
     else{
-        temporary_phi=theta_phi;
-    }
-    if(temporary_phi<270){
-        temporary_phi=temporary_phi+90;
-    }
-    else{
-        temporary_phi=temporary_phi-270;
-    }
-    if(theta<0){
-        temporary_theta=theta+360;
-    }
-    else{
-        temporary_theta=theta;
-    }
-    phi_temporaryphi=temporary_phi-temporary_theta;
-	
-    if(my_abs(phi_temporaryphi)>180){
-        if(phi_temporaryphi>0){
-            phi=phi_temporaryphi-360;
-        }
-        else{
-            phi=phi_temporaryphi+360;
-        }
-    }
-    else{
-        phi=phi_temporaryphi;
-    }
-    if(phi>=0){
-        phi=180-phi;
-    }
-    else{
-        phi=-180-phi;
-    }
-    if(my_abs(phi)>=75){
-        return 250;
-    }
-    else{
-        if((obstacleSignal == FRONT_OBSTACLE_SIGNAL )&&(my_abs(phi)<=10)){
-            return 0;
-        }
-        else if((obstacleSignal == LEFT_OBSTACLE_SIGNAL)&&(10<phi)&&(phi<50)){
-            return 0;
-        }
-        else if((obstacleSignal == LEFT_OBSTACLE_SIGNAL)&&(r<260)&&(50<phi)&&(phi<75)){
-            return 0;
-        }
-        else if((obstacleSignal == RIGHT_OBSTACLE_SIGNAL)&&(-50<phi)&&(phi<-10)){
-            return 0;
-        }
-        else if((obstacleSignal == RIGHT_OBSTACLE_SIGNAL)&&(r<260)&&(-75<phi)&&(phi<-50)){
-            return 0;
-        }
-        else{
-            if(gridmap.map[grid_x][grid_y]==250){
-                return  250;
+        if(cliff_value->cliffValue0==1){
+            if((cliff_value->cliffValue2==1)&&(my_abs(phi)<30)){
+                //cout << "----------------- The front is cliff -------------------------" << endl;
+                return 0;
+            }
+            else if((cliff_value->cliffValue1==1&&cliff_value->cliffValue3==1)&&(my_abs(phi)<65)){
+                //cout << "----------------- The left and the right is cliff -------------------------" << endl;
+                return 0;
+            }
+            else if((cliff_value->cliffValue1==1)&&(0<theta_phi)&&(theta_phi<=45)){
+                //cout << "----------------- The left is cliff -------------------------" << endl;
+                return 0;
+            }
+            else if((cliff_value->cliffValue1==1)&&(r<260)&&(45<theta_phi)&&(theta_phi<=65)){
+                //cout << "----------------- The left is cliff -------------------------" << endl;
+                return 0;
+            }
+            else if((cliff_value->cliffValue3==1)&&(-45<=theta_phi)&&(theta_phi<0)){
+                //cout << "----------------- The right is cliff -------------------------" << endl;
+                return 0;
+            }
+            else if((cliff_value->cliffValue3==1)&&(r<260)&&(-65<=theta_phi)&&(theta_phi<-45)){
+                //cout << "----------------- The right is cliff -------------------------" << endl;
+                return 0;
             }
             else{
-                return 125;
+                return gridmap.map[grid_x][grid_y];
+            }
+        }
+        else{
+            if((obstacleSignal == front_obstacle)&&(my_abs(phi)<30)){
+                //cout << "----------------- The front is locc -------------------------" << endl;
+                return 0;// Front
+            }
+            else if((obstacleSignal == left_obstacle)&&(0<theta_phi)&&(theta_phi<=45)){
+                //cout << "----------------- The left is locc -------------------------" << endl;
+                return 0; // Left
+            }
+            else if((obstacleSignal == left_obstacle)&&(r<260)&&(45<theta_phi)&&(theta_phi<=65)){
+                //cout << "----------------- The left is locc -------------------------" << endl;
+                return 0; // Left
+            }
+            else if((obstacleSignal == right_obstacle)&&(-45<=theta_phi)&&(theta_phi<0)){
+                //cout << "----------------- The right is locc -------------------------" << endl;
+                return 0;   //right
+            }
+            else if((obstacleSignal == right_obstacle)&&(r<260)&&(-65<=theta_phi)&&(theta_phi<-45)){
+                //cout << "----------------- The right is locc -------------------------" << endl;
+                return 0;   //right
+            }
+            else{
+                return gridmap.map[grid_x][grid_y];
             }
         }
     }
 }
+
+
+
 
 
 
@@ -338,7 +197,7 @@ void bsp_StopUpdateGridMap(void)
 *	·µ »Ø Öµ: ÎÞ
 *********************************************************************************************************
 */
-void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[])
+void __bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[])
 {
 	int grid_real_center_x, grid_real_center_y;
 	int grid_index_x,grid_index_y;
@@ -428,7 +287,8 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 							{
 								//grid_status = inverseSensorModel(robotXY_from_gridXY_dist,map_robot_x, map_robot_y, robotTheta, grid_real_center_x, grid_real_center_y, obstacleSignal, IRSensorData);
 								
-								grid_status = inverseSensorModelB(grid_index_x,grid_index_y,map_robot_x,map_robot_y,Rad2Deg(robotTheta), grid_real_center_x, grid_real_center_y,obstacleSignal,robotXY_from_gridXY_dist);   
+								grid_status = inverseSensorModelB(grid_index_x,grid_index_y,map_robot_x,map_robot_y,Rad2Deg(robotTheta), grid_real_center_x, grid_real_center_y,\
+								obstacleSignal,robotXY_from_gridXY_dist,bsp_GetCliffSensorData());   
 								
 								gridmap.map[grid_index_x][grid_index_y] = grid_status;
 							}
@@ -465,6 +325,62 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 	
  
 }
+
+
+
+
+
+
+
+
+
+void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value) {
+    int grid_dist;
+    unsigned char temporary_x,temporary_y,x,y;
+    short map_robot_x,map_robot_y,xi, yi;
+    last_map_x=robotX;
+    last_map_y=robotY;
+    map_robot_x=robotX+half_map_wide;
+    map_robot_y=robotY+half_map_long;
+    if(map_robot_x/GRIDWIDTH>95){
+        temporary_x=MAPWIDECELLS;
+    }
+    else{
+        temporary_x=map_robot_x/GRIDWIDTH+5;
+    }
+    if(map_robot_y/GRIDHEIGHT>95){
+        temporary_y=MAPLONGCELLS;
+    }
+    else{
+        temporary_y=map_robot_y/GRIDHEIGHT+5;
+    }
+    for (x=(map_robot_x/GRIDWIDTH>=4?map_robot_x/GRIDWIDTH-4:0); x<temporary_x; x++){
+        for (y=(map_robot_y/GRIDHEIGHT>=4?map_robot_y/GRIDHEIGHT-4:0); y<temporary_y; y++){
+            xi = x * GRIDWIDTH+50;
+            yi = y * GRIDHEIGHT+50;
+            grid_dist = sqrt(pow(map_robot_x - xi, 2) + pow(map_robot_y - yi, 2));
+            if(obstacleSignal==none_obstacle&&cliff_value->cliffValue0==0){
+                if(grid_dist<=map_robot_radius){
+                    gridmap.map[x][y]=250;
+                }
+            }
+            else{
+                if(grid_dist<=160){
+                    gridmap.map[x][y]=250;
+                }
+                if((grid_dist <= 300)&&(grid_dist>160)){
+                    if(gridmap.map[x][y]==0){
+                    }
+                    else{
+                        gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x, map_robot_y, Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 
 
@@ -605,6 +521,33 @@ unsigned char* bsp_GetIRSensorData(void)
 
 }
 
+CLIFFADCVALUE* bsp_GetCliffSensorData(void)
+{
+	static CLIFFADCVALUE cliff_value;
+	if(bsp_CliffIsDangerous(CliffLeft))  
+	{	
+		cliff_value.cliffValue0 =1;
+		cliff_value.cliffValue1 = 1;
+	}else cliff_value.cliffValue1 = 0;
+	if(bsp_CliffIsDangerous(CliffMiddle))  
+	{	
+		cliff_value.cliffValue0 =1;
+		cliff_value.cliffValue2 = 1;
+	}else cliff_value.cliffValue2 = 0;
+	if(bsp_CliffIsDangerous(CliffRight))  
+	{	
+		cliff_value.cliffValue0 =1;
+		cliff_value.cliffValue3 = 1;
+	}else cliff_value.cliffValue3 = 0;
+	
+	return &cliff_value;
+
+}
+
+
+
+
+
 
 /*! \brief Square root routine.
  *
@@ -649,75 +592,57 @@ static unsigned long mysqrt(unsigned long x)
 
 
 
-int bsp_Edge_length(void)
-{
-	bool end_x=false;
-	int firsttrap;
-	int edgelength;
-	int i=0,j=0;
-	
-	for (i=0;i<MAPHEIGHT;i++) {
-		for(j=0;j<MAPWIDTH;j++){
-			if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
-				firsttrap=i;
-				end_x=true;
-				break;
-			}
-		}
-		if(end_x==true){
-			end_x=false;
-			break;
-		}
-	}
-	
-	for (i=MAPHEIGHT-1;i>0;i--){
-		for(j=0;j<MAPWIDTH;j++){
-			if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
-				edgelength=i-firsttrap;
-				edgelength=100*edgelength;
-				end_x=true;
-				break;
-			}
-		}
-		if(end_x==true){
-			end_x=false;
-			break;
-		}
-	}
-	
-	return edgelength;
+
+short bsp_Edge_length(void){
+    bool end_x=false;
+    short edgelength=0;
+    unsigned char i,j,firsttrap=0;
+    for (i=0;i<GRIDWIDTH;i++) {
+        for(j=0;j<GRIDHEIGHT;j++){
+            if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
+                firsttrap=i;
+                end_x=true;
+                break;
+            }
+        }
+        if(end_x==true){
+            end_x=false;
+            break;
+        }
+    }
+    for (i=GRIDWIDTH-1;i>=0;i--){
+        for(j=0;j<GRIDHEIGHT;j++){
+            if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
+                edgelength=i-firsttrap;
+                edgelength=100*edgelength;
+                end_x=true;
+                break;
+            }
+        }
+        if(end_x==true){
+            end_x=false;
+            break;
+        }
+    }
+    return edgelength;
 }
 
-
-
-
-int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
+short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
 {
-    int y_boundary;
-    int x_boundary;
+	robotTheta = robotTheta/100;
+    short y_boundary;
+    short x_boundary;
     bool end_x=false;
     bool firsttrap=false;
-    int Extreme_point = 0;
-    unsigned char Under_extreme_point_x[50] = {0};
-    unsigned char Under_extreme_point_x_index = 0;
-    
-    unsigned char Under_extreme_point_y[50]={0};
-    unsigned char Under_extreme_point_y_index=0;
-    
-    unsigned char On_extreme_point_x[50] = {0};
-    unsigned char On_extreme_point_x_index = 0;
-    
-    unsigned char On_extreme_point_y[50] = {0};
-    unsigned char On_extreme_point_y_index = 0;
-    
-    int i=0,j=0;
-    int t=0,z=0;
-    
-    int Leaksweep=0;
+    short Extreme_point = 0;
+    short i=0,j=0;
+    short t=0,z=0;
+
+    short Leaksweep=0;
     bool leak;
-    y_boundary=(robotY+5000)/100;
-    x_boundary=(robotX+5000)/100;
-    if(my_abs(robotTheta/100)>170){
+    y_boundary=(robotY+half_map_wide)/100;
+    x_boundary=(robotX+half_map_long)/100;
+    if(my_abs(robotTheta)>170){
         for ( i=0;i<100;i++) {
             for( j=y_boundary;j<=50;j++){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -731,13 +656,13 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned 
                 break;
             }
         }
-        if((y_boundary<48)&&(Extreme_point!=0)){
+        if((y_boundary<47)&&(Extreme_point!=0)){
             for ( i=1;i<100;i++) {
-                for( j=47;j>=y_boundary;j--){
+                for( j=46;j>=y_boundary;j--){
                     if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                         if(Extreme_point-i<-2){
                             if(x_boundary-i<-2){
-                                if((j-y_boundary)>1){
+                                if((j-y_boundary)>3){
                                     for( z=i-1;z>0;z--){
                                         if(gridmap.map[z][j]==125){
                                             firsttrap=true;
@@ -762,7 +687,7 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned 
                                             for( t=0;t<Under_extreme_point_x_index;t++){
                                                 if(Under_extreme_point_x[t]==(j-2)||Under_extreme_point_x[t]==(j-1)||Under_extreme_point_x[t]==j||
                                                         Under_extreme_point_x[t]==(j+1)||Under_extreme_point_x[t]==(j+2)){
-                                                    if (Under_extreme_point_y[t]-x_boundary>5)
+                                                    if (Under_extreme_point_y[t]-x_boundary>10)
                                                     {
                                                         break;
                                                     }
@@ -790,7 +715,7 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned 
             }
         }
     }
-    else if(my_abs(robotTheta/100)<10){
+    else if(my_abs(robotTheta)<10){
         for( i=99;i>0;i--){
             for( j=47;j>=y_boundary;j--){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -810,7 +735,7 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned 
                     if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                         if(Extreme_point-i>2){
                             if(x_boundary-i>2){
-                                if((j-y_boundary)>1){
+                                if((j-y_boundary)>3){
                                     for( z=i+1;z<99;z++){
                                         if(gridmap.map[z][j]==125){
                                             firsttrap=true;
@@ -826,10 +751,10 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned 
                                         if(On_extreme_point_x[0]==0){
                                             On_extreme_point_x[0]=j;
                                             On_extreme_point_x_index++;
-                                            
+
                                             On_extreme_point_y[0] = x_boundary;
                                             On_extreme_point_y_index++;
-                                            
+
                                             return Leaksweep;
                                         }
                                         else{
@@ -837,7 +762,7 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned 
                                             for( t=0;t<On_extreme_point_x_index;t++){
                                                 if(On_extreme_point_x[t]==(j-2)||On_extreme_point_x[t]==(j-1)||On_extreme_point_x[t]==j
                                                         ||On_extreme_point_x[t]==(j+1)||On_extreme_point_x[t]==(j+2)){
-                                                    if (On_extreme_point_y[t]-x_boundary>5)
+                                                    if (On_extreme_point_y[t]-x_boundary>10)
                                                     {
                                                         break;
                                                     }
@@ -851,10 +776,10 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned 
                                             if(leak==true){
                                                 On_extreme_point_x[On_extreme_point_x_index]=j;
                                                 On_extreme_point_x_index++;
-                                                
+
                                                 On_extreme_point_y[Under_extreme_point_y_index]=x_boundary;
                                                 On_extreme_point_y_index++;
-                                                
+
                                                 return Leaksweep;
                                             }
                                         }
@@ -873,34 +798,22 @@ int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned 
     return 0;
 }
 
-int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
+short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
 {
-    int y_boundary;
-    int x_boundary;
+	robotTheta = robotTheta/100;
+    short y_boundary;
+    short x_boundary;
     bool end_x=false;
     bool firsttrap=false;
-    int Extreme_point = 0;
-    
-    unsigned char Left_Under_extreme_point_x[50] = {0};
-    unsigned char Left_Under_extreme_point_x_index = 0;
-    
-    unsigned char Left_On_extreme_point_x[50] = {0};
-    unsigned char Left_On_extreme_point_x_index = 0;
-    
-    unsigned char Left_Under_extreme_point_y[50]={0};
-    unsigned char Left_Under_extreme_point_y_index;
-    
-    unsigned char Left_On_extreme_point_y[50] = {0};
-    unsigned char Left_On_extreme_point_y_index = 0;
-    
-    int i=0,j=0;
-    int t=0,z=0;
-    
-    int Leaksweep;
+    short Extreme_point = 0;
+    short i=0,j=0;
+    short t=0,z=0;
+
+    short Leaksweep;
     bool leak;
-    y_boundary=(robotY+5000)/100;
-    x_boundary=(robotX+5000)/100;
-    if(my_abs(robotTheta/100)>170){
+    y_boundary=(robotY+half_map_wide)/100;
+    x_boundary=(robotX+half_map_long)/100;
+    if(my_abs(robotTheta)>170){
         for ( i=0;i<100;i++) {
             for( j=51;j<=y_boundary;j++){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -920,7 +833,7 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned c
                     if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                         if(Extreme_point-i<-2){
                             if(x_boundary-i<-2){
-                                if((y_boundary-j)>1){
+                                if((y_boundary-j)>3){
                                     for( z=i-1;z>0;z--){
                                         if(gridmap.map[z][j]==125){
                                             firsttrap=true;
@@ -936,11 +849,8 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned c
                                         if(Left_Under_extreme_point_x[0]==0){
                                             Left_Under_extreme_point_x[0] = j;
                                             Left_Under_extreme_point_x_index++;
-                                            
                                             Left_Under_extreme_point_y[0] = x_boundary;
                                             Left_Under_extreme_point_y_index++;
-                                            
-                                            
                                             return  Leaksweep;
                                         }
                                         else{
@@ -948,7 +858,7 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned c
                                             for( t=0;t<Left_Under_extreme_point_x_index;t++){
                                                 if(Left_Under_extreme_point_x[t]==(j-2)||Left_Under_extreme_point_x[t]==(j-1)||Left_Under_extreme_point_x[t]==j||
                                                         Left_Under_extreme_point_x[t]==(j+1)||Left_Under_extreme_point_x[t]==(j+2)){
-                                                    if (Left_Under_extreme_point_y[t]-x_boundary>5)
+                                                    if (Left_Under_extreme_point_y[t]-x_boundary>10)
                                                     {
                                                         break;
                                                     }
@@ -962,7 +872,6 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned c
                                             if(leak==true){
                                                 Left_Under_extreme_point_x[Left_Under_extreme_point_x_index] = j;
                                                 Left_Under_extreme_point_x_index++;
-                                                
                                                 Left_Under_extreme_point_y[Left_Under_extreme_point_y_index] = x_boundary;
                                                 Left_Under_extreme_point_y_index++;
                                                 return Leaksweep;
@@ -977,7 +886,7 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned c
             }
         }
     }
-    else if(my_abs(robotTheta/100)<10){
+    else if(my_abs(robotTheta)<10){
         for( i=99;i>=0;i--){
             for( j=50;j<=y_boundary;j++){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -997,7 +906,7 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned c
                     if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                         if(Extreme_point-i>2){
                             if(x_boundary-i>2){
-                                if((y_boundary-j)>1){
+                                if((y_boundary-j)>3){
                                     for( z=i+1;z<99;z++){
                                         if(gridmap.map[z][j]==125){
                                             firsttrap=true;
@@ -1012,10 +921,10 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned c
                                         Leaksweep=100*(y_boundary-j+1);
                                         if(Left_On_extreme_point_x[0]==0){
                                             Left_On_extreme_point_x[0] = j;
-                                            
+
                                             Left_On_extreme_point_y[0] = x_boundary;
                                             Left_On_extreme_point_y_index++;
-                                            
+
                                             return Leaksweep;
                                         }
                                         else{
@@ -1023,7 +932,7 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned c
                                             for( t=0;t<Left_On_extreme_point_x_index;t++){
                                                 if(Left_On_extreme_point_x[t]==(j-2)||Left_On_extreme_point_x[t]==(j-1)||Left_On_extreme_point_x[t]==j
                                                         ||Left_On_extreme_point_x[t]==(j+1)||Left_On_extreme_point_x[t]==(j+2)){
-                                                    if (Left_On_extreme_point_y[t]-x_boundary>5)
+                                                    if (Left_On_extreme_point_y[t]-x_boundary>10)
                                                     {
                                                         break;
                                                     }
@@ -1056,8 +965,6 @@ int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned c
     }
     return 0;
 }
-
-
 
 
 

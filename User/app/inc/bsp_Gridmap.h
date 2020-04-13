@@ -6,10 +6,18 @@
 // 10cm * 10cm
 #define GRIDWIDTH  100
 #define GRIDHEIGHT 100
+
+//数量个数
+#define MAPWIDECELLS 100
+#define MAPLONGCELLS 100
+
 /** Map Size (mm) */ 
 // 10m * 10m
 #define MAPWIDTH  10000
 #define MAPHEIGHT 10000
+
+#define half_map_wide 5000
+#define half_map_long 5000
 
 #define ROBOTXOFFSET   MAPWIDTH/2
 #define ROBOTYOFFSET   MAPHEIGHT/2
@@ -20,6 +28,8 @@
 #define NONE_OBSTACLE_SIGNAL 3
 
 #define REFRESH_ZONE_SIZE 3
+
+#define map_robot_radius 160
 
 
 
@@ -56,7 +66,12 @@
 //Zmin   :  refresh zone min radius  170mm
 //sensorType: collision or  infrared
 
-
+typedef struct {
+    uint8_t cliffValue0;
+    uint16_t cliffValue1;
+    uint16_t cliffValue2;
+    uint16_t cliffValue3;
+}CLIFFADCVALUE;
 
 
 typedef struct
@@ -81,15 +96,15 @@ typedef struct
 
 void bsp_StartUpdateGridMap(void);
 void bsp_StopUpdateGridMap(void);
-void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[]);
+void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value);
 unsigned char* bsp_GetIRSensorData(void);
+CLIFFADCVALUE* bsp_GetCliffSensorData(void);
 //int* bsp_GetGridMap(void);
 
-int bsp_Edge_length(void);
+short bsp_Edge_length(void);
+short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
+short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
 
-int bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
-int bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
-int bsp_Leakingsweep(void);
 
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 
