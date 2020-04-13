@@ -114,7 +114,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
 
-			bsp_WifiStateProc();
+			//bsp_WifiStateProc();
 			
         }
 		
