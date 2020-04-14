@@ -17,13 +17,13 @@
 #define KEY_COUNT    10	   					/* 按键个数, 8个独立建 + 2个组合键 */
 
 /* 根据应用程序的功能重命名按键宏 */
-#define KEY_DOWN_POWER	KEY_1_DOWN
-#define KEY_UP_POWER	KEY_1_UP
-#define KEY_LONG_POWER	KEY_1_LONG
+#define KEY_DOWN_POWER	KEY_2_DOWN
+#define KEY_UP_POWER	KEY_2_UP
+#define KEY_LONG_POWER	KEY_2_LONG
 
-#define KEY_DOWN_CHARGE	KEY_2_DOWN
-#define KEY_UP_CHARGE	KEY_2_UP
-#define KEY_LONG_CHARGE	KEY_2_LONG
+#define KEY_DOWN_CHARGE	KEY_1_DOWN
+#define KEY_UP_CHARGE	KEY_1_UP
+#define KEY_LONG_CHARGE	KEY_1_LONG
 
 #define KEY_DOWN_CLEAN	KEY_3_DOWN
 #define KEY_UP_CLEAN	KEY_3_UP
