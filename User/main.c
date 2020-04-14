@@ -114,9 +114,11 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
 			bsp_ChangeWifi2SmartConfigStateProc();
+			
+			/*下面是打印开关，酌情注释*/
 			bsp_WifiStateProc();
 			bsp_PrintCollision();
-			
+			bsp_PrintIR_Rev();
         }
 		
 #if 1 /*更新地图*/

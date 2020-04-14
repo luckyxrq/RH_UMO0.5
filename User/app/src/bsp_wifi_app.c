@@ -37,7 +37,14 @@ static WIFI_CTR wifi_ctr;
 static WIFI_2_SMART_CONFIG wifi_2_smart_config;
 
 
-
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StartChangeWifi2SmartConfigState
+*	功能说明: 将WIFI切换为SmartConfig状态
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 void bsp_StartChangeWifi2SmartConfigState(void)
 {
 	wifi_2_smart_config.action = 0 ;
@@ -45,6 +52,15 @@ void bsp_StartChangeWifi2SmartConfigState(void)
 	wifi_2_smart_config.isRunning = true;
 }
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StartChangeWifi2SmartConfigState
+*	功能说明: 停止将WIFI切换为SmartConfig状态的状态机
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 void bsp_StopChangeWifi2SmartConfigState(void)
 {
 	wifi_2_smart_config.isRunning = false;
