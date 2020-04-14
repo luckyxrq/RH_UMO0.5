@@ -1,10 +1,6 @@
 #include "bsp.h"
 
-#define RCC_ALL_RCC 	(RCC_APB2Periph_GPIOE|RCC_APB2Periph_AFIO)
 
-/*用于唤醒离开stop模式的按键*/
-#define GPIO_PORT_K    GPIOE
-#define GPIO_PIN_K     GPIO_Pin_10
 
 static void bsp_InitKeyStopMODE(void);
 static void bsp_DISABLE_ALL_EXIT(void);
@@ -35,6 +31,8 @@ void bsp_EnterStopMODE(void)
 	bsp_SwOff(SW_WIFI_POWER);
 	
 	/*USART_DeInit*/
+	USART_DeInit(USART1);
+	USART_DeInit(USART2);
 	USART_DeInit(USART3);
 	USART_DeInit(UART4);
 	USART_DeInit(UART5);
@@ -67,24 +65,11 @@ void bsp_EnterStopMODE(void)
 	while (RCC_GetSYSCLKSource() != 0x08){}
 	SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk; /* 使能滴答定时器 */  
 	portEXIT_CRITICAL();
+		
+	bsp_Init();
 }
 
-#if 0
-void EXTI15_10_IRQHandler(void)
-{
-	if(EXTI_GetITStatus(EXTI_Line10) == SET)
-	{	
-		/*唤醒了后重新初始化外设*/
-		//bsp_Init();
-		
-		/*软重启*/
-		__disable_fault_irq();
-		NVIC_SystemReset();
-		
-		EXTI_ClearITPendingBit(EXTI_Line10); /* 清除中断标志位 */
-	}
-}
-#endif
+
 
 /*
 *********************************************************************************************************
@@ -195,6 +180,12 @@ static void bsp_SetAllPinLowPower(void)
 	ADC_Cmd(ADC3,DISABLE);
 }
 
+#define RCC_ALL_RCC 	(RCC_APB2Periph_GPIOE|RCC_APB2Periph_AFIO)
+
+/*用于唤醒离开stop模式的按键*/
+#define GPIO_PORT_K    GPIOE
+#define GPIO_PIN_K     GPIO_Pin_8
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_InitKeyStopMODE
@@ -217,19 +208,32 @@ static void bsp_InitKeyStopMODE(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
 	GPIO_Init(GPIO_PORT_K, &GPIO_InitStructure);
 
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource10);
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource8);
 
     /* 配置外部中断事件 */
-    EXTI_InitStructure.EXTI_Line = EXTI_Line10;
+    EXTI_InitStructure.EXTI_Line = EXTI_Line8;
     EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
     EXTI_Init(&EXTI_InitStructure);
 
 	/* 16个抢占式优先级，0个响应式优先级 */
-    NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
+		
 }
+
+
+
+#if 1
+void EXTI9_5_IRQHandler(void)
+{
+	if(EXTI_GetITStatus(EXTI_Line8) == SET)
+	{	
+		EXTI_ClearITPendingBit(EXTI_Line8); /* 清除中断标志位 */
+	}
+}
+#endif

@@ -180,17 +180,6 @@ void EXTI15_10_IRQHandler(void)
 		++encoder[EncoderLeft].pulseT;
 	}
 	
-	if(EXTI_GetITStatus(EXTI_Line10) == SET)
-	{	
-		/*唤醒了后重新初始化外设*/
-		//bsp_Init();
-		
-		/*软重启*/
-		__disable_fault_irq();
-		NVIC_SystemReset();
-		
-		EXTI_ClearITPendingBit(EXTI_Line10); /* 清除中断标志位 */
-	}
 }
 
 
