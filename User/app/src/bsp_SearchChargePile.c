@@ -541,6 +541,15 @@ static bool bsp_IsTouchChargePile(void)
 	}
 }
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IsCharging
+*	功能说明: 是否已经充满
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 static bool bsp_IsCharging(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING) == 0)
@@ -553,7 +562,14 @@ static bool bsp_IsCharging(void)
 	}
 }
 
-
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IsChargeDone
+*	功能说明: 是否已经充满
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 static bool bsp_IsChargeDone(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE) == 0)

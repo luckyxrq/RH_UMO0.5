@@ -26,5 +26,8 @@ void bsp_StopRunToggleLED(void);
 void bsp_RunToggleLED(void);
 
 
+bool isCleanCarFromSleep(void);
+void bsp_setCleanCarFromSleep(bool val);
+
 #endif
 

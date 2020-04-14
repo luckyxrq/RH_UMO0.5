@@ -116,9 +116,9 @@ static uint8_t IsKeyDown9(void)	/* K1 K2组合键 */
 	else 
 		return 0;
 }
-static uint8_t IsKeyDown10(void)	/* K2 K3组合键 */
+static uint8_t IsKeyDown10(void)	/* K1 K3组合键 */
 {
-	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
+	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
 		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0)
 		return 1;
 	else 
@@ -352,8 +352,8 @@ static void bsp_InitKeyVar(void)
 
 	/* 如果需要单独更改某个按键的参数，可以在此单独重新赋值 */
 	/* 比如，我们希望按键1按下超过1秒后，自动重发相同键值 */
-	s_tBtn[KID_K1].LongTime = KEY_LONG_TIME*3;
-	s_tBtn[KID_K1].RepeatSpeed = 0;	/* 每隔x ms自动发送键值（单位10ms） */
+	s_tBtn[KID_K2].LongTime = KEY_LONG_TIME*3;
+	s_tBtn[KID_K2].RepeatSpeed = 0;	/* 每隔x ms自动发送键值（单位10ms） */
 
 	/* 判断按键按下的函数 */
 	s_tBtn[0].IsKeyDownFunc = IsKeyDown1;

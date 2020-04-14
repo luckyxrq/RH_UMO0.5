@@ -19,7 +19,34 @@ typedef struct
 
 static PowerOnToggle powerOnToggle;
 static bool isSelfCheckingReady = false;
+static bool isFormSleep = false;
 
+/*
+*********************************************************************************************************
+*	函 数 名: isCleanCarFromSleep
+*	功能说明: 返回是否此次是从睡眠模式醒过来的
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool isCleanCarFromSleep(void)
+{
+	return isFormSleep;
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_setCleanCarFromSleep
+*	功能说明: 设置机器标志位，设置是否是从睡眠中醒来的
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_setCleanCarFromSleep(bool val)
+{
+	isFormSleep = val;
+}
 
 /*
 *********************************************************************************************************
@@ -100,12 +127,24 @@ void bsp_PowerOnToggle(void)
 	{
 		case 0: /*亮  POWER_ON_LED_TIME_INTERVAL*/
 		{
-			bsp_LedOn(LED_LOGO_CLEAN);
-			bsp_LedOn(LED_LOGO_POWER);
-			bsp_LedOn(LED_LOGO_CHARGE);
+			if(!isCleanCarFromSleep())
+			{
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOn(LED_LOGO_CHARGE);
 
-			powerOnToggle.delay = xTaskGetTickCount();
-			powerOnToggle.action++;
+				powerOnToggle.delay = xTaskGetTickCount();
+				powerOnToggle.action++;
+			}
+			else
+			{
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOn(LED_LOGO_CHARGE);
+
+				powerOnToggle.delay = xTaskGetTickCount();
+				powerOnToggle.action = 3;
+			}
 		}break;
 		
 		case 1: /*灭  POWER_ON_LED_TIME_INTERVAL*/
@@ -173,6 +212,14 @@ typedef struct
 
 static RunToggleLED runToggleLED;
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StartRunToggleLED
+*	功能说明: 开启机器闪烁状态机，也可以是组合灯
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 void bsp_StartRunToggleLED(LED_SN sn)
 {
 	runToggleLED.sn = sn;
@@ -183,6 +230,15 @@ void bsp_StartRunToggleLED(LED_SN sn)
 
 }
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StopRunToggleLED
+*	功能说明: 停止机器闪烁状态机
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 void bsp_StopRunToggleLED(void)
 {
 	runToggleLED.isRunning = false;
@@ -198,6 +254,15 @@ void bsp_StopRunToggleLED(void)
 	
 }
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_StopRunToggleLED
+*	功能说明: 机器灯闪烁状态机
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 void bsp_RunToggleLED(void)
 {
 	if(!runToggleLED.isRunning)
