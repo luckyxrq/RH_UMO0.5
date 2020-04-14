@@ -1,5 +1,14 @@
 #include "bsp.h"
 
+#define WIFI_DEBUG_EN      0
+
+#if WIFI_DEBUG_EN
+#define WIFI_DEBUG(format, ...) printf (format, ##__VA_ARGS__)
+#else
+#define WIFI_DEBUG(format, ...) {}
+#endif
+
+
 #define DETECT_SMART_CONFIG_PULSE_MS      1000
 
 typedef enum
@@ -124,37 +133,37 @@ void bsp_WifiStateProc(void)
 	switch(mcu_get_wifi_work_state())
 	{
 		case SMART_CONFIG_STATE:
-		DEBUG("smart config 配置状态 LED快闪 ，led闪烁请用户完成\r\n");
+		WIFI_DEBUG("smart config 配置状态 LED快闪 ，led闪烁请用户完成\r\n");
 		wifi_ctr.state = eSMART_CONFIG_STATE;
 		break;
 		
 		case AP_STATE:
-		DEBUG("AP配置状态 LED慢闪\r\n");
+		WIFI_DEBUG("AP配置状态 LED慢闪\r\n");
 		wifi_ctr.state = eAP_STATE;
 		break;
 		
 		case WIFI_NOT_CONNECTED:
-		DEBUG("WIFI配置完成，正在连接路由器，LED常暗\r\n");
+		WIFI_DEBUG("WIFI配置完成，正在连接路由器，LED常暗\r\n");
 		wifi_ctr.state = eWIFI_NOT_CONNECTED;
 		break;
 		
 		case WIFI_CONNECTED:
-		DEBUG("路由器连接成功 LED常亮\r\n");
+		WIFI_DEBUG("路由器连接成功 LED常亮\r\n");
 		wifi_ctr.state = eWIFI_CONNECTED;
 		break;
 		
 		case WIFI_CONN_CLOUD:
-		DEBUG("已经连接上云服务器\r\n");
+		WIFI_DEBUG("已经连接上云服务器\r\n");
 		wifi_ctr.state = eWIFI_CONN_CLOUD;
 		break;
 		
 		case WIFI_LOW_POWER:
-		DEBUG("处于低功耗模式\r\n");
+		WIFI_DEBUG("处于低功耗模式\r\n");
 		wifi_ctr.state = eWIFI_LOW_POWER;
 		break;
 		
 		case WIFI_SATE_UNKNOW:
-		DEBUG("未知WIFI状态\r\n");
+		WIFI_DEBUG("未知WIFI状态\r\n");
 		wifi_ctr.state = eWIFI_SATE_UNKNOW;
 		break;
 		
