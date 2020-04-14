@@ -43,8 +43,8 @@ void bsp_Init(void)
 		系统时钟缺省配置为72MHz，如果需要更改，可以修改 system_stm32f10x.c 文件
 	*/
 	
-	/* 保证停机模式下调试器继续可以连接使用 */
-	DBGMCU_Config(DBGMCU_STOP, ENABLE);
+	/* 保证睡眠模式下调试器继续可以连接使用 */
+	DBGMCU_Config(DBGMCU_SLEEP, ENABLE);
 	
 	/* 优先级分组设置为4，可配置0-15级抢占式优先级，0级子优先级，即不存在子优先级。*/
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);

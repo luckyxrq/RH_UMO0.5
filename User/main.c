@@ -513,6 +513,8 @@ static void bsp_KeyProc(void)
 					vTaskDelay(100);	
 					while(bsp_SpeakerIsBusy()){}
 					bsp_ClearKey();
+						
+					bsp_EnterStopMODE();
 				}
 				
 			}break;

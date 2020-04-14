@@ -4,7 +4,7 @@
 
 /*用于唤醒离开stop模式的按键*/
 #define GPIO_PORT_K    GPIOE
-#define GPIO_PIN_K     GPIO_Pin_7
+#define GPIO_PIN_K     GPIO_Pin_10
 
 static void bsp_InitKeyStopMODE(void);
 static void bsp_DISABLE_ALL_EXIT(void);
@@ -22,15 +22,23 @@ void bsp_EnterStopMODE(void)
 {
 	/*断掉部分外设电源*/
 	bsp_DISABLE_ALL_EXIT();
-	//bsp_SetAllPinLowPower();
+	
+	/*将所有的IO口设置为高阻抗*/
+	UNUSED(bsp_SetAllPinLowPower);
+	
+	/*关闭所有的电源，这个时候MCU的电由电池直接LEDO->二极管 供应*/
+	bsp_SwOff(SW_5V_EN_CTRL);
+	bsp_SwOff(SW_3V3_EN_CTRL);
 	bsp_SwOff(SW_IR_POWER);
 	bsp_SwOff(SW_MOTOR_POWER);
 	bsp_SwOff(SW_VSLAM_POWER);
 	bsp_SwOff(SW_WIFI_POWER);
-	bsp_SwOff(SW_5V_EN_CTRL);
-	bsp_SwOff(SW_3V3_EN_CTRL);
 	
-	
+	/*USART_DeInit*/
+	USART_DeInit(USART3);
+	USART_DeInit(UART4);
+	USART_DeInit(UART5);
+
 	/*初始化外部中断引脚，专门用作唤醒MCU*/
 	bsp_InitKeyStopMODE();
 	
@@ -61,21 +69,22 @@ void bsp_EnterStopMODE(void)
 	portEXIT_CRITICAL();
 }
 
-
-void EXTI9_5_IRQHandler(void)
+#if 0
+void EXTI15_10_IRQHandler(void)
 {
-	if(EXTI_GetITStatus(EXTI_Line7) == SET)
+	if(EXTI_GetITStatus(EXTI_Line10) == SET)
 	{	
 		/*唤醒了后重新初始化外设*/
-		bsp_InitFormAwaken();
+		//bsp_Init();
 		
 		/*软重启*/
 		__disable_fault_irq();
 		NVIC_SystemReset();
 		
-		EXTI_ClearITPendingBit(EXTI_Line7); /* 清除中断标志位 */
+		EXTI_ClearITPendingBit(EXTI_Line10); /* 清除中断标志位 */
 	}
 }
+#endif
 
 /*
 *********************************************************************************************************
@@ -208,17 +217,17 @@ static void bsp_InitKeyStopMODE(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
 	GPIO_Init(GPIO_PORT_K, &GPIO_InitStructure);
 
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource7);
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource10);
 
     /* 配置外部中断事件 */
-    EXTI_InitStructure.EXTI_Line = EXTI_Line7;
+    EXTI_InitStructure.EXTI_Line = EXTI_Line10;
     EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
     EXTI_Init(&EXTI_InitStructure);
 
 	/* 16个抢占式优先级，0个响应式优先级 */
-    NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
