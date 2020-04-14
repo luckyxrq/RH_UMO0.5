@@ -101,7 +101,7 @@ unsigned char* bsp_GetIRSensorData(void);
 CLIFFADCVALUE* bsp_GetCliffSensorData(void);
 //int* bsp_GetGridMap(void);
 
-short bsp_Edge_length(void);
+short Edge_length(void);
 short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
 short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
 

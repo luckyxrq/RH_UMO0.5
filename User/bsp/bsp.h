@@ -207,6 +207,7 @@
 #include "bsp_CleanStrategy.h"
 #endif
 #include "bsp_CleanStrategyB.h"
+#include "bsp_Gridmap.h"
 #include "DX8_API.h"
 #include "dx8_engineer.h"
 #include "wifi.h"
