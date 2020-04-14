@@ -19,7 +19,18 @@ typedef struct
 
 static PowerOnToggle powerOnToggle;
 static bool isSelfCheckingReady = false;
+static bool isFormSleep = false;
 
+
+bool isCleanCarFromSleep(void)
+{
+	return isFormSleep;
+}
+
+void bsp_setCleanCarFromSleep(bool val)
+{
+	isFormSleep = val;
+}
 
 /*
 *********************************************************************************************************
@@ -100,12 +111,24 @@ void bsp_PowerOnToggle(void)
 	{
 		case 0: /*ÁÁ  POWER_ON_LED_TIME_INTERVAL*/
 		{
-			bsp_LedOn(LED_LOGO_CLEAN);
-			bsp_LedOn(LED_LOGO_POWER);
-			bsp_LedOn(LED_LOGO_CHARGE);
+			if(!isCleanCarFromSleep())
+			{
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOn(LED_LOGO_CHARGE);
 
-			powerOnToggle.delay = xTaskGetTickCount();
-			powerOnToggle.action++;
+				powerOnToggle.delay = xTaskGetTickCount();
+				powerOnToggle.action++;
+			}
+			else
+			{
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOn(LED_LOGO_CHARGE);
+
+				powerOnToggle.delay = xTaskGetTickCount();
+				powerOnToggle.action = 3;
+			}
 		}break;
 		
 		case 1: /*Ãð  POWER_ON_LED_TIME_INTERVAL*/

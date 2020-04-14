@@ -116,9 +116,9 @@ static uint8_t IsKeyDown9(void)	/* K1 K2组合键 */
 	else 
 		return 0;
 }
-static uint8_t IsKeyDown10(void)	/* K2 K3组合键 */
+static uint8_t IsKeyDown10(void)	/* K1 K3组合键 */
 {
-	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
+	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
 		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0)
 		return 1;
 	else 
