@@ -58,3 +58,36 @@ DustBoxState bsp_DustBoxGetState(void)
 }
 
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_DustBoxGetState
+*	功能说明: 返回尘盒状态
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_DustBoxProc(void)
+{
+	static DustBoxState lastState = DustBoxInside;
+	
+	DustBoxState state = bsp_DustBoxGetState(); /*获取尘盒状态*/
+	
+	if(lastState != state)
+	{
+		lastState = state;
+		if(state == DustBoxInside)
+		{
+			bsp_SperkerPlay(Song10);
+		}
+		else if(state == DustBoxOutside)
+		{
+			bsp_SperkerPlay(Song9);
+		}
+	}
+	else
+	{
+		
+	}
+}
+
+
