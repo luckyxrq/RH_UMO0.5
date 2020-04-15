@@ -134,18 +134,26 @@ Collision bsp_CollisionScan(void)
 */
 void bsp_PrintCollision(void)
 {
+	DEBUG("Åö×²£º");
+	
 	if(bsp_CollisionScan() == CollisionLeft)
 	{
-		DEBUG("×ó±ß\r\n");
+		DEBUG("×ó±ß");
 	}
 	else if(bsp_CollisionScan() == CollisionRight)
 	{
-		DEBUG("ÓÒ±ß\r\n");
+		DEBUG("ÓÒ±ß");
 	}
 	else if(bsp_CollisionScan() == CollisionAll)
 	{
-		DEBUG("Á½±ß\r\n");
+		DEBUG("Á½±ß");
 	}
+	else
+	{
+		DEBUG("ÎÞ");
+	}
+	
+	DEBUG("   ");
 }
 
 

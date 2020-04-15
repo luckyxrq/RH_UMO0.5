@@ -445,3 +445,14 @@ static float myabs(float val)
 	
 	return val;
 }
+
+
+
+void bsp_PrintCliff(void)
+{
+	DEBUG("ÌøÑÂ(L M R):%.2F   %.2F   %.2F\r\n",bsp_GetCliffVoltage(CliffLeft),
+	bsp_GetCliffVoltage(CliffMiddle),
+	bsp_GetCliffVoltage(CliffRight));
+}
+
+

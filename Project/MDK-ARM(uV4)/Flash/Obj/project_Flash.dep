@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5E969E9F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5E96E675)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5E65F953)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
@@ -84,8 +84,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -102,7 +102,7 @@ I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 F (..\..\User\includes.h)(0x5E65F953)()
-F (..\..\User\SysInfoTest.c)(0x5E968608)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\sysinfotest.o --omf_browse .\flash\obj\sysinfotest.crf --depend .\flash\obj\sysinfotest.d)
+F (..\..\User\SysInfoTest.c)(0x5E96E150)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\sysinfotest.o --omf_browse .\flash\obj\sysinfotest.crf --depend .\flash\obj\sysinfotest.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -179,8 +179,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -276,8 +276,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -293,7 +293,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\app\src\bsp_Collision.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_collision.o --omf_browse .\flash\obj\bsp_collision.crf --depend .\flash\obj\bsp_collision.d)
+F (..\..\User\app\src\bsp_Collision.c)(0x5E96E617)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_collision.o --omf_browse .\flash\obj\bsp_collision.crf --depend .\flash\obj\bsp_collision.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -370,8 +370,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -464,8 +464,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -559,8 +559,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -653,8 +653,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -670,7 +670,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\app\src\bsp_DetectAct.c)(0x5E96A057)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
+F (..\..\User\app\src\bsp_DetectAct.c)(0x5E96E585)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -747,8 +747,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -841,8 +841,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -935,8 +935,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -952,7 +952,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\app\src\bsp_Edgewise.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
+F (..\..\User\app\src\bsp_Edgewise.c)(0x5E96C4B6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -1029,8 +1029,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1046,7 +1046,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\app\src\bsp_communication.c)(0x5E968012)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_communication.o --omf_browse .\flash\obj\bsp_communication.crf --depend .\flash\obj\bsp_communication.d)
+F (..\..\User\app\src\bsp_communication.c)(0x5E96E150)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_communication.o --omf_browse .\flash\obj\bsp_communication.crf --depend .\flash\obj\bsp_communication.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -1123,8 +1123,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1217,8 +1217,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1234,7 +1234,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\app\src\bsp_motor.c)(0x5E956EC0)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
+F (..\..\User\app\src\bsp_motor.c)(0x5E96E150)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -1311,8 +1311,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1405,8 +1405,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1499,8 +1499,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1593,8 +1593,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1688,8 +1688,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1782,8 +1782,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1876,8 +1876,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1970,8 +1970,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -1987,7 +1987,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\app\src\bsp_CliffSW.c)(0x5E8C2AEE)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cliffsw.o --omf_browse .\flash\obj\bsp_cliffsw.crf --depend .\flash\obj\bsp_cliffsw.d)
+F (..\..\User\app\src\bsp_CliffSW.c)(0x5E96E55C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cliffsw.o --omf_browse .\flash\obj\bsp_cliffsw.crf --depend .\flash\obj\bsp_cliffsw.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -2064,8 +2064,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -2081,7 +2081,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\app\src\bsp_DustBox.c)(0x5E65F985)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dustbox.o --omf_browse .\flash\obj\bsp_dustbox.crf --depend .\flash\obj\bsp_dustbox.d)
+F (..\..\User\app\src\bsp_DustBox.c)(0x5E96E0ED)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dustbox.o --omf_browse .\flash\obj\bsp_dustbox.crf --depend .\flash\obj\bsp_dustbox.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -2158,8 +2158,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -2252,8 +2252,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -2346,8 +2346,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -2440,8 +2440,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -2534,8 +2534,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -2628,8 +2628,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -2645,7 +2645,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\app\src\bsp_Gridmap.c)(0x5E9578B9)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_gridmap.o --omf_browse .\flash\obj\bsp_gridmap.crf --depend .\flash\obj\bsp_gridmap.d)
+F (..\..\User\app\src\bsp_Gridmap.c)(0x5E96E0ED)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_gridmap.o --omf_browse .\flash\obj\bsp_gridmap.crf --depend .\flash\obj\bsp_gridmap.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -2722,8 +2722,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -2741,7 +2741,7 @@ I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (..\..\User\app\src\bsp_CleanStrategy.c)(0x5E85561F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategy.o --omf_browse .\flash\obj\bsp_cleanstrategy.crf --depend .\flash\obj\bsp_cleanstrategy.d)
-F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5E968012)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
+F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5E96E150)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -2818,8 +2818,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -2913,8 +2913,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3007,8 +3007,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3101,8 +3101,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3195,8 +3195,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3290,8 +3290,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3384,8 +3384,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3510,8 +3510,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3636,8 +3636,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3730,8 +3730,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3824,8 +3824,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -3918,8 +3918,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -4012,8 +4012,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -4029,7 +4029,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E940645)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E85561F)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E85561F)
-F (..\..\User\bsp\src\bsp_ir_decode.c)(0x5E96A0BA)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_ir_decode.o --omf_browse .\flash\obj\bsp_ir_decode.crf --depend .\flash\obj\bsp_ir_decode.d)
+F (..\..\User\bsp\src\bsp_ir_decode.c)(0x5E96E150)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_ir_decode.o --omf_browse .\flash\obj\bsp_ir_decode.crf --depend .\flash\obj\bsp_ir_decode.d)
 I (..\..\User\bsp\bsp.h)(0x5E9578B9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5E65F950)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -4106,8 +4106,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)
@@ -4613,8 +4613,8 @@ I (..\..\User\app\inc\bsp_stflash.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_param.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E85561F)
-I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E65F985)
-I (..\..\User\app\inc\bsp_DustBox.h)(0x5E65F985)
+I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E96E34A)
+I (..\..\User\app\inc\bsp_DustBox.h)(0x5E96E0ED)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E902546)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E65F985)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E65F985)

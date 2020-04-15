@@ -624,14 +624,18 @@ void bsp_DetectDeal(void)
 	
 	
 #if 1	
-	for(i=0;i<10;i++)
-	{
-		printf("[%d]:%.2F  ",i,adcRealTime[i]);
-	}
+//	for(i=0;i<10;i++)
+//	{
+//		printf("[%d]:%.2F  ",i,adcRealTime[i]);
+//	}
 	
-	bsp_PrintIR_Rev();
+	//bsp_PrintIR_Rev();
 	
 	bsp_PrintCollision();
+	
+	bsp_PrintCliff();
+	
+	
 #endif
 
 #if 0	
