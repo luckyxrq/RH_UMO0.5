@@ -266,7 +266,7 @@ static void vTaskPerception(void *pvParameters)
 
 		if(count % 10 == 0)
 		{
-			bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
+			//bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 			//bsp_AssistJudgeDirection();
 		}
 		
