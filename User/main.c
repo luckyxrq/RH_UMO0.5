@@ -127,9 +127,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //			bsp_CliffIsDangerous(CliffRight));
 			
 			
-			bsp_LedToggle(LED_COLOR_YELLOW);
-			bsp_LedToggle(LED_COLOR_GREEN);
-			bsp_LedToggle(LED_COLOR_RED);
+			
 			
         }
 		
@@ -259,7 +257,7 @@ static void vTaskPerception(void *pvParameters)
 		
 		if(count % 20 == 0)
 		{
-			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
+			//bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData());
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 		
@@ -477,18 +475,30 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("按键 1\r\n");
 				bsp_KeySuspend();
+				bsp_LedOff(LED_LOGO_CLEAN);
+				bsp_LedOff(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				bsp_LedToggle(LED_COLOR_GREEN);
 			}break;
 				
 			case KEY_2_DOWN:
 			{
 				DEBUG("按键 2\r\n");
 				bsp_KeySuspend();
+				bsp_LedOff(LED_LOGO_CLEAN);
+				bsp_LedOff(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				bsp_LedToggle(LED_COLOR_YELLOW);
 			}break;
 				
 			case KEY_3_DOWN:	
 			{
 				DEBUG("按键 3\r\n");
 				bsp_KeySuspend();
+				bsp_LedOff(LED_LOGO_CLEAN);
+				bsp_LedOff(LED_LOGO_POWER);
+				bsp_LedOff(LED_LOGO_CHARGE);
+				bsp_LedToggle(LED_COLOR_RED);
 			}break;
 			
 

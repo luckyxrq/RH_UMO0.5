@@ -394,7 +394,7 @@ void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char ob
 			if(max_x > 99) max_x =99;
 			if(max_y > 99) max_y =99;
 			
-			DEBUG("______obstacleSignal____________%d________________________________\r\n",obstacleSignal);
+			//DEBUG("______obstacleSignal____________%d________________________________\r\n",obstacleSignal);
 			//DEBUG("map_robot_x:%d, &map_robot_y:%d,&grid_index_x:%d, &grid_index_y:%d",map_robot_x,map_robot_y,grid_index_x, grid_index_y);
 			//DEBUG("____________________________________________________________________\r\n");
 			
