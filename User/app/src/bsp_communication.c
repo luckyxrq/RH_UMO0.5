@@ -228,6 +228,11 @@ void bsp_FillReportFrame(void)
 	int32_t x_coordinate = bsp_GetCurrentPosX();
 	int32_t y_coordinate = bsp_GetCurrentPosY();
 	
+	uint16_t charge1234_status = \
+	(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT)?1:0)<<15 | (bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER)?1:0)<<14 | (bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)?1:0)<<13 |\
+	(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)?1:0)<<11 | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)?1:0)<<10 | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)?1:0)<<9  |\
+	(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)?1:0)<<7  | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)?1:0)<<6  | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)?1:0)<<5  |\
+	(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)?1:0)<<3  | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)?1:0)<<2  | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)?1:0)<<1  ;
 	
 	uint8_t  cliffstatus = 1;
 	if(bsp_CliffIsDangerous(CliffLeft)) cliffstatus+=2;
@@ -262,10 +267,10 @@ void bsp_FillReportFrame(void)
 	reportFrame.x_coordinate = x_coordinate;				                          //X×ø±ê
 	reportFrame.y_coordinate = y_coordinate;				                          //Y×ø±ê
 	reportFrame.theta_angle_deg = angle;		                                      //º½Ïò½Ç
-	reportFrame.landoff_button = 0;                                                   //ÀëµØ¿ª¹Ø
+	reportFrame.landoff_button = bsp_OffSiteGetState() ;                              //ÀëµØ¿ª¹Ø
 	reportFrame.collosion_button = bsp_CollisionScan() ; 			                  //Åö×²¿ª¹Ø
-	reportFrame.infrared_front_status = 0; 	                                          //Ç°ÏòºìÍâ×´Ì¬ 
-	reportFrame.infrared_edge_status = 0;	                                          //ÑØ±ßºìÍâ×´Ì¬
+	reportFrame.infrared_charge1234_status = charge1234_status; 	                  //»Ø³äºìÍâ×´Ì¬ 
+	reportFrame.reverse = 0;	                                          			  //ÑØ±ßºìÍâ×´Ì¬
 	reportFrame.infrared_adc_value1 =  adc1;                                          //ºìÍâADCÖµ1	 
 	reportFrame.infrared_adc_value2 =  adc2;                                          //ºìÍâADCÖµ2	 
 	reportFrame.infrared_adc_value3 =  adc3;                                          //ºìÍâADCÖµ3	 
@@ -276,12 +281,12 @@ void bsp_FillReportFrame(void)
 	reportFrame.infrared_adc_value8 =  adc8;                                          //ºìÍâADCÖµ8	 
 	reportFrame.infrared_adc_value9 =  adc9;                                          //ºìÍâADCÖµ9	 
 	reportFrame.infrared_adc_value10 = adc10;                                         //ºìÍâADCÖµ10
-	reportFrame.infrared_cliff_status = cliffstatus;                                 //ÌøÑÂºìÍâ×´Ì¬
-	reportFrame.infrared_cliff_adc_value1 = adcCliffLeft;                            //ÌøÑÂADCÖµ1
-	reportFrame.infrared_cliff_adc_value2 = adcCliffMiddle;                          //ÌøÑÂADCÖµ2
-	reportFrame.infrared_cliff_adc_value3 = adcCliffRight;                           //ÌøÑÂADCÖµ3
+	reportFrame.infrared_cliff_status = cliffstatus;                                  //ÌøÑÂºìÍâ×´Ì¬
+	reportFrame.infrared_cliff_adc_value1 = adcCliffLeft;                             //ÌøÑÂADCÖµ1
+	reportFrame.infrared_cliff_adc_value2 = adcCliffMiddle;                           //ÌøÑÂADCÖµ2
+	reportFrame.infrared_cliff_adc_value3 = adcCliffRight;                            //ÌøÑÂADCÖµ3
 	reportFrame.battery_voltage = batteryvoltage;                                     //µç³ØµçÑ¹
-	reportFrame.charging_status = 0;                                                  //³äµç×´Ì¬
+	reportFrame.dustbox_status = bsp_DustBoxGetState();                               //³¾ºÐ×´Ì¬
 	reportFrame.error_code = 0;         	                                          //Òì³£×´Ì¬
 	reportFrame.machine_status = 0;                                                   //»úÆ÷×´Ì¬
 	reportFrame.timestamp = timestamp;                                                //Ê±¼ä´Á

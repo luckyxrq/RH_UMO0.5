@@ -12628,6 +12628,11 @@ void  DetectionCloseEdge()
                     break;
                 }
             }
+			if (end_x == true)
+            {
+                end_x = false;
+                break;
+            }
         }
         while (close_edge_max_x - close_edge_min_x > 4)
         {

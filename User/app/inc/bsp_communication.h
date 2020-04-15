@@ -40,8 +40,8 @@ typedef struct
 	int16_t  theta_angle_deg;			//9		航向角	        	int16
 	uint8_t  landoff_button;            //10	离地开关	 		u8
 	uint8_t  collosion_button; 			//11 	碰撞开关	 		u8
-	uint16_t infrared_front_status; 	//12	前向红外状态 		u16
-	uint8_t  infrared_edge_status;	    //13	沿边红外状态 		u8
+	uint16_t infrared_charge1234_status;//12	回充红外状态 		u16
+	uint8_t  reverse;					//13	保留 		 		u8
 	uint16_t infrared_adc_value1;       //14	红外ADC值1	 		u16
 	uint16_t infrared_adc_value2;       //15	红外ADC值2	 		u16
 	uint16_t infrared_adc_value3;       //16	红外ADC值3	 		u16
@@ -57,7 +57,7 @@ typedef struct
 	uint16_t infrared_cliff_adc_value2; //26	跳崖ADC值2	 		u16
 	uint16_t infrared_cliff_adc_value3; //27	跳崖ADC值3	 		u16
 	uint8_t  battery_voltage;           //28	电池电压	 		u8
-	uint8_t  charging_status;           //29	充电状态     		u8
+	uint8_t  dustbox_status;            //29	尘盒状态     		u8
 	uint8_t  error_code;         	    //30	异常状态 	 		u8
 	uint8_t  machine_status;            //31	机器状态	 		u8
 	uint32_t timestamp;                 //32	时间戳	     		u32
