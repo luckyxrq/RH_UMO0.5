@@ -661,7 +661,7 @@ short Edge_length(void){
 
 short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
 {
-	robotTheta = robotTheta/100;
+	//robotTheta = robotTheta/100;
     short y_boundary;
     short x_boundary;
     bool end_x=false;
@@ -832,7 +832,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
 
 short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
 {
-	robotTheta = robotTheta/100;
+	//robotTheta = robotTheta/100;
     short y_boundary;
     short x_boundary;
     bool end_x=false;
