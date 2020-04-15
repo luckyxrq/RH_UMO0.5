@@ -25,7 +25,7 @@
 
 
 /* 定时器频率，50us一次中断 */
-#define  timerINTERRUPT_FREQUENCY	20000
+#define  timerINTERRUPT_FREQUENCY	100
 
 /* 中断优先级 */
 #define  timerHIGHEST_PRIORITY		1
@@ -56,23 +56,14 @@ void vSetupSysInfoTest(void)
 */
 void TIM6_IRQHandler( void )
 {
-	static uint32_t tick = 0 ;
 	
 	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 	{
-		++tick; //50US加1
 		
-		if(tick % 20 == 0)          /*1MS */
-		{
-			//bsp_IR_SoftTimerTickPerMS();
-			bsp_VacuumClean();
-		}
+		bsp_VacuumClean();
 		
-		if(tick % 20*10 == 0)       /*10MS */
-		{
-			bsp_KeyScan();
-			
-		}
+		bsp_KeyScan();
+		
 		
 		ulHighFrequencyTimerTicks++;
 		TIM_ClearITPendingBit(TIM6, TIM_IT_Update);
