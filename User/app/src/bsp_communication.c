@@ -204,6 +204,9 @@ void bsp_SendReportFrame(void)
 */
 void bsp_FillReportFrame(void)
 {
+	
+	uint8_t IRC1 = 0,IRC2 = 0,IRC3 = 0;
+	uint16_t charge1234_status  = 0;
 	uint16_t chk = 0 ;
 	uint32_t len = sizeof(reportFrame);  /*÷°¥Û–°*/
 	uint8_t* src = (uint8_t*)&reportFrame;
@@ -228,11 +231,29 @@ void bsp_FillReportFrame(void)
 	int32_t x_coordinate = bsp_GetCurrentPosX();
 	int32_t y_coordinate = bsp_GetCurrentPosY();
 	
-	uint16_t charge1234_status = \
-	(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT)?1:0)<<15 | (bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER)?1:0)<<14 | (bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)?1:0)<<13 |\
-	(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)?1:0)<<11 | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)?1:0)<<10 | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)?1:0)<<9  |\
-	(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)?1:0)<<7  | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)?1:0)<<6  | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)?1:0)<<5  |\
-	(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)?1:0)<<3  | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)?1:0)<<2  | (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)?1:0)<<1  ;
+	
+	IRC1 = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT)?1:0;
+	IRC2 = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER)?1:0;
+	IRC3 = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)?1:0;
+	charge1234_status |= (IRC1)<<15 | (IRC2)<<14 | (IRC3)<<13 ;
+	
+	IRC1 = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)?1:0;
+	IRC2 = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)?1:0;
+	IRC3 = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)?1:0;
+	charge1234_status |=  (IRC1)<<11 | (IRC2)<<10 | (IRC3)<<9 ;
+	
+	IRC1 = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT)?1:0;
+	IRC2 = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER)?1:0;
+	IRC3 = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)?1:0;
+	charge1234_status |= (IRC1)<<7 | (IRC2)<<6 | (IRC3)<<5 ;
+	
+	IRC1 = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT)?1:0;
+	IRC2 = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER)?1:0;
+	IRC3 = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)?1:0;
+	charge1234_status |= (IRC1)<<3 | (IRC2)<<2 | (IRC3);
+	
+	
+	
 	
 	uint8_t  cliffstatus = 1;
 	if(bsp_CliffIsDangerous(CliffLeft)) cliffstatus+=2;

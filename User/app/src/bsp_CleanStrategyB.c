@@ -7751,7 +7751,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DILEMMA;
         break;
     case LEFT_DILEMMA_GOSTR_DILEMMA:
-        if (right_obstacle != none_obstacle)
+        if (obstacleSignal != none_obstacle)
         {
             right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_DILEMMA;
             break;
@@ -7866,7 +7866,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             right_edge_dilemma_status = LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
             break;
         }
-        if (right_obstacle != none_obstacle)
+        if (obstacleSignal != none_obstacle)
         {
             right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION_DILEMMA;
             break;
@@ -7973,7 +7973,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             right_edge_dilemma_status = LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
             break;
         }
-        if (right_obstacle != none_obstacle)
+        if (obstacleSignal != none_obstacle)
         {
             right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_COLLISION_DILEMMA;
             break;
@@ -9888,7 +9888,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         else
         {
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
     case LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
@@ -9897,7 +9897,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             linear_velocity = 0;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
         if (obstacleSignal != none_obstacle)
@@ -9994,7 +9994,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         else
         {
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
     case LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
@@ -10003,7 +10003,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             linear_velocity = 0;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
         if (obstacleSignal != none_obstacle)
@@ -10100,7 +10100,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         else
         {
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
     case LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
@@ -10109,7 +10109,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             linear_velocity = 0;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
         if (obstacleSignal != none_obstacle)
@@ -10207,7 +10207,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         else
         {
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
     case LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
@@ -10216,7 +10216,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             linear_velocity = 0;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
         if (obstacleSignal != none_obstacle)
@@ -10313,7 +10313,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         else
         {
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
     case LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
@@ -10322,7 +10322,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             linear_velocity = 0;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
         if (obstacleSignal != none_obstacle)
@@ -10419,7 +10419,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         else
         {
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
     case LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
@@ -10428,7 +10428,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             linear_velocity = 0;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
-            a_star_motion_return_origin_status = GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
+            a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
         if (obstacleSignal != none_obstacle)
@@ -12636,7 +12636,7 @@ void  DetectionCloseEdge()
         }
         while (close_edge_max_x - close_edge_min_x > 4)
         {
-            for (k = close_edge_max_y; k < close_edge_max_y - 4; k--)
+            for (k = close_edge_max_y; k < close_edge_max_y+4; k++)
             {
                 for (i = close_edge_max_x - 4; i < close_edge_max_x; i++)
                 {
