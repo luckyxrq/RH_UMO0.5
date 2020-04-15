@@ -211,7 +211,7 @@ static void vTaskPerception(void *pvParameters)
 	//bsp_StartAssistJudgeDirection();
 	
 	/*开启栅格地图跟新*/
-	//bsp_StartUpdateGridMap();
+	bsp_StartUpdateGridMap();
 
 	/*开清扫策略*/
 	//bsp_StartUpdateCleanStrategyB();
