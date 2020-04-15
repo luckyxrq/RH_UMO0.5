@@ -4,9 +4,8 @@
 
 GridMap gridmap;
 static int map_last_robotX = 0, map_last_robotY = 0;
-static short last_map_x=0;
-static short last_map_y=0;
-
+static int last_map_x=0;
+static int last_map_y=0;
 
 static char map_update = 0;
 static MapInfo TuYa_map[PER_UPLOAD_POINT_CNT] = {0};
@@ -148,7 +147,7 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
 */
 void bsp_StartUpdateGridMap(void)
 {
-	int grid_index_x,grid_index_y;
+	unsigned char grid_index_x,grid_index_y;
 	gridmap.grid_default = 125;
 	gridmap.grid_occupancy = 0;
 	gridmap.grid_half_occupancy = 1;
@@ -661,7 +660,6 @@ short Edge_length(void){
 
 short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
 {
-	//robotTheta = robotTheta/100;
     short y_boundary;
     short x_boundary;
     bool end_x=false;
@@ -832,7 +830,6 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
 
 short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
 {
-	//robotTheta = robotTheta/100;
     short y_boundary;
     short x_boundary;
     bool end_x=false;

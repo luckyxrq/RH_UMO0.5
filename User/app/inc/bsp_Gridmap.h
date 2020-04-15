@@ -105,7 +105,8 @@ short Edge_length(void);
 short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
 short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
 
-
+//unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid_y,short x,short y,short theta,short xi,short yi,unsigned char obstacleSignal,
+//	int grid_dist,CLIFFADCVALUE *cliff_value);
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 
 extern GridMap gridmap;
