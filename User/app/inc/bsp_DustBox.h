@@ -9,6 +9,7 @@ typedef enum
 
 void bsp_InitDustBox(void);
 DustBoxState bsp_DustBoxGetState(void);
+void bsp_DustBoxProc(void);
 
 #endif
 

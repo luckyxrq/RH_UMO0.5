@@ -117,8 +117,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 			/*下面是打印开关，酌情注释*/
 			bsp_WifiStateProc();
-			bsp_PrintCollision();
-			bsp_PrintIR_Rev();
+			//bsp_PrintCollision();
+			//bsp_PrintIR_Rev();
         }
 		
 #if 1 /*更新地图*/
@@ -171,6 +171,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 		
+		bsp_DustBoxProc();
 		
 		count++;
         vTaskDelay(10);

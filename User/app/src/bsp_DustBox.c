@@ -47,11 +47,11 @@ DustBoxState bsp_DustBoxGetState(void)
 	
 	if(GPIO_ReadInputDataBit(GPIO_PORT_DUST_BOX,GPIO_PIN_DUST_BOX))
 	{
-		ret = DustBoxInside;
+		ret = DustBoxOutside;
 	}
 	else
 	{
-		ret = DustBoxOutside;
+		ret = DustBoxInside;
 	}
 	
 	return ret ;
@@ -88,6 +88,15 @@ void bsp_DustBoxProc(void)
 	{
 		
 	}
+	
+//	if(state == DustBoxInside)
+//	{
+//		DEBUG("DustBoxInside\r\n");
+//	}
+//	else if(state == DustBoxOutside)
+//	{
+//		DEBUG("DustBoxOutside\r\n");
+//	}
 }
 
 
