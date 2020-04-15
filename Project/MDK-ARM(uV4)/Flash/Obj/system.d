@@ -1,9 +1,9 @@
 .\flash\obj\system.o: ..\..\User\tuya_sdk\system.c
-.\flash\obj\system.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\system.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\flash\obj\system.o: ..\..\User\tuya_sdk\wifi.h
 .\flash\obj\system.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h
 .\flash\obj\system.o: ..\..\Libraries\CMSIS\Include\core_cm3.h
-.\flash\obj\system.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\system.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\system.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\flash\obj\system.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\flash\obj\system.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\system_stm32f10x.h
