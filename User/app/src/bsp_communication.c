@@ -206,7 +206,13 @@ void bsp_FillReportFrame(void)
 {
 	
 	uint8_t IRC1 = 0,IRC2 = 0,IRC3 = 0;
-	uint16_t charge1234_status  = 0;
+	uint8_t charge1_status  = 0;
+	uint8_t charge2_status  = 0;
+	uint8_t charge3_status  = 0;
+	uint8_t charge4_status  = 0;
+	
+	
+	
 	uint16_t chk = 0 ;
 	uint32_t len = sizeof(reportFrame);  /*帧大小*/
 	uint8_t* src = (uint8_t*)&reportFrame;
@@ -235,22 +241,22 @@ void bsp_FillReportFrame(void)
 	IRC1 = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT)?1:0;
 	IRC2 = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER)?1:0;
 	IRC3 = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)?1:0;
-	charge1234_status |= (IRC1)<<15 | (IRC2)<<14 | (IRC3)<<13 ;
+	charge1_status  = (IRC1)<<3 | (IRC2)<<2 | (IRC3) ;
 	
 	IRC1 = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)?1:0;
 	IRC2 = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)?1:0;
 	IRC3 = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)?1:0;
-	charge1234_status |=  (IRC1)<<11 | (IRC2)<<10 | (IRC3)<<9 ;
+	charge2_status  =  (IRC1)<<3 | (IRC2)<<2 | (IRC3) ;
 	
 	IRC1 = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT)?1:0;
 	IRC2 = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER)?1:0;
 	IRC3 = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)?1:0;
-	charge1234_status |= (IRC1)<<7 | (IRC2)<<6 | (IRC3)<<5 ;
+	charge3_status |= (IRC1)<<3 | (IRC2)<<2 | (IRC3) ;
 	
 	IRC1 = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT)?1:0;
 	IRC2 = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER)?1:0;
 	IRC3 = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)?1:0;
-	charge1234_status |= (IRC1)<<3 | (IRC2)<<2 | (IRC3);
+	charge4_status |= (IRC1)<<3 | (IRC2)<<2 | (IRC3);
 	
 	
 	
@@ -290,8 +296,10 @@ void bsp_FillReportFrame(void)
 	reportFrame.theta_angle_deg = angle;		                                      //航向角
 	reportFrame.landoff_button = bsp_OffSiteGetState() ;                              //离地开关
 	reportFrame.collosion_button = bsp_CollisionScan() ; 			                  //碰撞开关
-	reportFrame.infrared_charge1234_status = charge1234_status; 	                  //回充红外状态 
-	reportFrame.reverse = 0;	                                          			  //沿边红外状态
+	reportFrame.infrared_charge1_status = charge1_status; 	                  //回充红外状态 
+	reportFrame.infrared_charge1_status = charge2_status; 	                  //回充红外状态 
+	reportFrame.infrared_charge1_status = charge3_status; 	                  //回充红外状态 
+	reportFrame.infrared_charge1_status = charge4_status; 	                  //回充红外状态 
 	reportFrame.infrared_adc_value1 =  adc1;                                          //红外ADC值1	 
 	reportFrame.infrared_adc_value2 =  adc2;                                          //红外ADC值2	 
 	reportFrame.infrared_adc_value3 =  adc3;                                          //红外ADC值3	 
@@ -302,7 +310,7 @@ void bsp_FillReportFrame(void)
 	reportFrame.infrared_adc_value8 =  adc8;                                          //红外ADC值8	 
 	reportFrame.infrared_adc_value9 =  adc9;                                          //红外ADC值9	 
 	reportFrame.infrared_adc_value10 = adc10;                                         //红外ADC值10
-	reportFrame.infrared_cliff_status = cliffstatus;                                  //跳崖红外状态
+	//reportFrame.infrared_cliff_status = cliffstatus;                                  //跳崖红外状态
 	reportFrame.infrared_cliff_adc_value1 = adcCliffLeft;                             //跳崖ADC值1
 	reportFrame.infrared_cliff_adc_value2 = adcCliffMiddle;                           //跳崖ADC值2
 	reportFrame.infrared_cliff_adc_value3 = adcCliffRight;                            //跳崖ADC值3

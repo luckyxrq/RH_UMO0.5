@@ -40,8 +40,9 @@ typedef struct
 	int16_t  theta_angle_deg;			//9		航向角	        	int16
 	uint8_t  landoff_button;            //10	离地开关	 		u8
 	uint8_t  collosion_button; 			//11 	碰撞开关	 		u8
-	uint16_t infrared_charge1234_status;//12	回充红外状态 		u16
-	uint8_t  reverse;					//13	保留 		 		u8
+	uint8_t  infrared_charge1_status;   //12	回充红外状态 		u16
+	uint8_t  infrared_charge2_status;					//13	保留 		 		u8
+	uint8_t  infrared_charge3_status;					//13	保留 		 		u8
 	uint16_t infrared_adc_value1;       //14	红外ADC值1	 		u16
 	uint16_t infrared_adc_value2;       //15	红外ADC值2	 		u16
 	uint16_t infrared_adc_value3;       //16	红外ADC值3	 		u16
@@ -52,7 +53,7 @@ typedef struct
 	uint16_t infrared_adc_value8;       //21	红外ADC值8	 		u16
 	uint16_t infrared_adc_value9;       //22	红外ADC值9	 		u16
 	uint16_t infrared_adc_value10;      //23	红外ADC值10	 		u16
-	uint8_t  infrared_cliff_status;     //24    跳崖红外状态 		u8 
+	uint8_t  infrared_charge4_status;     //24    跳崖红外状态 		u8 
 	uint16_t infrared_cliff_adc_value1; //25	跳崖ADC值1	 		u16
 	uint16_t infrared_cliff_adc_value2; //26	跳崖ADC值2	 		u16
 	uint16_t infrared_cliff_adc_value3; //27	跳崖ADC值3	 		u16
