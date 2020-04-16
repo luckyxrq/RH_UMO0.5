@@ -626,12 +626,19 @@ void bsp_DetectDeal(void)
 #if 1	
 	for(i=0;i<10;i++)
 	{
-		printf("[%d]:%.2F  ",i,adcRealTime[i]);
+		printf("[%d]:%.2F ",i,adcRealTime[i]);
 	}
 	
 	bsp_PrintIR_Rev();
 	
 	bsp_PrintCollision();
+	
+	
+	DEBUG("尘盒：%s ",bsp_DustBoxGetState()==DustBoxInside? "装回":"取出");
+	bsp_PrintOffSiteState();
+	
+	DEBUG("L %d MM/S  ",bsp_MotorGetSpeed(MotorLeft));
+	DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif
 
 #if 0	

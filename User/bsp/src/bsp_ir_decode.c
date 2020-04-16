@@ -58,7 +58,7 @@ bool bsp_IR_GetRev(IR_CH ch , IRSite site)
 */
 void bsp_PrintIR_Rev(void)
 {
-	DEBUG("     CH1  %d  %d  %d      ",
+	DEBUG("  CH1  %d  %d  %d      ",
 	g_tIR.isRev[IR_CH1][IR_TX_SITE_LEFT],
 	g_tIR.isRev[IR_CH1][IR_TX_SITE_CENTER],
 	g_tIR.isRev[IR_CH1][IR_TX_SITE_RIGHT]);

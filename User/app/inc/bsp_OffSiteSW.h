@@ -15,6 +15,7 @@ OffSiteState bsp_OffSiteGetState(void);
 void bsp_OffSiteProc(void);
 void bsp_StartOffSiteProc(void);
 void bsp_StopOffSiteProc(void);
+void bsp_PrintOffSiteState(void);
 
 #endif
 

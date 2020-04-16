@@ -45,7 +45,7 @@ DustBoxState bsp_DustBoxGetState(void)
 {
 	DustBoxState ret ;
 	
-	if(GPIO_ReadInputDataBit(GPIO_PORT_DUST_BOX,GPIO_PIN_DUST_BOX))
+	if(GPIO_ReadInputDataBit(GPIO_PORT_DUST_BOX,GPIO_PIN_DUST_BOX) == 0)
 	{
 		ret = DustBoxInside;
 	}

@@ -73,6 +73,32 @@ OffSiteState bsp_OffSiteGetState(void)
 }
 
 
+void bsp_PrintOffSiteState(void)
+{
+	OffSiteState ret = bsp_OffSiteGetState();
+	
+	DEBUG("ÀëµØ£º");
+	if(ret == OffSiteBoth)
+	{
+		DEBUG("Á½±ß");
+	}
+	else if(ret == OffSiteLeft)
+	{
+		DEBUG("×ó");
+	}
+	else if(ret == OffSiteRight)
+	{
+		DEBUG("ÓÒ");
+	}
+	else
+	{
+		DEBUG("ÎÞ");
+	}
+	DEBUG(" ");
+
+}
+
+
 typedef struct
 {
 	volatile bool isRunning;
