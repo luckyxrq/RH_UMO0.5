@@ -765,7 +765,7 @@
 #define AStar_Reachable   0
 #define AStar_Sequential  0
 #define AStar_NoSolution  1
-#define AStar_Infinity    0xfffffff
+#define AStar_Infinity    0xffff
 
 #define AStar_East       (1 << 0)
 #define AStar_South_East (1 << 1)

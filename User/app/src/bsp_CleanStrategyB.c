@@ -38,9 +38,8 @@ short a_star_collision_status=0;
 short cliff_running_step_status=0;
 bool  over_clean_finish=false;
 
-char return_origin_positive_start= 1;
-
-char selectside=0;
+int8_t return_origin_positive_start= 1;
+int8_t selectside=0;
 
 
 //for  walk edge
@@ -63,6 +62,7 @@ int leakingsweep_x = 0;
 int leakingsweep_y = 0;
 short leakingsweep_X_interval = 200;
 short leakingsweep_Y_interval = 100;
+
 
 
 double linear_velocity = 0,angular_velocity = 0;
@@ -88,7 +88,6 @@ bool returnorigin = false;
 int edge_length_start = 0;
 
 unsigned char DelimmaNumber=0;
-
 unsigned char CliffDelimmaNumber = 0;
 unsigned char CliffFunctionStatus=0;
 unsigned char CliffNumber=0;
@@ -123,7 +122,7 @@ bool close_edged_map=false;
 unsigned char closeedgedmap=0;
 bool detection_close_edge=false;
 bool detection_close=false;
-char close_edge_min_x,close_edge_max_x,close_edge_min_y,close_edge_max_y,close_r_edge_min_x,close_r_edge_min_y,close_l_edge_max_x,close_l_edge_max_y;
+int8_t close_edge_min_x,close_edge_max_x,close_edge_min_y,close_edge_max_y,close_r_edge_min_x,close_r_edge_min_y,close_l_edge_max_x,close_l_edge_max_y;
 
 unsigned char a_star_collision_total=0;
 unsigned char Astarmarkingobstacle=0;
@@ -159,7 +158,7 @@ int y_error = 0;
 
 static CleanStrategyB cleanstrategy;
 static POSE current_pose;
-static int Yaw;
+//static int Yaw;
 static short speed_pid_cnt = 0;
 static unsigned char* IRSensorData_StrategyB;
 static CLIFFADCVALUE * cliff_valueB;
@@ -573,11 +572,10 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 	}
 	
 	
-	
-	
 	sendvelocity(&linear_velocity, &angular_velocity);
 	
-
+	return 1;
+	
 
 }
 
@@ -3811,7 +3809,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
 unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSignal)
 {
     int Yaw;
-	char i = 0,k=0, j = 0;
+	int8_t i = 0,k=0, j = 0;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     switch (stuck_right_run_step)
@@ -5932,7 +5930,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose, unsigned char obstac
         {
             if (my_abs(Yaw / 100) < 150)
             {
-                turn_start_update == 0;
+                turn_start_update = 0;
                 linear_velocity = 0;
                 angular_velocity = 0;
                 collision_left_rightrun_step_status = GOSTR_BYPASS_LRUN_CL_DLYM;
@@ -12063,8 +12061,8 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
 unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, unsigned char obstacleSignal)
 {
     short Yaw, map_robot_x, map_robot_y;
-    char i, j, complete_flag = 0;
-    char k, ij;
+    int8_t i, j, complete_flag = 0;
+    int8_t k, ij;
     Yaw = current_pose->orientation / 100;
     map_robot_x = (current_pose->x + half_map_wide) / GRIDWIDTH;
     map_robot_y = (current_pose->y + half_map_long) / GRIDHEIGHT;
@@ -12171,7 +12169,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 }
 void  DetectionCloseEdge()
 {
-    char i, j, k;
+    int8_t i, j, k;
     bool end_x = false;
     if (selectside == 'R')
     {
@@ -12340,8 +12338,8 @@ void  DetectionCloseEdge()
 unsigned char  CliffCloseEdge(POSE *current_pose)
 {
     short map_robot_x, map_robot_y;
-    char i, j, complete_flag = 0;
-    char k;
+    int8_t i, j, complete_flag = 0;
+    int8_t k;
     map_robot_x = (current_pose->x + half_map_wide) / GRIDWIDTH;
     map_robot_y = (current_pose->y + half_map_long) / GRIDHEIGHT;
     bool end_x = false;
@@ -12460,11 +12458,13 @@ unsigned char  CliffCloseEdge(POSE *current_pose)
        //cout << "R" << endl;
         if (close_edge_max_x - close_edge_min_x <= 2)
         {
-            return complete_flag = 2;
+            complete_flag = 2;
+			return complete_flag;
         }
         else
         {
-            return complete_flag = 0;
+			complete_flag = 0;
+            return complete_flag;
         }
     }
     else

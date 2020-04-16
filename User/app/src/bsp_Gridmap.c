@@ -4,10 +4,7 @@
 
 GridMap gridmap;
 static int map_last_robotX = 0, map_last_robotY = 0;
-static int last_map_x=0;
-static int last_map_y=0;
-
-static char map_update = 0;
+static int8_t map_update = 0;
 static MapInfo TuYa_map[PER_UPLOAD_POINT_CNT] = {0};
 static double my_abs(double x){
     if (x<0){
@@ -341,10 +338,7 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 	int grid_dist;
     unsigned char temporary_x,temporary_y,x,y;
     int map_robot_x,map_robot_y,xi, yi;
-    last_map_x=robotX;
-    last_map_y=robotY;
-    
-	
+
 	if ((abs(map_last_robotX - robotX) >100 || abs(map_last_robotY - robotY) >100) || obstacleSignal!=3 || cliff_value->cliffValue0 == 1)
 	{
 		gridmap.action = 0;
@@ -627,7 +621,7 @@ static unsigned long mysqrt(unsigned long x)
 short Edge_length(void){
     bool end_x=false;
     short edgelength=0;
-    char i,j,firsttrap=0;
+    int8_t i,j,firsttrap=0;
     for (i=0;i<GRIDWIDTH;i++) {
         for(j=0;j<GRIDHEIGHT;j++){
             if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
