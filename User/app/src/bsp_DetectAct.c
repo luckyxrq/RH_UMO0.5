@@ -624,12 +624,12 @@ void bsp_DetectDeal(void)
 	
 	
 #if 1	
-	for(i=0;i<10;i++)
-	{
-		printf("[%d]:%.2F ",i,adcRealTime[i]);
-	}
+//	for(i=0;i<10;i++)
+//	{
+//		printf("[%d]:%.2F ",i,adcRealTime[i]);
+//	}
 	
-	bsp_PrintIR_Rev();
+//	bsp_PrintIR_Rev();
 	
 	DEBUG("ÌøÑÂ(LMR) %.2F %.2F %.2F ",bsp_GetCliffVoltage(CliffLeft),bsp_GetCliffVoltage(CliffMiddle),bsp_GetCliffVoltage(CliffRight));
 	
