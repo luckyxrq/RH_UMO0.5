@@ -631,6 +631,8 @@ void bsp_DetectDeal(void)
 	
 	bsp_PrintIR_Rev();
 	
+	DEBUG("ÌøÑÂ(LMR) %.2F %.2F %.2F ",bsp_GetCliffVoltage(CliffLeft),bsp_GetCliffVoltage(CliffMiddle),bsp_GetCliffVoltage(CliffRight));
+	
 	bsp_PrintCollision();
 	
 	

@@ -108,7 +108,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         bsp_KeyProc();
 		
 		
-        if(count++ % 10 == 0)
+        if(count++ % 5 == 0)
         {
 #if 0 
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
@@ -119,6 +119,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_WifiStateProc();
 			//bsp_PrintCollision();
 			//bsp_PrintIR_Rev();
+			
+			bsp_DetectDeal(); /*红外对管扫描结果处理*/
         }
 		
 #if 1 /*更新地图*/
@@ -128,7 +130,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
-		bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		
 		
 		//bsp_UploadMap();
         vTaskDelay(50);	
