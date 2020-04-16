@@ -27,10 +27,21 @@ Project File Date:  04/16/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Flash'
+compiling bsp_Gridmap.c...
+..\..\User\app\src\bsp_Gridmap.c(644): warning:  #186-D: pointless comparison of unsigned integer with zero
+      for (i=GRIDWIDTH-1;i>=0;i--){
+..\..\User\app\src\bsp_Gridmap.c(7): warning:  #550-D: variable "last_map_x"  was set but never used
+  static int last_map_x=0;
+..\..\User\app\src\bsp_Gridmap.c(8): warning:  #550-D: variable "last_map_y"  was set but never used
+  static int last_map_y=0;
+..\..\User\app\src\bsp_Gridmap.c: 3 warnings, 0 errors
+linking...
+Program Size: Code=118740 RO-data=1224 RW-data=664 ZI-data=55928  
+FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 C:\Users\User020\Documents\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 0 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -44,7 +55,7 @@ Package Vendor: Keil
   E:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

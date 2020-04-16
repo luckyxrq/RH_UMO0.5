@@ -3811,7 +3811,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
 unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSignal)
 {
     int Yaw;
-	unsigned char i = 0,k=0, j = 0;
+	char i = 0,k=0, j = 0;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     switch (stuck_right_run_step)
@@ -8279,7 +8279,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2 || my_abs(last_position_x - current_pose->x) > lateral_move_distance / 2)
+        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance || my_abs(last_position_x - current_pose->x) > lateral_move_distance)
         {
             temporary_yaw = Yaw / 100;
             return_origin_step_status = Y_MORE_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
@@ -8423,7 +8423,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2 || my_abs(last_position_x - current_pose->x) > lateral_move_distance / 2)
+        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance || my_abs(last_position_x - current_pose->x) > lateral_move_distance)
         {
             temporary_yaw = Yaw / 100;
             return_origin_step_status = Y_MORE_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
@@ -8567,7 +8567,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(last_position_y - current_pose->y) > 2 * lateral_move_distance / 3 || my_abs(last_position_x - current_pose->x) > 2 * lateral_move_distance / 3)
+        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance || my_abs(last_position_x - current_pose->x) > lateral_move_distance )
         {
             temporary_yaw = Yaw / 100;
             return_origin_step_status = X_MORE_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
@@ -8712,7 +8712,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2 || my_abs(last_position_x - current_pose->x) > lateral_move_distance / 2)
+        if (my_abs(last_position_y - current_pose->y) > lateral_move_distance || my_abs(last_position_x - current_pose->x) > lateral_move_distance )
         {
             temporary_yaw = Yaw / 100;
             return_origin_step_status = X_MORE_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
@@ -9297,9 +9297,6 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
-   //cout << "AStarMotionReturnOrigin................." << endl;
-   //cout << "startMotionStep................." << (int)startMotionStep << endl;
-   //cout << "motionSteps................." << (int)motionSteps << endl;
     switch (a_star_motion_return_origin_status)
     {
     case 0:
@@ -9709,21 +9706,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             a_star_motion_return_origin_status = MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
-        //    case GO_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        //        if(obstacleSignal!=none_obstacle){
-        //            linear_velocity = 0;
-        //            angular_velocity = 0;
-        //            a_star_motion_return_origin_status=GO_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            complete_flag=2;
-        //            break;
-        //        }
-        //        if(wheel_pulse_l-temporary_wheel_pulse_l>1055){
-        //            a_star_motion_return_origin_status=DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            break;
-        //        }
-        //        linear_velocity=long_stra_vel;
-        //        angular_velocity=0;
-        //        break;
+
     case D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw / 100) > 95)
         {
@@ -9815,21 +9798,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             a_star_motion_return_origin_status = MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
-        //    case GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        //        if(obstacleSignal!=none_obstacle){
-        //            linear_velocity = 0;
-        //            angular_velocity = 0;
-        //            a_star_motion_return_origin_status=GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            complete_flag=2;
-        //            break;
-        //        }
-        //        if(wheel_pulse_l-temporary_wheel_pulse_l>758){
-        //            a_star_motion_return_origin_status=DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            break;
-        //        }
-        //        linear_velocity=long_stra_vel;
-        //        angular_velocity=0;
-        //        break;
+
     case E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw / 100) >= 135 || (Yaw / 100 < -135 && Yaw / 100 > -50))
         {
@@ -9921,21 +9890,6 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             a_star_motion_return_origin_status = MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
-        //    case GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        //        if(obstacleSignal!=none_obstacle){
-        //            linear_velocity = 0;
-        //            angular_velocity = 0;
-        //            a_star_motion_return_origin_status=GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            complete_flag=2;
-        //            break;
-        //        }
-        //        if(wheel_pulse_l-temporary_wheel_pulse_l>1055){
-        //            a_star_motion_return_origin_status=DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            break;
-        //        }
-        //        linear_velocity=long_stra_vel;
-        //        angular_velocity=0;
-        //        break;
 
     case F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw / 100) > 5 && Yaw / 100 < 0)
@@ -10028,21 +9982,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             a_star_motion_return_origin_status = MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
-        //    case GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        //        if(obstacleSignal!=none_obstacle){
-        //            linear_velocity = 0;
-        //            angular_velocity = 0;
-        //            a_star_motion_return_origin_status=GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            complete_flag=2;
-        //            break;
-        //        }
-        //        if(wheel_pulse_l-temporary_wheel_pulse_l>758){
-        //            a_star_motion_return_origin_status=DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            break;
-        //        }
-        //        linear_velocity=long_stra_vel;
-        //        angular_velocity=0;
-        //        break;
+
     case G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw / 100) <= 40 || (Yaw / 100 < -40 && Yaw / 100 > -135))
         {
@@ -10134,21 +10074,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             a_star_motion_return_origin_status = MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
-        //    case GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        //        if(obstacleSignal!=none_obstacle){
-        //            linear_velocity = 0;
-        //            angular_velocity = 0;
-        //            a_star_motion_return_origin_status=GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            complete_flag=2;
-        //            break;
-        //        }
-        //        if(wheel_pulse_l-temporary_wheel_pulse_l>1055){
-        //            a_star_motion_return_origin_status=DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            break;
-        //        }
-        //        linear_velocity=long_stra_vel;
-        //        angular_velocity=0;
-        //        break;
+
     case H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw / 100) < 85)
         {
@@ -10240,28 +10166,11 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             a_star_motion_return_origin_status = MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
-        //    case GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        //        if(obstacleSignal!=none_obstacle){
-        //            linear_velocity = 0;
-        //            angular_velocity = 0;
-        //            a_star_motion_return_origin_status=GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            complete_flag=2;
-        //            break;
-        //        }
-        //        if(wheel_pulse_l-temporary_wheel_pulse_l>758){
-        //            a_star_motion_return_origin_status=DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
-        //            break;
-        //        }
-        //        linear_velocity=long_stra_vel;
-        //        angular_velocity=0;
-        //        break;
+
     case A_STAR_COMPLETED:
         linear_velocity = 0;
         angular_velocity = 0;
         complete_flag = 1;
-        //        for(unsigned char i=0;i<=startMotionStep;i++){
-        //            plansteps[i]=0;
-        //        }
         startMotionStep = 0;
         motionSteps = 0;
         AStarMotionNumber = 0;

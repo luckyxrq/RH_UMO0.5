@@ -627,7 +627,7 @@ static unsigned long mysqrt(unsigned long x)
 short Edge_length(void){
     bool end_x=false;
     short edgelength=0;
-    unsigned char i,j,firsttrap=0;
+    char i,j,firsttrap=0;
     for (i=0;i<GRIDWIDTH;i++) {
         for(j=0;j<GRIDHEIGHT;j++){
             if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
