@@ -473,35 +473,60 @@ uint32_t bsp_GetLastKeyTick(void)
 */
 static void bsp_KeyProc(void)
 {
-//	uint8_t ucKeyCode;	
-//	
-//	ucKeyCode = bsp_GetKey();
-//	//if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
-//	if (ucKeyCode > 0)
-//	{
-//		/* 有键按下 */
-//		switch (ucKeyCode)
-//		{
-//			case KEY_DOWN_POWER:
-//			{
-//				DEBUG("电源按键按下\r\n");
-//				bsp_KeySuspend();
-//			}break;
-//				
-//			case KEY_DOWN_CHARGE:
-//			{
-//				DEBUG("充电按键按下\r\n");
-//				bsp_KeySuspend();
-//			}break;
-//				
-//			case KEY_DOWN_CLEAN:	
-//			{
-//				DEBUG("清扫按键按下\r\n");
-//				bsp_KeySuspend();
-//			}break;
-//			
+	uint8_t ucKeyCode;	
+	
+	ucKeyCode = bsp_GetKey();
+	//if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
+	if (ucKeyCode > 0)
+	{
+		/* 有键按下 */
+		switch (ucKeyCode)
+		{
+			case KEY_DOWN_POWER:
+			{
+				DEBUG("电源按键按下\r\n");
+				
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOn(LED_LOGO_CHARGE);
+				bsp_LedToggle(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED);
+				
+				bsp_KeySuspend();
+			}break;
+				
+			case KEY_DOWN_CHARGE:
+			{
+				DEBUG("充电按键按下\r\n");
+				
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOn(LED_LOGO_CHARGE);
+				bsp_LedOff(LED_COLOR_YELLOW);
+				bsp_LedToggle(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED);
+				
+				bsp_KeySuspend();
+			}break;
+				
+			case KEY_DOWN_CLEAN:	
+			{
+				DEBUG("清扫按键按下\r\n");
+				
+				bsp_LedOn(LED_LOGO_CLEAN);
+				bsp_LedOn(LED_LOGO_POWER);
+				bsp_LedOn(LED_LOGO_CHARGE);
+				bsp_LedOff(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_GREEN);
+				bsp_LedToggle(LED_COLOR_RED);
+				
+				
+				bsp_KeySuspend();
+			}break;
+			
 
-//			
+			
 //			case KEY_LONG_POWER: /*关机*/
 //			{
 //				DEBUG("电源按键长按\r\n");
@@ -596,8 +621,8 @@ static void bsp_KeyProc(void)
 //				bsp_StartChangeWifi2SmartConfigState();
 //				bsp_StartRunToggleLED(LED_WIFI_LINK);
 //			}break;
-//		}   
-//	}
+		}   
+	}
 }
 
 
