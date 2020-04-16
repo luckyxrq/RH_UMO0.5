@@ -38,7 +38,7 @@ short a_star_collision_status=0;
 short cliff_running_step_status=0;
 bool  over_clean_finish=false;
 
-unsigned char return_origin_positive_start= 1;
+char return_origin_positive_start= 1;
 
 char selectside=0;
 
@@ -123,7 +123,7 @@ bool close_edged_map=false;
 unsigned char closeedgedmap=0;
 bool detection_close_edge=false;
 bool detection_close=false;
-unsigned char close_edge_min_x,close_edge_max_x,close_edge_min_y,close_edge_max_y,close_r_edge_min_x,close_r_edge_min_y,close_l_edge_max_x,close_l_edge_max_y;
+char close_edge_min_x,close_edge_max_x,close_edge_min_y,close_edge_max_y,close_r_edge_min_x,close_r_edge_min_y,close_l_edge_max_x,close_l_edge_max_y;
 
 unsigned char a_star_collision_total=0;
 unsigned char Astarmarkingobstacle=0;
@@ -10401,7 +10401,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
             a_star_collision_status = RECALCULATE_A_STAR_COLLISION_COMPLETED;
             break;
         }
-        if (my_abs(turn_start_x - current_pose->x) > star_collision_backward || my_abs(turn_start_y - current_pose->y) > star_collision_backward)
+        if (my_abs(turn_start_x - current_pose->x) > star_collision_go || my_abs(turn_start_y - current_pose->y) > star_collision_go)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10472,7 +10472,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
             a_star_collision_status = RECALCULATE_A_STAR_COLLISION_COMPLETED;
             break;
         }
-        if (my_abs(turn_start_x - current_pose->x) > star_collision_backward || my_abs(turn_start_y - current_pose->y) > star_collision_backward)
+        if (my_abs(turn_start_x - current_pose->x) > star_collision_go || my_abs(turn_start_y - current_pose->y) > star_collision_go)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10541,7 +10541,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
             a_star_collision_status = RECALCULATE_A_STAR_COLLISION_COMPLETED;
             break;
         }
-        if (my_abs(turn_start_x - current_pose->x) > star_collision_backward || my_abs(turn_start_y - current_pose->y) > star_collision_backward)
+        if (my_abs(turn_start_x - current_pose->x) > star_collision_go || my_abs(turn_start_y - current_pose->y) > star_collision_go)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -12154,7 +12154,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
 unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, unsigned char obstacleSignal)
 {
     short Yaw, map_robot_x, map_robot_y;
-    unsigned char i, j, complete_flag = 0;
+    char i, j, complete_flag = 0;
     char k, ij;
     Yaw = current_pose->orientation / 100;
     map_robot_x = (current_pose->x + half_map_wide) / GRIDWIDTH;
@@ -12262,7 +12262,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 }
 void  DetectionCloseEdge()
 {
-    unsigned char i, j, k;
+    char i, j, k;
     bool end_x = false;
     if (selectside == 'R')
     {
@@ -12431,7 +12431,7 @@ void  DetectionCloseEdge()
 unsigned char  CliffCloseEdge(POSE *current_pose)
 {
     short map_robot_x, map_robot_y;
-    unsigned char i, j, complete_flag = 0;
+    char i, j, complete_flag = 0;
     char k;
     map_robot_x = (current_pose->x + half_map_wide) / GRIDWIDTH;
     map_robot_y = (current_pose->y + half_map_long) / GRIDHEIGHT;
