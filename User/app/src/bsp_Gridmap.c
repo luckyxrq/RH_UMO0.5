@@ -16,22 +16,22 @@ static double my_abs(double x){
 static unsigned long mysqrt(unsigned long x);
 
 
-static unsigned char Under_extreme_point_x[10] = {0};
-static unsigned char Under_extreme_point_x_index = 0;
-static unsigned char Under_extreme_point_y[10]={0};
-static unsigned char Under_extreme_point_y_index=0;
-static unsigned char On_extreme_point_x[10] = {0};
-static unsigned char On_extreme_point_x_index = 0;
-static unsigned char On_extreme_point_y[10] = {0};
-static unsigned char On_extreme_point_y_index = 0;
-static unsigned char Left_Under_extreme_point_x[10] = {0};
-static unsigned char Left_Under_extreme_point_x_index = 0;
-static unsigned char Left_On_extreme_point_x[10] = {0};
-static unsigned char Left_On_extreme_point_x_index = 0;
-static unsigned char Left_Under_extreme_point_y[10]={0};
-static unsigned char Left_Under_extreme_point_y_index;
-static unsigned char Left_On_extreme_point_y[10] = {0};
-static unsigned char Left_On_extreme_point_y_index = 0;
+static signed char Under_extreme_point_x[10] = {0};
+static signed char Under_extreme_point_x_index = 0;
+static signed char Under_extreme_point_y[10]={0};
+static signed char Under_extreme_point_y_index=0;
+static signed char On_extreme_point_x[10] = {0};
+static signed char On_extreme_point_x_index = 0;
+static signed char On_extreme_point_y[10] = {0};
+static signed char On_extreme_point_y_index = 0;
+static signed char Left_Under_extreme_point_x[10] = {0};
+static signed char Left_Under_extreme_point_x_index = 0;
+static signed char Left_On_extreme_point_x[10] = {0};
+static signed char Left_On_extreme_point_x_index = 0;
+static signed char Left_Under_extreme_point_y[10]={0};
+static signed char Left_Under_extreme_point_y_index;
+static signed char Left_On_extreme_point_y[10] = {0};
+static signed char Left_On_extreme_point_y_index = 0;
 
 static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid_y,short x,short y,short theta,short xi,short yi,unsigned char obstacleSignal,int grid_dist,CLIFFADCVALUE *cliff_value)
 {
@@ -391,10 +391,10 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 						}
 					}
 					else{
-						if(grid_dist<=160){
+						if(grid_dist<=120){
 							gridmap.map[x][y]=250;
 						}
-						if((grid_dist <= 300)&&(grid_dist>160)){
+						if((grid_dist <= 300)&&(grid_dist>120)){
 							if(gridmap.map[x][y]==0){
 							}
 							else{
