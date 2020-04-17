@@ -3207,7 +3207,12 @@ unsigned char  RightWalkEdge(POSE *current_pose, unsigned char obstacleSignal)
             }
             else
             {
+				if(my_abs(current_pose->x + half_map_wide - edge_length_start) > Edge_length() / 2){
                 right_walk_edge_status = RETURN_ORIGIN_WE;
+				}else{
+				right_walk_edge_status = 0;
+                complete_flag = 1;
+				}
             }
         }
         break;
@@ -3628,7 +3633,13 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose, unsigned char obstacleSi
             }
             else
             {
-                right_reverse_walk_edge_status = RETURN_ORIGIN_RWE;
+				if(my_abs(current_pose->x + half_map_wide - edge_length_start) > Edge_length() / 2){
+					right_reverse_walk_edge_status = RETURN_ORIGIN_RWE;
+				}
+                else{
+				right_reverse_walk_edge_status = 0;
+                complete_flag = 1;
+				}
             }
         }
         break;
@@ -5244,7 +5255,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose, unsigned char obsta
         break;
     case GOSTR_BYPASS_BOW_CONTINUE_TARGET_YAW_ABS3_LRUN_CR_DLYL:
         linear_velocity = 0;
-        angular_velocity = -turn_vel;
+        angular_velocity = turn_vel;
         if (obstacleSignal != none_obstacle)
         {
             linear_velocity = 0;
@@ -5719,7 +5730,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose, unsigned char obstac
             break;
         }
         linear_velocity = 0;
-        angular_velocity = turn_vel;
+        angular_velocity = -turn_vel;
         break;
     case GOSTR_BYPASS_OLD_BOW_CONTINUE_COLLISION_LRUN_CL_DLYM:
         if (turn_start_update == 0)
@@ -6993,7 +7004,12 @@ unsigned char  LeftWalkEdge(POSE *current_pose, unsigned char obstacleSignal)
             }
             else
             {
+				if(my_abs(current_pose->x + half_map_wide - edge_length_start) > Edge_length() / 2){
                 right_walk_edge_status = LEFT_EDGE_RETURN_ORIGIN_WE;
+				}else{
+				right_walk_edge_status = 0;
+                complete_flag = 1;
+				}
             }
         }
         break;
@@ -7411,7 +7427,12 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose, unsigned char obstacleSig
             }
             else
             {
+				if(my_abs(current_pose->x + half_map_wide - edge_length_start) > Edge_length() / 2){
                 right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_RETURN_ORIGIN_RWE;
+				}else{
+				right_reverse_walk_edge_status = 0;
+                complete_flag = 1;
+				}
             }
         }
         break;
