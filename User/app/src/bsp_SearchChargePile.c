@@ -336,29 +336,53 @@ void bsp_SearchChargePile(void)
 		
 		case 2:
 		{
-			/*充电最后一步撞上了*/
-			if(search.collision == eHasSignalCollision)
+//			/*充电最后一步撞上了*/
+//			if(search.collision == eHasSignalCollision)
+//			{
+//				if(xTaskGetTickCount() - search.delay >= 3000)
+//				{
+//					search.action = 1 ;
+//				}
+//			}
+//			else
+//			{
+//				if(xTaskGetTickCount() - search.delay >= 1500)
+//				{
+//					search.action = 1 ;
+//				}
+//			}
+			
+			if(xTaskGetTickCount() - search.delay >= 5000 || 
+				
+			)
 			{
-				if(xTaskGetTickCount() - search.delay >= 3000)
-				{
-					search.action = 1 ;
-				}
+				search.action = 1 ;
 			}
-			else
-			{
-				if(xTaskGetTickCount() - search.delay >= 1500)
-				{
-					search.action = 1 ;
-				}
-			}
+			
+			
+			
+			
+			
+			
+			
+			
+			/*前面2个，各收各*/
+			(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)) ||
+			
+			/*1号能收到2个 ,2号能收到左边*/
+			(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)) ||
+			
+			/*2号能收到2个 ,1号能收到右边*/
+			(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)) ||
+			
+			
+			/*前面2个，都能收到左右发射*/
+			(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+
+			
+			
+			
 		}break;
-		
-		
-		case 3:
-		{
-			/*如果发生了碰撞，直线后退*/
-		}break;
-		
 		
 		
 	}
