@@ -186,7 +186,7 @@ static void bsp_SetAllPinLowPower(void)
 
 /*用于唤醒离开stop模式的按键*/
 #define GPIO_PORT_K    GPIOE
-#define GPIO_PIN_K     GPIO_Pin_8
+#define GPIO_PIN_K     GPIO_Pin_7
 
 /*
 *********************************************************************************************************
@@ -210,10 +210,10 @@ static void bsp_InitKeyStopMODE(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
 	GPIO_Init(GPIO_PORT_K, &GPIO_InitStructure);
 
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource8);
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource7);
 
     /* 配置外部中断事件 */
-    EXTI_InitStructure.EXTI_Line = EXTI_Line8;
+    EXTI_InitStructure.EXTI_Line = EXTI_Line7;
     EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
@@ -240,9 +240,9 @@ static void bsp_InitKeyStopMODE(void)
 #if 1
 void EXTI9_5_IRQHandler(void)
 {
-	if(EXTI_GetITStatus(EXTI_Line8) == SET)
+	if(EXTI_GetITStatus(EXTI_Line7) == SET)
 	{	
-		EXTI_ClearITPendingBit(EXTI_Line8); /* 清除中断标志位 */
+		EXTI_ClearITPendingBit(EXTI_Line7); /* 清除中断标志位 */
 	}
 }
 #endif
