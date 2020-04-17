@@ -52,11 +52,11 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
     }
     else{
         if(cliff_value->cliffValue0==1){
-            if((cliff_value->cliffValue2==1)&&(my_abs(phi)<30)){
+            if((cliff_value->cliffValue2==1)&&(my_abs(theta_phi)<30)){
                 //cout << "----------------- The front is cliff -------------------------" << endl;
                 return 0;
             }
-            else if((cliff_value->cliffValue1==1&&cliff_value->cliffValue3==1)&&(my_abs(phi)<65)){
+            else if((cliff_value->cliffValue1==1&&cliff_value->cliffValue3==1)&&(my_abs(theta_phi)<65)){
                 //cout << "----------------- The left and the right is cliff -------------------------" << endl;
                 return 0;
             }
@@ -81,7 +81,7 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
             }
         }
         else{
-            if((obstacleSignal == front_obstacle)&&(my_abs(phi)<30)){
+            if((obstacleSignal == front_obstacle)&&(my_abs(theta_phi)<30)){
                 //cout << "----------------- The front is locc -------------------------" << endl;
                 return 0;// Front
             }
@@ -196,10 +196,13 @@ void bsp_StopUpdateGridMap(void)
 
 void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value) {
     
-	int grid_dist;
-    unsigned char temporary_x,temporary_y,x,y;
+	//int grid_dist;
+    //unsigned char temporary_x,temporary_y,x,y;
+    //int map_robot_x,map_robot_y,xi, yi;
+	//int grid_index_x,grid_index_y;
+	short grid_dist;
+    char temporary_x,temporary_y,x,y;
     int map_robot_x,map_robot_y,xi, yi;
-	int grid_index_x,grid_index_y;
 
 
 	if ((abs(map_last_robotX - robotX) >100 || abs(map_last_robotY - robotY) >100) || obstacleSignal!=3 || cliff_value->cliffValue0 == 1)
@@ -228,6 +231,52 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 	{
 		case 0:
 		{
+			 
+    map_last_robotX=robotX;
+    map_last_robotY=robotY;
+    map_robot_x=robotX+half_map_wide;
+    map_robot_y=robotY+half_map_long;
+    if(map_robot_x/GRIDWIDTH>95){
+        temporary_x=MAPWIDECELLS;
+    }
+    else{
+        temporary_x=map_robot_x/GRIDWIDTH+5;
+    }
+    if(map_robot_y/GRIDHEIGHT>95){
+        temporary_y=MAPLONGCELLS;
+    }
+    else{
+        temporary_y=map_robot_y/GRIDHEIGHT+5;
+    }
+    for (x=(map_robot_x/GRIDWIDTH>=4?map_robot_x/GRIDWIDTH-4:0); x<temporary_x; x++){
+        for (y=(map_robot_y/GRIDHEIGHT>=4?map_robot_y/GRIDHEIGHT-4:0); y<temporary_y; y++){
+            xi = x * GRIDWIDTH+50;
+            yi = y * GRIDHEIGHT+50;
+            grid_dist = sqrt(pow(map_robot_x - xi, 2) + pow(map_robot_y - yi, 2));
+            if(obstacleSignal==none_obstacle&&cliff_value->cliffValue0==0){
+                if(grid_dist<=map_robot_radius){
+                    gridmap.map[x][y]=250;
+                }
+            }
+            else{
+                if(grid_dist<=map_robot_radius){
+                    gridmap.map[x][y]=250;
+                }
+                if((grid_dist <= 300)&&(grid_dist>map_robot_radius)){
+                    if(gridmap.map[x][y]==0){
+                    }
+                    else{
+                        gridmap.map[x][y] = gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x,map_robot_y,Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
+                    }
+                }
+            }
+        }
+    }
+
+			
+			
+			
+#if 0			
 			map_robot_x=robotX+half_map_wide;
 			map_robot_y=robotY+half_map_long;
 			
@@ -281,7 +330,19 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
                 }
                 LOG("\r\n");
             }
-
+			#endif
+			
+ for ( x = 0; x < MAPWIDTH/GRIDWIDTH; x++)
+            {
+                for ( y = 0; y < MAPHEIGHT/GRIDHEIGHT; y++)
+                {
+                        if(gridmap.map[x][y] == gridmap.grid_default) LOG("-");
+                        if(gridmap.map[x][y] == gridmap.grid_occupancy) LOG("*");
+                        if(gridmap.map[x][y] == gridmap.grid_free) LOG("#");
+                        //if(gridmap.map[grid_index_x][grid_index_y] == 6) DEBUG("??");
+                }
+                LOG("\r\n");
+            }
 		}
 		
 	}
