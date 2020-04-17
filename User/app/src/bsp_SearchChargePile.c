@@ -352,6 +352,15 @@ void bsp_SearchChargePile(void)
 				}
 			}
 		}break;
+		
+		
+		case 3:
+		{
+			/*如果发生了碰撞，直线后退*/
+		}break;
+		
+		
+		
 	}
 }
 
