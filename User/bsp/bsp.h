@@ -85,8 +85,8 @@
 
 #define UNUSED(x)    (void)(x) /*防止出现未使用的警告*/
 
-#define DEBUG_EN      0 
-#define LOG_EN        1 
+#define DEBUG_EN      1 
+#define LOG_EN        0 
 #define WARNING_EN    0 
 
 

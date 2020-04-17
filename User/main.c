@@ -119,6 +119,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_WifiStateProc();
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
+			
+			bsp_PrintAllVoltage();
         }
 		
 #if 1 /*更新地图*/
