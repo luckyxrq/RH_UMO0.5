@@ -141,7 +141,11 @@ function. */
 routine that makes calls to interrupt safe FreeRTOS API functions.  DO NOT CALL
 INTERRUPT SAFE FREERTOS API FUNCTIONS FROM ANY INTERRUPT THAT HAS A HIGHER
 PRIORITY THAN THIS! (higher priorities are lower numeric values. */
-#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY	0x01
+/*配置configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY为0x01表示用户可以在抢占式优先级为1到15的中断里面调用FreeRTOS的API函数，
+抢占式优先级为0的中断里面是不允许调用的。
+不受FreeRTOS管理的中断有什么深层的含义吗？
+*/
+#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY	0x0F
 
 /* Interrupt priorities used by the kernel port layer itself.  These are generic
 to all Cortex-M ports, and do not rely on any particular library functions. */
