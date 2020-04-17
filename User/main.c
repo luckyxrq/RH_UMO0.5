@@ -121,14 +121,20 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev();
         }
 		
-#if 1 /*更新地图*/
+#if 0 /*更新地图*/
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
 		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
-
+		
+		if(count % 10 == 0)
+		{
+			bsp_LedToggle(LED_COLOR_GREEN);
+		}
+		
+		
 		
 		//bsp_UploadMap();
         vTaskDelay(50);	
