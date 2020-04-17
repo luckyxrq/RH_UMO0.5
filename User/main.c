@@ -205,7 +205,7 @@ static void vTaskPerception(void *pvParameters)
 	//bsp_StartEdgewiseRun();
 	
 	/*开启位置坐标更新*/
-    //bsp_StartUpdatePos();
+    bsp_StartUpdatePos();
 	
     /*开启正面碰撞协助*/
 	//bsp_StartAssistJudgeDirection();

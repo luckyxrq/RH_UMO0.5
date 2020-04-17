@@ -33,7 +33,7 @@ static signed char Left_Under_extreme_point_y_index;
 static signed char Left_On_extreme_point_y[10] = {0};
 static signed char Left_On_extreme_point_y_index = 0;
 
-static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid_y,int x,int  y,short theta,short xi,short yi,unsigned char obstacleSignal,int grid_dist,CLIFFADCVALUE *cliff_value)
+static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid_y,int x,int y,short theta,int xi,int yi,unsigned char obstacleSignal,int grid_dist,CLIFFADCVALUE *cliff_value)
 {
     int o_x = x;
     int o_y = y;
@@ -199,6 +199,8 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 	int grid_dist;
     unsigned char temporary_x,temporary_y,x,y;
     int map_robot_x,map_robot_y,xi, yi;
+	int grid_index_x,grid_index_y;
+
 
 	if ((abs(map_last_robotX - robotX) >100 || abs(map_last_robotY - robotY) >100) || obstacleSignal!=3 || cliff_value->cliffValue0 == 1)
 	{
@@ -259,12 +261,26 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 							if(gridmap.map[x][y]==0){
 							}
 							else{
-								gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x, map_robot_y, Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
+								gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x,map_robot_y,Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
 							}
 						}
 					}
 				}
 			}
+
+		
+			
+            for ( grid_index_x = 0; grid_index_x < MAPWIDTH/GRIDWIDTH; grid_index_x++)
+            {
+                for ( grid_index_y = 0; grid_index_y < MAPHEIGHT/GRIDHEIGHT; grid_index_y++)
+                {
+                        if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) LOG("-");
+                        if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy) LOG("*");
+                        if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) LOG("#");
+                        //if(gridmap.map[grid_index_x][grid_index_y] == 6) DEBUG("??");
+                }
+                LOG("\r\n");
+            }
 
 		}
 		
