@@ -149,11 +149,11 @@ void bsp_StartUpdateGridMap(void)
 	gridmap.grid_occupancy = 0;
 	gridmap.grid_half_occupancy = 1;
 	gridmap.grid_free = 250;
-	gridmap.obstacle_distance_from_robot_center=170;
-	gridmap.free_zone_from_robot_center=140;
+	gridmap.obstacle_distance_from_robot_center=120;
+	gridmap.free_zone_from_robot_center=120;
 	gridmap.collision_sensor_installation_angle_on_robot=Deg2Rad(45);
 	gridmap.refresh_zone_max_radius=300;
-	gridmap.refresh_zone_min_radius=170;
+	gridmap.refresh_zone_min_radius=120;
 	gridmap.sensor_type=0;
 	
 	for (grid_index_x = 0; grid_index_x < MAPWIDTH / GRIDWIDTH; grid_index_x++)
@@ -283,7 +283,7 @@ void __bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char 
 							{
 								//grid_status = inverseSensorModel(robotXY_from_gridXY_dist,map_robot_x, map_robot_y, robotTheta, grid_real_center_x, grid_real_center_y, obstacleSignal, IRSensorData);
 								
-								grid_status = inverseSensorModelB(grid_index_x,grid_index_y,map_robot_x,map_robot_y,Rad2Deg(robotTheta), grid_real_center_x, grid_real_center_y,\
+								grid_status = inverseSensorModelB(grid_index_x,grid_index_y,map_robot_x,map_robot_y,robotTheta, grid_real_center_x, grid_real_center_y,\
 								obstacleSignal,robotXY_from_gridXY_dist,bsp_GetCliffSensorData());   
 								
 								gridmap.map[grid_index_x][grid_index_y] = grid_status;

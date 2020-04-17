@@ -640,8 +640,6 @@ Section Cross References
     bsp_gridmap.o(i.__bsp_GridMapUpdate) refers to dfixui.o(.text) for __aeabi_d2uiz
     bsp_gridmap.o(i.__bsp_GridMapUpdate) refers to bsp_gridmap.o(i.mysqrt) for mysqrt
     bsp_gridmap.o(i.__bsp_GridMapUpdate) refers to bsp_gridmap.o(i.bsp_GetCliffSensorData) for bsp_GetCliffSensorData
-    bsp_gridmap.o(i.__bsp_GridMapUpdate) refers to dmul.o(.text) for __aeabi_dmul
-    bsp_gridmap.o(i.__bsp_GridMapUpdate) refers to ddiv.o(.text) for __aeabi_ddiv
     bsp_gridmap.o(i.__bsp_GridMapUpdate) refers to dfixi.o(.text) for __aeabi_d2iz
     bsp_gridmap.o(i.__bsp_GridMapUpdate) refers to bsp_gridmap.o(i.inverseSensorModelB) for inverseSensorModelB
     bsp_gridmap.o(i.__bsp_GridMapUpdate) refers to bsp_gridmap.o(.data) for .data
@@ -2546,7 +2544,7 @@ Removing Unused input sections from the image.
     Removing bsp_stopmode.o(.revsh_text), (4 bytes).
     Removing bsp_gridmap.o(.rev16_text), (4 bytes).
     Removing bsp_gridmap.o(.revsh_text), (4 bytes).
-    Removing bsp_gridmap.o(i.__bsp_GridMapUpdate), (476 bytes).
+    Removing bsp_gridmap.o(i.__bsp_GridMapUpdate), (448 bytes).
     Removing bsp_gridmap.o(i.bsp_Get_GridMap), (224 bytes).
     Removing bsp_gridmap.o(i.bsp_StopUpdateGridMap), (24 bytes).
     Removing bsp_gridmap.o(i.mysqrt), (40 bytes).
@@ -2965,7 +2963,7 @@ Removing Unused input sections from the image.
     Removing streamec.o(i.Stream_Enc), (34 bytes).
     Removing dfixui.o(.text), (50 bytes).
 
-522 unused section(s) (total 23115 bytes) removed from the image.
+522 unused section(s) (total 23087 bytes) removed from the image.
 
 ==============================================================================
 
