@@ -130,11 +130,15 @@ void bsp_Init(void)
 		rv = AuthenticationTest();
 		if(rv)
 		{
-			DEBUG("未能通过加密认证\r\n");
+			while(1)
+			{
+				//DEBUG("未能通过加密认证\r\n");
+			}
+			
 		}
 		else
 		{
-			DEBUG("恭喜，通过加密认证\r\n");
+			//DEBUG("恭喜，通过加密认证\r\n");
 		}
 		
 		
