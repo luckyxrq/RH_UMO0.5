@@ -556,9 +556,9 @@ static void bsp_KeyProc(void)
 					//bsp_StartCliffTest();
 					/*¿ªÇåÉ¨²ßÂÔ*/
 					bsp_StartUpdateCleanStrategyB();
-					bsp_StartVacuum();
-					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+//					bsp_StartVacuum();
+//					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+//					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 					
 					//bsp_StartEdgewiseRun();
 					
