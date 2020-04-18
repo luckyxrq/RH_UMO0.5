@@ -133,6 +133,8 @@ void bsp_StopSearchChargePile(void)
 	search.isRunning = false;
 	search.action = 0 ;
 	search.delay = 0 ;
+	
+	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 }	
 
 
