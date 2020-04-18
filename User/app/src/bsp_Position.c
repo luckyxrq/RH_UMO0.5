@@ -35,9 +35,9 @@ void bsp_ResetPosArgument(void)
 	/*上一时刻和当前速度*/
 	position.lastSpeed = 0;
 	position.currentSpeed = 0;
-	/*上一时刻和当前时刻角度*/
-	position.lastOrientation = 0;
-	position.currentOrientation = 0;
+//	/*上一时刻和当前时刻角度*/
+//	position.lastOrientation = 0;
+//	position.currentOrientation = 0;
 	
 }
 

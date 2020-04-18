@@ -233,20 +233,48 @@ void bsp_StartUpdateCleanStrategyB(void)
 
 }
 
+
 void bsp_ResetCleanStrategyBStatus(void)
 {
 	LastCleanTimeStamp = xTaskGetTickCount();
-//right running
+	OVERALL_CLEANING_STRATEGY = 0;
 	right_running_step_status = 0;
 	collision_right_rightrun_step_status = 0;
 	collision_left_rightrun_step_status = 0;
 	collision_front_rightrun_step_status = 0;
-//left running	
 	left_running_step_status = 0;
 	collision_right_leftrun_step_status = 0;
 	collision_left_leftrun_step_status = 0;
 	collision_front_leftrun_step_status = 0;
-//for collision step
+	stuck_right_run_step=0;
+	return_origin_step_status = 0;
+	a_star_motion_return_origin_status=0;
+	a_star_not_motion_status=0;
+	a_star_collision_status=0;
+	cliff_running_step_status=0;
+	over_clean_finish=false;
+	return_origin_positive_start= 1;
+	selectside=0;
+//for  walk edge
+	right_walk_edge_status = 0;
+	right_reverse_walk_edge_status = 0;
+	right_edge_dilemma_status = 0;
+	right_forward_boundary_status = 0;
+	right_ready_leaking_sweep_status = 0;
+	left_walk_edge_status = 0;
+	left_reverse_walk_edge_status = 0;
+	left_edge_dilemma_status = 0;
+	left_forward_boundary_status = 0;
+	left_ready_leaking_sweep_status = 0;
+	number = 0;
+	leakingsweep = 0;
+	leakingsweep_x = 0;
+	leakingsweep_y = 0;
+	leakingsweep_X_interval = 200;
+	leakingsweep_Y_interval = 100;
+	linear_velocity = 0,angular_velocity = 0;
+	bypass_velocity = 150;
+//for  collision step
 	distance_uptate  = 0;
 	turn_start_update = 0;
 	last_position_x = 0;
@@ -264,28 +292,24 @@ void bsp_ResetCleanStrategyBStatus(void)
 	temporary_close_edge = 0;
 	returnorigin = false;
 	edge_length_start = 0;
-//for right walk edge
-	right_walk_edge_status = 0;
-	right_reverse_walk_edge_status = 0;
-	right_edge_dilemma_status = 0;
-	number = 0;
-	right_forward_boundary_status = 0;
-	right_ready_leaking_sweep_status = 0;
-	leakingsweep = 0;
-	leakingsweep_x = 0;
-	leakingsweep_y = 0;
-//for left walk edge
-	left_walk_edge_status = 0;
-	left_reverse_walk_edge_status = 0;
-	left_edge_dilemma_status = 0;
-	left_forward_boundary_status = 0;
-	left_ready_leaking_sweep_status = 0;
+	DelimmaNumber=0;
+	CliffDelimmaNumber = 0;
+	CliffFunctionStatus=0;
+	CliffNumber=0;
+	totalCDN=0;
+	clill_start_update=false;
+	cliffruningStatus=false;
+	FunctionStatus=0;
+	LastCleanTimeStamp = 0;
+	CurrentCleanTimeStamp  = 0;
+	
+	bsp_ResetPosArgument();
+	bsp_StartUpdateGridMap();
 	
 }
 
 void bsp_StopUpdateCleanStrategyB(void)
 {
-
 	cleanstrategy.action = 0 ;
 	cleanstrategy.delay = 0 ;
 	cleanstrategy.isRunning = false;
@@ -299,7 +323,7 @@ void bsp_StopUpdateCleanStrategyB(void)
 	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
 	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 	
-	
+	bsp_ResetCleanStrategyBStatus();
 	
 }
 

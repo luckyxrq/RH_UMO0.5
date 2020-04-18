@@ -261,7 +261,7 @@ static void vTaskPerception(void *pvParameters)
 		
 	
 		/*检测主机悬空*/
-		bsp_OffSiteProc();
+		//bsp_OffSiteProc();
         /*寻找充电桩*/
 		bsp_SearchChargePile();
 		/*沿边行走*/
