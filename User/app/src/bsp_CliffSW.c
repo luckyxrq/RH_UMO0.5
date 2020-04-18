@@ -400,7 +400,7 @@ void bsp_CliffTest(void)
 		
 		case 3:
 		{
-			if(bsp_GetCurrentBothPulse()-cliffTest.pulse >= GO_BACK_PULSE*10)
+			if(bsp_GetCurrentBothPulse()-cliffTest.pulse >= GO_BACK_PULSE*5)
 			{
 				cliffTest.angle = bsp_AngleRead();
 				bsp_RotateCCW();
