@@ -255,7 +255,7 @@ static void vTaskPerception(void *pvParameters)
 		bsp_DetectMeasureTest();
 #endif
 
-#if 0   /*测试跳崖传感器 、红外、碰撞共同测试*/	 	
+#if 1  /*测试跳崖传感器 、红外、碰撞共同测试*/	 	
 		bsp_CliffTest();
 #endif
 		
