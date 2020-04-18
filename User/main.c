@@ -104,8 +104,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 	
     while(1)
     {
-        /* 处理按键事件 */
-        bsp_KeyProc();
+        
 		
 		
         if(count++ % 10 == 0)
@@ -121,7 +120,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_PrintIR_Rev();
         }
 		
-#if 0 /*更新地图*/
+#if 1 /*更新地图*/
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
 		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
@@ -276,7 +275,8 @@ static void vTaskPerception(void *pvParameters)
 			//bsp_AssistJudgeDirection();
 		}
 		
-		
+		/* 处理按键事件 */
+        bsp_KeyProc();
 		
 		wifi_uart_service();
 		

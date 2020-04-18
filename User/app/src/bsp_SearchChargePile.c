@@ -68,6 +68,16 @@ static void bsp_SearchTurnLeftSlow(void)   ;
 static void bsp_PirouetteCW(void)          ;
 static void bsp_PirouetteCCW(void)         ;
 static void bsp_GoBackward(void)           ;
+
+static void bsp_SearchRunStraightFastBack(void);
+static void bsp_SearchRunStraightSlowBack(void);
+static void bsp_SearchTurnRightFastBack(void);
+static void bsp_SearchTurnRightSlowBack(void);
+static void bsp_SearchTurnLeftFastBack(void);
+static void bsp_SearchTurnLeftSlowBack(void);
+
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_StartSearchChargePile
@@ -93,6 +103,13 @@ void bsp_StartSearchChargePile(void)
 	UNUSED(bsp_SearchTurnLeftSlow)   ;
 	UNUSED(bsp_IsCharging);
 	UNUSED(bsp_IsChargeDone);
+	
+	UNUSED(bsp_SearchRunStraightFastBack);
+	UNUSED(bsp_SearchRunStraightSlowBack);
+	UNUSED(bsp_SearchTurnRightFastBack);
+	UNUSED(bsp_SearchTurnRightSlowBack);
+	UNUSED(bsp_SearchTurnLeftFastBack);
+	UNUSED(bsp_SearchTurnLeftSlowBack);
 }
 
 /*
@@ -248,17 +265,18 @@ void bsp_SearchChargePile(void)
 			
 			if(ret != CollisionNone)
 			{
+				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
 				bsp_GoBackward();
 				
-				if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)) ||
-					(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
-				{
-					search.collision = eHasSignalCollision;
-				}
-				else
-				{
-					search.collision = eNoSignalCollision;
-				}
+//				if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)) ||
+//					(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+//				{
+//					search.collision = eHasSignalCollision;
+//				}
+//				else
+//				{
+//					search.collision = eNoSignalCollision;
+//				}
 				
 				search.delay = xTaskGetTickCount();
 			}
@@ -337,19 +355,81 @@ void bsp_SearchChargePile(void)
 		case 2:
 		{
 			/*充电最后一步撞上了*/
-			if(search.collision == eHasSignalCollision)
+			if(xTaskGetTickCount() - search.delay >= 5000)
 			{
-				if(xTaskGetTickCount() - search.delay >= 3000)
-				{
-					search.action = 1 ;
-				}
+				search.action = 1 ;
 			}
 			else
 			{
-				if(xTaskGetTickCount() - search.delay >= 1500)
+				if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
+				&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
 				{
-					search.action = 1 ;
+					bsp_SearchRunStraightSlowBack();
 				}
+				/*前面2个，各收各*/
+				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+				{
+					bsp_SearchRunStraightSlow();
+				}
+				
+				
+				/*1号能收到2个 ,2号能收到左边*/
+				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+				{
+					bsp_SearchRunStraightSlowBack();
+				}
+				
+				/*2号能收到2个 ,1号能收到右边*/
+				else if(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+				{
+					bsp_SearchRunStraightSlowBack();
+				}
+				
+				
+				/*1，2号都能收到左边，都不能收到右边*/
+				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && 
+					!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+				{
+					bsp_SearchTurnLeftSlowBack();
+				}
+				/*1，2号都能收到右边，都不能收到左边*/
+				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && 
+					!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+				{
+					bsp_SearchTurnRightSlowBack();
+				}
+
+				
+				/*1号不能同时收到左右发射，2能同时收到左右发射*/
+				else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+					&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+				{
+					bsp_SearchTurnRightSlowBack();
+				}
+				/*1号能同时收到左右发射，2不能同时收到左右发射*/
+				else if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+					&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+				{
+					bsp_SearchTurnLeftSlowBack();
+				}
+				
+				
+//				/*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+//				else if(bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
+//				{
+//					bsp_PirouetteCW();
+//				}
+//				/*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+//				else if(bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
+//				{
+//					bsp_PirouetteCCW();
+//				}
+//				/*1，2都不能同时收到左右发射*/
+//				else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+//					&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+//				{
+//					bsp_SearchRunStraightSlow();
+//				}
 			}
 		}break;
 	}
@@ -484,7 +564,90 @@ static void bsp_GoBackward(void)
 
 
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SearchRunStraightFastBack
+*	功能说明: 快速直行
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_SearchRunStraightFastBack(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, -STRAIGHT_SPEED_FAST);
+	bsp_SetMotorSpeed(MotorRight,-STRAIGHT_SPEED_FAST);
+}
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SearchRunStraightSlowBack
+*	功能说明: 慢速直行
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_SearchRunStraightSlowBack(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, -STRAIGHT_SPEED_SLOW);
+	bsp_SetMotorSpeed(MotorRight,-STRAIGHT_SPEED_SLOW);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SearchTurnRightFastBack
+*	功能说明: 快速右转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_SearchTurnRightFastBack(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, -TURN_RIGHT_SPEED_FAST_L);
+	bsp_SetMotorSpeed(MotorRight,-TURN_RIGHT_SPEED_FAST_R);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SearchTurnRightSlowBack
+*	功能说明: 慢速右转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_SearchTurnRightSlowBack(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, -TURN_RIGHT_SPEED_SLOW_L);
+	bsp_SetMotorSpeed(MotorRight,-TURN_RIGHT_SPEED_SLOW_R);
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SearchTurnLeftFastBack
+*	功能说明: 快速左转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_SearchTurnLeftFastBack(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, -TURN_LEFT_SPEED_FAST_L);
+	bsp_SetMotorSpeed(MotorRight,-TURN_LEFT_SPEED_FAST_R);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SearchTurnLeftSlowBack
+*	功能说明: 慢速左转
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_SearchTurnLeftSlowBack(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, -TURN_LEFT_SPEED_SLOW_L);
+	bsp_SetMotorSpeed(MotorRight,-TURN_LEFT_SPEED_SLOW_R);
+}
 
 
 /*
