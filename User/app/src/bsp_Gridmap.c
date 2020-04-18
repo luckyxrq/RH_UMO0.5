@@ -201,7 +201,10 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
     //int map_robot_x,map_robot_y,xi, yi;
 	//int grid_index_x,grid_index_y;
 	short grid_dist;
-    char temporary_x,temporary_y,x,y;
+	//signed char temporary_x,temporary_y,x,y;
+	int8_t map_update_x_range_max_index,map_update_y_range_max_index;
+	int8_t map_update_x_range_min_index,map_update_y_range_min_index;
+	int8_t x,y;
     int map_robot_x,map_robot_y,xi, yi;
 
 
@@ -230,70 +233,31 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 	switch(gridmap.action)
 	{
 		case 0:
-		{
-			 
-    map_last_robotX=robotX;
-    map_last_robotY=robotY;
-    map_robot_x=robotX+half_map_wide;
-    map_robot_y=robotY+half_map_long;
-    if(map_robot_x/GRIDWIDTH>95){
-        temporary_x=MAPWIDECELLS;
-    }
-    else{
-        temporary_x=map_robot_x/GRIDWIDTH+5;
-    }
-    if(map_robot_y/GRIDHEIGHT>95){
-        temporary_y=MAPLONGCELLS;
-    }
-    else{
-        temporary_y=map_robot_y/GRIDHEIGHT+5;
-    }
-    for (x=(map_robot_x/GRIDWIDTH>=4?map_robot_x/GRIDWIDTH-4:0); x<temporary_x; x++){
-        for (y=(map_robot_y/GRIDHEIGHT>=4?map_robot_y/GRIDHEIGHT-4:0); y<temporary_y; y++){
-            xi = x * GRIDWIDTH+50;
-            yi = y * GRIDHEIGHT+50;
-            grid_dist = sqrt(pow(map_robot_x - xi, 2) + pow(map_robot_y - yi, 2));
-            if(obstacleSignal==none_obstacle&&cliff_value->cliffValue0==0){
-                if(grid_dist<=map_robot_radius){
-                    gridmap.map[x][y]=250;
-                }
-            }
-            else{
-                if(grid_dist<=map_robot_radius){
-                    gridmap.map[x][y]=250;
-                }
-                if((grid_dist <= 300)&&(grid_dist>map_robot_radius)){
-                    if(gridmap.map[x][y]==0){
-                    }
-                    else{
-                        gridmap.map[x][y] = gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x,map_robot_y,Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
-                    }
-                }
-            }
-        }
-    }
-
-			
-			
-			
-#if 0			
+		{ 
+			map_last_robotX=robotX;
+			map_last_robotY=robotY;
 			map_robot_x=robotX+half_map_wide;
 			map_robot_y=robotY+half_map_long;
-			
 			if(map_robot_x/GRIDWIDTH>95){
-				temporary_x=MAPWIDECELLS;
+				map_update_x_range_max_index=MAPWIDECELLS;
 			}
 			else{
-				temporary_x=map_robot_x/GRIDWIDTH+5;
+				map_update_x_range_max_index=map_robot_x/GRIDWIDTH+5;
 			}
 			if(map_robot_y/GRIDHEIGHT>95){
-				temporary_y=MAPLONGCELLS;
+				map_update_y_range_max_index=MAPLONGCELLS;
 			}
 			else{
-				temporary_y=map_robot_y/GRIDHEIGHT+5;
+				map_update_y_range_max_index=map_robot_y/GRIDHEIGHT+5;
 			}
-			for (x=(map_robot_x/GRIDWIDTH>=4?map_robot_x/GRIDWIDTH-4:0); x<temporary_x; x++){
-				for (y=(map_robot_y/GRIDHEIGHT>=4?map_robot_y/GRIDHEIGHT-4:0); y<temporary_y; y++){
+			
+			if(map_robot_x/GRIDWIDTH >=4) map_update_x_range_min_index=map_robot_x/GRIDWIDTH-4;
+			else map_update_x_range_min_index =0;
+			if(map_robot_y/GRIDHEIGHT >=4) map_update_y_range_min_index=map_robot_y/GRIDWIDTH-4;
+			else map_update_y_range_min_index =0;
+			
+			for (x=map_update_x_range_min_index; x<map_update_x_range_max_index; x++){
+				for (y=map_update_y_range_min_index; y<map_update_y_range_max_index; y++){
 					xi = x * GRIDWIDTH+50;
 					yi = y * GRIDHEIGHT+50;
 					grid_dist = sqrt(pow(map_robot_x - xi, 2) + pow(map_robot_y - yi, 2));
@@ -303,36 +267,21 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 						}
 					}
 					else{
-						if(grid_dist<=120){
+						if(grid_dist<=map_robot_radius){
 							gridmap.map[x][y]=250;
 						}
-						if((grid_dist <= 300)&&(grid_dist>120)){
+						if((grid_dist <= 300)&&(grid_dist>map_robot_radius)){
 							if(gridmap.map[x][y]==0){
 							}
 							else{
-								gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x,map_robot_y,Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
+								gridmap.map[x][y] = gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x,map_robot_y,Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
 							}
 						}
 					}
 				}
 			}
-
-		
 			
-            for ( grid_index_x = 0; grid_index_x < MAPWIDTH/GRIDWIDTH; grid_index_x++)
-            {
-                for ( grid_index_y = 0; grid_index_y < MAPHEIGHT/GRIDHEIGHT; grid_index_y++)
-                {
-                        if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) LOG("-");
-                        if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy) LOG("*");
-                        if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) LOG("#");
-                        //if(gridmap.map[grid_index_x][grid_index_y] == 6) DEBUG("??");
-                }
-                LOG("\r\n");
-            }
-			#endif
-			
-// for ( x = 0; x < MAPWIDTH/GRIDWIDTH; x++)
+//			for ( x = 0; x < MAPWIDTH/GRIDWIDTH; x++)
 //            {
 //                for ( y = 0; y < MAPHEIGHT/GRIDHEIGHT; y++)
 //                {
@@ -343,8 +292,10 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 //                }
 //                LOG("\r\n");
 //            }
+			break;
 		}
-		
+		default:
+			break;
 	}
 }
 

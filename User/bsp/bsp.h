@@ -93,19 +93,19 @@
 #if DEBUG_EN
 #define DEBUG(format, ...) printf (format, ##__VA_ARGS__)
 #else
-#define DEBUG(format, ...) {}
+#define DEBUG(format, ...)
 #endif
 	
 #if LOG_EN
 #define LOG(format, ...) printf (format, ##__VA_ARGS__)
 #else
-#define LOG(format, ...) {}
+#define LOG(format, ...)
 #endif
 	
 #if WARNING_EN
 #define WARNING(format, ...) printf (format, ##__VA_ARGS__)
 #else
-#define WARNING(format, ...) {}
+#define WARNING(format, ...)
 #endif
 
 
