@@ -161,7 +161,9 @@ static POSE current_pose;
 //static int Yaw;
 static short speed_pid_cnt = 0;
 static unsigned char* IRSensorData_StrategyB;
-static CLIFFADCVALUE * cliff_valueB;
+
+
+
 
 static double my_abs(double x){
     if (x<0){
@@ -332,7 +334,6 @@ void bsp_StopUpdateCleanStrategyB(void)
 void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal, int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value)
 {
 	IRSensorData_StrategyB = IRSensorData;
-	cliff_valueB = cliff_value;
 	current_pose.x = INT_COOR_X + robotX;
 	current_pose.y = INT_COOR_Y + robotY;
 	current_pose.x =  robotX;
@@ -349,6 +350,7 @@ void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned 
 			//nothing...
 		}
 		else{
+			bsp_SperkerPlay(Song24);
 			bsp_StopUpdateCleanStrategyB();
 		}
 	}
@@ -425,21 +427,20 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 	{
 		DetectionCloseEdge();
 	}
-	if (cliff_valueB->cliffValue0 == 1)
+	if ((&cliff_valueB)->cliffValue0 == 1)
 	{
 		CliffNumber++;
 		if (CliffNumber > 5)
 		{
 			cliffruningStatus = true;
 		}
-	}
-	else
+	}else
 	{
 		CliffNumber = 0;
 	}
 	if (cliffruningStatus == true)
 	{
-		CliffFunctionStatus = CliffRuningWorkStep(current_pose, cliff_valueB, obstacleSignal);
+		CliffFunctionStatus = CliffRuningWorkStep(current_pose,(&cliff_valueB), obstacleSignal);
 		if (CliffFunctionStatus == 2)
 		{
 			DetectionCloseEdge();
@@ -10521,6 +10522,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
 
 unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_value, unsigned char obstacleSignal)
 {
+
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
@@ -10663,8 +10665,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) &&
-            cliff_value->cliffValue0 == 0)
+        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) && cliff_value->cliffValue0 == 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10823,6 +10824,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         angular_velocity = 0;
         if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) &&
             cliff_value->cliffValue0 == 0)
+			
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10979,8 +10981,10 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) &&
-            cliff_value->cliffValue0 == 0)
+        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) 
+			&&
+            cliff_value->cliffValue0 == 0
+		)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11137,8 +11141,10 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) &&
-            cliff_value->cliffValue0 == 0)
+        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) 
+			&&
+            cliff_value->cliffValue0 == 0
+		)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11296,8 +11302,10 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) &&
-            cliff_value->cliffValue0 == 0)
+        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) 
+			&&
+            cliff_value->cliffValue0 == 0
+		)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11455,8 +11463,10 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) &&
-            cliff_value->cliffValue0 == 0)
+        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) 
+			&&
+            cliff_value->cliffValue0 == 0
+		)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11613,8 +11623,10 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) &&
-            cliff_value->cliffValue0 == 0)
+        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) 
+			&&
+            cliff_value->cliffValue0 == 0
+		)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11772,8 +11784,10 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) &&
-            cliff_value->cliffValue0 == 0)
+        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) 
+			&&
+            cliff_value->cliffValue0 == 0
+		)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11931,8 +11945,10 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) &&
-            cliff_value->cliffValue0 == 0)
+        if ((my_abs(turn_start_x - current_pose->x) > lateral_move_distance / 4 || my_abs(turn_start_y - current_pose->y) > lateral_move_distance / 4) 
+			&&
+            cliff_value->cliffValue0 == 0
+		)
         {
             linear_velocity = 0;
             angular_velocity = 0;

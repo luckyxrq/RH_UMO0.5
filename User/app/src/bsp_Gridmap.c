@@ -1,7 +1,7 @@
 #include "bsp.h"
 #include <math.h>
 
-
+CLIFFADCVALUE cliff_valueB;
 GridMap gridmap;
 static int map_last_robotX = 0, map_last_robotY = 0;
 static int8_t map_update = 0;
@@ -437,24 +437,24 @@ unsigned char* bsp_GetIRSensorData(void)
 
 CLIFFADCVALUE* bsp_GetCliffSensorData(void)
 {
-	static CLIFFADCVALUE cliff_value;
+	cliff_valueB.cliffValue0 =0;
 	if(bsp_CliffIsDangerous(CliffLeft))  
 	{	
-		cliff_value.cliffValue0 =1;
-		cliff_value.cliffValue1 = 1;
-	}else cliff_value.cliffValue1 = 0;
+		cliff_valueB.cliffValue0 =1;
+		cliff_valueB.cliffValue1 = 1;
+	}else cliff_valueB.cliffValue1 = 0;
 	if(bsp_CliffIsDangerous(CliffMiddle))  
 	{	
-		cliff_value.cliffValue0 =1;
-		cliff_value.cliffValue2 = 1;
-	}else cliff_value.cliffValue2 = 0;
+		cliff_valueB.cliffValue0 =1;
+		cliff_valueB.cliffValue2 = 1;
+	}else cliff_valueB.cliffValue2 = 0;
 	if(bsp_CliffIsDangerous(CliffRight))  
 	{	
-		cliff_value.cliffValue0 =1;
-		cliff_value.cliffValue3 = 1;
-	}else cliff_value.cliffValue3 = 0;
+		cliff_valueB.cliffValue0 =1;
+		cliff_valueB.cliffValue3 = 1;
+	}else cliff_valueB.cliffValue3 = 0;
 	
-	return &cliff_value;
+	return &cliff_valueB;
 
 }
 

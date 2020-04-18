@@ -110,7 +110,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 
 extern GridMap gridmap;
-
+extern CLIFFADCVALUE cliff_valueB;
 
 #endif
 
