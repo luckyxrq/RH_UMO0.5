@@ -35,6 +35,9 @@
 
 #define BACKWARD_SPEED           -4
 
+#define ROTATE_CCW_SPEED_L             -5
+#define ROTATE_CCW_SPEED_R             5
+
 typedef enum
 {
 	eNone = 0 ,          /*没有碰撞*/
@@ -77,7 +80,7 @@ static void bsp_SearchTurnLeftFastBack(void);
 static void bsp_SearchTurnLeftSlowBack(void);
 
 
-
+static void bsp_RotateCCW(void);
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_StartSearchChargePile
@@ -110,6 +113,8 @@ void bsp_StartSearchChargePile(void)
 	UNUSED(bsp_SearchTurnRightSlowBack);
 	UNUSED(bsp_SearchTurnLeftFastBack);
 	UNUSED(bsp_SearchTurnLeftSlowBack);
+	
+	UNUSED(bsp_RotateCCW);
 }
 
 /*
@@ -279,6 +284,7 @@ void bsp_SearchChargePile(void)
 //				}
 				
 				search.delay = xTaskGetTickCount();
+				search.action++;
 			}
 			/*前面2个，都能收到左右发射*/
 			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
@@ -349,7 +355,7 @@ void bsp_SearchChargePile(void)
 				bsp_SearchRunStraightSlow();
 			}
 			
-			search.action++;
+			
 		}break;
 		
 		case 2:
@@ -358,18 +364,31 @@ void bsp_SearchChargePile(void)
 			if(xTaskGetTickCount() - search.delay >= 5000)
 			{
 				search.action = 1 ;
+				
+				if(!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER)
+				&& !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER))
+				{
+					bsp_RotateCCW();
+					search.delay = xTaskGetTickCount();
+					search.action  = 3;
+				}
+				
+				
 			}
 			else
 			{
+				/*前面2个，都能收到左右发射*/
 				if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
 				&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
 				{
-					bsp_SearchRunStraightSlowBack();
+					bsp_SearchRunStraightSlow();
+					search.action = 1 ;
 				}
 				/*前面2个，各收各*/
 				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
 				{
 					bsp_SearchRunStraightSlow();
+					search.action = 1 ;
 				}
 				
 				
@@ -414,22 +433,31 @@ void bsp_SearchChargePile(void)
 				}
 				
 				
-//				/*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
-//				else if(bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
-//				{
-//					bsp_PirouetteCW();
-//				}
-//				/*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
-//				else if(bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
-//				{
-//					bsp_PirouetteCCW();
-//				}
-//				/*1，2都不能同时收到左右发射*/
-//				else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
-//					&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
-//				{
-//					bsp_SearchRunStraightSlow();
-//				}
+				/*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+				else if(bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
+				{
+					bsp_PirouetteCW();
+				}
+				/*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+				else if(bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
+				{
+					bsp_PirouetteCCW();
+				}
+				/*1，2都不能同时收到左右发射*/
+				else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+					&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+				{
+					bsp_SearchRunStraightSlowBack();
+				}
+			}
+		}break;
+		
+		
+		case 3:/*退完没有红外信号则转弯*/
+		{
+			if(xTaskGetTickCount() - search.delay >= 800)
+			{
+				search.action = 1 ;
 			}
 		}break;
 	}
@@ -647,6 +675,21 @@ static void bsp_SearchTurnLeftSlowBack(void)
 {
 	bsp_SetMotorSpeed(MotorLeft, -TURN_LEFT_SPEED_SLOW_L);
 	bsp_SetMotorSpeed(MotorRight,-TURN_LEFT_SPEED_SLOW_R);
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_RotateCCW
+*	功能说明: 原地旋转，左右轮都动，逆时针
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_RotateCCW(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, ROTATE_CCW_SPEED_L);
+	bsp_SetMotorSpeed(MotorRight,ROTATE_CCW_SPEED_R);
 }
 
 
