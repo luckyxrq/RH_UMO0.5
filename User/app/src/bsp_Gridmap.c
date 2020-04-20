@@ -261,7 +261,7 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 					xi = x * GRIDWIDTH+50;
 					yi = y * GRIDHEIGHT+50;
 					grid_dist = sqrt(pow(map_robot_x - xi, 2) + pow(map_robot_y - yi, 2));
-					if(obstacleSignal==none_obstacle&&cliff_value->cliffValue0==0){
+					if(obstacleSignal==none_obstacle&&cliff_value->cliffValue0==1){
 						if(grid_dist<=map_robot_radius){
 							gridmap.map[x][y]=250;
 						}
