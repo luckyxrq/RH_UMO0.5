@@ -246,9 +246,9 @@ void bsp_CliffCalibration(void)
 	cliff[CliffRight].initializeVoltage = sum / VOLTAGE_FILTERING_COUNT;
 	
 	/*ãÐÖµ*/
-	cliff[CliffLeft].threshold =   1.6F;
-	cliff[CliffMiddle].threshold = 1.6F;
-	cliff[CliffRight].threshold =  1.6F;
+	cliff[CliffLeft].threshold =   2.5F;
+	cliff[CliffMiddle].threshold = 2.5F;
+	cliff[CliffRight].threshold =  2.5F;
 #else
 	cliff[CliffLeft].initializeVoltage =   3.3F;
 	cliff[CliffMiddle].initializeVoltage = 3.3F;
