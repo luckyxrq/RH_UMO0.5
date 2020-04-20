@@ -142,10 +142,10 @@ void bsp_OffSiteProc(void)
 				/*关闭各种状态机*/
 				bsp_StopSearchChargePile();
 				bsp_StopCliffTest();
-				bsp_StartUpdateCleanStrategyB();
-				bsp_StartVacuum();
-				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-				bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_StopUpdateCleanStrategyB();
+				bsp_StopVacuum();
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
+				bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 				
 				offSiteProc.action++;
 			}
