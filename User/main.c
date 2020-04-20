@@ -179,6 +179,13 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
 		
+		if(GetReturnChargeStationStatus())
+		{
+			ResetReturnChargeStationStatus();
+			
+			bsp_PutKey(KEY_LONG_CHARGE);
+		}
+		
 		
 		count++;
         vTaskDelay(10);

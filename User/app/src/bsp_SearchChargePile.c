@@ -38,7 +38,7 @@
 #define ROTATE_CCW_SPEED_L             -5
 #define ROTATE_CCW_SPEED_R             5
 
-#define MAX_SEARCH_TICK      (1000*30)
+#define MAX_SEARCH_TICK      (1000*120)
 
 typedef enum
 {
