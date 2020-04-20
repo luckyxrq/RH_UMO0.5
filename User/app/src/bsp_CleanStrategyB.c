@@ -238,12 +238,8 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 
 void bsp_StartUpdateCleanStrategyB(void)
 {
-	/*启动的时候如果在充电柱上*/
-	
-	
-	
-	
-	
+
+
 	cleanstrategy.work_step_status = RIGHTRUNNING_WORK_SETP;
 	cleanstrategy.right_running_complete  = 0;
 	cleanstrategy.right_return_origin_complete = 0;

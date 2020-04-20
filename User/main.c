@@ -570,12 +570,24 @@ static void bsp_KeyProc(void)
 					bsp_SperkerPlay(Song3);
 					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
 					
+					
+					if(bsp_IsTouchChargePile())
+					{
+						bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-250));
+						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+						vTaskDelay(2000);	
+						bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+					}
+					
+					
+					
 					//bsp_StartCliffTest();
 					/*¿ªÇåÉ¨²ßÂÔ*/
 					bsp_StartUpdateCleanStrategyB();
 					bsp_StartVacuum();
 					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.6F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
 					
 					//bsp_StartEdgewiseRun();
 					

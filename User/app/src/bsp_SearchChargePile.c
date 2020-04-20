@@ -65,7 +65,6 @@ static Serach search;
 static void bsp_InitIO(void);
 static bool bsp_IsCharging(void);
 static bool bsp_IsChargeDone(void);
-static bool bsp_IsTouchChargePile(void);
 static void bsp_SearchRunStraightFast(void);
 static void bsp_SearchRunStraightSlow(void);
 static void bsp_SearchTurnRightFast(void)  ;
@@ -762,7 +761,7 @@ static void bsp_InitIO(void)
 *	·µ »Ø Öµ: ÎÞ
 *********************************************************************************************************
 */
-static bool bsp_IsTouchChargePile(void)
+bool bsp_IsTouchChargePile(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
 	{
