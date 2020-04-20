@@ -5,8 +5,7 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
-#define LEFT_CLEAN_WORK_TIME 10*60*1000
-#define RIGHT_CLEAN_WORK_TIME 10*60*1000
+#define CLEAN_WORK_TIME 1*30*1000
 
 #define ZoomMultiple 4
 #define compression_map_x 25
@@ -156,6 +155,8 @@ int y_error = 0;
 //
 
 
+
+//############MCU#############################
 static CleanStrategyB cleanstrategy;
 static POSE current_pose;
 //static int Yaw;
@@ -163,6 +164,23 @@ static short speed_pid_cnt = 0;
 static unsigned char* IRSensorData_StrategyB;
 
 
+
+uint8_t check_sensor_cnt = 0;
+const uint8_t time_out_flag = 1;
+const uint8_t battery_out_flag = 2;
+const uint8_t collision_error = 3;
+const uint8_t cliff_error = 4;
+const uint8_t infra_collision_error = 5;
+
+uint8_t collision_error_cnt = 0;
+uint8_t cliff_error_cnt = 0;
+uint16_t infra_collision_error_cnt = 0;
+static uint8_t time_battery_return_origin_statues = 1;
+
+uint8_t return_charge_station_flag = 0;
+
+
+//#########################################
 
 
 static double my_abs(double x){
@@ -238,6 +256,7 @@ void bsp_StartUpdateCleanStrategyB(void)
 
 void bsp_ResetCleanStrategyBStatus(void)
 {
+	time_battery_return_origin_statues = 1;
 	LastCleanTimeStamp = xTaskGetTickCount();
 	OVERALL_CLEANING_STRATEGY = 0;
 	right_running_step_status = 0;
@@ -325,13 +344,18 @@ void bsp_StopUpdateCleanStrategyB(void)
 	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
 	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 	
+	bsp_StopVacuum();
+	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
+	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
+	
 	bsp_ResetCleanStrategyBStatus();
+	bsp_SperkerPlay(Song4);
 	
 }
 
 
 
-void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal, int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value)
+void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal, int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value)
 {
 	IRSensorData_StrategyB = IRSensorData;
 	current_pose.x = INT_COOR_X + robotX;
@@ -350,86 +374,174 @@ void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned 
 			//nothing...
 		}
 		else{
-			bsp_SperkerPlay(Song24);
+			bsp_SperkerPlay(Song5);
 			bsp_StopUpdateCleanStrategyB();
-			bsp_StopVacuum();
-			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
-			bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
+			return_charge_station_flag = 1;
+			
 		}
 	}
 	
 }	
-//#################################################################################
-uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal)
+
+uint8_t GetReturnChargeStationStatus(void)
 {
-	CurrentCleanTimeStamp = xTaskGetTickCount();
-	
-    switch (cleanstrategy.work_step_status)
-    {
-        case RIGHTRUNNING_WORK_SETP:
-			if(RightRunningWorkStep(current_pose,obstacleSignal) || ((CurrentCleanTimeStamp - LastCleanTimeStamp) > RIGHT_CLEAN_WORK_TIME))
-			{
-				cleanstrategy.work_step_status  = RIGHTRETURN_ORIGIN_WORK_SETP;
-				bsp_ResetCleanStrategyBStatus();
-			}
-			else
-			{
-			  break;
-			}
-            break;	 
-        case RIGHTRETURN_ORIGIN_WORK_SETP:
-			if(ForceReturnOrigin(current_pose,obstacleSignal) || ((CurrentCleanTimeStamp - LastCleanTimeStamp) > RIGHT_CLEAN_WORK_TIME))
-			{
-				cleanstrategy.work_step_status  = LEFTRUNNING_WORK_SETP;
-				bsp_ResetCleanStrategyBStatus();
-			}
-			else
-			{
-				break;
-			}
-            break;
-        case LEFTRUNNING_WORK_SETP:
-			if(LeftRunningWorkStep(current_pose,obstacleSignal) || ((CurrentCleanTimeStamp - LastCleanTimeStamp) > LEFT_CLEAN_WORK_TIME))
-			{
-				cleanstrategy.work_step_status  = LEFTRETURN_ORIGIN_WORK_SETP;
-				bsp_ResetCleanStrategyBStatus();
-			}
-			else
-			{
-			  break;
-			}
-            break;
-        case LEFTRETURN_ORIGIN_WORK_SETP:
-			if(ForceReturnOrigin(current_pose,obstacleSignal) || ((CurrentCleanTimeStamp - LastCleanTimeStamp) > LEFT_CLEAN_WORK_TIME))
-			{
-				cleanstrategy.work_step_status  = ALL_FINSHED_WORK_SETP;
-				bsp_ResetCleanStrategyBStatus();
-			}
-			else
-			{
-				break;
-			}
-            break;
-        case ALL_FINSHED_WORK_SETP:
-			bsp_SperkerPlay(Song24);
-			cleanstrategy.work_step_status  = 0;
-            return ALL_CLEAN_COMPLETE;//" clean complete"
-        default:
-            break;
-    }
-	return 0;
+	return return_charge_station_flag;
 }
 
+void ResetReturnChargeStationStatus(void)
+{
+	return_charge_station_flag  = 0;
+}
+
+
+static uint8_t check_sensor(unsigned char obstacleSignal)
+{
+	uint16_t batteryvoltage;
+//	uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent,batteryvoltage;
+//	IRSensorData_StrategyB
+//	cliff_valueB
+	
+	check_sensor_cnt++;
+	if (check_sensor_cnt >201) check_sensor_cnt = 0;
+	
+	//π§◊˜ ±º‰ºÏ≤‚
+	if(check_sensor_cnt%100){
+		
+		CurrentCleanTimeStamp = xTaskGetTickCount();
+		if(CurrentCleanTimeStamp - LastCleanTimeStamp >CLEAN_WORK_TIME) return time_out_flag;
+	}
+	
+	//µÁ≥ÿµÁ¡øºÏ≤‚
+	if(check_sensor_cnt%100){
+
+	//	motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*100;
+	//	motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight)*100;
+	//	motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum)*100;
+	//	motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush)*100;
+	//	motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush)*100;
+	//	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
+		batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+		batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
+		if(batteryvoltage < 13)   //12v-16v
+		{
+			return battery_out_flag;
+		}
+	}
+	
+	//≈ˆ◊≤“Ï≥£ºÏ≤‚
+	if(check_sensor_cnt%20){
+		if(obstacleSignal<3)   
+		{
+			collision_error_cnt++;
+			if(collision_error_cnt > 50)
+			{
+				collision_error_cnt = 0;
+				return collision_error;
+			}
+		}else{
+			collision_error_cnt = 0;
+		}
+	}
+	//Ã¯—¬“Ï≥£ºÏ≤‚
+	if(check_sensor_cnt%20){
+		if(cliff_valueB.cliffValue0 == 1)   
+		{
+			cliff_error_cnt++;
+			if(cliff_error_cnt >50)
+			{
+				cliff_error_cnt = 0;
+				return cliff_error;
+			}
+		}else{
+			cliff_error_cnt = 0;
+		}
+		
+	}
+	
+#if 0	
+	//∫ÏÕ‚“Ï≥£ºÏ≤‚
+	if(check_sensor_cnt%200){
+		if(IRSensorData_StrategyB[1] == 1 || IRSensorData_StrategyB[3] == 1 || \
+		   IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1) 
+		{
+			infra_collision_error_cnt++;
+			if(infra_collision_error_cnt>500)
+			{
+				infra_collision_error_cnt = 0;
+				return infra_collision_error;
+			}
+		}else{
+			infra_collision_error_cnt = 0;
+		}	
+	}
+#endif		
+	return 0;
+	
+}
 
 
 //#################################################################################
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 {
+	uint8_t check_sensor_return_value = 0;
+	
+	
+#if  1	
+	
+	check_sensor_return_value =  check_sensor(obstacleSignal);
+	
+	if( (check_sensor_return_value < 3 && check_sensor_return_value>0) && time_battery_return_origin_statues)
+	{
+		time_battery_return_origin_statues = 0;
+		
+		if(check_sensor_return_value  == time_out_flag )
+		{
+			bsp_SperkerPlay(Song5); /*∑µªÿ≥‰µÁ*/
+		}
+		if(check_sensor_return_value  == battery_out_flag)
+		{
+			bsp_SperkerPlay(Song6);/*µÁ≥ÿµÁ¡øµÕ£¨«Îªÿ≥‰*/;
+		}
+		over_clean_finish = true;
+		selectside='L';
+		OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+		left_running_step_status = 0;
+		FunctionStatus = 0;
+	}
+	
+	if(check_sensor_return_value  == collision_error)
+	{
+		
+		bsp_StopUpdateCleanStrategyB();
+		bsp_SperkerPlay(Song18);/*≈ˆ◊≤ø™πÿ“Ï≥£*/
+	}
+	if(check_sensor_return_value  == cliff_error)
+	{
+		
+		bsp_StopUpdateCleanStrategyB();
+		bsp_SperkerPlay(Song11); /*«Î≤¡ √Ã¯—¬¥´∏–∆˜*/
+	}
+
+
+//	if(check_sensor_return_value  == infra_collision_error)
+//	{
+//		
+//		bsp_StopUpdateCleanStrategyB();
+//		bsp_SperkerPlay(Song18);
+//	}
+	
+#endif	
+	
+	
+	
+	
+	
 	
 	if (detection_close_edge == true)
 	{
 		DetectionCloseEdge();
 	}
+	
 	if ((&cliff_valueB)->cliffValue0 == 1)
 	{
 		CliffNumber++;
@@ -598,6 +710,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 			break;
 		}
 	}
+	
 	
 	
 	sendvelocity(&linear_velocity, &angular_velocity);
@@ -2526,7 +2639,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         right_edge_dilemma_status = DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
         break;
     case DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA:
-        if (my_abs(last_position_x - (current_pose->x + half_map_wide)) > Edge_length() / 3)
+        if (my_abs(last_position_x - (current_pose->x + half_map_wide)) > Edge_length() / 2)
         {
             complete_flag = 1;
             right_edge_dilemma_status = COMPLETE_EL_DRYM;
@@ -7490,7 +7603,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         right_edge_dilemma_status = LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
         break;
     case LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA:
-        if (my_abs(last_position_x - (current_pose->x + half_map_wide)) > Edge_length() / 3)
+        if (my_abs(last_position_x - (current_pose->x + half_map_wide)) > Edge_length() / 2)
         {
             complete_flag = 1;
             right_edge_dilemma_status = 0;
