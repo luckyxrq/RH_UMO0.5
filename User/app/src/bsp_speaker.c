@@ -86,6 +86,8 @@ bool bsp_SpeakerIsBusy(void)
 {
 	bool ret = 0 ;
 	
+	vTaskDelay(200);
+	
 	if(GPIO_ReadInputDataBit(GPIO_PORT_SPEAKER_BUSY,GPIO_PIN_SPEAKER_BUSY))
 	{
 		ret = true;
