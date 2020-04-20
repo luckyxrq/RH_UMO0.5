@@ -185,7 +185,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 	{
 		if(*linear_velocity == long_stra_vel)
 		{
-			*linear_velocity = 0.7**linear_velocity;	
+			*linear_velocity = 0.9**linear_velocity;	
 		}
 	}
 
@@ -352,6 +352,9 @@ void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta, unsigned 
 		else{
 			bsp_SperkerPlay(Song24);
 			bsp_StopUpdateCleanStrategyB();
+			bsp_StopVacuum();
+			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
+			bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 		}
 	}
 	
