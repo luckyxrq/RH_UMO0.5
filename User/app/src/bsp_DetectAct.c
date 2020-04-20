@@ -630,6 +630,22 @@ void bsp_DetectDeal(void)
 	}
 	printf("\r\n");
 #endif
+	
+#if 1	
+	if(adcRealTime[7] >= 1.0F)
+	{
+		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+		bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+	}
+	else
+	{
+		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+		bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+	}
+#endif	
+	
+	
+
 
 #if 0	
 	/*检测障碍物之前，先认为无障碍物*/
