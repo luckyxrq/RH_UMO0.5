@@ -193,7 +193,6 @@ void bsp_SearchChargePile(void)
 				if(++search.disconnectTimes >= 300)
 				{
 					search.isOnChargePile = false;
-					bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
 					
 					bsp_LedOn(LED_LOGO_CLEAN);
 					bsp_LedOn(LED_LOGO_POWER);
@@ -222,9 +221,9 @@ void bsp_SearchChargePile(void)
 				bsp_LedOn(LED_LOGO_CLEAN);
 				bsp_LedOn(LED_LOGO_POWER);
 				bsp_LedOff(LED_LOGO_CHARGE);
-				bsp_LedOff(LED_COLOR_YELLOW);
+				bsp_LedOn(LED_COLOR_YELLOW);
 				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOn(LED_COLOR_RED);
+				bsp_LedOff(LED_COLOR_RED);
 				bsp_SperkerPlay(Song22);
 				
 				
@@ -235,6 +234,16 @@ void bsp_SearchChargePile(void)
 		return;
 	}
 		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*计时，时间到了还没找到充电桩*/
 	if(xTaskGetTickCount() - search.startTick >= MAX_SEARCH_TICK)
 	{
@@ -251,6 +260,9 @@ void bsp_SearchChargePile(void)
 		bsp_LedOff(LED_COLOR_GREEN);
 		bsp_LedOff(LED_COLOR_RED);
 		bsp_SperkerPlay(Song24);
+		
+		
+		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
 		
 		return;
 	}
@@ -270,13 +282,16 @@ void bsp_SearchChargePile(void)
 		bsp_LedOn(LED_LOGO_CLEAN);
 		bsp_LedOn(LED_LOGO_POWER);
 		bsp_LedOff(LED_LOGO_CHARGE);
-		bsp_LedOff(LED_COLOR_YELLOW);
+		bsp_LedOn(LED_COLOR_YELLOW);
 		bsp_LedOff(LED_COLOR_GREEN);
-		bsp_LedOn(LED_COLOR_RED);
+		bsp_LedOff(LED_COLOR_RED);
 		bsp_SperkerPlay(Song22);
 		
 		
 		search.isOnChargePile = true;
+		
+		
+		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
 		
 		return ;
 	}

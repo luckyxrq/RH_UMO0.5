@@ -137,7 +137,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			//bsp_LedToggle(LED_COLOR_GREEN);
 		}
 		
-		
+		DEBUG("bsp_GetKeyRunLastState:%d\r\n",bsp_GetKeyRunLastState());
 		
 		//bsp_UploadMap();
         vTaskDelay(50);	
@@ -171,7 +171,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		
         bsp_ComAnalysis();
 		bsp_PowerOnToggle();/* 开机状态灯 */ 
-		bsp_RunToggleLED();
+		
 		
 		if(count %2 ==0)
 		{
@@ -186,6 +186,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
+		
 		
 		
 		count++;
@@ -259,7 +260,7 @@ static void vTaskPerception(void *pvParameters)
         bsp_DetectAct();  /*红外对管轮询扫描*/
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
 #endif
-		
+		bsp_RunToggleLED();
        
 #if 0   /*测试红外测距的距离，测到后就停下来*/
 		bsp_DetectMeasureTest();
@@ -523,6 +524,7 @@ static void bsp_KeyProc(void)
 				DEBUG("电源按键长按\r\n");
 				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
 				{
+					
 					bsp_SetKeyRunLastState(RUN_STATE_SHUTDOWN);
 					bsp_SperkerPlay(Song31);
 					
@@ -566,20 +568,22 @@ static void bsp_KeyProc(void)
 				DEBUG("清扫按键长按\r\n");
 				if(xTaskGetTickCount() - bsp_GetLastKeyTick() >= PAUSE_INTERVAL_RESPONSE_TIME)
 				{
-					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
+					bsp_StopSearchChargePile();
 					bsp_SperkerPlay(Song3);
 					bsp_StartRunToggleLED(LED_LOGO_CLEAN);
 					
 					
 					if(bsp_IsTouchChargePile())
 					{
-						bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-250));
-						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+						bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-200));
+						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-200));
 						vTaskDelay(2000);	
-						bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+						bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-200));
+						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+200));
+						vTaskDelay(1000);	
+						
 					}
-					
+					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
 					
 					
 					//bsp_StartCliffTest();

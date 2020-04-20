@@ -351,7 +351,7 @@ void bsp_StopUpdateCleanStrategyB(void)
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 	
 	bsp_ResetCleanStrategyBStatus();
-	bsp_SperkerPlay(Song4);
+
 	
 }
 
