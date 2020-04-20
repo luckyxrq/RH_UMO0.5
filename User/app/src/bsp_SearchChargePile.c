@@ -38,6 +38,8 @@
 #define ROTATE_CCW_SPEED_L             -5
 #define ROTATE_CCW_SPEED_R             5
 
+#define MAX_SEARCH_TICK      (1000*30)
+
 typedef enum
 {
 	eNone = 0 ,          /*没有碰撞*/
@@ -54,6 +56,8 @@ typedef struct
 	
 	volatile bool isOnChargePile;
 	volatile uint32_t disconnectTimes;
+	
+	uint32_t startTick;
 }Serach;
 
 
@@ -95,6 +99,7 @@ void bsp_StartSearchChargePile(void)
 	
 	search.action = 0 ;
 	search.delay = 0 ;
+	search.startTick = xTaskGetTickCount();
 	search.isRunning = true;
 	
 	/*防止编译器警告*/
@@ -231,6 +236,26 @@ void bsp_SearchChargePile(void)
 		return;
 	}
 		
+	/*计时，时间到了还没找到充电桩*/
+	if(xTaskGetTickCount() - search.startTick >= MAX_SEARCH_TICK)
+	{
+		bsp_SetMotorSpeed(MotorLeft,0);
+		bsp_SetMotorSpeed(MotorRight,0);
+		bsp_StopSearchChargePile();
+		
+		bsp_StopRunToggleLED();
+		
+		bsp_LedOn(LED_LOGO_CLEAN);
+		bsp_LedOn(LED_LOGO_POWER);
+		bsp_LedOn(LED_LOGO_CHARGE);
+		bsp_LedOff(LED_COLOR_YELLOW);
+		bsp_LedOff(LED_COLOR_GREEN);
+		bsp_LedOff(LED_COLOR_RED);
+		bsp_SperkerPlay(Song24);
+		
+		return;
+	}
+	
 	
 	
 	/*充电*/
