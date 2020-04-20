@@ -424,7 +424,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 		batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
 		if(batteryvoltage < 13)   //12v-16v
 		{
-			return battery_out_flag;
+			return  0;//battery_out_flag;
 		}
 	}
 	
@@ -497,10 +497,23 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 		if(check_sensor_return_value  == time_out_flag )
 		{
 			bsp_SperkerPlay(Song5); /*返回充电*/
+			
+			bsp_StopVacuum();
+			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
+			bsp_MotorCleanSetPWM(MotorSideBrush, CCW , 0);
+			
+			while(bsp_SpeakerIsBusy()){}
 		}
 		if(check_sensor_return_value  == battery_out_flag)
 		{
 			bsp_SperkerPlay(Song6);/*电池电量低，请回充*/;
+			
+			bsp_StopVacuum();
+			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
+			bsp_MotorCleanSetPWM(MotorSideBrush, CCW , 0);
+				
+			while(bsp_SpeakerIsBusy()){}
+			
 		}
 		over_clean_finish = true;
 		selectside='L';
