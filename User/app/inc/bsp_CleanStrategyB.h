@@ -827,9 +827,9 @@ typedef struct
 void bsp_StartUpdateCleanStrategyB(void);
 void bsp_ResetCleanStrategyBStatus(void);
 void bsp_StopUpdateCleanStrategyB(void);
-void bsp_CleanStrategyUpdateB(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal, \
+void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal, \
 	int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value);
-uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
+//uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal);
 
 unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
