@@ -933,6 +933,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         break;
     case RIGHTEDGEDILEMMA:
         log_debug("RIGHTEDGEDILEMMA!");
+	    if(my_abs(current_pose->y)<return_origin_distance){
+		right_edge_dilemma_status = 0;
+		right_running_step_status = 0;
+        FunctionStatus = 0;
+        complete_flag = 1;
+		break;
+		}
         if (RightEdgeDilemma(current_pose, obstacleSignal))
         {
             right_running_step_status = GOSTR_RIGHTRUN_STEP;
@@ -4766,6 +4773,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         break;
     case LEFTEDGEDILEMMA:
         log_debug("LEFTEDGEDILEMMA");
+	    if(my_abs(current_pose->y)<return_origin_distance){
+		left_running_step_status = 0;
+        right_edge_dilemma_status = 0;
+        FunctionStatus = 0;
+        complete_flag = 1;
+		break;
+		}
         if (LeftEdgeDilemma(current_pose, obstacleSignal))
         {
             left_running_step_status = GOSTR_LEFTRUN_STEP;
@@ -8180,9 +8194,30 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
         else
         {
             log_debug("Has returned to the origin");
+			if(over_clean_finish == true){
+				if(obstacleSignal != none_obstacle){
+					linear_velocity = -long_stra_vel;
+                    angular_velocity = 0;
+				}
+				else if(Yaw/100>0){
+                    linear_velocity = 0;
+					angular_velocity = -turn_vel;
+				}
+				else{
+					linear_velocity = 0;
+					angular_velocity = turn_vel;
+				}
+				if(my_abs(Yaw / 100) < 5){
+					linear_velocity = 0;
+					angular_velocity = 0;
+					complete_flag = 1;
+				}
+			}
+			else{
             linear_velocity = 0;
             angular_velocity = 0;
             complete_flag = 1;
+			}
         }
         break;
     case DIR_Y_MORE_POSITIVE_200:
