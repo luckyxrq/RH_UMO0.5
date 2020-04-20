@@ -100,7 +100,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     
 	
     bsp_AngleRst();
-	bsp_SperkerPlay(Song1);
+	
+	bsp_PowerOn_DetectVoltage();
 	
     while(1)
     {
@@ -574,7 +575,7 @@ static void bsp_KeyProc(void)
 					bsp_StartUpdateCleanStrategyB();
 					bsp_StartVacuum();
 					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.6F);
 					
 					//bsp_StartEdgewiseRun();
 					
