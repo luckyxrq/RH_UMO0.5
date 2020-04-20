@@ -6,7 +6,7 @@
 **********************************************************************************************************
 */
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
-#define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
+#define AT_POWER_ON_OPEN_ALL_MODULE_EN       1     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
 /*
 **********************************************************************************************************
@@ -117,14 +117,16 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 			/*下面是打印开关，酌情注释*/
 			bsp_WifiStateProc();
-			bsp_PrintCollision();
-			bsp_PrintIR_Rev();
+//			bsp_PrintCollision();
+//			bsp_PrintIR_Rev();
+			
+			bsp_PrintAllVoltage();
         }
 		
 #if 1 /*更新地图*/
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+		//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
@@ -172,7 +174,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		
 		if(count %2 ==0)
 		{
-			bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
+			//bsp_CleanStrategyUpdateB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
 			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
@@ -202,7 +204,7 @@ static void vTaskPerception(void *pvParameters)
     bsp_DetectStart(); 
 	
 	/*检测主机悬空*/
-	bsp_StartOffSiteProc();
+	//bsp_StartOffSiteProc();
 	
 	/*开启寻找充电桩*/
 	//bsp_StartSearchChargePile();

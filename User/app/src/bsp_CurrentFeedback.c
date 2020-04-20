@@ -392,6 +392,7 @@ float bsp_GetFeedbackVoltage(FeedbackSN sn)
 
 void bsp_PrintAllVoltage(void)
 {
+	static bool isClose = false;
 	
 	float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
 	float batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
@@ -419,6 +420,25 @@ void bsp_PrintAllVoltage(void)
 	sideBrush,
 	batteryVoltage,
 	batteryCurrent);
+
+	if(isClose)
+		return;
+
+	if(batteryVoltage <= 12.0F)
+	{
+		/*关闭各种状态机*/
+		bsp_StopSearchChargePile();
+		bsp_StopCliffTest();
+		bsp_StopUpdateCleanStrategyB();
+		bsp_StopVacuum();
+		bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
+		bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
+		
+		isClose = true;
+		
+		/*语音报警*/
+		bsp_SperkerPlay(Song6);
+	}
 }
 
 
