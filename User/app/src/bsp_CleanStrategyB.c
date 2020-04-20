@@ -5,7 +5,7 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
-#define CLEAN_WORK_TIME 1*30*1000
+#define CLEAN_WORK_TIME 30*60*1000
 
 #define ZoomMultiple 4
 #define compression_map_x 25
