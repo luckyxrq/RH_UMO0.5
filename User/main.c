@@ -146,7 +146,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
 			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			
-			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+			
 		
 		}
 		//bsp_UploadMap();
@@ -179,7 +179,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 #endif		
 		
 		
-        bsp_ComAnalysis();
+        //bsp_ComAnalysis();
 		bsp_PowerOnToggle();/* 开机状态灯 */ 
 		
 		
@@ -197,7 +197,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
-		
+		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 		
 		count++;
         vTaskDelay(10);
