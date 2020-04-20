@@ -738,7 +738,7 @@
 #define none_cliff 0
 
 #define W 5000
-#define long_stra_vel 250
+#define long_stra_vel 270//250
 #define turn_vel 50
 //#define Deg2Rad(deg) (PI * deg / 180.0F)
 //#define Rad2Deg(rad) (180.0F * rad / PI)
@@ -882,6 +882,12 @@ unsigned char CliffRuningWorkStep(POSE *current_pose,CLIFFADCVALUE * cliff_value
 unsigned char CloseEdgedMap(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
 void DetectionCloseEdge(void);
 unsigned char CliffCloseEdge(POSE *current_pose);
+
+
+
+
+uint8_t GetReturnChargeStationStatus(void);
+void ResetReturnChargeStationStatus(void);
 
 
 #endif

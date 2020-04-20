@@ -631,7 +631,7 @@ void bsp_DetectDeal(void)
 	printf("\r\n");
 #endif
 	
-#if 1	
+#if 0	
 	if(adcRealTime[7] >= 1.0F)
 	{
 		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
