@@ -295,7 +295,7 @@ void bsp_SearchChargePile(void)
 			/*首先判断碰撞*/
 			Collision ret = bsp_CollisionScan();
 			
-			if(ret != CollisionNone)
+			if(ret != CollisionNone || bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
 			{
 				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
 				bsp_GoBackward();
@@ -388,7 +388,7 @@ void bsp_SearchChargePile(void)
 		case 2:
 		{
 			/*充电最后一步撞上了*/
-			if(xTaskGetTickCount() - search.delay >= 5000)
+			if(xTaskGetTickCount() - search.delay >= 3500)
 			{
 				search.action = 1 ;
 				
