@@ -552,7 +552,7 @@ static void bsp_KeyProc(void)
 					bsp_StartRunToggleLED(LED_LOGO_CHARGE);
 					//bsp_StartCliffTest();
 					bsp_StartSearchChargePile();
-					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.5F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.5F);
 					
 					vTaskDelay(200);	
 					while(bsp_SpeakerIsBusy()){}
