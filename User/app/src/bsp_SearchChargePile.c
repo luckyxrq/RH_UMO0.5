@@ -6,11 +6,11 @@
 #define GPIO_PORT_CHARGE_TOUCH_PILE  GPIOF
 #define GPIO_PIN_CHARGE_TOUCH_PILE	 GPIO_Pin_7
 
-#define GPIO_PORT_CHARGE_IS_CHARGING  GPIOB
-#define GPIO_PIN_CHARGE_IS_CHARGING	  GPIO_Pin_3
+#define GPIO_PORT_CHARGE_IS_CHARGING  GPIOG
+#define GPIO_PIN_CHARGE_IS_CHARGING	  GPIO_Pin_0
 
-#define GPIO_PORT_CHARGE_IS_DONE      GPIOB
-#define GPIO_PIN_CHARGE_IS_DONE	      GPIO_Pin_4
+#define GPIO_PORT_CHARGE_IS_DONE      GPIOG
+#define GPIO_PIN_CHARGE_IS_DONE	      GPIO_Pin_1
 
 
 #define STRAIGHT_SPEED_FAST      12
@@ -223,9 +223,9 @@ void bsp_SearchChargePile(void)
 				bsp_LedOn(LED_LOGO_CLEAN);
 				bsp_LedOn(LED_LOGO_POWER);
 				bsp_LedOff(LED_LOGO_CHARGE);
-				bsp_LedOn(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_YELLOW);
 				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED);
+				bsp_LedOn(LED_COLOR_RED);
 				bsp_SperkerPlay(Song22);
 				
 				
@@ -271,9 +271,9 @@ void bsp_SearchChargePile(void)
 		bsp_LedOn(LED_LOGO_CLEAN);
 		bsp_LedOn(LED_LOGO_POWER);
 		bsp_LedOff(LED_LOGO_CHARGE);
-		bsp_LedOn(LED_COLOR_YELLOW);
+		bsp_LedOff(LED_COLOR_YELLOW);
 		bsp_LedOff(LED_COLOR_GREEN);
-		bsp_LedOff(LED_COLOR_RED);
+		bsp_LedOn(LED_COLOR_RED);
 		bsp_SperkerPlay(Song22);
 		
 		
@@ -785,7 +785,7 @@ static bool bsp_IsTouchChargePile(void)
 */
 static bool bsp_IsCharging(void)
 {
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING) == 0)
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING))
 	{
 		return true ;
 	}
@@ -805,7 +805,7 @@ static bool bsp_IsCharging(void)
 */
 static bool bsp_IsChargeDone(void)
 {
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE) == 0)
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE))
 	{
 		return true ;
 	}

@@ -133,7 +133,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		
 		if(count % 10 == 0)
 		{
-			bsp_LedToggle(LED_COLOR_GREEN);
+			//bsp_LedToggle(LED_COLOR_GREEN);
 		}
 		
 		
@@ -573,8 +573,8 @@ static void bsp_KeyProc(void)
 					/*开清扫策略*/
 					bsp_StartUpdateCleanStrategyB();
 					bsp_StartVacuum();
-					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
 					
 					//bsp_StartEdgewiseRun();
 					
@@ -615,6 +615,8 @@ static void bsp_KeyProc(void)
 		}   
 	}
 }
+
+
 
 
 

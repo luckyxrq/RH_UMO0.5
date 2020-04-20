@@ -448,4 +448,26 @@ void bsp_PrintAllVoltage(void)
 
 
 
+float bsp_PowerOn_DetectVoltage(void)
+{
+	float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+	batteryVoltage = (batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F; 
+	
+	if(batteryVoltage <= 18.0F)
+	{
+		bsp_SperkerPlay(Song6); /*·µ»Ø³äµç*/
+			
+		while(bsp_SpeakerIsBusy()){}
+			
+		bsp_PutKey(KEY_LONG_CHARGE);
+			
+	}
+	
+}
+
+
+
+
+
+
 

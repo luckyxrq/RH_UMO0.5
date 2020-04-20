@@ -26,19 +26,17 @@ Project File Date:  04/20/2020
 
 <h2>Output:</h2>
 Build target 'Flash'
-compiling bsp_motor.c...
-..\..\User\app\src\bsp_motor.c(162): warning:  #177-D: variable "max_tick" was declared but never referenced
-        const uint32_t max_tick = 5;
-..\..\User\app\src\bsp_motor.c(163): warning:  #177-D: variable "changeTick" was declared but never referenced
-        const uint32_t changeTick = 4;
-..\..\User\app\src\bsp_motor.c: 2 warnings, 0 errors
+compiling bsp_CurrentFeedback.c...
+..\..\User\app\src\bsp_CurrentFeedback.c(466): warning:  #940-D: missing return statement at end of non-void function "bsp_PowerOn_DetectVoltage"
+  }
+..\..\User\app\src\bsp_CurrentFeedback.c: 1 warning, 0 errors
 linking...
-Program Size: Code=119976 RO-data=1220 RW-data=664 ZI-data=60032  
+Program Size: Code=119960 RO-data=1220 RW-data=664 ZI-data=60032  
 FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 2 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE
