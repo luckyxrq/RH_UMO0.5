@@ -388,11 +388,13 @@ float bsp_GetFeedbackVoltage(FeedbackSN sn)
 	return ret ;
 }
 
-
+ 
 
 void bsp_PrintAllVoltage(void)
 {
+	uint32_t stopTickRTOS = 0;
 	static bool isClose = false;
+
 	
 	float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
 	float batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
@@ -412,14 +414,15 @@ void bsp_PrintAllVoltage(void)
 	sideBrush = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
 	
 	
-	DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA\r\n",
+	DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA 开机到结束秒:%d\r\n",
 	wheelL,
 	wheelR,
 	vacuum,
 	roll,
 	sideBrush,
 	batteryVoltage,
-	batteryCurrent);
+	batteryCurrent,
+	stopTickRTOS);
 
 	if(isClose)
 		return;
@@ -435,6 +438,8 @@ void bsp_PrintAllVoltage(void)
 		bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 		
 		isClose = true;
+		
+		stopTickRTOS = xTaskGetTickCount();
 		
 		/*语音报警*/
 		bsp_SperkerPlay(Song6);
