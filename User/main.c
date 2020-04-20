@@ -36,6 +36,9 @@ static TaskHandle_t xHandleTaskPerception    = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
 static KeyProc keyProc;
+
+static bool isSearchCharge = false;
+
 /*
 *********************************************************************************************************
 *	函 数 名: main
@@ -127,7 +130,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 1 /*更新地图*/
 		
 		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
 		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
@@ -137,8 +139,16 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			//bsp_LedToggle(LED_COLOR_GREEN);
 		}
 		
-		DEBUG("bsp_GetKeyRunLastState:%d\r\n",bsp_GetKeyRunLastState());
+		//DEBUG("bsp_GetKeyRunLastState:%d\r\n",bsp_GetKeyRunLastState());
+		if(isSearchCharge){}
+		else{		
+			
+			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
+			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+			
+			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 		
+		}
 		//bsp_UploadMap();
         vTaskDelay(50);	
     }
@@ -175,7 +185,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		
 		if(count %2 ==0)
 		{
-			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
+			//bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
 			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		}
@@ -310,7 +320,7 @@ static void AppTaskCreate (void)
 {
     xTaskCreate( vTaskDecision,     		    /* 任务函数  */
                  "vTaskDecision",   		    /* 任务名    */
-                 1024*2,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 1024*2+512,            		    /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskDecision );        /* 任务句柄  */
@@ -556,6 +566,8 @@ static void bsp_KeyProc(void)
 					bsp_StartSearchChargePile();
 					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.5F);
 					
+					
+					isSearchCharge = true;
 					vTaskDelay(200);	
 					while(bsp_SpeakerIsBusy()){}
 					bsp_ClearKey();
@@ -586,8 +598,10 @@ static void bsp_KeyProc(void)
 					bsp_SetKeyRunLastState(RUN_STATE_CLEAN);
 					
 					
+					isSearchCharge = false;
 					//bsp_StartCliffTest();
 					/*开清扫策略*/
+					
 					bsp_StartUpdateCleanStrategyB();
 					bsp_StartVacuum();
 					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
