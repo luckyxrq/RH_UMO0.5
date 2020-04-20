@@ -560,7 +560,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 	if ((&cliff_valueB)->cliffValue0 == 1)
 	{
 		CliffNumber++;
-		if (CliffNumber > 5)
+		if (CliffNumber > 3)
 		{
 			cliffruningStatus = true;
 		}
