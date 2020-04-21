@@ -101,6 +101,8 @@ void bsp_StartSearchChargePile(void)
 	search.startTick = xTaskGetTickCount();
 	search.isRunning = true;
 	
+	bsp_IRD_StartWork();
+	
 	/*∑¿÷π±‡“Î∆˜æØ∏Ê*/
 	UNUSED(bsp_SearchRunStraightFast);
 	UNUSED(bsp_SearchRunStraightSlow);
@@ -137,6 +139,8 @@ void bsp_StopSearchChargePile(void)
 	search.isRunning = false;
 	search.action = 0 ;
 	search.delay = 0 ;
+	
+	bsp_IRD_StopWork();
 	
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 }	
