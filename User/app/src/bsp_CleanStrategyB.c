@@ -203,7 +203,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 	{
 		if(*linear_velocity == long_stra_vel)
 		{
-			*linear_velocity = 0.9**linear_velocity;	
+			*linear_velocity = 0.8**linear_velocity;	
 		}
 	}
 

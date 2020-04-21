@@ -8,6 +8,8 @@
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
+#define DEBUG_CLOSE_CLEAN_MOTOR              0
+
 /*
 **********************************************************************************************************
                                             函数声明
@@ -605,10 +607,11 @@ static void bsp_KeyProc(void)
 					/*开清扫策略*/
 					
 					bsp_StartUpdateCleanStrategyB();
+#if DEBUG_CLOSE_CLEAN_MOTOR  
 					bsp_StartVacuum();
 					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-					
+#endif					
 					//bsp_StartEdgewiseRun();
 					
 					vTaskDelay(200);	
