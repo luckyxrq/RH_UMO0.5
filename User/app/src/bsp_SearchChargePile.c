@@ -54,17 +54,17 @@ typedef struct
 	volatile uint32_t delay;
 	volatile SearchChargePileCollision collision;
 	
-	volatile bool isOnChargePile;
 	volatile uint32_t disconnectTimes;
 	
 	uint32_t startTick;
+	uint32_t lastChargeDoneTick;
+	uint32_t lastPlaySongTick;
+	bool isLastCharging;
 }Serach;
 
 
 static Serach search;
 static void bsp_InitIO(void);
-static bool bsp_IsCharging(void);
-static bool bsp_IsChargeDone(void);
 static void bsp_SearchRunStraightFast(void);
 static void bsp_SearchRunStraightSlow(void);
 static void bsp_SearchTurnRightFast(void)  ;
@@ -101,8 +101,6 @@ void bsp_StartSearchChargePile(void)
 	search.startTick = xTaskGetTickCount();
 	search.isRunning = true;
 	
-	bsp_IRD_StartWork();
-	
 	/*防止编译器警告*/
 	UNUSED(bsp_SearchRunStraightFast);
 	UNUSED(bsp_SearchRunStraightSlow);
@@ -121,6 +119,8 @@ void bsp_StartSearchChargePile(void)
 	UNUSED(bsp_SearchTurnLeftSlowBack);
 	
 	UNUSED(bsp_RotateCCW);
+	
+	bsp_IRD_StartWork();
 }
 
 /*
@@ -140,9 +140,9 @@ void bsp_StopSearchChargePile(void)
 	search.action = 0 ;
 	search.delay = 0 ;
 	
-	bsp_IRD_StopWork();
-	
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
+	
+	bsp_IRD_StopWork();
 }	
 
 
@@ -156,14 +156,17 @@ void bsp_StopSearchChargePile(void)
 */
 void bsp_SearchChargePile(void)
 {
+	//DEBUG("充电:%s 充满：%s\r\n",bsp_IsCharging()?"true":"false",bsp_IsChargeDone()?"true":"false");
 	
-	if(!search.isRunning)
+	if(!(bsp_IsChargeDone() && bsp_IsCharging()) && bsp_IsTouchChargePile())
 	{
-		if(search.isOnChargePile) /*之前别标记为正在充电状态了，但是现在没有上桩反馈，可能是脱落了，可能是充电桩正在PWM充电*/
+		
+		if(bsp_IsCharging()) /*充电中*/
 		{
-			
-			if(bsp_IsChargeDone()) /*充满*/
+			if(xTaskGetTickCount() - search.lastChargeDoneTick <= 500)
 			{
+				bsp_StopRunToggleLED();
+			
 				bsp_LedOn(LED_LOGO_CLEAN);
 				bsp_LedOn(LED_LOGO_POWER);
 				bsp_LedOff(LED_LOGO_CHARGE);
@@ -171,83 +174,66 @@ void bsp_SearchChargePile(void)
 				bsp_LedOn(LED_COLOR_GREEN);
 				bsp_LedOff(LED_COLOR_RED);
 			}
-			else if(bsp_IsCharging()) /*充电中*/
+			else
 			{
+				bsp_StopRunToggleLED();
+			
 				bsp_LedOn(LED_LOGO_CLEAN);
 				bsp_LedOn(LED_LOGO_POWER);
 				bsp_LedOff(LED_LOGO_CHARGE);
 				bsp_LedOn(LED_COLOR_YELLOW);
 				bsp_LedOff(LED_COLOR_GREEN);
 				bsp_LedOff(LED_COLOR_RED);
-			}
-			else
-			{
-				bsp_LedOn(LED_LOGO_CLEAN);
-				bsp_LedOn(LED_LOGO_POWER);
-				bsp_LedOn(LED_LOGO_CHARGE);
-				bsp_LedOff(LED_COLOR_YELLOW);
-				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED);
-			}
-			
-			
-			/*检测是不是挪开了*/
-			if(!bsp_IsTouchChargePile())
-			{
-				if(++search.disconnectTimes >= 300)
-				{
-					search.isOnChargePile = false;
-					
-					bsp_LedOn(LED_LOGO_CLEAN);
-					bsp_LedOn(LED_LOGO_POWER);
-					bsp_LedOn(LED_LOGO_CHARGE);
-					bsp_LedOff(LED_COLOR_YELLOW);
-					bsp_LedOff(LED_COLOR_GREEN);
-					bsp_LedOff(LED_COLOR_RED);
-				}
-			}
-			else
-			{
-				search.disconnectTimes = 0 ;
 			}
 		}
-		else /*之前没有被标记为已经上桩状态，但是现在有上涨反馈，应该是人为抱上去了*/
+		else if(bsp_IsChargeDone()) /*充满*/
 		{
-			if(bsp_IsTouchChargePile() == true)
-			{
-				DEBUG("is charging...\r\n");
-				bsp_SetMotorSpeed(MotorLeft,0);
-				bsp_SetMotorSpeed(MotorRight,0);
-				bsp_StopSearchChargePile();
-				
-				bsp_StopRunToggleLED();
-				
-				bsp_LedOn(LED_LOGO_CLEAN);
-				bsp_LedOn(LED_LOGO_POWER);
-				bsp_LedOff(LED_LOGO_CHARGE);
-				bsp_LedOn(LED_COLOR_YELLOW);
-				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED);
-				bsp_SperkerPlay(Song22);
-				
-				
-				search.isOnChargePile = true;
-			}
+			bsp_StopRunToggleLED();
+			
+			bsp_LedOn(LED_LOGO_CLEAN);
+			bsp_LedOn(LED_LOGO_POWER);
+			bsp_LedOff(LED_LOGO_CHARGE);
+			bsp_LedOff(LED_COLOR_YELLOW);
+			bsp_LedOn(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
+
+			search.lastChargeDoneTick = xTaskGetTickCount();
+			
 		}
 		
+		
+		if(!search.isLastCharging)
+		{
+			/*播放开始充电*/
+			bsp_SperkerPlay(Song22);
+		}
+		
+		search.isLastCharging = true;
+	}
+	else
+	{
+		if(search.isLastCharging)
+		{
+			search.isLastCharging = false;
+			
+			bsp_StopRunToggleLED();
+			
+			bsp_LedOn(LED_LOGO_CLEAN);
+			bsp_LedOn(LED_LOGO_POWER);
+			bsp_LedOn(LED_LOGO_CHARGE);
+			bsp_LedOff(LED_COLOR_YELLOW);
+			bsp_LedOff(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
+		}
+	}
+	
+	
+	if(!search.isRunning)
+	{
 		return;
 	}
 		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/*计时，时间到了还没找到充电桩*/
 	if(xTaskGetTickCount() - search.startTick >= MAX_SEARCH_TICK)
 	{
@@ -281,18 +267,7 @@ void bsp_SearchChargePile(void)
 		bsp_SetMotorSpeed(MotorRight,0);
 		bsp_StopSearchChargePile();
 		
-		bsp_StopRunToggleLED();
 		
-		bsp_LedOn(LED_LOGO_CLEAN);
-		bsp_LedOn(LED_LOGO_POWER);
-		bsp_LedOff(LED_LOGO_CHARGE);
-		bsp_LedOn(LED_COLOR_YELLOW);
-		bsp_LedOff(LED_COLOR_GREEN);
-		bsp_LedOff(LED_COLOR_RED);
-		bsp_SperkerPlay(Song22);
-		
-		
-		search.isOnChargePile = true;
 		
 		
 		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
@@ -801,9 +776,9 @@ bool bsp_IsTouchChargePile(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-static bool bsp_IsCharging(void)
+bool bsp_IsCharging(void)
 {
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING))
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
 	{
 		return true ;
 	}
@@ -821,9 +796,9 @@ static bool bsp_IsCharging(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-static bool bsp_IsChargeDone(void)
+bool bsp_IsChargeDone(void)
 {
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE))
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
 	{
 		return true ;
 	}
