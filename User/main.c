@@ -143,6 +143,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		if(count % 10 == 0)
 		{
 			//bsp_LedToggle(LED_COLOR_GREEN);
+			bsp_PrintAllVoltage();
 		}
 		
 		//DEBUG("bsp_GetKeyRunLastState:%d\r\n",bsp_GetKeyRunLastState());
@@ -255,6 +256,8 @@ static void vTaskPerception(void *pvParameters)
 	}	
 	
 	
+	
+	
 	bsp_InitCliffSW();
 	
 #if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
@@ -305,6 +308,7 @@ static void vTaskPerception(void *pvParameters)
 		
 		count++;
         vTaskDelay(1);	
+
     }		
     
 }

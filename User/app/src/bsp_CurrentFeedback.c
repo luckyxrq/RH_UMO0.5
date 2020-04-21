@@ -414,7 +414,7 @@ void bsp_PrintAllVoltage(void)
 	sideBrush = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
 	
 	
-	DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA 开机到结束秒:%d\r\n",
+	DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA 开机到结束秒:%d 充电：%d 完成：%d\r\n",
 	wheelL,
 	wheelR,
 	vacuum,
@@ -422,7 +422,12 @@ void bsp_PrintAllVoltage(void)
 	sideBrush,
 	batteryVoltage,
 	batteryCurrent,
-	stopTickRTOS);
+	stopTickRTOS,bsp_IsCharging(),bsp_IsChargeDone());
+
+
+	bool bsp_IsCharging(void);
+	bool bsp_IsChargeDone(void);
+
 
 	if(isClose)
 		return;
