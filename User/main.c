@@ -8,7 +8,7 @@
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
-#define DEBUG_CLOSE_CLEAN_MOTOR              1
+#define DEBUG_CLOSE_CLEAN_MOTOR              0
 
 /*
 **********************************************************************************************************
@@ -40,6 +40,8 @@ static SemaphoreHandle_t  xMutex = NULL;
 static KeyProc keyProc;
 
 bool isSearchCharge = false;
+
+static uint32_t dog_time = 0;
 
 /*
 *********************************************************************************************************
@@ -179,9 +181,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 #endif		
 		
 		
-        //bsp_ComAnalysis();
-		bsp_PowerOnToggle();/* 开机状态灯 */ 
-		
+
 		
 		if(count %2 ==0)
 		{
@@ -191,6 +191,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 				bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 				
 			}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
+			
 		}
 		
 		if(GetReturnChargeStationStatus())
@@ -200,9 +201,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
-		
-		
-		
+		dog_time = xTaskGetTickCount();
 		count++;
         vTaskDelay(10);
     }
@@ -222,6 +221,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 static void vTaskPerception(void *pvParameters)
 {
 	uint32_t count = 0 ;
+	uint32_t check_dog_cur_time = 0;
 	
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
@@ -267,6 +267,10 @@ static void vTaskPerception(void *pvParameters)
 	
     while(1)
     {
+		
+		//bsp_ComAnalysis();
+		bsp_PowerOnToggle();/* 开机状态灯 */ 
+		
 #if 1
         bsp_DetectAct();  /*红外对管轮询扫描*/
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
@@ -296,6 +300,23 @@ static void vTaskPerception(void *pvParameters)
 		{
 			//bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 			//bsp_AssistJudgeDirection();
+			check_dog_cur_time = xTaskGetTickCount() ;
+			if(dog_time<check_dog_cur_time)
+			{
+				if( check_dog_cur_time - dog_time  > 10*1000)
+				{
+					
+					vTaskDelete(vTaskControl);
+					
+					xTaskCreate( vTaskControl,     	/* 任务函数  */
+					 "vTaskControl",   		        /* 任务名    */
+					 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+					 NULL,           		        /* 任务参数  */
+					 2,              		        /* 任务优先级*/
+					 &xHandleTaskControl );         /* 任务句柄  */	
+				}	
+			}
+			
 		}
 		
 		
