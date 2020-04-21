@@ -144,7 +144,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		
 		if(count % 10 == 0)
 		{
-			//bsp_LedToggle(LED_COLOR_GREEN);
+			bsp_PrintAllVoltage();
 		}
 		
 		//DEBUG("bsp_GetKeyRunLastState:%d\r\n",bsp_GetKeyRunLastState());
@@ -307,6 +307,7 @@ static void vTaskPerception(void *pvParameters)
 		
 		count++;
         vTaskDelay(1);	
+		
     }		
     
 }

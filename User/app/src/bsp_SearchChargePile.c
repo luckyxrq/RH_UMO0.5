@@ -58,13 +58,12 @@ typedef struct
 	volatile uint32_t disconnectTimes;
 	
 	uint32_t startTick;
+	uint32_t lastChargeDoneTick;
 }Serach;
 
 
 static Serach search;
 static void bsp_InitIO(void);
-static bool bsp_IsCharging(void);
-static bool bsp_IsChargeDone(void);
 static void bsp_SearchRunStraightFast(void);
 static void bsp_SearchRunStraightSlow(void);
 static void bsp_SearchTurnRightFast(void)  ;
@@ -160,24 +159,47 @@ void bsp_SearchChargePile(void)
 			
 			if(bsp_IsChargeDone()) /*充满*/
 			{
+				bsp_StopRunToggleLED();
+				
 				bsp_LedOn(LED_LOGO_CLEAN);
 				bsp_LedOn(LED_LOGO_POWER);
 				bsp_LedOff(LED_LOGO_CHARGE);
 				bsp_LedOff(LED_COLOR_YELLOW);
 				bsp_LedOn(LED_COLOR_GREEN);
 				bsp_LedOff(LED_COLOR_RED);
+				
+				search.lastChargeDoneTick = xTaskGetTickCount();
 			}
 			else if(bsp_IsCharging()) /*充电中*/
 			{
-				bsp_LedOn(LED_LOGO_CLEAN);
-				bsp_LedOn(LED_LOGO_POWER);
-				bsp_LedOff(LED_LOGO_CHARGE);
-				bsp_LedOn(LED_COLOR_YELLOW);
-				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED);
+				if(xTaskGetTickCount() - search.lastChargeDoneTick <= 1000)
+				{
+					bsp_StopRunToggleLED();
+				
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOff(LED_LOGO_CHARGE);
+					bsp_LedOff(LED_COLOR_YELLOW);
+					bsp_LedOn(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+				}
+				else
+				{
+					bsp_StopRunToggleLED();
+				
+					bsp_LedOn(LED_LOGO_CLEAN);
+					bsp_LedOn(LED_LOGO_POWER);
+					bsp_LedOff(LED_LOGO_CHARGE);
+					bsp_LedOn(LED_COLOR_YELLOW);
+					bsp_LedOff(LED_COLOR_GREEN);
+					bsp_LedOff(LED_COLOR_RED);
+				}
+				
 			}
 			else
 			{
+				bsp_StopRunToggleLED();
+				
 				bsp_LedOn(LED_LOGO_CLEAN);
 				bsp_LedOn(LED_LOGO_POWER);
 				bsp_LedOn(LED_LOGO_CHARGE);
@@ -797,9 +819,9 @@ bool bsp_IsTouchChargePile(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-static bool bsp_IsCharging(void)
+bool bsp_IsCharging(void)
 {
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING))
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
 	{
 		return true ;
 	}
@@ -817,9 +839,9 @@ static bool bsp_IsCharging(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-static bool bsp_IsChargeDone(void)
+bool bsp_IsChargeDone(void)
 {
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE))
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
 	{
 		return true ;
 	}
