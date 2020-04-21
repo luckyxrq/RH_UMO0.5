@@ -206,6 +206,14 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 			*linear_velocity = 0.8**linear_velocity;	
 		}
 	}
+	
+	if((cliff_valueB.cliffValue0) == 1)
+	{
+		if(*linear_velocity == long_stra_vel)
+		{
+			*linear_velocity = 0.6**linear_velocity;	
+		}
+	}
 
 	if(*linear_velocity == -long_stra_vel)
 	{
@@ -560,7 +568,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 	if ((&cliff_valueB)->cliffValue0 == 1)
 	{
 		CliffNumber++;
-		if (CliffNumber > 3)
+		if (CliffNumber > 1)
 		{
 			cliffruningStatus = true;
 		}

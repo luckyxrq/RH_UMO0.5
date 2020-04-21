@@ -251,10 +251,7 @@ static void vTaskPerception(void *pvParameters)
 
 	
 
-	if( !bsp_IsSelfCheckingReady())
-	{
-		 vTaskDelay(1);	
-	}	
+	vTaskDelay(2000);		
 	
 	
 	bsp_InitCliffSW();
