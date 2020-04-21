@@ -9,6 +9,8 @@
 #define GPIO_PORT_OFFSITE_SW_R  GPIOE
 #define GPIO_PIN_OFFSITE_SW_R   GPIO_Pin_12
 
+extern bool isSearchCharge ;
+
 
 /*
 *********************************************************************************************************
@@ -136,9 +138,6 @@ void bsp_OffSiteProc(void)
 				
 				bsp_StopRunToggleLED();
 				
-				/*复位上一次的按键状态*/
-				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
-				
 				/*关闭各种状态机*/
 				bsp_StopSearchChargePile();
 				bsp_StopCliffTest();
@@ -146,6 +145,11 @@ void bsp_OffSiteProc(void)
 				bsp_StopVacuum();
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
 				bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
+				
+				/*复位上一次的按键状态*/
+				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
+				isSearchCharge = false;
+				bsp_ClearKey();
 				
 				offSiteProc.action++;
 			}

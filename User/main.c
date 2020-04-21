@@ -37,7 +37,7 @@ static TaskHandle_t xHandleTaskPerception    = NULL;
 static SemaphoreHandle_t  xMutex = NULL;
 static KeyProc keyProc;
 
-static bool isSearchCharge = false;
+bool isSearchCharge = false;
 
 /*
 *********************************************************************************************************
@@ -225,7 +225,7 @@ static void vTaskPerception(void *pvParameters)
     bsp_DetectStart(); 
 	
 	/*¼ì²âÖ÷»úÐü¿Õ*/
-	//bsp_StartOffSiteProc();
+	bsp_StartOffSiteProc();
 	
 	/*¿ªÆôÑ°ÕÒ³äµç×®*/
 	//bsp_StartSearchChargePile();
