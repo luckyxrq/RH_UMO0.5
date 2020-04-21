@@ -119,7 +119,7 @@ void bsp_OffSiteProc(void)
 		case 0:
 		{
 			state = bsp_OffSiteGetState();
-			if(state != OffSiteNone)
+			if(state == OffSiteBoth)
 			{
 				/*”Ô“Ù±®æØ*/
 				bsp_SperkerPlay(Song16);

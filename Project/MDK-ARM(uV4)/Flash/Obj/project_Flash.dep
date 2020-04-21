@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5E9E5524)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5E9E6A3B)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5D89D90C)
 I (E:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x599ECD2A)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
@@ -83,15 +83,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -178,15 +178,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -275,15 +275,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -369,15 +369,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -463,15 +463,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -558,15 +558,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -652,15 +652,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -670,7 +670,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E942633)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E5F269D)
-F (..\..\User\app\src\bsp_DetectAct.c)(0x5E9D53DF)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
+F (..\..\User\app\src\bsp_DetectAct.c)(0x5E9E6610)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
 I (..\..\User\bsp\bsp.h)(0x5E9D53E0)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -746,15 +746,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -840,15 +840,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -934,15 +934,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1028,15 +1028,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1122,15 +1122,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1216,15 +1216,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1234,7 +1234,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E942633)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E5F269D)
-F (..\..\User\app\src\bsp_motor.c)(0x5E9D9502)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
+F (..\..\User\app\src\bsp_motor.c)(0x5E9E5DA6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
 I (..\..\User\bsp\bsp.h)(0x5E9D53E0)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -1310,15 +1310,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1404,15 +1404,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1498,15 +1498,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1592,15 +1592,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1687,15 +1687,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1781,15 +1781,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1799,7 +1799,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E942633)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E5F269D)
-F (..\..\User\app\src\bsp_OffSiteSW.c)(0x5E9D53E0)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_offsitesw.o --omf_browse .\flash\obj\bsp_offsitesw.crf --depend .\flash\obj\bsp_offsitesw.d)
+F (..\..\User\app\src\bsp_OffSiteSW.c)(0x5E9E6C57)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_offsitesw.o --omf_browse .\flash\obj\bsp_offsitesw.crf --depend .\flash\obj\bsp_offsitesw.d)
 I (..\..\User\bsp\bsp.h)(0x5E9D53E0)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -1875,15 +1875,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1893,7 +1893,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E942633)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E5F269D)
-F (..\..\User\app\src\bsp_CurrentFeedback.c)(0x5E9D9502)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_currentfeedback.o --omf_browse .\flash\obj\bsp_currentfeedback.crf --depend .\flash\obj\bsp_currentfeedback.d)
+F (..\..\User\app\src\bsp_CurrentFeedback.c)(0x5E9E5DA6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_currentfeedback.o --omf_browse .\flash\obj\bsp_currentfeedback.crf --depend .\flash\obj\bsp_currentfeedback.d)
 I (..\..\User\bsp\bsp.h)(0x5E9D53E0)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -1969,15 +1969,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -1987,7 +1987,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E942633)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E5F269D)
-F (..\..\User\app\src\bsp_CliffSW.c)(0x5E9D9502)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cliffsw.o --omf_browse .\flash\obj\bsp_cliffsw.crf --depend .\flash\obj\bsp_cliffsw.d)
+F (..\..\User\app\src\bsp_CliffSW.c)(0x5E9E6A3B)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cliffsw.o --omf_browse .\flash\obj\bsp_cliffsw.crf --depend .\flash\obj\bsp_cliffsw.d)
 I (..\..\User\bsp\bsp.h)(0x5E9D53E0)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -2063,15 +2063,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -2157,15 +2157,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -2175,7 +2175,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E942633)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E5F269D)
-F (..\..\User\app\src\bsp_speaker.c)(0x5E9D6F80)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_speaker.o --omf_browse .\flash\obj\bsp_speaker.crf --depend .\flash\obj\bsp_speaker.d)
+F (..\..\User\app\src\bsp_speaker.c)(0x5E9E5DA6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_speaker.o --omf_browse .\flash\obj\bsp_speaker.crf --depend .\flash\obj\bsp_speaker.d)
 I (..\..\User\bsp\bsp.h)(0x5E9D53E0)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -2251,15 +2251,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -2345,15 +2345,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -2363,7 +2363,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E942633)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E5F269D)
-F (..\..\User\app\src\bsp_SearchChargePile.c)(0x5E9DC67D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_searchchargepile.o --omf_browse .\flash\obj\bsp_searchchargepile.crf --depend .\flash\obj\bsp_searchchargepile.d)
+F (..\..\User\app\src\bsp_SearchChargePile.c)(0x5E9E5DA6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_searchchargepile.o --omf_browse .\flash\obj\bsp_searchchargepile.crf --depend .\flash\obj\bsp_searchchargepile.d)
 I (..\..\User\bsp\bsp.h)(0x5E9D53E0)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -2439,15 +2439,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -2533,15 +2533,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -2627,15 +2627,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -2645,7 +2645,7 @@ I (..\..\User\tuya_sdk\mcu_api.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E942633)
 I (..\..\User\app\inc\bsp_passwd.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E5F269D)
-F (..\..\User\app\src\bsp_Gridmap.c)(0x5E9E55F8)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_gridmap.o --omf_browse .\flash\obj\bsp_gridmap.crf --depend .\flash\obj\bsp_gridmap.d)
+F (..\..\User\app\src\bsp_Gridmap.c)(0x5E9E6A3B)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_gridmap.o --omf_browse .\flash\obj\bsp_gridmap.crf --depend .\flash\obj\bsp_gridmap.d)
 I (..\..\User\bsp\bsp.h)(0x5E9D53E0)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -2721,15 +2721,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -2741,7 +2741,7 @@ I (..\..\User\app\inc\bsp_passwd.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_UploadMap.h)(0x5E5F269D)
 I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
 F (..\..\User\app\src\bsp_CleanStrategy.c)(0x5E5F269D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategy.o --omf_browse .\flash\obj\bsp_cleanstrategy.crf --depend .\flash\obj\bsp_cleanstrategy.d)
-F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5E9E5524)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
+F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5E9E6A3B)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
 I (..\..\User\bsp\bsp.h)(0x5E9D53E0)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5D89D909)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
@@ -2817,15 +2817,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -2912,15 +2912,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3006,15 +3006,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3100,15 +3100,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3194,15 +3194,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3289,15 +3289,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3383,15 +3383,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3509,15 +3509,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3635,15 +3635,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3729,15 +3729,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3823,15 +3823,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -3917,15 +3917,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -4011,15 +4011,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -4105,15 +4105,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\tuya_sdk\wifi.h)(0x5E5F269D)
@@ -4155,7 +4155,7 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x5D89D90A)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x5D89D90A)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5D89D90A)
 F (..\..\User\dx8\src\libdx8_stm32f1.lib)(0x5E5F269D)()
-F (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Source\Templates\arm\startup_stm32f10x_hd.s)(0x5E9DC67D)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 525" --pd "STM32F10X_HD SETA 1"--list .\flash\list\startup_stm32f10x_hd.lst --xref -o .\flash\obj\startup_stm32f10x_hd.o --depend .\flash\obj\startup_stm32f10x_hd.d)
+F (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Source\Templates\arm\startup_stm32f10x_hd.s)(0x5E9E5DA6)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 525" --pd "STM32F10X_HD SETA 1"--list .\flash\list\startup_stm32f10x_hd.lst --xref -o .\flash\obj\startup_stm32f10x_hd.o --depend .\flash\obj\startup_stm32f10x_hd.d)
 F (..\..\Libraries\STM32F10x_StdPeriph_Driver\src\misc.c)(0x5D89D90A)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I ..\..\User\bsp -I ..\..\User\bsp\inc -I ..\..\User -I ..\..\Libraries\CMSIS\Include -I ..\..\FreeRTOS\include -I ..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\..\User\app\inc -I ..\..\User\dx8\inc -I ..\..\User\tuya_sdk -I ..\..\User\angle\yuan_zi_Angle -I ..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I.\RTE\_Flash-IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-IE:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\misc.o --omf_browse .\flash\obj\misc.crf --depend .\flash\obj\misc.d)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5D89D90A)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x5D89D909)
@@ -4612,15 +4612,15 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_param.h)(0x5DE4B655)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5E5F269D)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5E9D53DD)
-I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9D9502)
+I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5E9E5DA6)
 I (..\..\User\app\inc\bsp_assistJudgeDirection.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_StopMode.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_Gridmap.h)(0x5E9D53DF)
-I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5524)
+I (..\..\User\app\inc\bsp_CleanStrategyB.h)(0x5E9E5DA6)
 I (..\..\User\dx8\inc\DX8_API.h)(0x5E5F269D)
 I (..\..\User\dx8\inc\dx8_engineer.h)(0x5E5F269D)
 I (..\..\User\app\inc\bsp_wifi_app.h)(0x5E942633)
