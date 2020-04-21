@@ -238,22 +238,22 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 			map_last_robotY=robotY;
 			map_robot_x=robotX+half_map_wide;
 			map_robot_y=robotY+half_map_long;
-			if(map_robot_x/GRIDWIDTH>95){
+			if(map_robot_x/GRIDWIDTH>96){
 				map_update_x_range_max_index=MAPWIDECELLS;
 			}
 			else{
-				map_update_x_range_max_index=map_robot_x/GRIDWIDTH+5;
+				map_update_x_range_max_index=map_robot_x/GRIDWIDTH+4;
 			}
-			if(map_robot_y/GRIDHEIGHT>95){
+			if(map_robot_y/GRIDHEIGHT>96){
 				map_update_y_range_max_index=MAPLONGCELLS;
 			}
 			else{
-				map_update_y_range_max_index=map_robot_y/GRIDHEIGHT+5;
+				map_update_y_range_max_index=map_robot_y/GRIDHEIGHT+4;
 			}
 			
-			if(map_robot_x/GRIDWIDTH >=4) map_update_x_range_min_index=map_robot_x/GRIDWIDTH-4;
+			if(map_robot_x/GRIDWIDTH >=3) map_update_x_range_min_index=map_robot_x/GRIDWIDTH-3;
 			else map_update_x_range_min_index =0;
-			if(map_robot_y/GRIDHEIGHT >=4) map_update_y_range_min_index=map_robot_y/GRIDWIDTH-4;
+			if(map_robot_y/GRIDHEIGHT >=3) map_update_y_range_min_index=map_robot_y/GRIDWIDTH-3;
 			else map_update_y_range_min_index =0;
 			
 			for (x=map_update_x_range_min_index; x<map_update_x_range_max_index; x++){
@@ -741,7 +741,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
         }
         if((y_boundary>51)&&(Extreme_point!=0)){
             for ( i=1;i<100;i++) {
-                for( j=52;j<=y_boundary;j++){
+                for( j=1;j<=y_boundary;j++){
                     if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                         if(Extreme_point-i<-2){
                             if(x_boundary-i<-2){
@@ -800,7 +800,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
     }
     else if(my_abs(robotTheta)<10){
         for( i=99;i>=0;i--){
-            for( j=50;j<=y_boundary;j++){
+            for( j=1;j<=y_boundary;j++){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                     Extreme_point=i;
                     end_x=true;
