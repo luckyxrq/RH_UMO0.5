@@ -432,7 +432,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 	//	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
 		batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
 		batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-		if(batteryvoltage < 6)   //12v-16v
+		if(batteryvoltage < 12)   //12v-16v
 		{
 			return  battery_out_flag;//battery_out_flag;
 		}
@@ -443,7 +443,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 		if(obstacleSignal<3)   
 		{
 			collision_error_cnt++;
-			if(collision_error_cnt > 50)
+			if(collision_error_cnt > 100)
 			{
 				collision_error_cnt = 0;
 				return collision_error;
