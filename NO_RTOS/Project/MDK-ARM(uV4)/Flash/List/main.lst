@@ -34223,7 +34223,7 @@ Nvoid bsp_CloseAllLed(void);
 Nvoid bsp_OpenThreeWhileLed(void);
 Nvoid bsp_LedAppProc(void);
 Nvoid bsp_SetLedState(LedAppState ledAppState);
-N
+Nvoid bsp_PowerOnLedProc(void);
 N#endif
 N
 L 108 "..\..\User\bsp\bsp.h" 2
@@ -34279,10 +34279,10 @@ N	bsp_Init();		/* 硬件初始化 */
 N	
 N	
 N	
-N	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
-N	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+N//	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+N//	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
 N
-N//	bsp_IRD_StartWork();
+N	bsp_IRD_StartWork();
 N	
 N	bsp_SetLedState(THREE_WHITE_TOOGLE);
 N	
@@ -34295,6 +34295,12 @@ N		bsp_PositionUpdate();
 N		bsp_LedAppProc();
 N		bsp_KeyProc();
 N		bsp_SearchChargePile();
+N		
+N		
+N		if(tick % 1000 == 0)
+N		{
+N			//bsp_PrintIR_Rev();
+N		}
 N		
 N		/*下面内容不修改*/
 N		++tick;

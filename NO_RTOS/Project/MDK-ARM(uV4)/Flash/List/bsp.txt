@@ -5,22 +5,22 @@
                           AREA ||i.bsp_Idle||, CODE, READONLY, ALIGN=1
 
                   bsp_Idle PROC
-;;;140    extern void SaveScreenToBmp(uint16_t _index);
-;;;141    void bsp_Idle(void)
+;;;145    extern void SaveScreenToBmp(uint16_t _index);
+;;;146    void bsp_Idle(void)
 000000  4770              BX       lr
-;;;142    {
-;;;143    	/* --- 喂狗 */
-;;;144    
-;;;145    	/* --- 让CPU进入休眠，由Systick定时中断唤醒或者其他中断唤醒 */
-;;;146    
-;;;147    	/* 例如 emWin 图形库，可以插入图形库需要的轮询函数 */
-;;;148    	//GUI_Exec();
+;;;147    {
+;;;148    	/* --- 喂狗 */
 ;;;149    
-;;;150    	/* 例如 uIP 协议，可以插入uip轮询函数 */
+;;;150    	/* --- 让CPU进入休眠，由Systick定时中断唤醒或者其他中断唤醒 */
 ;;;151    
-;;;152    
-;;;153    }
+;;;152    	/* 例如 emWin 图形库，可以插入图形库需要的轮询函数 */
+;;;153    	//GUI_Exec();
 ;;;154    
+;;;155    	/* 例如 uIP 协议，可以插入uip轮询函数 */
+;;;156    
+;;;157    
+;;;158    }
+;;;159    
                           ENDP
 
 
@@ -62,112 +62,119 @@
 ;;;51     	bsp_InitUart();		/* 初始化串口驱动 */
 000022  f7fffffe          BL       bsp_InitUart
 ;;;52     	
-;;;53     	/* 开机打开其他外设电源使能引脚 */
-;;;54     	bsp_InitSW();		     
-000026  f7fffffe          BL       bsp_InitSW
-;;;55     	bsp_SwOn(SW_5V_EN_CTRL);
-00002a  2000              MOVS     r0,#0
-00002c  f7fffffe          BL       bsp_SwOn
-;;;56     	bsp_DelayMS(1000);
-000030  f44f707a          MOV      r0,#0x3e8
-000034  f7fffffe          BL       bsp_DelayMS
-;;;57     	bsp_SwOn(SW_3V3_EN_CTRL);
-000038  2001              MOVS     r0,#1
-00003a  f7fffffe          BL       bsp_SwOn
-;;;58     	bsp_SwOn(SW_IR_POWER);
-00003e  2002              MOVS     r0,#2
-000040  f7fffffe          BL       bsp_SwOn
-;;;59     	bsp_SwOn(SW_MOTOR_POWER);
-000044  2003              MOVS     r0,#3
-000046  f7fffffe          BL       bsp_SwOn
-;;;60     	bsp_SwOn(SW_VSLAM_POWER);
-00004a  2004              MOVS     r0,#4
-00004c  f7fffffe          BL       bsp_SwOn
-;;;61     	bsp_SwOn(SW_WIFI_POWER);
-000050  2005              MOVS     r0,#5
-000052  f7fffffe          BL       bsp_SwOn
-;;;62     	
-;;;63     	/*初始化碰撞检测，触动开关*/
-;;;64     	bsp_InitCollision();     
-000056  f7fffffe          BL       bsp_InitCollision
+;;;53     	/* 先亮灯，交互友好 */
+;;;54     	bsp_OpenThreeWhileLed();
+000026  f7fffffe          BL       bsp_OpenThreeWhileLed
+;;;55     	
+;;;56     	/* 开机打开其他外设电源使能引脚 */
+;;;57     	bsp_InitSW();		     
+00002a  f7fffffe          BL       bsp_InitSW
+;;;58     	bsp_SwOn(SW_5V_EN_CTRL);
+00002e  2000              MOVS     r0,#0
+000030  f7fffffe          BL       bsp_SwOn
+;;;59     	bsp_DelayMS(1000);
+000034  f44f707a          MOV      r0,#0x3e8
+000038  f7fffffe          BL       bsp_DelayMS
+;;;60     	bsp_SwOn(SW_3V3_EN_CTRL);
+00003c  2001              MOVS     r0,#1
+00003e  f7fffffe          BL       bsp_SwOn
+;;;61     	bsp_SwOn(SW_IR_POWER);
+000042  2002              MOVS     r0,#2
+000044  f7fffffe          BL       bsp_SwOn
+;;;62     	bsp_SwOn(SW_MOTOR_POWER);
+000048  2003              MOVS     r0,#3
+00004a  f7fffffe          BL       bsp_SwOn
+;;;63     	bsp_SwOn(SW_VSLAM_POWER);
+00004e  2004              MOVS     r0,#4
+000050  f7fffffe          BL       bsp_SwOn
+;;;64     	bsp_SwOn(SW_WIFI_POWER);
+000054  2005              MOVS     r0,#5
+000056  f7fffffe          BL       bsp_SwOn
 ;;;65     	
-;;;66     	/*初始化轮机*/
-;;;67     	bsp_InitEncoder();
-00005a  f7fffffe          BL       bsp_InitEncoder
-;;;68     	bsp_InitMotor();
-00005e  f7fffffe          BL       bsp_InitMotor
-;;;69     	bsp_InitPid(MotorLeft);
-000062  2000              MOVS     r0,#0
-000064  f7fffffe          BL       bsp_InitPid
-;;;70     	bsp_InitPid(MotorRight);
-000068  2001              MOVS     r0,#1
-00006a  f7fffffe          BL       bsp_InitPid
-;;;71     	
-;;;72     	/*初始化扬声器*/
-;;;73     	bsp_InitSpeaker();	
-00006e  f7fffffe          BL       bsp_InitSpeaker
-;;;74     	bsp_SperkerPlay(Song1);	
-000072  2004              MOVS     r0,#4
-000074  f7fffffe          BL       bsp_SperkerPlay
-;;;75     	
-;;;76     	/*刚开始不开启红外接收*/
-;;;77     	bsp_IRD_StopWork();
-000078  f7fffffe          BL       bsp_IRD_StopWork
-;;;78     	/*充电相关IO*/
-;;;79     	bsp_InitChargeIO();
-00007c  f7fffffe          BL       bsp_InitChargeIO
-;;;80     	
-;;;81     	/*加密认证*/
-;;;82     #if 0
-;;;83     	bsp_InitDX8_();
-;;;84     	DEBUG("[1-2]->1 %s\r\n",&DX8_Version()[39]);
-;;;85     	if(bsp_Authentication() == 0)
-;;;86     	{
-;;;87     		DEBUG("[1-2]->2 %s\r\n",&DX8_Version()[39]);
-;;;88     	}
-;;;89     	else
-;;;90     	{
-;;;91     		while(1)
-;;;92     		{
-;;;93     			WARNING("%10d WARNING\r\n",bsp_GetRunTime());
-;;;94     			bsp_DelayMS(100);
-;;;95     		}
-;;;96     	}
-;;;97     #endif
-;;;98     }
-000080  bd10              POP      {r4,pc}
-;;;99     
+;;;66     	/*初始化碰撞检测，触动开关*/
+;;;67     	bsp_InitCollision();     
+00005a  f7fffffe          BL       bsp_InitCollision
+;;;68     	
+;;;69     	/*初始化轮机*/
+;;;70     	bsp_InitEncoder();
+00005e  f7fffffe          BL       bsp_InitEncoder
+;;;71     	bsp_InitMotor();
+000062  f7fffffe          BL       bsp_InitMotor
+;;;72     	bsp_InitPid(MotorLeft);
+000066  2000              MOVS     r0,#0
+000068  f7fffffe          BL       bsp_InitPid
+;;;73     	bsp_InitPid(MotorRight);
+00006c  2001              MOVS     r0,#1
+00006e  f7fffffe          BL       bsp_InitPid
+;;;74     	
+;;;75     	/*初始化扬声器*/
+;;;76     	bsp_InitSpeaker();	
+000072  f7fffffe          BL       bsp_InitSpeaker
+;;;77     	bsp_SperkerPlay(Song1);	
+000076  2004              MOVS     r0,#4
+000078  f7fffffe          BL       bsp_SperkerPlay
+;;;78     	
+;;;79     	/*刚开始不开启红外接收*/
+;;;80     	bsp_IRD_StopWork();
+00007c  f7fffffe          BL       bsp_IRD_StopWork
+;;;81     	/*充电相关IO*/
+;;;82     	bsp_InitChargeIO();
+000080  f7fffffe          BL       bsp_InitChargeIO
+;;;83     	
+;;;84     	/*加密认证*/
+;;;85     #if 0
+;;;86     	bsp_InitDX8_();
+;;;87     	DEBUG("[1-2]->1 %s\r\n",&DX8_Version()[39]);
+;;;88     	if(bsp_Authentication() == 0)
+;;;89     	{
+;;;90     		DEBUG("[1-2]->2 %s\r\n",&DX8_Version()[39]);
+;;;91     	}
+;;;92     	else
+;;;93     	{
+;;;94     		while(1)
+;;;95     		{
+;;;96     			WARNING("%10d WARNING\r\n",bsp_GetRunTime());
+;;;97     			bsp_DelayMS(100);
+;;;98     		}
+;;;99     	}
+;;;100    #endif
+;;;101    	
+;;;102    	bsp_PowerOnLedProc();
+000084  f7fffffe          BL       bsp_PowerOnLedProc
+;;;103    }
+000088  bd10              POP      {r4,pc}
+;;;104    
                           ENDP
 
 
                           AREA ||i.bsp_RunPer10ms||, CODE, READONLY, ALIGN=1
 
                   bsp_RunPer10ms PROC
-;;;108    */
-;;;109    void bsp_RunPer10ms(void)
+;;;113    */
+;;;114    void bsp_RunPer10ms(void)
 000000  b510              PUSH     {r4,lr}
-;;;110    {
-;;;111    	bsp_KeyScan();		/* 每10ms扫描按键一次 */
+;;;115    {
+;;;116    	bsp_KeyScan();		/* 每10ms扫描按键一次 */
 000002  f7fffffe          BL       bsp_KeyScan
-;;;112    	
-;;;113    	bsp_PidSched();     /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
+;;;117    	
+;;;118    	bsp_PidSched();     /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 000006  f7fffffe          BL       bsp_PidSched
-;;;114    }
+;;;119    }
 00000a  bd10              POP      {r4,pc}
-;;;115    
+;;;120    
                           ENDP
 
 
                           AREA ||i.bsp_RunPer1ms||, CODE, READONLY, ALIGN=1
 
                   bsp_RunPer1ms PROC
-;;;125    extern void GT811_Timer1ms(void);
-;;;126    void bsp_RunPer1ms(void)
+;;;130    extern void GT811_Timer1ms(void);
+;;;131    void bsp_RunPer1ms(void)
 000000  4770              BX       lr
-;;;127    {
-;;;128    	;
-;;;129    }
-;;;130    
+;;;132    {
+;;;133    	;
+;;;134    }
+;;;135    
                           ENDP
 
 

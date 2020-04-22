@@ -34223,7 +34223,7 @@ Nvoid bsp_CloseAllLed(void);
 Nvoid bsp_OpenThreeWhileLed(void);
 Nvoid bsp_LedAppProc(void);
 Nvoid bsp_SetLedState(LedAppState ledAppState);
-N
+Nvoid bsp_PowerOnLedProc(void);
 N#endif
 N
 L 108 "..\..\User\bsp\bsp.h" 2
@@ -34314,6 +34314,38 @@ N
 N		ledAppProc.ledAppState = ledAppState;
 N	}
 N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_PowerOnLedProc
+N*	功能说明: 开机的LED闪烁，停住闪烁
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_PowerOnLedProc(void)
+N{
+N	uint8_t i = 0;
+N	
+N	bsp_LedOn(LED_LOGO_CLEAN);
+N	bsp_LedOn(LED_LOGO_POWER);
+N	bsp_LedOn(LED_LOGO_CHARGE);
+N	
+N	for(i=0;i<5;i++)
+N	{
+N		bsp_LedToggle(LED_LOGO_CLEAN);
+N		bsp_LedToggle(LED_LOGO_POWER);
+N		bsp_LedToggle(LED_LOGO_CHARGE);
+N		
+N		bsp_DelayMS(800);
+N	}
+N	
+N	bsp_LedOn(LED_LOGO_CLEAN);
+N	bsp_LedOn(LED_LOGO_POWER);
+N	bsp_LedOn(LED_LOGO_CHARGE);
+N}
+N
+N
 N
 N/*
 N*********************************************************************************************************

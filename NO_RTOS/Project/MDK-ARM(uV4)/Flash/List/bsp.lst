@@ -34241,7 +34241,7 @@ Nvoid bsp_CloseAllLed(void);
 Nvoid bsp_OpenThreeWhileLed(void);
 Nvoid bsp_LedAppProc(void);
 Nvoid bsp_SetLedState(LedAppState ledAppState);
-N
+Nvoid bsp_PowerOnLedProc(void);
 N#endif
 N
 L 108 "..\..\User\bsp\bsp.h" 2
@@ -34309,6 +34309,9 @@ N	bsp_InitKey();		/* 初始化按键 */
 N	bsp_InitTimer();	/* 初始化系统滴答定时器 (此函数会开中断) */
 N	bsp_InitUart();		/* 初始化串口驱动 */
 N	
+N	/* 先亮灯，交互友好 */
+N	bsp_OpenThreeWhileLed();
+N	
 N	/* 开机打开其他外设电源使能引脚 */
 N	bsp_InitSW();		     
 N	bsp_SwOn(SW_5V_EN_CTRL);
@@ -34354,6 +34357,8 @@ S			bsp_DelayMS(100);
 S		}
 S	}
 N#endif
+N	
+N	bsp_PowerOnLedProc();
 N}
 N
 N/*

@@ -59,6 +59,38 @@ void bsp_SetLedState(LedAppState ledAppState)
 
 /*
 *********************************************************************************************************
+*	函 数 名: bsp_PowerOnLedProc
+*	功能说明: 开机的LED闪烁，停住闪烁
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_PowerOnLedProc(void)
+{
+	uint8_t i = 0;
+	
+	bsp_LedOn(LED_LOGO_CLEAN);
+	bsp_LedOn(LED_LOGO_POWER);
+	bsp_LedOn(LED_LOGO_CHARGE);
+	
+	for(i=0;i<5;i++)
+	{
+		bsp_LedToggle(LED_LOGO_CLEAN);
+		bsp_LedToggle(LED_LOGO_POWER);
+		bsp_LedToggle(LED_LOGO_CHARGE);
+		
+		bsp_DelayMS(800);
+	}
+	
+	bsp_LedOn(LED_LOGO_CLEAN);
+	bsp_LedOn(LED_LOGO_POWER);
+	bsp_LedOn(LED_LOGO_CHARGE);
+}
+
+
+
+/*
+*********************************************************************************************************
 *	函 数 名: bsp_LedAppProc
 *	功能说明: LED处理函数
 *	形    参: 无

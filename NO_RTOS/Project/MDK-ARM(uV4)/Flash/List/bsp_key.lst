@@ -34247,7 +34247,7 @@ Nvoid bsp_CloseAllLed(void);
 Nvoid bsp_OpenThreeWhileLed(void);
 Nvoid bsp_LedAppProc(void);
 Nvoid bsp_SetLedState(LedAppState ledAppState);
-N
+Nvoid bsp_PowerOnLedProc(void);
 N#endif
 N
 L 108 "..\..\User\bsp\bsp.h" 2

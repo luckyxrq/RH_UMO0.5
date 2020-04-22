@@ -36,136 +36,136 @@
                           AREA ||i.bsp_LedAppProc||, CODE, READONLY, ALIGN=2
 
                   bsp_LedAppProc PROC
-;;;67     */
-;;;68     void bsp_LedAppProc(void)
+;;;99     */
+;;;100    void bsp_LedAppProc(void)
 000000  b510              PUSH     {r4,lr}
-;;;69     {
-;;;70     //	if(!ledAppProc.isRunning)
-;;;71     //		return;
-;;;72     	
-;;;73     	
-;;;74     	if(ledAppProc.ledAppState == LED_DEFAULT_STATE)       /*默认状态,不处理*/
+;;;101    {
+;;;102    //	if(!ledAppProc.isRunning)
+;;;103    //		return;
+;;;104    	
+;;;105    	
+;;;106    	if(ledAppProc.ledAppState == LED_DEFAULT_STATE)       /*默认状态,不处理*/
 000002  4831              LDR      r0,|L2.200|
 000004  7a40              LDRB     r0,[r0,#9]  ; ledAppProc
 000006  2800              CMP      r0,#0
 000008  d05c              BEQ      |L2.196|
-;;;75     	{
-;;;76     		
-;;;77     	}
-;;;78     	else if(ledAppProc.ledAppState == THREE_WHITE_TOOGLE) /*三颗白色灯闪烁*/
+;;;107    	{
+;;;108    		
+;;;109    	}
+;;;110    	else if(ledAppProc.ledAppState == THREE_WHITE_TOOGLE) /*三颗白色灯闪烁*/
 00000a  482f              LDR      r0,|L2.200|
 00000c  7a40              LDRB     r0,[r0,#9]  ; ledAppProc
 00000e  2801              CMP      r0,#1
 000010  d115              BNE      |L2.62|
-;;;79     	{
-;;;80     		if(bsp_GetRunTime() - ledAppProc.delay >= 360)
+;;;111    	{
+;;;112    		if(bsp_GetRunTime() - ledAppProc.delay >= 360)
 000012  f7fffffe          BL       bsp_GetRunTime
 000016  492c              LDR      r1,|L2.200|
 000018  6849              LDR      r1,[r1,#4]  ; ledAppProc
 00001a  1a40              SUBS     r0,r0,r1
 00001c  f5b07fb4          CMP      r0,#0x168
 000020  d350              BCC      |L2.196|
-;;;81     		{
-;;;82     			bsp_LedToggle(LED_LOGO_CLEAN);
+;;;113    		{
+;;;114    			bsp_LedToggle(LED_LOGO_CLEAN);
 000022  2004              MOVS     r0,#4
 000024  f7fffffe          BL       bsp_LedToggle
-;;;83     			bsp_LedToggle(LED_LOGO_POWER);
+;;;115    			bsp_LedToggle(LED_LOGO_POWER);
 000028  2005              MOVS     r0,#5
 00002a  f7fffffe          BL       bsp_LedToggle
-;;;84     			bsp_LedToggle(LED_LOGO_CHARGE);
+;;;116    			bsp_LedToggle(LED_LOGO_CHARGE);
 00002e  2006              MOVS     r0,#6
 000030  f7fffffe          BL       bsp_LedToggle
-;;;85     			
-;;;86     			ledAppProc.delay = bsp_GetRunTime();
+;;;117    			
+;;;118    			ledAppProc.delay = bsp_GetRunTime();
 000034  f7fffffe          BL       bsp_GetRunTime
 000038  4923              LDR      r1,|L2.200|
 00003a  6048              STR      r0,[r1,#4]  ; ledAppProc
 00003c  e042              B        |L2.196|
                   |L2.62|
-;;;87     		}
-;;;88     	}
-;;;89     	else if(ledAppProc.ledAppState == THREE_WHITE_ON) /*亮3颗白色LED*/
+;;;119    		}
+;;;120    	}
+;;;121    	else if(ledAppProc.ledAppState == THREE_WHITE_ON) /*亮3颗白色LED*/
 00003e  4822              LDR      r0,|L2.200|
 000040  7a40              LDRB     r0,[r0,#9]  ; ledAppProc
 000042  2802              CMP      r0,#2
 000044  d112              BNE      |L2.108|
-;;;90     	{
-;;;91     		bsp_LedOn(LED_LOGO_CLEAN);
+;;;122    	{
+;;;123    		bsp_LedOn(LED_LOGO_CLEAN);
 000046  2004              MOVS     r0,#4
 000048  f7fffffe          BL       bsp_LedOn
-;;;92     		bsp_LedOn(LED_LOGO_POWER);
+;;;124    		bsp_LedOn(LED_LOGO_POWER);
 00004c  2005              MOVS     r0,#5
 00004e  f7fffffe          BL       bsp_LedOn
-;;;93     		bsp_LedOn(LED_LOGO_CHARGE);
+;;;125    		bsp_LedOn(LED_LOGO_CHARGE);
 000052  2006              MOVS     r0,#6
 000054  f7fffffe          BL       bsp_LedOn
-;;;94     		bsp_LedOff(LED_COLOR_YELLOW);
+;;;126    		bsp_LedOff(LED_COLOR_YELLOW);
 000058  2002              MOVS     r0,#2
 00005a  f7fffffe          BL       bsp_LedOff
-;;;95     		bsp_LedOff(LED_COLOR_GREEN);
+;;;127    		bsp_LedOff(LED_COLOR_GREEN);
 00005e  2001              MOVS     r0,#1
 000060  f7fffffe          BL       bsp_LedOff
-;;;96     		bsp_LedOff(LED_COLOR_RED);
+;;;128    		bsp_LedOff(LED_COLOR_RED);
 000064  2003              MOVS     r0,#3
 000066  f7fffffe          BL       bsp_LedOff
 00006a  e02b              B        |L2.196|
                   |L2.108|
-;;;97     	}
-;;;98     	else if(ledAppProc.ledAppState == AT_CHARGING) /*充电中*/
+;;;129    	}
+;;;130    	else if(ledAppProc.ledAppState == AT_CHARGING) /*充电中*/
 00006c  4816              LDR      r0,|L2.200|
 00006e  7a40              LDRB     r0,[r0,#9]  ; ledAppProc
 000070  2803              CMP      r0,#3
 000072  d112              BNE      |L2.154|
-;;;99     	{
-;;;100    		bsp_LedOn(LED_LOGO_CLEAN);
+;;;131    	{
+;;;132    		bsp_LedOn(LED_LOGO_CLEAN);
 000074  2004              MOVS     r0,#4
 000076  f7fffffe          BL       bsp_LedOn
-;;;101    		bsp_LedOn(LED_LOGO_POWER);
+;;;133    		bsp_LedOn(LED_LOGO_POWER);
 00007a  2005              MOVS     r0,#5
 00007c  f7fffffe          BL       bsp_LedOn
-;;;102    		bsp_LedOff(LED_LOGO_CHARGE);
+;;;134    		bsp_LedOff(LED_LOGO_CHARGE);
 000080  2006              MOVS     r0,#6
 000082  f7fffffe          BL       bsp_LedOff
-;;;103    		bsp_LedOn(LED_COLOR_YELLOW);
+;;;135    		bsp_LedOn(LED_COLOR_YELLOW);
 000086  2002              MOVS     r0,#2
 000088  f7fffffe          BL       bsp_LedOn
-;;;104    		bsp_LedOff(LED_COLOR_GREEN);
+;;;136    		bsp_LedOff(LED_COLOR_GREEN);
 00008c  2001              MOVS     r0,#1
 00008e  f7fffffe          BL       bsp_LedOff
-;;;105    		bsp_LedOff(LED_COLOR_RED);
+;;;137    		bsp_LedOff(LED_COLOR_RED);
 000092  2003              MOVS     r0,#3
 000094  f7fffffe          BL       bsp_LedOff
 000098  e014              B        |L2.196|
                   |L2.154|
-;;;106    	}
-;;;107    	else if(ledAppProc.ledAppState == AT_CHARGE_DONE) /*充电中*/
+;;;138    	}
+;;;139    	else if(ledAppProc.ledAppState == AT_CHARGE_DONE) /*充电中*/
 00009a  480b              LDR      r0,|L2.200|
 00009c  7a40              LDRB     r0,[r0,#9]  ; ledAppProc
 00009e  2804              CMP      r0,#4
 0000a0  d110              BNE      |L2.196|
-;;;108    	{
-;;;109    		bsp_LedOn(LED_LOGO_CLEAN);
+;;;140    	{
+;;;141    		bsp_LedOn(LED_LOGO_CLEAN);
 0000a2  f7fffffe          BL       bsp_LedOn
-;;;110    		bsp_LedOn(LED_LOGO_POWER);
+;;;142    		bsp_LedOn(LED_LOGO_POWER);
 0000a6  2005              MOVS     r0,#5
 0000a8  f7fffffe          BL       bsp_LedOn
-;;;111    		bsp_LedOff(LED_LOGO_CHARGE);
+;;;143    		bsp_LedOff(LED_LOGO_CHARGE);
 0000ac  2006              MOVS     r0,#6
 0000ae  f7fffffe          BL       bsp_LedOff
-;;;112    		bsp_LedOff(LED_COLOR_YELLOW);
+;;;144    		bsp_LedOff(LED_COLOR_YELLOW);
 0000b2  2002              MOVS     r0,#2
 0000b4  f7fffffe          BL       bsp_LedOff
-;;;113    		bsp_LedOn(LED_COLOR_GREEN);
+;;;145    		bsp_LedOn(LED_COLOR_GREEN);
 0000b8  2001              MOVS     r0,#1
 0000ba  f7fffffe          BL       bsp_LedOn
-;;;114    		bsp_LedOff(LED_COLOR_RED);
+;;;146    		bsp_LedOff(LED_COLOR_RED);
 0000be  2003              MOVS     r0,#3
 0000c0  f7fffffe          BL       bsp_LedOff
                   |L2.196|
-;;;115    	}
-;;;116    }
+;;;147    	}
+;;;148    }
 0000c4  bd10              POP      {r4,pc}
-;;;117    
+;;;149    
                           ENDP
 
 0000c6  0000              DCW      0x0000
@@ -203,6 +203,66 @@
                           ENDP
 
 
+                          AREA ||i.bsp_PowerOnLedProc||, CODE, READONLY, ALIGN=1
+
+                  bsp_PowerOnLedProc PROC
+;;;67     */
+;;;68     void bsp_PowerOnLedProc(void)
+000000  b510              PUSH     {r4,lr}
+;;;69     {
+;;;70     	uint8_t i = 0;
+000002  2400              MOVS     r4,#0
+;;;71     	
+;;;72     	bsp_LedOn(LED_LOGO_CLEAN);
+000004  2004              MOVS     r0,#4
+000006  f7fffffe          BL       bsp_LedOn
+;;;73     	bsp_LedOn(LED_LOGO_POWER);
+00000a  2005              MOVS     r0,#5
+00000c  f7fffffe          BL       bsp_LedOn
+;;;74     	bsp_LedOn(LED_LOGO_CHARGE);
+000010  2006              MOVS     r0,#6
+000012  f7fffffe          BL       bsp_LedOn
+;;;75     	
+;;;76     	for(i=0;i<5;i++)
+000016  bf00              NOP      
+000018  e00e              B        |L4.56|
+                  |L4.26|
+;;;77     	{
+;;;78     		bsp_LedToggle(LED_LOGO_CLEAN);
+00001a  2004              MOVS     r0,#4
+00001c  f7fffffe          BL       bsp_LedToggle
+;;;79     		bsp_LedToggle(LED_LOGO_POWER);
+000020  2005              MOVS     r0,#5
+000022  f7fffffe          BL       bsp_LedToggle
+;;;80     		bsp_LedToggle(LED_LOGO_CHARGE);
+000026  2006              MOVS     r0,#6
+000028  f7fffffe          BL       bsp_LedToggle
+;;;81     		
+;;;82     		bsp_DelayMS(800);
+00002c  f44f7048          MOV      r0,#0x320
+000030  f7fffffe          BL       bsp_DelayMS
+000034  1c60              ADDS     r0,r4,#1              ;76
+000036  b2c4              UXTB     r4,r0                 ;76
+                  |L4.56|
+000038  2c05              CMP      r4,#5                 ;76
+00003a  dbee              BLT      |L4.26|
+;;;83     	}
+;;;84     	
+;;;85     	bsp_LedOn(LED_LOGO_CLEAN);
+00003c  2004              MOVS     r0,#4
+00003e  f7fffffe          BL       bsp_LedOn
+;;;86     	bsp_LedOn(LED_LOGO_POWER);
+000042  2005              MOVS     r0,#5
+000044  f7fffffe          BL       bsp_LedOn
+;;;87     	bsp_LedOn(LED_LOGO_CHARGE);
+000048  2006              MOVS     r0,#6
+00004a  f7fffffe          BL       bsp_LedOn
+;;;88     }
+00004e  bd10              POP      {r4,pc}
+;;;89     
+                          ENDP
+
+
                           AREA ||i.bsp_SetLedState||, CODE, READONLY, ALIGN=2
 
                   bsp_SetLedState PROC
@@ -212,20 +272,20 @@
 ;;;51     {
 000002  4604              MOV      r4,r0
 ;;;52     	if(ledAppState != ledAppProc.ledAppState)
-000004  4805              LDR      r0,|L4.28|
+000004  4805              LDR      r0,|L5.28|
 000006  7a40              LDRB     r0,[r0,#9]  ; ledAppProc
 000008  42a0              CMP      r0,r4
-00000a  d005              BEQ      |L4.24|
+00000a  d005              BEQ      |L5.24|
 ;;;53     	{
 ;;;54     		ledAppProc.delay = bsp_GetRunTime() ;
 00000c  f7fffffe          BL       bsp_GetRunTime
-000010  4902              LDR      r1,|L4.28|
+000010  4902              LDR      r1,|L5.28|
 000012  6048              STR      r0,[r1,#4]  ; ledAppProc
 ;;;55     		
 ;;;56     		ledAppProc.ledAppState = ledAppState;
 000014  4608              MOV      r0,r1
 000016  7244              STRB     r4,[r0,#9]
-                  |L4.24|
+                  |L5.24|
 ;;;57     	}
 ;;;58     }
 000018  bd10              POP      {r4,pc}
@@ -233,7 +293,7 @@
                           ENDP
 
 00001a  0000              DCW      0x0000
-                  |L4.28|
+                  |L5.28|
                           DCD      ledAppProc
 
                           AREA ||.bss||, DATA, NOINIT, ALIGN=2

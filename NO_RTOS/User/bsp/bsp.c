@@ -50,6 +50,9 @@ void bsp_Init(void)
 	bsp_InitTimer();	/* 初始化系统滴答定时器 (此函数会开中断) */
 	bsp_InitUart();		/* 初始化串口驱动 */
 	
+	/* 先亮灯，交互友好 */
+	bsp_OpenThreeWhileLed();
+	
 	/* 开机打开其他外设电源使能引脚 */
 	bsp_InitSW();		     
 	bsp_SwOn(SW_5V_EN_CTRL);
@@ -95,6 +98,8 @@ void bsp_Init(void)
 		}
 	}
 #endif
+	
+	bsp_PowerOnLedProc();
 }
 
 /*

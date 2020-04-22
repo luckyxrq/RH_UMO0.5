@@ -5,55 +5,55 @@
                           AREA ||i.bsp_InitChargeIO||, CODE, READONLY, ALIGN=2
 
                   bsp_InitChargeIO PROC
-;;;192    */
-;;;193    void bsp_InitChargeIO(void)
+;;;471    */
+;;;472    void bsp_InitChargeIO(void)
 000000  b508              PUSH     {r3,lr}
-;;;194    {
-;;;195    	GPIO_InitTypeDef GPIO_InitStructure;
-;;;196    
-;;;197    	/* 打开GPIO时钟 */
-;;;198    	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
+;;;473    {
+;;;474    	GPIO_InitTypeDef GPIO_InitStructure;
+;;;475    
+;;;476    	/* 打开GPIO时钟 */
+;;;477    	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
 000002  2101              MOVS     r1,#1
 000004  2080              MOVS     r0,#0x80
 000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;199    
-;;;200    	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+;;;478    
+;;;479    	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 00000a  2003              MOVS     r0,#3
 00000c  f88d0002          STRB     r0,[sp,#2]
-;;;201    	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
+;;;480    	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
 000010  2004              MOVS     r0,#4
 000012  f88d0003          STRB     r0,[sp,#3]
-;;;202    	
-;;;203    	/*上桩检测*/
-;;;204    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_TOUCH_PILE;
+;;;481    	
+;;;482    	/*上桩检测*/
+;;;483    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_TOUCH_PILE;
 000016  2080              MOVS     r0,#0x80
 000018  f8ad0000          STRH     r0,[sp,#0]
-;;;205    	GPIO_Init(GPIO_PORT_CHARGE_TOUCH_PILE, &GPIO_InitStructure);
+;;;484    	GPIO_Init(GPIO_PORT_CHARGE_TOUCH_PILE, &GPIO_InitStructure);
 00001c  4669              MOV      r1,sp
 00001e  4809              LDR      r0,|L1.68|
 000020  f7fffffe          BL       GPIO_Init
-;;;206    	
-;;;207    	/*正在充电中*/
-;;;208    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_CHARGING;
+;;;485    	
+;;;486    	/*正在充电中*/
+;;;487    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_CHARGING;
 000024  2001              MOVS     r0,#1
 000026  f8ad0000          STRH     r0,[sp,#0]
-;;;209    	GPIO_Init(GPIO_PORT_CHARGE_IS_CHARGING, &GPIO_InitStructure);
+;;;488    	GPIO_Init(GPIO_PORT_CHARGE_IS_CHARGING, &GPIO_InitStructure);
 00002a  4669              MOV      r1,sp
 00002c  4806              LDR      r0,|L1.72|
 00002e  f7fffffe          BL       GPIO_Init
-;;;210    	
-;;;211    	/*充电完成*/
-;;;212    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_DONE;
+;;;489    	
+;;;490    	/*充电完成*/
+;;;491    	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_DONE;
 000032  2002              MOVS     r0,#2
 000034  f8ad0000          STRH     r0,[sp,#0]
-;;;213    	GPIO_Init(GPIO_PORT_CHARGE_IS_DONE, &GPIO_InitStructure);
+;;;492    	GPIO_Init(GPIO_PORT_CHARGE_IS_DONE, &GPIO_InitStructure);
 000038  4669              MOV      r1,sp
 00003a  4803              LDR      r0,|L1.72|
 00003c  f7fffffe          BL       GPIO_Init
-;;;214    	
-;;;215    }
+;;;493    	
+;;;494    }
 000040  bd08              POP      {r3,pc}
-;;;216    
+;;;495    
                           ENDP
 
 000042  0000              DCW      0x0000
@@ -65,30 +65,30 @@
                           AREA ||i.bsp_IsChargeDone||, CODE, READONLY, ALIGN=2
 
                   bsp_IsChargeDone PROC
-;;;172    */
-;;;173    bool bsp_IsChargeDone(void)
+;;;451    */
+;;;452    bool bsp_IsChargeDone(void)
 000000  b510              PUSH     {r4,lr}
-;;;174    {
-;;;175    	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
+;;;453    {
+;;;454    	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
 000002  2102              MOVS     r1,#2
 000004  4803              LDR      r0,|L2.20|
 000006  f7fffffe          BL       GPIO_ReadInputDataBit
 00000a  b908              CBNZ     r0,|L2.16|
-;;;176    	{
-;;;177    		return true ;
+;;;455    	{
+;;;456    		return true ;
 00000c  2001              MOVS     r0,#1
                   |L2.14|
-;;;178    	}
-;;;179    	else
-;;;180    	{
-;;;181    		return false ;
-;;;182    	}
-;;;183    }
+;;;457    	}
+;;;458    	else
+;;;459    	{
+;;;460    		return false ;
+;;;461    	}
+;;;462    }
 00000e  bd10              POP      {r4,pc}
                   |L2.16|
-000010  2000              MOVS     r0,#0                 ;181
+000010  2000              MOVS     r0,#0                 ;460
 000012  e7fc              B        |L2.14|
-;;;184    
+;;;463    
                           ENDP
 
                   |L2.20|
@@ -97,30 +97,30 @@
                           AREA ||i.bsp_IsCharging||, CODE, READONLY, ALIGN=2
 
                   bsp_IsCharging PROC
-;;;152    */
-;;;153    bool bsp_IsCharging(void)
+;;;431    */
+;;;432    bool bsp_IsCharging(void)
 000000  b510              PUSH     {r4,lr}
-;;;154    {
-;;;155    	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
+;;;433    {
+;;;434    	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
 000002  2101              MOVS     r1,#1
 000004  4803              LDR      r0,|L3.20|
 000006  f7fffffe          BL       GPIO_ReadInputDataBit
 00000a  b908              CBNZ     r0,|L3.16|
-;;;156    	{
-;;;157    		return true ;
+;;;435    	{
+;;;436    		return true ;
 00000c  2001              MOVS     r0,#1
                   |L3.14|
-;;;158    	}
-;;;159    	else
-;;;160    	{
-;;;161    		return false ;
-;;;162    	}
-;;;163    }
+;;;437    	}
+;;;438    	else
+;;;439    	{
+;;;440    		return false ;
+;;;441    	}
+;;;442    }
 00000e  bd10              POP      {r4,pc}
                   |L3.16|
-000010  2000              MOVS     r0,#0                 ;161
+000010  2000              MOVS     r0,#0                 ;440
 000012  e7fc              B        |L3.14|
-;;;164    
+;;;443    
                           ENDP
 
                   |L3.20|
@@ -129,30 +129,30 @@
                           AREA ||i.bsp_IsTouchChargePile||, CODE, READONLY, ALIGN=2
 
                   bsp_IsTouchChargePile PROC
-;;;131    */
-;;;132    bool bsp_IsTouchChargePile(void)
+;;;410    */
+;;;411    bool bsp_IsTouchChargePile(void)
 000000  b510              PUSH     {r4,lr}
-;;;133    {
-;;;134    	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
+;;;412    {
+;;;413    	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
 000002  2180              MOVS     r1,#0x80
 000004  4803              LDR      r0,|L4.20|
 000006  f7fffffe          BL       GPIO_ReadInputDataBit
 00000a  b108              CBZ      r0,|L4.16|
-;;;135    	{
-;;;136    		return true ;
+;;;414    	{
+;;;415    		return true ;
 00000c  2001              MOVS     r0,#1
                   |L4.14|
-;;;137    	}
-;;;138    	else
-;;;139    	{
-;;;140    		return false ;
-;;;141    	}
-;;;142    }
+;;;416    	}
+;;;417    	else
+;;;418    	{
+;;;419    		return false ;
+;;;420    	}
+;;;421    }
 00000e  bd10              POP      {r4,pc}
                   |L4.16|
-000010  2000              MOVS     r0,#0                 ;140
+000010  2000              MOVS     r0,#0                 ;419
 000012  e7fc              B        |L4.14|
-;;;143    
+;;;422    
                           ENDP
 
                   |L4.20|
@@ -161,164 +161,1389 @@
                           AREA ||i.bsp_SearchChargePile||, CODE, READONLY, ALIGN=2
 
                   bsp_SearchChargePile PROC
-;;;77     */
-;;;78     void bsp_SearchChargePile(void)
-000000  b510              PUSH     {r4,lr}
-;;;79     {
-;;;80     	if(bsp_IsTouchChargePile())
-000002  f7fffffe          BL       bsp_IsTouchChargePile
-000006  2800              CMP      r0,#0
-000008  d035              BEQ      |L5.118|
-;;;81     	{
-;;;82     		/*播放开始充电*/
-;;;83     		if(search.isNeedPlaySong && (bsp_GetRunTime() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
-00000a  4826              LDR      r0,|L5.164|
-00000c  7b00              LDRB     r0,[r0,#0xc]  ; search
-00000e  b188              CBZ      r0,|L5.52|
-000010  f7fffffe          BL       bsp_GetRunTime
-000014  4923              LDR      r1,|L5.164|
-000016  6909              LDR      r1,[r1,#0x10]  ; search
-000018  1a40              SUBS     r0,r0,r1
-00001a  f5b07f7a          CMP      r0,#0x3e8
-00001e  d309              BCC      |L5.52|
-;;;84     		{
-;;;85     			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
-000020  f04f30ff          MOV      r0,#0xffffffff
-000024  491f              LDR      r1,|L5.164|
-000026  6108              STR      r0,[r1,#0x10]  ; search
-;;;86     			bsp_SperkerPlay(Song22);
-000028  2019              MOVS     r0,#0x19
-00002a  f7fffffe          BL       bsp_SperkerPlay
-;;;87     			search.isNeedPlaySong = false;
-00002e  2000              MOVS     r0,#0
-000030  491c              LDR      r1,|L5.164|
-000032  7308              STRB     r0,[r1,#0xc]
+;;;91     */
+;;;92     void bsp_SearchChargePile(void)
+000000  e92d41f0          PUSH     {r4-r8,lr}
+;;;93     {
+;;;94     	if(bsp_IsTouchChargePile())
+000004  f7fffffe          BL       bsp_IsTouchChargePile
+000008  b1a0              CBZ      r0,|L5.52|
+;;;95     	{
+;;;96     		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+00000a  2000              MOVS     r0,#0
+00000c  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000010  4604              MOV      r4,r0
+000012  4621              MOV      r1,r4
+000014  2000              MOVS     r0,#0
+000016  f7fffffe          BL       bsp_SetMotorSpeed
+;;;97     		bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+00001a  2000              MOVS     r0,#0
+00001c  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000020  4604              MOV      r4,r0
+000022  4621              MOV      r1,r4
+000024  2001              MOVS     r0,#1
+000026  f7fffffe          BL       bsp_SetMotorSpeed
+;;;98     
+;;;99     		bsp_SperkerPlay(Song22);
+00002a  2019              MOVS     r0,#0x19
+00002c  f7fffffe          BL       bsp_SperkerPlay
+;;;100    		while(1);
+000030  bf00              NOP      
+                  |L5.50|
+000032  e7fe              B        |L5.50|
                   |L5.52|
-;;;88     		}
-;;;89     
-;;;90     		if(bsp_IsCharging())
-000034  f7fffffe          BL       bsp_IsCharging
-000038  b150              CBZ      r0,|L5.80|
-;;;91     		{
-;;;92     			bsp_SetLedState(AT_CHARGING);
-00003a  2003              MOVS     r0,#3
-00003c  f7fffffe          BL       bsp_SetLedState
-;;;93     			search.lastIsChargingTick = bsp_GetRunTime();
-000040  f7fffffe          BL       bsp_GetRunTime
-000044  4917              LDR      r1,|L5.164|
-000046  6148              STR      r0,[r1,#0x14]  ; search
-;;;94     			DEBUG("is charging\r\n");
-000048  a017              ADR      r0,|L5.168|
-00004a  f7fffffe          BL       __2printf
-00004e  e00d              B        |L5.108|
-                  |L5.80|
-;;;95     		}
-;;;96     		else
-;;;97     		{
-;;;98     			if(bsp_GetRunTime() - search.lastIsChargingTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
-000050  f7fffffe          BL       bsp_GetRunTime
-000054  4913              LDR      r1,|L5.164|
-000056  6949              LDR      r1,[r1,#0x14]  ; search
-000058  1a40              SUBS     r0,r0,r1
-00005a  f5b07f7a          CMP      r0,#0x3e8
-00005e  d302              BCC      |L5.102|
-;;;99     			{
-;;;100    				bsp_SetLedState(AT_CHARGE_DONE);
-000060  2004              MOVS     r0,#4
-000062  f7fffffe          BL       bsp_SetLedState
+;;;101    	}
+;;;102    	
+;;;103    	if(bsp_IsTouchChargePile())
+000034  f7fffffe          BL       bsp_IsTouchChargePile
+000038  2800              CMP      r0,#0
+00003a  d035              BEQ      |L5.168|
+;;;104    	{
+;;;105    		/*播放开始充电*/
+;;;106    		if(search.isNeedPlaySong && (bsp_GetRunTime() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
+00003c  48fc              LDR      r0,|L5.1072|
+00003e  7c00              LDRB     r0,[r0,#0x10]  ; search
+000040  b188              CBZ      r0,|L5.102|
+000042  f7fffffe          BL       bsp_GetRunTime
+000046  49fa              LDR      r1,|L5.1072|
+000048  6949              LDR      r1,[r1,#0x14]  ; search
+00004a  1a40              SUBS     r0,r0,r1
+00004c  f5b07f7a          CMP      r0,#0x3e8
+000050  d309              BCC      |L5.102|
+;;;107    		{
+;;;108    			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
+000052  f04f30ff          MOV      r0,#0xffffffff
+000056  49f6              LDR      r1,|L5.1072|
+000058  6148              STR      r0,[r1,#0x14]  ; search
+;;;109    			bsp_SperkerPlay(Song22);
+00005a  2019              MOVS     r0,#0x19
+00005c  f7fffffe          BL       bsp_SperkerPlay
+;;;110    			search.isNeedPlaySong = false;
+000060  2000              MOVS     r0,#0
+000062  49f3              LDR      r1,|L5.1072|
+000064  7408              STRB     r0,[r1,#0x10]
                   |L5.102|
-;;;101    			}
-;;;102    
-;;;103    			DEBUG("charge done\r\n");
-000066  a014              ADR      r0,|L5.184|
-000068  f7fffffe          BL       __2printf
-                  |L5.108|
-;;;104    		}
-;;;105    		
-;;;106    		search.lastIsTouchTick = bsp_GetRunTime();
-00006c  f7fffffe          BL       bsp_GetRunTime
-000070  490c              LDR      r1,|L5.164|
-000072  6188              STR      r0,[r1,#0x18]  ; search
-000074  e015              B        |L5.162|
-                  |L5.118|
-;;;107    	}
-;;;108    	else /*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
-;;;109    	{
-;;;110    		search.isNeedPlaySong = true;
-000076  2001              MOVS     r0,#1
-000078  490a              LDR      r1,|L5.164|
-00007a  7308              STRB     r0,[r1,#0xc]
-;;;111    		search.isNeedPlaySongTick = bsp_GetRunTime();
-00007c  f7fffffe          BL       bsp_GetRunTime
-000080  4908              LDR      r1,|L5.164|
-000082  6108              STR      r0,[r1,#0x10]  ; search
-;;;112    		
-;;;113    		if(bsp_GetRunTime() - search.lastIsTouchTick >= 500)
-000084  f7fffffe          BL       bsp_GetRunTime
-000088  4906              LDR      r1,|L5.164|
-00008a  6989              LDR      r1,[r1,#0x18]  ; search
-00008c  1a40              SUBS     r0,r0,r1
-00008e  f5b07ffa          CMP      r0,#0x1f4
-000092  d306              BCC      |L5.162|
+;;;111    		}
+;;;112    
+;;;113    		if(bsp_IsCharging())
+000066  f7fffffe          BL       bsp_IsCharging
+00006a  b150              CBZ      r0,|L5.130|
 ;;;114    		{
-;;;115    			bsp_SetLedState(THREE_WHITE_ON);
-000094  2002              MOVS     r0,#2
-000096  f7fffffe          BL       bsp_SetLedState
-;;;116    			
-;;;117    			 search.lastIsTouchTick = UINT32_T_MAX;
-00009a  f04f30ff          MOV      r0,#0xffffffff
-00009e  4901              LDR      r1,|L5.164|
-0000a0  6188              STR      r0,[r1,#0x18]  ; search
-                  |L5.162|
+;;;115    			bsp_SetLedState(AT_CHARGING);
+00006c  2003              MOVS     r0,#3
+00006e  f7fffffe          BL       bsp_SetLedState
+;;;116    			search.lastIsChargingTick = bsp_GetRunTime();
+000072  f7fffffe          BL       bsp_GetRunTime
+000076  49ee              LDR      r1,|L5.1072|
+000078  6188              STR      r0,[r1,#0x18]  ; search
+;;;117    			DEBUG("is charging\r\n");
+00007a  a0ee              ADR      r0,|L5.1076|
+00007c  f7fffffe          BL       __2printf
+000080  e00d              B        |L5.158|
+                  |L5.130|
 ;;;118    		}
-;;;119    		
-;;;120    	}
-;;;121    }
-0000a2  bd10              POP      {r4,pc}
-;;;122    
+;;;119    		else
+;;;120    		{
+;;;121    			if(bsp_GetRunTime() - search.lastIsChargingTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
+000082  f7fffffe          BL       bsp_GetRunTime
+000086  49ea              LDR      r1,|L5.1072|
+000088  6989              LDR      r1,[r1,#0x18]  ; search
+00008a  1a40              SUBS     r0,r0,r1
+00008c  f5b07f7a          CMP      r0,#0x3e8
+000090  d302              BCC      |L5.152|
+;;;122    			{
+;;;123    				bsp_SetLedState(AT_CHARGE_DONE);
+000092  2004              MOVS     r0,#4
+000094  f7fffffe          BL       bsp_SetLedState
+                  |L5.152|
+;;;124    			}
+;;;125    
+;;;126    			DEBUG("charge done\r\n");
+000098  a0ea              ADR      r0,|L5.1092|
+00009a  f7fffffe          BL       __2printf
+                  |L5.158|
+;;;127    		}
+;;;128    		
+;;;129    		search.lastIsTouchTick = bsp_GetRunTime();
+00009e  f7fffffe          BL       bsp_GetRunTime
+0000a2  49e3              LDR      r1,|L5.1072|
+0000a4  61c8              STR      r0,[r1,#0x1c]  ; search
+0000a6  e015              B        |L5.212|
+                  |L5.168|
+;;;130    	}
+;;;131    	else /*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
+;;;132    	{
+;;;133    		search.isNeedPlaySong = true;
+0000a8  2001              MOVS     r0,#1
+0000aa  49e1              LDR      r1,|L5.1072|
+0000ac  7408              STRB     r0,[r1,#0x10]
+;;;134    		search.isNeedPlaySongTick = bsp_GetRunTime();
+0000ae  f7fffffe          BL       bsp_GetRunTime
+0000b2  49df              LDR      r1,|L5.1072|
+0000b4  6148              STR      r0,[r1,#0x14]  ; search
+;;;135    		
+;;;136    		if(bsp_GetRunTime() - search.lastIsTouchTick >= 500)
+0000b6  f7fffffe          BL       bsp_GetRunTime
+0000ba  49dd              LDR      r1,|L5.1072|
+0000bc  69c9              LDR      r1,[r1,#0x1c]  ; search
+0000be  1a40              SUBS     r0,r0,r1
+0000c0  f5b07ffa          CMP      r0,#0x1f4
+0000c4  d306              BCC      |L5.212|
+;;;137    		{
+;;;138    			bsp_SetLedState(THREE_WHITE_ON);   /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!治理需要根据扫地与否更改*/
+0000c6  2002              MOVS     r0,#2
+0000c8  f7fffffe          BL       bsp_SetLedState
+;;;139    			
+;;;140    			 search.lastIsTouchTick = UINT32_T_MAX;
+0000cc  f04f30ff          MOV      r0,#0xffffffff
+0000d0  49d7              LDR      r1,|L5.1072|
+0000d2  61c8              STR      r0,[r1,#0x1c]  ; search
+                  |L5.212|
+;;;141    		}
+;;;142    		
+;;;143    	}
+;;;144    	
+;;;145    	
+;;;146    	switch(search.action)
+0000d4  48d6              LDR      r0,|L5.1072|
+0000d6  6840              LDR      r0,[r0,#4]  ; search
+0000d8  2806              CMP      r0,#6
+0000da  d221              BCS      |L5.288|
+0000dc  e8dff000          TBB      [pc,r0]
+0000e0  0321e6fd          DCB      0x03,0x21,0xe6,0xfd
+0000e4  fcfb              DCB      0xfc,0xfb
+;;;147    	{
+;;;148    		case 0:
+;;;149    		{
+;;;150    			/*直接旋转*/
+;;;151    			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+0000e6  f06f0063          MVN      r0,#0x63
+0000ea  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0000ee  4604              MOV      r4,r0
+0000f0  4621              MOV      r1,r4
+0000f2  2000              MOVS     r0,#0
+0000f4  f7fffffe          BL       bsp_SetMotorSpeed
+;;;152    			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
+0000f8  2064              MOVS     r0,#0x64
+0000fa  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0000fe  4604              MOV      r4,r0
+000100  4621              MOV      r1,r4
+000102  2001              MOVS     r0,#1
+000104  f7fffffe          BL       bsp_SetMotorSpeed
+;;;153    			search.angle = bsp_AngleRead();
+000108  f7fffffe          BL       bsp_AngleRead
+00010c  49c8              LDR      r1,|L5.1072|
+00010e  60c8              STR      r0,[r1,#0xc]  ; search
+;;;154    			search.delay = bsp_GetRunTime();
+000110  f7fffffe          BL       bsp_GetRunTime
+000114  49c6              LDR      r1,|L5.1072|
+000116  6088              STR      r0,[r1,#8]  ; search
+;;;155    			++search.action;
+000118  4608              MOV      r0,r1
+00011a  6840              LDR      r0,[r0,#4]  ; search
+00011c  1c40              ADDS     r0,r0,#1
+00011e  6048              STR      r0,[r1,#4]  ; search
+                  |L5.288|
+;;;156    		}break;
+000120  e2d4              B        |L5.1740|
+;;;157    		
+;;;158    		case 1:
+;;;159    		{
+;;;160    			if(CH1_HAVE_ANG_SIGNAL || CH2_HAVE_ANG_SIGNAL)
+000122  2100              MOVS     r1,#0
+000124  4608              MOV      r0,r1
+000126  f7fffffe          BL       bsp_IR_GetRev
+00012a  b9c0              CBNZ     r0,|L5.350|
+00012c  2101              MOVS     r1,#1
+00012e  2000              MOVS     r0,#0
+000130  f7fffffe          BL       bsp_IR_GetRev
+000134  b998              CBNZ     r0,|L5.350|
+000136  2102              MOVS     r1,#2
+000138  2000              MOVS     r0,#0
+00013a  f7fffffe          BL       bsp_IR_GetRev
+00013e  b970              CBNZ     r0,|L5.350|
+000140  2100              MOVS     r1,#0
+000142  2001              MOVS     r0,#1
+000144  f7fffffe          BL       bsp_IR_GetRev
+000148  b948              CBNZ     r0,|L5.350|
+00014a  2101              MOVS     r1,#1
+00014c  4608              MOV      r0,r1
+00014e  f7fffffe          BL       bsp_IR_GetRev
+000152  b920              CBNZ     r0,|L5.350|
+000154  2102              MOVS     r1,#2
+000156  2001              MOVS     r0,#1
+000158  f7fffffe          BL       bsp_IR_GetRev
+00015c  b1c8              CBZ      r0,|L5.402|
+                  |L5.350|
+;;;161    			{
+;;;162    				search.ccwSearchStopBy = CCW_STOP_BY_CH1_2;
+00015e  2001              MOVS     r0,#1
+000160  49b3              LDR      r1,|L5.1072|
+000162  f8810020          STRB     r0,[r1,#0x20]
+;;;163    				
+;;;164    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+000166  2000              MOVS     r0,#0
+000168  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00016c  4604              MOV      r4,r0
+00016e  4621              MOV      r1,r4
+000170  2000              MOVS     r0,#0
+000172  f7fffffe          BL       bsp_SetMotorSpeed
+;;;165    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+000176  2000              MOVS     r0,#0
+000178  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00017c  4604              MOV      r4,r0
+00017e  4621              MOV      r1,r4
+000180  2001              MOVS     r0,#1
+000182  f7fffffe          BL       bsp_SetMotorSpeed
+;;;166    				++search.action;
+000186  48aa              LDR      r0,|L5.1072|
+000188  6840              LDR      r0,[r0,#4]  ; search
+00018a  1c40              ADDS     r0,r0,#1
+00018c  49a8              LDR      r1,|L5.1072|
+00018e  6048              STR      r0,[r1,#4]  ; search
+000190  e08b              B        |L5.682|
+                  |L5.402|
+;;;167    			}
+;;;168    			else if(CH3_HAVE_ANG_SIGNAL)
+000192  2100              MOVS     r1,#0
+000194  2002              MOVS     r0,#2
+000196  f7fffffe          BL       bsp_IR_GetRev
+00019a  b948              CBNZ     r0,|L5.432|
+00019c  2101              MOVS     r1,#1
+00019e  2002              MOVS     r0,#2
+0001a0  f7fffffe          BL       bsp_IR_GetRev
+0001a4  b920              CBNZ     r0,|L5.432|
+0001a6  2102              MOVS     r1,#2
+0001a8  4608              MOV      r0,r1
+0001aa  f7fffffe          BL       bsp_IR_GetRev
+0001ae  b1c8              CBZ      r0,|L5.484|
+                  |L5.432|
+;;;169    			{
+;;;170    				search.ccwSearchStopBy = CCW_STOP_BY_CH3;
+0001b0  2002              MOVS     r0,#2
+0001b2  499f              LDR      r1,|L5.1072|
+0001b4  f8810020          STRB     r0,[r1,#0x20]
+;;;171    				
+;;;172    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+0001b8  2000              MOVS     r0,#0
+0001ba  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0001be  4604              MOV      r4,r0
+0001c0  4621              MOV      r1,r4
+0001c2  2000              MOVS     r0,#0
+0001c4  f7fffffe          BL       bsp_SetMotorSpeed
+;;;173    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+0001c8  2000              MOVS     r0,#0
+0001ca  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0001ce  4604              MOV      r4,r0
+0001d0  4621              MOV      r1,r4
+0001d2  2001              MOVS     r0,#1
+0001d4  f7fffffe          BL       bsp_SetMotorSpeed
+;;;174    				++search.action;
+0001d8  4895              LDR      r0,|L5.1072|
+0001da  6840              LDR      r0,[r0,#4]  ; search
+0001dc  1c40              ADDS     r0,r0,#1
+0001de  4994              LDR      r1,|L5.1072|
+0001e0  6048              STR      r0,[r1,#4]  ; search
+0001e2  e062              B        |L5.682|
+                  |L5.484|
+;;;175    			}
+;;;176    			else if(CH4_HAVE_ANG_SIGNAL)
+0001e4  2100              MOVS     r1,#0
+0001e6  2003              MOVS     r0,#3
+0001e8  f7fffffe          BL       bsp_IR_GetRev
+0001ec  b948              CBNZ     r0,|L5.514|
+0001ee  2101              MOVS     r1,#1
+0001f0  2003              MOVS     r0,#3
+0001f2  f7fffffe          BL       bsp_IR_GetRev
+0001f6  b920              CBNZ     r0,|L5.514|
+0001f8  2102              MOVS     r1,#2
+0001fa  2003              MOVS     r0,#3
+0001fc  f7fffffe          BL       bsp_IR_GetRev
+000200  b1c8              CBZ      r0,|L5.566|
+                  |L5.514|
+;;;177    			{
+;;;178    				search.ccwSearchStopBy = CCW_STOP_BY_CH4;
+000202  2003              MOVS     r0,#3
+000204  498a              LDR      r1,|L5.1072|
+000206  f8810020          STRB     r0,[r1,#0x20]
+;;;179    				
+;;;180    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+00020a  2000              MOVS     r0,#0
+00020c  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000210  4604              MOV      r4,r0
+000212  4621              MOV      r1,r4
+000214  2000              MOVS     r0,#0
+000216  f7fffffe          BL       bsp_SetMotorSpeed
+;;;181    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+00021a  2000              MOVS     r0,#0
+00021c  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000220  4604              MOV      r4,r0
+000222  4621              MOV      r1,r4
+000224  2001              MOVS     r0,#1
+000226  f7fffffe          BL       bsp_SetMotorSpeed
+;;;182    				++search.action;
+00022a  4881              LDR      r0,|L5.1072|
+00022c  6840              LDR      r0,[r0,#4]  ; search
+00022e  1c40              ADDS     r0,r0,#1
+000230  497f              LDR      r1,|L5.1072|
+000232  6048              STR      r0,[r1,#4]  ; search
+000234  e039              B        |L5.682|
+                  |L5.566|
+;;;183    			}
+;;;184    			else if(((bsp_GetRunTime()-search.delay)>=3000 && abs(bsp_AngleRead()-search.angle)<=10.0F))
+000236  f7fffffe          BL       bsp_GetRunTime
+00023a  497d              LDR      r1,|L5.1072|
+00023c  6889              LDR      r1,[r1,#8]  ; search
+00023e  1a40              SUBS     r0,r0,r1
+000240  f64031b8          MOV      r1,#0xbb8
+000244  4288              CMP      r0,r1
+000246  d330              BCC      |L5.682|
+000248  f7fffffe          BL       bsp_AngleRead
+00024c  4607              MOV      r7,r0
+00024e  4878              LDR      r0,|L5.1072|
+000250  68c1              LDR      r1,[r0,#0xc]  ; search
+000252  4638              MOV      r0,r7
+000254  f7fffffe          BL       __aeabi_fsub
+000258  4605              MOV      r5,r0
+00025a  f7fffffe          BL       __aeabi_f2iz
+00025e  1e04              SUBS     r4,r0,#0
+000260  db01              BLT      |L5.614|
+000262  4621              MOV      r1,r4
+000264  e000              B        |L5.616|
+                  |L5.614|
+000266  4261              RSBS     r1,r4,#0
+                  |L5.616|
+000268  4608              MOV      r0,r1
+00026a  f7fffffe          BL       __aeabi_i2f
+00026e  4606              MOV      r6,r0
+000270  4978              LDR      r1,|L5.1108|
+000272  f7fffffe          BL       __aeabi_cfcmple
+000276  d818              BHI      |L5.682|
+;;;185    			{
+;;;186    				search.ccwSearchStopBy = CCW_STOP_BY_OUTTIME;
+000278  2004              MOVS     r0,#4
+00027a  496d              LDR      r1,|L5.1072|
+00027c  f8810020          STRB     r0,[r1,#0x20]
+;;;187    				
+;;;188    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+000280  2000              MOVS     r0,#0
+000282  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000286  4604              MOV      r4,r0
+000288  4621              MOV      r1,r4
+00028a  2000              MOVS     r0,#0
+00028c  f7fffffe          BL       bsp_SetMotorSpeed
+;;;189    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+000290  2000              MOVS     r0,#0
+000292  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000296  4604              MOV      r4,r0
+000298  4621              MOV      r1,r4
+00029a  2001              MOVS     r0,#1
+00029c  f7fffffe          BL       bsp_SetMotorSpeed
+;;;190    				++search.action;
+0002a0  4863              LDR      r0,|L5.1072|
+0002a2  6840              LDR      r0,[r0,#4]  ; search
+0002a4  1c40              ADDS     r0,r0,#1
+0002a6  4962              LDR      r1,|L5.1072|
+0002a8  6048              STR      r0,[r1,#4]  ; search
+                  |L5.682|
+;;;191    			}
+;;;192    			
+;;;193    			
+;;;194    		}break;
+0002aa  e393              B        |L5.2516|
+;;;195    		
+;;;196    		case 2:
+;;;197    		{
+;;;198    			if(search.ccwSearchStopBy == CCW_STOP_BY_CH3) /*此时应该转90度再去寻找*/
+0002ac  4860              LDR      r0,|L5.1072|
+0002ae  f8900020          LDRB     r0,[r0,#0x20]  ; search
+0002b2  2802              CMP      r0,#2
+0002b4  d124              BNE      |L5.768|
+;;;199    			{
+;;;200    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+0002b6  f06f0063          MVN      r0,#0x63
+0002ba  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0002be  4604              MOV      r4,r0
+0002c0  4621              MOV      r1,r4
+0002c2  2000              MOVS     r0,#0
+0002c4  f7fffffe          BL       bsp_SetMotorSpeed
+;;;201    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
+0002c8  2064              MOVS     r0,#0x64
+0002ca  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0002ce  4604              MOV      r4,r0
+0002d0  4621              MOV      r1,r4
+0002d2  2001              MOVS     r0,#1
+0002d4  e002              B        |L5.732|
+0002d6  e1fa              B        |L5.1742|
+0002d8  e04d              B        |L5.886|
+0002da  e012              B        |L5.770|
+                  |L5.732|
+0002dc  f7fffffe          BL       bsp_SetMotorSpeed
+;;;202    				
+;;;203    				search.angle =  bsp_AngleAdd(bsp_AngleRead(),90);
+0002e0  f7fffffe          BL       bsp_AngleRead
+0002e4  4604              MOV      r4,r0
+0002e6  495c              LDR      r1,|L5.1112|
+0002e8  f7fffffe          BL       bsp_AngleAdd
+0002ec  4950              LDR      r1,|L5.1072|
+0002ee  60c8              STR      r0,[r1,#0xc]  ; search
+;;;204    				search.delay = bsp_GetRunTime();
+0002f0  f7fffffe          BL       bsp_GetRunTime
+0002f4  494e              LDR      r1,|L5.1072|
+0002f6  6088              STR      r0,[r1,#8]  ; search
+;;;205    				
+;;;206    				++search.action;
+0002f8  4608              MOV      r0,r1
+0002fa  6840              LDR      r0,[r0,#4]  ; search
+0002fc  1c40              ADDS     r0,r0,#1
+0002fe  6048              STR      r0,[r1,#4]  ; search
+                  |L5.768|
+;;;207    			}
+;;;208    			
+;;;209    		}break;
+000300  e368              B        |L5.2516|
+                  |L5.770|
+;;;210    		
+;;;211    		case 3:
+;;;212    		{
+;;;213    			if(((bsp_GetRunTime()-search.delay)>=1000 && abs(bsp_AngleRead()-search.angle)<=10.0F))
+000302  f7fffffe          BL       bsp_GetRunTime
+000306  494a              LDR      r1,|L5.1072|
+000308  6889              LDR      r1,[r1,#8]  ; search
+00030a  1a40              SUBS     r0,r0,r1
+00030c  f5b07f7a          CMP      r0,#0x3e8
+000310  d330              BCC      |L5.884|
+000312  f7fffffe          BL       bsp_AngleRead
+000316  4607              MOV      r7,r0
+000318  4845              LDR      r0,|L5.1072|
+00031a  68c1              LDR      r1,[r0,#0xc]  ; search
+00031c  4638              MOV      r0,r7
+00031e  f7fffffe          BL       __aeabi_fsub
+000322  4605              MOV      r5,r0
+000324  f7fffffe          BL       __aeabi_f2iz
+000328  1e04              SUBS     r4,r0,#0
+00032a  db01              BLT      |L5.816|
+00032c  4621              MOV      r1,r4
+00032e  e000              B        |L5.818|
+                  |L5.816|
+000330  4261              RSBS     r1,r4,#0
+                  |L5.818|
+000332  4608              MOV      r0,r1
+000334  f7fffffe          BL       __aeabi_i2f
+000338  4606              MOV      r6,r0
+00033a  4946              LDR      r1,|L5.1108|
+00033c  f7fffffe          BL       __aeabi_cfcmple
+000340  d818              BHI      |L5.884|
+;;;214    			{
+;;;215    				search.ccwSearchStopBy = CCW_STOP_BY_OUTTIME;
+000342  2004              MOVS     r0,#4
+000344  493a              LDR      r1,|L5.1072|
+000346  f8810020          STRB     r0,[r1,#0x20]
+;;;216    				
+;;;217    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+00034a  2000              MOVS     r0,#0
+00034c  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000350  4604              MOV      r4,r0
+000352  4621              MOV      r1,r4
+000354  2000              MOVS     r0,#0
+000356  f7fffffe          BL       bsp_SetMotorSpeed
+;;;218    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+00035a  2000              MOVS     r0,#0
+00035c  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000360  4604              MOV      r4,r0
+000362  4621              MOV      r1,r4
+000364  2001              MOVS     r0,#1
+000366  f7fffffe          BL       bsp_SetMotorSpeed
+;;;219    				++search.action;
+00036a  4831              LDR      r0,|L5.1072|
+00036c  6840              LDR      r0,[r0,#4]  ; search
+00036e  1c40              ADDS     r0,r0,#1
+000370  492f              LDR      r1,|L5.1072|
+000372  6048              STR      r0,[r1,#4]  ; search
+                  |L5.884|
+;;;220    			}
+;;;221    		}break;
+000374  e32e              B        |L5.2516|
+                  |L5.886|
+;;;222    		
+;;;223    		case 4:
+;;;224    		{
+;;;225    			if(bsp_CollisionScan() != CollisionNone)
+000376  f7fffffe          BL       bsp_CollisionScan
+00037a  2803              CMP      r0,#3
+00037c  d017              BEQ      |L5.942|
+;;;226    			{
+;;;227    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+00037e  f06f0063          MVN      r0,#0x63
+000382  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000386  4604              MOV      r4,r0
+000388  4621              MOV      r1,r4
+00038a  2000              MOVS     r0,#0
+00038c  f7fffffe          BL       bsp_SetMotorSpeed
+;;;228    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+000390  f06f0063          MVN      r0,#0x63
+000394  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000398  4604              MOV      r4,r0
+00039a  4621              MOV      r1,r4
+00039c  2001              MOVS     r0,#1
+00039e  f7fffffe          BL       bsp_SetMotorSpeed
+;;;229    				
+;;;230    				++search.action;
+0003a2  4823              LDR      r0,|L5.1072|
+0003a4  6840              LDR      r0,[r0,#4]  ; search
+0003a6  1c40              ADDS     r0,r0,#1
+0003a8  4921              LDR      r1,|L5.1072|
+0003aa  6048              STR      r0,[r1,#4]  ; search
+0003ac  e18e              B        |L5.1740|
+                  |L5.942|
+;;;231    			}
+;;;232    			/*前面2个，都能收到左右发射*/
+;;;233    			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
+0003ae  2100              MOVS     r1,#0
+0003b0  4608              MOV      r0,r1
+0003b2  f7fffffe          BL       bsp_IR_GetRev
+0003b6  b1f8              CBZ      r0,|L5.1016|
+0003b8  2102              MOVS     r1,#2
+0003ba  2000              MOVS     r0,#0
+0003bc  f7fffffe          BL       bsp_IR_GetRev
+0003c0  b1d0              CBZ      r0,|L5.1016|
+;;;234    				&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+0003c2  2100              MOVS     r1,#0
+0003c4  2001              MOVS     r0,#1
+0003c6  f7fffffe          BL       bsp_IR_GetRev
+0003ca  b1a8              CBZ      r0,|L5.1016|
+0003cc  2102              MOVS     r1,#2
+0003ce  2001              MOVS     r0,#1
+0003d0  f7fffffe          BL       bsp_IR_GetRev
+0003d4  b180              CBZ      r0,|L5.1016|
+;;;235    			{
+;;;236    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+0003d6  2064              MOVS     r0,#0x64
+0003d8  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0003dc  4604              MOV      r4,r0
+0003de  4621              MOV      r1,r4
+0003e0  2000              MOVS     r0,#0
+0003e2  f7fffffe          BL       bsp_SetMotorSpeed
+;;;237    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+0003e6  2064              MOVS     r0,#0x64
+0003e8  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0003ec  4604              MOV      r4,r0
+0003ee  4621              MOV      r1,r4
+0003f0  2001              MOVS     r0,#1
+0003f2  f7fffffe          BL       bsp_SetMotorSpeed
+0003f6  e169              B        |L5.1740|
+                  |L5.1016|
+;;;238    			}
+;;;239    			/*前面2个，各收各*/
+;;;240    			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+0003f8  2102              MOVS     r1,#2
+0003fa  2000              MOVS     r0,#0
+0003fc  f7fffffe          BL       bsp_IR_GetRev
+000400  b1a8              CBZ      r0,|L5.1070|
+000402  2100              MOVS     r1,#0
+000404  2001              MOVS     r0,#1
+000406  f7fffffe          BL       bsp_IR_GetRev
+00040a  b180              CBZ      r0,|L5.1070|
+;;;241    			{
+;;;242    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+00040c  2064              MOVS     r0,#0x64
+00040e  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000412  4604              MOV      r4,r0
+000414  4621              MOV      r1,r4
+000416  2000              MOVS     r0,#0
+000418  f7fffffe          BL       bsp_SetMotorSpeed
+;;;243    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+00041c  2064              MOVS     r0,#0x64
+00041e  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000422  4604              MOV      r4,r0
+000424  4621              MOV      r1,r4
+000426  2001              MOVS     r0,#1
+000428  f7fffffe          BL       bsp_SetMotorSpeed
+00042c  e14e              B        |L5.1740|
+                  |L5.1070|
+00042e  e015              B        |L5.1116|
+                  |L5.1072|
+                          DCD      search
+                  |L5.1076|
+000434  69732063          DCB      "is charging\r\n",0
+000438  68617267
+00043c  696e670d
+000440  0a00    
+000442  00                DCB      0
+000443  00                DCB      0
+                  |L5.1092|
+000444  63686172          DCB      "charge done\r\n",0
+000448  67652064
+00044c  6f6e650d
+000450  0a00    
+000452  00                DCB      0
+000453  00                DCB      0
+                  |L5.1108|
+                          DCD      0x41200000
+                  |L5.1112|
+                          DCD      0x42b40000
+                  |L5.1116|
+;;;244    			}
+;;;245    			
+;;;246    			
+;;;247    			/*1号能收到2个 ,2号能收到左边*/
+;;;248    			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+00045c  2100              MOVS     r1,#0
+00045e  4608              MOV      r0,r1
+000460  f7fffffe          BL       bsp_IR_GetRev
+000464  b1d0              CBZ      r0,|L5.1180|
+000466  2102              MOVS     r1,#2
+000468  2000              MOVS     r0,#0
+00046a  f7fffffe          BL       bsp_IR_GetRev
+00046e  b1a8              CBZ      r0,|L5.1180|
+000470  2100              MOVS     r1,#0
+000472  2001              MOVS     r0,#1
+000474  f7fffffe          BL       bsp_IR_GetRev
+000478  b180              CBZ      r0,|L5.1180|
+;;;249    			{
+;;;250    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+00047a  2064              MOVS     r0,#0x64
+00047c  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000480  4604              MOV      r4,r0
+000482  4621              MOV      r1,r4
+000484  2000              MOVS     r0,#0
+000486  f7fffffe          BL       bsp_SetMotorSpeed
+;;;251    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+00048a  2064              MOVS     r0,#0x64
+00048c  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000490  4604              MOV      r4,r0
+000492  4621              MOV      r1,r4
+000494  2001              MOVS     r0,#1
+000496  f7fffffe          BL       bsp_SetMotorSpeed
+00049a  e117              B        |L5.1740|
+                  |L5.1180|
+;;;252    			}
+;;;253    			
+;;;254    			/*2号能收到2个 ,1号能收到右边*/
+;;;255    			else if(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+00049c  2100              MOVS     r1,#0
+00049e  2001              MOVS     r0,#1
+0004a0  f7fffffe          BL       bsp_IR_GetRev
+0004a4  b1d0              CBZ      r0,|L5.1244|
+0004a6  2102              MOVS     r1,#2
+0004a8  2001              MOVS     r0,#1
+0004aa  f7fffffe          BL       bsp_IR_GetRev
+0004ae  b1a8              CBZ      r0,|L5.1244|
+0004b0  2102              MOVS     r1,#2
+0004b2  2000              MOVS     r0,#0
+0004b4  f7fffffe          BL       bsp_IR_GetRev
+0004b8  b180              CBZ      r0,|L5.1244|
+;;;256    			{
+;;;257    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+0004ba  2064              MOVS     r0,#0x64
+0004bc  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0004c0  4604              MOV      r4,r0
+0004c2  4621              MOV      r1,r4
+0004c4  2000              MOVS     r0,#0
+0004c6  f7fffffe          BL       bsp_SetMotorSpeed
+;;;258    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+0004ca  2064              MOVS     r0,#0x64
+0004cc  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0004d0  4604              MOV      r4,r0
+0004d2  4621              MOV      r1,r4
+0004d4  2001              MOVS     r0,#1
+0004d6  f7fffffe          BL       bsp_SetMotorSpeed
+0004da  e0f7              B        |L5.1740|
+                  |L5.1244|
+;;;259    			}
+;;;260    			
+;;;261    			
+;;;262    			/*1，2号都能收到左边，都不能收到右边*/
+;;;263    			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && 
+0004dc  2100              MOVS     r1,#0
+0004de  4608              MOV      r0,r1
+0004e0  f7fffffe          BL       bsp_IR_GetRev
+0004e4  b1f8              CBZ      r0,|L5.1318|
+0004e6  2100              MOVS     r1,#0
+0004e8  2001              MOVS     r0,#1
+0004ea  f7fffffe          BL       bsp_IR_GetRev
+0004ee  b1d0              CBZ      r0,|L5.1318|
+;;;264    				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+0004f0  2102              MOVS     r1,#2
+0004f2  2000              MOVS     r0,#0
+0004f4  f7fffffe          BL       bsp_IR_GetRev
+0004f8  b9a8              CBNZ     r0,|L5.1318|
+0004fa  2102              MOVS     r1,#2
+0004fc  2001              MOVS     r0,#1
+0004fe  f7fffffe          BL       bsp_IR_GetRev
+000502  b980              CBNZ     r0,|L5.1318|
+;;;265    			{
+;;;266    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(180));
+000504  20b4              MOVS     r0,#0xb4
+000506  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00050a  4604              MOV      r4,r0
+00050c  4621              MOV      r1,r4
+00050e  2000              MOVS     r0,#0
+000510  f7fffffe          BL       bsp_SetMotorSpeed
+;;;267    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+000514  2064              MOVS     r0,#0x64
+000516  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00051a  4604              MOV      r4,r0
+00051c  4621              MOV      r1,r4
+00051e  2001              MOVS     r0,#1
+000520  f7fffffe          BL       bsp_SetMotorSpeed
+000524  e0d2              B        |L5.1740|
+                  |L5.1318|
+;;;268    			}
+;;;269    			/*1，2号都能收到右边，都不能收到左边*/
+;;;270    			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && 
+000526  2102              MOVS     r1,#2
+000528  2000              MOVS     r0,#0
+00052a  f7fffffe          BL       bsp_IR_GetRev
+00052e  b1f8              CBZ      r0,|L5.1392|
+000530  2102              MOVS     r1,#2
+000532  2001              MOVS     r0,#1
+000534  f7fffffe          BL       bsp_IR_GetRev
+000538  b1d0              CBZ      r0,|L5.1392|
+;;;271    				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+00053a  2100              MOVS     r1,#0
+00053c  4608              MOV      r0,r1
+00053e  f7fffffe          BL       bsp_IR_GetRev
+000542  b9a8              CBNZ     r0,|L5.1392|
+000544  2100              MOVS     r1,#0
+000546  2001              MOVS     r0,#1
+000548  f7fffffe          BL       bsp_IR_GetRev
+00054c  b980              CBNZ     r0,|L5.1392|
+;;;272    			{
+;;;273    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+00054e  2064              MOVS     r0,#0x64
+000550  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000554  4604              MOV      r4,r0
+000556  4621              MOV      r1,r4
+000558  2000              MOVS     r0,#0
+00055a  f7fffffe          BL       bsp_SetMotorSpeed
+;;;274    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(180));
+00055e  20b4              MOVS     r0,#0xb4
+000560  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000564  4604              MOV      r4,r0
+000566  4621              MOV      r1,r4
+000568  2001              MOVS     r0,#1
+00056a  f7fffffe          BL       bsp_SetMotorSpeed
+00056e  e0ad              B        |L5.1740|
+                  |L5.1392|
+;;;275    			}
+;;;276    
+;;;277    			
+;;;278    			/*1号不能同时收到左右发射，2能同时收到左右发射*/
+;;;279    			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+000570  2100              MOVS     r1,#0
+000572  4608              MOV      r0,r1
+000574  f7fffffe          BL       bsp_IR_GetRev
+000578  b120              CBZ      r0,|L5.1412|
+00057a  2102              MOVS     r1,#2
+00057c  2000              MOVS     r0,#0
+00057e  f7fffffe          BL       bsp_IR_GetRev
+000582  b9d0              CBNZ     r0,|L5.1466|
+                  |L5.1412|
+;;;280    				&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+000584  2100              MOVS     r1,#0
+000586  2001              MOVS     r0,#1
+000588  f7fffffe          BL       bsp_IR_GetRev
+00058c  b1a8              CBZ      r0,|L5.1466|
+00058e  2102              MOVS     r1,#2
+000590  2001              MOVS     r0,#1
+000592  f7fffffe          BL       bsp_IR_GetRev
+000596  b180              CBZ      r0,|L5.1466|
+;;;281    			{
+;;;282    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+000598  2064              MOVS     r0,#0x64
+00059a  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00059e  4604              MOV      r4,r0
+0005a0  4621              MOV      r1,r4
+0005a2  2000              MOVS     r0,#0
+0005a4  f7fffffe          BL       bsp_SetMotorSpeed
+;;;283    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(180));
+0005a8  20b4              MOVS     r0,#0xb4
+0005aa  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0005ae  4604              MOV      r4,r0
+0005b0  4621              MOV      r1,r4
+0005b2  2001              MOVS     r0,#1
+0005b4  f7fffffe          BL       bsp_SetMotorSpeed
+0005b8  e088              B        |L5.1740|
+                  |L5.1466|
+;;;284    			}
+;;;285    			/*1号能同时收到左右发射，2不能同时收到左右发射*/
+;;;286    			else if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+0005ba  2100              MOVS     r1,#0
+0005bc  4608              MOV      r0,r1
+0005be  f7fffffe          BL       bsp_IR_GetRev
+0005c2  b1f8              CBZ      r0,|L5.1540|
+0005c4  2102              MOVS     r1,#2
+0005c6  2000              MOVS     r0,#0
+0005c8  f7fffffe          BL       bsp_IR_GetRev
+0005cc  b1d0              CBZ      r0,|L5.1540|
+;;;287    				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+0005ce  2100              MOVS     r1,#0
+0005d0  2001              MOVS     r0,#1
+0005d2  f7fffffe          BL       bsp_IR_GetRev
+0005d6  b120              CBZ      r0,|L5.1506|
+0005d8  2102              MOVS     r1,#2
+0005da  2001              MOVS     r0,#1
+0005dc  f7fffffe          BL       bsp_IR_GetRev
+0005e0  b980              CBNZ     r0,|L5.1540|
+                  |L5.1506|
+;;;288    			{
+;;;289    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(180));
+0005e2  20b4              MOVS     r0,#0xb4
+0005e4  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0005e8  4604              MOV      r4,r0
+0005ea  4621              MOV      r1,r4
+0005ec  2000              MOVS     r0,#0
+0005ee  f7fffffe          BL       bsp_SetMotorSpeed
+;;;290    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+0005f2  2064              MOVS     r0,#0x64
+0005f4  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0005f8  4604              MOV      r4,r0
+0005fa  4621              MOV      r1,r4
+0005fc  2001              MOVS     r0,#1
+0005fe  f7fffffe          BL       bsp_SetMotorSpeed
+000602  e063              B        |L5.1740|
+                  |L5.1540|
+;;;291    			}
+;;;292    			/*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+;;;293    			else if(bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
+000604  2101              MOVS     r1,#1
+000606  2003              MOVS     r0,#3
+000608  f7fffffe          BL       bsp_IR_GetRev
+00060c  b1d0              CBZ      r0,|L5.1604|
+00060e  2100              MOVS     r1,#0
+000610  2003              MOVS     r0,#3
+000612  f7fffffe          BL       bsp_IR_GetRev
+000616  b920              CBNZ     r0,|L5.1570|
+000618  2102              MOVS     r1,#2
+00061a  2003              MOVS     r0,#3
+00061c  f7fffffe          BL       bsp_IR_GetRev
+000620  b180              CBZ      r0,|L5.1604|
+                  |L5.1570|
+;;;294    			{
+;;;295    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+000622  2064              MOVS     r0,#0x64
+000624  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000628  4604              MOV      r4,r0
+00062a  4621              MOV      r1,r4
+00062c  2000              MOVS     r0,#0
+00062e  f7fffffe          BL       bsp_SetMotorSpeed
+;;;296    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+000632  2000              MOVS     r0,#0
+000634  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000638  4604              MOV      r4,r0
+00063a  4621              MOV      r1,r4
+00063c  2001              MOVS     r0,#1
+00063e  f7fffffe          BL       bsp_SetMotorSpeed
+000642  e043              B        |L5.1740|
+                  |L5.1604|
+;;;297    			}
+;;;298    			/*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+;;;299    			else if(bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
+000644  2101              MOVS     r1,#1
+000646  2002              MOVS     r0,#2
+000648  f7fffffe          BL       bsp_IR_GetRev
+00064c  b1d0              CBZ      r0,|L5.1668|
+00064e  2100              MOVS     r1,#0
+000650  2002              MOVS     r0,#2
+000652  f7fffffe          BL       bsp_IR_GetRev
+000656  b920              CBNZ     r0,|L5.1634|
+000658  2102              MOVS     r1,#2
+00065a  4608              MOV      r0,r1
+00065c  f7fffffe          BL       bsp_IR_GetRev
+000660  b180              CBZ      r0,|L5.1668|
+                  |L5.1634|
+;;;300    			{
+;;;301    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+000662  2000              MOVS     r0,#0
+000664  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000668  4604              MOV      r4,r0
+00066a  4621              MOV      r1,r4
+00066c  2000              MOVS     r0,#0
+00066e  f7fffffe          BL       bsp_SetMotorSpeed
+;;;302    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+000672  2064              MOVS     r0,#0x64
+000674  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000678  4604              MOV      r4,r0
+00067a  4621              MOV      r1,r4
+00067c  2001              MOVS     r0,#1
+00067e  f7fffffe          BL       bsp_SetMotorSpeed
+000682  e023              B        |L5.1740|
+                  |L5.1668|
+;;;303    			}
+;;;304    			/*1，2都不能同时收到左右发射*/
+;;;305    			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+000684  2100              MOVS     r1,#0
+000686  4608              MOV      r0,r1
+000688  f7fffffe          BL       bsp_IR_GetRev
+00068c  b120              CBZ      r0,|L5.1688|
+00068e  2102              MOVS     r1,#2
+000690  2000              MOVS     r0,#0
+000692  f7fffffe          BL       bsp_IR_GetRev
+000696  b9c8              CBNZ     r0,|L5.1740|
+                  |L5.1688|
+;;;306    				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+000698  2100              MOVS     r1,#0
+00069a  2001              MOVS     r0,#1
+00069c  f7fffffe          BL       bsp_IR_GetRev
+0006a0  b120              CBZ      r0,|L5.1708|
+0006a2  2102              MOVS     r1,#2
+0006a4  2001              MOVS     r0,#1
+0006a6  f7fffffe          BL       bsp_IR_GetRev
+0006aa  b978              CBNZ     r0,|L5.1740|
+                  |L5.1708|
+;;;307    			{
+;;;308    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+0006ac  2064              MOVS     r0,#0x64
+0006ae  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0006b2  4604              MOV      r4,r0
+0006b4  4621              MOV      r1,r4
+0006b6  2000              MOVS     r0,#0
+0006b8  f7fffffe          BL       bsp_SetMotorSpeed
+;;;309    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+0006bc  2064              MOVS     r0,#0x64
+0006be  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0006c2  4604              MOV      r4,r0
+0006c4  4621              MOV      r1,r4
+0006c6  2001              MOVS     r0,#1
+0006c8  f7fffffe          BL       bsp_SetMotorSpeed
+                  |L5.1740|
+;;;310    			}
+;;;311    		}break;
+0006cc  e182              B        |L5.2516|
+                  |L5.1742|
+;;;312    		
+;;;313    		case 5:
+;;;314    		{
+;;;315    			/*前面2个，都能收到左右发射*/
+;;;316    			if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
+0006ce  2100              MOVS     r1,#0
+0006d0  4608              MOV      r0,r1
+0006d2  f7fffffe          BL       bsp_IR_GetRev
+0006d6  b1f8              CBZ      r0,|L5.1816|
+0006d8  2102              MOVS     r1,#2
+0006da  2000              MOVS     r0,#0
+0006dc  f7fffffe          BL       bsp_IR_GetRev
+0006e0  b1d0              CBZ      r0,|L5.1816|
+;;;317    				&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+0006e2  2100              MOVS     r1,#0
+0006e4  2001              MOVS     r0,#1
+0006e6  f7fffffe          BL       bsp_IR_GetRev
+0006ea  b1a8              CBZ      r0,|L5.1816|
+0006ec  2102              MOVS     r1,#2
+0006ee  2001              MOVS     r0,#1
+0006f0  f7fffffe          BL       bsp_IR_GetRev
+0006f4  b180              CBZ      r0,|L5.1816|
+;;;318    			{
+;;;319    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+0006f6  2064              MOVS     r0,#0x64
+0006f8  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0006fc  4604              MOV      r4,r0
+0006fe  4621              MOV      r1,r4
+000700  2000              MOVS     r0,#0
+000702  f7fffffe          BL       bsp_SetMotorSpeed
+;;;320    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+000706  2064              MOVS     r0,#0x64
+000708  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00070c  4604              MOV      r4,r0
+00070e  4621              MOV      r1,r4
+000710  2001              MOVS     r0,#1
+000712  f7fffffe          BL       bsp_SetMotorSpeed
+000716  e15c              B        |L5.2514|
+                  |L5.1816|
+;;;321    			}
+;;;322    			/*前面2个，各收各*/
+;;;323    			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+000718  2102              MOVS     r1,#2
+00071a  2000              MOVS     r0,#0
+00071c  f7fffffe          BL       bsp_IR_GetRev
+000720  b1a8              CBZ      r0,|L5.1870|
+000722  2100              MOVS     r1,#0
+000724  2001              MOVS     r0,#1
+000726  f7fffffe          BL       bsp_IR_GetRev
+00072a  b180              CBZ      r0,|L5.1870|
+;;;324    			{
+;;;325    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+00072c  2064              MOVS     r0,#0x64
+00072e  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000732  4604              MOV      r4,r0
+000734  4621              MOV      r1,r4
+000736  2000              MOVS     r0,#0
+000738  f7fffffe          BL       bsp_SetMotorSpeed
+;;;326    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+00073c  2064              MOVS     r0,#0x64
+00073e  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000742  4604              MOV      r4,r0
+000744  4621              MOV      r1,r4
+000746  2001              MOVS     r0,#1
+000748  f7fffffe          BL       bsp_SetMotorSpeed
+00074c  e141              B        |L5.2514|
+                  |L5.1870|
+;;;327    			}
+;;;328    			
+;;;329    			
+;;;330    			/*1号能收到2个 ,2号能收到左边*/
+;;;331    			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+00074e  2100              MOVS     r1,#0
+000750  4608              MOV      r0,r1
+000752  f7fffffe          BL       bsp_IR_GetRev
+000756  b1d0              CBZ      r0,|L5.1934|
+000758  2102              MOVS     r1,#2
+00075a  2000              MOVS     r0,#0
+00075c  f7fffffe          BL       bsp_IR_GetRev
+000760  b1a8              CBZ      r0,|L5.1934|
+000762  2100              MOVS     r1,#0
+000764  2001              MOVS     r0,#1
+000766  f7fffffe          BL       bsp_IR_GetRev
+00076a  b180              CBZ      r0,|L5.1934|
+;;;332    			{
+;;;333    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+00076c  2064              MOVS     r0,#0x64
+00076e  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000772  4604              MOV      r4,r0
+000774  4621              MOV      r1,r4
+000776  2000              MOVS     r0,#0
+000778  f7fffffe          BL       bsp_SetMotorSpeed
+;;;334    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+00077c  2064              MOVS     r0,#0x64
+00077e  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000782  4604              MOV      r4,r0
+000784  4621              MOV      r1,r4
+000786  2001              MOVS     r0,#1
+000788  f7fffffe          BL       bsp_SetMotorSpeed
+00078c  e121              B        |L5.2514|
+                  |L5.1934|
+;;;335    			}
+;;;336    			
+;;;337    			/*2号能收到2个 ,1号能收到右边*/
+;;;338    			else if(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+00078e  2100              MOVS     r1,#0
+000790  2001              MOVS     r0,#1
+000792  f7fffffe          BL       bsp_IR_GetRev
+000796  b1d0              CBZ      r0,|L5.1998|
+000798  2102              MOVS     r1,#2
+00079a  2001              MOVS     r0,#1
+00079c  f7fffffe          BL       bsp_IR_GetRev
+0007a0  b1a8              CBZ      r0,|L5.1998|
+0007a2  2102              MOVS     r1,#2
+0007a4  2000              MOVS     r0,#0
+0007a6  f7fffffe          BL       bsp_IR_GetRev
+0007aa  b180              CBZ      r0,|L5.1998|
+;;;339    			{
+;;;340    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+0007ac  2064              MOVS     r0,#0x64
+0007ae  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0007b2  4604              MOV      r4,r0
+0007b4  4621              MOV      r1,r4
+0007b6  2000              MOVS     r0,#0
+0007b8  f7fffffe          BL       bsp_SetMotorSpeed
+;;;341    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+0007bc  2064              MOVS     r0,#0x64
+0007be  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0007c2  4604              MOV      r4,r0
+0007c4  4621              MOV      r1,r4
+0007c6  2001              MOVS     r0,#1
+0007c8  f7fffffe          BL       bsp_SetMotorSpeed
+0007cc  e101              B        |L5.2514|
+                  |L5.1998|
+;;;342    			}
+;;;343    			
+;;;344    			
+;;;345    			/*1，2号都能收到左边，都不能收到右边*/
+;;;346    			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && 
+0007ce  2100              MOVS     r1,#0
+0007d0  4608              MOV      r0,r1
+0007d2  f7fffffe          BL       bsp_IR_GetRev
+0007d6  b308              CBZ      r0,|L5.2076|
+0007d8  2100              MOVS     r1,#0
+0007da  2001              MOVS     r0,#1
+0007dc  f7fffffe          BL       bsp_IR_GetRev
+0007e0  b1e0              CBZ      r0,|L5.2076|
+;;;347    				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+0007e2  2102              MOVS     r1,#2
+0007e4  2000              MOVS     r0,#0
+0007e6  f7fffffe          BL       bsp_IR_GetRev
+0007ea  b9b8              CBNZ     r0,|L5.2076|
+0007ec  2102              MOVS     r1,#2
+0007ee  2001              MOVS     r0,#1
+0007f0  f7fffffe          BL       bsp_IR_GetRev
+0007f4  b990              CBNZ     r0,|L5.2076|
+;;;348    			{
+;;;349    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+0007f6  f06f0063          MVN      r0,#0x63
+0007fa  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0007fe  4604              MOV      r4,r0
+000800  4621              MOV      r1,r4
+000802  2000              MOVS     r0,#0
+000804  f7fffffe          BL       bsp_SetMotorSpeed
+;;;350    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-180));
+000808  f06f00b3          MVN      r0,#0xb3
+00080c  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+000810  4604              MOV      r4,r0
+000812  4621              MOV      r1,r4
+000814  2001              MOVS     r0,#1
+000816  f7fffffe          BL       bsp_SetMotorSpeed
+00081a  e0da              B        |L5.2514|
+                  |L5.2076|
+;;;351    			}
+;;;352    			/*1，2号都能收到右边，都不能收到左边*/
+;;;353    			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && 
+00081c  2102              MOVS     r1,#2
+00081e  2000              MOVS     r0,#0
+000820  f7fffffe          BL       bsp_IR_GetRev
+000824  b308              CBZ      r0,|L5.2154|
+000826  2102              MOVS     r1,#2
+000828  2001              MOVS     r0,#1
+00082a  f7fffffe          BL       bsp_IR_GetRev
+00082e  b1e0              CBZ      r0,|L5.2154|
+;;;354    				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+000830  2100              MOVS     r1,#0
+000832  4608              MOV      r0,r1
+000834  f7fffffe          BL       bsp_IR_GetRev
+000838  b9b8              CBNZ     r0,|L5.2154|
+00083a  2100              MOVS     r1,#0
+00083c  2001              MOVS     r0,#1
+00083e  f7fffffe          BL       bsp_IR_GetRev
+000842  b990              CBNZ     r0,|L5.2154|
+;;;355    			{
+;;;356    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-180));
+000844  f06f00b3          MVN      r0,#0xb3
+000848  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00084c  4604              MOV      r4,r0
+00084e  4621              MOV      r1,r4
+000850  2000              MOVS     r0,#0
+000852  f7fffffe          BL       bsp_SetMotorSpeed
+;;;357    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+000856  f06f0063          MVN      r0,#0x63
+00085a  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00085e  4604              MOV      r4,r0
+000860  4621              MOV      r1,r4
+000862  2001              MOVS     r0,#1
+000864  f7fffffe          BL       bsp_SetMotorSpeed
+000868  e0b3              B        |L5.2514|
+                  |L5.2154|
+;;;358    			}
+;;;359    
+;;;360    			
+;;;361    			/*1号不能同时收到左右发射，2能同时收到左右发射*/
+;;;362    			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+00086a  2100              MOVS     r1,#0
+00086c  4608              MOV      r0,r1
+00086e  f7fffffe          BL       bsp_IR_GetRev
+000872  b120              CBZ      r0,|L5.2174|
+000874  2102              MOVS     r1,#2
+000876  2000              MOVS     r0,#0
+000878  f7fffffe          BL       bsp_IR_GetRev
+00087c  b9e0              CBNZ     r0,|L5.2232|
+                  |L5.2174|
+;;;363    				&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+00087e  2100              MOVS     r1,#0
+000880  2001              MOVS     r0,#1
+000882  f7fffffe          BL       bsp_IR_GetRev
+000886  b1b8              CBZ      r0,|L5.2232|
+000888  2102              MOVS     r1,#2
+00088a  2001              MOVS     r0,#1
+00088c  f7fffffe          BL       bsp_IR_GetRev
+000890  b190              CBZ      r0,|L5.2232|
+;;;364    			{
+;;;365    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-180));
+000892  f06f00b3          MVN      r0,#0xb3
+000896  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00089a  4604              MOV      r4,r0
+00089c  4621              MOV      r1,r4
+00089e  2000              MOVS     r0,#0
+0008a0  f7fffffe          BL       bsp_SetMotorSpeed
+;;;366    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+0008a4  f06f0063          MVN      r0,#0x63
+0008a8  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0008ac  4604              MOV      r4,r0
+0008ae  4621              MOV      r1,r4
+0008b0  2001              MOVS     r0,#1
+0008b2  f7fffffe          BL       bsp_SetMotorSpeed
+0008b6  e08c              B        |L5.2514|
+                  |L5.2232|
+;;;367    			}
+;;;368    			/*1号能同时收到左右发射，2不能同时收到左右发射*/
+;;;369    			else if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+0008b8  2100              MOVS     r1,#0
+0008ba  4608              MOV      r0,r1
+0008bc  f7fffffe          BL       bsp_IR_GetRev
+0008c0  b308              CBZ      r0,|L5.2310|
+0008c2  2102              MOVS     r1,#2
+0008c4  2000              MOVS     r0,#0
+0008c6  f7fffffe          BL       bsp_IR_GetRev
+0008ca  b1e0              CBZ      r0,|L5.2310|
+;;;370    				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+0008cc  2100              MOVS     r1,#0
+0008ce  2001              MOVS     r0,#1
+0008d0  f7fffffe          BL       bsp_IR_GetRev
+0008d4  b120              CBZ      r0,|L5.2272|
+0008d6  2102              MOVS     r1,#2
+0008d8  2001              MOVS     r0,#1
+0008da  f7fffffe          BL       bsp_IR_GetRev
+0008de  b990              CBNZ     r0,|L5.2310|
+                  |L5.2272|
+;;;371    			{
+;;;372    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+0008e0  f06f0063          MVN      r0,#0x63
+0008e4  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0008e8  4604              MOV      r4,r0
+0008ea  4621              MOV      r1,r4
+0008ec  2000              MOVS     r0,#0
+0008ee  f7fffffe          BL       bsp_SetMotorSpeed
+;;;373    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-180));
+0008f2  f06f00b3          MVN      r0,#0xb3
+0008f6  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0008fa  4604              MOV      r4,r0
+0008fc  4621              MOV      r1,r4
+0008fe  2001              MOVS     r0,#1
+000900  f7fffffe          BL       bsp_SetMotorSpeed
+000904  e065              B        |L5.2514|
+                  |L5.2310|
+;;;374    			}
+;;;375    			/*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+;;;376    			else if(bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
+000906  2101              MOVS     r1,#1
+000908  2003              MOVS     r0,#3
+00090a  f7fffffe          BL       bsp_IR_GetRev
+00090e  b1d8              CBZ      r0,|L5.2376|
+000910  2100              MOVS     r1,#0
+000912  2003              MOVS     r0,#3
+000914  f7fffffe          BL       bsp_IR_GetRev
+000918  b920              CBNZ     r0,|L5.2340|
+00091a  2102              MOVS     r1,#2
+00091c  2003              MOVS     r0,#3
+00091e  f7fffffe          BL       bsp_IR_GetRev
+000922  b188              CBZ      r0,|L5.2376|
+                  |L5.2340|
+;;;377    			{
+;;;378    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+000924  2000              MOVS     r0,#0
+000926  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00092a  4604              MOV      r4,r0
+00092c  4621              MOV      r1,r4
+00092e  2000              MOVS     r0,#0
+000930  f7fffffe          BL       bsp_SetMotorSpeed
+;;;379    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+000934  f06f0063          MVN      r0,#0x63
+000938  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00093c  4604              MOV      r4,r0
+00093e  4621              MOV      r1,r4
+000940  2001              MOVS     r0,#1
+000942  f7fffffe          BL       bsp_SetMotorSpeed
+000946  e044              B        |L5.2514|
+                  |L5.2376|
+;;;380    			}
+;;;381    			/*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+;;;382    			else if(bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
+000948  2101              MOVS     r1,#1
+00094a  2002              MOVS     r0,#2
+00094c  f7fffffe          BL       bsp_IR_GetRev
+000950  b1d8              CBZ      r0,|L5.2442|
+000952  2100              MOVS     r1,#0
+000954  2002              MOVS     r0,#2
+000956  f7fffffe          BL       bsp_IR_GetRev
+00095a  b920              CBNZ     r0,|L5.2406|
+00095c  2102              MOVS     r1,#2
+00095e  4608              MOV      r0,r1
+000960  f7fffffe          BL       bsp_IR_GetRev
+000964  b188              CBZ      r0,|L5.2442|
+                  |L5.2406|
+;;;383    			{
+;;;384    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+000966  f06f0063          MVN      r0,#0x63
+00096a  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00096e  4604              MOV      r4,r0
+000970  4621              MOV      r1,r4
+000972  2000              MOVS     r0,#0
+000974  f7fffffe          BL       bsp_SetMotorSpeed
+;;;385    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+000978  2000              MOVS     r0,#0
+00097a  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00097e  4604              MOV      r4,r0
+000980  4621              MOV      r1,r4
+000982  2001              MOVS     r0,#1
+000984  f7fffffe          BL       bsp_SetMotorSpeed
+000988  e023              B        |L5.2514|
+                  |L5.2442|
+;;;386    			}
+;;;387    			/*1，2都不能同时收到左右发射*/
+;;;388    			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+00098a  2100              MOVS     r1,#0
+00098c  4608              MOV      r0,r1
+00098e  f7fffffe          BL       bsp_IR_GetRev
+000992  b120              CBZ      r0,|L5.2462|
+000994  2102              MOVS     r1,#2
+000996  2000              MOVS     r0,#0
+000998  f7fffffe          BL       bsp_IR_GetRev
+00099c  b9c8              CBNZ     r0,|L5.2514|
+                  |L5.2462|
+;;;389    				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+00099e  2100              MOVS     r1,#0
+0009a0  2001              MOVS     r0,#1
+0009a2  f7fffffe          BL       bsp_IR_GetRev
+0009a6  b120              CBZ      r0,|L5.2482|
+0009a8  2102              MOVS     r1,#2
+0009aa  2001              MOVS     r0,#1
+0009ac  f7fffffe          BL       bsp_IR_GetRev
+0009b0  b978              CBNZ     r0,|L5.2514|
+                  |L5.2482|
+;;;390    			{
+;;;391    				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+0009b2  2064              MOVS     r0,#0x64
+0009b4  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0009b8  4604              MOV      r4,r0
+0009ba  4621              MOV      r1,r4
+0009bc  2000              MOVS     r0,#0
+0009be  f7fffffe          BL       bsp_SetMotorSpeed
+;;;392    				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+0009c2  2064              MOVS     r0,#0x64
+0009c4  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+0009c8  4604              MOV      r4,r0
+0009ca  4621              MOV      r1,r4
+0009cc  2001              MOVS     r0,#1
+0009ce  f7fffffe          BL       bsp_SetMotorSpeed
+                  |L5.2514|
+;;;393    			}
+;;;394    		}break;
+0009d2  bf00              NOP      
+                  |L5.2516|
+0009d4  bf00              NOP                            ;156
+;;;395    	}
+;;;396    	
+;;;397    	
+;;;398    	
+;;;399    	
+;;;400    }
+0009d6  e8bd81f0          POP      {r4-r8,pc}
+;;;401    
                           ENDP
 
-                  |L5.164|
-                          DCD      search
-                  |L5.168|
-0000a8  69732063          DCB      "is charging\r\n",0
-0000ac  68617267
-0000b0  696e670d
-0000b4  0a00    
-0000b6  00                DCB      0
-0000b7  00                DCB      0
-                  |L5.184|
-0000b8  63686172          DCB      "charge done\r\n",0
-0000bc  67652064
-0000c0  6f6e650d
-0000c4  0a00    
-0000c6  00                DCB      0
-0000c7  00                DCB      0
 
                           AREA ||i.bsp_StartSearchChargePile||, CODE, READONLY, ALIGN=2
 
                   bsp_StartSearchChargePile PROC
-;;;40     */
-;;;41     void bsp_StartSearchChargePile(void)
+;;;54     */
+;;;55     void bsp_StartSearchChargePile(void)
 000000  b510              PUSH     {r4,lr}
-;;;42     {
-;;;43     	bsp_IRD_StartWork();
+;;;56     {
+;;;57     	bsp_IRD_StartWork();
 000002  f7fffffe          BL       bsp_IRD_StartWork
-;;;44     	
-;;;45     	search.action = 0 ;
+;;;58     	
+;;;59     	search.action = 0 ;
 000006  2000              MOVS     r0,#0
 000008  4902              LDR      r1,|L6.20|
 00000a  6048              STR      r0,[r1,#4]  ; search
-;;;46     	search.delay = 0 ;
+;;;60     	search.delay = 0 ;
 00000c  6088              STR      r0,[r1,#8]  ; search
-;;;47     	search.isRunning = true;
+;;;61     	search.isRunning = true;
 00000e  2001              MOVS     r0,#1
 000010  7008              STRB     r0,[r1,#0]
-;;;48     	
-;;;49     	
-;;;50     }
+;;;62     	
+;;;63     	
+;;;64     }
 000012  bd10              POP      {r4,pc}
-;;;51     
+;;;65     
                           ENDP
 
                   |L6.20|
@@ -327,24 +1552,24 @@
                           AREA ||i.bsp_StopSearchChargePile||, CODE, READONLY, ALIGN=2
 
                   bsp_StopSearchChargePile PROC
-;;;59     */
-;;;60     void bsp_StopSearchChargePile(void)
+;;;73     */
+;;;74     void bsp_StopSearchChargePile(void)
 000000  b510              PUSH     {r4,lr}
-;;;61     {
-;;;62     	search.isRunning = false;
+;;;75     {
+;;;76     	search.isRunning = false;
 000002  2000              MOVS     r0,#0
 000004  4903              LDR      r1,|L7.20|
 000006  7008              STRB     r0,[r1,#0]
-;;;63     	search.action = 0 ;
+;;;77     	search.action = 0 ;
 000008  6048              STR      r0,[r1,#4]  ; search
-;;;64     	search.delay = 0 ;
+;;;78     	search.delay = 0 ;
 00000a  6088              STR      r0,[r1,#8]  ; search
-;;;65     	
-;;;66     	bsp_IRD_StopWork();
+;;;79     	
+;;;80     	bsp_IRD_StopWork();
 00000c  f7fffffe          BL       bsp_IRD_StopWork
-;;;67     }	
+;;;81     }	
 000010  bd10              POP      {r4,pc}
-;;;68     
+;;;82     
                           ENDP
 
 000012  0000              DCW      0x0000
@@ -354,7 +1579,7 @@
                           AREA ||.bss||, DATA, NOINIT, ALIGN=2
 
                   search
-                          %        28
+                          %        36
 
 ;*** Start embedded assembler ***
 
