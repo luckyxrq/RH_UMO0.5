@@ -365,7 +365,7 @@
               <MiscControls>--diag_suppress=870</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include;..\..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\Libraries\STM32_USB-FS-Device_Driver\inc;..\..\Libraries\CMSIS\Include;..\..\User\bsp;..\..\User\bsp\inc;..\..\User\app\inc;..\..\User\fonts;..\..\User\images;..\..\User\uIP\uip;..\..\User\uIP\http;..\..\User\uIP\dm9000;..\..\User\FatFS\src;..\..\User\usb_mass;..\..\User\CH376\inc</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include;..\..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\Libraries\STM32_USB-FS-Device_Driver\inc;..\..\Libraries\CMSIS\Include;..\..\User\bsp;..\..\User\bsp\inc;..\..\User\app\inc;..\..\User\fonts;..\..\User\images;..\..\User\uIP\uip;..\..\User\uIP\http;..\..\User\uIP\dm9000;..\..\User\FatFS\src;..\..\User\usb_mass;..\..\User\CH376\inc;..\..\..\User\angle\gan_rui_Angle;..\..\User\angle\yuan_zi_Angle</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -422,6 +422,11 @@
               <FileName>bsp_Collision.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Collision.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_Angle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Angle.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -963,6 +968,11 @@
               <FileName>bsp_Collision.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Collision.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_Angle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Angle.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -40,3 +40,6 @@
 .\flash\obj\bsp_key.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
 .\flash\obj\bsp_key.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_key.o: ..\..\User\app\inc\bsp_Collision.h
+.\flash\obj\bsp_key.o: ..\..\User\app\inc\bsp_Angle.h
+.\flash\obj\bsp_key.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h
+.\flash\obj\bsp_key.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h

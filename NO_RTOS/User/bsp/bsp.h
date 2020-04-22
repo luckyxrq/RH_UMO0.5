@@ -80,6 +80,8 @@
 #include "bsp_uart_fifo.h"
 #include "bsp_PowerSwitch.h"
 #include "bsp_Collision.h"
+#include "bsp_Angle.h"
+
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
 void bsp_Idle(void);

@@ -33363,6 +33363,129 @@ Nvoid bsp_PrintCollision(void);
 N
 N#endif
 L 83 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Angle.h"
+L 1 "..\..\User\app\inc\bsp_Angle.h" 1
+N#ifndef __BSP_ANGLE_H
+N#define __BSP_ANGLE_H
+N
+N
+N#define ANGLE_TYPE_YUAN_ZI      0
+N#define ANGLE_TYPE_GAN_RUI      1
+N
+N#define ANGLE_TYPE      ANGLE_TYPE_YUAN_ZI
+N
+N
+N
+N
+N#if ANGLE_TYPE == ANGLE_TYPE_YUAN_ZI
+X#if 0 == 0
+N
+N#include "bsp_yuan_zi_Angle.h"
+L 1 "..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h" 1
+N#include "stm32f10x.h"
+N#include <stdbool.h>
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision: 177844 $
+N * Checkin $Date: 2012-11-21 11:51:12 +0000 (Wed, 21 Nov 2012) $
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5050106
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 3 "..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h" 2
+N
+N
+N#define RX_BUF_SIZE   96             /*用于接收解析数据的缓冲区大小*/
+N#define RX_BAUD       115200         /*陀螺仪通信速率*/
+N#define SIZE_WITH_ROLL_PITCH      79 /*一帧角度信息的总字节大小*/
+N
+N/*各个信息在数据帧中的起始位置*/
+Ntypedef enum
+N{
+N	POS_ANGLE_CHK = 77,
+N	POS_HEAD1_CHK = 0,
+N	POS_HEAD2_CHK = 21,
+N	POS_HEAD3_CHK = 36,
+N	POS_HEAD4_CHK = 51,
+N	POS_TAIL_CHK = 78,
+N}POS_ANGLE;
+N
+Ntypedef enum
+N{
+N	ACC_X = 0 ,
+N	ACC_Y     ,
+N	ACC_Z     ,
+N	PITCH     ,
+N	ROLL      ,
+N	YAW       ,
+N}IMU_DATA_TYPE;
+N
+Ntypedef struct
+N{
+N	volatile bool timeout ;
+X	volatile _Bool timeout ;
+N	volatile uint16_t rxCount;
+N	volatile uint8_t  buf[RX_BUF_SIZE] ;
+X	volatile uint8_t  buf[96] ;
+N	volatile float angle;
+N	volatile int16_t angleRaw;
+N	
+N	float accX;
+N	float accY;
+N	float accZ;
+N	
+N	float roll;
+N	float pitch;
+N	float yaw;
+N}Angle;
+N
+Nvoid bsp_IMU_Calibration(void);
+Nfloat bsp_IMU_GetData(IMU_DATA_TYPE type);
+Nvoid bsp_AngleRevByte(uint8_t byte);
+Nfloat bsp_AngleAdd(float angle1 , float angle2);
+Nvoid bsp_InitAngle(void);
+Nvoid bsp_AngleRst(void);
+N
+N/*为了兼容旧版驱动接口，故提供此函数*/
+Nfloat bsp_AngleRead(void);
+Nint16_t bsp_AngleReadRaw(void);
+N
+N
+N
+L 16 "..\..\User\app\inc\bsp_Angle.h" 2
+N
+N#elif ANGLE_TYPE == ANGLE_TYPE_GAN_RUI
+S
+S#include "bsp_gan_rui_Angle.h"
+S
+N#endif
+N
+N
+N
+N#endif
+N
+L 84 "..\..\User\bsp\bsp.h" 2
+N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);
