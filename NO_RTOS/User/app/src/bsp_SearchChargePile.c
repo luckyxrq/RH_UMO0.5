@@ -20,6 +20,10 @@ typedef struct
 	volatile uint32_t action;
 	volatile uint32_t delay;
 	
+	bool isNeedPlaySong;
+	uint32_t isNeedPlaySongTick;
+	uint32_t lastIsChargingTick;
+	uint32_t lastIsTouchTick;
 }Serach;
 
 
@@ -76,28 +80,43 @@ void bsp_SearchChargePile(void)
 	if(bsp_IsTouchChargePile())
 	{
 		/*播放开始充电*/
-		//bsp_SperkerPlay(Song22);
+		if(search.isNeedPlaySong && (bsp_GetRunTime() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
+		{
+			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
+			bsp_SperkerPlay(Song22);
+			search.isNeedPlaySong = false;
+		}
+
 		if(bsp_IsCharging())
 		{
-			bsp_SetLedState(LED_DEFAULT_STATE);
-			bsp_CloseAllLed();
-			bsp_LedOn(LED_COLOR_YELLOW);
-			
+			bsp_SetLedState(AT_CHARGING);
+			search.lastIsChargingTick = bsp_GetRunTime();
 			DEBUG("is charging\r\n");
 		}
 		else
 		{
-			bsp_SetLedState(LED_DEFAULT_STATE);
-			bsp_CloseAllLed();
-			bsp_LedOn(LED_COLOR_GREEN);
-			
+			if(bsp_GetRunTime() - search.lastIsChargingTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
+			{
+				bsp_SetLedState(AT_CHARGE_DONE);
+			}
+
 			DEBUG("charge done\r\n");
 		}
+		
+		search.lastIsTouchTick = bsp_GetRunTime();
 	}
-	else
+	else /*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
 	{
-		bsp_LedOff(LED_COLOR_YELLOW);
-		bsp_LedOff(LED_COLOR_GREEN);
+		search.isNeedPlaySong = true;
+		search.isNeedPlaySongTick = bsp_GetRunTime();
+		
+		if(bsp_GetRunTime() - search.lastIsTouchTick >= 500)
+		{
+			bsp_SetLedState(THREE_WHITE_ON);
+			
+			 search.lastIsTouchTick = UINT32_T_MAX;
+		}
+		
 	}
 }
 

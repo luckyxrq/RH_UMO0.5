@@ -86,6 +86,15 @@ void bsp_LedAppProc(void)
 			ledAppProc.delay = bsp_GetRunTime();
 		}
 	}
+	else if(ledAppProc.ledAppState == THREE_WHITE_ON) /*ÁÁ3¿Å°×É«LED*/
+	{
+		bsp_LedOn(LED_LOGO_CLEAN);
+		bsp_LedOn(LED_LOGO_POWER);
+		bsp_LedOn(LED_LOGO_CHARGE);
+		bsp_LedOff(LED_COLOR_YELLOW);
+		bsp_LedOff(LED_COLOR_GREEN);
+		bsp_LedOff(LED_COLOR_RED);
+	}
 	else if(ledAppProc.ledAppState == AT_CHARGING) /*³äµçÖÐ*/
 	{
 		bsp_LedOn(LED_LOGO_CLEAN);

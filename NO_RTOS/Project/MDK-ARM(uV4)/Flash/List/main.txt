@@ -198,39 +198,51 @@
 ;;;22     	
 ;;;23     	
 ;;;24     	
-;;;25     //	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(20));
-;;;26     //	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(20));
+;;;25     	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+000006  2064              MOVS     r0,#0x64
+000008  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00000c  4605              MOV      r5,r0
+00000e  4629              MOV      r1,r5
+000010  2000              MOVS     r0,#0
+000012  f7fffffe          BL       bsp_SetMotorSpeed
+;;;26     	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+000016  2064              MOVS     r0,#0x64
+000018  f7fffffe          BL       bsp_MotorSpeedMM2Pulse
+00001c  4605              MOV      r5,r0
+00001e  4629              MOV      r1,r5
+000020  2001              MOVS     r0,#1
+000022  f7fffffe          BL       bsp_SetMotorSpeed
 ;;;27     
 ;;;28     //	bsp_IRD_StartWork();
 ;;;29     	
 ;;;30     	bsp_SetLedState(THREE_WHITE_TOOGLE);
-000006  2001              MOVS     r0,#1
-000008  f7fffffe          BL       bsp_SetLedState
+000026  2001              MOVS     r0,#1
+000028  f7fffffe          BL       bsp_SetLedState
 ;;;31     	
 ;;;32     	
 ;;;33     	/* 主程序大循环 */
 ;;;34     	while (1)
-00000c  e00b              B        |L2.38|
-                  |L2.14|
+00002c  e00b              B        |L2.70|
+                  |L2.46|
 ;;;35     	{
 ;;;36     	
 ;;;37     		bsp_PositionUpdate();
-00000e  f7fffffe          BL       bsp_PositionUpdate
+00002e  f7fffffe          BL       bsp_PositionUpdate
 ;;;38     		bsp_LedAppProc();
-000012  f7fffffe          BL       bsp_LedAppProc
+000032  f7fffffe          BL       bsp_LedAppProc
 ;;;39     		bsp_KeyProc();
-000016  f7fffffe          BL       bsp_KeyProc
+000036  f7fffffe          BL       bsp_KeyProc
 ;;;40     		bsp_SearchChargePile();
-00001a  f7fffffe          BL       bsp_SearchChargePile
+00003a  f7fffffe          BL       bsp_SearchChargePile
 ;;;41     		
 ;;;42     		/*下面内容不修改*/
 ;;;43     		++tick;
-00001e  1c64              ADDS     r4,r4,#1
+00003e  1c64              ADDS     r4,r4,#1
 ;;;44     		bsp_DelayMS(1);
-000020  2001              MOVS     r0,#1
-000022  f7fffffe          BL       bsp_DelayMS
-                  |L2.38|
-000026  e7f2              B        |L2.14|
+000040  2001              MOVS     r0,#1
+000042  f7fffffe          BL       bsp_DelayMS
+                  |L2.70|
+000046  e7f2              B        |L2.46|
 ;;;45     	}
 ;;;46     }
 ;;;47     

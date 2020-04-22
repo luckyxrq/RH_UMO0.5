@@ -50,6 +50,8 @@
 	#define FALSE 0
 #endif
 
+#define UINT32_T_MAX      0xFFFFFFFF
+
 #define UNUSED(x)    (void)(x) /*防止出现未使用的警告*/
 
 #define DEBUG_EN      1 

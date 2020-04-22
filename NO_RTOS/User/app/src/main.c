@@ -22,8 +22,8 @@ int main(void)
 	
 	
 	
-//	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(20));
-//	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(20));
+	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
 
 //	bsp_IRD_StartWork();
 	
