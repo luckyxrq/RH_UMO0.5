@@ -5,6 +5,10 @@
 ".\flash\obj\bsp_angle.o"
 ".\flash\obj\bsp_aw9523b.o"
 ".\flash\obj\bsp_detectact.o"
+".\flash\obj\bsp_edgewise.o"
+".\flash\obj\bsp_encoder.o"
+".\flash\obj\bsp_control.o"
+".\flash\obj\bsp_motor.o"
 ".\flash\obj\bsp_led.o"
 ".\flash\obj\bsp_timer.o"
 ".\flash\obj\bsp.o"
@@ -22,6 +26,7 @@
 ".\flash\obj\stm32f10x_flash.o"
 ".\flash\obj\stm32f10x_pwr.o"
 ".\flash\obj\stm32f10x_adc.o"
+".\flash\obj\stm32f10x_exti.o"
 ".\flash\obj\system_stm32f10x.o"
 --library_type=microlib --strict --scatter ".\Flash\Obj\output.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols

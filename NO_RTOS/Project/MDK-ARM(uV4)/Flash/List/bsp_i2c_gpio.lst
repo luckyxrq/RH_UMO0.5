@@ -33638,6 +33638,115 @@ N
 N#endif
 N
 L 87 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Edgewise.h"
+L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
+N#ifndef __BSP_EDGEWISE_H
+N#define __BSP_EDGEWISE_H
+N
+Nvoid bsp_StartEdgewiseRun(void);
+Nvoid bsp_StopEdgewiseRun(void);
+Nvoid bsp_EdgewiseRun(void);
+N
+N#endif
+N
+L 88 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Encoder.h"
+L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
+N#ifndef __ENCODER_H
+N#define __ENCODER_H
+N
+N#define ENCODER_NUM      (2)     /*编码器个数*/
+N#define RPM_PULSE_RATIO  (1024)  /*轮子转1圈，脉冲个数*/
+N#define ENCODER_PI		 (3.14F) /*π*/
+N
+Ntypedef enum
+N{
+N	EncoderLeft = 0 ,
+N	EncoderRight
+N}EncoderSN;
+N
+Ntypedef struct
+N{
+N	uint32_t totalMileage; /*总里程，没有正负，前进后退都加，上升沿下降沿都加*/
+N	int32_t pulseT;        /*周期性的读取脉冲个数，理论上有正负，但目前扫地机只有1个霍尔，无法硬件层面得到正负*/
+N}Encoder;
+N
+Nvoid bsp_InitEncoder(void);
+Nuint32_t bsp_EncoderGetTotalMileage(EncoderSN sn);
+Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
+Nuint32_t bsp_GetCurrentBothPulse(void);
+N
+N#endif
+L 89 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_motor.h"
+L 1 "..\..\User\app\inc\bsp_motor.h" 1
+N#ifndef __BSP_MOTOR_H
+N#define __BSP_MOTOR_H
+N
+N#define CONSTANT_HIGH_PWM      (3600)
+N#define CONSTANT_LOW_PWM       (0)
+N
+N
+Ntypedef enum
+N{
+N	MotorLeft = 0 ,
+N	MotorRight
+N}MotorSN;
+N
+Ntypedef enum
+N{
+N	MotorRollingBrush = 0 ,
+N	MotorSideBrush
+N}MotorCleanSN;
+N
+Ntypedef enum
+N{
+N	Forward = 0 ,
+N	Backward
+N}MotorDir;
+N
+Ntypedef enum
+N{
+N	CW = 0 ,
+N	CCW
+N}MotorCleanDir;
+N
+Ntypedef struct
+N{
+N	volatile bool isRunning;
+X	volatile _Bool isRunning;
+N	volatile uint32_t tick;
+N}Vacuum;
+N
+Nvoid bsp_InitMotor(void);
+Nvoid bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
+Nvoid bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm);
+N
+Nvoid bsp_VacuumClean(void);
+Nvoid bsp_StartVacuum(void);
+Nvoid bsp_StopVacuum(void);
+N
+N#endif
+N
+L 90 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Control.h"
+L 1 "..\..\User\app\inc\bsp_Control.h" 1
+N#ifndef __BSP_CONTROL_H
+N#define __BSP_CONTROL_H
+N
+N#include "bsp_motor.h"
+N
+Nvoid bsp_InitPid(MotorSN sn);
+Nvoid bsp_PidSched(void);
+Nvoid bsp_SetMotorSpeed(MotorSN sn , int32_t speed);
+Nint32_t bsp_MotorGetSpeed(MotorSN sn);
+Nint32_t bsp_MotorGetTargetSpeed(MotorSN sn);
+Nint32_t bsp_MotorSpeedMM2Pulse(int16_t mm);
+Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
+N
+N#endif
+N
+L 91 "..\..\User\bsp\bsp.h" 2
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);

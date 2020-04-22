@@ -46,3 +46,7 @@
 .\flash\obj\bsp_uart_fifo.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_aw9523b.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_DetectAct.h
+.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Edgewise.h
+.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Encoder.h
+.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_motor.h
+.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_Control.h

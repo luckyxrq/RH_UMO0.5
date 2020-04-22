@@ -46,5 +46,9 @@
 .\flash\obj\bsp_angle.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_aw9523b.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_DetectAct.h
+.\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_Edgewise.h
+.\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_Encoder.h
+.\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_motor.h
+.\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_Control.h
 .\flash\obj\bsp_angle.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.c
 .\flash\obj\bsp_angle.o: ..\..\User\bsp\bsp.h
