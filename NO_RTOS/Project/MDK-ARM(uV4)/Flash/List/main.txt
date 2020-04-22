@@ -4,6 +4,10 @@
 
                           AREA ||i.main||, CODE, READONLY, ALIGN=2
 
+                          REQUIRE _printf_percent
+                          REQUIRE _printf_widthprec
+                          REQUIRE _printf_f
+                          REQUIRE _printf_fp_dec
                   main PROC
 ;;;11     */
 ;;;12     int main(void)
@@ -17,30 +21,38 @@
 ;;;19     	
 ;;;20     	/* 主程序大循环 */
 ;;;21     	while (1)
-000004  e007              B        |L1.22|
+000004  e00f              B        |L1.38|
                   |L1.6|
 ;;;22     	{
 ;;;23     		bsp_Idle();		/* CPU空闲时执行的函数，在 bsp.c */
 000006  f7fffffe          BL       bsp_Idle
 ;;;24     	
 ;;;25     		
-;;;26     		DEBUG("执行\r\n");
-00000a  a003              ADR      r0,|L1.24|
-00000c  f7fffffe          BL       __2printf
+;;;26     		DEBUG("陀螺仪：%.2F\r\n",bsp_AngleRead());
+00000a  f7fffffe          BL       bsp_AngleRead
+00000e  4606              MOV      r6,r0
+000010  f7fffffe          BL       __aeabi_f2d
+000014  4604              MOV      r4,r0
+000016  4622              MOV      r2,r4
+000018  460b              MOV      r3,r1
+00001a  a003              ADR      r0,|L1.40|
+00001c  f7fffffe          BL       __2printf
 ;;;27     		bsp_DelayMS(1);
-000010  2001              MOVS     r0,#1
-000012  f7fffffe          BL       bsp_DelayMS
-                  |L1.22|
-000016  e7f6              B        |L1.6|
+000020  2001              MOVS     r0,#1
+000022  f7fffffe          BL       bsp_DelayMS
+                  |L1.38|
+000026  e7ee              B        |L1.6|
 ;;;28     	}
 ;;;29     }
 ;;;30     
                           ENDP
 
-                  |L1.24|
-000018  d6b4d0d0          DCB      214,180,208,208,"\r\n",0
-00001c  0d0a00  
-00001f  00                DCB      0
+                  |L1.40|
+000028  cdd3c2dd          DCB      205,211,194,221,210,199,163,186,"%.2F\r\n",0
+00002c  d2c7a3ba
+000030  252e3246
+000034  0d0a00  
+000037  00                DCB      0
 
 ;*** Start embedded assembler ***
 

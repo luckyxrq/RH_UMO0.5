@@ -1342,7 +1342,7 @@
 ;;;466    	g_tUart3.SendOver = RS485_SendOver;			/* 发送完毕后的回调函数 */
 000052  4820              LDR      r0,|L17.212|
 000054  6208              STR      r0,[r1,#0x20]  ; g_tUart3
-;;;467    	g_tUart3.ReciveNew = RS485_ReciveNew;		/* 接收到新数据后的回调函数 */
+;;;467    	g_tUart3.ReciveNew = bsp_AngleRevByte;		/* 接收到新数据后的回调函数 */
 000056  4820              LDR      r0,|L17.216|
 000058  6248              STR      r0,[r1,#0x24]  ; g_tUart3
 ;;;468    #endif
@@ -1464,7 +1464,7 @@
                   |L17.212|
                           DCD      RS485_SendOver
                   |L17.216|
-                          DCD      RS485_ReciveNew
+                          DCD      bsp_AngleRevByte
                   |L17.220|
                           DCD      0x40004c00
                   |L17.224|

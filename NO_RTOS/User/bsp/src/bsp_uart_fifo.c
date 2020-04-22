@@ -464,7 +464,7 @@ static void UartVarInit(void)
 	g_tUart3.usTxCount = 0;						/* 待发送的数据个数 */
 	g_tUart3.SendBefor = RS485_SendBefor;		/* 发送数据前的回调函数 */
 	g_tUart3.SendOver = RS485_SendOver;			/* 发送完毕后的回调函数 */
-	g_tUart3.ReciveNew = RS485_ReciveNew;		/* 接收到新数据后的回调函数 */
+	g_tUart3.ReciveNew = bsp_AngleRevByte;		/* 接收到新数据后的回调函数 */
 #endif
 
 #if UART4_FIFO_EN == 1

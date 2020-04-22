@@ -23,7 +23,7 @@ int main(void)
 		bsp_Idle();		/* CPU空闲时执行的函数，在 bsp.c */
 	
 		
-		DEBUG("执行\r\n");
+		DEBUG("陀螺仪：%.2F\r\n",bsp_AngleRead());
 		bsp_DelayMS(1);
 	}
 }

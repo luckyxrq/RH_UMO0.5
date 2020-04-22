@@ -34,6 +34,7 @@
 ".\flash\obj\stm32f10x_pwr.o"
 ".\flash\obj\stm32f10x_adc.o"
 ".\flash\obj\stm32f10x_exti.o"
+".\flash\obj\stm32f10x_dbgmcu.o"
 ".\flash\obj\system_stm32f10x.o"
 --library_type=microlib --strict --scatter ".\Flash\Obj\output.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols

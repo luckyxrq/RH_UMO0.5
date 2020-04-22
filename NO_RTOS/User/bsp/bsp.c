@@ -35,16 +35,29 @@ void bsp_Init(void)
 
 		系统时钟缺省配置为72MHz，如果需要更改，可以修改 system_stm32f103.c 文件
 	*/
-
+	
+	/* 保证睡眠模式下调试器继续可以连接使用 */
+	DBGMCU_Config(DBGMCU_SLEEP, ENABLE);
+	
 	/* 优先级分组设置为4 */
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+	
+	/* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
+	bsp_InitAngle();         
 	
 	bsp_InitLed();		/* 配置LED的GPIO端口 */
 	bsp_InitKey();		/* 初始化按键 */	
 	bsp_InitTimer();	/* 初始化系统滴答定时器 (此函数会开中断) */
 	bsp_InitUart();		/* 初始化串口驱动 */
 	
-	
+	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
+	bsp_SwOn(SW_5V_EN_CTRL);
+	bsp_DelayMS(1000);
+	bsp_SwOn(SW_3V3_EN_CTRL);
+	bsp_SwOn(SW_IR_POWER);
+	bsp_SwOn(SW_MOTOR_POWER);
+	bsp_SwOn(SW_VSLAM_POWER);
+	bsp_SwOn(SW_WIFI_POWER);
 }
 
 /*
