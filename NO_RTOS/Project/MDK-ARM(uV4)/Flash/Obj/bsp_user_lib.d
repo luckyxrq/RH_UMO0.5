@@ -60,3 +60,4 @@
 .\flash\obj\bsp_user_lib.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\bsp_user_lib.o: ..\..\User\bsp\inc\bsp_ir_decode.h
 .\flash\obj\bsp_user_lib.o: ..\..\User\app\inc\bsp_LedApp.h
+.\flash\obj\bsp_user_lib.o: ..\..\User\app\inc\bsp_SearchChargePile.h

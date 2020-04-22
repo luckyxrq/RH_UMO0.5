@@ -37,6 +37,7 @@ int main(void)
 		bsp_PositionUpdate();
 		bsp_LedAppProc();
 		bsp_KeyProc();
+		bsp_SearchChargePile();
 		
 		/*下面内容不修改*/
 		++tick;
@@ -81,9 +82,7 @@ static void bsp_KeyProc(void)
 				DEBUG("清扫按键按下\r\n");
 
 			}break;
-			
 
-			
 			case KEY_LONG_POWER:
 			{
 				DEBUG("电源按键长按\r\n");

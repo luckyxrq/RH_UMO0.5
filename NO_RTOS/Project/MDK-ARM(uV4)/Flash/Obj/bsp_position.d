@@ -60,4 +60,5 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\bsp_position.o: ..\..\User\bsp\inc\bsp_ir_decode.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_LedApp.h
+.\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

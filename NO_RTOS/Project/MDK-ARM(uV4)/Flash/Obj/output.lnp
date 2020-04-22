@@ -16,6 +16,7 @@
 ".\flash\obj\bsp_offsitesw.o"
 ".\flash\obj\bsp_speaker.o"
 ".\flash\obj\bsp_ledapp.o"
+".\flash\obj\bsp_searchchargepile.o"
 ".\flash\obj\bsp_led.o"
 ".\flash\obj\bsp_timer.o"
 ".\flash\obj\bsp.o"

@@ -75,6 +75,8 @@ void bsp_Init(void)
 	
 	/*刚开始不开启红外接收*/
 	bsp_IRD_StopWork();
+	/*充电相关IO*/
+	bsp_InitChargeIO();
 	
 	/*加密认证*/
 #if 0

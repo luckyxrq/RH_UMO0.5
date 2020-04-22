@@ -5,22 +5,22 @@
                           AREA ||i.bsp_Idle||, CODE, READONLY, ALIGN=1
 
                   bsp_Idle PROC
-;;;138    extern void SaveScreenToBmp(uint16_t _index);
-;;;139    void bsp_Idle(void)
+;;;140    extern void SaveScreenToBmp(uint16_t _index);
+;;;141    void bsp_Idle(void)
 000000  4770              BX       lr
-;;;140    {
-;;;141    	/* --- 喂狗 */
-;;;142    
-;;;143    	/* --- 让CPU进入休眠，由Systick定时中断唤醒或者其他中断唤醒 */
+;;;142    {
+;;;143    	/* --- 喂狗 */
 ;;;144    
-;;;145    	/* 例如 emWin 图形库，可以插入图形库需要的轮询函数 */
-;;;146    	//GUI_Exec();
-;;;147    
-;;;148    	/* 例如 uIP 协议，可以插入uip轮询函数 */
+;;;145    	/* --- 让CPU进入休眠，由Systick定时中断唤醒或者其他中断唤醒 */
+;;;146    
+;;;147    	/* 例如 emWin 图形库，可以插入图形库需要的轮询函数 */
+;;;148    	//GUI_Exec();
 ;;;149    
-;;;150    
-;;;151    }
+;;;150    	/* 例如 uIP 协议，可以插入uip轮询函数 */
+;;;151    
 ;;;152    
+;;;153    }
+;;;154    
                           ENDP
 
 
@@ -113,58 +113,61 @@
 ;;;76     	/*刚开始不开启红外接收*/
 ;;;77     	bsp_IRD_StopWork();
 000078  f7fffffe          BL       bsp_IRD_StopWork
-;;;78     	
-;;;79     	/*加密认证*/
-;;;80     #if 0
-;;;81     	bsp_InitDX8_();
-;;;82     	DEBUG("[1-2]->1 %s\r\n",&DX8_Version()[39]);
-;;;83     	if(bsp_Authentication() == 0)
-;;;84     	{
-;;;85     		DEBUG("[1-2]->2 %s\r\n",&DX8_Version()[39]);
-;;;86     	}
-;;;87     	else
-;;;88     	{
-;;;89     		while(1)
-;;;90     		{
-;;;91     			WARNING("%10d WARNING\r\n",bsp_GetRunTime());
-;;;92     			bsp_DelayMS(100);
-;;;93     		}
-;;;94     	}
-;;;95     #endif
-;;;96     }
-00007c  bd10              POP      {r4,pc}
-;;;97     
+;;;78     	/*充电相关IO*/
+;;;79     	bsp_InitChargeIO();
+00007c  f7fffffe          BL       bsp_InitChargeIO
+;;;80     	
+;;;81     	/*加密认证*/
+;;;82     #if 0
+;;;83     	bsp_InitDX8_();
+;;;84     	DEBUG("[1-2]->1 %s\r\n",&DX8_Version()[39]);
+;;;85     	if(bsp_Authentication() == 0)
+;;;86     	{
+;;;87     		DEBUG("[1-2]->2 %s\r\n",&DX8_Version()[39]);
+;;;88     	}
+;;;89     	else
+;;;90     	{
+;;;91     		while(1)
+;;;92     		{
+;;;93     			WARNING("%10d WARNING\r\n",bsp_GetRunTime());
+;;;94     			bsp_DelayMS(100);
+;;;95     		}
+;;;96     	}
+;;;97     #endif
+;;;98     }
+000080  bd10              POP      {r4,pc}
+;;;99     
                           ENDP
 
 
                           AREA ||i.bsp_RunPer10ms||, CODE, READONLY, ALIGN=1
 
                   bsp_RunPer10ms PROC
-;;;106    */
-;;;107    void bsp_RunPer10ms(void)
+;;;108    */
+;;;109    void bsp_RunPer10ms(void)
 000000  b510              PUSH     {r4,lr}
-;;;108    {
-;;;109    	bsp_KeyScan();		/* 每10ms扫描按键一次 */
+;;;110    {
+;;;111    	bsp_KeyScan();		/* 每10ms扫描按键一次 */
 000002  f7fffffe          BL       bsp_KeyScan
-;;;110    	
-;;;111    	bsp_PidSched();     /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
+;;;112    	
+;;;113    	bsp_PidSched();     /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 000006  f7fffffe          BL       bsp_PidSched
-;;;112    }
+;;;114    }
 00000a  bd10              POP      {r4,pc}
-;;;113    
+;;;115    
                           ENDP
 
 
                           AREA ||i.bsp_RunPer1ms||, CODE, READONLY, ALIGN=1
 
                   bsp_RunPer1ms PROC
-;;;123    extern void GT811_Timer1ms(void);
-;;;124    void bsp_RunPer1ms(void)
+;;;125    extern void GT811_Timer1ms(void);
+;;;126    void bsp_RunPer1ms(void)
 000000  4770              BX       lr
-;;;125    {
-;;;126    	;
-;;;127    }
-;;;128    
+;;;127    {
+;;;128    	;
+;;;129    }
+;;;130    
                           ENDP
 
 

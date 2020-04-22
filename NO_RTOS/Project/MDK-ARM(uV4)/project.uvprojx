@@ -493,6 +493,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_LedApp.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_SearchChargePile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_SearchChargePile.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1148,6 +1153,11 @@
               <FileName>bsp_LedApp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_LedApp.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_SearchChargePile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_SearchChargePile.c</FilePath>
             </File>
           </Files>
         </Group>

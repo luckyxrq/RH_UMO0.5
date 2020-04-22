@@ -60,3 +60,4 @@
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\bsp\inc\bsp_ir_decode.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\app\inc\bsp_LedApp.h
+.\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\app\inc\bsp_SearchChargePile.h

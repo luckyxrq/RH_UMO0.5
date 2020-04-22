@@ -1,4 +1,4 @@
-L 1 "..\..\User\app\src\bsp_aw9523b.c"
+L 1 "..\..\User\app\src\bsp_SearchChargePile.c"
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -34250,375 +34250,224 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 2 "..\..\User\app\src\bsp_aw9523b.c" 2
+L 2 "..\..\User\app\src\bsp_SearchChargePile.c" 2
 N
 N
-N/* IO口对应的RCC时钟，复位引脚 */
-N#define RCC_ALL_PIN 	(RCC_APB2Periph_GPIOF)
+N#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOF)
 N
-N#define GPIO_PORT_RST  GPIOF
-N#define GPIO_PIN_RST   GPIO_Pin_11
+N#define GPIO_PORT_CHARGE_TOUCH_PILE  GPIOF
+N#define GPIO_PIN_CHARGE_TOUCH_PILE	 GPIO_Pin_7
 N
-Nstatic uint8_t PO_Output = 0xFF;  //直接记录电平，省去读取电平时间
-Nstatic uint8_t P1_Output = 0xFF;  //直接记录电平，省去读取电平时间
+N#define GPIO_PORT_CHARGE_IS_CHARGING  GPIOG
+N#define GPIO_PIN_CHARGE_IS_CHARGING	  GPIO_Pin_0
 N
-Nstatic void bsp_InitRST(void);
-Nstatic uint8_t bsp_CheckOk(void);
-Nstatic void bsp_InitRegister(void);
-Nstatic uint8_t aw_ReadBytes(uint8_t *_pReadBuf, uint16_t _usAddress, uint16_t _usSize);
-Nstatic uint8_t aw_WriteBytes(uint8_t *_pWriteBuf, uint16_t _usAddress, uint16_t _usSize);
+N#define GPIO_PORT_CHARGE_IS_DONE      GPIOG
+N#define GPIO_PIN_CHARGE_IS_DONE	      GPIO_Pin_1
 N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_InitAW9523B
-N*	功能说明: 初始化拓展IO芯片。
-N*	形    参: 无
-N*	返 回 值: 1 表示正常， 0 表示不正常
-N*********************************************************************************************************
-N*/
-Nuint8_t bsp_InitAW9523B(void)
+N
+N
+Ntypedef struct
 N{
-N	bsp_InitRST();
-N	bsp_InitI2C();
+N	volatile bool isRunning;
+X	volatile _Bool isRunning;
+N	volatile uint32_t action;
+N	volatile uint32_t delay;
 N	
-N	/* 检测器件是否应答 */
-N	if(!bsp_CheckOk())
-N		return 0;
-N	
-N	
-N	bsp_InitRegister();
-N	
-N	return 1;
-N}
+N}Serach;
 N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_AWReadID
-N*	功能说明: 读取芯片ID
-N*	形    参:  无
-N*	返 回 值: 返回芯片ID值
-N*********************************************************************************************************
-N*/
-Nuint8_t bsp_AWReadID(void)
-N{
-N	uint8_t id = 0 ;
-N	
-N	aw_ReadBytes(&id, AW_ID , 1);
-N	
-N	return id;
-N}
+N
+Nstatic Serach search;
 N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_AWReadID
-N*	功能说明: 读取芯片ID
-N*	形    参:  无
-N*	返 回 值: 返回芯片ID值
-N*********************************************************************************************************
-N*/
-Nuint8_t bsp_AWReadReg(ADDR addr)
-N{
-N	uint8_t data = 0 ;
-N	
-N	aw_ReadBytes(&data, addr , 1);
-N	
-N	return data;
-N}
-N
-N
-Nvoid bsp_AWSetPinVal(AW_PIN pin,AW_VAL val)
-N{
-N	
-N	//读取当前输出状态寄存器
-N	if(pin <= awP0_7)
-N	{
-N		//计算寄存器值
-N		if(val == AW_1)
-N		{
-N			PO_Output |= 1<<(pin%8);
-N		}
-N		else
-N		{
-N			PO_Output &= ~(1<<(pin%8));
-N		}
-N		//重新设置输出状态
-N		aw_WriteBytes(&PO_Output , Output_Port0 , 1);
-N	}
-N	else
-N	{
-N		//计算寄存器值
-N		if(val == AW_1)
-N		{
-N			P1_Output |= 1<<(pin%8);
-N		}
-N		else
-N		{
-N			P1_Output &= ~(1<<(pin%8));
-N		}
-N		//重新设置输出状态
-N		aw_WriteBytes(&P1_Output , Output_Port1 , 1);
-N	}
-N	
-N}
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_InitRST
-N*	功能说明: 配置拓展IO复位引脚。
+N*	函 数 名: bsp_StartSearchChargePile
+N*	功能说明: 开启寻找充电桩状态机
 N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nstatic void bsp_InitRST(void)
+Nvoid bsp_StartSearchChargePile(void)
+N{
+N	bsp_IRD_StartWork();
+N	
+N	search.action = 0 ;
+N	search.delay = 0 ;
+N	search.isRunning = true;
+X	search.isRunning = 1;
+N	
+N	
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_StopSearchChargePile
+N*	功能说明: 停止寻找充电桩状态机
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_StopSearchChargePile(void)
+N{
+N	search.isRunning = false;
+X	search.isRunning = 0;
+N	search.action = 0 ;
+N	search.delay = 0 ;
+N	
+N	bsp_IRD_StopWork();
+N}	
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_SearchChargePile
+N*	功能说明: 寻找充电桩状态机
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_SearchChargePile(void)
+N{
+N	if(bsp_IsTouchChargePile())
+N	{
+N		/*播放开始充电*/
+N		//bsp_SperkerPlay(Song22);
+N		if(bsp_IsCharging())
+N		{
+N			bsp_SetLedState(LED_DEFAULT_STATE);
+N			bsp_CloseAllLed();
+N			bsp_LedOn(LED_COLOR_YELLOW);
+N			
+N			DEBUG("is charging\r\n");
+X			printf ("is charging\r\n");
+N		}
+N		else
+N		{
+N			bsp_SetLedState(LED_DEFAULT_STATE);
+N			bsp_CloseAllLed();
+N			bsp_LedOn(LED_COLOR_GREEN);
+N			
+N			DEBUG("charge done\r\n");
+X			printf ("charge done\r\n");
+N		}
+N	}
+N	else
+N	{
+N		bsp_LedOff(LED_COLOR_YELLOW);
+N		bsp_LedOff(LED_COLOR_GREEN);
+N	}
+N}
+N
+N	
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_IsTouchChargePile
+N*	功能说明: 获取充电反馈
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nbool bsp_IsTouchChargePile(void)
+X_Bool bsp_IsTouchChargePile(void)
+N{
+N	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
+X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)),((uint16_t)0x0080)))
+N	{
+N		return true ;
+X		return 1 ;
+N	}
+N	else
+N	{
+N		return false ;
+X		return 0 ;
+N	}
+N}
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_IsCharging
+N*	功能说明: 是否已经充满
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nbool bsp_IsCharging(void)
+X_Bool bsp_IsCharging(void)
+N{
+N	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
+X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)),((uint16_t)0x0001))==0)
+N	{
+N		return true ;
+X		return 1 ;
+N	}
+N	else
+N	{
+N		return false ;
+X		return 0 ;
+N	}
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_IsChargeDone
+N*	功能说明: 是否已经充满
+N*	形    参：无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nbool bsp_IsChargeDone(void)
+X_Bool bsp_IsChargeDone(void)
+N{
+N	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
+X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)),((uint16_t)0x0002))==0)
+N	{
+N		return true ;
+X		return 1 ;
+N	}
+N	else
+N	{
+N		return false ;
+X		return 0 ;
+N	}
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_InitChargeIO
+N*	功能说明: 初始化充电相关的IO
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_InitChargeIO(void)
 N{
 N	GPIO_InitTypeDef GPIO_InitStructure;
 N
 N	/* 打开GPIO时钟 */
-N	RCC_APB2PeriphClockCmd(RCC_ALL_PIN, ENABLE);
-X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000080)), ENABLE);
-N
+N	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
+X	RCC_APB2PeriphClockCmd(((uint32_t)0x00000080), ENABLE);
 N
 N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_RST;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0800);
-N	GPIO_Init(GPIO_PORT_RST, &GPIO_InitStructure);
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
+N	
+N	/*上桩检测*/
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_TOUCH_PILE;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
+N	GPIO_Init(GPIO_PORT_CHARGE_TOUCH_PILE, &GPIO_InitStructure);
 X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N	
-N	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
-X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)),((uint16_t)0x0800));
-N	bsp_DelayMS(2);
-N	GPIO_ResetBits(GPIO_PORT_RST,GPIO_PIN_RST);
-X	GPIO_ResetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)),((uint16_t)0x0800));
-N	bsp_DelayUS(40);
-N	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
-X	GPIO_SetBits(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)),((uint16_t)0x0800));
-N}
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: ee_CheckOk
-N*	功能说明: 判断串行EERPOM是否正常
-N*	形    参:  无
-N*	返 回 值: 1 表示正常， 0 表示不正常
-N*********************************************************************************************************
-N*/
-Nstatic uint8_t bsp_CheckOk(void)
-N{
-N	if (i2c_CheckDevice(AW_DEV_ADDR) == 0)
-X	if (i2c_CheckDevice(0xB6) == 0)
-N	{
-N		return 1;
-N	}
-N	else
-N	{
-N		/* 失败后，切记发送I2C总线停止信号 */
-N		i2c_Stop();
-N		return 0;
-N	}
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_InitRegister
-N*	功能说明: 配置寄存器，P0全部配置为开漏输出，P1只能配置为推挽输出。
-N*	形    参: 无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nstatic void bsp_InitRegister(void)
-N{
-N	uint8_t data = 0 ;
+N	/*正在充电中*/
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_CHARGING;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+N	GPIO_Init(GPIO_PORT_CHARGE_IS_CHARGING, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
 N	
-N	data = 0x00 ;//P0全部为输出模式
-N	aw_WriteBytes(&data , Config_Port0 , 1);
-N	
-N	data = 0x00 ;//P1全部为输出模式
-N	aw_WriteBytes(&data , Config_Port1 , 1);
-N	
-N	//P1只能为推挽模式，P0可以推挽或开漏
-N	//0x00:P0全部开漏，0x10:P0全部推挽
-N	data = 0x10 ;
-N	aw_WriteBytes(&data , GCR , 1);
-N	
-N	//全部初始电平为高
-N	data = 0xFF ;
-N	aw_WriteBytes(&data , Output_Port0 , 1);
-N	aw_WriteBytes(&data , Output_Port1 , 1);
+N	/*充电完成*/
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_DONE;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0002);
+N	GPIO_Init(GPIO_PORT_CHARGE_IS_DONE, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
 N	
 N}
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: aw_ReadBytes
-N*	功能说明: 从串行EEPROM指定地址处开始读取若干数据
-N*	形    参:  _usAddress : 起始地址
-N*			 _usSize : 数据长度，单位为字节
-N*			 _pReadBuf : 存放读到的数据的缓冲区指针
-N*	返 回 值: 0 表示失败，1表示成功
-N*********************************************************************************************************
-N*/
-Nuint8_t aw_ReadBytes(uint8_t *_pReadBuf, uint16_t _usAddress, uint16_t _usSize)
-N{
-N	uint16_t i;
-N
-N	/* 采用串行EEPROM随即读取指令序列，连续读取若干字节 */
-N
-N	/* 第1步：发起I2C总线启动信号 */
-N	i2c_Start();
-N
-N	/* 第2步：发起控制字节，高7bit是地址，bit0是读写控制位，0表示写，1表示读 */
-N	i2c_SendByte(AW_DEV_ADDR | I2C_WR);	/* 此处是写指令 */
-X	i2c_SendByte(0xB6 | 0);	 
-N
-N	/* 第3步：发送ACK */
-N	if (i2c_WaitAck() != 0)
-N	{
-N		goto cmd_fail;	/* EEPROM器件无应答 */
-N	}
-N
-N	/* 第4步：发送字节地址，24C02只有256字节，因此1个字节就够了，如果是24C04以上，那么此处需要连发多个地址 */
-N	if (AW_ADDR_BYTES == 1)
-X	if (1 == 1)
-N	{
-N		i2c_SendByte((uint8_t)_usAddress);
-N		if (i2c_WaitAck() != 0)
-N		{
-N			goto cmd_fail;	/* EEPROM器件无应答 */
-N		}
-N	}
-N	else
-N	{
-N		i2c_SendByte(_usAddress >> 8);
-N		if (i2c_WaitAck() != 0)
-N		{
-N			goto cmd_fail;	/* EEPROM器件无应答 */
-N		}
-N
-N		i2c_SendByte(_usAddress);
-N		if (i2c_WaitAck() != 0)
-N		{
-N			goto cmd_fail;	/* EEPROM器件无应答 */
-N		}
-N	}
-N
-N	/* 第6步：重新启动I2C总线。下面开始读取数据 */
-N	i2c_Start();
-N
-N	/* 第7步：发起控制字节，高7bit是地址，bit0是读写控制位，0表示写，1表示读 */
-N	i2c_SendByte(AW_DEV_ADDR | I2C_RD);	/* 此处是读指令 */
-X	i2c_SendByte(0xB6 | 1);	 
-N
-N	/* 第8步：发送ACK */
-N	if (i2c_WaitAck() != 0)
-N	{
-N		goto cmd_fail;	/* EEPROM器件无应答 */
-N	}
-N
-N	/* 第9步：循环读取数据 */
-N	for (i = 0; i < _usSize; i++)
-N	{
-N		_pReadBuf[i] = i2c_ReadByte();	/* 读1个字节 */
-N
-N		/* 每读完1个字节后，需要发送Ack， 最后一个字节不需要Ack，发Nack */
-N		if (i != _usSize - 1)
-N		{
-N			i2c_Ack();	/* 中间字节读完后，CPU产生ACK信号(驱动SDA = 0) */
-N		}
-N		else
-N		{
-N			i2c_NAck();	/* 最后1个字节读完后，CPU产生NACK信号(驱动SDA = 1) */
-N		}
-N	}
-N	/* 发送I2C总线停止信号 */
-N	i2c_Stop();
-N	return 1;	/* 执行成功 */
-N
-Ncmd_fail: /* 命令执行失败后，切记发送停止信号，避免影响I2C总线上其他设备 */
-N	/* 发送I2C总线停止信号 */
-N	i2c_Stop();
-N	return 0;
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: aw_WriteBytes
-N*	功能说明: 向串行EEPROM指定地址写入若干数据，采用页写操作提高写入效率
-N*	形    参:  _usAddress : 起始地址
-N*			 _usSize : 数据长度，单位为字节
-N*			 _pWriteBuf : 存放读到的数据的缓冲区指针
-N*	返 回 值: 0 表示失败，1表示成功
-N*********************************************************************************************************
-N*/
-Nuint8_t aw_WriteBytes(uint8_t *_pWriteBuf, uint16_t _usAddress, uint16_t _usSize)
-N{
-N	uint16_t i = 0 ;
-N	uint16_t usAddr = _usAddress;
-N	
-N	for(i=0;i<_usSize;i++)
-N	{
-N		/* 第1步：发起I2C总线启动信号 */
-N		i2c_Start();
-N
-N		/* 第2步：发起控制字节，高7bit是地址，bit0是读写控制位，0表示写，1表示读 */
-N		i2c_SendByte(AW_DEV_ADDR | I2C_WR);	/* 此处是写指令 */
-X		i2c_SendByte(0xB6 | 0);	 
-N
-N		/* 第3步：发送一个时钟，判断器件是否正确应答 */
-N		if (i2c_WaitAck() != 0)
-N		{
-N			goto cmd_fail;	/* EEPROM器件无应答 */
-N		}
-N		/* 第4步：发送字节地址，24C02只有256字节，因此1个字节就够了，如果是24C04以上，那么此处需要连发多个地址 */
-N		if (AW_ADDR_BYTES == 1)
-X		if (1 == 1)
-N		{
-N			i2c_SendByte((uint8_t)usAddr);
-N			if (i2c_WaitAck() != 0)
-N			{
-N				goto cmd_fail;	/* EEPROM器件无应答 */
-N			}
-N		}
-N		else
-N		{
-N			i2c_SendByte(usAddr >> 8);
-N			if (i2c_WaitAck() != 0)
-N			{
-N				goto cmd_fail;	/* EEPROM器件无应答 */
-N			}
-N
-N			i2c_SendByte(usAddr);
-N			if (i2c_WaitAck() != 0)
-N			{
-N				goto cmd_fail;	/* EEPROM器件无应答 */
-N			}
-N		}
-N
-N		/* 第6步：开始写入数据 */
-N		i2c_SendByte(_pWriteBuf[i]);
-N
-N		/* 第7步：发送ACK */
-N		if (i2c_WaitAck() != 0)
-N		{
-N			goto cmd_fail;	/* EEPROM器件无应答 */
-N		}
-N		
-N		/* 命令执行成功，发送I2C总线停止信号 */
-N		i2c_Stop();
-N		usAddr++;	/* 地址增1 */
-N		
-N	}
-N	
-N	return 1;
-N
-Ncmd_fail: /* 命令执行失败后，切记发送停止信号，避免影响I2C总线上其他设备 */
-N	/* 发送I2C总线停止信号 */
-N	i2c_Stop();
-N	return 0;
-N}
-N
 N

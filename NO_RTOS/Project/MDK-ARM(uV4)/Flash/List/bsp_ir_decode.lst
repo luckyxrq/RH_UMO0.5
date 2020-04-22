@@ -34242,7 +34242,26 @@ N
 N#endif
 N
 L 106 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_SearchChargePile.h"
+L 1 "..\..\User\app\inc\bsp_SearchChargePile.h" 1
+N#ifndef __BSP_SEARCHCHARGEPILE_H
+N#define __BSP_SEARCHCHARGEPILE_H
 N
+Nvoid bsp_InitChargeIO(void);
+N
+Nbool bsp_IsCharging(void);
+X_Bool bsp_IsCharging(void);
+Nbool bsp_IsChargeDone(void);
+X_Bool bsp_IsChargeDone(void);
+N
+Nvoid bsp_StartSearchChargePile(void);
+Nvoid bsp_StopSearchChargePile(void);
+Nvoid bsp_SearchChargePile(void);
+Nbool bsp_IsTouchChargePile(void);
+X_Bool bsp_IsTouchChargePile(void);
+N#endif
+N
+L 107 "..\..\User\bsp\bsp.h" 2
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
