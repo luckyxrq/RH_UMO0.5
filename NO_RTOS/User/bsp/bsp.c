@@ -71,18 +71,28 @@ void bsp_Init(void)
 	
 	/*初始化扬声器*/
 	bsp_InitSpeaker();	
-	//bsp_SperkerPlay(Song1);	
+	bsp_SperkerPlay(Song1);	
+	
+	/*刚开始不开启红外接收*/
+	bsp_IRD_StopWork();
 	
 	/*加密认证*/
+#if 0
 	bsp_InitDX8_();
+	DEBUG("[1-2]->1 %s\r\n",&DX8_Version()[39]);
 	if(bsp_Authentication() == 0)
 	{
-		DEBUG("%s\r\n",DX8_Version());
+		DEBUG("[1-2]->2 %s\r\n",&DX8_Version()[39]);
 	}
 	else
 	{
-		WARNING("WARNING\r\n");
+		while(1)
+		{
+			WARNING("%10d WARNING\r\n",bsp_GetRunTime());
+			bsp_DelayMS(100);
+		}
 	}
+#endif
 }
 
 /*

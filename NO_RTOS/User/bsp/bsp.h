@@ -79,6 +79,7 @@
 #define Deg2Rad(deg) (M_PI * deg / 180.0F)
 #define Rad2Deg(rad) (180.0F * rad / M_PI)
 
+#include "DX8_API.h"
 #include "bsp_user_lib.h"
 #include "bsp_led.h"
 #include "bsp_timer.h"
@@ -100,8 +101,7 @@
 #include "bsp_OffSiteSW.h"
 #include "bsp_DustBox.h"
 #include "bsp_speaker.h"
-#include "DX8_API.h"
-
+#include "bsp_ir_decode.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

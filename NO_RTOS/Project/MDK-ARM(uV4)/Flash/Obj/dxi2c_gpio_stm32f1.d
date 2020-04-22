@@ -35,6 +35,7 @@
 .\flash\obj\dxi2c_gpio_stm32f1.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\dx8\inc\DX8_API.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\bsp\inc\bsp_user_lib.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\bsp\inc\bsp_led.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\bsp\inc\bsp_timer.h
@@ -57,4 +58,4 @@
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\app\inc\bsp_OffSiteSW.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\app\inc\bsp_speaker.h
-.\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\dx8\inc\DX8_API.h
+.\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\bsp\inc\bsp_ir_decode.h

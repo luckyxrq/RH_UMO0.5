@@ -7,34 +7,82 @@
                   main PROC
 ;;;11     */
 ;;;12     int main(void)
-000000  f7fffffe          BL       bsp_Init
+000000  2400              MOVS     r4,#0
 ;;;13     {
-;;;14     	/*
-;;;15     		ST固件库中的启动文件已经执行了 SystemInit() 函数，该函数在 system_stm32f4xx.c 文件，主要功能是
-;;;16     	配置CPU系统的时钟，内部Flash访问时序，配置FSMC用于外部SRAM
-;;;17     	*/
-;;;18     	bsp_Init();		/* 硬件初始化 */
-;;;19     	
-;;;20     //	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(20));
-;;;21     //	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(20));
+;;;14     	uint32_t tick = 0 ;
+;;;15     	/*
+;;;16     		ST固件库中的启动文件已经执行了 SystemInit() 函数，该函数在 system_stm32f4xx.c 文件，主要功能是
+;;;17     	配置CPU系统的时钟，内部Flash访问时序，配置FSMC用于外部SRAM
+;;;18     	*/
+;;;19     	bsp_Init();		/* 硬件初始化 */
+000002  f7fffffe          BL       bsp_Init
+;;;20     	
+;;;21     	
 ;;;22     	
-;;;23     	/* 主程序大循环 */
-;;;24     	while (1)
-000004  e004              B        |L1.16|
-                  |L1.6|
-;;;25     	{
-;;;26     		bsp_Idle();		/* CPU空闲时执行的函数，在 bsp.c */
-000006  f7fffffe          BL       bsp_Idle
+;;;23     //	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(20));
+;;;24     //	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(20));
+;;;25     
+;;;26     //	bsp_IRD_StartWork();
 ;;;27     	
-;;;28     
-;;;29     		bsp_DelayMS(1);
-00000a  2001              MOVS     r0,#1
-00000c  f7fffffe          BL       bsp_DelayMS
-                  |L1.16|
-000010  e7f9              B        |L1.6|
-;;;30     	}
-;;;31     }
-;;;32     
+;;;28     	bsp_LedOn(LED_LOGO_CLEAN);
+000006  2004              MOVS     r0,#4
+000008  f7fffffe          BL       bsp_LedOn
+;;;29     	bsp_LedOn(LED_LOGO_POWER);
+00000c  2005              MOVS     r0,#5
+00000e  f7fffffe          BL       bsp_LedOn
+;;;30     	bsp_LedOn(LED_LOGO_CHARGE);
+000012  2006              MOVS     r0,#6
+000014  f7fffffe          BL       bsp_LedOn
+;;;31     	bsp_LedOff(LED_COLOR_YELLOW);
+000018  2002              MOVS     r0,#2
+00001a  f7fffffe          BL       bsp_LedOff
+;;;32     	bsp_LedOff(LED_COLOR_GREEN);
+00001e  2001              MOVS     r0,#1
+000020  f7fffffe          BL       bsp_LedOff
+;;;33     	bsp_LedOff(LED_COLOR_RED);
+000024  2003              MOVS     r0,#3
+000026  f7fffffe          BL       bsp_LedOff
+;;;34     	
+;;;35     	
+;;;36     	/* 主程序大循环 */
+;;;37     	while (1)
+00002a  e014              B        |L1.86|
+                  |L1.44|
+;;;38     	{
+;;;39     	
+;;;40     		if(tick % 500 == 0)
+00002c  f44f70fa          MOV      r0,#0x1f4
+000030  fbb4f1f0          UDIV     r1,r4,r0
+000034  fb004011          MLS      r0,r0,r1,r4
+000038  b908              CBNZ     r0,|L1.62|
+;;;41     		{
+;;;42     			bsp_PrintIR_Rev();
+00003a  f7fffffe          BL       bsp_PrintIR_Rev
+                  |L1.62|
+;;;43     		}
+;;;44     		
+;;;45     		if(tick % 10 == 0)
+00003e  200a              MOVS     r0,#0xa
+000040  fbb4f1f0          UDIV     r1,r4,r0
+000044  fb004011          MLS      r0,r0,r1,r4
+000048  b908              CBNZ     r0,|L1.78|
+;;;46     		{
+;;;47     			bsp_PositionUpdate();
+00004a  f7fffffe          BL       bsp_PositionUpdate
+                  |L1.78|
+;;;48     		}
+;;;49     		
+;;;50     		/*下面内容不修改*/
+;;;51     		++tick;
+00004e  1c64              ADDS     r4,r4,#1
+;;;52     		bsp_DelayMS(1);
+000050  2001              MOVS     r0,#1
+000052  f7fffffe          BL       bsp_DelayMS
+                  |L1.86|
+000056  e7e9              B        |L1.44|
+;;;53     	}
+;;;54     }
+;;;55     
                           ENDP
 
 

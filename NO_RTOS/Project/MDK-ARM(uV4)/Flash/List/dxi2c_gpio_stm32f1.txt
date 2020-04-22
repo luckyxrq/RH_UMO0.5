@@ -5,16 +5,16 @@
                           AREA ||i.GetSoftRandom||, CODE, READONLY, ALIGN=2
 
                   GetSoftRandom PROC
-;;;363    //------------------------------------------------------------------------------
-;;;364    static void GetSoftRandom(unsigned char *random, unsigned short len)
+;;;376    //------------------------------------------------------------------------------
+;;;377    static void GetSoftRandom(unsigned char *random, unsigned short len)
 000000  e92d41f0          PUSH     {r4-r8,lr}
-;;;365    {
+;;;378    {
 000004  4606              MOV      r6,r0
 000006  460f              MOV      r7,r1
-;;;366        unsigned short i;
-;;;367        // Strongly recommended the seed involved by system time !!!!!
-;;;368        //srand((unsigned int)time(NULL) + srand_cnt++); 
-;;;369        srand(srand_cnt++); 
+;;;379        unsigned short i;
+;;;380        // Strongly recommended the seed involved by system time !!!!!
+;;;381        //srand((unsigned int)time(NULL) + srand_cnt++); 
+;;;382        srand(srand_cnt++); 
 000008  490c              LDR      r1,|L1.60|
 00000a  6808              LDR      r0,[r1,#0]  ; srand_cnt
 00000c  6809              LDR      r1,[r1,#0]  ; srand_cnt
@@ -22,7 +22,7 @@
 000010  4b0a              LDR      r3,|L1.60|
 000012  6019              STR      r1,[r3,#0]  ; srand_cnt
 000014  f7fffffe          BL       srand
-;;;370        for (i=0; i<len; i++) random[i] = rand() % 256;
+;;;383        for (i=0; i<len; i++) random[i] = rand() % 256;
 000018  2400              MOVS     r4,#0
 00001a  e00b              B        |L1.52|
                   |L1.28|
@@ -38,9 +38,9 @@
                   |L1.52|
 000034  42bc              CMP      r4,r7
 000036  dbf1              BLT      |L1.28|
-;;;371    }
+;;;384    }
 000038  e8bd81f0          POP      {r4-r8,pc}
-;;;372    
+;;;385    
                           ENDP
 
                   |L1.60|
@@ -49,119 +49,119 @@
                           AREA ||i.TWI_NOP||, CODE, READONLY, ALIGN=1
 
                   TWI_NOP PROC
-;;;122     *******************************************************************************/  
-;;;123    static void TWI_NOP(void)  
+;;;135     *******************************************************************************/  
+;;;136    static void TWI_NOP(void)  
 000000  b50e              PUSH     {r1-r3,lr}
-;;;124    {  
-;;;125        vu32 i, j;  
-;;;126        vu32 sum = 0;  
+;;;137    {  
+;;;138        vu32 i, j;  
+;;;139        vu32 sum = 0;  
 000002  2000              MOVS     r0,#0
 000004  9000              STR      r0,[sp,#0]
-;;;127        i = 2;  
+;;;140        i = 2;  
 000006  2002              MOVS     r0,#2
 000008  9002              STR      r0,[sp,#8]
-;;;128        while(i--)  
+;;;141        while(i--)  
 00000a  e00c              B        |L2.38|
                   |L2.12|
-;;;129        {  
-;;;130            for (j = 0; j < 2; j++)  
+;;;142        {  
+;;;143            for (j = 0; j < 2; j++)  
 00000c  2000              MOVS     r0,#0
 00000e  9001              STR      r0,[sp,#4]
 000010  e006              B        |L2.32|
                   |L2.18|
-;;;131                sum += i;   
+;;;144                sum += i;   
 000012  9902              LDR      r1,[sp,#8]
 000014  9800              LDR      r0,[sp,#0]
 000016  4408              ADD      r0,r0,r1
 000018  9000              STR      r0,[sp,#0]
-00001a  9801              LDR      r0,[sp,#4]            ;130
-00001c  1c40              ADDS     r0,r0,#1              ;130
-00001e  9001              STR      r0,[sp,#4]            ;130
+00001a  9801              LDR      r0,[sp,#4]            ;143
+00001c  1c40              ADDS     r0,r0,#1              ;143
+00001e  9001              STR      r0,[sp,#4]            ;143
                   |L2.32|
-000020  9801              LDR      r0,[sp,#4]            ;130
-000022  2802              CMP      r0,#2                 ;130
+000020  9801              LDR      r0,[sp,#4]            ;143
+000022  2802              CMP      r0,#2                 ;143
 000024  d3f5              BCC      |L2.18|
                   |L2.38|
-000026  9802              LDR      r0,[sp,#8]            ;128
-000028  1e41              SUBS     r1,r0,#1              ;128
-00002a  9102              STR      r1,[sp,#8]            ;128
-00002c  2800              CMP      r0,#0                 ;128
+000026  9802              LDR      r0,[sp,#8]            ;141
+000028  1e41              SUBS     r1,r0,#1              ;141
+00002a  9102              STR      r1,[sp,#8]            ;141
+00002c  2800              CMP      r0,#0                 ;141
 00002e  d1ed              BNE      |L2.12|
-;;;132        }  
-;;;133        sum = i;  
+;;;145        }  
+;;;146        sum = i;  
 000030  9802              LDR      r0,[sp,#8]
 000032  9000              STR      r0,[sp,#0]
-;;;134    }
+;;;147    }
 000034  bd0e              POP      {r1-r3,pc}
-;;;135    
+;;;148    
                           ENDP
 
 
                           AREA ||i.TWI_ReceiveByte||, CODE, READONLY, ALIGN=1
 
                   TWI_ReceiveByte PROC
-;;;290    /* --------------------------------------------------------------------------*/  
-;;;291    static u8 TWI_ReceiveByte(void)  
+;;;303    /* --------------------------------------------------------------------------*/  
+;;;304    static u8 TWI_ReceiveByte(void)  
 000000  b570              PUSH     {r4-r6,lr}
-;;;292    {  
-;;;293        u8 i,Dat;  
-;;;294        TWI_SDA_1();  
+;;;305    {  
+;;;306        u8 i,Dat;  
+;;;307        TWI_SDA_1();  
 000002  f7fffffe          BL       TWI_SDA_1
-;;;295        TWI_SCL_0();   
+;;;308        TWI_SCL_0();   
 000006  f7fffffe          BL       TWI_SCL_0
-;;;296        Dat=0;  
+;;;309        Dat=0;  
 00000a  2400              MOVS     r4,#0
-;;;297        for(i=0;i<8;i++)  
+;;;310        for(i=0;i<8;i++)  
 00000c  2500              MOVS     r5,#0
 00000e  e010              B        |L3.50|
                   |L3.16|
-;;;298        {  
-;;;299            TWI_SCL_1();//产生时钟上升沿[正脉冲],让从机准备好数据   
+;;;311        {  
+;;;312            TWI_SCL_1();//产生时钟上升沿[正脉冲],让从机准备好数据   
 000010  f7fffffe          BL       TWI_SCL_1
-;;;300            TWI_NOP();   
+;;;313            TWI_NOP();   
 000014  f7fffffe          BL       TWI_NOP
-;;;301            Dat<<=1;  
+;;;314            Dat<<=1;  
 000018  0660              LSLS     r0,r4,#25
 00001a  0e04              LSRS     r4,r0,#24
-;;;302            if(TWI_SDA_STATE()) //读引脚状态  
+;;;315            if(TWI_SDA_STATE()) //读引脚状态  
 00001c  f7fffffe          BL       TWI_SDA_STATE
 000020  b108              CBZ      r0,|L3.38|
-;;;303            {  
-;;;304                Dat|=0x01;   
+;;;316            {  
+;;;317                Dat|=0x01;   
 000022  f0440401          ORR      r4,r4,#1
                   |L3.38|
-;;;305            }     
-;;;306            TWI_SCL_0();//准备好再次接收数据    
+;;;318            }     
+;;;319            TWI_SCL_0();//准备好再次接收数据    
 000026  f7fffffe          BL       TWI_SCL_0
-;;;307            TWI_NOP();//等待数据准备好           
+;;;320            TWI_NOP();//等待数据准备好           
 00002a  f7fffffe          BL       TWI_NOP
-00002e  1c68              ADDS     r0,r5,#1              ;297
-000030  b2c5              UXTB     r5,r0                 ;297
+00002e  1c68              ADDS     r0,r5,#1              ;310
+000030  b2c5              UXTB     r5,r0                 ;310
                   |L3.50|
-000032  2d08              CMP      r5,#8                 ;297
+000032  2d08              CMP      r5,#8                 ;310
 000034  dbec              BLT      |L3.16|
-;;;308        }  
-;;;309        //////DebugPrint("TWI_Dat:%x\n",Dat);  
-;;;310        return Dat;  
+;;;321        }  
+;;;322        //////DebugPrint("TWI_Dat:%x\n",Dat);  
+;;;323        return Dat;  
 000036  4620              MOV      r0,r4
-;;;311    }  
+;;;324    }  
 000038  bd70              POP      {r4-r6,pc}
-;;;312    
+;;;325    
                           ENDP
 
 
                           AREA ||i.TWI_SCL_0||, CODE, READONLY, ALIGN=2
 
                   TWI_SCL_0 PROC
-;;;29     
-;;;30     static __inline void TWI_SCL_0(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_RESET); }  
+;;;42     
+;;;43     static __inline void TWI_SCL_0(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_RESET); }  
 000000  b510              PUSH     {r4,lr}
 000002  2200              MOVS     r2,#0
 000004  2140              MOVS     r1,#0x40
 000006  4802              LDR      r0,|L4.16|
 000008  f7fffffe          BL       GPIO_WriteBit
 00000c  bd10              POP      {r4,pc}
-;;;31     static __inline void TWI_SCL_1(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_SET);}  
+;;;44     static __inline void TWI_SCL_1(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_SET);}  
                           ENDP
 
 00000e  0000              DCW      0x0000
@@ -171,15 +171,15 @@
                           AREA ||i.TWI_SCL_1||, CODE, READONLY, ALIGN=2
 
                   TWI_SCL_1 PROC
-;;;30     static __inline void TWI_SCL_0(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_RESET); }  
-;;;31     static __inline void TWI_SCL_1(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_SET);}  
+;;;43     static __inline void TWI_SCL_0(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_RESET); }  
+;;;44     static __inline void TWI_SCL_1(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_SET);}  
 000000  b510              PUSH     {r4,lr}
 000002  2201              MOVS     r2,#1
 000004  2140              MOVS     r1,#0x40
 000006  4802              LDR      r0,|L5.16|
 000008  f7fffffe          BL       GPIO_WriteBit
 00000c  bd10              POP      {r4,pc}
-;;;32     static __inline void TWI_SDA_0(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_RESET); }  
+;;;45     static __inline void TWI_SDA_0(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_RESET); }  
                           ENDP
 
 00000e  0000              DCW      0x0000
@@ -189,15 +189,15 @@
                           AREA ||i.TWI_SDA_0||, CODE, READONLY, ALIGN=2
 
                   TWI_SDA_0 PROC
-;;;31     static __inline void TWI_SCL_1(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_SET);}  
-;;;32     static __inline void TWI_SDA_0(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_RESET); }  
+;;;44     static __inline void TWI_SCL_1(void)        { GPIO_WriteBit(dx8_I2C_SCL_GPIO_PORT,dx8_I2C_SCL_PIN,Bit_SET);}  
+;;;45     static __inline void TWI_SDA_0(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_RESET); }  
 000000  b510              PUSH     {r4,lr}
 000002  2200              MOVS     r2,#0
 000004  2180              MOVS     r1,#0x80
 000006  4802              LDR      r0,|L6.16|
 000008  f7fffffe          BL       GPIO_WriteBit
 00000c  bd10              POP      {r4,pc}
-;;;33     static __inline void TWI_SDA_1(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_SET);}  
+;;;46     static __inline void TWI_SDA_1(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_SET);}  
                           ENDP
 
 00000e  0000              DCW      0x0000
@@ -207,15 +207,15 @@
                           AREA ||i.TWI_SDA_1||, CODE, READONLY, ALIGN=2
 
                   TWI_SDA_1 PROC
-;;;32     static __inline void TWI_SDA_0(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_RESET); }  
-;;;33     static __inline void TWI_SDA_1(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_SET);}  
+;;;45     static __inline void TWI_SDA_0(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_RESET); }  
+;;;46     static __inline void TWI_SDA_1(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_SET);}  
 000000  b510              PUSH     {r4,lr}
 000002  2201              MOVS     r2,#1
 000004  2180              MOVS     r1,#0x80
 000006  4802              LDR      r0,|L7.16|
 000008  f7fffffe          BL       GPIO_WriteBit
 00000c  bd10              POP      {r4,pc}
-;;;34     static __inline u8   TWI_SDA_STATE(void)    { return GPIO_ReadInputDataBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN); }  
+;;;47     static __inline u8   TWI_SDA_STATE(void)    { return GPIO_ReadInputDataBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN); }  
                           ENDP
 
 00000e  0000              DCW      0x0000
@@ -225,14 +225,14 @@
                           AREA ||i.TWI_SDA_STATE||, CODE, READONLY, ALIGN=2
 
                   TWI_SDA_STATE PROC
-;;;33     static __inline void TWI_SDA_1(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_SET);}  
-;;;34     static __inline u8   TWI_SDA_STATE(void)    { return GPIO_ReadInputDataBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN); }  
+;;;46     static __inline void TWI_SDA_1(void)        { GPIO_WriteBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN,Bit_SET);}  
+;;;47     static __inline u8   TWI_SDA_STATE(void)    { return GPIO_ReadInputDataBit(dx8_I2C_SDA_GPIO_PORT,dx8_I2C_SDA_PIN); }  
 000000  b510              PUSH     {r4,lr}
 000002  2180              MOVS     r1,#0x80
 000004  4801              LDR      r0,|L8.12|
 000006  f7fffffe          BL       GPIO_ReadInputDataBit
 00000a  bd10              POP      {r4,pc}
-;;;35     
+;;;48     
                           ENDP
 
                   |L8.12|
@@ -241,43 +241,43 @@
                           AREA ||i.TWI_START||, CODE, READONLY, ALIGN=1
 
                   TWI_START PROC
-;;;145     *******************************************************************************/  
-;;;146    static u8 TWI_START(void)  
+;;;158     *******************************************************************************/  
+;;;159    static u8 TWI_START(void)  
 000000  b510              PUSH     {r4,lr}
-;;;147    {   
-;;;148        TWI_SDA_1();   
+;;;160    {   
+;;;161        TWI_SDA_1();   
 000002  f7fffffe          BL       TWI_SDA_1
-;;;149        TWI_NOP();  
+;;;162        TWI_NOP();  
 000006  f7fffffe          BL       TWI_NOP
-;;;150        
-;;;151        TWI_SCL_1();   
+;;;163        
+;;;164        TWI_SCL_1();   
 00000a  f7fffffe          BL       TWI_SCL_1
-;;;152        TWI_NOP();      
+;;;165        TWI_NOP();      
 00000e  f7fffffe          BL       TWI_NOP
-;;;153        
-;;;154        if(!TWI_SDA_STATE())  
+;;;166        
+;;;167        if(!TWI_SDA_STATE())  
 000012  f7fffffe          BL       TWI_SDA_STATE
 000016  b908              CBNZ     r0,|L9.28|
-;;;155        {  
-;;;156            ////DebugPrint("TWI_START:BUSY\n");  
-;;;157            return TWI_BUS_BUSY;  
+;;;168        {  
+;;;169            ////DebugPrint("TWI_START:BUSY\n");  
+;;;170            return TWI_BUS_BUSY;  
 000018  2002              MOVS     r0,#2
                   |L9.26|
-;;;158        }  
-;;;159        TWI_SDA_0();  
-;;;160        TWI_NOP();  
-;;;161        
-;;;162        TWI_SCL_0();    
-;;;163        TWI_NOP();   
-;;;164        
-;;;165        if(TWI_SDA_STATE())  
-;;;166        {  
-;;;167            ////DebugPrint("TWI_START:BUS ERROR\n");  
-;;;168            return TWI_BUS_ERROR;  
-;;;169        }   
-;;;170        
-;;;171        return TWI_READY;  
-;;;172    }  
+;;;171        }  
+;;;172        TWI_SDA_0();  
+;;;173        TWI_NOP();  
+;;;174        
+;;;175        TWI_SCL_0();    
+;;;176        TWI_NOP();   
+;;;177        
+;;;178        if(TWI_SDA_STATE())  
+;;;179        {  
+;;;180            ////DebugPrint("TWI_START:BUS ERROR\n");  
+;;;181            return TWI_BUS_ERROR;  
+;;;182        }   
+;;;183        
+;;;184        return TWI_READY;  
+;;;185    }  
 00001a  bd10              POP      {r4,pc}
                   |L9.28|
 00001c  f7fffffe          BL       TWI_SDA_0
@@ -286,300 +286,300 @@
 000028  f7fffffe          BL       TWI_NOP
 00002c  f7fffffe          BL       TWI_SDA_STATE
 000030  b108              CBZ      r0,|L9.54|
-000032  2003              MOVS     r0,#3                 ;168
+000032  2003              MOVS     r0,#3                 ;181
 000034  e7f1              B        |L9.26|
                   |L9.54|
-000036  2000              MOVS     r0,#0                 ;171
+000036  2000              MOVS     r0,#0                 ;184
 000038  e7ef              B        |L9.26|
-;;;173    
+;;;186    
                           ENDP
 
 
                           AREA ||i.TWI_STOP||, CODE, READONLY, ALIGN=1
 
                   TWI_STOP PROC
-;;;178    /* --------------------------------------------------------------------------*/  
-;;;179    static void TWI_STOP(void)  
+;;;191    /* --------------------------------------------------------------------------*/  
+;;;192    static void TWI_STOP(void)  
 000000  b510              PUSH     {r4,lr}
-;;;180    {  
-;;;181        TWI_SDA_0();   
+;;;193    {  
+;;;194        TWI_SDA_0();   
 000002  f7fffffe          BL       TWI_SDA_0
-;;;182        TWI_NOP();  
+;;;195        TWI_NOP();  
 000006  f7fffffe          BL       TWI_NOP
-;;;183        
-;;;184        TWI_SCL_1();   
+;;;196        
+;;;197        TWI_SCL_1();   
 00000a  f7fffffe          BL       TWI_SCL_1
-;;;185        TWI_NOP();      
+;;;198        TWI_NOP();      
 00000e  f7fffffe          BL       TWI_NOP
-;;;186        
-;;;187        TWI_SDA_1();  
+;;;199        
+;;;200        TWI_SDA_1();  
 000012  f7fffffe          BL       TWI_SDA_1
-;;;188        TWI_NOP();  
+;;;201        TWI_NOP();  
 000016  f7fffffe          BL       TWI_NOP
-;;;189        
-;;;190        //////DebugPrint("TWI_STOP\n");     
-;;;191    }  
+;;;202        
+;;;203        //////DebugPrint("TWI_STOP\n");     
+;;;204    }  
 00001a  bd10              POP      {r4,pc}
-;;;192    
+;;;205    
                           ENDP
 
 
                           AREA ||i.TWI_SendACK||, CODE, READONLY, ALIGN=1
 
                   TWI_SendACK PROC
-;;;197    /* --------------------------------------------------------------------------*/  
-;;;198    static void TWI_SendACK(void)  
+;;;210    /* --------------------------------------------------------------------------*/  
+;;;211    static void TWI_SendACK(void)  
 000000  b510              PUSH     {r4,lr}
-;;;199    {  
-;;;200        TWI_SDA_0();  
+;;;212    {  
+;;;213        TWI_SDA_0();  
 000002  f7fffffe          BL       TWI_SDA_0
-;;;201        TWI_NOP();  
+;;;214        TWI_NOP();  
 000006  f7fffffe          BL       TWI_NOP
-;;;202        TWI_SCL_1();  
+;;;215        TWI_SCL_1();  
 00000a  f7fffffe          BL       TWI_SCL_1
-;;;203        TWI_NOP();  
+;;;216        TWI_NOP();  
 00000e  f7fffffe          BL       TWI_NOP
-;;;204        TWI_SCL_0();   
+;;;217        TWI_SCL_0();   
 000012  f7fffffe          BL       TWI_SCL_0
-;;;205        TWI_NOP();   
+;;;218        TWI_NOP();   
 000016  f7fffffe          BL       TWI_NOP
-;;;206        TWI_SDA_1();  
+;;;219        TWI_SDA_1();  
 00001a  f7fffffe          BL       TWI_SDA_1
-;;;207        //////DebugPrint("TWI_SendACK\n");     
-;;;208    }  
+;;;220        //////DebugPrint("TWI_SendACK\n");     
+;;;221    }  
 00001e  bd10              POP      {r4,pc}
-;;;209    
+;;;222    
                           ENDP
 
 
                           AREA ||i.TWI_SendByte||, CODE, READONLY, ALIGN=1
 
                   TWI_SendByte PROC
-;;;234    /* --------------------------------------------------------------------------*/  
-;;;235    static u8 TWI_SendByte(u8 Data)  
+;;;247    /* --------------------------------------------------------------------------*/  
+;;;248    static u8 TWI_SendByte(u8 Data)  
 000000  b570              PUSH     {r4-r6,lr}
-;;;236    {  
+;;;249    {  
 000002  4604              MOV      r4,r0
-;;;237        u8 i;  
-;;;238        TWI_SCL_0();  
+;;;250        u8 i;  
+;;;251        TWI_SCL_0();  
 000004  f7fffffe          BL       TWI_SCL_0
-;;;239        for(i=0;i<8;i++)  
+;;;252        for(i=0;i<8;i++)  
 000008  2500              MOVS     r5,#0
 00000a  e015              B        |L12.56|
                   |L12.12|
-;;;240        {    
-;;;241            //---------数据建立----------  
-;;;242            if(Data&0x80)  
+;;;253        {    
+;;;254            //---------数据建立----------  
+;;;255            if(Data&0x80)  
 00000c  f0040080          AND      r0,r4,#0x80
 000010  b110              CBZ      r0,|L12.24|
-;;;243            {  
-;;;244                TWI_SDA_1();  
+;;;256            {  
+;;;257                TWI_SDA_1();  
 000012  f7fffffe          BL       TWI_SDA_1
 000016  e001              B        |L12.28|
                   |L12.24|
-;;;245            }  
-;;;246            else  
-;;;247            {  
-;;;248                TWI_SDA_0();  
+;;;258            }  
+;;;259            else  
+;;;260            {  
+;;;261                TWI_SDA_0();  
 000018  f7fffffe          BL       TWI_SDA_0
                   |L12.28|
-;;;249            }   
-;;;250            Data<<=1;  
+;;;262            }   
+;;;263            Data<<=1;  
 00001c  0660              LSLS     r0,r4,#25
 00001e  0e04              LSRS     r4,r0,#24
-;;;251            TWI_NOP();  
+;;;264            TWI_NOP();  
 000020  f7fffffe          BL       TWI_NOP
-;;;252            //---数据建立保持一定延时----  
-;;;253            
-;;;254            //----产生一个上升沿[正脉冲]   
-;;;255            TWI_SCL_1();  
+;;;265            //---数据建立保持一定延时----  
+;;;266            
+;;;267            //----产生一个上升沿[正脉冲]   
+;;;268            TWI_SCL_1();  
 000024  f7fffffe          BL       TWI_SCL_1
-;;;256            TWI_NOP();  
+;;;269            TWI_NOP();  
 000028  f7fffffe          BL       TWI_NOP
-;;;257            TWI_SCL_0();  
+;;;270            TWI_SCL_0();  
 00002c  f7fffffe          BL       TWI_SCL_0
-;;;258            TWI_NOP();//延时,防止SCL还没变成低时改变SDA,从而产生START/STOP信号  
+;;;271            TWI_NOP();//延时,防止SCL还没变成低时改变SDA,从而产生START/STOP信号  
 000030  f7fffffe          BL       TWI_NOP
-000034  1c68              ADDS     r0,r5,#1              ;239
-000036  b2c5              UXTB     r5,r0                 ;239
+000034  1c68              ADDS     r0,r5,#1              ;252
+000036  b2c5              UXTB     r5,r0                 ;252
                   |L12.56|
-000038  2d08              CMP      r5,#8                 ;239
+000038  2d08              CMP      r5,#8                 ;252
 00003a  dbe7              BLT      |L12.12|
-;;;259            //---------------------------     
-;;;260        }  
-;;;261        //接收从机的应答   
-;;;262        TWI_SDA_1();   
+;;;272            //---------------------------     
+;;;273        }  
+;;;274        //接收从机的应答   
+;;;275        TWI_SDA_1();   
 00003c  f7fffffe          BL       TWI_SDA_1
-;;;263        TWI_NOP();  
+;;;276        TWI_NOP();  
 000040  f7fffffe          BL       TWI_NOP
-;;;264        TWI_SCL_1();  
+;;;277        TWI_SCL_1();  
 000044  f7fffffe          BL       TWI_SCL_1
-;;;265        TWI_NOP();     
+;;;278        TWI_NOP();     
 000048  f7fffffe          BL       TWI_NOP
-;;;266        if(TWI_SDA_STATE())  
+;;;279        if(TWI_SDA_STATE())  
 00004c  f7fffffe          BL       TWI_SDA_STATE
 000050  b138              CBZ      r0,|L12.98|
-;;;267        {  
-;;;268            TWI_SCL_0();  
+;;;280        {  
+;;;281            TWI_SCL_0();  
 000052  f7fffffe          BL       TWI_SCL_0
-;;;269            TWI_SDA_1();
+;;;282            TWI_SDA_1();
 000056  f7fffffe          BL       TWI_SDA_1
-;;;270            TWI_NOP(); 	 
+;;;283            TWI_NOP(); 	 
 00005a  f7fffffe          BL       TWI_NOP
-;;;271            //////DebugPrint("TWI_NACK!\n");  
-;;;272            return TWI_NACK;  
+;;;284            //////DebugPrint("TWI_NACK!\n");  
+;;;285            return TWI_NACK;  
 00005e  2001              MOVS     r0,#1
                   |L12.96|
-;;;273        }  
-;;;274        else  
-;;;275        {  
-;;;276            TWI_SCL_0();  
-;;;277            TWI_SDA_1();
-;;;278            TWI_NOP(); 	 
-;;;279            //////DebugPrint("TWI_ACK!\n");  
-;;;280            return TWI_ACK;    
-;;;281        }      
-;;;282    }  
+;;;286        }  
+;;;287        else  
+;;;288        {  
+;;;289            TWI_SCL_0();  
+;;;290            TWI_SDA_1();
+;;;291            TWI_NOP(); 	 
+;;;292            //////DebugPrint("TWI_ACK!\n");  
+;;;293            return TWI_ACK;    
+;;;294        }      
+;;;295    }  
 000060  bd70              POP      {r4-r6,pc}
                   |L12.98|
 000062  f7fffffe          BL       TWI_SCL_0
 000066  f7fffffe          BL       TWI_SDA_1
 00006a  f7fffffe          BL       TWI_NOP
-00006e  2000              MOVS     r0,#0                 ;280
+00006e  2000              MOVS     r0,#0                 ;293
 000070  e7f6              B        |L12.96|
-;;;283    
+;;;296    
                           ENDP
 
 
                           AREA ||i.TWI_SendNACK||, CODE, READONLY, ALIGN=1
 
                   TWI_SendNACK PROC
-;;;214    /* --------------------------------------------------------------------------*/  
-;;;215    static void TWI_SendNACK(void)  
+;;;227    /* --------------------------------------------------------------------------*/  
+;;;228    static void TWI_SendNACK(void)  
 000000  b510              PUSH     {r4,lr}
-;;;216    {  
-;;;217        TWI_SDA_1();  
+;;;229    {  
+;;;230        TWI_SDA_1();  
 000002  f7fffffe          BL       TWI_SDA_1
-;;;218        TWI_NOP();  
+;;;231        TWI_NOP();  
 000006  f7fffffe          BL       TWI_NOP
-;;;219        TWI_SCL_1();  
+;;;232        TWI_SCL_1();  
 00000a  f7fffffe          BL       TWI_SCL_1
-;;;220        TWI_NOP();  
+;;;233        TWI_NOP();  
 00000e  f7fffffe          BL       TWI_NOP
-;;;221        TWI_SCL_0();   
+;;;234        TWI_SCL_0();   
 000012  f7fffffe          BL       TWI_SCL_0
-;;;222        TWI_NOP();  
+;;;235        TWI_NOP();  
 000016  f7fffffe          BL       TWI_NOP
-;;;223        //////DebugPrint("TWI_SendNACK\n");      
-;;;224    }  
+;;;236        //////DebugPrint("TWI_SendNACK\n");      
+;;;237    }  
 00001a  bd10              POP      {r4,pc}
-;;;225    
+;;;238    
                           ENDP
 
 
                           AREA ||i.bsp_Authentication||, CODE, READONLY, ALIGN=2
 
                   bsp_Authentication PROC
-;;;80     //------------------------------------------------------------------------------
-;;;81     unsigned char bsp_Authentication(void)
+;;;93     //------------------------------------------------------------------------------
+;;;94     unsigned char bsp_Authentication(void)
 000000  b510              PUSH     {r4,lr}
-;;;82     {
+;;;95     {
 000002  b092              SUB      sp,sp,#0x48
-;;;83         unsigned char rv;
-;;;84         unsigned char random[32];
-;;;85         unsigned char tmpBuf1[20] = { PPPPP };
+;;;96         unsigned char rv;
+;;;97         unsigned char random[32];
+;;;98         unsigned char tmpBuf1[20] = { PPPPP };
 000004  2214              MOVS     r2,#0x14
 000006  4922              LDR      r1,|L14.144|
 000008  a805              ADD      r0,sp,#0x14
 00000a  f7fffffe          BL       __aeabi_memcpy4
-;;;86         unsigned char tmpBuf2[20] = { KKKKK };   
+;;;99         unsigned char tmpBuf2[20] = { KKKKK };   
 00000e  2214              MOVS     r2,#0x14
 000010  491f              LDR      r1,|L14.144|
 000012  3114              ADDS     r1,r1,#0x14
 000014  4668              MOV      r0,sp
 000016  f7fffffe          BL       __aeabi_memcpy4
-;;;87         
-;;;88         // Wakeup and Reset DX8
-;;;89         rv = DX8_Reset();
+;;;100        
+;;;101        // Wakeup and Reset DX8
+;;;102        rv = DX8_Reset();
 00001a  f7fffffe          BL       DX8_Reset
 00001e  4604              MOV      r4,r0
-;;;90         if (rv) return rv;
+;;;103        if (rv) return rv;
 000020  b114              CBZ      r4,|L14.40|
 000022  4620              MOV      r0,r4
                   |L14.36|
-;;;91         
-;;;92         // PIN Authentication
-;;;93         GetSoftRandom(random,32); // Generate random for verify PIN
-;;;94         rv = DX8_VerifyPin(random,tmpBuf1);
-;;;95         if (rv) return rv;
-;;;96         
-;;;97         // Host Authentication
-;;;98         memset(tmpBuf1,0x00,20);
-;;;99         GetSoftRandom(random,32);
-;;;100        rv = DX8_HostAuth(random,32,tmpBuf1);
-;;;101        if (rv) return rv;
-;;;102        Lib_HostAuth(random,32,tmpBuf2,tmpBuf2);
-;;;103        rv = memcmp(tmpBuf1,tmpBuf2,20);
-;;;104        if (rv) return rv;
-;;;105        
-;;;106        // DX8 Sleep to save power
-;;;107        rv = DX8_Sleep(); 
+;;;104        
+;;;105        // PIN Authentication
+;;;106        GetSoftRandom(random,32); // Generate random for verify PIN
+;;;107        rv = DX8_VerifyPin(random,tmpBuf1);
 ;;;108        if (rv) return rv;
 ;;;109        
-;;;110        return 0;
-;;;111    }
+;;;110        // Host Authentication
+;;;111        memset(tmpBuf1,0x00,20);
+;;;112        GetSoftRandom(random,32);
+;;;113        rv = DX8_HostAuth(random,32,tmpBuf1);
+;;;114        if (rv) return rv;
+;;;115        Lib_HostAuth(random,32,tmpBuf2,tmpBuf2);
+;;;116        rv = memcmp(tmpBuf1,tmpBuf2,20);
+;;;117        if (rv) return rv;
+;;;118        
+;;;119        // DX8 Sleep to save power
+;;;120        rv = DX8_Sleep(); 
+;;;121        if (rv) return rv;
+;;;122        
+;;;123        return 0;
+;;;124    }
 000024  b012              ADD      sp,sp,#0x48
 000026  bd10              POP      {r4,pc}
                   |L14.40|
-000028  2120              MOVS     r1,#0x20              ;93
-00002a  a80a              ADD      r0,sp,#0x28           ;93
+000028  2120              MOVS     r1,#0x20              ;106
+00002a  a80a              ADD      r0,sp,#0x28           ;106
 00002c  f7fffffe          BL       GetSoftRandom
-000030  a905              ADD      r1,sp,#0x14           ;94
-000032  a80a              ADD      r0,sp,#0x28           ;94
+000030  a905              ADD      r1,sp,#0x14           ;107
+000032  a80a              ADD      r0,sp,#0x28           ;107
 000034  f7fffffe          BL       DX8_VerifyPin
-000038  4604              MOV      r4,r0                 ;94
+000038  4604              MOV      r4,r0                 ;107
 00003a  b10c              CBZ      r4,|L14.64|
-00003c  4620              MOV      r0,r4                 ;95
+00003c  4620              MOV      r0,r4                 ;108
 00003e  e7f1              B        |L14.36|
                   |L14.64|
-000040  2114              MOVS     r1,#0x14              ;98
-000042  a805              ADD      r0,sp,#0x14           ;98
+000040  2114              MOVS     r1,#0x14              ;111
+000042  a805              ADD      r0,sp,#0x14           ;111
 000044  f7fffffe          BL       __aeabi_memclr4
-000048  2120              MOVS     r1,#0x20              ;99
-00004a  a80a              ADD      r0,sp,#0x28           ;99
+000048  2120              MOVS     r1,#0x20              ;112
+00004a  a80a              ADD      r0,sp,#0x28           ;112
 00004c  f7fffffe          BL       GetSoftRandom
-000050  aa05              ADD      r2,sp,#0x14           ;100
-000052  2120              MOVS     r1,#0x20              ;100
-000054  a80a              ADD      r0,sp,#0x28           ;100
+000050  aa05              ADD      r2,sp,#0x14           ;113
+000052  2120              MOVS     r1,#0x20              ;113
+000054  a80a              ADD      r0,sp,#0x28           ;113
 000056  f7fffffe          BL       DX8_HostAuth
-00005a  4604              MOV      r4,r0                 ;100
+00005a  4604              MOV      r4,r0                 ;113
 00005c  b10c              CBZ      r4,|L14.98|
-00005e  4620              MOV      r0,r4                 ;101
+00005e  4620              MOV      r0,r4                 ;114
 000060  e7e0              B        |L14.36|
                   |L14.98|
-000062  466b              MOV      r3,sp                 ;102
-000064  466a              MOV      r2,sp                 ;102
-000066  2120              MOVS     r1,#0x20              ;102
-000068  a80a              ADD      r0,sp,#0x28           ;102
+000062  466b              MOV      r3,sp                 ;115
+000064  466a              MOV      r2,sp                 ;115
+000066  2120              MOVS     r1,#0x20              ;115
+000068  a80a              ADD      r0,sp,#0x28           ;115
 00006a  f7fffffe          BL       Lib_HostAuth
-00006e  2214              MOVS     r2,#0x14              ;103
-000070  4669              MOV      r1,sp                 ;103
-000072  a805              ADD      r0,sp,#0x14           ;103
+00006e  2214              MOVS     r2,#0x14              ;116
+000070  4669              MOV      r1,sp                 ;116
+000072  a805              ADD      r0,sp,#0x14           ;116
 000074  f7fffffe          BL       memcmp
-000078  b2c4              UXTB     r4,r0                 ;103
+000078  b2c4              UXTB     r4,r0                 ;116
 00007a  b10c              CBZ      r4,|L14.128|
-00007c  4620              MOV      r0,r4                 ;104
+00007c  4620              MOV      r0,r4                 ;117
 00007e  e7d1              B        |L14.36|
                   |L14.128|
 000080  f7fffffe          BL       DX8_Sleep
-000084  4604              MOV      r4,r0                 ;107
+000084  4604              MOV      r4,r0                 ;120
 000086  b10c              CBZ      r4,|L14.140|
-000088  4620              MOV      r0,r4                 ;108
+000088  4620              MOV      r0,r4                 ;121
 00008a  e7cb              B        |L14.36|
                   |L14.140|
-00008c  2000              MOVS     r0,#0                 ;110
+00008c  2000              MOVS     r0,#0                 ;123
 00008e  e7c9              B        |L14.36|
-;;;112    
+;;;125    
                           ENDP
 
                   |L14.144|
@@ -588,54 +588,54 @@
                           AREA ||i.bsp_InitDX8_||, CODE, READONLY, ALIGN=2
 
                   bsp_InitDX8_ PROC
-;;;53      *******************************************************************************/  
-;;;54     void bsp_InitDX8_(void)  
+;;;66      *******************************************************************************/  
+;;;67     void bsp_InitDX8_(void)  
 000000  b508              PUSH     {r3,lr}
-;;;55     {  
-;;;56         GPIO_InitTypeDef GPIO_InitStructure;  
-;;;57         
-;;;58         RCC_APB2PeriphClockCmd(dx8_I2C_SCL_GPIO_CLK | dx8_I2C_SDA_GPIO_CLK, ENABLE);
+;;;68     {  
+;;;69         GPIO_InitTypeDef GPIO_InitStructure;  
+;;;70         
+;;;71         RCC_APB2PeriphClockCmd(dx8_I2C_SCL_GPIO_CLK | dx8_I2C_SDA_GPIO_CLK, ENABLE);
 000002  2101              MOVS     r1,#1
 000004  2008              MOVS     r0,#8
 000006  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;59         
-;;;60         GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;  
+;;;72         
+;;;73         GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;  
 00000a  2003              MOVS     r0,#3
 00000c  f88d0002          STRB     r0,[sp,#2]
-;;;61         
-;;;62         
-;;;63         GPIO_InitStructure.GPIO_Pin = dx8_I2C_SCL_PIN;
+;;;74         
+;;;75         
+;;;76         GPIO_InitStructure.GPIO_Pin = dx8_I2C_SCL_PIN;
 000010  2040              MOVS     r0,#0x40
 000012  f8ad0000          STRH     r0,[sp,#0]
-;;;64         GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;   
+;;;77         GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;   
 000016  2010              MOVS     r0,#0x10
 000018  f88d0003          STRB     r0,[sp,#3]
-;;;65         GPIO_Init(dx8_I2C_SCL_GPIO_PORT, &GPIO_InitStructure);  
+;;;78         GPIO_Init(dx8_I2C_SCL_GPIO_PORT, &GPIO_InitStructure);  
 00001c  4669              MOV      r1,sp
 00001e  4809              LDR      r0,|L15.68|
 000020  f7fffffe          BL       GPIO_Init
-;;;66         
-;;;67         
-;;;68         GPIO_InitStructure.GPIO_Pin = dx8_I2C_SDA_PIN;  
+;;;79         
+;;;80         
+;;;81         GPIO_InitStructure.GPIO_Pin = dx8_I2C_SDA_PIN;  
 000024  2080              MOVS     r0,#0x80
 000026  f8ad0000          STRH     r0,[sp,#0]
-;;;69         GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_OD;
+;;;82         GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_OD;
 00002a  2014              MOVS     r0,#0x14
 00002c  f88d0003          STRB     r0,[sp,#3]
-;;;70         GPIO_Init(dx8_I2C_SDA_GPIO_PORT, &GPIO_InitStructure);
+;;;83         GPIO_Init(dx8_I2C_SDA_GPIO_PORT, &GPIO_InitStructure);
 000030  4669              MOV      r1,sp
 000032  4804              LDR      r0,|L15.68|
 000034  f7fffffe          BL       GPIO_Init
-;;;71         
-;;;72         TWI_SCL_1();
+;;;84         
+;;;85         TWI_SCL_1();
 000038  f7fffffe          BL       TWI_SCL_1
-;;;73         TWI_SDA_1();
+;;;86         TWI_SDA_1();
 00003c  f7fffffe          BL       TWI_SDA_1
-;;;74         
-;;;75         //////DebugPrint("Software TWI Initializing...\n");   
-;;;76     } 
+;;;87         
+;;;88         //////DebugPrint("Software TWI Initializing...\n");   
+;;;89     } 
 000040  bd08              POP      {r3,pc}
-;;;77     
+;;;90     
                           ENDP
 
 000042  0000              DCW      0x0000
@@ -645,110 +645,110 @@
                           AREA ||i.dxif_transfer||, CODE, READONLY, ALIGN=1
 
                   dxif_transfer PROC
-;;;312    
-;;;313    unsigned char dxif_transfer(unsigned char *buf, unsigned short len)
+;;;325    
+;;;326    unsigned char dxif_transfer(unsigned char *buf, unsigned short len)
 000000  b570              PUSH     {r4-r6,lr}
-;;;314    {
+;;;327    {
 000002  4605              MOV      r5,r0
 000004  460e              MOV      r6,r1
-;;;315        unsigned short i;
-;;;316        
-;;;317        // Start
-;;;318        if (TWI_READY != TWI_START()) return 1;
+;;;328        unsigned short i;
+;;;329        
+;;;330        // Start
+;;;331        if (TWI_READY != TWI_START()) return 1;
 000006  f7fffffe          BL       TWI_START
 00000a  b108              CBZ      r0,|L16.16|
 00000c  2001              MOVS     r0,#1
                   |L16.14|
-;;;319        
-;;;320        // slave address
-;;;321        if (TWI_ACK != TWI_SendByte(buf[0])) 
-;;;322        {
-;;;323            TWI_STOP();
-;;;324            return 1;
-;;;325        }
-;;;326        
-;;;327        // Data
-;;;328        if (buf[0] & 0x01)  // i2c read
-;;;329        {
-;;;330            for (i = 1; i < len; i++) {
-;;;331                buf[i] = TWI_ReceiveByte();
-;;;332                if (i == (len - 1)) {
-;;;333                    TWI_SendNACK();
-;;;334                }
-;;;335                else {
-;;;336                    TWI_SendACK();
-;;;337                }
-;;;338            }
-;;;339        }
-;;;340        else  // i2c write
-;;;341        {		
-;;;342            for (i = 1; i < len; i++) 
-;;;343            {
-;;;344                if (TWI_ACK != TWI_SendByte(buf[i]))
-;;;345                {
-;;;346                    TWI_STOP();
-;;;347                    return 1;
-;;;348                }
-;;;349            }
-;;;350        }
-;;;351        
-;;;352        // Stop
-;;;353        TWI_STOP();
-;;;354        
-;;;355        return 0;
-;;;356    }
+;;;332        
+;;;333        // slave address
+;;;334        if (TWI_ACK != TWI_SendByte(buf[0])) 
+;;;335        {
+;;;336            TWI_STOP();
+;;;337            return 1;
+;;;338        }
+;;;339        
+;;;340        // Data
+;;;341        if (buf[0] & 0x01)  // i2c read
+;;;342        {
+;;;343            for (i = 1; i < len; i++) {
+;;;344                buf[i] = TWI_ReceiveByte();
+;;;345                if (i == (len - 1)) {
+;;;346                    TWI_SendNACK();
+;;;347                }
+;;;348                else {
+;;;349                    TWI_SendACK();
+;;;350                }
+;;;351            }
+;;;352        }
+;;;353        else  // i2c write
+;;;354        {		
+;;;355            for (i = 1; i < len; i++) 
+;;;356            {
+;;;357                if (TWI_ACK != TWI_SendByte(buf[i]))
+;;;358                {
+;;;359                    TWI_STOP();
+;;;360                    return 1;
+;;;361                }
+;;;362            }
+;;;363        }
+;;;364        
+;;;365        // Stop
+;;;366        TWI_STOP();
+;;;367        
+;;;368        return 0;
+;;;369    }
 00000e  bd70              POP      {r4-r6,pc}
                   |L16.16|
-000010  7828              LDRB     r0,[r5,#0]            ;321
+000010  7828              LDRB     r0,[r5,#0]            ;334
 000012  f7fffffe          BL       TWI_SendByte
 000016  b118              CBZ      r0,|L16.32|
 000018  f7fffffe          BL       TWI_STOP
-00001c  2001              MOVS     r0,#1                 ;324
+00001c  2001              MOVS     r0,#1                 ;337
 00001e  e7f6              B        |L16.14|
                   |L16.32|
-000020  7828              LDRB     r0,[r5,#0]            ;328
-000022  f0000001          AND      r0,r0,#1              ;328
+000020  7828              LDRB     r0,[r5,#0]            ;341
+000022  f0000001          AND      r0,r0,#1              ;341
 000026  b188              CBZ      r0,|L16.76|
-000028  2401              MOVS     r4,#1                 ;330
+000028  2401              MOVS     r4,#1                 ;343
 00002a  e00c              B        |L16.70|
                   |L16.44|
 00002c  f7fffffe          BL       TWI_ReceiveByte
-000030  5528              STRB     r0,[r5,r4]            ;331
-000032  1e70              SUBS     r0,r6,#1              ;332
-000034  42a0              CMP      r0,r4                 ;332
+000030  5528              STRB     r0,[r5,r4]            ;344
+000032  1e70              SUBS     r0,r6,#1              ;345
+000034  42a0              CMP      r0,r4                 ;345
 000036  d102              BNE      |L16.62|
 000038  f7fffffe          BL       TWI_SendNACK
 00003c  e001              B        |L16.66|
                   |L16.62|
 00003e  f7fffffe          BL       TWI_SendACK
                   |L16.66|
-000042  1c60              ADDS     r0,r4,#1              ;330
-000044  b284              UXTH     r4,r0                 ;330
+000042  1c60              ADDS     r0,r4,#1              ;343
+000044  b284              UXTH     r4,r0                 ;343
                   |L16.70|
-000046  42b4              CMP      r4,r6                 ;330
+000046  42b4              CMP      r4,r6                 ;343
 000048  dbf0              BLT      |L16.44|
 00004a  e00d              B        |L16.104|
                   |L16.76|
-00004c  2401              MOVS     r4,#1                 ;342
+00004c  2401              MOVS     r4,#1                 ;355
 00004e  e009              B        |L16.100|
                   |L16.80|
-000050  5d28              LDRB     r0,[r5,r4]            ;344
+000050  5d28              LDRB     r0,[r5,r4]            ;357
 000052  f7fffffe          BL       TWI_SendByte
 000056  b118              CBZ      r0,|L16.96|
 000058  f7fffffe          BL       TWI_STOP
-00005c  2001              MOVS     r0,#1                 ;347
+00005c  2001              MOVS     r0,#1                 ;360
 00005e  e7d6              B        |L16.14|
                   |L16.96|
-000060  1c60              ADDS     r0,r4,#1              ;342
-000062  b284              UXTH     r4,r0                 ;342
+000060  1c60              ADDS     r0,r4,#1              ;355
+000062  b284              UXTH     r4,r0                 ;355
                   |L16.100|
-000064  42b4              CMP      r4,r6                 ;342
+000064  42b4              CMP      r4,r6                 ;355
 000066  dbf3              BLT      |L16.80|
                   |L16.104|
 000068  f7fffffe          BL       TWI_STOP
-00006c  2000              MOVS     r0,#0                 ;355
+00006c  2000              MOVS     r0,#0                 ;368
 00006e  e7ce              B        |L16.14|
-;;;357    
+;;;370    
                           ENDP
 
 
