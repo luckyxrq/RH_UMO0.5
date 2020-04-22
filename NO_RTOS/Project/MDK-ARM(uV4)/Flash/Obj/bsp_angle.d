@@ -38,10 +38,13 @@
 .\flash\obj\bsp_angle.o: ..\..\User\bsp\inc\bsp_timer.h
 .\flash\obj\bsp_angle.o: ..\..\User\bsp\inc\bsp_key.h
 .\flash\obj\bsp_angle.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
+.\flash\obj\bsp_angle.o: ..\..\User\bsp\inc\bsp_i2c_gpio.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_PowerSwitch.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_Angle.h
 .\flash\obj\bsp_angle.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h
 .\flash\obj\bsp_angle.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_aw9523b.h
+.\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_DetectAct.h
 .\flash\obj\bsp_angle.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.c
 .\flash\obj\bsp_angle.o: ..\..\User\bsp\bsp.h

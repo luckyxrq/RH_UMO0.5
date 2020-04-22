@@ -44,7 +44,7 @@ void bsp_StartTimer(uint8_t _id, uint32_t _period);
 void bsp_StartAutoTimer(uint8_t _id, uint32_t _period);
 void bsp_StopTimer(uint8_t _id);
 uint8_t bsp_CheckTimer(uint8_t _id);
-int32_t bsp_GetRunTime(void);
+uint32_t bsp_GetRunTime(void);
 int32_t bsp_CheckRunTime(int32_t _LastTime);
 
 void bsp_InitHardTimer(void);

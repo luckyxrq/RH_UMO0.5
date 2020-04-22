@@ -78,10 +78,12 @@
 #include "bsp_timer.h"
 #include "bsp_key.h"
 #include "bsp_uart_fifo.h"
+#include "bsp_i2c_gpio.h"
 #include "bsp_PowerSwitch.h"
 #include "bsp_Collision.h"
 #include "bsp_Angle.h"
-
+#include "bsp_aw9523b.h"
+#include "bsp_DetectAct.h"
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
 void bsp_Idle(void);

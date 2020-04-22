@@ -70,7 +70,7 @@ static SOFT_TMR s_tTmr[TMR_COUNT];
 	全局运行时间，单位1ms
 	最长可以表示 24.85天，如果你的产品连续运行时间超过这个数，则必须考虑溢出问题
 */
-__IO int32_t g_iRunTime = 0;
+__IO uint32_t g_iRunTime = 0;
 
 static void bsp_SoftTimerDec(SOFT_TMR *_tmr);
 
@@ -152,7 +152,7 @@ void SysTick_ISR(void)
 
 	/* 全局运行时间每1ms增1 */
 	g_iRunTime++;
-	if (g_iRunTime == 0x7FFFFFFF)	/* 这个变量是 int32_t 类型，最大数为 0x7FFFFFFF */
+	if (g_iRunTime == 0xFFFFFFFF)	/* 这个变量是 int32_t 类型，最大数为 0x7FFFFFFF */
 	{
 		g_iRunTime = 0;
 	}
@@ -400,9 +400,9 @@ uint8_t bsp_CheckTimer(uint8_t _id)
 *	返 回 值: CPU运行时间，单位1ms
 *********************************************************************************************************
 */
-int32_t bsp_GetRunTime(void)
+uint32_t bsp_GetRunTime(void)
 {
-	int32_t runtime;
+	uint32_t runtime;
 
 	DISABLE_INT();  	/* 关中断 */
 

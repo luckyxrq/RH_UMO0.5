@@ -428,6 +428,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Angle.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_aw9523b.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_aw9523b.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_DetectAct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_DetectAct.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -472,6 +482,11 @@
               <FileName>bsp_uart_fifo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_uart_fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_i2c_gpio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -522,6 +537,11 @@
               <FileName>stm32f10x_pwr.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_pwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -974,6 +994,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Angle.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_aw9523b.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_aw9523b.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_DetectAct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_DetectAct.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1018,6 +1048,11 @@
               <FileName>bsp_uart_fifo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_uart_fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_i2c_gpio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1068,6 +1103,11 @@
               <FileName>stm32f10x_pwr.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_pwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c</FilePath>
             </File>
           </Files>
         </Group>

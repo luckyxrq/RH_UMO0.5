@@ -29,21 +29,21 @@
 ;;;137    
 ;;;138    	/* 每隔1ms进来1次 （仅用于 bsp_DelayMS） */
 ;;;139    	if (s_uiDelayCount > 0)
-000002  481b              LDR      r0,|L2.112|
+000002  4819              LDR      r0,|L2.104|
 000004  6800              LDR      r0,[r0,#0]  ; s_uiDelayCount
 000006  b140              CBZ      r0,|L2.26|
 ;;;140    	{
 ;;;141    		if (--s_uiDelayCount == 0)
-000008  4819              LDR      r0,|L2.112|
+000008  4817              LDR      r0,|L2.104|
 00000a  6800              LDR      r0,[r0,#0]  ; s_uiDelayCount
 00000c  1e40              SUBS     r0,r0,#1
-00000e  4918              LDR      r1,|L2.112|
+00000e  4916              LDR      r1,|L2.104|
 000010  6008              STR      r0,[r1,#0]  ; s_uiDelayCount
 000012  b910              CBNZ     r0,|L2.26|
 ;;;142    		{
 ;;;143    			s_ucTimeOutFlag = 1;
 000014  2001              MOVS     r0,#1
-000016  4917              LDR      r1,|L2.116|
+000016  4915              LDR      r1,|L2.108|
 000018  7008              STRB     r0,[r1,#0]
                   |L2.26|
 ;;;144    		}
@@ -57,7 +57,7 @@
 ;;;149    	{
 ;;;150    		bsp_SoftTimerDec(&s_tTmr[i]);
 00001e  eb040144          ADD      r1,r4,r4,LSL #1
-000022  4a15              LDR      r2,|L2.120|
+000022  4a13              LDR      r2,|L2.112|
 000024  eb020081          ADD      r0,r2,r1,LSL #2
 000028  f7fffffe          BL       bsp_SoftTimerDec
 00002c  1c60              ADDS     r0,r4,#1              ;148
@@ -69,61 +69,58 @@
 ;;;152    
 ;;;153    	/* 全局运行时间每1ms增1 */
 ;;;154    	g_iRunTime++;
-000034  4811              LDR      r0,|L2.124|
+000034  480f              LDR      r0,|L2.116|
 000036  6800              LDR      r0,[r0,#0]  ; g_iRunTime
 000038  1c40              ADDS     r0,r0,#1
-00003a  4910              LDR      r1,|L2.124|
+00003a  490e              LDR      r1,|L2.116|
 00003c  6008              STR      r0,[r1,#0]  ; g_iRunTime
-;;;155    	if (g_iRunTime == 0x7FFFFFFF)	/* 这个变量是 int32_t 类型，最大数为 0x7FFFFFFF */
+;;;155    	if (g_iRunTime == 0xFFFFFFFF)	/* 这个变量是 int32_t 类型，最大数为 0x7FFFFFFF */
 00003e  4608              MOV      r0,r1
 000040  6800              LDR      r0,[r0,#0]  ; g_iRunTime
-000042  f06f4100          MVN      r1,#0x80000000
-000046  4288              CMP      r0,r1
-000048  d102              BNE      |L2.80|
+000042  1c40              ADDS     r0,r0,#1
+000044  b908              CBNZ     r0,|L2.74|
 ;;;156    	{
 ;;;157    		g_iRunTime = 0;
-00004a  2000              MOVS     r0,#0
-00004c  490b              LDR      r1,|L2.124|
-00004e  6008              STR      r0,[r1,#0]  ; g_iRunTime
-                  |L2.80|
+000046  2000              MOVS     r0,#0
+000048  6008              STR      r0,[r1,#0]  ; g_iRunTime
+                  |L2.74|
 ;;;158    	}
 ;;;159    
 ;;;160    	bsp_RunPer1ms();		/* 每隔1ms调用一次此函数，此函数在 bsp.c */
-000050  f7fffffe          BL       bsp_RunPer1ms
+00004a  f7fffffe          BL       bsp_RunPer1ms
 ;;;161    
 ;;;162    	if (++s_count >= 10)
-000054  480a              LDR      r0,|L2.128|
-000056  7800              LDRB     r0,[r0,#0]  ; s_count
-000058  1c40              ADDS     r0,r0,#1
-00005a  b2c0              UXTB     r0,r0
-00005c  4908              LDR      r1,|L2.128|
-00005e  7008              STRB     r0,[r1,#0]
-000060  280a              CMP      r0,#0xa
-000062  db03              BLT      |L2.108|
+00004e  480a              LDR      r0,|L2.120|
+000050  7800              LDRB     r0,[r0,#0]  ; s_count
+000052  1c40              ADDS     r0,r0,#1
+000054  b2c0              UXTB     r0,r0
+000056  4908              LDR      r1,|L2.120|
+000058  7008              STRB     r0,[r1,#0]
+00005a  280a              CMP      r0,#0xa
+00005c  db03              BLT      |L2.102|
 ;;;163    	{
 ;;;164    		s_count = 0;
-000064  2000              MOVS     r0,#0
-000066  7008              STRB     r0,[r1,#0]
+00005e  2000              MOVS     r0,#0
+000060  7008              STRB     r0,[r1,#0]
 ;;;165    
 ;;;166    		bsp_RunPer10ms();	/* 每隔10ms调用一次此函数，此函数在 bsp.c */
-000068  f7fffffe          BL       bsp_RunPer10ms
-                  |L2.108|
+000062  f7fffffe          BL       bsp_RunPer10ms
+                  |L2.102|
 ;;;167    	}
 ;;;168    }
-00006c  bd10              POP      {r4,pc}
+000066  bd10              POP      {r4,pc}
 ;;;169    
                           ENDP
 
-00006e  0000              DCW      0x0000
-                  |L2.112|
+                  |L2.104|
                           DCD      s_uiDelayCount
-                  |L2.116|
+                  |L2.108|
                           DCD      s_ucTimeOutFlag
-                  |L2.120|
+                  |L2.112|
                           DCD      s_tTmr
-                  |L2.124|
+                  |L2.116|
                           DCD      g_iRunTime
-                  |L2.128|
+                  |L2.120|
                           DCD      s_count
 
                           AREA ||i.TIM2_IRQHandler||, CODE, READONLY, ALIGN=2
@@ -541,10 +538,10 @@
 
                   bsp_GetRunTime PROC
 ;;;402    */
-;;;403    int32_t bsp_GetRunTime(void)
+;;;403    uint32_t bsp_GetRunTime(void)
 000000  b510              PUSH     {r4,lr}
 ;;;404    {
-;;;405    	int32_t runtime;
+;;;405    	uint32_t runtime;
 ;;;406    
 ;;;407    	DISABLE_INT();  	/* 关中断 */
 000002  2001              MOVS     r0,#1

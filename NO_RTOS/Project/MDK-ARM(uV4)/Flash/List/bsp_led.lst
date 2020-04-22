@@ -32977,7 +32977,7 @@ Nvoid bsp_StartTimer(uint8_t _id, uint32_t _period);
 Nvoid bsp_StartAutoTimer(uint8_t _id, uint32_t _period);
 Nvoid bsp_StopTimer(uint8_t _id);
 Nuint8_t bsp_CheckTimer(uint8_t _id);
-Nint32_t bsp_GetRunTime(void);
+Nuint32_t bsp_GetRunTime(void);
 Nint32_t bsp_CheckRunTime(int32_t _LastTime);
 N
 Nvoid bsp_InitHardTimer(void);
@@ -33312,6 +33312,39 @@ N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 81 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_i2c_gpio.h"
+L 1 "..\..\User\bsp\inc\bsp_i2c_gpio.h" 1
+N/*
+N*********************************************************************************************************
+N*
+N*	模块名称 : I2C总线驱动模块
+N*	文件名称 : bsp_i2c_gpio.h
+N*	版    本 : V1.0
+N*	说    明 : 头文件。
+N*
+N*	Copyright (C), 2012-2013, 安富莱电子 www.armfly.com
+N*
+N*********************************************************************************************************
+N*/
+N
+N#ifndef _BSP_I2C_GPIO_H
+N#define _BSP_I2C_GPIO_H
+N
+N#define I2C_WR	0		/* 写控制bit */
+N#define I2C_RD	1		/* 读控制bit */
+N
+Nvoid bsp_InitI2C(void);
+Nvoid i2c_Start(void);
+Nvoid i2c_Stop(void);
+Nvoid i2c_SendByte(uint8_t _ucByte);
+Nuint8_t i2c_ReadByte(void);
+Nuint8_t i2c_WaitAck(void);
+Nvoid i2c_Ack(void);
+Nvoid i2c_NAck(void);
+Nuint8_t i2c_CheckDevice(uint8_t _Address);
+N
+N#endif
+L 82 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_PowerSwitch.h"
 L 1 "..\..\User\app\inc\bsp_PowerSwitch.h" 1
 N#ifndef __BSP_POWERSWITCH_H
@@ -33360,7 +33393,7 @@ N
 N
 N#endif
 N
-L 82 "..\..\User\bsp\bsp.h" 2
+L 83 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
 L 1 "..\..\User\app\inc\bsp_Collision.h" 1
 N#ifndef __BSP_COLLISION_H
@@ -33379,7 +33412,7 @@ NCollision bsp_CollisionScan(void); /*返回碰撞结果*/
 Nvoid bsp_PrintCollision(void);
 N
 N#endif
-L 83 "..\..\User\bsp\bsp.h" 2
+L 84 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Angle.h"
 L 1 "..\..\User\app\inc\bsp_Angle.h" 1
 N#ifndef __BSP_ANGLE_H
@@ -33501,8 +33534,105 @@ N
 N
 N#endif
 N
-L 84 "..\..\User\bsp\bsp.h" 2
+L 85 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_aw9523b.h"
+L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
+N#ifndef __BSP_AW9523B_H
+N#define __BSP_AW9523B_H
 N
+N#define AW_DEV_ADDR			0xB6		/* 设备地址 */
+N#define AW_ADDR_BYTES		1			/* 地址字节个数 */
+N
+Ntypedef enum
+N{
+N	AW_ID = 0x10,
+N	Config_Port0 = 0x04,//选择输入或输出
+N	Config_Port1 = 0x05,//选择输入或输出
+N	GCR = 0x11,//配置P0口为推挽或开漏
+N	Output_Port0 = 0x02,
+N	Output_Port1 = 0x03
+N}ADDR;
+N
+Ntypedef enum
+N{
+N	awP0_0 = 0,
+N	awP0_1 = 1,
+N	awP0_2 = 2,
+N	awP0_3 = 3,
+N	awP0_4 = 4,
+N	awP0_5 = 5,
+N	awP0_6 = 6,
+N	awP0_7 = 7,
+N	
+N	awP1_0 = 8,
+N	awP1_1 = 9,
+N	awP1_2 = 10,
+N	awP1_3 = 11,
+N	awP1_4 = 12,
+N	awP1_5 = 13,
+N	awP1_6 = 14,
+N	awP1_7 = 15
+N	
+N}AW_PIN;
+N
+Ntypedef enum
+N{
+N	AW_0 = 0,
+N	AW_1 = 1
+N}AW_VAL;
+N
+Ntypedef enum
+N{
+N	IR0 = 0,
+N	IR1,
+N	IR2,
+N	IR3,
+N	IR4,
+N	IR5,
+N	IR6,
+N	IR7,
+N	IR8,
+N	IR9,
+N}IR_SN;
+N
+N
+Nuint8_t bsp_InitAW9523B(void);
+Nuint8_t bsp_AWReadID(void);
+Nvoid bsp_AWSetPinVal(AW_PIN pin,AW_VAL val);
+Nuint8_t bsp_AWReadReg(ADDR addr);
+Nfloat bsp_GetAdScanValue(void);
+Nvoid bsp_DetectDeal(void);
+Nfloat bsp_GetInfraredVoltageLeft(void);
+Nfloat bsp_GetInfraredVoltageRight(void);
+Nfloat bsp_GetInfraRedAdcVoltage(IR_SN sn);
+N
+N#endif
+N
+L 86 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_DetectAct.h"
+L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
+N#ifndef __BSP_DETECTACT_H
+N#define __BSP_DETECTACT_H
+N
+Ntypedef struct
+N{
+N	uint8_t isRunning;
+N	uint8_t action;
+N	uint32_t delay;
+N	
+N	uint8_t pinMapIndex;
+N	uint16_t adcVal;
+N}DetectAct;
+N
+Nvoid bsp_InitDetectAct(void);
+Nvoid bsp_DetectStart(void);
+Nvoid bsp_DetectStop(void);
+Nvoid bsp_DetectAct(void);
+Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
+N
+N#endif
+N
+L 87 "..\..\User\bsp\bsp.h" 2
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);
