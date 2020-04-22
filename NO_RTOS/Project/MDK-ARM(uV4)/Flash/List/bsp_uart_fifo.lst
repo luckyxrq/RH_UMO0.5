@@ -35272,7 +35272,7 @@ N*/
 Nint fputc(int ch, FILE *f)
 N{
 N#if 1	/* 将需要printf的字符通过串口中断FIFO发送出去，printf函数会立即返回 */
-N	comSendChar(COM1, ch);
+N	comSendChar(COM2, ch);
 N
 N	return ch;
 N#else	/* 采用阻塞方式发送每个字符,等待数据发送完毕 */

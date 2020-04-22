@@ -11,8 +11,6 @@
 */
 int main(void)
 {
-
-	
 	/*
 		ST固件库中的启动文件已经执行了 SystemInit() 函数，该函数在 system_stm32f4xx.c 文件，主要功能是
 	配置CPU系统的时钟，内部Flash访问时序，配置FSMC用于外部SRAM
@@ -24,6 +22,9 @@ int main(void)
 	{
 		bsp_Idle();		/* CPU空闲时执行的函数，在 bsp.c */
 	
+		
+		DEBUG("执行\r\n");
+		bsp_DelayMS(1);
 	}
 }
 

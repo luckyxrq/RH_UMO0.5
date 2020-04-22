@@ -45,14 +45,14 @@
 ;;;41     	
 ;;;42     	bsp_InitLed();		/* 配置LED的GPIO端口 */
 00000a  f7fffffe          BL       bsp_InitLed
-;;;43     	bsp_InitKey();		/* 初始化按键 */
+;;;43     	bsp_InitKey();		/* 初始化按键 */	
 00000e  f7fffffe          BL       bsp_InitKey
-;;;44     	
-;;;45     	bsp_InitTimer();	/* 初始化系统滴答定时器 (此函数会开中断) */
+;;;44     	bsp_InitTimer();	/* 初始化系统滴答定时器 (此函数会开中断) */
 000012  f7fffffe          BL       bsp_InitTimer
-;;;46     	
-;;;47     	bsp_InitUart();		/* 初始化串口驱动 */
+;;;45     	bsp_InitUart();		/* 初始化串口驱动 */
 000016  f7fffffe          BL       bsp_InitUart
+;;;46     	
+;;;47     	
 ;;;48     }
 00001a  bd10              POP      {r4,pc}
 ;;;49     
