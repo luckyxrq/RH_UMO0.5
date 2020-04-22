@@ -1,28 +1,4 @@
-L 1 "..\..\User\bsp\src\bsp_key.c"
-N/*
-N*********************************************************************************************************
-N*
-N*	模块名称 : 独立按键驱动模块
-N*	文件名称 : bsp_key.c
-N*	版    本 : V1.0
-N*	说    明 : 扫描独立按键，具有软件滤波机制，具有按键FIFO。可以检测如下事件：
-N*				(1) 按键按下
-N*				(2) 按键弹起
-N*				(3) 长按键
-N*				(4) 长按时自动连发
-N*
-N*	修改记录 :
-N*		版本号  日期        作者     说明
-N*		V1.0    2013-02-01 armfly  正式发布
-N*		V1.1    2013-06-29 armfly  增加1个读指针，用于bsp_Idle() 函数读取系统控制组合键（截屏）
-N*								   增加 K1 K2 组合键 和 K2 K3 组合键，用于系统控制
-N*		V1.2    2015-08-08 armfly  K1，K2，K3独立按键进行排他判断，修改  IsKeyDown1()等函数
-N*
-N*	Copyright (C), 2015-2016, 安富莱电子 www.armfly.com
-N*
-N*********************************************************************************************************
-N*/
-N
+L 1 "..\..\User\app\src\bsp_Collision.c"
 N#include "bsp.h"
 L 1 "..\..\User\bsp\bsp.h" 1
 N/*
@@ -33394,518 +33370,132 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 26 "..\..\User\bsp\src\bsp_key.c" 2
+L 2 "..\..\User\app\src\bsp_Collision.c" 2
 N
-N/*
-N	该程序适用于安富莱STM32-V4开发板
 N
-N	如果用于其它硬件，请修改GPIO定义和 IsKeyDown1 - IsKeyDown8 函数
+N/* 防碰撞触动开关对应的RCC时钟 */
+N#define RCC_ALL_ANTICOLLISION 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
 N
-N	如果用户的按键个数小于8个，你可以将多余的按键全部定义为和第1个按键一样，并不影响程序功能
-N	#define KEY_COUNT    8	  这个在 bsp_key.h 文件中定义
-N*/
+N#define GPIO_PORT_LEFT   GPIOA
+N#define GPIO_PIN_LEFT	 GPIO_Pin_5
 N
-N/*
-N	安富莱STM32-V4 按键口线分配：
-N		K1 键      : PC13   (低电平表示按下)
-N		K2 键      : PA0    ( --- 高电平表示按下)
-N		K3 键      : PG8    (低电平表示按下)
-N		摇杆UP键   : PG15   (低电平表示按下)
-N		摇杆DOWN键 : PD3    (低电平表示按下)
-N		摇杆LEFT键 : PG14   (低电平表示按下)
-N		摇杆RIGHT键: PG13   (低电平表示按下)
-N		摇杆OK键   : PG7    (低电平表示按下)
-N*/
+N#define GPIO_PORT_RIGHT  GPIOF
+N#define GPIO_PIN_RIGHT	 GPIO_Pin_8
 N
-N/* 按键口对应的RCC时钟 */
-N#define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOG)
 N
-N#define GPIO_PORT_K1    GPIOC
-N#define GPIO_PIN_K1	    GPIO_Pin_13
 N
-N#define GPIO_PORT_K2    GPIOA
-N#define GPIO_PIN_K2	    GPIO_Pin_0
-N
-N#define GPIO_PORT_K3    GPIOG
-N#define GPIO_PIN_K3	    GPIO_Pin_8
-N
-N#define GPIO_PORT_K4    GPIOG
-N#define GPIO_PIN_K4	    GPIO_Pin_15
-N
-N#define GPIO_PORT_K5    GPIOD
-N#define GPIO_PIN_K5	    GPIO_Pin_3
-N
-N#define GPIO_PORT_K6    GPIOG
-N#define GPIO_PIN_K6	    GPIO_Pin_14
-N
-N#define GPIO_PORT_K7    GPIOG
-N#define GPIO_PIN_K7	    GPIO_Pin_13
-N
-N#define GPIO_PORT_K8    GPIOG
-N#define GPIO_PIN_K8	    GPIO_Pin_7
-N
-Nstatic KEY_T s_tBtn[KEY_COUNT];
-Xstatic KEY_T s_tBtn[10];
-Nstatic KEY_FIFO_T s_tKey;		/* 按键FIFO变量,结构体 */
-N
-Nstatic void bsp_InitKeyVar(void);
-Nstatic void bsp_InitKeyHard(void);
-Nstatic void bsp_DetectKey(uint8_t i);
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: IsKeyDownX
-N*	功能说明: 判断按键是否按下
+N*	函 数 名: bsp_InitCollision
+N*	功能说明: 初始化碰撞检测引脚
 N*	形    参: 无
-N*	返 回 值: 返回值1 表示按下，0表示未按下
-N*********************************************************************************************************
-N*/
-N/* 安富莱 STM32-V4 开发板 */
-N#if 1	/* 为了区分3个事件:　K1单独按下, K2单独按下， K1和K2同时按下 */
-Nstatic uint8_t IsKeyDown1(void)
-N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) == 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) == 0
-N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) != 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) != 0)
-N		return 1;
-N	else 
-N		return 0;
-N}
-Nstatic uint8_t IsKeyDown2(void)
-N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) != 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) != 0
-N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) != 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) != 0)
-N		return 1;
-N	else 
-N		return 0;
-N}
-Nstatic uint8_t IsKeyDown3(void)
-N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) != 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) == 0
-N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) == 0)
-N		return 1;
-N	else 
-N		return 0;
-N}
-Nstatic uint8_t IsKeyDown9(void)	/* K1 K2组合键 */
-N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) == 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) != 0
-N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) != 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) != 0)
-N		return 1;
-N	else 
-N		return 0;
-N}
-Nstatic uint8_t IsKeyDown10(void)	/* K2 K3组合键 */
-N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) != 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) != 0
-N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) == 0)
-N		return 1;
-N	else 
-N		return 0;
-N}
-N#else	
-Sstatic uint8_t IsKeyDown1(void) {if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0) return 1;else return 0;}
-Sstatic uint8_t IsKeyDown2(void) {if ((GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0) return 1;else return 0;}
-Sstatic uint8_t IsKeyDown3(void) {if ((GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0) return 1;else return 0;}
-S
-Sstatic uint8_t IsKeyDown9(void) {if (IsKeyDown1() && IsKeyDown2()) return 1;else return 0;}		/* K1 K2组合键 */
-Sstatic uint8_t IsKeyDown10(void) {if (IsKeyDown2() && IsKeyDown3()) return 1;else return 0;}	/* K2 K3组合键 */
-N#endif
-N
-N/* 5方向摇杆 */
-Nstatic uint8_t IsKeyDown4(void) {if ((GPIO_PORT_K4->IDR & GPIO_PIN_K4) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown4(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x8000)) == 0) return 1;else return 0;}
-Nstatic uint8_t IsKeyDown5(void) {if ((GPIO_PORT_K5->IDR & GPIO_PIN_K5) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown5(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->IDR & ((uint16_t)0x0008)) == 0) return 1;else return 0;}
-Nstatic uint8_t IsKeyDown6(void) {if ((GPIO_PORT_K6->IDR & GPIO_PIN_K6) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown6(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x4000)) == 0) return 1;else return 0;}
-Nstatic uint8_t IsKeyDown7(void) {if ((GPIO_PORT_K7->IDR & GPIO_PIN_K7) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown7(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x2000)) == 0) return 1;else return 0;}
-Nstatic uint8_t IsKeyDown8(void) {if ((GPIO_PORT_K8->IDR & GPIO_PIN_K8) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown8(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0080)) == 0) return 1;else return 0;}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_InitKey
-N*	功能说明: 初始化按键. 该函数被 bsp_Init() 调用。
-N*	形    参:  无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid bsp_InitKey(void)
-N{
-N	bsp_InitKeyVar();		/* 初始化按键变量 */
-N	bsp_InitKeyHard();		/* 初始化按键硬件 */
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_PutKey
-N*	功能说明: 将1个键值压入按键FIFO缓冲区。可用于模拟一个按键。
-N*	形    参:  _KeyCode : 按键代码
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_PutKey(uint8_t _KeyCode)
-N{
-N	s_tKey.Buf[s_tKey.Write] = _KeyCode;
-N
-N	if (++s_tKey.Write  >= KEY_FIFO_SIZE)
-X	if (++s_tKey.Write  >= 10)
-N	{
-N		s_tKey.Write = 0;
-N	}
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_GetKey
-N*	功能说明: 从按键FIFO缓冲区读取一个键值。
-N*	形    参:  无
-N*	返 回 值: 按键代码
-N*********************************************************************************************************
-N*/
-Nuint8_t bsp_GetKey(void)
-N{
-N	uint8_t ret;
-N
-N	if (s_tKey.Read == s_tKey.Write)
-N	{
-N		return KEY_NONE;
-N	}
-N	else
-N	{
-N		ret = s_tKey.Buf[s_tKey.Read];
-N
-N		if (++s_tKey.Read >= KEY_FIFO_SIZE)
-X		if (++s_tKey.Read >= 10)
-N		{
-N			s_tKey.Read = 0;
-N		}
-N		return ret;
-N	}
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_GetKey2
-N*	功能说明: 从按键FIFO缓冲区读取一个键值。独立的读指针。
-N*	形    参:  无
-N*	返 回 值: 按键代码
-N*********************************************************************************************************
-N*/
-Nuint8_t bsp_GetKey2(void)
-N{
-N	uint8_t ret;
-N
-N	if (s_tKey.Read2 == s_tKey.Write)
-N	{
-N		return KEY_NONE;
-N	}
-N	else
-N	{
-N		ret = s_tKey.Buf[s_tKey.Read2];
-N
-N		if (++s_tKey.Read2 >= KEY_FIFO_SIZE)
-X		if (++s_tKey.Read2 >= 10)
-N		{
-N			s_tKey.Read2 = 0;
-N		}
-N		return ret;
-N	}
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_GetKeyState
-N*	功能说明: 读取按键的状态
-N*	形    参:  _ucKeyID : 按键ID，从0开始
-N*	返 回 值: 1 表示按下， 0 表示未按下
-N*********************************************************************************************************
-N*/
-Nuint8_t bsp_GetKeyState(KEY_ID_E _ucKeyID)
-N{
-N	return s_tBtn[_ucKeyID].State;
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_SetKeyParam
-N*	功能说明: 设置按键参数
-N*	形    参：_ucKeyID : 按键ID，从0开始
-N*			_LongTime : 长按事件时间
-N*			 _RepeatSpeed : 连发速度
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_SetKeyParam(uint8_t _ucKeyID, uint16_t _LongTime, uint8_t  _RepeatSpeed)
-N{
-N	s_tBtn[_ucKeyID].LongTime = _LongTime;			/* 长按时间 0 表示不检测长按键事件 */
-N	s_tBtn[_ucKeyID].RepeatSpeed = _RepeatSpeed;			/* 按键连发的速度，0表示不支持连发 */
-N	s_tBtn[_ucKeyID].RepeatCount = 0;						/* 连发计数器 */
-N}
-N
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_ClearKey
-N*	功能说明: 清空按键FIFO缓冲区
-N*	形    参：无
-N*	返 回 值: 按键代码
-N*********************************************************************************************************
-N*/
-Nvoid bsp_ClearKey(void)
-N{
-N	s_tKey.Read = s_tKey.Write;
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_InitKeyHard
-N*	功能说明: 配置按键对应的GPIO
-N*	形    参:  无
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nstatic void bsp_InitKeyHard(void)
+Nvoid bsp_InitCollision(void)
 N{
 N	GPIO_InitTypeDef GPIO_InitStructure;
 N
-N	/* 第1步：打开GPIO时钟 */
-N	RCC_APB2PeriphClockCmd(RCC_ALL_KEY, ENABLE);
-X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000004) | ((uint32_t)0x00000010) | ((uint32_t)0x00000020) | ((uint32_t)0x00000100)), ENABLE);
+N	/* 打开GPIO时钟 */
+N	RCC_APB2PeriphClockCmd(RCC_ALL_ANTICOLLISION, ENABLE);
+X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000004) | ((uint32_t)0x00000080)), ENABLE);
 N
-N	/* 第2步：配置所有的按键GPIO为浮动输入模式(实际上CPU复位后就是输入状态) */
+N
 N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 输入浮空模式 */
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; /* 上拉输入，但是闲时被外部拉低，碰撞时恢复高电平 */
 N	
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K1;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x2000);
-N	GPIO_Init(GPIO_PORT_K1, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)), &GPIO_InitStructure);
-N
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K2;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
-N	GPIO_Init(GPIO_PORT_K2, &GPIO_InitStructure);
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LEFT;
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0020);
+N	GPIO_Init(GPIO_PORT_LEFT, &GPIO_InitStructure);
 X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)), &GPIO_InitStructure);
 N
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K3;
+N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_RIGHT;
 X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0100);
-N	GPIO_Init(GPIO_PORT_K3, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
-N
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K4;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x8000);
-N	GPIO_Init(GPIO_PORT_K4, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
-N
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K5;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0008);
-N	GPIO_Init(GPIO_PORT_K5, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
-N
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K6;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x4000);
-N	GPIO_Init(GPIO_PORT_K6, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
-N
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K7;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x2000);
-N	GPIO_Init(GPIO_PORT_K7, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
-N
-N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K8;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
-N	GPIO_Init(GPIO_PORT_K8, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
+N	GPIO_Init(GPIO_PORT_RIGHT, &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)), &GPIO_InitStructure);
 N}
+N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_InitKeyVar
-N*	功能说明: 初始化按键变量
-N*	形    参:  无
+N*	函 数 名: bsp_CollisionScan
+N*	功能说明: 返回碰撞结果
+N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nstatic void bsp_InitKeyVar(void)
+NCollision bsp_CollisionScan(void)
 N{
-N	uint8_t i;
-N
-N	/* 对按键FIFO读写指针清零 */
-N	s_tKey.Read = 0;
-N	s_tKey.Write = 0;
-N	s_tKey.Read2 = 0;
-N
-N	/* 给每个按键结构体成员变量赋一组缺省值 */
-N	for (i = 0; i < KEY_COUNT; i++)
-X	for (i = 0; i < 10; i++)
+N	uint8_t ret = 0 ;
+N	
+N	/* 左边撞上了 */
+N	if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,GPIO_PIN_LEFT))
+X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)),((uint16_t)0x0020)))
 N	{
-N		s_tBtn[i].LongTime = KEY_LONG_TIME;			/* 长按时间 0 表示不检测长按键事件 */
-X		s_tBtn[i].LongTime = 100;			 
-N		s_tBtn[i].Count = KEY_FILTER_TIME / 2;		/* 计数器设置为滤波时间的一半 */
-X		s_tBtn[i].Count = 5 / 2;		 
-N		s_tBtn[i].State = 0;							/* 按键缺省状态，0为未按下 */
-N		//s_tBtn[i].KeyCodeDown = 3 * i + 1;				/* 按键按下的键值代码 */
-N		//s_tBtn[i].KeyCodeUp   = 3 * i + 2;				/* 按键弹起的键值代码 */
-N		//s_tBtn[i].KeyCodeLong = 3 * i + 3;				/* 按键被持续按下的键值代码 */
-N		s_tBtn[i].RepeatSpeed = 0;						/* 按键连发的速度，0表示不支持连发 */
-N		s_tBtn[i].RepeatCount = 0;						/* 连发计数器 */
+N		ret |= 1<<0;
 N	}
-N
-N	/* 如果需要单独更改某个按键的参数，可以在此单独重新赋值 */
-N	/* 比如，我们希望按键1按下超过1秒后，自动重发相同键值 */
-N	s_tBtn[KID_JOY_U].LongTime = 100;
-N	s_tBtn[KID_JOY_U].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-N
-N	s_tBtn[KID_JOY_D].LongTime = 100;
-N	s_tBtn[KID_JOY_D].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-N
-N	s_tBtn[KID_JOY_L].LongTime = 100;
-N	s_tBtn[KID_JOY_L].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-N
-N	s_tBtn[KID_JOY_R].LongTime = 100;
-N	s_tBtn[KID_JOY_R].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-N
-N	/* 判断按键按下的函数 */
-N	s_tBtn[0].IsKeyDownFunc = IsKeyDown1;
-N	s_tBtn[1].IsKeyDownFunc = IsKeyDown2;
-N	s_tBtn[2].IsKeyDownFunc = IsKeyDown3;
-N	s_tBtn[3].IsKeyDownFunc = IsKeyDown4;
-N	s_tBtn[4].IsKeyDownFunc = IsKeyDown5;
-N	s_tBtn[5].IsKeyDownFunc = IsKeyDown6;
-N	s_tBtn[6].IsKeyDownFunc = IsKeyDown7;
-N	s_tBtn[7].IsKeyDownFunc = IsKeyDown8;
-N
-N	/* 组合键 */
-N	s_tBtn[8].IsKeyDownFunc = IsKeyDown9;
-N	s_tBtn[9].IsKeyDownFunc = IsKeyDown10;
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_DetectKey
-N*	功能说明: 检测一个按键。非阻塞状态，必须被周期性的调用。
-N*	形    参:  按键结构变量指针
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nstatic void bsp_DetectKey(uint8_t i)
-N{
-N	KEY_T *pBtn;
-N
-N	/*
-N		如果没有初始化按键函数，则报错
-N		if (s_tBtn[i].IsKeyDownFunc == 0)
-N		{
-N			printf("Fault : DetectButton(), s_tBtn[i].IsKeyDownFunc undefine");
-N		}
-N	*/
-N
-N	pBtn = &s_tBtn[i];
-N	if (pBtn->IsKeyDownFunc())
+N	
+N	
+N	/* 右边撞上了 */
+N	if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,GPIO_PIN_RIGHT))
+X	if(GPIO_ReadInputDataBit(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1C00)),((uint16_t)0x0100)))
 N	{
-N		if (pBtn->Count < KEY_FILTER_TIME)
-X		if (pBtn->Count < 5)
-N		{
-N			pBtn->Count = KEY_FILTER_TIME;
-X			pBtn->Count = 5;
-N		}
-N		else if(pBtn->Count < 2 * KEY_FILTER_TIME)
-X		else if(pBtn->Count < 2 * 5)
-N		{
-N			pBtn->Count++;
-N		}
-N		else
-N		{
-N			if (pBtn->State == 0)
-N			{
-N				pBtn->State = 1;
-N
-N				/* 发送按钮按下的消息 */
-N				bsp_PutKey((uint8_t)(3 * i + 1));
-N			}
-N
-N			if (pBtn->LongTime > 0)
-N			{
-N				if (pBtn->LongCount < pBtn->LongTime)
-N				{
-N					/* 发送按钮持续按下的消息 */
-N					if (++pBtn->LongCount == pBtn->LongTime)
-N					{
-N						/* 键值放入按键FIFO */
-N						bsp_PutKey((uint8_t)(3 * i + 3));
-N					}
-N				}
-N				else
-N				{
-N					if (pBtn->RepeatSpeed > 0)
-N					{
-N						if (++pBtn->RepeatCount >= pBtn->RepeatSpeed)
-N						{
-N							pBtn->RepeatCount = 0;
-N							/* 常按键后，每隔10ms发送1个按键 */
-N							bsp_PutKey((uint8_t)(3 * i + 1));
-N						}
-N					}
-N				}
-N			}
-N		}
+N		ret |= 1<<1;
+N	}
+N	
+N	if(ret == 0x00)
+N	{
+N		return CollisionNone;
+N	}
+N	else if(ret == 0x01)
+N	{
+N		return CollisionLeft;
+N	}
+N	else if(ret == 0x02)
+N	{
+N		return CollisionRight;
+N	}
+N	else if(ret == 0x03)
+N	{
+N		return CollisionAll;
 N	}
 N	else
 N	{
-N		if(pBtn->Count > KEY_FILTER_TIME)
-X		if(pBtn->Count > 5)
-N		{
-N			pBtn->Count = KEY_FILTER_TIME;
-X			pBtn->Count = 5;
-N		}
-N		else if(pBtn->Count != 0)
-N		{
-N			pBtn->Count--;
-N		}
-N		else
-N		{
-N			if (pBtn->State == 1)
-N			{
-N				pBtn->State = 0;
-N
-N				/* 发送按钮弹起的消息 */
-N				bsp_PutKey((uint8_t)(3 * i + 2));
-N			}
-N		}
-N
-N		pBtn->LongCount = 0;
-N		pBtn->RepeatCount = 0;
+N		WARNING("不合理的碰撞结果\r\n");
+X		printf ("不合理的碰撞结果\r\n");
+N		return CollisionNone;
 N	}
+N
 N}
+N
+N
 N
 N/*
 N*********************************************************************************************************
-N*	函 数 名: bsp_KeyScan
-N*	功能说明: 扫描所有按键。非阻塞，被systick中断周期性的调用
-N*	形    参:  无
+N*	函 数 名: bsp_PrintCollision
+N*	功能说明: 打印碰撞信息
+N*	形    参: 无
 N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
-Nvoid bsp_KeyScan(void)
+Nvoid bsp_PrintCollision(void)
 N{
-N	uint8_t i;
-N
-N	for (i = 0; i < KEY_COUNT; i++)
-X	for (i = 0; i < 10; i++)
+N	if(bsp_CollisionScan() == CollisionLeft)
 N	{
-N		bsp_DetectKey(i);
+N		DEBUG("左边\r\n");
+X		printf ("左边\r\n");
+N	}
+N	else if(bsp_CollisionScan() == CollisionRight)
+N	{
+N		DEBUG("右边\r\n");
+X		printf ("右边\r\n");
+N	}
+N	else if(bsp_CollisionScan() == CollisionAll)
+N	{
+N		DEBUG("两边\r\n");
+X		printf ("两边\r\n");
 N	}
 N}
 N
-N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+N

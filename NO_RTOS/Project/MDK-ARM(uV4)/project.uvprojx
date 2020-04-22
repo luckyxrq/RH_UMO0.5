@@ -413,6 +413,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\main.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_PowerSwitch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_PowerSwitch.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_Collision.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Collision.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -943,6 +953,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_PowerSwitch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_PowerSwitch.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_Collision.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Collision.c</FilePath>
             </File>
           </Files>
         </Group>

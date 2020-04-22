@@ -38,4 +38,5 @@
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_timer.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_key.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
-.\flash\obj\main.o: ..\..\User\bsp\inc\bsp_cpu_rtc.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_PowerSwitch.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_Collision.h

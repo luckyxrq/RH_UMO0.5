@@ -32873,6 +32873,34 @@ N#ifndef FALSE
 N	#define FALSE 0
 N#endif
 N
+N#define UNUSED(x)    (void)(x) /*防止出现未使用的警告*/
+N
+N#define DEBUG_EN      1 
+N#define LOG_EN        1 
+N#define WARNING_EN    1 
+N
+N
+N#if DEBUG_EN
+X#if 1
+N#define DEBUG(format, ...) printf (format, ##__VA_ARGS__)
+N#else
+S#define DEBUG(format, ...)
+N#endif
+N	
+N#if LOG_EN
+X#if 1
+N#define LOG(format, ...) printf (format, ##__VA_ARGS__)
+N#else
+S#define LOG(format, ...)
+N#endif
+N	
+N#if WARNING_EN
+X#if 1
+N#define WARNING(format, ...) printf (format, ##__VA_ARGS__)
+N#else
+S#define WARNING(format, ...)
+N#endif
+N
 N#include "bsp_led.h"
 L 1 "..\..\User\bsp\inc\bsp_led.h" 1
 N/*
@@ -32901,7 +32929,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 53 "..\..\User\bsp\bsp.h" 2
+L 78 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_timer.h"
 L 1 "..\..\User\bsp\inc\bsp_timer.h" 1
 N/*
@@ -32959,7 +32987,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 54 "..\..\User\bsp\bsp.h" 2
+L 79 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_key.h"
 L 1 "..\..\User\bsp\inc\bsp_key.h" 1
 N/*
@@ -33135,8 +33163,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 55 "..\..\User\bsp\bsp.h" 2
-N
+L 80 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_uart_fifo.h"
 L 1 "..\..\User\bsp\inc\bsp_uart_fifo.h" 1
 N/*
@@ -33285,53 +33312,75 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 57 "..\..\User\bsp\bsp.h" 2
-N#include "bsp_cpu_rtc.h"
-L 1 "..\..\User\bsp\inc\bsp_cpu_rtc.h" 1
-N/*
-N*********************************************************************************************************
-N*
-N*	模块名称 : STM32内部RTC
-N*	文件名称 : bsp_cpu_rtc.h
-N*	版    本 : V1.0
-N*	说    明 : 头文件
-N*
-N*	修改记录 :
-N*		版本号  日期       作者    说明
-N*		v1.0    2015-08-08 armfly  首版
-N*
-N*	Copyright (C), 2015-2016, 安富莱电子 www.armfly.com
-N*
-N*********************************************************************************************************
-N*/
+L 81 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_PowerSwitch.h"
+L 1 "..\..\User\app\inc\bsp_PowerSwitch.h" 1
+N#ifndef __BSP_POWERSWITCH_H
+N#define __BSP_POWERSWITCH_H
 N
-N#ifndef __BSP_CPU_RTC_H
-N#define __BSP_CPU_RTC_H
+N/*放在头文件，方便低功耗，不修改这几个引脚为高阻态*/
+N#define RCC_ALL_SW 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOC| RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOF)
 N
-Ntypedef struct
+N#define GPIO_PORT_5V_EN_CTR  GPIOC
+N#define GPIO_PIN_5V_EN_CTR   GPIO_Pin_13
+N
+N#define GPIO_PORT_3V3_EN_CTR  GPIOE
+N#define GPIO_PIN_3V3_EN_CTR   GPIO_Pin_5
+N
+N
+N#define GPIO_PORT_IR_POWER  GPIOF
+N#define GPIO_PIN_IR_POWER   GPIO_Pin_0
+N
+N
+N#define GPIO_PORT_MOTOR_POWER  GPIOE
+N#define GPIO_PIN_MOTOR_POWER   GPIO_Pin_6
+N
+N
+N#define GPIO_PORT_VSLAM_POWER  GPIOA
+N#define GPIO_PIN_VSLAM_POWER   GPIO_Pin_11
+N
+N
+N#define GPIO_PORT_WIFI_POWER  GPIOD
+N#define GPIO_PIN_WIFI_POWER   GPIO_Pin_7
+N
+Ntypedef enum
 N{
-N	uint16_t Year;
-N	uint8_t Mon;
-N	uint8_t Day;	
-N	uint8_t Hour;		
-N	uint8_t Min;				
-N	uint8_t Sec;					
-N	uint8_t Week;	
-N}RTC_T;
+N	SW_5V_EN_CTRL = 0 ,
+N	SW_3V3_EN_CTRL,
+N	SW_IR_POWER,
+N	SW_MOTOR_POWER,
+N	SW_VSLAM_POWER,
+N	SW_WIFI_POWER,
+N}SW_ID;
 N
-Nvoid bsp_InitRTC(void);
-Nuint8_t RTC_WriteClock(uint16_t _year, uint8_t _mon, uint8_t _day, uint8_t _hour, uint8_t _min, uint8_t _sec);
-Nvoid RTC_ReadClock(void);
-Nuint8_t RTC_CalcWeek(uint16_t _year, uint8_t _mon, uint8_t _day);
 N
-Nextern RTC_T g_tRTC;
+Nvoid bsp_SwOn(SW_ID sw);
+Nvoid bsp_SwOff(SW_ID sw);
+Nvoid bsp_InitSW(void);
+N
 N
 N#endif
 N
-N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+L 82 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Collision.h"
+L 1 "..\..\User\app\inc\bsp_Collision.h" 1
+N#ifndef __BSP_COLLISION_H
+N#define __BSP_COLLISION_H
 N
-L 58 "..\..\User\bsp\bsp.h" 2
+Ntypedef enum
+N{
+N	CollisionLeft = 0 ,
+N	CollisionRight,
+N	CollisionAll,
+N	CollisionNone
+N}Collision;
 N
+Nvoid bsp_InitCollision(void);      /*初始化碰撞检测引脚*/
+NCollision bsp_CollisionScan(void); /*返回碰撞结果*/
+Nvoid bsp_PrintCollision(void);
+N
+N#endif
+L 83 "..\..\User\bsp\bsp.h" 2
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);
