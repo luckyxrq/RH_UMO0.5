@@ -30,10 +30,10 @@
 	TIM3 和TIM4 是16位
 	TIM2 和TIM5 是16位 (103是16位, 407是32位)
 */
-#define USE_TIM2
+//#define USE_TIM2
 //#define USE_TIM3
 //#define USE_TIM4
-//#define USE_TIM5
+#define USE_TIM5
 
 #ifdef USE_TIM2
 	#define TIM_HARD		TIM2
@@ -63,8 +63,7 @@
 static volatile uint32_t s_uiDelayCount = 0;
 static volatile uint8_t s_ucTimeOutFlag = 0;
 
-/* 定于软件定时器结构体变量 */
-static SOFT_TMR s_tTmr[TMR_COUNT];
+
 
 /*
 	全局运行时间，单位1ms
@@ -72,7 +71,6 @@ static SOFT_TMR s_tTmr[TMR_COUNT];
 */
 __IO uint32_t g_iRunTime = 0;
 
-static void bsp_SoftTimerDec(SOFT_TMR *_tmr);
 
 /* 保存 TIM定时中断到后执行的回调函数指针 */
 static void (*s_TIM_CallBack1)(void);
@@ -90,17 +88,6 @@ static void (*s_TIM_CallBack4)(void);
 */
 void bsp_InitTimer(void)
 {
-	uint8_t i;
-
-	/* 清零所有的软件定时器 */
-	for (i = 0; i < TMR_COUNT; i++)
-	{
-		s_tTmr[i].Count = 0;
-		s_tTmr[i].PreLoad = 0;
-		s_tTmr[i].Flag = 0;
-		s_tTmr[i].Mode = TMR_ONCE_MODE;	/* 缺省是1次性工作模式 */
-	}
-
 	/*
 		配置systic中断周期为1ms，并启动systick中断。
 
@@ -133,7 +120,6 @@ extern void bsp_RunPer10ms(void);
 void SysTick_ISR(void)
 {
 	static uint8_t s_count = 0;
-	uint8_t i;
 
 	/* 每隔1ms进来1次 （仅用于 bsp_DelayMS） */
 	if (s_uiDelayCount > 0)
@@ -144,11 +130,6 @@ void SysTick_ISR(void)
 		}
 	}
 
-	/* 每隔1ms，对软件定时器的计数器进行减一操作 */
-	for (i = 0; i < TMR_COUNT; i++)
-	{
-		bsp_SoftTimerDec(&s_tTmr[i]);
-	}
 
 	/* 全局运行时间每1ms增1 */
 	g_iRunTime++;
@@ -164,32 +145,6 @@ void SysTick_ISR(void)
 		s_count = 0;
 
 		bsp_RunPer10ms();	/* 每隔10ms调用一次此函数，此函数在 bsp.c */
-	}
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SoftTimerDec
-*	功能说明: 每隔1ms对所有定时器变量减1。必须被SysTick_ISR周期性调用。
-*	形    参:  _tmr : 定时器变量指针
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SoftTimerDec(SOFT_TMR *_tmr)
-{
-	if (_tmr->Count > 0)
-	{
-		/* 如果定时器变量减到1则设置定时器到达标志 */
-		if (--_tmr->Count == 0)
-		{
-			_tmr->Flag = 1;
-
-			/* 如果是自动模式，则自动重装计数器 */
-			if(_tmr->Mode == TMR_AUTO_MODE)
-			{
-				_tmr->Count = _tmr->PreLoad;
-			}
-		}
 	}
 }
 
@@ -283,114 +238,6 @@ void bsp_DelayUS(uint32_t n)
 } 
 
 
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_StartTimer
-*	功能说明: 启动一个定时器，并设置定时周期。
-*	形    参:  	_id     : 定时器ID，值域【0,TMR_COUNT-1】。用户必须自行维护定时器ID，以避免定时器ID冲突。
-*				_period : 定时周期，单位1ms
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_StartTimer(uint8_t _id, uint32_t _period)
-{
-	if (_id >= TMR_COUNT)
-	{
-		/* 打印出错的源代码文件名、函数名称 */
-		BSP_Printf("Error: file %s, function %s()\r\n", __FILE__, __FUNCTION__);
-		while(1); /* 参数异常，死机等待看门狗复位 */
-	}
-
-	DISABLE_INT();  			/* 关中断 */
-
-	s_tTmr[_id].Count = _period;		/* 实时计数器初值 */
-	s_tTmr[_id].PreLoad = _period;		/* 计数器自动重装值，仅自动模式起作用 */
-	s_tTmr[_id].Flag = 0;				/* 定时时间到标志 */
-	s_tTmr[_id].Mode = TMR_ONCE_MODE;	/* 1次性工作模式 */
-
-	ENABLE_INT();  				/* 开中断 */
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_StartAutoTimer
-*	功能说明: 启动一个自动定时器，并设置定时周期。
-*	形    参:  	_id     : 定时器ID，值域【0,TMR_COUNT-1】。用户必须自行维护定时器ID，以避免定时器ID冲突。
-*				_period : 定时周期，单位10ms
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_StartAutoTimer(uint8_t _id, uint32_t _period)
-{
-	if (_id >= TMR_COUNT)
-	{
-		/* 打印出错的源代码文件名、函数名称 */
-		BSP_Printf("Error: file %s, function %s()\r\n", __FILE__, __FUNCTION__);
-		while(1); /* 参数异常，死机等待看门狗复位 */
-	}
-
-	DISABLE_INT();  		/* 关中断 */
-
-	s_tTmr[_id].Count = _period;			/* 实时计数器初值 */
-	s_tTmr[_id].PreLoad = _period;		/* 计数器自动重装值，仅自动模式起作用 */
-	s_tTmr[_id].Flag = 0;				/* 定时时间到标志 */
-	s_tTmr[_id].Mode = TMR_AUTO_MODE;	/* 自动工作模式 */
-
-	ENABLE_INT();  			/* 开中断 */
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_StopTimer
-*	功能说明: 停止一个定时器
-*	形    参:  	_id     : 定时器ID，值域【0,TMR_COUNT-1】。用户必须自行维护定时器ID，以避免定时器ID冲突。
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_StopTimer(uint8_t _id)
-{
-	if (_id >= TMR_COUNT)
-	{
-		/* 打印出错的源代码文件名、函数名称 */
-		BSP_Printf("Error: file %s, function %s()\r\n", __FILE__, __FUNCTION__);
-		while(1); /* 参数异常，死机等待看门狗复位 */
-	}
-
-	DISABLE_INT();  	/* 关中断 */
-
-	s_tTmr[_id].Count = 0;				/* 实时计数器初值 */
-	s_tTmr[_id].Flag = 0;				/* 定时时间到标志 */
-	s_tTmr[_id].Mode = TMR_ONCE_MODE;	/* 自动工作模式 */
-
-	ENABLE_INT();  		/* 开中断 */
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_CheckTimer
-*	功能说明: 检测定时器是否超时
-*	形    参:  	_id     : 定时器ID，值域【0,TMR_COUNT-1】。用户必须自行维护定时器ID，以避免定时器ID冲突。
-*				_period : 定时周期，单位1ms
-*	返 回 值: 返回 0 表示定时未到， 1表示定时到
-*********************************************************************************************************
-*/
-uint8_t bsp_CheckTimer(uint8_t _id)
-{
-	if (_id >= TMR_COUNT)
-	{
-		return 0;
-	}
-
-	if (s_tTmr[_id].Flag == 1)
-	{
-		s_tTmr[_id].Flag = 0;
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
-}
 
 /*
 *********************************************************************************************************
@@ -413,36 +260,7 @@ uint32_t bsp_GetRunTime(void)
 	return runtime;
 }
 
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_CheckRunTime
-*	功能说明: 计算当前运行时间和给定时刻之间的差值。处理了计数器循环。
-*	形    参:  _LastTime 上个时刻
-*	返 回 值: 当前时间和过去时间的差值，单位1ms
-*********************************************************************************************************
-*/
-int32_t bsp_CheckRunTime(int32_t _LastTime)
-{
-	int32_t now_time;
-	int32_t time_diff;
 
-	DISABLE_INT();  	/* 关中断 */
-
-	now_time = g_iRunTime;	/* 这个变量在Systick中断中被改写，因此需要关中断进行保护 */
-
-	ENABLE_INT();  		/* 开中断 */
-	
-	if (now_time >= _LastTime)
-	{
-		time_diff = now_time - _LastTime;
-	}
-	else
-	{
-		time_diff = 0x7FFFFFFF - _LastTime + now_time;
-	}
-
-	return time_diff;
-}
 
 /*
 *********************************************************************************************************

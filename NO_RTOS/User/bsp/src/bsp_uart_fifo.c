@@ -74,7 +74,7 @@ void bsp_InitUart(void)
 
 	InitHardUart();		/* 配置串口的硬件参数(波特率等) */
 
-	RS485_InitTXE();	/* 配置RS485芯片的发送使能硬件，配置为推挽输出 */
+	//RS485_InitTXE();	/* 配置RS485芯片的发送使能硬件，配置为推挽输出 */
 
 	ConfigUartNVIC();	/* 配置串口中断 */
 }

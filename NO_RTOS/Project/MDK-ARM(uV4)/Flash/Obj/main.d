@@ -34,6 +34,8 @@
 .\flash\obj\main.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\flash\obj\main.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\main.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\main.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\main.o: ..\..\User\bsp\inc\bsp_user_lib.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_led.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_timer.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_key.h
@@ -43,10 +45,15 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Angle.h
 .\flash\obj\main.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h
-.\flash\obj\main.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_aw9523b.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_DetectAct.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Edgewise.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_motor.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_Control.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_Position.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_CliffSW.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_CurrentFeedback.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_OffSiteSW.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_DustBox.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_speaker.h

@@ -32871,6 +32871,36 @@ N#endif /* __stdlib_h */
 N
 N/* end of stdlib.h */
 L 43 "..\..\User\bsp\bsp.h" 2
+N#include <stdbool.h>
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision: 177844 $
+N * Checkin $Date: 2012-11-21 11:51:12 +0000 (Wed, 21 Nov 2012) $
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5050106
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 44 "..\..\User\bsp\bsp.h" 2
 N
 N#ifndef TRUE
 N	#define TRUE  1
@@ -32908,6 +32938,51 @@ N#else
 S#define WARNING(format, ...)
 N#endif
 N
+N#define M_PI 					    3.14F
+N#define Deg2Rad(deg) (M_PI * deg / 180.0F)
+N#define Rad2Deg(rad) (180.0F * rad / M_PI)
+N
+N#include "bsp_user_lib.h"
+L 1 "..\..\User\bsp\inc\bsp_user_lib.h" 1
+N/*
+N*********************************************************************************************************
+N*
+N*	模块名称 : 字符串操作\数值转换
+N*	文件名称 : bsp_user_lib.h
+N*	版    本 : V1.2
+N*	说    明 : 头文件
+N*
+N*********************************************************************************************************
+N*/
+N
+N#ifndef __BSP_USER_LIB_H
+N#define __BSP_USER_LIB_H
+N
+Nint str_len(char *_str);
+Nvoid str_cpy(char *_tar, char *_src);
+Nint str_cmp(char * s1, char * s2);
+Nvoid mem_set(char *_tar, char _data, int _len);
+N
+Nvoid int_to_str(int _iNumber, char *_pBuf, unsigned char _len);
+Nint str_to_int(char *_pStr);
+N
+Nuint16_t BEBufToUint16(uint8_t *_pBuf);
+Nuint16_t LEBufToUint16(uint8_t *_pBuf);
+N
+Nuint32_t BEBufToUint32(uint8_t *_pBuf);
+Nuint32_t LEBufToUint32(uint8_t *_pBuf);
+N
+Nuint16_t CRC16_Modbus(uint8_t *_pBuf, uint16_t _usLen) ;
+Nint32_t  CaculTwoPoint(int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t x);
+N
+Nchar BcdToChar(uint8_t _bcd);
+Nvoid HexToAscll(uint8_t * _pHex, char *_pAscii, uint16_t _BinBytes);
+Nuint32_t AsciiToUint32(char *pAscii);
+N
+N#endif
+N
+N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+L 83 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_led.h"
 L 1 "..\..\User\bsp\inc\bsp_led.h" 1
 N/*
@@ -32926,17 +33001,31 @@ N
 N#ifndef __BSP_LED_H
 N#define __BSP_LED_H
 N
+N/*使用枚举来代替LED1 LED2 ... 见名知意*/
+Ntypedef enum
+N{
+N	LED_LOGO_CLEAN   = 4,
+N	LED_LOGO_POWER   = 5,
+N	LED_LOGO_CHARGE  = 6,
+N	LED_COLOR_YELLOW = 2,
+N	LED_COLOR_GREEN  = 1,
+N	LED_COLOR_RED    = 3,
+N	
+N	
+N	LED_WIFI_LINK = 10
+N}LED_SN;
+N
 N/* 供外部调用的函数声明 */
 Nvoid bsp_InitLed(void);
-Nvoid bsp_LedOn(uint8_t _no);
-Nvoid bsp_LedOff(uint8_t _no);
-Nvoid bsp_LedToggle(uint8_t _no);
-Nuint8_t bsp_IsLedOn(uint8_t _no);
+Nvoid bsp_LedOn(LED_SN _no);
+Nvoid bsp_LedOff(LED_SN _no);
+Nvoid bsp_LedToggle(LED_SN _no);
+Nuint8_t bsp_IsLedOn(LED_SN _no);
 N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 78 "..\..\User\bsp\bsp.h" 2
+L 84 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_timer.h"
 L 1 "..\..\User\bsp\inc\bsp_timer.h" 1
 N/*
@@ -32955,38 +33044,15 @@ N
 N#ifndef __BSP_TIMER_H
 N#define __BSP_TIMER_H
 N
-N/*
-N	在此定义若干个软件定时器全局变量
-N	注意，必须增加__IO 即 volatile，因为这个变量在中断和主程序中同时被访问，有可能造成编译器错误优化。
-N*/
-N#define TMR_COUNT	4		/* 软件定时器的个数 （定时器ID范围 0 - 3) */
 N
-N/* 定时器结构体，成员变量必须是 volatile, 否则C编译器优化时可能有问题 */
-Ntypedef enum
-N{
-N	TMR_ONCE_MODE = 0,		/* 一次工作模式 */
-N	TMR_AUTO_MODE = 1		/* 自动定时工作模式 */
-N}TMR_MODE_E;
-N
-N/* 定时器结构体，成员变量必须是 volatile, 否则C编译器优化时可能有问题 */
-Ntypedef struct
-N{
-N	volatile uint8_t Mode;		/* 计数器模式，1次性 */
-N	volatile uint8_t Flag;		/* 定时到达标志  */
-N	volatile uint32_t Count;	/* 计数器 */
-N	volatile uint32_t PreLoad;	/* 计数器预装值 */
-N}SOFT_TMR;
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_InitTimer(void);
 Nvoid bsp_DelayMS(uint32_t n);
 Nvoid bsp_DelayUS(uint32_t n);
-Nvoid bsp_StartTimer(uint8_t _id, uint32_t _period);
-Nvoid bsp_StartAutoTimer(uint8_t _id, uint32_t _period);
-Nvoid bsp_StopTimer(uint8_t _id);
-Nuint8_t bsp_CheckTimer(uint8_t _id);
+N
 Nuint32_t bsp_GetRunTime(void);
-Nint32_t bsp_CheckRunTime(int32_t _LastTime);
+N
 N
 Nvoid bsp_InitHardTimer(void);
 Nvoid bsp_StartHardTimer(uint8_t _CC, uint32_t _uiTimeOut, void * _pCallBack);
@@ -32994,7 +33060,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 79 "..\..\User\bsp\bsp.h" 2
+L 85 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_key.h"
 L 1 "..\..\User\bsp\inc\bsp_key.h" 1
 N/*
@@ -33016,17 +33082,17 @@ N
 N#define KEY_COUNT    10	   					/* 按键个数, 8个独立建 + 2个组合键 */
 N
 N/* 根据应用程序的功能重命名按键宏 */
-N#define KEY_DOWN_K1		KEY_1_DOWN
-N#define KEY_UP_K1		KEY_1_UP
-N#define KEY_LONG_K1		KEY_1_LONG
+N#define KEY_DOWN_POWER	KEY_3_DOWN
+N#define KEY_UP_POWER	KEY_3_UP
+N#define KEY_LONG_POWER	KEY_3_LONG
 N
-N#define KEY_DOWN_K2		KEY_2_DOWN
-N#define KEY_UP_K2		KEY_2_UP
-N#define KEY_LONG_K2		KEY_2_LONG
+N#define KEY_DOWN_CHARGE	KEY_2_DOWN
+N#define KEY_UP_CHARGE	KEY_2_UP
+N#define KEY_LONG_CHARGE	KEY_2_LONG
 N
-N#define KEY_DOWN_K3		KEY_3_DOWN
-N#define KEY_UP_K3		KEY_3_UP
-N#define KEY_LONG_K3		KEY_3_LONG
+N#define KEY_DOWN_CLEAN	KEY_1_DOWN
+N#define KEY_UP_CLEAN	KEY_1_UP
+N#define KEY_LONG_CLEAN	KEY_1_LONG
 N
 N#define JOY_DOWN_U		KEY_4_DOWN		/* 上 */
 N#define JOY_UP_U		KEY_4_UP
@@ -33074,8 +33140,8 @@ N	按键滤波时间50ms, 单位10ms。
 N	只有连续检测到50ms状态不变才认为有效，包括弹起和按下两种事件
 N	即使按键电路不做硬件滤波，该滤波机制也可以保证可靠地检测到按键事件
 N*/
-N#define KEY_FILTER_TIME   5
-N#define KEY_LONG_TIME     100			/* 单位10ms， 持续1秒，认为长按事件 */
+N#define KEY_FILTER_TIME   6
+N#define KEY_LONG_TIME     80			/* 单位10ms， 持续1秒，认为长按事件 */
 N
 N/*
 N	每个按键对应1个全局的结构体变量。
@@ -33157,6 +33223,17 @@ N	uint8_t Write;					/* 缓冲区写指针 */
 N	uint8_t Read2;					/* 缓冲区读指针2 */
 N}KEY_FIFO_T;
 N
+N/* 自定义扩展添加 */
+N#define MAX_KEY_COUNT      3
+N
+Ntypedef enum
+N{
+N	KEY_CLEAN = 0 ,
+N	KEY_POWER,
+N	KEY_CHARGE
+N}KEY_SN;
+N
+N
 N/* 供外部调用的函数声明 */
 Nvoid bsp_InitKey(void);
 Nvoid bsp_KeyScan(void);
@@ -33167,10 +33244,16 @@ Nuint8_t bsp_GetKeyState(KEY_ID_E _ucKeyID);
 Nvoid bsp_SetKeyParam(uint8_t _ucKeyID, uint16_t _LongTime, uint8_t  _RepeatSpeed);
 Nvoid bsp_ClearKey(void);
 N
+N/* 自定义扩展添加 */
+Nbool bsp_IsLongPressedAgo(KEY_SN sn);
+X_Bool bsp_IsLongPressedAgo(KEY_SN sn);
+Nvoid bsp_SetIsLongPressedAgo(KEY_SN sn , bool state);
+Xvoid bsp_SetIsLongPressedAgo(KEY_SN sn , _Bool state);
+N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 80 "..\..\User\bsp\bsp.h" 2
+L 86 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_uart_fifo.h"
 L 1 "..\..\User\bsp\inc\bsp_uart_fifo.h" 1
 N/*
@@ -33212,11 +33295,12 @@ N
 N	【串口4】 --- 不做串口用。
 N	【串口5】 --- 不做串口用。
 N*/
-N#define	UART1_FIFO_EN	1
-N#define	UART2_FIFO_EN	1
-N#define	UART3_FIFO_EN	1
-N#define	UART4_FIFO_EN	0
-N#define	UART5_FIFO_EN	0
+N
+N#define	UART1_FIFO_EN	0
+N#define	UART2_FIFO_EN	1  //调试
+N#define	UART3_FIFO_EN	1  //陀螺仪
+N#define	UART4_FIFO_EN	1  //BOT3
+N#define	UART5_FIFO_EN	1  //WIFI模块
 N
 N/* RS485芯片发送使能GPIO, PB2 */
 N#define RCC_RS485_TXEN 	 RCC_APB2Periph_GPIOB
@@ -33239,10 +33323,10 @@ N}COM_PORT_E;
 N
 N/* 定义串口波特率和FIFO缓冲区大小，分为发送缓冲区和接收缓冲区, 支持全双工 */
 N#if UART1_FIFO_EN == 1
-X#if 1 == 1
-N	#define UART1_BAUD			115200
-N	#define UART1_TX_BUF_SIZE	1*1024
-N	#define UART1_RX_BUF_SIZE	1*1024
+X#if 0 == 1
+S	#define UART1_BAUD			115200
+S	#define UART1_TX_BUF_SIZE	1*1024
+S	#define UART1_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART2_FIFO_EN == 1
@@ -33254,23 +33338,23 @@ N#endif
 N
 N#if UART3_FIFO_EN == 1
 X#if 1 == 1
-N	#define UART3_BAUD			9600
+N	#define UART3_BAUD			115200
 N	#define UART3_TX_BUF_SIZE	1*1024
 N	#define UART3_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART4_FIFO_EN == 1
-X#if 0 == 1
-S	#define UART4_BAUD			115200
-S	#define UART4_TX_BUF_SIZE	1*1024
-S	#define UART4_RX_BUF_SIZE	1*1024
+X#if 1 == 1
+N	#define UART4_BAUD			115200
+N	#define UART4_TX_BUF_SIZE	1*1024
+N	#define UART4_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART5_FIFO_EN == 1
-X#if 0 == 1
-S	#define UART5_BAUD			115200
-S	#define UART5_TX_BUF_SIZE	1*1024
-S	#define UART5_RX_BUF_SIZE	1*1024
+X#if 1 == 1
+N	#define UART5_BAUD			115200
+N	#define UART5_TX_BUF_SIZE	1*1024
+N	#define UART5_RX_BUF_SIZE	1*1024
 N#endif
 N
 N/* 串口设备结构体 */
@@ -33319,7 +33403,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 81 "..\..\User\bsp\bsp.h" 2
+L 87 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_i2c_gpio.h"
 L 1 "..\..\User\bsp\inc\bsp_i2c_gpio.h" 1
 N/*
@@ -33352,7 +33436,7 @@ Nvoid i2c_NAck(void);
 Nuint8_t i2c_CheckDevice(uint8_t _Address);
 N
 N#endif
-L 82 "..\..\User\bsp\bsp.h" 2
+L 88 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_PowerSwitch.h"
 L 1 "..\..\User\app\inc\bsp_PowerSwitch.h" 1
 N#ifndef __BSP_POWERSWITCH_H
@@ -33401,7 +33485,7 @@ N
 N
 N#endif
 N
-L 83 "..\..\User\bsp\bsp.h" 2
+L 89 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
 L 1 "..\..\User\app\inc\bsp_Collision.h" 1
 N#ifndef __BSP_COLLISION_H
@@ -33420,7 +33504,7 @@ NCollision bsp_CollisionScan(void); /*返回碰撞结果*/
 Nvoid bsp_PrintCollision(void);
 N
 N#endif
-L 84 "..\..\User\bsp\bsp.h" 2
+L 90 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Angle.h"
 L 1 "..\..\User\app\inc\bsp_Angle.h" 1
 N#ifndef __BSP_ANGLE_H
@@ -33442,35 +33526,6 @@ N#include "bsp_yuan_zi_Angle.h"
 L 1 "..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h" 1
 N#include "stm32f10x.h"
 N#include <stdbool.h>
-L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
-N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
-N
-N/* Copyright (C) ARM Ltd., 2002
-N * All rights reserved
-N * RCS $Revision: 177844 $
-N * Checkin $Date: 2012-11-21 11:51:12 +0000 (Wed, 21 Nov 2012) $
-N * Revising $Author: drodgman $
-N */
-N
-N#ifndef __bool_true_false_are_defined
-N#define __bool_true_false_are_defined 1
-N#define __ARMCLIB_VERSION 5050106
-N
-N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
-N    #define bool _Bool
-N    #define true 1
-N    #define false 0
-N  #else
-S    #ifdef __GNUC__
-S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
-S         compatibility by defining _Bool */
-S      #define _Bool bool
-S    #endif
-N  #endif
-N
-N#endif /* __bool_true_false_are_defined */
-N
-L 3 "..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h" 2
 N
 N
 N#define RX_BUF_SIZE   96             /*用于接收解析数据的缓冲区大小*/
@@ -33542,7 +33597,7 @@ N
 N
 N#endif
 N
-L 85 "..\..\User\bsp\bsp.h" 2
+L 91 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_aw9523b.h"
 L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
 N#ifndef __BSP_AW9523B_H
@@ -33616,7 +33671,7 @@ Nfloat bsp_GetInfraRedAdcVoltage(IR_SN sn);
 N
 N#endif
 N
-L 86 "..\..\User\bsp\bsp.h" 2
+L 92 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_DetectAct.h"
 L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
 N#ifndef __BSP_DETECTACT_H
@@ -33640,7 +33695,7 @@ Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
 N
 N#endif
 N
-L 87 "..\..\User\bsp\bsp.h" 2
+L 93 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Edgewise.h"
 L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
 N#ifndef __BSP_EDGEWISE_H
@@ -33652,7 +33707,7 @@ Nvoid bsp_EdgewiseRun(void);
 N
 N#endif
 N
-L 88 "..\..\User\bsp\bsp.h" 2
+L 94 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Encoder.h"
 L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
 N#ifndef __ENCODER_H
@@ -33680,7 +33735,7 @@ Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
 Nuint32_t bsp_GetCurrentBothPulse(void);
 N
 N#endif
-L 89 "..\..\User\bsp\bsp.h" 2
+L 95 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_motor.h"
 L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
@@ -33731,7 +33786,7 @@ Nvoid bsp_StopVacuum(void);
 N
 N#endif
 N
-L 90 "..\..\User\bsp\bsp.h" 2
+L 96 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Control.h"
 L 1 "..\..\User\app\inc\bsp_Control.h" 1
 N#ifndef __BSP_CONTROL_H
@@ -33749,7 +33804,244 @@ Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
 N
 N#endif
 N
-L 91 "..\..\User\bsp\bsp.h" 2
+L 97 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Position.h"
+L 1 "..\..\User\app\inc\bsp_Position.h" 1
+N#ifndef __BSP_POSITION_H
+N#define __BSP_POSITION_H
+N
+N
+N
+Ntypedef struct
+N{
+N	/*上一时刻位置信息*/
+N	volatile double lastX ;
+N	volatile double lastY ;
+N	
+N	/*当前时刻位置信息*/
+N	volatile double currentX ;
+N	volatile double currentY ;
+N	
+N	/*上一时刻和当前速度*/
+N	volatile double lastSpeed;
+N	volatile double currentSpeed;
+N	
+N	/*上一时刻和当前时刻时间戳*/
+N	volatile uint32_t lastTimestamp;
+N	volatile uint32_t currentTimestamp;
+N	
+N	/*上一时刻和当前时刻角度*/
+N	volatile double lastOrientation ;
+N	volatile double currentOrientation ;
+N	
+N	/*状态机*/
+N	volatile uint8_t action ;
+N	volatile bool isRunning ;
+X	volatile _Bool isRunning ;
+N	volatile uint32_t delay ;
+N}Position;
+N
+Nvoid bsp_StartUpdatePos(void);
+Nvoid bsp_StopUpdatePos(void);
+Nvoid bsp_PositionUpdate(void);
+Nvoid bsp_ResetPosArgument(void);
+Nint32_t bsp_GetCurrentPosX(void);
+Nint32_t bsp_GetCurrentPosY(void);
+Ndouble  bsp_GetCurrentOrientation(void);
+N
+N#endif
+N
+L 98 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_CliffSW.h"
+L 1 "..\..\User\app\inc\bsp_CliffSW.h" 1
+N#ifndef __BSP_CLIFF_H
+N#define __BSP_CLIFF_H
+N
+N#include <stdbool.h>
+N
+Ntypedef enum
+N{
+N	CliffLeft = 0 ,
+N	CliffMiddle,
+N	CliffRight
+N}CliffSWSN;
+N
+Nvoid bsp_InitCliffSW(void);
+Nfloat bsp_GetCliffVoltage(CliffSWSN sn);
+Nvoid bsp_CliffCalibration(void);
+Nbool bsp_CliffIsDangerous(CliffSWSN sn);
+X_Bool bsp_CliffIsDangerous(CliffSWSN sn);
+Nvoid bsp_CliffTest(void);
+N
+Nvoid bsp_StartCliffTest(void);
+Nvoid bsp_StopCliffTest(void);
+N
+N#endif
+N
+N
+L 99 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_CurrentFeedback.h"
+L 1 "..\..\User\app\inc\bsp_CurrentFeedback.h" 1
+N#ifndef __BSP_CURRENTFEEDBACK_H
+N#define __BSP_CURRENTFEEDBACK_H
+N
+N
+Ntypedef enum
+N{
+N	eMotorLeft = 0 , /*左轮机*/
+N	eMotorRight,     /*右轮机*/
+N	eVacuum,		 /*吸尘器*/
+N	eRollingBrush,   /*滚刷*/
+N	eSideBrush,      /*边刷*/
+N	eBatteryVoltage, /*电池电压*/
+N	eBatteryCurrent  /*充电电流*/
+N}FeedbackSN;
+N
+N
+Nvoid bsp_InitCurrentFeedbackADC(void);
+Nfloat bsp_GetFeedbackVoltage(FeedbackSN sn);
+Nvoid bsp_PrintAllVoltage(void);
+Nfloat bsp_PowerOn_DetectVoltage(void);
+N
+N
+N#endif
+N
+N
+L 100 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_OffSiteSW.h"
+L 1 "..\..\User\app\inc\bsp_OffSiteSW.h" 1
+N#ifndef __BSP_OFFSITESW_H
+N#define __BSP_OFFSITESW_H
+N
+Ntypedef enum
+N{
+N	OffSiteNone = 0 ,
+N	OffSiteLeft,
+N	OffSiteRight,
+N	OffSiteBoth
+N}OffSiteState;
+N
+N
+Nvoid bsp_InitOffSiteSW(void);
+NOffSiteState bsp_OffSiteGetState(void);
+Nvoid bsp_OffSiteProc(void);
+Nvoid bsp_StartOffSiteProc(void);
+Nvoid bsp_StopOffSiteProc(void);
+N
+N#endif
+N
+L 101 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_DustBox.h"
+L 1 "..\..\User\app\inc\bsp_DustBox.h" 1
+N#ifndef __DUSTBOX_H
+N#define __DUSTBOX_H
+N
+Ntypedef enum
+N{
+N	DustBoxInside = 0,
+N	DustBoxOutside
+N}DustBoxState;
+N
+Nvoid bsp_InitDustBox(void);
+NDustBoxState bsp_DustBoxGetState(void);
+N
+N#endif
+N
+L 102 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_speaker.h"
+L 1 "..\..\User\app\inc\bsp_speaker.h" 1
+N#ifndef __BSP_SPEAKER_H
+N#define __BSP_SPEAKER_H
+N
+N#include <stdbool.h>
+N
+Ntypedef enum
+N{
+N	Song1 = 4, /*开机   前面1 2 3没有声音*/
+N	Song2,     /*关机*/
+N	Song3,     /*开始清扫*/
+N	Song4,     /*暂停清扫*/
+N	Song5,     /*返回充电*/
+N	Song6,     /*电池电量低，请回充*/
+N	Song7,     /*电池异常*/
+N	Song8,     /*陀螺仪异常*/
+N	Song9,     /*尘盒取出*/
+N	Song10,    /*尘盒装回*/
+N	Song11,    /*请擦拭跳崖传感器*/
+N	Song12,    /*右轮机异常*/
+N	Song13,    /*左轮机异常*/
+N	Song14,    /*滚刷异常*/
+N	Song15,    /*边刷异常*/
+N	Song16,    /*主机悬空*/
+N	Song17,    /*主机被困*/
+N	Song18,    /*碰撞开关异常*/
+N	Song19,    /*吸尘电机异常*/
+N	Song20,    /*滤网阻塞*/
+N	Song21,    /*未找到充电桩，请将主机移动到充电桩附近*/
+N	Song22,    /*开始充电*/
+N	Song23,    /*充电完成*/
+N	Song24,    /*回充点位失败，帮助返回充电桩*/
+N	Song25,    /*定位失败，重先开始建图*/
+N	Song26,    /*重定位成功，继续开始清扫*/
+N	Song27,    /*网络已连接*/
+N	Song28,    /*网络未连接*/
+N	Song29,    /*开始连接网络*/
+N	
+N	/*新增加的*/
+N	Song30,    /*暂停回充*/
+N	Song31,    /*进入休眠模式*/
+N	Song32,    /*退出休眠模式*/
+N	Song33,    /*定点清扫*/
+N	Song34,    /*沿边清扫*/
+N	Song35,    /*弓字清扫*/
+N	
+N}SongSN;
+N
+N//  Song1 开机
+N//   关机
+N//   开始清扫
+N//   暂停清扫
+N//   返回充电
+N//   电池电量低请回充
+N//   电池异常
+N//   陀螺仪异常
+N//   尘盒取出
+N//   尘盒装回
+N//   请擦拭跳崖传感器
+N//   右轮机异常
+N//   左轮机异常
+N//   滚刷异常
+N//   边刷异常
+N//   主机悬空
+N//   主机被困
+N//   碰撞开关异常
+N//   吸尘电机异常
+N//   滤网阻塞
+N//   未找到充电桩，请将主机移动到充电桩附近
+N//   开始充电
+N//   充电完成
+N//   回充定位失败，帮助返回充电桩
+N//   定位失败，重新开始建图
+N//   重定位成功，继续开始清扫
+N//   网络已连接
+N//   网络未连接
+N//   开始连接网络
+N
+N
+N
+N
+N
+Nvoid bsp_InitSpeaker(void);
+Nvoid bsp_SperkerPlay(SongSN sn);
+Nbool bsp_SpeakerIsBusy(void);
+X_Bool bsp_SpeakerIsBusy(void);
+N
+N#endif
+N
+L 103 "..\..\User\bsp\bsp.h" 2
+N
+N
+N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);
@@ -33764,15 +34056,15 @@ N	定义用于硬件定时器的TIM， 可以使 TIM2 - TIM5
 N	TIM3 和TIM4 是16位
 N	TIM2 和TIM5 是16位 (103是16位, 407是32位)
 N*/
-N#define USE_TIM2
+N//#define USE_TIM2
 N//#define USE_TIM3
 N//#define USE_TIM4
-N//#define USE_TIM5
+N#define USE_TIM5
 N
 N#ifdef USE_TIM2
-N	#define TIM_HARD		TIM2
-N	#define TIM_HARD_IRQn	TIM2_IRQn
-N	#define TIM_HARD_RCC	RCC_APB1Periph_TIM2
+S	#define TIM_HARD		TIM2
+S	#define TIM_HARD_IRQn	TIM2_IRQn
+S	#define TIM_HARD_RCC	RCC_APB1Periph_TIM2
 N#endif
 N
 N#ifdef USE_TIM3
@@ -33788,18 +34080,16 @@ S	#define TIM_HARD_RCC	RCC_APB1Periph_TIM4
 N#endif
 N
 N#ifdef USE_TIM5
-S	#define TIM_HARD		TIM5
-S	#define TIM_HARD_IRQn	TIM5_IRQn
-S	#define TIM_HARD_RCC	RCC_APB1Periph_TIM5
+N	#define TIM_HARD		TIM5
+N	#define TIM_HARD_IRQn	TIM5_IRQn
+N	#define TIM_HARD_RCC	RCC_APB1Periph_TIM5
 N#endif
 N
 N/* 这2个全局变量转用于 bsp_DelayMS() 函数 */
 Nstatic volatile uint32_t s_uiDelayCount = 0;
 Nstatic volatile uint8_t s_ucTimeOutFlag = 0;
 N
-N/* 定于软件定时器结构体变量 */
-Nstatic SOFT_TMR s_tTmr[TMR_COUNT];
-Xstatic SOFT_TMR s_tTmr[4];
+N
 N
 N/*
 N	全局运行时间，单位1ms
@@ -33808,7 +34098,6 @@ N*/
 N__IO uint32_t g_iRunTime = 0;
 Xvolatile uint32_t g_iRunTime = 0;
 N
-Nstatic void bsp_SoftTimerDec(SOFT_TMR *_tmr);
 N
 N/* 保存 TIM定时中断到后执行的回调函数指针 */
 Nstatic void (*s_TIM_CallBack1)(void);
@@ -33826,18 +34115,6 @@ N*******************************************************************************
 N*/
 Nvoid bsp_InitTimer(void)
 N{
-N	uint8_t i;
-N
-N	/* 清零所有的软件定时器 */
-N	for (i = 0; i < TMR_COUNT; i++)
-X	for (i = 0; i < 4; i++)
-N	{
-N		s_tTmr[i].Count = 0;
-N		s_tTmr[i].PreLoad = 0;
-N		s_tTmr[i].Flag = 0;
-N		s_tTmr[i].Mode = TMR_ONCE_MODE;	/* 缺省是1次性工作模式 */
-N	}
-N
 N	/*
 N		配置systic中断周期为1ms，并启动systick中断。
 N
@@ -33853,7 +34130,7 @@ N    */
 N	SysTick_Config(SystemCoreClock / 1000);
 N	
 N#if defined (USE_TIM2) || defined (USE_TIM3)  || defined (USE_TIM4)	|| defined (USE_TIM5)
-X#if 1L || 0L  || 0L	|| 0L
+X#if 0L || 0L  || 0L	|| 1L
 N	bsp_InitHardTimer();
 N#endif
 N}
@@ -33871,7 +34148,6 @@ Nextern void bsp_RunPer10ms(void);
 Nvoid SysTick_ISR(void)
 N{
 N	static uint8_t s_count = 0;
-N	uint8_t i;
 N
 N	/* 每隔1ms进来1次 （仅用于 bsp_DelayMS） */
 N	if (s_uiDelayCount > 0)
@@ -33882,12 +34158,6 @@ N			s_ucTimeOutFlag = 1;
 N		}
 N	}
 N
-N	/* 每隔1ms，对软件定时器的计数器进行减一操作 */
-N	for (i = 0; i < TMR_COUNT; i++)
-X	for (i = 0; i < 4; i++)
-N	{
-N		bsp_SoftTimerDec(&s_tTmr[i]);
-N	}
 N
 N	/* 全局运行时间每1ms增1 */
 N	g_iRunTime++;
@@ -33903,32 +34173,6 @@ N	{
 N		s_count = 0;
 N
 N		bsp_RunPer10ms();	/* 每隔10ms调用一次此函数，此函数在 bsp.c */
-N	}
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_SoftTimerDec
-N*	功能说明: 每隔1ms对所有定时器变量减1。必须被SysTick_ISR周期性调用。
-N*	形    参:  _tmr : 定时器变量指针
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nstatic void bsp_SoftTimerDec(SOFT_TMR *_tmr)
-N{
-N	if (_tmr->Count > 0)
-N	{
-N		/* 如果定时器变量减到1则设置定时器到达标志 */
-N		if (--_tmr->Count == 0)
-N		{
-N			_tmr->Flag = 1;
-N
-N			/* 如果是自动模式，则自动重装计数器 */
-N			if(_tmr->Mode == TMR_AUTO_MODE)
-N			{
-N				_tmr->Count = _tmr->PreLoad;
-N			}
-N		}
 N	}
 N}
 N
@@ -34027,127 +34271,6 @@ N    }
 N} 
 N
 N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_StartTimer
-N*	功能说明: 启动一个定时器，并设置定时周期。
-N*	形    参:  	_id     : 定时器ID，值域【0,TMR_COUNT-1】。用户必须自行维护定时器ID，以避免定时器ID冲突。
-N*				_period : 定时周期，单位1ms
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_StartTimer(uint8_t _id, uint32_t _period)
-N{
-N	if (_id >= TMR_COUNT)
-X	if (_id >= 4)
-N	{
-N		/* 打印出错的源代码文件名、函数名称 */
-N		BSP_Printf("Error: file %s, function %s()\r\n", __FILE__, __FUNCTION__);
-X		printf("Error: file %s, function %s()\r\n", "..\\..\\User\\bsp\\src\\bsp_timer.c", __FUNCTION__);
-N		while(1); /* 参数异常，死机等待看门狗复位 */
-N	}
-N
-N	DISABLE_INT();  			/* 关中断 */
-X	__set_PRIMASK(1);  			 
-N
-N	s_tTmr[_id].Count = _period;		/* 实时计数器初值 */
-N	s_tTmr[_id].PreLoad = _period;		/* 计数器自动重装值，仅自动模式起作用 */
-N	s_tTmr[_id].Flag = 0;				/* 定时时间到标志 */
-N	s_tTmr[_id].Mode = TMR_ONCE_MODE;	/* 1次性工作模式 */
-N
-N	ENABLE_INT();  				/* 开中断 */
-X	__set_PRIMASK(0);  				 
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_StartAutoTimer
-N*	功能说明: 启动一个自动定时器，并设置定时周期。
-N*	形    参:  	_id     : 定时器ID，值域【0,TMR_COUNT-1】。用户必须自行维护定时器ID，以避免定时器ID冲突。
-N*				_period : 定时周期，单位10ms
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_StartAutoTimer(uint8_t _id, uint32_t _period)
-N{
-N	if (_id >= TMR_COUNT)
-X	if (_id >= 4)
-N	{
-N		/* 打印出错的源代码文件名、函数名称 */
-N		BSP_Printf("Error: file %s, function %s()\r\n", __FILE__, __FUNCTION__);
-X		printf("Error: file %s, function %s()\r\n", "..\\..\\User\\bsp\\src\\bsp_timer.c", __FUNCTION__);
-N		while(1); /* 参数异常，死机等待看门狗复位 */
-N	}
-N
-N	DISABLE_INT();  		/* 关中断 */
-X	__set_PRIMASK(1);  		 
-N
-N	s_tTmr[_id].Count = _period;			/* 实时计数器初值 */
-N	s_tTmr[_id].PreLoad = _period;		/* 计数器自动重装值，仅自动模式起作用 */
-N	s_tTmr[_id].Flag = 0;				/* 定时时间到标志 */
-N	s_tTmr[_id].Mode = TMR_AUTO_MODE;	/* 自动工作模式 */
-N
-N	ENABLE_INT();  			/* 开中断 */
-X	__set_PRIMASK(0);  			 
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_StopTimer
-N*	功能说明: 停止一个定时器
-N*	形    参:  	_id     : 定时器ID，值域【0,TMR_COUNT-1】。用户必须自行维护定时器ID，以避免定时器ID冲突。
-N*	返 回 值: 无
-N*********************************************************************************************************
-N*/
-Nvoid bsp_StopTimer(uint8_t _id)
-N{
-N	if (_id >= TMR_COUNT)
-X	if (_id >= 4)
-N	{
-N		/* 打印出错的源代码文件名、函数名称 */
-N		BSP_Printf("Error: file %s, function %s()\r\n", __FILE__, __FUNCTION__);
-X		printf("Error: file %s, function %s()\r\n", "..\\..\\User\\bsp\\src\\bsp_timer.c", __FUNCTION__);
-N		while(1); /* 参数异常，死机等待看门狗复位 */
-N	}
-N
-N	DISABLE_INT();  	/* 关中断 */
-X	__set_PRIMASK(1);  	 
-N
-N	s_tTmr[_id].Count = 0;				/* 实时计数器初值 */
-N	s_tTmr[_id].Flag = 0;				/* 定时时间到标志 */
-N	s_tTmr[_id].Mode = TMR_ONCE_MODE;	/* 自动工作模式 */
-N
-N	ENABLE_INT();  		/* 开中断 */
-X	__set_PRIMASK(0);  		 
-N}
-N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_CheckTimer
-N*	功能说明: 检测定时器是否超时
-N*	形    参:  	_id     : 定时器ID，值域【0,TMR_COUNT-1】。用户必须自行维护定时器ID，以避免定时器ID冲突。
-N*				_period : 定时周期，单位1ms
-N*	返 回 值: 返回 0 表示定时未到， 1表示定时到
-N*********************************************************************************************************
-N*/
-Nuint8_t bsp_CheckTimer(uint8_t _id)
-N{
-N	if (_id >= TMR_COUNT)
-X	if (_id >= 4)
-N	{
-N		return 0;
-N	}
-N
-N	if (s_tTmr[_id].Flag == 1)
-N	{
-N		s_tTmr[_id].Flag = 0;
-N		return 1;
-N	}
-N	else
-N	{
-N		return 0;
-N	}
-N}
 N
 N/*
 N*********************************************************************************************************
@@ -34172,38 +34295,7 @@ N
 N	return runtime;
 N}
 N
-N/*
-N*********************************************************************************************************
-N*	函 数 名: bsp_CheckRunTime
-N*	功能说明: 计算当前运行时间和给定时刻之间的差值。处理了计数器循环。
-N*	形    参:  _LastTime 上个时刻
-N*	返 回 值: 当前时间和过去时间的差值，单位1ms
-N*********************************************************************************************************
-N*/
-Nint32_t bsp_CheckRunTime(int32_t _LastTime)
-N{
-N	int32_t now_time;
-N	int32_t time_diff;
 N
-N	DISABLE_INT();  	/* 关中断 */
-X	__set_PRIMASK(1);  	 
-N
-N	now_time = g_iRunTime;	/* 这个变量在Systick中断中被改写，因此需要关中断进行保护 */
-N
-N	ENABLE_INT();  		/* 开中断 */
-X	__set_PRIMASK(0);  		 
-N	
-N	if (now_time >= _LastTime)
-N	{
-N		time_diff = now_time - _LastTime;
-N	}
-N	else
-N	{
-N		time_diff = 0x7FFFFFFF - _LastTime + now_time;
-N	}
-N
-N	return time_diff;
-N}
 N
 N/*
 N*********************************************************************************************************
@@ -34228,7 +34320,7 @@ N*	返 回 值: 无
 N*********************************************************************************************************
 N*/
 N#if defined (USE_TIM2) || defined (USE_TIM3)  || defined (USE_TIM4)	|| defined (USE_TIM5)
-X#if 1L || 0L  || 0L	|| 0L
+X#if 0L || 0L  || 0L	|| 1L
 Nvoid bsp_InitHardTimer(void)
 N{
 N	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
@@ -34238,7 +34330,7 @@ N	uint32_t uiTIMxCLK;
 N
 N  	/* 使能TIM时钟 */
 N	RCC_APB1PeriphClockCmd(TIM_HARD_RCC, ENABLE);
-X	RCC_APB1PeriphClockCmd(((uint32_t)0x00000001), ENABLE);
+X	RCC_APB1PeriphClockCmd(((uint32_t)0x00000008), ENABLE);
 N
 N    /*-----------------------------------------------------------------------
 N		system_stm32f4xx.c 文件中 void SetSysClock(void) 函数对时钟的配置如下：
@@ -34259,7 +34351,7 @@ N
 N	usPrescaler = uiTIMxCLK / 1000000 ;	/* 分频到周期 1us */
 N	
 N#if defined (USE_TIM2) || defined (USE_TIM5) 
-X#if 1L || 0L 
+X#if 0L || 1L 
 N	//usPeriod = 0xFFFFFFFF;	/* 407支持32位定时器 */
 N	usPeriod = 0xFFFF;	/* 103支持16位 */
 N#else
@@ -34273,20 +34365,20 @@ N	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 X	TIM_TimeBaseStructure.TIM_CounterMode = ((uint16_t)0x0000);
 N
 N	TIM_TimeBaseInit(TIM_HARD, &TIM_TimeBaseStructure);
-X	TIM_TimeBaseInit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), &TIM_TimeBaseStructure);
+X	TIM_TimeBaseInit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), &TIM_TimeBaseStructure);
 N
 N	//TIM_ARRPreloadConfig(TIMx, ENABLE);
 N
 N	/* TIMx enable counter */
 N	TIM_Cmd(TIM_HARD, ENABLE);
-X	TIM_Cmd(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ENABLE);
+X	TIM_Cmd(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ENABLE);
 N
 N	/* 配置TIM定时中断 (Update) */
 N	{
 N		NVIC_InitTypeDef NVIC_InitStructure;	/* 中断结构体在 misc.h 中定义 */
 N
 N		NVIC_InitStructure.NVIC_IRQChannel = TIM_HARD_IRQn;
-X		NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+X		NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;
 N
 N		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 4;	/* 比串口优先级低 */
 N		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
@@ -34327,18 +34419,18 @@ N        _uiTimeOut -= 5;
 N    }
 N
 N    cnt_now = TIM_GetCounter(TIM_HARD);    	/* 读取当前的计数器值 */
-X    cnt_now = TIM_GetCounter(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)));    	 
+X    cnt_now = TIM_GetCounter(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)));    	 
 N    cnt_tar = cnt_now + _uiTimeOut;			/* 计算捕获的计数器值 */
 N    if (_CC == 1)
 N    {
 N        s_TIM_CallBack1 = (void (*)(void))_pCallBack;
 N
 N        TIM_SetCompare1(TIM_HARD, cnt_tar);      	/* 设置捕获比较计数器CC1 */
-X        TIM_SetCompare1(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), cnt_tar);      	 
+X        TIM_SetCompare1(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), cnt_tar);      	 
 N        TIM_ClearITPendingBit(TIM_HARD, TIM_IT_CC1);
-X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0002));
+X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0002));
 N		TIM_ITConfig(TIM_HARD, TIM_IT_CC1, ENABLE);	/* 使能CC1中断 */
-X		TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0002), ENABLE);	 
+X		TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0002), ENABLE);	 
 N
 N    }
 N    else if (_CC == 2)
@@ -34346,33 +34438,33 @@ N    {
 N		s_TIM_CallBack2 = (void (*)(void))_pCallBack;
 N
 N        TIM_SetCompare2(TIM_HARD, cnt_tar);      	/* 设置捕获比较计数器CC2 */
-X        TIM_SetCompare2(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), cnt_tar);      	 
+X        TIM_SetCompare2(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), cnt_tar);      	 
 N		TIM_ClearITPendingBit(TIM_HARD, TIM_IT_CC2);
-X		TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0004));
+X		TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0004));
 N		TIM_ITConfig(TIM_HARD, TIM_IT_CC2, ENABLE);	/* 使能CC2中断 */
-X		TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0004), ENABLE);	 
+X		TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0004), ENABLE);	 
 N    }
 N    else if (_CC == 3)
 N    {
 N        s_TIM_CallBack3 = (void (*)(void))_pCallBack;
 N
 N        TIM_SetCompare3(TIM_HARD, cnt_tar);      	/* 设置捕获比较计数器CC3 */
-X        TIM_SetCompare3(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), cnt_tar);      	 
+X        TIM_SetCompare3(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), cnt_tar);      	 
 N        TIM_ClearITPendingBit(TIM_HARD, TIM_IT_CC3);
-X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0008));
+X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0008));
 N		TIM_ITConfig(TIM_HARD, TIM_IT_CC3, ENABLE);	/* 使能CC3中断 */
-X		TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0008), ENABLE);	 
+X		TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0008), ENABLE);	 
 N    }
 N    else if (_CC == 4)
 N    {
 N        s_TIM_CallBack4 = (void (*)(void))_pCallBack;
 N
 N        TIM_SetCompare4(TIM_HARD, cnt_tar);      	/* 设置捕获比较计数器CC4 */
-X        TIM_SetCompare4(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), cnt_tar);      	 
+X        TIM_SetCompare4(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), cnt_tar);      	 
 N		TIM_ClearITPendingBit(TIM_HARD, TIM_IT_CC4);
-X		TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0010));
+X		TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0010));
 N		TIM_ITConfig(TIM_HARD, TIM_IT_CC4, ENABLE);	/* 使能CC4中断 */
-X		TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0010), ENABLE);	 
+X		TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0010), ENABLE);	 
 N    }
 N	else
 N    {
@@ -34391,7 +34483,7 @@ N*******************************************************************************
 N*/
 N
 N#ifdef USE_TIM2
-Nvoid TIM2_IRQHandler(void)
+Svoid TIM2_IRQHandler(void)
 N#endif
 N
 N#ifdef USE_TIM3
@@ -34403,52 +34495,52 @@ Svoid TIM4_IRQHandler(void)
 N#endif
 N
 N#ifdef USE_TIM5
-Svoid TIM5_IRQHandler(void)
+Nvoid TIM5_IRQHandler(void)
 N#endif
 N{
 N    if (TIM_GetITStatus(TIM_HARD, TIM_IT_CC1))
-X    if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0002)))
+X    if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0002)))
 N    {
 N        TIM_ClearITPendingBit(TIM_HARD, TIM_IT_CC1);
-X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0002));
+X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0002));
 N        TIM_ITConfig(TIM_HARD, TIM_IT_CC1, DISABLE);	/* 禁能CC1中断 */
-X        TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0002), DISABLE);	 
+X        TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0002), DISABLE);	 
 N
 N        /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
 N        s_TIM_CallBack1();
 N    }
 N
 N    if (TIM_GetITStatus(TIM_HARD, TIM_IT_CC2))
-X    if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0004)))
+X    if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0004)))
 N    {
 N        TIM_ClearITPendingBit(TIM_HARD, TIM_IT_CC2);
-X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0004));
+X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0004));
 N        TIM_ITConfig(TIM_HARD, TIM_IT_CC2, DISABLE);	/* 禁能CC2中断 */
-X        TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0004), DISABLE);	 
+X        TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0004), DISABLE);	 
 N
 N        /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
 N        s_TIM_CallBack2();
 N    }
 N
 N    if (TIM_GetITStatus(TIM_HARD, TIM_IT_CC3))
-X    if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0008)))
+X    if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0008)))
 N    {
 N        TIM_ClearITPendingBit(TIM_HARD, TIM_IT_CC3);
-X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0008));
+X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0008));
 N        TIM_ITConfig(TIM_HARD, TIM_IT_CC3, DISABLE);	/* 禁能CC3中断 */
-X        TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0008), DISABLE);	 
+X        TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0008), DISABLE);	 
 N
 N        /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
 N        s_TIM_CallBack3();
 N    }
 N
 N    if (TIM_GetITStatus(TIM_HARD, TIM_IT_CC4))
-X    if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0010)))
+X    if (TIM_GetITStatus(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0010)))
 N    {
 N        TIM_ClearITPendingBit(TIM_HARD, TIM_IT_CC4);
-X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0010));
+X        TIM_ClearITPendingBit(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0010));
 N        TIM_ITConfig(TIM_HARD, TIM_IT_CC4, DISABLE);	/* 禁能CC4中断 */
-X        TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0000)), ((uint16_t)0x0010), DISABLE);	 
+X        TIM_ITConfig(((TIM_TypeDef *) (((uint32_t)0x40000000) + 0x0C00)), ((uint16_t)0x0010), DISABLE);	 
 N
 N        /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
 N        s_TIM_CallBack4();

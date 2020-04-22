@@ -25,21 +25,47 @@
 	如果用户的LED指示灯个数小于4个，可以将多余的LED全部定义为和第1个LED一样，并不影响程序功能
 */
 
+/*
+	旧版扫地机按键定义
+	PD0 : LED_POWER
+	PD1 : LED_HOME
+	PD2 : LED_RST
+	
+	新版扫地机按键定义
+	PF3 : LED_POWER
+	PF2 : LED_HOME
+	PF1 : LED_RST
+*/
+
 
 /* 按键口对应的RCC时钟 */
-#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOF)
+#define RCC_ALL_LED 	(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOF)
 
 #define GPIO_PORT_LED1  GPIOF
-#define GPIO_PIN_LED1	GPIO_Pin_11
+#define GPIO_PIN_LED1	GPIO_Pin_3
 
 #define GPIO_PORT_LED2  GPIOF
-#define GPIO_PIN_LED2	GPIO_Pin_7
+#define GPIO_PIN_LED2	GPIO_Pin_2
 
 #define GPIO_PORT_LED3  GPIOF
-#define GPIO_PIN_LED3	GPIO_Pin_8
+#define GPIO_PIN_LED3	GPIO_Pin_1
 
-#define GPIO_PORT_LED4  GPIOF
-#define GPIO_PIN_LED4	GPIO_Pin_9
+#define GPIO_PORT_LED4  GPIOB
+#define GPIO_PIN_LED4	GPIO_Pin_15
+
+#define GPIO_PORT_LED5  GPIOF
+#define GPIO_PIN_LED5	GPIO_Pin_12
+
+#define GPIO_PORT_LED6  GPIOF
+#define GPIO_PIN_LED6	GPIO_Pin_4
+
+
+
+
+
+
+
+
 
 /*
 *********************************************************************************************************
@@ -61,11 +87,13 @@ void bsp_InitLed(void)
 		由于将GPIO设置为输出时，GPIO输出寄存器的值缺省是0，因此会驱动LED点亮.
 		这是我不希望的，因此在改变GPIO为输出前，先关闭LED指示灯
 	*/
-	bsp_LedOff(1);
-	bsp_LedOff(2);
-	bsp_LedOff(3);
-	bsp_LedOff(4);
-
+	bsp_LedOff(LED_LOGO_CLEAN);
+	bsp_LedOff(LED_LOGO_POWER);
+	bsp_LedOff(LED_LOGO_CHARGE);
+	bsp_LedOff(LED_COLOR_YELLOW);
+	bsp_LedOff(LED_COLOR_GREEN);
+	bsp_LedOff(LED_COLOR_RED);
+	
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
 	
@@ -80,6 +108,13 @@ void bsp_InitLed(void)
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED4;
 	GPIO_Init(GPIO_PORT_LED4, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED5;
+	GPIO_Init(GPIO_PORT_LED5, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED6;
+	GPIO_Init(GPIO_PORT_LED6, &GPIO_InitStructure);
+	
 }
 
 /*
@@ -90,7 +125,7 @@ void bsp_InitLed(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_LedOn(uint8_t _no)
+void bsp_LedOn(LED_SN _no)
 {
 	_no--;
 
@@ -110,6 +145,14 @@ void bsp_LedOn(uint8_t _no)
 	{
 		GPIO_PORT_LED4->BRR = GPIO_PIN_LED4;
 	}
+	else if (_no == 4)
+	{
+		GPIO_PORT_LED5->BRR = GPIO_PIN_LED5;
+	}
+	else if (_no == 5)
+	{
+		GPIO_PORT_LED6->BRR = GPIO_PIN_LED6;
+	}
 }
 
 /*
@@ -120,7 +163,7 @@ void bsp_LedOn(uint8_t _no)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_LedOff(uint8_t _no)
+void bsp_LedOff(LED_SN _no)
 {
 	_no--;
 
@@ -140,6 +183,14 @@ void bsp_LedOff(uint8_t _no)
 	{
 		GPIO_PORT_LED4->BSRR = GPIO_PIN_LED4;
 	}
+	else if (_no == 4)
+	{
+		GPIO_PORT_LED5->BSRR = GPIO_PIN_LED5;
+	}
+	else if (_no == 5)
+	{
+		GPIO_PORT_LED6->BSRR = GPIO_PIN_LED6;
+	}
 }
 
 /*
@@ -150,7 +201,7 @@ void bsp_LedOff(uint8_t _no)
 *	返 回 值: 按键代码
 *********************************************************************************************************
 */
-void bsp_LedToggle(uint8_t _no)
+void bsp_LedToggle(LED_SN _no)
 {
 	if (_no == 1)
 	{
@@ -168,6 +219,14 @@ void bsp_LedToggle(uint8_t _no)
 	{
 		GPIO_PORT_LED4->ODR ^= GPIO_PIN_LED4;
 	}
+	else if (_no == 5)
+	{
+		GPIO_PORT_LED5->ODR ^= GPIO_PIN_LED5;
+	}
+	else if (_no == 6)
+	{
+		GPIO_PORT_LED6->ODR ^= GPIO_PIN_LED6;
+	}
 }
 
 /*
@@ -178,7 +237,7 @@ void bsp_LedToggle(uint8_t _no)
 *	返 回 值: 1表示已经点亮，0表示未点亮
 *********************************************************************************************************
 */
-uint8_t bsp_IsLedOn(uint8_t _no)
+uint8_t bsp_IsLedOn(LED_SN _no)
 {
 	if (_no == 1)
 	{
@@ -207,6 +266,22 @@ uint8_t bsp_IsLedOn(uint8_t _no)
 	else if (_no == 4)
 	{
 		if ((GPIO_PORT_LED4->ODR & GPIO_PIN_LED4) == 0)
+		{
+			return 1;
+		}
+		return 0;
+	}
+	else if (_no == 5)
+	{
+		if ((GPIO_PORT_LED5->ODR & GPIO_PIN_LED5) == 0)
+		{
+			return 1;
+		}
+		return 0;
+	}
+	else if (_no == 6)
+	{
+		if ((GPIO_PORT_LED6->ODR & GPIO_PIN_LED6) == 0)
 		{
 			return 1;
 		}

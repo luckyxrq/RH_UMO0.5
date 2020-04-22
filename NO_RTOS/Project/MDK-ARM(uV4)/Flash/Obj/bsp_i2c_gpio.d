@@ -34,6 +34,8 @@
 .\flash\obj\bsp_i2c_gpio.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
 .\flash\obj\bsp_i2c_gpio.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\bsp_i2c_gpio.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\bsp_i2c_gpio.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\bsp\inc\bsp_user_lib.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\bsp\inc\bsp_led.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\bsp\inc\bsp_timer.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\bsp\inc\bsp_key.h
@@ -43,10 +45,15 @@
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_Collision.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_Angle.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h
-.\flash\obj\bsp_i2c_gpio.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_aw9523b.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_DetectAct.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_Edgewise.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_motor.h
 .\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_Control.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_Position.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_CliffSW.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_CurrentFeedback.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_OffSiteSW.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_DustBox.h
+.\flash\obj\bsp_i2c_gpio.o: ..\..\User\app\inc\bsp_speaker.h

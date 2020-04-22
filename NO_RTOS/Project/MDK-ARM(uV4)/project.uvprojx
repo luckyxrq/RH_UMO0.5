@@ -458,6 +458,36 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_motor.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_Position.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Position.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_CliffSW.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_CliffSW.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_CurrentFeedback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_CurrentFeedback.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_DustBox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_DustBox.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_OffSiteSW.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_OffSiteSW.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_speaker.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_speaker.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -507,6 +537,11 @@
               <FileName>bsp_i2c_gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_i2c_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_user_lib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_user_lib.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1049,6 +1084,36 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_motor.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_Position.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Position.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_CliffSW.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_CliffSW.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_CurrentFeedback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_CurrentFeedback.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_DustBox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_DustBox.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_OffSiteSW.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_OffSiteSW.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_speaker.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_speaker.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1098,6 +1163,11 @@
               <FileName>bsp_i2c_gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_i2c_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_user_lib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_user_lib.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -4,7 +4,7 @@ N*******************************************************************************
 N*
 N*	模块名称 : 独立按键驱动模块
 N*	文件名称 : bsp_key.c
-N*	版    本 : V1.0
+N*	版    本 : V1.2
 N*	说    明 : 扫描独立按键，具有软件滤波机制，具有按键FIFO。可以检测如下事件：
 N*				(1) 按键按下
 N*				(2) 按键弹起
@@ -13,12 +13,12 @@ N*				(4) 长按时自动连发
 N*
 N*	修改记录 :
 N*		版本号  日期        作者     说明
-N*		V1.0    2013-02-01 armfly  正式发布
-N*		V1.1    2013-06-29 armfly  增加1个读指针，用于bsp_Idle() 函数读取系统控制组合键（截屏）
-N*								   增加 K1 K2 组合键 和 K2 K3 组合键，用于系统控制
-N*		V1.2    2015-08-08 armfly  K1，K2，K3独立按键进行排他判断，修改  IsKeyDown1()等函数
+N*		V1.0    2013-02-01 码农闰土  正式发布
+N*		V1.1    2013-06-29 码农闰土  增加1个读指针，用于bsp_Idle() 函数读取系统控制组合键（截屏）
+N*								    增加 K1 K2 组合键 和 K2 K3 组合键，用于系统控制
+N*		V1.2    2015-08-08 码农闰土  K1，K2，K3独立按键进行排他判断，修改  IsKeyDown1()等函数
 N*
-N*	Copyright (C), 2015-2016, 安富莱电子 www.armfly.com
+N*	Copyright (C), 2013-2020, 码农闰土 QQ：1085081059
 N*
 N*********************************************************************************************************
 N*/
@@ -32870,6 +32870,36 @@ N#endif /* __stdlib_h */
 N
 N/* end of stdlib.h */
 L 43 "..\..\User\bsp\bsp.h" 2
+N#include <stdbool.h>
+L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision: 177844 $
+N * Checkin $Date: 2012-11-21 11:51:12 +0000 (Wed, 21 Nov 2012) $
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5050106
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 44 "..\..\User\bsp\bsp.h" 2
 N
 N#ifndef TRUE
 N	#define TRUE  1
@@ -32907,6 +32937,51 @@ N#else
 S#define WARNING(format, ...)
 N#endif
 N
+N#define M_PI 					    3.14F
+N#define Deg2Rad(deg) (M_PI * deg / 180.0F)
+N#define Rad2Deg(rad) (180.0F * rad / M_PI)
+N
+N#include "bsp_user_lib.h"
+L 1 "..\..\User\bsp\inc\bsp_user_lib.h" 1
+N/*
+N*********************************************************************************************************
+N*
+N*	模块名称 : 字符串操作\数值转换
+N*	文件名称 : bsp_user_lib.h
+N*	版    本 : V1.2
+N*	说    明 : 头文件
+N*
+N*********************************************************************************************************
+N*/
+N
+N#ifndef __BSP_USER_LIB_H
+N#define __BSP_USER_LIB_H
+N
+Nint str_len(char *_str);
+Nvoid str_cpy(char *_tar, char *_src);
+Nint str_cmp(char * s1, char * s2);
+Nvoid mem_set(char *_tar, char _data, int _len);
+N
+Nvoid int_to_str(int _iNumber, char *_pBuf, unsigned char _len);
+Nint str_to_int(char *_pStr);
+N
+Nuint16_t BEBufToUint16(uint8_t *_pBuf);
+Nuint16_t LEBufToUint16(uint8_t *_pBuf);
+N
+Nuint32_t BEBufToUint32(uint8_t *_pBuf);
+Nuint32_t LEBufToUint32(uint8_t *_pBuf);
+N
+Nuint16_t CRC16_Modbus(uint8_t *_pBuf, uint16_t _usLen) ;
+Nint32_t  CaculTwoPoint(int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t x);
+N
+Nchar BcdToChar(uint8_t _bcd);
+Nvoid HexToAscll(uint8_t * _pHex, char *_pAscii, uint16_t _BinBytes);
+Nuint32_t AsciiToUint32(char *pAscii);
+N
+N#endif
+N
+N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+L 83 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_led.h"
 L 1 "..\..\User\bsp\inc\bsp_led.h" 1
 N/*
@@ -32925,17 +33000,31 @@ N
 N#ifndef __BSP_LED_H
 N#define __BSP_LED_H
 N
+N/*使用枚举来代替LED1 LED2 ... 见名知意*/
+Ntypedef enum
+N{
+N	LED_LOGO_CLEAN   = 4,
+N	LED_LOGO_POWER   = 5,
+N	LED_LOGO_CHARGE  = 6,
+N	LED_COLOR_YELLOW = 2,
+N	LED_COLOR_GREEN  = 1,
+N	LED_COLOR_RED    = 3,
+N	
+N	
+N	LED_WIFI_LINK = 10
+N}LED_SN;
+N
 N/* 供外部调用的函数声明 */
 Nvoid bsp_InitLed(void);
-Nvoid bsp_LedOn(uint8_t _no);
-Nvoid bsp_LedOff(uint8_t _no);
-Nvoid bsp_LedToggle(uint8_t _no);
-Nuint8_t bsp_IsLedOn(uint8_t _no);
+Nvoid bsp_LedOn(LED_SN _no);
+Nvoid bsp_LedOff(LED_SN _no);
+Nvoid bsp_LedToggle(LED_SN _no);
+Nuint8_t bsp_IsLedOn(LED_SN _no);
 N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 78 "..\..\User\bsp\bsp.h" 2
+L 84 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_timer.h"
 L 1 "..\..\User\bsp\inc\bsp_timer.h" 1
 N/*
@@ -32954,38 +33043,15 @@ N
 N#ifndef __BSP_TIMER_H
 N#define __BSP_TIMER_H
 N
-N/*
-N	在此定义若干个软件定时器全局变量
-N	注意，必须增加__IO 即 volatile，因为这个变量在中断和主程序中同时被访问，有可能造成编译器错误优化。
-N*/
-N#define TMR_COUNT	4		/* 软件定时器的个数 （定时器ID范围 0 - 3) */
 N
-N/* 定时器结构体，成员变量必须是 volatile, 否则C编译器优化时可能有问题 */
-Ntypedef enum
-N{
-N	TMR_ONCE_MODE = 0,		/* 一次工作模式 */
-N	TMR_AUTO_MODE = 1		/* 自动定时工作模式 */
-N}TMR_MODE_E;
-N
-N/* 定时器结构体，成员变量必须是 volatile, 否则C编译器优化时可能有问题 */
-Ntypedef struct
-N{
-N	volatile uint8_t Mode;		/* 计数器模式，1次性 */
-N	volatile uint8_t Flag;		/* 定时到达标志  */
-N	volatile uint32_t Count;	/* 计数器 */
-N	volatile uint32_t PreLoad;	/* 计数器预装值 */
-N}SOFT_TMR;
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_InitTimer(void);
 Nvoid bsp_DelayMS(uint32_t n);
 Nvoid bsp_DelayUS(uint32_t n);
-Nvoid bsp_StartTimer(uint8_t _id, uint32_t _period);
-Nvoid bsp_StartAutoTimer(uint8_t _id, uint32_t _period);
-Nvoid bsp_StopTimer(uint8_t _id);
-Nuint8_t bsp_CheckTimer(uint8_t _id);
+N
 Nuint32_t bsp_GetRunTime(void);
-Nint32_t bsp_CheckRunTime(int32_t _LastTime);
+N
 N
 Nvoid bsp_InitHardTimer(void);
 Nvoid bsp_StartHardTimer(uint8_t _CC, uint32_t _uiTimeOut, void * _pCallBack);
@@ -32993,7 +33059,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 79 "..\..\User\bsp\bsp.h" 2
+L 85 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_key.h"
 L 1 "..\..\User\bsp\inc\bsp_key.h" 1
 N/*
@@ -33015,17 +33081,17 @@ N
 N#define KEY_COUNT    10	   					/* 按键个数, 8个独立建 + 2个组合键 */
 N
 N/* 根据应用程序的功能重命名按键宏 */
-N#define KEY_DOWN_K1		KEY_1_DOWN
-N#define KEY_UP_K1		KEY_1_UP
-N#define KEY_LONG_K1		KEY_1_LONG
+N#define KEY_DOWN_POWER	KEY_3_DOWN
+N#define KEY_UP_POWER	KEY_3_UP
+N#define KEY_LONG_POWER	KEY_3_LONG
 N
-N#define KEY_DOWN_K2		KEY_2_DOWN
-N#define KEY_UP_K2		KEY_2_UP
-N#define KEY_LONG_K2		KEY_2_LONG
+N#define KEY_DOWN_CHARGE	KEY_2_DOWN
+N#define KEY_UP_CHARGE	KEY_2_UP
+N#define KEY_LONG_CHARGE	KEY_2_LONG
 N
-N#define KEY_DOWN_K3		KEY_3_DOWN
-N#define KEY_UP_K3		KEY_3_UP
-N#define KEY_LONG_K3		KEY_3_LONG
+N#define KEY_DOWN_CLEAN	KEY_1_DOWN
+N#define KEY_UP_CLEAN	KEY_1_UP
+N#define KEY_LONG_CLEAN	KEY_1_LONG
 N
 N#define JOY_DOWN_U		KEY_4_DOWN		/* 上 */
 N#define JOY_UP_U		KEY_4_UP
@@ -33073,8 +33139,8 @@ N	按键滤波时间50ms, 单位10ms。
 N	只有连续检测到50ms状态不变才认为有效，包括弹起和按下两种事件
 N	即使按键电路不做硬件滤波，该滤波机制也可以保证可靠地检测到按键事件
 N*/
-N#define KEY_FILTER_TIME   5
-N#define KEY_LONG_TIME     100			/* 单位10ms， 持续1秒，认为长按事件 */
+N#define KEY_FILTER_TIME   6
+N#define KEY_LONG_TIME     80			/* 单位10ms， 持续1秒，认为长按事件 */
 N
 N/*
 N	每个按键对应1个全局的结构体变量。
@@ -33156,6 +33222,17 @@ N	uint8_t Write;					/* 缓冲区写指针 */
 N	uint8_t Read2;					/* 缓冲区读指针2 */
 N}KEY_FIFO_T;
 N
+N/* 自定义扩展添加 */
+N#define MAX_KEY_COUNT      3
+N
+Ntypedef enum
+N{
+N	KEY_CLEAN = 0 ,
+N	KEY_POWER,
+N	KEY_CHARGE
+N}KEY_SN;
+N
+N
 N/* 供外部调用的函数声明 */
 Nvoid bsp_InitKey(void);
 Nvoid bsp_KeyScan(void);
@@ -33166,10 +33243,16 @@ Nuint8_t bsp_GetKeyState(KEY_ID_E _ucKeyID);
 Nvoid bsp_SetKeyParam(uint8_t _ucKeyID, uint16_t _LongTime, uint8_t  _RepeatSpeed);
 Nvoid bsp_ClearKey(void);
 N
+N/* 自定义扩展添加 */
+Nbool bsp_IsLongPressedAgo(KEY_SN sn);
+X_Bool bsp_IsLongPressedAgo(KEY_SN sn);
+Nvoid bsp_SetIsLongPressedAgo(KEY_SN sn , bool state);
+Xvoid bsp_SetIsLongPressedAgo(KEY_SN sn , _Bool state);
+N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 80 "..\..\User\bsp\bsp.h" 2
+L 86 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_uart_fifo.h"
 L 1 "..\..\User\bsp\inc\bsp_uart_fifo.h" 1
 N/*
@@ -33211,11 +33294,12 @@ N
 N	【串口4】 --- 不做串口用。
 N	【串口5】 --- 不做串口用。
 N*/
-N#define	UART1_FIFO_EN	1
-N#define	UART2_FIFO_EN	1
-N#define	UART3_FIFO_EN	1
-N#define	UART4_FIFO_EN	0
-N#define	UART5_FIFO_EN	0
+N
+N#define	UART1_FIFO_EN	0
+N#define	UART2_FIFO_EN	1  //调试
+N#define	UART3_FIFO_EN	1  //陀螺仪
+N#define	UART4_FIFO_EN	1  //BOT3
+N#define	UART5_FIFO_EN	1  //WIFI模块
 N
 N/* RS485芯片发送使能GPIO, PB2 */
 N#define RCC_RS485_TXEN 	 RCC_APB2Periph_GPIOB
@@ -33238,10 +33322,10 @@ N}COM_PORT_E;
 N
 N/* 定义串口波特率和FIFO缓冲区大小，分为发送缓冲区和接收缓冲区, 支持全双工 */
 N#if UART1_FIFO_EN == 1
-X#if 1 == 1
-N	#define UART1_BAUD			115200
-N	#define UART1_TX_BUF_SIZE	1*1024
-N	#define UART1_RX_BUF_SIZE	1*1024
+X#if 0 == 1
+S	#define UART1_BAUD			115200
+S	#define UART1_TX_BUF_SIZE	1*1024
+S	#define UART1_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART2_FIFO_EN == 1
@@ -33253,23 +33337,23 @@ N#endif
 N
 N#if UART3_FIFO_EN == 1
 X#if 1 == 1
-N	#define UART3_BAUD			9600
+N	#define UART3_BAUD			115200
 N	#define UART3_TX_BUF_SIZE	1*1024
 N	#define UART3_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART4_FIFO_EN == 1
-X#if 0 == 1
-S	#define UART4_BAUD			115200
-S	#define UART4_TX_BUF_SIZE	1*1024
-S	#define UART4_RX_BUF_SIZE	1*1024
+X#if 1 == 1
+N	#define UART4_BAUD			115200
+N	#define UART4_TX_BUF_SIZE	1*1024
+N	#define UART4_RX_BUF_SIZE	1*1024
 N#endif
 N
 N#if UART5_FIFO_EN == 1
-X#if 0 == 1
-S	#define UART5_BAUD			115200
-S	#define UART5_TX_BUF_SIZE	1*1024
-S	#define UART5_RX_BUF_SIZE	1*1024
+X#if 1 == 1
+N	#define UART5_BAUD			115200
+N	#define UART5_TX_BUF_SIZE	1*1024
+N	#define UART5_RX_BUF_SIZE	1*1024
 N#endif
 N
 N/* 串口设备结构体 */
@@ -33318,7 +33402,7 @@ N
 N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
-L 81 "..\..\User\bsp\bsp.h" 2
+L 87 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_i2c_gpio.h"
 L 1 "..\..\User\bsp\inc\bsp_i2c_gpio.h" 1
 N/*
@@ -33351,7 +33435,7 @@ Nvoid i2c_NAck(void);
 Nuint8_t i2c_CheckDevice(uint8_t _Address);
 N
 N#endif
-L 82 "..\..\User\bsp\bsp.h" 2
+L 88 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_PowerSwitch.h"
 L 1 "..\..\User\app\inc\bsp_PowerSwitch.h" 1
 N#ifndef __BSP_POWERSWITCH_H
@@ -33400,7 +33484,7 @@ N
 N
 N#endif
 N
-L 83 "..\..\User\bsp\bsp.h" 2
+L 89 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Collision.h"
 L 1 "..\..\User\app\inc\bsp_Collision.h" 1
 N#ifndef __BSP_COLLISION_H
@@ -33419,7 +33503,7 @@ NCollision bsp_CollisionScan(void); /*返回碰撞结果*/
 Nvoid bsp_PrintCollision(void);
 N
 N#endif
-L 84 "..\..\User\bsp\bsp.h" 2
+L 90 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Angle.h"
 L 1 "..\..\User\app\inc\bsp_Angle.h" 1
 N#ifndef __BSP_ANGLE_H
@@ -33441,35 +33525,6 @@ N#include "bsp_yuan_zi_Angle.h"
 L 1 "..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h" 1
 N#include "stm32f10x.h"
 N#include <stdbool.h>
-L 1 "D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
-N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
-N
-N/* Copyright (C) ARM Ltd., 2002
-N * All rights reserved
-N * RCS $Revision: 177844 $
-N * Checkin $Date: 2012-11-21 11:51:12 +0000 (Wed, 21 Nov 2012) $
-N * Revising $Author: drodgman $
-N */
-N
-N#ifndef __bool_true_false_are_defined
-N#define __bool_true_false_are_defined 1
-N#define __ARMCLIB_VERSION 5050106
-N
-N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
-N    #define bool _Bool
-N    #define true 1
-N    #define false 0
-N  #else
-S    #ifdef __GNUC__
-S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
-S         compatibility by defining _Bool */
-S      #define _Bool bool
-S    #endif
-N  #endif
-N
-N#endif /* __bool_true_false_are_defined */
-N
-L 3 "..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.h" 2
 N
 N
 N#define RX_BUF_SIZE   96             /*用于接收解析数据的缓冲区大小*/
@@ -33541,7 +33596,7 @@ N
 N
 N#endif
 N
-L 85 "..\..\User\bsp\bsp.h" 2
+L 91 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_aw9523b.h"
 L 1 "..\..\User\app\inc\bsp_aw9523b.h" 1
 N#ifndef __BSP_AW9523B_H
@@ -33615,7 +33670,7 @@ Nfloat bsp_GetInfraRedAdcVoltage(IR_SN sn);
 N
 N#endif
 N
-L 86 "..\..\User\bsp\bsp.h" 2
+L 92 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_DetectAct.h"
 L 1 "..\..\User\app\inc\bsp_DetectAct.h" 1
 N#ifndef __BSP_DETECTACT_H
@@ -33639,7 +33694,7 @@ Nvoid bsp_DetectActTest(uint8_t pinMapIndex);
 N
 N#endif
 N
-L 87 "..\..\User\bsp\bsp.h" 2
+L 93 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Edgewise.h"
 L 1 "..\..\User\app\inc\bsp_Edgewise.h" 1
 N#ifndef __BSP_EDGEWISE_H
@@ -33651,7 +33706,7 @@ Nvoid bsp_EdgewiseRun(void);
 N
 N#endif
 N
-L 88 "..\..\User\bsp\bsp.h" 2
+L 94 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Encoder.h"
 L 1 "..\..\User\app\inc\bsp_Encoder.h" 1
 N#ifndef __ENCODER_H
@@ -33679,7 +33734,7 @@ Nint32_t bsp_EncoderGetPulseT(EncoderSN sn);
 Nuint32_t bsp_GetCurrentBothPulse(void);
 N
 N#endif
-L 89 "..\..\User\bsp\bsp.h" 2
+L 95 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_motor.h"
 L 1 "..\..\User\app\inc\bsp_motor.h" 1
 N#ifndef __BSP_MOTOR_H
@@ -33730,7 +33785,7 @@ Nvoid bsp_StopVacuum(void);
 N
 N#endif
 N
-L 90 "..\..\User\bsp\bsp.h" 2
+L 96 "..\..\User\bsp\bsp.h" 2
 N#include "bsp_Control.h"
 L 1 "..\..\User\app\inc\bsp_Control.h" 1
 N#ifndef __BSP_CONTROL_H
@@ -33748,7 +33803,244 @@ Nint32_t bsp_MotorGetPulseVector(MotorSN sn);
 N
 N#endif
 N
-L 91 "..\..\User\bsp\bsp.h" 2
+L 97 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_Position.h"
+L 1 "..\..\User\app\inc\bsp_Position.h" 1
+N#ifndef __BSP_POSITION_H
+N#define __BSP_POSITION_H
+N
+N
+N
+Ntypedef struct
+N{
+N	/*上一时刻位置信息*/
+N	volatile double lastX ;
+N	volatile double lastY ;
+N	
+N	/*当前时刻位置信息*/
+N	volatile double currentX ;
+N	volatile double currentY ;
+N	
+N	/*上一时刻和当前速度*/
+N	volatile double lastSpeed;
+N	volatile double currentSpeed;
+N	
+N	/*上一时刻和当前时刻时间戳*/
+N	volatile uint32_t lastTimestamp;
+N	volatile uint32_t currentTimestamp;
+N	
+N	/*上一时刻和当前时刻角度*/
+N	volatile double lastOrientation ;
+N	volatile double currentOrientation ;
+N	
+N	/*状态机*/
+N	volatile uint8_t action ;
+N	volatile bool isRunning ;
+X	volatile _Bool isRunning ;
+N	volatile uint32_t delay ;
+N}Position;
+N
+Nvoid bsp_StartUpdatePos(void);
+Nvoid bsp_StopUpdatePos(void);
+Nvoid bsp_PositionUpdate(void);
+Nvoid bsp_ResetPosArgument(void);
+Nint32_t bsp_GetCurrentPosX(void);
+Nint32_t bsp_GetCurrentPosY(void);
+Ndouble  bsp_GetCurrentOrientation(void);
+N
+N#endif
+N
+L 98 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_CliffSW.h"
+L 1 "..\..\User\app\inc\bsp_CliffSW.h" 1
+N#ifndef __BSP_CLIFF_H
+N#define __BSP_CLIFF_H
+N
+N#include <stdbool.h>
+N
+Ntypedef enum
+N{
+N	CliffLeft = 0 ,
+N	CliffMiddle,
+N	CliffRight
+N}CliffSWSN;
+N
+Nvoid bsp_InitCliffSW(void);
+Nfloat bsp_GetCliffVoltage(CliffSWSN sn);
+Nvoid bsp_CliffCalibration(void);
+Nbool bsp_CliffIsDangerous(CliffSWSN sn);
+X_Bool bsp_CliffIsDangerous(CliffSWSN sn);
+Nvoid bsp_CliffTest(void);
+N
+Nvoid bsp_StartCliffTest(void);
+Nvoid bsp_StopCliffTest(void);
+N
+N#endif
+N
+N
+L 99 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_CurrentFeedback.h"
+L 1 "..\..\User\app\inc\bsp_CurrentFeedback.h" 1
+N#ifndef __BSP_CURRENTFEEDBACK_H
+N#define __BSP_CURRENTFEEDBACK_H
+N
+N
+Ntypedef enum
+N{
+N	eMotorLeft = 0 , /*左轮机*/
+N	eMotorRight,     /*右轮机*/
+N	eVacuum,		 /*吸尘器*/
+N	eRollingBrush,   /*滚刷*/
+N	eSideBrush,      /*边刷*/
+N	eBatteryVoltage, /*电池电压*/
+N	eBatteryCurrent  /*充电电流*/
+N}FeedbackSN;
+N
+N
+Nvoid bsp_InitCurrentFeedbackADC(void);
+Nfloat bsp_GetFeedbackVoltage(FeedbackSN sn);
+Nvoid bsp_PrintAllVoltage(void);
+Nfloat bsp_PowerOn_DetectVoltage(void);
+N
+N
+N#endif
+N
+N
+L 100 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_OffSiteSW.h"
+L 1 "..\..\User\app\inc\bsp_OffSiteSW.h" 1
+N#ifndef __BSP_OFFSITESW_H
+N#define __BSP_OFFSITESW_H
+N
+Ntypedef enum
+N{
+N	OffSiteNone = 0 ,
+N	OffSiteLeft,
+N	OffSiteRight,
+N	OffSiteBoth
+N}OffSiteState;
+N
+N
+Nvoid bsp_InitOffSiteSW(void);
+NOffSiteState bsp_OffSiteGetState(void);
+Nvoid bsp_OffSiteProc(void);
+Nvoid bsp_StartOffSiteProc(void);
+Nvoid bsp_StopOffSiteProc(void);
+N
+N#endif
+N
+L 101 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_DustBox.h"
+L 1 "..\..\User\app\inc\bsp_DustBox.h" 1
+N#ifndef __DUSTBOX_H
+N#define __DUSTBOX_H
+N
+Ntypedef enum
+N{
+N	DustBoxInside = 0,
+N	DustBoxOutside
+N}DustBoxState;
+N
+Nvoid bsp_InitDustBox(void);
+NDustBoxState bsp_DustBoxGetState(void);
+N
+N#endif
+N
+L 102 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_speaker.h"
+L 1 "..\..\User\app\inc\bsp_speaker.h" 1
+N#ifndef __BSP_SPEAKER_H
+N#define __BSP_SPEAKER_H
+N
+N#include <stdbool.h>
+N
+Ntypedef enum
+N{
+N	Song1 = 4, /*开机   前面1 2 3没有声音*/
+N	Song2,     /*关机*/
+N	Song3,     /*开始清扫*/
+N	Song4,     /*暂停清扫*/
+N	Song5,     /*返回充电*/
+N	Song6,     /*电池电量低，请回充*/
+N	Song7,     /*电池异常*/
+N	Song8,     /*陀螺仪异常*/
+N	Song9,     /*尘盒取出*/
+N	Song10,    /*尘盒装回*/
+N	Song11,    /*请擦拭跳崖传感器*/
+N	Song12,    /*右轮机异常*/
+N	Song13,    /*左轮机异常*/
+N	Song14,    /*滚刷异常*/
+N	Song15,    /*边刷异常*/
+N	Song16,    /*主机悬空*/
+N	Song17,    /*主机被困*/
+N	Song18,    /*碰撞开关异常*/
+N	Song19,    /*吸尘电机异常*/
+N	Song20,    /*滤网阻塞*/
+N	Song21,    /*未找到充电桩，请将主机移动到充电桩附近*/
+N	Song22,    /*开始充电*/
+N	Song23,    /*充电完成*/
+N	Song24,    /*回充点位失败，帮助返回充电桩*/
+N	Song25,    /*定位失败，重先开始建图*/
+N	Song26,    /*重定位成功，继续开始清扫*/
+N	Song27,    /*网络已连接*/
+N	Song28,    /*网络未连接*/
+N	Song29,    /*开始连接网络*/
+N	
+N	/*新增加的*/
+N	Song30,    /*暂停回充*/
+N	Song31,    /*进入休眠模式*/
+N	Song32,    /*退出休眠模式*/
+N	Song33,    /*定点清扫*/
+N	Song34,    /*沿边清扫*/
+N	Song35,    /*弓字清扫*/
+N	
+N}SongSN;
+N
+N//  Song1 开机
+N//   关机
+N//   开始清扫
+N//   暂停清扫
+N//   返回充电
+N//   电池电量低请回充
+N//   电池异常
+N//   陀螺仪异常
+N//   尘盒取出
+N//   尘盒装回
+N//   请擦拭跳崖传感器
+N//   右轮机异常
+N//   左轮机异常
+N//   滚刷异常
+N//   边刷异常
+N//   主机悬空
+N//   主机被困
+N//   碰撞开关异常
+N//   吸尘电机异常
+N//   滤网阻塞
+N//   未找到充电桩，请将主机移动到充电桩附近
+N//   开始充电
+N//   充电完成
+N//   回充定位失败，帮助返回充电桩
+N//   定位失败，重新开始建图
+N//   重定位成功，继续开始清扫
+N//   网络已连接
+N//   网络未连接
+N//   开始连接网络
+N
+N
+N
+N
+N
+Nvoid bsp_InitSpeaker(void);
+Nvoid bsp_SperkerPlay(SongSN sn);
+Nbool bsp_SpeakerIsBusy(void);
+X_Bool bsp_SpeakerIsBusy(void);
+N
+N#endif
+N
+L 103 "..\..\User\bsp\bsp.h" 2
+N
+N
+N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
 Nvoid bsp_Idle(void);
@@ -33759,7 +34051,6 @@ N/***************************** 安富莱电子 www.armfly.com (END OF FILE) ********
 L 26 "..\..\User\bsp\src\bsp_key.c" 2
 N
 N/*
-N	该程序适用于安富莱STM32-V4开发板
 N
 N	如果用于其它硬件，请修改GPIO定义和 IsKeyDown1 - IsKeyDown8 函数
 N
@@ -33768,47 +34059,44 @@ N	#define KEY_COUNT    8	  这个在 bsp_key.h 文件中定义
 N*/
 N
 N/*
-N	安富莱STM32-V4 按键口线分配：
-N		K1 键      : PC13   (低电平表示按下)
-N		K2 键      : PA0    ( --- 高电平表示按下)
-N		K3 键      : PG8    (低电平表示按下)
-N		摇杆UP键   : PG15   (低电平表示按下)
-N		摇杆DOWN键 : PD3    (低电平表示按下)
-N		摇杆LEFT键 : PG14   (低电平表示按下)
-N		摇杆RIGHT键: PG13   (低电平表示按下)
-N		摇杆OK键   : PG7    (低电平表示按下)
+N	按键口线分配：
+N		K1 键      : PE7     (低电平表示按下)
+N		K2 键      : PE8     (低电平表示按下)
+N		K3 键      : PE10    (低电平表示按下)
 N*/
 N
 N/* 按键口对应的RCC时钟 */
-N#define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOG)
+N#define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
 N
-N#define GPIO_PORT_K1    GPIOC
-N#define GPIO_PIN_K1	    GPIO_Pin_13
+N#define GPIO_PORT_K1    GPIOE
+N#define GPIO_PIN_K1	    GPIO_Pin_10
 N
-N#define GPIO_PORT_K2    GPIOA
-N#define GPIO_PIN_K2	    GPIO_Pin_0
+N#define GPIO_PORT_K2    GPIOE
+N#define GPIO_PIN_K2	    GPIO_Pin_8
 N
-N#define GPIO_PORT_K3    GPIOG
-N#define GPIO_PIN_K3	    GPIO_Pin_8
+N#define GPIO_PORT_K3    GPIOE
+N#define GPIO_PIN_K3	    GPIO_Pin_7
 N
-N#define GPIO_PORT_K4    GPIOG
-N#define GPIO_PIN_K4	    GPIO_Pin_15
+N#define GPIO_PORT_K4    GPIOE
+N#define GPIO_PIN_K4	    GPIO_Pin_7
 N
-N#define GPIO_PORT_K5    GPIOD
-N#define GPIO_PIN_K5	    GPIO_Pin_3
+N#define GPIO_PORT_K5    GPIOE
+N#define GPIO_PIN_K5	    GPIO_Pin_7
 N
-N#define GPIO_PORT_K6    GPIOG
-N#define GPIO_PIN_K6	    GPIO_Pin_14
+N#define GPIO_PORT_K6    GPIOE
+N#define GPIO_PIN_K6	    GPIO_Pin_7
 N
-N#define GPIO_PORT_K7    GPIOG
-N#define GPIO_PIN_K7	    GPIO_Pin_13
+N#define GPIO_PORT_K7    GPIOE
+N#define GPIO_PIN_K7	    GPIO_Pin_7
 N
-N#define GPIO_PORT_K8    GPIOG
+N#define GPIO_PORT_K8    GPIOE
 N#define GPIO_PIN_K8	    GPIO_Pin_7
 N
 Nstatic KEY_T s_tBtn[KEY_COUNT];
 Xstatic KEY_T s_tBtn[10];
 Nstatic KEY_FIFO_T s_tKey;		/* 按键FIFO变量,结构体 */
+Nstatic bool isLongPressedAgo[MAX_KEY_COUNT];
+Xstatic _Bool isLongPressedAgo[3];
 N
 Nstatic void bsp_InitKeyVar(void);
 Nstatic void bsp_InitKeyHard(void);
@@ -33826,57 +34114,57 @@ N/* 安富莱 STM32-V4 开发板 */
 N#if 1	/* 为了区分3个事件:　K1单独按下, K2单独按下， K1和K2同时按下 */
 Nstatic uint8_t IsKeyDown1(void)
 N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) == 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) == 0
+N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
+X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0400)) == 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0100)) != 0
 N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) != 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) != 0)
+X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) != 0)
 N		return 1;
 N	else 
 N		return 0;
 N}
 Nstatic uint8_t IsKeyDown2(void)
 N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) != 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) != 0
+N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
+X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0400)) != 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0100)) == 0
 N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) != 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) != 0)
+X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) != 0)
 N		return 1;
 N	else 
 N		return 0;
 N}
 Nstatic uint8_t IsKeyDown3(void)
 N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) != 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) == 0
+N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
+X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0400)) != 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0100)) != 0
 N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) == 0)
+X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) == 0)
 N		return 1;
 N	else 
 N		return 0;
 N}
 Nstatic uint8_t IsKeyDown9(void)	/* K1 K2组合键 */
 N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) == 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) != 0
+N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
+X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0400)) == 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0100)) == 0
 N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) != 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) != 0)
+X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) != 0)
 N		return 1;
 N	else 
 N		return 0;
 N}
-Nstatic uint8_t IsKeyDown10(void)	/* K2 K3组合键 */
+Nstatic uint8_t IsKeyDown10(void)	/* K1 K3组合键 */
 N{
-N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
-X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000))->IDR & ((uint16_t)0x2000)) != 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800))->IDR & ((uint16_t)0x0001)) != 0
+N	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
+X	if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0400)) == 0 && (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0100)) != 0
 N		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0)
-X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0100)) == 0)
+X		&& (((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) == 0)
 N		return 1;
 N	else 
 N		return 0;
 N}
 N#else	
 Sstatic uint8_t IsKeyDown1(void) {if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0) return 1;else return 0;}
-Sstatic uint8_t IsKeyDown2(void) {if ((GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0) return 1;else return 0;}
+Sstatic uint8_t IsKeyDown2(void) {if ((GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0) return 1;else return 0;}
 Sstatic uint8_t IsKeyDown3(void) {if ((GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0) return 1;else return 0;}
 S
 Sstatic uint8_t IsKeyDown9(void) {if (IsKeyDown1() && IsKeyDown2()) return 1;else return 0;}		/* K1 K2组合键 */
@@ -33884,16 +34172,19 @@ Sstatic uint8_t IsKeyDown10(void) {if (IsKeyDown2() && IsKeyDown3()) return 1;el
 N#endif
 N
 N/* 5方向摇杆 */
-Nstatic uint8_t IsKeyDown4(void) {if ((GPIO_PORT_K4->IDR & GPIO_PIN_K4) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown4(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x8000)) == 0) return 1;else return 0;}
-Nstatic uint8_t IsKeyDown5(void) {if ((GPIO_PORT_K5->IDR & GPIO_PIN_K5) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown5(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400))->IDR & ((uint16_t)0x0008)) == 0) return 1;else return 0;}
+Nstatic uint8_t IsKeyDown4(void) {if ((GPIO_PORT_K4->IDR & GPIO_PIN_K4) == 1) return 1;else return 0;}
+Xstatic uint8_t IsKeyDown4(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) == 1) return 1;else return 0;}
+Nstatic uint8_t IsKeyDown5(void) {if ((GPIO_PORT_K5->IDR & GPIO_PIN_K5) == 1) return 1;else return 0;}
+Xstatic uint8_t IsKeyDown5(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) == 1) return 1;else return 0;}
 Nstatic uint8_t IsKeyDown6(void) {if ((GPIO_PORT_K6->IDR & GPIO_PIN_K6) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown6(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x4000)) == 0) return 1;else return 0;}
+Xstatic uint8_t IsKeyDown6(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) == 0) return 1;else return 0;}
 Nstatic uint8_t IsKeyDown7(void) {if ((GPIO_PORT_K7->IDR & GPIO_PIN_K7) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown7(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x2000)) == 0) return 1;else return 0;}
+Xstatic uint8_t IsKeyDown7(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) == 0) return 1;else return 0;}
 Nstatic uint8_t IsKeyDown8(void) {if ((GPIO_PORT_K8->IDR & GPIO_PIN_K8) == 0) return 1;else return 0;}
-Xstatic uint8_t IsKeyDown8(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000))->IDR & ((uint16_t)0x0080)) == 0) return 1;else return 0;}
+Xstatic uint8_t IsKeyDown8(void) {if ((((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800))->IDR & ((uint16_t)0x0080)) == 0) return 1;else return 0;}
+N
+N
+N
 N
 N/*
 N*********************************************************************************************************
@@ -34044,51 +34335,51 @@ N	GPIO_InitTypeDef GPIO_InitStructure;
 N
 N	/* 第1步：打开GPIO时钟 */
 N	RCC_APB2PeriphClockCmd(RCC_ALL_KEY, ENABLE);
-X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000004) | ((uint32_t)0x00000010) | ((uint32_t)0x00000020) | ((uint32_t)0x00000100)), ENABLE);
+X	RCC_APB2PeriphClockCmd((((uint32_t)0x00000040) | ((uint32_t)0x00000004) | ((uint32_t)0x00000080)), ENABLE);
 N
 N	/* 第2步：配置所有的按键GPIO为浮动输入模式(实际上CPU复位后就是输入状态) */
 N	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* 输入浮空模式 */
+N	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;	/* 输入浮空模式 */
 N	
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K1;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x2000);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0400);
 N	GPIO_Init(GPIO_PORT_K1, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1000)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K2;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0001);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0100);
 N	GPIO_Init(GPIO_PORT_K2, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x0800)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K3;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0100);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
 N	GPIO_Init(GPIO_PORT_K3, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K4;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x8000);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
 N	GPIO_Init(GPIO_PORT_K4, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K5;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0008);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
 N	GPIO_Init(GPIO_PORT_K5, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1400)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K6;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x4000);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
 N	GPIO_Init(GPIO_PORT_K6, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K7;
-X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x2000);
+X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
 N	GPIO_Init(GPIO_PORT_K7, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
 N
 N	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K8;
 X	GPIO_InitStructure.GPIO_Pin = ((uint16_t)0x0080);
 N	GPIO_Init(GPIO_PORT_K8, &GPIO_InitStructure);
-X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x2000)), &GPIO_InitStructure);
+X	GPIO_Init(((GPIO_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x1800)), &GPIO_InitStructure);
 N}
 N
 N/*
@@ -34113,30 +34404,23 @@ N	for (i = 0; i < KEY_COUNT; i++)
 X	for (i = 0; i < 10; i++)
 N	{
 N		s_tBtn[i].LongTime = KEY_LONG_TIME;			/* 长按时间 0 表示不检测长按键事件 */
-X		s_tBtn[i].LongTime = 100;			 
+X		s_tBtn[i].LongTime = 80;			 
 N		s_tBtn[i].Count = KEY_FILTER_TIME / 2;		/* 计数器设置为滤波时间的一半 */
-X		s_tBtn[i].Count = 5 / 2;		 
+X		s_tBtn[i].Count = 6 / 2;		 
 N		s_tBtn[i].State = 0;							/* 按键缺省状态，0为未按下 */
 N		//s_tBtn[i].KeyCodeDown = 3 * i + 1;				/* 按键按下的键值代码 */
 N		//s_tBtn[i].KeyCodeUp   = 3 * i + 2;				/* 按键弹起的键值代码 */
 N		//s_tBtn[i].KeyCodeLong = 3 * i + 3;				/* 按键被持续按下的键值代码 */
 N		s_tBtn[i].RepeatSpeed = 0;						/* 按键连发的速度，0表示不支持连发 */
 N		s_tBtn[i].RepeatCount = 0;						/* 连发计数器 */
+N		
 N	}
 N
 N	/* 如果需要单独更改某个按键的参数，可以在此单独重新赋值 */
 N	/* 比如，我们希望按键1按下超过1秒后，自动重发相同键值 */
-N	s_tBtn[KID_JOY_U].LongTime = 100;
-N	s_tBtn[KID_JOY_U].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-N
-N	s_tBtn[KID_JOY_D].LongTime = 100;
-N	s_tBtn[KID_JOY_D].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-N
-N	s_tBtn[KID_JOY_L].LongTime = 100;
-N	s_tBtn[KID_JOY_L].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
-N
-N	s_tBtn[KID_JOY_R].LongTime = 100;
-N	s_tBtn[KID_JOY_R].RepeatSpeed = 5;	/* 每隔50ms自动发送键值 */
+N	s_tBtn[KID_K3].LongTime = KEY_LONG_TIME*3;
+X	s_tBtn[KID_K3].LongTime = 80*3;
+N	s_tBtn[KID_K3].RepeatSpeed = 0;	/* 每隔x ms自动发送键值（单位10ms） */
 N
 N	/* 判断按键按下的函数 */
 N	s_tBtn[0].IsKeyDownFunc = IsKeyDown1;
@@ -34177,13 +34461,13 @@ N	pBtn = &s_tBtn[i];
 N	if (pBtn->IsKeyDownFunc())
 N	{
 N		if (pBtn->Count < KEY_FILTER_TIME)
-X		if (pBtn->Count < 5)
+X		if (pBtn->Count < 6)
 N		{
 N			pBtn->Count = KEY_FILTER_TIME;
-X			pBtn->Count = 5;
+X			pBtn->Count = 6;
 N		}
 N		else if(pBtn->Count < 2 * KEY_FILTER_TIME)
-X		else if(pBtn->Count < 2 * 5)
+X		else if(pBtn->Count < 2 * 6)
 N		{
 N			pBtn->Count++;
 N		}
@@ -34226,10 +34510,10 @@ N	}
 N	else
 N	{
 N		if(pBtn->Count > KEY_FILTER_TIME)
-X		if(pBtn->Count > 5)
+X		if(pBtn->Count > 6)
 N		{
 N			pBtn->Count = KEY_FILTER_TIME;
-X			pBtn->Count = 5;
+X			pBtn->Count = 6;
 N		}
 N		else if(pBtn->Count != 0)
 N		{
@@ -34270,4 +34554,33 @@ N		bsp_DetectKey(i);
 N	}
 N}
 N
-N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_isLongPressedAgo
+N*	功能说明: 之前有没有被长按
+N*	形    参:  无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nbool bsp_IsLongPressedAgo(KEY_SN sn)
+X_Bool bsp_IsLongPressedAgo(KEY_SN sn)
+N{
+N	return isLongPressedAgo[sn];
+N}
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_SetIsLongPressedAgo
+N*	功能说明: 设置之前有没有被长按
+N*	形    参:  无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nvoid bsp_SetIsLongPressedAgo(KEY_SN sn , bool state)
+Xvoid bsp_SetIsLongPressedAgo(KEY_SN sn , _Bool state)
+N{
+N	isLongPressedAgo[sn] = state;
+N}
+N
+N
+N/****************** Copyright (C), 2013-2020, 码农闰土 QQ：1085081059 (END OF FILE) **********************/

@@ -40,6 +40,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #ifndef TRUE
 	#define TRUE  1
@@ -74,6 +75,11 @@
 #define WARNING(format, ...)
 #endif
 
+#define M_PI 					    3.14F
+#define Deg2Rad(deg) (M_PI * deg / 180.0F)
+#define Rad2Deg(rad) (180.0F * rad / M_PI)
+
+#include "bsp_user_lib.h"
 #include "bsp_led.h"
 #include "bsp_timer.h"
 #include "bsp_key.h"
@@ -88,6 +94,15 @@
 #include "bsp_Encoder.h"
 #include "bsp_motor.h"
 #include "bsp_Control.h"
+#include "bsp_Position.h"
+#include "bsp_CliffSW.h"
+#include "bsp_CurrentFeedback.h"
+#include "bsp_OffSiteSW.h"
+#include "bsp_DustBox.h"
+#include "bsp_speaker.h"
+
+
+
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
 void bsp_Idle(void);

@@ -17,17 +17,17 @@
 #define KEY_COUNT    10	   					/* 按键个数, 8个独立建 + 2个组合键 */
 
 /* 根据应用程序的功能重命名按键宏 */
-#define KEY_DOWN_K1		KEY_1_DOWN
-#define KEY_UP_K1		KEY_1_UP
-#define KEY_LONG_K1		KEY_1_LONG
+#define KEY_DOWN_POWER	KEY_3_DOWN
+#define KEY_UP_POWER	KEY_3_UP
+#define KEY_LONG_POWER	KEY_3_LONG
 
-#define KEY_DOWN_K2		KEY_2_DOWN
-#define KEY_UP_K2		KEY_2_UP
-#define KEY_LONG_K2		KEY_2_LONG
+#define KEY_DOWN_CHARGE	KEY_2_DOWN
+#define KEY_UP_CHARGE	KEY_2_UP
+#define KEY_LONG_CHARGE	KEY_2_LONG
 
-#define KEY_DOWN_K3		KEY_3_DOWN
-#define KEY_UP_K3		KEY_3_UP
-#define KEY_LONG_K3		KEY_3_LONG
+#define KEY_DOWN_CLEAN	KEY_1_DOWN
+#define KEY_UP_CLEAN	KEY_1_UP
+#define KEY_LONG_CLEAN	KEY_1_LONG
 
 #define JOY_DOWN_U		KEY_4_DOWN		/* 上 */
 #define JOY_UP_U		KEY_4_UP
@@ -75,8 +75,8 @@ typedef enum
 	只有连续检测到50ms状态不变才认为有效，包括弹起和按下两种事件
 	即使按键电路不做硬件滤波，该滤波机制也可以保证可靠地检测到按键事件
 */
-#define KEY_FILTER_TIME   5
-#define KEY_LONG_TIME     100			/* 单位10ms， 持续1秒，认为长按事件 */
+#define KEY_FILTER_TIME   6
+#define KEY_LONG_TIME     80			/* 单位10ms， 持续1秒，认为长按事件 */
 
 /*
 	每个按键对应1个全局的结构体变量。
@@ -157,6 +157,17 @@ typedef struct
 	uint8_t Read2;					/* 缓冲区读指针2 */
 }KEY_FIFO_T;
 
+/* 自定义扩展添加 */
+#define MAX_KEY_COUNT      3
+
+typedef enum
+{
+	KEY_CLEAN = 0 ,
+	KEY_POWER,
+	KEY_CHARGE
+}KEY_SN;
+
+
 /* 供外部调用的函数声明 */
 void bsp_InitKey(void);
 void bsp_KeyScan(void);
@@ -166,6 +177,10 @@ uint8_t bsp_GetKey2(void);
 uint8_t bsp_GetKeyState(KEY_ID_E _ucKeyID);
 void bsp_SetKeyParam(uint8_t _ucKeyID, uint16_t _LongTime, uint8_t  _RepeatSpeed);
 void bsp_ClearKey(void);
+
+/* 自定义扩展添加 */
+bool bsp_IsLongPressedAgo(KEY_SN sn);
+void bsp_SetIsLongPressedAgo(KEY_SN sn , bool state);
 
 #endif
 
