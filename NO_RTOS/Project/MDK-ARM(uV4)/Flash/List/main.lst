@@ -34202,6 +34202,27 @@ N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 105 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_LedApp.h"
+L 1 "..\..\User\app\inc\bsp_LedApp.h" 1
+N#ifndef __BSP_LEDAPP_H
+N#define __BSP_LEDAPP_H
+N
+Ntypedef enum
+N{
+N	LED_DEFAULT_STATE = 0,
+N	THREE_WHITE_TOOGLE,       /*三颗白色LED一起闪*/
+N	
+N}LedAppState;
+N
+Nvoid bsp_CloseAllLed(void);
+Nvoid bsp_OpenThreeWhileLed(void);
+Nvoid bsp_LedAppProc(void);
+Nvoid bsp_SetLedState(LedAppState ledAppState);
+N
+N#endif
+N
+L 106 "..\..\User\bsp\bsp.h" 2
+N
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);
@@ -34212,6 +34233,8 @@ N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 2 "..\..\User\app\src\main.c" 2
 N
+N
+Nstatic void bsp_KeyProc(void);
 N
 N/*
 N*********************************************************************************************************
@@ -34237,31 +34260,110 @@ N//	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(20));
 N
 N//	bsp_IRD_StartWork();
 N	
-N	bsp_LedOn(LED_LOGO_CLEAN);
-N	bsp_LedOn(LED_LOGO_POWER);
-N	bsp_LedOn(LED_LOGO_CHARGE);
-N	bsp_LedOff(LED_COLOR_YELLOW);
-N	bsp_LedOff(LED_COLOR_GREEN);
-N	bsp_LedOff(LED_COLOR_RED);
+N	bsp_SetLedState(THREE_WHITE_TOOGLE);
 N	
 N	
 N	/* 主程序大循环 */
 N	while (1)
 N	{
 N	
-N		if(tick % 500 == 0)
-N		{
-N			bsp_PrintIR_Rev();
-N		}
-N		
-N		if(tick % 10 == 0)
-N		{
-N			bsp_PositionUpdate();
-N		}
+N		bsp_PositionUpdate();
+N		bsp_LedAppProc();
+N		bsp_KeyProc();
 N		
 N		/*下面内容不修改*/
 N		++tick;
 N		bsp_DelayMS(1);
+N	}
+N}
+N
+N
+N
+N/*
+N*********************************************************************************************************
+N*	函 数 名: bsp_KeyProc
+N*	功能说明: 按键处理函数	  			  
+N*	形    参: 无
+N*	返 回 值: 无
+N*********************************************************************************************************
+N*/
+Nstatic void bsp_KeyProc(void)
+N{
+N	uint8_t ucKeyCode;	
+N	
+N	ucKeyCode = bsp_GetKey();
+N	if (ucKeyCode > 0)
+N	{
+N		/* 有键按下 */
+N		switch (ucKeyCode)
+N		{
+N			case KEY_DOWN_POWER:
+X			case KEY_3_DOWN:
+N			{
+N				DEBUG("电源按键按下\r\n");
+X				printf ("电源按键按下\r\n");
+N
+N			}break;
+N				
+N			case KEY_DOWN_CHARGE:
+X			case KEY_2_DOWN:
+N			{
+N				DEBUG("充电按键按下\r\n");
+X				printf ("充电按键按下\r\n");
+N
+N			}break;
+N				
+N			case KEY_DOWN_CLEAN:	
+X			case KEY_1_DOWN:	
+N			{
+N				DEBUG("清扫按键按下\r\n");
+X				printf ("清扫按键按下\r\n");
+N
+N			}break;
+N			
+N
+N			
+N			case KEY_LONG_POWER:
+X			case KEY_3_LONG:
+N			{
+N				DEBUG("电源按键长按\r\n");
+X				printf ("电源按键长按\r\n");
+N				
+N				
+N			}break;
+N			
+N			case KEY_LONG_CHARGE:
+X			case KEY_2_LONG:
+N			{
+N				DEBUG("充电按键长按\r\n");
+X				printf ("充电按键长按\r\n");
+N				
+N				
+N			}break;
+N			
+N			case KEY_LONG_CLEAN:
+X			case KEY_1_LONG:
+N			{
+N				DEBUG("清扫按键长按\r\n");
+X				printf ("清扫按键长按\r\n");
+N				
+N				
+N			}break;
+N			
+N			case KEY_9_DOWN:
+N			{
+N				
+N				
+N			}break;
+N			
+N			
+N			case KEY_10_DOWN:
+N			{
+N				DEBUG("重新配网：同时按充电和清扫\r\n");
+X				printf ("重新配网：同时按充电和清扫\r\n");
+N
+N			}break;
+N		}   
 N	}
 N}
 N

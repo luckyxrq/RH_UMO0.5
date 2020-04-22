@@ -59,3 +59,4 @@
 .\flash\obj\bsp.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\bsp.o: ..\..\User\bsp\inc\bsp_ir_decode.h
+.\flash\obj\bsp.o: ..\..\User\app\inc\bsp_LedApp.h

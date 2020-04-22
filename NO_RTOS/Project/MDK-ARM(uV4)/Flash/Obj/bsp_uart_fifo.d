@@ -59,3 +59,4 @@
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\bsp_uart_fifo.o: ..\..\User\bsp\inc\bsp_ir_decode.h
+.\flash\obj\bsp_uart_fifo.o: ..\..\User\app\inc\bsp_LedApp.h

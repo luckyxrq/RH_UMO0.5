@@ -34217,6 +34217,27 @@ N#endif
 N
 N/***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
 L 105 "..\..\User\bsp\bsp.h" 2
+N#include "bsp_LedApp.h"
+L 1 "..\..\User\app\inc\bsp_LedApp.h" 1
+N#ifndef __BSP_LEDAPP_H
+N#define __BSP_LEDAPP_H
+N
+Ntypedef enum
+N{
+N	LED_DEFAULT_STATE = 0,
+N	THREE_WHITE_TOOGLE,       /*三颗白色LED一起闪*/
+N	
+N}LedAppState;
+N
+Nvoid bsp_CloseAllLed(void);
+Nvoid bsp_OpenThreeWhileLed(void);
+Nvoid bsp_LedAppProc(void);
+Nvoid bsp_SetLedState(LedAppState ledAppState);
+N
+N#endif
+N
+L 106 "..\..\User\bsp\bsp.h" 2
+N
 N
 N/* 提供给其他C文件调用的函数 */
 Nvoid bsp_Init(void);

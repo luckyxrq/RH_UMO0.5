@@ -59,5 +59,6 @@
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_speaker.h
 .\flash\obj\bsp_angle.o: ..\..\User\bsp\inc\bsp_ir_decode.h
+.\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_LedApp.h
 .\flash\obj\bsp_angle.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.c
 .\flash\obj\bsp_angle.o: ..\..\User\bsp\bsp.h
