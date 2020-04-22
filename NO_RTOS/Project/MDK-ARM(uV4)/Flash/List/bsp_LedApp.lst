@@ -34211,6 +34211,8 @@ Ntypedef enum
 N{
 N	LED_DEFAULT_STATE = 0,
 N	THREE_WHITE_TOOGLE,       /*三颗白色LED一起闪*/
+N	AT_CHARGING,
+N	AT_CHARGE_DONE,
 N	
 N}LedAppState;
 N
@@ -34339,7 +34341,29 @@ N
 N			ledAppProc.delay = bsp_GetRunTime();
 N		}
 N	}
-N	
-N	
+N	else if(ledAppProc.ledAppState == AT_CHARGING) /*充电中*/
+N	{
+N		bsp_LedOn(LED_LOGO_CLEAN);
+N		bsp_LedOn(LED_LOGO_POWER);
+N		bsp_LedOff(LED_LOGO_CHARGE);
+N		bsp_LedOn(LED_COLOR_YELLOW);
+N		bsp_LedOff(LED_COLOR_GREEN);
+N		bsp_LedOff(LED_COLOR_RED);
+N	}
+N	else if(ledAppProc.ledAppState == AT_CHARGE_DONE) /*充电中*/
+N	{
+N		bsp_LedOn(LED_LOGO_CLEAN);
+N		bsp_LedOn(LED_LOGO_POWER);
+N		bsp_LedOff(LED_LOGO_CHARGE);
+N		bsp_LedOff(LED_COLOR_YELLOW);
+N		bsp_LedOn(LED_COLOR_GREEN);
+N		bsp_LedOff(LED_COLOR_RED);
+N	}
 N}
+N
+N
+N
+N
+N
+N
 N

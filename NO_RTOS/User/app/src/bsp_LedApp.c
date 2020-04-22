@@ -86,7 +86,29 @@ void bsp_LedAppProc(void)
 			ledAppProc.delay = bsp_GetRunTime();
 		}
 	}
-	
-	
+	else if(ledAppProc.ledAppState == AT_CHARGING) /*充电中*/
+	{
+		bsp_LedOn(LED_LOGO_CLEAN);
+		bsp_LedOn(LED_LOGO_POWER);
+		bsp_LedOff(LED_LOGO_CHARGE);
+		bsp_LedOn(LED_COLOR_YELLOW);
+		bsp_LedOff(LED_COLOR_GREEN);
+		bsp_LedOff(LED_COLOR_RED);
+	}
+	else if(ledAppProc.ledAppState == AT_CHARGE_DONE) /*充电中*/
+	{
+		bsp_LedOn(LED_LOGO_CLEAN);
+		bsp_LedOn(LED_LOGO_POWER);
+		bsp_LedOff(LED_LOGO_CHARGE);
+		bsp_LedOff(LED_COLOR_YELLOW);
+		bsp_LedOn(LED_COLOR_GREEN);
+		bsp_LedOff(LED_COLOR_RED);
+	}
 }
+
+
+
+
+
+
 

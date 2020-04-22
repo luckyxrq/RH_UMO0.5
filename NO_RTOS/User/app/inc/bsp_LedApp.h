@@ -5,6 +5,8 @@ typedef enum
 {
 	LED_DEFAULT_STATE = 0,
 	THREE_WHITE_TOOGLE,       /*三颗白色LED一起闪*/
+	AT_CHARGING,
+	AT_CHARGE_DONE,
 	
 }LedAppState;
 

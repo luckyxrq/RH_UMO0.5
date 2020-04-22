@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Apr 22 15:11:17 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Apr 22 15:24:51 2020
 <BR><P>
 <H3>Maximum Stack Usage =        320 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -299,7 +299,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_frsub
 </UL>
@@ -309,7 +309,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
 <P><STRONG><a name="[5e]"></a>__aeabi_frsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, fadd.o(.text), UNUSED)
@@ -319,9 +319,9 @@ Global Symbols
 <P><STRONG><a name="[ae]"></a>__aeabi_fmul</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, fmul.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_fmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
 
 <P><STRONG><a name="[5f]"></a>__aeabi_fdiv</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, fdiv.o(.text))
@@ -329,9 +329,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
+<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 </UL>
 
 <P><STRONG><a name="[60]"></a>__aeabi_dadd</STRONG> (Thumb, 322 bytes, Stack size 48 bytes, dadd.o(.text))
@@ -342,7 +342,7 @@ Global Symbols
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_round
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
@@ -376,7 +376,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
@@ -398,9 +398,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
+<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 </UL>
 
 <P><STRONG><a name="[6a]"></a>__aeabi_ui2d</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, dfltui.o(.text))
@@ -408,14 +408,14 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
 
 <P><STRONG><a name="[af]"></a>__aeabi_f2iz</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, ffixi.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 </UL>
 
 <P><STRONG><a name="[6b]"></a>__aeabi_d2iz</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, dfixi.o(.text))
@@ -427,14 +427,14 @@ Global Symbols
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 </UL>
 
-<P><STRONG><a name="[100]"></a>__aeabi_f2d</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, f2d.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<P><STRONG><a name="[101]"></a>__aeabi_f2d</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, f2d.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
 
 <P><STRONG><a name="[113]"></a>__aeabi_cfcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cfcmple.o(.text), UNUSED)
 
-<P><STRONG><a name="[fa]"></a>__aeabi_cfcmple</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, cfcmple.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<P><STRONG><a name="[fb]"></a>__aeabi_cfcmple</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, cfcmple.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
 <P><STRONG><a name="[114]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
@@ -859,35 +859,35 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e7]"></a>TIM_SetCompare1</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_SetCompare1))
-<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
+<BR><BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartHardTimer
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
 </UL>
 
 <P><STRONG><a name="[e8]"></a>TIM_SetCompare2</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_SetCompare2))
-<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
+<BR><BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartHardTimer
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
 </UL>
 
 <P><STRONG><a name="[e9]"></a>TIM_SetCompare3</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_SetCompare3))
-<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
+<BR><BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartHardTimer
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
 </UL>
 
 <P><STRONG><a name="[ea]"></a>TIM_SetCompare4</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_SetCompare4))
-<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
+<BR><BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartHardTimer
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
 </UL>
 
 <P><STRONG><a name="[89]"></a>TIM_SetIC1Prescaler</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_SetIC1Prescaler))
@@ -994,7 +994,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AnglePoll
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
@@ -1018,8 +1018,8 @@ Global Symbols
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 </UL>
 
 <P><STRONG><a name="[9b]"></a>__kernel_cos</STRONG> (Thumb, 230 bytes, Stack size 48 bytes, cos_i.o(i.__kernel_cos))
@@ -1032,8 +1032,8 @@ Global Symbols
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 </UL>
 
 <P><STRONG><a name="[9c]"></a>__kernel_poly</STRONG> (Thumb, 170 bytes, Stack size 24 bytes, poly.o(i.__kernel_poly))
@@ -1058,8 +1058,8 @@ Global Symbols
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 </UL>
 
 <P><STRONG><a name="[a0]"></a>__mathlib_dbl_infnan</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, dunder.o(i.__mathlib_dbl_infnan))
@@ -1067,8 +1067,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 </UL>
 
 <P><STRONG><a name="[a1]"></a>__mathlib_dbl_invalid</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, dunder.o(i.__mathlib_dbl_invalid))
@@ -1076,8 +1076,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 </UL>
 
 <P><STRONG><a name="[9f]"></a>__mathlib_dbl_underflow</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, dunder.o(i.__mathlib_dbl_underflow))
@@ -1095,8 +1095,8 @@ Global Symbols
 <P><STRONG><a name="[120]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
 <P><STRONG><a name="[10c]"></a>__set_errno</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, errno.o(i.__set_errno))
-<BR><BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
+<BR><BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 </UL>
 
 <P><STRONG><a name="[ac]"></a>bsp_AngleReadRaw</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, bsp_angle.o(i.bsp_AngleReadRaw))
@@ -1106,7 +1106,7 @@ Global Symbols
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IMU_GetData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
 
 <P><STRONG><a name="[4b]"></a>bsp_AngleRevByte</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, bsp_angle.o(i.bsp_AngleRevByte))
@@ -1121,7 +1121,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
 </UL>
-<BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[b3]"></a>bsp_DelayMS</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, bsp_timer.o(i.bsp_DelayMS))
@@ -1140,8 +1140,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
 </UL>
 
-<P><STRONG><a name="[fe]"></a>bsp_EncoderGetPulseT</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, bsp_encoder.o(i.bsp_EncoderGetPulseT))
-<BR><BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidSched
+<P><STRONG><a name="[ff]"></a>bsp_EncoderGetPulseT</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, bsp_encoder.o(i.bsp_EncoderGetPulseT))
+<BR><BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidSched
 </UL>
 
 <P><STRONG><a name="[f1]"></a>bsp_GetKey</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, bsp_key.o(i.bsp_GetKey))
@@ -1153,8 +1153,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_PRIMASK
 </UL>
-<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 </UL>
 
@@ -1321,7 +1321,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[ef]"></a>bsp_IsTouchChargePile</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_IsTouchChargePile))
@@ -1329,7 +1329,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[f2]"></a>bsp_KeyScan</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_key.o(i.bsp_KeyScan))
@@ -1340,40 +1340,44 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RunPer10ms
 </UL>
 
-<P><STRONG><a name="[f3]"></a>bsp_LedAppProc</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, bsp_ledapp.o(i.bsp_LedAppProc))
+<P><STRONG><a name="[f3]"></a>bsp_LedAppProc</STRONG> (Thumb, 154 bytes, Stack size 8 bytes, bsp_ledapp.o(i.bsp_LedAppProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_LedAppProc &rArr; bsp_GetRunTime
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetRunTime
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[b2]"></a>bsp_LedOff</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOff))
-<BR><BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR><BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllLed
 </UL>
 
-<P><STRONG><a name="[105]"></a>bsp_LedOn</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOn))
-<BR><BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<P><STRONG><a name="[f5]"></a>bsp_LedOn</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOn))
+<BR><BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 </UL>
 
 <P><STRONG><a name="[f4]"></a>bsp_LedToggle</STRONG> (Thumb, 108 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedToggle))
 <BR><BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 </UL>
 
-<P><STRONG><a name="[f6]"></a>bsp_MotorGetSpeed</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, bsp_control.o(i.bsp_MotorGetSpeed))
+<P><STRONG><a name="[f7]"></a>bsp_MotorGetSpeed</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, bsp_control.o(i.bsp_MotorGetSpeed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = bsp_MotorGetSpeed &rArr; __aeabi_fdiv
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
 
-<P><STRONG><a name="[f7]"></a>bsp_MotorSetPWM</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, bsp_motor.o(i.bsp_MotorSetPWM))
+<P><STRONG><a name="[f8]"></a>bsp_MotorSetPWM</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, bsp_motor.o(i.bsp_MotorSetPWM))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_MotorSetPWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare4
@@ -1381,19 +1385,19 @@ Global Symbols
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare1
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
-<P><STRONG><a name="[fd]"></a>bsp_PidSched</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, bsp_control.o(i.bsp_PidSched))
+<P><STRONG><a name="[fe]"></a>bsp_PidSched</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, bsp_control.o(i.bsp_PidSched))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = bsp_PidSched &rArr; bsp_PidExec &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EncoderGetPulseT
+<BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EncoderGetPulseT
 </UL>
 <BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RunPer10ms
 </UL>
 
-<P><STRONG><a name="[ff]"></a>bsp_PositionUpdate</STRONG> (Thumb, 546 bytes, Stack size 72 bytes, bsp_position.o(i.bsp_PositionUpdate))
+<P><STRONG><a name="[100]"></a>bsp_PositionUpdate</STRONG> (Thumb, 546 bytes, Stack size 72 bytes, bsp_position.o(i.bsp_PositionUpdate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = bsp_PositionUpdate &rArr; cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetRunTime
@@ -1401,13 +1405,13 @@ Global Symbols
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1420,7 +1424,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = bsp_RunPer10ms &rArr; bsp_PidSched &rArr; bsp_PidExec &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyScan
-<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidSched
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidSched
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_ISR
 </UL>
@@ -1429,13 +1433,13 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_ISR
 </UL>
 
-<P><STRONG><a name="[103]"></a>bsp_SearchChargePile</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
+<P><STRONG><a name="[104]"></a>bsp_SearchChargePile</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_SearchChargePile &rArr; __2printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
+<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsTouchChargePile
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsCharging
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllLed
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -1443,12 +1447,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[104]"></a>bsp_SetLedState</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_ledapp.o(i.bsp_SetLedState))
+<P><STRONG><a name="[105]"></a>bsp_SetLedState</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_ledapp.o(i.bsp_SetLedState))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_SetLedState &rArr; bsp_GetRunTime
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetRunTime
 </UL>
-<BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1511,7 +1515,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
 </UL>
 
-<P><STRONG><a name="[101]"></a>cos</STRONG> (Thumb, 148 bytes, Stack size 32 bytes, cos.o(i.cos))
+<P><STRONG><a name="[102]"></a>cos</STRONG> (Thumb, 148 bytes, Stack size 32 bytes, cos.o(i.cos))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
@@ -1521,7 +1525,7 @@ Global Symbols
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
 
 <P><STRONG><a name="[4c]"></a>fputc</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, bsp_uart_fifo.o(i.fputc))
@@ -1534,9 +1538,9 @@ Global Symbols
 <P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = main &rArr; bsp_PositionUpdate &rArr; cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayMS
@@ -1544,7 +1548,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[102]"></a>sin</STRONG> (Thumb, 150 bytes, Stack size 32 bytes, sin.o(i.sin))
+<P><STRONG><a name="[103]"></a>sin</STRONG> (Thumb, 150 bytes, Stack size 32 bytes, sin.o(i.sin))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
@@ -1554,7 +1558,7 @@ Global Symbols
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
 <P>
 <H3>
@@ -1624,7 +1628,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitEncoder
 </UL>
 
-<P><STRONG><a name="[f5]"></a>bsp_MotorBrake</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, bsp_control.o(i.bsp_MotorBrake))
+<P><STRONG><a name="[f6]"></a>bsp_MotorBrake</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, bsp_control.o(i.bsp_MotorBrake))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_MotorBrake
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare4
@@ -1632,38 +1636,38 @@ Local Symbols
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare1
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
-<P><STRONG><a name="[f9]"></a>bsp_PidClear</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_PidClear))
-<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<P><STRONG><a name="[fa]"></a>bsp_PidClear</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_PidClear))
+<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
-<P><STRONG><a name="[f8]"></a>bsp_PidExec</STRONG> (Thumb, 588 bytes, Stack size 32 bytes, bsp_control.o(i.bsp_PidExec))
+<P><STRONG><a name="[f9]"></a>bsp_PidExec</STRONG> (Thumb, 588 bytes, Stack size 32 bytes, bsp_control.o(i.bsp_PidExec))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = bsp_PidExec &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myabs
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PwmLimit
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidClear
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
+<BR>[Calls]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myabs
+<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PwmLimit
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidClear
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorBrake
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSetPWM
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidSched
+<BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidSched
 </UL>
 
-<P><STRONG><a name="[fb]"></a>bsp_PwmLimit</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_PwmLimit))
-<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<P><STRONG><a name="[fc]"></a>bsp_PwmLimit</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_PwmLimit))
+<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
-<P><STRONG><a name="[fc]"></a>myabs</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_control.o(i.myabs))
-<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
+<P><STRONG><a name="[fd]"></a>myabs</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_control.o(i.myabs))
+<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
 <P><STRONG><a name="[d9]"></a>bsp_InitTimer1</STRONG> (Thumb, 244 bytes, Stack size 48 bytes, bsp_motor.o(i.bsp_InitTimer1))

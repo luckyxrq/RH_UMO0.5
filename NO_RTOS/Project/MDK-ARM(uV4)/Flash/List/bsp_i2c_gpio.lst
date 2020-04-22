@@ -34233,6 +34233,8 @@ Ntypedef enum
 N{
 N	LED_DEFAULT_STATE = 0,
 N	THREE_WHITE_TOOGLE,       /*三颗白色LED一起闪*/
+N	AT_CHARGING,
+N	AT_CHARGE_DONE,
 N	
 N}LedAppState;
 N
