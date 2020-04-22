@@ -57,4 +57,5 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_OffSiteSW.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_speaker.h
+.\flash\obj\bsp_position.o: ..\..\User\dx8\inc\DX8_API.h
 .\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

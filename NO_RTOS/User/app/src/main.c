@@ -17,13 +17,15 @@ int main(void)
 	*/
 	bsp_Init();		/* 硬件初始化 */
 	
+//	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(20));
+//	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(20));
+	
 	/* 主程序大循环 */
 	while (1)
 	{
 		bsp_Idle();		/* CPU空闲时执行的函数，在 bsp.c */
 	
-		
-		DEBUG("陀螺仪：%.2F\r\n",bsp_AngleRead());
+
 		bsp_DelayMS(1);
 	}
 }

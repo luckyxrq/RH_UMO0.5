@@ -50,7 +50,8 @@ void bsp_Init(void)
 	bsp_InitTimer();	/* 初始化系统滴答定时器 (此函数会开中断) */
 	bsp_InitUart();		/* 初始化串口驱动 */
 	
-	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
+	/* 开机打开其他外设电源使能引脚 */
+	bsp_InitSW();		     
 	bsp_SwOn(SW_5V_EN_CTRL);
 	bsp_DelayMS(1000);
 	bsp_SwOn(SW_3V3_EN_CTRL);
@@ -58,6 +59,30 @@ void bsp_Init(void)
 	bsp_SwOn(SW_MOTOR_POWER);
 	bsp_SwOn(SW_VSLAM_POWER);
 	bsp_SwOn(SW_WIFI_POWER);
+	
+	/*初始化碰撞检测，触动开关*/
+	bsp_InitCollision();     
+	
+	/*初始化轮机*/
+	bsp_InitEncoder();
+	bsp_InitMotor();
+	bsp_InitPid(MotorLeft);
+	bsp_InitPid(MotorRight);
+	
+	/*初始化扬声器*/
+	bsp_InitSpeaker();	
+	//bsp_SperkerPlay(Song1);	
+	
+	/*加密认证*/
+	bsp_InitDX8_();
+	if(bsp_Authentication() == 0)
+	{
+		DEBUG("%s\r\n",DX8_Version());
+	}
+	else
+	{
+		WARNING("WARNING\r\n");
+	}
 }
 
 /*
@@ -72,6 +97,8 @@ void bsp_Init(void)
 void bsp_RunPer10ms(void)
 {
 	bsp_KeyScan();		/* 每10ms扫描按键一次 */
+	
+	bsp_PidSched();     /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
 }
 
 /*

@@ -41,7 +41,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
+#include <string.h>
 #ifndef TRUE
 	#define TRUE  1
 #endif
@@ -100,7 +100,7 @@
 #include "bsp_OffSiteSW.h"
 #include "bsp_DustBox.h"
 #include "bsp_speaker.h"
-
+#include "DX8_API.h"
 
 
 /* 提供给其他C文件调用的函数 */

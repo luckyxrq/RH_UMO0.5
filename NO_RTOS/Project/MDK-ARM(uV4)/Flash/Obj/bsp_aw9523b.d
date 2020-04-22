@@ -57,3 +57,4 @@
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_OffSiteSW.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_speaker.h
+.\flash\obj\bsp_aw9523b.o: ..\..\User\dx8\inc\DX8_API.h

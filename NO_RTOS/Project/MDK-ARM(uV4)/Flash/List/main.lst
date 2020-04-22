@@ -32876,7 +32876,7 @@ N
 N#endif /* __bool_true_false_are_defined */
 N
 L 44 "..\..\User\bsp\bsp.h" 2
-N
+N#include <string.h>
 N#ifndef TRUE
 N	#define TRUE  1
 N#endif
@@ -34014,7 +34014,103 @@ N
 N#endif
 N
 L 103 "..\..\User\bsp\bsp.h" 2
+N#include "DX8_API.h"
+L 1 "..\..\User\dx8\inc\DX8_API.h" 1
+N#ifndef __DX8_API_H__
+N#define __DX8_API_H__
 N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N#define   DX8_SUCCESS           0x00
+N#define   DX8_BUS_ERR           0x01
+N
+N#define   DX8_NO_INIT           0x02
+N#define   DX8_RESET_ERR         0x03
+N#define   DX8_CHIP_INFO_ERR     0x04
+N#define   DX8_RESPONSE_LEN_ERR  0x05
+N#define   DX8_TRANSFER_CRC_ERR  0x06
+N
+N#define   DX8_STATUS_DATERR     0x07
+N#define   DX8_STATUS_RIGHTERR   0x08
+N#define   DX8_STATUS_CMDERR     0x09
+N#define   DX8_STATUS_TIMEOUT    0x0a
+N#define   DX8_SLEEP_ERR         0x0b
+N#define   DX8_WAKEUP_ERR        0x0c
+N
+N#define   DX8_VERIFY_PIN_ERR    0x0d
+N#define   DX8_VERIFY_KEY_ERR    0x0e
+N
+N#define   DX8_WRITE_ZONE_LEN_ERR  0x0f
+N#define   DX8_READ_ZONE_LEN_ERR   0x10
+N
+N#define   DX8_CRYPTO_KEY_ERR      0x11
+N#define   DX8_CRYPTO_LEN_ERR      0x12
+N
+N#define   DX8_ERASE_EEPROM_ERR    0x30
+N#define   DX8_CHECK_EEPROM_ERR    0x31
+N
+N//-----------------------------------------------------------------------------------------------
+N//  extern function, need to be implementated by user according to CPU and OS
+N//-----------------------------------------------------------------------------------------------
+Nextern unsigned char dxif_transfer(unsigned char *buf, unsigned short len);
+N
+N//-----------------------------------------------------------------------------------------------
+N//  Data Structure definition
+N//-----------------------------------------------------------------------------------------------
+Ntypedef struct 
+N{
+N    unsigned char Type;
+N    unsigned char PageSize;
+N    unsigned char ZoneNum;
+N    unsigned short ZoneSize;
+N    unsigned char SN[8];
+N    unsigned char UID[7];
+N    unsigned char MID[6];
+N    unsigned char ZoneMode[16];
+N    unsigned char Fuse;
+N} CHIP_INFO;
+N
+Nextern CHIP_INFO dx8_info;           // user can access directly
+Nextern unsigned int srand_cnt;       // reference can be used for host rand() function
+N
+N//----------------------------------------------------------------------------------------------------------------
+N// system function
+N//----------------------------------------------------------------------------------------------------------------
+N
+Nvoid DX8_SetDevAddress(unsigned char DevAddress); //default is 0x60, DX8-C2 should change to 0x20
+N
+Nunsigned char DX8_Reset(void);
+Nunsigned char DX8_Sleep(void);
+Nunsigned char DX8_Wakeup(void);
+Nunsigned char DX8_GetRandom(unsigned char *random, unsigned char len);
+Nunsigned char DX8_VerifyPin(unsigned char *seed, unsigned char *buf);
+N
+N//----------------------------------------------------------------------------------------------------------------
+N// host authentication
+N//----------------------------------------------------------------------------------------------------------------
+Nunsigned char DX8_HostAuth(unsigned char *challenge, unsigned char len, unsigned char *response);
+Nvoid Lib_HostAuth(unsigned char *challenge, unsigned char len, unsigned char *buf, unsigned char *response);
+N
+N//----------------------------------------------------------------------------------------------------------------
+N// write and read memory
+N//----------------------------------------------------------------------------------------------------------------
+Nunsigned char DX8_VerifyZone(unsigned char zone, unsigned char *seed, unsigned char *buf);
+Nunsigned char DX8_WriteZone(unsigned char zone, unsigned short address, unsigned short len, unsigned char *buf);
+Nunsigned char DX8_ReadZone (unsigned char zone, unsigned short address, unsigned short len, unsigned char *buf);
+N
+N/*真正需要用的API*/
+Nvoid bsp_InitDX8_(void);
+Nunsigned char bsp_Authentication(void);
+Nchar *DX8_Version(void); // return DX8_API version, customID and company
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 104 "..\..\User\bsp\bsp.h" 2
 N
 N
 N/* 提供给其他C文件调用的函数 */
@@ -34043,14 +34139,15 @@ N	配置CPU系统的时钟，内部Flash访问时序，配置FSMC用于外部SRAM
 N	*/
 N	bsp_Init();		/* 硬件初始化 */
 N	
+N//	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(20));
+N//	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(20));
+N	
 N	/* 主程序大循环 */
 N	while (1)
 N	{
 N		bsp_Idle();		/* CPU空闲时执行的函数，在 bsp.c */
 N	
-N		
-N		DEBUG("陀螺仪：%.2F\r\n",bsp_AngleRead());
-X		printf ("陀螺仪：%.2F\r\n",bsp_AngleRead());
+N
 N		bsp_DelayMS(1);
 N	}
 N}
