@@ -448,31 +448,6 @@ void bsp_PrintAllVoltage(void)
 
 
 
-float bsp_PowerOn_DetectVoltage(void)
-{
-	float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
-	batteryVoltage = (batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F; 
-	
-	if(batteryVoltage <= 13.0F)
-	{
-		bsp_SperkerPlay(Song6); /*返回充电*/
-			
-		while(bsp_SpeakerIsBusy()){}
-			
-		bsp_PutKey(KEY_LONG_POWER);
-			
-	}
-	else
-	{
-		bsp_SperkerPlay(Song1); /*开机*/
-			
-		while(bsp_SpeakerIsBusy()){}
-	}
-	
-}
-
-
-
 
 
 

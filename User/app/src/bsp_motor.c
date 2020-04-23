@@ -159,29 +159,31 @@ static void bsp_InitVacuum(void)
 */
 void bsp_VacuumClean(void)
 {	
+#if 1
 	const uint32_t max_tick = 5;
 	const uint32_t changeTick = 4;
 	
 	if(!vacuum.isRunning)
 		return ;
 	
+	++vacuum.tick;
 	
+	if(vacuum.tick <= changeTick)
+	{
+		GPIO_SetBits(GPIOA,GPIO_Pin_0);
+	}
+	else if(vacuum.tick > changeTick && vacuum.tick <=max_tick)
+	{
+		GPIO_ResetBits(GPIOA,GPIO_Pin_0);
+	}
+	else
+	{
+		vacuum.tick = 0 ;
+	}
+	
+#else
 	GPIO_SetBits(GPIOA,GPIO_Pin_0);
-	
-//	++vacuum.tick;
-//	
-//	if(vacuum.tick <= changeTick)
-//	{
-//		GPIO_SetBits(GPIOA,GPIO_Pin_0);
-//	}
-//	else if(vacuum.tick > changeTick && vacuum.tick <=max_tick)
-//	{
-//		GPIO_ResetBits(GPIOA,GPIO_Pin_0);
-//	}
-//	else
-//	{
-//		vacuum.tick = 0 ;
-//	}
+#endif
 }
 
 /*

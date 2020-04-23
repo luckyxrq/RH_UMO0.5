@@ -73,13 +73,13 @@ void bsp_PowerOnLedProc(void)
 	bsp_LedOn(LED_LOGO_POWER);
 	bsp_LedOn(LED_LOGO_CHARGE);
 	
-	for(i=0;i<5;i++)
+	for(i=0;i<10;i++)
 	{
 		bsp_LedToggle(LED_LOGO_CLEAN);
 		bsp_LedToggle(LED_LOGO_POWER);
 		bsp_LedToggle(LED_LOGO_CHARGE);
 		
-		bsp_DelayMS(800);
+		bsp_DelayMS(500);
 	}
 	
 	bsp_LedOn(LED_LOGO_CLEAN);
@@ -99,10 +99,7 @@ void bsp_PowerOnLedProc(void)
 */
 void bsp_LedAppProc(void)
 {
-//	if(!ledAppProc.isRunning)
-//		return;
-	
-	
+
 	if(ledAppProc.ledAppState == LED_DEFAULT_STATE)       /*默认状态,不处理*/
 	{
 		

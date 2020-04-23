@@ -160,15 +160,6 @@ void bsp_SearchChargePile(void)
 	
 	if(bsp_IsTouchChargePile())
 	{
-		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-		bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-
-		bsp_SperkerPlay(Song22);
-		while(1);
-	}
-	
-	if(bsp_IsTouchChargePile())
-	{
 		/*播放开始充电*/
 		if(search.isNeedPlaySong && (xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
 		{
@@ -181,7 +172,6 @@ void bsp_SearchChargePile(void)
 		{
 			bsp_SetLedState(AT_CHARGING);
 			search.lastIsChargingTick = xTaskGetTickCount();
-			DEBUG("is charging\r\n");
 		}
 		else
 		{
@@ -189,8 +179,6 @@ void bsp_SearchChargePile(void)
 			{
 				bsp_SetLedState(AT_CHARGE_DONE);
 			}
-
-			DEBUG("charge done\r\n");
 		}
 		
 		search.lastIsTouchTick = xTaskGetTickCount();
@@ -266,16 +254,6 @@ void bsp_SearchChargePile(void)
 			{
 				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
 				bsp_GoBackward();
-				
-//				if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)) ||
-//					(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
-//				{
-//					search.collision = eHasSignalCollision;
-//				}
-//				else
-//				{
-//					search.collision = eNoSignalCollision;
-//				}
 				
 				search.delay = xTaskGetTickCount();
 				search.action++;

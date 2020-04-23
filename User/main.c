@@ -107,7 +107,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 	
     
 	
-	bsp_PowerOn_DetectVoltage();
+	
 	
     while(1)
     {
@@ -292,11 +292,11 @@ static void vTaskPerception(void *pvParameters)
         /*更新坐标*/
         bsp_PositionUpdate();
 		
-
+		bsp_LedAppProc();
+		
+		
 		if(count % 10 == 0)
 		{
-			//bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/
-			//bsp_AssistJudgeDirection();
 			check_dog_cur_time = xTaskGetTickCount() ;
 			if(dog_time<check_dog_cur_time)
 			{
@@ -315,9 +315,7 @@ static void vTaskPerception(void *pvParameters)
 			}
 			
 		}
-		
-		
-		
+
 		wifi_uart_service();
 		
 		count++;

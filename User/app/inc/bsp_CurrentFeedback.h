@@ -17,7 +17,7 @@ typedef enum
 void bsp_InitCurrentFeedbackADC(void);
 float bsp_GetFeedbackVoltage(FeedbackSN sn);
 void bsp_PrintAllVoltage(void);
-float bsp_PowerOn_DetectVoltage(void);
+
 
 
 #endif
