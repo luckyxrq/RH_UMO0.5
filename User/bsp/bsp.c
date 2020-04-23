@@ -57,6 +57,7 @@ void bsp_Init(void)
 	
 	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
 	
+	bsp_AngleRst();
 	bsp_SwOn(SW_5V_EN_CTRL);
 	bsp_DelayMS(1000);
 	bsp_SwOn(SW_3V3_EN_CTRL);

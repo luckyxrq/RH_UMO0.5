@@ -8,7 +8,7 @@
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
-#define DEBUG_CLOSE_CLEAN_MOTOR              1
+#define DEBUG_CLOSE_CLEAN_MOTOR              0
 
 /*
 **********************************************************************************************************
@@ -106,7 +106,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     uint32_t count = 0 ;
     
 	
-    bsp_AngleRst();
+    
 	
 	bsp_PowerOn_DetectVoltage();
 	
