@@ -66,7 +66,7 @@ void bsp_EnterStopMODE(void)
 	SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk; /* 使能滴答定时器 */  
 	portEXIT_CRITICAL();
 		
-	bsp_setCleanCarFromSleep(true);
+
 		
 	bsp_Init();
 }

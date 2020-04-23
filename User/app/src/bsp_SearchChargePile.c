@@ -52,14 +52,14 @@ typedef struct
 	volatile bool isRunning;
 	volatile uint32_t action;
 	volatile uint32_t delay;
-	volatile SearchChargePileCollision collision;
-	
-	volatile uint32_t disconnectTimes;
 	
 	uint32_t startTick;
-	uint32_t lastChargeDoneTick;
-	uint32_t lastPlaySongTick;
-	bool isLastCharging;
+	
+	bool isNeedPlaySong;
+	uint32_t isNeedPlaySongTick;
+	uint32_t lastIsChargingTick;
+	uint32_t lastIsTouchTick;
+	uint32_t lastIsNeedEdgeTick;
 }Serach;
 
 
@@ -158,73 +158,55 @@ void bsp_SearchChargePile(void)
 {
 	//DEBUG("充电:%s 充满：%s\r\n",bsp_IsCharging()?"true":"false",bsp_IsChargeDone()?"true":"false");
 	
-	if(!(bsp_IsChargeDone() && bsp_IsCharging()) && bsp_IsTouchChargePile())
+	if(bsp_IsTouchChargePile())
 	{
-		
-		if(bsp_IsCharging()) /*充电中*/
-		{
-			if(xTaskGetTickCount() - search.lastChargeDoneTick <= 500)
-			{
-				bsp_StopRunToggleLED();
-			
-				bsp_LedOn(LED_LOGO_CLEAN);
-				bsp_LedOn(LED_LOGO_POWER);
-				bsp_LedOff(LED_LOGO_CHARGE);
-				bsp_LedOff(LED_COLOR_YELLOW);
-				bsp_LedOn(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED);
-			}
-			else
-			{
-				bsp_StopRunToggleLED();
-			
-				bsp_LedOn(LED_LOGO_CLEAN);
-				bsp_LedOn(LED_LOGO_POWER);
-				bsp_LedOff(LED_LOGO_CHARGE);
-				bsp_LedOn(LED_COLOR_YELLOW);
-				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED);
-			}
-		}
-		else if(bsp_IsChargeDone()) /*充满*/
-		{
-			bsp_StopRunToggleLED();
-			
-			bsp_LedOn(LED_LOGO_CLEAN);
-			bsp_LedOn(LED_LOGO_POWER);
-			bsp_LedOff(LED_LOGO_CHARGE);
-			bsp_LedOff(LED_COLOR_YELLOW);
-			bsp_LedOn(LED_COLOR_GREEN);
-			bsp_LedOff(LED_COLOR_RED);
+		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+		bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 
-			search.lastChargeDoneTick = xTaskGetTickCount();
-			
-		}
-		
-		
-		if(!search.isLastCharging)
-		{
-			/*播放开始充电*/
-			bsp_SperkerPlay(Song22);
-		}
-		
-		search.isLastCharging = true;
+		bsp_SperkerPlay(Song22);
+		while(1);
 	}
-	else
+	
+	if(bsp_IsTouchChargePile())
 	{
-		if(search.isLastCharging)
+		/*播放开始充电*/
+		if(search.isNeedPlaySong && (xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
 		{
-			search.isLastCharging = false;
-			
-			bsp_StopRunToggleLED();
-			
-			bsp_LedOn(LED_LOGO_CLEAN);
-			bsp_LedOn(LED_LOGO_POWER);
-			bsp_LedOn(LED_LOGO_CHARGE);
-			bsp_LedOff(LED_COLOR_YELLOW);
-			bsp_LedOff(LED_COLOR_GREEN);
-			bsp_LedOff(LED_COLOR_RED);
+			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
+			bsp_SperkerPlay(Song22);
+			search.isNeedPlaySong = false;
 		}
+
+		if(bsp_IsCharging())
+		{
+			bsp_SetLedState(AT_CHARGING);
+			search.lastIsChargingTick = xTaskGetTickCount();
+			DEBUG("is charging\r\n");
+		}
+		else
+		{
+			if(xTaskGetTickCount() - search.lastIsChargingTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
+			{
+				bsp_SetLedState(AT_CHARGE_DONE);
+			}
+
+			DEBUG("charge done\r\n");
+		}
+		
+		search.lastIsTouchTick = xTaskGetTickCount();
+	}
+	else /*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
+	{
+		search.isNeedPlaySong = true;
+		search.isNeedPlaySongTick = xTaskGetTickCount();
+		
+		if(xTaskGetTickCount() - search.lastIsTouchTick >= 500)
+		{
+			bsp_SetLedState(THREE_WHITE_ON);   /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!治理需要根据扫地与否更改*/
+			
+			 search.lastIsTouchTick = UINT32_T_MAX;
+		}
+		
 	}
 	
 	
@@ -241,7 +223,6 @@ void bsp_SearchChargePile(void)
 		bsp_SetMotorSpeed(MotorRight,0);
 		bsp_StopSearchChargePile();
 		
-		bsp_StopRunToggleLED();
 		
 		bsp_LedOn(LED_LOGO_CLEAN);
 		bsp_LedOn(LED_LOGO_POWER);
@@ -251,8 +232,6 @@ void bsp_SearchChargePile(void)
 		bsp_LedOff(LED_COLOR_RED);
 		bsp_SperkerPlay(Song24);
 		
-		
-		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
 		
 		return;
 	}
@@ -266,11 +245,6 @@ void bsp_SearchChargePile(void)
 		bsp_SetMotorSpeed(MotorLeft,0);
 		bsp_SetMotorSpeed(MotorRight,0);
 		bsp_StopSearchChargePile();
-		
-		
-		
-		
-		bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
 		
 		return ;
 	}

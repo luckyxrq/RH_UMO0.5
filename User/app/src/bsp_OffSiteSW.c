@@ -128,29 +128,6 @@ void bsp_OffSiteProc(void)
 
 				DEBUG("离地开关\r\n");
 	
-				/*灯光恢复最开始*/
-				bsp_LedOn(LED_LOGO_CLEAN);
-				bsp_LedOn(LED_LOGO_POWER);
-				bsp_LedOn(LED_LOGO_CHARGE);
-				bsp_LedOff(LED_COLOR_YELLOW);
-				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED);
-				
-				bsp_StopRunToggleLED();
-				
-				/*关闭各种状态机*/
-				bsp_StopSearchChargePile();
-				bsp_StopCliffTest();
-				bsp_StopUpdateCleanStrategyB();
-				bsp_StopVacuum();
-				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
-				bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
-				
-				/*复位上一次的按键状态*/
-				bsp_SetKeyRunLastState(RUN_STATE_DEFAULT);
-				isSearchCharge = false;
-				bsp_ClearKey();
-				
 				offSiteProc.action++;
 			}
 		}break;

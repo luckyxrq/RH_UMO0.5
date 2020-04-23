@@ -72,6 +72,9 @@
 	#define FALSE 0
 #endif
 
+#define UINT32_T_MAX      0xFFFFFFFF
+
+
 /*
 	EXTI9_5_IRQHandler 的中断服务程序分散在几个独立的 bsp文件中。
 	需要整合到 stm32f4xx_it.c 中。

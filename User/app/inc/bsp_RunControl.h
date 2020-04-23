@@ -1,33 +1,21 @@
 #ifndef __BSP_RUN_CONTROL_H
 #define __BSP_RUN_CONTROL_H
 
-#include <stdbool.h>
-#include "bsp_led.h"
-
-/*运行状态*/
 typedef enum
 {
-	RUN_STATE_DEFAULT = 0 ,
-	RUN_STATE_CLEAN,
-	RUN_STATE_CHARGE,
-	RUN_STATE_SHUTDOWN
-}RunState;
+	LED_DEFAULT_STATE = 0,
+	THREE_WHITE_TOOGLE,       /*三颗白色LED一起闪*/
+	THREE_WHITE_ON,           /*三颗白色LED一起亮*/
+	AT_CHARGING,
+	AT_CHARGE_DONE,
+	
+}LedAppState;
 
-
-bool bsp_IsSelfCheckingReady(void);
-void bsp_SetSelfCheckingReady(bool chk);
-
-void bsp_StartPowerOnToggle(void);
-void bsp_StopPowerOnToggle(void);
-void bsp_PowerOnToggle(void);
-
-void bsp_StartRunToggleLED(LED_SN sn);
-void bsp_StopRunToggleLED(void);
-void bsp_RunToggleLED(void);
-
-
-bool isCleanCarFromSleep(void);
-void bsp_setCleanCarFromSleep(bool val);
+void bsp_CloseAllLed(void);
+void bsp_OpenThreeWhileLed(void);
+void bsp_LedAppProc(void);
+void bsp_SetLedState(LedAppState ledAppState);
+void bsp_PowerOnLedProc(void);
 
 #endif
 
