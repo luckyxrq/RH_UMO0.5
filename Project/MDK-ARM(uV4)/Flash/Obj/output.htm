@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Apr 23 17:31:59 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Apr 23 17:45:28 2020
 <BR><P>
 <H3>Maximum Stack Usage =        568 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2356,7 +2356,7 @@ Global Symbols
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
 
-<P><STRONG><a name="[1a7]"></a>bsp_IR_GetRev</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp_ir_decode.o(i.bsp_IR_GetRev))
+<P><STRONG><a name="[1a6]"></a>bsp_IR_GetRev</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp_ir_decode.o(i.bsp_IR_GetRev))
 <BR><BR>[Called By]<UL><LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
@@ -2793,7 +2793,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[1a4]"></a>bsp_SearchChargePile</STRONG> (Thumb, 1460 bytes, Stack size 24 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
+<P><STRONG><a name="[1a4]"></a>bsp_SearchChargePile</STRONG> (Thumb, 1486 bytes, Stack size 24 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = bsp_SearchChargePile &rArr; bsp_CliffIsDangerous &rArr; bsp_GetCliffVoltage &rArr; ADC_RegularChannelConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
@@ -2812,12 +2812,12 @@ Global Symbols
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlowBack
 <LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlow
 <LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlowBack
-<LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
+<LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RotateCCW
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCW
 <LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCCW
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GoBackward
-<LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetRev
+<LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetRev
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CliffIsDangerous
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
@@ -2850,7 +2850,7 @@ Global Symbols
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlowBack
 <LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlow
 <LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlowBack
-<LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
+<LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RotateCCW
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCW
 <LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCCW
@@ -4199,7 +4199,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[1a6]"></a>bsp_SearchRunStraightSlow</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchRunStraightSlow))
+<P><STRONG><a name="[1a7]"></a>bsp_SearchRunStraightSlow</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchRunStraightSlow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_SearchRunStraightSlow
 </UL>
 <BR>[Calls]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed

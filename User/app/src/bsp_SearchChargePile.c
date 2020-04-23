@@ -246,7 +246,9 @@ void bsp_SearchChargePile(void)
 	{
 		case 0:
 		{
-			bsp_SearchRunStraightSlow();
+			bsp_SetMotorSpeed(MotorLeft, 8);
+			bsp_SetMotorSpeed(MotorRight,10);
+			
 			search.action++;
 		}break;
 		
@@ -329,7 +331,8 @@ void bsp_SearchChargePile(void)
 			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
 				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
 			{
-				bsp_SearchRunStraightSlow();
+				bsp_SetMotorSpeed(MotorLeft, 8);
+				bsp_SetMotorSpeed(MotorRight,10);
 			}
 			
 			
