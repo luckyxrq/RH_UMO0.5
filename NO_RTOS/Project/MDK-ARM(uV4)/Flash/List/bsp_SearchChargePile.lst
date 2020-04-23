@@ -34295,6 +34295,8 @@ X	_Bool isNeedPlaySong;
 N	uint32_t isNeedPlaySongTick;
 N	uint32_t lastIsChargingTick;
 N	uint32_t lastIsTouchTick;
+N	uint32_t lastIsNeedEdgeTick;
+N	
 N	
 N	uint8_t ccwSearchStopBy;
 N}Serach;
@@ -34338,7 +34340,7 @@ X	search.isRunning = 0;
 N	search.action = 0 ;
 N	search.delay = 0 ;
 N	
-N	bsp_IRD_StopWork();
+N	//bsp_IRD_StopWork();
 N}	
 N
 N
@@ -34410,6 +34412,23 @@ N
 N	}
 N	
 N	
+N	if(!search.isRunning)
+N		return;
+N	
+N	/*检测附近没有充电桩信号*/
+N	if(!(CH1_HAVE_ANG_SIGNAL || CH2_HAVE_ANG_SIGNAL || CH3_HAVE_ANG_SIGNAL || CH4_HAVE_ANG_SIGNAL))
+X	if(!((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT)||bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER)||bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)) || (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)||bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)||bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)) || (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT)||bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER)||bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)) || (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT)||bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER)||bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT))))
+N	{
+N		search.lastIsNeedEdgeTick = bsp_GetRunTime(); 
+N	}
+N	
+N	if(bsp_GetRunTime() - search.lastIsNeedEdgeTick >= 10*1000)
+N	{
+N		bsp_StopSearchChargePile();
+N		bsp_StartEdgewiseRun();
+N		return ;
+N	}
+N	
 N	switch(search.action)
 N	{
 N		case 0:
@@ -34480,16 +34499,16 @@ N				search.delay = bsp_GetRunTime();
 N				
 N				++search.action;
 N			}
-N			
+N			else
+N			{
+N				search.action = 4 ;
+N			}
 N		}break;
 N		
 N		case 3:
 N		{
 N			if(((bsp_GetRunTime()-search.delay)>=1000 && abs(bsp_AngleRead()-search.angle)<=10.0F))
 N			{
-N				search.ccwSearchStopBy = CCW_STOP_BY_OUTTIME;
-X				search.ccwSearchStopBy = 4;
-N				
 N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
 N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 N				++search.action;
@@ -34502,7 +34521,7 @@ N			if(bsp_CollisionScan() != CollisionNone)
 N			{
 N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
 N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-N				
+N				search.delay = bsp_GetRunTime();
 N				++search.action;
 N			}
 N			/*前面2个，都能收到左右发射*/
@@ -34539,7 +34558,7 @@ N			/*1，2号都能收到左边，都不能收到右边*/
 N			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && 
 N				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
 N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(180));
+N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(220));
 N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
 N			}
 N			/*1，2号都能收到右边，都不能收到左边*/
@@ -34547,7 +34566,7 @@ N			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX
 N				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
 N			{
 N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(180));
+N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(220));
 N			}
 N
 N			
@@ -34556,13 +34575,13 @@ N			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_T
 N				&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
 N			{
 N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(180));
+N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(220));
 N			}
 N			/*1号能同时收到左右发射，2不能同时收到左右发射*/
 N			else if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
 N				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
 N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(180));
+N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(220));
 N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
 N			}
 N			/*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
@@ -34588,91 +34607,101 @@ N		}break;
 N		
 N		case 5:
 N		{
-N			/*前面2个，都能收到左右发射*/
-N			if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
-N				&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+N			if(bsp_GetRunTime() - search.delay <= 2000)
 N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-200));
+N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-200));
 N			}
-N			/*前面2个，各收各*/
-N			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+N			else
 N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
-N			}
-N			
-N			
-N			/*1号能收到2个 ,2号能收到左边*/
-N			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
-N			}
-N			
-N			/*2号能收到2个 ,1号能收到右边*/
-N			else if(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
-N			}
-N			
-N			
-N			/*1，2号都能收到左边，都不能收到右边*/
-N			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && 
-N				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-180));
-N			}
-N			/*1，2号都能收到右边，都不能收到左边*/
-N			else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && 
-N				!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-180));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-N			}
+N				/*前面2个，都能收到左右发射*/
+N				if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
+N					&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+N				}
+N				/*前面2个，各收各*/
+N				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+N				}
+N				
+N				
+N				/*1号能收到2个 ,2号能收到左边*/
+N				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+N				}
+N				
+N				/*2号能收到2个 ,1号能收到右边*/
+N				else if(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+N				}
+N				
+N				
+N				/*1，2号都能收到左边，都不能收到右边*/
+N				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && 
+N					!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-220));
+N				}
+N				/*1，2号都能收到右边，都不能收到左边*/
+N				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && 
+N					!bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-220));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+N				}
 N
-N			
-N			/*1号不能同时收到左右发射，2能同时收到左右发射*/
-N			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
-N				&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-180));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-N			}
-N			/*1号能同时收到左右发射，2不能同时收到左右发射*/
-N			else if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
-N				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-180));
-N			}
-N			/*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
-N			else if(bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-N			}
-N			/*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
-N			else if(bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-N			}
-N			/*1，2都不能同时收到左右发射*/
-N			else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
-N				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
-N			{
-N				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
-N				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+N				
+N				/*1号不能同时收到左右发射，2能同时收到左右发射*/
+N				else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+N					&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-220));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+N				}
+N				/*1号能同时收到左右发射，2不能同时收到左右发射*/
+N				else if((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+N					&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-220));
+N				}
+N				/*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+N				else if(bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+N				}
+N				/*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+N				else if(bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-100));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+N				}
+N				/*1，2都不能同时收到左右发射*/
+N				else if(!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+N					&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+N				{
+N					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
+N					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
+N				}
+N				
+N				if(bsp_GetRunTime() - search.delay >= 3000)
+N				{
+N					--search.action;
+N				}
 N			}
 N		}break;
 N	}
-N	
-N	
-N	
-N	
+N
 N}
 N
 N	

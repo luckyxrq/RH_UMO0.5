@@ -5,21 +5,21 @@
                           AREA ||i.bsp_KeyProc||, CODE, READONLY, ALIGN=2
 
                   bsp_KeyProc PROC
-;;;63     */
-;;;64     static void bsp_KeyProc(void)
+;;;68     */
+;;;69     static void bsp_KeyProc(void)
 000000  b510              PUSH     {r4,lr}
-;;;65     {
-;;;66     	uint8_t ucKeyCode;	
-;;;67     	
-;;;68     	ucKeyCode = bsp_GetKey();
+;;;70     {
+;;;71     	uint8_t ucKeyCode;	
+;;;72     	
+;;;73     	ucKeyCode = bsp_GetKey();
 000002  f7fffffe          BL       bsp_GetKey
 000006  4604              MOV      r4,r0
-;;;69     	if (ucKeyCode > 0)
+;;;74     	if (ucKeyCode > 0)
 000008  2c00              CMP      r4,#0
 00000a  dd30              BLE      |L1.110|
-;;;70     	{
-;;;71     		/* 有键按下 */
-;;;72     		switch (ucKeyCode)
+;;;75     	{
+;;;76     		/* 有键按下 */
+;;;77     		switch (ucKeyCode)
 00000c  2c07              CMP      r4,#7
 00000e  d010              BEQ      |L1.50|
 000010  dc08              BGT      |L1.36|
@@ -41,95 +41,95 @@
 00002e  d11d              BNE      |L1.108|
 000030  e018              B        |L1.100|
                   |L1.50|
-;;;73     		{
-;;;74     			case KEY_DOWN_POWER:
-;;;75     			{
-;;;76     				DEBUG("电源按键按下\r\n");
+;;;78     		{
+;;;79     			case KEY_DOWN_POWER:
+;;;80     			{
+;;;81     				DEBUG("电源按键按下\r\n");
 000032  a00f              ADR      r0,|L1.112|
 000034  f7fffffe          BL       __2printf
-;;;77     
-;;;78     			}break;
+;;;82     
+;;;83     			}break;
 000038  e018              B        |L1.108|
                   |L1.58|
-;;;79     				
-;;;80     			case KEY_DOWN_CHARGE:
-;;;81     			{
-;;;82     				DEBUG("充电按键按下\r\n");
+;;;84     				
+;;;85     			case KEY_DOWN_CHARGE:
+;;;86     			{
+;;;87     				DEBUG("充电按键按下\r\n");
 00003a  a011              ADR      r0,|L1.128|
 00003c  f7fffffe          BL       __2printf
-;;;83     
-;;;84     			}break;
+;;;88     
+;;;89     			}break;
 000040  e014              B        |L1.108|
                   |L1.66|
-;;;85     				
-;;;86     			case KEY_DOWN_CLEAN:	
-;;;87     			{
-;;;88     				DEBUG("清扫按键按下\r\n");
+;;;90     				
+;;;91     			case KEY_DOWN_CLEAN:	
+;;;92     			{
+;;;93     				DEBUG("清扫按键按下\r\n");
 000042  a013              ADR      r0,|L1.144|
 000044  f7fffffe          BL       __2printf
-;;;89     
-;;;90     			}break;
+;;;94     
+;;;95     			}break;
 000048  e010              B        |L1.108|
                   |L1.74|
-;;;91     
-;;;92     			case KEY_LONG_POWER:
-;;;93     			{
-;;;94     				DEBUG("电源按键长按\r\n");
+;;;96     
+;;;97     			case KEY_LONG_POWER:
+;;;98     			{
+;;;99     				DEBUG("电源按键长按\r\n");
 00004a  a015              ADR      r0,|L1.160|
 00004c  f7fffffe          BL       __2printf
-;;;95     				
-;;;96     				
-;;;97     			}break;
+;;;100    				
+;;;101    				
+;;;102    			}break;
 000050  e00c              B        |L1.108|
                   |L1.82|
-;;;98     			
-;;;99     			case KEY_LONG_CHARGE:
-;;;100    			{
-;;;101    				DEBUG("充电按键长按\r\n");
+;;;103    			
+;;;104    			case KEY_LONG_CHARGE:
+;;;105    			{
+;;;106    				DEBUG("充电按键长按\r\n");
 000052  a017              ADR      r0,|L1.176|
 000054  f7fffffe          BL       __2printf
-;;;102    				
-;;;103    				
-;;;104    			}break;
+;;;107    				
+;;;108    				
+;;;109    			}break;
 000058  e008              B        |L1.108|
                   |L1.90|
-;;;105    			
-;;;106    			case KEY_LONG_CLEAN:
-;;;107    			{
-;;;108    				DEBUG("清扫按键长按\r\n");
+;;;110    			
+;;;111    			case KEY_LONG_CLEAN:
+;;;112    			{
+;;;113    				DEBUG("清扫按键长按\r\n");
 00005a  a019              ADR      r0,|L1.192|
 00005c  f7fffffe          BL       __2printf
-;;;109    				
-;;;110    				
-;;;111    			}break;
+;;;114    				
+;;;115    				
+;;;116    			}break;
 000060  e004              B        |L1.108|
                   |L1.98|
-;;;112    			
-;;;113    			case KEY_9_DOWN:
-;;;114    			{
-;;;115    				
-;;;116    				
-;;;117    			}break;
+;;;117    			
+;;;118    			case KEY_9_DOWN:
+;;;119    			{
+;;;120    				
+;;;121    				
+;;;122    			}break;
 000062  e003              B        |L1.108|
                   |L1.100|
-;;;118    			
-;;;119    			
-;;;120    			case KEY_10_DOWN:
-;;;121    			{
-;;;122    				DEBUG("重新配网：同时按充电和清扫\r\n");
+;;;123    			
+;;;124    			
+;;;125    			case KEY_10_DOWN:
+;;;126    			{
+;;;127    				DEBUG("重新配网：同时按充电和清扫\r\n");
 000064  a01a              ADR      r0,|L1.208|
 000066  f7fffffe          BL       __2printf
-;;;123    
-;;;124    			}break;
+;;;128    
+;;;129    			}break;
 00006a  bf00              NOP      
                   |L1.108|
-00006c  bf00              NOP                            ;78
+00006c  bf00              NOP                            ;83
                   |L1.110|
-;;;125    		}   
-;;;126    	}
-;;;127    }
+;;;130    		}   
+;;;131    	}
+;;;132    }
 00006e  bd10              POP      {r4,pc}
-;;;128    
+;;;133    
                           ENDP
 
                   |L1.112|
@@ -203,44 +203,56 @@
 ;;;27     
 ;;;28     	bsp_IRD_StartWork();
 000006  f7fffffe          BL       bsp_IRD_StartWork
-;;;29     	
-;;;30     	bsp_SetLedState(THREE_WHITE_TOOGLE);
-00000a  2001              MOVS     r0,#1
-00000c  f7fffffe          BL       bsp_SetLedState
-;;;31     	
-;;;32     	
-;;;33     	/* 主程序大循环 */
-;;;34     	while (1)
-000010  e00b              B        |L2.42|
-                  |L2.18|
-;;;35     	{
-;;;36     	
-;;;37     		bsp_PositionUpdate();
-000012  f7fffffe          BL       bsp_PositionUpdate
-;;;38     		bsp_LedAppProc();
-000016  f7fffffe          BL       bsp_LedAppProc
-;;;39     		bsp_KeyProc();
-00001a  f7fffffe          BL       bsp_KeyProc
-;;;40     		bsp_SearchChargePile();
-00001e  f7fffffe          BL       bsp_SearchChargePile
-;;;41     		
-;;;42     		
-;;;43     		if(tick % 1000 == 0)
-;;;44     		{
-;;;45     			//bsp_PrintIR_Rev();
-;;;46     		}
-;;;47     		
-;;;48     		/*下面内容不修改*/
-;;;49     		++tick;
-000022  1c64              ADDS     r4,r4,#1
-;;;50     		bsp_DelayMS(1);
-000024  2001              MOVS     r0,#1
-000026  f7fffffe          BL       bsp_DelayMS
-                  |L2.42|
-00002a  e7f2              B        |L2.18|
-;;;51     	}
-;;;52     }
-;;;53     
+;;;29     
+;;;30     	
+;;;31     	/* 主程序大循环 */
+;;;32     	while (1)
+00000a  e01b              B        |L2.68|
+                  |L2.12|
+;;;33     	{
+;;;34     	
+;;;35     		bsp_PositionUpdate();
+00000c  f7fffffe          BL       bsp_PositionUpdate
+;;;36     		bsp_LedAppProc();
+000010  f7fffffe          BL       bsp_LedAppProc
+;;;37     		bsp_KeyProc();
+000014  f7fffffe          BL       bsp_KeyProc
+;;;38     		bsp_SearchChargePile();
+000018  f7fffffe          BL       bsp_SearchChargePile
+;;;39     		bsp_EdgewiseRun();
+00001c  f7fffffe          BL       bsp_EdgewiseRun
+;;;40     		
+;;;41     		if(tick % 100 == 0)
+;;;42     		{
+;;;43     			//bsp_PrintIR_Rev();
+;;;44     			
+;;;45     		}
+;;;46     		
+;;;47     		/*下面内容不修改*/
+;;;48     		++tick;
+000020  1c64              ADDS     r4,r4,#1
+;;;49     		bsp_DelayMS(1);
+000022  2001              MOVS     r0,#1
+000024  f7fffffe          BL       bsp_DelayMS
+;;;50     		
+;;;51     		
+;;;52     		bsp_LedOff(1);
+000028  2001              MOVS     r0,#1
+00002a  f7fffffe          BL       bsp_LedOff
+;;;53     		bsp_DelayUS(260);
+00002e  f44f7082          MOV      r0,#0x104
+000032  f7fffffe          BL       bsp_DelayUS
+;;;54     		bsp_LedOn(1);
+000036  2001              MOVS     r0,#1
+000038  f7fffffe          BL       bsp_LedOn
+;;;55     		bsp_DelayUS(1740);
+00003c  f24060cc          MOV      r0,#0x6cc
+000040  f7fffffe          BL       bsp_DelayUS
+                  |L2.68|
+000044  e7e2              B        |L2.12|
+;;;56     	}
+;;;57     }
+;;;58     
                           ENDP
 
 

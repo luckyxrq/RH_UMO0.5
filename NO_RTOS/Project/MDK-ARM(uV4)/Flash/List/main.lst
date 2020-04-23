@@ -34283,9 +34283,7 @@ N//	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
 N//	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
 N
 N	bsp_IRD_StartWork();
-N	
-N	bsp_SetLedState(THREE_WHITE_TOOGLE);
-N	
+N
 N	
 N	/* 主程序大循环 */
 N	while (1)
@@ -34295,16 +34293,25 @@ N		bsp_PositionUpdate();
 N		bsp_LedAppProc();
 N		bsp_KeyProc();
 N		bsp_SearchChargePile();
+N		bsp_EdgewiseRun();
 N		
-N		
-N		if(tick % 1000 == 0)
+N		if(tick % 100 == 0)
 N		{
 N			//bsp_PrintIR_Rev();
+N			
 N		}
 N		
 N		/*下面内容不修改*/
 N		++tick;
 N		bsp_DelayMS(1);
+N		
+N		
+W "..\..\User\app\src\main.c" 52 14 enumerated type mixed with another type
+N		bsp_LedOff(1);
+N		bsp_DelayUS(260);
+W "..\..\User\app\src\main.c" 54 13 enumerated type mixed with another type
+N		bsp_LedOn(1);
+N		bsp_DelayUS(1740);
 N	}
 N}
 N

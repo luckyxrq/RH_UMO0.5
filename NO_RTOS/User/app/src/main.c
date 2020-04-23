@@ -26,9 +26,7 @@ int main(void)
 //	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
 
 	bsp_IRD_StartWork();
-	
-	bsp_SetLedState(THREE_WHITE_TOOGLE);
-	
+
 	
 	/* 主程序大循环 */
 	while (1)
@@ -38,16 +36,23 @@ int main(void)
 		bsp_LedAppProc();
 		bsp_KeyProc();
 		bsp_SearchChargePile();
+		bsp_EdgewiseRun();
 		
-		
-		if(tick % 1000 == 0)
+		if(tick % 100 == 0)
 		{
 			//bsp_PrintIR_Rev();
+			
 		}
 		
 		/*下面内容不修改*/
 		++tick;
 		bsp_DelayMS(1);
+		
+		
+		bsp_LedOff(1);
+		bsp_DelayUS(260);
+		bsp_LedOn(1);
+		bsp_DelayUS(1740);
 	}
 }
 
