@@ -562,6 +562,11 @@
               <FilePath>..\..\User\app\src\bsp_Position.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_SearchChargePile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_SearchChargePile.c</FilePath>
+            </File>
+            <File>
               <FileName>bsp_param.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_param.c</FilePath>
@@ -600,11 +605,6 @@
               <FileName>bsp_RunControl.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_RunControl.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_SearchChargePile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_SearchChargePile.c</FilePath>
             </File>
             <File>
               <FileName>bsp_assistJudgeDirection.c</FileName>

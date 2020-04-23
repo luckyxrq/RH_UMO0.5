@@ -142,7 +142,29 @@ void bsp_LedAppProc(void)
 		bsp_LedOn(LED_COLOR_GREEN);
 		bsp_LedOff(LED_COLOR_RED);
 	}
+	else if(ledAppProc.ledAppState == AT_SEARCH_CHARGE)
+	{
+		if(xTaskGetTickCount() - ledAppProc.delay >= 360)
+		{
+			bsp_LedToggle(LED_LOGO_CHARGE);
+			
+			ledAppProc.delay = xTaskGetTickCount();
+		}
+	}
+	else if(ledAppProc.ledAppState == AT_CLEAN)
+	{
+		if(xTaskGetTickCount() - ledAppProc.delay >= 360)
+		{
+			bsp_LedToggle(LED_LOGO_CLEAN);
+			
+			ledAppProc.delay = xTaskGetTickCount();
+		}
+	}
 }
 
+LedAppState bsp_GetLedAppState(void)
+{
+	return ledAppProc.ledAppState;
+}
 
 

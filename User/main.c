@@ -103,12 +103,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     
     uint32_t count = 0 ;
-    
-	
-    
-	
-	
-	
+
     while(1)
     {
         /* 处理按键事件 */
@@ -126,7 +121,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_WifiStateProc();
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
-			
 //			bsp_PrintAllVoltage();
         }
 		
@@ -137,10 +131,6 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 
 		}
-		
-		//DEBUG("Start:%d\r\n",xTaskGetTickCount());
-		//DEBUG("X:%d,Y:%d#\n",bsp_GetCurrentPosX(),bsp_GetCurrentPosY());
-		//DEBUG("End:%d\r\n",xTaskGetTickCount());
 #endif
 		
 		if(count % 10 == 0)
@@ -178,9 +168,6 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
-		
-		
-
 		
 		if(count %2 ==0)
 		{
@@ -248,10 +235,7 @@ static void vTaskPerception(void *pvParameters)
 	
 	//bsp_StartCliffTest();
 
-	
-
 	vTaskDelay(2000);		
-	
 	
 	bsp_InitCliffSW();
 	
@@ -263,10 +247,8 @@ static void vTaskPerception(void *pvParameters)
 	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
 #endif
 	
-	
     while(1)
     {
-		
 		//bsp_ComAnalysis();
 		
 #if 1
@@ -282,7 +264,6 @@ static void vTaskPerception(void *pvParameters)
 		bsp_CliffTest();
 #endif
 		
-	
 		/*检测主机悬空*/
 		bsp_OffSiteProc();
         /*寻找充电桩*/
@@ -293,7 +274,6 @@ static void vTaskPerception(void *pvParameters)
         bsp_PositionUpdate();
 		
 		bsp_LedAppProc();
-		
 		
 		if(count % 10 == 0)
 		{
@@ -313,7 +293,6 @@ static void vTaskPerception(void *pvParameters)
 					 &xHandleTaskControl );         /* 任务句柄  */	
 				}	
 			}
-			
 		}
 
 		wifi_uart_service();
@@ -405,6 +384,34 @@ void  App_Printf(char *format, ...)
     xSemaphoreGive(xMutex);
 }
 
+static void bsp_StopAllMotor(void)
+{
+	bsp_SetMotorSpeed(MotorLeft, 0);
+	bsp_SetMotorSpeed(MotorRight,0);
+	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
+	bsp_MotorCleanSetPWM(MotorRollingBrush, CW , 0);
+	bsp_StopVacuum();
+}
+
+
+typedef enum
+{
+	eKEY_NONE = 0,
+	eKEY_CLEAN
+}KEY_STATE;
+
+static KEY_STATE key_state = eKEY_NONE;
+
+void bsp_SetLastKeyState(KEY_STATE state)
+{
+	key_state = state;
+}
+
+KEY_STATE bsp_GetLastKeyState(void)
+{
+	return key_state;
+}
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_KeySuspend
@@ -415,11 +422,27 @@ void  App_Printf(char *format, ...)
 */
 static void bsp_KeySuspend(void)
 {
+	/*灯光亮3颗白色灯*/
+	bsp_OpenThreeWhileLed();
+	bsp_SetLedState(LED_DEFAULT_STATE);
 	
+	/*关闭所有电机*/
+	bsp_StopAllMotor();
+	
+	/*关闭所有状态机*/
+	bsp_StopSearchChargePile();
+	bsp_StopCliffTest();
+	bsp_StopUpdateCleanStrategyB();
+
+	/*上一次是清扫，本次就播放暂停清扫*/
+	if(bsp_GetLastKeyState() == eKEY_CLEAN)
+	{
+		bsp_SperkerPlay(Song4);
+	}
+	
+	/*设置上一次按键值*/
+	bsp_SetLastKeyState(eKEY_NONE);
 }
-
-
-
 
 /*
 *********************************************************************************************************
@@ -434,7 +457,6 @@ static void bsp_KeyProc(void)
 	uint8_t ucKeyCode;	
 	
 	ucKeyCode = bsp_GetKey();
-	//if (ucKeyCode > 0 && bsp_IsSelfCheckingReady())
 	if (ucKeyCode > 0)
 	{
 		/* 有键按下 */
@@ -470,15 +492,21 @@ static void bsp_KeyProc(void)
 			case KEY_LONG_CHARGE: /*充电*/	
 			{
 				DEBUG("充电按键长按\r\n");
-				
-				
+
+				bsp_SperkerPlay(Song5);
+				bsp_StartSearchChargePile();
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.5F);
+				/*设置上一次按键值*/
+				bsp_SetLastKeyState(eKEY_NONE);
+				/*设置LED状态*/
+				bsp_SetLedState(AT_SEARCH_CHARGE);
+				isSearchCharge = true;
+				bsp_ClearKey();
 			}break;
 			
 			case KEY_LONG_CLEAN: /*清扫*/
 			{
 				DEBUG("清扫按键长按\r\n");
-				
-				
 			}break;
 			
 			case KEY_9_DOWN:

@@ -190,8 +190,14 @@ void bsp_SearchChargePile(void)
 		
 		if(xTaskGetTickCount() - search.lastIsTouchTick >= 500)
 		{
-			bsp_SetLedState(THREE_WHITE_ON);   /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!治理需要根据扫地与否更改*/
-			
+			 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!治理需要根据扫地与否更改*/
+			if( bsp_GetLedAppState() != AT_CLEAN && 
+				bsp_GetLedAppState() != AT_SEARCH_CHARGE &&
+				bsp_GetLedAppState() != THREE_WHITE_TOOGLE )
+			{
+				bsp_SetLedState(THREE_WHITE_ON);  
+			}
+
 			 search.lastIsTouchTick = UINT32_T_MAX;
 		}
 		
@@ -229,7 +235,6 @@ void bsp_SearchChargePile(void)
 	/*充电*/
 	if(bsp_IsTouchChargePile() == true)
 	{
-		DEBUG("is charging...\r\n");
 		bsp_SetMotorSpeed(MotorLeft,0);
 		bsp_SetMotorSpeed(MotorRight,0);
 		bsp_StopSearchChargePile();

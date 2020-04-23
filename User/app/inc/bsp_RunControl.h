@@ -9,6 +9,8 @@ typedef enum
 	AT_CHARGING,
 	AT_CHARGE_DONE,
 	
+	AT_SEARCH_CHARGE,
+	AT_CLEAN
 }LedAppState;
 
 void bsp_CloseAllLed(void);
@@ -16,6 +18,7 @@ void bsp_OpenThreeWhileLed(void);
 void bsp_LedAppProc(void);
 void bsp_SetLedState(LedAppState ledAppState);
 void bsp_PowerOnLedProc(void);
+LedAppState bsp_GetLedAppState(void);
 
 #endif
 
