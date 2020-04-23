@@ -354,8 +354,12 @@ void bsp_SearchChargePile(void)
 			}
 			else
 			{
+				if(xTaskGetTickCount() - search.delay <= 500)
+				{
+					bsp_GoBackward();
+				}
 				/*前面2个，都能收到左右发射*/
-				if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
+				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
 				&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
 				{
 					bsp_SearchRunStraightSlow();
