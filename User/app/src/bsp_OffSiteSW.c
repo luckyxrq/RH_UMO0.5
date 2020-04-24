@@ -123,11 +123,10 @@ void bsp_OffSiteProc(void)
 			state = bsp_OffSiteGetState();
 			if(state == OffSiteBoth)
 			{
+				bsp_OffsiteSuspend();
 				/*语音报警*/
 				bsp_SperkerPlay(Song16);
-
-				DEBUG("离地开关\r\n");
-	
+				
 				offSiteProc.action++;
 			}
 		}break;

@@ -25,8 +25,8 @@ static void vTaskPerception(void *pvParameters);
 static void AppTaskCreate (void);
 static void AppObjCreate (void);
 void  App_Printf(char *format, ...);
-static void bsp_KeySuspend(void);
 static void bsp_KeyProc(void);
+static void bsp_KeySuspend(void);
 /*
 **********************************************************************************************************
                                             变量声明
@@ -121,7 +121,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_WifiStateProc();
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
-//			bsp_PrintAllVoltage();
+			bsp_PrintAllVoltage();
         }
 		
 #if 1 /*更新地图*/
@@ -412,6 +412,25 @@ KEY_STATE bsp_GetLastKeyState(void)
 	return key_state;
 }
 
+void bsp_OffsiteSuspend(void)
+{
+	/*灯光亮3颗白色灯*/
+	bsp_OpenThreeWhileLed();
+	bsp_SetLedState(LED_DEFAULT_STATE);
+	
+	/*关闭所有电机*/
+	bsp_StopAllMotor();
+	
+	/*关闭所有状态机*/
+	bsp_StopSearchChargePile();
+	bsp_StopCliffTest();
+	bsp_StopUpdateCleanStrategyB();
+
+	
+	/*设置上一次按键值*/
+	bsp_SetLastKeyState(eKEY_NONE);
+}
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_KeySuspend
@@ -493,6 +512,13 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("充电按键长按\r\n");
 
+				/*首先判断是否主机悬空*/
+				if(bsp_OffSiteGetState() != OffSiteNone)
+				{
+					bsp_SperkerPlay(Song16);
+					return;
+				}
+				
 				bsp_SperkerPlay(Song5);
 				bsp_StartSearchChargePile();
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.5F);
@@ -507,6 +533,15 @@ static void bsp_KeyProc(void)
 			case KEY_LONG_CLEAN: /*清扫*/
 			{
 				DEBUG("清扫按键长按\r\n");
+				
+				/*首先判断是否主机悬空*/
+				if(bsp_OffSiteGetState() != OffSiteNone)
+				{
+					bsp_SperkerPlay(Song16);
+					return;
+				}
+				
+				
 			}break;
 			
 			case KEY_9_DOWN:

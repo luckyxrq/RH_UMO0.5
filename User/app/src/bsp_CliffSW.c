@@ -276,9 +276,6 @@ bool bsp_CliffIsDangerous(CliffSWSN sn)
 	cliff[sn].currentVoltage = bsp_GetCliffVoltage(sn);
 	if(cliff[sn].initializeVoltage - cliff[sn].currentVoltage >= cliff[sn].threshold)
 	{
-		//bsp_SetMotorSpeed(MotorLeft, 0);
-		//bsp_SetMotorSpeed(MotorRight,0);
-		
 		return true;
 	}
 	

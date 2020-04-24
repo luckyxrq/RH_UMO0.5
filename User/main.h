@@ -3,5 +3,7 @@
 
 #include "bsp_RunControl.h"
 
+void bsp_OffsiteSuspend(void);
+
 #endif
 
