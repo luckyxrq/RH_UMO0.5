@@ -19,7 +19,7 @@
 #include "bsp.h"
 
 
-
+extern void vSetupSysInfoTest(void);
 
 
 
@@ -128,14 +128,17 @@ void bsp_Init(void)
 #endif
 	
 	bsp_PowerOnLedProc();
-
+	
 	wifi_protocol_init();/* 初始化WIFI协议栈 */	
 	
 	
 	
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/
 	DEBUG("初始化完毕\r\n");
-
+	
+	bsp_ClearKey();
+	
+	vSetupSysInfoTest();
 }
 
 

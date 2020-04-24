@@ -158,6 +158,9 @@ void bsp_SearchChargePile(void)
 {
 	//DEBUG("充电:%s 充满：%s\r\n",bsp_IsCharging()?"true":"false",bsp_IsChargeDone()?"true":"false");
 	
+	if(isCleanRunning())
+		return;
+	
 	if(bsp_IsTouchChargePile())
 	{
 		/*播放开始充电*/

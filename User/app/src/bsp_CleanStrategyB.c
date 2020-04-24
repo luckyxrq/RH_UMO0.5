@@ -288,6 +288,12 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 }
 
 
+bool isCleanRunning(void)
+{
+	return cleanstrategy.isRunning;
+}
+
+
 void bsp_StartUpdateCleanStrategyB(void)
 {
 

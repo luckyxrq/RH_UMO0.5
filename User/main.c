@@ -70,7 +70,7 @@ int main(void)
           目中不要使用，因为这个功能比较影响系统实时性。
        2. 为了正确获取FreeRTOS的调试信息，可以考虑将上面的关闭中断指令__set_PRIMASK(1); 注释掉。 
     */
-    vSetupSysInfoTest();
+    
     
     /* 创建任务 */
     AppTaskCreate();
@@ -170,8 +170,12 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 #endif		
 		
 		
-		if(isSearchCharge){}
-		else{	
+		if(isSearchCharge)
+		{
+		
+		}
+		else
+		{	
 			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
 			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			
@@ -541,6 +545,26 @@ static void bsp_KeyProc(void)
 				}
 				
 				bsp_SperkerPlay(Song3);
+				
+				
+				/*加入后退*/
+			    if(bsp_IsTouchChargePile())
+				{
+					vTaskDelay(1000);
+					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-150));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
+					vTaskDelay(1000);
+					bsp_SetMotorSpeed(MotorLeft, 0);
+					bsp_SetMotorSpeed(MotorRight,0);
+					vTaskDelay(500);
+					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-200));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+200));
+					vTaskDelay(1500);
+					bsp_SetMotorSpeed(MotorLeft, 0);
+					bsp_SetMotorSpeed(MotorRight,0);
+					vTaskDelay(500);
+				}
+					
 				bsp_StartUpdateCleanStrategyB();
 				
 				bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
@@ -550,7 +574,7 @@ static void bsp_KeyProc(void)
 				bsp_SetLastKeyState(eKEY_CLEAN);
 				/*设置LED状态*/
 				bsp_SetLedState(AT_CLEAN);
-				isSearchCharge = true;
+				isSearchCharge = false;
 				bsp_ClearKey();
 				
 			}break;

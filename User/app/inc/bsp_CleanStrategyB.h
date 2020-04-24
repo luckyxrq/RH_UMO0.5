@@ -823,7 +823,7 @@ typedef struct
 	volatile bool isRunning ;
 	volatile unsigned int delay ;
 }CleanStrategyB;
-
+bool isCleanRunning(void);
 void bsp_StartUpdateCleanStrategyB(void);
 void bsp_ResetCleanStrategyBStatus(void);
 void bsp_StopUpdateCleanStrategyB(void);
