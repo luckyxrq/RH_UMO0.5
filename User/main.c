@@ -186,7 +186,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		if(GetReturnChargeStationStatus())
 		{
 			ResetReturnChargeStationStatus();
-			bsp_PutKey(KEY_DOWN_CLEAN);
+			bsp_PutKey(KEY_DOWN_CLEAN); /*此句的作用，也用于暂停清扫*/
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
