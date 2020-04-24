@@ -198,7 +198,10 @@ void bsp_SearchChargePile(void)
 				bsp_GetLedAppState() != AT_SEARCH_CHARGE &&
 				bsp_GetLedAppState() != THREE_WHITE_TOOGLE )
 			{
-				bsp_SetLedState(THREE_WHITE_ON);  
+				bsp_LedOn(LED_LOGO_CHARGE);
+				bsp_LedOff(LED_COLOR_YELLOW);
+				bsp_LedOff(LED_COLOR_GREEN);
+				bsp_LedOff(LED_COLOR_RED); 
 			}
 
 			 search.lastIsTouchTick = UINT32_T_MAX;
@@ -221,14 +224,8 @@ void bsp_SearchChargePile(void)
 		bsp_StopSearchChargePile();
 		
 		
-		bsp_LedOn(LED_LOGO_CLEAN);
-		bsp_LedOn(LED_LOGO_POWER);
-		bsp_LedOn(LED_LOGO_CHARGE);
-		bsp_LedOff(LED_COLOR_YELLOW);
-		bsp_LedOff(LED_COLOR_GREEN);
-		bsp_LedOff(LED_COLOR_RED);
+		bsp_SetLedState(THREE_WHITE_ON); 
 		bsp_SperkerPlay(Song24);
-		
 		
 		return;
 	}
@@ -250,7 +247,7 @@ void bsp_SearchChargePile(void)
 		case 0:
 		{
 			bsp_SetMotorSpeed(MotorLeft, 8);
-			bsp_SetMotorSpeed(MotorRight,10);
+			bsp_SetMotorSpeed(MotorRight,8);
 			
 			search.action++;
 		}break;
@@ -335,7 +332,7 @@ void bsp_SearchChargePile(void)
 				&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
 			{
 				bsp_SetMotorSpeed(MotorLeft, 8);
-				bsp_SetMotorSpeed(MotorRight,10);
+				bsp_SetMotorSpeed(MotorRight,8);
 			}
 			
 			
