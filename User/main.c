@@ -169,16 +169,15 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
 		
-		if(count %2 ==0)
-		{
-			if(isSearchCharge){}
-			else{	
-				bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
-				bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-				
-			}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
+		
+		if(isSearchCharge){}
+		else{	
+			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
+			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			
-		}
+		}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
+		
+		
 		
 		if(GetReturnChargeStationStatus())
 		{
@@ -187,9 +186,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
-		dog_time = xTaskGetTickCount();
 		count++;
-        vTaskDelay(10);
+        vTaskDelay(20);
     }
     
 }
@@ -275,30 +273,11 @@ static void vTaskPerception(void *pvParameters)
 		
 		bsp_LedAppProc();
 		
-		if(count % 10 == 0)
-		{
-			check_dog_cur_time = xTaskGetTickCount() ;
-			if(dog_time<check_dog_cur_time)
-			{
-				if( check_dog_cur_time - dog_time  > 10*1000)
-				{
-					
-					vTaskDelete(vTaskControl);
-					
-					xTaskCreate( vTaskControl,     	/* 任务函数  */
-					 "vTaskControl",   		        /* 任务名    */
-					 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
-					 NULL,           		        /* 任务参数  */
-					 2,              		        /* 任务优先级*/
-					 &xHandleTaskControl );         /* 任务句柄  */	
-				}	
-			}
-		}
-
+		
 		wifi_uart_service();
 		
 		count++;
-        vTaskDelay(1);	
+        vTaskDelay(10);	
     }		
     
 }
