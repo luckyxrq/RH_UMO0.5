@@ -121,7 +121,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			bsp_WifiStateProc();
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
-			bsp_PrintAllVoltage();
+//			bsp_PrintAllVoltage();
         }
 		
 #if 1 /*更新地图*/
@@ -484,7 +484,27 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("电源按键长按\r\n");
 				
+				/*灯光亮3颗白色灯*/
+				bsp_CloseAllLed();
+				bsp_SetLedState(LED_DEFAULT_STATE);
 				
+				/*关闭所有电机*/
+				bsp_StopAllMotor();
+				
+				/*关闭所有状态机*/
+				bsp_StopSearchChargePile();
+				bsp_StopCliffTest();
+				bsp_StopUpdateCleanStrategyB();
+
+				/*设置上一次按键值*/
+				bsp_SetLastKeyState(eKEY_NONE);
+				/*进入休眠模式*/
+				bsp_SperkerPlay(Song31);
+				vTaskDelay(10);	
+				while(bsp_SpeakerIsBusy()){}
+				
+				bsp_ClearKey();
+				bsp_EnterStopMODE();
 			}break;
 			
 			case KEY_LONG_CHARGE: /*充电*/	
@@ -520,6 +540,18 @@ static void bsp_KeyProc(void)
 					return;
 				}
 				
+				bsp_SperkerPlay(Song3);
+				bsp_StartUpdateCleanStrategyB();
+				
+				bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_StartVacuum();
+				/*设置上一次按键值*/
+				bsp_SetLastKeyState(eKEY_CLEAN);
+				/*设置LED状态*/
+				bsp_SetLedState(AT_CLEAN);
+				isSearchCharge = true;
+				bsp_ClearKey();
 				
 			}break;
 			

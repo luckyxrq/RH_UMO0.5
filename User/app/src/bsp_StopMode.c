@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-
+static bool isInitFromSleep = false;
 
 static void bsp_InitKeyStopMODE(void);
 static void bsp_DISABLE_ALL_EXIT(void);
@@ -66,9 +66,22 @@ void bsp_EnterStopMODE(void)
 	SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk; /* 使能滴答定时器 */  
 	portEXIT_CRITICAL();
 		
-
+	SetIsInitFromSleep(true) ;
 		
 	bsp_Init();
+}
+
+
+
+
+bool IsInitFromSleep(void)
+{
+	return isInitFromSleep;
+}
+
+void SetIsInitFromSleep(bool val)
+{
+	isInitFromSleep = val;
 }
 
 

@@ -115,7 +115,16 @@ void bsp_Init(void)
 	
 		/*²¥·Å¿ª»úÒôÀÖ*/
 #if 1
-	bsp_SperkerPlay(Song1);
+	if(IsInitFromSleep())
+	{
+		SetIsInitFromSleep(false) ;
+		bsp_SperkerPlay(Song32);
+	}
+	else
+	{
+		bsp_SperkerPlay(Song1);
+	}
+	
 #endif
 	
 	bsp_PowerOnLedProc();
