@@ -853,10 +853,10 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         right_running_step_status = GOSTR_RIGHTRUN_STEP;
         break;
     case GOSTR_RIGHTRUN_STEP:
-        log_debug("gostraight right run step!");
+        log_debug("gostraight right run step!\n");
         if (my_abs(Yaw / 100) >= 90 && my_abs(Yaw / 100) < 178)
         {
-            log_debug("backaward Corrected heading angle !");
+            log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -872,7 +872,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         else if (my_abs(Yaw / 100) < 90 && my_abs(Yaw / 100) > 2)
         {
-            log_debug("gostraight Corrected heading angle !");
+            log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -888,13 +888,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         else if (my_abs(current_pose->x) > half_map_wide)
         {
-            log_debug("current pose x arrived width max!");
+            log_debug("current pose x arrived width max!\n");
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
         }
         else if (my_abs(current_pose->y) > half_map_wide)
         {
-            log_debug("current pose y arrived width max!");
+            log_debug("current pose y arrived width max!\n");
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
         }
@@ -910,13 +910,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             if (0 != leakingsweep)
             {
-                log_debug("right obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP");
+                log_debug("right obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
                 right_running_step_status = LEAKING_SWEEP_RIGHTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("right obstacle,ready goto COLLISION_RIGHT_RIGHTRUN_STEP");
+                log_debug("right obstacle,ready goto COLLISION_RIGHT_RIGHTRUN_STEP\n");
                 collision_right_rightrun_step_status = 0;
                 right_running_step_status = COLLISION_RIGHT_RIGHTRUN_STEP;
                 break;
@@ -934,13 +934,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             if (0 != leakingsweep)
             {
-                log_debug("front obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP");
+                log_debug("front obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
                 right_running_step_status = LEAKING_SWEEP_RIGHTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("front obstacle,ready goto COLLISION_FRONT_RIGHTRUN_STEP");
+                log_debug("front obstacle,ready goto COLLISION_FRONT_RIGHTRUN_STEP\n");
                 collision_front_rightrun_step_status = 0;
                 right_running_step_status = COLLISION_FRONT_RIGHTRUN_STEP;
                 break;
@@ -958,13 +958,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             if (0 != leakingsweep)
             {
-                log_debug("left obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP");
+                log_debug("left obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
                 right_running_step_status = LEAKING_SWEEP_RIGHTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("left obstacle,ready goto COLLISION_LEFT_RIGHTRUN_STEP");
+                log_debug("left obstacle,ready goto COLLISION_LEFT_RIGHTRUN_STEP\n");
                 collision_left_rightrun_step_status = 0;
                 right_running_step_status = COLLISION_LEFT_RIGHTRUN_STEP;
                 break;
@@ -972,13 +972,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         else
         {
-            log_debug("go straight...");
+            log_debug("go straight...\n");
             linear_velocity = long_stra_vel;
             angular_velocity = 0;
         }
         break;
     case FORWARD_BOUNDARY_RIGHTRUN_STEP:
-        log_debug("forward boundary rightrun step!");
+        log_debug("forward boundary rightrun step!\n");
         FunctionStatus = ForwardBoundaryRightRunStep(current_pose, obstacleSignal);
         if (FunctionStatus == 1)
         {
@@ -992,7 +992,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP:
-        log_debug("STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP!");
+        log_debug("STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP!\n");
         FunctionStatus = StuckRightRunStep(current_pose, obstacleSignal);
         if (FunctionStatus == 1)
         {
@@ -1001,7 +1001,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case COLLISION_RIGHT_RIGHTRUN_STEP:
-        log_debug("COLLISION right right run step!");
+        log_debug("COLLISION right right run step!\n");
         FunctionStatus = CollisionRightRightRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1019,7 +1019,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case RIGHTWALKEDGE:
-        log_debug("RIGHTWALKEDGE");
+        log_debug("RIGHTWALKEDGE\n");
         FunctionStatus = RightWalkEdge(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1045,7 +1045,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case RIGHTEDGEDILEMMA:
-        log_debug("RIGHTEDGEDILEMMA!");
+        log_debug("RIGHTEDGEDILEMMA!\n");
 	    if((my_abs(current_pose->y)<return_origin_distance)||(startedgedelimmy<current_pose->y&&endedgedelimmy>current_pose->y)){	
 		right_edge_dilemma_status = 0;
 		right_running_step_status = 0;
@@ -1060,7 +1060,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case COLLISION_LEFT_RIGHTRUN_STEP:
-        log_debug("COLLISION left right run step!");
+        log_debug("COLLISION left right run step!\n");
         FunctionStatus = CollisionLeftRightRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1078,7 +1078,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case RIGHTREVERSEWALKEDGE:
-        log_debug("RIGHTREVERSEWALKEDGE");
+        log_debug("RIGHTREVERSEWALKEDGE\n");
         FunctionStatus = RightReverseWalkEdge(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1104,7 +1104,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case COLLISION_FRONT_RIGHTRUN_STEP:
-        log_debug("COLLISION front right run step!");
+        log_debug("COLLISION front right run step!\n");
         FunctionStatus = CollisionFrontRightRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1129,7 +1129,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case LEAKING_SWEEP_RIGHTRUN_STEP:
-        log_debug("leaking sweep right run step!");
+        log_debug("leaking sweep right run step!\n");
         if (RightReadyLeakingSweep(current_pose, obstacleSignal))
         {
             right_running_step_status = GOSTR_RIGHTRUN_STEP;
@@ -4775,10 +4775,10 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         left_running_step_status = GOSTR_LEFTRUN_STEP;
         break;
     case GOSTR_LEFTRUN_STEP:
-        log_debug("gostraight left run step!");
+        log_debug("gostraight left run step!\n");
         if (my_abs(Yaw / 100) > 90 && my_abs(Yaw / 100) < 178)
         {
-            log_debug("backaward Corrected heading angle !");
+            log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -4794,7 +4794,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         else if (my_abs(Yaw / 100) < 90 && my_abs(Yaw / 100) > 2)
         {
-            log_debug("gostraight Corrected heading angle !");
+            log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -4810,13 +4810,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         else if (my_abs(current_pose->x) > half_map_wide)
         {
-            log_debug("current pose x arrived width max!");
+            log_debug("current pose x arrived width max!\n");
             left_running_step_status = FORWARD_BOUNDARY_LEFTRUN_STEP;
             break;
         }
         else if (my_abs(current_pose->y) > half_map_wide)
         {
-            log_debug("current pose y arrived width max!");
+            log_debug("current pose y arrived width max!\n");
             complete_flag = 1;
             break;
         }
@@ -4832,13 +4832,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             }
             if (0 != leakingsweep)
             {
-                log_debug("right obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP");
+                log_debug("right obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP\n");
                 left_running_step_status = LEAKING_SWEEP_LEFTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("right obstacle,ready goto COLLISION_RIGHT_LEFTRUN_STEP");
+                log_debug("right obstacle,ready goto COLLISION_RIGHT_LEFTRUN_STEP\n");
                 collision_right_rightrun_step_status = 0;
                 left_running_step_status = COLLISION_RIGHT_LEFTRUN_STEP;
                 break;
@@ -4856,13 +4856,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             }
             if (0 != leakingsweep)
             {
-                log_debug("front obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP");
+                log_debug("front obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP\n");
                 left_running_step_status = LEAKING_SWEEP_LEFTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("front obstacle,ready goto COLLISION_FRONT_LEFTRUN_STEP");
+                log_debug("front obstacle,ready goto COLLISION_FRONT_LEFTRUN_STEP\n");
                 collision_front_rightrun_step_status = 0;
                 left_running_step_status = COLLISION_FRONT_LEFTRUN_STEP;
                 break;
@@ -4880,13 +4880,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             }
             if (0 != leakingsweep)
             {
-                log_debug("left obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP");
+                log_debug("left obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP\n");
                 left_running_step_status = LEAKING_SWEEP_LEFTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("left obstacle,ready goto COLLISION_LEFT_LEFTRUN_STEP");
+                log_debug("left obstacle,ready goto COLLISION_LEFT_LEFTRUN_STEP\n");
                 collision_left_rightrun_step_status = 0;
                 left_running_step_status = COLLISION_LEFT_LEFTRUN_STEP;
                 break;
@@ -4894,13 +4894,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         else
         {
-            log_debug("go straight...");
+            log_debug("go straight...\n");
             linear_velocity = long_stra_vel;
             angular_velocity = 0;
         }
         break;
     case FORWARD_BOUNDARY_LEFTRUN_STEP:
-        log_debug("forward boundary leftrun step!");
+        log_debug("forward boundary leftrun step!\n");
         if (ForwardBoundaryLeftRunStep(current_pose, obstacleSignal))
         {
             left_running_step_status = GOSTR_LEFTRUN_STEP;
@@ -4909,7 +4909,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         break;
 
     case COLLISION_RIGHT_LEFTRUN_STEP:
-        log_debug("collsion right right run step!");
+        log_debug("collsion right right run step!\n");
         FunctionStatus = CollisionRightLeftRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -4927,7 +4927,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case LEFTREVERSEWALKEDGE:
-        log_debug("LEFTREVERSEWALKEDGE");
+        log_debug("LEFTREVERSEWALKEDGE\n");
         FunctionStatus = LeftReverseWalkEdge(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -4953,7 +4953,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case LEFTEDGEDILEMMA:
-        log_debug("LEFTEDGEDILEMMA");
+        log_debug("LEFTEDGEDILEMMA\n");
 	 if((my_abs(current_pose->y)<return_origin_distance)||(startedgedelimmy>current_pose->y&&endedgedelimmy<current_pose->y)){
 		left_running_step_status = 0;
         right_edge_dilemma_status = 0;
@@ -4968,7 +4968,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case COLLISION_LEFT_LEFTRUN_STEP:
-        log_debug("collsion left left run step!");
+        log_debug("collsion left left run step!\n");
         FunctionStatus = CollisionLeftLeftRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -4986,7 +4986,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case LEFTWALKEDGE:
-        log_debug("LEFTWALKEDGE");
+        log_debug("LEFTWALKEDGE\n");
         FunctionStatus = LeftWalkEdge(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -5012,7 +5012,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case COLLISION_FRONT_LEFTRUN_STEP:
-        log_debug("collsion front left run step!");
+        log_debug("collsion front left run step!\n");
         FunctionStatus = CollisionFrontLeftRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -5037,7 +5037,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case LEAKING_SWEEP_LEFTRUN_STEP:
-        log_debug("leaking sweep left run step!");
+        log_debug("leaking sweep left run step!\n");
         if (LeftReadyLeakingSweep(current_pose, obstacleSignal))
         {
             left_running_step_status = GOSTR_LEFTRUN_STEP;
