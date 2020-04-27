@@ -31,3 +31,5 @@
 .\flash\obj\stm32f10x_it.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\flash\obj\stm32f10x_it.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\flash\obj\stm32f10x_it.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
+.\flash\obj\stm32f10x_it.o: ..\..\User\app\inc\bsp_motor.h
+.\flash\obj\stm32f10x_it.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h

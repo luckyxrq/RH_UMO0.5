@@ -26,6 +26,7 @@
 */
 
 #include "stm32f10x_it.h"
+#include "bsp_motor.h"
 
 #define ERR_INFO "\r\nEnter HardFault_Handler, System Halt.\r\n"
 
@@ -61,6 +62,12 @@ void HardFault_Handler(void)
   const char *pError = ERR_INFO;
   uint8_t i;
 
+	/*4个通道全部输出高电平*/
+	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+	
   for (i = 0; i < sizeof(ERR_INFO); i++)
   {
      USART2->DR = pError[i];

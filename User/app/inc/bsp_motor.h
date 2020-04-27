@@ -1,6 +1,10 @@
 #ifndef __BSP_MOTOR_H
 #define __BSP_MOTOR_H
 
+
+#include <stdbool.h>
+
+
 #define CONSTANT_HIGH_PWM      (3600)
 #define CONSTANT_LOW_PWM       (0)
 
