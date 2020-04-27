@@ -191,6 +191,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
+		bsp_StrategyRandomProc();
+		
 		count++;
         vTaskDelay(20);
     }
@@ -438,6 +440,7 @@ static void bsp_KeySuspend(void)
 	bsp_StopSearchChargePile();
 	bsp_StopCliffTest();
 	bsp_StopUpdateCleanStrategyB();
+	bsp_StopStrategyRandom();
 
 	/*上一次是清扫，本次就播放暂停清扫*/
 	if(bsp_GetLastKeyState() == eKEY_CLEAN)
@@ -568,7 +571,8 @@ static void bsp_KeyProc(void)
 					vTaskDelay(500);
 				}
 					
-				bsp_StartUpdateCleanStrategyB();
+				//bsp_StartUpdateCleanStrategyB();
+				bsp_StartStrategyRandom();
 				
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);

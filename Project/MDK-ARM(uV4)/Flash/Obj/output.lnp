@@ -30,6 +30,7 @@
 ".\flash\obj\bsp_gridmap.o"
 ".\flash\obj\bsp_cleanstrategy.o"
 ".\flash\obj\bsp_cleanstrategyb.o"
+".\flash\obj\bsp_cleanstrategyrandom.o"
 ".\flash\obj\bsp_wifi_app.o"
 ".\flash\obj\bsp_passwd.o"
 ".\flash\obj\bsp_uploadmap.o"

@@ -93,3 +93,4 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_wifi_app.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_UploadMap.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_cleanstrategyrandom.h
