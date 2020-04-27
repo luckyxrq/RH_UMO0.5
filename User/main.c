@@ -115,7 +115,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 			//DEBUG("angle:%f\r\n",bsp_AngleRead());
 			
-			bsp_WifiStateProc();
+			//bsp_WifiStateProc();
 			
 			{
 			#define GPIO_PORT_K1    GPIOE

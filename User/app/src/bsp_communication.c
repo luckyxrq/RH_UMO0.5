@@ -241,7 +241,7 @@ void bsp_FillReportFrame(void)
 	reportFrame.x_coordinate = x_coordinate;				                          //X坐标
 	reportFrame.y_coordinate = y_coordinate;				                          //Y坐标
 	reportFrame.theta_angle_deg = angle;		                                      //航向角
-	reportFrame.landoff_button = 0;                                                   //离地开关
+	reportFrame.landoff_button = bsp_OffSiteGetState();                                 //离地开关
 	reportFrame.collosion_button = bsp_CollisionScan() ; 			                  //碰撞开关
 	reportFrame.infrared_front_status = 0; 	                                          //前向红外状态 
 	reportFrame.infrared_edge_status = 0;	                                          //沿边红外状态
