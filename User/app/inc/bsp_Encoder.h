@@ -2,7 +2,7 @@
 #define __ENCODER_H
 
 #define ENCODER_NUM      (2)     /*编码器个数*/
-#define RPM_PULSE_RATIO  (1024)  /*轮子转1圈，脉冲个数*/
+#define RPM_PULSE_RATIO  (1024/2)  /*轮子转1圈，脉冲个数*/
 #define ENCODER_PI		 (3.14F) /*π*/
 
 typedef enum

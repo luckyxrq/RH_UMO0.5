@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Apr 27 17:24:48 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Apr 27 18:00:00 2020
 <BR><P>
 <H3>Maximum Stack Usage =        360 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -985,7 +985,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8a]"></a>DX8_Sleep</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, dx8_api.o(i.DX8_Sleep))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = DX8_Sleep &rArr; PollingStatus &rArr; dxif_transfer &rArr; TWI_SendByte &rArr; TWI_NOP
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = DX8_Sleep &rArr; PollingStatus &rArr; dxif_transfer &rArr; TWI_ReceiveByte &rArr; TWI_NOP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dxif_transfer
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PollingStatus
@@ -1092,13 +1092,13 @@ Global Symbols
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dx8_Init
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSpeaker
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 </UL>
 
 <P><STRONG><a name="[15a]"></a>GPIO_PinRemapConfig</STRONG> (Thumb, 138 bytes, Stack size 20 bytes, stm32f10x_gpio.o(i.GPIO_PinRemapConfig))
@@ -1276,9 +1276,9 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 </UL>
 
 <P><STRONG><a name="[16b]"></a>NVIC_PriorityGroupConfig</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, misc.o(i.NVIC_PriorityGroupConfig))
@@ -1297,9 +1297,9 @@ Global Symbols
 <P><STRONG><a name="[b8]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd))
 <BR><BR>[Called By]<UL><LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 </UL>
 
 <P><STRONG><a name="[b7]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd))
@@ -1315,13 +1315,13 @@ Global Symbols
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitPinPulse
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ADCConfig
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dx8_Init
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSpeaker
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 </UL>
 
 <P><STRONG><a name="[7c]"></a>RCC_APB2PeriphResetCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd))
@@ -1716,9 +1716,9 @@ Global Symbols
 <P><STRONG><a name="[bb]"></a>USART_ITConfig</STRONG> (Thumb, 74 bytes, Stack size 20 bytes, stm32f10x_usart.o(i.USART_ITConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = USART_ITConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSend
+<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSend
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartIRQ
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 </UL>
 
 <P><STRONG><a name="[ba]"></a>USART_Init</STRONG> (Thumb, 210 bytes, Stack size 56 bytes, stm32f10x_usart.o(i.USART_Init))
@@ -2410,9 +2410,9 @@ Global Symbols
 <P><STRONG><a name="[16f]"></a>bsp_InitUart</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, bsp_uart_fifo.o(i.bsp_InitUart))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = bsp_InitUart &rArr; InitHardUart &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
+<BR>[Calls]<UL><LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartVarInit
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
-<LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartVarInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitFormAwaken
@@ -2472,8 +2472,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
-<P><STRONG><a name="[133]"></a>bsp_MotorSpeedMM2Pulse</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, bsp_control.o(i.bsp_MotorSpeedMM2Pulse))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_MotorSpeedMM2Pulse &rArr; __aeabi_fmul
+<P><STRONG><a name="[133]"></a>bsp_MotorSpeedMM2Pulse</STRONG> (Thumb, 116 bytes, Stack size 32 bytes, bsp_control.o(i.bsp_MotorSpeedMM2Pulse))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = bsp_MotorSpeedMM2Pulse &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
@@ -2709,7 +2709,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[12b]"></a>bsp_StopUpdateCleanStrategyB</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = bsp_StopUpdateCleanStrategyB &rArr; bsp_MotorSpeedMM2Pulse &rArr; __aeabi_fmul
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = bsp_StopUpdateCleanStrategyB &rArr; bsp_MotorSpeedMM2Pulse &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
@@ -2842,14 +2842,14 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8d]"></a>dxif_transfer</STRONG> (Thumb, 112 bytes, Stack size 16 bytes, dxi2c_gpio_stm32f1.o(i.dxif_transfer))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = dxif_transfer &rArr; TWI_SendByte &rArr; TWI_NOP
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = dxif_transfer &rArr; TWI_ReceiveByte &rArr; TWI_NOP
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendNACK
+<BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendNACK
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendByte
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendACK
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_STOP
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_START
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_Sleep
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_Reset
@@ -3105,11 +3105,11 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 <LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
-<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 <LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
+<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
+<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
 </UL>
 
 <P><STRONG><a name="[1ee]"></a>vPortExitCritical</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, port.o(i.vPortExitCritical))
@@ -3120,11 +3120,11 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 <LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
-<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 <LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
+<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
+<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
 </UL>
 
 <P><STRONG><a name="[1e8]"></a>vPortFree</STRONG> (Thumb, 112 bytes, Stack size 16 bytes, heap_4.o(i.vPortFree))
@@ -3274,7 +3274,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[7e]"></a>xQueueCreateMutex</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, queue.o(i.xQueueCreateMutex))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = xQueueCreateMutex &rArr; xQueueGenericSend &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = xQueueCreateMutex &rArr; xQueueGenericSend &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialise
@@ -3284,13 +3284,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[214]"></a>xQueueGenericSend</STRONG> (Thumb, 296 bytes, Stack size 56 bytes, queue.o(i.xQueueGenericSend))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = xQueueGenericSend &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = xQueueGenericSend &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
-<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
-<LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
@@ -3299,6 +3296,9 @@ Global Symbols
 <LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
 <LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
+<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
+<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
+<LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
 </UL>
@@ -3398,7 +3398,7 @@ Global Symbols
 Local Symbols
 </H3>
 <P><STRONG><a name="[7d]"></a>AppObjCreate</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, main.o(i.AppObjCreate))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = AppObjCreate &rArr; xQueueCreateMutex &rArr; xQueueGenericSend &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = AppObjCreate &rArr; xQueueCreateMutex &rArr; xQueueGenericSend &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
 </UL>
@@ -4054,12 +4054,12 @@ Local Symbols
 <P><STRONG><a name="[e4]"></a>TWI_NOP</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, dxi2c_gpio_stm32f1.o(i.TWI_NOP))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TWI_NOP
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendNACK
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendNACK
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendByte
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendACK
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_STOP
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_START
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
 </UL>
 
 <P><STRONG><a name="[e0]"></a>TWI_ReceiveByte</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, dxi2c_gpio_stm32f1.o(i.TWI_ReceiveByte))
@@ -4079,11 +4079,11 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_WriteBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendNACK
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendNACK
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendByte
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendACK
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_START
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
 </UL>
 
 <P><STRONG><a name="[e3]"></a>TWI_SCL_1</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, dxi2c_gpio_stm32f1.o(i.TWI_SCL_1))
@@ -4092,12 +4092,12 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_WriteBit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dx8_Init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendNACK
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendByte
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendACK
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_STOP
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_START
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
 </UL>
 
 <P><STRONG><a name="[e7]"></a>TWI_SDA_0</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, dxi2c_gpio_stm32f1.o(i.TWI_SDA_0))
@@ -4117,12 +4117,12 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_WriteBit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dx8_Init
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendNACK
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendByte
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendACK
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_STOP
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_START
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
 </UL>
 
 <P><STRONG><a name="[e5]"></a>TWI_SDA_STATE</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, dxi2c_gpio_stm32f1.o(i.TWI_SDA_STATE))
@@ -4130,9 +4130,9 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendByte
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SendByte
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_START
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_ReceiveByte
 </UL>
 
 <P><STRONG><a name="[e9]"></a>TWI_START</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, dxi2c_gpio_stm32f1.o(i.TWI_START))
@@ -4484,7 +4484,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[8b]"></a>CMD_GetChipInfo</STRONG> (Thumb, 270 bytes, Stack size 24 bytes, dx8_api.o(i.CMD_GetChipInfo))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = CMD_GetChipInfo &rArr; dxif_transfer &rArr; TWI_SendByte &rArr; TWI_NOP
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = CMD_GetChipInfo &rArr; dxif_transfer &rArr; TWI_ReceiveByte &rArr; TWI_NOP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dxif_transfer
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_memset
@@ -4515,7 +4515,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[a5]"></a>DX8_CompareCheckSum</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, dx8_api.o(i.DX8_CompareCheckSum))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = DX8_CompareCheckSum &rArr; dxif_transfer &rArr; TWI_SendByte &rArr; TWI_NOP
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = DX8_CompareCheckSum &rArr; dxif_transfer &rArr; TWI_ReceiveByte &rArr; TWI_NOP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dxif_transfer
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_memcmp
@@ -4617,7 +4617,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[a8]"></a>PollingStatus</STRONG> (Thumb, 94 bytes, Stack size 24 bytes, dx8_api.o(i.PollingStatus))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = PollingStatus &rArr; dxif_transfer &rArr; TWI_SendByte &rArr; TWI_NOP
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = PollingStatus &rArr; dxif_transfer &rArr; TWI_ReceiveByte &rArr; TWI_NOP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dxif_transfer
 </UL>
