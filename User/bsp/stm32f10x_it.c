@@ -29,6 +29,10 @@
 #include "bsp_motor.h"
 
 #define ERR_INFO "\r\nEnter HardFault_Handler, System Halt.\r\n"
+#define MEM_ERR_INFO "\r\nEnter MemManage_Handler, System Halt.\r\n"
+#define BUS_ERR_INFO "\r\nEnter BusFault_Handler, System Halt.\r\n"
+#define USAGE_ERR_INFO "\r\nEnter UsageFault_Handler, System Halt.\r\n"
+#define DEBUG_ERR_INFO "\r\nEnter DebugMon_Handler, System Halt.\r\n"
 
 /*
 *********************************************************************************************************
@@ -62,7 +66,7 @@ void HardFault_Handler(void)
   const char *pError = ERR_INFO;
   uint8_t i;
 
-	/*4个通道全部输出高电平*/
+	/*4个通道全部输出高电平，程序完全跑飞的时候，确保关闭电机*/
 	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
 	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
 	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
@@ -91,7 +95,24 @@ void HardFault_Handler(void)
 */   
 void MemManage_Handler(void)
 {
-  /* 当内存管理异常发生时进入死循环 */
+#if 1
+  const char *pError = ERR_INFO;
+  uint8_t i;
+
+	/*4个通道全部输出高电平，程序完全跑飞的时候，确保关闭电机*/
+	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+	
+  for (i = 0; i < sizeof(MEM_ERR_INFO); i++)
+  {
+     USART2->DR = pError[i];
+     /* 等待发送结束 */
+     while ((USART2->SR & USART_FLAG_TC) == (uint16_t)RESET);
+  }
+#endif	
+  /* 当硬件失效异常发生时进入死循环 */
   while (1)
   {
   }
@@ -107,7 +128,24 @@ void MemManage_Handler(void)
 */    
 void BusFault_Handler(void)
 {
-  /* 当总线异常时进入死循环 */
+#if 1
+  const char *pError = ERR_INFO;
+  uint8_t i;
+
+	/*4个通道全部输出高电平，程序完全跑飞的时候，确保关闭电机*/
+	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+	
+  for (i = 0; i < sizeof(BUS_ERR_INFO); i++)
+  {
+     USART2->DR = pError[i];
+     /* 等待发送结束 */
+     while ((USART2->SR & USART_FLAG_TC) == (uint16_t)RESET);
+  }
+#endif	
+  /* 当硬件失效异常发生时进入死循环 */
   while (1)
   {
   }
@@ -123,7 +161,24 @@ void BusFault_Handler(void)
 */   
 void UsageFault_Handler(void)
 {
-  /* 当用法异常时进入死循环 */
+#if 1
+  const char *pError = ERR_INFO;
+  uint8_t i;
+
+	/*4个通道全部输出高电平，程序完全跑飞的时候，确保关闭电机*/
+	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+	
+  for (i = 0; i < sizeof(USAGE_ERR_INFO); i++)
+  {
+     USART2->DR = pError[i];
+     /* 等待发送结束 */
+     while ((USART2->SR & USART_FLAG_TC) == (uint16_t)RESET);
+  }
+#endif	
+  /* 当硬件失效异常发生时进入死循环 */
   while (1)
   {
   }
@@ -139,6 +194,27 @@ void UsageFault_Handler(void)
 */   
 void DebugMon_Handler(void)
 {
+#if 1
+  const char *pError = ERR_INFO;
+  uint8_t i;
+
+	/*4个通道全部输出高电平，程序完全跑飞的时候，确保关闭电机*/
+	TIM_SetCompare1(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare2(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare3(TIM1,CONSTANT_HIGH_PWM);
+	TIM_SetCompare4(TIM1,CONSTANT_HIGH_PWM);
+	
+  for (i = 0; i < sizeof(DEBUG_ERR_INFO); i++)
+  {
+     USART2->DR = pError[i];
+     /* 等待发送结束 */
+     while ((USART2->SR & USART_FLAG_TC) == (uint16_t)RESET);
+  }
+#endif	
+  /* 当硬件失效异常发生时进入死循环 */
+  while (1)
+  {
+  }
 }
 
 /*
