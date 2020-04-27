@@ -110,33 +110,33 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         bsp_KeyProc();
 		
 		
-        if(count++ % 10 == 0)
-        {
-#if 0 
-			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
-#endif
-			bsp_ChangeWifi2SmartConfigStateProc();
-			
-			/*下面是打印开关，酌情注释*/
-			bsp_WifiStateProc();
-//			bsp_PrintCollision();
-//			bsp_PrintIR_Rev();
-//			bsp_PrintAllVoltage();
-        }
+//        if(count++ % 10 == 0)
+//        {
+//#if 0 
+//			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
+//#endif
+//			bsp_ChangeWifi2SmartConfigStateProc();
+//			
+//			/*下面是打印开关，酌情注释*/
+//			bsp_WifiStateProc();
+////			bsp_PrintCollision();
+////			bsp_PrintIR_Rev();
+////			bsp_PrintAllVoltage();
+//        }
 		
-#if 1 /*更新地图*/
-		
-		if(isSearchCharge){}
-		else{		
-			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+//#if 1 /*更新地图*/
+//		
+//		if(isSearchCharge){}
+//		else{		
+//			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 
-		}
-#endif
+//		}
+//#endif
 		
-		if(count % 10 == 0)
-		{
-			//bsp_LedToggle(LED_COLOR_GREEN);
-		}
+//		if(count % 10 == 0)
+//		{
+//			//bsp_LedToggle(LED_COLOR_GREEN);
+//		}
 		
 		//DEBUG("bsp_GetKeyRunLastState:%d\r\n",bsp_GetKeyRunLastState());
 		
@@ -170,16 +170,16 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 #endif		
 		
 		
-		if(isSearchCharge)
-		{
-		
-		}
-		else
-		{	
-			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
-			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-			
-		}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
+//		if(isSearchCharge)
+//		{
+//		
+//		}
+//		else
+//		{	
+//			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
+//			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+//			
+//		}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		
 		
 		

@@ -103,8 +103,8 @@ void bsp_StrategyRandomProc(void)
 		
 		case 2: /*退了就原地转*/
 		{
-			if((xTaskGetTickCount() - strategyRandom.delay)>= 1500 || 
-				abs(bsp_AngleAdd(strategyRandom.angle ,30) - (bsp_AngleRead())) <= 10.0F)
+			if((xTaskGetTickCount() - strategyRandom.delay)>= 2000 || 
+				abs(bsp_AngleAdd(strategyRandom.angle ,36) - (bsp_AngleRead())) <= 10.0F)
 			{
 				strategyRandom.action = 0 ;
 			}
