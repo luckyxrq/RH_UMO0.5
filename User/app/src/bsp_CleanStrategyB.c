@@ -687,14 +687,14 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 			case 0:
 				temporary_wheel_pulse_r=wheel_pulse_r;
 				OVERALL_CLEANING_STRATEGY = START_OVERALL_CLEANING_STRATEGY;
-				log_debug("OVERALL_CLEANING_STRATEGY:0... ! \n" );
+				//log_debug("OVERALL_CLEANING_STRATEGY:0... ! \n" );
 				break;
 			case START_OVERALL_CLEANING_STRATEGY:
 				OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
-				log_debug("OVERALL_CLEANING_STRATEGY:START_OVERALL_CLEANING_STRATEGY... ! \n" );
+				//log_debug("OVERALL_CLEANING_STRATEGY:START_OVERALL_CLEANING_STRATEGY... ! \n" );
 				break;
 			case RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
-				log_debug("OVERALL_CLEANING_STRATEGY:RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
+				//log_debug("OVERALL_CLEANING_STRATEGY:RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
 				FunctionStatus = RightRunningWorkStep(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
@@ -702,12 +702,12 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					selectside = 'L';
 					over_clean_finish = false;
 					OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
-					log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
+					//log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
 					right_running_step_status = 0;
 					FunctionStatus = 0;
 					}else{
 					OVERALL_CLEANING_STRATEGY = 0;
-					log_debug("OVERALL_CLEANING_STRATEGY:0... ! \n" );
+					//log_debug("OVERALL_CLEANING_STRATEGY:0... ! \n" );
 					right_running_step_status = 0;
 					FunctionStatus = 0;
 					}
@@ -715,12 +715,12 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				}
 				break;
 			case A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
-				log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
+				//log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
 				AStarReturnOrigin(current_pose, obstacleSignal);
 				OVERALL_CLEANING_STRATEGY = A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
 				break;
 			case A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
-				log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
+				//log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
 				FunctionStatus = AStarMotionReturnOrigin(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
@@ -752,7 +752,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				}
 				break;
 			case A_STAR_NOT_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
-				log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_NOT_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
+				//log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_NOT_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
 				FunctionStatus = AStarNotMotionReturnOrigin(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
@@ -762,7 +762,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				}
 				break;
 			case A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
-				log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
+				//log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
 				FunctionStatus = AStarCollision(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
@@ -778,7 +778,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				}
 				break;
 			case RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
-				log_debug("OVERALL_CLEANING_STRATEGY:RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
+				//log_debug("OVERALL_CLEANING_STRATEGY:RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY");
 				FunctionStatus = ForceReturnOrigin(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
@@ -803,7 +803,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				}
 				break;
 			case LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
-				log_debug("OVERALL_CLEANING_STRATEGY:LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY");
+				//log_debug("OVERALL_CLEANING_STRATEGY:LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY");
 				FunctionStatus = LeftRunningWorkStep(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
@@ -846,6 +846,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("right_running_step_status====>>>>>>,%x,\n",right_running_step_status);
     switch (right_running_step_status)
     {
@@ -853,10 +854,10 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         right_running_step_status = GOSTR_RIGHTRUN_STEP;
         break;
     case GOSTR_RIGHTRUN_STEP:
-        log_debug("gostraight right run step!\n");
-        if (my_abs(Yaw / 100) >= 90 && my_abs(Yaw / 100) < 178)
+        //log_debug("gostraight right run step!\n");
+        if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178)
         {
-            log_debug("backaward Corrected heading angle !\n");
+            //log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -870,9 +871,9 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
                 break;
             }
         }
-        else if (my_abs(Yaw / 100) < 90 && my_abs(Yaw / 100) > 2)
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2)
         {
-            log_debug("gostraight Corrected heading angle !\n");
+            //log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -888,13 +889,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         else if (my_abs(current_pose->x) > half_map_wide)
         {
-            log_debug("current pose x arrived width max!\n");
+            //log_debug("current pose x arrived width max!\n");
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
         }
         else if (my_abs(current_pose->y) > half_map_wide)
         {
-            log_debug("current pose y arrived width max!\n");
+            //log_debug("current pose y arrived width max!\n");
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
         }
@@ -910,13 +911,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             if (0 != leakingsweep)
             {
-                log_debug("right obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
+                //log_debug("right obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
                 right_running_step_status = LEAKING_SWEEP_RIGHTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("right obstacle,ready goto COLLISION_RIGHT_RIGHTRUN_STEP\n");
+                //log_debug("right obstacle,ready goto COLLISION_RIGHT_RIGHTRUN_STEP\n");
                 collision_right_rightrun_step_status = 0;
                 right_running_step_status = COLLISION_RIGHT_RIGHTRUN_STEP;
                 break;
@@ -934,13 +935,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             if (0 != leakingsweep)
             {
-                log_debug("front obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
+                //log_debug("front obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
                 right_running_step_status = LEAKING_SWEEP_RIGHTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("front obstacle,ready goto COLLISION_FRONT_RIGHTRUN_STEP\n");
+                //log_debug("front obstacle,ready goto COLLISION_FRONT_RIGHTRUN_STEP\n");
                 collision_front_rightrun_step_status = 0;
                 right_running_step_status = COLLISION_FRONT_RIGHTRUN_STEP;
                 break;
@@ -958,13 +959,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             if (0 != leakingsweep)
             {
-                log_debug("left obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
+                //log_debug("left obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
                 right_running_step_status = LEAKING_SWEEP_RIGHTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("left obstacle,ready goto COLLISION_LEFT_RIGHTRUN_STEP\n");
+                //log_debug("left obstacle,ready goto COLLISION_LEFT_RIGHTRUN_STEP\n");
                 collision_left_rightrun_step_status = 0;
                 right_running_step_status = COLLISION_LEFT_RIGHTRUN_STEP;
                 break;
@@ -972,13 +973,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         else
         {
-            log_debug("go straight...\n");
+            //log_debug("go straight...\n");
             linear_velocity = long_stra_vel;
             angular_velocity = 0;
         }
         break;
     case FORWARD_BOUNDARY_RIGHTRUN_STEP:
-        log_debug("forward boundary rightrun step!\n");
+        //log_debug("forward boundary rightrun step!\n");
         FunctionStatus = ForwardBoundaryRightRunStep(current_pose, obstacleSignal);
         if (FunctionStatus == 1)
         {
@@ -992,7 +993,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP:
-        log_debug("STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP!\n");
+        //log_debug("STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP!\n");
         FunctionStatus = StuckRightRunStep(current_pose, obstacleSignal);
         if (FunctionStatus == 1)
         {
@@ -1001,7 +1002,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case COLLISION_RIGHT_RIGHTRUN_STEP:
-        log_debug("COLLISION right right run step!\n");
+        //log_debug("COLLISION right right run step!\n");
         FunctionStatus = CollisionRightRightRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1019,7 +1020,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case RIGHTWALKEDGE:
-        log_debug("RIGHTWALKEDGE\n");
+        //log_debug("RIGHTWALKEDGE\n");
         FunctionStatus = RightWalkEdge(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1045,7 +1046,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case RIGHTEDGEDILEMMA:
-        log_debug("RIGHTEDGEDILEMMA!\n");
+        //log_debug("RIGHTEDGEDILEMMA!\n");
 	    if((my_abs(current_pose->y)<return_origin_distance)||(startedgedelimmy<current_pose->y&&endedgedelimmy>current_pose->y)){	
 		right_edge_dilemma_status = 0;
 		right_running_step_status = 0;
@@ -1060,7 +1061,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case COLLISION_LEFT_RIGHTRUN_STEP:
-        log_debug("COLLISION left right run step!\n");
+        //log_debug("COLLISION left right run step!\n");
         FunctionStatus = CollisionLeftRightRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1078,7 +1079,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case RIGHTREVERSEWALKEDGE:
-        log_debug("RIGHTREVERSEWALKEDGE\n");
+        //log_debug("RIGHTREVERSEWALKEDGE\n");
         FunctionStatus = RightReverseWalkEdge(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1104,7 +1105,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case COLLISION_FRONT_RIGHTRUN_STEP:
-        log_debug("COLLISION front right run step!\n");
+        //log_debug("COLLISION front right run step!\n");
         FunctionStatus = CollisionFrontRightRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -1129,7 +1130,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
         break;
     case LEAKING_SWEEP_RIGHTRUN_STEP:
-        log_debug("leaking sweep right run step!\n");
+        //log_debug("leaking sweep right run step!\n");
         if (RightReadyLeakingSweep(current_pose, obstacleSignal))
         {
             right_running_step_status = GOSTR_RIGHTRUN_STEP;
@@ -1150,6 +1151,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
     switch(collision_right_rightrun_step_status)
     {
     case 0:
@@ -1182,7 +1184,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw/100) < 90)
+            if (my_abs(Yaw) < 90)
             {
                 collision_right_rightrun_step_status  = DIR_RIGHT_YAW_LESS_ABS90_CRRRS;
             }
@@ -1197,7 +1199,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw/100) < 90)
+            if (my_abs(Yaw) < 90)
             {
                 collision_right_rightrun_step_status = DIR_RIGHT_YAW_LESS_ABS90_CRRRS;
             }
@@ -1218,7 +1220,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_NEG27_CR_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if ((Yaw/100) < -27)
+        if ((Yaw) < -27)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1268,7 +1270,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_NEG57_CR_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (Yaw/100 < -57)
+        if (Yaw < -57)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1320,7 +1322,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_NEG82_CR_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (Yaw/100 < -82)
+        if (Yaw < -82)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1378,7 +1380,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_ABS173_CR_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100) > 173)
+        if (my_abs(Yaw) > 173)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1423,7 +1425,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     case TURN_CCLCOK_TARGET_YAW_ABS153_CR_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100) < 153)
+        if (my_abs(Yaw) < 153)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1504,7 +1506,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
             collision_right_rightrun_step_status = COMPLETE_CR_DRYM;
             break;
         }
-        if (my_abs(Yaw/100) < 90)
+        if (my_abs(Yaw) < 90)
         {
             collision_right_rightrun_step_status = COMPLETE_CR_DRYM;
             break;
@@ -1517,7 +1519,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
             collision_right_rightrun_step_status = GOSTR_BYPASS_BOW_CONTINUE_COLLISION_CR_DRYM;
             break;
         }
-        if (my_abs(Yaw/100) < 3)
+        if (my_abs(Yaw) < 3)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1566,8 +1568,8 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
-            if (my_abs(Yaw/100) > 165) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS165_CR_DRYM;
+            temporary_yaw = Yaw;
+            if (my_abs(Yaw) > 165) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS165_CR_DRYM;
             else collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS165_CR_DRYM;
             break;
         }
@@ -1580,7 +1582,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
             collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS165_COLLISION_CR_DRYM;
             break;
         }
-        if (my_abs(Yaw/100) < 165)
+        if (my_abs(Yaw) < 165)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1614,7 +1616,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
             collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS165_COLLISION_CR_DRYM;
             break;
         }
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             collision_right_rightrun_step_status = GOSTR_BYPASS_CR_DRYM;
             break;
@@ -1641,18 +1643,18 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
         }
         break;
     case GOSTR_X_MORE_ONE_THIRD_LATERALDIS_BYPASS_CR_DRYM:
-        if (my_abs(Yaw/100) > 150)
+        if (my_abs(Yaw) > 150)
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             collision_right_rightrun_step_status = TURN_CLOCK_TARGET_YAW_ABS150_CR_DRYM;
         }
-        else if (my_abs(Yaw/100) < 150 && Yaw/100 < 0)
+        else if (my_abs(Yaw) < 150 && Yaw < 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             collision_right_rightrun_step_status = TURN_CLOCK_YAW_ADD_ABS30_CR_DRYM;
         }
         else{
@@ -1662,7 +1664,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
         }
         break;
     case TURN_CLOCK_TARGET_YAW_ABS150_CR_DRYM:
-        if (my_abs(Yaw/100) < 150)
+        if (my_abs(Yaw) < 150)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1691,14 +1693,14 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
-            if (my_abs(Yaw/100) > 165) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS165_CR_DRYM;
+            temporary_yaw = Yaw;
+            if (my_abs(Yaw) > 165) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS165_CR_DRYM;
             else collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS165_CR_DRYM;
             break;
         }
         break;
     case TURN_CLOCK_YAW_ADD_ABS30_CR_DRYM:
-        if (my_abs(Yaw/100 - temporary_yaw) > 30)
+        if (my_abs(Yaw - temporary_yaw) > 30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1726,8 +1728,8 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
-            if (my_abs(Yaw/100) > 165) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS165_CR_DRYM;
+            temporary_yaw = Yaw;
+            if (my_abs(Yaw) > 165) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS165_CR_DRYM;
             else collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS165_CR_DRYM;
             break;
         }
@@ -1739,7 +1741,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
             bow_continue = true;
             break;
         }
-        if (my_abs(Yaw/100) < 3)
+        if (my_abs(Yaw) < 3)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1765,6 +1767,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
     log_debug("collision_left_rightrun_step_status................============>>>>>>>>>>>,%x,\n",collision_left_rightrun_step_status);
     switch(collision_left_rightrun_step_status)
     {
@@ -1797,7 +1800,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw/100) < 90)
+            if (my_abs(Yaw) < 90)
             {
                 collision_left_rightrun_step_status  = DIR_RIGHT_YAW_LESS_ABS90_CLRRS;
             }
@@ -1812,7 +1815,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw/100) < 90)
+            if (my_abs(Yaw) < 90)
             {
                 collision_left_rightrun_step_status = DIR_RIGHT_YAW_LESS_ABS90_CLRRS;
             }
@@ -1832,7 +1835,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     case  TURN_CLOCK_TARGET_YAW_ABS30_CL_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100) >30)
+        if (my_abs(Yaw) >30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1913,7 +1916,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
             collision_left_rightrun_step_status = COMPLETE_CL_DRYL;
             break;
         }
-        if (my_abs(Yaw/100) > 90)
+        if (my_abs(Yaw) > 90)
         {
             collision_left_rightrun_step_status = COMPLETE_CL_DRYL;
             break;
@@ -1928,7 +1931,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
             collision_left_rightrun_step_status = GOSTR_BYPASS_BOW_CONTINUE_COLLISION_CL_DRYL;
             break;
         }
-        if (my_abs(Yaw/100) > 175 )
+        if (my_abs(Yaw) > 175 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1975,12 +1978,12 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            if (my_abs(Yaw/100) <15){
+            if (my_abs(Yaw) <15){
                 collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_LESS_ABS15_CL_DRYL;
             }
             else
             {
-                temporary_yaw = Yaw/100;
+                temporary_yaw = Yaw;
                 collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_MORE_ABS15_CL_DRYL;
             }
             break;
@@ -1994,7 +1997,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
             collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_LESS_ABS15_COLLISION_CL_DRYL;
             break;
         }
-        if (my_abs(Yaw/100) >15)
+        if (my_abs(Yaw) >15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2029,7 +2032,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
             collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_MORE_ABS15_COLLISION_CL_DRYL;
             break;
         }
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             collision_left_rightrun_step_status = GOSTR_BYPASS_CL_DRYL;
             break;
@@ -2056,18 +2059,18 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
         }
         break;
     case  GOSTR_X_MORE_ONE_THIRD_LATERALDIS_BYPASS_CL_DRYL:
-        if (my_abs(Yaw/100) < 30)
+        if (my_abs(Yaw) < 30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             collision_left_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_AB30_CL_DRYL;
         }
-        else if (my_abs(Yaw/100) > 30 && (Yaw/100 < 0))
+        else if (my_abs(Yaw) > 30 && (Yaw < 0))
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             collision_left_rightrun_step_status = TURN_CCLOCK_YAW_ADD_ABS30_CL_DRYL;
         }
         else{
@@ -2078,7 +2081,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
         }
         break;
     case  TURN_CCLOCK_TARGET_YAW_MORE_AB30_CL_DRYL:
-        if (my_abs(Yaw/100) >30)
+        if (my_abs(Yaw) >30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2106,19 +2109,19 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            if (my_abs(Yaw/100) <15){
+            if (my_abs(Yaw) <15){
                 collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_LESS_ABS15_CL_DRYL;
             }
             else
             {
-                temporary_yaw = Yaw/100;
+                temporary_yaw = Yaw;
                 collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_MORE_ABS15_CL_DRYL;
             }
             break;
         }
         break;
     case  TURN_CCLOCK_YAW_ADD_ABS30_CL_DRYL:
-        if (my_abs(Yaw/100 - temporary_yaw) > 30)
+        if (my_abs(Yaw - temporary_yaw) > 30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2147,12 +2150,12 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            if (my_abs(Yaw/100) <15){
+            if (my_abs(Yaw) <15){
                 collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_LESS_ABS15_CL_DRYL;
             }
             else
             {
-                temporary_yaw = Yaw/100;
+                temporary_yaw = Yaw;
                 collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_MORE_ABS15_CL_DRYL;
             }
             break;
@@ -2165,7 +2168,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
             bow_continue = true;
             break;
         }
-        if (my_abs(Yaw/100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2188,7 +2191,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     case  TURN_CCLOCK_TARGET_YAW_ABS153_CL_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100) < 153)
+        if (my_abs(Yaw) < 153)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2239,7 +2242,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     case  TURN_CCLOCK_TARGET_YAW_NEG123_CL_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw/100 > -123)
+        if (Yaw > -123)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2291,7 +2294,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     case  TURN_CCLOCK_TARGET_YAW_NEG98_CL_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw/100 > -98)
+        if (Yaw > -98)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2350,7 +2353,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     case  TURN_CCLOCK_TARGET_YAW_ABS8_CL_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100) < 8)
+        if (my_abs(Yaw) < 8)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2399,6 +2402,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("CollisionFrontRightRunStep =======>>>,%x,\n",collision_front_rightrun_step_status);
     switch (collision_front_rightrun_step_status)
     {
@@ -2431,7 +2435,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw / 100) < 90)
+            if (my_abs(Yaw) < 90)
             {
                 collision_front_rightrun_step_status = DIR_RIGHT_YAW_LESS_ABS90_CFRRS;
             }
@@ -2446,7 +2450,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw / 100) < 90)
+            if (my_abs(Yaw) < 90)
             {
                 collision_front_rightrun_step_status = DIR_RIGHT_YAW_LESS_ABS90_CFRRS;
             }
@@ -2467,7 +2471,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CLOCK_TARGET_YAW_NEG60_CF_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if ((Yaw / 100) < -60)
+        if ((Yaw) < -60)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2517,7 +2521,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CLOCK_TARGET_YAW_NEG82_CF_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (Yaw / 100 < -82)
+        if (Yaw < -82)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2574,7 +2578,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CLOCK_TARGET_YAW_ABS173_CF_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw / 100) > 173)
+        if (my_abs(Yaw) > 173)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2618,7 +2622,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CCLOCK_TARGET_YAW_ABS120_CF_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw / 100) < 120)
+        if (my_abs(Yaw) < 120)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2668,7 +2672,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CCLOCK_TARGET_YAW_ABS93_CF_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw / 100) < 93)
+        if (my_abs(Yaw) < 93)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2724,7 +2728,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CCLOCK_TARGET_YAW_ABS10_CF_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw / 100) < 10)
+        if (my_abs(Yaw) < 10)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2770,6 +2774,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
     short Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("RightEdgeDilemma =======>>>,%x,\n",right_edge_dilemma_status);
     switch (right_edge_dilemma_status)
     {
@@ -2809,7 +2814,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         DelimmaNumber = 0;
         break;
     case YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA:
-        if (my_abs(Yaw / 100) > 90 && my_abs(Yaw / 100) < 175)
+        if (my_abs(Yaw) > 90 && my_abs(Yaw) < 175)
         {
             if (Yaw > 0)
             {
@@ -2822,7 +2827,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
                 angular_velocity = -turn_vel;
             }
         }
-        else if (my_abs(Yaw / 100) < 90 && my_abs(Yaw / 100) > 5)
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
         {
             if (Yaw > 0)
             {
@@ -2864,7 +2869,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            if (my_abs(Yaw / 100) >= 90)
+            if (my_abs(Yaw) >= 90)
             {
                 right_edge_dilemma_status = COLLISION_YAW_MORE_ABS90_DILEMMA;
                 break;
@@ -2880,7 +2885,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
         break;
     case CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA:
-        if (my_abs(Yaw / 100) < 90)
+        if (my_abs(Yaw) < 90)
         {
             last_position_y = current_pose->y;
             last_position_x = current_pose->x + half_map_wide;
@@ -2948,7 +2953,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
         break;
     case CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA:
-        if (my_abs(Yaw / 100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2984,7 +2989,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         right_edge_dilemma_status = CCLOCK_TARGET_YAW_MORE_ABS90_DILEMMA;
         break;
     case CCLOCK_TARGET_YAW_MORE_ABS90_DILEMMA:
-        if (my_abs(Yaw / 100) > 90)
+        if (my_abs(Yaw) > 90)
         {
             last_position_y = current_pose->y;
             last_position_x = current_pose->x + half_map_wide;
@@ -3054,7 +3059,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         right_edge_dilemma_status = CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA;
         break;
     case CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA:
-        if (my_abs(Yaw / 100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3096,6 +3101,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("right_walk_edge_status =======>>>,%x,\n",right_walk_edge_status);
     switch(right_walk_edge_status)
     {
@@ -3123,7 +3129,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case TURN_CLOCK_TARGET_YAW_MORE_ABS117_WE:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100) > 147)
+        if (my_abs(Yaw) > 147)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3197,7 +3203,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             right_walk_edge_status = BOW_CONTINUE_WE;
             break;
         }
-        if (my_abs(Yaw/100) < 120 && (Yaw/100 > 0) && (b_last_position_yy == false))
+        if (my_abs(Yaw) < 120 && (Yaw > 0) && (b_last_position_yy == false))
         {
             last_position_yy = current_pose->y;
             b_last_position_yy = true;
@@ -3205,7 +3211,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         break;
 
     case REBACK_GOSTR_BYPASS_CHECK_WE:
-        if (my_abs(Yaw/100) < 135 && (Yaw/100 > 0))
+        if (my_abs(Yaw) < 135 && (Yaw > 0))
         {
             right_walk_edge_status = TARGET_YAW_LESS_ABS105_MORE_0_BYPASS_WE;
             break;
@@ -3232,7 +3238,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_walk_edge_status = TURN_CLOCK_YAW_ADD_ABS15_WE;
             break;
         }
@@ -3240,7 +3246,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case TURN_CLOCK_YAW_ADD_ABS15_WE:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3301,7 +3307,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             detection_close_edge=false;
             if(detection_close==true){
                 detection_close=false;
-                temporary_yaw = Yaw/100;
+                temporary_yaw = Yaw;
                 right_walk_edge_status = CLOSE_EDGE_MAP_RIGHT_WALK_TURN_CLOCK_YAW_ADD_ABS15_WE;
             }else{
                 right_walk_edge_status = RETURN_ORIGIN_WE;
@@ -3312,7 +3318,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case  CLOSE_EDGE_MAP_RIGHT_WALK_TURN_CLOCK_YAW_ADD_ABS15_WE:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3348,7 +3354,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         break;
 
     case TURN_CLOCK_TARGET_YAW_LESS_ABS3_WE:
-        if (my_abs(Yaw/100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3383,12 +3389,12 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         }
         break;
     case GOSTR_X_MORE_LATERALDIS_BYPASS_WE:
-        temporary_yaw = Yaw/100;
-        if (my_abs(Yaw/100) < 135 && (Yaw/100 > 0))
+        temporary_yaw = Yaw;
+        if (my_abs(Yaw) < 135 && (Yaw > 0))
         {
             right_walk_edge_status = TURN_CCLOCK_TARGET_YAW_LESS_0_WE;
         }
-        else if (my_abs(Yaw/100) > 135)
+        else if (my_abs(Yaw) > 135)
         {
             right_walk_edge_status = TURN_CCLOCK_TARGET_YAW_LESS_135_DETAL_YAW_MORE_30_WE;
         }
@@ -3399,7 +3405,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case TURN_CCLOCK_TARGET_YAW_LESS_0_WE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw/100  < 0 )
+        if (Yaw  < 0 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3428,14 +3434,14 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_walk_edge_status = TURN_CLOCK_YAW_ADD_ABS15_WE;
         }
         break;
     case TURN_CCLOCK_TARGET_YAW_LESS_135_DETAL_YAW_MORE_30_WE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(temporary_yaw - Yaw/100) > 30 && my_abs(Yaw/100) < 135)
+        if (my_abs(temporary_yaw - Yaw) > 30 && my_abs(Yaw) < 135)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3464,7 +3470,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_walk_edge_status = TURN_CLOCK_YAW_ADD_ABS15_WE;
         }
         break;
@@ -3509,6 +3515,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("right_reverse_walk_edge_status =======>>>,%x,\n",right_reverse_walk_edge_status);
     switch(right_reverse_walk_edge_status)
     {
@@ -3536,7 +3543,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
     case TURN_CCLOCK_TARGET_YAW_LESS_ABS63_RWE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100) < 45)
+        if (my_abs(Yaw) < 45)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3601,7 +3608,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
     case CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100)<10)
+        if (my_abs(Yaw)<10)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3675,14 +3682,14 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
             right_reverse_walk_edge_status = BOW_CONTINUE_RWE;
             break;
         }
-        if (my_abs(Yaw/100) < 120 && (Yaw/100 > 0) && (b_last_position_yy == false))
+        if (my_abs(Yaw) < 120 && (Yaw > 0) && (b_last_position_yy == false))
         {
             last_position_yy = current_pose->y;
             b_last_position_yy = true;
         }
         break;
     case REBACK_GOSTR_BYPASS_CHECK_RWE:
-        if (Yaw/100>45)
+        if (Yaw>45)
         {
             right_reverse_walk_edge_status = TARGET_YAW_MORE_ABS75_MORE_ABS0_RWE;
             break;
@@ -3709,7 +3716,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_reverse_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_RWE;
             break;
         }
@@ -3717,7 +3724,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
     case TURN_CCLOCK_YAW_ADD_ABS15_RWE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3777,7 +3784,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
             detection_close_edge=false;
             if(detection_close==true){
                 detection_close=false;
-                temporary_yaw = Yaw/100;
+                temporary_yaw = Yaw;
                 right_reverse_walk_edge_status = CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK_TURN_CCLOCK_YAW_ADD_ABS15_RWE;
             }else{
                 right_reverse_walk_edge_status = RETURN_ORIGIN_RWE;
@@ -3788,7 +3795,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
     case  CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK_TURN_CCLOCK_YAW_ADD_ABS15_RWE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3824,7 +3831,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
         break;
 
     case TURN_CCLOCK_YAW_MORE_178ABS_RWE:
-        if (my_abs(Yaw/100) >175)
+        if (my_abs(Yaw) >175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3859,12 +3866,12 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
         break;
 
     case GOSTR_X_MORE_LATERALDIS_BYPASS_RWE:
-        temporary_yaw = Yaw/100;
-        if (my_abs(Yaw/100) > 45 && (Yaw/100 > 0))
+        temporary_yaw = Yaw;
+        if (my_abs(Yaw) > 45 && (Yaw > 0))
         {
             right_reverse_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_0_RWE;
         }
-        else if (my_abs(Yaw/100) <= 45 )
+        else if (my_abs(Yaw) <= 45 )
         {
             right_reverse_walk_edge_status = TURN_CLOCK_TARGET_YAW_LESS_ABS45_DETAL_YAW_MORE_30_RWE;
         }
@@ -3876,7 +3883,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
     case TURN_CLOCK_TARGET_YAW_LESS_0_RWE:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (Yaw/100 < 0 )
+        if (Yaw < 0 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3905,7 +3912,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_reverse_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_RWE;
             break;
         }
@@ -3913,7 +3920,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
     case TURN_CLOCK_TARGET_YAW_LESS_ABS45_DETAL_YAW_MORE_30_RWE:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(temporary_yaw - Yaw/100) > 30 && my_abs(Yaw/100) > 45)
+        if (my_abs(temporary_yaw - Yaw) > 30 && my_abs(Yaw) > 45)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3942,7 +3949,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_reverse_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_RWE;
             break;
         }
@@ -3989,17 +3996,18 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
     if (judgment_Stuck_status == 0)
     {
         judgment_Stuck_status_x = current_pose->x;
         judgment_Stuck_status_y = current_pose->y;
-        judgment_Stuck_status_yaw = Yaw / 100;
+        judgment_Stuck_status_yaw = Yaw;
         judgment_Stuck_status = 1;
     }
     if (my_abs(current_pose->x - judgment_Stuck_status_x) > lateral_move_distance / 2 || my_abs(current_pose->y - judgment_Stuck_status_y) > lateral_move_distance / 2)
     {
         judgment_Stuck_status = 0;
-        if (my_abs(judgment_Stuck_status_yaw - Yaw / 100) < 10)
+        if (my_abs(judgment_Stuck_status_yaw - Yaw) < 10)
         {
             if (my_abs(current_pose->x) > half_map_wide)
             {
@@ -4016,7 +4024,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
     switch (right_forward_boundary_status)
     {
     case 0:
-        if (my_abs(Yaw / 100) < 90)
+        if (my_abs(Yaw) < 90)
         {
             right_forward_boundary_status = FORWARDBOUNDARY_YAW_LESS_ABS10;
         }
@@ -4031,7 +4039,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
     case FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178:
         linear_velocity = 100;
         angular_velocity = -57;
-        if (my_abs(Yaw / 100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             right_forward_boundary_status = FORWARDBOUNDARY_GOSTRAIGHT;
             break;
@@ -4066,7 +4074,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
     case FORWARDBOUNDARY_CCLOCK_TARGET_YAW_LESS_ABS3:
         linear_velocity = 100;
         angular_velocity = 57;
-        if (my_abs(Yaw / 100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             right_forward_boundary_status = FORWARDBOUNDARY_GOSTRAIGHT;
             break;
@@ -4102,7 +4110,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
             turn_start_y = current_pose->y;
             turn_start_update = 1;
         }
-        if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) > 50) && my_abs(Yaw / 100) < 90 && current_pose->x > 0)
+        if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) > 50) && my_abs(Yaw) < 90 && current_pose->x > 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4110,7 +4118,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
             right_forward_boundary_status = FORWARDBOUNDARY_COMPLETE;
             break;
         }
-        if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) > 50) && my_abs(Yaw / 100) > 90 && current_pose->x < 0)
+        if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) > 50) && my_abs(Yaw) > 90 && current_pose->x < 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4149,6 +4157,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
 	int8_t i = 0,k=0, j = 0;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("stuck_right_run_step =======>>>,%x,\n",stuck_right_run_step);
     switch (stuck_right_run_step)
     {
@@ -4169,13 +4178,13 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             stuck_right_run_step = TURN_RIGHT_YAW_MORE_90_STUCK_FORWARD_BOUNDARY_STATUS;
             break;
         }
         break;
     case TURN_RIGHT_YAW_MORE_90_STUCK_FORWARD_BOUNDARY_STATUS:
-        if (my_abs(Yaw / 100 - temporary_yaw) > 90)
+        if (my_abs(Yaw - temporary_yaw) > 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4221,7 +4230,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
         }
         if (my_abs(last_position_x - current_pose->x) > lateral_move_distance || my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             linear_velocity = 0;
             angular_velocity = 0;
             stuck_right_run_step = GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS;
@@ -4242,13 +4251,13 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             stuck_right_run_step = TURN_RIGHT_YAW_MORE_10_STUCK_FORWARD_BOUNDARY_STATUS;
             break;
         }
         break;
     case TURN_RIGHT_YAW_MORE_10_STUCK_FORWARD_BOUNDARY_STATUS:
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4283,7 +4292,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
         }
         break;
     case GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS:
-        if (my_abs(Yaw / 100 - temporary_yaw) > 90)
+        if (my_abs(Yaw - temporary_yaw) > 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4296,7 +4305,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             stuck_right_run_step = COLLISION_GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS;
         }
         linear_velocity = 0;
@@ -4351,13 +4360,13 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             stuck_right_run_step = TURN_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS;
             break;
         }
         break;
     case TURN_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS:
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4536,6 +4545,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("right_ready_leaking_sweep_status =======>>>,%x,\n",right_ready_leaking_sweep_status);
     switch (right_ready_leaking_sweep_status)
     {
@@ -4558,7 +4568,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
             angular_velocity = 0;
             turn_start_update = 0;
 
-            if (my_abs(Yaw / 100) > 90)
+            if (my_abs(Yaw) > 90)
             {
                 right_ready_leaking_sweep_status = RIGHT_LEAKING_SWEEP_YAW_MORE_ABS90;
                 break;
@@ -4574,7 +4584,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
         right_ready_leaking_sweep_status = RIGHT_LEAKING_SWEEP_CLOCK_TARGET_YAW_LESS_ABS90;
         break;
     case RIGHT_LEAKING_SWEEP_CLOCK_TARGET_YAW_LESS_ABS90:
-        if (my_abs(Yaw / 100) < 90)
+        if (my_abs(Yaw) < 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4624,7 +4634,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
         }
         break;
     case RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3:
-        if (my_abs(Yaw / 100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4662,7 +4672,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
         right_ready_leaking_sweep_status = RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS90;
         break;
     case RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS90:
-        if (my_abs(Yaw / 100) > 90)
+        if (my_abs(Yaw) > 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4712,7 +4722,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
         }
         break;
     case RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS178:
-        if (my_abs(Yaw / 100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -4767,6 +4777,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
     complete_flag = 0;
 	log_debug("left_running_step_status =======>>>,%x,\n",left_running_step_status);
     switch (left_running_step_status)
@@ -4775,10 +4786,10 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         left_running_step_status = GOSTR_LEFTRUN_STEP;
         break;
     case GOSTR_LEFTRUN_STEP:
-        log_debug("gostraight left run step!\n");
-        if (my_abs(Yaw / 100) > 90 && my_abs(Yaw / 100) < 178)
+        //log_debug("gostraight left run step!\n");
+        if (my_abs(Yaw) > 90 && my_abs(Yaw) < 178)
         {
-            log_debug("backaward Corrected heading angle !\n");
+            //log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -4792,9 +4803,9 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
                 break;
             }
         }
-        else if (my_abs(Yaw / 100) < 90 && my_abs(Yaw / 100) > 2)
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2)
         {
-            log_debug("gostraight Corrected heading angle !\n");
+            //log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -4810,13 +4821,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         else if (my_abs(current_pose->x) > half_map_wide)
         {
-            log_debug("current pose x arrived width max!\n");
+            //log_debug("current pose x arrived width max!\n");
             left_running_step_status = FORWARD_BOUNDARY_LEFTRUN_STEP;
             break;
         }
         else if (my_abs(current_pose->y) > half_map_wide)
         {
-            log_debug("current pose y arrived width max!\n");
+            //log_debug("current pose y arrived width max!\n");
             complete_flag = 1;
             break;
         }
@@ -4832,13 +4843,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             }
             if (0 != leakingsweep)
             {
-                log_debug("right obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP\n");
+                //log_debug("right obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP\n");
                 left_running_step_status = LEAKING_SWEEP_LEFTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("right obstacle,ready goto COLLISION_RIGHT_LEFTRUN_STEP\n");
+                //log_debug("right obstacle,ready goto COLLISION_RIGHT_LEFTRUN_STEP\n");
                 collision_right_rightrun_step_status = 0;
                 left_running_step_status = COLLISION_RIGHT_LEFTRUN_STEP;
                 break;
@@ -4856,13 +4867,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             }
             if (0 != leakingsweep)
             {
-                log_debug("front obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP\n");
+                //log_debug("front obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP\n");
                 left_running_step_status = LEAKING_SWEEP_LEFTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("front obstacle,ready goto COLLISION_FRONT_LEFTRUN_STEP\n");
+                //log_debug("front obstacle,ready goto COLLISION_FRONT_LEFTRUN_STEP\n");
                 collision_front_rightrun_step_status = 0;
                 left_running_step_status = COLLISION_FRONT_LEFTRUN_STEP;
                 break;
@@ -4880,13 +4891,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             }
             if (0 != leakingsweep)
             {
-                log_debug("left obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP\n");
+                //log_debug("left obstacle,ready goto LEAKING_SWEEP_LEFTRUN_STEP\n");
                 left_running_step_status = LEAKING_SWEEP_LEFTRUN_STEP;
                 break;
             }
             else
             {
-                log_debug("left obstacle,ready goto COLLISION_LEFT_LEFTRUN_STEP\n");
+                //log_debug("left obstacle,ready goto COLLISION_LEFT_LEFTRUN_STEP\n");
                 collision_left_rightrun_step_status = 0;
                 left_running_step_status = COLLISION_LEFT_LEFTRUN_STEP;
                 break;
@@ -4894,13 +4905,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         else
         {
-            log_debug("go straight...\n");
+            //log_debug("go straight...\n");
             linear_velocity = long_stra_vel;
             angular_velocity = 0;
         }
         break;
     case FORWARD_BOUNDARY_LEFTRUN_STEP:
-        log_debug("forward boundary leftrun step!\n");
+        //log_debug("forward boundary leftrun step!\n");
         if (ForwardBoundaryLeftRunStep(current_pose, obstacleSignal))
         {
             left_running_step_status = GOSTR_LEFTRUN_STEP;
@@ -4909,7 +4920,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         break;
 
     case COLLISION_RIGHT_LEFTRUN_STEP:
-        log_debug("collsion right right run step!\n");
+        //log_debug("collsion right right run step!\n");
         FunctionStatus = CollisionRightLeftRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -4927,7 +4938,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case LEFTREVERSEWALKEDGE:
-        log_debug("LEFTREVERSEWALKEDGE\n");
+        //log_debug("LEFTREVERSEWALKEDGE\n");
         FunctionStatus = LeftReverseWalkEdge(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -4953,7 +4964,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case LEFTEDGEDILEMMA:
-        log_debug("LEFTEDGEDILEMMA\n");
+        //log_debug("LEFTEDGEDILEMMA\n");
 	 if((my_abs(current_pose->y)<return_origin_distance)||(startedgedelimmy>current_pose->y&&endedgedelimmy<current_pose->y)){
 		left_running_step_status = 0;
         right_edge_dilemma_status = 0;
@@ -4968,7 +4979,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case COLLISION_LEFT_LEFTRUN_STEP:
-        log_debug("collsion left left run step!\n");
+        //log_debug("collsion left left run step!\n");
         FunctionStatus = CollisionLeftLeftRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -4986,7 +4997,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case LEFTWALKEDGE:
-        log_debug("LEFTWALKEDGE\n");
+        //log_debug("LEFTWALKEDGE\n");
         FunctionStatus = LeftWalkEdge(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -5012,7 +5023,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case COLLISION_FRONT_LEFTRUN_STEP:
-        log_debug("collsion front left run step!\n");
+        //log_debug("collsion front left run step!\n");
         FunctionStatus = CollisionFrontLeftRunStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
         {
@@ -5037,7 +5048,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case LEAKING_SWEEP_LEFTRUN_STEP:
-        log_debug("leaking sweep left run step!\n");
+        //log_debug("leaking sweep left run step!\n");
         if (LeftReadyLeakingSweep(current_pose, obstacleSignal))
         {
             left_running_step_status = GOSTR_LEFTRUN_STEP;
@@ -5055,11 +5066,12 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("right_forward_boundary_status =======>>>,%x,\n",right_forward_boundary_status);
     switch (right_forward_boundary_status)
     {
     case 0:
-        if (my_abs(Yaw / 100) < 90)
+        if (my_abs(Yaw) < 90)
         {
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_YAW_LESS_ABS10;
         }
@@ -5074,7 +5086,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
     case LEFT_FORWARDBOUNDARY_CCLOCK_TARGET_YAW_MORE_ABS178:
         linear_velocity = 100;
         angular_velocity = 57;
-        if (my_abs(Yaw / 100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_GOSTRAIGHT;
             break;
@@ -5109,7 +5121,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
     case LEFT_FORWARDBOUNDARY_CLOCK_TARGET_YAW_LESS_ABS3:
         linear_velocity = 100;
         angular_velocity = -57;
-        if (my_abs(Yaw / 100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_GOSTRAIGHT;
             break;
@@ -5147,7 +5159,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
         }
         linear_velocity = long_stra_vel;
         angular_velocity = 0;
-        if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) > 50) && my_abs(Yaw / 100) < 90 && current_pose->x > 0)
+        if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) > 50) && my_abs(Yaw) < 90 && current_pose->x > 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5156,7 +5168,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
             break;
         }
 
-        if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) > 50) && my_abs(Yaw / 100) > 90 && current_pose->x < 0)
+        if ((my_abs(turn_start_x - current_pose->x) > 50 || my_abs(turn_start_y - current_pose->y) > 50) && my_abs(Yaw) > 90 && current_pose->x < 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5194,6 +5206,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("collision_right_rightrun_step_status =======>>>,%x,\n",collision_right_rightrun_step_status);
     switch(collision_right_rightrun_step_status)
     {
@@ -5227,7 +5240,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw/100) > 90)
+            if (my_abs(Yaw) > 90)
             {
                 collision_right_rightrun_step_status  = DIR_LEFT_YAW_MORE_ABS90_CRLRS;
             }
@@ -5242,7 +5255,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw/100) > 90)
+            if (my_abs(Yaw) > 90)
             {
                 collision_right_rightrun_step_status = DIR_LEFT_YAW_MORE_ABS90_CRLRS;
             }
@@ -5263,7 +5276,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     case TURN_CLOCK_TARGET_YAW_ABS153_LRUN_CR_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100) < 153)
+        if (my_abs(Yaw) < 153)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5313,7 +5326,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     case TURN_CLOCK_TARGET_YAW_POS123_LRUN_CR_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (Yaw/100 < 123)
+        if (Yaw < 123)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5365,7 +5378,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     case TURN_CLOCK_TARGET_YAW_POS98_LRUN_CR_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (Yaw/100 < 98)
+        if (Yaw < 98)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5423,7 +5436,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     case TURN_CLOCK_TARGET_YAW_ABS3_LRUN_CR_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100) < 3)
+        if (my_abs(Yaw) < 3)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5469,7 +5482,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     case TURN_CCLCOK_TARGET_YAW_ABS27_LRUN_CR_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100) > 27)
+        if (my_abs(Yaw) > 27)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5528,7 +5541,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             bow_continue = true;
             break;
         }
-        if (my_abs(Yaw/100) > 173)
+        if (my_abs(Yaw) > 173)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5586,7 +5599,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             collision_right_rightrun_step_status = COMPLETE_LRUN_CR_DLYL;
             break;
         }
-        if (my_abs(Yaw/100) >90)
+        if (my_abs(Yaw) >90)
         {
             collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_AB173_LRUN_CR_DLYL;
             break;
@@ -5602,7 +5615,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             collision_right_rightrun_step_status =  GOSTR_BYPASS_BOW_CONTINUE_TARGET_YAW_ABS3_COLLISION_LRUN_CR_DLYL;
             break;
         }
-        if (my_abs(Yaw/100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5635,7 +5648,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             collision_right_rightrun_step_status = GOSTR_BYPASS_BOW_CONTINUE_COLLISION_LRUN_CR_DLYL;
             break;
         }
-        if (my_abs(Yaw/100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5682,8 +5695,8 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
-            if (my_abs(Yaw/100) < 15) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS15_LRUN_CR_DLYL;
+            temporary_yaw = Yaw;
+            if (my_abs(Yaw) < 15) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS15_LRUN_CR_DLYL;
             else collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS15_LRUN_CR_DLYL;
             break;
         }
@@ -5696,7 +5709,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS15_COLLISION_LRUN_CR_DLYL;
             break;
         }
-        if (my_abs(Yaw/100) > 15)
+        if (my_abs(Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5731,7 +5744,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS15_COLLISION_LRUN_CR_DLYL;
             break;
         }
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             collision_right_rightrun_step_status = GOSTR_BYPASS_LRUN_CR_DLYL;
             break;
@@ -5759,19 +5772,19 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
         break;
 
     case GOSTR_X_MORE_ONE_THIRD_LATERALDIS_BYPASS_LRUN_CR_DLYL:
-        if (my_abs(Yaw/100) <=30)
+        if (my_abs(Yaw) <=30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             collision_right_rightrun_step_status = TURN_CLOCK_TARGET_YAW_ABS30_LRUN_CR_DLYL;
             break;
         }
-        else if (my_abs(Yaw/100) > 30 && Yaw/100 > 0)
+        else if (my_abs(Yaw) > 30 && Yaw > 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             collision_right_rightrun_step_status = TURN_CLOCK_YAW_ADD_ABS30_LRUN_CR_DLYL;
             break;
         }
@@ -5780,7 +5793,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             break;
         }
     case TURN_CLOCK_TARGET_YAW_ABS30_LRUN_CR_DLYL:
-        if (my_abs(Yaw/100) > 30)
+        if (my_abs(Yaw) > 30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5808,14 +5821,14 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
-            if (my_abs(Yaw/100) < 15) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS15_LRUN_CR_DLYL;
+            temporary_yaw = Yaw;
+            if (my_abs(Yaw) < 15) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS15_LRUN_CR_DLYL;
             else collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS15_LRUN_CR_DLYL;
             break;
         }
         break;
     case TURN_CLOCK_YAW_ADD_ABS30_LRUN_CR_DLYL:
-        if (my_abs(Yaw/100 - temporary_yaw) > 30)
+        if (my_abs(Yaw - temporary_yaw) > 30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5844,8 +5857,8 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
-            if (my_abs(Yaw/100) < 15) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS15_LRUN_CR_DLYL;
+            temporary_yaw = Yaw;
+            if (my_abs(Yaw) < 15) collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS15_LRUN_CR_DLYL;
             else collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_ABS15_LRUN_CR_DLYL;
             break;
         }
@@ -5856,7 +5869,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_AB173_COLLISION_LRUN_CR_DLYL;
             break;
         }
-        if (my_abs(Yaw/100) > 173)
+        if (my_abs(Yaw) > 173)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5901,6 +5914,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("collision_left_rightrun_step_status =======>>>,%x,\n",collision_left_rightrun_step_status);
     switch(collision_left_rightrun_step_status)
     {
@@ -5934,7 +5948,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw/100) > 90)
+            if (my_abs(Yaw) > 90)
             {
                 collision_left_rightrun_step_status  = DIR_LEFT_YAW_MORE_ABS90_CLLRS;
             }
@@ -5949,7 +5963,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw/100) > 90)
+            if (my_abs(Yaw) > 90)
             {
                 collision_left_rightrun_step_status = DIR_LEFT_YAW_MORE_ABS90_CLLRS;
             }
@@ -5969,7 +5983,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     case  TURN_CLOCK_TARGET_YAW_ABS150_LRUN_CL_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100) < 150)
+        if (my_abs(Yaw) < 150)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6049,7 +6063,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             collision_left_rightrun_step_status = COMPLETE_LRUN_CL_DLYM;
             break;
         }
-        if (my_abs(Yaw/100) < 90)
+        if (my_abs(Yaw) < 90)
         {
             collision_left_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS3_LRUN_CL_DLYM;
             break;
@@ -6062,7 +6076,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             collision_left_rightrun_step_status = GOSTR_BYPASS_OLD_BOW_CONTINUE_COLLISION_LRUN_CL_DLYM;
             break;
         }
-        if (my_abs(Yaw/100) > 175 )
+        if (my_abs(Yaw) > 175 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6098,7 +6112,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             collision_left_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION_LRUN_CL_DLYM;
             break;
         }
-        if (my_abs(Yaw/100) < 5 )
+        if (my_abs(Yaw) < 5 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6134,7 +6148,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             collision_left_rightrun_step_status = GOSTR_BYPASS_BOW_CONTINUE_COLLISION_LRUN_CL_DLYM;
             break;
         }
-        if (my_abs(Yaw/100) < 5 )
+        if (my_abs(Yaw) < 5 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6182,8 +6196,8 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
-            if (my_abs(Yaw/100) > 150) collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_MORE_ABS150_LRUN_CL_DLYM;
+            temporary_yaw = Yaw;
+            if (my_abs(Yaw) > 150) collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_MORE_ABS150_LRUN_CL_DLYM;
             else collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_LESS_ABS150_LRUN_CL_DLYM;
             break;
         }
@@ -6196,7 +6210,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_MORE_ABS150_COLLISION_LRUN_CL_DLYM;
             break;
         }
-        if (my_abs(Yaw/100) < 150)
+        if (my_abs(Yaw) < 150)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6232,7 +6246,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_LESS_ABS150_COLLISION_LRUN_CL_DLYM;
             break;
         }
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             collision_left_rightrun_step_status = GOSTR_BYPASS_LRUN_CL_DLYM;
             break;
@@ -6261,14 +6275,14 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         }
         break;
     case  GOSTR_X_MORE_ONE_THIRD_LATERALDIS_BYPASS_LRUN_CL_DLYM:
-        if (my_abs(Yaw/100) > 150 || Yaw/100 > 0)
+        if (my_abs(Yaw) > 150 || Yaw > 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if(Yaw/100>0&&my_abs(Yaw/100) > 150){
+            if(Yaw>0&&my_abs(Yaw) > 150){
                 turn_start_update=1;
             }
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             collision_left_rightrun_step_status = TURN_CCLOCK_YAW_ADD_ABS30_LRUN_CL_DLYM;
             break;
         }
@@ -6276,7 +6290,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         break;
     case  TURN_CCLOCK_YAW_ADD_ABS30_LRUN_CL_DLYM:
         if(turn_start_update==1){
-            if(my_abs(Yaw/100)<150){
+            if(my_abs(Yaw)<150){
                 turn_start_update=0;
                 linear_velocity = 0;
                 angular_velocity = 0;
@@ -6285,7 +6299,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             }
         }
         else{
-            if (my_abs(Yaw/100 - temporary_yaw) > 30)
+            if (my_abs(Yaw - temporary_yaw) > 30)
             {
                 linear_velocity = 0;
                 angular_velocity = 0;
@@ -6314,8 +6328,8 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
-            if (my_abs(Yaw/100) > 150) collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_MORE_ABS150_LRUN_CL_DLYM;
+            temporary_yaw = Yaw;
+            if (my_abs(Yaw) > 150) collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_MORE_ABS150_LRUN_CL_DLYM;
             else collision_left_rightrun_step_status = TURN_CLCOK_TARGET_YAW_LESS_ABS150_LRUN_CL_DLYM;
             break;
         }
@@ -6327,7 +6341,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
             bow_continue = true;
             break;
         }
-        if (my_abs(Yaw/100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6370,7 +6384,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     case  TURN_CCLOCK_TARGET_YAW_ABS27_LRUN_CL_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100) > 27)
+        if (my_abs(Yaw) > 27)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6420,7 +6434,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     case  TURN_CCLOCK_TARGET_YAW_ABS57_LRUN_CL_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw/100 > 57)
+        if (Yaw > 57)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6472,7 +6486,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     case  TURN_CCLOCK_TARGET_YAW_ABS87_LRUN_CL_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw/100 > 87)
+        if (Yaw > 87)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6530,7 +6544,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     case  TURN_CCLOCK_TARGET_YAW_ABS173_LRUN_CL_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100) >175)
+        if (my_abs(Yaw) >175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6579,6 +6593,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("collision_front_rightrun_step_status =======>>>,%x,\n",collision_front_rightrun_step_status);
     switch (collision_front_rightrun_step_status)
     {
@@ -6612,7 +6627,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw / 100) < 90)
+            if (my_abs(Yaw) < 90)
             {
                 collision_front_rightrun_step_status = DIR_LEFT_YAW_LESS_ABS90_CFRLS;
             }
@@ -6627,7 +6642,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            if (my_abs(Yaw / 100) < 90)
+            if (my_abs(Yaw) < 90)
             {
                 collision_front_rightrun_step_status = DIR_LEFT_YAW_LESS_ABS90_CFRLS;
             }
@@ -6648,7 +6663,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CCLOCK_TARGET_YAW_ABS60_LRUN_CF_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if ((Yaw / 100) > 60)
+        if ((Yaw) > 60)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6698,7 +6713,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CCLOCK_TARGET_YAW_ABS82_LRUN_CF_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw / 100 > 82)
+        if (Yaw > 82)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6754,7 +6769,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CCLOCK_TARGET_YAW_ABS173_LRUN_CF_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw / 100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6798,7 +6813,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_ABS120_LRUN_CF_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw / 100) < 120)
+        if (my_abs(Yaw) < 120)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6848,7 +6863,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_ABS98_LRUN_CF_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw / 100) < 93)
+        if (my_abs(Yaw) < 93)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6904,7 +6919,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_ABS8_LRUN_CF_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw / 100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6949,6 +6964,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("right_walk_edge_status =======>>>,%x,\n",right_walk_edge_status);
     switch(right_walk_edge_status)
     {
@@ -6976,7 +6992,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case LEFT_EDGE_TURN_CCLOCK_TARGET_YAW_MORE_ABS117_WE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100) > 117)
+        if (my_abs(Yaw) > 117)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7040,7 +7056,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case CLOSE_EDGE_MAP_LEFT_WALK:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100)>175)
+        if (my_abs(Yaw)>175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7115,7 +7131,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             right_walk_edge_status = LEFT_EDGE_BOW_CONTINUE_WE;
             break;
         }
-        if (my_abs(Yaw/100) < 120 && (Yaw/100 < 0) && (b_last_position_yy == false))
+        if (my_abs(Yaw) < 120 && (Yaw < 0) && (b_last_position_yy == false))
         {
             last_position_yy = current_pose->y;
             b_last_position_yy = true;
@@ -7123,7 +7139,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         break;
 
     case LEFT_EDGE_REBACK_GOSTR_BYPASS_CHECK_WE:
-        if (my_abs(Yaw/100) < 135 && (Yaw/100 < 0))
+        if (my_abs(Yaw) < 135 && (Yaw < 0))
         {
             right_walk_edge_status = LEFT_EDGE_TARGET_YAW_LESS_ABS105_LESS_0_BYPASS_WE;
             break;
@@ -7149,7 +7165,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_walk_edge_status = LEFT_EDGE_TURN_CCLOCK_YAW_ADD_ABS15_WE;
             break;
         }
@@ -7157,7 +7173,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case LEFT_EDGE_TURN_CCLOCK_YAW_ADD_ABS15_WE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7216,7 +7232,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             detection_close_edge=false;
             if(detection_close==true){
                 detection_close=false;
-                temporary_yaw = Yaw/100;
+                temporary_yaw = Yaw;
                 right_walk_edge_status = CLOSE_EDGE_MAP_LEFT_WALK_TURN_CCLOCK_YAW_ADD_ABS15_WE;
             }else{
                 right_walk_edge_status = LEFT_EDGE_RETURN_ORIGIN_WE;
@@ -7227,7 +7243,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case CLOSE_EDGE_MAP_LEFT_WALK_TURN_CCLOCK_YAW_ADD_ABS15_WE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7263,7 +7279,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         break;
 
     case LEFT_EDGE_TURN_CCLOCK_TARGET_YAW_LESS_ABS3_WE:
-        if (my_abs(Yaw/100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7299,13 +7315,13 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         break;
 
     case LEFT_EDGE_GOSTR_X_MORE_LATERALDIS_BYPASS_WE:
-        temporary_yaw = Yaw/100;
-        if (my_abs(Yaw/100) < 150 && (Yaw/100 < 0))
+        temporary_yaw = Yaw;
+        if (my_abs(Yaw) < 150 && (Yaw < 0))
         {
             right_walk_edge_status = LEFT_EDGE_TURN_CLOCK_TARGET_YAW_MORE_0_WE;
             break;
         }
-        else if (my_abs(Yaw/100) >= 150)
+        else if (my_abs(Yaw) >= 150)
         {
             right_walk_edge_status = LEFT_EDGE_TURN_CLOCK_TARGET_YAW_LESS_135_DETAL_YAW_MORE_30_WE;
             break;
@@ -7317,7 +7333,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case LEFT_EDGE_TURN_CLOCK_TARGET_YAW_MORE_0_WE:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (Yaw/100 > 0 )
+        if (Yaw > 0 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7346,7 +7362,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_walk_edge_status = LEFT_EDGE_TURN_CCLOCK_YAW_ADD_ABS15_WE;
             break;
         }
@@ -7354,7 +7370,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case LEFT_EDGE_TURN_CLOCK_TARGET_YAW_LESS_135_DETAL_YAW_MORE_30_WE:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(temporary_yaw - Yaw/100) > 30 && my_abs(Yaw/100) < 150)
+        if (my_abs(temporary_yaw - Yaw) > 30 && my_abs(Yaw) < 150)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7383,7 +7399,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_walk_edge_status = LEFT_EDGE_TURN_CCLOCK_YAW_ADD_ABS15_WE;
             break;
         }
@@ -7424,6 +7440,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("right_reverse_walk_edge_status =======>>>,%x,\n",right_reverse_walk_edge_status);
     switch(right_reverse_walk_edge_status)
     {
@@ -7451,7 +7468,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
     case LEFT_REVERSE_EDGE_TURN_CLOCK_TARGET_YAW_LESS_ABS63_RWE:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100) < 63)
+        if (my_abs(Yaw) < 63)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7514,7 +7531,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
     case CLOSE_EDGE_MAP_LEFT_REVERSE_WALK:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100)<5)
+        if (my_abs(Yaw)<5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7588,14 +7605,14 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_BOW_CONTINUE_RWE;
             break;
         }
-        if (my_abs(Yaw/100) > 60 && (Yaw/100 < 0) && (b_last_position_yy == false))
+        if (my_abs(Yaw) > 60 && (Yaw < 0) && (b_last_position_yy == false))
         {
             last_position_yy = current_pose->y;
             b_last_position_yy = true;
         }
         break;
     case LEFT_REVERSE_EDGE_REBACK_GOSTR_BYPASS_CHECK_RWE:
-        if (my_abs(Yaw/100) > 45 && (Yaw/100 < 0))
+        if (my_abs(Yaw) > 45 && (Yaw < 0))
         {
             right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_TARGET_YAW_MORE_ABS75_LESS_ABS0_RWE;
             break;
@@ -7621,7 +7638,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_TURN_CLOCK_YAW_ADD_ABS15_RWE;
             break;
         }
@@ -7629,7 +7646,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
     case LEFT_REVERSE_EDGE_TURN_CLOCK_YAW_ADD_ABS15_RWE:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7688,7 +7705,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             detection_close_edge=false;
             if(detection_close==true){
                 detection_close=false;
-                temporary_yaw = Yaw/100;
+                temporary_yaw = Yaw;
                 right_reverse_walk_edge_status = CLOSE_EDGE_MAP_LEFT_REVERSE_WALK_TURN_CLOCK_YAW_ADD_ABS15_RWE;
             }else{
                 right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_RETURN_ORIGIN_RWE;
@@ -7699,7 +7716,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
     case CLOSE_EDGE_MAP_LEFT_REVERSE_WALK_TURN_CLOCK_YAW_ADD_ABS15_RWE:
         linear_velocity = 0;
         angular_velocity =-turn_vel;
-        if (my_abs(Yaw/100 - temporary_yaw) > 15)
+        if (my_abs(Yaw - temporary_yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7734,7 +7751,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         }
         break;
     case LEFT_REVERSE_EDGE_TURN_CCLOCK_YAW_LESS_ABS8_RWE:
-        if (my_abs(Yaw/100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7769,14 +7786,14 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         break;
 
     case LEFT_REVERSE_EDGE_GOSTR_X_MORE_LATERALDIS_BYPASS_RWE:
-        temporary_yaw = Yaw/100;
-        if (my_abs(Yaw/100) > 30 && (Yaw/100 < 0))
+        temporary_yaw = Yaw;
+        if (my_abs(Yaw) > 30 && (Yaw < 0))
         {
             right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_TURN_CCLOCK_TARGET_YAW_MORE_0_RWE;
 
             break;
         }
-        else if (my_abs(Yaw/100) <= 30 )
+        else if (my_abs(Yaw) <= 30 )
         {
             right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_TURN_CCLOCK_TARGET_YAW_MORE_ABS45_DETAL_YAW_MORE_30_RWE;
             break;
@@ -7788,7 +7805,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
     case LEFT_REVERSE_EDGE_TURN_CCLOCK_TARGET_YAW_MORE_0_RWE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw/100 > 0 )
+        if (Yaw > 0 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7817,7 +7834,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_TURN_CLOCK_YAW_ADD_ABS15_RWE;
             break;
         }
@@ -7825,7 +7842,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
     case LEFT_REVERSE_EDGE_TURN_CCLOCK_TARGET_YAW_MORE_ABS45_DETAL_YAW_MORE_30_RWE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(temporary_yaw - Yaw/100) > 30 && my_abs(Yaw/100) > 30)
+        if (my_abs(temporary_yaw - Yaw) > 30 && my_abs(Yaw) > 30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7854,7 +7871,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw/100;
+            temporary_yaw = Yaw;
             right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_TURN_CLOCK_YAW_ADD_ABS15_RWE;
             break;
         }
@@ -7898,6 +7915,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("right_edge_dilemma_status =======>>>,%x,\n",right_edge_dilemma_status);
     switch (right_edge_dilemma_status)
     {
@@ -7929,7 +7947,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         right_edge_dilemma_status = LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
         break;
     case LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA:
-        if (my_abs(Yaw / 100) > 90 && my_abs(Yaw / 100) < 175)
+        if (my_abs(Yaw) > 90 && my_abs(Yaw) < 175)
         {
             if (Yaw > 0)
             {
@@ -7942,7 +7960,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                 angular_velocity = -5 * turn_vel / 6;
             }
         }
-        else if (my_abs(Yaw / 100) < 90 && my_abs(Yaw / 100) > 5)
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
         {
             if (Yaw > 0)
             {
@@ -7984,7 +8002,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            if (my_abs(Yaw / 100) > 90)
+            if (my_abs(Yaw) > 90)
             {
                 right_edge_dilemma_status = LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA;
                 break;
@@ -8001,7 +8019,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
         break;
     case LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA:
-        if (my_abs(Yaw / 100) < 90)
+        if (my_abs(Yaw) < 90)
         {
             last_position_y = current_pose->y;
             last_position_x = current_pose->x + half_map_wide;
@@ -8071,7 +8089,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
         break;
     case LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA:
-        if (my_abs(Yaw / 100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8108,7 +8126,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS87_DILEMMA;
         break;
     case LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS87_DILEMMA:
-        if (my_abs(Yaw / 100) > 87)
+        if (my_abs(Yaw) > 87)
         {
             last_position_y = current_pose->y;
             last_position_x = current_pose->x + half_map_wide;
@@ -8178,7 +8196,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA;
         break;
     case LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA:
-        if (my_abs(Yaw / 100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8219,6 +8237,7 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("right_ready_leaking_sweep_status =======>>>,%x,\n",right_ready_leaking_sweep_status);
     switch (right_ready_leaking_sweep_status)
     {
@@ -8239,7 +8258,7 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            if (my_abs(Yaw / 100) > 90)
+            if (my_abs(Yaw) > 90)
             {
                 right_ready_leaking_sweep_status = LEFT_LEAKING_SWEEP_YAW_MORE_ABS90;
                 break;
@@ -8255,7 +8274,7 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
         right_ready_leaking_sweep_status = LEFT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_LESS_ABS90;
         break;
     case LEFT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_LESS_ABS90:
-        if (my_abs(Yaw / 100) < 90)
+        if (my_abs(Yaw) < 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8305,7 +8324,7 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
         }
         break;
     case LEFT_LEAKING_SWEEP_CCLOCK_TARGER_YAW_LESS_ABS8:
-        if (my_abs(Yaw / 100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8343,7 +8362,7 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
         right_ready_leaking_sweep_status = LEFT_LEAKING_SWEEP_CLOCK_TARGET_YAW_MORE_ABS90;
         break;
     case LEFT_LEAKING_SWEEP_CLOCK_TARGET_YAW_MORE_ABS90:
-        if (my_abs(Yaw / 100) > 90)
+        if (my_abs(Yaw) > 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8393,7 +8412,7 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
         }
         break;
     case LEFT_LEAKING_SWEEP_CLOCK_TARGET_YAW_MORE_ABS173:
-        if (my_abs(Yaw / 100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8448,6 +8467,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("return_origin_step_status =======>>>,%x,\n",return_origin_step_status);
     switch (return_origin_step_status)
     {
@@ -8455,12 +8475,12 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
         return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
         break;
     case GOSTR_RETURN_ORIGIN_STEP:
-        log_debug("return origin");
+        //log_debug("return origin");
         if (my_abs(current_pose->x) > return_origin_distance || my_abs(current_pose->y) > return_origin_distance)
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            log_debug("return origin");
+            //log_debug("return origin");
             if (my_abs(current_pose->y) > return_origin_distance)
             {
                 if (current_pose->y > 0)
@@ -8486,13 +8506,13 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
         }
         else
         {
-            log_debug("Has returned to the origin");
+            //log_debug("Has returned to the origin");
 			if(over_clean_finish == true){
 				if(obstacleSignal != none_obstacle){
 					linear_velocity = -long_stra_vel;
                     angular_velocity = 0;
 				}
-				else if(Yaw/100>0){
+				else if(Yaw>0){
                     linear_velocity = 0;
 					angular_velocity = -turn_vel;
 				}
@@ -8500,7 +8520,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
 					linear_velocity = 0;
 					angular_velocity = turn_vel;
 				}
-				if(my_abs(Yaw / 100) < 5){
+				if(my_abs(Yaw) < 5){
 					linear_velocity = 0;
 					angular_velocity = 0;
 					complete_flag = 1;
@@ -8521,7 +8541,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_DIR_Y_MORE_POSITIVE_200;
             break;
         }
-        if (my_abs(Yaw / 100) <= 90)
+        if (my_abs(Yaw) <= 90)
         {
             angular_velocity = -turn_vel;
             linear_velocity = 0;
@@ -8531,7 +8551,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             angular_velocity = turn_vel;
             linear_velocity = 0;
         }
-        if ((-95 < Yaw / 100) && (Yaw / 100 < -85))
+        if ((-95 < Yaw) && (Yaw < -85))
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8563,7 +8583,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_DIR_Y_LESS_NEGATIVE_200;
             break;
         }
-        if (my_abs(Yaw / 100) <= 90)
+        if (my_abs(Yaw) <= 90)
         {
             angular_velocity = turn_vel;
             linear_velocity = 0;
@@ -8573,7 +8593,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             angular_velocity = -turn_vel;
             linear_velocity = 0;
         }
-        if ((95 > Yaw / 100) && (Yaw / 100 > 85))
+        if ((95 > Yaw) && (Yaw > 85))
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8616,7 +8636,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             angular_velocity = -turn_vel;
             linear_velocity = 0;
         }
-        if (my_abs(Yaw / 100) > 175)
+        if (my_abs(Yaw) > 175)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8658,7 +8678,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             angular_velocity = turn_vel;
             linear_velocity = 0;
         }
-        if (my_abs(Yaw / 100) < 5)
+        if (my_abs(Yaw) < 5)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8712,7 +8732,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = TURN_CLOCK_Y_POSITIVE_90_RETURN_ORIGIN;
         }
         break;
@@ -8722,7 +8742,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             return_origin_step_status = BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
             break;
@@ -8763,17 +8783,17 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
     case LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN:
         if (obstacleSignal != none_obstacle)
         {
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
             break;
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance || my_abs(last_position_x - current_pose->x) > lateral_move_distance)
         {
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = Y_MORE_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
             break;
         }
-        if (((100 > Yaw / 100) && (Yaw / 100 > 80)) || my_abs(current_pose->y) < return_origin_distance)
+        if (((100 > Yaw) && (Yaw > 80)) || my_abs(current_pose->y) < return_origin_distance)
         {
             return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
             break;
@@ -8787,7 +8807,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_LOOP_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             return_origin_step_status = BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
             break;
@@ -8818,7 +8838,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
             break;
         }
-        if (((100 > Yaw / 100) && (Yaw / 100 > 80)) || my_abs(Yaw / 100 - temporary_yaw) > 30)
+        if (((100 > Yaw) && (Yaw > 80)) || my_abs(Yaw - temporary_yaw) > 30)
         {
             return_origin_step_status = BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN;
             break;
@@ -8856,7 +8876,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = TURN_CLOCK_Y_NEGATIVE_90_RETURN_ORIGIN;
         }
         break;
@@ -8866,7 +8886,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             return_origin_step_status = BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
             break;
@@ -8907,17 +8927,17 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
     case LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN:
         if (obstacleSignal != none_obstacle)
         {
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
             break;
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance || my_abs(last_position_x - current_pose->x) > lateral_move_distance)
         {
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = Y_MORE_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
             break;
         }
-        if (((-100 < Yaw / 100) && (Yaw / 100 < -80)) || my_abs(current_pose->y) < return_origin_distance)
+        if (((-100 < Yaw) && (Yaw < -80)) || my_abs(current_pose->y) < return_origin_distance)
         {
             return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
             break;
@@ -8931,7 +8951,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_LOOP_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             return_origin_step_status = BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
             break;
@@ -8962,7 +8982,10 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
             break;
         }
-        if ((-100 < Yaw / 100) && (Yaw / 100 < -80) || my_abs(Yaw / 100 - temporary_yaw) > 30)
+		//#################################################################################################################
+		//#################################################################################################################
+		//#################################################################################################################
+        if (((-100 < Yaw) && (Yaw < -80)) || my_abs(Yaw - temporary_yaw) > 30)
         {
             return_origin_step_status = BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN;
             break;
@@ -9000,7 +9023,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = TURN_CLOCK_X_POSITIVE_180_RETURN_ORIGIN;
         }
         break;
@@ -9010,7 +9033,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_COLLISION_X_POSITIVE_180_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             return_origin_step_status = BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
             break;
@@ -9051,17 +9074,17 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
     case LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN:
         if (obstacleSignal != none_obstacle)
         {
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
             break;
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance || my_abs(last_position_x - current_pose->x) > lateral_move_distance )
         {
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = X_MORE_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100) > 170 || my_abs(current_pose->x) < return_origin_distance)
+        if (my_abs(Yaw) > 170 || my_abs(current_pose->x) < return_origin_distance)
         {
             return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
             break;
@@ -9075,7 +9098,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_LOOP_COLLISION_X_POSITIVE_180_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             return_origin_step_status = BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
             break;
@@ -9106,7 +9129,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100) > 170 || my_abs(Yaw / 100 - temporary_yaw) > 30)
+        if (my_abs(Yaw) > 170 || my_abs(Yaw - temporary_yaw) > 30)
         {
             return_origin_step_status = BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN;
             break;
@@ -9145,7 +9168,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = TURN_CLOCK_X_NEGATIVE_5_RETURN_ORIGIN;
         }
         break;
@@ -9155,7 +9178,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             return_origin_step_status = BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
@@ -9196,17 +9219,17 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
     case LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN:
         if (obstacleSignal != none_obstacle)
         {
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance || my_abs(last_position_x - current_pose->x) > lateral_move_distance )
         {
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             return_origin_step_status = X_MORE_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100) < 10 || my_abs(current_pose->x) < return_origin_distance)
+        if (my_abs(Yaw) < 10 || my_abs(current_pose->x) < return_origin_distance)
         {
             return_origin_step_status = GOSTR_RETURN_ORIGIN_STEP;
             break;
@@ -9220,7 +9243,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = TURN_CLOCK_LOOP_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100 - temporary_yaw) > 10)
+        if (my_abs(Yaw - temporary_yaw) > 10)
         {
             return_origin_step_status = BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
@@ -9251,7 +9274,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
             return_origin_step_status = COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
         }
-        if (my_abs(Yaw / 100) < 10 || my_abs(Yaw / 100 - temporary_yaw) > 30)
+        if (my_abs(Yaw) < 10 || my_abs(Yaw - temporary_yaw) > 30)
         {
             return_origin_step_status = BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN;
             break;
@@ -9714,6 +9737,7 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw;
 	log_debug("a_star_not_motion_status =======>>>,%x,\n",a_star_not_motion_status);
     switch (a_star_not_motion_status)
     {
@@ -9752,12 +9776,12 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             a_star_not_motion_status = TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         break;
     case TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -9800,6 +9824,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("a_star_motion_return_origin_status =======>>>,%x,\n",a_star_motion_return_origin_status);
     switch (a_star_motion_return_origin_status)
     {
@@ -9900,11 +9925,11 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         startMotionStep++;
         break;
     case A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) <= 45 || (Yaw / 100 > 45 && Yaw / 100 < 130))
+        if (my_abs(Yaw) <= 45 || (Yaw > 45 && Yaw < 130))
         {
             a_star_motion_return_origin_status = LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
-        else if (my_abs(Yaw / 100) > 140 || (Yaw / 100 >= -140 && Yaw / 100 < -45))
+        else if (my_abs(Yaw) > 140 || (Yaw >= -140 && Yaw < -45))
         {
             a_star_motion_return_origin_status = MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
@@ -9915,7 +9940,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 < 138 && Yaw / 100 > 132)
+        if (Yaw < 138 && Yaw > 132)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -9951,7 +9976,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 < 138 && Yaw / 100 > 132)
+        if (Yaw < 138 && Yaw > 132)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10008,13 +10033,13 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         break;
 
     case B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) < 175 && Yaw / 100 >= 0)
+        if (my_abs(Yaw) < 175 && Yaw >= 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
-        else if (my_abs(Yaw / 100) < 175 && Yaw / 100 < 0)
+        else if (my_abs(Yaw) < 175 && Yaw < 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10027,7 +10052,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) > 178)
+        if (my_abs(Yaw) > 178)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10063,7 +10088,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) > 178)
+        if (my_abs(Yaw) > 178)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10120,13 +10145,13 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         angular_velocity = 0;
         break;
     case C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) > 140 || (Yaw / 100 > 45 && Yaw / 100 <= 140))
+        if (my_abs(Yaw) > 140 || (Yaw > 45 && Yaw <= 140))
         {
             linear_velocity = 0;
             angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
-        else if (my_abs(Yaw / 100) <= 45 || (Yaw / 100 > -130 && Yaw / 100 < -45))
+        else if (my_abs(Yaw) <= 45 || (Yaw > -130 && Yaw < -45))
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10139,7 +10164,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 > -138 && Yaw / 100 < -132)
+        if (Yaw > -138 && Yaw < -132)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10175,7 +10200,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 > -138 && Yaw / 100 < -132)
+        if (Yaw > -138 && Yaw < -132)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10212,13 +10237,13 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         break;
 
     case D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) > 95)
+        if (my_abs(Yaw) > 95)
         {
             linear_velocity = 0;
             angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
-        else if (my_abs(Yaw / 100) < 85 || (Yaw / 100 >= 85 && Yaw / 100 <= 95))
+        else if (my_abs(Yaw) < 85 || (Yaw >= 85 && Yaw <= 95))
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10231,7 +10256,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 > -138 && Yaw / 100 < -132)
+        if (Yaw > -138 && Yaw < -132)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10267,7 +10292,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 > -138 && Yaw / 100 < -132)
+        if (Yaw > -138 && Yaw < -132)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10304,13 +10329,13 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         break;
 
     case E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) >= 135 || (Yaw / 100 < -135 && Yaw / 100 > -50))
+        if (my_abs(Yaw) >= 135 || (Yaw < -135 && Yaw > -50))
         {
             linear_velocity = 0;
             angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
-        else if (my_abs(Yaw / 100) < 40 || (Yaw / 100 >= 40 && Yaw / 100 < 135))
+        else if (my_abs(Yaw) < 40 || (Yaw >= 40 && Yaw < 135))
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10323,7 +10348,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 < -42 && Yaw / 100 > -48)
+        if (Yaw < -42 && Yaw > -48)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10359,7 +10384,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 < -42 && Yaw / 100 > -48)
+        if (Yaw < -42 && Yaw > -48)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10396,13 +10421,13 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         break;
 
     case F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) > 5 && Yaw / 100 < 0)
+        if (my_abs(Yaw) > 5 && Yaw < 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
-        else if (my_abs(Yaw / 100) > 5 && Yaw / 100 > 0)
+        else if (my_abs(Yaw) > 5 && Yaw > 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10415,7 +10440,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) < 3)
+        if (my_abs(Yaw) < 3)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10451,7 +10476,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) < 3)
+        if (my_abs(Yaw) < 3)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10488,13 +10513,13 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         break;
 
     case G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) <= 40 || (Yaw / 100 < -40 && Yaw / 100 > -135))
+        if (my_abs(Yaw) <= 40 || (Yaw < -40 && Yaw > -135))
         {
             linear_velocity = 0;
             angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
-        else if (my_abs(Yaw / 100) >= 135 || (Yaw / 100 > 50 && Yaw / 100 < 135))
+        else if (my_abs(Yaw) >= 135 || (Yaw > 50 && Yaw < 135))
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10507,7 +10532,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 < 48 && Yaw / 100 > 42)
+        if (Yaw < 48 && Yaw > 42)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10543,7 +10568,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 < 48 && Yaw / 100 > 42)
+        if (Yaw < 48 && Yaw > 42)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10580,13 +10605,13 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         break;
 
     case H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw / 100) < 85)
+        if (my_abs(Yaw) < 85)
         {
             linear_velocity = 0;
             angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
-        else if (my_abs(Yaw / 100) > 95 || (Yaw / 100 >= -95 && Yaw / 100 <= -85))
+        else if (my_abs(Yaw) > 95 || (Yaw >= -95 && Yaw <= -85))
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10599,7 +10624,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 > 87 && Yaw / 100 < 93)
+        if (Yaw > 87 && Yaw < 93)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10635,7 +10660,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (Yaw / 100 > 87 && Yaw / 100 < 93)
+        if (Yaw > 87 && Yaw < 93)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10689,6 +10714,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
 	log_debug("a_star_collision_status =======>>>,%x,\n",a_star_collision_status);
     switch (a_star_collision_status)
     {
@@ -10741,7 +10767,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             if (Astarmarkingobstacle == left_obstacle)
             {
                 a_star_collision_status = LEFT_OBSTACLE_START_A_STAR_COLLISION;
@@ -10757,7 +10783,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
         }
         break;
     case LEFT_OBSTACLE_START_A_STAR_COLLISION:
-        if (my_abs(temporary_yaw - Yaw / 100) > 30)
+        if (my_abs(temporary_yaw - Yaw) > 30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10826,7 +10852,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
         angular_velocity = 0;
         break;
     case RIGHT_OBSTACLE_START_A_STAR_COLLISION:
-        if (my_abs(temporary_yaw - Yaw / 100) > 30)
+        if (my_abs(temporary_yaw - Yaw) > 30)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10895,7 +10921,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
         }
         break;
     case FRONT_OBSTACLE_START_A_STAR_COLLISION:
-        if (my_abs(temporary_yaw - Yaw / 100) > 45)
+        if (my_abs(temporary_yaw - Yaw) > 45)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -10987,6 +11013,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
     log_debug("cliff_running_step_status =======>>>,%x,\n",cliff_running_step_status);
     switch (cliff_running_step_status)
     {
@@ -11002,22 +11029,22 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         totalCDN++;
         if (cliff_value->cliffValue1 == left_cliff && cliff_value->cliffValue3 == right_cliff)
         {
-            if (my_abs(Yaw / 100) <= 90 && selectside == 'R')
+            if (my_abs(Yaw) <= 90 && selectside == 'R')
             {
                 cliff_running_step_status = LESS_90_R_RIGHT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) > 90 && selectside == 'R')
+            else if (my_abs(Yaw) > 90 && selectside == 'R')
             {
                 cliff_running_step_status = GREATER_90_R_LEFT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) > 90 && selectside == 'L')
+            else if (my_abs(Yaw) > 90 && selectside == 'L')
             {
                 cliff_running_step_status = GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) <= 90 && selectside == 'L')
+            else if (my_abs(Yaw) <= 90 && selectside == 'L')
             {
                 cliff_running_step_status = LESS_90_L_LEFT_CLIFF_RUNNING_STEP;
                 break;
@@ -11030,22 +11057,22 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         else if (cliff_value->cliffValue3 == right_cliff)
         {
-            if (my_abs(Yaw / 100) <= 90 && selectside == 'R')
+            if (my_abs(Yaw) <= 90 && selectside == 'R')
             {
                 cliff_running_step_status = LESS_90_R_RIGHT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) > 90 && selectside == 'R')
+            else if (my_abs(Yaw) > 90 && selectside == 'R')
             {
                 cliff_running_step_status = GREATER_90_R_FRONT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) > 90 && selectside == 'L')
+            else if (my_abs(Yaw) > 90 && selectside == 'L')
             {
                 cliff_running_step_status = GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) <= 90 && selectside == 'L')
+            else if (my_abs(Yaw) <= 90 && selectside == 'L')
             {
                 cliff_running_step_status = LESS_90_L_FRONT_CLIFF_RUNNING_STEP;
                 break;
@@ -11058,22 +11085,22 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         else if (cliff_value->cliffValue1 == left_cliff)
         {
-            if (my_abs(Yaw / 100) <= 90 && selectside == 'R')
+            if (my_abs(Yaw) <= 90 && selectside == 'R')
             {
                 cliff_running_step_status = LESS_90_R_FRONT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) > 90 && selectside == 'R')
+            else if (my_abs(Yaw) > 90 && selectside == 'R')
             {
                 cliff_running_step_status = GREATER_90_R_LEFT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) > 90 && selectside == 'L')
+            else if (my_abs(Yaw) > 90 && selectside == 'L')
             {
                 cliff_running_step_status = GREATER_90_L_FRONT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) <= 90 && selectside == 'L')
+            else if (my_abs(Yaw) <= 90 && selectside == 'L')
             {
                 cliff_running_step_status = LESS_90_L_LEFT_CLIFF_RUNNING_STEP;
                 break;
@@ -11086,22 +11113,22 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         }
         else if (cliff_value->cliffValue2 == front_cliff)
         {
-            if (my_abs(Yaw / 100) <= 90 && selectside == 'R')
+            if (my_abs(Yaw) <= 90 && selectside == 'R')
             {
                 cliff_running_step_status = LESS_90_R_FRONT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) > 90 && selectside == 'R')
+            else if (my_abs(Yaw) > 90 && selectside == 'R')
             {
                 cliff_running_step_status = GREATER_90_R_FRONT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) > 90 && selectside == 'L')
+            else if (my_abs(Yaw) > 90 && selectside == 'L')
             {
                 cliff_running_step_status = GREATER_90_L_FRONT_CLIFF_RUNNING_STEP;
                 break;
             }
-            else if (my_abs(Yaw / 100) <= 90 && selectside == 'L')
+            else if (my_abs(Yaw) <= 90 && selectside == 'L')
             {
                 cliff_running_step_status = LESS_90_L_FRONT_CLIFF_RUNNING_STEP;
                 break;
@@ -11130,7 +11157,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_LESS_90_R_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11150,7 +11177,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             cliff_running_step_status = LESS_90_R_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
-        if (my_abs(temporary_yaw - Yaw / 100) > 45)
+        if (my_abs(temporary_yaw - Yaw) > 45)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11225,7 +11252,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             linear_velocity = 0;
             angular_velocity = 0;
             clill_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11233,7 +11260,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     case TURN_GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11289,7 +11316,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11316,7 +11343,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             cliff_running_step_status = COLLISION_TURN_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
-        if (my_abs(temporary_yaw - Yaw / 100) > 45)
+        if (my_abs(temporary_yaw - Yaw) > 45)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11384,7 +11411,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             linear_velocity = 0;
             angular_velocity = 0;
             clill_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11392,7 +11419,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     case TURN_GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11449,7 +11476,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11476,7 +11503,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             cliff_running_step_status = COLLISION_TURN_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
-        if (my_abs(temporary_yaw - Yaw / 100) > 45)
+        if (my_abs(temporary_yaw - Yaw) > 45)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11544,7 +11571,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             linear_velocity = 0;
             angular_velocity = 0;
             clill_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11552,7 +11579,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     case TURN_GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11609,7 +11636,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_LESS_90_L_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11636,7 +11663,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             cliff_running_step_status = COLLISION_TURN_LESS_90_L_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
-        if (my_abs(temporary_yaw - Yaw / 100) > 45)
+        if (my_abs(temporary_yaw - Yaw) > 45)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11705,7 +11732,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             linear_velocity = 0;
             angular_velocity = 0;
             clill_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11713,7 +11740,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     case TURN_GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11770,7 +11797,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_ORIGIN_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11797,7 +11824,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             cliff_running_step_status = COLLISION_TURN_ORIGIN_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
-        if (my_abs(temporary_yaw - Yaw / 100) > 45)
+        if (my_abs(temporary_yaw - Yaw) > 45)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11866,7 +11893,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             linear_velocity = 0;
             angular_velocity = 0;
             clill_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11874,7 +11901,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     case TURN_GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -11931,7 +11958,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -11958,7 +11985,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             cliff_running_step_status = COLLISION_TURN_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP;
             break;
         }
-        if (my_abs(temporary_yaw - Yaw / 100) > 90)
+        if (my_abs(temporary_yaw - Yaw) > 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -12026,7 +12053,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             linear_velocity = 0;
             angular_velocity = 0;
             clill_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -12034,7 +12061,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     case TURN_GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -12091,7 +12118,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -12118,7 +12145,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             cliff_running_step_status = COLLISION_TURN_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP;
             break;
         }
-        if (my_abs(temporary_yaw - Yaw / 100) > 90)
+        if (my_abs(temporary_yaw - Yaw) > 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -12187,7 +12214,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             linear_velocity = 0;
             angular_velocity = 0;
             clill_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -12195,7 +12222,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     case TURN_GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -12252,7 +12279,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -12279,7 +12306,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             cliff_running_step_status = COLLISION_TURN_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP;
             break;
         }
-        if (my_abs(temporary_yaw - Yaw / 100) > 90)
+        if (my_abs(temporary_yaw - Yaw) > 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -12348,7 +12375,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             linear_velocity = 0;
             angular_velocity = 0;
             clill_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -12356,7 +12383,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     case TURN_GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -12413,7 +12440,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_LESS_90_L_LEFT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -12440,7 +12467,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             cliff_running_step_status = COLLISION_TURN_LESS_90_L_LEFT_CLIFF_RUNNING_STEP;
             break;
         }
-        if (my_abs(temporary_yaw - Yaw / 100) > 90)
+        if (my_abs(temporary_yaw - Yaw) > 90)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -12509,7 +12536,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
             linear_velocity = 0;
             angular_velocity = 0;
             clill_start_update = 0;
-            temporary_yaw = Yaw / 100;
+            temporary_yaw = Yaw;
             cliff_running_step_status = TURN_GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP;
             break;
         }
@@ -12517,7 +12544,7 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
     case TURN_GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(temporary_yaw - Yaw / 100) > 15)
+        if (my_abs(temporary_yaw - Yaw) > 15)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -12583,10 +12610,11 @@ unsigned char  CliffRuningWorkStep(POSE *current_pose, CLIFFADCVALUE *cliff_valu
 //还未使用 ，原来打算做沿边
 unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, unsigned char obstacleSignal)
 {
-    short Yaw, map_robot_x, map_robot_y;
+    int Yaw, map_robot_x, map_robot_y;
     int8_t i, j, complete_flag = 0;
     int8_t k, ij;
-    Yaw = current_pose->orientation / 100;
+    Yaw = current_pose->orientation;
+	Yaw = Yaw /100;
     map_robot_x = (current_pose->x + half_map_wide) / GRIDWIDTH;
     map_robot_y = (current_pose->y + half_map_long) / GRIDHEIGHT;
     if (Yaw < 0)
