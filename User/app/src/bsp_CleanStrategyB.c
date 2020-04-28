@@ -681,7 +681,9 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 		//##############################################################################
 		if (totalCDN == 1)
 		{
-			return 0;
+			over_clean_finish =true;
+			cliffruningStatus = false;
+			OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
 		}
 		if (totalCDN == 2)
 		{
@@ -9794,7 +9796,7 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        if (my_abs(turn_start_x - current_pose->x) > lateral_move_distance || my_abs(turn_start_y - current_pose->y) > lateral_move_distance)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -9830,7 +9832,7 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        if (my_abs(turn_start_x - current_pose->x) > lateral_move_distance || my_abs(turn_start_y - current_pose->y) > lateral_move_distance)
         {
             linear_velocity = 0;
             angular_velocity = 0;
