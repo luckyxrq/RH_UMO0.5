@@ -1,7 +1,7 @@
 #include "bsp.h"
 #include <math.h>
 
-#define debug      1
+#define STRATEGY_DEBUG      1
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
@@ -196,7 +196,7 @@ static double my_abs(double x){
     return x;}
 
 	
-#if debug	
+#if STRATEGY_DEBUG	
 #define log_debug(format, ...) printf (format, ##__VA_ARGS__)
 #else
 #define log_debug(format, ...) 
@@ -221,7 +221,8 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 	
 	if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100))
 	{
-		if(IRSensorData_StrategyB[2] == 1 || IRSensorData_StrategyB[3] == 1 || IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1)
+		//if(IRSensorData_StrategyB[2] == 1 || IRSensorData_StrategyB[3] == 1 || IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1)
+		if(IRSensorData_StrategyB[3] == 1 || IRSensorData_StrategyB[7] == 1)
 		{
 			cmd_linear_velocity = 0.7*cmd_linear_velocity;
 			
@@ -241,7 +242,11 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 		{
 			if(speed_pid_cnt_default <=50) speed_pid_cnt_default +=1;
 			if(speed_pid_cnt_default >50)  speed_pid_cnt_default  =50; 
-		
+			if(speed_pid_cnt_default == 2) 
+			{
+				bsp_PidClear(MotorLeft);
+				bsp_PidClear(MotorRight);
+			}
 			cmd_linear_velocity = speed_pid_cnt_default*0.02*(cmd_linear_velocity-40) + 40;	
 		}
 		else
@@ -254,6 +259,11 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 		{
 			if(speed_pid_cnt_ir <=20) speed_pid_cnt_ir +=1;
 			if(speed_pid_cnt_ir >20)  speed_pid_cnt_ir  =20; 
+			if(speed_pid_cnt_default == 2) 
+			{
+				bsp_PidClear(MotorLeft);
+				bsp_PidClear(MotorRight);
+			}
 		
 			if(cmd_linear_velocity >  40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity-40) + 40;	
 			if(cmd_linear_velocity < -40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity+40) - 40;	
@@ -502,7 +512,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 		if(obstacleSignal<3)   
 		{
 			collision_error_cnt++;
-			if(collision_error_cnt > 100)
+			if(collision_error_cnt > 200)
 			{
 				collision_error_cnt = 0;
 				return collision_error;
@@ -814,7 +824,11 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					FunctionStatus = 0;
 					break;
 					}else{
-					left_running_step_status = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+					//##############################################################################
+					//##############################################################################
+					//##############################################################################
+					OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+					left_running_step_status = 0;
 					FunctionStatus = 0;
 					break;	
 					}
@@ -1147,7 +1161,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 
 unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obstacleSignal)
 {
-    log_debug("Collision_Right_temporary_current_pose.x................============>>>>>>>>>>>,%x,\n",collision_right_rightrun_step_status);
+    log_debug("CollisionRightRightRunStep=====>>>>>>>>>>>,%x,\n",collision_right_rightrun_step_status);
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
@@ -1768,7 +1782,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
-    log_debug("collision_left_rightrun_step_status................============>>>>>>>>>>>,%x,\n",collision_left_rightrun_step_status);
+    log_debug("CollisionLeftRightRunStep=========>>>>>>>>>>>,%x,\n",collision_left_rightrun_step_status);
     switch(collision_left_rightrun_step_status)
     {
     case 0:
@@ -12893,6 +12907,14 @@ void  DetectionCloseEdge()
 
 
 //跳崖循环中，调用地图是否封边，谨慎策略，防止跌落
+
+///////#############
+///////#############
+///////#############
+///////#############有问题，地图超出边界####################################################
+///////#############
+///////#############
+///////#############
 unsigned char  CliffCloseEdge(POSE *current_pose)
 {
     int map_robot_x, map_robot_y;
@@ -13077,6 +13099,7 @@ unsigned char  CliffCloseEdge(POSE *current_pose)
         }
     }
 }
+
 
 
 //#################################################################################

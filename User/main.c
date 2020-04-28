@@ -9,7 +9,7 @@
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
 #define DEBUG_CLOSE_CLEAN_MOTOR              1
-
+#define main_debug(format, ...) printf (format, ##__VA_ARGS__)
 /*
 **********************************************************************************************************
                                             函数声明
@@ -39,9 +39,6 @@ static TaskHandle_t xHandleTaskPerception    = NULL;
 static SemaphoreHandle_t  xMutex = NULL;
 
 bool isSearchCharge = false;
-
-static uint32_t dog_time = 0;
-
 /*
 *********************************************************************************************************
 *	函 数 名: main
@@ -107,6 +104,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     while(1)
     {
         /* 处理按键事件 */
+		//main_debug("bsp_KeyProc() \n");
         bsp_KeyProc();
 		
 		
@@ -115,9 +113,11 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 0 
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
+			//main_debug("bsp_ChangeWifi2SmartConfigStateProc() \n");
 			bsp_ChangeWifi2SmartConfigStateProc();
 			
 			/*下面是打印开关，酌情注释*/
+			//main_debug("bsp_WifiStateProc() \n");
 			bsp_WifiStateProc();
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
@@ -128,6 +128,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		
 		if(isSearchCharge){}
 		else{		
+			//main_debug("bsp_GridMapUpdate() \n");
 			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 
 		}
@@ -176,6 +177,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		}
 		else
 		{	
+			//main_debug("bsp_UpdateCleanStrategyB() \n");
 			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
 			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			
@@ -185,9 +187,13 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		
 		if(GetReturnChargeStationStatus())
 		{
+			//main_debug("ResetReturnChargeStationStatus() \n");
 			ResetReturnChargeStationStatus();
 			
+			//main_debug("bsp_StopUpdateCleanStrategyB() \n");
 			bsp_StopUpdateCleanStrategyB();
+			
+			//main_debug("bsp_PutKey(KEY_LONG_CHARGE) \n");
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
@@ -210,7 +216,6 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 static void vTaskPerception(void *pvParameters)
 {
 	uint32_t count = 0 ;
-	uint32_t check_dog_cur_time = 0;
 	
     /*开启红外对管轮询扫描*/
     bsp_DetectStart(); 
@@ -257,7 +262,9 @@ static void vTaskPerception(void *pvParameters)
 		//bsp_ComAnalysis();
 		
 #if 1
+		//main_debug("bsp_DetectAct() \n");
         bsp_DetectAct();  /*红外对管轮询扫描*/
+		//main_debug("bsp_DetectDeal() \n");
         bsp_DetectDeal(); /*红外对管扫描结果处理*/
 #endif
        
@@ -265,22 +272,27 @@ static void vTaskPerception(void *pvParameters)
 		bsp_DetectMeasureTest();
 #endif
 
-#if 1  /*测试跳崖传感器 、红外、碰撞共同测试*/	 	
+#if 1  /*测试跳崖传感器 、红外、碰撞共同测试*/	 
+		//main_debug("bsp_CliffTest() \n");
 		bsp_CliffTest();
 #endif
 		
 		/*检测主机悬空*/
+		//main_debug("bsp_OffSiteProc() \n");
 		bsp_OffSiteProc();
         /*寻找充电桩*/
+		//main_debug("bsp_SearchChargePile() \n");
 		bsp_SearchChargePile();
 		/*沿边行走*/
+		//main_debug("bsp_EdgewiseRun() \n");
 		bsp_EdgewiseRun();
         /*更新坐标*/
+		//main_debug("bsp_PositionUpdate() \n");
         bsp_PositionUpdate();
-		
+		//main_debug("bsp_LedAppProc() \n");
 		bsp_LedAppProc();
 		
-		
+		//main_debug("wifi_uart_service() \n");
 		wifi_uart_service();
 		
 		count++;

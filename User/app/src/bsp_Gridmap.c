@@ -1,10 +1,14 @@
 #include "bsp.h"
 #include <math.h>
 
+
+#define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)
+
 CLIFFADCVALUE cliff_valueB;
 GridMap gridmap;
 static int map_last_robotX = 0, map_last_robotY = 0;
 static int8_t map_update = 0;
+
 static MapInfo TuYa_map[PER_UPLOAD_POINT_CNT] = {0};
 static double my_abs(double x){
     if (x<0){
@@ -38,7 +42,7 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
     int o_x = x;
     int o_y = y;
     int r=grid_dist;
-    short phi= 180*atan2(yi - o_y,xi - o_x)/3.1415926;;
+    short phi= (short)(180*(atan2(yi - o_y,xi - o_x)/3.1415926));
     short theta_phi=phi-theta;
     if(my_abs(theta_phi)>180){
         if(theta_phi>180){
@@ -207,26 +211,32 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 	int8_t x,y;
     int map_robot_x,map_robot_y,xi, yi;
 
-
 	if ((abs(map_last_robotX - robotX) >100 || abs(map_last_robotY - robotY) >100) || obstacleSignal!=3 || cliff_value->cliffValue0 == 1)
 	{
 		gridmap.action = 0;
 		map_last_robotX = robotX;
 		map_last_robotY = robotY;
+		gridmap_debug("map_last_robotX - robotX) >100 ,ready update map!  \n");
+		gridmap_debug("###########################################################################!  \n");
+		gridmap_debug("robotX£º%d   robotY£º%d   robotTheta£º%d  \n",robotX,robotY,(int)Rad2Deg(robotTheta));
+		gridmap_debug("###########################################################################!  \n");
 	}
 	else 
 	{
 		gridmap.action = 1;
+		gridmap_debug("gridmap.action = 1  !  \n");
 	}
 	
 	if(map_update==0)
 	{
+		gridmap_debug(" fisrt update!  \n");
 		gridmap.action = 0;
 		map_update = 1;
 	}
 	
 	if(!gridmap.isRunning)
 	{
+		gridmap_debug(" gridmap is not Running !  \n");
 		return ;
 	}
 	
@@ -234,6 +244,7 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 	{
 		case 0:
 		{ 
+			gridmap_debug(" gridmap.action == 0 !  \n");
 			map_last_robotX=robotX;
 			map_last_robotY=robotY;
 			map_robot_x=robotX+half_map_wide;
@@ -274,7 +285,9 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 							if(gridmap.map[x][y]==0){
 							}
 							else{
-								gridmap.map[x][y] = gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x,map_robot_y,Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
+								gridmap_debug(" inverseSensorModelB()!  \n");
+								gridmap.map[x][y] = gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x,\
+								map_robot_y,Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
 							}
 						}
 					}
@@ -294,6 +307,8 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 //            }
 			break;
 		}
+		case 1:
+			break;
 		default:
 			break;
 	}

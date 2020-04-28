@@ -26,7 +26,7 @@ static int32_t speed[2][SPEED_SAMP_COUNT];
 /*用于指示样本FIFO序号*/
 static uint8_t sampleIndex[2] = {0,0} ;
 
-static void bsp_PidClear(MotorSN sn);
+
 static void bsp_MotorBrake(MotorSN sn);
 static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target);
 static int32_t bsp_PwmLimit(int32_t pwm);
@@ -203,7 +203,7 @@ int32_t bsp_MotorGetPulseVector(MotorSN sn)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-static void bsp_PidClear(MotorSN sn)
+void bsp_PidClear(MotorSN sn)
 {
 	if(sn == MotorLeft)
 	{
