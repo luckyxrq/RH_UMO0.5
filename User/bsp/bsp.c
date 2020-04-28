@@ -123,11 +123,12 @@ void bsp_Init(void)
 	else
 	{
 		bsp_SperkerPlay(Song1);
+		bsp_PowerOnLedProc();
 	}
 	
 #endif
 	
-	bsp_PowerOnLedProc();
+	
 	
 	wifi_protocol_init();/* 初始化WIFI协议栈 */	
 	

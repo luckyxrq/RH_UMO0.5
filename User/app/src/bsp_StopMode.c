@@ -67,7 +67,9 @@ void bsp_EnterStopMODE(void)
 	portEXIT_CRITICAL();
 		
 	SetIsInitFromSleep(true) ;
-		
+	
+	bsp_CloseAllLed();
+	//bsp_SetLedState(LED_DEFAULT_STATE);		
 	bsp_Init();
 }
 

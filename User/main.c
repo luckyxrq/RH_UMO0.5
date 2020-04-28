@@ -110,19 +110,21 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
         bsp_KeyProc();
 		
 		
-//        if(count++ % 10 == 0)
-//        {
-//#if 0 
+        if(count++ % 10 == 0)
+        {
+			
+//			bsp_PrintAllVoltage();
+			
 //			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
-//#endif
+
 //			bsp_ChangeWifi2SmartConfigStateProc();
 //			
 //			/*下面是打印开关，酌情注释*/
 //			bsp_WifiStateProc();
-////			bsp_PrintCollision();
-////			bsp_PrintIR_Rev();
-////			bsp_PrintAllVoltage();
-//        }
+//			bsp_PrintCollision();
+//			bsp_PrintIR_Rev();
+//			bsp_PrintAllVoltage();
+        }
 		
 //#if 1 /*更新地图*/
 //		
@@ -412,9 +414,9 @@ void bsp_OffsiteSuspend(void)
 	/*关闭所有状态机*/
 	bsp_StopSearchChargePile();
 	bsp_StopCliffTest();
+	bsp_StopEdgewiseRun();
 	bsp_StopUpdateCleanStrategyB();
 
-	
 	/*设置上一次按键值*/
 	bsp_SetLastKeyState(eKEY_NONE);
 }
@@ -474,18 +476,21 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("电源按键按下\r\n");
 				bsp_KeySuspend();
+				
 			}break;
 				
 			case KEY_DOWN_CHARGE:
 			{
 				DEBUG("充电按键按下\r\n");
 				bsp_KeySuspend();
+				
 			}break;
 				
 			case KEY_DOWN_CLEAN:	
 			{
 				DEBUG("清扫按键按下\r\n");
 				bsp_KeySuspend();
+				
 			}break;
 			
 
@@ -573,10 +578,11 @@ static void bsp_KeyProc(void)
 					
 				//bsp_StartUpdateCleanStrategyB();
 				bsp_StartStrategyRandom();
+				//bsp_StartEdgewiseRun();
 				
-				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_StartVacuum();
+//				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+//				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+//				bsp_StartVacuum();
 				/*设置上一次按键值*/
 				bsp_SetLastKeyState(eKEY_CLEAN);
 				/*设置LED状态*/

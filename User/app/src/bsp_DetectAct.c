@@ -626,7 +626,7 @@ void bsp_DetectDeal(void)
 #if 0	
 	for(i=0;i<10;i++)
 	{
-		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
+		printf("[%d]:%.2F",i,adcRealTime[i]);
 	}
 	printf("\r\n");
 #endif
