@@ -7,3 +7,9 @@ CpuRAM.ini           ÔÚCPUÄÚ²¿RAMµ÷ÊÔµÄ½Å±¾(ÎÄ±¾ÎÄ¼þ)£¬µ±Æô¶¯µ÷ÊÔÊ±£¬µ÷ÊÔÆ÷×Ô¶¯Ö
 CopyHex_Flash.bat    Åú´¦ÀíÎÄ¼þ,±àÒëÁ¬½Ó³É¹¦ºó½«Flash\ObjÏÂµÄHexÎÄ¼þ¸´ÖÆµ½Ç°¼¶Ä¿Â¼
 
 CopyHex_CpuRAM.bat   Åú´¦ÀíÎÄ¼þ,±àÒëÁ¬½Ó³É¹¦ºó½«CpuRAM\ObjÏÂµÄHexÎÄ¼þ¸´ÖÆµ½Ç°¼¶Ä¿Â¼
+
+
+
+
+ÐèÒª¸ü¸ÄµÄÊÇ£¬³äµçµÄLEDÏÔÊ¾¸ü¸Ä
+ÐÂÔöµÄËæìè²ßÂÔ
