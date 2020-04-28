@@ -2771,7 +2771,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
 unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 {
     ////cout << " RightEdgeDilemma..............==============RightEdgeDilemma" << endl;
-    short Yaw;
+    int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
