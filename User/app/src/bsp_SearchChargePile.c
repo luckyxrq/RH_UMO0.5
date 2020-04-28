@@ -156,7 +156,6 @@ void bsp_StopSearchChargePile(void)
 */
 void bsp_SearchChargePile(void)
 {
-	//DEBUG("充电:%s 充满：%s\r\n",bsp_IsCharging()?"true":"false",bsp_IsChargeDone()?"true":"false");
 	
 	if(isCleanRunning())
 		return;
@@ -188,6 +187,8 @@ void bsp_SearchChargePile(void)
 	}
 	else /*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
 	{
+		//DEBUG("接触桩:%s 充电中:%s 充满:%s\r\n",bsp_IsTouchChargePile()?"true":"false",bsp_IsCharging()?"true":"false",bsp_IsChargeDone()?"true":"false");
+		
 		search.isNeedPlaySong = true;
 		search.isNeedPlaySongTick = xTaskGetTickCount();
 		
@@ -198,13 +199,10 @@ void bsp_SearchChargePile(void)
 				bsp_GetLedAppState() != AT_SEARCH_CHARGE &&
 				bsp_GetLedAppState() != THREE_WHITE_TOOGLE )
 			{
-				bsp_LedOn(LED_LOGO_CHARGE);
-				bsp_LedOff(LED_COLOR_YELLOW);
-				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED); 
+				bsp_SetLedState(THREE_WHITE_ON);
 			}
 
-			 search.lastIsTouchTick = UINT32_T_MAX;
+			search.lastIsTouchTick = UINT32_T_MAX;
 		}
 		
 	}
