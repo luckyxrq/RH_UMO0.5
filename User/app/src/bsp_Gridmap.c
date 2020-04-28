@@ -1,8 +1,13 @@
 #include "bsp.h"
 #include <math.h>
 
+#define STRATEGY_DEBUG	 1
 
+#if STRATEGY_DEBUG	
 #define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)
+#else
+#define gridmap_debug(format, ...) 
+#endif
 
 CLIFFADCVALUE cliff_valueB;
 GridMap gridmap;
@@ -52,7 +57,7 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
         }
     }
     if(my_abs(theta_phi)>65){
-        return gridmap.map[grid_x][grid_y];
+        return gridmap.map[grid_x%MAPMAXCELLS][grid_y%MAPMAXCELLS];
     }
     else{
         if(cliff_value->cliffValue0==1){
@@ -81,7 +86,7 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
                 return 0;
             }
             else{
-                return gridmap.map[grid_x][grid_y];
+                return gridmap.map[grid_x%MAPMAXCELLS][grid_y%MAPMAXCELLS];
             }
         }
         else{
@@ -106,7 +111,7 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
                 return 0;   //right
             }
             else{
-                return gridmap.map[grid_x][grid_y];
+                return gridmap.map[grid_x%MAPMAXCELLS][grid_y%MAPMAXCELLS];
             }
         }
     }
@@ -274,19 +279,19 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 					grid_dist = sqrt(pow(map_robot_x - xi, 2) + pow(map_robot_y - yi, 2));
 					if(obstacleSignal==none_obstacle&&cliff_value->cliffValue0==0){
 						if(grid_dist<=map_robot_radius){
-							gridmap.map[x][y]=250;
+							gridmap.map[x%MAPMAXCELLS][y%MAPMAXCELLS]=250;
 						}
 					}
 					else{
 						if(grid_dist<=map_robot_radius){
-							gridmap.map[x][y]=250;
+							gridmap.map[x%MAPMAXCELLS][y%MAPMAXCELLS]=250;
 						}
 						if((grid_dist <= 300)&&(grid_dist>map_robot_radius)){
-							if(gridmap.map[x][y]==0){
+							if(gridmap.map[x%MAPMAXCELLS][y%MAPMAXCELLS]==0){
 							}
 							else{
 								gridmap_debug(" inverseSensorModelB()!  \n");
-								gridmap.map[x][y] = gridmap.map[x][y] = inverseSensorModelB(x,y,map_robot_x,\
+								gridmap.map[x%MAPMAXCELLS][y%MAPMAXCELLS] = inverseSensorModelB(x,y,map_robot_x,\
 								map_robot_y,Rad2Deg(robotTheta), xi, yi, obstacleSignal,grid_dist,cliff_value);
 							}
 						}
@@ -568,8 +573,12 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
 
     short Leaksweep=0;
     bool leak;
-    y_boundary=(robotY+half_map_wide)/100;
+    y_boundary=(robotY+half_map_wide)/100 ;
     x_boundary=(robotX+half_map_long)/100;
+	
+	y_boundary = y_boundary%5000;
+	x_boundary = x_boundary%5000;
+	
     if(my_abs(robotTheta)>170){
         for ( i=0;i<100;i++) {
             for( j=y_boundary;j<=50;j++){
@@ -740,6 +749,10 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
     bool leak;
     y_boundary=(robotY+half_map_wide)/100;
     x_boundary=(robotX+half_map_long)/100;
+	
+	y_boundary = y_boundary%5000;
+	x_boundary = x_boundary%5000;
+	
     if(my_abs(robotTheta)>170){
         for ( i=0;i<100;i++) {
             for( j=51;j<=y_boundary;j++){

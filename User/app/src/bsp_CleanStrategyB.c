@@ -4434,7 +4434,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
                     ////cout << endl;
                     for (j = 0; j < MAPWIDTH / GRIDWIDTH; j++)
                     {
-                        if (gridmap.map[i][j] != 125)
+                        if (gridmap.map[i%100][j%100] != 125)
                         {
                             k++;
                         }
@@ -4455,7 +4455,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
                     ////cout << endl;
                     for (  j = MAPWIDTH / GRIDWIDTH - 1; j >= 0; j--)
                     {
-                        if (gridmap.map[i][j] != 125)
+                        if (gridmap.map[i%100][j%100] != 125)
                         {
                             k++;
                         }
@@ -4474,7 +4474,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
                 ////cout << endl;
                 for (  j = 0; j < MAPWIDTH / GRIDWIDTH; j++)
                 {
-                    if (gridmap.map[j][i] != 125)
+                    if (gridmap.map[j%100][i%100] != 125)
                     {
                         k++;
                     }
@@ -4483,7 +4483,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
                 {
                     for ( j = 0; j < MAPWIDTH / GRIDWIDTH; j++)
                     {
-                        gridmap.map[j][i] = 250;
+                        gridmap.map[j%100][i%100] = 250;
                     }
                 }
             }
@@ -4498,7 +4498,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
                     ////cout << endl;
                     for (  j = 0; j < MAPWIDTH / GRIDWIDTH; j++)
                     {
-                        if (gridmap.map[j][i] != 125)
+                        if (gridmap.map[j%100][i%100] != 125)
                         {
                             k++;
                         }
@@ -4519,7 +4519,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
                     ////cout << endl;
                     for (  j = MAPWIDTH / GRIDWIDTH - 1; j >= 0; j--)
                     {
-                        if (gridmap.map[j][i] != 125)
+                        if (gridmap.map[j%100][i%100] != 125)
                         {
                             k++;
                         }
@@ -4538,7 +4538,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
                 ////cout << endl;
                 for (  j = 0; j < MAPWIDTH / GRIDWIDTH; j++)
                 {
-                    if (gridmap.map[i][j] != 125)
+                    if (gridmap.map[i%100][j%100] != 125)
                     {
                         k++;
                     }
@@ -4547,7 +4547,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
                 {
                     for (  j = 0; j < MAPWIDTH / GRIDWIDTH; j++)
                     {
-                        gridmap.map[j][i] = 250;
+                        gridmap.map[j%100][i%100] = 250;
                     }
                 }
             }
@@ -9715,7 +9715,7 @@ unsigned char  AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSigna
                         {
                             for (ik = 0; ik < ZoomMultiple; ik++)
                             {
-                                if (gridmap.map[ZoomMultiple * ij + ik + i][ZoomMultiple * k + ik] == 0)
+                                if (gridmap.map[(ZoomMultiple * ij + ik + i)%100][(ZoomMultiple * k + ik)%100] == 0)
                                 {
                                     canmove = false;
                                     break;
@@ -12658,7 +12658,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
             {
                 for (j = map_robot_y - 2; j > ij; j--)
                 {
-                    if (gridmap.map[i][j] == 0)
+                    if (gridmap.map[i%100][j%100] == 0)
                     {
                         complete_flag = 1;
                         return complete_flag;
@@ -12681,7 +12681,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
             {
                 for (j = map_robot_y - 2; j > ij; j--)
                 {
-                    if (gridmap.map[i][j] == 0)
+                    if (gridmap.map[i%100][j%100] == 0)
                     {
                         complete_flag = 1;
                         return complete_flag;
@@ -12704,7 +12704,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
             {
                 for (j = map_robot_y + 2; j < ij; j++)
                 {
-                    if (gridmap.map[i][j] == 0)
+                    if (gridmap.map[i%100][j%100] == 0)
                     {
                         complete_flag = 1;
                         return complete_flag;
@@ -12727,7 +12727,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
             {
                 for (j = map_robot_y + 2; j < ij; j++)
                 {
-                    if (gridmap.map[i][j] == 0)
+                    if (gridmap.map[i%100][j%100] == 0)
                     {
                         complete_flag = 1;
                         return complete_flag;
@@ -12924,7 +12924,13 @@ void  DetectionCloseEdge()
 ///////#############
 ///////#############
 ///////#############
+
 unsigned char  CliffCloseEdge(POSE *current_pose)
+{
+	return 2;
+}
+
+unsigned char  __CliffCloseEdge(POSE *current_pose)
 {
     int map_robot_x, map_robot_y;
     int8_t i, j, complete_flag = 0;
@@ -12937,7 +12943,7 @@ unsigned char  CliffCloseEdge(POSE *current_pose)
     {
         for (j = map_robot_y - 1; j <= map_robot_y + 1; j++)
         {
-            if (gridmap.map[i][j] == 0)
+            if (gridmap.map[i%100][j%100] == 0)
             {
                 close_edge_max_x = i;
                 close_edge_max_y = j;
@@ -12955,7 +12961,7 @@ unsigned char  CliffCloseEdge(POSE *current_pose)
     {
         for (j = map_robot_y - 1; j <= map_robot_y + 1; j++)
         {
-            if (gridmap.map[i][j] == 0)
+            if (gridmap.map[i%100][j%100] == 0)
             {
                 close_edge_min_x = i;
                 close_edge_min_y = j;
@@ -12973,7 +12979,7 @@ unsigned char  CliffCloseEdge(POSE *current_pose)
     {
         for (i = map_robot_x - 1; i <= map_robot_x + 1; i++)
         {
-            if (gridmap.map[i][j] == 0)
+            if (gridmap.map[i%100][j%100] == 0)
             {
                 close_r_edge_min_x = i;
                 close_r_edge_min_y = j;
@@ -12991,7 +12997,7 @@ unsigned char  CliffCloseEdge(POSE *current_pose)
     {
         for (i = map_robot_x - 1; i <= map_robot_x + 1; i++)
         {
-            if (gridmap.map[i][j] == 0)
+            if (gridmap.map[i%100][j%100] == 0)
             {
                 close_l_edge_max_x = i;
                 close_l_edge_max_y = j;
@@ -13015,7 +13021,7 @@ unsigned char  CliffCloseEdge(POSE *current_pose)
                 {
                     for (j = GRIDHEIGHT - 1; j >= 0; j--)
                     {
-                        if (gridmap.map[i][j] == 0)
+                        if (gridmap.map[i%100][j%100] == 0)
                         {
                             if (my_abs(close_edge_max_y - j) <= 2)
                             {
@@ -13067,7 +13073,7 @@ unsigned char  CliffCloseEdge(POSE *current_pose)
                 {
                     for (j = 0; j < GRIDHEIGHT; j++)
                     {
-                        if (gridmap.map[i][j] == 0)
+                        if (gridmap.map[i%100][j%100] == 0)
                         {
                             if (my_abs(close_edge_max_y - j) <= 2)
                             {

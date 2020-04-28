@@ -10,6 +10,7 @@
 //数量个数
 #define MAPWIDECELLS 100
 #define MAPLONGCELLS 100
+#define MAPMAXCELLS 100
 
 /** Map Size (mm) */ 
 // 10m * 10m

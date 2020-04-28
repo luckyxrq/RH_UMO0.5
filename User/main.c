@@ -104,7 +104,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     while(1)
     {
         /* 处理按键事件 */
-		//main_debug("bsp_KeyProc() \n");
+		main_debug("bsp_KeyProc() \n");
         bsp_KeyProc();
 		
 		
@@ -128,7 +128,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 		
 		if(isSearchCharge){}
 		else{		
-			//main_debug("bsp_GridMapUpdate() \n");
+			main_debug("bsp_GridMapUpdate() \n");
 			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 
 		}
@@ -177,7 +177,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		}
 		else
 		{	
-			//main_debug("bsp_UpdateCleanStrategyB() \n");
+			main_debug("bsp_UpdateCleanStrategyB() \n");
 			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
 			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			
