@@ -16,9 +16,16 @@
 #define COLLISION_RIGHT_RIGHTRUN_STEP                                                           0x103
 #define GOBACK_DISTANCE_CRRRS                                                                   0x103  //后退一段距离，距离够跳转
 #define DIR_RIGHT_YAW_LESS_ABS90_CRRRS                                                          0x104  //判断当前角度是否小于ABS90，跳转
-#define TURN_CLOCK_TARGET_YAW_NEG27_CR_DRYL                                                     0x105 //开始向右转，小于-27或碰撞，跳转
-#define TURN_CLOCK_TARGET_YAW_NEG27_COLLISION_CR_DRYL                                           0x106
-#define GOSTR_YAW_EQUAL_NEG27_CR_DRYL                                                           0x107
+
+//#define TURN_CLOCK_TARGET_YAW_NEG27_CR_DRYL                                                     0x105 //开始向右转，小于-27或碰撞，跳转
+//#define TURN_CLOCK_TARGET_YAW_NEG27_COLLISION_CR_DRYL                                           0x106
+//#define GOSTR_YAW_EQUAL_NEG27_CR_DRYL                                                           0x107
+
+#define TURN_CLOCK_TARGET_YAW_NEG90_CR_DRYL                                                     0x105 //开始向右转，小于-27或碰撞，跳转
+#define TURN_CLOCK_TARGET_YAW_NEG90_COLLISION_CR_DRYL                                           0x106
+#define GOSTR_YAW_EQUAL_NEG90_CR_DRYL                                                           0x107
+
+
 #define TURN_CLOCK_TARGET_YAW_NEG57_CR_DRYL                                                     0x108
 #define TURN_CLOCK_TARGET_YAW_NEG57_COLLISION_CR_DRYL                                           0x109
 #define GOSTR_YAW_EQUAL_NEG57_CR_DRYL                                                           0x10A
@@ -75,9 +82,15 @@
 #define GOSTR_BYPASS_LOOP_CL_DRYL                                                               0x143
 #define GOSTR_BYPASS_BOW_CONTINUE_EXIT_CL_DRYL                                                  0x144
 #define DIR_RIGHT_YAW_MORE_ABS90_CLRRS                                                          0x145
-#define TURN_CCLOCK_TARGET_YAW_ABS153_CL_DRYM                                                   0x146
-#define TURN_CCLOCK_TAEGET_YAW_ABS153_COLLISION_CL_DRYM                                         0x147
-#define GOSTR_YAW_EQUAL_ABS153_CL_DRYM                                                          0x148
+
+//#define TURN_CCLOCK_TARGET_YAW_ABS153_CL_DRYM                                                   0x146
+//#define TURN_CCLOCK_TAEGET_YAW_ABS153_COLLISION_CL_DRYM                                         0x147
+//#define GOSTR_YAW_EQUAL_ABS153_CL_DRYM                                                          0x148
+
+#define TURN_CCLOCK_TARGET_YAW_ABS90_CL_DRYM                                                   0x146
+#define TURN_CCLOCK_TAEGET_YAW_ABS90_COLLISION_CL_DRYM                                         0x147
+#define GOSTR_YAW_EQUAL_ABS90_CL_DRYM                           								0x148
+
 #define TURN_CCLOCK_TARGET_YAW_NEG123_CL_DRYM                                                   0x149
 #define TURN_CCLOCK_TARGET_YAW_NEG123_COLLISION_CL_DRYM                                         0x14A
 #define GOSTR_YAW_EQUAL_NEG123_CL_DRYM                                                          0x14B
@@ -243,9 +256,14 @@
 #define COLLISION_RIGHT_LEFTRUN_STEP                                                           0x253
 #define GOBACK_DISTANCE_CRLRS                                                                  0x254
 #define DIR_LEFT_YAW_MORE_ABS90_CRLRS                                                          0x255
-#define TURN_CLOCK_TARGET_YAW_ABS153_LRUN_CR_DLYM                                              0x256
-#define TURN_CLOCK_TARGET_YAW_ABS153_COLLISION_LRUN_CR_DLYM                                    0x257
-#define GOSTR_YAW_EQUAL_ABS153_LRUN_CR_DLYM                                                    0x258
+//#define TURN_CLOCK_TARGET_YAW_ABS153_LRUN_CR_DLYM                                              0x256
+//#define TURN_CLOCK_TARGET_YAW_ABS153_COLLISION_LRUN_CR_DLYM                                    0x257
+//#define GOSTR_YAW_EQUAL_ABS153_LRUN_CR_DLYM                                                    0x258
+
+#define TURN_CLOCK_TARGET_YAW_ABS90_LRUN_CR_DLYM                                              0x256
+#define TURN_CLOCK_TARGET_YAW_ABS90_COLLISION_LRUN_CR_DLYM                                    0x257
+#define GOSTR_YAW_EQUAL_ABS90_LRUN_CR_DLYM                                                    0x258
+
 #define TURN_CLOCK_TARGET_YAW_POS123_LRUN_CR_DLYM                                              0x259
 #define TURN_CLOCK_TARGET_YAW_POS123_COLLISION_LRUN_CR_DLYM                                    0x25A
 #define GOSTR_YAW_EQUAL_POS123_LRUN_CR_DLYM                                                    0x25B
@@ -310,9 +328,16 @@
 #define TURN_CCLOCK_TARGET_YAW_LESS_ABS3_LRUN_CL_DLYM                                          0x2A7
 #define TURN_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION_LRUN_CL_DLYM                                0x2A8
 #define DIR_LEFT_YAW_LESS_ABS90_CLLRS                                                          0x2A9
-#define TURN_CCLOCK_TARGET_YAW_ABS27_LRUN_CL_DLYL                                              0x2AA
-#define TURN_CCLOCK_TAEGET_YAW_ABS27_COLLISION_LRUN_CL_DLYL                                    0x2AB
-#define GOSTR_YAW_EQUAL_ABS27_LRUN_CL_DLYL                                                     0x2AC
+
+//#define TURN_CCLOCK_TARGET_YAW_ABS27_LRUN_CL_DLYL                                              0x2AA
+//#define TURN_CCLOCK_TAEGET_YAW_ABS27_COLLISION_LRUN_CL_DLYL                                    0x2AB
+//#define GOSTR_YAW_EQUAL_ABS27_LRUN_CL_DLYL                                                     0x2AC
+
+#define TURN_CCLOCK_TARGET_YAW_ABS90_LRUN_CL_DLYL                                              0x2AA
+#define TURN_CCLOCK_TAEGET_YAW_ABS90_COLLISION_LRUN_CL_DLYL                                    0x2AB
+#define GOSTR_YAW_EQUAL_ABS90_LRUN_CL_DLYL                                                     0x2AC
+
+
 #define TURN_CCLOCK_TARGET_YAW_ABS57_LRUN_CL_DLYL                                              0x2AD
 #define TURN_CCLOCK_TARGET_YAW_ABS57_COLLISION_LRUN_CL_DLYL                                    0x2AE
 #define GOSTR_YAW_EQUAL_ABS57_LRUN_CL_DLYL                                                     0x2AF
