@@ -906,7 +906,7 @@ unsigned char AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obsta
 unsigned char CliffRuningWorkStep(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
 unsigned char CloseEdgedMap(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
 void DetectionCloseEdge(void);
-unsigned char CliffCloseEdge(POSE *current_pose);
+unsigned char CliffCloseEdge(void);
 
 
 
