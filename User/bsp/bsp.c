@@ -55,6 +55,7 @@ void bsp_Init(void)
 	
 	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
 	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
+	M_CLIFF_PULSE_LOW();     /* 默认电平低*/
 	bsp_InitUart(); 	     /* 初始化串口 */
 	bsp_InitLed();           /* 初始化LED */
 	
@@ -100,11 +101,11 @@ void bsp_Init(void)
 	}while(!ret);
 #else
 
-	ret = bsp_InitAW9523B();
-	if(!ret)
-	{
-		WARNING("AW9523B Init Error\r\n");
-	}
+//	ret = bsp_InitAW9523B();
+//	if(!ret)
+//	{
+//		WARNING("AW9523B Init Error\r\n");
+//	}
 
 #endif
 	

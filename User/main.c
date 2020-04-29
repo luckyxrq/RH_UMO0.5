@@ -120,10 +120,11 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //			bsp_ChangeWifi2SmartConfigStateProc();
 //			
 //			/*下面是打印开关，酌情注释*/
-//			bsp_WifiStateProc();
+			bsp_WifiStateProc();
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
 //			bsp_PrintAllVoltage();
+			
         }
 		
 //#if 1 /*更新地图*/
@@ -135,12 +136,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //		}
 //#endif
 		
-//		if(count % 10 == 0)
-//		{
-//			//bsp_LedToggle(LED_COLOR_GREEN);
-//		}
 		
-		//DEBUG("bsp_GetKeyRunLastState:%d\r\n",bsp_GetKeyRunLastState());
+		bsp_CliffPulseDetect();
+		
+		bsp_CliffPulseTest();
 		
 		//bsp_UploadMap();
         vTaskDelay(50);	
@@ -477,6 +476,8 @@ static void bsp_KeyProc(void)
 				DEBUG("电源按键按下\r\n");
 				bsp_KeySuspend();
 				
+				bsp_StartCliffPulseTest();
+				
 			}break;
 				
 			case KEY_DOWN_CHARGE:
@@ -594,7 +595,10 @@ static void bsp_KeyProc(void)
 			
 			case KEY_9_DOWN:
 			{
-				
+				DEBUG("重新配网：同时按充电和清扫\r\n");
+				bsp_SperkerPlay(Song29);
+				bsp_StartChangeWifi2SmartConfigState();
+
 			}break;
 			
 			
