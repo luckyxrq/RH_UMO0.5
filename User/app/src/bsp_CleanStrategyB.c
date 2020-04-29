@@ -12805,17 +12805,17 @@ void  DetectionCloseEdge()
                 break;
             }
         }
-        while (close_edge_max_x - close_edge_min_x > 4)
+        while (close_edge_max_x - close_edge_min_x > 3)
         {
-            for (k = close_edge_max_y; k < close_edge_max_y + 4; k++)
+            for (k = close_edge_max_y; k < close_edge_max_y + 3; k++)
             {
-                for (i = close_edge_max_x - 4; i < close_edge_max_x; i++)
+                for (i = close_edge_max_x - 3; i < close_edge_max_x; i++)
                 {
                     for (j = 0; j < GRIDHEIGHT; j++)
                     {
                         if (gridmap.map[i][j] == 0)
                         {
-                            if (my_abs(close_edge_max_y - j) < 4)
+                            if (my_abs(close_edge_max_y - j) < 3)
                             {
                                 close_edge_max_x = i;
                                 close_edge_max_y = j;
@@ -12882,17 +12882,17 @@ void  DetectionCloseEdge()
                 break;
             }
         }
-        while (close_edge_max_x - close_edge_min_x > 4)
+        while (close_edge_max_x - close_edge_min_x > 3)
         {
-            for (k = close_edge_max_y; k < close_edge_max_y+4; k++)
+            for (k = close_edge_max_y; k < close_edge_max_y+3; k++)
             {
-                for (i = close_edge_max_x - 4; i < close_edge_max_x; i++)
+                for (i = close_edge_max_x - 3; i < close_edge_max_x; i++)
                 {
                     for (j = GRIDHEIGHT - 1; j > 0; j--)
                     {
                         if (gridmap.map[i][j] == 0)
                         {
-                            if (my_abs(close_edge_max_y - j) < 4)
+                            if (my_abs(close_edge_max_y - j) < 3)
                             {
                                 close_edge_max_x = i;
                                 close_edge_max_y = j;
@@ -12921,7 +12921,7 @@ void  DetectionCloseEdge()
             }
         }
     }
-    if (close_edge_max_x - close_edge_min_x > 4)
+    if (close_edge_max_x - close_edge_min_x > 3)
     {
         detection_close = true;
     }
