@@ -67,16 +67,11 @@ void bsp_CliffPulseDetect(void)
 				//DEBUG("cliffPulse.lowPulseV:%.2f\r\n",cliffPulse.lowPulseV);
 				
 				M_CLIFF_PULSE_HIGH();
-				cliffPulse.delay = xTaskGetTickCount();
-				++cliffPulse.action;
-			}
-		}break;
-		
-		case 2:
-		{
-			if(xTaskGetTickCount() - cliffPulse.delay >= 1)
-			{
+				
+				bsp_DelayUS(200);
+				
 				cliffPulse.highPulseV = bsp_GetCliffVoltage(CliffMiddle);
+				M_CLIFF_PULSE_LOW();
 				//DEBUG("cliffPulse.highPulseV:%.2f\r\n",cliffPulse.highPulseV);
 				//DEBUG("sub:%.2F\r\n",cliffPulse.lowPulseV-cliffPulse.highPulseV);
 				if(cliffPulse.lowPulseV-cliffPulse.highPulseV <= M_CLIFF_THRESHOLD)
@@ -95,6 +90,30 @@ void bsp_CliffPulseDetect(void)
 				cliffPulse.action = 0;
 			}
 		}break;
+		
+//		case 2:
+//		{
+//			if(xTaskGetTickCount() - cliffPulse.delay >= 1)
+//			{
+//				cliffPulse.highPulseV = bsp_GetCliffVoltage(CliffMiddle);
+//				//DEBUG("cliffPulse.highPulseV:%.2f\r\n",cliffPulse.highPulseV);
+//				//DEBUG("sub:%.2F\r\n",cliffPulse.lowPulseV-cliffPulse.highPulseV);
+//				if(cliffPulse.lowPulseV-cliffPulse.highPulseV <= M_CLIFF_THRESHOLD)
+//				{
+//					cliffPulse.isDangerM = true;
+//				}
+//				else
+//				{
+//					cliffPulse.isDangerM = false;
+//				}
+//				
+//				DEBUG("%.2F  %s\r\n",
+//				cliffPulse.lowPulseV-cliffPulse.highPulseV,
+//				cliffPulse.isDangerM?"ÐüÑÂÕæ":"ÐüÑÂ¼Ù");
+//				
+//				cliffPulse.action = 0;
+//			}
+//		}break;
 	}
 }
 
