@@ -312,13 +312,13 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
   {
       //开关关
 	  DEBUG("SW CLOSE\r\n");
-	  bsp_PutKey(KEY_1_DOWN);
+	  bsp_SperkerPlay(Song2);
   }
   else
   {
 	//开关开
 	DEBUG("SW OPEN\r\n");
-	bsp_PutKey(KEY_3_LONG);
+	bsp_SperkerPlay(Song1);
   }
   
   //处理完DP数据后应有反馈
@@ -347,10 +347,12 @@ static unsigned char dp_download_switch_go_handle(const unsigned char value[], u
   if(switch_go == 0)
   {
     //开关关
+	bsp_PutKey(KEY_DOWN_CLEAN);  
   }
   else
   {
     //开关开
+	bsp_PutKey(KEY_LONG_CLEAN);  
   }
   
   //处理完DP数据后应有反馈
@@ -373,56 +375,69 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
   //示例:当前DP类型为ENUM
   unsigned char ret;
   unsigned char mode;
-  
+  static bool isOpenClean = true;
+	
+	
   mode = mcu_get_dp_download_enum(value,length);
   switch(mode)
   {
     case 0:
-      
+      DEBUG("0\r\n");
+	
+	  if(isOpenClean)
+	  {
+		  bsp_PutKey(KEY_DOWN_CLEAN);  
+	  }
+      else
+	  {
+		  bsp_PutKey(KEY_LONG_CLEAN); 
+	  }		 
+
+	  isOpenClean = !isOpenClean;
       break;
       
     case 1:
-      
+      DEBUG("1\r\n");
       break;
       
     case 2:
-      
+      DEBUG("2\r\n");
       break;
       
     case 3:
-      
+      DEBUG("3\r\n");
       break;
       
     case 4:
-      
+      DEBUG("4\r\n");
       break;
       
     case 5:
-      
+      DEBUG("5\r\n");
       break;
       
     case 6:
-      
+      DEBUG("6\r\n");
       break;
       
     case 7:
-      
+      DEBUG("7\r\n");
       break;
       
     case 8:
-      
+      DEBUG("8\r\n");
       break;
       
     case 9:
-      
+      DEBUG("9\r\n");
       break;
       
     case 10:
-      
+      DEBUG("10\r\n");
       break;
       
     case 11:
-      
+      DEBUG("11\r\n");
       break;
       
     default:

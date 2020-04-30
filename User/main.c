@@ -103,14 +103,15 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     
     uint32_t count = 0 ;
-
+	uint32_t battery = 0 ;
+	
     while(1)
     {
         /* 处理按键事件 */
         bsp_KeyProc();
 		
 		
-        if(count++ % 10 == 0)
+        if(count % 10 == 0)
         {
 			
 //			bsp_PrintAllVoltage();
@@ -142,7 +143,15 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //		bsp_CliffPulseTest();
 		
 		//bsp_UploadMap();
-        vTaskDelay(1);	
+		
+		
+		if(count % 20 == 0)
+		{
+			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,++battery % 100);
+		}
+		
+		++count;
+        vTaskDelay(50);	
     }
 }
 
