@@ -261,8 +261,9 @@ static void vTaskPerception(void *pvParameters)
 		//bsp_ComAnalysis();
 		
 #if 1
-        bsp_DetectAct();  /*红外对管轮询扫描*/
-        bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		bsp_DetectActTest(3);
+//        bsp_DetectAct();  /*红外对管轮询扫描*/
+//        bsp_DetectDeal(); /*红外对管扫描结果处理*/
 #endif
        
 #if 0   /*测试红外测距的距离，测到后就停下来*/
