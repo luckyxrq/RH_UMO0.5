@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Apr 30 11:20:40 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Apr 30 13:51:14 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2893,25 +2893,23 @@ Global Symbols
 <P><STRONG><a name="[1d7]"></a>bsp_LedAppProc</STRONG> (Thumb, 248 bytes, Stack size 16 bytes, bsp_runcontrol.o(i.bsp_LedAppProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_LedAppProc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
 <P><STRONG><a name="[154]"></a>bsp_LedOff</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOff))
-<BR><BR>[Called By]<UL><LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
-<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OpenThreeWhileLed
+<BR><BR>[Called By]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OpenThreeWhileLed
 <LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllLed
 <LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 </UL>
 
 <P><STRONG><a name="[1d9]"></a>bsp_LedOn</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, bsp_led.o(i.bsp_LedOn))
-<BR><BR>[Called By]<UL><LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
-<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OpenThreeWhileLed
+<BR><BR>[Called By]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OpenThreeWhileLed
 <LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 <LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PowerOnLedProc
 </UL>
@@ -3066,8 +3064,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_PowerOnLedProc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayMS
-<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
 </UL>
 <BR>[Called By]<UL><LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
@@ -3104,7 +3102,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[1ee]"></a>bsp_SearchChargePile</STRONG> (Thumb, 1484 bytes, Stack size 24 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
+<P><STRONG><a name="[1ee]"></a>bsp_SearchChargePile</STRONG> (Thumb, 1468 bytes, Stack size 24 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = bsp_SearchChargePile &rArr; bsp_CliffIsDangerous &rArr; bsp_GetCliffVoltage &rArr; ADC_RegularChannelConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopSearchChargePile
@@ -3114,8 +3112,6 @@ Global Symbols
 <LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsTouchChargePile
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
 <LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isCleanRunning
-<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
 <LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetLedAppState
 <LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsCharging
 <LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlowBack

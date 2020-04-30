@@ -198,10 +198,7 @@ void bsp_SearchChargePile(void)
 				bsp_GetLedAppState() != AT_SEARCH_CHARGE &&
 				bsp_GetLedAppState() != THREE_WHITE_TOOGLE )
 			{
-				bsp_LedOn(LED_LOGO_CHARGE);
-				bsp_LedOff(LED_COLOR_YELLOW);
-				bsp_LedOff(LED_COLOR_GREEN);
-				bsp_LedOff(LED_COLOR_RED); 
+				bsp_SetLedState(THREE_WHITE_ON);
 			}
 
 			 search.lastIsTouchTick = UINT32_T_MAX;

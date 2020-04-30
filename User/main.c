@@ -539,7 +539,7 @@ static void bsp_KeyProc(void)
 				
 				bsp_SperkerPlay(Song5);
 				bsp_StartSearchChargePile();
-				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.5F);
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.6F);
 				/*设置上一次按键值*/
 				bsp_SetLastKeyState(eKEY_NONE);
 				/*设置LED状态*/
