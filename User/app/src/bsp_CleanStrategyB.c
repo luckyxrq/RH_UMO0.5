@@ -834,7 +834,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				FunctionStatus = LeftRunningWorkStep(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
-					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
+					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>20000){
 					over_clean_finish = true;
 					OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
 					left_running_step_status = 0;
@@ -2269,7 +2269,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     case  TURN_CCLOCK_TARGET_YAW_NEG123_CL_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw > -105)
+        if (my_abs(Yaw)<105)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2488,7 +2488,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CLOCK_TARGET_YAW_NEG60_CF_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if ((Yaw) < -60)
+        if (Yaw< -75)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2639,7 +2639,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CCLOCK_TARGET_YAW_ABS120_CF_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw) < 120)
+        if (my_abs(Yaw) < 105)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5277,7 +5277,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     case TURN_CLOCK_TARGET_YAW_POS123_LRUN_CR_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (Yaw < 105)
+        if (my_abs(Yaw) < 105)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6494,7 +6494,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     case  TURN_CCLOCK_TARGET_YAW_ABS87_LRUN_CL_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw > 87)
+        if (Yaw > 85)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6653,7 +6653,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CCLOCK_TARGET_YAW_ABS60_LRUN_CF_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if ((Yaw) > 60)
+        if (Yaw>75)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6703,7 +6703,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CCLOCK_TARGET_YAW_ABS82_LRUN_CF_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw > 82)
+        if (Yaw > 85)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6803,7 +6803,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_ABS120_LRUN_CF_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw) < 120)
+        if (my_abs(Yaw) < 105)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -6853,7 +6853,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_ABS98_LRUN_CF_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw) < 93)
+        if (my_abs(Yaw) < 95)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -9747,7 +9747,7 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if (my_abs(turn_start_x - current_pose->x) > lateral_move_distance || my_abs(turn_start_y - current_pose->y) > lateral_move_distance)
+        if (my_abs(turn_start_x - current_pose->x) > side_backward_distance || my_abs(turn_start_y - current_pose->y) > side_backward_distance)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -9761,6 +9761,7 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
         {
             linear_velocity = 0;
             angular_velocity = 0;
+			temporary_wheel_pulse_r = wheel_pulse_r;
             a_star_not_motion_status = START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
@@ -9783,7 +9784,7 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if (my_abs(turn_start_x - current_pose->x) > lateral_move_distance || my_abs(turn_start_y - current_pose->y) > lateral_move_distance)
+        if (my_abs(turn_start_x - current_pose->x) > side_backward_distance || my_abs(turn_start_y - current_pose->y) > side_backward_distance)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -9918,7 +9919,8 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw < 138 && Yaw > 132)
         {
-            linear_velocity = 0;
+			//原先是0，现在是long_stra_vel
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -9954,7 +9956,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw < 138 && Yaw > 132)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10011,14 +10013,10 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw) < 175 && Yaw >= 0)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else if (my_abs(Yaw) < 175 && Yaw < 0)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else
@@ -10028,9 +10026,9 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw) > 178)
+        if (my_abs(Yaw) > 177)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10064,9 +10062,9 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         }
         break;
     case MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw) > 178)
+        if (my_abs(Yaw) > 177)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10123,14 +10121,10 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw) > 140 || (Yaw > 45 && Yaw <= 140))
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else if (my_abs(Yaw) <= 45 || (Yaw > -130 && Yaw < -45))
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else
@@ -10142,7 +10136,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw > -138 && Yaw < -132)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10178,7 +10172,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw > -138 && Yaw < -132)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10215,14 +10209,10 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw) > 95)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else if (my_abs(Yaw) < 85 || (Yaw >= 85 && Yaw <= 95))
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else
@@ -10234,7 +10224,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw > -138 && Yaw < -132)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10270,7 +10260,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw > -138 && Yaw < -132)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10307,14 +10297,10 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw) >= 135 || (Yaw < -135 && Yaw > -50))
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else if (my_abs(Yaw) < 40 || (Yaw >= 40 && Yaw < 135))
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else
@@ -10326,7 +10312,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw < -42 && Yaw > -48)
         {
-            linear_velocity = 0;
+            linear_velocity =long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10362,7 +10348,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw < -42 && Yaw > -48)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10399,14 +10385,10 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw) > 5 && Yaw < 0)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else if (my_abs(Yaw) > 5 && Yaw > 0)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else
@@ -10418,7 +10400,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw) < 3)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10454,7 +10436,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw) < 3)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10491,14 +10473,10 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw) <= 40 || (Yaw < -40 && Yaw > -135))
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else if (my_abs(Yaw) >= 135 || (Yaw > 50 && Yaw < 135))
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else
@@ -10510,7 +10488,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw < 48 && Yaw > 42)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10546,7 +10524,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw < 48 && Yaw > 42)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10583,14 +10561,10 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (my_abs(Yaw) < 85)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else if (my_abs(Yaw) > 95 || (Yaw >= -95 && Yaw <= -85))
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             a_star_motion_return_origin_status = MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
         else
@@ -10602,7 +10576,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw > 87 && Yaw < 93)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10638,7 +10612,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     case MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
         if (Yaw > 87 && Yaw < 93)
         {
-            linear_velocity = 0;
+            linear_velocity = long_stra_vel;
             angular_velocity = 0;
             temporary_wheel_pulse_l = wheel_pulse_l;
             a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
@@ -10738,7 +10712,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
         }
         linear_velocity = -long_stra_vel;
         angular_velocity = 0;
-        if (my_abs(turn_start_x - current_pose->x) > star_collision_backward || my_abs(turn_start_y - current_pose->y) > star_collision_backward)
+        if (my_abs(turn_start_x - current_pose->x) > side_backward_distance || my_abs(turn_start_y - current_pose->y) > side_backward_distance)
         {
             linear_velocity = 0;
             angular_velocity = 0;
