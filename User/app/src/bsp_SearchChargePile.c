@@ -197,7 +197,8 @@ void bsp_SearchChargePile(void)
 			 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!治理需要根据扫地与否更改*/
 			if( bsp_GetLedAppState() != AT_CLEAN && 
 				bsp_GetLedAppState() != AT_SEARCH_CHARGE &&
-				bsp_GetLedAppState() != THREE_WHITE_TOOGLE )
+				bsp_GetLedAppState() != THREE_WHITE_TOOGLE &&
+			    bsp_GetLedAppState() != AT_LINK)
 			{
 				bsp_SetLedState(THREE_WHITE_ON);
 			}

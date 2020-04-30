@@ -10,7 +10,8 @@ typedef enum
 	AT_CHARGE_DONE,
 	
 	AT_SEARCH_CHARGE,
-	AT_CLEAN
+	AT_CLEAN,
+	AT_LINK
 }LedAppState;
 
 void bsp_CloseAllLed(void);

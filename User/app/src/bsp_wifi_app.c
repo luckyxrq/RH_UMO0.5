@@ -1,11 +1,11 @@
 #include "bsp.h"
 
-#define WIFI_DEBUG_EN      0
+#define WIFI_DEBUG_EN      1
 
 #if WIFI_DEBUG_EN
 #define WIFI_DEBUG(format, ...) printf (format, ##__VA_ARGS__)
 #else
-#define WIFI_DEBUG(format, ...) {}
+#define WIFI_DEBUG(format, ...)
 #endif
 
 

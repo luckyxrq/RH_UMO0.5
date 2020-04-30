@@ -117,10 +117,10 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 //			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 
-//			bsp_ChangeWifi2SmartConfigStateProc();
+			bsp_ChangeWifi2SmartConfigStateProc();
 //			
 //			/*下面是打印开关，酌情注释*/
-//			bsp_WifiStateProc();
+			bsp_WifiStateProc();
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
 //			bsp_PrintAllVoltage();
@@ -137,9 +137,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //#endif
 		
 		
-		bsp_CliffPulseDetect();
-		
-		bsp_CliffPulseTest();
+//		bsp_CliffPulseDetect();
+//		
+//		bsp_CliffPulseTest();
 		
 		//bsp_UploadMap();
         vTaskDelay(1);	
@@ -598,6 +598,7 @@ static void bsp_KeyProc(void)
 				DEBUG("重新配网：同时按充电和清扫\r\n");
 				bsp_SperkerPlay(Song29);
 				bsp_StartChangeWifi2SmartConfigState();
+				bsp_SetLedState(AT_LINK);
 
 			}break;
 			
