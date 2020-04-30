@@ -174,9 +174,11 @@ const uint8_t battery_out_flag = 2;
 const uint8_t collision_error = 3;
 const uint8_t cliff_error = 4;
 const uint8_t infra_collision_error = 5;
+const uint8_t imu_error = 5;
 
 uint8_t collision_error_cnt = 0;
 uint8_t cliff_error_cnt = 0;
+uint8_t imu_error_cnt = 0;
 uint16_t infra_collision_error_cnt = 0;
 static uint8_t time_battery_return_origin_statues = 1;
 
@@ -418,7 +420,9 @@ void bsp_ResetCleanStrategyBStatus(void)
 	LastCleanTimeStamp = 0;
 	CurrentCleanTimeStamp  = 0;
 	
+	//位姿复位
 	bsp_ResetPosArgument();
+	//栅格图复位
 	bsp_StartUpdateGridMap();
 	
 }
@@ -549,9 +553,21 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 		}else{
 			cliff_error_cnt = 0;
 		}
-		
 	}
-	
+	//陀螺仪异常检测
+	if(check_sensor_cnt%50){
+		if(bsp_AngleReadRaw() == 0)   
+		{
+			imu_error_cnt++;
+			if(imu_error_cnt >50)
+			{
+				imu_error_cnt = 0;
+				return imu_error;
+			}
+		}else{
+			imu_error_cnt = 0;
+		}
+	}
 #if 0	
 	//红外异常检测
 	if(check_sensor_cnt%200){
@@ -607,7 +623,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 			bsp_MotorCleanSetPWM(MotorSideBrush, CCW , 0);
 				
 			while(bsp_SpeakerIsBusy()){}
-			
 		}
 		
 		log_debug("开始返回原点，走A*策略！\n");
@@ -623,12 +638,23 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 		log_debug("碰撞异常！\n");
 		bsp_StopUpdateCleanStrategyB();
 		bsp_SperkerPlay(Song18);/*碰撞开关异常*/
+		return 1;
 	}
 	if(check_sensor_return_value  == cliff_error)
 	{
 		log_debug("请擦拭跳崖传感器！\n");
 		bsp_StopUpdateCleanStrategyB();
 		bsp_SperkerPlay(Song11); /*请擦拭跳崖传感器*/
+		return 1;
+	}
+	if(check_sensor_return_value  == imu_error)
+	{
+		log_debug("陀螺仪数据异常！\n");
+		bsp_InitAngle(); 
+		bsp_StopUpdateCleanStrategyB();
+		bsp_SperkerPlay(Song8); /*陀螺仪数据异常*/
+		while(bsp_SpeakerIsBusy()){}
+		return 1;
 	}
 
 

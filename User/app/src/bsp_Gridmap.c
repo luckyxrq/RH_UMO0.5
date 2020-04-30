@@ -223,7 +223,7 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 		map_last_robotY = robotY;
 		gridmap_debug("map_last_robotX - robotX) >100 ,ready update map!  \n");
 		gridmap_debug("###########################################################################!  \n");
-		gridmap_debug("robotX£º%d   robotY£º%d   robotTheta£º%d  \n",robotX,robotY,(int)Rad2Deg(robotTheta));
+		DEBUG("robotX£º%d   robotY£º%d   robotTheta£º%d  \n",robotX,robotY,(int)Rad2Deg(robotTheta));
 		gridmap_debug("###########################################################################!  \n");
 	}
 	else 
