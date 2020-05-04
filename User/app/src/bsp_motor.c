@@ -161,7 +161,7 @@ void bsp_VacuumClean(void)
 {	
 #if 1
 	const uint32_t max_tick = 5;
-	const uint32_t changeTick = 4;
+	const uint32_t changeTick = 5;
 	
 	if(!vacuum.isRunning)
 		return ;
