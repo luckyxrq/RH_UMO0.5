@@ -261,7 +261,7 @@ static void vTaskPerception(void *pvParameters)
 		//bsp_ComAnalysis();
 		
 #if 1
-		bsp_DetectActTest(3);
+		bsp_DetectActTest(7);
 //        bsp_DetectAct();  /*红外对管轮询扫描*/
 //        bsp_DetectDeal(); /*红外对管扫描结果处理*/
 #endif

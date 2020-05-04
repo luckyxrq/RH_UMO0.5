@@ -94,46 +94,110 @@ void bsp_DetectStop(void)
 }
 
 
+//void bsp_DetectActTest(uint8_t pinMapIndex)
+//{
+//	static uint8_t action = 0 ;
+//	static uint32_t delay = 0 ;
+//	
+//	switch(action)
+//	{
+//		case 0:
+//		{
+//			bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
+//			delay = xTaskGetTickCount();
+//			action++;
+//			
+//		}break;
+//		
+//		case 1:
+//		{
+//			if(xTaskGetTickCount() - delay >= ChargeTime)
+//			{
+//				bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
+//				bsp_DelayUS(TimeAfterOpen);
+//				bsp_GetAdScanValue();
+//				bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
+//				bsp_DelayUS(TimeAfterClose);
+//				bsp_GetAdScanValue();
+//				bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
+//				//pinMapIndex++;
+//				
+//				delay = xTaskGetTickCount();
+//				action++;
+//			}
+//		}break;
+//		
+//		case 2:
+//		{
+//			if(xTaskGetTickCount() - delay >= (IntervalTime-ChargeTime)) 
+//			{
+//				action = 0 ;
+//			}
+//		}break;
+//	}
+//	
+//}
+
+
 void bsp_DetectActTest(uint8_t pinMapIndex)
 {
+	static bool isNeedOpenRx = true;
+	
 	static uint8_t action = 0 ;
 	static uint32_t delay = 0 ;
+	
+	float val1 = 0;
+	float val2 = 0;
+	
+	if(isNeedOpenRx)
+	{
+		isNeedOpenRx = false;
+		bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
+	}
 	
 	switch(action)
 	{
 		case 0:
 		{
-			bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
+			bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
+			bsp_DelayMS(1);
+			val1 = bsp_GetAdScanValue();
+			
+			bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
+			bsp_DelayMS(1);
+			val2 = bsp_GetAdScanValue();
+			
+			//DEBUG("%.2F %.2F %.2F\r\n",val1,val2,val2-val1);
+			
+			if(abs((val2-val1)*1000) <= 60)
+			{
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+			}
+			else
+			{
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}
+			
+			
 			delay = xTaskGetTickCount();
 			action++;
+			
+			
 			
 		}break;
 		
 		case 1:
 		{
-			if(xTaskGetTickCount() - delay >= ChargeTime)
+			if(xTaskGetTickCount() - delay >= 1)
 			{
-				bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				bsp_GetAdScanValue();
-				bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				bsp_GetAdScanValue();
-				bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				//pinMapIndex++;
 				
 				delay = xTaskGetTickCount();
-				action++;
+				action = 0;
 			}
 		}break;
 		
-		case 2:
-		{
-			if(xTaskGetTickCount() - delay >= (IntervalTime-ChargeTime)) 
-			{
-				action = 0 ;
-			}
-		}break;
 	}
 	
 }
