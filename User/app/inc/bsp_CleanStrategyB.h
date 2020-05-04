@@ -763,8 +763,11 @@
 #define none_cliff 0
 
 #define W 5000
-#define long_stra_vel 250
-#define turn_vel 50
+#define long_stra_vel 300
+#define turn_vel 60
+#define correction_turn_vel 45
+
+
 //#define Deg2Rad(deg) (PI * deg / 180.0F)
 //#define Rad2Deg(rad) (180.0F * rad / PI)
 

@@ -65,7 +65,7 @@ short leakingsweep_Y_interval = 100;
 
 
 double linear_velocity = 0,angular_velocity = 0;
-int bypass_velocity = 150;
+//int bypass_velocity = 150;
 	
 //for  collision step
 unsigned char distance_uptate  = 0;
@@ -390,7 +390,7 @@ void bsp_ResetCleanStrategyBStatus(void)
 	leakingsweep_X_interval = 200;
 	leakingsweep_Y_interval = 100;
 	linear_velocity = 0,angular_velocity = 0;
-	bypass_velocity = 150;
+	//bypass_velocity = 150;
 //for  collision step
 	distance_uptate  = 0;
 	turn_start_update = 0;
@@ -667,11 +667,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 	
 #endif	
 	
-	
-	
-	
-	
-	
 	if (detection_close_edge == true)
 	{
 		log_debug("DetectionCloseEdge() £¡\n");
@@ -754,7 +749,11 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
 					selectside = 'L';
 					over_clean_finish = false;
-					OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+						
+					//OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					//OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+					OVERALL_CLEANING_STRATEGY  = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+						
 					//log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
 					right_running_step_status = 0;
 					FunctionStatus = 0;
@@ -847,8 +846,15 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					else
 					{
 						temporary_wheel_pulse_r=wheel_pulse_r;
-						OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
-						selectside = 'L';
+						
+						if(selectside == 'L') OVERALL_CLEANING_STRATEGY =  LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+						if(selectside == 'R') 
+						{
+							bsp_ResetCleanStrategyBStatus();
+							//OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+							
+						}
+						//selectside = 'L';
 						return_origin_step_status = 0;
 						FunctionStatus = 0;
 					}
@@ -861,8 +867,11 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				if (1 == FunctionStatus)
 				{
 					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>20000){
-					over_clean_finish = true;
-					OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					selectside = 'R';
+					over_clean_finish = false;
+					//OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					
+					OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
 					left_running_step_status = 0;
 					FunctionStatus = 0;
 					break;
@@ -918,13 +927,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             if (Yaw > 0)
             {
                 linear_velocity = 0;
-                angular_velocity = turn_vel / 2;
+                angular_velocity = correction_turn_vel;
                 break;
             }
             else
             {
                 linear_velocity = 0;
-                angular_velocity = -turn_vel / 2;
+                angular_velocity = -correction_turn_vel;
                 break;
             }
         }
@@ -934,13 +943,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             if (Yaw > 0)
             {
                 linear_velocity = 0;
-                angular_velocity = -turn_vel / 2;
+                angular_velocity = -correction_turn_vel;
                 break;
             }
             else
             {
                 linear_velocity = 0;
-                angular_velocity = turn_vel / 2;
+                angular_velocity = correction_turn_vel;
                 break;
             }
         }
@@ -4808,11 +4817,11 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
 
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 //#################################################################################
 //##########           LEFT             ###########################################	
 //#################################################################################	
-////////////////////////////////////////////////////////////////////////////////////////////////////////	
+///////////////////////////////////////////////////////////////////////////////////
 
 unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal)
 {
@@ -4835,13 +4844,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             if (Yaw > 0)
             {
                 linear_velocity = 0;
-                angular_velocity = turn_vel / 2;
+                angular_velocity = correction_turn_vel;
                 break;
             }
             else
             {
                 linear_velocity = 0;
-                angular_velocity = -turn_vel / 2;
+                angular_velocity = -correction_turn_vel;
                 break;
             }
         }
@@ -4851,13 +4860,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             if (Yaw > 0)
             {
                 linear_velocity = 0;
-                angular_velocity = -turn_vel /2;
+                angular_velocity = -correction_turn_vel;
                 break;
             }
             else
             {
                 linear_velocity = 0;
-                angular_velocity = turn_vel / 2;
+                angular_velocity = correction_turn_vel;
                 break;
             }
         }

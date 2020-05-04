@@ -223,25 +223,25 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 		map_last_robotY = robotY;
 		gridmap_debug("map_last_robotX - robotX) >100 ,ready update map!  \n");
 		gridmap_debug("###########################################################################!  \n");
-		DEBUG("robotX£º%d   robotY£º%d   robotTheta£º%d  \n",robotX,robotY,(int)Rad2Deg(robotTheta));
+		gridmap_debug("robotX£º%d   robotY£º%d   robotTheta£º%d  \n",robotX,robotY,(int)Rad2Deg(robotTheta));
 		gridmap_debug("###########################################################################!  \n");
 	}
 	else 
 	{
 		gridmap.action = 1;
-		gridmap_debug("gridmap.action = 1  !  \n");
+		//gridmap_debug("gridmap.action = 1  !  \n");
 	}
 	
 	if(map_update==0)
 	{
-		gridmap_debug(" fisrt update!  \n");
+		//gridmap_debug(" fisrt update!  \n");
 		gridmap.action = 0;
 		map_update = 1;
 	}
 	
 	if(!gridmap.isRunning)
 	{
-		gridmap_debug(" gridmap is not Running !  \n");
+		//gridmap_debug(" gridmap is not Running !  \n");
 		return ;
 	}
 	
@@ -249,7 +249,7 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 	{
 		case 0:
 		{ 
-			gridmap_debug(" gridmap.action == 0 !  \n");
+			//gridmap_debug(" gridmap.action == 0 !  \n");
 			map_last_robotX=robotX;
 			map_last_robotY=robotY;
 			map_robot_x=robotX+half_map_wide;
@@ -299,17 +299,17 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 				}
 			}
 			
-//			for ( x = 0; x < MAPWIDTH/GRIDWIDTH; x++)
-//            {
-//                for ( y = 0; y < MAPHEIGHT/GRIDHEIGHT; y++)
-//                {
-//                        if(gridmap.map[x][y] == gridmap.grid_default) LOG("-");
-//                        if(gridmap.map[x][y] == gridmap.grid_occupancy) LOG("*");
-//                        if(gridmap.map[x][y] == gridmap.grid_free) LOG("#");
-//                        //if(gridmap.map[grid_index_x][grid_index_y] == 6) DEBUG("??");
-//                }
-//                LOG("\r\n");
-//            }
+			for ( x = 0; x < MAPWIDTH/GRIDWIDTH; x++)
+            {
+                for ( y = 0; y < MAPHEIGHT/GRIDHEIGHT; y++)
+                {
+                        if(gridmap.map[x][y] == gridmap.grid_default) gridmap_debug("-");
+                        if(gridmap.map[x][y] == gridmap.grid_occupancy) gridmap_debug("*");
+                        if(gridmap.map[x][y] == gridmap.grid_free) gridmap_debug("#");
+                        //if(gridmap.map[grid_index_x][grid_index_y] == 6) DEBUG("??");
+                }
+                gridmap_debug("\r\n");
+            }
 			break;
 		}
 		case 1:
@@ -526,7 +526,7 @@ static unsigned long mysqrt(unsigned long x)
 
 
 
-
+//
 short Edge_length(void){
     bool end_x=false;
     short edgelength=0;
@@ -914,6 +914,10 @@ short __bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsign
 
 short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
 {
+	
+	return 0;
+	
+	
     short y_boundary;
     short x_boundary;
     bool end_x=false;
@@ -1082,6 +1086,10 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
 //
 short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
 {
+	
+	return 0;
+	
+	
     short y_boundary;
     short x_boundary;
     bool end_x=false;

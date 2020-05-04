@@ -2,7 +2,7 @@
 #include <math.h>
 
 #define UPDATE_POS_T      20 /*更新坐标的时间周期，单位MM*/
-#define MAX_POSITION_XY  5000000
+#define MAX_POSITION_XY  5
 
 static Position position;
 static int global_currentX,global_currentY;
