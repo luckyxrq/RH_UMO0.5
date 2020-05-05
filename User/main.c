@@ -497,29 +497,29 @@ static void bsp_KeyProc(void)
 			
 			case KEY_LONG_POWER: /*关机*/
 			{
-				DEBUG("电源按键长按\r\n");
-				
-				/*灯光亮3颗白色灯*/
-				bsp_CloseAllLed();
-				bsp_SetLedState(LED_DEFAULT_STATE);
-				
-				/*关闭所有电机*/
-				bsp_StopAllMotor();
-				
-				/*关闭所有状态机*/
-				bsp_StopSearchChargePile();
-				bsp_StopCliffTest();
-				bsp_StopUpdateCleanStrategyB();
+//				DEBUG("电源按键长按\r\n");
+//				
+//				/*灯光亮3颗白色灯*/
+//				bsp_CloseAllLed();
+//				bsp_SetLedState(LED_DEFAULT_STATE);
+//				
+//				/*关闭所有电机*/
+//				bsp_StopAllMotor();
+//				
+//				/*关闭所有状态机*/
+//				bsp_StopSearchChargePile();
+//				bsp_StopCliffTest();
+//				bsp_StopUpdateCleanStrategyB();
 
-				/*设置上一次按键值*/
-				bsp_SetLastKeyState(eKEY_NONE);
-				/*进入休眠模式*/
-				bsp_SperkerPlay(Song31);
-				vTaskDelay(10);	
-				while(bsp_SpeakerIsBusy()){}
-				
-				bsp_ClearKey();
-				bsp_EnterStopMODE();
+//				/*设置上一次按键值*/
+//				bsp_SetLastKeyState(eKEY_NONE);
+//				/*进入休眠模式*/
+//				bsp_SperkerPlay(Song31);
+//				vTaskDelay(10);	
+//				while(bsp_SpeakerIsBusy()){}
+//				
+//				bsp_ClearKey();
+//				bsp_EnterStopMODE();
 			}break;
 			
 			case KEY_LONG_CHARGE: /*充电*/	
