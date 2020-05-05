@@ -83,9 +83,11 @@ void bsp_CliffPulseDetect(void)
 					cliffPulse.isDangerM = false;
 				}
 				
-				DEBUG("%.2F  %s\r\n",
+				DEBUG("%.2F  %.2F  %.2F  %s\r\n",
+				cliffPulse.lowPulseV,
+				cliffPulse.highPulseV,
 				cliffPulse.lowPulseV-cliffPulse.highPulseV,
-				cliffPulse.isDangerM?"ÐüÑÂÕæ":"ÐüÑÂ¼Ù");
+				cliffPulse.isDangerM?"¡Ì¡Ì¡Ì¡Ì¡Ì¡Ì":"XXXXXX");
 				
 				cliffPulse.action = 0;
 			}
