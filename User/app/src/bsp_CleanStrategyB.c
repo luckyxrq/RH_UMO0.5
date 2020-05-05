@@ -895,7 +895,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 	
 	return 1;
 	
-
 }
 
 

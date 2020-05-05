@@ -22,6 +22,8 @@ static void vTaskControl(void *pvParameters);
 /*感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角*/
 static void vTaskPerception(void *pvParameters);
 
+static void vTaskMapping(void *pvParameters);
+
 static void AppTaskCreate (void);
 static void AppObjCreate (void);
 void  App_Printf(char *format, ...);
@@ -35,6 +37,8 @@ static void bsp_KeySuspend(void);
 static TaskHandle_t xHandleTaskDecision      = NULL;
 static TaskHandle_t xHandleTaskControl       = NULL;
 static TaskHandle_t xHandleTaskPerception    = NULL;
+static TaskHandle_t xHandleTaskMapping       = NULL;
+
 
 static SemaphoreHandle_t  xMutex = NULL;
 
@@ -96,6 +100,34 @@ int main(void)
 *   优 先 级: 4  
 *********************************************************************************************************
 */
+
+
+static void vTaskMapping(void *pvParameters)
+{
+	//uint32_t count = 0 ;
+
+    while(1)
+    {
+     		
+#if 1 /*更新地图*/
+		
+		if(isSearchCharge){}
+		else{		
+			main_debug("bsp_GridMapUpdate() \n");
+			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+
+		}
+#endif
+		
+		//bsp_UploadMap();
+        vTaskDelay(100);
+		
+		
+    }
+
+}
+
+
 static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     
@@ -124,26 +156,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //			bsp_PrintAllVoltage();
         }
 		
-#if 1 /*更新地图*/
-		
-		if(isSearchCharge){}
-		else{		
-			main_debug("bsp_GridMapUpdate() \n");
-			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-
-		}
-#endif
-		
-		if(count % 10 == 0)
-		{
-			//bsp_LedToggle(LED_COLOR_GREEN);
-		}
-		
-		//DEBUG("bsp_GetKeyRunLastState:%d\r\n",bsp_GetKeyRunLastState());
-		
-		//bsp_UploadMap();
         vTaskDelay(50);	
     }
+
 }
 
 /*
@@ -187,11 +202,14 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		
 		if(GetReturnChargeStationStatus())
 		{
-			//main_debug("ResetReturnChargeStationStatus() \n");
-			ResetReturnChargeStationStatus();
 			
 			//main_debug("bsp_StopUpdateCleanStrategyB() \n");
 			bsp_StopUpdateCleanStrategyB();
+			
+			
+			//main_debug("ResetReturnChargeStationStatus() \n");
+			ResetReturnChargeStationStatus();
+			
 			
 			//main_debug("bsp_PutKey(KEY_LONG_CHARGE) \n");
 			bsp_PutKey(KEY_LONG_CHARGE);
@@ -272,7 +290,7 @@ static void vTaskPerception(void *pvParameters)
 		bsp_DetectMeasureTest();
 #endif
 
-#if 1  /*测试跳崖传感器 、红外、碰撞共同测试*/	 
+#if 0  /*测试跳崖传感器 、红外、碰撞共同测试*/	 
 		//main_debug("bsp_CliffTest() \n");
 		bsp_CliffTest();
 #endif
@@ -318,25 +336,32 @@ static void vTaskPerception(void *pvParameters)
 */
 static void AppTaskCreate (void)
 {
-    xTaskCreate( vTaskDecision,     		    /* 任务函数  */
-                 "vTaskDecision",   		    /* 任务名    */
-                 1024*2+512,            		    /* 任务栈大小，单位word，也就是4字节 */
+	
+	xTaskCreate( vTaskMapping,     		    /* 任务函数  */
+                 "vTaskMapping",   		    /* 任务名    */
+                 1024*2,            		    /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
+                 &xHandleTaskMapping );        /* 任务句柄  */
+    xTaskCreate( vTaskDecision,     		    /* 任务函数  */
+                 "vTaskDecision",   		    /* 任务名    */
+                 512,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 2,              		        /* 任务优先级*/
                  &xHandleTaskDecision );        /* 任务句柄  */
     xTaskCreate( vTaskControl,     		        /* 任务函数  */
                  "vTaskControl",   		        /* 任务名    */
                  1024,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
-                 2,              		        /* 任务优先级*/
+                 3,              		        /* 任务优先级*/
                  &xHandleTaskControl );         /* 任务句柄  */	
     xTaskCreate( vTaskPerception,     		    /* 任务函数  */
                  "vTaskPerception",   		    /* 任务名    */
                  1024,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
-                 3,              		        /* 任务优先级*/
+                 4,              		        /* 任务优先级*/
                  &xHandleTaskPerception );      /* 任务句柄  */	
-    
+	
 }
 
 /*
