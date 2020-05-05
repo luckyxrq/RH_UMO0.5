@@ -6,7 +6,7 @@
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
 #define CLEAN_WORK_TIME 30*60*1000
-#define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
+#define EDGEWISE_CLEAN_WORK_TIME 1*30*1000
 
 #define ZoomMultiple 4
 #define compression_map_x 25
@@ -743,6 +743,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				//OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
 				OVERALL_CLEANING_STRATEGY = EDGEWISERUN_CLEANING_STRATEGY;
 			    bsp_StartEdgewiseRun();
+				EdgeWiseCleanTimeStamp  = xTaskGetTickCount();
 				//log_debug("OVERALL_CLEANING_STRATEGY:START_OVERALL_CLEANING_STRATEGY... ! \n" );
 				break;
 			case RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
