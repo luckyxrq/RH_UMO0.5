@@ -150,7 +150,7 @@ void bsp_EdgewiseRun(void)
 			float vol = bsp_GetInfraredVoltageRight();
 			edgewiseRun.collision = bsp_CollisionScan();
 			
-			if(edgewiseRun.collision != CollisionNone)
+			if(edgewiseRun.collision != CollisionNone || bsp_CliffIsDangerous(CliffLeft)|| bsp_CliffIsDangerous(CliffMiddle)|| bsp_CliffIsDangerous(CliffRight))
 			{
 				bsp_GoBackward();
 				/*记录下当前的脉冲，用于退后指定脉冲数（距离），同时记录下当前时间，放置退了很久还没知道*/
@@ -169,7 +169,7 @@ void bsp_EdgewiseRun(void)
 				bsp_EdgewiseTurnRightSlow();
 				if(vol < 0.2F)
 				{
-					if(edgewiseRun.possibleEnd++ >= 500)
+					if(edgewiseRun.possibleEnd++ >= 2)
 					{
 						edgewiseRun.possibleEnd = 0 ;
 						edgewiseRun.action = 4 ;

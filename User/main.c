@@ -285,10 +285,10 @@ static void vTaskPerception(void *pvParameters)
 		bsp_LedAppProc();
 		
 		
-		wifi_uart_service();
+		//wifi_uart_service();
 		
 		count++;
-        vTaskDelay(10);	
+        vTaskDelay(20);	
     }		
     
 }
@@ -577,8 +577,8 @@ static void bsp_KeyProc(void)
 				}
 					
 				//bsp_StartUpdateCleanStrategyB();
-				bsp_StartStrategyRandom();
-				//bsp_StartEdgewiseRun();
+				//bsp_StartStrategyRandom();
+				bsp_StartEdgewiseRun();
 				
 //				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 //				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
