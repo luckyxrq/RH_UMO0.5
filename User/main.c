@@ -220,7 +220,7 @@ static void vTaskPerception(void *pvParameters)
     bsp_DetectStart(); 
 	
 	/*检测主机悬空*/
-	bsp_StartOffSiteProc();
+	//bsp_StartOffSiteProc();
 	
 	/*开启寻找充电桩*/
 	//bsp_StartSearchChargePile();
@@ -580,9 +580,9 @@ static void bsp_KeyProc(void)
 				bsp_StartStrategyRandom();
 				//bsp_StartEdgewiseRun();
 				
-//				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-//				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-//				bsp_StartVacuum();
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_StartVacuum();
 				/*设置上一次按键值*/
 				bsp_SetLastKeyState(eKEY_CLEAN);
 				/*设置LED状态*/
