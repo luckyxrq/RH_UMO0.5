@@ -13,10 +13,10 @@ static uint8_t bsp_AngleChkXorCalc(uint8_t buf[] , uint8_t len);
 
 
 /* 按键口对应的RCC时钟 */
-#define RCC_ALL_ANGLE 	(RCC_APB2Periph_GPIOA)
+#define RCC_ALL_ANGLE 	(RCC_APB2Periph_GPIOB)
 
-#define GPIO_PORT_RST    GPIOA
-#define GPIO_PIN_RST	 GPIO_Pin_1
+#define GPIO_PORT_RST    GPIOB
+#define GPIO_PIN_RST	 GPIO_Pin_13
 
 /*
 *********************************************************************************************************

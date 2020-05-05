@@ -742,6 +742,8 @@
 #define A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                          0x606
 #define A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                       0x607
 
+#define EDGEWISERUN_CLEANING_STRATEGY                                                          0x608 
+
 //all define left
 
 #define PI 3.14159265
@@ -859,6 +861,8 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta,unsigned c
 	int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value);
 //uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal);
+
+unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal);
 
 unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);

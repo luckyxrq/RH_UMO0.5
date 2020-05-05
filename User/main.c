@@ -320,7 +320,7 @@ static void vTaskPerception(void *pvParameters)
 		wifi_uart_service();
 		
 		count++;
-        vTaskDelay(10);	
+        vTaskDelay(5);	
     }		
     
 }
@@ -584,7 +584,7 @@ static void bsp_KeyProc(void)
 				DEBUG("清扫按键长按\r\n");
 				
 				/*首先判断是否主机悬空*/
-				if(bsp_OffSiteGetState() != OffSiteNone)
+				if(bsp_OffSiteGetState() == OffSiteBoth)
 				{
 					bsp_SperkerPlay(Song16);
 					return;
@@ -612,6 +612,7 @@ static void bsp_KeyProc(void)
 				}
 					
 				bsp_StartUpdateCleanStrategyB();
+				
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);

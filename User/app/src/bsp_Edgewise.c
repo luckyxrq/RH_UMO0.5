@@ -32,6 +32,9 @@
 #define GO_BACK_PULSE                  (10/(3.14F*70)*1024)
 #define COLLISION_STEERING_ANGLE       30.0F
 
+/*向右守多少次认为出界*/
+#define POSSIBLE_END      66
+
 typedef struct
 {
 	volatile bool isRunning;
@@ -169,7 +172,8 @@ void bsp_EdgewiseRun(void)
 				bsp_EdgewiseTurnRightSlow();
 				if(vol < 0.2F)
 				{
-					if(edgewiseRun.possibleEnd++ >= 500)
+					
+					if(edgewiseRun.possibleEnd++ >= POSSIBLE_END)
 					{
 						edgewiseRun.possibleEnd = 0 ;
 						edgewiseRun.action = 4 ;

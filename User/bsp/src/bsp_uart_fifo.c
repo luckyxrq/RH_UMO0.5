@@ -990,7 +990,7 @@ static void UartIRQ(UART_T *_pUart)
 	}
 
 	/* 处理发送缓冲区空中断 */
-	if (USART_GetITStatus(_pUart->uart, USART_IT_TXE) != RESET)
+ 	if (USART_GetITStatus(_pUart->uart, USART_IT_TXE) != RESET)
 	{
 		//if (_pUart->usTxRead == _pUart->usTxWrite)
 		if (_pUart->usTxCount == 0)

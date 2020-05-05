@@ -6,6 +6,7 @@
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
 #define CLEAN_WORK_TIME 30*60*1000
+#define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
 
 #define ZoomMultiple 4
 #define compression_map_x 25
@@ -101,6 +102,7 @@ bool cliffruningStatus=false;
 int FunctionStatus=0;
 unsigned int LastCleanTimeStamp = 0;
 unsigned int CurrentCleanTimeStamp  = 0;
+unsigned int EdgeWiseCleanTimeStamp = 0;
 
 //**************return origin value************************************
 AStar_MapNode AStar_graph[AStar_Height][AStar_Width];
@@ -627,7 +629,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 		
 		log_debug("开始返回原点，走A*策略！\n");
 		over_clean_finish = true;
-		selectside='L';
+		//selectside='L';
 		OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
 		left_running_step_status = 0;
 		FunctionStatus = 0;
@@ -738,7 +740,9 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				//log_debug("OVERALL_CLEANING_STRATEGY:0... ! \n" );
 				break;
 			case START_OVERALL_CLEANING_STRATEGY:
-				OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+				//OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+				OVERALL_CLEANING_STRATEGY = EDGEWISERUN_CLEANING_STRATEGY;
+			    bsp_StartEdgewiseRun();
 				//log_debug("OVERALL_CLEANING_STRATEGY:START_OVERALL_CLEANING_STRATEGY... ! \n" );
 				break;
 			case RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
@@ -746,7 +750,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				FunctionStatus = RightRunningWorkStep(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
-					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
+					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>500){
 					selectside = 'L';
 					over_clean_finish = false;
 						
@@ -848,13 +852,13 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 						temporary_wheel_pulse_r=wheel_pulse_r;
 						
 						if(selectside == 'L') OVERALL_CLEANING_STRATEGY =  LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
-						if(selectside == 'R') 
+						if(selectside == 'R') OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+						if(selectside == 'E') 
 						{
-							bsp_ResetCleanStrategyBStatus();
-							//OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
-							
+							OVERALL_CLEANING_STRATEGY = EDGEWISERUN_CLEANING_STRATEGY;
+							bsp_StartEdgewiseRun();
+							EdgeWiseCleanTimeStamp  = xTaskGetTickCount();
 						}
-						//selectside = 'L';
 						return_origin_step_status = 0;
 						FunctionStatus = 0;
 					}
@@ -866,8 +870,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				FunctionStatus = LeftRunningWorkStep(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
-					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>20000){
-					selectside = 'R';
+					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>500){
+					selectside = 'E';
 					over_clean_finish = false;
 					//OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
 					
@@ -886,18 +890,44 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					}
 				}
 				break;
+			case EDGEWISERUN_CLEANING_STRATEGY:
+				FunctionStatus = EdgeWiseRunningWorkStep(current_pose, obstacleSignal);
+				if (1 == FunctionStatus)
+				{
+					selectside = 'R';
+					over_clean_finish = false;
+					bsp_StopEdgewiseRun();
+					OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					FunctionStatus = 0;
+					break;
+				}
+				break;
+				
+			default:
+				break;
 		}
 	}
 	
 	
-	
-	sendvelocity(&linear_velocity, &angular_velocity);
+	if (OVERALL_CLEANING_STRATEGY != EDGEWISERUN_CLEANING_STRATEGY) sendvelocity(&linear_velocity, &angular_velocity);
 	
 	return 1;
 	
 }
 
 
+unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal)
+{
+	if((xTaskGetTickCount() - EdgeWiseCleanTimeStamp)> EDGEWISE_CLEAN_WORK_TIME)
+	{
+		return 1;
+	}else{
+		//bsp_EdgewiseRun();
+		return 0;
+	}
+	
+	
+}
 
 
 
