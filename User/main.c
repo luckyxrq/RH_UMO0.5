@@ -441,6 +441,16 @@ KEY_STATE bsp_GetLastKeyState(void)
 	return key_state;
 }
 
+
+static void bsp_CloseAllStateRun(void)
+{
+	bsp_StopSearchChargePile();
+	bsp_StopCliffTest();
+	bsp_StopUpdateCleanStrategyB();
+	bsp_StopStrategyRandom();
+	bsp_StopEdgewiseRun();
+}
+
 void bsp_OffsiteSuspend(void)
 {
 	/*灯光亮3颗白色灯*/
@@ -451,9 +461,7 @@ void bsp_OffsiteSuspend(void)
 	bsp_StopAllMotor();
 	
 	/*关闭所有状态机*/
-	bsp_StopSearchChargePile();
-	bsp_StopCliffTest();
-	bsp_StopUpdateCleanStrategyB();
+	bsp_CloseAllStateRun();
 
 	
 	/*设置上一次按键值*/
@@ -478,9 +486,7 @@ static void bsp_KeySuspend(void)
 	bsp_StopAllMotor();
 	
 	/*关闭所有状态机*/
-	bsp_StopSearchChargePile();
-	bsp_StopCliffTest();
-	bsp_StopUpdateCleanStrategyB();
+	bsp_CloseAllStateRun();
 
 	/*上一次是清扫，本次就播放暂停清扫*/
 	if(bsp_GetLastKeyState() == eKEY_CLEAN)
@@ -542,9 +548,7 @@ static void bsp_KeyProc(void)
 				bsp_StopAllMotor();
 				
 				/*关闭所有状态机*/
-				bsp_StopSearchChargePile();
-				bsp_StopCliffTest();
-				bsp_StopUpdateCleanStrategyB();
+				bsp_CloseAllStateRun();
 
 				/*设置上一次按键值*/
 				bsp_SetLastKeyState(eKEY_NONE);
@@ -642,6 +646,71 @@ static void bsp_KeyProc(void)
 			{
 				
 			}break;
+			
+			
+			case KEY_WIFI_OPEN_CLEAN_CAR:
+			{
+				bsp_SperkerPlay(Song1);
+			}break;
+			
+			case KEY_WIFI_CLOSE_CLEAN_CAR:
+			{
+				bsp_SperkerPlay(Song2);
+				
+				/*灯光亮3颗白色灯*/
+				bsp_OpenThreeWhileLed();
+				bsp_SetLedState(LED_DEFAULT_STATE);
+				
+				/*关闭所有电机*/
+				bsp_StopAllMotor();
+				
+				/*关闭所有状态机*/
+				bsp_CloseAllStateRun();
+				
+				/*设置上一次按键值*/
+				bsp_SetLastKeyState(eKEY_NONE);
+			}break;
+			
+			case KEY_WIFI_DIR_FRONT:
+			{
+				bsp_KeySuspend();
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+				vTaskDelay(1000);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}break;
+			
+			case KEY_WIFI_DIR_BACK:
+			{
+				bsp_KeySuspend();
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+				vTaskDelay(1000);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}break;
+			
+			case KEY_WIFI_DIR_LEFT:
+			{
+				bsp_KeySuspend();
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-150));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+150));
+				vTaskDelay(1500);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}break;
+			
+			case KEY_WIFI_DIR_RIGHT:
+			{
+				bsp_KeySuspend();
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+150));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
+				vTaskDelay(1500);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}break;
+			
 		}   
 	}
 }

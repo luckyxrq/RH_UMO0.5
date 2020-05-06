@@ -632,6 +632,11 @@
               <FilePath>..\..\User\app\src\bsp_CleanStrategyB.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_CleanStrategyRandom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_CleanStrategyRandom.c</FilePath>
+            </File>
+            <File>
               <FileName>bsp_wifi_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_wifi_app.c</FilePath>

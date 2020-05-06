@@ -56,6 +56,7 @@
 #define SYS_DOWN_K2K3	KEY_10_DOWN		/* K2 K3 组合键 */
 #define SYS_UP_K2K3  	KEY_10_UP
 #define SYS_LONG_K2K3	KEY_10_LONG
+     
 
 /* 按键ID, 主要用于bsp_KeyState()函数的入口参数 */
 typedef enum
@@ -145,6 +146,14 @@ typedef enum
 	KEY_10_DOWN,			/* 10键按下 */
 	KEY_10_UP,				/* 10键弹起 */
 	KEY_10_LONG,			/* 10键长按 */
+	
+	KEY_WIFI_OPEN_CLEAN_CAR,
+	KEY_WIFI_CLOSE_CLEAN_CAR,
+	
+	KEY_WIFI_DIR_FRONT,
+	KEY_WIFI_DIR_BACK,
+	KEY_WIFI_DIR_LEFT,
+	KEY_WIFI_DIR_RIGHT,
 }KEY_ENUM;
 
 /* 按键FIFO用到变量 */

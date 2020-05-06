@@ -93,4 +93,5 @@
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_wifi_app.h
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_UploadMap.h
+.\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\bsp_gridmap.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

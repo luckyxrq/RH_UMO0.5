@@ -312,13 +312,13 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
     {
         //开关关
         DEBUG("SW CLOSE\r\n");
-        bsp_PutKey(KEY_1_DOWN);
+        bsp_PutKey(KEY_WIFI_CLOSE_CLEAN_CAR);
     }
     else
     {
         //开关开
         DEBUG("SW OPEN\r\n");
-        bsp_PutKey(KEY_3_LONG);
+        bsp_PutKey(KEY_WIFI_OPEN_CLEAN_CAR);
     }
     
     //处理完DP数据后应有反馈
@@ -376,6 +376,7 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
     unsigned char ret;
     unsigned char mode;
     static bool isOpenClean = true;
+	static bool isOpenSearchCharge = true;
     
     
     mode = mcu_get_dp_download_enum(value,length);
@@ -390,6 +391,7 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
         }
         else
         {
+			bsp_PutKey(KEY_DOWN_CLEAN);  
             bsp_PutKey(KEY_LONG_CLEAN); 
         }		 
         
@@ -407,6 +409,19 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
         
     case 3:
         DEBUG("3\r\n");
+	
+		if(isOpenSearchCharge)
+        {
+            bsp_PutKey(KEY_DOWN_CHARGE);  
+        }
+        else
+        {
+			bsp_PutKey(KEY_DOWN_CHARGE);  
+            bsp_PutKey(KEY_LONG_CHARGE); 
+        }		 
+        
+        isOpenSearchCharge = !isOpenSearchCharge;
+		
         break;
         
     case 4:
@@ -471,23 +486,26 @@ static unsigned char dp_download_direction_control_handle(const unsigned char va
     switch(direction_control)
     {
     case 0:
-        
+        DEBUG("direction 0\r\n");
+		bsp_PutKey(KEY_WIFI_DIR_FRONT);  
         break;
         
     case 1:
-        
+        DEBUG("direction 1\r\n");
+		bsp_PutKey(KEY_WIFI_DIR_BACK);  
         break;
         
     case 2:
-        
+        DEBUG("direction 2\r\n");
+		bsp_PutKey(KEY_WIFI_DIR_LEFT); 
         break;
         
     case 3:
-        
+        DEBUG("direction 3\r\n");
+		bsp_PutKey(KEY_WIFI_DIR_RIGHT);
         break;
         
     case 4:
-        
         break;
         
     default:
