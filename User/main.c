@@ -104,8 +104,8 @@ int main(void)
 
 static void vTaskMapping(void *pvParameters)
 {
-	//uint32_t count = 0 ;
-
+	uint32_t count = 0 ;
+	uint32_t battery = 0 ;
     while(1)
     {
      		
@@ -120,6 +120,10 @@ static void vTaskMapping(void *pvParameters)
 #endif
 		
 		//bsp_UploadMap();
+		if(count % 20 == 0)
+		{
+			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,++battery % 100);
+		}
         vTaskDelay(100);
 		
 		
