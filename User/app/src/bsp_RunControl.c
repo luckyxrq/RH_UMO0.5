@@ -1,10 +1,14 @@
 #include "bsp.h"
 
+#define MAX_LINK_TOGGLE_CNT      20
+
 typedef struct
 {
 	bool isRunning;
 	uint32_t delay;
 	uint8_t action;
+	
+	uint8_t nowLinkToggleCnt;
 	
 	LedAppState ledAppState;
 }LedAppProc;
@@ -52,6 +56,7 @@ void bsp_SetLedState(LedAppState ledAppState)
 	if(ledAppState != ledAppProc.ledAppState)
 	{
 		ledAppProc.delay = xTaskGetTickCount() ;
+		ledAppProc.nowLinkToggleCnt = 0 ;
 		
 		ledAppProc.ledAppState = ledAppState;
 	}
@@ -158,6 +163,25 @@ void bsp_LedAppProc(void)
 			bsp_LedToggle(LED_LOGO_CLEAN);
 			
 			ledAppProc.delay = xTaskGetTickCount();
+		}
+	}
+	else if(ledAppProc.ledAppState == AT_LINK)
+	{
+		if(xTaskGetTickCount() - ledAppProc.delay >= 360)
+		{
+			bsp_LedToggle(LED_LOGO_CLEAN);
+			bsp_LedToggle(LED_LOGO_CHARGE);
+			bsp_LedOff(LED_LOGO_POWER);
+			bsp_LedOff(LED_COLOR_YELLOW);
+			bsp_LedOff(LED_COLOR_GREEN);
+			bsp_LedOff(LED_COLOR_RED);
+			
+			ledAppProc.delay = xTaskGetTickCount();
+			
+			if(++ledAppProc.nowLinkToggleCnt >= MAX_LINK_TOGGLE_CNT)
+			{
+				bsp_SetLedState(THREE_WHITE_ON);
+			}
 		}
 	}
 }

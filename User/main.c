@@ -631,7 +631,10 @@ static void bsp_KeyProc(void)
 			
 			case KEY_9_DOWN:
 			{
-				
+				DEBUG("重新配网：同时按充电和清扫\r\n");
+				bsp_SperkerPlay(Song29);
+				bsp_StartChangeWifi2SmartConfigState();
+				bsp_SetLedState(AT_LINK);
 			}break;
 			
 			
