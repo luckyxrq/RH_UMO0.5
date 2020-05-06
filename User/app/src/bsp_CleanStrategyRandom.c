@@ -15,6 +15,7 @@ typedef struct
 	float angle;
 	Collision collision;
 	uint32_t pulse;
+	uint32_t runStartTick;
 }StrategyRandom;
 
 static StrategyRandom strategyRandom;
@@ -23,6 +24,7 @@ void bsp_StartStrategyRandom(void)
 {
 	strategyRandom.action = 0 ;
 	strategyRandom.delay = 0 ;
+	strategyRandom.runStartTick = xTaskGetTickCount() ;
 	strategyRandom.isRunning = true;
 	
 }
@@ -33,7 +35,7 @@ void bsp_StopStrategyRandom(void)
 	strategyRandom.isRunning = false;
 	strategyRandom.action = 0 ;
 	strategyRandom.delay = 0 ;
-	
+	strategyRandom.runStartTick = 0 ;
 }
 
 
@@ -41,6 +43,30 @@ void bsp_StrategyRandomProc(void)
 {
 	if(!strategyRandom.isRunning)
 		return;
+	
+	
+	if(xTaskGetTickCount() - strategyRandom.runStartTick >= 1*60*60*1000) /*运行超过1小时*/
+	{
+		if(xTaskGetTickCount() - strategyRandom.runStartTick <= (1*60*60*1000 + 15*60*1000)) /*休息15分钟*/
+		{
+			bsp_SetMotorSpeed(MotorLeft, 0);
+			bsp_SetMotorSpeed(MotorRight,0);
+			bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
+			bsp_MotorCleanSetPWM(MotorRollingBrush, CW , 0);
+			bsp_StopVacuum();
+			
+			return; /*休息15分钟的时候直接返回*/
+		}
+		else /*15分钟后重新开设备，并且重新算开始运行的时刻*/
+		{
+			bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+			bsp_StartVacuum();
+			
+			strategyRandom.runStartTick = xTaskGetTickCount() ;
+		}
+	}
+	
 	
 	
 	switch(strategyRandom.action)
