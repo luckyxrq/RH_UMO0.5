@@ -677,11 +677,11 @@ static unsigned char dp_download_suction_handle(const unsigned char value[], uns
     switch(suction)
     {
     case 0:
-        
+        DEBUG("吸力0\r\n");
         break;
         
     case 1:
-        
+        DEBUG("吸力1\r\n");
         break;
         
     default:

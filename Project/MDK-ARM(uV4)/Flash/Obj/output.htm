@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed May 06 16:21:40 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed May 06 17:05:31 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2049,6 +2049,7 @@ Global Symbols
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 <LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_test_result
 <LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
 <LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
 <LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
 <LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
@@ -5076,11 +5077,12 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[219]"></a>dp_download_suction_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_suction_handle))
+<P><STRONG><a name="[219]"></a>dp_download_suction_handle</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, protocol.o(i.dp_download_suction_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_suction_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
 <LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
+<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
