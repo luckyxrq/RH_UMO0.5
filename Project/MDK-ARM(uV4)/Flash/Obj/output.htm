@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed May 06 10:50:11 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed May 06 10:57:01 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2049,6 +2049,7 @@ Global Symbols
 <LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 <LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_test_result
 <LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
+<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
 <LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 </UL>
 
@@ -3055,6 +3056,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 <LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectKey
 <LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
+<LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
+<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
 </UL>
 
 <P><STRONG><a name="[1e8]"></a>bsp_ResetCleanStrategyBStatus</STRONG> (Thumb, 170 bytes, Stack size 16 bytes, bsp_cleanstrategyb.o(i.bsp_ResetCleanStrategyBStatus))
@@ -3393,7 +3396,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[204]"></a>data_handle</STRONG> (Thumb, 372 bytes, Stack size 32 bytes, system.o(i.data_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_switch_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
 <LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;heat_beat_check
@@ -3408,7 +3411,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[20c]"></a>dp_download_handle</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, protocol.o(i.dp_download_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_handle &rArr; dp_download_switch_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
 <LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
@@ -3931,7 +3934,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[246]"></a>wifi_uart_service</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, mcu_api.o(i.wifi_uart_service))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = wifi_uart_service &rArr; data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_switch_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = wifi_uart_service &rArr; data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_queue_total_data
 <LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_check_sum
@@ -4999,11 +5002,13 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[212]"></a>dp_download_mode_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_mode_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<P><STRONG><a name="[212]"></a>dp_download_mode_handle</STRONG> (Thumb, 170 bytes, Stack size 16 bytes, protocol.o(i.dp_download_mode_handle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
+<BR>[Calls]<UL><LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
+<LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
 <LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
+<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
@@ -5053,10 +5058,11 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[211]"></a>dp_download_switch_go_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_switch_go_handle))
+<P><STRONG><a name="[211]"></a>dp_download_switch_go_handle</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, protocol.o(i.dp_download_switch_go_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_switch_go_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
+<BR>[Calls]<UL><LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
+<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
 <LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
 <BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
@@ -5074,7 +5080,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[209]"></a>data_point_handle</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, system.o(i.data_point_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = data_point_handle &rArr; dp_download_handle &rArr; dp_download_switch_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_dowmload_dpid_index
 <LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle

@@ -9,7 +9,7 @@
 **使 用 说 明 :
 
                   *******非常重要，一定要看哦！！！********
-
+                  
 ** 1、用户在此文件中实现数据下发/上报功能
 ** 2、DP的ID/TYPE及数据处理函数都需要用户按照实际定义实现
 ** 3、当开始某些宏定义后需要用户实现代码的函数内部有#err提示,完成函数后请删除该#err
@@ -29,49 +29,49 @@
 ** 日　期: 2018年10月27日
 ** 描　述: 1:默认关闭流服务功能
            2:增加03协议wifi状态宏定义
-		   3:更新与修改部分函数注释
-		   
+           3:更新与修改部分函数注释
+           
 ** 版  本: v2.5.0
 ** 日　期: 2018年4月18日
 ** 描　述: 1:协议版本改为0x03
            2:增加WIFI模组心跳关闭功能
            3:增加天气功能
-
+           
 ** 版  本: v2.3.8
 ** 日　期: 2018年1月17日
 ** 描　述: 1:变量添加volatile防止编译器优化
            2:添加#error提示
-
+           
 ** 版  本: v2.3.7
 ** 日　期: 2017年4月18日
 ** 描　述: 1:优化串口队列接收处理
-		   
+
 ** 版  本: v2.3.6
 ** 日　期: 2016年7月21日
 ** 描　述: 1:修复获取本地时间错误
            2:添加hex_to_bcd转换函数
-		   
+           
 ** 版  本: v2.3.5
 ** 日　期: 2016年6月3日
 ** 描　述: 1:修改返回协议版本为0x01
            2:固件升级数据偏移量修改为4字节
-
+           
 ** 版  本: v2.3.4
 ** 日　期: 2016年5月26日
 ** 描　述: 1:优化串口解析函数
            2:优化编译器兼容性,取消enum类型定义
-
+           
 ** 版  本: v2.3.3
 ** 日　期: 2016年5月24日
 ** 描　述: 1:修改mcu获取本地时间函数
            2:添加wifi功能测试
-
+           
 ** 版  本: v2.3.2
 ** 日　期: 2016年4月23日
 ** 描　述: 1:优化串口数据解析
            2:优化MCU固件升级流程
            3:优化上报流程
-
+           
 ** 版  本: v2.3.1
 ** 日　期: 2016年4月15日
 ** 描　述: 1:优化串口数据解析
@@ -110,22 +110,22 @@ const char weather_choose[WEATHER_CHOOSE_CNT][10] = {
     "condition",
     "pm25",
     /*"pressure",
-    "realFeel",
-    "uvi",
-    "tips",
-    "windDir",
-    "windLevel",
-    "windSpeed",
-    "sunRise",
-    "sunSet",
-    "aqi",
-    "so2 ",
-    "rank",
-    "pm10",
-    "o3",
-    "no2",
-    "co",*/
- };
+        "realFeel",
+        "uvi",
+        "tips",
+        "windDir",
+        "windLevel",
+        "windSpeed",
+        "sunRise",
+        "sunSet",
+        "aqi",
+        "so2 ",
+        "rank",
+        "pm10",
+        "o3",
+        "no2",
+        "co",*/
+};
 #endif
 
 /******************************************************************************
@@ -135,7 +135,7 @@ const char weather_choose[WEATHER_CHOOSE_CNT][10] = {
 3:请勿在中断/定时器中断内调用上报函数
 ******************************************************************************/
 
-         
+
 /******************************************************************************
                               第一步:初始化
 1:在需要使用到wifi相关文件的文件中include "wifi.h"
@@ -151,25 +151,25 @@ const char weather_choose[WEATHER_CHOOSE_CNT][10] = {
 ******************************************************************************/
 const DOWNLOAD_CMD_S download_cmd[] =
 {
-  {DPID_SWITCH, DP_TYPE_BOOL},
-  {DPID_SWITCH_GO, DP_TYPE_BOOL},
-  {DPID_MODE, DP_TYPE_ENUM},
-  {DPID_DIRECTION_CONTROL, DP_TYPE_ENUM},
-  {DPID_STATUS, DP_TYPE_ENUM},
-  {DPID_RESIDUAL_ELECTRICITY, DP_TYPE_VALUE},
-  {DPID_EDGE_BRUSH, DP_TYPE_VALUE},
-  {DPID_ROLL_BRUSH, DP_TYPE_VALUE},
-  {DPID_FILTER, DP_TYPE_VALUE},
-  {DPID_RESET_EDGE_BRUSH, DP_TYPE_BOOL},
-  {DPID_RESET_ROLL_BRUSH, DP_TYPE_BOOL},
-  {DPID_RESET_FILTER, DP_TYPE_BOOL},
-  {DPID_SEEK, DP_TYPE_BOOL},
-  {DPID_SUCTION, DP_TYPE_ENUM},
-  {DPID_CLEAN_RECORD, DP_TYPE_STRING},
-  {DPID_CLEAN_AREA, DP_TYPE_VALUE},
-  {DPID_CLEAN_TIME, DP_TYPE_VALUE},
-  {DPID_FAULT, DP_TYPE_BITMAP},
-  {DPID_MAP_CONFIG, DP_TYPE_RAW},
+    {DPID_SWITCH, DP_TYPE_BOOL},
+    {DPID_SWITCH_GO, DP_TYPE_BOOL},
+    {DPID_MODE, DP_TYPE_ENUM},
+    {DPID_DIRECTION_CONTROL, DP_TYPE_ENUM},
+    {DPID_STATUS, DP_TYPE_ENUM},
+    {DPID_RESIDUAL_ELECTRICITY, DP_TYPE_VALUE},
+    {DPID_EDGE_BRUSH, DP_TYPE_VALUE},
+    {DPID_ROLL_BRUSH, DP_TYPE_VALUE},
+    {DPID_FILTER, DP_TYPE_VALUE},
+    {DPID_RESET_EDGE_BRUSH, DP_TYPE_BOOL},
+    {DPID_RESET_ROLL_BRUSH, DP_TYPE_BOOL},
+    {DPID_RESET_FILTER, DP_TYPE_BOOL},
+    {DPID_SEEK, DP_TYPE_BOOL},
+    {DPID_SUCTION, DP_TYPE_ENUM},
+    {DPID_CLEAN_RECORD, DP_TYPE_STRING},
+    {DPID_CLEAN_AREA, DP_TYPE_VALUE},
+    {DPID_CLEAN_TIME, DP_TYPE_VALUE},
+    {DPID_FAULT, DP_TYPE_BITMAP},
+    {DPID_MAP_CONFIG, DP_TYPE_RAW},
 };
 
 
@@ -187,17 +187,17 @@ const DOWNLOAD_CMD_S download_cmd[] =
 *****************************************************************************/
 void uart_transmit_output(unsigned char value)
 {
-  //#error "请将MCU串口发送函数填入该函数,并删除该行"
-/*
+    //#error "请将MCU串口发送函数填入该函数,并删除该行"
+    /*
   //示例:
   extern void Uart_PutChar(unsigned char value);
   Uart_PutChar(value);	                                //串口发送函数
 */
-	
-
-	USART_SendData(UART5, (uint8_t) value);
-	while (USART_GetFlagStatus(UART5, USART_FLAG_TC) == RESET)
-	{}
+    
+    
+    USART_SendData(UART5, (uint8_t) value);
+    while (USART_GetFlagStatus(UART5, USART_FLAG_TC) == RESET)
+    {}
 }
 /******************************************************************************
                            第二步:实现具体用户函数
@@ -227,10 +227,10 @@ void uart_transmit_output(unsigned char value)
 *****************************************************************************/
 void all_data_update(void)
 {
-  //#error "请在此处理可下发可上报数据及只上报数据示例,处理完成后删除该行"
-	
-	
-  /* 
+    //#error "请在此处理可下发可上报数据及只上报数据示例,处理完成后删除该行"
+    
+    
+    /* 
   //此代码为平台自动生成，请按照实际数据修改每个可下发可上报函数和只上报函数
   mcu_dp_bool_update(DPID_SWITCH,当前开关); //BOOL型数据上报;
   mcu_dp_bool_update(DPID_SWITCH_GO,当前清扫开关); //BOOL型数据上报;
@@ -251,37 +251,37 @@ void all_data_update(void)
   mcu_dp_value_update(DPID_CLEAN_TIME,当前清扫时间); //VALUE型数据上报;
   mcu_dp_fault_update(DPID_FAULT,当前故障告警); //故障型数据上报;
   mcu_dp_raw_update(DPID_MAP_CONFIG,当前地图参数配置指针,当前地图参数配置数据长度); //RAW型数据上报;
-
+  
  */
- 
- /*
+    
+    /*
     extern uint8_t val;
- 
-	mcu_dp_bool_update(DPID_SWITCH,0); //BOOL型数据上报;
-	mcu_dp_bool_update(DPID_SWITCH_GO,0); //BOOL型数据上报;
-	mcu_dp_enum_update(DPID_MODE,0); //枚举型数据上报;
-	mcu_dp_enum_update(DPID_DIRECTION_CONTROL,0); //枚举型数据上报;
-	mcu_dp_enum_update(DPID_STATUS,0); //枚举型数据上报;
-	mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,val); //VALUE型数据上报;
-	mcu_dp_value_update(DPID_EDGE_BRUSH,0); //VALUE型数据上报;
-	mcu_dp_value_update(DPID_ROLL_BRUSH,0); //VALUE型数据上报;
-	mcu_dp_value_update(DPID_FILTER,0); //VALUE型数据上报;
-	mcu_dp_bool_update(DPID_RESET_EDGE_BRUSH,0); //BOOL型数据上报;
-	mcu_dp_bool_update(DPID_RESET_ROLL_BRUSH,0); //BOOL型数据上报;
-	mcu_dp_bool_update(DPID_RESET_FILTER,0); //BOOL型数据上报;
-	mcu_dp_bool_update(DPID_SEEK,0); //BOOL型数据上报;
-	mcu_dp_enum_update(DPID_SUCTION,0); //枚举型数据上报;
-	mcu_dp_string_update(DPID_CLEAN_RECORD,"HelloLuvkyXRQ",sizeof("HelloLuvkyXRQ")); //STRING型数据上报;
-	mcu_dp_value_update(DPID_CLEAN_AREA,0); //VALUE型数据上报;
-	mcu_dp_value_update(DPID_CLEAN_TIME,0); //VALUE型数据上报;
-	mcu_dp_fault_update(DPID_FAULT,0); //故障型数据上报;
-	mcu_dp_raw_update(DPID_MAP_CONFIG,"HelloLuvkyXRQ",sizeof("HelloLuvkyXRQ")); //RAW型数据上报;
-	
+    
+    mcu_dp_bool_update(DPID_SWITCH,0); //BOOL型数据上报;
+    mcu_dp_bool_update(DPID_SWITCH_GO,0); //BOOL型数据上报;
+    mcu_dp_enum_update(DPID_MODE,0); //枚举型数据上报;
+    mcu_dp_enum_update(DPID_DIRECTION_CONTROL,0); //枚举型数据上报;
+    mcu_dp_enum_update(DPID_STATUS,0); //枚举型数据上报;
+    mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,val); //VALUE型数据上报;
+    mcu_dp_value_update(DPID_EDGE_BRUSH,0); //VALUE型数据上报;
+    mcu_dp_value_update(DPID_ROLL_BRUSH,0); //VALUE型数据上报;
+    mcu_dp_value_update(DPID_FILTER,0); //VALUE型数据上报;
+    mcu_dp_bool_update(DPID_RESET_EDGE_BRUSH,0); //BOOL型数据上报;
+    mcu_dp_bool_update(DPID_RESET_ROLL_BRUSH,0); //BOOL型数据上报;
+    mcu_dp_bool_update(DPID_RESET_FILTER,0); //BOOL型数据上报;
+    mcu_dp_bool_update(DPID_SEEK,0); //BOOL型数据上报;
+    mcu_dp_enum_update(DPID_SUCTION,0); //枚举型数据上报;
+    mcu_dp_string_update(DPID_CLEAN_RECORD,"HelloLuvkyXRQ",sizeof("HelloLuvkyXRQ")); //STRING型数据上报;
+    mcu_dp_value_update(DPID_CLEAN_AREA,0); //VALUE型数据上报;
+    mcu_dp_value_update(DPID_CLEAN_TIME,0); //VALUE型数据上报;
+    mcu_dp_fault_update(DPID_FAULT,0); //故障型数据上报;
+    mcu_dp_raw_update(DPID_MAP_CONFIG,"HelloLuvkyXRQ",sizeof("HelloLuvkyXRQ")); //RAW型数据上报;
+    
 */
-
-	/*共3个字节,第一个字节为原点（0,0）位置，二三字节为地图最大的长宽 0x00 左上角 0x01 左下角 例：0x0000ff 左上角，最大长宽值为255*/
-	uint8_t map_config[] = {0x00,0x00,0xFF};
-	mcu_dp_raw_update(DPID_MAP_CONFIG,map_config,3); //RAW型数据上报;
+    
+    /*共3个字节,第一个字节为原点（0,0）位置，二三字节为地图最大的长宽 0x00 左上角 0x01 左下角 例：0x0000ff 左上角，最大长宽值为255*/
+    uint8_t map_config[] = {0x00,0x00,0xFF};
+    mcu_dp_raw_update(DPID_MAP_CONFIG,map_config,3); //RAW型数据上报;
 }
 
 
@@ -302,31 +302,31 @@ void all_data_update(void)
 *****************************************************************************/
 static unsigned char dp_download_switch_handle(const unsigned char value[], unsigned short length)
 {
-  //示例:当前DP类型为BOOL
-  unsigned char ret;
-  //0:关/1:开
-  unsigned char switch_val;
-  
-  switch_val = mcu_get_dp_download_bool(value,length);
-  if(switch_val == 0)
-  {
-      //开关关
-	  DEBUG("SW CLOSE\r\n");
-	  bsp_PutKey(KEY_1_DOWN);
-  }
-  else
-  {
-	//开关开
-	DEBUG("SW OPEN\r\n");
-	bsp_PutKey(KEY_3_LONG);
-  }
-  
-  //处理完DP数据后应有反馈
-  ret = mcu_dp_bool_update(DPID_SWITCH,switch_val);
-  if(ret == SUCCESS)
-    return SUCCESS;
-  else
-    return ERROR;
+    //示例:当前DP类型为BOOL
+    unsigned char ret;
+    //0:关/1:开
+    unsigned char switch_val;
+    
+    switch_val = mcu_get_dp_download_bool(value,length);
+    if(switch_val == 0)
+    {
+        //开关关
+        DEBUG("SW CLOSE\r\n");
+        bsp_PutKey(KEY_1_DOWN);
+    }
+    else
+    {
+        //开关开
+        DEBUG("SW OPEN\r\n");
+        bsp_PutKey(KEY_3_LONG);
+    }
+    
+    //处理完DP数据后应有反馈
+    ret = mcu_dp_bool_update(DPID_SWITCH,switch_val);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
 }
 /*****************************************************************************
 函数名称 : dp_download_switch_go_handle
@@ -338,27 +338,29 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
 *****************************************************************************/
 static unsigned char dp_download_switch_go_handle(const unsigned char value[], unsigned short length)
 {
-  //示例:当前DP类型为BOOL
-  unsigned char ret;
-  //0:关/1:开
-  unsigned char switch_go;
-  
-  switch_go = mcu_get_dp_download_bool(value,length);
-  if(switch_go == 0)
-  {
-    //开关关
-  }
-  else
-  {
-    //开关开
-  }
-  
-  //处理完DP数据后应有反馈
-  ret = mcu_dp_bool_update(DPID_SWITCH_GO,switch_go);
-  if(ret == SUCCESS)
-    return SUCCESS;
-  else
-    return ERROR;
+    //示例:当前DP类型为BOOL
+    unsigned char ret;
+    //0:关/1:开
+    unsigned char switch_go;
+    
+    switch_go = mcu_get_dp_download_bool(value,length);
+    if(switch_go == 0)
+    {
+        //开关关
+        bsp_PutKey(KEY_DOWN_CLEAN);
+    }
+    else
+    {
+        //开关开
+        bsp_PutKey(KEY_LONG_CLEAN);  
+    }
+    
+    //处理完DP数据后应有反馈
+    ret = mcu_dp_bool_update(DPID_SWITCH_GO,switch_go);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
 }
 /*****************************************************************************
 函数名称 : dp_download_mode_handle
@@ -370,72 +372,86 @@ static unsigned char dp_download_switch_go_handle(const unsigned char value[], u
 *****************************************************************************/
 static unsigned char dp_download_mode_handle(const unsigned char value[], unsigned short length)
 {
-  //示例:当前DP类型为ENUM
-  unsigned char ret;
-  unsigned char mode;
-  
-  mode = mcu_get_dp_download_enum(value,length);
-  switch(mode)
-  {
+    //示例:当前DP类型为ENUM
+    unsigned char ret;
+    unsigned char mode;
+    static bool isOpenClean = true;
+    
+    
+    mode = mcu_get_dp_download_enum(value,length);
+    switch(mode)
+    {
     case 0:
-      
-      break;
-      
+		DEBUG("0\r\n");
+	
+        if(isOpenClean)
+        {
+            bsp_PutKey(KEY_DOWN_CLEAN);  
+        }
+        else
+        {
+            bsp_PutKey(KEY_LONG_CLEAN); 
+        }		 
+        
+        isOpenClean = !isOpenClean;
+        
+        break;
+        
     case 1:
-      
-      break;
-      
+        DEBUG("1\r\n");
+        break;
+        
     case 2:
-      
-      break;
-      
+        DEBUG("2\r\n");
+        break;
+        
     case 3:
-      
-      break;
-      
+        DEBUG("3\r\n");
+        break;
+        
     case 4:
-      
-      break;
-      
+        DEBUG("4\r\n");
+        break;
+        
     case 5:
-      
-      break;
-      
+        DEBUG("5\r\n");
+        break;
+        
     case 6:
-      
-      break;
-      
+        DEBUG("6\r\n");
+        break;
+        
     case 7:
-      
-      break;
-      
+        DEBUG("7\r\n");
+        break;
+        
     case 8:
-      
-      break;
-      
+        DEBUG("8\r\n");
+        break;
+        
     case 9:
-      
-      break;
-      
+        DEBUG("9\r\n");
+        break;
+        
     case 10:
-      
-      break;
-      
+        DEBUG("10\r\n");
+        break;
+        
     case 11:
-      
-      break;
-      
+        DEBUG("11\r\n");
+        break;
+        
     default:
-      
-      break;
-  }
-  
-  //处理完DP数据后应有反馈
-  ret = mcu_dp_enum_update(DPID_MODE,mode);
-  if(ret == SUCCESS)
-    return SUCCESS;
-  else
-    return ERROR;
+        
+        break;
+    }
+    
+    //处理完DP数据后应有反馈
+    ret = mcu_dp_enum_update(DPID_MODE,mode);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
 }
 /*****************************************************************************
 函数名称 : dp_download_direction_control_handle
@@ -447,44 +463,44 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
 *****************************************************************************/
 static unsigned char dp_download_direction_control_handle(const unsigned char value[], unsigned short length)
 {
-  //示例:当前DP类型为ENUM
-  unsigned char ret;
-  unsigned char direction_control;
-  
-  direction_control = mcu_get_dp_download_enum(value,length);
-  switch(direction_control)
-  {
+    //示例:当前DP类型为ENUM
+    unsigned char ret;
+    unsigned char direction_control;
+    
+    direction_control = mcu_get_dp_download_enum(value,length);
+    switch(direction_control)
+    {
     case 0:
-      
-      break;
-      
+        
+        break;
+        
     case 1:
-      
-      break;
-      
+        
+        break;
+        
     case 2:
-      
-      break;
-      
+        
+        break;
+        
     case 3:
-      
-      break;
-      
+        
+        break;
+        
     case 4:
-      
-      break;
-      
+        
+        break;
+        
     default:
-      
-      break;
-  }
-  
-  //处理完DP数据后应有反馈
-  ret = mcu_dp_enum_update(DPID_DIRECTION_CONTROL,direction_control);
-  if(ret == SUCCESS)
-    return SUCCESS;
-  else
-    return ERROR;
+        
+        break;
+    }
+    
+    //处理完DP数据后应有反馈
+    ret = mcu_dp_enum_update(DPID_DIRECTION_CONTROL,direction_control);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
 }
 /*****************************************************************************
 函数名称 : dp_download_reset_edge_brush_handle
@@ -496,27 +512,27 @@ static unsigned char dp_download_direction_control_handle(const unsigned char va
 *****************************************************************************/
 static unsigned char dp_download_reset_edge_brush_handle(const unsigned char value[], unsigned short length)
 {
-  //示例:当前DP类型为BOOL
-  unsigned char ret;
-  //0:关/1:开
-  unsigned char reset_edge_brush;
-  
-  reset_edge_brush = mcu_get_dp_download_bool(value,length);
-  if(reset_edge_brush == 0)
-  {
-    //开关关
-  }
-  else
-  {
-    //开关开
-  }
-  
-  //处理完DP数据后应有反馈
-  ret = mcu_dp_bool_update(DPID_RESET_EDGE_BRUSH,reset_edge_brush);
-  if(ret == SUCCESS)
-    return SUCCESS;
-  else
-    return ERROR;
+    //示例:当前DP类型为BOOL
+    unsigned char ret;
+    //0:关/1:开
+    unsigned char reset_edge_brush;
+    
+    reset_edge_brush = mcu_get_dp_download_bool(value,length);
+    if(reset_edge_brush == 0)
+    {
+        //开关关
+    }
+    else
+    {
+        //开关开
+    }
+    
+    //处理完DP数据后应有反馈
+    ret = mcu_dp_bool_update(DPID_RESET_EDGE_BRUSH,reset_edge_brush);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
 }
 /*****************************************************************************
 函数名称 : dp_download_reset_roll_brush_handle
@@ -528,27 +544,27 @@ static unsigned char dp_download_reset_edge_brush_handle(const unsigned char val
 *****************************************************************************/
 static unsigned char dp_download_reset_roll_brush_handle(const unsigned char value[], unsigned short length)
 {
-  //示例:当前DP类型为BOOL
-  unsigned char ret;
-  //0:关/1:开
-  unsigned char reset_roll_brush;
-  
-  reset_roll_brush = mcu_get_dp_download_bool(value,length);
-  if(reset_roll_brush == 0)
-  {
-    //开关关
-  }
-  else
-  {
-    //开关开
-  }
-  
-  //处理完DP数据后应有反馈
-  ret = mcu_dp_bool_update(DPID_RESET_ROLL_BRUSH,reset_roll_brush);
-  if(ret == SUCCESS)
-    return SUCCESS;
-  else
-    return ERROR;
+    //示例:当前DP类型为BOOL
+    unsigned char ret;
+    //0:关/1:开
+    unsigned char reset_roll_brush;
+    
+    reset_roll_brush = mcu_get_dp_download_bool(value,length);
+    if(reset_roll_brush == 0)
+    {
+        //开关关
+    }
+    else
+    {
+        //开关开
+    }
+    
+    //处理完DP数据后应有反馈
+    ret = mcu_dp_bool_update(DPID_RESET_ROLL_BRUSH,reset_roll_brush);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
 }
 /*****************************************************************************
 函数名称 : dp_download_reset_filter_handle
@@ -560,27 +576,27 @@ static unsigned char dp_download_reset_roll_brush_handle(const unsigned char val
 *****************************************************************************/
 static unsigned char dp_download_reset_filter_handle(const unsigned char value[], unsigned short length)
 {
-  //示例:当前DP类型为BOOL
-  unsigned char ret;
-  //0:关/1:开
-  unsigned char reset_filter;
-  
-  reset_filter = mcu_get_dp_download_bool(value,length);
-  if(reset_filter == 0)
-  {
-    //开关关
-  }
-  else
-  {
-    //开关开
-  }
-  
-  //处理完DP数据后应有反馈
-  ret = mcu_dp_bool_update(DPID_RESET_FILTER,reset_filter);
-  if(ret == SUCCESS)
-    return SUCCESS;
-  else
-    return ERROR;
+    //示例:当前DP类型为BOOL
+    unsigned char ret;
+    //0:关/1:开
+    unsigned char reset_filter;
+    
+    reset_filter = mcu_get_dp_download_bool(value,length);
+    if(reset_filter == 0)
+    {
+        //开关关
+    }
+    else
+    {
+        //开关开
+    }
+    
+    //处理完DP数据后应有反馈
+    ret = mcu_dp_bool_update(DPID_RESET_FILTER,reset_filter);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
 }
 /*****************************************************************************
 函数名称 : dp_download_seek_handle
@@ -592,27 +608,27 @@ static unsigned char dp_download_reset_filter_handle(const unsigned char value[]
 *****************************************************************************/
 static unsigned char dp_download_seek_handle(const unsigned char value[], unsigned short length)
 {
-  //示例:当前DP类型为BOOL
-  unsigned char ret;
-  //0:关/1:开
-  unsigned char seek;
-  
-  seek = mcu_get_dp_download_bool(value,length);
-  if(seek == 0)
-  {
-    //开关关
-  }
-  else
-  {
-    //开关开
-  }
-  
-  //处理完DP数据后应有反馈
-  ret = mcu_dp_bool_update(DPID_SEEK,seek);
-  if(ret == SUCCESS)
-    return SUCCESS;
-  else
-    return ERROR;
+    //示例:当前DP类型为BOOL
+    unsigned char ret;
+    //0:关/1:开
+    unsigned char seek;
+    
+    seek = mcu_get_dp_download_bool(value,length);
+    if(seek == 0)
+    {
+        //开关关
+    }
+    else
+    {
+        //开关开
+    }
+    
+    //处理完DP数据后应有反馈
+    ret = mcu_dp_bool_update(DPID_SEEK,seek);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
 }
 /*****************************************************************************
 函数名称 : dp_download_suction_handle
@@ -624,32 +640,32 @@ static unsigned char dp_download_seek_handle(const unsigned char value[], unsign
 *****************************************************************************/
 static unsigned char dp_download_suction_handle(const unsigned char value[], unsigned short length)
 {
-  //示例:当前DP类型为ENUM
-  unsigned char ret;
-  unsigned char suction;
-  
-  suction = mcu_get_dp_download_enum(value,length);
-  switch(suction)
-  {
+    //示例:当前DP类型为ENUM
+    unsigned char ret;
+    unsigned char suction;
+    
+    suction = mcu_get_dp_download_enum(value,length);
+    switch(suction)
+    {
     case 0:
-      
-      break;
-      
+        
+        break;
+        
     case 1:
-      
-      break;
-      
+        
+        break;
+        
     default:
-      
-      break;
-  }
-  
-  //处理完DP数据后应有反馈
-  ret = mcu_dp_enum_update(DPID_SUCTION,suction);
-  if(ret == SUCCESS)
-    return SUCCESS;
-  else
-    return ERROR;
+        
+        break;
+    }
+    
+    //处理完DP数据后应有反馈
+    ret = mcu_dp_enum_update(DPID_SUCTION,suction);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
 }
 
 
@@ -668,7 +684,7 @@ static unsigned char dp_download_suction_handle(const unsigned char value[], uns
 void mcu_get_greentime(unsigned char time[])
 {
 #error "请自行完成相关代码,并删除该行"
-  /*
+    /*
   time[0]为是否获取时间成功标志，为 0 表示失败，为 1表示成功
   time[1] 为 年 份 , 0x00 表 示2000 年
   time[2]为月份，从 1 开始到12 结束
@@ -677,14 +693,14 @@ void mcu_get_greentime(unsigned char time[])
   time[5]为分钟，从 0 开始到59 结束
   time[6]为秒钟，从 0 开始到59 结束
 */
-  if(time[0] == 1)
-  {
-    //正确接收到wifi模块返回的格林数据
-  }
-  else
-  {
-  	//获取格林时间出错,有可能是当前wifi模块未联网
-  }
+    if(time[0] == 1)
+    {
+        //正确接收到wifi模块返回的格林数据
+    }
+    else
+    {
+        //获取格林时间出错,有可能是当前wifi模块未联网
+    }
 }
 #endif
 
@@ -698,8 +714,8 @@ void mcu_get_greentime(unsigned char time[])
 *****************************************************************************/
 void mcu_write_rtctime(unsigned char time[])
 {
-  #error "请自行完成RTC时钟写入代码,并删除该行"
-  /*
+#error "请自行完成RTC时钟写入代码,并删除该行"
+    /*
   time[0]为是否获取时间成功标志，为 0 表示失败，为 1表示成功
   time[1] 为 年 份 , 0x00 表 示2000 年
   time[2]为月份，从 1 开始到12 结束
@@ -709,15 +725,15 @@ void mcu_write_rtctime(unsigned char time[])
   time[6]为秒钟，从 0 开始到59 结束
   time[7]为星期，从 1 开始到 7 结束，1代表星期一
  */
-  if(time[0] == 1)
-  {
-    //正确接收到wifi模块返回的本地时钟数据 
-	 
-  }
-  else
-  {
-  	//获取本地时钟数据出错,有可能是当前wifi模块未联网
-  }
+    if(time[0] == 1)
+    {
+        //正确接收到wifi模块返回的本地时钟数据 
+        
+    }
+    else
+    {
+        //获取本地时钟数据出错,有可能是当前wifi模块未联网
+    }
 }
 #endif
 
@@ -732,29 +748,29 @@ void mcu_write_rtctime(unsigned char time[])
 *****************************************************************************/
 void wifi_test_result(unsigned char result,unsigned char rssi)
 {
-  //#error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
-	
-  if(result == 0)
-  {
-    //测试失败
-    if(rssi == 0x00)
+    //#error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
+    
+    if(result == 0)
     {
-      //未扫描到名称为tuya_mdev_test路由器,请检查
-		DEBUG("no wifi named tuya_mdev_test, please check\r\n");
+        //测试失败
+        if(rssi == 0x00)
+        {
+            //未扫描到名称为tuya_mdev_test路由器,请检查
+            DEBUG("no wifi named tuya_mdev_test, please check\r\n");
+        }
+        else if(rssi == 0x01)
+        {
+            //模块未授权
+            DEBUG("permission denied\r\n");
+        }
     }
-    else if(rssi == 0x01)
+    else
     {
-      //模块未授权
-		DEBUG("permission denied\r\n");
+        //测试成功
+        //rssi为信号强度(0-100, 0信号最差，100信号最强)
+        DEBUG("TEST OK rssi(0-100, 0 ugly, 100 perfect)\r\n");
     }
-  }
-  else
-  {
-    //测试成功
-    //rssi为信号强度(0-100, 0信号最差，100信号最强)
-	  DEBUG("TEST OK rssi(0-100, 0 ugly, 100 perfect)\r\n");
-  }
-  
+    
 }
 #endif
 
@@ -768,15 +784,15 @@ void wifi_test_result(unsigned char result,unsigned char rssi)
 *****************************************************************************/
 void wifi_connect_test_result(unsigned char result)
 {
-  #error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
-  if(result == 0)
-  {
-    //路由信息接收失败，请检查发出的路由信息包是否是完整的JSON数据包
-  }
-  else
-  {
-    //路由信息接收成功，产测结果请注意WIFI_STATE_CMD指令的wifi工作状态
-  }
+#error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
+    if(result == 0)
+    {
+        //路由信息接收失败，请检查发出的路由信息包是否是完整的JSON数据包
+    }
+    else
+    {
+        //路由信息接收成功，产测结果请注意WIFI_STATE_CMD指令的wifi工作状态
+    }
 }
 #endif
 
@@ -791,20 +807,20 @@ void wifi_connect_test_result(unsigned char result)
 *****************************************************************************/
 void mcu_get_mac(unsigned char mac[])
 {
-  #error "请自行完成mac获取代码,并删除该行"
-  /*
+#error "请自行完成mac获取代码,并删除该行"
+    /*
   mac[0]为是否获取mac成功标志，0x00 表示成功，为0x01表示失败
   mac[1]~mac[6]:当获取 MAC地址标志位如果mac[0]为成功，则表示模块有效的MAC地址
  */
- 
-  if(mac[0] == 1)
-  {
-  	//获取mac出错
-  }
-  else
-  {
-    //正确接收到wifi模块返回的mac地址 
-  }
+    
+    if(mac[0] == 1)
+    {
+        //获取mac出错
+    }
+    else
+    {
+        //正确接收到wifi模块返回的mac地址 
+    }
 }
 #endif
 
@@ -828,36 +844,36 @@ void mcu_get_mac(unsigned char mac[])
 *****************************************************************************/
 void get_wifi_status(unsigned char result)
 {
-  #error "请自行完成mac获取代码,并删除该行"
- 
-  switch(result) {
+#error "请自行完成mac获取代码,并删除该行"
+    
+    switch(result) {
     case 0:
-      //wifi工作状态1
-      break;
-  
+        //wifi工作状态1
+        break;
+        
     case 1:
-      //wifi工作状态2
-      break;
-      
+        //wifi工作状态2
+        break;
+        
     case 2:
-      //wifi工作状态3
-      break;
-      
+        //wifi工作状态3
+        break;
+        
     case 3:
-      //wifi工作状态4
-      break;
-      
+        //wifi工作状态4
+        break;
+        
     case 4:
-      //wifi工作状态5
-      break;
-      
+        //wifi工作状态5
+        break;
+        
     case 5:
-      //wifi工作状态6
-      break;
-      
+        //wifi工作状态6
+        break;
+        
     default:
-    break;
-  }
+        break;
+    }
 }
 #endif
 
@@ -871,20 +887,20 @@ void get_wifi_status(unsigned char result)
 *****************************************************************************/
 void get_upload_syn_result(unsigned char result)
 {
-  #error "请自行完成mac获取代码,并删除该行"
-  /*
+#error "请自行完成mac获取代码,并删除该行"
+    /*
   mac[0]为是否获取mac成功标志，0x00 表示成功，为0x01表示失败
   mac[1]~mac[6]:当获取 MAC地址标志位如果mac[0]为成功，则表示模块有效的MAC地址
  */
- 
-  if(result == 0)
-  {
-  	//获取mac出错
-  }
-  else
-  {
-    //正确接收到wifi模块返回的mac地址 
-  }
+    
+    if(result == 0)
+    {
+        //获取mac出错
+    }
+    else
+    {
+        //正确接收到wifi模块返回的mac地址 
+    }
 }
 #endif
 
@@ -897,14 +913,14 @@ void get_upload_syn_result(unsigned char result)
            0x00：默认 256byte
            0x01：512byte 
            0x02：1024byte
-
+           
 返回参数 : 无
 *****************************************************************************/
 void upgrade_package_choose(unsigned char package_sz)
 {
-  unsigned short length = 0;
-  length = set_wifi_uart_byte(length,package_sz);
-  wifi_uart_write_frame(UPDATE_START_CMD,length);
+    unsigned short length = 0;
+    length = set_wifi_uart_byte(length,package_sz);
+    wifi_uart_write_frame(UPDATE_START_CMD,length);
 }
 
 
@@ -920,18 +936,18 @@ void upgrade_package_choose(unsigned char package_sz)
 *****************************************************************************/
 unsigned char mcu_firm_update_handle(const unsigned char value[],unsigned long position,unsigned short length)
 {
-  #error "请自行完成MCU固件升级代码,完成后请删除该行"
-  if(length == 0)
-  {
-    //固件数据发送完成
+#error "请自行完成MCU固件升级代码,完成后请删除该行"
+    if(length == 0)
+    {
+        //固件数据发送完成
+        
+    }
+    else
+    {
+        //固件数据处理
+    }
     
-  }
-  else
-  {
-    //固件数据处理
-  }
-  
-  return SUCCESS;
+    return SUCCESS;
 }
 #endif
 /******************************************************************************
@@ -950,55 +966,55 @@ unsigned char mcu_firm_update_handle(const unsigned char value[],unsigned long p
 *****************************************************************************/
 unsigned char dp_download_handle(unsigned char dpid,const unsigned char value[], unsigned short length)
 {
-  /*********************************
+    /*********************************
   当前函数处理可下发/可上报数据调用                    
   具体函数内需要实现下发数据处理
   完成用需要将处理结果反馈至APP端,否则APP会认为下发失败
   ***********************************/
-  unsigned char ret;
-  switch(dpid)
-  {
+    unsigned char ret;
+    switch(dpid)
+    {
     case DPID_SWITCH:
-      //开关处理函数
-      ret = dp_download_switch_handle(value,length);
-      break;
+        //开关处理函数
+        ret = dp_download_switch_handle(value,length);
+        break;
     case DPID_SWITCH_GO:
-      //清扫开关处理函数
-      ret = dp_download_switch_go_handle(value,length);
-      break;
+        //清扫开关处理函数
+        ret = dp_download_switch_go_handle(value,length);
+        break;
     case DPID_MODE:
-      //工作模式处理函数
-      ret = dp_download_mode_handle(value,length);
-      break;
+        //工作模式处理函数
+        ret = dp_download_mode_handle(value,length);
+        break;
     case DPID_DIRECTION_CONTROL:
-      //清扫方向处理函数
-      ret = dp_download_direction_control_handle(value,length);
-      break;
+        //清扫方向处理函数
+        ret = dp_download_direction_control_handle(value,length);
+        break;
     case DPID_RESET_EDGE_BRUSH:
-      //边刷重置处理函数
-      ret = dp_download_reset_edge_brush_handle(value,length);
-      break;
+        //边刷重置处理函数
+        ret = dp_download_reset_edge_brush_handle(value,length);
+        break;
     case DPID_RESET_ROLL_BRUSH:
-      //滚刷重置处理函数
-      ret = dp_download_reset_roll_brush_handle(value,length);
-      break;
+        //滚刷重置处理函数
+        ret = dp_download_reset_roll_brush_handle(value,length);
+        break;
     case DPID_RESET_FILTER:
-      //滤网重置处理函数
-      ret = dp_download_reset_filter_handle(value,length);
-      break;
+        //滤网重置处理函数
+        ret = dp_download_reset_filter_handle(value,length);
+        break;
     case DPID_SEEK:
-      //寻找机器处理函数
-      ret = dp_download_seek_handle(value,length);
-      break;
+        //寻找机器处理函数
+        ret = dp_download_seek_handle(value,length);
+        break;
     case DPID_SUCTION:
-      //吸力选择处理函数
-      ret = dp_download_suction_handle(value,length);
-      break;
-
-  default:
-    break;
-  }
-  return ret;
+        //吸力选择处理函数
+        ret = dp_download_suction_handle(value,length);
+        break;
+        
+    default:
+        break;
+    }
+    return ret;
 }
 /*****************************************************************************
 函数名称 : get_download_cmd_total
@@ -1009,7 +1025,7 @@ unsigned char dp_download_handle(unsigned char dpid,const unsigned char value[],
 *****************************************************************************/
 unsigned char get_download_cmd_total(void)
 {
-  return(sizeof(download_cmd) / sizeof(download_cmd[0]));
+    return(sizeof(download_cmd) / sizeof(download_cmd[0]));
 }
 
 #ifdef WEATHER_ENABLE
@@ -1023,18 +1039,18 @@ unsigned char get_download_cmd_total(void)
 *****************************************************************************/
 void weather_open_return_handle(unsigned char res, unsigned char err)
 {
-  #error "请自行完成M打开天气功能返回数据处理代码,完成后请删除该行"
-  unsigned char err_num = 0;
-  
-  if(res == 1)
-  {
-    //打开天气返回成功
-  }
-  else if(res == 0)
-  {
-    //打开天气返回失败
-    err_num = err;//获取错误码
-  }
+#error "请自行完成M打开天气功能返回数据处理代码,完成后请删除该行"
+    unsigned char err_num = 0;
+    
+    if(res == 1)
+    {
+        //打开天气返回成功
+    }
+    else if(res == 0)
+    {
+        //打开天气返回失败
+        err_num = err;//获取错误码
+    }
 }
 
 /*****************************************************************************
@@ -1047,39 +1063,39 @@ void weather_open_return_handle(unsigned char res, unsigned char err)
 *****************************************************************************/
 void weather_data_user_handle(char *name, unsigned char type, char *data)
 {
-  #error "这里仅给出示例，请自行完善天气数据处理代码,完成后请删除该行"
-  int value_int;
-  char value_string[50];//由于有的参数内容较多，这里默认为50。您可以根据定义的参数，可以适当减少该值
-  
-  my_memset(value_string, '/0', 50);
-  
-  //首先获取数据类型
-  if(type == 0)//参数是INT型
-  {
-    value_int = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
-  }
-  else if(type == 1)
-  {
-    my_strcpy(value_string, data);
-  }
-  
-  //注意要根据所选参数类型来获得参数值！！！
-  if(my_strcmp(name, "temp") == 0)
-  {
-    //printf("temp value is:%d", value_int);            //int型
-  }
-  else if(my_strcmp(name, "humidity") == 0)
-  {
-    //printf("humidity value is:%d", value_int);        //int型
-  }
-  else if(my_strcmp(name, "pm25") == 0)
-  {
-    //printf("pm25 value is:%d", value_int);            //int型
-  }
-  else if(my_strcmp(name, "condition") == 0)
-  {
-    //printf("condition value is:%s", value_string);    //string型
-  }
+#error "这里仅给出示例，请自行完善天气数据处理代码,完成后请删除该行"
+    int value_int;
+    char value_string[50];//由于有的参数内容较多，这里默认为50。您可以根据定义的参数，可以适当减少该值
+    
+    my_memset(value_string, '/0', 50);
+    
+    //首先获取数据类型
+    if(type == 0)//参数是INT型
+    {
+        value_int = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
+    }
+    else if(type == 1)
+    {
+        my_strcpy(value_string, data);
+    }
+    
+    //注意要根据所选参数类型来获得参数值！！！
+    if(my_strcmp(name, "temp") == 0)
+    {
+        //printf("temp value is:%d", value_int);            //int型
+    }
+    else if(my_strcmp(name, "humidity") == 0)
+    {
+        //printf("humidity value is:%d", value_int);        //int型
+    }
+    else if(my_strcmp(name, "pm25") == 0)
+    {
+        //printf("pm25 value is:%d", value_int);            //int型
+    }
+    else if(my_strcmp(name, "condition") == 0)
+    {
+        //printf("condition value is:%s", value_string);    //string型
+    }
 }
 #endif
 
@@ -1094,54 +1110,54 @@ void weather_data_user_handle(char *name, unsigned char type, char *data)
 *****************************************************************************/
 unsigned char stream_file_trans(unsigned int id, unsigned char *buffer, unsigned long buf_len)
 {
-  //#error "这里仅给出示例，请自行完善流服务处理代码,完成后请删除该行"
-  //流文件传输还未写完，下面的是自带的	
-	
-  unsigned short length = 0;
-  unsigned long map_offset = 0;
-  unsigned int pack_num = 0;
-  unsigned int rest_length = 0;
-
-	(void)(length);
-	
-  if(stop_update_flag == ENABLE)
-    return SUCCESS;
-
-  pack_num = buf_len / STREM_PACK_LEN;
-  rest_length = buf_len - pack_num * STREM_PACK_LEN;
-  if (rest_length > 0)
-  {
-    pack_num++;
-  }
-
-  int this_len = STREM_PACK_LEN;
-  for (int cnt = 0; cnt < pack_num; cnt++)
-  {
-    if (cnt == pack_num - 1 && rest_length > 0)
-    {
-      this_len = rest_length;
-    }
-    else
-    {
-      this_len = STREM_PACK_LEN;
-    }
-
-    if(SUCCESS == stream_trans(id, map_offset, buffer + map_offset, this_len))
-    {
-      //mcu正在升级中，不可以进行流服务传输
-      //printf("is upgrade\n");
-      return SUCCESS;
-    }
-
-    //while(stream_status == 0xff);//收到返回
+    //#error "这里仅给出示例，请自行完善流服务处理代码,完成后请删除该行"
+    //流文件传输还未写完，下面的是自带的	
     
-    if(stream_status != 0)
+    unsigned short length = 0;
+    unsigned long map_offset = 0;
+    unsigned int pack_num = 0;
+    unsigned int rest_length = 0;
+    
+    (void)(length);
+    
+    if(stop_update_flag == ENABLE)
+        return SUCCESS;
+    
+    pack_num = buf_len / STREM_PACK_LEN;
+    rest_length = buf_len - pack_num * STREM_PACK_LEN;
+    if (rest_length > 0)
     {
-      return ERROR;
+        pack_num++;
     }
-  }
-  
-  return SUCCESS;
+    
+    int this_len = STREM_PACK_LEN;
+    for (int cnt = 0; cnt < pack_num; cnt++)
+    {
+        if (cnt == pack_num - 1 && rest_length > 0)
+        {
+            this_len = rest_length;
+        }
+        else
+        {
+            this_len = STREM_PACK_LEN;
+        }
+        
+        if(SUCCESS == stream_trans(id, map_offset, buffer + map_offset, this_len))
+        {
+            //mcu正在升级中，不可以进行流服务传输
+            //printf("is upgrade\n");
+            return SUCCESS;
+        }
+        
+        //while(stream_status == 0xff);//收到返回
+        
+        if(stream_status != 0)
+        {
+            return ERROR;
+        }
+    }
+    
+    return SUCCESS;
 }
 
 #endif
