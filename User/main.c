@@ -137,7 +137,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     {
         /* 处理按键事件 */
 		main_debug("bsp_KeyProc() \n");
-        bsp_KeyProc();
+        //bsp_KeyProc();
 		
 		
         if(count++ % 10 == 0)
@@ -150,7 +150,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			
 			/*下面是打印开关，酌情注释*/
 			//main_debug("bsp_WifiStateProc() \n");
-			bsp_WifiStateProc();
+			//bsp_WifiStateProc();
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
 //			bsp_PrintAllVoltage();
@@ -254,7 +254,7 @@ static void vTaskPerception(void *pvParameters)
 	//bsp_StartAssistJudgeDirection();
 	
 	/*开启栅格地图跟新*/
-	bsp_StartUpdateGridMap();
+	//bsp_StartUpdateGridMap();
 
 	/*开清扫策略*/
 	//bsp_StartUpdateCleanStrategyB();
@@ -277,7 +277,7 @@ static void vTaskPerception(void *pvParameters)
 	
     while(1)
     {
-		//bsp_ComAnalysis();
+		bsp_ComAnalysis();
 		
 #if 1
 		//main_debug("bsp_DetectAct() \n");
@@ -303,21 +303,21 @@ static void vTaskPerception(void *pvParameters)
 		
 		/*检测主机悬空*/
 		//main_debug("bsp_OffSiteProc() \n");
-		bsp_OffSiteProc();
+		//bsp_OffSiteProc();
         /*寻找充电桩*/
 		//main_debug("bsp_SearchChargePile() \n");
-		bsp_SearchChargePile();
+		//bsp_SearchChargePile();
 		/*沿边行走*/
 		//main_debug("bsp_EdgewiseRun() \n");
-		bsp_EdgewiseRun();
+		//bsp_EdgewiseRun();
         /*更新坐标*/
 		//main_debug("bsp_PositionUpdate() \n");
         bsp_PositionUpdate();
 		//main_debug("bsp_LedAppProc() \n");
-		bsp_LedAppProc();
+		//bsp_LedAppProc();
 		
 		//main_debug("wifi_uart_service() \n");
-		wifi_uart_service();
+		//wifi_uart_service();
 		
 		count++;
         vTaskDelay(5);	
