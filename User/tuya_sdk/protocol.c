@@ -377,7 +377,7 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
     unsigned char mode;
     static bool isOpenClean = true;
 	static bool isOpenSearchCharge = true;
-    
+    static bool isEdge = true;
     
     mode = mcu_get_dp_download_enum(value,length);
     switch(mode)
@@ -401,6 +401,17 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
         
     case 1:
         DEBUG("1\r\n");
+	
+		if(isEdge)
+        {
+            bsp_PutKey(KEY_DOWN_CLEAN);  
+        }
+        else
+        {
+			bsp_PutKey(KEY_DOWN_CLEAN);  
+            bsp_PutKey(KEY_WIFI_EDGE); 
+        }		 
+		isEdge = !isEdge;
         break;
         
     case 2:

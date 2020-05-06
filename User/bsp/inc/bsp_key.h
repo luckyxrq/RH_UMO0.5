@@ -154,6 +154,8 @@ typedef enum
 	KEY_WIFI_DIR_BACK,
 	KEY_WIFI_DIR_LEFT,
 	KEY_WIFI_DIR_RIGHT,
+	
+	KEY_WIFI_EDGE,
 }KEY_ENUM;
 
 /* 按键FIFO用到变量 */

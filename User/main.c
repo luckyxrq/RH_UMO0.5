@@ -711,6 +711,15 @@ static void bsp_KeyProc(void)
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 			}break;
 			
+			case KEY_WIFI_EDGE:
+			{
+				bsp_KeySuspend();
+				bsp_SperkerPlay(Song34);
+				bsp_StartEdgewiseRun();
+			}break;
+			
+			
+			
 		}   
 	}
 }
