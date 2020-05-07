@@ -190,8 +190,8 @@ void bsp_SetKeyParam(uint8_t _ucKeyID, uint16_t _LongTime, uint8_t  _RepeatSpeed
 void bsp_ClearKey(void);
 
 /* 自定义扩展添加 */
-bool bsp_IsLongPressedAgo(KEY_SN sn);
-void bsp_SetIsLongPressedAgo(KEY_SN sn , bool state);
+void  bsp_SetIsStartKeyProc(bool val);
+bool bsp_GetIsStartKeyProc(void);
 
 #endif
 

@@ -46,6 +46,8 @@ void bsp_Init(void)
 		系统时钟缺省配置为72MHz，如果需要更改，可以修改 system_stm32f10x.c 文件
 	*/
 	
+	bsp_SetIsStartKeyProc(false);
+	
 	/* 保证睡眠模式下调试器继续可以连接使用 */
 	DBGMCU_Config(DBGMCU_SLEEP, ENABLE);
 	
@@ -166,9 +168,10 @@ void bsp_Init(void)
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/
 	DEBUG("初始化完毕\r\n");
 	
-	bsp_ClearKey();
-	
 	vSetupSysInfoTest();
+	
+	bsp_ClearKey();
+	bsp_SetIsStartKeyProc(true);
 }
 
 

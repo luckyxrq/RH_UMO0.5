@@ -22,18 +22,21 @@ Dialog DLL:      TARMSTM.DLL V1.64.0.0
  
 <h2>Project:</h2>
 F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\project.uvprojx
-Project File Date:  05/06/2020
+Project File Date:  05/07/2020
 
 <h2>Output:</h2>
 Build target 'Flash'
-compiling protocol.c...
+compiling bsp.c...
+..\..\User\bsp\bsp.c(90): warning:  #550-D: variable "dx8Version" was set but never used
+                char *dx8Version;
+..\..\User\bsp\bsp.c: 1 warning, 0 errors
 linking...
-Program Size: Code=115188 RO-data=1156 RW-data=676 ZI-data=61236  
+Program Size: Code=115236 RO-data=1156 RW-data=680 ZI-data=61240  
 FromELF: creating hex file...
 After Build - User command #1: CopyHex_Flash.bat
 F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 0 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   F:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE

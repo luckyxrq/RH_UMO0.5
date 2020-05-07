@@ -336,6 +336,8 @@ void bsp_StartUpdateCleanStrategyB(void)
 {
 
 
+	bsp_ResetCleanStrategyBStatus();
+
 	cleanstrategy.work_step_status = RIGHTRUNNING_WORK_SETP;
 	cleanstrategy.right_running_complete  = 0;
 	cleanstrategy.right_return_origin_complete = 0;
@@ -347,8 +349,7 @@ void bsp_StartUpdateCleanStrategyB(void)
 	cleanstrategy.isRunning = true;
 	linear_velocity = 0,angular_velocity = 0;
 	
-	bsp_ResetCleanStrategyBStatus();
-
+	
 }
 
 

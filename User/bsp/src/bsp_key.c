@@ -69,10 +69,23 @@
 static KEY_T s_tBtn[KEY_COUNT];
 static KEY_FIFO_T s_tKey;		/* 按键FIFO变量,结构体 */
 static bool isLongPressedAgo[MAX_KEY_COUNT];
+static bool isStartKeyProc = false;
 
 static void bsp_InitKeyVar(void);
 static void bsp_InitKeyHard(void);
 static void bsp_DetectKey(uint8_t i);
+
+
+void  bsp_SetIsStartKeyProc(bool val)
+{
+	isStartKeyProc = val;
+}
+
+bool bsp_GetIsStartKeyProc(void)
+{
+	return isStartKeyProc;
+}
+
 
 /*
 *********************************************************************************************************

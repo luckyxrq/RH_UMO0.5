@@ -37,6 +37,8 @@ void bsp_EnterStopMODE(void)
 	USART_DeInit(UART4);
 	USART_DeInit(UART5);
 
+	vTaskSuspendAll();
+
 	/*初始化外部中断引脚，专门用作唤醒MCU*/
 	bsp_InitKeyStopMODE();
 	
@@ -69,6 +71,8 @@ void bsp_EnterStopMODE(void)
 	SetIsInitFromSleep(true) ;
 		
 	bsp_Init();
+		
+	xTaskResumeAll();	
 }
 
 
