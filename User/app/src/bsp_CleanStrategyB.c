@@ -5,8 +5,8 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
-#define CLEAN_WORK_TIME 30*60*1000
-#define EDGEWISE_CLEAN_WORK_TIME 1*30*1000
+#define CLEAN_WORK_TIME 50*60*1000
+#define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
 
 #define ZoomMultiple 4
 #define compression_map_x 25
@@ -626,7 +626,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				
 			while(bsp_SpeakerIsBusy()){}
 		}
-		
+		linear_velocity = 0;
+		angular_velocity = 0;
 		log_debug("开始返回原点，走A*策略！\n");
 		over_clean_finish = true;
 		bsp_StopEdgewiseRun();
