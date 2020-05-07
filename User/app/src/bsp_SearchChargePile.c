@@ -38,7 +38,9 @@
 #define ROTATE_CCW_SPEED_L             -5
 #define ROTATE_CCW_SPEED_R             5
 
-#define MAX_SEARCH_TICK      (1000*120)
+#define MAX_SEARCH_TICK         (1000*120)
+
+#define CORRECTION_ANGLE_TIME    200
 
 typedef enum
 {
@@ -144,6 +146,10 @@ void bsp_StopSearchChargePile(void)
 	
 	bsp_IRD_StopWork();
 }	
+
+
+
+
 
 
 /*
@@ -340,7 +346,7 @@ void bsp_SearchChargePile(void)
 		case 2:
 		{
 			/*充电最后一步撞上了*/
-			if(xTaskGetTickCount() - search.delay >= 3500)
+			if(xTaskGetTickCount() - search.delay >= 2500)
 			{
 				search.action = 1 ;
 				
@@ -364,13 +370,27 @@ void bsp_SearchChargePile(void)
 				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)
 				&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
 				{
-					bsp_SearchRunStraightSlow();
+					//bsp_SearchRunStraightSlow();
+					
+					bsp_SetMotorSpeed(MotorLeft, ROTATE_CCW_SPEED_L);
+					bsp_SetMotorSpeed(MotorRight,ROTATE_CCW_SPEED_R);
+					vTaskDelay(CORRECTION_ANGLE_TIME);	
+					bsp_SetMotorSpeed(MotorLeft, 0);
+					bsp_SetMotorSpeed(MotorRight,0);
+					
 					search.action = 1 ;
 				}
 				/*前面2个，各收各*/
 				else if(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
 				{
-					bsp_SearchRunStraightSlow();
+					//bsp_SearchRunStraightSlow();
+					
+					bsp_SetMotorSpeed(MotorLeft, ROTATE_CCW_SPEED_L);
+					bsp_SetMotorSpeed(MotorRight,ROTATE_CCW_SPEED_R);
+					vTaskDelay(CORRECTION_ANGLE_TIME);	
+					bsp_SetMotorSpeed(MotorLeft, 0);
+					bsp_SetMotorSpeed(MotorRight,0);
+					
 					search.action = 1 ;
 				}
 				
