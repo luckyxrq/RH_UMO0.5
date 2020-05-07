@@ -50,7 +50,12 @@ void bsp_EnterStopMODE(void)
 		3. 一定要关闭滴答定时器，实际测试发现滴答定时器中断也能唤醒停机模式。
 	*/
 	SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;  /* 关闭滴答定时器 */  
-	PWR_EnterSTOPMode(PWR_Regulator_LowPower, PWR_STOPEntry_WFE);				
+	PWR_EnterSTOPMode(PWR_Regulator_LowPower, PWR_STOPEntry_WFE);	
+
+
+	NVIC_SystemReset();
+
+
 	portENTER_CRITICAL();
 
 	/* 
