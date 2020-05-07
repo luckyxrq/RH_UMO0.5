@@ -356,7 +356,6 @@ void bsp_StartUpdateCleanStrategyB(void)
 void bsp_ResetCleanStrategyBStatus(void)
 {
 	time_battery_return_origin_statues = 1;
-	LastCleanTimeStamp = xTaskGetTickCount();
 	OVERALL_CLEANING_STRATEGY = 0;
 	right_running_step_status = 0;
 	collision_right_rightrun_step_status = 0;
@@ -420,8 +419,8 @@ void bsp_ResetCleanStrategyBStatus(void)
 	clill_start_update=false;
 	cliffruningStatus=false;
 	FunctionStatus=0;
-	LastCleanTimeStamp = 0;
-	CurrentCleanTimeStamp  = 0;
+	LastCleanTimeStamp = xTaskGetTickCount();
+	//CurrentCleanTimeStamp  = 0;
 	
 	//位姿复位
 	bsp_ResetPosArgument();
@@ -630,8 +629,9 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 		
 		log_debug("开始返回原点，走A*策略！\n");
 		over_clean_finish = true;
+		bsp_StopEdgewiseRun();
 		//selectside='L';
-		OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+		OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
 		left_running_step_status = 0;
 		FunctionStatus = 0;
 	}
@@ -716,7 +716,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 	if (totalCDN > 4)
 	{
 		log_debug("CliffCloseEdge() \n" );
-		totalCDN = CliffCloseEdge();          /*这里有问题 传入int  接收short*/
+		totalCDN = CliffCloseEdge();           
 		//##############################################################################
 		if (totalCDN == 1)
 		{
@@ -742,9 +742,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				break;
 			case START_OVERALL_CLEANING_STRATEGY:
 				OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
-				//OVERALL_CLEANING_STRATEGY = EDGEWISERUN_CLEANING_STRATEGY;
-			    //bsp_StartEdgewiseRun();
-				EdgeWiseCleanTimeStamp  = xTaskGetTickCount();
 				//log_debug("OVERALL_CLEANING_STRATEGY:START_OVERALL_CLEANING_STRATEGY... ! \n" );
 				break;
 			case RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
@@ -755,11 +752,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>500){
 					selectside = 'L';
 					over_clean_finish = false;
-						
-					//OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
-					//OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
-					OVERALL_CLEANING_STRATEGY  = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
-						
+					OVERALL_CLEANING_STRATEGY  = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;	
 					//log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
 					right_running_step_status = 0;
 					FunctionStatus = 0;
