@@ -306,7 +306,7 @@ static void vTaskPerception(void *pvParameters)
 		//bsp_OffSiteProc();
         /*Ñ°ÕÒ³äµç×®*/
 		//main_debug("bsp_SearchChargePile() \n");
-		//bsp_SearchChargePile();
+		bsp_SearchChargePile();
 		/*ÑØ±ßÐÐ×ß*/
 		//main_debug("bsp_EdgewiseRun() \n");
 		//bsp_EdgewiseRun();
