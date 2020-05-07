@@ -98,11 +98,11 @@ void bsp_Init(void)
 		rv = AuthenticationTest();
 		if(rv)
 		{
-			DEBUG("未能通过加密认证\r\n");
+			//DEBUG("未能通过加密认证\r\n");
 		}
 		else
 		{
-			DEBUG("恭喜，通过加密认证\r\n");
+			//DEBUG("恭喜，通过加密认证\r\n");
 		}
 		
 		
@@ -129,7 +129,7 @@ void bsp_Init(void)
 	ret = bsp_InitAW9523B();
 	if(!ret)
 	{
-		WARNING("AW9523B Init Error\r\n");
+		//WARNING("AW9523B Init Error\r\n");
 	}
 
 #endif
@@ -164,7 +164,7 @@ void bsp_Init(void)
 	
 	
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/
-	DEBUG("初始化完毕\r\n");
+	//DEBUG("初始化完毕\r\n");
 	
 	bsp_ClearKey();
 	
