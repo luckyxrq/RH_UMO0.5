@@ -3,13 +3,9 @@
 
 
 #define PIN_MAP_MAX		10  //引脚对数
-#define SAMP_COUNT      10  //采集AD值的个数
-#define IntervalTime	4  //没对管子扫描间隔时间
-#define ChargeTime	    3   //没对管子扫描间隔时间
-#define TimeAfterOpen   120 //开发射后延时
-#define TimeAfterClose  20  //关发射，延时读，判断太阳光
-#define Sunlight        1.0F//如果关闭发射管也读取到了太阳光的阈值，则认为是太阳光的影响
+#define IntervalTime	2   //每对管子扫描间隔时间
 
+#define DELAY_FOR_READ_US      500
 
 
 AW_PIN PinMap[PIN_MAP_MAX][2]=
@@ -96,46 +92,7 @@ void bsp_DetectStop(void)
 
 void bsp_DetectActTest(uint8_t pinMapIndex)
 {
-	static uint8_t action = 0 ;
-	static uint32_t delay = 0 ;
-	
-	switch(action)
-	{
-		case 0:
-		{
-			bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-			delay = xTaskGetTickCount();
-			action++;
-			
-		}break;
-		
-		case 1:
-		{
-			if(xTaskGetTickCount() - delay >= ChargeTime)
-			{
-				bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				bsp_GetAdScanValue();
-				bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				bsp_GetAdScanValue();
-				bsp_AWSetPinVal(PinMap[pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				//pinMapIndex++;
-				
-				delay = xTaskGetTickCount();
-				action++;
-			}
-		}break;
-		
-		case 2:
-		{
-			if(xTaskGetTickCount() - delay >= (IntervalTime-ChargeTime)) 
-			{
-				action = 0 ;
-			}
-		}break;
-	}
-	
+
 }
 
 
@@ -154,10 +111,18 @@ void bsp_DetectAct(void)
 	
 	switch(detectAct.action)
 	{
-		//----------管子对--1-----------------------------------------------------------------------------
 		case 0:
 		{
 			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
+			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
+			bsp_DelayUS(DELAY_FOR_READ_US);
+			adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
+			
+			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
+			bsp_DelayUS(DELAY_FOR_READ_US);
+			adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
+			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
+			
 			detectAct.delay = xTaskGetTickCount();
 			detectAct.action++;
 			
@@ -165,325 +130,17 @@ void bsp_DetectAct(void)
 		
 		case 1:
 		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		//----------管子对--2-----------------------------------------------------------------------------
-		case 2:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 3:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		//----------管子对--3-----------------------------------------------------------------------------
-		case 4:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 5:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		//----------管子对--4-----------------------------------------------------------------------------
-		case 6:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 7:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		//----------管子对--5-----------------------------------------------------------------------------
-		case 8:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 9:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		//----------管子对--6-----------------------------------------------------------------------------
-		case 10:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 11:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		//----------管子对--7-----------------------------------------------------------------------------
-		case 12:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 13:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		//----------管子对--8-----------------------------------------------------------------------------
-		case 14:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 15:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		//----------管子对--9-----------------------------------------------------------------------------
-		case 16:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 17:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				//bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-
-		//----------管子对--10-----------------------------------------------------------------------------
-		case 18:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
-			{
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 19:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= ChargeTime)
-			{
-				//bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-				bsp_DelayUS(TimeAfterOpen);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-				bsp_DelayUS(TimeAfterClose);
-				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-				
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 0 : adcContrast[detectAct.action/2][0];//如果读到太阳光了就当没有检测到障碍物
-				adcIsSunlight[detectAct.pinMapIndex%PIN_MAP_MAX] = adcContrast[detectAct.action/2][1] >= Sunlight ? 1 : 0;//记录是否被当阳光挡住了
-				detectAct.pinMapIndex++;
-				
-				detectAct.delay = xTaskGetTickCount();
-				detectAct.action++;
-			}
-		}break;
-		
-		case 20:
-		{
-			if(xTaskGetTickCount() - detectAct.delay >= (IntervalTime-ChargeTime)) 
+			if(xTaskGetTickCount() - detectAct.delay >= IntervalTime)
 			{
 				detectAct.action = 0 ;
-				detectAct.pinMapIndex = 0 ;
+				
+				++detectAct.pinMapIndex;
+				if(detectAct.pinMapIndex >= PIN_MAP_MAX)
+				{
+					detectAct.pinMapIndex = 0 ;
+				}
 			}
 		}break;
-		
-	}
-	
 	
 }
 
