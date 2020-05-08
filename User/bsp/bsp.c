@@ -58,6 +58,7 @@ void bsp_Init(void)
 	bsp_InitAngle();         /* 初始化陀螺仪，只是复位引脚初始化，里面没有用到串口打印。在串口初始化前面复位有助于陀螺仪第一帧数据不出错 */
 	bsp_InitPinPulse();      /* 初始化脉冲指示引脚，脉冲指示没有使用串口打印，在串口之前初始化 */
 	bsp_InitUart(); 	     /* 初始化串口 */
+	DEBUG(" ");
 	bsp_InitLed();           /* 初始化LED */
 	
 	bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
@@ -100,11 +101,11 @@ void bsp_Init(void)
 		rv = AuthenticationTest();
 		if(rv)
 		{
-			DEBUG("未能通过加密认证\r\n");
+			DEBUG("未能通过! \r\n");
 		}
 		else
 		{
-			DEBUG("恭喜，通过加密认证\r\n");
+			DEBUG("通过! \r\n");
 		}
 		
 		
