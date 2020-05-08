@@ -12,7 +12,6 @@
 
 
 
-
 AW_PIN PinMap[PIN_MAP_MAX][2]=
 {
 	{awP1_5,awP0_7},   //1
@@ -22,10 +21,11 @@ AW_PIN PinMap[PIN_MAP_MAX][2]=
 	{awP1_0,awP0_2},   //5
 	{awP1_1,awP0_1},   //6
 	{awP1_2,awP0_0},   //7
-	{awP1_6,awP0_6},   //8
-	{awP1_4,awP1_4},   //Left
-	{awP1_3,awP1_3},   //Right
+	{awP1_6,awP0_6},   //8жа
+	{awP1_5,awP1_4},   //Left
+	{awP1_2,awP1_3},   //Right
 };
+
 
 
 static DetectAct detectAct;
