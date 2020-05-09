@@ -20,7 +20,7 @@
 /*硬件平台版本*/
 #define OLD_BOARD      1 /*旧主板*/
 #define NEW_BOARD      2 /*新主板*/
-#define BOARD_VER      NEW_BOARD
+#define BOARD_VER      OLD_BOARD
 
 
 /* 检查是否定义了开发板型号 */

@@ -124,7 +124,8 @@ void bsp_DetectAct(void)
 			adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
 			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
 			/*判断,adcRealTime 1.0F表示障碍物，0.0F表示无障碍物，为了兼容以前的框架，没有使用BOOL类型，但是算法那边判断切勿使用==1.0F  ==0.0F之类的，浮点数据不能这么判断*/
-			adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = (abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000) >= IS_OBSTACLE_MV) ? 1.0F : 0.0F;   
+			//adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = (abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000) >= IS_OBSTACLE_MV) ? 1.0F : 0.0F;
+			adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000);			
 			
 			detectAct.delay = xTaskGetTickCount();
 			detectAct.action++;
@@ -284,10 +285,10 @@ void bsp_DetectDeal(void)
 	UNUSED(noObstacleTickCnt);
 	
 	
-#if 0	
+#if 1	
 	for(i=0;i<10;i++)
 	{
-		printf("adcRealTime[%d]:%.2F",i,adcRealTime[i]);
+		printf("[%d]:%4d",i,(uint32_t)adcRealTime[i]);
 	}
 	printf("\r\n");
 #endif
