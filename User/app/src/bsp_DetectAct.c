@@ -6,7 +6,7 @@
 #define IntervalTime	2   //每对管子扫描间隔时间
 
 #define DELAY_FOR_READ_US      500
-
+#define IS_OBSTACLE_MV         60  //障碍物差值电压，毫伏
 
 AW_PIN PinMap[PIN_MAP_MAX][2]=
 {
@@ -26,7 +26,7 @@ AW_PIN PinMap[PIN_MAP_MAX][2]=
 
 static DetectAct detectAct;
 static float adcContrast[PIN_MAP_MAX][2]; //开发射前后的电压值
-static float adcRealTime[PIN_MAP_MAX];    //对比开发射前后，权衡太阳光之后的电压值
+static float adcRealTime[PIN_MAP_MAX];    //判断是否有障碍物
 static uint8_t adcIsSunlight[PIN_MAP_MAX];//是否是太阳光
 
 static void bsp_ADCConfig(void);
@@ -113,15 +113,18 @@ void bsp_DetectAct(void)
 	{
 		case 0:
 		{
+			/*开 读*/
 			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
 			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
 			bsp_DelayUS(DELAY_FOR_READ_US);
 			adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-			
+			/*关 读*/
 			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
 			bsp_DelayUS(DELAY_FOR_READ_US);
 			adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
 			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
+			/*判断,adcRealTime 1.0F表示障碍物，0.0F表示无障碍物，为了兼容以前的框架，没有使用BOOL类型，但是算法那边判断切勿使用==1.0F  ==0.0F之类的，浮点数据不能这么判断*/
+			adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = (abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000) >= IS_OBSTACLE_MV) ? 1.0F : 0.0F;   
 			
 			detectAct.delay = xTaskGetTickCount();
 			detectAct.action++;
