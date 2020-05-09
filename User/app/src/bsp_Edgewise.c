@@ -161,16 +161,16 @@ void bsp_EdgewiseRun(void)
 				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
-			else if(vol >= 1.5F && vol <=2.0F )
+			else if(vol >= 20 && vol <=30 )
 			{
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.possibleEnd = 0 ;
 			}
 			/*向右靠近的过程中还需要检测靠近的时间，如果靠近了很久还是没能找到电压值，那么就是走到了尽头*/
-			else if(vol < 1.5F)
+			else if(vol < 20)
 			{
 				bsp_EdgewiseTurnRightSlow();
-				if(vol < 0.2F)
+				if(vol < 2)
 				{
 					
 					if(edgewiseRun.possibleEnd++ >= POSSIBLE_END)
@@ -180,7 +180,7 @@ void bsp_EdgewiseRun(void)
 					}
 				}
 			}
-			else if(vol > 2.0F)
+			else if(vol > 30)
 			{
 				bsp_EdgewiseTurnLeftSlow();
 				edgewiseRun.possibleEnd = 0 ;
