@@ -191,7 +191,14 @@ void bsp_SearchChargePile(void)
 		
 		search.lastIsTouchTick = xTaskGetTickCount();
 	}
-	else /*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
+	
+	/*离桩  不充电  这两个都为真*/
+	else if(bsp_IsCharging() && bsp_IsChargeDone())
+	{
+		
+	}
+	
+	else/*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
 	{
 		//DEBUG("接触桩:%s 充电中:%s 充满:%s\r\n",bsp_IsTouchChargePile()?"true":"false",bsp_IsCharging()?"true":"false",bsp_IsChargeDone()?"true":"false");
 		
