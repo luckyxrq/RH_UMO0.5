@@ -45,6 +45,10 @@ typedef struct
 	uint32_t ErlangGodStartTime ;
 }EdgewiseRun;
 
+
+extern uint32_t adc_value;
+
+
 static EdgewiseRun edgewiseRun;
 static void bsp_EdgewiseRunStraightFast(void);
 static void bsp_EdgewiseRunStraightSlow(void);
@@ -158,25 +162,25 @@ void bsp_EdgewiseRun(void)
 				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
-			else if(vol >= 1.5F && vol <=2.0F )
+			else if(adc_value >= 200 && adc_value <=300 )
 			{
 				bsp_EdgewiseRunStraightSlow();
 				edgewiseRun.possibleEnd = 0 ;
 			}
 			/*向右靠近的过程中还需要检测靠近的时间，如果靠近了很久还是没能找到电压值，那么就是走到了尽头*/
-			else if(vol < 1.5F)
+			else if(adc_value < 200)
 			{
 				bsp_EdgewiseTurnRightSlow();
-				if(vol < 0.2F)
+				if(adc_value <= 100)
 				{
-					if(edgewiseRun.possibleEnd++ >= 500)
+					if(edgewiseRun.possibleEnd++ >= 80)
 					{
 						edgewiseRun.possibleEnd = 0 ;
 						edgewiseRun.action = 4 ;
 					}
 				}
 			}
-			else if(vol > 2.0F)
+			else if(adc_value > 300)
 			{
 				bsp_EdgewiseTurnLeftSlow();
 				edgewiseRun.possibleEnd = 0 ;

@@ -45,6 +45,8 @@ bool bsp_GetIsDangerCliff_M(void)
 }
 
 
+uint32_t adc_value = 0 ;
+
 void bsp_CliffPulseDetect(void)
 {
 //	if(!cliffPulse.isRunning)
@@ -83,11 +85,13 @@ void bsp_CliffPulseDetect(void)
 					cliffPulse.isDangerM = false;
 				}
 				
-				DEBUG("%.2F  %.2F  %.2F  %s\r\n",
-				cliffPulse.lowPulseV,
-				cliffPulse.highPulseV,
-				cliffPulse.lowPulseV-cliffPulse.highPulseV,
-				cliffPulse.isDangerM?"�̡̡̡̡̡�":"XXXXXX");
+				adc_value = abs((cliffPulse.lowPulseV-cliffPulse.highPulseV)*1000);
+				
+//				DEBUG("%.2F  %.2F  %.2F  %s\r\n",
+//				cliffPulse.lowPulseV,
+//				cliffPulse.highPulseV,
+//				cliffPulse.lowPulseV-cliffPulse.highPulseV,
+//				cliffPulse.isDangerM?"�̡̡̡̡̡�":"XXXXXX");
 				
 				cliffPulse.action = 0;
 			}
