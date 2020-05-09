@@ -139,6 +139,8 @@ void bsp_DetectStop(void)
 //}
 
 
+uint32_t adc_value = 0 ;
+
 void bsp_DetectActTest(uint8_t pinMapIndex)
 {
 	static bool isNeedOpenRx = true;
@@ -167,18 +169,19 @@ void bsp_DetectActTest(uint8_t pinMapIndex)
 			bsp_DelayMS(1);
 			val2 = bsp_GetAdScanValue();
 			
-			DEBUG("%.2F %.2F %.2F\r\n",val1,val2,val2-val1);
+//			adc_value = (val2-val1)*1000;
+//			DEBUG("%.2F %.2F %.2F\r\n",val1,val2,val2-val1);
 			
-//			if(abs((val2-val1)*1000) <= 60)
-//			{
-//				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
-//			}
-//			else
-//			{
-//				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-//			}
+			if(abs((val2-val1)*1000) <= 30)
+			{
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+			}
+			else
+			{
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}
 			
 			
 			delay = xTaskGetTickCount();
