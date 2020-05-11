@@ -86,21 +86,24 @@ void bsp_StrategyRandomProc(void)
 				strategyRandom.angle = bsp_AngleRead();
 				strategyRandom.delay = xTaskGetTickCount();
 				
-				if(strategyRandom.collision == CollisionLeft || strategyRandom.leftCliff)
-				{
-					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+100));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-				}
-				else if(strategyRandom.collision == CollisionRight || strategyRandom.rightCliff)
-				{
-					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-100));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
-				}
-				else if(strategyRandom.collision == CollisionAll || strategyRandom.middleCliff)
-				{
-					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+100));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-				}
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+				
+//				if(strategyRandom.collision == CollisionLeft || strategyRandom.leftCliff)
+//				{
+//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+250));
+//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+//				}
+//				else if(strategyRandom.collision == CollisionRight || strategyRandom.rightCliff)
+//				{
+//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-100));
+//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
+//				}
+//				else if(strategyRandom.collision == CollisionAll || strategyRandom.middleCliff)
+//				{
+//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+100));
+//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+//				}
 				
 				++strategyRandom.action;
 			}
@@ -108,7 +111,7 @@ void bsp_StrategyRandomProc(void)
 		
 		case 2: /*退了就原地转*/
 		{
-			if((xTaskGetTickCount() - strategyRandom.delay)>= 2000 || 
+			if((xTaskGetTickCount() - strategyRandom.delay)>= 800 || 
 				abs(bsp_AngleAdd(strategyRandom.angle ,36) - (bsp_AngleRead())) <= 10.0F)
 			{
 				strategyRandom.action = 0 ;
