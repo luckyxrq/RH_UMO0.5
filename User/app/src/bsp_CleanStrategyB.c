@@ -7,6 +7,7 @@
 #define ALL_CLEAN_COMPLETE 0
 #define CLEAN_WORK_TIME 50*60*1000
 #define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
+#define FORCE_RETURN_ORIGIN_WORK_TIME 3*60*1000
 
 #define ZoomMultiple 4
 #define compression_map_x 25
@@ -103,6 +104,7 @@ int FunctionStatus=0;
 unsigned int LastCleanTimeStamp = 0;
 unsigned int CurrentCleanTimeStamp  = 0;
 unsigned int EdgeWiseCleanTimeStamp = 0;
+unsigned int ForceReturnOriginTimeStamp = 0;
 
 //**************return origin value************************************
 AStar_MapNode AStar_graph[AStar_Height][AStar_Width];
@@ -524,7 +526,12 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 		batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
 		if(batteryvoltage < 12)   //12v-16v
 		{
-			return  battery_out_flag;//battery_out_flag;
+			batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+			batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
+			if(batteryvoltage < 12)
+			{
+				return  battery_out_flag;//battery_out_flag;
+			}
 		}
 	}
 	
@@ -753,7 +760,9 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>500){
 					selectside = 'L';
 					over_clean_finish = false;
-					OVERALL_CLEANING_STRATEGY  = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;	
+					OVERALL_CLEANING_STRATEGY  = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					//跳转暴力回原点时，记录当前时间
+					ForceReturnOriginTimeStamp = xTaskGetTickCount();					
 					//log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
 					right_running_step_status = 0;
 					FunctionStatus = 0;
@@ -867,11 +876,16 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				if (1 == FunctionStatus)
 				{
 					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>500){
-					selectside = 'E';
+					//selectside = 'E';
 					over_clean_finish = false;
 					//OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
-					
-					OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					//OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					//跳转暴力回原点时，记录当前时间
+					//ForceReturnOriginTimeStamp = xTaskGetTickCount();
+					OVERALL_CLEANING_STRATEGY = EDGEWISERUN_CLEANING_STRATEGY;
+					bsp_StartEdgewiseRun();
+					EdgeWiseCleanTimeStamp  = xTaskGetTickCount();
+						
 					left_running_step_status = 0;
 					FunctionStatus = 0;
 					break;
@@ -894,6 +908,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					over_clean_finish = false;
 					bsp_StopEdgewiseRun();
 					OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					//跳转暴力回原点时，记录当前时间
+					ForceReturnOriginTimeStamp = xTaskGetTickCount();
 					FunctionStatus = 0;
 					break;
 				}
@@ -8505,6 +8521,16 @@ unsigned char ForceReturnOrigin(POSE *current_pose, unsigned char obstacleSignal
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
 	log_debug("return_origin_step_status =======>>>,%x,\n",return_origin_step_status);
+	
+	if((xTaskGetTickCount() - ForceReturnOriginTimeStamp)> FORCE_RETURN_ORIGIN_WORK_TIME )
+	{
+		linear_velocity = 0;
+        angular_velocity = 0;
+        complete_flag = 1;
+		log_debug("return_origin_time_out!!! =======>>>,%x,\n",return_origin_step_status);
+		return complete_flag;
+	}
+	
     switch (return_origin_step_status)
     {
     case 0:
