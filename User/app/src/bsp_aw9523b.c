@@ -15,7 +15,7 @@ static uint8_t bsp_CheckOk(void);
 static void bsp_InitRegister(void);
 static uint8_t aw_ReadBytes(uint8_t *_pReadBuf, uint16_t _usAddress, uint16_t _usSize);
 static uint8_t aw_WriteBytes(uint8_t *_pWriteBuf, uint16_t _usAddress, uint16_t _usSize);
-
+static bool isInitOK = false;
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_InitAW9523B
@@ -31,13 +31,23 @@ uint8_t bsp_InitAW9523B(void)
 	
 	/* 检测器件是否应答 */
 	if(!bsp_CheckOk())
+	{
+		isInitOK = false;
 		return 0;
-	
-	
+	}
+		
 	bsp_InitRegister();
+	
+	isInitOK = true;
 	
 	return 1;
 }
+
+bool bsp_IsInitAW9523B_OK(void)
+{
+	return isInitOK;
+}
+
 
 /*
 *********************************************************************************************************

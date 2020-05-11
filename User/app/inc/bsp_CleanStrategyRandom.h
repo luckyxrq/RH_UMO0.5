@@ -6,6 +6,7 @@
 void bsp_StartStrategyRandom(void);
 void bsp_StopStrategyRandom(void);
 void bsp_StrategyRandomProc(void);
+bool bsp_IsStartStrategyRandom(void);
 
 #endif
 

@@ -284,10 +284,13 @@ static void vTaskPerception(void *pvParameters)
 		//bsp_ComAnalysis();
 		
 #if 1
-		//main_debug("bsp_DetectAct() \n");
-        bsp_DetectAct();  /*红外对管轮询扫描*/
-		//main_debug("bsp_DetectDeal() \n");
-        bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		if(bsp_IsInitAW9523B_OK())
+		{
+			//main_debug("bsp_DetectAct() \n");
+			bsp_DetectAct();  /*红外对管轮询扫描*/
+			//main_debug("bsp_DetectDeal() \n");
+			bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		}
 #endif
        
 #if 0   /*测试红外测距的距离，测到后就停下来*/
@@ -303,7 +306,7 @@ static void vTaskPerception(void *pvParameters)
 		DEBUG("bsp_AngleReadRaw:%d\n",bsp_AngleReadRaw());
 #endif
 
-
+		bsp_StrategyRandomProc();
 		
 		/*检测主机悬空*/
 		//main_debug("bsp_OffSiteProc() \n");
@@ -446,7 +449,7 @@ KEY_STATE bsp_GetLastKeyState(void)
 }
 
 
-static void bsp_CloseAllStateRun(void)
+void bsp_CloseAllStateRun(void)
 {
 	bsp_StopSearchChargePile();
 	bsp_StopCliffTest();
