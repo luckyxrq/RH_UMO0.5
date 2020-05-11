@@ -15,6 +15,8 @@ static uint8_t bsp_CheckOk(void);
 static void bsp_InitRegister(void);
 static uint8_t aw_ReadBytes(uint8_t *_pReadBuf, uint16_t _usAddress, uint16_t _usSize);
 static uint8_t aw_WriteBytes(uint8_t *_pWriteBuf, uint16_t _usAddress, uint16_t _usSize);
+static bool isInitOK = false;
+
 
 /*
 *********************************************************************************************************
@@ -31,12 +33,21 @@ uint8_t bsp_InitAW9523B(void)
 	
 	/* ¼ì²âÆ÷¼þÊÇ·ñÓ¦´ð */
 	if(!bsp_CheckOk())
+	{
+		isInitOK = false;
 		return 0;
-	
+	}
+		
+	isInitOK = true;
 	
 	bsp_InitRegister();
 	
 	return 1;
+}
+
+bool bsp_IsInitAW9523B_OK(void)
+{
+	return isInitOK;
 }
 
 /*

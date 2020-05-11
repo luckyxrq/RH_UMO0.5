@@ -58,6 +58,7 @@ typedef enum
 
 
 uint8_t bsp_InitAW9523B(void);
+bool bsp_IsInitAW9523B_OK(void);
 uint8_t bsp_AWReadID(void);
 void bsp_AWSetPinVal(AW_PIN pin,AW_VAL val);
 uint8_t bsp_AWReadReg(ADDR addr);
