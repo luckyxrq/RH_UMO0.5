@@ -42,6 +42,9 @@ bool bsp_IsStartStrategyRandom(void)
 }
 
 
+static uint32_t CIRCLE_DELAY[6] = {500,800,1000,1200,1500,2000};
+static uint32_t CIRCLE_DELAY_INDEX = 0 ;
+
 void bsp_StrategyRandomProc(void)
 {
 	if(!strategyRandom.isRunning)
@@ -63,8 +66,8 @@ void bsp_StrategyRandomProc(void)
 			    strategyRandom.middleCliff ||
 			    strategyRandom.rightCliff) /*有碰撞或者悬崖就后退*/
 			{
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-200));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-200));
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
 				
 				/*记录下此时的脉冲数*/
 				strategyRandom.pulse = bsp_GetCurrentBothPulse();
@@ -86,8 +89,8 @@ void bsp_StrategyRandomProc(void)
 				strategyRandom.angle = bsp_AngleRead();
 				strategyRandom.delay = xTaskGetTickCount();
 				
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+250));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+300));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-300));
 				
 //				if(strategyRandom.collision == CollisionLeft || strategyRandom.leftCliff)
 //				{
@@ -111,8 +114,7 @@ void bsp_StrategyRandomProc(void)
 		
 		case 2: /*退了就原地转*/
 		{
-			if((xTaskGetTickCount() - strategyRandom.delay)>= 800 || 
-				abs(bsp_AngleAdd(strategyRandom.angle ,36) - (bsp_AngleRead())) <= 10.0F)
+			if((xTaskGetTickCount() - strategyRandom.delay)>= CIRCLE_DELAY[++CIRCLE_DELAY_INDEX %6])
 			{
 				strategyRandom.action = 0 ;
 			}

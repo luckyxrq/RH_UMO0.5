@@ -58,10 +58,10 @@
 #define CASE_STOP_RANDOM_6    (!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
                               /*1号能同时收到左右发射，2不能同时收到左右发射*/
 #define CASE_STOP_RANDOM_7    ((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
-                              /*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
-#define CASE_STOP_RANDOM_8    (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
-                              /*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
-#define CASE_STOP_RANDOM_9    (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
+                              /*侧面4号能收到3*/
+#define CASE_STOP_RANDOM_8    (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
+                              /*侧面3号能收到3*/
+#define CASE_STOP_RANDOM_9    (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
 
 
 
@@ -390,6 +390,7 @@ void bsp_SearchChargePile(void)
 			{
 				bsp_SetMotorSpeed(MotorLeft, 8);
 				bsp_SetMotorSpeed(MotorRight,8);
+
 			}
 			
 			
