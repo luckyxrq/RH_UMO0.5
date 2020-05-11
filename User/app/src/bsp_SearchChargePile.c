@@ -42,6 +42,31 @@
 
 #define CORRECTION_ANGLE_TIME    200
 
+                              /*前面2个，都能收到左右发射*/
+#define CASE_STOP_RANDOM_0    (bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)&& bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+                              /*前面2个，各收各*/
+#define CASE_STOP_RANDOM_1    (bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+                              /*1号能收到2个 ,2号能收到左边*/
+#define CASE_STOP_RANDOM_2    (bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+                              /*2号能收到2个 ,1号能收到右边*/
+#define CASE_STOP_RANDOM_3    (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))
+                              /*1，2号都能收到左边，都不能收到右边*/
+#define CASE_STOP_RANDOM_4    (bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT))
+                              /*1，2号都能收到右边，都不能收到左边*/
+#define CASE_STOP_RANDOM_5    (bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT))
+                              /*1号不能同时收到左右发射，2能同时收到左右发射*/
+#define CASE_STOP_RANDOM_6    (!(bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))&& (bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+                              /*1号能同时收到左右发射，2不能同时收到左右发射*/
+#define CASE_STOP_RANDOM_7    ((bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT))&& !(bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT) && bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)))
+                              /*侧面4号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+#define CASE_STOP_RANDOM_8    (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)))
+                              /*侧面3号能收到广角和左或右，正面1,2哈不能收到任何,原地旋转*/
+#define CASE_STOP_RANDOM_9    (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER) && (bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)))
+
+
+
+#define CASE_STOP_RANDOM      (CASE_STOP_RANDOM_0 || CASE_STOP_RANDOM_1 || CASE_STOP_RANDOM_2 || CASE_STOP_RANDOM_3 || CASE_STOP_RANDOM_4 || CASE_STOP_RANDOM_5 || CASE_STOP_RANDOM_6 || CASE_STOP_RANDOM_7 || CASE_STOP_RANDOM_8 || CASE_STOP_RANDOM_9)
+
 typedef enum
 {
 	eNone = 0 ,          /*没有碰撞*/
@@ -62,6 +87,8 @@ typedef struct
 	uint32_t lastIsChargingTick;
 	uint32_t lastIsTouchTick;
 	uint32_t lastIsNeedEdgeTick;
+	
+	bool isNeedFirstRunRandom;
 }Serach;
 
 
@@ -101,6 +128,7 @@ void bsp_StartSearchChargePile(void)
 	search.action = 0 ;
 	search.delay = 0 ;
 	search.startTick = xTaskGetTickCount();
+	search.isNeedFirstRunRandom = true;
 	search.isRunning = true;
 	
 	/*防止编译器警告*/
@@ -139,6 +167,7 @@ void bsp_StopSearchChargePile(void)
 	bsp_SetMotorSpeed(MotorLeft, 0);
 	bsp_SetMotorSpeed(MotorRight,0);
 	search.isRunning = false;
+	search.isNeedFirstRunRandom = false;
 	search.action = 0 ;
 	search.delay = 0 ;
 	
@@ -226,8 +255,7 @@ void bsp_SearchChargePile(void)
 	{
 		bsp_SetMotorSpeed(MotorLeft,0);
 		bsp_SetMotorSpeed(MotorRight,0);
-		bsp_StopSearchChargePile();
-		
+		bsp_CloseAllStateRun();
 		
 		bsp_SetLedState(THREE_WHITE_ON); 
 		bsp_SperkerPlay(Song24);
@@ -242,10 +270,34 @@ void bsp_SearchChargePile(void)
 	{
 		bsp_SetMotorSpeed(MotorLeft,0);
 		bsp_SetMotorSpeed(MotorRight,0);
-		bsp_StopSearchChargePile();
+		bsp_CloseAllStateRun();
 		
 		return ;
 	}
+	
+	/*先随机清扫*/
+	if(search.isNeedFirstRunRandom)
+	{
+		bsp_StartStrategyRandom();
+		search.isNeedFirstRunRandom = false;
+	}
+	
+	
+	
+	/*如果在执行随机清扫，则不执行后面的寻找充电桩*/
+	if(bsp_IsStartStrategyRandom())
+	{
+		if(CASE_STOP_RANDOM) /*收到了信号就执行后面的寻找充电桩*/
+		{
+			DEBUG("退出随机\r\n");
+			
+			bsp_SetMotorSpeed(MotorLeft,0);
+			bsp_SetMotorSpeed(MotorRight,0);
+			bsp_StopStrategyRandom();
+		}
+		return;
+	}
+	
 	
 	switch(search.action)
 	{

@@ -303,7 +303,7 @@ static void vTaskPerception(void *pvParameters)
 		DEBUG("bsp_AngleReadRaw:%d\n",bsp_AngleReadRaw());
 #endif
 
-
+		bsp_StrategyRandomProc();
 		
 		/*¼ì²âÖ÷»úÐü¿Õ*/
 		//main_debug("bsp_OffSiteProc() \n");
@@ -446,7 +446,7 @@ KEY_STATE bsp_GetLastKeyState(void)
 }
 
 
-static void bsp_CloseAllStateRun(void)
+void bsp_CloseAllStateRun(void)
 {
 	bsp_StopSearchChargePile();
 	bsp_StopCliffTest();

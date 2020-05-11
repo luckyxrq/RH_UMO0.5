@@ -36,6 +36,11 @@ void bsp_StopStrategyRandom(void)
 	
 }
 
+bool bsp_IsStartStrategyRandom(void)
+{
+	return strategyRandom.isRunning;
+}
+
 
 void bsp_StrategyRandomProc(void)
 {

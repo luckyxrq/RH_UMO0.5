@@ -224,7 +224,7 @@ void bsp_Init(void);
 void bsp_Idle(void);
 void BSP_Tick_Init (void);
 void bsp_InitFormAwaken(void);
-
+void bsp_CloseAllStateRun(void);
 #endif
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
