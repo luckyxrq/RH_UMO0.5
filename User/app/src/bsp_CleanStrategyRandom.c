@@ -15,8 +15,6 @@ typedef struct
 	float angle;
 	Collision collision;
 	uint32_t pulse;
-	
-	uint32_t randomStartTick;
 }StrategyRandom;
 
 static StrategyRandom strategyRandom;
@@ -25,8 +23,6 @@ void bsp_StartStrategyRandom(void)
 {
 	strategyRandom.action = 0 ;
 	strategyRandom.delay = 0 ;
-	strategyRandom.randomStartTick = xTaskGetTickCount(); /*记录启动时刻*/
-	strategyRandom.angle = bsp_AngleRead(); /*记录启动角度*/
 	strategyRandom.isRunning = true;
 	
 }
@@ -54,18 +50,7 @@ void bsp_StrategyRandomProc(void)
 	
 	switch(strategyRandom.action)
 	{
-		case 0:
-		{
-			bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+150));
-			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
-			
-			if(  (xTaskGetTickCount() - strategyRandom.randomStartTick >= 2000 && abs(strategyRandom.angle - bsp_AngleRead()) <= 10)  ||  bsp_CollisionScan() != CollisionNone)
-			{
-				strategyRandom.action++;
-			}
-		}break;
-		
-		case 1: /*开机直接先跑*/
+		case 0: /*开机直接先跑*/
 		{
 			strategyRandom.collision = bsp_CollisionScan();
 			
@@ -94,7 +79,7 @@ void bsp_StrategyRandomProc(void)
 			
 		}break;
 		
-		case 2: /*碰撞了就先退*/
+		case 1: /*碰撞了就先退*/
 		{
 			if(bsp_GetCurrentBothPulse() - strategyRandom.pulse >= GO_BACK_PULSE)
 			{
@@ -124,7 +109,7 @@ void bsp_StrategyRandomProc(void)
 			}
 		}break;
 		
-		case 3: /*退了就原地转*/
+		case 2: /*退了就原地转*/
 		{
 			if((xTaskGetTickCount() - strategyRandom.delay)>= 800 || 
 				abs(bsp_AngleAdd(strategyRandom.angle ,36) - (bsp_AngleRead())) <= 10.0F)
