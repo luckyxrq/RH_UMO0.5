@@ -24,6 +24,8 @@ static double my_abs(double x){
 
 static unsigned long mysqrt(unsigned long x);
 
+static bool obstacle_cliff_status_cls_flag = false;
+
 
 static signed char Under_extreme_point_x[10] = {0};
 static signed char Under_extreme_point_x_index = 0;
@@ -61,7 +63,7 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
     }
     else{
         if(cliff_value->cliffValue0==1){
-            if((cliff_value->cliffValue2==1)&&(my_abs(theta_phi)<30)){
+            if((cliff_value->cliffValue2==1)&&(my_abs(theta_phi)<45)){
                 //cout << "----------------- The front is cliff -------------------------" << endl;
                 return 0;
             }
@@ -69,47 +71,47 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
                 //cout << "----------------- The left and the right is cliff -------------------------" << endl;
                 return 0;
             }
-            else if((cliff_value->cliffValue1==1)&&(0<theta_phi)&&(theta_phi<=45)){
+            else if((cliff_value->cliffValue1==1)&&(0<theta_phi)&&(theta_phi<65)){
                 //cout << "----------------- The left is cliff -------------------------" << endl;
                 return 0;
             }
-            else if((cliff_value->cliffValue1==1)&&(r<260)&&(45<theta_phi)&&(theta_phi<=65)){
+//            else if((cliff_value->cliffValue1==1)&&(r<260)&&(45<theta_phi)&&(theta_phi<=65)){
                 //cout << "----------------- The left is cliff -------------------------" << endl;
-                return 0;
-            }
-            else if((cliff_value->cliffValue3==1)&&(-45<=theta_phi)&&(theta_phi<0)){
+//                return 0;
+//            }
+            else if((cliff_value->cliffValue3==1)&&(-65<theta_phi)&&(theta_phi<0)){
                 //cout << "----------------- The right is cliff -------------------------" << endl;
                 return 0;
             }
-            else if((cliff_value->cliffValue3==1)&&(r<260)&&(-65<=theta_phi)&&(theta_phi<-45)){
+//            else if((cliff_value->cliffValue3==1)&&(r<260)&&(-65<=theta_phi)&&(theta_phi<-45)){
                 //cout << "----------------- The right is cliff -------------------------" << endl;
-                return 0;
-            }
+//                return 0;
+//            }
             else{
                 return gridmap.map[grid_x%MAPMAXCELLS][grid_y%MAPMAXCELLS];
             }
         }
         else{
-            if((obstacleSignal == front_obstacle)&&(my_abs(theta_phi)<30)){
+            if((obstacleSignal == front_obstacle)&&(my_abs(theta_phi)<45)){
                 //cout << "----------------- The front is locc -------------------------" << endl;
                 return 0;// Front
             }
-            else if((obstacleSignal == left_obstacle)&&(0<theta_phi)&&(theta_phi<=45)){
+            else if((obstacleSignal == left_obstacle)&&(0<theta_phi)&&(theta_phi<=65)){
                 //cout << "----------------- The left is locc -------------------------" << endl;
                 return 0; // Left
             }
-            else if((obstacleSignal == left_obstacle)&&(r<260)&&(45<theta_phi)&&(theta_phi<=65)){
+//            else if((obstacleSignal == left_obstacle)&&(r<260)&&(45<theta_phi)&&(theta_phi<=65)){
                 //cout << "----------------- The left is locc -------------------------" << endl;
-                return 0; // Left
-            }
-            else if((obstacleSignal == right_obstacle)&&(-45<=theta_phi)&&(theta_phi<0)){
+//                return 0; // Left
+//            }
+            else if((obstacleSignal == right_obstacle)&&(-65<=theta_phi)&&(theta_phi<0)){
                 //cout << "----------------- The right is locc -------------------------" << endl;
                 return 0;   //right
             }
-            else if((obstacleSignal == right_obstacle)&&(r<260)&&(-65<=theta_phi)&&(theta_phi<-45)){
+//            else if((obstacleSignal == right_obstacle)&&(r<260)&&(-65<=theta_phi)&&(theta_phi<-45)){
                 //cout << "----------------- The right is locc -------------------------" << endl;
-                return 0;   //right
-            }
+//                return 0;   //right
+//            }
             else{
                 return gridmap.map[grid_x%MAPMAXCELLS][grid_y%MAPMAXCELLS];
             }
@@ -215,8 +217,14 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 	int8_t map_update_x_range_min_index,map_update_y_range_min_index;
 	int8_t x,y;
     int map_robot_x,map_robot_y,xi, yi;
-
-	if ((abs(map_last_robotX - robotX) >100 || abs(map_last_robotY - robotY) >100) || obstacleSignal!=3 || cliff_value->cliffValue0 == 1)
+		
+	
+	if(obstacleSignal==3||cliff_value->cliffValue0 == 0){
+		obstacle_cliff_status_cls_flag = true;
+	}
+	
+	
+	if ((abs(map_last_robotX - robotX) >150 || abs(map_last_robotY - robotY) >100) || ((obstacleSignal!=3 || cliff_value->cliffValue0 == 1)&&obstacle_cliff_status_cls_flag))
 	{
 		gridmap.action = 0;
 		map_last_robotX = robotX;
@@ -225,12 +233,13 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 		gridmap_debug("###########################################################################!  \n");
 		gridmap_debug("robotX£º%d   robotY£º%d   robotTheta£º%d  \n",robotX,robotY,(int)Rad2Deg(robotTheta));
 		gridmap_debug("###########################################################################!  \n");
-	}
-	else 
+		obstacle_cliff_status_cls_flag = false;
+	}else 
 	{
 		gridmap.action = 1;
 		//gridmap_debug("gridmap.action = 1  !  \n");
 	}
+
 	
 	if(map_update==0)
 	{
