@@ -91,10 +91,10 @@ int edge_length_start = 0;
 
 
 unsigned char DelimmaNumber=0;
-unsigned char CliffDelimmaNumber = 0;
-unsigned char CliffFunctionStatus=0;
-unsigned char CliffNumber=0;
-unsigned char totalCDN=0;
+//unsigned char CliffDelimmaNumber = 0;
+//unsigned char CliffFunctionStatus=0;
+//unsigned char CliffNumber=0;
+//unsigned char totalCDN=0;
 
 bool clill_start_update=false;
 bool cliffruningStatus=false;
@@ -414,10 +414,10 @@ void bsp_ResetCleanStrategyBStatus(void)
 	returnorigin = false;
 	edge_length_start = 0;
 	DelimmaNumber=0;
-	CliffDelimmaNumber = 0;
-	CliffFunctionStatus=0;
-	CliffNumber=0;
-	totalCDN=0;
+//	CliffDelimmaNumber = 0;
+//	CliffFunctionStatus=0;
+//	CliffNumber=0;
+//	totalCDN=0;
 	clill_start_update=false;
 	cliffruningStatus=false;
 	FunctionStatus=0;
