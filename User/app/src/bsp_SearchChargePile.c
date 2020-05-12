@@ -201,7 +201,7 @@ void bsp_SearchChargePile(void)
 	if(bsp_IsTouchChargePile())
 	{
 		/*播放开始充电*/
-		if(search.isNeedPlaySong && (xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
+		if(search.isNeedPlaySong && (xTaskGetTickCount() >= search.isNeedPlaySongTick  && xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
 		{
 			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
 			bsp_SperkerPlay(Song22);
@@ -228,10 +228,10 @@ void bsp_SearchChargePile(void)
 	{
 		//DEBUG("接触桩:%s 充电中:%s 充满:%s\r\n",bsp_IsTouchChargePile()?"true":"false",bsp_IsCharging()?"true":"false",bsp_IsChargeDone()?"true":"false");
 		
-		search.isNeedPlaySong = true;
-		search.isNeedPlaySongTick = xTaskGetTickCount();
 		
-		if(xTaskGetTickCount() - search.lastIsTouchTick >= 500)
+		
+		
+		if((xTaskGetTickCount() >= search.lastIsTouchTick)  &&  (xTaskGetTickCount() - search.lastIsTouchTick >= 500))
 		{
 			 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!治理需要根据扫地与否更改*/
 			if( bsp_GetLedAppState() != AT_CLEAN && 
@@ -241,7 +241,9 @@ void bsp_SearchChargePile(void)
 			{
 				bsp_SetLedState(THREE_WHITE_ON);
 			}
-
+			
+			search.isNeedPlaySongTick = xTaskGetTickCount();
+			search.isNeedPlaySong = true;
 			search.lastIsTouchTick = UINT32_T_MAX;
 		}
 		
