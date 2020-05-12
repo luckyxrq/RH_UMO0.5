@@ -84,7 +84,7 @@ typedef struct
 	
 	bool isNeedPlaySong;
 	uint32_t isNeedPlaySongTick;
-	uint32_t lastIsChargingTick;
+	uint32_t lastIsChargeDoneTick;
 	uint32_t lastIsTouchTick;
 	uint32_t lastIsNeedEdgeTick;
 	
@@ -93,7 +93,6 @@ typedef struct
 
 
 static Serach search;
-static void bsp_InitIO(void);
 static void bsp_SearchRunStraightFast(void);
 static void bsp_SearchRunStraightSlow(void);
 static void bsp_SearchTurnRightFast(void)  ;
@@ -123,7 +122,7 @@ static void bsp_RotateCCW(void);
 */
 void bsp_StartSearchChargePile(void)
 {
-	bsp_InitIO();
+	
 	
 	search.action = 0 ;
 	search.delay = 0 ;
@@ -209,17 +208,18 @@ void bsp_SearchChargePile(void)
 			search.isNeedPlaySong = false;
 		}
 
-		if(bsp_IsCharging())
+		if(bsp_IsChargeDone())
 		{
-			bsp_SetLedState(AT_CHARGING);
-			search.lastIsChargingTick = xTaskGetTickCount();
-		}
-		else
-		{
-			if(xTaskGetTickCount() - search.lastIsChargingTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
+			
+			if(xTaskGetTickCount() - search.lastIsChargeDoneTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
 			{
 				bsp_SetLedState(AT_CHARGE_DONE);
 			}
+		}
+		else
+		{
+			bsp_SetLedState(AT_CHARGING);
+			search.lastIsChargeDoneTick = xTaskGetTickCount();
 		}
 		
 		search.lastIsTouchTick = xTaskGetTickCount();
@@ -761,7 +761,7 @@ static void bsp_RotateCCW(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-static void bsp_InitIO(void)
+void bsp_InitChargeIO(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
