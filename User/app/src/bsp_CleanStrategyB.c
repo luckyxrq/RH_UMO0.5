@@ -5,9 +5,9 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
-#define CLEAN_WORK_TIME 50*60*1000
-#define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
-#define FORCE_RETURN_ORIGIN_WORK_TIME 3*60*1000
+#define CLEAN_WORK_TIME 3*60*1000
+#define EDGEWISE_CLEAN_WORK_TIME 1*60*1000
+#define FORCE_RETURN_ORIGIN_WORK_TIME 1*60*1000
 
 #define ZoomMultiple 4
 #define compression_map_x 25
@@ -692,6 +692,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				break;
 			case START_OVERALL_CLEANING_STRATEGY:
 				OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+				selectside = 'R';
 				//log_debug("OVERALL_CLEANING_STRATEGY:START_OVERALL_CLEANING_STRATEGY... ! \n" );
 				break;
 			case RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
@@ -849,7 +850,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					selectside = 'R';
 					over_clean_finish = false;
 					bsp_StopEdgewiseRun();
-					OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					OVERALL_CLEANING_STRATEGY = 0;//RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
 					//跳转暴力回原点时，记录当前时间
 					ForceReturnOriginTimeStamp = xTaskGetTickCount();
 					FunctionStatus = 0;
@@ -2832,7 +2833,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 
         }
         else{
-            if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-300){
+            if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-500){
                 if(my_abs(Yaw)<=90){
                     right_edge_dilemma_status = COLLISION_YAW_LESS_ABS90_DILEMMA;
                 }
@@ -2953,7 +2954,9 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         if(my_abs(current_pose->y)<return_origin_distance&&current_pose->y<0){
             linear_velocity = 0;
             angular_velocity = 0;
-            right_edge_dilemma_status = COMPLETE_EL_DRYM;
+			DelimmaNumber=0;
+            right_edge_dilemma_status = 0;
+			complete_flag = 2;
             break;
         }
         if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x){
@@ -3108,12 +3111,14 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             break;
         }
         if(current_pose->y>return_origin_distance){
-            linear_velocity = 0;
+			linear_velocity = 0;
             angular_velocity = 0;
-            right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+			DelimmaNumber=0;
+            right_edge_dilemma_status = 0;
+			complete_flag = 2;
             break;
         }
-        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x){
+        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+200){
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
@@ -8021,7 +8026,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             }
         }
         else{
-            if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-300){
+            if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-500){
                 if(my_abs(Yaw)<=90){
                     right_edge_dilemma_status = LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
                 }
@@ -8140,6 +8145,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             break;
         }
         if(my_abs(current_pose->y)>3*return_origin_distance&&current_pose->y<0){
+			linear_velocity = 0;
+            angular_velocity = 0;
             right_edge_dilemma_status=0;
             DelimmaNumber=0;
             complete_flag = 2;
@@ -8297,6 +8304,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             break;
         }
         if(my_abs(current_pose->y)>3*return_origin_distance&&current_pose->y<0){
+			linear_velocity = 0;
+            angular_velocity = 0;
             right_edge_dilemma_status=0;
             DelimmaNumber=0;
             complete_flag = 2;
