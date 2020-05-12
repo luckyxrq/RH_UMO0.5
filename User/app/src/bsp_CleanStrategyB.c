@@ -2947,14 +2947,13 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             complete_flag = 1;
             break;
         }
-        if(my_abs(current_pose->y)<return_origin_distance){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 2;
+        if(my_abs(current_pose->y)<return_origin_distance&&current_pose->y<0){
+            linear_velocity = 0;
+            angular_velocity = 0;
+            right_edge_dilemma_status = COMPLETE_EL_DRYM;
             break;
         }
-		if(my_abs(current_pose->x+half_map_wide)>=100*90){
-//        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x){
+        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x){
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status = COMPLETE_EL_DRYM;
@@ -3105,14 +3104,13 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             complete_flag = 1;
             break;
         }
-        if(my_abs(current_pose->y)<return_origin_distance){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 2;
+        if(current_pose->y>return_origin_distance){
+            linear_velocity = 0;
+            angular_velocity = 0;
+            right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
             break;
         }
-		if(my_abs(current_pose->x+half_map_wide)<100*10){
-//        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x){
+        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x){
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
@@ -11352,7 +11350,7 @@ void  DetectionCloseEdge()
                     {
                         if (gridmap.map[i][j] == 0)
                         {
-                            if (my_abs(close_edge_max_y - j) < 3)
+                            if (my_abs(close_edge_max_y - j) <=3)
                             {
                                 close_edge_max_x = i;
                                 close_edge_max_y = j;
@@ -11429,7 +11427,7 @@ void  DetectionCloseEdge()
                     {
                         if (gridmap.map[i][j] == 0)
                         {
-                            if (my_abs(close_edge_max_y - j) < 3)
+                            if (my_abs(close_edge_max_y - j) <=3)
                             {
                                 close_edge_max_x = i;
                                 close_edge_max_y = j;
