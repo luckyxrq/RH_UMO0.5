@@ -1507,7 +1507,9 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            collision_right_rightrun_step_status = RIGHT_WALK_EDGE_CR_DRYL;
+			right_running_step_status = RIGHTREVERSEWALKEDGE;
+			collision_right_rightrun_step_status=0;
+            //collision_right_rightrun_step_status = RIGHT_WALK_EDGE_CR_DRYL;
             break;
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2)
@@ -1967,7 +1969,8 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            collision_left_rightrun_step_status = RIGHT_REVERSE_WALK_EDGE_CL_DRYM;
+			right_running_step_status = RIGHTWALKEDGE;
+			collision_left_rightrun_step_status=0;
             break;
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2)
@@ -5646,7 +5649,8 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            collision_right_rightrun_step_status = LEFT_REVERSE_WALK_EDGE_LRUN_CR_DLYM;
+			left_running_step_status = LEFTWALKEDGE;
+            collision_right_rightrun_step_status = 0;
             break;
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2)
@@ -6193,7 +6197,8 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            collision_left_rightrun_step_status = LEFT_WALK_EDGE_LRUN_CL_DLYL;
+			left_running_step_status = LEFTREVERSEWALKEDGE;
+            collision_left_rightrun_step_status =0;
             break;
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2)
@@ -11306,7 +11311,7 @@ void  DetectionCloseEdge()
        //cout << "R" << endl;
         for (i = 0; i < GRIDHEIGHT; i++)
         {
-            for (j = 0; j < GRIDHEIGHT; j++)
+            for (j = 0; j < GRIDHEIGHT/2; j++)
             {
                 if (gridmap.map[i][j] == 0)
                 {
@@ -11342,7 +11347,7 @@ void  DetectionCloseEdge()
         }
         while (close_edge_max_x - close_edge_min_x > 3)
         {
-            for (k = close_edge_max_y; k < close_edge_max_y + 3; k++)
+            for (k = close_edge_max_y-3; k <close_edge_max_y; k++)
             {
                 for (i = close_edge_max_x - 3; i < close_edge_max_x; i++)
                 {
@@ -11419,7 +11424,7 @@ void  DetectionCloseEdge()
         }
         while (close_edge_max_x - close_edge_min_x > 3)
         {
-            for (k = close_edge_max_y; k < close_edge_max_y+3; k++)
+            for (k = close_edge_max_y; k <close_edge_max_y+3; k++)
             {
                 for (i = close_edge_max_x - 3; i < close_edge_max_x; i++)
                 {
