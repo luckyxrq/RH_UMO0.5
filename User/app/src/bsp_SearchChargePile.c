@@ -192,6 +192,10 @@ void bsp_StopSearchChargePile(void)
 void bsp_SearchChargePile(void)
 {
 	
+	bsp_IsTouchChargePile();
+	bsp_IsCharging();
+	bsp_IsChargeDone();
+	
 	if(isCleanRunning())
 		return;
 	
@@ -781,6 +785,9 @@ static void bsp_InitIO(void)
 	
 }
 
+uint32_t gIsTouchChargePile = 0 ;
+uint32_t gIsCharging = 0 ;
+uint32_t gIsChargeDone = 0 ;
 
 	
 /*
@@ -795,10 +802,12 @@ bool bsp_IsTouchChargePile(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
 	{
+		gIsTouchChargePile = 1 ;
 		return true ;
 	}
 	else
 	{
+		gIsTouchChargePile = 0 ;
 		return false ;
 	}
 }
@@ -816,10 +825,12 @@ bool bsp_IsCharging(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
 	{
+		gIsCharging = 1 ;
 		return true ;
 	}
 	else
 	{
+		gIsCharging = 0 ;
 		return false ;
 	}
 }
@@ -836,11 +847,17 @@ bool bsp_IsChargeDone(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
 	{
+		gIsChargeDone = 1 ;
 		return true ;
 	}
 	else
 	{
+		gIsChargeDone = 0 ;
 		return false ;
 	}
 }
+
+
+
+
 
