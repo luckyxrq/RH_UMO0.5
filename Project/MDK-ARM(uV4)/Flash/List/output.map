@@ -899,6 +899,7 @@ Section Cross References
     bsp_cleanstrategyb.o(i.bsp_StartUpdateCleanStrategyB) refers to bsp_cleanstrategyb.o(.data) for .data
     bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB) refers to bsp_control.o(i.bsp_MotorSpeedMM2Pulse) for bsp_MotorSpeedMM2Pulse
     bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB) refers to bsp_control.o(i.bsp_SetMotorSpeed) for bsp_SetMotorSpeed
+    bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB) refers to bsp_edgewise.o(i.bsp_StopEdgewiseRun) for bsp_StopEdgewiseRun
     bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB) refers to bsp_motor.o(i.bsp_StopVacuum) for bsp_StopVacuum
     bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB) refers to bsp_motor.o(i.bsp_MotorCleanSetPWM) for bsp_MotorCleanSetPWM
     bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB) refers to bsp_cleanstrategyb.o(i.bsp_ResetCleanStrategyBStatus) for bsp_ResetCleanStrategyBStatus
@@ -3832,203 +3833,203 @@ Image Symbol Table
     i.bsp_StopSearchChargePile               0x0801792c   Section        0  bsp_searchchargepile.o(i.bsp_StopSearchChargePile)
     i.bsp_StopStrategyRandom                 0x08017964   Section        0  bsp_cleanstrategyrandom.o(i.bsp_StopStrategyRandom)
     i.bsp_StopUpdateCleanStrategyB           0x08017974   Section        0  bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB)
-    i.bsp_StopVacuum                         0x080179c8   Section        0  bsp_motor.o(i.bsp_StopVacuum)
-    i.bsp_StrategyRandomProc                 0x080179e0   Section        0  bsp_cleanstrategyrandom.o(i.bsp_StrategyRandomProc)
-    i.bsp_SwOff                              0x08017af4   Section        0  bsp_powerswitch.o(i.bsp_SwOff)
-    i.bsp_SwOn                               0x08017b50   Section        0  bsp_powerswitch.o(i.bsp_SwOn)
-    i.bsp_UpdateCleanStrategyB               0x08017bac   Section        0  bsp_cleanstrategyb.o(i.bsp_UpdateCleanStrategyB)
-    i.bsp_VacuumClean                        0x08017c38   Section        0  bsp_motor.o(i.bsp_VacuumClean)
-    i.bsp_WifiStateProc                      0x08017c74   Section        0  bsp_wifi_app.o(i.bsp_WifiStateProc)
-    i.check_sensor                           0x08017cc4   Section        0  bsp_cleanstrategyb.o(i.check_sensor)
-    check_sensor                             0x08017cc5   Thumb Code   352  bsp_cleanstrategyb.o(i.check_sensor)
-    i.clean_strategyB                        0x08017e38   Section        0  bsp_cleanstrategyb.o(i.clean_strategyB)
-    i.cos                                    0x08018138   Section        0  cos.o(i.cos)
-    i.data_handle                            0x080181d4   Section        0  system.o(i.data_handle)
-    i.data_point_handle                      0x080184bc   Section        0  system.o(i.data_point_handle)
-    data_point_handle                        0x080184bd   Thumb Code    58  system.o(i.data_point_handle)
-    i.dp_download_direction_control_handle   0x080184fc   Section        0  protocol.o(i.dp_download_direction_control_handle)
-    dp_download_direction_control_handle     0x080184fd   Thumb Code    94  protocol.o(i.dp_download_direction_control_handle)
-    i.dp_download_handle                     0x0801859c   Section        0  protocol.o(i.dp_download_handle)
-    i.dp_download_mode_handle                0x080185e0   Section        0  protocol.o(i.dp_download_mode_handle)
-    dp_download_mode_handle                  0x080185e1   Thumb Code   240  protocol.o(i.dp_download_mode_handle)
-    i.dp_download_reset_edge_brush_handle    0x0801870c   Section        0  protocol.o(i.dp_download_reset_edge_brush_handle)
-    dp_download_reset_edge_brush_handle      0x0801870d   Thumb Code    26  protocol.o(i.dp_download_reset_edge_brush_handle)
-    i.dp_download_reset_filter_handle        0x08018726   Section        0  protocol.o(i.dp_download_reset_filter_handle)
-    dp_download_reset_filter_handle          0x08018727   Thumb Code    26  protocol.o(i.dp_download_reset_filter_handle)
-    i.dp_download_reset_roll_brush_handle    0x08018740   Section        0  protocol.o(i.dp_download_reset_roll_brush_handle)
-    dp_download_reset_roll_brush_handle      0x08018741   Thumb Code    26  protocol.o(i.dp_download_reset_roll_brush_handle)
-    i.dp_download_seek_handle                0x0801875a   Section        0  protocol.o(i.dp_download_seek_handle)
-    dp_download_seek_handle                  0x0801875b   Thumb Code    26  protocol.o(i.dp_download_seek_handle)
-    i.dp_download_suction_handle             0x08018774   Section        0  protocol.o(i.dp_download_suction_handle)
-    dp_download_suction_handle               0x08018775   Thumb Code    52  protocol.o(i.dp_download_suction_handle)
-    i.dp_download_switch_go_handle           0x080187c0   Section        0  protocol.o(i.dp_download_switch_go_handle)
-    dp_download_switch_go_handle             0x080187c1   Thumb Code    44  protocol.o(i.dp_download_switch_go_handle)
-    i.dp_download_switch_handle              0x080187ec   Section        0  protocol.o(i.dp_download_switch_handle)
-    dp_download_switch_handle                0x080187ed   Thumb Code    56  protocol.o(i.dp_download_switch_handle)
-    i.dx8_Init                               0x0801883c   Section        0  dxi2c_gpio_stm32f1.o(i.dx8_Init)
-    i.dxif_transfer                          0x08018884   Section        0  dxi2c_gpio_stm32f1.o(i.dxif_transfer)
-    i.fputc                                  0x080188f8   Section        0  bsp_uart_fifo.o(i.fputc)
-    i.getShortest                            0x0801891c   Section        0  bsp_cleanstrategyb.o(i.getShortest)
-    i.get_check_sum                          0x08018984   Section        0  system.o(i.get_check_sum)
-    i.get_dowmload_dpid_index                0x080189a0   Section        0  system.o(i.get_dowmload_dpid_index)
-    get_dowmload_dpid_index                  0x080189a1   Thumb Code    34  system.o(i.get_dowmload_dpid_index)
-    i.get_download_cmd_total                 0x080189c8   Section        0  protocol.o(i.get_download_cmd_total)
-    i.get_mcu_wifi_mode                      0x080189cc   Section        0  system.o(i.get_mcu_wifi_mode)
-    get_mcu_wifi_mode                        0x080189cd   Thumb Code     8  system.o(i.get_mcu_wifi_mode)
-    i.get_queue_total_data                   0x080189d4   Section        0  system.o(i.get_queue_total_data)
-    i.heat_beat_check                        0x080189ec   Section        0  system.o(i.heat_beat_check)
-    heat_beat_check                          0x080189ed   Thumb Code    44  system.o(i.heat_beat_check)
-    i.i2c_CheckDevice                        0x08018a1c   Section        0  bsp_i2c_gpio.o(i.i2c_CheckDevice)
-    i.i2c_Delay                              0x08018a50   Section        0  bsp_i2c_gpio.o(i.i2c_Delay)
-    i2c_Delay                                0x08018a51   Thumb Code    12  bsp_i2c_gpio.o(i.i2c_Delay)
-    i.i2c_SendByte                           0x08018a5c   Section        0  bsp_i2c_gpio.o(i.i2c_SendByte)
-    i.i2c_Start                              0x08018ab0   Section        0  bsp_i2c_gpio.o(i.i2c_Start)
-    i.i2c_Stop                               0x08018ad8   Section        0  bsp_i2c_gpio.o(i.i2c_Stop)
-    i.i2c_WaitAck                            0x08018afc   Section        0  bsp_i2c_gpio.o(i.i2c_WaitAck)
-    i.initClose                              0x08018b34   Section        0  bsp_cleanstrategyb.o(i.initClose)
-    i.initGraph                              0x08018bf0   Section        0  bsp_cleanstrategyb.o(i.initGraph)
-    i.initOpen                               0x08018d04   Section        0  bsp_cleanstrategyb.o(i.initOpen)
-    i.inverseSensorModelB                    0x08018d0c   Section        0  bsp_gridmap.o(i.inverseSensorModelB)
-    inverseSensorModelB                      0x08018d0d   Thumb Code   428  bsp_gridmap.o(i.inverseSensorModelB)
-    i.isCleanRunning                         0x08018ed0   Section        0  bsp_cleanstrategyb.o(i.isCleanRunning)
-    i.main                                   0x08018edc   Section        0  main.o(i.main)
-    i.mcu_dp_bool_update                     0x08018ef4   Section        0  mcu_api.o(i.mcu_dp_bool_update)
-    i.mcu_dp_enum_update                     0x08018f44   Section        0  mcu_api.o(i.mcu_dp_enum_update)
-    i.mcu_dp_raw_update                      0x08018f88   Section        0  mcu_api.o(i.mcu_dp_raw_update)
-    i.mcu_dp_value_update                    0x08018fd0   Section        0  mcu_api.o(i.mcu_dp_value_update)
-    i.mcu_get_dp_download_bool               0x08019028   Section        0  mcu_api.o(i.mcu_get_dp_download_bool)
-    i.mcu_get_dp_download_enum               0x0801902c   Section        0  mcu_api.o(i.mcu_get_dp_download_enum)
-    i.mcu_get_wifi_work_state                0x08019030   Section        0  mcu_api.o(i.mcu_get_wifi_work_state)
-    i.mcu_reset_wifi                         0x0801903c   Section        0  mcu_api.o(i.mcu_reset_wifi)
-    i.my_abs                                 0x08019050   Section        0  bsp_gridmap.o(i.my_abs)
-    my_abs                                   0x08019051   Thumb Code    30  bsp_gridmap.o(i.my_abs)
-    i.my_abs                                 0x0801906e   Section        0  bsp_cleanstrategyb.o(i.my_abs)
-    my_abs                                   0x0801906f   Thumb Code    30  bsp_cleanstrategyb.o(i.my_abs)
-    i.my_memcpy                              0x0801908c   Section        0  mcu_api.o(i.my_memcpy)
-    i.my_strlen                              0x080190d2   Section        0  mcu_api.o(i.my_strlen)
-    i.myabs                                  0x080190e8   Section        0  bsp_edgewise.o(i.myabs)
-    myabs                                    0x080190e9   Thumb Code    12  bsp_edgewise.o(i.myabs)
-    i.myabs                                  0x080190f4   Section        0  bsp_control.o(i.myabs)
-    myabs                                    0x080190f5   Thumb Code     8  bsp_control.o(i.myabs)
-    i.pow                                    0x080190fc   Section        0  pow.o(i.pow)
-    i.printShortest                          0x08019ad4   Section        0  bsp_cleanstrategyb.o(i.printShortest)
-    i.product_info_update                    0x08019c6c   Section        0  system.o(i.product_info_update)
-    product_info_update                      0x08019c6d   Thumb Code   140  system.o(i.product_info_update)
-    i.prvAddCurrentTaskToDelayedList         0x08019d30   Section        0  tasks.o(i.prvAddCurrentTaskToDelayedList)
-    prvAddCurrentTaskToDelayedList           0x08019d31   Thumb Code    50  tasks.o(i.prvAddCurrentTaskToDelayedList)
-    i.prvAllocateTCBAndStack                 0x08019d68   Section        0  tasks.o(i.prvAllocateTCBAndStack)
-    prvAllocateTCBAndStack                   0x08019d69   Thumb Code    62  tasks.o(i.prvAllocateTCBAndStack)
-    i.prvCheckTasksWaitingTermination        0x08019da8   Section        0  tasks.o(i.prvCheckTasksWaitingTermination)
-    prvCheckTasksWaitingTermination          0x08019da9   Thumb Code    74  tasks.o(i.prvCheckTasksWaitingTermination)
-    i.prvCopyDataToQueue                     0x08019dfc   Section        0  queue.o(i.prvCopyDataToQueue)
-    prvCopyDataToQueue                       0x08019dfd   Thumb Code   112  queue.o(i.prvCopyDataToQueue)
-    i.prvDeleteTCB                           0x08019e6c   Section        0  tasks.o(i.prvDeleteTCB)
-    prvDeleteTCB                             0x08019e6d   Thumb Code    20  tasks.o(i.prvDeleteTCB)
-    i.prvHeapInit                            0x08019e80   Section        0  heap_4.o(i.prvHeapInit)
-    prvHeapInit                              0x08019e81   Thumb Code    68  heap_4.o(i.prvHeapInit)
-    i.prvIdleTask                            0x08019ecc   Section        0  tasks.o(i.prvIdleTask)
-    prvIdleTask                              0x08019ecd   Thumb Code    18  tasks.o(i.prvIdleTask)
-    i.prvInitialiseTCBVariables              0x08019ee4   Section        0  tasks.o(i.prvInitialiseTCBVariables)
-    prvInitialiseTCBVariables                0x08019ee5   Thumb Code    78  tasks.o(i.prvInitialiseTCBVariables)
-    i.prvInitialiseTaskLists                 0x08019f34   Section        0  tasks.o(i.prvInitialiseTaskLists)
-    prvInitialiseTaskLists                   0x08019f35   Thumb Code    78  tasks.o(i.prvInitialiseTaskLists)
-    i.prvInsertBlockIntoFreeList             0x08019f8c   Section        0  heap_4.o(i.prvInsertBlockIntoFreeList)
-    prvInsertBlockIntoFreeList               0x08019f8d   Thumb Code    78  heap_4.o(i.prvInsertBlockIntoFreeList)
-    i.prvIsQueueFull                         0x08019fe0   Section        0  queue.o(i.prvIsQueueFull)
-    prvIsQueueFull                           0x08019fe1   Thumb Code    30  queue.o(i.prvIsQueueFull)
-    i.prvResetNextTaskUnblockTime            0x0801a000   Section        0  tasks.o(i.prvResetNextTaskUnblockTime)
-    prvResetNextTaskUnblockTime              0x0801a001   Thumb Code    30  tasks.o(i.prvResetNextTaskUnblockTime)
-    i.prvTaskExitError                       0x0801a024   Section        0  port.o(i.prvTaskExitError)
-    prvTaskExitError                         0x0801a025   Thumb Code    20  port.o(i.prvTaskExitError)
-    i.prvUnlockQueue                         0x0801a03c   Section        0  queue.o(i.prvUnlockQueue)
-    prvUnlockQueue                           0x0801a03d   Thumb Code   100  queue.o(i.prvUnlockQueue)
-    i.push                                   0x0801a0a0   Section        0  bsp_cleanstrategyb.o(i.push)
-    i.pvPortMalloc                           0x0801a110   Section        0  heap_4.o(i.pvPortMalloc)
-    i.pxPortInitialiseStack                  0x0801a1c8   Section        0  port.o(i.pxPortInitialiseStack)
-    i.q_b1                                   0x0801a1e0   Section        0  streamec.o(i.q_b1)
-    q_b1                                     0x0801a1e1   Thumb Code    42  streamec.o(i.q_b1)
-    i.q_b2                                   0x0801a20a   Section        0  streamec.o(i.q_b2)
-    q_b2                                     0x0801a20b   Thumb Code    64  streamec.o(i.q_b2)
-    i.sendvelocity                           0x0801a24c   Section        0  bsp_cleanstrategyb.o(i.sendvelocity)
-    sendvelocity                             0x0801a24d   Thumb Code   788  bsp_cleanstrategyb.o(i.sendvelocity)
-    i.set_wifi_uart_buffer                   0x0801a5b4   Section        0  system.o(i.set_wifi_uart_buffer)
-    i.set_wifi_uart_byte                     0x0801a5d0   Section        0  system.o(i.set_wifi_uart_byte)
-    i.shift                                  0x0801a5e0   Section        0  bsp_cleanstrategyb.o(i.shift)
-    i.sin                                    0x0801a5f0   Section        0  sin.o(i.sin)
-    i.sqrt                                   0x0801a690   Section        0  sqrt.o(i.sqrt)
-    i.uart_receive_input                     0x0801a6dc   Section        0  mcu_api.o(i.uart_receive_input)
-    i.uart_transmit_output                   0x0801a71c   Section        0  protocol.o(i.uart_transmit_output)
-    i.uxListRemove                           0x0801a73c   Section        0  list.o(i.uxListRemove)
-    i.vListInitialise                        0x0801a760   Section        0  list.o(i.vListInitialise)
-    i.vListInitialiseItem                    0x0801a776   Section        0  list.o(i.vListInitialiseItem)
-    i.vListInsert                            0x0801a77c   Section        0  list.o(i.vListInsert)
-    i.vListInsertEnd                         0x0801a7ac   Section        0  list.o(i.vListInsertEnd)
-    i.vPortEnterCritical                     0x0801a7c4   Section        0  port.o(i.vPortEnterCritical)
-    i.vPortExitCritical                      0x0801a7fc   Section        0  port.o(i.vPortExitCritical)
-    i.vPortFree                              0x0801a824   Section        0  heap_4.o(i.vPortFree)
-    i.vPortSetupTimerInterrupt               0x0801a86c   Section        0  port.o(i.vPortSetupTimerInterrupt)
-    i.vPortYield                             0x0801a880   Section        0  port.o(i.vPortYield)
-    i.vSetupSysInfoTest                      0x0801a898   Section        0  sysinfotest.o(i.vSetupSysInfoTest)
-    i.vTaskControl                           0x0801a8a8   Section        0  main.o(i.vTaskControl)
-    vTaskControl                             0x0801a8a9   Thumb Code   108  main.o(i.vTaskControl)
-    i.vTaskDecision                          0x0801a918   Section        0  main.o(i.vTaskDecision)
-    vTaskDecision                            0x0801a919   Thumb Code    38  main.o(i.vTaskDecision)
-    i.vTaskDelay                             0x0801a940   Section        0  tasks.o(i.vTaskDelay)
-    i.vTaskMapping                           0x0801a994   Section        0  main.o(i.vTaskMapping)
-    vTaskMapping                             0x0801a995   Thumb Code   104  main.o(i.vTaskMapping)
-    i.vTaskMissedYield                       0x0801aa00   Section        0  tasks.o(i.vTaskMissedYield)
-    i.vTaskPerception                        0x0801aa0c   Section        0  main.o(i.vTaskPerception)
-    vTaskPerception                          0x0801aa0d   Thumb Code    78  main.o(i.vTaskPerception)
-    i.vTaskPlaceOnEventList                  0x0801aa5c   Section        0  tasks.o(i.vTaskPlaceOnEventList)
-    i.vTaskSetTimeOutState                   0x0801aab8   Section        0  tasks.o(i.vTaskSetTimeOutState)
-    i.vTaskStartScheduler                    0x0801aad4   Section        0  tasks.o(i.vTaskStartScheduler)
-    i.vTaskSuspendAll                        0x0801ab30   Section        0  tasks.o(i.vTaskSuspendAll)
-    i.vTaskSwitchContext                     0x0801ab40   Section        0  tasks.o(i.vTaskSwitchContext)
-    i.wifi_protocol_init                     0x0801abb4   Section        0  mcu_api.o(i.wifi_protocol_init)
-    i.wifi_test_result                       0x0801abd8   Section        0  protocol.o(i.wifi_test_result)
-    i.wifi_uart_service                      0x0801ac68   Section        0  mcu_api.o(i.wifi_uart_service)
-    i.wifi_uart_write_data                   0x0801ad24   Section        0  system.o(i.wifi_uart_write_data)
-    wifi_uart_write_data                     0x0801ad25   Thumb Code    32  system.o(i.wifi_uart_write_data)
-    i.wifi_uart_write_frame                  0x0801ad44   Section        0  system.o(i.wifi_uart_write_frame)
-    i.xPortStartScheduler                    0x0801ad80   Section        0  port.o(i.xPortStartScheduler)
-    i.xQueueCreateMutex                      0x0801adf4   Section        0  queue.o(i.xQueueCreateMutex)
-    i.xQueueGenericSend                      0x0801ae3e   Section        0  queue.o(i.xQueueGenericSend)
-    i.xTaskCheckForTimeOut                   0x0801af40   Section        0  tasks.o(i.xTaskCheckForTimeOut)
-    i.xTaskGenericCreate                     0x0801afa0   Section        0  tasks.o(i.xTaskGenericCreate)
-    i.xTaskGetTickCount                      0x0801b094   Section        0  tasks.o(i.xTaskGetTickCount)
-    i.xTaskIncrementTick                     0x0801b0a0   Section        0  tasks.o(i.xTaskIncrementTick)
-    i.xTaskPriorityDisinherit                0x0801b164   Section        0  tasks.o(i.xTaskPriorityDisinherit)
-    i.xTaskRemoveFromEventList               0x0801b1e8   Section        0  tasks.o(i.xTaskRemoveFromEventList)
-    i.xTaskResumeAll                         0x0801b258   Section        0  tasks.o(i.xTaskResumeAll)
-    .constdata                               0x0801b308   Section       16  bsp_cleanstrategyb.o(.constdata)
-    .constdata                               0x0801b318   Section       40  bsp_passwd.o(.constdata)
-    .constdata                               0x0801b340   Section       32  bsp_ir_decode.o(.constdata)
-    .constdata                               0x0801b360   Section       38  protocol.o(.constdata)
-    .constdata                               0x0801b386   Section      104  dx8_api.o(.constdata)
-    EE_PageSize                              0x0801b386   Data           3  dx8_api.o(.constdata)
-    strVersion                               0x0801b389   Data          53  dx8_api.o(.constdata)
-    EE_ZoneNum                               0x0801b3be   Data          12  dx8_api.o(.constdata)
-    EE_Type                                  0x0801b3ca   Data          12  dx8_api.o(.constdata)
-    EE_ZoneSize                              0x0801b3d6   Data          24  dx8_api.o(.constdata)
-    .constdata                               0x0801b3f0   Section      136  pow.o(.constdata)
-    bp                                       0x0801b3f0   Data          16  pow.o(.constdata)
-    dp_h                                     0x0801b400   Data          16  pow.o(.constdata)
-    dp_l                                     0x0801b410   Data          16  pow.o(.constdata)
-    L                                        0x0801b420   Data          48  pow.o(.constdata)
-    P                                        0x0801b450   Data          40  pow.o(.constdata)
-    .constdata                               0x0801b478   Section      152  atan.o(.constdata)
-    atanhi                                   0x0801b478   Data          32  atan.o(.constdata)
-    atanlo                                   0x0801b498   Data          32  atan.o(.constdata)
-    aTodd                                    0x0801b4b8   Data          40  atan.o(.constdata)
-    aTeven                                   0x0801b4e0   Data          48  atan.o(.constdata)
-    .constdata                               0x0801b510   Section       48  cos_i.o(.constdata)
-    C                                        0x0801b510   Data          48  cos_i.o(.constdata)
-    .constdata                               0x0801b540   Section        8  qnan.o(.constdata)
-    .constdata                               0x0801b548   Section      200  rred.o(.constdata)
-    pio2s                                    0x0801b548   Data          48  rred.o(.constdata)
-    twooverpi                                0x0801b578   Data         152  rred.o(.constdata)
-    .constdata                               0x0801b610   Section       40  sin_i.o(.constdata)
-    S                                        0x0801b610   Data          40  sin_i.o(.constdata)
+    i.bsp_StopVacuum                         0x080179cc   Section        0  bsp_motor.o(i.bsp_StopVacuum)
+    i.bsp_StrategyRandomProc                 0x080179e4   Section        0  bsp_cleanstrategyrandom.o(i.bsp_StrategyRandomProc)
+    i.bsp_SwOff                              0x08017af8   Section        0  bsp_powerswitch.o(i.bsp_SwOff)
+    i.bsp_SwOn                               0x08017b54   Section        0  bsp_powerswitch.o(i.bsp_SwOn)
+    i.bsp_UpdateCleanStrategyB               0x08017bb0   Section        0  bsp_cleanstrategyb.o(i.bsp_UpdateCleanStrategyB)
+    i.bsp_VacuumClean                        0x08017c3c   Section        0  bsp_motor.o(i.bsp_VacuumClean)
+    i.bsp_WifiStateProc                      0x08017c78   Section        0  bsp_wifi_app.o(i.bsp_WifiStateProc)
+    i.check_sensor                           0x08017cc8   Section        0  bsp_cleanstrategyb.o(i.check_sensor)
+    check_sensor                             0x08017cc9   Thumb Code   352  bsp_cleanstrategyb.o(i.check_sensor)
+    i.clean_strategyB                        0x08017e3c   Section        0  bsp_cleanstrategyb.o(i.clean_strategyB)
+    i.cos                                    0x0801813c   Section        0  cos.o(i.cos)
+    i.data_handle                            0x080181d8   Section        0  system.o(i.data_handle)
+    i.data_point_handle                      0x080184c0   Section        0  system.o(i.data_point_handle)
+    data_point_handle                        0x080184c1   Thumb Code    58  system.o(i.data_point_handle)
+    i.dp_download_direction_control_handle   0x08018500   Section        0  protocol.o(i.dp_download_direction_control_handle)
+    dp_download_direction_control_handle     0x08018501   Thumb Code    94  protocol.o(i.dp_download_direction_control_handle)
+    i.dp_download_handle                     0x080185a0   Section        0  protocol.o(i.dp_download_handle)
+    i.dp_download_mode_handle                0x080185e4   Section        0  protocol.o(i.dp_download_mode_handle)
+    dp_download_mode_handle                  0x080185e5   Thumb Code   240  protocol.o(i.dp_download_mode_handle)
+    i.dp_download_reset_edge_brush_handle    0x08018710   Section        0  protocol.o(i.dp_download_reset_edge_brush_handle)
+    dp_download_reset_edge_brush_handle      0x08018711   Thumb Code    26  protocol.o(i.dp_download_reset_edge_brush_handle)
+    i.dp_download_reset_filter_handle        0x0801872a   Section        0  protocol.o(i.dp_download_reset_filter_handle)
+    dp_download_reset_filter_handle          0x0801872b   Thumb Code    26  protocol.o(i.dp_download_reset_filter_handle)
+    i.dp_download_reset_roll_brush_handle    0x08018744   Section        0  protocol.o(i.dp_download_reset_roll_brush_handle)
+    dp_download_reset_roll_brush_handle      0x08018745   Thumb Code    26  protocol.o(i.dp_download_reset_roll_brush_handle)
+    i.dp_download_seek_handle                0x0801875e   Section        0  protocol.o(i.dp_download_seek_handle)
+    dp_download_seek_handle                  0x0801875f   Thumb Code    26  protocol.o(i.dp_download_seek_handle)
+    i.dp_download_suction_handle             0x08018778   Section        0  protocol.o(i.dp_download_suction_handle)
+    dp_download_suction_handle               0x08018779   Thumb Code    52  protocol.o(i.dp_download_suction_handle)
+    i.dp_download_switch_go_handle           0x080187c4   Section        0  protocol.o(i.dp_download_switch_go_handle)
+    dp_download_switch_go_handle             0x080187c5   Thumb Code    44  protocol.o(i.dp_download_switch_go_handle)
+    i.dp_download_switch_handle              0x080187f0   Section        0  protocol.o(i.dp_download_switch_handle)
+    dp_download_switch_handle                0x080187f1   Thumb Code    56  protocol.o(i.dp_download_switch_handle)
+    i.dx8_Init                               0x08018840   Section        0  dxi2c_gpio_stm32f1.o(i.dx8_Init)
+    i.dxif_transfer                          0x08018888   Section        0  dxi2c_gpio_stm32f1.o(i.dxif_transfer)
+    i.fputc                                  0x080188fc   Section        0  bsp_uart_fifo.o(i.fputc)
+    i.getShortest                            0x08018920   Section        0  bsp_cleanstrategyb.o(i.getShortest)
+    i.get_check_sum                          0x08018988   Section        0  system.o(i.get_check_sum)
+    i.get_dowmload_dpid_index                0x080189a4   Section        0  system.o(i.get_dowmload_dpid_index)
+    get_dowmload_dpid_index                  0x080189a5   Thumb Code    34  system.o(i.get_dowmload_dpid_index)
+    i.get_download_cmd_total                 0x080189cc   Section        0  protocol.o(i.get_download_cmd_total)
+    i.get_mcu_wifi_mode                      0x080189d0   Section        0  system.o(i.get_mcu_wifi_mode)
+    get_mcu_wifi_mode                        0x080189d1   Thumb Code     8  system.o(i.get_mcu_wifi_mode)
+    i.get_queue_total_data                   0x080189d8   Section        0  system.o(i.get_queue_total_data)
+    i.heat_beat_check                        0x080189f0   Section        0  system.o(i.heat_beat_check)
+    heat_beat_check                          0x080189f1   Thumb Code    44  system.o(i.heat_beat_check)
+    i.i2c_CheckDevice                        0x08018a20   Section        0  bsp_i2c_gpio.o(i.i2c_CheckDevice)
+    i.i2c_Delay                              0x08018a54   Section        0  bsp_i2c_gpio.o(i.i2c_Delay)
+    i2c_Delay                                0x08018a55   Thumb Code    12  bsp_i2c_gpio.o(i.i2c_Delay)
+    i.i2c_SendByte                           0x08018a60   Section        0  bsp_i2c_gpio.o(i.i2c_SendByte)
+    i.i2c_Start                              0x08018ab4   Section        0  bsp_i2c_gpio.o(i.i2c_Start)
+    i.i2c_Stop                               0x08018adc   Section        0  bsp_i2c_gpio.o(i.i2c_Stop)
+    i.i2c_WaitAck                            0x08018b00   Section        0  bsp_i2c_gpio.o(i.i2c_WaitAck)
+    i.initClose                              0x08018b38   Section        0  bsp_cleanstrategyb.o(i.initClose)
+    i.initGraph                              0x08018bf4   Section        0  bsp_cleanstrategyb.o(i.initGraph)
+    i.initOpen                               0x08018d08   Section        0  bsp_cleanstrategyb.o(i.initOpen)
+    i.inverseSensorModelB                    0x08018d10   Section        0  bsp_gridmap.o(i.inverseSensorModelB)
+    inverseSensorModelB                      0x08018d11   Thumb Code   428  bsp_gridmap.o(i.inverseSensorModelB)
+    i.isCleanRunning                         0x08018ed4   Section        0  bsp_cleanstrategyb.o(i.isCleanRunning)
+    i.main                                   0x08018ee0   Section        0  main.o(i.main)
+    i.mcu_dp_bool_update                     0x08018ef8   Section        0  mcu_api.o(i.mcu_dp_bool_update)
+    i.mcu_dp_enum_update                     0x08018f48   Section        0  mcu_api.o(i.mcu_dp_enum_update)
+    i.mcu_dp_raw_update                      0x08018f8c   Section        0  mcu_api.o(i.mcu_dp_raw_update)
+    i.mcu_dp_value_update                    0x08018fd4   Section        0  mcu_api.o(i.mcu_dp_value_update)
+    i.mcu_get_dp_download_bool               0x0801902c   Section        0  mcu_api.o(i.mcu_get_dp_download_bool)
+    i.mcu_get_dp_download_enum               0x08019030   Section        0  mcu_api.o(i.mcu_get_dp_download_enum)
+    i.mcu_get_wifi_work_state                0x08019034   Section        0  mcu_api.o(i.mcu_get_wifi_work_state)
+    i.mcu_reset_wifi                         0x08019040   Section        0  mcu_api.o(i.mcu_reset_wifi)
+    i.my_abs                                 0x08019054   Section        0  bsp_gridmap.o(i.my_abs)
+    my_abs                                   0x08019055   Thumb Code    30  bsp_gridmap.o(i.my_abs)
+    i.my_abs                                 0x08019072   Section        0  bsp_cleanstrategyb.o(i.my_abs)
+    my_abs                                   0x08019073   Thumb Code    30  bsp_cleanstrategyb.o(i.my_abs)
+    i.my_memcpy                              0x08019090   Section        0  mcu_api.o(i.my_memcpy)
+    i.my_strlen                              0x080190d6   Section        0  mcu_api.o(i.my_strlen)
+    i.myabs                                  0x080190ec   Section        0  bsp_edgewise.o(i.myabs)
+    myabs                                    0x080190ed   Thumb Code    12  bsp_edgewise.o(i.myabs)
+    i.myabs                                  0x080190f8   Section        0  bsp_control.o(i.myabs)
+    myabs                                    0x080190f9   Thumb Code     8  bsp_control.o(i.myabs)
+    i.pow                                    0x08019100   Section        0  pow.o(i.pow)
+    i.printShortest                          0x08019ad8   Section        0  bsp_cleanstrategyb.o(i.printShortest)
+    i.product_info_update                    0x08019c70   Section        0  system.o(i.product_info_update)
+    product_info_update                      0x08019c71   Thumb Code   140  system.o(i.product_info_update)
+    i.prvAddCurrentTaskToDelayedList         0x08019d34   Section        0  tasks.o(i.prvAddCurrentTaskToDelayedList)
+    prvAddCurrentTaskToDelayedList           0x08019d35   Thumb Code    50  tasks.o(i.prvAddCurrentTaskToDelayedList)
+    i.prvAllocateTCBAndStack                 0x08019d6c   Section        0  tasks.o(i.prvAllocateTCBAndStack)
+    prvAllocateTCBAndStack                   0x08019d6d   Thumb Code    62  tasks.o(i.prvAllocateTCBAndStack)
+    i.prvCheckTasksWaitingTermination        0x08019dac   Section        0  tasks.o(i.prvCheckTasksWaitingTermination)
+    prvCheckTasksWaitingTermination          0x08019dad   Thumb Code    74  tasks.o(i.prvCheckTasksWaitingTermination)
+    i.prvCopyDataToQueue                     0x08019e00   Section        0  queue.o(i.prvCopyDataToQueue)
+    prvCopyDataToQueue                       0x08019e01   Thumb Code   112  queue.o(i.prvCopyDataToQueue)
+    i.prvDeleteTCB                           0x08019e70   Section        0  tasks.o(i.prvDeleteTCB)
+    prvDeleteTCB                             0x08019e71   Thumb Code    20  tasks.o(i.prvDeleteTCB)
+    i.prvHeapInit                            0x08019e84   Section        0  heap_4.o(i.prvHeapInit)
+    prvHeapInit                              0x08019e85   Thumb Code    68  heap_4.o(i.prvHeapInit)
+    i.prvIdleTask                            0x08019ed0   Section        0  tasks.o(i.prvIdleTask)
+    prvIdleTask                              0x08019ed1   Thumb Code    18  tasks.o(i.prvIdleTask)
+    i.prvInitialiseTCBVariables              0x08019ee8   Section        0  tasks.o(i.prvInitialiseTCBVariables)
+    prvInitialiseTCBVariables                0x08019ee9   Thumb Code    78  tasks.o(i.prvInitialiseTCBVariables)
+    i.prvInitialiseTaskLists                 0x08019f38   Section        0  tasks.o(i.prvInitialiseTaskLists)
+    prvInitialiseTaskLists                   0x08019f39   Thumb Code    78  tasks.o(i.prvInitialiseTaskLists)
+    i.prvInsertBlockIntoFreeList             0x08019f90   Section        0  heap_4.o(i.prvInsertBlockIntoFreeList)
+    prvInsertBlockIntoFreeList               0x08019f91   Thumb Code    78  heap_4.o(i.prvInsertBlockIntoFreeList)
+    i.prvIsQueueFull                         0x08019fe4   Section        0  queue.o(i.prvIsQueueFull)
+    prvIsQueueFull                           0x08019fe5   Thumb Code    30  queue.o(i.prvIsQueueFull)
+    i.prvResetNextTaskUnblockTime            0x0801a004   Section        0  tasks.o(i.prvResetNextTaskUnblockTime)
+    prvResetNextTaskUnblockTime              0x0801a005   Thumb Code    30  tasks.o(i.prvResetNextTaskUnblockTime)
+    i.prvTaskExitError                       0x0801a028   Section        0  port.o(i.prvTaskExitError)
+    prvTaskExitError                         0x0801a029   Thumb Code    20  port.o(i.prvTaskExitError)
+    i.prvUnlockQueue                         0x0801a040   Section        0  queue.o(i.prvUnlockQueue)
+    prvUnlockQueue                           0x0801a041   Thumb Code   100  queue.o(i.prvUnlockQueue)
+    i.push                                   0x0801a0a4   Section        0  bsp_cleanstrategyb.o(i.push)
+    i.pvPortMalloc                           0x0801a114   Section        0  heap_4.o(i.pvPortMalloc)
+    i.pxPortInitialiseStack                  0x0801a1cc   Section        0  port.o(i.pxPortInitialiseStack)
+    i.q_b1                                   0x0801a1e4   Section        0  streamec.o(i.q_b1)
+    q_b1                                     0x0801a1e5   Thumb Code    42  streamec.o(i.q_b1)
+    i.q_b2                                   0x0801a20e   Section        0  streamec.o(i.q_b2)
+    q_b2                                     0x0801a20f   Thumb Code    64  streamec.o(i.q_b2)
+    i.sendvelocity                           0x0801a250   Section        0  bsp_cleanstrategyb.o(i.sendvelocity)
+    sendvelocity                             0x0801a251   Thumb Code   788  bsp_cleanstrategyb.o(i.sendvelocity)
+    i.set_wifi_uart_buffer                   0x0801a5b8   Section        0  system.o(i.set_wifi_uart_buffer)
+    i.set_wifi_uart_byte                     0x0801a5d4   Section        0  system.o(i.set_wifi_uart_byte)
+    i.shift                                  0x0801a5e4   Section        0  bsp_cleanstrategyb.o(i.shift)
+    i.sin                                    0x0801a5f4   Section        0  sin.o(i.sin)
+    i.sqrt                                   0x0801a694   Section        0  sqrt.o(i.sqrt)
+    i.uart_receive_input                     0x0801a6e0   Section        0  mcu_api.o(i.uart_receive_input)
+    i.uart_transmit_output                   0x0801a720   Section        0  protocol.o(i.uart_transmit_output)
+    i.uxListRemove                           0x0801a740   Section        0  list.o(i.uxListRemove)
+    i.vListInitialise                        0x0801a764   Section        0  list.o(i.vListInitialise)
+    i.vListInitialiseItem                    0x0801a77a   Section        0  list.o(i.vListInitialiseItem)
+    i.vListInsert                            0x0801a780   Section        0  list.o(i.vListInsert)
+    i.vListInsertEnd                         0x0801a7b0   Section        0  list.o(i.vListInsertEnd)
+    i.vPortEnterCritical                     0x0801a7c8   Section        0  port.o(i.vPortEnterCritical)
+    i.vPortExitCritical                      0x0801a800   Section        0  port.o(i.vPortExitCritical)
+    i.vPortFree                              0x0801a828   Section        0  heap_4.o(i.vPortFree)
+    i.vPortSetupTimerInterrupt               0x0801a870   Section        0  port.o(i.vPortSetupTimerInterrupt)
+    i.vPortYield                             0x0801a884   Section        0  port.o(i.vPortYield)
+    i.vSetupSysInfoTest                      0x0801a89c   Section        0  sysinfotest.o(i.vSetupSysInfoTest)
+    i.vTaskControl                           0x0801a8ac   Section        0  main.o(i.vTaskControl)
+    vTaskControl                             0x0801a8ad   Thumb Code   108  main.o(i.vTaskControl)
+    i.vTaskDecision                          0x0801a91c   Section        0  main.o(i.vTaskDecision)
+    vTaskDecision                            0x0801a91d   Thumb Code    38  main.o(i.vTaskDecision)
+    i.vTaskDelay                             0x0801a944   Section        0  tasks.o(i.vTaskDelay)
+    i.vTaskMapping                           0x0801a998   Section        0  main.o(i.vTaskMapping)
+    vTaskMapping                             0x0801a999   Thumb Code   104  main.o(i.vTaskMapping)
+    i.vTaskMissedYield                       0x0801aa04   Section        0  tasks.o(i.vTaskMissedYield)
+    i.vTaskPerception                        0x0801aa10   Section        0  main.o(i.vTaskPerception)
+    vTaskPerception                          0x0801aa11   Thumb Code    78  main.o(i.vTaskPerception)
+    i.vTaskPlaceOnEventList                  0x0801aa60   Section        0  tasks.o(i.vTaskPlaceOnEventList)
+    i.vTaskSetTimeOutState                   0x0801aabc   Section        0  tasks.o(i.vTaskSetTimeOutState)
+    i.vTaskStartScheduler                    0x0801aad8   Section        0  tasks.o(i.vTaskStartScheduler)
+    i.vTaskSuspendAll                        0x0801ab34   Section        0  tasks.o(i.vTaskSuspendAll)
+    i.vTaskSwitchContext                     0x0801ab44   Section        0  tasks.o(i.vTaskSwitchContext)
+    i.wifi_protocol_init                     0x0801abb8   Section        0  mcu_api.o(i.wifi_protocol_init)
+    i.wifi_test_result                       0x0801abdc   Section        0  protocol.o(i.wifi_test_result)
+    i.wifi_uart_service                      0x0801ac6c   Section        0  mcu_api.o(i.wifi_uart_service)
+    i.wifi_uart_write_data                   0x0801ad28   Section        0  system.o(i.wifi_uart_write_data)
+    wifi_uart_write_data                     0x0801ad29   Thumb Code    32  system.o(i.wifi_uart_write_data)
+    i.wifi_uart_write_frame                  0x0801ad48   Section        0  system.o(i.wifi_uart_write_frame)
+    i.xPortStartScheduler                    0x0801ad84   Section        0  port.o(i.xPortStartScheduler)
+    i.xQueueCreateMutex                      0x0801adf8   Section        0  queue.o(i.xQueueCreateMutex)
+    i.xQueueGenericSend                      0x0801ae42   Section        0  queue.o(i.xQueueGenericSend)
+    i.xTaskCheckForTimeOut                   0x0801af44   Section        0  tasks.o(i.xTaskCheckForTimeOut)
+    i.xTaskGenericCreate                     0x0801afa4   Section        0  tasks.o(i.xTaskGenericCreate)
+    i.xTaskGetTickCount                      0x0801b098   Section        0  tasks.o(i.xTaskGetTickCount)
+    i.xTaskIncrementTick                     0x0801b0a4   Section        0  tasks.o(i.xTaskIncrementTick)
+    i.xTaskPriorityDisinherit                0x0801b168   Section        0  tasks.o(i.xTaskPriorityDisinherit)
+    i.xTaskRemoveFromEventList               0x0801b1ec   Section        0  tasks.o(i.xTaskRemoveFromEventList)
+    i.xTaskResumeAll                         0x0801b25c   Section        0  tasks.o(i.xTaskResumeAll)
+    .constdata                               0x0801b30c   Section       16  bsp_cleanstrategyb.o(.constdata)
+    .constdata                               0x0801b31c   Section       40  bsp_passwd.o(.constdata)
+    .constdata                               0x0801b344   Section       32  bsp_ir_decode.o(.constdata)
+    .constdata                               0x0801b364   Section       38  protocol.o(.constdata)
+    .constdata                               0x0801b38a   Section      104  dx8_api.o(.constdata)
+    EE_PageSize                              0x0801b38a   Data           3  dx8_api.o(.constdata)
+    strVersion                               0x0801b38d   Data          53  dx8_api.o(.constdata)
+    EE_ZoneNum                               0x0801b3c2   Data          12  dx8_api.o(.constdata)
+    EE_Type                                  0x0801b3ce   Data          12  dx8_api.o(.constdata)
+    EE_ZoneSize                              0x0801b3da   Data          24  dx8_api.o(.constdata)
+    .constdata                               0x0801b3f8   Section      136  pow.o(.constdata)
+    bp                                       0x0801b3f8   Data          16  pow.o(.constdata)
+    dp_h                                     0x0801b408   Data          16  pow.o(.constdata)
+    dp_l                                     0x0801b418   Data          16  pow.o(.constdata)
+    L                                        0x0801b428   Data          48  pow.o(.constdata)
+    P                                        0x0801b458   Data          40  pow.o(.constdata)
+    .constdata                               0x0801b480   Section      152  atan.o(.constdata)
+    atanhi                                   0x0801b480   Data          32  atan.o(.constdata)
+    atanlo                                   0x0801b4a0   Data          32  atan.o(.constdata)
+    aTodd                                    0x0801b4c0   Data          40  atan.o(.constdata)
+    aTeven                                   0x0801b4e8   Data          48  atan.o(.constdata)
+    .constdata                               0x0801b518   Section       48  cos_i.o(.constdata)
+    C                                        0x0801b518   Data          48  cos_i.o(.constdata)
+    .constdata                               0x0801b548   Section        8  qnan.o(.constdata)
+    .constdata                               0x0801b550   Section      200  rred.o(.constdata)
+    pio2s                                    0x0801b550   Data          48  rred.o(.constdata)
+    twooverpi                                0x0801b580   Data         152  rred.o(.constdata)
+    .constdata                               0x0801b618   Section       40  sin_i.o(.constdata)
+    S                                        0x0801b618   Data          40  sin_i.o(.constdata)
     .data                                    0x20000000   Section       24  main.o(.data)
     key_state                                0x20000001   Data           1  main.o(.data)
     xHandleTaskDecision                      0x20000004   Data           4  main.o(.data)
@@ -4675,94 +4676,94 @@ Image Symbol Table
     bsp_StopEdgewiseRun                      0x08017915   Thumb Code    20  bsp_edgewise.o(i.bsp_StopEdgewiseRun)
     bsp_StopSearchChargePile                 0x0801792d   Thumb Code    50  bsp_searchchargepile.o(i.bsp_StopSearchChargePile)
     bsp_StopStrategyRandom                   0x08017965   Thumb Code    12  bsp_cleanstrategyrandom.o(i.bsp_StopStrategyRandom)
-    bsp_StopUpdateCleanStrategyB             0x08017975   Thumb Code    80  bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB)
-    bsp_StopVacuum                           0x080179c9   Thumb Code    16  bsp_motor.o(i.bsp_StopVacuum)
-    bsp_StrategyRandomProc                   0x080179e1   Thumb Code   258  bsp_cleanstrategyrandom.o(i.bsp_StrategyRandomProc)
-    bsp_SwOff                                0x08017af5   Thumb Code    70  bsp_powerswitch.o(i.bsp_SwOff)
-    bsp_SwOn                                 0x08017b51   Thumb Code    70  bsp_powerswitch.o(i.bsp_SwOn)
-    bsp_UpdateCleanStrategyB                 0x08017bad   Thumb Code   114  bsp_cleanstrategyb.o(i.bsp_UpdateCleanStrategyB)
-    bsp_VacuumClean                          0x08017c39   Thumb Code    52  bsp_motor.o(i.bsp_VacuumClean)
-    bsp_WifiStateProc                        0x08017c75   Thumb Code    74  bsp_wifi_app.o(i.bsp_WifiStateProc)
-    clean_strategyB                          0x08017e39   Thumb Code   760  bsp_cleanstrategyb.o(i.clean_strategyB)
-    cos                                      0x08018139   Thumb Code   148  cos.o(i.cos)
-    data_handle                              0x080181d5   Thumb Code   374  system.o(i.data_handle)
-    dp_download_handle                       0x0801859d   Thumb Code    68  protocol.o(i.dp_download_handle)
-    dx8_Init                                 0x0801883d   Thumb Code    68  dxi2c_gpio_stm32f1.o(i.dx8_Init)
-    dxif_transfer                            0x08018885   Thumb Code   114  dxi2c_gpio_stm32f1.o(i.dxif_transfer)
-    fputc                                    0x080188f9   Thumb Code    30  bsp_uart_fifo.o(i.fputc)
-    getShortest                              0x0801891d   Thumb Code    94  bsp_cleanstrategyb.o(i.getShortest)
-    get_check_sum                            0x08018985   Thumb Code    28  system.o(i.get_check_sum)
-    get_download_cmd_total                   0x080189c9   Thumb Code     4  protocol.o(i.get_download_cmd_total)
-    get_queue_total_data                     0x080189d5   Thumb Code    18  system.o(i.get_queue_total_data)
-    i2c_CheckDevice                          0x08018a1d   Thumb Code    46  bsp_i2c_gpio.o(i.i2c_CheckDevice)
-    i2c_SendByte                             0x08018a5d   Thumb Code    78  bsp_i2c_gpio.o(i.i2c_SendByte)
-    i2c_Start                                0x08018ab1   Thumb Code    36  bsp_i2c_gpio.o(i.i2c_Start)
-    i2c_Stop                                 0x08018ad9   Thumb Code    30  bsp_i2c_gpio.o(i.i2c_Stop)
-    i2c_WaitAck                              0x08018afd   Thumb Code    50  bsp_i2c_gpio.o(i.i2c_WaitAck)
-    initClose                                0x08018b35   Thumb Code   184  bsp_cleanstrategyb.o(i.initClose)
-    initGraph                                0x08018bf1   Thumb Code   266  bsp_cleanstrategyb.o(i.initGraph)
-    initOpen                                 0x08018d05   Thumb Code     6  bsp_cleanstrategyb.o(i.initOpen)
-    isCleanRunning                           0x08018ed1   Thumb Code     6  bsp_cleanstrategyb.o(i.isCleanRunning)
-    main                                     0x08018edd   Thumb Code    24  main.o(i.main)
-    mcu_dp_bool_update                       0x08018ef5   Thumb Code    74  mcu_api.o(i.mcu_dp_bool_update)
-    mcu_dp_enum_update                       0x08018f45   Thumb Code    62  mcu_api.o(i.mcu_dp_enum_update)
-    mcu_dp_raw_update                        0x08018f89   Thumb Code    66  mcu_api.o(i.mcu_dp_raw_update)
-    mcu_dp_value_update                      0x08018fd1   Thumb Code    84  mcu_api.o(i.mcu_dp_value_update)
-    mcu_get_dp_download_bool                 0x08019029   Thumb Code     4  mcu_api.o(i.mcu_get_dp_download_bool)
-    mcu_get_dp_download_enum                 0x0801902d   Thumb Code     4  mcu_api.o(i.mcu_get_dp_download_enum)
-    mcu_get_wifi_work_state                  0x08019031   Thumb Code     6  mcu_api.o(i.mcu_get_wifi_work_state)
-    mcu_reset_wifi                           0x0801903d   Thumb Code    14  mcu_api.o(i.mcu_reset_wifi)
-    my_memcpy                                0x0801908d   Thumb Code    70  mcu_api.o(i.my_memcpy)
-    my_strlen                                0x080190d3   Thumb Code    22  mcu_api.o(i.my_strlen)
-    pow                                      0x080190fd   Thumb Code  2512  pow.o(i.pow)
-    printShortest                            0x08019ad5   Thumb Code   396  bsp_cleanstrategyb.o(i.printShortest)
-    push                                     0x0801a0a1   Thumb Code   110  bsp_cleanstrategyb.o(i.push)
-    pvPortMalloc                             0x0801a111   Thumb Code   178  heap_4.o(i.pvPortMalloc)
-    pxPortInitialiseStack                    0x0801a1c9   Thumb Code    20  port.o(i.pxPortInitialiseStack)
-    set_wifi_uart_buffer                     0x0801a5b5   Thumb Code    24  system.o(i.set_wifi_uart_buffer)
-    set_wifi_uart_byte                       0x0801a5d1   Thumb Code    12  system.o(i.set_wifi_uart_byte)
-    shift                                    0x0801a5e1   Thumb Code    16  bsp_cleanstrategyb.o(i.shift)
-    sin                                      0x0801a5f1   Thumb Code   150  sin.o(i.sin)
-    sqrt                                     0x0801a691   Thumb Code    76  sqrt.o(i.sqrt)
-    uart_receive_input                       0x0801a6dd   Thumb Code    50  mcu_api.o(i.uart_receive_input)
-    uart_transmit_output                     0x0801a71d   Thumb Code    26  protocol.o(i.uart_transmit_output)
-    uxListRemove                             0x0801a73d   Thumb Code    36  list.o(i.uxListRemove)
-    vListInitialise                          0x0801a761   Thumb Code    22  list.o(i.vListInitialise)
-    vListInitialiseItem                      0x0801a777   Thumb Code     6  list.o(i.vListInitialiseItem)
-    vListInsert                              0x0801a77d   Thumb Code    48  list.o(i.vListInsert)
-    vListInsertEnd                           0x0801a7ad   Thumb Code    24  list.o(i.vListInsertEnd)
-    vPortEnterCritical                       0x0801a7c5   Thumb Code    46  port.o(i.vPortEnterCritical)
-    vPortExitCritical                        0x0801a7fd   Thumb Code    34  port.o(i.vPortExitCritical)
-    vPortFree                                0x0801a825   Thumb Code    68  heap_4.o(i.vPortFree)
-    vPortSetupTimerInterrupt                 0x0801a86d   Thumb Code    14  port.o(i.vPortSetupTimerInterrupt)
-    vPortYield                               0x0801a881   Thumb Code    18  port.o(i.vPortYield)
-    vSetupSysInfoTest                        0x0801a899   Thumb Code    12  sysinfotest.o(i.vSetupSysInfoTest)
-    vTaskDelay                               0x0801a941   Thumb Code    80  tasks.o(i.vTaskDelay)
-    vTaskMissedYield                         0x0801aa01   Thumb Code     8  tasks.o(i.vTaskMissedYield)
-    vTaskPlaceOnEventList                    0x0801aa5d   Thumb Code    82  tasks.o(i.vTaskPlaceOnEventList)
-    vTaskSetTimeOutState                     0x0801aab9   Thumb Code    24  tasks.o(i.vTaskSetTimeOutState)
-    vTaskStartScheduler                      0x0801aad5   Thumb Code    70  tasks.o(i.vTaskStartScheduler)
-    vTaskSuspendAll                          0x0801ab31   Thumb Code    10  tasks.o(i.vTaskSuspendAll)
-    vTaskSwitchContext                       0x0801ab41   Thumb Code   102  tasks.o(i.vTaskSwitchContext)
-    wifi_protocol_init                       0x0801abb5   Thumb Code    18  mcu_api.o(i.wifi_protocol_init)
-    wifi_test_result                         0x0801abd9   Thumb Code    30  protocol.o(i.wifi_test_result)
-    wifi_uart_service                        0x0801ac69   Thumb Code   180  mcu_api.o(i.wifi_uart_service)
-    wifi_uart_write_frame                    0x0801ad45   Thumb Code    56  system.o(i.wifi_uart_write_frame)
-    xPortStartScheduler                      0x0801ad81   Thumb Code   104  port.o(i.xPortStartScheduler)
-    xQueueCreateMutex                        0x0801adf5   Thumb Code    74  queue.o(i.xQueueCreateMutex)
-    xQueueGenericSend                        0x0801ae3f   Thumb Code   256  queue.o(i.xQueueGenericSend)
-    xTaskCheckForTimeOut                     0x0801af41   Thumb Code    92  tasks.o(i.xTaskCheckForTimeOut)
-    xTaskGenericCreate                       0x0801afa1   Thumb Code   236  tasks.o(i.xTaskGenericCreate)
-    xTaskGetTickCount                        0x0801b095   Thumb Code     6  tasks.o(i.xTaskGetTickCount)
-    xTaskIncrementTick                       0x0801b0a1   Thumb Code   188  tasks.o(i.xTaskIncrementTick)
-    xTaskPriorityDisinherit                  0x0801b165   Thumb Code   124  tasks.o(i.xTaskPriorityDisinherit)
-    xTaskRemoveFromEventList                 0x0801b1e9   Thumb Code   104  tasks.o(i.xTaskRemoveFromEventList)
-    xTaskResumeAll                           0x0801b259   Thumb Code   166  tasks.o(i.xTaskResumeAll)
-    astar_dir                                0x0801b308   Data          16  bsp_cleanstrategyb.o(.constdata)
-    download_cmd                             0x0801b360   Data          38  protocol.o(.constdata)
-    __mathlib_zero                           0x0801b540   Data           8  qnan.o(.constdata)
-    Region$$Table$$Base                      0x0801b638   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0801b658   Number         0  anon$$obj.o(Region$$Table)
+    bsp_StopUpdateCleanStrategyB             0x08017975   Thumb Code    84  bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB)
+    bsp_StopVacuum                           0x080179cd   Thumb Code    16  bsp_motor.o(i.bsp_StopVacuum)
+    bsp_StrategyRandomProc                   0x080179e5   Thumb Code   258  bsp_cleanstrategyrandom.o(i.bsp_StrategyRandomProc)
+    bsp_SwOff                                0x08017af9   Thumb Code    70  bsp_powerswitch.o(i.bsp_SwOff)
+    bsp_SwOn                                 0x08017b55   Thumb Code    70  bsp_powerswitch.o(i.bsp_SwOn)
+    bsp_UpdateCleanStrategyB                 0x08017bb1   Thumb Code   114  bsp_cleanstrategyb.o(i.bsp_UpdateCleanStrategyB)
+    bsp_VacuumClean                          0x08017c3d   Thumb Code    52  bsp_motor.o(i.bsp_VacuumClean)
+    bsp_WifiStateProc                        0x08017c79   Thumb Code    74  bsp_wifi_app.o(i.bsp_WifiStateProc)
+    clean_strategyB                          0x08017e3d   Thumb Code   760  bsp_cleanstrategyb.o(i.clean_strategyB)
+    cos                                      0x0801813d   Thumb Code   148  cos.o(i.cos)
+    data_handle                              0x080181d9   Thumb Code   374  system.o(i.data_handle)
+    dp_download_handle                       0x080185a1   Thumb Code    68  protocol.o(i.dp_download_handle)
+    dx8_Init                                 0x08018841   Thumb Code    68  dxi2c_gpio_stm32f1.o(i.dx8_Init)
+    dxif_transfer                            0x08018889   Thumb Code   114  dxi2c_gpio_stm32f1.o(i.dxif_transfer)
+    fputc                                    0x080188fd   Thumb Code    30  bsp_uart_fifo.o(i.fputc)
+    getShortest                              0x08018921   Thumb Code    94  bsp_cleanstrategyb.o(i.getShortest)
+    get_check_sum                            0x08018989   Thumb Code    28  system.o(i.get_check_sum)
+    get_download_cmd_total                   0x080189cd   Thumb Code     4  protocol.o(i.get_download_cmd_total)
+    get_queue_total_data                     0x080189d9   Thumb Code    18  system.o(i.get_queue_total_data)
+    i2c_CheckDevice                          0x08018a21   Thumb Code    46  bsp_i2c_gpio.o(i.i2c_CheckDevice)
+    i2c_SendByte                             0x08018a61   Thumb Code    78  bsp_i2c_gpio.o(i.i2c_SendByte)
+    i2c_Start                                0x08018ab5   Thumb Code    36  bsp_i2c_gpio.o(i.i2c_Start)
+    i2c_Stop                                 0x08018add   Thumb Code    30  bsp_i2c_gpio.o(i.i2c_Stop)
+    i2c_WaitAck                              0x08018b01   Thumb Code    50  bsp_i2c_gpio.o(i.i2c_WaitAck)
+    initClose                                0x08018b39   Thumb Code   184  bsp_cleanstrategyb.o(i.initClose)
+    initGraph                                0x08018bf5   Thumb Code   266  bsp_cleanstrategyb.o(i.initGraph)
+    initOpen                                 0x08018d09   Thumb Code     6  bsp_cleanstrategyb.o(i.initOpen)
+    isCleanRunning                           0x08018ed5   Thumb Code     6  bsp_cleanstrategyb.o(i.isCleanRunning)
+    main                                     0x08018ee1   Thumb Code    24  main.o(i.main)
+    mcu_dp_bool_update                       0x08018ef9   Thumb Code    74  mcu_api.o(i.mcu_dp_bool_update)
+    mcu_dp_enum_update                       0x08018f49   Thumb Code    62  mcu_api.o(i.mcu_dp_enum_update)
+    mcu_dp_raw_update                        0x08018f8d   Thumb Code    66  mcu_api.o(i.mcu_dp_raw_update)
+    mcu_dp_value_update                      0x08018fd5   Thumb Code    84  mcu_api.o(i.mcu_dp_value_update)
+    mcu_get_dp_download_bool                 0x0801902d   Thumb Code     4  mcu_api.o(i.mcu_get_dp_download_bool)
+    mcu_get_dp_download_enum                 0x08019031   Thumb Code     4  mcu_api.o(i.mcu_get_dp_download_enum)
+    mcu_get_wifi_work_state                  0x08019035   Thumb Code     6  mcu_api.o(i.mcu_get_wifi_work_state)
+    mcu_reset_wifi                           0x08019041   Thumb Code    14  mcu_api.o(i.mcu_reset_wifi)
+    my_memcpy                                0x08019091   Thumb Code    70  mcu_api.o(i.my_memcpy)
+    my_strlen                                0x080190d7   Thumb Code    22  mcu_api.o(i.my_strlen)
+    pow                                      0x08019101   Thumb Code  2512  pow.o(i.pow)
+    printShortest                            0x08019ad9   Thumb Code   396  bsp_cleanstrategyb.o(i.printShortest)
+    push                                     0x0801a0a5   Thumb Code   110  bsp_cleanstrategyb.o(i.push)
+    pvPortMalloc                             0x0801a115   Thumb Code   178  heap_4.o(i.pvPortMalloc)
+    pxPortInitialiseStack                    0x0801a1cd   Thumb Code    20  port.o(i.pxPortInitialiseStack)
+    set_wifi_uart_buffer                     0x0801a5b9   Thumb Code    24  system.o(i.set_wifi_uart_buffer)
+    set_wifi_uart_byte                       0x0801a5d5   Thumb Code    12  system.o(i.set_wifi_uart_byte)
+    shift                                    0x0801a5e5   Thumb Code    16  bsp_cleanstrategyb.o(i.shift)
+    sin                                      0x0801a5f5   Thumb Code   150  sin.o(i.sin)
+    sqrt                                     0x0801a695   Thumb Code    76  sqrt.o(i.sqrt)
+    uart_receive_input                       0x0801a6e1   Thumb Code    50  mcu_api.o(i.uart_receive_input)
+    uart_transmit_output                     0x0801a721   Thumb Code    26  protocol.o(i.uart_transmit_output)
+    uxListRemove                             0x0801a741   Thumb Code    36  list.o(i.uxListRemove)
+    vListInitialise                          0x0801a765   Thumb Code    22  list.o(i.vListInitialise)
+    vListInitialiseItem                      0x0801a77b   Thumb Code     6  list.o(i.vListInitialiseItem)
+    vListInsert                              0x0801a781   Thumb Code    48  list.o(i.vListInsert)
+    vListInsertEnd                           0x0801a7b1   Thumb Code    24  list.o(i.vListInsertEnd)
+    vPortEnterCritical                       0x0801a7c9   Thumb Code    46  port.o(i.vPortEnterCritical)
+    vPortExitCritical                        0x0801a801   Thumb Code    34  port.o(i.vPortExitCritical)
+    vPortFree                                0x0801a829   Thumb Code    68  heap_4.o(i.vPortFree)
+    vPortSetupTimerInterrupt                 0x0801a871   Thumb Code    14  port.o(i.vPortSetupTimerInterrupt)
+    vPortYield                               0x0801a885   Thumb Code    18  port.o(i.vPortYield)
+    vSetupSysInfoTest                        0x0801a89d   Thumb Code    12  sysinfotest.o(i.vSetupSysInfoTest)
+    vTaskDelay                               0x0801a945   Thumb Code    80  tasks.o(i.vTaskDelay)
+    vTaskMissedYield                         0x0801aa05   Thumb Code     8  tasks.o(i.vTaskMissedYield)
+    vTaskPlaceOnEventList                    0x0801aa61   Thumb Code    82  tasks.o(i.vTaskPlaceOnEventList)
+    vTaskSetTimeOutState                     0x0801aabd   Thumb Code    24  tasks.o(i.vTaskSetTimeOutState)
+    vTaskStartScheduler                      0x0801aad9   Thumb Code    70  tasks.o(i.vTaskStartScheduler)
+    vTaskSuspendAll                          0x0801ab35   Thumb Code    10  tasks.o(i.vTaskSuspendAll)
+    vTaskSwitchContext                       0x0801ab45   Thumb Code   102  tasks.o(i.vTaskSwitchContext)
+    wifi_protocol_init                       0x0801abb9   Thumb Code    18  mcu_api.o(i.wifi_protocol_init)
+    wifi_test_result                         0x0801abdd   Thumb Code    30  protocol.o(i.wifi_test_result)
+    wifi_uart_service                        0x0801ac6d   Thumb Code   180  mcu_api.o(i.wifi_uart_service)
+    wifi_uart_write_frame                    0x0801ad49   Thumb Code    56  system.o(i.wifi_uart_write_frame)
+    xPortStartScheduler                      0x0801ad85   Thumb Code   104  port.o(i.xPortStartScheduler)
+    xQueueCreateMutex                        0x0801adf9   Thumb Code    74  queue.o(i.xQueueCreateMutex)
+    xQueueGenericSend                        0x0801ae43   Thumb Code   256  queue.o(i.xQueueGenericSend)
+    xTaskCheckForTimeOut                     0x0801af45   Thumb Code    92  tasks.o(i.xTaskCheckForTimeOut)
+    xTaskGenericCreate                       0x0801afa5   Thumb Code   236  tasks.o(i.xTaskGenericCreate)
+    xTaskGetTickCount                        0x0801b099   Thumb Code     6  tasks.o(i.xTaskGetTickCount)
+    xTaskIncrementTick                       0x0801b0a5   Thumb Code   188  tasks.o(i.xTaskIncrementTick)
+    xTaskPriorityDisinherit                  0x0801b169   Thumb Code   124  tasks.o(i.xTaskPriorityDisinherit)
+    xTaskRemoveFromEventList                 0x0801b1ed   Thumb Code   104  tasks.o(i.xTaskRemoveFromEventList)
+    xTaskResumeAll                           0x0801b25d   Thumb Code   166  tasks.o(i.xTaskResumeAll)
+    astar_dir                                0x0801b30c   Data          16  bsp_cleanstrategyb.o(.constdata)
+    download_cmd                             0x0801b364   Data          38  protocol.o(.constdata)
+    __mathlib_zero                           0x0801b548   Data           8  qnan.o(.constdata)
+    Region$$Table$$Base                      0x0801b640   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0801b660   Number         0  anon$$obj.o(Region$$Table)
     isSearchCharge                           0x20000000   Data           1  main.o(.data)
     ulHighFrequencyTimerTicks                0x20000018   Data           4  sysinfotest.o(.data)
     PinMap                                   0x20000028   Data          20  bsp_detectact.o(.data)
@@ -4900,9 +4901,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000131
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0001b92c, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x0001b6e4])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0001b934, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x0001b6ec])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0001b658, Max: 0x00080000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0001b660, Max: 0x00080000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -5357,158 +5358,158 @@ Memory Map of the image
     0x08017914   0x08017914   0x00000018   Code   RO          874    i.bsp_StopEdgewiseRun  bsp_edgewise.o
     0x0801792c   0x0801792c   0x00000038   Code   RO         1304    i.bsp_StopSearchChargePile  bsp_searchchargepile.o
     0x08017964   0x08017964   0x00000010   Code   RO         2233    i.bsp_StopStrategyRandom  bsp_cleanstrategyrandom.o
-    0x08017974   0x08017974   0x00000054   Code   RO         1955    i.bsp_StopUpdateCleanStrategyB  bsp_cleanstrategyb.o
-    0x080179c8   0x080179c8   0x00000018   Code   RO         1047    i.bsp_StopVacuum    bsp_motor.o
-    0x080179e0   0x080179e0   0x00000114   Code   RO         2234    i.bsp_StrategyRandomProc  bsp_cleanstrategyrandom.o
-    0x08017af4   0x08017af4   0x0000005c   Code   RO          473    i.bsp_SwOff         bsp_powerswitch.o
-    0x08017b50   0x08017b50   0x0000005c   Code   RO          474    i.bsp_SwOn          bsp_powerswitch.o
-    0x08017bac   0x08017bac   0x0000008c   Code   RO         1956    i.bsp_UpdateCleanStrategyB  bsp_cleanstrategyb.o
-    0x08017c38   0x08017c38   0x0000003c   Code   RO         1048    i.bsp_VacuumClean   bsp_motor.o
-    0x08017c74   0x08017c74   0x00000050   Code   RO         2275    i.bsp_WifiStateProc  bsp_wifi_app.o
-    0x08017cc4   0x08017cc4   0x00000174   Code   RO         1957    i.check_sensor      bsp_cleanstrategyb.o
-    0x08017e38   0x08017e38   0x00000300   Code   RO         1958    i.clean_strategyB   bsp_cleanstrategyb.o
-    0x08018138   0x08018138   0x0000009c   Code   RO         6345    i.cos               m_ws.l(cos.o)
-    0x080181d4   0x080181d4   0x000002e8   Code   RO         5391    i.data_handle       system.o
-    0x080184bc   0x080184bc   0x00000040   Code   RO         5392    i.data_point_handle  system.o
-    0x080184fc   0x080184fc   0x000000a0   Code   RO         5282    i.dp_download_direction_control_handle  protocol.o
-    0x0801859c   0x0801859c   0x00000044   Code   RO         5283    i.dp_download_handle  protocol.o
-    0x080185e0   0x080185e0   0x0000012c   Code   RO         5284    i.dp_download_mode_handle  protocol.o
-    0x0801870c   0x0801870c   0x0000001a   Code   RO         5285    i.dp_download_reset_edge_brush_handle  protocol.o
-    0x08018726   0x08018726   0x0000001a   Code   RO         5286    i.dp_download_reset_filter_handle  protocol.o
-    0x08018740   0x08018740   0x0000001a   Code   RO         5287    i.dp_download_reset_roll_brush_handle  protocol.o
-    0x0801875a   0x0801875a   0x0000001a   Code   RO         5288    i.dp_download_seek_handle  protocol.o
-    0x08018774   0x08018774   0x0000004c   Code   RO         5289    i.dp_download_suction_handle  protocol.o
-    0x080187c0   0x080187c0   0x0000002c   Code   RO         5290    i.dp_download_switch_go_handle  protocol.o
-    0x080187ec   0x080187ec   0x00000050   Code   RO         5291    i.dp_download_switch_handle  protocol.o
-    0x0801883c   0x0801883c   0x00000048   Code   RO         3257    i.dx8_Init          dxi2c_gpio_stm32f1.o
-    0x08018884   0x08018884   0x00000072   Code   RO         3258    i.dxif_transfer     dxi2c_gpio_stm32f1.o
-    0x080188f6   0x080188f6   0x00000002   PAD
-    0x080188f8   0x080188f8   0x00000024   Code   RO         2476    i.fputc             bsp_uart_fifo.o
-    0x0801891c   0x0801891c   0x00000068   Code   RO         1959    i.getShortest       bsp_cleanstrategyb.o
-    0x08018984   0x08018984   0x0000001c   Code   RO         5393    i.get_check_sum     system.o
-    0x080189a0   0x080189a0   0x00000028   Code   RO         5394    i.get_dowmload_dpid_index  system.o
-    0x080189c8   0x080189c8   0x00000004   Code   RO         5292    i.get_download_cmd_total  protocol.o
-    0x080189cc   0x080189cc   0x00000008   Code   RO         5395    i.get_mcu_wifi_mode  system.o
-    0x080189d4   0x080189d4   0x00000018   Code   RO         5396    i.get_queue_total_data  system.o
-    0x080189ec   0x080189ec   0x00000030   Code   RO         5397    i.heat_beat_check   system.o
-    0x08018a1c   0x08018a1c   0x00000034   Code   RO         2988    i.i2c_CheckDevice   bsp_i2c_gpio.o
-    0x08018a50   0x08018a50   0x0000000c   Code   RO         2989    i.i2c_Delay         bsp_i2c_gpio.o
-    0x08018a5c   0x08018a5c   0x00000054   Code   RO         2992    i.i2c_SendByte      bsp_i2c_gpio.o
-    0x08018ab0   0x08018ab0   0x00000028   Code   RO         2993    i.i2c_Start         bsp_i2c_gpio.o
-    0x08018ad8   0x08018ad8   0x00000024   Code   RO         2994    i.i2c_Stop          bsp_i2c_gpio.o
-    0x08018afc   0x08018afc   0x00000038   Code   RO         2995    i.i2c_WaitAck       bsp_i2c_gpio.o
-    0x08018b34   0x08018b34   0x000000bc   Code   RO         1960    i.initClose         bsp_cleanstrategyb.o
-    0x08018bf0   0x08018bf0   0x00000114   Code   RO         1961    i.initGraph         bsp_cleanstrategyb.o
-    0x08018d04   0x08018d04   0x00000006   Code   RO         1962    i.initOpen          bsp_cleanstrategyb.o
-    0x08018d0a   0x08018d0a   0x00000002   PAD
-    0x08018d0c   0x08018d0c   0x000001c4   Code   RO         1834    i.inverseSensorModelB  bsp_gridmap.o
-    0x08018ed0   0x08018ed0   0x0000000c   Code   RO         1963    i.isCleanRunning    bsp_cleanstrategyb.o
-    0x08018edc   0x08018edc   0x00000018   Code   RO           13    i.main              main.o
-    0x08018ef4   0x08018ef4   0x00000050   Code   RO         5086    i.mcu_dp_bool_update  mcu_api.o
-    0x08018f44   0x08018f44   0x00000044   Code   RO         5087    i.mcu_dp_enum_update  mcu_api.o
-    0x08018f88   0x08018f88   0x00000048   Code   RO         5089    i.mcu_dp_raw_update  mcu_api.o
-    0x08018fd0   0x08018fd0   0x00000058   Code   RO         5091    i.mcu_dp_value_update  mcu_api.o
-    0x08019028   0x08019028   0x00000004   Code   RO         5092    i.mcu_get_dp_download_bool  mcu_api.o
-    0x0801902c   0x0801902c   0x00000004   Code   RO         5093    i.mcu_get_dp_download_enum  mcu_api.o
-    0x08019030   0x08019030   0x0000000c   Code   RO         5096    i.mcu_get_wifi_work_state  mcu_api.o
-    0x0801903c   0x0801903c   0x00000014   Code   RO         5098    i.mcu_reset_wifi    mcu_api.o
-    0x08019050   0x08019050   0x0000001e   Code   RO         1835    i.my_abs            bsp_gridmap.o
-    0x0801906e   0x0801906e   0x0000001e   Code   RO         1964    i.my_abs            bsp_cleanstrategyb.o
-    0x0801908c   0x0801908c   0x00000046   Code   RO         5101    i.my_memcpy         mcu_api.o
-    0x080190d2   0x080190d2   0x00000016   Code   RO         5105    i.my_strlen         mcu_api.o
-    0x080190e8   0x080190e8   0x0000000c   Code   RO          875    i.myabs             bsp_edgewise.o
-    0x080190f4   0x080190f4   0x00000008   Code   RO         1118    i.myabs             bsp_control.o
-    0x080190fc   0x080190fc   0x000009d8   Code   RO         6353    i.pow               m_ws.l(pow.o)
-    0x08019ad4   0x08019ad4   0x00000198   Code   RO         1965    i.printShortest     bsp_cleanstrategyb.o
-    0x08019c6c   0x08019c6c   0x000000c4   Code   RO         5398    i.product_info_update  system.o
-    0x08019d30   0x08019d30   0x00000038   Code   RO         5793    i.prvAddCurrentTaskToDelayedList  tasks.o
-    0x08019d68   0x08019d68   0x0000003e   Code   RO         5794    i.prvAllocateTCBAndStack  tasks.o
-    0x08019da6   0x08019da6   0x00000002   PAD
-    0x08019da8   0x08019da8   0x00000054   Code   RO         5795    i.prvCheckTasksWaitingTermination  tasks.o
-    0x08019dfc   0x08019dfc   0x00000070   Code   RO         5652    i.prvCopyDataToQueue  queue.o
-    0x08019e6c   0x08019e6c   0x00000014   Code   RO         5796    i.prvDeleteTCB      tasks.o
-    0x08019e80   0x08019e80   0x0000004c   Code   RO         6199    i.prvHeapInit       heap_4.o
-    0x08019ecc   0x08019ecc   0x00000018   Code   RO         5797    i.prvIdleTask       tasks.o
-    0x08019ee4   0x08019ee4   0x0000004e   Code   RO         5798    i.prvInitialiseTCBVariables  tasks.o
-    0x08019f32   0x08019f32   0x00000002   PAD
-    0x08019f34   0x08019f34   0x00000058   Code   RO         5799    i.prvInitialiseTaskLists  tasks.o
-    0x08019f8c   0x08019f8c   0x00000054   Code   RO         6200    i.prvInsertBlockIntoFreeList  heap_4.o
-    0x08019fe0   0x08019fe0   0x0000001e   Code   RO         5654    i.prvIsQueueFull    queue.o
-    0x08019ffe   0x08019ffe   0x00000002   PAD
-    0x0801a000   0x0801a000   0x00000024   Code   RO         5801    i.prvResetNextTaskUnblockTime  tasks.o
-    0x0801a024   0x0801a024   0x00000018   Code   RO         6130    i.prvTaskExitError  port.o
-    0x0801a03c   0x0801a03c   0x00000064   Code   RO         5655    i.prvUnlockQueue    queue.o
-    0x0801a0a0   0x0801a0a0   0x0000006e   Code   RO         1966    i.push              bsp_cleanstrategyb.o
-    0x0801a10e   0x0801a10e   0x00000002   PAD
-    0x0801a110   0x0801a110   0x000000b8   Code   RO         6201    i.pvPortMalloc      heap_4.o
-    0x0801a1c8   0x0801a1c8   0x00000018   Code   RO         6131    i.pxPortInitialiseStack  port.o
-    0x0801a1e0   0x0801a1e0   0x0000002a   Code   RO         6326    i.q_b1              libdx8_stm32f1.lib(streamec.o)
-    0x0801a20a   0x0801a20a   0x00000040   Code   RO         6327    i.q_b2              libdx8_stm32f1.lib(streamec.o)
-    0x0801a24a   0x0801a24a   0x00000002   PAD
-    0x0801a24c   0x0801a24c   0x00000368   Code   RO         1967    i.sendvelocity      bsp_cleanstrategyb.o
-    0x0801a5b4   0x0801a5b4   0x0000001c   Code   RO         5399    i.set_wifi_uart_buffer  system.o
-    0x0801a5d0   0x0801a5d0   0x00000010   Code   RO         5400    i.set_wifi_uart_byte  system.o
-    0x0801a5e0   0x0801a5e0   0x00000010   Code   RO         1968    i.shift             bsp_cleanstrategyb.o
-    0x0801a5f0   0x0801a5f0   0x000000a0   Code   RO         6363    i.sin               m_ws.l(sin.o)
-    0x0801a690   0x0801a690   0x0000004c   Code   RO         6371    i.sqrt              m_ws.l(sqrt.o)
-    0x0801a6dc   0x0801a6dc   0x00000040   Code   RO         5107    i.uart_receive_input  mcu_api.o
-    0x0801a71c   0x0801a71c   0x00000020   Code   RO         5294    i.uart_transmit_output  protocol.o
-    0x0801a73c   0x0801a73c   0x00000024   Code   RO         5615    i.uxListRemove      list.o
-    0x0801a760   0x0801a760   0x00000016   Code   RO         5616    i.vListInitialise   list.o
-    0x0801a776   0x0801a776   0x00000006   Code   RO         5617    i.vListInitialiseItem  list.o
-    0x0801a77c   0x0801a77c   0x00000030   Code   RO         5618    i.vListInsert       list.o
-    0x0801a7ac   0x0801a7ac   0x00000018   Code   RO         5619    i.vListInsertEnd    list.o
-    0x0801a7c4   0x0801a7c4   0x00000038   Code   RO         6133    i.vPortEnterCritical  port.o
-    0x0801a7fc   0x0801a7fc   0x00000028   Code   RO         6134    i.vPortExitCritical  port.o
-    0x0801a824   0x0801a824   0x00000048   Code   RO         6202    i.vPortFree         heap_4.o
-    0x0801a86c   0x0801a86c   0x00000014   Code   RO         6135    i.vPortSetupTimerInterrupt  port.o
-    0x0801a880   0x0801a880   0x00000018   Code   RO         6137    i.vPortYield        port.o
-    0x0801a898   0x0801a898   0x00000010   Code   RO          419    i.vSetupSysInfoTest  sysinfotest.o
-    0x0801a8a8   0x0801a8a8   0x00000070   Code   RO           14    i.vTaskControl      main.o
-    0x0801a918   0x0801a918   0x00000026   Code   RO           15    i.vTaskDecision     main.o
-    0x0801a93e   0x0801a93e   0x00000002   PAD
-    0x0801a940   0x0801a940   0x00000054   Code   RO         5813    i.vTaskDelay        tasks.o
-    0x0801a994   0x0801a994   0x0000006c   Code   RO           16    i.vTaskMapping      main.o
-    0x0801aa00   0x0801aa00   0x0000000c   Code   RO         5819    i.vTaskMissedYield  tasks.o
-    0x0801aa0c   0x0801aa0c   0x0000004e   Code   RO           17    i.vTaskPerception   main.o
-    0x0801aa5a   0x0801aa5a   0x00000002   PAD
-    0x0801aa5c   0x0801aa5c   0x0000005c   Code   RO         5821    i.vTaskPlaceOnEventList  tasks.o
-    0x0801aab8   0x0801aab8   0x0000001c   Code   RO         5827    i.vTaskSetTimeOutState  tasks.o
-    0x0801aad4   0x0801aad4   0x0000005c   Code   RO         5828    i.vTaskStartScheduler  tasks.o
-    0x0801ab30   0x0801ab30   0x00000010   Code   RO         5830    i.vTaskSuspendAll   tasks.o
-    0x0801ab40   0x0801ab40   0x00000074   Code   RO         5831    i.vTaskSwitchContext  tasks.o
-    0x0801abb4   0x0801abb4   0x00000024   Code   RO         5108    i.wifi_protocol_init  mcu_api.o
-    0x0801abd8   0x0801abd8   0x00000090   Code   RO         5295    i.wifi_test_result  protocol.o
-    0x0801ac68   0x0801ac68   0x000000bc   Code   RO         5109    i.wifi_uart_service  mcu_api.o
-    0x0801ad24   0x0801ad24   0x00000020   Code   RO         5401    i.wifi_uart_write_data  system.o
-    0x0801ad44   0x0801ad44   0x0000003c   Code   RO         5402    i.wifi_uart_write_frame  system.o
-    0x0801ad80   0x0801ad80   0x00000074   Code   RO         6138    i.xPortStartScheduler  port.o
-    0x0801adf4   0x0801adf4   0x0000004a   Code   RO         5663    i.xQueueCreateMutex  queue.o
-    0x0801ae3e   0x0801ae3e   0x00000100   Code   RO         5667    i.xQueueGenericSend  queue.o
-    0x0801af3e   0x0801af3e   0x00000002   PAD
-    0x0801af40   0x0801af40   0x00000060   Code   RO         5832    i.xTaskCheckForTimeOut  tasks.o
-    0x0801afa0   0x0801afa0   0x000000f4   Code   RO         5833    i.xTaskGenericCreate  tasks.o
-    0x0801b094   0x0801b094   0x0000000c   Code   RO         5837    i.xTaskGetTickCount  tasks.o
-    0x0801b0a0   0x0801b0a0   0x000000c4   Code   RO         5839    i.xTaskIncrementTick  tasks.o
-    0x0801b164   0x0801b164   0x00000084   Code   RO         5842    i.xTaskPriorityDisinherit  tasks.o
-    0x0801b1e8   0x0801b1e8   0x00000070   Code   RO         5843    i.xTaskRemoveFromEventList  tasks.o
-    0x0801b258   0x0801b258   0x000000b0   Code   RO         5845    i.xTaskResumeAll    tasks.o
-    0x0801b308   0x0801b308   0x00000010   Data   RO         1970    .constdata          bsp_cleanstrategyb.o
-    0x0801b318   0x0801b318   0x00000028   Data   RO         2315    .constdata          bsp_passwd.o
-    0x0801b340   0x0801b340   0x00000020   Data   RO         3178    .constdata          bsp_ir_decode.o
-    0x0801b360   0x0801b360   0x00000026   Data   RO         5296    .constdata          protocol.o
-    0x0801b386   0x0801b386   0x00000068   Data   RO         6278    .constdata          libdx8_stm32f1.lib(dx8_api.o)
-    0x0801b3ee   0x0801b3ee   0x00000002   PAD
-    0x0801b3f0   0x0801b3f0   0x00000088   Data   RO         6354    .constdata          m_ws.l(pow.o)
-    0x0801b478   0x0801b478   0x00000098   Data   RO         6703    .constdata          m_ws.l(atan.o)
-    0x0801b510   0x0801b510   0x00000030   Data   RO         6712    .constdata          m_ws.l(cos_i.o)
-    0x0801b540   0x0801b540   0x00000008   Data   RO         6732    .constdata          m_ws.l(qnan.o)
-    0x0801b548   0x0801b548   0x000000c8   Data   RO         6735    .constdata          m_ws.l(rred.o)
-    0x0801b610   0x0801b610   0x00000028   Data   RO         6739    .constdata          m_ws.l(sin_i.o)
-    0x0801b638   0x0801b638   0x00000020   Data   RO         6787    Region$$Table       anon$$obj.o
+    0x08017974   0x08017974   0x00000058   Code   RO         1955    i.bsp_StopUpdateCleanStrategyB  bsp_cleanstrategyb.o
+    0x080179cc   0x080179cc   0x00000018   Code   RO         1047    i.bsp_StopVacuum    bsp_motor.o
+    0x080179e4   0x080179e4   0x00000114   Code   RO         2234    i.bsp_StrategyRandomProc  bsp_cleanstrategyrandom.o
+    0x08017af8   0x08017af8   0x0000005c   Code   RO          473    i.bsp_SwOff         bsp_powerswitch.o
+    0x08017b54   0x08017b54   0x0000005c   Code   RO          474    i.bsp_SwOn          bsp_powerswitch.o
+    0x08017bb0   0x08017bb0   0x0000008c   Code   RO         1956    i.bsp_UpdateCleanStrategyB  bsp_cleanstrategyb.o
+    0x08017c3c   0x08017c3c   0x0000003c   Code   RO         1048    i.bsp_VacuumClean   bsp_motor.o
+    0x08017c78   0x08017c78   0x00000050   Code   RO         2275    i.bsp_WifiStateProc  bsp_wifi_app.o
+    0x08017cc8   0x08017cc8   0x00000174   Code   RO         1957    i.check_sensor      bsp_cleanstrategyb.o
+    0x08017e3c   0x08017e3c   0x00000300   Code   RO         1958    i.clean_strategyB   bsp_cleanstrategyb.o
+    0x0801813c   0x0801813c   0x0000009c   Code   RO         6345    i.cos               m_ws.l(cos.o)
+    0x080181d8   0x080181d8   0x000002e8   Code   RO         5391    i.data_handle       system.o
+    0x080184c0   0x080184c0   0x00000040   Code   RO         5392    i.data_point_handle  system.o
+    0x08018500   0x08018500   0x000000a0   Code   RO         5282    i.dp_download_direction_control_handle  protocol.o
+    0x080185a0   0x080185a0   0x00000044   Code   RO         5283    i.dp_download_handle  protocol.o
+    0x080185e4   0x080185e4   0x0000012c   Code   RO         5284    i.dp_download_mode_handle  protocol.o
+    0x08018710   0x08018710   0x0000001a   Code   RO         5285    i.dp_download_reset_edge_brush_handle  protocol.o
+    0x0801872a   0x0801872a   0x0000001a   Code   RO         5286    i.dp_download_reset_filter_handle  protocol.o
+    0x08018744   0x08018744   0x0000001a   Code   RO         5287    i.dp_download_reset_roll_brush_handle  protocol.o
+    0x0801875e   0x0801875e   0x0000001a   Code   RO         5288    i.dp_download_seek_handle  protocol.o
+    0x08018778   0x08018778   0x0000004c   Code   RO         5289    i.dp_download_suction_handle  protocol.o
+    0x080187c4   0x080187c4   0x0000002c   Code   RO         5290    i.dp_download_switch_go_handle  protocol.o
+    0x080187f0   0x080187f0   0x00000050   Code   RO         5291    i.dp_download_switch_handle  protocol.o
+    0x08018840   0x08018840   0x00000048   Code   RO         3257    i.dx8_Init          dxi2c_gpio_stm32f1.o
+    0x08018888   0x08018888   0x00000072   Code   RO         3258    i.dxif_transfer     dxi2c_gpio_stm32f1.o
+    0x080188fa   0x080188fa   0x00000002   PAD
+    0x080188fc   0x080188fc   0x00000024   Code   RO         2476    i.fputc             bsp_uart_fifo.o
+    0x08018920   0x08018920   0x00000068   Code   RO         1959    i.getShortest       bsp_cleanstrategyb.o
+    0x08018988   0x08018988   0x0000001c   Code   RO         5393    i.get_check_sum     system.o
+    0x080189a4   0x080189a4   0x00000028   Code   RO         5394    i.get_dowmload_dpid_index  system.o
+    0x080189cc   0x080189cc   0x00000004   Code   RO         5292    i.get_download_cmd_total  protocol.o
+    0x080189d0   0x080189d0   0x00000008   Code   RO         5395    i.get_mcu_wifi_mode  system.o
+    0x080189d8   0x080189d8   0x00000018   Code   RO         5396    i.get_queue_total_data  system.o
+    0x080189f0   0x080189f0   0x00000030   Code   RO         5397    i.heat_beat_check   system.o
+    0x08018a20   0x08018a20   0x00000034   Code   RO         2988    i.i2c_CheckDevice   bsp_i2c_gpio.o
+    0x08018a54   0x08018a54   0x0000000c   Code   RO         2989    i.i2c_Delay         bsp_i2c_gpio.o
+    0x08018a60   0x08018a60   0x00000054   Code   RO         2992    i.i2c_SendByte      bsp_i2c_gpio.o
+    0x08018ab4   0x08018ab4   0x00000028   Code   RO         2993    i.i2c_Start         bsp_i2c_gpio.o
+    0x08018adc   0x08018adc   0x00000024   Code   RO         2994    i.i2c_Stop          bsp_i2c_gpio.o
+    0x08018b00   0x08018b00   0x00000038   Code   RO         2995    i.i2c_WaitAck       bsp_i2c_gpio.o
+    0x08018b38   0x08018b38   0x000000bc   Code   RO         1960    i.initClose         bsp_cleanstrategyb.o
+    0x08018bf4   0x08018bf4   0x00000114   Code   RO         1961    i.initGraph         bsp_cleanstrategyb.o
+    0x08018d08   0x08018d08   0x00000006   Code   RO         1962    i.initOpen          bsp_cleanstrategyb.o
+    0x08018d0e   0x08018d0e   0x00000002   PAD
+    0x08018d10   0x08018d10   0x000001c4   Code   RO         1834    i.inverseSensorModelB  bsp_gridmap.o
+    0x08018ed4   0x08018ed4   0x0000000c   Code   RO         1963    i.isCleanRunning    bsp_cleanstrategyb.o
+    0x08018ee0   0x08018ee0   0x00000018   Code   RO           13    i.main              main.o
+    0x08018ef8   0x08018ef8   0x00000050   Code   RO         5086    i.mcu_dp_bool_update  mcu_api.o
+    0x08018f48   0x08018f48   0x00000044   Code   RO         5087    i.mcu_dp_enum_update  mcu_api.o
+    0x08018f8c   0x08018f8c   0x00000048   Code   RO         5089    i.mcu_dp_raw_update  mcu_api.o
+    0x08018fd4   0x08018fd4   0x00000058   Code   RO         5091    i.mcu_dp_value_update  mcu_api.o
+    0x0801902c   0x0801902c   0x00000004   Code   RO         5092    i.mcu_get_dp_download_bool  mcu_api.o
+    0x08019030   0x08019030   0x00000004   Code   RO         5093    i.mcu_get_dp_download_enum  mcu_api.o
+    0x08019034   0x08019034   0x0000000c   Code   RO         5096    i.mcu_get_wifi_work_state  mcu_api.o
+    0x08019040   0x08019040   0x00000014   Code   RO         5098    i.mcu_reset_wifi    mcu_api.o
+    0x08019054   0x08019054   0x0000001e   Code   RO         1835    i.my_abs            bsp_gridmap.o
+    0x08019072   0x08019072   0x0000001e   Code   RO         1964    i.my_abs            bsp_cleanstrategyb.o
+    0x08019090   0x08019090   0x00000046   Code   RO         5101    i.my_memcpy         mcu_api.o
+    0x080190d6   0x080190d6   0x00000016   Code   RO         5105    i.my_strlen         mcu_api.o
+    0x080190ec   0x080190ec   0x0000000c   Code   RO          875    i.myabs             bsp_edgewise.o
+    0x080190f8   0x080190f8   0x00000008   Code   RO         1118    i.myabs             bsp_control.o
+    0x08019100   0x08019100   0x000009d8   Code   RO         6353    i.pow               m_ws.l(pow.o)
+    0x08019ad8   0x08019ad8   0x00000198   Code   RO         1965    i.printShortest     bsp_cleanstrategyb.o
+    0x08019c70   0x08019c70   0x000000c4   Code   RO         5398    i.product_info_update  system.o
+    0x08019d34   0x08019d34   0x00000038   Code   RO         5793    i.prvAddCurrentTaskToDelayedList  tasks.o
+    0x08019d6c   0x08019d6c   0x0000003e   Code   RO         5794    i.prvAllocateTCBAndStack  tasks.o
+    0x08019daa   0x08019daa   0x00000002   PAD
+    0x08019dac   0x08019dac   0x00000054   Code   RO         5795    i.prvCheckTasksWaitingTermination  tasks.o
+    0x08019e00   0x08019e00   0x00000070   Code   RO         5652    i.prvCopyDataToQueue  queue.o
+    0x08019e70   0x08019e70   0x00000014   Code   RO         5796    i.prvDeleteTCB      tasks.o
+    0x08019e84   0x08019e84   0x0000004c   Code   RO         6199    i.prvHeapInit       heap_4.o
+    0x08019ed0   0x08019ed0   0x00000018   Code   RO         5797    i.prvIdleTask       tasks.o
+    0x08019ee8   0x08019ee8   0x0000004e   Code   RO         5798    i.prvInitialiseTCBVariables  tasks.o
+    0x08019f36   0x08019f36   0x00000002   PAD
+    0x08019f38   0x08019f38   0x00000058   Code   RO         5799    i.prvInitialiseTaskLists  tasks.o
+    0x08019f90   0x08019f90   0x00000054   Code   RO         6200    i.prvInsertBlockIntoFreeList  heap_4.o
+    0x08019fe4   0x08019fe4   0x0000001e   Code   RO         5654    i.prvIsQueueFull    queue.o
+    0x0801a002   0x0801a002   0x00000002   PAD
+    0x0801a004   0x0801a004   0x00000024   Code   RO         5801    i.prvResetNextTaskUnblockTime  tasks.o
+    0x0801a028   0x0801a028   0x00000018   Code   RO         6130    i.prvTaskExitError  port.o
+    0x0801a040   0x0801a040   0x00000064   Code   RO         5655    i.prvUnlockQueue    queue.o
+    0x0801a0a4   0x0801a0a4   0x0000006e   Code   RO         1966    i.push              bsp_cleanstrategyb.o
+    0x0801a112   0x0801a112   0x00000002   PAD
+    0x0801a114   0x0801a114   0x000000b8   Code   RO         6201    i.pvPortMalloc      heap_4.o
+    0x0801a1cc   0x0801a1cc   0x00000018   Code   RO         6131    i.pxPortInitialiseStack  port.o
+    0x0801a1e4   0x0801a1e4   0x0000002a   Code   RO         6326    i.q_b1              libdx8_stm32f1.lib(streamec.o)
+    0x0801a20e   0x0801a20e   0x00000040   Code   RO         6327    i.q_b2              libdx8_stm32f1.lib(streamec.o)
+    0x0801a24e   0x0801a24e   0x00000002   PAD
+    0x0801a250   0x0801a250   0x00000368   Code   RO         1967    i.sendvelocity      bsp_cleanstrategyb.o
+    0x0801a5b8   0x0801a5b8   0x0000001c   Code   RO         5399    i.set_wifi_uart_buffer  system.o
+    0x0801a5d4   0x0801a5d4   0x00000010   Code   RO         5400    i.set_wifi_uart_byte  system.o
+    0x0801a5e4   0x0801a5e4   0x00000010   Code   RO         1968    i.shift             bsp_cleanstrategyb.o
+    0x0801a5f4   0x0801a5f4   0x000000a0   Code   RO         6363    i.sin               m_ws.l(sin.o)
+    0x0801a694   0x0801a694   0x0000004c   Code   RO         6371    i.sqrt              m_ws.l(sqrt.o)
+    0x0801a6e0   0x0801a6e0   0x00000040   Code   RO         5107    i.uart_receive_input  mcu_api.o
+    0x0801a720   0x0801a720   0x00000020   Code   RO         5294    i.uart_transmit_output  protocol.o
+    0x0801a740   0x0801a740   0x00000024   Code   RO         5615    i.uxListRemove      list.o
+    0x0801a764   0x0801a764   0x00000016   Code   RO         5616    i.vListInitialise   list.o
+    0x0801a77a   0x0801a77a   0x00000006   Code   RO         5617    i.vListInitialiseItem  list.o
+    0x0801a780   0x0801a780   0x00000030   Code   RO         5618    i.vListInsert       list.o
+    0x0801a7b0   0x0801a7b0   0x00000018   Code   RO         5619    i.vListInsertEnd    list.o
+    0x0801a7c8   0x0801a7c8   0x00000038   Code   RO         6133    i.vPortEnterCritical  port.o
+    0x0801a800   0x0801a800   0x00000028   Code   RO         6134    i.vPortExitCritical  port.o
+    0x0801a828   0x0801a828   0x00000048   Code   RO         6202    i.vPortFree         heap_4.o
+    0x0801a870   0x0801a870   0x00000014   Code   RO         6135    i.vPortSetupTimerInterrupt  port.o
+    0x0801a884   0x0801a884   0x00000018   Code   RO         6137    i.vPortYield        port.o
+    0x0801a89c   0x0801a89c   0x00000010   Code   RO          419    i.vSetupSysInfoTest  sysinfotest.o
+    0x0801a8ac   0x0801a8ac   0x00000070   Code   RO           14    i.vTaskControl      main.o
+    0x0801a91c   0x0801a91c   0x00000026   Code   RO           15    i.vTaskDecision     main.o
+    0x0801a942   0x0801a942   0x00000002   PAD
+    0x0801a944   0x0801a944   0x00000054   Code   RO         5813    i.vTaskDelay        tasks.o
+    0x0801a998   0x0801a998   0x0000006c   Code   RO           16    i.vTaskMapping      main.o
+    0x0801aa04   0x0801aa04   0x0000000c   Code   RO         5819    i.vTaskMissedYield  tasks.o
+    0x0801aa10   0x0801aa10   0x0000004e   Code   RO           17    i.vTaskPerception   main.o
+    0x0801aa5e   0x0801aa5e   0x00000002   PAD
+    0x0801aa60   0x0801aa60   0x0000005c   Code   RO         5821    i.vTaskPlaceOnEventList  tasks.o
+    0x0801aabc   0x0801aabc   0x0000001c   Code   RO         5827    i.vTaskSetTimeOutState  tasks.o
+    0x0801aad8   0x0801aad8   0x0000005c   Code   RO         5828    i.vTaskStartScheduler  tasks.o
+    0x0801ab34   0x0801ab34   0x00000010   Code   RO         5830    i.vTaskSuspendAll   tasks.o
+    0x0801ab44   0x0801ab44   0x00000074   Code   RO         5831    i.vTaskSwitchContext  tasks.o
+    0x0801abb8   0x0801abb8   0x00000024   Code   RO         5108    i.wifi_protocol_init  mcu_api.o
+    0x0801abdc   0x0801abdc   0x00000090   Code   RO         5295    i.wifi_test_result  protocol.o
+    0x0801ac6c   0x0801ac6c   0x000000bc   Code   RO         5109    i.wifi_uart_service  mcu_api.o
+    0x0801ad28   0x0801ad28   0x00000020   Code   RO         5401    i.wifi_uart_write_data  system.o
+    0x0801ad48   0x0801ad48   0x0000003c   Code   RO         5402    i.wifi_uart_write_frame  system.o
+    0x0801ad84   0x0801ad84   0x00000074   Code   RO         6138    i.xPortStartScheduler  port.o
+    0x0801adf8   0x0801adf8   0x0000004a   Code   RO         5663    i.xQueueCreateMutex  queue.o
+    0x0801ae42   0x0801ae42   0x00000100   Code   RO         5667    i.xQueueGenericSend  queue.o
+    0x0801af42   0x0801af42   0x00000002   PAD
+    0x0801af44   0x0801af44   0x00000060   Code   RO         5832    i.xTaskCheckForTimeOut  tasks.o
+    0x0801afa4   0x0801afa4   0x000000f4   Code   RO         5833    i.xTaskGenericCreate  tasks.o
+    0x0801b098   0x0801b098   0x0000000c   Code   RO         5837    i.xTaskGetTickCount  tasks.o
+    0x0801b0a4   0x0801b0a4   0x000000c4   Code   RO         5839    i.xTaskIncrementTick  tasks.o
+    0x0801b168   0x0801b168   0x00000084   Code   RO         5842    i.xTaskPriorityDisinherit  tasks.o
+    0x0801b1ec   0x0801b1ec   0x00000070   Code   RO         5843    i.xTaskRemoveFromEventList  tasks.o
+    0x0801b25c   0x0801b25c   0x000000b0   Code   RO         5845    i.xTaskResumeAll    tasks.o
+    0x0801b30c   0x0801b30c   0x00000010   Data   RO         1970    .constdata          bsp_cleanstrategyb.o
+    0x0801b31c   0x0801b31c   0x00000028   Data   RO         2315    .constdata          bsp_passwd.o
+    0x0801b344   0x0801b344   0x00000020   Data   RO         3178    .constdata          bsp_ir_decode.o
+    0x0801b364   0x0801b364   0x00000026   Data   RO         5296    .constdata          protocol.o
+    0x0801b38a   0x0801b38a   0x00000068   Data   RO         6278    .constdata          libdx8_stm32f1.lib(dx8_api.o)
+    0x0801b3f2   0x0801b3f2   0x00000006   PAD
+    0x0801b3f8   0x0801b3f8   0x00000088   Data   RO         6354    .constdata          m_ws.l(pow.o)
+    0x0801b480   0x0801b480   0x00000098   Data   RO         6703    .constdata          m_ws.l(atan.o)
+    0x0801b518   0x0801b518   0x00000030   Data   RO         6712    .constdata          m_ws.l(cos_i.o)
+    0x0801b548   0x0801b548   0x00000008   Data   RO         6732    .constdata          m_ws.l(qnan.o)
+    0x0801b550   0x0801b550   0x000000c8   Data   RO         6735    .constdata          m_ws.l(rred.o)
+    0x0801b618   0x0801b618   0x00000028   Data   RO         6739    .constdata          m_ws.l(sin_i.o)
+    0x0801b640   0x0801b640   0x00000020   Data   RO         6787    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0801b658, Size: 0x0000f1e0, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000008c])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0801b660, Size: 0x0000f1e0, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000008c])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -5591,7 +5592,7 @@ Image component sizes
        810        110          0          0        132       7686   bsp_angle.o
         44          6          0          0         36       1492   bsp_assistjudgedirection.o
        382         20          0          3          0       4303   bsp_aw9523b.o
-     60638       3050         16        288      15704      89723   bsp_cleanstrategyb.o
+     60642       3050         16        288      15704      89731   bsp_cleanstrategyb.o
        324         34          0         28         24       3064   bsp_cleanstrategyrandom.o
        928         54          0          0         56       4394   bsp_cliffsw.o
        176         18          0          0          0       1228   bsp_collision.o
@@ -5647,7 +5648,7 @@ Image component sizes
       1856        154          0         64        200      17742   tasks.o
 
     ----------------------------------------------------------------------
-     97082       6698        462        656      60848     740254   Object Totals
+     97086       6698        462        656      60848     740262   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         64          0          0         13         12          0   (incl. Padding)
 
@@ -5722,8 +5723,8 @@ Image component sizes
         24          0          0          0          0         68   fscalb.o
 
     ----------------------------------------------------------------------
-     13982        766        690         68        348       8056   Library Totals
-        16          0          2          3          4          0   (incl. Padding)
+     13982        766        694         68        348       8056   Library Totals
+        16          0          6          3          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -5735,7 +5736,7 @@ Image component sizes
       2260          0          0          0          0       2248   mf_w.l
 
     ----------------------------------------------------------------------
-     13982        766        690         68        348       8056   Library Totals
+     13982        766        694         68        348       8056   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -5744,15 +5745,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-    111064       7464       1152        724      61196     721294   Grand Totals
-    111064       7464       1152        140      61196     721294   ELF Image Totals (compressed)
-    111064       7464       1152        140          0          0   ROM Totals
+    111068       7464       1156        724      61196     721302   Grand Totals
+    111068       7464       1156        140      61196     721302   ELF Image Totals (compressed)
+    111068       7464       1156        140          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)               112216 ( 109.59kB)
+    Total RO  Size (Code + RO Data)               112224 ( 109.59kB)
     Total RW  Size (RW Data + ZI Data)             61920 (  60.47kB)
-    Total ROM Size (Code + RO Data + RW Data)     112356 ( 109.72kB)
+    Total ROM Size (Code + RO Data + RW Data)     112364 ( 109.73kB)
 
 ==============================================================================
 

@@ -5,7 +5,7 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
-#define CLEAN_WORK_TIME 3*60*1000
+#define CLEAN_WORK_TIME 40*60*1000
 #define EDGEWISE_CLEAN_WORK_TIME 1*60*1000
 #define FORCE_RETURN_ORIGIN_WORK_TIME 1*60*1000
 
@@ -446,6 +446,7 @@ void bsp_StopUpdateCleanStrategyB(void)
 	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
 	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 	
+	bsp_StopEdgewiseRun();
 	bsp_StopVacuum();
 	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
@@ -524,11 +525,11 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 	//	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
 		batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
 		batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-		if(batteryvoltage < 12)   //12v-16v
+		if(batteryvoltage < 7)   //12v-16v
 		{
 			batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
 			batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-			if(batteryvoltage < 12)
+			if(batteryvoltage < 7)
 			{
 				return  battery_out_flag;//battery_out_flag;
 			}
@@ -540,7 +541,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 		if(obstacleSignal<3)   
 		{
 			collision_error_cnt++;
-			if(collision_error_cnt > 200)
+			if(collision_error_cnt > 200) //4.5s
 			{
 				collision_error_cnt = 0;
 				return collision_error;
@@ -554,7 +555,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 		if(cliff_valueB.cliffValue0 == 1)   
 		{
 			cliff_error_cnt++;
-			if(cliff_error_cnt >50)
+			if(cliff_error_cnt >100) 
 			{
 				cliff_error_cnt = 0;
 				return cliff_error;
