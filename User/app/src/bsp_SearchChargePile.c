@@ -84,7 +84,7 @@ typedef struct
 	
 	bool isNeedPlaySong;
 	uint32_t isNeedPlaySongTick;
-	uint32_t lastIsChargingTick;
+	uint32_t lastIsChargeDoneTick;
 	uint32_t lastIsTouchTick;
 	uint32_t lastIsNeedEdgeTick;
 	
@@ -93,7 +93,6 @@ typedef struct
 
 
 static Serach search;
-static void bsp_InitIO(void);
 static void bsp_SearchRunStraightFast(void);
 static void bsp_SearchRunStraightSlow(void);
 static void bsp_SearchTurnRightFast(void)  ;
@@ -123,7 +122,7 @@ static void bsp_RotateCCW(void);
 */
 void bsp_StartSearchChargePile(void)
 {
-	bsp_InitIO();
+	
 	
 	search.action = 0 ;
 	search.delay = 0 ;
@@ -192,30 +191,35 @@ void bsp_StopSearchChargePile(void)
 void bsp_SearchChargePile(void)
 {
 	
+	bsp_IsTouchChargePile();
+	bsp_IsCharging();
+	bsp_IsChargeDone();
+	
 	if(isCleanRunning())
 		return;
 	
 	if(bsp_IsTouchChargePile())
 	{
 		/*播放开始充电*/
-		if(search.isNeedPlaySong && (xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
+		if(search.isNeedPlaySong && (xTaskGetTickCount() >= search.isNeedPlaySongTick  && xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
 		{
 			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
 			bsp_SperkerPlay(Song22);
 			search.isNeedPlaySong = false;
 		}
 
-		if(bsp_IsCharging())
+		if(bsp_IsChargeDone())
 		{
-			bsp_SetLedState(AT_CHARGING);
-			search.lastIsChargingTick = xTaskGetTickCount();
-		}
-		else
-		{
-			if(xTaskGetTickCount() - search.lastIsChargingTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
+			
+			if(xTaskGetTickCount() - search.lastIsChargeDoneTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
 			{
 				bsp_SetLedState(AT_CHARGE_DONE);
 			}
+		}
+		else
+		{
+			bsp_SetLedState(AT_CHARGING);
+			search.lastIsChargeDoneTick = xTaskGetTickCount();
 		}
 		
 		search.lastIsTouchTick = xTaskGetTickCount();
@@ -224,10 +228,10 @@ void bsp_SearchChargePile(void)
 	{
 		//DEBUG("接触桩:%s 充电中:%s 充满:%s\r\n",bsp_IsTouchChargePile()?"true":"false",bsp_IsCharging()?"true":"false",bsp_IsChargeDone()?"true":"false");
 		
-		search.isNeedPlaySong = true;
-		search.isNeedPlaySongTick = xTaskGetTickCount();
 		
-		if(xTaskGetTickCount() - search.lastIsTouchTick >= 500)
+		
+		
+		if((xTaskGetTickCount() >= search.lastIsTouchTick)  &&  (xTaskGetTickCount() - search.lastIsTouchTick >= 500))
 		{
 			 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!治理需要根据扫地与否更改*/
 			if( bsp_GetLedAppState() != AT_CLEAN && 
@@ -237,7 +241,9 @@ void bsp_SearchChargePile(void)
 			{
 				bsp_SetLedState(THREE_WHITE_ON);
 			}
-
+			
+			search.isNeedPlaySongTick = xTaskGetTickCount();
+			search.isNeedPlaySong = true;
 			search.lastIsTouchTick = UINT32_T_MAX;
 		}
 		
@@ -757,7 +763,7 @@ static void bsp_RotateCCW(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-static void bsp_InitIO(void)
+void bsp_InitChargeIO(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
@@ -781,6 +787,9 @@ static void bsp_InitIO(void)
 	
 }
 
+uint32_t gIsTouchChargePile = 0 ;
+uint32_t gIsCharging = 0 ;
+uint32_t gIsChargeDone = 0 ;
 
 	
 /*
@@ -795,10 +804,12 @@ bool bsp_IsTouchChargePile(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
 	{
+		gIsTouchChargePile = 1 ;
 		return true ;
 	}
 	else
 	{
+		gIsTouchChargePile = 0 ;
 		return false ;
 	}
 }
@@ -816,10 +827,12 @@ bool bsp_IsCharging(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
 	{
+		gIsCharging = 1 ;
 		return true ;
 	}
 	else
 	{
+		gIsCharging = 0 ;
 		return false ;
 	}
 }
@@ -836,11 +849,17 @@ bool bsp_IsChargeDone(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
 	{
+		gIsChargeDone = 1 ;
 		return true ;
 	}
 	else
 	{
+		gIsChargeDone = 0 ;
 		return false ;
 	}
 }
+
+
+
+
 
