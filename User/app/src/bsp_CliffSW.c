@@ -1,6 +1,20 @@
 #include "bsp.h"
 
-#define VOLTAGE_FILTERING_COUNT      50
+#define DELAY_FOR_READ_CLIFF_US            500
+#define IS_OBSTACLE_CLIFF_MV               60   //障碍物差值电压，毫伏
+
+#define RCC_ALL_CLIFF_EMIT 	(RCC_APB2Periph_GPIOC)
+
+#define GPIO_PORT_EMIT  GPIOC
+#define GPIO_PIN_EMIT	GPIO_Pin_3
+
+/*发射控制，悬崖的红外发射并在一根线上*/
+#define CLIFF_EMIT_ENABLE()       GPIO_SetBits(GPIO_PORT_EMIT,GPIO_PIN_EMIT)
+#define CLIFF_EMIT_DISABLE()      GPIO_ResetBits(GPIO_PORT_EMIT,GPIO_PIN_EMIT)
+
+static void bsp_InitCliffEmit_GPIO(void);
+
+
 
 
 /*
@@ -15,6 +29,9 @@ void bsp_InitCliffSW(void)
 {
 	ADC_InitTypeDef ADC_InitStructure; 
 	GPIO_InitTypeDef GPIO_InitStructure;
+	
+	/*初始化红外发射引脚*/
+	bsp_InitCliffEmit_GPIO();
 	
 	/*跳崖1*/
 	{
@@ -143,9 +160,35 @@ void bsp_InitCliffSW(void)
 		ADC_RegularChannelConfig(ADC3, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
 	}
 
-	/*开机初始化ADC的时候，校准一次悬崖传感器校准值*/
-	bsp_CliffCalibration();
 
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_InitCliffEmit_GPIO
+*	功能说明: 红外发射引脚
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_InitCliffEmit_GPIO(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	/* 打开GPIO时钟 */
+	RCC_APB2PeriphClockCmd(RCC_ALL_CLIFF_EMIT, ENABLE);
+
+	/*默认电平*/
+	CLIFF_EMIT_DISABLE();
+	
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_EMIT;
+	GPIO_Init(GPIO_PORT_EMIT, &GPIO_InitStructure);
+	
+	/*这里再次给予默认电平，是因为曾经被HAL库坑过，怕标准库有同样的问题*/
+	CLIFF_EMIT_DISABLE();
 }
 
 
@@ -192,75 +235,9 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 	return ret;
 }
 
+/*三个跳崖传感器，每个读两次*/
+static float cliffTwiceRead[3][2];
 
-#define DEFAULT_DANGEROUS_THRESHOLD    1.2F        /*默认的跳崖阈值*/
-#define CLIFF_COUNT                    3           /*跳崖传感器个数*/   
-
-typedef struct
-{
-	float threshold;          /*跳崖阈值，每个通道的阈值独立*/
-	float initializeVoltage;  /*初始化电压，适应新环境的电压*/
-	float currentVoltage;     /*当前电压，实时检测的电压*/
-}Cliff;
-
-
-static Cliff cliff[CLIFF_COUNT];
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_CliffCalibration
-*	功能说明: 开机校准悬崖初始值
-*	形    参：无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_CliffCalibration(void)
-{
-	/*初始值*/
-#if 1
-	uint8_t i = 0 ;
-	double sum = 0 ;
-	
-	/*左边初始值*/
-	sum = 0 ;
-	for(i=0;i<VOLTAGE_FILTERING_COUNT;i++)
-	{
-		sum += bsp_GetCliffVoltage(CliffLeft);
-	}
-	cliff[CliffLeft].initializeVoltage = sum / VOLTAGE_FILTERING_COUNT;
-	
-	/*中间初始值*/
-	sum = 0 ;
-	for(i=0;i<VOLTAGE_FILTERING_COUNT;i++)
-	{
-		sum += bsp_GetCliffVoltage(CliffMiddle);
-	}
-	cliff[CliffMiddle].initializeVoltage = sum / VOLTAGE_FILTERING_COUNT;
-	
-	/*右边初始值*/
-	sum = 0 ;
-	for(i=0;i<VOLTAGE_FILTERING_COUNT;i++)
-	{
-		sum += bsp_GetCliffVoltage(CliffRight);
-	}
-	cliff[CliffRight].initializeVoltage = sum / VOLTAGE_FILTERING_COUNT;
-	
-	/*阈值*/
-	cliff[CliffLeft].threshold =   1.6F;
-	cliff[CliffMiddle].threshold = 1.6F;
-	cliff[CliffRight].threshold =  1.6F;
-#else
-	cliff[CliffLeft].initializeVoltage =   3.3F;
-	cliff[CliffMiddle].initializeVoltage = 3.3F;
-	cliff[CliffRight].initializeVoltage =  3.3F;
-	
-	cliff[CliffLeft].threshold =   1.6F;
-	cliff[CliffMiddle].threshold = 1.6F;
-	cliff[CliffRight].threshold =  1.6F;
-#endif
-	
-	UNUSED(cliff);
-}
 
 /*
 *********************************************************************************************************
@@ -270,17 +247,61 @@ void bsp_CliffCalibration(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-bool bsp_CliffIsDangerous(CliffSWSN sn)
+uint8_t bsp_GetCliffStates(void)
 {
-
-	cliff[sn].currentVoltage = bsp_GetCliffVoltage(sn);
-	if(cliff[sn].initializeVoltage - cliff[sn].currentVoltage >= cliff[sn].threshold)
+	uint8_t data = 0 ;
+	
+	/*开发射读*/
+	CLIFF_EMIT_ENABLE();
+	bsp_DelayUS(DELAY_FOR_READ_CLIFF_US);
+	/*一次读三个*/
+	cliffTwiceRead [0][0] = bsp_GetCliffVoltage(CliffLeft);
+	cliffTwiceRead [1][0] = bsp_GetCliffVoltage(CliffMiddle);
+	cliffTwiceRead [2][0] = bsp_GetCliffVoltage(CliffRight);
+	
+	
+	/*关发射读*/
+	CLIFF_EMIT_DISABLE();
+	bsp_DelayUS(DELAY_FOR_READ_CLIFF_US);
+	/*一次读三个*/
+	cliffTwiceRead [0][1] = bsp_GetCliffVoltage(CliffLeft);
+	cliffTwiceRead [1][1] = bsp_GetCliffVoltage(CliffMiddle);
+	cliffTwiceRead [2][1] = bsp_GetCliffVoltage(CliffRight);
+	
+	
+	if( abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000) >= IS_OBSTACLE_CLIFF_MV )
 	{
-		return true;
+		data |= 1<< 0;
 	}
 	
+	if( abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000) >= IS_OBSTACLE_CLIFF_MV )
+	{
+		data |= 1<< 1;
+	}
+	
+	if( abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000) >= IS_OBSTACLE_CLIFF_MV )
+	{
+		data |= 1<< 2;
+	}
+	
+	return data;
+}
+
+
+
+
+bool bsp_CliffIsDangerous(CliffSWSN sn)
+{
 	return false;
 }
+
+
+
+
+
+
+
+
 
 #define GO_BACK_PULSE                  (10/(3.14F*70)*1024)
 #define ROTATE_CCW_SPEED_L             -5

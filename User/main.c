@@ -283,6 +283,8 @@ static void vTaskPerception(void *pvParameters)
     {
 		//bsp_ComAnalysis();
 		
+		bsp_GetCliffStates();
+		
 #if 1
 		if(bsp_IsInitAW9523B_OK())
 		{

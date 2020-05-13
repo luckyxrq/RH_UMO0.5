@@ -13,7 +13,12 @@ typedef enum
 void bsp_InitCliffSW(void);
 float bsp_GetCliffVoltage(CliffSWSN sn);
 void bsp_CliffCalibration(void);
+
+
 bool bsp_CliffIsDangerous(CliffSWSN sn);
+
+uint8_t bsp_GetCliffStates(void);
+
 void bsp_CliffTest(void);
 
 void bsp_StartCliffTest(void);
