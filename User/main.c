@@ -174,9 +174,16 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 *   优 先 级: 4  
 *********************************************************************************************************
 */
+#define FTS_ReadyGo 0
+
+
+
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
 	uint32_t count = 0 ;
+	uint8_t FunctionTestStep = 0;
+	
+
 	
     while(1)
     {
@@ -218,6 +225,17 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 //			//main_debug("bsp_PutKey(KEY_LONG_CHARGE) \n");
 //			bsp_PutKey(KEY_LONG_CHARGE);
 //		}
+
+		switch (FunctionTestStep)
+		{
+			case 0:     
+				break;
+			case 1:   
+				break;
+			default:
+				break;
+			
+		}
 		
 		count++;
         vTaskDelay(20);
