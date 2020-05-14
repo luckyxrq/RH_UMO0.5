@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed May 13 22:17:23 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu May 14 10:26:03 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -3282,7 +3282,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[151]"></a>bsp_StopEdgewiseRun</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, bsp_edgewise.o(i.bsp_StopEdgewiseRun))
-<BR><BR>[Called By]<UL><LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllStateRun
+<BR><BR>[Called By]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllStateRun
 <LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
@@ -3301,10 +3302,11 @@ Global Symbols
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllStateRun
 </UL>
 
-<P><STRONG><a name="[14f]"></a>bsp_StopUpdateCleanStrategyB</STRONG> (Thumb, 80 bytes, Stack size 8 bytes, bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB))
+<P><STRONG><a name="[14f]"></a>bsp_StopUpdateCleanStrategyB</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = bsp_StopUpdateCleanStrategyB &rArr; bsp_ResetCleanStrategyBStatus &rArr; bsp_StartUpdateGridMap
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
+<LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopEdgewiseRun
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorCleanSetPWM

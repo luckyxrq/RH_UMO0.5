@@ -8,6 +8,11 @@
 #define DELAY_FOR_READ_US      500
 #define IS_OBSTACLE_MV         60  //障碍物差值电压，毫伏
 
+#define IR_OBSTACLE_0_6      60
+#define IR_OBSTACLE_7        60  /*二郎神*/
+#define IR_OBSTACLE_8        100 /*左沿边*/
+#define IR_OBSTACLE_9        100 /*右沿边*/
+
 AW_PIN PinMap[PIN_MAP_MAX][2]=
 {
 	{awP1_5,awP0_7},   //1
@@ -271,6 +276,52 @@ float bsp_GetInfraredVoltageRight(void)
 float bsp_GetInfraRedAdcVoltage(IR_SN sn)
 {
 	return adcRealTime[sn];
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetAllIrIsObstacle
+*	功能说明: 获取所有红外障碍物信息
+*	形    参: 传入bool数组  切记数组为10个元素
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_GetAllIrIsObstacle(bool ret[])
+{
+	uint8_t i = 0 ;
+	
+	/*周边红外*/
+	for(i=0;i<=6;i++)
+	{
+		if(adcRealTime[i] >= IR_OBSTACLE_0_6)
+		{
+			ret[i] = true;
+		}
+		else
+		{
+			ret[i] = false;
+		}
+	}
+	
+	/*二郎神*/
+	if(adcRealTime[7] >= IR_OBSTACLE_7)
+		ret[7] = true;
+	else
+		ret[7] = false;
+	
+	/*沿边 左*/
+	if(adcRealTime[8] >= IR_OBSTACLE_8)
+		ret[8] = true;
+	else
+		ret[8] = false;
+	
+	/*沿边 右*/
+	if(adcRealTime[9] >= IR_OBSTACLE_9)
+		ret[9] = true;
+	else
+		ret[9] = false;
+	
 }
 
 
