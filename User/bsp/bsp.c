@@ -23,6 +23,9 @@ extern void vSetupSysInfoTest(void);
 
 
 
+bool isAW9523BInitOK = false;
+
+
 /*
 *********************************************************************************************************
 *	º¯ Êý Ãû: bsp_Init
@@ -102,8 +105,13 @@ void bsp_Init(void)
 
 	ret = bsp_InitAW9523B();
 	if(!ret)
-	{
+	{	
+		isAW9523BInitOK = false;
 		WARNING("AW9523B Init Error\r\n");
+	}
+	else
+	{
+		isAW9523BInitOK = true;
 	}
 
 #endif

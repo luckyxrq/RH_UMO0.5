@@ -201,7 +201,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
     
 }
 
-
+extern bool isAW9523BInitOK;
 /*
 *********************************************************************************************************
 *	函 数 名: vTaskStart
@@ -261,8 +261,11 @@ static void vTaskPerception(void *pvParameters)
 		//bsp_ComAnalysis();
 		
 #if 1
-        bsp_DetectAct();  /*红外对管轮询扫描*/
-        bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		if(isAW9523BInitOK)
+		{
+			bsp_DetectAct();  /*红外对管轮询扫描*/
+			bsp_DetectDeal(); /*红外对管扫描结果处理*/
+		}
 #endif
        
 #if 0   /*测试红外测距的距离，测到后就停下来*/
