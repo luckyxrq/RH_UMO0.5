@@ -287,7 +287,7 @@ float bsp_GetInfraRedAdcVoltage(IR_SN sn)
 *	·µ »Ø Öµ: ÎÞ
 *********************************************************************************************************
 */
-void bsp_GetAllIrIsObstacle(bool ret[])
+void bsp_GetAllIrIsObstacle(uint8_t ret[])
 {
 	uint8_t i = 0 ;
 	
@@ -296,31 +296,31 @@ void bsp_GetAllIrIsObstacle(bool ret[])
 	{
 		if(adcRealTime[i] >= IR_OBSTACLE_0_6)
 		{
-			ret[i] = true;
+			ret[i] = 1;
 		}
 		else
 		{
-			ret[i] = false;
+			ret[i] = 0;
 		}
 	}
 	
 	/*¶þÀÉÉñ*/
 	if(adcRealTime[7] >= IR_OBSTACLE_7)
-		ret[7] = true;
+		ret[7] = 1;
 	else
-		ret[7] = false;
+		ret[7] = 0;
 	
 	/*ÑØ±ß ×ó*/
 	if(adcRealTime[8] >= IR_OBSTACLE_8)
-		ret[8] = true;
+		ret[8] = 1;
 	else
-		ret[8] = false;
+		ret[8] = 0;
 	
 	/*ÑØ±ß ÓÒ*/
 	if(adcRealTime[9] >= IR_OBSTACLE_9)
-		ret[9] = true;
+		ret[9] = 1;
 	else
-		ret[9] = false;
+		ret[9] = 0;
 	
 }
 

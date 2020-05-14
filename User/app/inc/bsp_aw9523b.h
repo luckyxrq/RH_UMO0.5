@@ -68,6 +68,6 @@ float bsp_GetInfraredVoltageRight(void);
 float bsp_GetInfraRedAdcVoltage(IR_SN sn);
 void bsp_DetectMeasureTest(void);
 bool bsp_IsInitAW9523B_OK(void);
-void bsp_GetAllIrIsObstacle(bool ret[]);
+void bsp_GetAllIrIsObstacle(uint8_t ret[]);
 #endif
 
