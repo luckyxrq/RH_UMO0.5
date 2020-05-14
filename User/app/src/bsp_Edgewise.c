@@ -8,7 +8,7 @@
 
 //
 #define TURN_RIGHT_SPEED_SLOW_L  6
-#define TURN_RIGHT_SPEED_SLOW_R  5
+#define TURN_RIGHT_SPEED_SLOW_R  3
 
 
 #define TURN_LEFT_SPEED_FAST_L   1
@@ -33,7 +33,7 @@
 #define COLLISION_STEERING_ANGLE       30.0F
 
 /*向右守多少次认为出界*/
-#define POSSIBLE_END      66
+#define POSSIBLE_END      120
 
 typedef struct
 {
@@ -161,16 +161,16 @@ void bsp_EdgewiseRun(void)
 				edgewiseRun.delay = xTaskGetTickCount();
 				edgewiseRun.action++;
 			}
-			else if(vol >= 1.5F && vol <=2.0F )
-			{
-				bsp_EdgewiseRunStraightSlow();
-				edgewiseRun.possibleEnd = 0 ;
-			}
+//			else if(vol >= 500 && vol <=1200 )
+//			{
+//				bsp_EdgewiseRunStraightSlow();
+//				edgewiseRun.possibleEnd = 0 ;
+//			}
 			/*向右靠近的过程中还需要检测靠近的时间，如果靠近了很久还是没能找到电压值，那么就是走到了尽头*/
-			else if(vol < 1.5F)
+			else if(vol < 100)
 			{
 				bsp_EdgewiseTurnRightSlow();
-				if(vol < 0.2F)
+				if(vol < 80)
 				{
 					
 					if(edgewiseRun.possibleEnd++ >= POSSIBLE_END)
@@ -180,7 +180,7 @@ void bsp_EdgewiseRun(void)
 					}
 				}
 			}
-			else if(vol > 2.0F)
+			else if(vol > 100)
 			{
 				bsp_EdgewiseTurnLeftSlow();
 				edgewiseRun.possibleEnd = 0 ;
@@ -235,7 +235,7 @@ void bsp_EdgewiseRun(void)
 			}
 			
 
-			if(bsp_CollisionScan()!=CollisionNone || (vol >= 1.2F && vol <=3.3F ))
+			if(bsp_CollisionScan()!=CollisionNone || (vol >= 100 ))
 			{
 				edgewiseRun.action = 1 ;
 			}

@@ -158,6 +158,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
 //			bsp_PrintAllVoltage();
+//			bsp_GetCliffStates();
         }
 		
         vTaskDelay(50);	
@@ -226,6 +227,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 }
 
 
+bool isNeedRun = false;
+
 /*
 *********************************************************************************************************
 *	函 数 名: vTaskStart
@@ -282,8 +285,23 @@ static void vTaskPerception(void *pvParameters)
     while(1)
     {
 		//bsp_ComAnalysis();
+		//bsp_CliffTest();
 		
-		bsp_GetCliffStates();
+		
+		if(isNeedRun)
+		{
+			if(bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
+			{
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+				isNeedRun = false;
+			}
+			else
+			{
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+			}
+		}
 		
 #if 1
 		if(bsp_IsInitAW9523B_OK())
@@ -529,6 +547,7 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("电源按键按下\r\n");
 				bsp_KeySuspend();
+				//isNeedRun = true;
 			}break;
 				
 			case KEY_DOWN_CHARGE:
@@ -624,7 +643,8 @@ static void bsp_KeyProc(void)
 					vTaskDelay(500);
 				}
 					
-				bsp_StartUpdateCleanStrategyB();
+				//bsp_StartUpdateCleanStrategyB();
+				bsp_StartEdgewiseRun();
 				
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);

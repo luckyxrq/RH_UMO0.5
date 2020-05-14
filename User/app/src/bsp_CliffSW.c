@@ -1,7 +1,7 @@
 #include "bsp.h"
 
-#define DELAY_FOR_READ_CLIFF_US            500
-#define IS_OBSTACLE_CLIFF_MV               60   //ÕÏ°­Îï²îÖµµçÑ¹£¬ºÁ·ü
+#define DELAY_FOR_READ_CLIFF_US            800
+#define IS_OBSTACLE_CLIFF_MV               50   //ÕÏ°­Îï²îÖµµçÑ¹£¬ºÁ·ü
 
 #define RCC_ALL_CLIFF_EMIT 	(RCC_APB2Periph_GPIOC)
 
@@ -269,20 +269,24 @@ uint8_t bsp_GetCliffStates(void)
 	cliffTwiceRead [2][1] = bsp_GetCliffVoltage(CliffRight);
 	
 	
-	if( abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000) >= IS_OBSTACLE_CLIFF_MV )
+	if( abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000) <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 0;
 	}
 	
-	if( abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000) >= IS_OBSTACLE_CLIFF_MV )
+	if( abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000) <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 1;
 	}
 	
-	if( abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000) >= IS_OBSTACLE_CLIFF_MV )
+	if( abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000) <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 2;
 	}
+	
+	//DEBUG("%d %d %d\r\n",abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000),abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000),abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000));
+	//DEBUG("data:%02X\r\n",data);
+	
 	
 	return data;
 }
@@ -292,6 +296,24 @@ uint8_t bsp_GetCliffStates(void)
 
 bool bsp_CliffIsDangerous(CliffSWSN sn)
 {
+	uint8_t state = 0 ; 
+	
+	state = bsp_GetCliffStates();
+	
+	if(sn == CliffLeft && (state&(1<<0)))
+	{
+		return true;
+	}
+	else if(sn == CliffMiddle && (state&(1<<1)))
+	{
+		return true;
+	}
+	else if(sn == CliffRight && (state&(1<<2)))
+	{
+		return true;
+	}
+	
+	
 	return false;
 }
 
@@ -354,11 +376,11 @@ static bool isErlangGod = false;
 
 void bsp_CliffTest(void)
 {
-	if(!cliffTest.isRunning)
-	{
-		isErlangGod = false;
-		return;
-	}
+//	if(!cliffTest.isRunning)
+//	{
+//		isErlangGod = false;
+//		return;
+//	}
 	
 	switch(cliffTest.action)
 	{
@@ -379,10 +401,13 @@ void bsp_CliffTest(void)
 		
 		case 1: /*¼ì²âÊÇ·ñÓÐÐüÑÂ´¥·¢ÁË*/
 		{
+//			if(bsp_CliffIsDangerous(CliffLeft) ||
+//				bsp_CliffIsDangerous(CliffMiddle) ||
+//			    bsp_CliffIsDangerous(CliffRight) ||
+//			    bsp_CollisionScan() != CollisionNone)
 			if(bsp_CliffIsDangerous(CliffLeft) ||
 				bsp_CliffIsDangerous(CliffMiddle) ||
-			    bsp_CliffIsDangerous(CliffRight) ||
-			    bsp_CollisionScan() != CollisionNone)
+			    bsp_CliffIsDangerous(CliffRight))
 			{
 				DEBUG("ÐüÑÂ´¥·¢\r\n");
 				bsp_SetMotorSpeed(MotorLeft, 0);

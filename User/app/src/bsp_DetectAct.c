@@ -285,7 +285,7 @@ void bsp_DetectDeal(void)
 	UNUSED(noObstacleTickCnt);
 	
 	
-#if 1	
+#if 0	
 	for(i=0;i<10;i++)
 	{
 		printf("[%d]:%4d",i,(uint32_t)adcRealTime[i]);
