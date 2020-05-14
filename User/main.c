@@ -109,7 +109,7 @@ static void vTaskMapping(void *pvParameters)
     while(1)
     {
      		
-#if 1 /*更新地图*/
+#if 0 /*更新地图*/
 		
 		if(isSearchCharge){}
 		else{		
@@ -149,12 +149,12 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 #if 0 
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
 #endif
-			//main_debug("bsp_ChangeWifi2SmartConfigStateProc() \n");
-			bsp_ChangeWifi2SmartConfigStateProc();
+//			//main_debug("bsp_ChangeWifi2SmartConfigStateProc() \n");
+//			bsp_ChangeWifi2SmartConfigStateProc();
 			
 			/*下面是打印开关，酌情注释*/
 			//main_debug("bsp_WifiStateProc() \n");
-			bsp_WifiStateProc();
+//			bsp_WifiStateProc();
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
 //			bsp_PrintAllVoltage();
@@ -180,44 +180,44 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 	
     while(1)
     {
-#if 0
-        bsp_IWDG_Feed(); /* 喂狗 */
-#endif
-        		
-#if 0		
-        DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
-        DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
-#endif		
+//#if 0
+//        bsp_IWDG_Feed(); /* 喂狗 */
+//#endif
+//        		
+//#if 0		
+//        DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
+//        DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
+//#endif		
 		
 		
-		if(isSearchCharge)
-		{
+//		if(isSearchCharge)
+//		{
+//		
+//		}
+//		else
+//		{	
+//			main_debug("bsp_UpdateCleanStrategyB() \n");
+//			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
+//			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+//			
+//		}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		
-		}
-		else
-		{	
-			main_debug("bsp_UpdateCleanStrategyB() \n");
-			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
-			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-			
-		}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		
 		
-		
-		if(GetReturnChargeStationStatus())
-		{
-			
-			//main_debug("bsp_StopUpdateCleanStrategyB() \n");
-			bsp_StopUpdateCleanStrategyB();
-			
-			
-			//main_debug("ResetReturnChargeStationStatus() \n");
-			ResetReturnChargeStationStatus();
-			
-			
-			//main_debug("bsp_PutKey(KEY_LONG_CHARGE) \n");
-			bsp_PutKey(KEY_LONG_CHARGE);
-		}
+//		if(GetReturnChargeStationStatus())
+//		{
+//			
+//			//main_debug("bsp_StopUpdateCleanStrategyB() \n");
+//			bsp_StopUpdateCleanStrategyB();
+//			
+//			
+//			//main_debug("ResetReturnChargeStationStatus() \n");
+//			ResetReturnChargeStationStatus();
+//			
+//			
+//			//main_debug("bsp_PutKey(KEY_LONG_CHARGE) \n");
+//			bsp_PutKey(KEY_LONG_CHARGE);
+//		}
 		
 		count++;
         vTaskDelay(20);
@@ -258,7 +258,7 @@ static void vTaskPerception(void *pvParameters)
 	//bsp_StartAssistJudgeDirection();
 	
 	/*开启栅格地图跟新*/
-	bsp_StartUpdateGridMap();
+	//bsp_StartUpdateGridMap();
 
 	/*开清扫策略*/
 	//bsp_StartUpdateCleanStrategyB();
@@ -324,7 +324,7 @@ static void vTaskPerception(void *pvParameters)
 		bsp_LedAppProc();
 		
 		//main_debug("wifi_uart_service() \n");
-		wifi_uart_service();
+		//wifi_uart_service();
 		
 		count++;
         vTaskDelay(5);	
