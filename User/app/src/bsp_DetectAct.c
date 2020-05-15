@@ -5,7 +5,7 @@
 #define PIN_MAP_MAX		10  //引脚对数
 #define IntervalTime	2   //每对管子扫描间隔时间
 
-#define DELAY_FOR_READ_US      500
+#define DELAY_FOR_READ_US      200
 #define IS_OBSTACLE_MV         60  //障碍物差值电压，毫伏
 
 #define IR_OBSTACLE_0_6      60
@@ -114,30 +114,38 @@ void bsp_DetectAct(void)
 	if( !detectAct.isRunning )
 		return ;
 	
-	detectAct.pinMapIndex = 3;
 	
 	switch(detectAct.action)
 	{
 		case 0:
 		{
-			/*开 读*/
-			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
-			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
-			bsp_DelayUS(DELAY_FOR_READ_US);
-			adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
-			/*关 读*/
-			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
-			bsp_DelayUS(DELAY_FOR_READ_US);
-			adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
-			bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
-			/*判断,adcRealTime 1.0F表示障碍物，0.0F表示无障碍物，为了兼容以前的框架，没有使用BOOL类型，但是算法那边判断切勿使用==1.0F  ==0.0F之类的，浮点数据不能这么判断*/
-			//adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = (abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000) >= IS_OBSTACLE_MV) ? 1.0F : 0.0F;
-			adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000);			
-			if(adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] < adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])
+			//if(detectAct.pinMapIndex == 3)
+			if(true)
 			{
-				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = 0;
+				/*开 读*/
+				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_0); //先开接收，充电
+				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_0); //再开发送，读AD
+				bsp_DelayUS(DELAY_FOR_READ_US);
+				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0] = bsp_GetAdScanValue();//开灯读
+				/*关 读*/
+				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][0], AW_1);//关发射
+				bsp_DelayUS(DELAY_FOR_READ_US);
+				adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] = bsp_GetAdScanValue();//关灯读
+				bsp_AWSetPinVal(PinMap[detectAct.pinMapIndex%PIN_MAP_MAX][1], AW_1);//关接收
+				/*判断,adcRealTime 1.0F表示障碍物，0.0F表示无障碍物，为了兼容以前的框架，没有使用BOOL类型，但是算法那边判断切勿使用==1.0F  ==0.0F之类的，浮点数据不能这么判断*/
+				//adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = (abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000) >= IS_OBSTACLE_MV) ? 1.0F : 0.0F;
+				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000);			
+				if(adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] < adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])
+				{
+					adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = 0;
+				}
 			}
-			
+			else
+			{
+				bsp_DelayUS(DELAY_FOR_READ_US);
+				bsp_DelayUS(DELAY_FOR_READ_US);
+				bsp_DelayUS(DELAY_FOR_READ_US);
+			}
 			
 			detectAct.delay = xTaskGetTickCount();
 			detectAct.action++;
@@ -150,7 +158,7 @@ void bsp_DetectAct(void)
 			{
 				detectAct.action = 0 ;
 				
-				//++detectAct.pinMapIndex;
+				++detectAct.pinMapIndex;
 				if(detectAct.pinMapIndex >= PIN_MAP_MAX)
 				{
 					detectAct.pinMapIndex = 0 ;
