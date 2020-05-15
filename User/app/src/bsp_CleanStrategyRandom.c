@@ -15,6 +15,7 @@ typedef struct
 	float angle;
 	Collision collision;
 	uint32_t pulse;
+	uint32_t startTick ;
 }StrategyRandom;
 
 static StrategyRandom strategyRandom;
@@ -23,6 +24,7 @@ void bsp_StartStrategyRandom(void)
 {
 	strategyRandom.action = 0 ;
 	strategyRandom.delay = 0 ;
+	strategyRandom.startTick = xTaskGetTickCount();
 	strategyRandom.isRunning = true;
 	
 }
@@ -41,8 +43,7 @@ void bsp_StrategyRandomProc(void)
 {
 	if(!strategyRandom.isRunning)
 		return;
-	
-	
+
 	switch(strategyRandom.action)
 	{
 		case 0: /*开机直接先跑*/
