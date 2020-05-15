@@ -547,7 +547,7 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("电源按键按下\r\n");
 				bsp_KeySuspend();
-				//isNeedRun = true;
+				isNeedRun = true;
 			}break;
 				
 			case KEY_DOWN_CHARGE:

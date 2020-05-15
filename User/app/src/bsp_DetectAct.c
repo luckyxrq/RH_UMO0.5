@@ -360,7 +360,7 @@ void bsp_DetectDeal(void)
 	printf("\r\n");
 #endif
 	
-#if 1	
+#if 0	
 	if( adcRealTime[0] >= PAUSE_V || 
 		adcRealTime[1] >= PAUSE_V || 
 		adcRealTime[2] >= PAUSE_V || 
