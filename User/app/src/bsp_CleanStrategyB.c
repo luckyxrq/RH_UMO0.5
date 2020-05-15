@@ -2814,6 +2814,8 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
     ////cout << " RightEdgeDilemma..............==============RightEdgeDilemma" << endl;
     int Yaw;
     unsigned char complete_flag = 0;
+	signed char i=0;
+	signed char j=0;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
 	log_debug("RightEdgeDilemma =======>>>,%x,\n",right_edge_dilemma_status);
@@ -2947,9 +2949,20 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             break;
         }
         if(-105<Yaw&&Yaw<-60){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 1;
+			i=(current_pose->x+half_map_long)/100;
+			j=(current_pose->y+half_map_long-200)/100;			
+			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+			}
+			else{
+				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+				last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				if(j>=2){
+					right_edge_dilemma_status=0;
+					DelimmaNumber=0;
+					complete_flag = 1;
+				}
+			}           
             break;
         }
         if(current_pose->y>-3*return_origin_distance){
@@ -3106,9 +3119,20 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             break;
         }
         if(Yaw<-75&&Yaw>-120){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 1;
+            i=(current_pose->x+half_map_long)/100;
+			j=(current_pose->y+half_map_long-200)/100;			
+			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+			}
+			else{
+				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+				last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				if(j>=2){
+					right_edge_dilemma_status=0;
+					DelimmaNumber=0;
+					complete_flag = 1;
+				}
+			}           
             break;
         }
         if( current_pose->y>-3*return_origin_distance){
@@ -8008,6 +8032,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 {
     int Yaw;
     unsigned char complete_flag = 0;
+	signed char i=0;
+	signed char j=0;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
 	log_debug("right_edge_dilemma_status =======>>>,%x,\n",right_edge_dilemma_status);
@@ -8140,9 +8166,20 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             break;
         }
         if(60<Yaw&&Yaw<105){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 1;
+			i=(current_pose->x+half_map_long)/100;
+			j=(current_pose->y+half_map_long+200)/100;			
+			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+			}
+			else{
+				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+				last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				if(j>=2){
+					right_edge_dilemma_status=0;
+					DelimmaNumber=0;
+					complete_flag = 1;
+				}
+			}           
             break;
         }
         if(my_abs(current_pose->y)<3*return_origin_distance){
@@ -8299,9 +8336,20 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             break;
         }
         if(Yaw<120&&Yaw>75){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 1;
+            i=(current_pose->x+half_map_long)/100;
+			j=(current_pose->y+half_map_long+200)/100;			
+			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+			}
+			else{
+				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+				last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				if(j>=2){
+					right_edge_dilemma_status=0;
+					DelimmaNumber=0;
+					complete_flag = 1;
+				}
+			}           
             break;
         }
         if(my_abs(current_pose->y)<3*return_origin_distance){
