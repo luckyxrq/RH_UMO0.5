@@ -114,6 +114,8 @@ void bsp_DetectAct(void)
 	if( !detectAct.isRunning )
 		return ;
 	
+	detectAct.pinMapIndex = 3;
+	
 	switch(detectAct.action)
 	{
 		case 0:
@@ -131,6 +133,11 @@ void bsp_DetectAct(void)
 			/*判断,adcRealTime 1.0F表示障碍物，0.0F表示无障碍物，为了兼容以前的框架，没有使用BOOL类型，但是算法那边判断切勿使用==1.0F  ==0.0F之类的，浮点数据不能这么判断*/
 			//adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = (abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000) >= IS_OBSTACLE_MV) ? 1.0F : 0.0F;
 			adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = abs((adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] - adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])*1000);			
+			if(adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][1] < adcContrast[detectAct.pinMapIndex%PIN_MAP_MAX][0])
+			{
+				adcRealTime[detectAct.pinMapIndex%PIN_MAP_MAX] = 0;
+			}
+			
 			
 			detectAct.delay = xTaskGetTickCount();
 			detectAct.action++;
@@ -143,7 +150,7 @@ void bsp_DetectAct(void)
 			{
 				detectAct.action = 0 ;
 				
-				++detectAct.pinMapIndex;
+				//++detectAct.pinMapIndex;
 				if(detectAct.pinMapIndex >= PIN_MAP_MAX)
 				{
 					detectAct.pinMapIndex = 0 ;
@@ -324,7 +331,7 @@ void bsp_GetAllIrIsObstacle(uint8_t ret[])
 	
 }
 
-#define PAUSE_V      100 /*暂停的阈值*/
+#define PAUSE_V      30 /*暂停的阈值*/
 
 void bsp_DetectDeal(void)
 {
