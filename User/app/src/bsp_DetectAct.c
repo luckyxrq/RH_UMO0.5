@@ -8,8 +8,8 @@
 #define DELAY_FOR_READ_US      200
 #define IS_OBSTACLE_MV         60  //障碍物差值电压，毫伏
 
-#define IR_OBSTACLE_0_6      60
-#define IR_OBSTACLE_7        60  /*二郎神*/
+#define IR_OBSTACLE_0_6      30
+#define IR_OBSTACLE_7        30  /*二郎神*/
 #define IR_OBSTACLE_8        100 /*左沿边*/
 #define IR_OBSTACLE_9        100 /*右沿边*/
 
