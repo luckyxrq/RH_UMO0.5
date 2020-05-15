@@ -5,7 +5,7 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
-#define CLEAN_WORK_TIME 20*60*1000
+#define CLEAN_WORK_TIME 40*60*1000
 #define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
 #define FORCE_RETURN_ORIGIN_WORK_TIME 2*60*1000
 
@@ -2950,7 +2950,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         }
         if(-105<Yaw&&Yaw<-60){
 			i=(current_pose->x+half_map_long)/100;
-			j=(current_pose->y+half_map_long-200)/100;			
+			j=(current_pose->y+half_map_long-130)/100;			
 			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
 			}
 			else{
@@ -3120,7 +3120,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         }
         if(Yaw<-75&&Yaw>-120){
             i=(current_pose->x+half_map_long)/100;
-			j=(current_pose->y+half_map_long-200)/100;			
+			j=(current_pose->y+half_map_long-130)/100;			
 			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
 			}
 			else{
@@ -8167,7 +8167,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         }
         if(60<Yaw&&Yaw<105){
 			i=(current_pose->x+half_map_long)/100;
-			j=(current_pose->y+half_map_long+200)/100;			
+			j=(current_pose->y+half_map_long+130)/100;			
 			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
 			}
 			else{
@@ -8337,7 +8337,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         }
         if(Yaw<120&&Yaw>75){
             i=(current_pose->x+half_map_long)/100;
-			j=(current_pose->y+half_map_long+200)/100;			
+			j=(current_pose->y+half_map_long+130)/100;			
 			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
 			}
 			else{
