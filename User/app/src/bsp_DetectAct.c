@@ -324,6 +324,7 @@ void bsp_GetAllIrIsObstacle(uint8_t ret[])
 	
 }
 
+#define PAUSE_V      100 /*ÔÝÍ£µÄãÐÖµ*/
 
 void bsp_DetectDeal(void)
 {
@@ -344,8 +345,14 @@ void bsp_DetectDeal(void)
 	printf("\r\n");
 #endif
 	
-#if 0	
-	if(adcRealTime[7] >= 1.0F)
+#if 1	
+	if( adcRealTime[0] >= PAUSE_V || 
+		adcRealTime[1] >= PAUSE_V || 
+		adcRealTime[2] >= PAUSE_V || 
+		adcRealTime[3] >= PAUSE_V || 
+		adcRealTime[4] >= PAUSE_V || 
+		adcRealTime[5] >= PAUSE_V || 
+		adcRealTime[6] >= PAUSE_V)
 	{
 		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
 		bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
