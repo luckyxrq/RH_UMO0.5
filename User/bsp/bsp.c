@@ -174,6 +174,9 @@ void bsp_Init(void)
 	bsp_ClearKey();
 	bsp_SetIsStartKeyProc(true);
 	bsp_InitChargeIO();
+	
+	bsp_InitElectrolyticWater();
+	bsp_StartElectrolyticWaterProc();
 }
 
 

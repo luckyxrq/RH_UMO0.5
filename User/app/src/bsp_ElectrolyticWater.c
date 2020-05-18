@@ -1,9 +1,9 @@
 #include "bsp.h"
 
-#define RCC_ALL_ELECTROLYTIC_WATER 	(RCC_APB2Periph_GPIOB)
+#define RCC_ALL_ELECTROLYTIC_WATER 	(RCC_APB2Periph_GPIOC)
 
-#define GPIO_PORT_ELECTROLYTIC_WATER  GPIOB
-#define GPIO_PIN_ELECTROLYTIC_WATER	  GPIO_Pin_3
+#define GPIO_PORT_ELECTROLYTIC_WATER  GPIOC
+#define GPIO_PIN_ELECTROLYTIC_WATER	  GPIO_Pin_5
 
 
 #define ELECTROLYTIC_WATER_ON()      GPIO_SetBits(GPIO_PORT_ELECTROLYTIC_WATER,GPIO_PIN_ELECTROLYTIC_WATER)
@@ -66,12 +66,24 @@ static inline void bsp_ELECTROLYTIC_WATER_ON(void)
 	/*2MS  一个周期   0-5S  35US开*/
 	if(electrolyticWater.cnt <= (5000 / 2))
 	{
-		electrolyticWater.onUS = 35 ;
+		electrolyticWater.onUS = 35*2 ;
 	}
-	/*2MS  一个周期   5-8S  35US开*/
-	else if(electrolyticWater.cnt > (5000 / 2) && electrolyticWater.cnt <= (8000 / 2))
+	/*2MS  一个周期   5-8S  760US开*/
+	else if(electrolyticWater.cnt > (5000 / 2) && electrolyticWater.cnt <= (6000 / 2))
 	{
-		
+		electrolyticWater.onUS = 250*2 ;
+	}
+	else if(electrolyticWater.cnt > (6000 / 2) && electrolyticWater.cnt <= (7000 / 2))
+	{
+		electrolyticWater.onUS = 500*2 ;
+	}
+	else if(electrolyticWater.cnt > (7000 / 2) && electrolyticWater.cnt <= (8000 / 2))
+	{
+		electrolyticWater.onUS = 760*2 ;
+	}
+	else if(electrolyticWater.cnt > (8000 / 2))
+	{
+		electrolyticWater.onUS = 760*2 ;
 	}
 	
 	ELECTROLYTIC_WATER_ON();
@@ -92,7 +104,7 @@ static inline void bsp_ELECTROLYTIC_WATER_OFF(void)
 	
 	ELECTROLYTIC_WATER_OFF();
 	
-	bsp_StartHardTimer(1, 2000-electrolyticWater.onUS, (void *)bsp_ELECTROLYTIC_WATER_ON);
+	bsp_StartHardTimer(1, 4000-electrolyticWater.onUS, (void *)bsp_ELECTROLYTIC_WATER_ON);
 	
 	/*2MS  一个周期   前面5S  35US开*/
 	/*2MS  一个周期   3S内  35US开变为760US开*/
@@ -111,20 +123,17 @@ void bsp_StartElectrolyticWaterProc(void)
 }
 
 
-void bsp_ElectrolyticWaterProc(void)
+void bsp_StopElectrolyticWaterProc(void)
 {
-	if(!electrolyticWater.isRunning)
-		return;
+	electrolyticWater.isRunning = false;
+	electrolyticWater.action = 0 ;
+	electrolyticWater.delay = 0 ;
+	electrolyticWater.cnt = 0 ;
 	
 	
-	switch(electrolyticWater.action)
-	{
-		case 0:
-		{
-			
-		}break;
-	}
+	bsp_ELECTROLYTIC_WATER_OFF();
 }
+
 
 
 
