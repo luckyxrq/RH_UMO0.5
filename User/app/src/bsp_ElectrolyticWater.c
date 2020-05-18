@@ -69,17 +69,9 @@ static inline void bsp_ELECTROLYTIC_WATER_ON(void)
 		electrolyticWater.onUS = 35*2 ;
 	}
 	/*2MS  一个周期   5-8S  760US开*/
-	else if(electrolyticWater.cnt > (5000 / 2) && electrolyticWater.cnt <= (6000 / 2))
+	else if(electrolyticWater.cnt <= (8000 / 2) && electrolyticWater.onUS <= 760*2)
 	{
-		electrolyticWater.onUS = 250*2 ;
-	}
-	else if(electrolyticWater.cnt > (6000 / 2) && electrolyticWater.cnt <= (7000 / 2))
-	{
-		electrolyticWater.onUS = 500*2 ;
-	}
-	else if(electrolyticWater.cnt > (7000 / 2) && electrolyticWater.cnt <= (8000 / 2))
-	{
-		electrolyticWater.onUS = 760*2 ;
+		electrolyticWater.onUS +=2 ;
 	}
 	else if(electrolyticWater.cnt > (8000 / 2))
 	{
