@@ -174,9 +174,15 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 *   优 先 级: 4  
 *********************************************************************************************************
 */
-#define FTS_ReadyGo 0
-
-
+#define FTS_ReadyGo              0
+#define FTS_RightEdgewiseRun     1
+#define FTS_ErLangStart          2
+#define FTS_TurnAroundErlangStop 3
+#define FTS_CliffStart           4
+#define FTS_TurnAroundCliffStop  5
+#define FTS_LeftEdgewiseRun      6
+#define FTS_SearchChargePile     7
+#define FTS_AllComplete          8
 
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
@@ -228,12 +234,34 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 
 		switch (FunctionTestStep)
 		{
-			case 0:     
+		
+			case FTS_ReadyGo:
+				//goto FTS_RightEdgewiseRun
 				break;
-			case 1:   
+			case FTS_RightEdgewiseRun:
+				//start right edgewiserun   <<set speed>>
+				//if （erlang == ture ） stop edgewiserun ,goto FTS_ErLangStart
+				break;
+			case FTS_ErLangStart:     
+				//turn around cclock turn radius 20CM  <<set speed>>
+				//if （yaw > 130°） goto stop turn around ,goto FTS_TurnAroundErlangStop
+				break;
+			case FTS_TurnAroundErlangStop:
+				//gostraight   if （△X > 0.3m）,
+				break;
+			case FTS_CliffStart:          
+				break;
+			case FTS_TurnAroundCliffStop: 
+				break;
+			case FTS_LeftEdgewiseRun:     
+				break;
+			case FTS_SearchChargePile:    
+				break;
+			case FTS_AllComplete:         
 				break;
 			default:
 				break;
+			
 			
 		}
 		
