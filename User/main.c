@@ -248,6 +248,8 @@ static void vTaskPerception(void *pvParameters)
 	/*¼ì²âÖ÷»úÐü¿Õ*/
 	bsp_StartOffSiteProc();
 	
+	bsp_StartDustBoxProc();
+	
 	/*¿ªÆôÑ°ÕÒ³äµç×®*/
 	//bsp_StartSearchChargePile();
 	
@@ -331,6 +333,8 @@ static void vTaskPerception(void *pvParameters)
 		/*¼ì²âÖ÷»úÐü¿Õ*/
 		//main_debug("bsp_OffSiteProc() \n");
 		bsp_OffSiteProc();
+		//check dust box
+		bsp_DustBoxProc();
         /*Ñ°ÕÒ³äµç×®*/
 		//main_debug("bsp_SearchChargePile() \n");
 		bsp_SearchChargePile();
@@ -619,6 +623,13 @@ static void bsp_KeyProc(void)
 				if(bsp_OffSiteGetState() == OffSiteBoth)
 				{
 					bsp_SperkerPlay(Song16);
+					return;
+				}
+				
+				/*Ê×ÏÈÅÐ¶Ï³¾ºÐ*/
+				if(bsp_DustBoxGetState() == DustBoxOutside)
+				{
+					bsp_SperkerPlay(Song9);
 					return;
 				}
 				
