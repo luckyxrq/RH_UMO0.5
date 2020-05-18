@@ -6,8 +6,8 @@
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
 #define CLEAN_WORK_TIME 40*60*1000
-#define EDGEWISE_CLEAN_WORK_TIME 1*60*1000
-#define FORCE_RETURN_ORIGIN_WORK_TIME 1*60*1000
+#define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
+#define FORCE_RETURN_ORIGIN_WORK_TIME 2*60*1000
 
 #define ZoomMultiple 4
 #define compression_map_x 25
@@ -525,11 +525,11 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 	//	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
 		batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
 		batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-		if(batteryvoltage < 7)   //12v-16v
+		if(batteryvoltage < 8)   //12v-16v
 		{
 			batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
 			batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-			if(batteryvoltage < 7)
+			if(batteryvoltage < 8)
 			{
 				return  battery_out_flag;//battery_out_flag;
 			}
@@ -2814,6 +2814,8 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
     ////cout << " RightEdgeDilemma..............==============RightEdgeDilemma" << endl;
     int Yaw;
     unsigned char complete_flag = 0;
+	signed char i=0;
+	signed char j=0;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
 	log_debug("RightEdgeDilemma =======>>>,%x,\n",right_edge_dilemma_status);
@@ -2947,12 +2949,23 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             break;
         }
         if(-105<Yaw&&Yaw<-60){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 1;
+			i=(current_pose->x+half_map_long)/100;
+			j=(current_pose->y+half_map_long-130)/100;			
+			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+			}
+			else{
+				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+				last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				if(j>=2){
+					right_edge_dilemma_status=0;
+					DelimmaNumber=0;
+					complete_flag = 1;
+				}
+			}           
             break;
         }
-        if(my_abs(current_pose->y)<return_origin_distance&&current_pose->y<0){
+        if(current_pose->y>-3*return_origin_distance){
             linear_velocity = 0;
             angular_velocity = 0;
 			DelimmaNumber=0;
@@ -2960,7 +2973,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 			complete_flag = 2;
             break;
         }
-        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x){
+        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status = COMPLETE_EL_DRYM;
@@ -3106,12 +3119,23 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             break;
         }
         if(Yaw<-75&&Yaw>-120){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 1;
+            i=(current_pose->x+half_map_long)/100;
+			j=(current_pose->y+half_map_long-130)/100;			
+			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+			}
+			else{
+				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+				last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				if(j>=2){
+					right_edge_dilemma_status=0;
+					DelimmaNumber=0;
+					complete_flag = 1;
+				}
+			}           
             break;
         }
-        if(current_pose->y>return_origin_distance){
+        if( current_pose->y>-3*return_origin_distance){
 			linear_velocity = 0;
             angular_velocity = 0;
 			DelimmaNumber=0;
@@ -3119,7 +3143,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 			complete_flag = 2;
             break;
         }
-        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+200){
+        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+500){
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
@@ -8008,6 +8032,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 {
     int Yaw;
     unsigned char complete_flag = 0;
+	signed char i=0;
+	signed char j=0;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
 	log_debug("right_edge_dilemma_status =======>>>,%x,\n",right_edge_dilemma_status);
@@ -8140,12 +8166,23 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             break;
         }
         if(60<Yaw&&Yaw<105){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 1;
+			i=(current_pose->x+half_map_long)/100;
+			j=(current_pose->y+half_map_long+130)/100;			
+			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+			}
+			else{
+				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+				last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				if(j>=2){
+					right_edge_dilemma_status=0;
+					DelimmaNumber=0;
+					complete_flag = 1;
+				}
+			}           
             break;
         }
-        if(my_abs(current_pose->y)>3*return_origin_distance&&current_pose->y<0){
+        if(my_abs(current_pose->y)<3*return_origin_distance){
 			linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status=0;
@@ -8153,7 +8190,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             complete_flag = 2;
             break;
         }
-        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-200){
+        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status = COMPLETE_LEFT_DILEMMA;
@@ -8299,12 +8336,23 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             break;
         }
         if(Yaw<120&&Yaw>75){
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 1;
+            i=(current_pose->x+half_map_long)/100;
+			j=(current_pose->y+half_map_long+130)/100;			
+			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+			}
+			else{
+				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+				last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				if(j>=2){
+					right_edge_dilemma_status=0;
+					DelimmaNumber=0;
+					complete_flag = 1;
+				}
+			}           
             break;
         }
-        if(my_abs(current_pose->y)>3*return_origin_distance&&current_pose->y<0){
+        if(my_abs(current_pose->y)<3*return_origin_distance){
 			linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status=0;
@@ -8312,7 +8360,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             complete_flag = 2;
             break;
         }
-        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+200){
+        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+500){
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status=LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
@@ -11357,7 +11405,7 @@ void  DetectionCloseEdge()
         }
         while (close_edge_max_x - close_edge_min_x > 3)
         {
-            for (k = close_edge_max_y-3; k <close_edge_max_y; k++)
+            for (k = close_edge_max_y-3; k <=close_edge_max_y; k++)
             {
                 for (i = close_edge_max_x - 3; i < close_edge_max_x; i++)
                 {
@@ -11434,7 +11482,7 @@ void  DetectionCloseEdge()
         }
         while (close_edge_max_x - close_edge_min_x > 3)
         {
-            for (k = close_edge_max_y; k <close_edge_max_y+3; k++)
+            for (k = close_edge_max_y; k <=close_edge_max_y+3; k++)
             {
                 for (i = close_edge_max_x - 3; i < close_edge_max_x; i++)
                 {
