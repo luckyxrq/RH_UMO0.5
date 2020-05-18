@@ -94,5 +94,6 @@
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
+.\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_electrolyticwater.h
 .\flash\obj\bsp_angle.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.c
 .\flash\obj\bsp_angle.o: ..\..\User\bsp\bsp.h
