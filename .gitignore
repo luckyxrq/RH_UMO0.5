@@ -1,0 +1,5 @@
+*.crf
+*.o
+*.map
+*.htm
+*.dep

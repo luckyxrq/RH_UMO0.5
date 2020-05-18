@@ -174,15 +174,18 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 *   优 先 级: 4  
 *********************************************************************************************************
 */
-#define FTS_ReadyGo              0
-#define FTS_RightEdgewiseRun     1
-#define FTS_ErLangStart          2
-#define FTS_TurnAroundErlangStop 3
-#define FTS_CliffStart           4
-#define FTS_TurnAroundCliffStop  5
-#define FTS_LeftEdgewiseRun      6
-#define FTS_SearchChargePile     7
-#define FTS_AllComplete          8
+#define FTS_ReadyGo               0
+#define FTS_RightEdgewiseRun      1
+#define FTS_ErLangStartTurnAround 2
+#define FTS_ErlangGostraight      3
+#define FTS_ErLangStopTurnAround  4
+#define FTS_CliffGosraight        5
+#define FTS_CliffBackward         6
+#define FTS_CliffStartTurnAround  7
+#define FTS_LeftEdgewiseRun       8
+#define FTS_SearchChargePile      9
+#define FTS_AllComplete           10
+
 
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
@@ -234,28 +237,42 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 
 		switch (FunctionTestStep)
 		{
-		
+
 			case FTS_ReadyGo:
 				//goto FTS_RightEdgewiseRun
+				//start right edgewiserun
 				break;
 			case FTS_RightEdgewiseRun:
-				//start right edgewiserun   <<set speed>>
+				//right edgewiserun    
 				//if （erlang == ture ） stop edgewiserun ,goto FTS_ErLangStart
 				break;
-			case FTS_ErLangStart:     
-				//turn around cclock turn radius 20CM  <<set speed>>
-				//if （yaw > 130°） goto stop turn around ,goto FTS_TurnAroundErlangStop
+			case FTS_ErLangStartTurnAround:     
+				//turn around cclock turn radius 20CM   
+				//if （yaw > 130） stop turn around ,goto FTS_TurnAroundErlangStop
 				break;
-			case FTS_TurnAroundErlangStop:
-				//gostraight   if （△X > 0.3m）,
+			case FTS_ErlangGostraight:
+				//gostraight   if （△X > 0.3m）,goto FTS_ErLangStopTurnAround
 				break;
-			case FTS_CliffStart:          
+			case FTS_ErLangStopTurnAround:
+				//turn around clock turn radius 20CM   
+				//if （yaw < 45） stop turn around ,goto FTS_CliffStart
 				break;
-			case FTS_TurnAroundCliffStop: 
+			case FTS_CliffGosraight:  
+				//go straight if（cliff == ture），goto CliffBackward
 				break;
-			case FTS_LeftEdgewiseRun:     
+			case FTS_CliffBackward:  
+				//Backward  if（△X > 0.2m），goto FTS_CliffStartTurnAround
+				break;
+			case FTS_CliffStartTurnAround:
+				////turn around cclock turn radius 0CM   
+				//if （yaw > -165  && yaw < 0） stop turn around,start left edgewiserun ,goto FTS_LeftEdgewiseRun
+				break;
+			case FTS_LeftEdgewiseRun:  
+				//left edgewiserun  
+				//if (△X > 1m) ,stop left edgewiserun，StartSearchChargePile,goto FTS_SearchChargePile
 				break;
 			case FTS_SearchChargePile:    
+				//SearchChargePile（）
 				break;
 			case FTS_AllComplete:         
 				break;
