@@ -350,6 +350,9 @@ static void vTaskPerception(void *pvParameters)
 		//main_debug("wifi_uart_service() \n");
 		wifi_uart_service();
 		
+		/*更新跳崖传感器信息*/
+		bsp_GetCliffStates();
+		
 		count++;
         vTaskDelay(5);	
     }		

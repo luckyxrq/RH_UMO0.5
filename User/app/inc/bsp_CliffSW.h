@@ -16,7 +16,7 @@ void bsp_CliffCalibration(void);
 
 
 bool bsp_CliffIsDangerous(CliffSWSN sn);
-
+void bsp_PrintCliff(void);
 uint8_t bsp_GetCliffStates(void);
 
 void bsp_CliffTest(void);

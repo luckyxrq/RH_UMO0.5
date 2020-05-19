@@ -88,13 +88,13 @@ void bsp_Init(void)
 	
 	
 	{
-		char *dx8Version;
+		//char *dx8Version;
 		unsigned char rv;
 		
 		dx8_Init();
 		
 		/*获取加密版本信息*/
-		dx8Version = DX8_Version();
+		//dx8Version = DX8_Version();
 		//DEBUG("加密版本：%s\r\n",dx8Version);
 		
 		// Authention Test

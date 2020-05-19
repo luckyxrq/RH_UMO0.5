@@ -237,7 +237,7 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 
 /*三个跳崖传感器，每个读两次*/
 static float cliffTwiceRead[3][2];
-
+static uint8_t cliffStates = 0x00;
 
 /*
 *********************************************************************************************************
@@ -287,6 +287,7 @@ uint8_t bsp_GetCliffStates(void)
 	//DEBUG("%d %d %d\r\n",abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000),abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000),abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000));
 	//DEBUG("data:%02X\r\n",data);
 	
+	cliffStates = data;
 	
 	return data;
 }
@@ -296,19 +297,16 @@ uint8_t bsp_GetCliffStates(void)
 
 bool bsp_CliffIsDangerous(CliffSWSN sn)
 {
-	uint8_t state = 0 ; 
 	
-	state = bsp_GetCliffStates();
-	
-	if(sn == CliffLeft && (state&(1<<0)))
+	if(sn == CliffLeft && (cliffStates&(1<<0)))
 	{
 		return true;
 	}
-	else if(sn == CliffMiddle && (state&(1<<1)))
+	else if(sn == CliffMiddle && (cliffStates&(1<<1)))
 	{
 		return true;
 	}
-	else if(sn == CliffRight && (state&(1<<2)))
+	else if(sn == CliffRight && (cliffStates&(1<<2)))
 	{
 		return true;
 	}
@@ -320,6 +318,13 @@ bool bsp_CliffIsDangerous(CliffSWSN sn)
 
 
 
+void bsp_PrintCliff(void)
+{
+	DEBUG("CLIFF:%d %d %d\r\n",
+	bsp_CliffIsDangerous(CliffLeft),
+	bsp_CliffIsDangerous(CliffMiddle),
+	bsp_CliffIsDangerous(CliffRight));
+}
 
 
 
