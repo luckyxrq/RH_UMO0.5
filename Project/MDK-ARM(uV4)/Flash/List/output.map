@@ -58,8 +58,8 @@ Section Cross References
     main.o(i.bsp_KeySuspend) refers to main.o(i.bsp_SetLastKeyState) for bsp_SetLastKeyState
     main.o(i.bsp_OffsiteSuspend) refers to bsp_runcontrol.o(i.bsp_OpenThreeWhileLed) for bsp_OpenThreeWhileLed
     main.o(i.bsp_OffsiteSuspend) refers to bsp_runcontrol.o(i.bsp_SetLedState) for bsp_SetLedState
-    main.o(i.bsp_OffsiteSuspend) refers to main.o(i.bsp_StopAllMotor) for bsp_StopAllMotor
     main.o(i.bsp_OffsiteSuspend) refers to main.o(i.bsp_CloseAllStateRun) for bsp_CloseAllStateRun
+    main.o(i.bsp_OffsiteSuspend) refers to main.o(i.bsp_StopAllMotor) for bsp_StopAllMotor
     main.o(i.bsp_OffsiteSuspend) refers to main.o(i.bsp_SetLastKeyState) for bsp_SetLastKeyState
     main.o(i.bsp_SetLastKeyState) refers to main.o(.data) for .data
     main.o(i.bsp_StopAllMotor) refers to bsp_control.o(i.bsp_SetMotorSpeed) for bsp_SetMotorSpeed

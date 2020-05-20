@@ -492,11 +492,11 @@ void bsp_OffsiteSuspend(void)
 	bsp_OpenThreeWhileLed();
 	bsp_SetLedState(LED_DEFAULT_STATE);
 	
-	/*关闭所有电机*/
-	bsp_StopAllMotor();
-	
 	/*关闭所有状态机*/
 	bsp_CloseAllStateRun();
+	
+	/*关闭所有电机*/
+	bsp_StopAllMotor();
 
 	
 	/*设置上一次按键值*/
