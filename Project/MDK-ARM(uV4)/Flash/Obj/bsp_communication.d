@@ -95,3 +95,4 @@
 .\flash\obj\bsp_communication.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\bsp_communication.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\bsp_communication.o: ..\..\User\app\inc\bsp_electrolyticwater.h
+.\flash\obj\bsp_communication.o: ..\..\User\app\inc\bsp_pump.h

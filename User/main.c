@@ -220,6 +220,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
+		bsp_PumpProc();
+		
 		count++;
         vTaskDelay(20);
     }
@@ -277,7 +279,7 @@ static void vTaskPerception(void *pvParameters)
 #if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 	bsp_StartVacuum();
 	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM);
-	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM);
+	bsp_StartPump();
 	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
 	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
 #endif

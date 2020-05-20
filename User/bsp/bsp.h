@@ -219,6 +219,7 @@
 #include "bsp_UploadMap.h"
 #include "bsp_CleanStrategyRandom.h"
 #include "bsp_electrolyticwater.h"
+#include "bsp_pump.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

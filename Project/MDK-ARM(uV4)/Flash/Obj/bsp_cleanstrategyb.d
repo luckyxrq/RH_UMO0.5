@@ -95,4 +95,5 @@
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_electrolyticwater.h
+.\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_pump.h
 .\flash\obj\bsp_cleanstrategyb.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

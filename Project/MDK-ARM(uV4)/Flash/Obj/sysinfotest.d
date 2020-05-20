@@ -95,3 +95,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_electrolyticwater.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_pump.h

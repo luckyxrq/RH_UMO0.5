@@ -656,6 +656,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_ElectrolyticWater.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_Pump.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_Pump.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
