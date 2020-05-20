@@ -237,8 +237,12 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 	
 		if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100))
 		{
-			//if(IRSensorData_StrategyB[2] == 1 || IRSensorData_StrategyB[3] == 1 || IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1)
-			if(IRSensorData_StrategyB[3] == 1 || IRSensorData_StrategyB[7] == 1)
+			if(IRSensorData_StrategyB[2] == 1 || IRSensorData_StrategyB[3] == 1 \
+			|| IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1 \
+			|| IRSensorData_StrategyB[0] == 1 || IRSensorData_StrategyB[1] == 1 \
+			|| IRSensorData_StrategyB[4] == 1 || IRSensorData_StrategyB[6] == 1 \
+			)
+			//if(IRSensorData_StrategyB[3] == 1 || IRSensorData_StrategyB[7] == 1)
 			{
 				cmd_linear_velocity = 0.7*cmd_linear_velocity;
 				
