@@ -177,6 +177,8 @@ void bsp_Init(void)
 	
 	bsp_InitElectrolyticWater();
 	bsp_StartElectrolyticWaterProc();
+	
+	bsp_ParamUpdateTest();
 }
 
 
