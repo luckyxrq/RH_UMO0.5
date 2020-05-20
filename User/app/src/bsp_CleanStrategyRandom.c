@@ -47,6 +47,9 @@ static uint32_t CIRCLE_DELAY_INDEX = 0 ;
 
 void bsp_StrategyRandomProc(void)
 {
+	
+	uint8_t random_num = 0;
+	
 	if(!strategyRandom.isRunning)
 		return;
 	
@@ -76,8 +79,8 @@ void bsp_StrategyRandomProc(void)
 			}
 			else /*没有碰撞就直接走，快速走*/
 			{
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(250));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(220));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(220));
 			}
 			
 		}break;
@@ -89,9 +92,16 @@ void bsp_StrategyRandomProc(void)
 				strategyRandom.angle = bsp_AngleRead();
 				strategyRandom.delay = xTaskGetTickCount();
 				
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+300));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-300));
-				
+				if(xTaskGetTickCount()%2 == 0 )
+				{
+					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-190));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+190));
+				}
+				else
+				{
+					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+190));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-190));
+				}
 //				if(strategyRandom.collision == CollisionLeft || strategyRandom.leftCliff)
 //				{
 //					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+250));
