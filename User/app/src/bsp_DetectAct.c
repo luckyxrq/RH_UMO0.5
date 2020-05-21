@@ -8,7 +8,10 @@
 #define DELAY_FOR_READ_US      200
 #define IS_OBSTACLE_MV         60  //障碍物差值电压，毫伏
 
-#define IR_OBSTACLE_0_6      30
+#define IR_OBSTACLE_2_4      30
+#define IR_OBSTACLE_0_6      80
+#define IR_OBSTACLE_3        1200
+#define IR_OBSTACLE_1_5      1700
 #define IR_OBSTACLE_7        30  /*二郎神*/
 #define IR_OBSTACLE_8        100 /*左沿边*/
 #define IR_OBSTACLE_9        100 /*右沿边*/
@@ -307,17 +310,80 @@ void bsp_GetAllIrIsObstacle(uint8_t ret[])
 	uint8_t i = 0 ;
 	
 	/*周边红外*/
-	for(i=0;i<=6;i++)
+//	for(i=0;i<=6;i++)
+//	{
+//		if(adcRealTime[i] >= IR_OBSTACLE_0_6)
+//		{
+//			ret[i] = 1;
+//		}
+//		else
+//		{
+//			ret[i] = 0;
+//		}
+//	}
+	
+	if(adcRealTime[0] >= IR_OBSTACLE_0_6)
 	{
-		if(adcRealTime[i] >= IR_OBSTACLE_0_6)
-		{
-			ret[i] = 1;
-		}
-		else
-		{
-			ret[i] = 0;
-		}
+		ret[0] = 1;
 	}
+	else
+	{
+		ret[0] = 0;
+	}
+	if(adcRealTime[2] >= IR_OBSTACLE_2_4)
+	{
+		ret[2] = 1;
+	}
+	else
+	{
+		ret[2] = 0;
+	}
+	if(adcRealTime[4] >= IR_OBSTACLE_2_4)
+	{
+		ret[4] = 1;
+	}
+	else
+	{
+		ret[4] = 0;
+	}
+	if(adcRealTime[6] >= IR_OBSTACLE_0_6)
+	{
+		ret[6] = 1;
+	}
+	else
+	{
+		ret[6] = 0;
+	}
+	
+	
+	if(adcRealTime[1] >= IR_OBSTACLE_1_5)
+	{
+		ret[1] = 1;
+	}
+	else
+	{
+		ret[1] = 0;
+	}
+	if(adcRealTime[3] >= IR_OBSTACLE_3)
+	{
+		ret[3] = 1;
+	}
+	else
+	{
+		ret[3] = 0;
+	}
+	if(adcRealTime[5] >= IR_OBSTACLE_1_5)
+	{
+		ret[5] = 1;
+	}
+	else
+	{
+		ret[5] = 0;
+	}
+	
+	
+	
+	
 	
 	/*二郎神*/
 	if(adcRealTime[7] >= IR_OBSTACLE_7)

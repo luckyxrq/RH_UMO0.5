@@ -748,7 +748,7 @@
 
 #define PI 3.14159265
 #define front_backward_distance 10
-#define side_backward_distance 25
+#define side_backward_distance 15
 #define star_collision_backward 50
 #define star_collision_go 400
 #define collision_backward_distance 3

@@ -166,6 +166,7 @@ int y_error = 0;
 static CleanStrategyB cleanstrategy;
 static POSE current_pose;
 //static int Yaw;
+static short speed_pid_cnt_goback  = 0;
 static short speed_pid_cnt_default = 0;
 static short speed_pid_cnt_ir = 0;
 static unsigned char* IRSensorData_StrategyB;
@@ -232,31 +233,37 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 		bsp_PidClear(MotorRight);
 		speed_pid_cnt_default = 1;
 		speed_pid_cnt_ir = 1;
+		speed_pid_cnt_goback = 1;
 		
 	}else{
-	
 		if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100))
 		{
-			if(IRSensorData_StrategyB[2] == 1 || IRSensorData_StrategyB[3] == 1 \
-			|| IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1 \
-			|| IRSensorData_StrategyB[0] == 1 || IRSensorData_StrategyB[1] == 1 \
-			|| IRSensorData_StrategyB[4] == 1 || IRSensorData_StrategyB[6] == 1 \
-			)
+			if(IRSensorData_StrategyB[2] == 1 || IRSensorData_StrategyB[7] == 1 || IRSensorData_StrategyB[0] == 1 ||\
+			   IRSensorData_StrategyB[4] == 1 || IRSensorData_StrategyB[6] == 1)
 			//if(IRSensorData_StrategyB[3] == 1 || IRSensorData_StrategyB[7] == 1)
 			{
 				cmd_linear_velocity = 0.7*cmd_linear_velocity;
 				
 				linear_velocity_IR = cmd_linear_velocity;
 				
-			}else if(cmd_linear_velocity == -long_stra_vel)
-			{
-				if(cmd_angular_velocity == 0)
-				{
-					cmd_linear_velocity = -160;
-				}
 			}
-			//cliff_valueB.cliffValue0) == 1)
-		
+			if(cmd_linear_velocity == -long_stra_vel)
+			{
+				cmd_linear_velocity = -160;
+				if(speed_pid_cnt_goback == 1) 
+				{
+					bsp_PidClear(MotorLeft);
+					bsp_PidClear(MotorRight);
+				}
+				if(speed_pid_cnt_goback <=10) speed_pid_cnt_goback +=1;
+				if(speed_pid_cnt_goback >10)  speed_pid_cnt_goback  =10; 
+				cmd_linear_velocity = speed_pid_cnt_goback*0.1*(cmd_linear_velocity+40)-40;	
+			}
+			else
+			{
+				speed_pid_cnt_goback = 1;
+			}
+				
 		
 			if(cmd_linear_velocity == long_stra_vel )
 			{
@@ -297,6 +304,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 		else{
 			speed_pid_cnt_default = 1;
 			speed_pid_cnt_ir = 1;
+			speed_pid_cnt_goback = 1;
 		}
 		
 		leftVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 - Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
@@ -476,6 +484,13 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta, unsigned 
 	
 	if(cleanstrategy.isRunning)
 	{
+		if(obstacleSignal == CollisionNone)
+		{
+			if(IRSensorData_StrategyB[1] == 1 ) obstacleSignal = CollisionLeft;
+			if(IRSensorData_StrategyB[5] == 1 ) obstacleSignal = CollisionRight;
+			if(IRSensorData_StrategyB[3] == 1 ) obstacleSignal = CollisionAll;
+		}
+		
 		if(clean_strategyB(&current_pose,obstacleSignal) != ALL_CLEAN_COMPLETE)
 		{
 			//nothing...
