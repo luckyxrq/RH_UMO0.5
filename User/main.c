@@ -239,6 +239,7 @@ bool isNeedRun = false;
 *   ”≈ œ» º∂: 4  
 *********************************************************************************************************
 */
+float roll = 0.0F;
 static void vTaskPerception(void *pvParameters)
 {
 	uint32_t count = 0 ;
@@ -289,6 +290,19 @@ static void vTaskPerception(void *pvParameters)
     {
 		//bsp_ComAnalysis();
 		//bsp_CliffTest();
+		
+		roll = bsp_IMU_GetData(ROLL)*100*0.01F;
+		DEBUG("%.2F\r\n",roll);
+//		if(roll <= 175 && roll >= 0)
+//		{
+//			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(500));
+//			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(500));
+//		}
+//		else
+//		{
+//			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+//			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+//		}
 		
 		
 		if(isNeedRun)
