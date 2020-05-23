@@ -552,27 +552,27 @@ static void bsp_KeyProc(void)
 		{
 			case KEY_DOWN_POWER:
 			{
-				DEBUG("++++++++\r\n");
-//				bsp_KeySuspend();
-//				isNeedRun = true;
-				
-				if(param.data1 < CONSTANT_HIGH_PWM - 500)
-				{
-					param.data1 += 500;
-				}
-				bsp_SaveParam();
+//				DEBUG("++++++++\r\n");
+////				bsp_KeySuspend();
+////				isNeedRun = true;
+//				
+//				if(param.data1 < CONSTANT_HIGH_PWM - 500)
+//				{
+//					param.data1 += 500;
+//				}
+//				bsp_SaveParam();
 			}break;
 				
 			case KEY_DOWN_CHARGE:
 			{
-				DEBUG("--------\r\n");;
-//				bsp_KeySuspend();
-				
-				if(param.data1 > 500)
-				{
-					param.data1 -= 500;
-				}
-				bsp_SaveParam();
+//				DEBUG("--------\r\n");;
+////				bsp_KeySuspend();
+//				
+//				if(param.data1 > 500)
+//				{
+//					param.data1 -= 500;
+//				}
+//				bsp_SaveParam();
 			}break;
 				
 			case KEY_DOWN_CLEAN:	

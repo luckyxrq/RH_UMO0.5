@@ -7,7 +7,7 @@ extern PARAM_T param;
 //#define PUMP_OFF()      bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0)
 
 
-#define PUMP_ON()       bsp_MotorCleanSetPWM(MotorSideBrush, CW , param.data1)
+#define PUMP_ON()       bsp_MotorCleanSetPWM(MotorSideBrush, CW , 2500)
 #define PUMP_OFF()      bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0)
 
 
