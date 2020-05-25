@@ -272,7 +272,7 @@ static void vTaskPerception(void *pvParameters)
 	
 	//bsp_StartCliffTest();
 
-	vTaskDelay(2000);		
+	vTaskDelay(3000);		
 	
 	bsp_InitCliffSW();
 	
@@ -293,16 +293,16 @@ static void vTaskPerception(void *pvParameters)
 		
 		roll = bsp_IMU_GetData(ROLL)*100*0.01F;
 		DEBUG("%.2F\r\n",roll);
-//		if(roll <= 175 && roll >= 0)
-//		{
-//			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(500));
-//			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(500));
-//		}
-//		else
-//		{
-//			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-//			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
-//		}
+		if(roll <= 175 && roll >= 0)
+		{
+			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(500));
+			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(500));
+		}
+		else
+		{
+			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+		}
 		
 		
 		if(isNeedRun)
