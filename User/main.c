@@ -43,6 +43,8 @@ static TaskHandle_t xHandleTaskMapping       = NULL;
 static SemaphoreHandle_t  xMutex = NULL;
 
 bool isSearchCharge = false;
+bool isODDStart  = true;
+
 /*
 *********************************************************************************************************
 *	函 数 名: main
@@ -190,6 +192,15 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
+#if 0
+		if(count%100 ==0)
+		{
+			bsp_CleanZeroYaw();
+			DEBUG("bsp_CleanZeroYaw()\r\n");
+		}
+		
+		DEBUG("Orientation: %f ° \r\n", Rad2Deg(bsp_GetCurrentOrientation()));
+#endif
 		
 		
 		if(isSearchCharge)
@@ -291,8 +302,8 @@ static void vTaskPerception(void *pvParameters)
 		//bsp_ComAnalysis();
 		//bsp_CliffTest();
 		
-		roll = bsp_IMU_GetData(ROLL)*100*0.01F;
-		DEBUG("%.2F\r\n",roll);
+		//roll = bsp_IMU_GetData(ROLL)*100*0.01F;
+		//DEBUG("%.2F\r\n",roll);
 //		if(roll <= 175 && roll >= 0)
 //		{
 //			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(500));
@@ -657,6 +668,7 @@ static void bsp_KeyProc(void)
 				/*加入后退*/
 			    if(bsp_IsTouchChargePile())
 				{
+					bsp_CleanZeroYaw();
 					vTaskDelay(1000);
 					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-150));
 					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
@@ -664,12 +676,31 @@ static void bsp_KeyProc(void)
 					bsp_SetMotorSpeed(MotorLeft, 0);
 					bsp_SetMotorSpeed(MotorRight,0);
 					vTaskDelay(500);
-					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-200));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+200));
-					vTaskDelay(1500);
+					if(isODDStart) 
+					{	
+						bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+200));
+						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-200));
+					}
+					else
+					{
+						bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-200));
+						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+200));
+					}
+					vTaskDelay(1900);
 					bsp_SetMotorSpeed(MotorLeft, 0);
 					bsp_SetMotorSpeed(MotorRight,0);
 					vTaskDelay(500);
+					if(isODDStart) 
+					{	
+						isODDStart = false;
+					}
+					else
+					{
+						isODDStart = true;
+						bsp_CleanZeroYaw();
+					}
+						
+					vTaskDelay(50);
 				}
 					
 				bsp_StartUpdateCleanStrategyB();

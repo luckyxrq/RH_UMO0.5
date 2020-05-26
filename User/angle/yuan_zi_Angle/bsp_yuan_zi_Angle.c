@@ -1,10 +1,11 @@
 #include "bsp.h"
 
 #define CALIBRATION_SIZE      8
+#define CLEANZERO_SIZE    12
 
 static Angle angle;
 static uint8_t CalibrationBuf[CALIBRATION_SIZE] = {0x41,0x78,0xFF,0x06,0x02,0x00,0xC2,0x6D};
-
+static uint8_t CleanZeroBuf[CLEANZERO_SIZE] = {0x41,0x78,0xFF,0x04,0x35,0x04,0x00,0x00,0x00,0x00,0xF3,0x6D};
 static void bsp_AngleTimeout(void);
 static void bsp_AnglePoll(void);
 static void bsp_AngleAnalyzeApp(void);
@@ -134,6 +135,10 @@ void bsp_AngleRst(void)
 	GPIO_SetBits(GPIO_PORT_RST,GPIO_PIN_RST);
 }
 
+void bsp_CleanZeroYaw(void)
+{
+	comSendBuf(COM3,CleanZeroBuf,CLEANZERO_SIZE);
+}
 
 
 /*
@@ -345,7 +350,7 @@ static uint8_t bsp_AngleChkXorCalc(uint8_t buf[] , uint8_t len)
 
 void bsp_IMU_Calibration(void)
 {
-	comSendBuf(COM2,CalibrationBuf,CALIBRATION_SIZE);
+	comSendBuf(COM3,CalibrationBuf,CALIBRATION_SIZE);
 }
 
 
