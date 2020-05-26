@@ -911,6 +911,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\Doc\03.开发环境说明.txt</FilePath>
             </File>
+            <File>
+              <FileName>04.通信协议.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Doc\04.通信协议.txt</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
