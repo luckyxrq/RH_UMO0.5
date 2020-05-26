@@ -35,129 +35,129 @@ void bsp_ComAnalysis(void)
 	uint8_t ch = 0 ;
 	uint16_t index = 0 ;
 	
-	/*选定串口*/
-	port = COM4;
-	
-	while(comGetChar(port, &ch))
-	{
-		/*依次获取串口缓冲区每个字节*/
-		analysisBuf[index % MAX_ANALYSIS_LEN] = ch ;
-		index++;
-		
-		if(index == 1)    /*前面3个是帧头*/
-		{
-			if(ch != 0xAA)
-			{
-				index = 0 ;
-			}
-		}
-		else if(index == 2)/*前面3个是帧头*/
-		{
-			if(ch != 0xAA)
-			{
-				index = 0 ;
-			}
-		}
-		else if(index == 3)/*前面3个是帧头*/
-		{
-			if(ch != 0xAA)
-			{
-				index = 0 ;
-			}
-		}
-		else if(index == 4)/*消息ID*/
-		{
-			routeAnalysis.msgID = ch;
-			if(ch != CMD_ID_SPEED && ch != CMD_ID_DISTANCE && ch != CMD_ID_ANGLE)
-			{
-				index = 0 ;
-			}
-		}
-		else if(index == 5)/*帧长度*/
-		{
-			routeAnalysis.len = ch;
-		}
-		else if(index >= (routeAnalysis.len+ 8))/*数据接收完毕（帧头帧尾4，检验2，ID 1，长度1）*/
-		{
-			uint16_t calcChk = bsp_CalcChk(analysisBuf+3,index-6); /*计算校验数据，用于校验的数据不包括前面的3个帧头和后面的1个帧尾，2个校验字节*/
-			uint16_t rxChk   = analysisBuf[index-1-2] << 8 | analysisBuf[index-1-1];
-			
-			if(analysisBuf[index-1] != 0x55 || calcChk != rxChk)
-			{
-				index = 0 ;
-			}
-			else /*获得了正确的解析数据*/
-			{
-				if(routeAnalysis.msgID == CMD_ID_SPEED)
-				{
-					int16_t linearVelocity  = analysisBuf[5]<<8 | analysisBuf[6];
-					int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
-					
-					/*计算出速度，单位MM/S */
-					/*角速度范围：5~60 度/秒*/
-					/*线速度范围：20~250 毫米/秒*/
-					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
-					
-					const int16_t limitSameDirSpeed = 250 ;
-					const int16_t limitDiffrentDirSpeed = 150 ;
-					
-					if(leftVelocity > limitSameDirSpeed )
-						leftVelocity = limitSameDirSpeed;
-					
-					if(rightVelocity > limitSameDirSpeed )
-						rightVelocity = limitSameDirSpeed;
-					
-					if(leftVelocity < -limitSameDirSpeed )
-						leftVelocity = -limitSameDirSpeed;
-					
-					if(rightVelocity < -limitSameDirSpeed )
-						rightVelocity = -limitSameDirSpeed;
-					
-					if(leftVelocity * rightVelocity < 0)
-					{
-						if(leftVelocity > limitDiffrentDirSpeed )
-						leftVelocity = limitDiffrentDirSpeed;
-					
-						if(rightVelocity > limitDiffrentDirSpeed )
-							rightVelocity = limitDiffrentDirSpeed;
-						
-						if(leftVelocity < -limitDiffrentDirSpeed )
-							leftVelocity = -limitDiffrentDirSpeed;
-						
-						if(rightVelocity < -limitDiffrentDirSpeed )
-							rightVelocity = -limitDiffrentDirSpeed;
-					}
-					
-					/*设定速度*/
-					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
-					
-					/*调试*/
-					#if 0
-					DEBUG("routeAnalysis.msgID:%02X\r\n",routeAnalysis.msgID);
-					DEBUG("routeAnalysis.len:%02X\r\n",routeAnalysis.len);
+//	/*选定串口*/
+//	port = COM4;
+//	
+//	while(comGetChar(port, &ch))
+//	{
+//		/*依次获取串口缓冲区每个字节*/
+//		analysisBuf[index % MAX_ANALYSIS_LEN] = ch ;
+//		index++;
+//		
+//		if(index == 1)    /*前面3个是帧头*/
+//		{
+//			if(ch != 0xAA)
+//			{
+//				index = 0 ;
+//			}
+//		}
+//		else if(index == 2)/*前面3个是帧头*/
+//		{
+//			if(ch != 0xAA)
+//			{
+//				index = 0 ;
+//			}
+//		}
+//		else if(index == 3)/*前面3个是帧头*/
+//		{
+//			if(ch != 0xAA)
+//			{
+//				index = 0 ;
+//			}
+//		}
+//		else if(index == 4)/*消息ID*/
+//		{
+//			routeAnalysis.msgID = ch;
+//			if(ch != CMD_ID_SPEED && ch != CMD_ID_DISTANCE && ch != CMD_ID_ANGLE)
+//			{
+//				index = 0 ;
+//			}
+//		}
+//		else if(index == 5)/*帧长度*/
+//		{
+//			routeAnalysis.len = ch;
+//		}
+//		else if(index >= (routeAnalysis.len+ 8))/*数据接收完毕（帧头帧尾4，检验2，ID 1，长度1）*/
+//		{
+//			uint16_t calcChk = bsp_CalcChk(analysisBuf+3,index-6); /*计算校验数据，用于校验的数据不包括前面的3个帧头和后面的1个帧尾，2个校验字节*/
+//			uint16_t rxChk   = analysisBuf[index-1-2] << 8 | analysisBuf[index-1-1];
+//			
+//			if(analysisBuf[index-1] != 0x55 || calcChk != rxChk)
+//			{
+//				index = 0 ;
+//			}
+//			else /*获得了正确的解析数据*/
+//			{
+//				if(routeAnalysis.msgID == CMD_ID_SPEED)
+//				{
+//					int16_t linearVelocity  = analysisBuf[5]<<8 | analysisBuf[6];
+//					int16_t angularVelocity = analysisBuf[7]<<8 | analysisBuf[8];
+//					
+//					/*计算出速度，单位MM/S */
+//					/*角速度范围：5~60 度/秒*/
+//					/*线速度范围：20~250 毫米/秒*/
+//					int16_t leftVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 - Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+//					int16_t rightVelocity = (int16_t)((0.5*(2*linearVelocity*0.001 + Deg2Rad(angularVelocity)*WHEEL_LENGTH))* 1000);
+//					
+//					const int16_t limitSameDirSpeed = 250 ;
+//					const int16_t limitDiffrentDirSpeed = 150 ;
+//					
+//					if(leftVelocity > limitSameDirSpeed )
+//						leftVelocity = limitSameDirSpeed;
+//					
+//					if(rightVelocity > limitSameDirSpeed )
+//						rightVelocity = limitSameDirSpeed;
+//					
+//					if(leftVelocity < -limitSameDirSpeed )
+//						leftVelocity = -limitSameDirSpeed;
+//					
+//					if(rightVelocity < -limitSameDirSpeed )
+//						rightVelocity = -limitSameDirSpeed;
+//					
+//					if(leftVelocity * rightVelocity < 0)
+//					{
+//						if(leftVelocity > limitDiffrentDirSpeed )
+//						leftVelocity = limitDiffrentDirSpeed;
+//					
+//						if(rightVelocity > limitDiffrentDirSpeed )
+//							rightVelocity = limitDiffrentDirSpeed;
+//						
+//						if(leftVelocity < -limitDiffrentDirSpeed )
+//							leftVelocity = -limitDiffrentDirSpeed;
+//						
+//						if(rightVelocity < -limitDiffrentDirSpeed )
+//							rightVelocity = -limitDiffrentDirSpeed;
+//					}
+//					
+//					/*设定速度*/
+//					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
+//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+//					
+//					/*调试*/
+//					#if 0
+//					DEBUG("routeAnalysis.msgID:%02X\r\n",routeAnalysis.msgID);
+//					DEBUG("routeAnalysis.len:%02X\r\n",routeAnalysis.len);
 
-					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[5], analysisBuf[6]);
-					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[7], analysisBuf[8]);
-					#endif
-				}
-				
-				/*重新开始计数*/
-				index = 0 ;
-			}
-		}
-	}
+//					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[5], analysisBuf[6]);
+//					DEBUG("linearVelocity:%02X %02X\r\n",analysisBuf[7], analysisBuf[8]);
+//					#endif
+//				}
+//				
+//				/*重新开始计数*/
+//				index = 0 ;
+//			}
+//		}
+//	}
 	
 	
 	/*选定串口*/
 	port = COM1;
 	
 	/*选定串口*/
-	port = COM2;
+	port = COM4;
 	while(comGetChar(port, &ch))
 	{
-		comSendChar(COM2, ch);
+		comSendChar(COM4, ch);
 	}
 	/*选定串口*/
 	port = COM3;
