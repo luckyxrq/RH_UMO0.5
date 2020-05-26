@@ -307,9 +307,9 @@ float bsp_GetInfraRedAdcVoltage(IR_SN sn)
 */
 void bsp_GetAllIrIsObstacle(uint8_t ret[])
 {
-	uint8_t i = 0 ;
-	
-	/*周边红外*/
+//	uint8_t i = 0 ;
+//	
+//	/*周边红外*/
 //	for(i=0;i<=6;i++)
 //	{
 //		if(adcRealTime[i] >= IR_OBSTACLE_0_6)

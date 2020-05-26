@@ -50,6 +50,8 @@ void bsp_StrategyRandomProc(void)
 	
 	uint8_t random_num = 0;
 	
+	UNUSED(random_num);
+	
 	if(!strategyRandom.isRunning)
 		return;
 	
