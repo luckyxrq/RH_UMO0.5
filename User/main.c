@@ -191,7 +191,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
 	uint32_t count = 0 ;
 	uint8_t FunctionTestStep = 0;
-	
+	int last_X,last_Y =  0;
 
 	
     while(1)
@@ -239,14 +239,42 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		{
 
 			case FTS_ReadyGo:
+				bsp_StartEdgewiseRun();
+				FunctionTestStep = FTS_RightEdgewiseRun;
 				//goto FTS_RightEdgewiseRun
 				//start right edgewiserun
 				break;
 			case FTS_RightEdgewiseRun:
+				bsp_EdgewiseRun();
+				if((bsp_GetInfraRedAdcVoltage(IR7)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)
+				{
+					if((bsp_GetInfraRedAdcVoltage(IR7)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)
+					{
+						if((bsp_GetInfraRedAdcVoltage(IR7)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)
+						{
+							bsp_StopEdgewiseRun();
+							FunctionTestStep = FTS_ErLangStartTurnAround;
+							bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+							bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+						}
+					}
+				}
 				//right edgewiserun    
-				//if （erlang == ture ） stop edgewiserun ,goto FTS_ErLangStart
+				//if （erlang == ture ） stop edgewiserun ,goto FTS_ErLangStartTurnAround
 				break;
-			case FTS_ErLangStartTurnAround:     
+			case FTS_ErLangStartTurnAround:
+
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(50));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(200));	
+				if( Rad2Deg(bsp_GetCurrentOrientation()) > 130 )
+				{
+					FunctionTestStep = FTS_ErlangGostraight;
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+					last_X = bsp_GetCurrentPosX();
+					last_Y = bsp_GetCurrentPosY();
+				}
+
 				//turn around cclock turn radius 20CM   
 				//if （yaw > 130） stop turn around ,goto FTS_TurnAroundErlangStop
 				break;
@@ -376,10 +404,10 @@ static void vTaskPerception(void *pvParameters)
 		bsp_OffSiteProc();
         /*寻找充电桩*/
 		//main_debug("bsp_SearchChargePile() \n");
-		bsp_SearchChargePile();
+		//bsp_SearchChargePile();
 		/*沿边行走*/
 		//main_debug("bsp_EdgewiseRun() \n");
-		bsp_EdgewiseRun();
+		//bsp_EdgewiseRun();
         /*更新坐标*/
 		//main_debug("bsp_PositionUpdate() \n");
         bsp_PositionUpdate();
