@@ -189,7 +189,7 @@ void bsp_SendReportFrame(void)
 		sendBuf[i] = src[i];
 	}
 	
-	comSendBuf(COM4,sendBuf,len);
+	comSendBuf(COM2,sendBuf,len);
 	
 }
 
