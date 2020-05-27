@@ -172,16 +172,20 @@ void bsp_AllSelfCheckProc(void)
 		
 		case 1: /*读值红外ADC值*/
 		{
-			if(xTaskGetTickCount() - allSelfCheck.delay >= 2000)
+			if(xTaskGetTickCount() - allSelfCheck.delay >= 5000)
 			{
 				float vol = bsp_GetInfraredVoltageRight();
 				if(allSelfCheck.isIR_InitOK && vol >= 50 && vol<=200)
 				{
 					allSelfCheck.isIR_ADC_OK = true;
+					
+					DEBUG("SELF:红外ADC读取 成功：%.2F\r\n",vol);
 				}
 				else
 				{
 					allSelfCheck.isIR_ADC_OK = false;
+					
+					DEBUG("SELF:红外ADC读取 失败：%.2F\r\n",vol);
 				}
 				++allSelfCheck.action;
 			}
@@ -193,40 +197,56 @@ void bsp_AllSelfCheckProc(void)
 			if(IR_RX_CH1() == 0)
 			{
 				allSelfCheck.isIR_RX_CH1_OK = true;
+				
+				DEBUG("SELF:红外接收1 成功\r\n");
 			}
 			else
 			{
 				allSelfCheck.isIR_RX_CH1_OK = false;
+				
+				DEBUG("SELF:红外接收1 失败\r\n");
 			}
 			
 			/*CH2*/
 			if(IR_RX_CH2() == 0)
 			{
 				allSelfCheck.isIR_RX_CH2_OK = true;
+				
+				DEBUG("SELF:红外接收2 成功\r\n");
 			}
 			else
 			{
 				allSelfCheck.isIR_RX_CH2_OK = false;
+				
+				DEBUG("SELF:红外接收2 失败\r\n");
 			}
 			
 			/*CH3*/
 			if(IR_RX_CH3() == 0)
 			{
 				allSelfCheck.isIR_RX_CH3_OK = true;
+				
+				DEBUG("SELF:红外接收3 成功\r\n");
 			}
 			else
 			{
 				allSelfCheck.isIR_RX_CH3_OK = false;
+				
+				DEBUG("SELF:红外接收3 失败\r\n");
 			}
 			
 			/*CH4*/
 			if(IR_RX_CH4() == 0)
 			{
 				allSelfCheck.isIR_RX_CH4_OK = true;
+				
+				DEBUG("SELF:红外接收4 成功\r\n");
 			}
 			else
 			{
 				allSelfCheck.isIR_RX_CH4_OK = false;
+				
+				DEBUG("SELF:红外接收4 失败\r\n");
 			}
 			
 			++allSelfCheck.action;
@@ -254,6 +274,9 @@ void bsp_AllSelfCheckProc(void)
 				allSelfCheck.isOffsiteL_OK = false;
 				allSelfCheck.isOffsiteR_OK = true;
 			}
+			
+			DEBUG("离地开关：%s %s\r\n",allSelfCheck.isOffsiteL_OK?"通过":"失败",allSelfCheck.isOffsiteR_OK?"通过":"失败");
+			
 			++allSelfCheck.action;
 		}break;
 		
@@ -277,10 +300,15 @@ void bsp_AllSelfCheckProc(void)
 			{
 				allSelfCheck.isDustBox_OK = false;
 			}
+			
+			DEBUG("尘盒：%s\r\n",allSelfCheck.isDustBox_OK?"通过":"失败");
+			
+			++allSelfCheck.action;
 		}break;
 		
-		case 7: /*机器动起来，然后测试电流*/
+		case 6: /*机器动起来，然后测试电流*/
 		{
+			DEBUG("开启电机\r\n");
 			bsp_StartVacuum();
 			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
 			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
@@ -292,12 +320,14 @@ void bsp_AllSelfCheckProc(void)
 			++allSelfCheck.action;
 		}break;
 		
-		case 8: /*然后测试电流*/
+		case 7: /*然后测试电流*/
 		{
+			
 			if(xTaskGetTickCount() - allSelfCheck.delay >= 2000)
 			{
 				
-				
+	
+				DEBUG("关闭电机\r\n");
 				bsp_StopVacuum();
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
 				bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
@@ -308,17 +338,12 @@ void bsp_AllSelfCheckProc(void)
 			}
 		}break;
 		
-		case 9: /*判断陀螺仪 WIFI模块*/
+		case 8: /*判断陀螺仪 WIFI模块*/
 		{
-			if(allSelfCheck.isIMU_OK)
-			{
-				
-			}
+			DEBUG("陀螺仪：%s\r\n",allSelfCheck.isIMU_OK?"通过":"失败");
+			DEBUG("WIFI模块：%s\r\n",allSelfCheck.isWIFI_OK?"通过":"失败");
 			
-			if(allSelfCheck.isWIFI_OK)
-			{
-				
-			}
+			++allSelfCheck.action;
 		}break;
 
 	}

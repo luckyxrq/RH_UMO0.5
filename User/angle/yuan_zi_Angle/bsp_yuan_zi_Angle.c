@@ -176,7 +176,7 @@ void bsp_AngleRevByte(uint8_t byte)
 	}
 	
 	
-	bsp_SetIMU_OK();
+	
 }
 
 /*
@@ -229,7 +229,8 @@ static void bsp_AnglePoll(void)
 	
 	/* 分析应用层协议 */
 	bsp_AngleAnalyzeApp();
-
+	bsp_SetIMU_OK();
+	
 err_ret:
 	angle.rxCount = 0;	/* 必须清零计数器，方便下次帧同步 */
 }
