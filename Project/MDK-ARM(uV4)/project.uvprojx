@@ -651,6 +651,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_UploadMap.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_AllSelfCheck.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_AllSelfCheck.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

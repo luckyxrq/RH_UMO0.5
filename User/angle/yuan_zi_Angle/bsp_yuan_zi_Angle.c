@@ -174,6 +174,9 @@ void bsp_AngleRevByte(uint8_t byte)
 	{
 		angle.buf[angle.rxCount++] = byte;
 	}
+	
+	
+	bsp_SetIMU_OK();
 }
 
 /*

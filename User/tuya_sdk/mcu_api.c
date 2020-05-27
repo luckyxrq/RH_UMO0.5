@@ -93,6 +93,8 @@
 #define MCU_API_GLOBAL
 
 #include "wifi.h"
+#include <stdbool.h>
+#include "bsp_allselfcheck.h"
 
 /*****************************************************************************
 函数名称 : hex_to_bcd
@@ -881,6 +883,8 @@ unsigned long mcu_get_dp_download_value(const unsigned char value[],unsigned sho
 void uart_receive_input(unsigned char value)
 {
   //#error "请在串口接收中断中调用uart_receive_input(value),串口数据由MCU_SDK处理,用户请勿再另行处理,完成后删除该行" 
+	
+	bsp_SetWIFI_OK();
 
   if((queue_in > queue_out) && ((queue_in - queue_out) >= sizeof(wifi_queue_buf)))
   {
