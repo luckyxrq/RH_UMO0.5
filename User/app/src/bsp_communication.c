@@ -26,6 +26,16 @@ void bsp_SendCmdStartSelfCheck_ACK(void)
 }
 
 
+void bsp_SendPassFail(uint8_t item , uint8_t ret)
+{
+	uint8_t data[2] = {0};
+	
+	data[0] = item;
+	data[1] = ret;
+	
+	bsp_AllSelfCheckSendFrame(0x02,0x01,2,2,data,2);
+}
+
 
 /*
 *********************************************************************************************************

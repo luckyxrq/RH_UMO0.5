@@ -83,5 +83,6 @@ typedef struct
 
 void bsp_SendReportFrame(void); /*∑¢ÀÕ÷°*/
 void bsp_ComAnalysis(void);     /*Ω” ’÷°*/
+void bsp_SendPassFail(uint8_t item , uint8_t ret);
 
 #endif

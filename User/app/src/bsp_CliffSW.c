@@ -238,6 +238,8 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 /*三个跳崖传感器，每个读两次*/
 static float cliffTwiceRead[3][2];
 static uint8_t cliffStates = 0x00;
+static float cliffSub[3] = {0};
+
 
 /*
 *********************************************************************************************************
@@ -269,27 +271,36 @@ uint8_t bsp_GetCliffStates(void)
 	cliffTwiceRead [2][1] = bsp_GetCliffVoltage(CliffRight);
 	
 	
-	if( abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000) <= IS_OBSTACLE_CLIFF_MV )
+	cliffSub[0] = abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000);
+	cliffSub[1] = abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000);
+	cliffSub[2] = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);
+	
+	if( cliffSub[0] <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 0;
 	}
 	
-	if( abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000) <= IS_OBSTACLE_CLIFF_MV )
+	if( cliffSub[1] <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 1;
 	}
 	
-	if( abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000) <= IS_OBSTACLE_CLIFF_MV )
+	if( cliffSub[2] <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 2;
 	}
 	
-	//DEBUG("%d %d %d\r\n",abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000),abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000),abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000));
-	//DEBUG("data:%02X\r\n",data);
 	
 	cliffStates = data;
 	
 	return data;
+}
+
+void bsp_GetCliffSub(float arr[])
+{
+	arr[0] = cliffSub[0];
+	arr[1] = cliffSub[1];
+	arr[2] = cliffSub[2];
 }
 
 

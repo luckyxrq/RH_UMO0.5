@@ -44,6 +44,9 @@ typedef struct
 	__IO bool isKEY_POWER_OK;
 	__IO bool isKEY_CHARGE_OK;
 	
+	__IO bool isAllOK;
+	
+	
 }AllSelfCheck;
 
 static AllSelfCheck allSelfCheck;
@@ -55,6 +58,7 @@ void bsp_StartAllSelfCheck(void)
 	
 	allSelfCheck.isIMU_OK = false;
 	allSelfCheck.isWIFI_OK = false;
+	allSelfCheck.isAllOK = true;
 	
 	allSelfCheck.isRunning = true;
 	
@@ -162,163 +166,166 @@ void bsp_AllSelfCheckProc(void)
 	
 	switch(allSelfCheck.action)
 	{
-		case 0: /*判断红外条是否能够初始化成功*/
+		case 0: /*电池电压*/
 		{		
-			if(bsp_IsInitAW9523B_OK()) 
+			float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+			batteryVoltage = (batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F; 
+			if( batteryVoltage >= 12.0F && batteryVoltage <= 16.5F)
 			{
-				allSelfCheck.isIR_InitOK = true;
-				DEBUG("SELF:红外初始化 成功\r\n");
+				bsp_SendPassFail(1,1);
 			}
 			else
 			{
-				allSelfCheck.isIR_InitOK = false;
-				DEBUG("SELF:红外初始化 失败\r\n");
+				bsp_SendPassFail(1,0);
+				
+				allSelfCheck.isAllOK = false;
 			}
-			allSelfCheck.delay = xTaskGetTickCount();
 			
+			allSelfCheck.delay = xTaskGetTickCount();
 			++allSelfCheck.action;
 			
 		}break;
 		
-		case 1: /*读值红外ADC值*/
-		{
+		case 1: /*红外通信*/
+		{		
+			if(bsp_IsInitAW9523B_OK()) 
+			{
+				bsp_SendPassFail(2,1);
+			}
+			else
+			{
+				bsp_SendPassFail(2,0);
+				
+				allSelfCheck.isAllOK = false;
+			}
+			
+			allSelfCheck.delay = xTaskGetTickCount();
+			++allSelfCheck.action;
+			
+		}break;
+
+		case 2: /*红外读值*/
+		{		
 			if(xTaskGetTickCount() - allSelfCheck.delay >= 1000)
 			{
 				float vol = bsp_GetInfraRedAdcVoltage(IR7);
-				if(allSelfCheck.isIR_InitOK && vol >= 1000 && vol<=2000)
+				
+				if(vol >= 1000 && vol<=2000)
 				{
-					allSelfCheck.isIR_ADC_OK = true;
-					
-					DEBUG("SELF:红外ADC读取 成功：%.2F\r\n",vol);
+					bsp_SendPassFail(3,1);
 				}
 				else
 				{
-					allSelfCheck.isIR_ADC_OK = false;
+					bsp_SendPassFail(3,0);
 					
-					DEBUG("SELF:红外ADC读取 失败：%.2F\r\n",vol);
+					allSelfCheck.isAllOK = false;
 				}
+				
+				allSelfCheck.delay = xTaskGetTickCount();
 				++allSelfCheck.action;
 			}
 		}break;
 		
-		case 2: /*读IO口模拟的红外发射*/
-		{
-			/*CH1*/
+		case 3: /*红外接收*/
+		{		
 			if(IR_RX_CH1() == 0)
 			{
-				allSelfCheck.isIR_RX_CH1_OK = true;
-				
-				DEBUG("SELF:红外接收1 成功\r\n");
+				bsp_SendPassFail(4,1);
 			}
 			else
 			{
-				allSelfCheck.isIR_RX_CH1_OK = false;
+				bsp_SendPassFail(4,0);
 				
-				DEBUG("SELF:红外接收1 失败\r\n");
+				allSelfCheck.isAllOK = false;
 			}
 			
 			/*CH2*/
 			if(IR_RX_CH2() == 0)
 			{
-				allSelfCheck.isIR_RX_CH2_OK = true;
-				
-				DEBUG("SELF:红外接收2 成功\r\n");
+				bsp_SendPassFail(5,1);
 			}
 			else
 			{
-				allSelfCheck.isIR_RX_CH2_OK = false;
+				bsp_SendPassFail(5,0);
 				
-				DEBUG("SELF:红外接收2 失败\r\n");
+				allSelfCheck.isAllOK = false;
 			}
 			
 			/*CH3*/
 			if(IR_RX_CH3() == 0)
 			{
-				allSelfCheck.isIR_RX_CH3_OK = true;
-				
-				DEBUG("SELF:红外接收3 成功\r\n");
+				bsp_SendPassFail(6,1);
 			}
 			else
 			{
-				allSelfCheck.isIR_RX_CH3_OK = false;
+				bsp_SendPassFail(6,0);
 				
-				DEBUG("SELF:红外接收3 失败\r\n");
+				allSelfCheck.isAllOK = false;
 			}
 			
 			/*CH4*/
 			if(IR_RX_CH4() == 0)
 			{
-				allSelfCheck.isIR_RX_CH4_OK = true;
-				
-				DEBUG("SELF:红外接收4 成功\r\n");
+				bsp_SendPassFail(7,1);
 			}
 			else
 			{
-				allSelfCheck.isIR_RX_CH4_OK = false;
+				bsp_SendPassFail(7,0);
 				
-				DEBUG("SELF:红外接收4 失败\r\n");
+				allSelfCheck.isAllOK = false;
 			}
 			
+			allSelfCheck.delay = xTaskGetTickCount();
 			++allSelfCheck.action;
-		}break;
-		
-		case 3: /*模拟离地*/
-		{
-			if(bsp_OffSiteGetState() == OffSiteBoth)
-			{
-				allSelfCheck.isOffsiteL_OK = true;
-				allSelfCheck.isOffsiteR_OK = true;
-			}
-			else if(bsp_OffSiteGetState() == OffSiteNone)
-			{
-				allSelfCheck.isOffsiteL_OK = false;
-				allSelfCheck.isOffsiteR_OK = false;
-			}
-			else if(bsp_OffSiteGetState() == OffSiteLeft)
-			{
-				allSelfCheck.isOffsiteL_OK = true;
-				allSelfCheck.isOffsiteR_OK = false;
-			}
-			else if(bsp_OffSiteGetState() == OffSiteRight)
-			{
-				allSelfCheck.isOffsiteL_OK = false;
-				allSelfCheck.isOffsiteR_OK = true;
-			}
 			
-			DEBUG("离地开关：%s %s\r\n",allSelfCheck.isOffsiteL_OK?"通过":"失败",allSelfCheck.isOffsiteR_OK?"通过":"失败");
-			
-			++allSelfCheck.action;
 		}break;
 		
 		case 4: /*悬崖*/
 		{
-			allSelfCheck.isCliffL_OK = true;
-			allSelfCheck.isCliffM_OK = true;
-			allSelfCheck.isCliffR_OK = true;
+			float cliff_arr[3] = {0};
+			bsp_GetCliffSub(cliff_arr);
 			
-			++allSelfCheck.action;
-		}break;
-		
-		
-		case 5: /*尘盒*/
-		{
-			if(bsp_DustBoxGetState() == DustBoxInside)
+			
+			//887.00 1364.00  1681.00 
+			
+			if(cliff_arr[0] >= 600 && cliff_arr[0] <= 1200)
 			{
-				allSelfCheck.isDustBox_OK = true;
+				bsp_SendPassFail(8,1);
 			}
 			else
 			{
-				allSelfCheck.isDustBox_OK = false;
+				bsp_SendPassFail(8,0);
+				
+				allSelfCheck.isAllOK = false;
 			}
 			
-			DEBUG("尘盒：%s\r\n",allSelfCheck.isDustBox_OK?"通过":"失败");
+			if(cliff_arr[1] >= 1000 && cliff_arr[1] <= 1600)
+			{
+				bsp_SendPassFail(9,1);
+			}
+			else
+			{
+				bsp_SendPassFail(9,0);
+				
+				allSelfCheck.isAllOK = false;
+			}
+			
+			if(cliff_arr[2] >= 1200 && cliff_arr[2] <= 2000)
+			{
+				bsp_SendPassFail(10,1);
+			}
+			else
+			{
+				bsp_SendPassFail(10,0);
+				
+				allSelfCheck.isAllOK = false;
+			}
 			
 			++allSelfCheck.action;
 		}break;
 		
-		case 6: /*机器动起来，然后测试电流*/
+		case 5:
 		{
-			DEBUG("开启电机\r\n");
 			bsp_StartVacuum();
 			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
 			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
@@ -326,26 +333,22 @@ void bsp_AllSelfCheckProc(void)
 			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
 			
 			allSelfCheck.delay = xTaskGetTickCount();
-			
 			++allSelfCheck.action;
 		}break;
 		
-		case 7: /*然后测试电流*/
+		case 6: /*左轮电流  右轮电流  左轮转速  右轮转速*/
 		{
-			
 			if(xTaskGetTickCount() - allSelfCheck.delay >= 2000)
 			{
-				float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
-				float batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
 				float wheelL = bsp_GetFeedbackVoltage(eMotorLeft);
 				float wheelR = bsp_GetFeedbackVoltage(eMotorRight);
 				float roll = bsp_GetFeedbackVoltage(eRollingBrush);
 				float vacuum = bsp_GetFeedbackVoltage(eVacuum);
 				float sideBrush = bsp_GetFeedbackVoltage(eSideBrush);
 				
-				/*430  66.5是电阻分压  0.2是根据实际情况补偿电压*/
-				batteryVoltage = (batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F; 
-				batteryCurrent = batteryCurrent*1000.0F * 1000.0F / 10.0F / 50.0F; 
+				int32_t speed_l = bsp_MotorGetSpeed(MotorLeft);
+				int32_t speed_r = bsp_MotorGetSpeed(MotorRight);
+				
 				wheelL = wheelL * 1000.0F * 1000.0F / 33.0F / 50.0F;
 				wheelR = wheelR * 1000.0F * 1000.0F / 33.0F / 50.0F;
 				roll = roll * 1000.0F * 1000.0F / 33.0F / 50.0F;
@@ -353,19 +356,86 @@ void bsp_AllSelfCheckProc(void)
 				sideBrush = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
 				
 				
-				DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA",
-				wheelL,
-				wheelR,
-				vacuum,
-				roll,
-				sideBrush,
-				batteryVoltage,
-				batteryCurrent);
+				if(wheelL >= 60 && wheelL <= 200)
+				{
+					bsp_SendPassFail(11,1);
+				}
+				else
+				{
+					bsp_SendPassFail(11,0);
+					
+					allSelfCheck.isAllOK = false;
+				}
 				
-				DEBUG("L %d MM/S  ",bsp_MotorGetSpeed(MotorLeft));
-				DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
-	
-				DEBUG("关闭电机\r\n");
+				
+				if(wheelR >= 50 && wheelR <= 150)
+				{
+					bsp_SendPassFail(12,1);
+				}
+				else
+				{
+					bsp_SendPassFail(12,0);
+					
+					allSelfCheck.isAllOK = false;
+				}
+				
+				if(speed_l >= 220 && speed_l <= 280)
+				{
+					bsp_SendPassFail(13,1);
+				}
+				else
+				{
+					bsp_SendPassFail(13,0);
+					
+					allSelfCheck.isAllOK = false;
+				}
+				
+				if(speed_r >= 220 && speed_r <= 280)
+				{
+					bsp_SendPassFail(14,1);
+				}
+				else
+				{
+					bsp_SendPassFail(14,0);
+					
+					allSelfCheck.isAllOK = false;
+				}
+				
+				if(vacuum >= 300 && vacuum <= 600)
+				{
+					bsp_SendPassFail(15,1);
+				}
+				else
+				{
+					bsp_SendPassFail(15,0);
+					
+					allSelfCheck.isAllOK = false;
+				}
+				
+				if(roll >= 150 && roll <= 300)
+				{
+					bsp_SendPassFail(16,1);
+				}
+				else
+				{
+					bsp_SendPassFail(16,0);
+					
+					allSelfCheck.isAllOK = false;
+				}
+				
+				if(sideBrush >= 50 && sideBrush <= 200)
+				{
+					bsp_SendPassFail(17,1);
+				}
+				else
+				{
+					bsp_SendPassFail(17,0);
+					
+					allSelfCheck.isAllOK = false;
+				}
+				
+				bsp_SendPassFail(18,1);
+				
 				bsp_StopVacuum();
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
 				bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
@@ -376,10 +446,63 @@ void bsp_AllSelfCheckProc(void)
 			}
 		}break;
 		
-		case 8: /*判断陀螺仪 WIFI模块*/
+		case 7: /*离地*/
 		{
-			DEBUG("陀螺仪：%s\r\n",allSelfCheck.isIMU_OK?"通过":"失败");
-			DEBUG("WIFI模块：%s\r\n",allSelfCheck.isWIFI_OK?"通过":"失败");
+			OffSiteState state = bsp_OffSiteGetState();
+			
+			if(state == OffSiteBoth)
+			{
+				bsp_SendPassFail(19,1);
+				bsp_SendPassFail(20,1);
+			}
+			else if(state == OffSiteNone)
+			{
+				bsp_SendPassFail(19,0);
+				bsp_SendPassFail(20,0);
+				
+				allSelfCheck.isAllOK = false;
+			}
+			else if(state == OffSiteLeft)
+			{
+				bsp_SendPassFail(19,1);
+				bsp_SendPassFail(20,0);
+				
+				allSelfCheck.isAllOK = false;
+			}
+			else if(state == OffSiteRight)
+			{
+				bsp_SendPassFail(19,0);
+				bsp_SendPassFail(20,1);
+				
+				allSelfCheck.isAllOK = false;
+			}
+			
+			++allSelfCheck.action;
+		}break;
+		
+		case 8: /*陀螺仪*/
+		{
+			if(allSelfCheck.isIMU_OK)
+			{
+				bsp_SendPassFail(21,1);
+			}
+			else
+			{
+				bsp_SendPassFail(21,0);
+				
+				allSelfCheck.isAllOK = false;
+			}
+			
+			if(bsp_DustBoxGetState() == DustBoxInside)
+			{
+				bsp_SendPassFail(27,1);
+			}
+			else
+			{
+				bsp_SendPassFail(27,0);
+				
+				allSelfCheck.isAllOK = false;
+			}
 			
 			++allSelfCheck.action;
 		}break;
@@ -388,8 +511,7 @@ void bsp_AllSelfCheckProc(void)
 		{
 			if(IR_KEY_CLEAN() == 0)
 			{
-				DEBUG("清扫按键通过\r\n");
-
+				bsp_SendPassFail(22,1);
 				++allSelfCheck.action;
 			}
 		}break;
@@ -398,8 +520,7 @@ void bsp_AllSelfCheckProc(void)
 		{
 			if(IR_KEY_POWER() == 0)
 			{
-				DEBUG("电源按键通过\r\n");
-
+				bsp_SendPassFail(23,1);
 				++allSelfCheck.action;
 			}
 		}break;
@@ -408,8 +529,7 @@ void bsp_AllSelfCheckProc(void)
 		{
 			if(IR_KEY_CHARGE() == 0)
 			{
-				DEBUG("充电按键通过\r\n");
-
+				bsp_SendPassFail(24,1);
 				++allSelfCheck.action;
 			}
 		}break;
@@ -418,7 +538,7 @@ void bsp_AllSelfCheckProc(void)
 		{
 			if(bsp_CollisionScan() == CollisionLeft)
 			{
-				DEBUG("左碰撞通过\r\n");
+				bsp_SendPassFail(25,1);
 				++allSelfCheck.action;
 			}
 		}break;
@@ -427,7 +547,39 @@ void bsp_AllSelfCheckProc(void)
 		{
 			if(bsp_CollisionScan() == CollisionRight)
 			{
-				DEBUG("右碰撞通过\r\n");
+				bsp_SendPassFail(26,1);
+				++allSelfCheck.action;
+			}
+		}break;
+		
+		
+		case 14:
+		{
+			if(allSelfCheck.isAllOK)
+			{
+				bsp_SendPassFail(128,1);
+			}
+			else
+			{
+				bsp_SendPassFail(129,1);
+			}
+			allSelfCheck.delay = xTaskGetTickCount();
+			++allSelfCheck.action;
+			
+		}break;
+		
+		case 15:
+		{
+			if(xTaskGetTickCount() - allSelfCheck.delay >= 1000)
+			{
+				/*进入休眠模式*/
+				bsp_SperkerPlay(Song31);
+				vTaskDelay(10);	
+				while(bsp_SpeakerIsBusy()){}
+				
+				bsp_ClearKey();
+				bsp_EnterStopMODE();
+					
 				++allSelfCheck.action;
 			}
 		}break;
