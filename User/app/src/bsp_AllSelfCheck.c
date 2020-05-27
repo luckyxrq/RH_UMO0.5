@@ -79,6 +79,50 @@ bool bsp_IsRunningAllSelfCheck(void)
 }
 
 
+
+void bsp_AllSelfCheckSendFrame(uint16_t tx , uint16_t rx , uint16_t main , uint16_t sub , uint8_t data[] , uint16_t size)
+{
+	uint8_t arr[64] = {0};
+	uint16_t data_size = size ;                 /*帧里面的数据的长度*/
+	uint16_t frame_size = data_size + 16 ;            /*帧总长度*/
+	
+	uint16_t tx_addr = tx;
+	uint16_t rx_addr = rx;
+	uint16_t main_section = main;
+	uint16_t sub_section = sub;
+	
+	/*帧头*/
+	arr[0] = 0xAA;
+	arr[1] = 0xAA;
+	/*帧总长度*/
+	arr[2] = (frame_size >> 8 ) & 0x00FF;
+	arr[3] =  frame_size        & 0x00FF;
+	
+	arr[4] = ((~frame_size) >> 8 ) & 0x00FF;
+	arr[5] =  (~frame_size)        & 0x00FF;
+	/*发送方地址*/
+	arr[6] = (tx_addr >> 8 ) & 0x00FF;
+	arr[7] =  tx_addr        & 0x00FF;
+	/*接收方地址*/
+	arr[8] = (rx_addr >> 8 ) & 0x00FF;
+	arr[9] =  rx_addr        & 0x00FF;
+	/*主功能*/
+	arr[10] = (main_section >> 8 ) & 0x00FF;
+	arr[11] =  main_section        & 0x00FF;
+	/*子功能*/
+	arr[12] = (main_section >> 8 ) & 0x00FF;
+	arr[13] =  main_section        & 0x00FF;
+	
+	/*数据*/
+
+	
+	
+	
+}
+
+
+
+
 void bsp_AllSelfCheckProc(void)
 {
 	if(!allSelfCheck.isRunning)

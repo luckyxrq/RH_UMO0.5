@@ -95,3 +95,4 @@
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_allselfcheck.h
+.\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_crc.h

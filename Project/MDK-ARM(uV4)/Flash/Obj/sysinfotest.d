@@ -95,3 +95,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_allselfcheck.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_crc.h

@@ -95,3 +95,4 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_allselfcheck.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_crc.h
