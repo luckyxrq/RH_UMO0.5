@@ -39,7 +39,7 @@ void bsp_ComAnalysis(void)
 {
 	COM_PORT_E port ; 
 	uint8_t ch = 0 ;
-	uint16_t index = 0 ; /*之前不是static 不科学*/
+	static uint16_t index = 0 ; /*之前不是static 不科学*/
 	
 	static uint16_t frame_len = 0 ;
 	static uint16_t tx_addr = 0 ;
@@ -74,11 +74,16 @@ void bsp_ComAnalysis(void)
 		}
 		else if(index == 4)  /*帧长度*/
 		{
-			frame_len = (analysisBuf[2] << 8) | analysisBuf[3];
+			frame_len = ((analysisBuf[2] << 8) | analysisBuf[3]) & 0x00FF;
+			if(frame_len < 16)
+			{
+				index = 0 ;
+			}
+			
 		}
 		else if(index == 6)  /*帧长度 取反*/
 		{
-			uint16_t reverse = (analysisBuf[4] << 8) | analysisBuf[5];
+			uint16_t reverse = ((analysisBuf[4] << 8) | analysisBuf[5]) & 0x00FF;
 			
 			/*这里 &0x00FF 非常有必要！！！*/
 			if( ((~reverse)&0x00FF) != frame_len )
@@ -88,53 +93,47 @@ void bsp_ComAnalysis(void)
 		}
 		else if(index == 8)  /*发送方地址*/
 		{
-			tx_addr = (analysisBuf[6] << 8) | analysisBuf[7];
+			tx_addr = ((analysisBuf[6] << 8) | analysisBuf[7]) & 0x00FF;
 			
 		}
 		else if(index == 10)  /*接收方地址*/
 		{
-			tx_addr = (analysisBuf[8] << 8) | analysisBuf[9];
+			tx_addr = ((analysisBuf[8] << 8) | analysisBuf[9]) & 0x00FF;
 			
 		}
 		else if(index == 12)  /*主功能*/
 		{
-			main_sec = (analysisBuf[10] << 8) | analysisBuf[11];
+			main_sec = ((analysisBuf[10] << 8) | analysisBuf[11]) & 0x00FF;
 			
 		}
 		else if(index == 14)  /*子功能*/
 		{
-			sub_sec = (analysisBuf[12] << 8) | analysisBuf[13];
+			sub_sec = ((analysisBuf[12] << 8) | analysisBuf[13]) & 0x00FF;
 			
 		}
-		else if(index == frame_len)  /*一帧数据接收完毕了*/
+		else if(index >= 16 && index >= frame_len)  /*一帧数据接收完毕了，这里的16很有灵性*/
 		{
-			if(CRC16_CALC(analysisBuf,frame_len) == 0)
+			uint16_t crc_ret = CRC16_CALC(analysisBuf,frame_len);
+			if(crc_ret == 0)
 			{
-				DEBUG("校验通过 %d %d \r\n",main_sec,sub_sec);
-				if(main_sec == 2 && sub_sec == 1)
+				DEBUG("校验通过 main,sub %d %d \r\n",main_sec,sub_sec);
+				if(main_sec == 2 && sub_sec == 1) /*开发板命令主板PCBA开启自检上传数据*/
 				{
-					bsp_StartAllSelfCheck();
+					/*反馈接到了测试命令*/
+					
 					bsp_SendCmdStartSelfCheck_ACK();
+					
+					bsp_StartAllSelfCheck();
 				}
 			}
 			else
 			{
-				//DEBUG("校验失败\r\n");
+				DEBUG("校验失败:len  %d  crc:%04X\r\n",frame_len,crc_ret);
 			}
 			index = 0 ;
 		}
 
 	}
-	
-	
-	/*选定串口*/
-	port = COM1;
-	
-	/*选定串口*/
-	port = COM4;
-
-	/*选定串口*/
-	port = COM3;
 }
 
 

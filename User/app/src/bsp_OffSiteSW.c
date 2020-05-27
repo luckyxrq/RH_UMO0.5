@@ -1,13 +1,6 @@
 #include "bsp.h"
 
-#define RCC_ALL_OFFSITE_SW 	(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOE)
 
-#define GPIO_PORT_OFFSITE_SW_L  GPIOA
-#define GPIO_PIN_OFFSITE_SW_L   GPIO_Pin_12
-
-
-#define GPIO_PORT_OFFSITE_SW_R  GPIOE
-#define GPIO_PIN_OFFSITE_SW_R   GPIO_Pin_12
 
 extern bool isSearchCharge ;
 
@@ -30,11 +23,11 @@ void bsp_InitOffSiteSW(void)
 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* ∏°ø’ ‰»Î */
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;	/* ∏°ø’ ‰»Î */
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_OFFSITE_SW_L;
 	GPIO_Init(GPIO_PORT_OFFSITE_SW_L, &GPIO_InitStructure);
 	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	/* ∏°ø’ ‰»Î */
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;	/* ∏°ø’ ‰»Î */
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_OFFSITE_SW_R;
 	GPIO_Init(GPIO_PORT_OFFSITE_SW_R, &GPIO_InitStructure);
 

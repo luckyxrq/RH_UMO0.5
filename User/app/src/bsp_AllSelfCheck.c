@@ -101,6 +101,7 @@ bool bsp_IsRunningAllSelfCheck(void)
 *  }
 ***************************************************************************************************/
 
+
 void bsp_AllSelfCheckSendFrame(uint16_t tx , uint16_t rx , uint16_t main , uint16_t sub , uint8_t data[] , uint16_t size)
 {
 	uint16_t i = 0 ;
@@ -151,12 +152,6 @@ void bsp_AllSelfCheckSendFrame(uint16_t tx , uint16_t rx , uint16_t main , uint1
 	comSendBuf(COM4,arr,frame_size);
 }
 
-void bsp_SendCmdUpdateUI_ByKEY(uint8_t key_sn , uint8_t ret)
-{
-	uint8_t val = ret ;
-	
-	bsp_AllSelfCheckSendFrame(0x02,0x01,3,key_sn,&val,1);
-}
 
 
 void bsp_AllSelfCheckProc(void)
@@ -187,10 +182,10 @@ void bsp_AllSelfCheckProc(void)
 		
 		case 1: /*读值红外ADC值*/
 		{
-			if(xTaskGetTickCount() - allSelfCheck.delay >= 5000)
+			if(xTaskGetTickCount() - allSelfCheck.delay >= 1000)
 			{
-				float vol = bsp_GetInfraredVoltageRight();
-				if(allSelfCheck.isIR_InitOK && vol >= 50 && vol<=200)
+				float vol = bsp_GetInfraRedAdcVoltage(IR7);
+				if(allSelfCheck.isIR_InitOK && vol >= 1000 && vol<=2000)
 				{
 					allSelfCheck.isIR_ADC_OK = true;
 					
@@ -358,7 +353,7 @@ void bsp_AllSelfCheckProc(void)
 				sideBrush = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
 				
 				
-				DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA\r\n",
+				DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA",
 				wheelL,
 				wheelR,
 				vacuum,
@@ -367,6 +362,8 @@ void bsp_AllSelfCheckProc(void)
 				batteryVoltage,
 				batteryCurrent);
 				
+				DEBUG("L %d MM/S  ",bsp_MotorGetSpeed(MotorLeft));
+				DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 	
 				DEBUG("关闭电机\r\n");
 				bsp_StopVacuum();
@@ -392,8 +389,7 @@ void bsp_AllSelfCheckProc(void)
 			if(IR_KEY_CLEAN() == 0)
 			{
 				DEBUG("清扫按键通过\r\n");
-				bsp_SendCmdUpdateUI_ByKEY(1,1);
-				bsp_SendCmdUpdateUI_ByKEY(1,1);
+
 				++allSelfCheck.action;
 			}
 		}break;
@@ -403,8 +399,7 @@ void bsp_AllSelfCheckProc(void)
 			if(IR_KEY_POWER() == 0)
 			{
 				DEBUG("电源按键通过\r\n");
-				bsp_SendCmdUpdateUI_ByKEY(2,1);
-				bsp_SendCmdUpdateUI_ByKEY(2,1);
+
 				++allSelfCheck.action;
 			}
 		}break;
@@ -414,8 +409,7 @@ void bsp_AllSelfCheckProc(void)
 			if(IR_KEY_CHARGE() == 0)
 			{
 				DEBUG("充电按键通过\r\n");
-				bsp_SendCmdUpdateUI_ByKEY(3,1);
-				bsp_SendCmdUpdateUI_ByKEY(3,1);
+
 				++allSelfCheck.action;
 			}
 		}break;

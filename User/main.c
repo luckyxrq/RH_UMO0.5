@@ -166,7 +166,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //			bsp_PrintAllVoltage();
 //			bsp_PrintCliff();
 			
-			
+			DEBUG("alive\r\n");
         }
 		
         vTaskDelay(50);	

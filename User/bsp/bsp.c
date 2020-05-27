@@ -85,7 +85,7 @@ void bsp_Init(void)
 	bsp_InitSpeaker();		 /*³õÊ¼»¯ÑïÉùÆ÷*/
 	bsp_InitCurrentFeedbackADC();
 	bsp_InitDustBox();
-	
+	bsp_InitOffSiteSW();
 	
 	{
 		//char *dx8Version;
