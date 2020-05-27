@@ -316,20 +316,20 @@ static void vTaskPerception(void *pvParameters)
 //		}
 		
 		
-		if(isNeedRun)
-		{
-			if(bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
-			{
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-				isNeedRun = false;
-			}
-			else
-			{
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
-			}
-		}
+//		if(isNeedRun)
+//		{
+//			if(bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
+//			{
+//				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+//				isNeedRun = false;
+//			}
+//			else
+//			{
+//				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+//			}
+//		}
 		
 #if 1
 		if(bsp_IsInitAW9523B_OK())

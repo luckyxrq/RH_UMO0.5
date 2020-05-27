@@ -349,7 +349,7 @@ bool isCleanRunning(void)
 void bsp_StartUpdateCleanStrategyB(void)
 {
 
-
+	LastCleanTimeStamp = xTaskGetTickCount();
 	bsp_ResetCleanStrategyBStatus();
 
 	cleanstrategy.work_step_status = RIGHTRUNNING_WORK_SETP;
@@ -433,7 +433,6 @@ void bsp_ResetCleanStrategyBStatus(void)
 	clill_start_update=false;
 	cliffruningStatus=false;
 	FunctionStatus=0;
-	LastCleanTimeStamp = xTaskGetTickCount();
 	//CurrentCleanTimeStamp  = 0;
 	
 	//Î»×Ë¸´Î»
@@ -464,8 +463,6 @@ void bsp_StopUpdateCleanStrategyB(void)
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 	
 	bsp_ResetCleanStrategyBStatus();
-
-	
 }
 
 
