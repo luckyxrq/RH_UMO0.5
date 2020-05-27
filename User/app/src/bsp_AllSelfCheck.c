@@ -149,7 +149,6 @@ void bsp_AllSelfCheckProc(void)
 	if(!allSelfCheck.isRunning)
 		return;
 	
-	DEBUG("SELF\r\n");
 	
 	switch(allSelfCheck.action)
 	{
@@ -158,10 +157,12 @@ void bsp_AllSelfCheckProc(void)
 			if(bsp_IsInitAW9523B_OK()) 
 			{
 				allSelfCheck.isIR_InitOK = true;
+				DEBUG("SELF:红外初始化 成功\r\n");
 			}
 			else
 			{
 				allSelfCheck.isIR_InitOK = false;
+				DEBUG("SELF:红外初始化 失败\r\n");
 			}
 			allSelfCheck.delay = xTaskGetTickCount();
 			

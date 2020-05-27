@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed May 27 16:19:51 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed May 27 16:33:27 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2013,7 +2013,7 @@ Global Symbols
 
 <P><STRONG><a name="[281]"></a>__1printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
 
-<P><STRONG><a name="[136]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf))
+<P><STRONG><a name="[137]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AnglePoll
@@ -2227,7 +2227,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 
-<P><STRONG><a name="[135]"></a>bsp_AllSelfCheckProc</STRONG> (Thumb, 436 bytes, Stack size 24 bytes, bsp_allselfcheck.o(i.bsp_AllSelfCheckProc))
+<P><STRONG><a name="[135]"></a>bsp_AllSelfCheckProc</STRONG> (Thumb, 442 bytes, Stack size 24 bytes, bsp_allselfcheck.o(i.bsp_AllSelfCheckProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = bsp_AllSelfCheckProc &rArr; __2printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
@@ -2237,11 +2237,11 @@ Global Symbols
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffSiteGetState
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorCleanSetPWM
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsInitAW9523B_OK
+<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsInitAW9523B_OK
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DustBoxGetState
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetInfraredVoltageRight
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -2379,7 +2379,7 @@ Global Symbols
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartAllSelfCheck
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC16_CALC
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendCmdStartSelfCheck_ACK
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -2724,7 +2724,7 @@ Global Symbols
 <LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DBGMCU_Config
 <LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dx8_Init
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AuthenticationTest
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2940,7 +2940,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[137]"></a>bsp_IsInitAW9523B_OK</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_aw9523b.o(i.bsp_IsInitAW9523B_OK))
+<P><STRONG><a name="[136]"></a>bsp_IsInitAW9523B_OK</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_aw9523b.o(i.bsp_IsInitAW9523B_OK))
 <BR><BR>[Called By]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AllSelfCheckProc
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -3210,7 +3210,7 @@ Global Symbols
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GoBackward
 <LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetRev
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -3586,7 +3586,7 @@ Global Symbols
 <LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_point_handle
 <LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_test_result
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_data_update
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
 </UL>
@@ -4121,7 +4121,7 @@ Global Symbols
 <P><STRONG><a name="[21c]"></a>wifi_test_result</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, protocol.o(i.wifi_test_result))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = wifi_test_result &rArr; __2printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<BR>[Calls]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 </UL>
@@ -4338,7 +4338,7 @@ Local Symbols
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllStateRun
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopAllMotor
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 </UL>
@@ -4429,7 +4429,7 @@ Local Symbols
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffSiteProc
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsInitAW9523B_OK
+<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsInitAW9523B_OK
 <LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
@@ -4466,7 +4466,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleCheck
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleAnalyzeApp
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleTimeout
 </UL>
@@ -5219,7 +5219,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
@@ -5230,7 +5230,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
@@ -5276,7 +5276,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
@@ -5297,7 +5297,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
 <LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
 <LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
