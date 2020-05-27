@@ -748,14 +748,14 @@
 
 #define PI 3.14159265
 #define front_backward_distance 10
-#define side_backward_distance 15
+#define side_backward_distance 30//15 //25
 #define star_collision_backward 50
 #define star_collision_go 400
-#define collision_backward_distance 3
+#define collision_backward_distance 10//3
 #define lateral_move_distance 160
 #define close_map_move_distance 5
-#define turn_backward_distance 3
-#define second_turn_backward_distance 4
+#define turn_backward_distance 10//3
+#define second_turn_backward_distance 10//4
 #define close_edge 160
 #define return_origin_distance 200
 

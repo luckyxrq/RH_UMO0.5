@@ -247,7 +247,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 				linear_velocity_IR = cmd_linear_velocity;
 				
 			}
-			if(cmd_linear_velocity == -long_stra_vel)
+			if(cmd_linear_velocity <0)//== -long_stra_vel)
 			{
 				cmd_linear_velocity = -160;
 				if(speed_pid_cnt_goback == 1) 
@@ -255,9 +255,9 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 					bsp_PidClear(MotorLeft);
 					bsp_PidClear(MotorRight);
 				}
-				if(speed_pid_cnt_goback <=10) speed_pid_cnt_goback +=1;
-				if(speed_pid_cnt_goback >10)  speed_pid_cnt_goback  =10; 
-				cmd_linear_velocity = speed_pid_cnt_goback*0.1*(cmd_linear_velocity+40)-40;	
+				if(speed_pid_cnt_goback <=50) speed_pid_cnt_goback +=1;
+				if(speed_pid_cnt_goback >50)  speed_pid_cnt_goback  =50; 
+				cmd_linear_velocity = speed_pid_cnt_goback*0.02*(cmd_linear_velocity+40)-40;	
 			}
 			else
 			{
@@ -515,7 +515,7 @@ void ResetReturnChargeStationStatus(void)
 
 static uint8_t check_sensor(unsigned char obstacleSignal)
 {
-	uint16_t batteryvoltage;
+	float batteryvoltage;
 //	uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent,batteryvoltage;
 //	IRSensorData_StrategyB
 //	cliff_valueB

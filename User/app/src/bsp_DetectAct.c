@@ -10,8 +10,8 @@
 
 #define IR_OBSTACLE_2_4      30
 #define IR_OBSTACLE_0_6      80
-#define IR_OBSTACLE_3        1200
-#define IR_OBSTACLE_1_5      1700
+#define IR_OBSTACLE_3        900  //1200
+#define IR_OBSTACLE_1_5      1700 //2000
 #define IR_OBSTACLE_7        30  /*∂˛¿……Ò*/
 #define IR_OBSTACLE_8        100 /*◊Û—ÿ±ﬂ*/
 #define IR_OBSTACLE_9        100 /*”“—ÿ±ﬂ*/

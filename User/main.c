@@ -353,6 +353,14 @@ static void vTaskPerception(void *pvParameters)
 #if 0  /*测试IMU数据是否正常*/	 
 		DEBUG("bsp_AngleReadRaw:%d\n",bsp_AngleReadRaw());
 #endif
+		
+#if 0  /*测试电池电压数据是否正常*/	 
+		
+		DEBUG("BatteryVoltage:%f\n",((bsp_GetFeedbackVoltage(eBatteryVoltage) * 430 / 66.5) + bsp_GetFeedbackVoltage(eBatteryVoltage) + 0.2F));
+#endif
+		
+		
+		
 
 		bsp_StrategyRandomProc();
 		
