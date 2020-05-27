@@ -94,3 +94,4 @@
 .\flash\obj\bsp_edgewise.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\bsp_edgewise.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\bsp_edgewise.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
+.\flash\obj\bsp_edgewise.o: ..\..\User\app\inc\bsp_functiontest.h

@@ -174,31 +174,13 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 *   优 先 级: 4  
 *********************************************************************************************************
 */
-#define FTS_ReadyGo               0
-#define FTS_RightEdgewiseRun      1
-#define FTS_ErLangStartTurnAround 2
-#define FTS_ErlangGostraight      3
-#define FTS_ErLangStopTurnAround  4
-#define FTS_CliffGosraight        5
-#define FTS_CliffBackward         6
-#define FTS_CliffStartTurnAround  7
-#define FTS_LeftEdgewiseRun       8
-#define FTS_SearchChargePile      9
-#define FTS_AllComplete           10
 
-static int int_abs(int x){
-    if (x<0){
-        x= -x;
-    }
-    return x;
-}
+
 
 static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 {
 	uint32_t count = 0 ;
-	uint8_t FunctionTestStep = 0;
-	int last_X,last_Y =  0;
-	int yaw = 0;
+
 	
     while(1)
     {
@@ -240,149 +222,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 //			//main_debug("bsp_PutKey(KEY_LONG_CHARGE) \n");
 //			bsp_PutKey(KEY_LONG_CHARGE);
 //		}
-
-		switch (FunctionTestStep)
-		{
-
-			case FTS_ReadyGo:
-				bsp_StartEdgewiseRun();
-				FunctionTestStep = FTS_RightEdgewiseRun;
-				//goto FTS_RightEdgewiseRun
-				//start right edgewiserun
-				break;
-			case FTS_RightEdgewiseRun:
-				bsp_EdgewiseRun();
-				if((bsp_GetInfraRedAdcVoltage(IR7)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)
-				{
-					if((bsp_GetInfraRedAdcVoltage(IR7)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)
-					{
-						if((bsp_GetInfraRedAdcVoltage(IR7)*100 - OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07) >=0)
-						{
-							bsp_StopEdgewiseRun();
-							FunctionTestStep = FTS_ErLangStartTurnAround;
-							bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-							bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-						}
-					}
-				}
-				//right edgewiserun    
-				//if （erlang == ture ） stop edgewiserun ,goto FTS_ErLangStartTurnAround
-				break;
-			case FTS_ErLangStartTurnAround:
-
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(50));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(200));	
-				if( Rad2Deg(bsp_GetCurrentOrientation()) > 130 )
-				{
-					FunctionTestStep = FTS_ErlangGostraight;
-					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-					last_X = bsp_GetCurrentPosX();
-					last_Y = bsp_GetCurrentPosY();
-				}
-
-				//turn around cclock turn radius 20CM   
-				//if （yaw > 130） stop turn around ,goto FTS_TurnAroundErlangStop
-				break;
-			case FTS_ErlangGostraight:
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(200));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(200));	
-				if(int_abs(last_X - bsp_GetCurrentPosX()) > 400 )
-				{
-					FunctionTestStep = FTS_ErLangStopTurnAround;
-					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-				}
-				//gostraight   if （△X > 0.3m）,goto FTS_ErLangStopTurnAround
-				break;
-			case FTS_ErLangStopTurnAround:
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(200));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(50));	
-				if( Rad2Deg(bsp_GetCurrentOrientation()) <45 )
-				{
-					FunctionTestStep = FTS_CliffGosraight;
-					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-				}
-				//turn around clock turn radius 20CM   
-				//if （yaw < 45） stop turn around ,goto FTS_CliffStart
-				break;
-			case FTS_CliffGosraight:  
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(200));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(200));	
-				bsp_GetCliffSensorData();
-				if(cliff_valueB.cliffValue0 ==1)
-				{
-					FunctionTestStep = FTS_CliffBackward;
-					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-					last_X = bsp_GetCurrentPosX();
-					last_Y = bsp_GetCurrentPosY();
-				}
-				//go straight if（cliff == ture），goto CliffBackward
-				break;
-			case FTS_CliffBackward:  
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-200));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-200));	
-				if(int_abs(last_X - bsp_GetCurrentPosX()) > 400 )
-				{
-					FunctionTestStep = FTS_CliffStartTurnAround;
-					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-				}
-				//Backward  if（△X > 0.2m），goto FTS_CliffStartTurnAround
-				break;
-			case FTS_CliffStartTurnAround:
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(-200));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+200));	
-			
-				yaw  = Rad2Deg(bsp_GetCurrentOrientation());
-				if( yaw > -165  && yaw < 0  )
-				{
-					 
-					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-					bsp_StartEdgewiseRun();
-					FunctionTestStep = FTS_LeftEdgewiseRun;
-					
-				}
-				////turn around cclock turn radius 0CM   
-				//if （yaw > -165  && yaw < 0） stop turn around,start left edgewiserun ,goto FTS_LeftEdgewiseRun
-				break;
-			case FTS_LeftEdgewiseRun: 
-				bsp_EdgewiseRun();	
-				if(bsp_GetCurrentPosX() <1000)
-				{
-					bsp_StopEdgewiseRun();
-					FunctionTestStep = FTS_SearchChargePile;
-					bsp_StartSearchChargePile();
-					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-				}
-				//left edgewiserun  
-				//if (△X > 1m) ,stop left edgewiserun，StartSearchChargePile,goto FTS_SearchChargePile
-				break;
-			case FTS_SearchChargePile: 
-				bsp_SearchChargePile();
-				if(bsp_IsTouchChargePile())
-				{
-					bsp_StopSearchChargePile();
-					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-					FunctionTestStep = FTS_AllComplete;
-				}
-				//SearchChargePile();
-				break;
-			case FTS_AllComplete:
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-				break;
-			default:
-				break;
-			
-			
-		}
-		
+		bsp_FunctionTestUpdate();
 		count++;
         vTaskDelay(20);
     }
@@ -786,7 +626,8 @@ static void bsp_KeyProc(void)
 					vTaskDelay(500);
 				}
 					
-				bsp_StartUpdateCleanStrategyB();
+				//bsp_StartUpdateCleanStrategyB();
+				bsp_StartFunctionTest();
 				
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);

@@ -103,3 +103,4 @@
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
+.\flash\obj\main.o: ..\..\User\app\inc\bsp_functiontest.h
