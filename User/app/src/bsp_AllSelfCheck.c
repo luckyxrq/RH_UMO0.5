@@ -5,6 +5,12 @@
 #define IR_RX_CH3()      GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_8)
 #define IR_RX_CH4()      GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_9)
 
+
+#define IR_KEY_CLEAN()       GPIO_ReadInputDataBit(GPIO_PORT_K2,GPIO_PIN_K2)
+#define IR_KEY_POWER()       GPIO_ReadInputDataBit(GPIO_PORT_K3,GPIO_PIN_K3)
+#define IR_KEY_CHARGE()      GPIO_ReadInputDataBit(GPIO_PORT_K1,GPIO_PIN_K1)
+
+
 typedef struct
 {
 	__IO bool isRunning ;
@@ -33,6 +39,10 @@ typedef struct
 	
 	__IO bool isDustBox_OK;
 	
+	
+	__IO bool isKEY_CLEAN_OK;
+	__IO bool isKEY_POWER_OK;
+	__IO bool isKEY_CHARGE_OK;
 	
 }AllSelfCheck;
 
@@ -325,6 +335,32 @@ void bsp_AllSelfCheckProc(void)
 			
 			if(xTaskGetTickCount() - allSelfCheck.delay >= 2000)
 			{
+				float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+				float batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
+				float wheelL = bsp_GetFeedbackVoltage(eMotorLeft);
+				float wheelR = bsp_GetFeedbackVoltage(eMotorRight);
+				float roll = bsp_GetFeedbackVoltage(eRollingBrush);
+				float vacuum = bsp_GetFeedbackVoltage(eVacuum);
+				float sideBrush = bsp_GetFeedbackVoltage(eSideBrush);
+				
+				/*430  66.5是电阻分压  0.2是根据实际情况补偿电压*/
+				batteryVoltage = (batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F; 
+				batteryCurrent = batteryCurrent*1000.0F * 1000.0F / 10.0F / 50.0F; 
+				wheelL = wheelL * 1000.0F * 1000.0F / 33.0F / 50.0F;
+				wheelR = wheelR * 1000.0F * 1000.0F / 33.0F / 50.0F;
+				roll = roll * 1000.0F * 1000.0F / 33.0F / 50.0F;
+				vacuum = vacuum * 1000.0F * 1000.0F / 33.0F / 50.0F;
+				sideBrush = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
+				
+				
+				DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA\r\n",
+				wheelL,
+				wheelR,
+				vacuum,
+				roll,
+				sideBrush,
+				batteryVoltage,
+				batteryCurrent);
 				
 	
 				DEBUG("关闭电机\r\n");
@@ -345,7 +381,52 @@ void bsp_AllSelfCheckProc(void)
 			
 			++allSelfCheck.action;
 		}break;
-
+		
+		case 9:
+		{
+			if(IR_KEY_CLEAN() == 0)
+			{
+				DEBUG("清扫按键通过\r\n");
+				++allSelfCheck.action;
+			}
+		}break;
+		
+		case 10:
+		{
+			if(IR_KEY_POWER() == 0)
+			{
+				DEBUG("电源按键通过\r\n");
+				++allSelfCheck.action;
+			}
+		}break;
+		
+		case 11:
+		{
+			if(IR_KEY_CHARGE() == 0)
+			{
+				DEBUG("充电按键通过\r\n");
+				++allSelfCheck.action;
+			}
+		}break;
+		
+		case 12:
+		{
+			if(bsp_CollisionScan() == CollisionLeft)
+			{
+				DEBUG("左碰撞通过\r\n");
+				++allSelfCheck.action;
+			}
+		}break;
+		
+		case 13:
+		{
+			if(bsp_CollisionScan() == CollisionRight)
+			{
+				DEBUG("右碰撞通过\r\n");
+				++allSelfCheck.action;
+			}
+		}break;
+		
 	}
 }
 

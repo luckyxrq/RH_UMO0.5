@@ -143,8 +143,12 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     {
         /* 处理按键事件 */
 		main_debug("bsp_KeyProc() \n");
-        bsp_KeyProc();
 		
+		
+		if(!bsp_IsRunningAllSelfCheck())
+		{
+			bsp_KeyProc();
+		}
 		
         if(count++ % 10 == 0)
         {
