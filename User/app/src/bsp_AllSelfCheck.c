@@ -151,7 +151,12 @@ void bsp_AllSelfCheckSendFrame(uint16_t tx , uint16_t rx , uint16_t main , uint1
 	comSendBuf(COM4,arr,frame_size);
 }
 
-
+void bsp_SendCmdUpdateUI_ByKEY(uint8_t key_sn , uint8_t ret)
+{
+	uint8_t val = ret ;
+	
+	bsp_AllSelfCheckSendFrame(0x02,0x01,3,key_sn,&val,1);
+}
 
 
 void bsp_AllSelfCheckProc(void)
@@ -387,6 +392,8 @@ void bsp_AllSelfCheckProc(void)
 			if(IR_KEY_CLEAN() == 0)
 			{
 				DEBUG("清扫按键通过\r\n");
+				bsp_SendCmdUpdateUI_ByKEY(1,1);
+				bsp_SendCmdUpdateUI_ByKEY(1,1);
 				++allSelfCheck.action;
 			}
 		}break;
@@ -396,6 +403,8 @@ void bsp_AllSelfCheckProc(void)
 			if(IR_KEY_POWER() == 0)
 			{
 				DEBUG("电源按键通过\r\n");
+				bsp_SendCmdUpdateUI_ByKEY(2,1);
+				bsp_SendCmdUpdateUI_ByKEY(2,1);
 				++allSelfCheck.action;
 			}
 		}break;
@@ -405,6 +414,8 @@ void bsp_AllSelfCheckProc(void)
 			if(IR_KEY_CHARGE() == 0)
 			{
 				DEBUG("充电按键通过\r\n");
+				bsp_SendCmdUpdateUI_ByKEY(3,1);
+				bsp_SendCmdUpdateUI_ByKEY(3,1);
 				++allSelfCheck.action;
 			}
 		}break;
@@ -429,5 +440,8 @@ void bsp_AllSelfCheckProc(void)
 		
 	}
 }
+
+
+
 
 
