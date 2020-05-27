@@ -138,7 +138,7 @@ void bsp_AllSelfCheckSendFrame(uint16_t tx , uint16_t rx , uint16_t main , uint1
 	arr[frame_size-1] =  crc_ret        & 0x00FF;
 	
 	/*·¢ËÍ*/
-	comSendBuf(COM2,arr,frame_size);
+	comSendBuf(COM4,arr,frame_size);
 }
 
 

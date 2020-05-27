@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed May 27 13:56:22 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed May 27 14:54:35 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -405,7 +405,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleAdd
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 </UL>
 
@@ -424,7 +424,7 @@ Global Symbols
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetFeedbackVoltage
 <LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
@@ -566,7 +566,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[1e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 </UL>
@@ -637,7 +637,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[1e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
@@ -752,7 +752,7 @@ Global Symbols
 <P><STRONG><a name="[274]"></a>__aeabi_cfcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cfcmple.o(.text), UNUSED)
 
 <P><STRONG><a name="[15d]"></a>__aeabi_cfcmple</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, cfcmple.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<BR><BR>[Called By]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 
 <P><STRONG><a name="[275]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
@@ -1001,6 +1001,12 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
+<P><STRONG><a name="[157]"></a>CRC16_CALC</STRONG> (Thumb, 38 bytes, Stack size 16 bytes, bsp_crc.o(i.CRC16_CALC))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = CRC16_CALC
+</UL>
+<BR>[Called By]<UL><LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
+</UL>
+
 <P><STRONG><a name="[a6]"></a>CollisionFrontLeftRunStep</STRONG> (Thumb, 2160 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionFrontLeftRunStep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = CollisionFrontLeftRunStep &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
@@ -2010,6 +2016,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AnglePoll
 <LI><a href="#[1f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
+<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 <LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
@@ -2213,7 +2220,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aw_WriteBytes
 </UL>
-<BR>[Called By]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<BR>[Called By]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 
 <P><STRONG><a name="[135]"></a>bsp_AngleAdd</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, bsp_angle.o(i.bsp_AngleAdd))
@@ -2253,7 +2260,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> bsp_uart_fifo.o(i.UartVarInit)
 </UL>
 <P><STRONG><a name="[141]"></a>bsp_AngleRst</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, bsp_angle.o(i.bsp_AngleRst))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = bsp_AngleRst &rArr; bsp_DelayMS &rArr; bsp_DelayUS
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_AngleRst
 </UL>
 <BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayMS
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
@@ -2332,37 +2339,33 @@ Global Symbols
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 </UL>
 
-<P><STRONG><a name="[156]"></a>bsp_ComAnalysis</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, bsp_communication.o(i.bsp_ComAnalysis))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = bsp_ComAnalysis &rArr; comSendChar &rArr; comSendBuf &rArr; UartSend &rArr; USART_ITConfig
+<P><STRONG><a name="[156]"></a>bsp_ComAnalysis</STRONG> (Thumb, 206 bytes, Stack size 24 bytes, bsp_communication.o(i.bsp_ComAnalysis))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = bsp_ComAnalysis &rArr; __2printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comSendChar
-<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comGetChar
+<BR>[Calls]<UL><LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comGetChar
+<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC16_CALC
+<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
 <P><STRONG><a name="[143]"></a>bsp_DelayMS</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, bsp_dwt.o(i.bsp_DelayMS))
-<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = bsp_DelayMS &rArr; bsp_DelayUS
-</UL>
-<BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
-</UL>
-<BR>[Called By]<UL><LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitRST
+<BR><BR>[Called By]<UL><LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitRST
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRst
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PowerOnLedProc
 </UL>
 
-<P><STRONG><a name="[15a]"></a>bsp_DelayUS</STRONG> (Thumb, 32 bytes, Stack size 12 bytes, bsp_dwt.o(i.bsp_DelayUS))
+<P><STRONG><a name="[15b]"></a>bsp_DelayUS</STRONG> (Thumb, 32 bytes, Stack size 12 bytes, bsp_dwt.o(i.bsp_DelayUS))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = bsp_DelayUS
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitRST
-<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayMS
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 
-<P><STRONG><a name="[15b]"></a>bsp_DetectAct</STRONG> (Thumb, 326 bytes, Stack size 32 bytes, bsp_detectact.o(i.bsp_DetectAct))
+<P><STRONG><a name="[15a]"></a>bsp_DetectAct</STRONG> (Thumb, 326 bytes, Stack size 32 bytes, bsp_detectact.o(i.bsp_DetectAct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = bsp_DetectAct &rArr; bsp_AWSetPinVal &rArr; aw_WriteBytes &rArr; i2c_SendByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
@@ -2372,7 +2375,7 @@ Global Symbols
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 <LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetAdScanValue
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
+<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AWSetPinVal
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
@@ -2462,7 +2465,7 @@ Global Symbols
 <LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetFlagStatus
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetConversionValue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<BR>[Called By]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 
 <P><STRONG><a name="[188]"></a>bsp_GetAllIrIsObstacle</STRONG> (Thumb, 140 bytes, Stack size 20 bytes, bsp_detectact.o(i.bsp_GetAllIrIsObstacle))
@@ -2489,7 +2492,7 @@ Global Symbols
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
+<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -3098,7 +3101,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1b1]"></a>bsp_PowerOnLedProc</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, bsp_runcontrol.o(i.bsp_PowerOnLedProc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = bsp_PowerOnLedProc &rArr; bsp_DelayMS &rArr; bsp_DelayUS
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_PowerOnLedProc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayMS
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
@@ -3260,7 +3263,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
+<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
 </UL>
 <BR>[Called By]<UL><LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
 <LI><a href="#[1f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
@@ -3501,15 +3504,6 @@ Global Symbols
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSend
 </UL>
 <BR>[Called By]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CleanZeroYaw
-<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comSendChar
-</UL>
-
-<P><STRONG><a name="[157]"></a>comSendChar</STRONG> (Thumb, 12 bytes, Stack size 16 bytes, bsp_uart_fifo.o(i.comSendChar))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = comSendChar &rArr; comSendBuf &rArr; UartSend &rArr; USART_ITConfig
-</UL>
-<BR>[Calls]<UL><LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comSendBuf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
 </UL>
 
 <P><STRONG><a name="[1f0]"></a>cos</STRONG> (Thumb, 148 bytes, Stack size 32 bytes, cos.o(i.cos))
@@ -4179,7 +4173,7 @@ Global Symbols
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ChangeWifi2SmartConfigStateProc
 <LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ResetCleanStrategyBStatus
 <LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
@@ -4384,7 +4378,7 @@ Local Symbols
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DustBoxProc
 <LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectStart
 <LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectDeal
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 <LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CliffIsDangerous
 </UL>
@@ -4454,7 +4448,7 @@ Local Symbols
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
+<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAW9523B
 </UL>
