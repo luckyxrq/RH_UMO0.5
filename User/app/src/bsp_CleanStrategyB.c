@@ -272,9 +272,9 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 					bsp_PidClear(MotorLeft);
 					bsp_PidClear(MotorRight);
 				}
-				if(speed_pid_cnt_default <=50) speed_pid_cnt_default +=1;
-				if(speed_pid_cnt_default >50)  speed_pid_cnt_default  =50; 
-				cmd_linear_velocity = speed_pid_cnt_default*0.02*(cmd_linear_velocity-40) + 40;	
+				if(speed_pid_cnt_default <=20) speed_pid_cnt_default +=1;
+				if(speed_pid_cnt_default >20)  speed_pid_cnt_default  =20; 
+				cmd_linear_velocity = speed_pid_cnt_default*0.05*(cmd_linear_velocity-40) + 40;	
 			}
 			else
 			{
