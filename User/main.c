@@ -326,6 +326,9 @@ static void vTaskPerception(void *pvParameters)
 			bsp_DetectDeal(); /*红外对管扫描结果处理*/
 		}
 #endif
+		
+		/*用于整机测试上报结果的程序*/
+		bsp_AllSelfCheckProc();
        
 #if 0   /*测试红外测距的距离，测到后就停下来*/
 		bsp_DetectMeasureTest();

@@ -149,6 +149,8 @@ void bsp_AllSelfCheckProc(void)
 	if(!allSelfCheck.isRunning)
 		return;
 	
+	DEBUG("SELF\r\n");
+	
 	switch(allSelfCheck.action)
 	{
 		case 0: /*判断红外条是否能够初始化成功*/
@@ -161,23 +163,27 @@ void bsp_AllSelfCheckProc(void)
 			{
 				allSelfCheck.isIR_InitOK = false;
 			}
+			allSelfCheck.delay = xTaskGetTickCount();
+			
 			++allSelfCheck.action;
 			
 		}break;
 		
 		case 1: /*读值红外ADC值*/
 		{
-			float vol = bsp_GetInfraredVoltageRight();
-			if(allSelfCheck.isIR_InitOK && vol >= 50 && vol<=200)
+			if(xTaskGetTickCount() - allSelfCheck.delay >= 2000)
 			{
-				allSelfCheck.isIR_ADC_OK = true;
+				float vol = bsp_GetInfraredVoltageRight();
+				if(allSelfCheck.isIR_InitOK && vol >= 50 && vol<=200)
+				{
+					allSelfCheck.isIR_ADC_OK = true;
+				}
+				else
+				{
+					allSelfCheck.isIR_ADC_OK = false;
+				}
+				++allSelfCheck.action;
 			}
-			else
-			{
-				allSelfCheck.isIR_ADC_OK = false;
-			}
-			++allSelfCheck.action;
-			
 		}break;
 		
 		case 2: /*读IO口模拟的红外发射*/
@@ -313,10 +319,7 @@ void bsp_AllSelfCheckProc(void)
 				
 			}
 		}break;
-		
-		
-		
-		
+
 	}
 }
 

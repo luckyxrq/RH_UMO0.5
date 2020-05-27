@@ -20,6 +20,12 @@ static void bsp_FillReportFrame(void);
 
 
 
+void bsp_SendCmdStartSelfCheck_ACK(void)
+{
+	bsp_AllSelfCheckSendFrame(0x02,0x01,2,1,0,0);
+}
+
+
 
 /*
 *********************************************************************************************************
@@ -92,23 +98,28 @@ void bsp_ComAnalysis(void)
 		}
 		else if(index == 12)  /*主功能*/
 		{
-			tx_addr = (analysisBuf[10] << 8) | analysisBuf[11];
+			main_sec = (analysisBuf[10] << 8) | analysisBuf[11];
 			
 		}
 		else if(index == 14)  /*子功能*/
 		{
-			tx_addr = (analysisBuf[12] << 8) | analysisBuf[13];
+			sub_sec = (analysisBuf[12] << 8) | analysisBuf[13];
 			
 		}
 		else if(index == frame_len)  /*一帧数据接收完毕了*/
 		{
 			if(CRC16_CALC(analysisBuf,frame_len) == 0)
 			{
-				DEBUG("校验通过\r\n");
+				DEBUG("校验通过 %d %d \r\n",main_sec,sub_sec);
+				if(main_sec == 2 && sub_sec == 1)
+				{
+					bsp_StartAllSelfCheck();
+					bsp_SendCmdStartSelfCheck_ACK();
+				}
 			}
 			else
 			{
-				DEBUG("校验失败\r\n");
+				//DEBUG("校验失败\r\n");
 			}
 			index = 0 ;
 		}
