@@ -79,9 +79,21 @@ bool bsp_IsRunningAllSelfCheck(void)
 }
 
 
+/**************************************************************************************************
+*  {
+*  	    uint8_t data[4] = {1,2,3,4};
+*  	    bsp_AllSelfCheckSendFrame(2 , 1 , 1 , 1 , data , 4);
+*  	    
+*  	    
+*  	    发送（实测）
+*  	    AA AA 00 14 FF EB 00 02 00 01 00 01 00 01 01 02 03 04 2B A1 
+*  	
+*  }
+***************************************************************************************************/
 
 void bsp_AllSelfCheckSendFrame(uint16_t tx , uint16_t rx , uint16_t main , uint16_t sub , uint8_t data[] , uint16_t size)
 {
+	uint16_t i = 0 ;
 	uint8_t arr[64] = {0};
 	uint16_t data_size = size ;                 /*帧里面的数据的长度*/
 	uint16_t frame_size = data_size + 16 ;            /*帧总长度*/
@@ -90,6 +102,7 @@ void bsp_AllSelfCheckSendFrame(uint16_t tx , uint16_t rx , uint16_t main , uint1
 	uint16_t rx_addr = rx;
 	uint16_t main_section = main;
 	uint16_t sub_section = sub;
+	uint16_t crc_ret = 0 ;
 	
 	/*帧头*/
 	arr[0] = 0xAA;
@@ -110,14 +123,22 @@ void bsp_AllSelfCheckSendFrame(uint16_t tx , uint16_t rx , uint16_t main , uint1
 	arr[10] = (main_section >> 8 ) & 0x00FF;
 	arr[11] =  main_section        & 0x00FF;
 	/*子功能*/
-	arr[12] = (main_section >> 8 ) & 0x00FF;
-	arr[13] =  main_section        & 0x00FF;
+	arr[12] = (sub_section >> 8 ) & 0x00FF;
+	arr[13] =  sub_section        & 0x00FF;
 	
 	/*数据*/
-
+	for(i=0;i<size;++i)
+	{
+		arr[14+i] = data[i];
+	}
 	
+	/*校验*/
+	crc_ret = CRC16_CALC(arr,frame_size-2);
+	arr[frame_size-2] = (crc_ret >> 8 ) & 0x00FF;
+	arr[frame_size-1] =  crc_ret        & 0x00FF;
 	
-	
+	/*发送*/
+	comSendBuf(COM2,arr,frame_size);
 }
 
 
