@@ -14,6 +14,9 @@
 
 static void bsp_InitCliffEmit_GPIO(void);
 
+uint16_t cliffadcvalue_left =0;
+uint16_t cliffadcvalue_middle =0;
+uint16_t cliffadcvalue_right =0;
 
 
 
@@ -267,6 +270,11 @@ uint8_t bsp_GetCliffStates(void)
 	cliffTwiceRead [0][1] = bsp_GetCliffVoltage(CliffLeft);
 	cliffTwiceRead [1][1] = bsp_GetCliffVoltage(CliffMiddle);
 	cliffTwiceRead [2][1] = bsp_GetCliffVoltage(CliffRight);
+	
+	
+	cliffadcvalue_left = abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000);
+	cliffadcvalue_middle = abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000);
+	cliffadcvalue_right = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);	
 	
 	
 	if( abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000) <= IS_OBSTACLE_CLIFF_MV )

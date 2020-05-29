@@ -3,6 +3,11 @@
 
 #include <stdbool.h>
 
+
+extern  uint16_t cliffadcvalue_left ;
+extern uint16_t cliffadcvalue_middle ;
+extern uint16_t cliffadcvalue_right ;
+
 typedef enum
 {
 	CliffLeft = 0 ,

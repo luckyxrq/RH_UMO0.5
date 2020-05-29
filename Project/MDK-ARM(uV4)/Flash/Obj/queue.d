@@ -1,9 +1,9 @@
 .\flash\obj\queue.o: ..\..\FreeRTOS\queue.c
-.\flash\obj\queue.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\queue.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\queue.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\queue.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\queue.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\queue.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\queue.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\queue.o: ..\..\FreeRTOS\include\portable.h

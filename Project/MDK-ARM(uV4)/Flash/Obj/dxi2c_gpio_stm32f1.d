@@ -1,7 +1,7 @@
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\User\dx8\src\dxi2c_gpio_stm32f1.c
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\Libraries\CMSIS\Include\core_cm3.h
-.\flash\obj\dxi2c_gpio_stm32f1.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\dxi2c_gpio_stm32f1.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\flash\obj\dxi2c_gpio_stm32f1.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\system_stm32f10x.h
