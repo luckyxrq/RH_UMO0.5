@@ -11,6 +11,10 @@ extern PARAM_T param;
 #define PUMP_OFF()      bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0)
 
 
+//#define PUMP_ON()       bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0)
+//#define PUMP_OFF()      bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0)
+
+
 typedef struct
 {
 	bool isRunning;
@@ -49,15 +53,17 @@ void bsp_PumpProc(void)
 		case 0:
 		{
 			PUMP_ON();
+			DEBUG("PUMP_ON()\r\n");
 			pump.delay = xTaskGetTickCount();
 			++pump.action;
 		}break;
 		
 		case 1:
 		{
-			if(xTaskGetTickCount() - pump.delay >= 1000)
+			if(xTaskGetTickCount() - pump.delay >= 300)
 			{
 				PUMP_OFF();
+				DEBUG("PUMP_OFF()\r\n");
 				pump.delay = xTaskGetTickCount();
 				++pump.action;
 			}
@@ -67,8 +73,6 @@ void bsp_PumpProc(void)
 		{
 			if(xTaskGetTickCount() - pump.delay >= 1000*3)
 			{
-				PUMP_ON();
-				pump.delay = xTaskGetTickCount();
 				pump.action = 0;
 			}
 		}break;

@@ -57,17 +57,11 @@ void bsp_StrategyRandomProc(void)
 		{
 			strategyRandom.collision = bsp_CollisionScan();
 			
-			strategyRandom.leftCliff = bsp_CliffIsDangerous(CliffLeft);
-			strategyRandom.middleCliff = bsp_CliffIsDangerous(CliffMiddle);
-			strategyRandom.rightCliff = bsp_CliffIsDangerous(CliffRight);
+			if( strategyRandom.collision != CollisionNone)
 			
-			if( strategyRandom.collision != CollisionNone || 
-				strategyRandom.leftCliff ||
-			    strategyRandom.middleCliff ||
-			    strategyRandom.rightCliff) /*有碰撞或者悬崖就后退*/
 			{
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-250));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-120));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-120));
 				
 				/*记录下此时的脉冲数*/
 				strategyRandom.pulse = bsp_GetCurrentBothPulse();
@@ -89,24 +83,8 @@ void bsp_StrategyRandomProc(void)
 				strategyRandom.angle = bsp_AngleRead();
 				strategyRandom.delay = xTaskGetTickCount();
 				
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+300));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-300));
-				
-//				if(strategyRandom.collision == CollisionLeft || strategyRandom.leftCliff)
-//				{
-//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+250));
-//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
-//				}
-//				else if(strategyRandom.collision == CollisionRight || strategyRandom.rightCliff)
-//				{
-//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-100));
-//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
-//				}
-//				else if(strategyRandom.collision == CollisionAll || strategyRandom.middleCliff)
-//				{
-//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+100));
-//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-//				}
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+120));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-120));
 				
 				++strategyRandom.action;
 			}
@@ -122,8 +100,4 @@ void bsp_StrategyRandomProc(void)
 		
 	}
 }
-
-
-
-
 
