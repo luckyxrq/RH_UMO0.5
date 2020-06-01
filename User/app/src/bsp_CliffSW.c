@@ -1,7 +1,7 @@
 #include "bsp.h"
 
 #define DELAY_FOR_READ_CLIFF_US            800
-#define IS_OBSTACLE_CLIFF_MV               50   //障碍物差值电压，毫伏
+#define IS_OBSTACLE_CLIFF_MV               30   //障碍物差值电压，毫伏
 
 #define RCC_ALL_CLIFF_EMIT 	(RCC_APB2Periph_GPIOC)
 
@@ -334,9 +334,6 @@ void bsp_PrintCliff(void)
 	cliffVal[1],
 	cliffVal[2]);
 }
-
-
-
 
 
 #define GO_BACK_PULSE                  (10/(3.14F*70)*1024)
