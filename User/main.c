@@ -9,7 +9,7 @@
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
-#define main_debug(format, ...) //printf (format, ##__VA_ARGS__)
+#define main_debug(format, ...) printf (format, ##__VA_ARGS__)
 /*
 **********************************************************************************************************
                                             函数声明
@@ -121,12 +121,20 @@ static void vTaskMapping(void *pvParameters)
 		}
 #endif
 		
-		//bsp_UploadMap();
+//		if(count % 100 == 0)
+//		{
+//			bsp_UploadMap();
+//			main_debug("bsp_UploadMap() \n");
+//		}
+ 	
 		if(count % 20 == 0)
 		{
-			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,++battery % 100);
+			battery = (uint32_t)((((bsp_GetFeedbackVoltage(eBatteryVoltage) * 430 / 66.5) + bsp_GetFeedbackVoltage(eBatteryVoltage) + 0.2F) -8.0f)/9.0f * 100);
+			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,battery);
+			mcu_dp_value_update(DPID_CLEAN_TIME,(int)((xTaskGetTickCount() - LastCleanTimeStamp)/1000/60));
+			
 		}
-        vTaskDelay(100);
+    vTaskDelay(100);
 		
 		
     }
@@ -142,7 +150,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     while(1)
     {
         /* 处理按键事件 */
-		main_debug("bsp_KeyProc() \n");
+		//main_debug("bsp_KeyProc() \n");
         bsp_KeyProc();
 		
 		
@@ -209,13 +217,13 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		}
 		else
 		{	
-			main_debug("bsp_UpdateCleanStrategyB() \n");
+			//main_debug("bsp_UpdateCleanStrategyB() \n");
 			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
 			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			
 		}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
 		
-		
+		bsp_FunctionTestUpdate();
 		
 		if(GetReturnChargeStationStatus())
 		{
@@ -546,6 +554,8 @@ void bsp_OffsiteSuspend(void)
 */
 static void bsp_KeySuspend(void)
 {
+	bsp_StopFunctionTest();
+	bsp_StopUploadMap();
 	/*灯光亮3颗白色灯*/
 	bsp_OpenThreeWhileLed();
 	bsp_SetLedState(LED_DEFAULT_STATE);
@@ -588,6 +598,7 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("电源按键按下\r\n");
 				bsp_KeySuspend();
+				bsp_StartFunctionTest();
 				isNeedRun = true;
 			}break;
 				
@@ -712,6 +723,7 @@ static void bsp_KeyProc(void)
 				}
 					
 				bsp_StartUpdateCleanStrategyB();
+				bsp_StartUploadMap();
 				//bsp_StartEdgewiseRun();
 				
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
