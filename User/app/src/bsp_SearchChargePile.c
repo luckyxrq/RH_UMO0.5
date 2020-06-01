@@ -370,38 +370,28 @@ void bsp_SearchChargePile(void)
 			}
 		}break;
 		
+
 		case 2:
-		{
-			if(search.collision == CollisionLeft )
-			{
-				bsp_SetMotorSpeed(MotorLeft, -6);
-				bsp_SetMotorSpeed(MotorRight,-2);
-			}
-			else if(search.collision == CollisionRight )
-			{
-				bsp_SetMotorSpeed(MotorLeft, -2);
-				bsp_SetMotorSpeed(MotorRight,-6);
-			}
-			else if(search.collision == CollisionAll )
-			{
-				bsp_SetMotorSpeed(MotorLeft, -6);
-				bsp_SetMotorSpeed(MotorRight,-2);
-			}
-			
-			search.delay = xTaskGetTickCount();
-			++search.action;
-			
-			
-		}break;
-		
-		case 3:
 		{
 			if(xTaskGetTickCount() - search.delay >= 2000)
 			{
 				search.action = 0 ;
 			}
+			else
+			{
+				if(CASE_RANDOM_3 || CASE_RANDOM_6 || CASE_RANDOM_8)
+				{
+					bsp_SetMotorSpeed(MotorLeft, -7);
+					bsp_SetMotorSpeed(MotorRight,-5);
+				}
+				else if(CASE_RANDOM_4 || CASE_RANDOM_5 || CASE_RANDOM_9)
+				{
+					bsp_SetMotorSpeed(MotorLeft, -5);
+					bsp_SetMotorSpeed(MotorRight,-7);
+				}
+			}
 		}break;
-		
+
 	}
 }
 
