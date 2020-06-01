@@ -33,10 +33,10 @@ void bsp_ComAnalysis(void)
 {
 	COM_PORT_E port ; 
 	uint8_t ch = 0 ;
-	uint16_t index = 0 ;
+	static uint16_t index = 0 ;
 	
 	/*选定串口*/
-	port = COM4;
+	port = COM2;
 	
 	while(comGetChar(port, &ch))
 	{
@@ -155,10 +155,10 @@ void bsp_ComAnalysis(void)
 	
 	/*选定串口*/
 	port = COM2;
-	while(comGetChar(port, &ch))
-	{
-		comSendChar(COM2, ch);
-	}
+//	while(comGetChar(port, &ch))
+//	{
+//		comSendChar(COM2, ch);
+//	}
 	/*选定串口*/
 	port = COM3;
 }

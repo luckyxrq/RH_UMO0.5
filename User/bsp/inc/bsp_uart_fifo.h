@@ -72,7 +72,7 @@ typedef enum
 #if UART2_FIFO_EN == 1
 	#define UART2_BAUD			115200
 	#define UART2_TX_BUF_SIZE	1*1024   /*调试串口只发，不收*/
-	#define UART2_RX_BUF_SIZE	1*16     /*调试串口只发，不收，接收尽可能小*/
+	#define UART2_RX_BUF_SIZE	1*1024   /*调试串口只发，不收，接收尽可能小*/
 #endif
 
 #if UART3_FIFO_EN == 1
