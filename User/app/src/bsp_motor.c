@@ -95,7 +95,7 @@ void bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm)
 	{
 		case MotorRollingBrush:
 		{
-			if(dir == CW)
+			if(dir == CCW)
 			{
 				TIM_SetCompare1(TIM4,0);
 				TIM_SetCompare2(TIM4,pwm);
