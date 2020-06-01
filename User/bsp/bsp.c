@@ -102,8 +102,8 @@ void bsp_Init(void)
 		if(rv)
 		{
 			DEBUG("Î´ÄÜÍ¨¹ý! \r\n");
-//			while(1)
-//			{;}
+			while(1)
+			{;}
 		}
 		else
 		{
