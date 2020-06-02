@@ -326,7 +326,7 @@ bool bsp_CliffIsDangerous(CliffSWSN sn)
 
 void bsp_PrintCliff(void)
 {
-	DEBUG("CLIFF:%d %d %d %.2F %.2F %.2F\r\n",
+	DEBUG("CLIFF:%d  %d  %d  --- %.2F    %.2F    %.2F\r\n",
 	bsp_CliffIsDangerous(CliffLeft),
 	bsp_CliffIsDangerous(CliffMiddle),
 	bsp_CliffIsDangerous(CliffRight),

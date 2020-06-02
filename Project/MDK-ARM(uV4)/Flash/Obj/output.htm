@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jun 01 13:58:11 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Jun 02 11:19:56 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -118,7 +118,7 @@ Global Symbols
 <P><STRONG><a name="[48]"></a>__main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry.o(.ARM.Collect$$$$00000000))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(.text)
 </UL>
-<P><STRONG><a name="[260]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
+<P><STRONG><a name="[261]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
 
 <P><STRONG><a name="[5d]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
 <BR><BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
@@ -128,21 +128,21 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
-<P><STRONG><a name="[261]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
+<P><STRONG><a name="[262]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
 
-<P><STRONG><a name="[262]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
+<P><STRONG><a name="[263]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
 
-<P><STRONG><a name="[263]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
+<P><STRONG><a name="[264]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
 
-<P><STRONG><a name="[264]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
+<P><STRONG><a name="[265]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
 
-<P><STRONG><a name="[265]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
+<P><STRONG><a name="[266]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
 
 <P><STRONG><a name="[6]"></a>SVC_Handler</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, port.o(.emb_text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[25b]"></a>__asm___6_port_c_39a90d8d__prvStartFirstTask</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, port.o(.emb_text))
-<BR><BR>[Called By]<UL><LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
+<P><STRONG><a name="[25c]"></a>__asm___6_port_c_39a90d8d__prvStartFirstTask</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, port.o(.emb_text))
+<BR><BR>[Called By]<UL><LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
 </UL>
 
 <P><STRONG><a name="[8]"></a>PendSV_Handler</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, port.o(.emb_text))
@@ -154,31 +154,31 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[dd]"></a>ulPortSetInterruptMask</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, port.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
-<LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
+<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvTaskExitError
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSwitchContext
-<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
-<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
-<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
-<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
+<LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
+<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
+<LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
+<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 </UL>
 
 <P><STRONG><a name="[df]"></a>vPortClearInterruptMask</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, port.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
-<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 </UL>
 
-<P><STRONG><a name="[266]"></a>vPortGetIPSR</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, port.o(.emb_text), UNUSED)
+<P><STRONG><a name="[267]"></a>vPortGetIPSR</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, port.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[0]"></a>Reset_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
@@ -345,25 +345,25 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetSoftRandom
 </UL>
 
-<P><STRONG><a name="[237]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
+<P><STRONG><a name="[238]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
 </UL>
 
 <P><STRONG><a name="[8d]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AuthenticationTest
 </UL>
 
-<P><STRONG><a name="[267]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
+<P><STRONG><a name="[268]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
 <P><STRONG><a name="[61]"></a>__aeabi_memset</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, memseta.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
+<BR><BR>[Called By]<UL><LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset$wrapper
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 
-<P><STRONG><a name="[268]"></a>__aeabi_memset4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<P><STRONG><a name="[269]"></a>__aeabi_memset4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 
-<P><STRONG><a name="[269]"></a>__aeabi_memset8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<P><STRONG><a name="[26a]"></a>__aeabi_memset8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 
 <P><STRONG><a name="[60]"></a>__aeabi_memclr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
@@ -373,7 +373,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AuthenticationTest
 </UL>
 
-<P><STRONG><a name="[26a]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<P><STRONG><a name="[26b]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 
 <P><STRONG><a name="[62]"></a>_memset$wrapper</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, memseta.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
@@ -429,7 +429,7 @@ Global Symbols
 <LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetFeedbackVoltage
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetAdScanValue
-<LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 </UL>
 
 <P><STRONG><a name="[68]"></a>__aeabi_fdiv</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, fdiv.o(.text))
@@ -452,7 +452,7 @@ Global Symbols
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetAdScanValue
 </UL>
 
-<P><STRONG><a name="[26b]"></a>scalbnf</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fscalb.o(.text), UNUSED)
+<P><STRONG><a name="[26c]"></a>scalbnf</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fscalb.o(.text), UNUSED)
 
 <P><STRONG><a name="[69]"></a>__aeabi_dadd</STRONG> (Thumb, 322 bytes, Stack size 48 bytes, dadd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
@@ -465,8 +465,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
-<LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
@@ -483,7 +483,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<BR>[Called By]<UL><LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
@@ -510,12 +510,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
+<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
@@ -531,10 +531,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
+<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
-<LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
@@ -547,7 +547,7 @@ Global Symbols
 <P><STRONG><a name="[10c]"></a>__ARM_scalbn</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, dscalb.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __ARM_scalbn
 </UL>
-<BR>[Called By]<UL><LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<BR>[Called By]<UL><LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
@@ -558,7 +558,7 @@ Global Symbols
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
-<P><STRONG><a name="[26c]"></a>scalbn</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, dscalb.o(.text), UNUSED)
+<P><STRONG><a name="[26d]"></a>scalbn</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, dscalb.o(.text), UNUSED)
 
 <P><STRONG><a name="[72]"></a>__aeabi_i2f</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, fflti.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_i2f &rArr; _float_epilogue
@@ -578,7 +578,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
+<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 <LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetFeedbackVoltage
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
@@ -593,9 +593,9 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StuckRightRunStep
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightWalkEdge
@@ -653,31 +653,32 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
+<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 </UL>
 
 <P><STRONG><a name="[1ea]"></a>__aeabi_f2d</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, f2d.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
-<LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<BR><BR>[Called By]<UL><LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PrintCliff
+<LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 </UL>
 
-<P><STRONG><a name="[244]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cdcmple.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<P><STRONG><a name="[245]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cdcmple.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 </UL>
 
 <P><STRONG><a name="[83]"></a>__aeabi_cdcmple</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, cdcmple.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
-<LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
+<LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightWalkEdge
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
@@ -704,9 +705,9 @@ Global Symbols
 
 <P><STRONG><a name="[81]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, cdrcmple.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StuckRightRunStep
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightWalkEdge
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
@@ -739,17 +740,17 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<BR>[Called By]<UL><LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
 </UL>
 
-<P><STRONG><a name="[26d]"></a>__aeabi_cfcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cfcmple.o(.text), UNUSED)
+<P><STRONG><a name="[26e]"></a>__aeabi_cfcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cfcmple.o(.text), UNUSED)
 
 <P><STRONG><a name="[158]"></a>__aeabi_cfcmple</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, cfcmple.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 
-<P><STRONG><a name="[26e]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
+<P><STRONG><a name="[26f]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
 
 <P><STRONG><a name="[11a]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
@@ -770,7 +771,7 @@ Global Symbols
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
-<P><STRONG><a name="[26f]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
+<P><STRONG><a name="[270]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
 
 <P><STRONG><a name="[77]"></a>__aeabi_llsr</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, llushr.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
@@ -780,15 +781,15 @@ Global Symbols
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
-<P><STRONG><a name="[270]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llushr.o(.text), UNUSED)
+<P><STRONG><a name="[271]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llushr.o(.text), UNUSED)
 
 <P><STRONG><a name="[6b]"></a>__aeabi_lasr</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, llsshr.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 
-<P><STRONG><a name="[271]"></a>_ll_sshift_r</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llsshr.o(.text), UNUSED)
+<P><STRONG><a name="[272]"></a>_ll_sshift_r</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llsshr.o(.text), UNUSED)
 
-<P><STRONG><a name="[272]"></a>__I$use$fp</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, iusefp.o(.text), UNUSED)
+<P><STRONG><a name="[273]"></a>__I$use$fp</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, iusefp.o(.text), UNUSED)
 
 <P><STRONG><a name="[65]"></a>_float_round</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, fepilogue.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
@@ -848,11 +849,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[273]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[274]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
-<P><STRONG><a name="[274]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
+<P><STRONG><a name="[275]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
-<P><STRONG><a name="[275]"></a>__decompress1</STRONG> (Thumb, 86 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
+<P><STRONG><a name="[276]"></a>__decompress1</STRONG> (Thumb, 86 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
 <P><STRONG><a name="[12e]"></a>ADC_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_adc.o(i.ADC_Cmd))
 <BR><BR>[Called By]<UL><LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
@@ -937,7 +938,7 @@ Global Symbols
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[82]"></a>AStarMotionReturnOrigin</STRONG> (Thumb, 4294 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.AStarMotionReturnOrigin))
@@ -948,7 +949,7 @@ Global Symbols
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[84]"></a>AStarNotMotionReturnOrigin</STRONG> (Thumb, 498 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.AStarNotMotionReturnOrigin))
@@ -958,7 +959,7 @@ Global Symbols
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[85]"></a>AStarReturnOrigin</STRONG> (Thumb, 744 bytes, Stack size 88 bytes, bsp_cleanstrategyb.o(i.AStarReturnOrigin))
@@ -967,7 +968,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printShortest
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initGraph
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[8c]"></a>AuthenticationTest</STRONG> (Thumb, 124 bytes, Stack size 80 bytes, bsp_passwd.o(i.AuthenticationTest))
@@ -1060,7 +1061,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[209]"></a>ComToUart</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, bsp_uart_fifo.o(i.ComToUart))
+<P><STRONG><a name="[20a]"></a>ComToUart</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, bsp_uart_fifo.o(i.ComToUart))
 <BR><BR>[Called By]<UL><LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comSendBuf
 </UL>
 
@@ -1138,7 +1139,7 @@ Global Symbols
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[32]"></a>EXTI15_10_IRQHandler</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, bsp_encoder.o(i.EXTI15_10_IRQHandler))
@@ -1189,7 +1190,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[d0]"></a>Edge_length</STRONG> (Thumb, 136 bytes, Stack size 20 bytes, bsp_gridmap.o(i.Edge_length))
@@ -1210,7 +1211,7 @@ Global Symbols
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[c1]"></a>ForwardBoundaryLeftRunStep</STRONG> (Thumb, 840 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.ForwardBoundaryLeftRunStep))
@@ -1295,7 +1296,7 @@ Global Symbols
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOff
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_VacuumClean
-<LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
+<LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
 <LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
 <LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitVacuum
@@ -1319,7 +1320,7 @@ Global Symbols
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TWI_SCL_0
 </UL>
 
-<P><STRONG><a name="[249]"></a>GetReturnChargeStationStatus</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_cleanstrategyb.o(i.GetReturnChargeStationStatus))
+<P><STRONG><a name="[24a]"></a>GetReturnChargeStationStatus</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_cleanstrategyb.o(i.GetReturnChargeStationStatus))
 <BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 </UL>
 
@@ -1395,7 +1396,7 @@ Global Symbols
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionLeftLeftRunStep
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionFrontLeftRunStep
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[d3]"></a>LeftWalkEdge</STRONG> (Thumb, 2814 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.LeftWalkEdge))
@@ -1444,7 +1445,7 @@ Global Symbols
 <P><STRONG><a name="[ac]"></a>NVIC_Init</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, misc.o(i.NVIC_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
+<BR>[Called By]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
@@ -1461,8 +1462,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
-<P><STRONG><a name="[256]"></a>Queue_Read_Byte</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, system.o(i.Queue_Read_Byte))
-<BR><BR>[Called By]<UL><LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
+<P><STRONG><a name="[257]"></a>Queue_Read_Byte</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, system.o(i.Queue_Read_Byte))
+<BR><BR>[Called By]<UL><LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
 </UL>
 
 <P><STRONG><a name="[12c]"></a>RCC_ADCCLKConfig</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_ADCCLKConfig))
@@ -1472,7 +1473,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c7]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
+<BR><BR>[Called By]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
@@ -1489,7 +1490,7 @@ Global Symbols
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCollision
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
-<LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
+<LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitChargeIO
@@ -1522,7 +1523,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 </UL>
 
-<P><STRONG><a name="[24a]"></a>ResetReturnChargeStationStatus</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_cleanstrategyb.o(i.ResetReturnChargeStationStatus))
+<P><STRONG><a name="[24b]"></a>ResetReturnChargeStationStatus</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_cleanstrategyb.o(i.ResetReturnChargeStationStatus))
 <BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 </UL>
 
@@ -1578,7 +1579,7 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionLeftRightRunStep
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CollisionFrontRightRunStep
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[da]"></a>RightWalkEdge</STRONG> (Thumb, 2624 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightWalkEdge))
@@ -1694,8 +1695,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[1ff]"></a>TIM_ARRPreloadConfig</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_ARRPreloadConfig))
-<BR><BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
+<P><STRONG><a name="[200]"></a>TIM_ARRPreloadConfig</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_ARRPreloadConfig))
+<BR><BR>[Called By]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 </UL>
 
 <P><STRONG><a name="[e2]"></a>TIM_ClearITPendingBit</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_ClearITPendingBit))
@@ -1706,7 +1707,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[18c]"></a>TIM_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_Cmd))
-<BR><BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
+<BR><BR>[Called By]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StopWork
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
@@ -1735,7 +1736,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
 </UL>
 
-<P><STRONG><a name="[200]"></a>TIM_GetCounter</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCounter))
+<P><STRONG><a name="[201]"></a>TIM_GetCounter</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_GetCounter))
 <BR><BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartHardTimer
 </UL>
 
@@ -1764,7 +1765,7 @@ Global Symbols
 
 <P><STRONG><a name="[e5]"></a>TIM_ITConfig</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_ITConfig))
 <BR><BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartHardTimer
-<LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
+<LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StopWork
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
@@ -1893,7 +1894,7 @@ Global Symbols
 <P><STRONG><a name="[18a]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 114 bytes, Stack size 12 bytes, stm32f10x_tim.o(i.TIM_TimeBaseInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = TIM_TimeBaseInit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
+<BR>[Called By]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer1
@@ -1945,9 +1946,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 </UL>
 
-<P><STRONG><a name="[221]"></a>USART_GetFlagStatus</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_GetFlagStatus))
+<P><STRONG><a name="[222]"></a>USART_GetFlagStatus</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_GetFlagStatus))
 <BR><BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
-<LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_transmit_output
+<LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_transmit_output
 </UL>
 
 <P><STRONG><a name="[105]"></a>USART_GetITStatus</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, stm32f10x_usart.o(i.USART_GetITStatus))
@@ -1979,7 +1980,7 @@ Global Symbols
 <P><STRONG><a name="[107]"></a>USART_SendData</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_SendData))
 <BR><BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartIRQ
-<LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_transmit_output
+<LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_transmit_output
 </UL>
 
 <P><STRONG><a name="[5]"></a>UsageFault_Handler</STRONG> (Thumb, 66 bytes, Stack size 0 bytes, stm32f10x_it.o(i.UsageFault_Handler))
@@ -1994,26 +1995,27 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
-<P><STRONG><a name="[276]"></a>__1printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
+<P><STRONG><a name="[277]"></a>__1printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
 
 <P><STRONG><a name="[138]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AnglePoll
-<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PrintCliff
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
-<LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_test_result
-<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
-<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
-<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
-<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
-<LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
+<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_test_result
+<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
+<LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
+<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
+<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 </UL>
 
-<P><STRONG><a name="[277]"></a>__c89printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
+<P><STRONG><a name="[278]"></a>__c89printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
 
-<P><STRONG><a name="[278]"></a>printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
+<P><STRONG><a name="[279]"></a>printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
 
 <P><STRONG><a name="[110]"></a>__ARM_fpclassify</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, fpclassify.o(i.__ARM_fpclassify))
 <BR><BR>[Called By]<UL><LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
@@ -2134,13 +2136,13 @@ Global Symbols
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
-<P><STRONG><a name="[279]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[27a]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
 
-<P><STRONG><a name="[27a]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[27b]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
 
-<P><STRONG><a name="[27b]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[27c]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[20a]"></a>__set_errno</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, errno.o(i.__set_errno))
+<P><STRONG><a name="[20b]"></a>__set_errno</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, errno.o(i.__set_errno))
 <BR><BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
@@ -2152,7 +2154,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_raw_update
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
+<BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 </UL>
 
 <P><STRONG><a name="[11d]"></a>astar</STRONG> (Thumb, 260 bytes, Stack size 248 bytes, bsp_cleanstrategyb.o(i.astar))
@@ -2168,7 +2170,7 @@ Global Symbols
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initClose
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
 </UL>
-<BR>[Called By]<UL><LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getShortest
+<BR>[Called By]<UL><LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getShortest
 </UL>
 
 <P><STRONG><a name="[124]"></a>atan</STRONG> (Thumb, 474 bytes, Stack size 40 bytes, atan.o(i.atan))
@@ -2221,7 +2223,7 @@ Global Symbols
 <P><STRONG><a name="[13a]"></a>bsp_AngleRead</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_angle.o(i.bsp_AngleRead))
 <BR><BR>[Calls]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IMU_GetData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
+<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 </UL>
 
@@ -2233,7 +2235,7 @@ Global Symbols
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IMU_GetData
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
-<LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 </UL>
 
 <P><STRONG><a name="[4d]"></a>bsp_AngleRevByte</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, bsp_angle.o(i.bsp_AngleRevByte))
@@ -2281,8 +2283,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[17a]"></a>bsp_CliffIsDangerous</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, bsp_cliffsw.o(i.bsp_CliffIsDangerous))
-<BR><BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
-<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR><BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PrintCliff
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffSensorData
 </UL>
 
@@ -2303,7 +2306,7 @@ Global Symbols
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopEdgewiseRun
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopCliffTest
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffsiteSuspend
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
@@ -2315,8 +2318,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AssistIsFaceObstacles
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
-<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
@@ -2354,11 +2357,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[250]"></a>bsp_DetectDeal</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, bsp_detectact.o(i.bsp_DetectDeal))
+<P><STRONG><a name="[251]"></a>bsp_DetectDeal</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, bsp_detectact.o(i.bsp_DetectDeal))
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[24b]"></a>bsp_DetectStart</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, bsp_detectact.o(i.bsp_DetectStart))
+<P><STRONG><a name="[24c]"></a>bsp_DetectStart</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, bsp_detectact.o(i.bsp_DetectStart))
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
@@ -2494,11 +2497,11 @@ Global Symbols
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbnf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
+<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 </UL>
 
-<P><STRONG><a name="[248]"></a>bsp_GetCurrentOrientation</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_position.o(i.bsp_GetCurrentOrientation))
+<P><STRONG><a name="[249]"></a>bsp_GetCurrentOrientation</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_position.o(i.bsp_GetCurrentOrientation))
 <BR><BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 </UL>
@@ -2534,7 +2537,7 @@ Global Symbols
 <LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetFlagStatus
 <LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_GetConversionValue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<BR>[Called By]<UL><LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 </UL>
 
 <P><STRONG><a name="[182]"></a>bsp_GetIRSensorData</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, bsp_gridmap.o(i.bsp_GetIRSensorData))
@@ -2566,12 +2569,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 </UL>
 
-<P><STRONG><a name="[1f3]"></a>bsp_GetLedAppState</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_runcontrol.o(i.bsp_GetLedAppState))
-<BR><BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<P><STRONG><a name="[1f4]"></a>bsp_GetLedAppState</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_runcontrol.o(i.bsp_GetLedAppState))
+<BR><BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[1fe]"></a>bsp_GetRCCofTIM</STRONG> (Thumb, 150 bytes, Stack size 0 bytes, bsp_tim_pwm.o(i.bsp_GetRCCofTIM))
-<BR><BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
+<P><STRONG><a name="[1ff]"></a>bsp_GetRCCofTIM</STRONG> (Thumb, 150 bytes, Stack size 0 bytes, bsp_tim_pwm.o(i.bsp_GetRCCofTIM))
+<BR><BR>[Called By]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 </UL>
 
 <P><STRONG><a name="[185]"></a>bsp_GridMapUpdate</STRONG> (Thumb, 648 bytes, Stack size 80 bytes, bsp_gridmap.o(i.bsp_GridMapUpdate))
@@ -2621,8 +2624,8 @@ Global Symbols
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
 
-<P><STRONG><a name="[1f6]"></a>bsp_IR_GetRev</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp_ir_decode.o(i.bsp_IR_GetRev))
-<BR><BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<P><STRONG><a name="[1f7]"></a>bsp_IR_GetRev</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp_ir_decode.o(i.bsp_IR_GetRev))
+<BR><BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[193]"></a>bsp_Init</STRONG> (Thumb, 252 bytes, Stack size 8 bytes, bsp.o(i.bsp_Init))
@@ -2685,7 +2688,7 @@ Global Symbols
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[1b0]"></a>bsp_InitChargeIO</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, bsp_searchchargepile.o(i.bsp_InitChargeIO))
@@ -2867,7 +2870,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[1c7]"></a>bsp_IsCharging</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_IsCharging))
@@ -2875,15 +2878,15 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[24f]"></a>bsp_IsInitAW9523B_OK</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_aw9523b.o(i.bsp_IsInitAW9523B_OK))
+<P><STRONG><a name="[250]"></a>bsp_IsInitAW9523B_OK</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_aw9523b.o(i.bsp_IsInitAW9523B_OK))
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[1f5]"></a>bsp_IsStartStrategyRandom</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_cleanstrategyrandom.o(i.bsp_IsStartStrategyRandom))
-<BR><BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<P><STRONG><a name="[1f6]"></a>bsp_IsStartStrategyRandom</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_cleanstrategyrandom.o(i.bsp_IsStartStrategyRandom))
+<BR><BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[1c8]"></a>bsp_IsTouchChargePile</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_IsTouchChargePile))
@@ -2891,7 +2894,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
@@ -2949,10 +2952,10 @@ Global Symbols
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopSearchChargePile
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopAllMotor
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
-<P><STRONG><a name="[247]"></a>bsp_MotorGetPulseVector</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_MotorGetPulseVector))
+<P><STRONG><a name="[248]"></a>bsp_MotorGetPulseVector</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_MotorGetPulseVector))
 <BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 </UL>
 
@@ -2985,10 +2988,10 @@ Global Symbols
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
+<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 </UL>
 
 <P><STRONG><a name="[1d2]"></a>bsp_OffSiteGetState</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, bsp_offsitesw.o(i.bsp_OffSiteGetState))
@@ -3036,7 +3039,7 @@ Global Symbols
 
 <P><STRONG><a name="[1e3]"></a>bsp_PidClear</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_PidClear))
 <BR><BR>[Called By]<UL><LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 </UL>
 
 <P><STRONG><a name="[e9]"></a>bsp_PidSched</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, bsp_control.o(i.bsp_PidSched))
@@ -3084,27 +3087,37 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
 
+<P><STRONG><a name="[1ef]"></a>bsp_PrintCliff</STRONG> (Thumb, 88 bytes, Stack size 56 bytes, bsp_cliffsw.o(i.bsp_PrintCliff))
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = bsp_PrintCliff &rArr; __2printf
+</UL>
+<BR>[Calls]<UL><LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CliffIsDangerous
+<LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
+</UL>
+
 <P><STRONG><a name="[15a]"></a>bsp_PutKey</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, bsp_key.o(i.bsp_PutKey))
 <BR><BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectKey
-<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
-<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
-<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
-<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
+<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
+<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
 </UL>
 
 <P><STRONG><a name="[1ed]"></a>bsp_ResetCleanStrategyBStatus</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, bsp_cleanstrategyb.o(i.bsp_ResetCleanStrategyBStatus))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = bsp_ResetCleanStrategyBStatus &rArr; bsp_StartUpdateGridMap
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartUpdateGridMap
-<LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ResetPosArgument
+<LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ResetPosArgument
 </UL>
 <BR>[Called By]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartUpdateCleanStrategyB
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
 
-<P><STRONG><a name="[1ef]"></a>bsp_ResetPosArgument</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, bsp_position.o(i.bsp_ResetPosArgument))
+<P><STRONG><a name="[1f0]"></a>bsp_ResetPosArgument</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, bsp_position.o(i.bsp_ResetPosArgument))
 <BR><BR>[Called By]<UL><LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ResetCleanStrategyBStatus
 </UL>
 
@@ -3112,7 +3125,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[1f1]"></a>bsp_SearchChargePile</STRONG> (Thumb, 2006 bytes, Stack size 32 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
+<P><STRONG><a name="[1f2]"></a>bsp_SearchChargePile</STRONG> (Thumb, 2006 bytes, Stack size 32 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = bsp_SearchChargePile &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
@@ -3123,23 +3136,23 @@ Global Symbols
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsTouchChargePile
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllStateRun
-<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isCleanRunning
-<LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartStrategyRandom
-<LI><a href="#[1f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsStartStrategyRandom
-<LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetLedAppState
+<LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isCleanRunning
+<LI><a href="#[1f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartStrategyRandom
+<LI><a href="#[1f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsStartStrategyRandom
+<LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetLedAppState
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsCharging
 <LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsChargeDone
-<LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlowBack
-<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlow
-<LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlowBack
-<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlow
-<LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlowBack
-<LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
-<LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RotateCCW
+<LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlowBack
+<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlow
+<LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlowBack
+<LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlow
+<LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlowBack
+<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
+<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RotateCCW
 <LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCW
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCCW
 <LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GoBackward
-<LI><a href="#[1f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetRev
+<LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetRev
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CliffIsDangerous
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -3162,7 +3175,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffsiteSuspend
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
@@ -3170,20 +3183,20 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[16e]"></a>bsp_SetMotorSpeed</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_SetMotorSpeed))
-<BR><BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
+<BR><BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopSearchChargePile
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopCliffTest
-<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopAllMotor
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
-<LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlowBack
-<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlow
-<LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlowBack
-<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlow
-<LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlowBack
-<LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
-<LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RotateCCW
+<LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlowBack
+<LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnRightSlow
+<LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlowBack
+<LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchTurnLeftSlow
+<LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlowBack
+<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchRunStraightSlow
+<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_RotateCCW
 <LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCW
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PirouetteCCW
 <LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GoBackward
@@ -3194,10 +3207,10 @@ Global Symbols
 <LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseTurnLeftSlow
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRunStraightSlow
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRunStraightFast
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 </UL>
 
-<P><STRONG><a name="[1fd]"></a>bsp_SetTIMforInt</STRONG> (Thumb, 422 bytes, Stack size 56 bytes, bsp_tim_pwm.o(i.bsp_SetTIMforInt))
+<P><STRONG><a name="[1fe]"></a>bsp_SetTIMforInt</STRONG> (Thumb, 422 bytes, Stack size 56 bytes, bsp_tim_pwm.o(i.bsp_SetTIMforInt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = bsp_SetTIMforInt &rArr; NVIC_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
@@ -3206,8 +3219,8 @@ Global Symbols
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITConfig
-<LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ARRPreloadConfig
-<LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetRCCofTIM
+<LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ARRPreloadConfig
+<LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetRCCofTIM
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vSetupSysInfoTest
 </UL>
@@ -3219,7 +3232,7 @@ Global Symbols
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[15d]"></a>bsp_SperkerPlay</STRONG> (Thumb, 86 bytes, Stack size 24 bytes, bsp_speaker.o(i.bsp_SperkerPlay))
@@ -3229,27 +3242,27 @@ Global Symbols
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
 </UL>
-<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
-<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffSiteProc
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DustBoxProc
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[1cc]"></a>bsp_StartChangeWifi2SmartConfigState</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_wifi_app.o(i.bsp_StartChangeWifi2SmartConfigState))
 <BR><BR>[Called By]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
-<P><STRONG><a name="[24d]"></a>bsp_StartDustBoxProc</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_dustbox.o(i.bsp_StartDustBoxProc))
+<P><STRONG><a name="[24e]"></a>bsp_StartDustBoxProc</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_dustbox.o(i.bsp_StartDustBoxProc))
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
 <P><STRONG><a name="[1d9]"></a>bsp_StartEdgewiseRun</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, bsp_edgewise.o(i.bsp_StartEdgewiseRun))
 <BR><BR>[Called By]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[13e]"></a>bsp_StartHardTimer</STRONG> (Thumb, 176 bytes, Stack size 24 bytes, bsp_timer.o(i.bsp_StartHardTimer))
@@ -3261,12 +3274,12 @@ Global Symbols
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare1
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITConfig
-<LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCounter
+<LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCounter
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRevByte
 </UL>
 
-<P><STRONG><a name="[24c]"></a>bsp_StartOffSiteProc</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_offsitesw.o(i.bsp_StartOffSiteProc))
+<P><STRONG><a name="[24d]"></a>bsp_StartOffSiteProc</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_offsitesw.o(i.bsp_StartOffSiteProc))
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
@@ -3279,8 +3292,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
-<P><STRONG><a name="[1f4]"></a>bsp_StartStrategyRandom</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_cleanstrategyrandom.o(i.bsp_StartStrategyRandom))
-<BR><BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<P><STRONG><a name="[1f5]"></a>bsp_StartStrategyRandom</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_cleanstrategyrandom.o(i.bsp_StartStrategyRandom))
+<BR><BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[1d6]"></a>bsp_StartUpdateCleanStrategyB</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, bsp_cleanstrategyb.o(i.bsp_StartUpdateCleanStrategyB))
@@ -3300,7 +3313,7 @@ Global Symbols
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ResetCleanStrategyBStatus
 </UL>
 
-<P><STRONG><a name="[24e]"></a>bsp_StartUpdatePos</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_position.o(i.bsp_StartUpdatePos))
+<P><STRONG><a name="[24f]"></a>bsp_StartUpdatePos</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_position.o(i.bsp_StartUpdatePos))
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
@@ -3323,7 +3336,7 @@ Global Symbols
 <P><STRONG><a name="[151]"></a>bsp_StopEdgewiseRun</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, bsp_edgewise.o(i.bsp_StopEdgewiseRun))
 <BR><BR>[Called By]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllStateRun
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[14d]"></a>bsp_StopSearchChargePile</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_StopSearchChargePile))
@@ -3337,35 +3350,35 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[150]"></a>bsp_StopStrategyRandom</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, bsp_cleanstrategyrandom.o(i.bsp_StopStrategyRandom))
-<BR><BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR><BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllStateRun
 </UL>
 
 <P><STRONG><a name="[14f]"></a>bsp_StopUpdateCleanStrategyB</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, bsp_cleanstrategyb.o(i.bsp_StopUpdateCleanStrategyB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = bsp_StopUpdateCleanStrategyB &rArr; bsp_ResetCleanStrategyBStatus &rArr; bsp_StartUpdateGridMap
 </UL>
-<BR>[Calls]<UL><LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
+<BR>[Calls]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopEdgewiseRun
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorCleanSetPWM
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ResetCleanStrategyBStatus
 </UL>
-<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
+<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllStateRun
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
-<P><STRONG><a name="[201]"></a>bsp_StopVacuum</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp_motor.o(i.bsp_StopVacuum))
+<P><STRONG><a name="[202]"></a>bsp_StopVacuum</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp_motor.o(i.bsp_StopVacuum))
 <BR><BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopAllMotor
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
-<P><STRONG><a name="[202]"></a>bsp_StrategyRandomProc</STRONG> (Thumb, 298 bytes, Stack size 16 bytes, bsp_cleanstrategyrandom.o(i.bsp_StrategyRandomProc))
+<P><STRONG><a name="[203]"></a>bsp_StrategyRandomProc</STRONG> (Thumb, 298 bytes, Stack size 16 bytes, bsp_cleanstrategyrandom.o(i.bsp_StrategyRandomProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_StrategyRandomProc &rArr; bsp_MotorSpeedMM2Pulse &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRead
@@ -3395,7 +3408,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
 
-<P><STRONG><a name="[203]"></a>bsp_UpdateCleanStrategyB</STRONG> (Thumb, 154 bytes, Stack size 32 bytes, bsp_cleanstrategyb.o(i.bsp_UpdateCleanStrategyB))
+<P><STRONG><a name="[204]"></a>bsp_UpdateCleanStrategyB</STRONG> (Thumb, 154 bytes, Stack size 32 bytes, bsp_cleanstrategyb.o(i.bsp_UpdateCleanStrategyB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 536<LI>Call Chain = bsp_UpdateCleanStrategyB &rArr; clean_strategyB &rArr; AStarReturnOrigin &rArr; printShortest &rArr; getShortest &rArr; astar &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
@@ -3403,7 +3416,7 @@ Global Symbols
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 </UL>
@@ -3415,19 +3428,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM6_IRQHandler
 </UL>
 
-<P><STRONG><a name="[205]"></a>bsp_WifiStateProc</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, bsp_wifi_app.o(i.bsp_WifiStateProc))
+<P><STRONG><a name="[206]"></a>bsp_WifiStateProc</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, bsp_wifi_app.o(i.bsp_WifiStateProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_WifiStateProc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_wifi_work_state
+<BR>[Calls]<UL><LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_wifi_work_state
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 </UL>
 
-<P><STRONG><a name="[204]"></a>clean_strategyB</STRONG> (Thumb, 760 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.clean_strategyB))
+<P><STRONG><a name="[205]"></a>clean_strategyB</STRONG> (Thumb, 760 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.clean_strategyB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 504<LI>Call Chain = clean_strategyB &rArr; AStarReturnOrigin &rArr; printShortest &rArr; getShortest &rArr; astar &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
-<LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
+<LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopEdgewiseRun
 <LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartEdgewiseRun
@@ -3437,9 +3450,9 @@ Global Symbols
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
-<LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftRunningWorkStep
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
@@ -3450,13 +3463,13 @@ Global Symbols
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AStarMotionReturnOrigin
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AStarCollision
 </UL>
-<BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
+<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
 </UL>
 
 <P><STRONG><a name="[149]"></a>comSendBuf</STRONG> (Thumb, 38 bytes, Stack size 16 bytes, bsp_uart_fifo.o(i.comSendBuf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = comSendBuf &rArr; UartSend &rArr; USART_ITConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ComToUart
+<BR>[Calls]<UL><LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ComToUart
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSend
 </UL>
 <BR>[Called By]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CleanZeroYaw
@@ -3465,7 +3478,7 @@ Global Symbols
 <P><STRONG><a name="[1eb]"></a>cos</STRONG> (Thumb, 148 bytes, Stack size 32 bytes, cos.o(i.cos))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
+<BR>[Calls]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
@@ -3475,35 +3488,35 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
 
-<P><STRONG><a name="[20b]"></a>data_handle</STRONG> (Thumb, 372 bytes, Stack size 32 bytes, system.o(i.data_handle))
+<P><STRONG><a name="[20c]"></a>data_handle</STRONG> (Thumb, 372 bytes, Stack size 32 bytes, system.o(i.data_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
-<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;heat_beat_check
-<LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_mcu_wifi_mode
-<LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_point_handle
-<LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_test_result
+<BR>[Calls]<UL><LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
+<LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;heat_beat_check
+<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_mcu_wifi_mode
+<LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_point_handle
+<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_test_result
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_data_update
-<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
+<BR>[Called By]<UL><LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
 </UL>
 
-<P><STRONG><a name="[213]"></a>dp_download_handle</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, protocol.o(i.dp_download_handle))
+<P><STRONG><a name="[214]"></a>dp_download_handle</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, protocol.o(i.dp_download_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
-<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
-<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
-<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_seek_handle
-<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_roll_brush_handle
-<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_filter_handle
-<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_edge_brush_handle
-<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
-<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
+<BR>[Calls]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
+<LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_seek_handle
+<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_roll_brush_handle
+<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_filter_handle
+<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_edge_brush_handle
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
+<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
 </UL>
-<BR>[Called By]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_point_handle
+<BR>[Called By]<UL><LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_point_handle
 </UL>
 
 <P><STRONG><a name="[1a7]"></a>dx8_Init</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, dxi2c_gpio_stm32f1.o(i.dx8_Init))
@@ -3542,11 +3555,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = fputc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
-<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> printfa.o(i.__0printf)
 </UL>
-<P><STRONG><a name="[222]"></a>getShortest</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, bsp_cleanstrategyb.o(i.getShortest))
+<P><STRONG><a name="[223]"></a>getShortest</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, bsp_cleanstrategyb.o(i.getShortest))
 <BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = getShortest &rArr; astar &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
@@ -3554,19 +3567,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printShortest
 </UL>
 
-<P><STRONG><a name="[258]"></a>get_check_sum</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, system.o(i.get_check_sum))
+<P><STRONG><a name="[259]"></a>get_check_sum</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, system.o(i.get_check_sum))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = get_check_sum
 </UL>
-<BR>[Called By]<UL><LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
-<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<BR>[Called By]<UL><LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
+<LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
 </UL>
 
-<P><STRONG><a name="[223]"></a>get_download_cmd_total</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, protocol.o(i.get_download_cmd_total))
-<BR><BR>[Called By]<UL><LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_dowmload_dpid_index
+<P><STRONG><a name="[224]"></a>get_download_cmd_total</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, protocol.o(i.get_download_cmd_total))
+<BR><BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_dowmload_dpid_index
 </UL>
 
-<P><STRONG><a name="[257]"></a>get_queue_total_data</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, system.o(i.get_queue_total_data))
-<BR><BR>[Called By]<UL><LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
+<P><STRONG><a name="[258]"></a>get_queue_total_data</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, system.o(i.get_queue_total_data))
+<BR><BR>[Called By]<UL><LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
 </UL>
 
 <P><STRONG><a name="[147]"></a>i2c_CheckDevice</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, bsp_i2c_gpio.o(i.i2c_CheckDevice))
@@ -3583,7 +3596,7 @@ Global Symbols
 <P><STRONG><a name="[128]"></a>i2c_SendByte</STRONG> (Thumb, 78 bytes, Stack size 32 bytes, bsp_i2c_gpio.o(i.i2c_SendByte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = i2c_SendByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Delay
+<BR>[Calls]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Delay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aw_WriteBytes
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_CheckDevice
@@ -3592,7 +3605,7 @@ Global Symbols
 <P><STRONG><a name="[127]"></a>i2c_Start</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, bsp_i2c_gpio.o(i.i2c_Start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = i2c_Start
 </UL>
-<BR>[Calls]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Delay
+<BR>[Calls]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Delay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aw_WriteBytes
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_CheckDevice
@@ -3601,7 +3614,7 @@ Global Symbols
 <P><STRONG><a name="[12a]"></a>i2c_Stop</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, bsp_i2c_gpio.o(i.i2c_Stop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = i2c_Stop
 </UL>
-<BR>[Calls]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Delay
+<BR>[Calls]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Delay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CheckOk
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aw_WriteBytes
@@ -3612,7 +3625,7 @@ Global Symbols
 <P><STRONG><a name="[129]"></a>i2c_WaitAck</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, bsp_i2c_gpio.o(i.i2c_WaitAck))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = i2c_WaitAck
 </UL>
-<BR>[Calls]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Delay
+<BR>[Calls]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Delay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;aw_WriteBytes
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_CheckDevice
@@ -3634,100 +3647,100 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
 </UL>
 
-<P><STRONG><a name="[1f2]"></a>isCleanRunning</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_cleanstrategyb.o(i.isCleanRunning))
-<BR><BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<P><STRONG><a name="[1f3]"></a>isCleanRunning</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_cleanstrategyb.o(i.isCleanRunning))
+<BR><BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 292<LI>Call Chain = main &rArr; bsp_Init &rArr; AuthenticationTest &rArr; DX8_VerifyPin &rArr; DX8_VerifyPassword &rArr; DX8_GetRandom &rArr; DX8_GetResponse &rArr; Stream_Dec &rArr; Crypto_Data &rArr; q_b2
 </UL>
-<BR>[Calls]<UL><LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
+<BR>[Calls]<UL><LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppTaskCreate
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppObjCreate
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[220]"></a>mcu_dp_bool_update</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, mcu_api.o(i.mcu_dp_bool_update))
+<P><STRONG><a name="[221]"></a>mcu_dp_bool_update</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, mcu_api.o(i.mcu_dp_bool_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
-<LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
+<BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
 </UL>
-<BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
-<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
-<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_seek_handle
-<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_roll_brush_handle
-<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_filter_handle
-<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_edge_brush_handle
+<BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_seek_handle
+<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_roll_brush_handle
+<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_filter_handle
+<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_edge_brush_handle
 </UL>
 
-<P><STRONG><a name="[216]"></a>mcu_dp_enum_update</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, mcu_api.o(i.mcu_dp_enum_update))
+<P><STRONG><a name="[217]"></a>mcu_dp_enum_update</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, mcu_api.o(i.mcu_dp_enum_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
-<LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
+<BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
-<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
-<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
+<BR>[Called By]<UL><LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
+<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
 </UL>
 
 <P><STRONG><a name="[11c]"></a>mcu_dp_raw_update</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, mcu_api.o(i.mcu_dp_raw_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = mcu_dp_raw_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
-<LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
-<LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_buffer
+<BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
+<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_buffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_data_update
 </UL>
 
-<P><STRONG><a name="[229]"></a>mcu_dp_value_update</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, mcu_api.o(i.mcu_dp_value_update))
+<P><STRONG><a name="[22a]"></a>mcu_dp_value_update</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, mcu_api.o(i.mcu_dp_value_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = mcu_dp_value_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
-<LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
+<BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 </UL>
 
-<P><STRONG><a name="[21f]"></a>mcu_get_dp_download_bool</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, mcu_api.o(i.mcu_get_dp_download_bool))
-<BR><BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
-<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
-<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_seek_handle
-<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_roll_brush_handle
-<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_filter_handle
-<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_edge_brush_handle
+<P><STRONG><a name="[220]"></a>mcu_get_dp_download_bool</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, mcu_api.o(i.mcu_get_dp_download_bool))
+<BR><BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_seek_handle
+<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_roll_brush_handle
+<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_filter_handle
+<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_reset_edge_brush_handle
 </UL>
 
-<P><STRONG><a name="[215]"></a>mcu_get_dp_download_enum</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, mcu_api.o(i.mcu_get_dp_download_enum))
-<BR><BR>[Called By]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
-<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
-<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
+<P><STRONG><a name="[216]"></a>mcu_get_dp_download_enum</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, mcu_api.o(i.mcu_get_dp_download_enum))
+<BR><BR>[Called By]<UL><LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_mode_handle
+<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
 </UL>
 
-<P><STRONG><a name="[206]"></a>mcu_get_wifi_work_state</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, mcu_api.o(i.mcu_get_wifi_work_state))
-<BR><BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_WifiStateProc
+<P><STRONG><a name="[207]"></a>mcu_get_wifi_work_state</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, mcu_api.o(i.mcu_get_wifi_work_state))
+<BR><BR>[Called By]<UL><LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_WifiStateProc
 </UL>
 
 <P><STRONG><a name="[144]"></a>mcu_reset_wifi</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, mcu_api.o(i.mcu_reset_wifi))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = mcu_reset_wifi &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ChangeWifi2SmartConfigStateProc
 </UL>
 
-<P><STRONG><a name="[245]"></a>my_memcpy</STRONG> (Thumb, 70 bytes, Stack size 12 bytes, mcu_api.o(i.my_memcpy))
+<P><STRONG><a name="[246]"></a>my_memcpy</STRONG> (Thumb, 70 bytes, Stack size 12 bytes, mcu_api.o(i.my_memcpy))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = my_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
-<LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_buffer
+<BR>[Called By]<UL><LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
+<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_buffer
 </UL>
 
-<P><STRONG><a name="[22a]"></a>my_strlen</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, mcu_api.o(i.my_strlen))
-<BR><BR>[Called By]<UL><LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
+<P><STRONG><a name="[22b]"></a>my_strlen</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, mcu_api.o(i.my_strlen))
+<BR><BR>[Called By]<UL><LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
 </UL>
 
 <P><STRONG><a name="[186]"></a>pow</STRONG> (Thumb, 2478 bytes, Stack size 112 bytes, pow.o(i.pow))
@@ -3742,7 +3755,7 @@ Global Symbols
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
-<LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
+<LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
@@ -3757,7 +3770,7 @@ Global Symbols
 <P><STRONG><a name="[87]"></a>printShortest</STRONG> (Thumb, 396 bytes, Stack size 24 bytes, bsp_cleanstrategyb.o(i.printShortest))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = printShortest &rArr; getShortest &rArr; astar &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getShortest
+<BR>[Calls]<UL><LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getShortest
 </UL>
 <BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AStarReturnOrigin
 </UL>
@@ -3768,38 +3781,38 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
 </UL>
 
-<P><STRONG><a name="[22e]"></a>pvPortMalloc</STRONG> (Thumb, 178 bytes, Stack size 24 bytes, heap_4.o(i.pvPortMalloc))
+<P><STRONG><a name="[22f]"></a>pvPortMalloc</STRONG> (Thumb, 178 bytes, Stack size 24 bytes, heap_4.o(i.pvPortMalloc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
-<LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInsertBlockIntoFreeList
-<LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvHeapInit
+<LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInsertBlockIntoFreeList
+<LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvHeapInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
-<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
+<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
 </UL>
 
-<P><STRONG><a name="[25e]"></a>pxPortInitialiseStack</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, port.o(i.pxPortInitialiseStack))
+<P><STRONG><a name="[25f]"></a>pxPortInitialiseStack</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, port.o(i.pxPortInitialiseStack))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 </UL>
 
-<P><STRONG><a name="[228]"></a>set_wifi_uart_buffer</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, system.o(i.set_wifi_uart_buffer))
+<P><STRONG><a name="[229]"></a>set_wifi_uart_buffer</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, system.o(i.set_wifi_uart_buffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = set_wifi_uart_buffer &rArr; my_memcpy
 </UL>
-<BR>[Calls]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_memcpy
+<BR>[Calls]<UL><LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
+<BR>[Called By]<UL><LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_raw_update
 </UL>
 
-<P><STRONG><a name="[224]"></a>set_wifi_uart_byte</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, system.o(i.set_wifi_uart_byte))
-<BR><BR>[Called By]<UL><LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_value_update
-<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;heat_beat_check
+<P><STRONG><a name="[225]"></a>set_wifi_uart_byte</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, system.o(i.set_wifi_uart_byte))
+<BR><BR>[Called By]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_value_update
+<LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;heat_beat_check
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_raw_update
-<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
+<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
 
 <P><STRONG><a name="[121]"></a>shift</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp_cleanstrategyb.o(i.shift))
@@ -3809,7 +3822,7 @@ Global Symbols
 <P><STRONG><a name="[1ec]"></a>sin</STRONG> (Thumb, 150 bytes, Stack size 32 bytes, sin.o(i.sin))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
+<BR>[Calls]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
@@ -3823,7 +3836,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = sqrt &rArr; _dsqrt &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsqrt
-<LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
+<LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 </UL>
 <BR>[Called By]<UL><LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
@@ -3835,107 +3848,107 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bsp_uart_fifo.o(i.UartVarInit)
 </UL>
-<P><STRONG><a name="[246]"></a>uart_transmit_output</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.uart_transmit_output))
+<P><STRONG><a name="[247]"></a>uart_transmit_output</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.uart_transmit_output))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
-<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
 </UL>
-<BR>[Called By]<UL><LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_data
+<BR>[Called By]<UL><LI><a href="#[25a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_data
 </UL>
 
-<P><STRONG><a name="[233]"></a>uxListRemove</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, list.o(i.uxListRemove))
+<P><STRONG><a name="[234]"></a>uxListRemove</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, list.o(i.uxListRemove))
 <BR><BR>[Called By]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
-<LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
-<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
+<LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
+<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 </UL>
 
-<P><STRONG><a name="[23d]"></a>vListInitialise</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, list.o(i.vListInitialise))
+<P><STRONG><a name="[23e]"></a>vListInitialise</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, list.o(i.vListInitialise))
 <BR><BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
-<LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTaskLists
+<LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTaskLists
 </UL>
 
-<P><STRONG><a name="[23b]"></a>vListInitialiseItem</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, list.o(i.vListInitialiseItem))
-<BR><BR>[Called By]<UL><LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTCBVariables
+<P><STRONG><a name="[23c]"></a>vListInitialiseItem</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, list.o(i.vListInitialiseItem))
+<BR><BR>[Called By]<UL><LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTCBVariables
 </UL>
 
-<P><STRONG><a name="[22c]"></a>vListInsert</STRONG> (Thumb, 48 bytes, Stack size 12 bytes, list.o(i.vListInsert))
+<P><STRONG><a name="[22d]"></a>vListInsert</STRONG> (Thumb, 48 bytes, Stack size 12 bytes, list.o(i.vListInsert))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = vListInsert
 </UL>
-<BR>[Called By]<UL><LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
+<BR>[Called By]<UL><LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
+<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 </UL>
 
-<P><STRONG><a name="[253]"></a>vListInsertEnd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, list.o(i.vListInsertEnd))
+<P><STRONG><a name="[254]"></a>vListInsertEnd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, list.o(i.vListInsertEnd))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
-<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
+<LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
+<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 </UL>
 
-<P><STRONG><a name="[232]"></a>vPortEnterCritical</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, port.o(i.vPortEnterCritical))
+<P><STRONG><a name="[233]"></a>vPortEnterCritical</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, port.o(i.vPortEnterCritical))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = vPortEnterCritical
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
-<LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
-<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
-<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
+<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 </UL>
 
-<P><STRONG><a name="[234]"></a>vPortExitCritical</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, port.o(i.vPortExitCritical))
+<P><STRONG><a name="[235]"></a>vPortExitCritical</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, port.o(i.vPortExitCritical))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = vPortExitCritical
 </UL>
 <BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortClearInterruptMask
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
-<LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
-<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
-<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
+<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 </UL>
 
-<P><STRONG><a name="[22f]"></a>vPortFree</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, heap_4.o(i.vPortFree))
+<P><STRONG><a name="[230]"></a>vPortFree</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, heap_4.o(i.vPortFree))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
-<LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInsertBlockIntoFreeList
+<LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInsertBlockIntoFreeList
 </UL>
-<BR>[Called By]<UL><LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvDeleteTCB
-<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
-</UL>
-
-<P><STRONG><a name="[25a]"></a>vPortSetupTimerInterrupt</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, port.o(i.vPortSetupTimerInterrupt))
-<BR><BR>[Called By]<UL><LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
+<BR>[Called By]<UL><LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvDeleteTCB
+<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
 </UL>
 
-<P><STRONG><a name="[239]"></a>vPortYield</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, port.o(i.vPortYield))
+<P><STRONG><a name="[25b]"></a>vPortSetupTimerInterrupt</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, port.o(i.vPortSetupTimerInterrupt))
+<BR><BR>[Called By]<UL><LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
+</UL>
+
+<P><STRONG><a name="[23a]"></a>vPortYield</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, port.o(i.vPortYield))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
-<LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIdleTask
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 </UL>
 
 <P><STRONG><a name="[1ae]"></a>vSetupSysInfoTest</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, sysinfotest.o(i.vSetupSysInfoTest))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = vSetupSysInfoTest &rArr; bsp_SetTIMforInt &rArr; NVIC_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
+<BR>[Calls]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 </UL>
 <BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
@@ -3944,14 +3957,14 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
-<LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
-<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
+<LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SpeakerIsBusy
-<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
@@ -3959,48 +3972,48 @@ Global Symbols
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
-<P><STRONG><a name="[241]"></a>vTaskMissedYield</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, tasks.o(i.vTaskMissedYield))
-<BR><BR>[Called By]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
+<P><STRONG><a name="[242]"></a>vTaskMissedYield</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, tasks.o(i.vTaskMissedYield))
+<BR><BR>[Called By]<UL><LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 </UL>
 
-<P><STRONG><a name="[252]"></a>vTaskPlaceOnEventList</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, tasks.o(i.vTaskPlaceOnEventList))
+<P><STRONG><a name="[253]"></a>vTaskPlaceOnEventList</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, tasks.o(i.vTaskPlaceOnEventList))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = vTaskPlaceOnEventList &rArr; prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
-<BR>[Calls]<UL><LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
-<LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsert
-<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
+<BR>[Calls]<UL><LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
+<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsert
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
 
-<P><STRONG><a name="[254]"></a>vTaskSetTimeOutState</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, tasks.o(i.vTaskSetTimeOutState))
+<P><STRONG><a name="[255]"></a>vTaskSetTimeOutState</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, tasks.o(i.vTaskSetTimeOutState))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = vTaskSetTimeOutState
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
+<BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 </UL>
 
-<P><STRONG><a name="[227]"></a>vTaskStartScheduler</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, tasks.o(i.vTaskStartScheduler))
+<P><STRONG><a name="[228]"></a>vTaskStartScheduler</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, tasks.o(i.vTaskStartScheduler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = vTaskStartScheduler &rArr; xTaskGenericCreate &rArr; prvAllocateTCBAndStack &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
-<LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
+<LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[171]"></a>vTaskSuspendAll</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, tasks.o(i.vTaskSuspendAll))
-<BR><BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<BR><BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
-<LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
-<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
-<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 </UL>
 
 <P><STRONG><a name="[5f]"></a>vTaskSwitchContext</STRONG> (Thumb, 102 bytes, Stack size 8 bytes, tasks.o(i.vTaskSwitchContext))
@@ -4015,123 +4028,123 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
 
-<P><STRONG><a name="[211]"></a>wifi_test_result</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, protocol.o(i.wifi_test_result))
+<P><STRONG><a name="[212]"></a>wifi_test_result</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, protocol.o(i.wifi_test_result))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = wifi_test_result &rArr; __2printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
+<BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 </UL>
 
-<P><STRONG><a name="[251]"></a>wifi_uart_service</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, mcu_api.o(i.wifi_uart_service))
+<P><STRONG><a name="[252]"></a>wifi_uart_service</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, mcu_api.o(i.wifi_uart_service))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = wifi_uart_service &rArr; data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_queue_total_data
-<LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_check_sum
-<LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
-<LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Queue_Read_Byte
-<LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_memcpy
+<BR>[Calls]<UL><LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_queue_total_data
+<LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_check_sum
+<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
+<LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Queue_Read_Byte
+<LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[20f]"></a>wifi_uart_write_frame</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, system.o(i.wifi_uart_write_frame))
+<P><STRONG><a name="[210]"></a>wifi_uart_write_frame</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, system.o(i.wifi_uart_write_frame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_data
-<LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_check_sum
+<BR>[Calls]<UL><LI><a href="#[25a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_data
+<LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_check_sum
 </UL>
-<BR>[Called By]<UL><LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_value_update
+<BR>[Called By]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_value_update
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_reset_wifi
-<LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
-<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;heat_beat_check
-<LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_mcu_wifi_mode
-<LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
+<LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
+<LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;heat_beat_check
+<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_mcu_wifi_mode
+<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_raw_update
-<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
+<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
 
-<P><STRONG><a name="[255]"></a>xPortStartScheduler</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, port.o(i.xPortStartScheduler))
+<P><STRONG><a name="[256]"></a>xPortStartScheduler</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, port.o(i.xPortStartScheduler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = xPortStartScheduler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[25a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortSetupTimerInterrupt
-<LI><a href="#[25b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___6_port_c_39a90d8d__prvStartFirstTask
+<BR>[Calls]<UL><LI><a href="#[25b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortSetupTimerInterrupt
+<LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___6_port_c_39a90d8d__prvStartFirstTask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
+<BR>[Called By]<UL><LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 </UL>
 
 <P><STRONG><a name="[89]"></a>xQueueCreateMutex</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, queue.o(i.xQueueCreateMutex))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = xQueueCreateMutex &rArr; xQueueGenericSend &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialise
-<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<BR>[Calls]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialise
+<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppObjCreate
 </UL>
 
-<P><STRONG><a name="[25c]"></a>xQueueGenericSend</STRONG> (Thumb, 256 bytes, Stack size 48 bytes, queue.o(i.xQueueGenericSend))
+<P><STRONG><a name="[25d]"></a>xQueueGenericSend</STRONG> (Thumb, 256 bytes, Stack size 48 bytes, queue.o(i.xQueueGenericSend))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = xQueueGenericSend &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
-<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
-<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
-<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
-<LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
-<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
+<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
+<LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
+<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
+<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
+<LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
 </UL>
 
-<P><STRONG><a name="[25d]"></a>xTaskCheckForTimeOut</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, tasks.o(i.xTaskCheckForTimeOut))
+<P><STRONG><a name="[25e]"></a>xTaskCheckForTimeOut</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, tasks.o(i.xTaskCheckForTimeOut))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = xTaskCheckForTimeOut &rArr; vTaskSetTimeOutState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
-<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
 
 <P><STRONG><a name="[8b]"></a>xTaskGenericCreate</STRONG> (Thumb, 236 bytes, Stack size 56 bytes, tasks.o(i.xTaskGenericCreate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = xTaskGenericCreate &rArr; prvAllocateTCBAndStack &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pxPortInitialiseStack
-<LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTaskLists
-<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTCBVariables
-<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
-<LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
-<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[25f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pxPortInitialiseStack
+<LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTaskLists
+<LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTCBVariables
+<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
+<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
+<BR>[Called By]<UL><LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppTaskCreate
 </UL>
 
 <P><STRONG><a name="[bf]"></a>xTaskGetTickCount</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, tasks.o(i.xTaskGetTickCount))
-<BR><BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
+<BR><BR>[Called By]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
 <LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartUpdateCleanStrategyB
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartSearchChargePile
 <LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
-<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ChangeWifi2SmartConfigStateProc
-<LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
-<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EdgeWiseRunningWorkStep
 </UL>
@@ -4139,52 +4152,52 @@ Global Symbols
 <P><STRONG><a name="[de]"></a>xTaskIncrementTick</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, tasks.o(i.xTaskIncrementTick))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[25f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvResetNextTaskUnblockTime
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
-<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
+<BR>[Calls]<UL><LI><a href="#[260]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvResetNextTaskUnblockTime
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 </UL>
 
-<P><STRONG><a name="[238]"></a>xTaskPriorityDisinherit</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, tasks.o(i.xTaskPriorityDisinherit))
+<P><STRONG><a name="[239]"></a>xTaskPriorityDisinherit</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, tasks.o(i.xTaskPriorityDisinherit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = xTaskPriorityDisinherit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
-<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
+<BR>[Calls]<UL><LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
+<BR>[Called By]<UL><LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
 </UL>
 
-<P><STRONG><a name="[240]"></a>xTaskRemoveFromEventList</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, tasks.o(i.xTaskRemoveFromEventList))
+<P><STRONG><a name="[241]"></a>xTaskRemoveFromEventList</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, tasks.o(i.xTaskRemoveFromEventList))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = xTaskRemoveFromEventList
 </UL>
-<BR>[Calls]<UL><LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
-<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
+<BR>[Calls]<UL><LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
+<BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 </UL>
 
-<P><STRONG><a name="[231]"></a>xTaskResumeAll</STRONG> (Thumb, 166 bytes, Stack size 24 bytes, tasks.o(i.xTaskResumeAll))
+<P><STRONG><a name="[232]"></a>xTaskResumeAll</STRONG> (Thumb, 166 bytes, Stack size 24 bytes, tasks.o(i.xTaskResumeAll))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
-<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
-<LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
-<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
+<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
-<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
-<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 </UL>
 <P>
 <H3>
@@ -4256,7 +4269,7 @@ Local Symbols
 <P><STRONG><a name="[1ce]"></a>bsp_StopAllMotor</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, main.o(i.bsp_StopAllMotor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = bsp_StopAllMotor &rArr; bsp_MotorCleanSetPWM
 </UL>
-<BR>[Calls]<UL><LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
+<BR>[Calls]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorCleanSetPWM
 </UL>
@@ -4269,26 +4282,27 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 560<LI>Call Chain = vTaskControl &rArr; bsp_UpdateCleanStrategyB &rArr; clean_strategyB &rArr; AStarReturnOrigin &rArr; printShortest &rArr; getShortest &rArr; astar &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
+<LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
-<LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetPulseVector
+<LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetPulseVector
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetIRSensorData
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
-<LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentOrientation
+<LI><a href="#[249]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentOrientation
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffSensorData
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
-<LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResetReturnChargeStationStatus
-<LI><a href="#[249]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetReturnChargeStationStatus
+<LI><a href="#[24b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResetReturnChargeStationStatus
+<LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetReturnChargeStationStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[4a]"></a>vTaskDecision</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, main.o(i.vTaskDecision))
+<P><STRONG><a name="[4a]"></a>vTaskDecision</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, main.o(i.vTaskDecision))
 <BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = vTaskDecision &rArr; bsp_KeyProc &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_WifiStateProc
+<LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_WifiStateProc
+<LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PrintCliff
 <LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ChangeWifi2SmartConfigStateProc
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
@@ -4299,12 +4313,12 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = vTaskMapping &rArr; bsp_GridMapUpdate &rArr; inverseSensorModelB &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_value_update
+<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_value_update
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetIRSensorData
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
-<LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentOrientation
+<LI><a href="#[249]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentOrientation
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffSensorData
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
 </UL>
@@ -4313,24 +4327,24 @@ Local Symbols
 <P><STRONG><a name="[4c]"></a>vTaskPerception</STRONG> (Thumb, 90 bytes, Stack size 0 bytes, main.o(i.vTaskPerception))
 <BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = vTaskPerception &rArr; bsp_PositionUpdate &rArr; sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
+<BR>[Calls]<UL><LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
-<LI><a href="#[24e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartUpdatePos
+<LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
+<LI><a href="#[24f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartUpdatePos
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartUpdateGridMap
-<LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartOffSiteProc
-<LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartDustBoxProc
-<LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartOffSiteProc
+<LI><a href="#[24e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartDustBoxProc
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffSiteProc
 <LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
-<LI><a href="#[24f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsInitAW9523B_OK
+<LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsInitAW9523B_OK
 <LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffSW
 <LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DustBoxProc
-<LI><a href="#[24b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectStart
-<LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectDeal
+<LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectStart
+<LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectDeal
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
@@ -4606,7 +4620,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[1e7]"></a>bsp_PirouetteCCW</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_PirouetteCCW))
@@ -4614,7 +4628,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[1e8]"></a>bsp_PirouetteCW</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_PirouetteCW))
@@ -4622,63 +4636,63 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[1f0]"></a>bsp_RotateCCW</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_RotateCCW))
+<P><STRONG><a name="[1f1]"></a>bsp_RotateCCW</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_RotateCCW))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_RotateCCW
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[1f7]"></a>bsp_SearchRunStraightSlow</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchRunStraightSlow))
+<P><STRONG><a name="[1f8]"></a>bsp_SearchRunStraightSlow</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchRunStraightSlow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_SearchRunStraightSlow
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[1fa]"></a>bsp_SearchRunStraightSlowBack</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchRunStraightSlowBack))
+<P><STRONG><a name="[1fb]"></a>bsp_SearchRunStraightSlowBack</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchRunStraightSlowBack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_SearchRunStraightSlowBack
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[1f9]"></a>bsp_SearchTurnLeftSlow</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchTurnLeftSlow))
+<P><STRONG><a name="[1fa]"></a>bsp_SearchTurnLeftSlow</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchTurnLeftSlow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_SearchTurnLeftSlow
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[1fb]"></a>bsp_SearchTurnLeftSlowBack</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchTurnLeftSlowBack))
+<P><STRONG><a name="[1fc]"></a>bsp_SearchTurnLeftSlowBack</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchTurnLeftSlowBack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_SearchTurnLeftSlowBack
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[1f8]"></a>bsp_SearchTurnRightSlow</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchTurnRightSlow))
+<P><STRONG><a name="[1f9]"></a>bsp_SearchTurnRightSlow</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchTurnRightSlow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_SearchTurnRightSlow
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
-<P><STRONG><a name="[1fc]"></a>bsp_SearchTurnRightSlowBack</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchTurnRightSlowBack))
+<P><STRONG><a name="[1fd]"></a>bsp_SearchTurnRightSlowBack</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_SearchTurnRightSlowBack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_SearchTurnRightSlowBack
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 </UL>
 
 <P><STRONG><a name="[1b4]"></a>bsp_InitCliffEmit_GPIO</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, bsp_cliffsw.o(i.bsp_InitCliffEmit_GPIO))
@@ -4720,14 +4734,14 @@ Local Symbols
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
+<LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
 </UL>
 <BR>[Called By]<UL><LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 </UL>
 
-<P><STRONG><a name="[226]"></a>my_abs</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, bsp_gridmap.o(i.my_abs))
+<P><STRONG><a name="[227]"></a>my_abs</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, bsp_gridmap.o(i.my_abs))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = my_abs
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
@@ -4735,7 +4749,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 </UL>
 
-<P><STRONG><a name="[207]"></a>check_sensor</STRONG> (Thumb, 336 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.check_sensor))
+<P><STRONG><a name="[208]"></a>check_sensor</STRONG> (Thumb, 336 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.check_sensor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = check_sensor &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
@@ -4747,7 +4761,7 @@ Local Symbols
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[80]"></a>my_abs</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, bsp_cleanstrategyb.o(i.my_abs))
@@ -4755,7 +4769,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StuckRightRunStep
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightWalkEdge
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
@@ -4782,7 +4796,7 @@ Local Symbols
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AStarCollision
 </UL>
 
-<P><STRONG><a name="[208]"></a>sendvelocity</STRONG> (Thumb, 878 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.sendvelocity))
+<P><STRONG><a name="[209]"></a>sendvelocity</STRONG> (Thumb, 878 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.sendvelocity))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = sendvelocity &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
@@ -4797,9 +4811,9 @@ Local Symbols
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
+<LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
+<BR>[Called By]<UL><LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
 <P><STRONG><a name="[ab]"></a>ConfigUartNVIC</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, bsp_uart_fifo.o(i.ConfigUartNVIC))
@@ -4905,7 +4919,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKey
 </UL>
 
-<P><STRONG><a name="[225]"></a>i2c_Delay</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, bsp_i2c_gpio.o(i.i2c_Delay))
+<P><STRONG><a name="[226]"></a>i2c_Delay</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, bsp_i2c_gpio.o(i.i2c_Delay))
 <BR><BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_WaitAck
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Stop
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_Start
@@ -5101,245 +5115,245 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[214]"></a>dp_download_direction_control_handle</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, protocol.o(i.dp_download_direction_control_handle))
+<P><STRONG><a name="[215]"></a>dp_download_direction_control_handle</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, protocol.o(i.dp_download_direction_control_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_direction_control_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
-<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
-<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
+<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[219]"></a>dp_download_mode_handle</STRONG> (Thumb, 240 bytes, Stack size 16 bytes, protocol.o(i.dp_download_mode_handle))
+<P><STRONG><a name="[21a]"></a>dp_download_mode_handle</STRONG> (Thumb, 240 bytes, Stack size 16 bytes, protocol.o(i.dp_download_mode_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
-<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
-<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
+<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[21a]"></a>dp_download_reset_edge_brush_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_reset_edge_brush_handle))
+<P><STRONG><a name="[21b]"></a>dp_download_reset_edge_brush_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_reset_edge_brush_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_reset_edge_brush_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
+<BR>[Calls]<UL><LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
+<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[21c]"></a>dp_download_reset_filter_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_reset_filter_handle))
+<P><STRONG><a name="[21d]"></a>dp_download_reset_filter_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_reset_filter_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_reset_filter_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
+<BR>[Calls]<UL><LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
+<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[21b]"></a>dp_download_reset_roll_brush_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_reset_roll_brush_handle))
+<P><STRONG><a name="[21c]"></a>dp_download_reset_roll_brush_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_reset_roll_brush_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_reset_roll_brush_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
+<BR>[Calls]<UL><LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
+<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[21d]"></a>dp_download_seek_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_seek_handle))
+<P><STRONG><a name="[21e]"></a>dp_download_seek_handle</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.dp_download_seek_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_seek_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
+<BR>[Calls]<UL><LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
+<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[21e]"></a>dp_download_suction_handle</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, protocol.o(i.dp_download_suction_handle))
+<P><STRONG><a name="[21f]"></a>dp_download_suction_handle</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, protocol.o(i.dp_download_suction_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_suction_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
-<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
+<BR>[Calls]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[218]"></a>dp_download_switch_go_handle</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, protocol.o(i.dp_download_switch_go_handle))
+<P><STRONG><a name="[219]"></a>dp_download_switch_go_handle</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, protocol.o(i.dp_download_switch_go_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_switch_go_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
-<LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
+<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
+<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[217]"></a>dp_download_switch_handle</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, protocol.o(i.dp_download_switch_handle))
+<P><STRONG><a name="[218]"></a>dp_download_switch_handle</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, protocol.o(i.dp_download_switch_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_switch_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
-<LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
+<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
+<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[210]"></a>data_point_handle</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, system.o(i.data_point_handle))
+<P><STRONG><a name="[211]"></a>data_point_handle</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, system.o(i.data_point_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_dowmload_dpid_index
-<LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
+<BR>[Calls]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_dowmload_dpid_index
+<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
+<BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 </UL>
 
-<P><STRONG><a name="[212]"></a>get_dowmload_dpid_index</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, system.o(i.get_dowmload_dpid_index))
+<P><STRONG><a name="[213]"></a>get_dowmload_dpid_index</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, system.o(i.get_dowmload_dpid_index))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = get_dowmload_dpid_index
 </UL>
-<BR>[Calls]<UL><LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_download_cmd_total
+<BR>[Calls]<UL><LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_download_cmd_total
 </UL>
-<BR>[Called By]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_point_handle
+<BR>[Called By]<UL><LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_point_handle
 </UL>
 
-<P><STRONG><a name="[20e]"></a>get_mcu_wifi_mode</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, system.o(i.get_mcu_wifi_mode))
+<P><STRONG><a name="[20f]"></a>get_mcu_wifi_mode</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, system.o(i.get_mcu_wifi_mode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = get_mcu_wifi_mode &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
+<BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 </UL>
 
-<P><STRONG><a name="[20c]"></a>heat_beat_check</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, system.o(i.heat_beat_check))
+<P><STRONG><a name="[20d]"></a>heat_beat_check</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, system.o(i.heat_beat_check))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = heat_beat_check &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
-<LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
+<BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_byte
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
+<BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 </UL>
 
-<P><STRONG><a name="[20d]"></a>product_info_update</STRONG> (Thumb, 140 bytes, Stack size 8 bytes, system.o(i.product_info_update))
+<P><STRONG><a name="[20e]"></a>product_info_update</STRONG> (Thumb, 140 bytes, Stack size 8 bytes, system.o(i.product_info_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = product_info_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
-<LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_buffer
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_strlen
+<BR>[Calls]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_wifi_uart_buffer
+<LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
+<BR>[Called By]<UL><LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_handle
 </UL>
 
-<P><STRONG><a name="[259]"></a>wifi_uart_write_data</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, system.o(i.wifi_uart_write_data))
+<P><STRONG><a name="[25a]"></a>wifi_uart_write_data</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, system.o(i.wifi_uart_write_data))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
-<BR>[Calls]<UL><LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_transmit_output
+<BR>[Calls]<UL><LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_transmit_output
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
+<BR>[Called By]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_write_frame
 </UL>
 
 <P><STRONG><a name="[e0]"></a>SetSysClock</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, system_stm32f10x.o(i.SetSysClock))
 <BR><BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
 </UL>
 
-<P><STRONG><a name="[236]"></a>prvCopyDataToQueue</STRONG> (Thumb, 112 bytes, Stack size 16 bytes, queue.o(i.prvCopyDataToQueue))
+<P><STRONG><a name="[237]"></a>prvCopyDataToQueue</STRONG> (Thumb, 112 bytes, Stack size 16 bytes, queue.o(i.prvCopyDataToQueue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = prvCopyDataToQueue &rArr; xTaskPriorityDisinherit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
-<LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<BR>[Calls]<UL><LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
+<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
 
-<P><STRONG><a name="[23e]"></a>prvIsQueueFull</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, queue.o(i.prvIsQueueFull))
+<P><STRONG><a name="[23f]"></a>prvIsQueueFull</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, queue.o(i.prvIsQueueFull))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = prvIsQueueFull &rArr; vPortExitCritical
 </UL>
-<BR>[Calls]<UL><LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
 
-<P><STRONG><a name="[23f]"></a>prvUnlockQueue</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, queue.o(i.prvUnlockQueue))
+<P><STRONG><a name="[240]"></a>prvUnlockQueue</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, queue.o(i.prvUnlockQueue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = prvUnlockQueue &rArr; xTaskRemoveFromEventList
 </UL>
-<BR>[Calls]<UL><LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMissedYield
-<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<BR>[Calls]<UL><LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
+<LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMissedYield
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
 
-<P><STRONG><a name="[22b]"></a>prvAddCurrentTaskToDelayedList</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, tasks.o(i.prvAddCurrentTaskToDelayedList))
+<P><STRONG><a name="[22c]"></a>prvAddCurrentTaskToDelayedList</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, tasks.o(i.prvAddCurrentTaskToDelayedList))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = prvAddCurrentTaskToDelayedList &rArr; vListInsert
 </UL>
-<BR>[Calls]<UL><LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsert
+<BR>[Calls]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsert
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
+<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 </UL>
 
-<P><STRONG><a name="[22d]"></a>prvAllocateTCBAndStack</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, tasks.o(i.prvAllocateTCBAndStack))
+<P><STRONG><a name="[22e]"></a>prvAllocateTCBAndStack</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, tasks.o(i.prvAllocateTCBAndStack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = prvAllocateTCBAndStack &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
-<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<BR>[Calls]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 </UL>
 
-<P><STRONG><a name="[230]"></a>prvCheckTasksWaitingTermination</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, tasks.o(i.prvCheckTasksWaitingTermination))
+<P><STRONG><a name="[231]"></a>prvCheckTasksWaitingTermination</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, tasks.o(i.prvCheckTasksWaitingTermination))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = prvCheckTasksWaitingTermination &rArr; prvDeleteTCB &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
-<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvDeleteTCB
-<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvDeleteTCB
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIdleTask
 </UL>
 
-<P><STRONG><a name="[235]"></a>prvDeleteTCB</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, tasks.o(i.prvDeleteTCB))
+<P><STRONG><a name="[236]"></a>prvDeleteTCB</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, tasks.o(i.prvDeleteTCB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = prvDeleteTCB &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<BR>[Calls]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 </UL>
-<BR>[Called By]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<BR>[Called By]<UL><LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 </UL>
 
 <P><STRONG><a name="[5c]"></a>prvIdleTask</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, tasks.o(i.prvIdleTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = prvIdleTask &rArr; prvCheckTasksWaitingTermination &rArr; prvDeleteTCB &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
-<LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
+<BR>[Calls]<UL><LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> tasks.o(i.vTaskStartScheduler)
 </UL>
-<P><STRONG><a name="[23a]"></a>prvInitialiseTCBVariables</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, tasks.o(i.prvInitialiseTCBVariables))
+<P><STRONG><a name="[23b]"></a>prvInitialiseTCBVariables</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, tasks.o(i.prvInitialiseTCBVariables))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = prvInitialiseTCBVariables
 </UL>
-<BR>[Calls]<UL><LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialiseItem
+<BR>[Calls]<UL><LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialiseItem
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 </UL>
 
-<P><STRONG><a name="[23c]"></a>prvInitialiseTaskLists</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, tasks.o(i.prvInitialiseTaskLists))
+<P><STRONG><a name="[23d]"></a>prvInitialiseTaskLists</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, tasks.o(i.prvInitialiseTaskLists))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = prvInitialiseTaskLists
 </UL>
-<BR>[Calls]<UL><LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialise
+<BR>[Calls]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialise
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 </UL>
 
-<P><STRONG><a name="[25f]"></a>prvResetNextTaskUnblockTime</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, tasks.o(i.prvResetNextTaskUnblockTime))
+<P><STRONG><a name="[260]"></a>prvResetNextTaskUnblockTime</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, tasks.o(i.prvResetNextTaskUnblockTime))
 <BR><BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 </UL>
 
@@ -5348,15 +5362,15 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> port.o(i.pxPortInitialiseStack)
 </UL>
-<P><STRONG><a name="[242]"></a>prvHeapInit</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, heap_4.o(i.prvHeapInit))
-<BR><BR>[Called By]<UL><LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<P><STRONG><a name="[243]"></a>prvHeapInit</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, heap_4.o(i.prvHeapInit))
+<BR><BR>[Called By]<UL><LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 </UL>
 
-<P><STRONG><a name="[243]"></a>prvInsertBlockIntoFreeList</STRONG> (Thumb, 78 bytes, Stack size 12 bytes, heap_4.o(i.prvInsertBlockIntoFreeList))
+<P><STRONG><a name="[244]"></a>prvInsertBlockIntoFreeList</STRONG> (Thumb, 78 bytes, Stack size 12 bytes, heap_4.o(i.prvInsertBlockIntoFreeList))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = prvInsertBlockIntoFreeList
 </UL>
-<BR>[Called By]<UL><LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
-<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<BR>[Called By]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 </UL>
 
 <P><STRONG><a name="[9a]"></a>CMD_GetChipInfo</STRONG> (Thumb, 270 bytes, Stack size 24 bytes, dx8_api.o(i.CMD_GetChipInfo))
