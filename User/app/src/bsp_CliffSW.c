@@ -290,8 +290,7 @@ uint8_t bsp_GetCliffStates(void)
 	cliffVal[2] = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);
 	
 	
-	//DEBUG("%d %d %d\r\n",cliffVal[0],cliffVal[1],cliffVal[2]);
-	//DEBUG("data:%02X\r\n",data);
+	//DEBUG("%d %d\r\n",(int)(cliffTwiceRead [1][1]), (int)(cliffTwiceRead [1][0]));
 	
 	cliffStates = data;
 	

@@ -300,36 +300,21 @@ static void vTaskPerception(void *pvParameters)
     while(1)
     {
 		//bsp_ComAnalysis();
-		//bsp_CliffTest();
-		
-		//roll = bsp_IMU_GetData(ROLL)*100*0.01F;
-		//DEBUG("%.2F\r\n",roll);
-//		if(roll <= 175 && roll >= 0)
-//		{
-//			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(500));
-//			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(500));
-//		}
-//		else
-//		{
-//			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-//			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
-//		}
-		
-		
-//		if(isNeedRun)
-//		{
-//			if(bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
-//			{
-//				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-//				isNeedRun = false;
-//			}
-//			else
-//			{
-//				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
-//			}
-//		}
+	
+		if(isNeedRun)
+		{
+			if(bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
+			{
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+				isNeedRun = false;
+			}
+			else
+			{
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+			}
+		}
 		
 #if 1
 		if(bsp_IsInitAW9523B_OK())
