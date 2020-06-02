@@ -603,11 +603,6 @@
               <FilePath>..\..\User\app\src\bsp_Gridmap.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_CleanStrategy.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_CleanStrategy.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_CleanStrategyB.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_CleanStrategyB.c</FilePath>

@@ -241,30 +241,30 @@ void bsp_FillReportFrame(void)
 	IRC1 = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT)?1:0;
 	IRC2 = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER)?1:0;
 	IRC3 = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT)?1:0;
-	charge1_status  = (IRC1)<<3 | (IRC2)<<2 | (IRC3) ;
+	charge1_status  |= (IRC1)<<3 | (IRC2)<<2 | (IRC3) ;
 	
 	IRC1 = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT)?1:0;
 	IRC2 = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER)?1:0;
 	IRC3 = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT)?1:0;
-	charge2_status  =  (IRC1)<<3 | (IRC2)<<2 | (IRC3) ;
+	charge2_status  |=  (IRC1)<<3 | (IRC2)<<2 | (IRC3) ;
 	
 	IRC1 = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT)?1:0;
 	IRC2 = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER)?1:0;
 	IRC3 = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT)?1:0;
-	charge3_status |= (IRC1)<<3 | (IRC2)<<2 | (IRC3) ;
+	charge3_status  |= (IRC1)<<3 | (IRC2)<<2 | (IRC3) ;
 	
 	IRC1 = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT)?1:0;
 	IRC2 = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER)?1:0;
 	IRC3 = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT)?1:0;
-	charge4_status |= (IRC1)<<3 | (IRC2)<<2 | (IRC3);
+	charge4_status  |= (IRC1)<<3 | (IRC2)<<2 | (IRC3);
 	
 	
 	
 	
-	uint8_t  cliffstatus = 1;
-	if(bsp_CliffIsDangerous(CliffLeft)) cliffstatus+=2;
-	if(bsp_CliffIsDangerous(CliffMiddle)) cliffstatus+=4;
-	if(bsp_CliffIsDangerous(CliffRight)) cliffstatus+=8;
+//	uint8_t  cliffstatus = 1;
+//	if(bsp_CliffIsDangerous(CliffLeft)) cliffstatus+=2;
+//	if(bsp_CliffIsDangerous(CliffMiddle)) cliffstatus+=4;
+//	if(bsp_CliffIsDangerous(CliffRight)) cliffstatus+=8;
 	uint16_t adcCliffLeft = cliffadcvalue_left;//bsp_GetCliffVoltage(CliffLeft);
 	uint16_t adcCliffMiddle = cliffadcvalue_middle;//bsp_GetCliffVoltage(CliffMiddle);
 	uint16_t adcCliffRight = cliffadcvalue_right;//bsp_GetCliffVoltage(CliffRight);
@@ -317,7 +317,7 @@ void bsp_FillReportFrame(void)
 	reportFrame.battery_voltage = batteryvoltage;                                     //µç³ØµçÑ¹
 	reportFrame.dustbox_status = bsp_DustBoxGetState();                               //³¾ºÐ×´Ì¬
 	reportFrame.error_code = 0;         	                                          //Òì³£×´Ì¬
-	reportFrame.machine_status = 0;                                                   //»úÆ÷×´Ì¬
+	reportFrame.machine_status = bsp_GetLedAppState();                                //»úÆ÷×´Ì¬
 	reportFrame.timestamp = timestamp;                                                //Ê±¼ä´Á
 	reportFrame.motor_left_voltage    = motorLeftVoltage;     
 	reportFrame.motor_right_voltage   = motorRightVoltage;    
