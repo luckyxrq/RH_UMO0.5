@@ -407,7 +407,7 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate( vTaskMapping,     		    /* 任务函数  */
                  "vTaskMapping",   		    /* 任务名    */
-                 1024*2,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 1024*1.5,            		    /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskMapping );        /* 任务句柄  */
