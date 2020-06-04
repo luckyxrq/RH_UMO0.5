@@ -163,7 +163,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			/*更新跳崖传感器信息*/
 			bsp_GetCliffStates();
 //			bsp_PrintCliff();
-			bsp_SendReportFrameWithCRC16();
+//			bsp_SendReportFrameWithCRC16();
 			
 			//DEBUG("bsp_AngleReadRaw:%d\r\n",bsp_AngleReadRaw());
         }
