@@ -228,6 +228,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	reportFrameWithCRC16.irRX[3][1] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER); 
 	reportFrameWithCRC16.irRX[3][2] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT);
 
+	reportFrameWithCRC16.offsiteSW = bsp_OffSiteGetState();
+	reportFrameWithCRC16.collision = bsp_CollisionScan();
 
 	reportFrameWithCRC16.mA_wheelL           = wheelL * 1000.0F * 1000.0F / 33.0F / 50.0F;
 	reportFrameWithCRC16.mA_wheelR           = wheelR * 1000.0F * 1000.0F / 33.0F / 50.0F;

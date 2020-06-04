@@ -176,6 +176,8 @@ void bsp_Init(void)
 	bsp_ClearKey();
 	bsp_SetIsStartKeyProc(true);
 	bsp_InitChargeIO();
+	
+	endian_print();
 }
 
 typedef union

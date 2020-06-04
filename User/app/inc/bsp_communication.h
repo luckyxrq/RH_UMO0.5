@@ -100,6 +100,9 @@ typedef struct
 	int32_t x_pos;
 	int32_t y_pos;
 	
+	uint8_t offsiteSW;
+	uint8_t collision;
+	
 	uint16_t cliffMV_L;
 	uint16_t cliffMV_M;
 	uint16_t cliffMV_R;

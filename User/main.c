@@ -290,7 +290,7 @@ static void vTaskPerception(void *pvParameters)
 	
 	bsp_InitCliffSW();
 	
-	endian_print();
+	
 	
 #if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 	bsp_StartVacuum();
