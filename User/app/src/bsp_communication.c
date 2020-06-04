@@ -185,7 +185,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	float vacuum = bsp_GetFeedbackVoltage(eVacuum);
 	float sideBrush = bsp_GetFeedbackVoltage(eSideBrush);
 
-
+	reportFrameWithCRC16.dustBox = bsp_DustBoxGetState();
+	
 	reportFrameWithCRC16.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
 	reportFrameWithCRC16.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
 

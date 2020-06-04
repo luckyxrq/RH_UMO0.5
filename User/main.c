@@ -160,6 +160,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //			bsp_PrintCollision();
 //			bsp_PrintIR_Rev();
 //			bsp_PrintAllVoltage();
+			/*更新跳崖传感器信息*/
 			bsp_GetCliffStates();
 //			bsp_PrintCliff();
 			bsp_SendReportFrameWithCRC16();
@@ -387,9 +388,8 @@ static void vTaskPerception(void *pvParameters)
 		//main_debug("wifi_uart_service() \n");
 		wifi_uart_service();
 		
-		/*更新跳崖传感器信息*/
-		bsp_GetCliffStates();
 		
+
 		count++;
         vTaskDelay(5);	
     }		

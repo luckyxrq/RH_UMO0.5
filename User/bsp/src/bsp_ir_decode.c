@@ -239,12 +239,12 @@ void bsp_IRD_StartWork(void)
 */
 void bsp_IRD_StopWork(void)
 {
-	TIM_Cmd(TIM3, DISABLE);
-	
-	TIM_ITConfig(TIM3, TIM_IT_CC1, DISABLE);
-	TIM_ITConfig(TIM3, TIM_IT_CC2, DISABLE);	
-	TIM_ITConfig(TIM3, TIM_IT_CC3, DISABLE);	
-	TIM_ITConfig(TIM3, TIM_IT_CC4, DISABLE);		
+//	TIM_Cmd(TIM3, DISABLE);
+//	
+//	TIM_ITConfig(TIM3, TIM_IT_CC1, DISABLE);
+//	TIM_ITConfig(TIM3, TIM_IT_CC2, DISABLE);	
+//	TIM_ITConfig(TIM3, TIM_IT_CC3, DISABLE);	
+//	TIM_ITConfig(TIM3, TIM_IT_CC4, DISABLE);		
 }
 
 /*

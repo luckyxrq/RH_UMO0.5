@@ -90,6 +90,7 @@ typedef struct
     uint16_t sub_sec ;
 	
 	/*********数据部分开始***********/
+	uint8_t dustBox;
 	
 	int16_t wheelSpeedL;
 	int16_t wheelSpeedR;
