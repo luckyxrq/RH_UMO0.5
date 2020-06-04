@@ -178,6 +178,26 @@ void bsp_Init(void)
 	bsp_InitChargeIO();
 }
 
+typedef union
+{
+	uint16_t data;
+	uint8_t val;
+}Endian;
+bool endian_print(void)
+{
+	Endian endian;
+	endian.data = 0x1234;
+	
+	if(endian.val == 0x34)
+	{
+		DEBUG("小端模式");
+	}
+	else
+	{
+		DEBUG("大端模式");
+	}
+}
+
 
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

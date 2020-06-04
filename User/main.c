@@ -162,6 +162,9 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 //			bsp_PrintAllVoltage();
 			bsp_GetCliffStates();
 //			bsp_PrintCliff();
+			bsp_SendReportFrameWithCRC16();
+			
+			//DEBUG("bsp_AngleReadRaw:%d\r\n",bsp_AngleReadRaw());
         }
 		
         vTaskDelay(50);	
@@ -287,7 +290,7 @@ static void vTaskPerception(void *pvParameters)
 	
 	bsp_InitCliffSW();
 	
-	
+	endian_print();
 	
 #if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 	bsp_StartVacuum();

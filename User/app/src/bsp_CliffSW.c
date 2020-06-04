@@ -299,6 +299,30 @@ uint8_t bsp_GetCliffStates(void)
 }
 
 
+uint16_t bsp_GetCliffRealVal(CliffSWSN sn)
+{
+	uint16_t val = 0 ;
+	switch(sn)
+	{
+		case CliffLeft:
+		{
+			val = cliffVal[0];
+		}break;
+		
+		case CliffMiddle:
+		{
+			val = cliffVal[1];
+		}break;
+		
+		case CliffRight:
+		{
+			val = cliffVal[2];
+		}break;
+	}
+	
+	return val;
+}
+
 
 
 bool bsp_CliffIsDangerous(CliffSWSN sn)
