@@ -532,7 +532,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 	
 	//µÁ≥ÿµÁ¡øºÏ≤‚
 	if(check_sensor_cnt%100){
-
+		
 	//	motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*100;
 	//	motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight)*100;
 	//	motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum)*100;
@@ -541,11 +541,11 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 	//	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
 		batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
 		batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-		if(batteryvoltage < 8)   //12v-16v
+		if(batteryvoltage < 13)   //12v-16v
 		{
 			batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
 			batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-			if(batteryvoltage < 8)
+			if(batteryvoltage < 13)
 			{
 				return  battery_out_flag;//battery_out_flag;
 			}
