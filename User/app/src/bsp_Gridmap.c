@@ -473,21 +473,21 @@ unsigned char* bsp_GetIRSensorData(void)
 CLIFFADCVALUE* bsp_GetCliffSensorData(void)
 {
 	cliff_valueB.cliffValue0 =0;
-	if(bsp_CliffIsDangerous(CliffLeft))  
-	{	
-		cliff_valueB.cliffValue0 =1;
-		cliff_valueB.cliffValue1 = 1;
-	}else cliff_valueB.cliffValue1 = 0;
-	if(bsp_CliffIsDangerous(CliffMiddle))  
-	{	
-		cliff_valueB.cliffValue0 =1;
-		cliff_valueB.cliffValue2 = 1;
-	}else cliff_valueB.cliffValue2 = 0;
-	if(bsp_CliffIsDangerous(CliffRight))  
-	{	
-		cliff_valueB.cliffValue0 =1;
-		cliff_valueB.cliffValue3 = 1;
-	}else cliff_valueB.cliffValue3 = 0;
+//	if(bsp_CliffIsDangerous(CliffLeft))  
+//	{	
+//		cliff_valueB.cliffValue0 =1;
+//		cliff_valueB.cliffValue1 = 1;
+//	}else cliff_valueB.cliffValue1 = 0;
+//	if(bsp_CliffIsDangerous(CliffMiddle))  
+//	{	
+//		cliff_valueB.cliffValue0 =1;
+//		cliff_valueB.cliffValue2 = 1;
+//	}else cliff_valueB.cliffValue2 = 0;
+//	if(bsp_CliffIsDangerous(CliffRight))  
+//	{	
+//		cliff_valueB.cliffValue0 =1;
+//		cliff_valueB.cliffValue3 = 1;
+//	}else cliff_valueB.cliffValue3 = 0;
 	
 	return &cliff_valueB;
 

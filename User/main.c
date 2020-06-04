@@ -163,7 +163,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 			/*更新跳崖传感器信息*/
 			bsp_GetCliffStates();
 //			bsp_PrintCliff();
-//			bsp_SendReportFrameWithCRC16();
+			bsp_SendReportFrameWithCRC16();
 			
 			//DEBUG("bsp_AngleReadRaw:%d\r\n",bsp_AngleReadRaw());
         }
@@ -370,7 +370,7 @@ static void vTaskPerception(void *pvParameters)
 		
 		/*检测主机悬空*/
 		//main_debug("bsp_OffSiteProc() \n");
-		bsp_OffSiteProc();
+		//bsp_OffSiteProc();
 		//check dust box
 		bsp_DustBoxProc();
         /*寻找充电桩*/
@@ -638,11 +638,11 @@ static void bsp_KeyProc(void)
 				DEBUG("充电按键长按\r\n");
 
 				/*首先判断是否主机悬空*/
-				if(bsp_OffSiteGetState() != OffSiteNone)
-				{
-					bsp_SperkerPlay(Song16);
-					return;
-				}
+//				if(bsp_OffSiteGetState() != OffSiteNone)
+//				{
+//					bsp_SperkerPlay(Song16);
+//					return;
+//				}
 				
 				bsp_SperkerPlay(Song5);
 				bsp_StartSearchChargePile();
@@ -660,11 +660,11 @@ static void bsp_KeyProc(void)
 				DEBUG("清扫按键长按\r\n");
 				
 				/*首先判断是否主机悬空*/
-				if(bsp_OffSiteGetState() == OffSiteBoth)
-				{
-					bsp_SperkerPlay(Song16);
-					return;
-				}
+//				if(bsp_OffSiteGetState() == OffSiteBoth)
+//				{
+//					bsp_SperkerPlay(Song16);
+//					return;
+//				}
 				
 				/*首先判断尘盒*/
 				if(bsp_DustBoxGetState() == DustBoxOutside)

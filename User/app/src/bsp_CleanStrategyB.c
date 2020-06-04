@@ -552,48 +552,48 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 		}
 	}
 	
-	//Åö×²Òì³£¼ì²â
-	if(check_sensor_cnt%20){
-		if(obstacleSignal<3)   
-		{
-			collision_error_cnt++;
-			if(collision_error_cnt > 200) //4.5s
-			{
-				collision_error_cnt = 0;
-				return collision_error;
-			}
-		}else{
-			collision_error_cnt = 0;
-		}
-	}
-	//ÌøÑÂÒì³£¼ì²â
-	if(check_sensor_cnt%20){
-		if(cliff_valueB.cliffValue0 == 1)   
-		{
-			cliff_error_cnt++;
-			if(cliff_error_cnt >100) 
-			{
-				cliff_error_cnt = 0;
-				return cliff_error;
-			}
-		}else{
-			cliff_error_cnt = 0;
-		}
-	}
-	//ÍÓÂİÒÇÒì³£¼ì²â
-	if(check_sensor_cnt%50){
-		if(bsp_AngleReadRaw() == 0)   
-		{
-			imu_error_cnt++;
-			if(imu_error_cnt >50)
-			{
-				imu_error_cnt = 0;
-				return imu_error;
-			}
-		}else{
-			imu_error_cnt = 0;
-		}
-	}
+//	//Åö×²Òì³£¼ì²â
+//	if(check_sensor_cnt%20){
+//		if(obstacleSignal<3)   
+//		{
+//			collision_error_cnt++;
+//			if(collision_error_cnt > 200) //4.5s
+//			{
+//				collision_error_cnt = 0;
+//				return collision_error;
+//			}
+//		}else{
+//			collision_error_cnt = 0;
+//		}
+//	}
+//	//ÌøÑÂÒì³£¼ì²â
+//	if(check_sensor_cnt%20){
+//		if(cliff_valueB.cliffValue0 == 1)   
+//		{
+//			cliff_error_cnt++;
+//			if(cliff_error_cnt >100) 
+//			{
+//				cliff_error_cnt = 0;
+//				return cliff_error;
+//			}
+//		}else{
+//			cliff_error_cnt = 0;
+//		}
+//	}
+//	//ÍÓÂİÒÇÒì³£¼ì²â
+//	if(check_sensor_cnt%50){
+//		if(bsp_AngleReadRaw() == 0)   
+//		{
+//			imu_error_cnt++;
+//			if(imu_error_cnt >50)
+//			{
+//				imu_error_cnt = 0;
+//				return imu_error;
+//			}
+//		}else{
+//			imu_error_cnt = 0;
+//		}
+//	}
 #if 0	
 	//ºìÍâÒì³£¼ì²â
 	if(check_sensor_cnt%200){
