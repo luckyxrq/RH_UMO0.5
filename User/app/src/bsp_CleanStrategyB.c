@@ -920,7 +920,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         break;
     case GOSTR_RIGHTRUN_STEP:
         //log_debug("gostraight right run step!\n");
-        if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178)
+        if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 177)
         {
             //log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
@@ -936,7 +936,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
                 break;
             }
         }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2)
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 3)
         {
             //log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
@@ -4965,7 +4965,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         break;
     case GOSTR_LEFTRUN_STEP:
         //log_debug("gostraight left run step!\n");
-        if (my_abs(Yaw) > 90 && my_abs(Yaw) < 178)
+        if (my_abs(Yaw) > 90 && my_abs(Yaw) < 177)
         {
             //log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
@@ -4981,7 +4981,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
                 break;
             }
         }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2)
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 3)
         {
             //log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
