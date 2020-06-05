@@ -9,7 +9,7 @@ void bsp_StartSearchChargePile(void);
 void bsp_StopSearchChargePile(void);
 void bsp_SearchChargePile(void);
 bool bsp_IsTouchChargePile(void);
-
+void bsp_DetectIsTouchChargePile(void);
 void bsp_InitChargeIO(void);
 #endif
 

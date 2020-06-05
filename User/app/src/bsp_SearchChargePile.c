@@ -33,7 +33,7 @@
 
 #define PIROUETTE_SPEED          4
 
-#define BACKWARD_SPEED           -4
+#define BACKWARD_SPEED           -2
 
 #define ROTATE_CCW_SPEED_L             -5
 #define ROTATE_CCW_SPEED_R             5
@@ -186,7 +186,18 @@ void bsp_StopSearchChargePile(void)
 
 
 
-
+void bsp_DetectIsTouchChargePile(void)
+{
+	if(search.isRunning && bsp_IsTouchChargePile())
+	{
+		bsp_SetMotorSpeed(MotorLeft,0);
+		bsp_SetMotorSpeed(MotorRight,0);
+		
+		bsp_CloseAllStateRun();
+		
+		search.isRunning = false;
+	}
+}
 
 
 /*
@@ -358,20 +369,25 @@ void bsp_SearchChargePile(void)
 					bsp_SetMotorSpeed(MotorLeft, 0);
 					bsp_SetMotorSpeed(MotorRight,7);
 				}
-				else if(CASE_RANDOM_0 || CASE_RANDOM_7 || CASE_RANDOM_10)
+				else if(CASE_RANDOM_0 ||  CASE_RANDOM_10)
 				{
-					bsp_SetMotorSpeed(MotorLeft, 6);
-					bsp_SetMotorSpeed(MotorRight,6);
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,3);
+				}
+				else if(CASE_RANDOM_7)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,3);
 				}
 				else if(CASE_RANDOM_3 || CASE_RANDOM_6 || CASE_RANDOM_8)
 				{
-					bsp_SetMotorSpeed(MotorLeft, 5);
-					bsp_SetMotorSpeed(MotorRight,7);
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,4);
 				}
 				else if(CASE_RANDOM_4 || CASE_RANDOM_5 || CASE_RANDOM_9)
 				{
-					bsp_SetMotorSpeed(MotorLeft, 7);
-					bsp_SetMotorSpeed(MotorRight,5);
+					bsp_SetMotorSpeed(MotorLeft, 5);
+					bsp_SetMotorSpeed(MotorRight,3);
 				}
 				
 			}
