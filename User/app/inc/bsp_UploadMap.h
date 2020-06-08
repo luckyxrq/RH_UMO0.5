@@ -8,8 +8,8 @@
 #define RESERVE_POS         (uint8_t)0x04    /*保留*/
 
 
-#define UPLOAD_MAP_INTERVAL      500 /*传输地图的时间间隔*/
-#define PER_UPLOAD_POINT_CNT     81   /*每次上传点的个数*/
+#define UPLOAD_MAP_INTERVAL      1000 /*传输地图的时间间隔*/
+#define PER_UPLOAD_POINT_CNT     25   /*每次上传点的个数*/
 
 
 #pragma pack(1)

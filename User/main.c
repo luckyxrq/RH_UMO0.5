@@ -109,6 +109,10 @@ static void vTaskMapping(void *pvParameters)
 	uint32_t count = 0 ;
 	float battery_adc_value = 0;
 	uint32_t battery_precent = 0 ;
+	
+	//bsp_StartUploadMap();
+	//bsp_StopUploadMap();
+	
     while(1)
     {
      		
@@ -122,7 +126,7 @@ static void vTaskMapping(void *pvParameters)
 		}
 #endif
 		
-		//bsp_UploadMap();
+		bsp_UploadMap();
 		if(count++ % 100 == 0)
 		{	battery_adc_value  = bsp_GetFeedbackVoltage(eBatteryVoltage);
 			battery_adc_value  = ((battery_adc_value * 430.0f / 66.5f) + battery_adc_value + 0.2F);
@@ -569,6 +573,8 @@ static void bsp_KeySuspend(void)
 	
 	/*设置上一次按键值*/
 	bsp_SetLastKeyState(eKEY_NONE);
+	
+	bsp_StopUploadMap();
 }
 
 /*
@@ -717,6 +723,7 @@ static void bsp_KeyProc(void)
 				}
 					
 				bsp_StartUpdateCleanStrategyB();
+				bsp_StartUploadMap();
 				//bsp_StartEdgewiseRun();
 				
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
