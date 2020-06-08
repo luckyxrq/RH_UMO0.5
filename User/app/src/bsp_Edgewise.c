@@ -139,7 +139,9 @@ void bsp_EdgewiseRun(void)
 			{
 				if(xTaskGetTickCount() - edgewiseRun.ErlangGodStartTime >= 1000)
 				{
-					bsp_EdgewiseRunStraightFast();
+					//bsp_EdgewiseRunStraightFast();
+					bsp_SetMotorSpeed(MotorLeft, STRAIGHT_SPEED_SLOW+6);
+					bsp_SetMotorSpeed(MotorRight,STRAIGHT_SPEED_SLOW);
 				}
 			}
 			if(bsp_CollisionScan() != CollisionNone)
