@@ -107,7 +107,8 @@ int main(void)
 static void vTaskMapping(void *pvParameters)
 {
 	uint32_t count = 0 ;
-	uint32_t battery = 0 ;
+	float battery_adc_value = 0;
+	uint32_t battery_precent = 0 ;
     while(1)
     {
      		
@@ -122,9 +123,13 @@ static void vTaskMapping(void *pvParameters)
 #endif
 		
 		//bsp_UploadMap();
-		if(count % 20 == 0)
-		{
-			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,++battery % 100);
+		if(count++ % 100 == 0)
+		{	battery_adc_value  = bsp_GetFeedbackVoltage(eBatteryVoltage);
+			battery_adc_value  = ((battery_adc_value * 430.0f / 66.5f) + battery_adc_value + 0.2F);
+			battery_precent = ((battery_adc_value - 11.9f) / 4.8f)*100; 
+			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY, battery_precent);
+			mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
+			
 		}
         vTaskDelay(100);
 		

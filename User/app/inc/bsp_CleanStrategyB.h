@@ -806,6 +806,8 @@
 #define AStar_North      (1 << 6)
 #define AStar_North_East (1 << 7)
 
+extern unsigned int RealWorkTime;
+
 typedef struct AStarPoint
 {
     signed char x, y;

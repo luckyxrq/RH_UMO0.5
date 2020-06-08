@@ -101,6 +101,7 @@ bool cliffruningStatus=false;
 
 
 int FunctionStatus=0;
+unsigned int RealWorkTime = 0;
 unsigned int LastCleanTimeStamp = 0;
 unsigned int CurrentCleanTimeStamp  = 0;
 unsigned int EdgeWiseCleanTimeStamp = 0;
@@ -527,7 +528,8 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 	if(check_sensor_cnt%100){
 		
 		CurrentCleanTimeStamp = xTaskGetTickCount();
-		if(CurrentCleanTimeStamp - LastCleanTimeStamp >CLEAN_WORK_TIME) return time_out_flag;
+		RealWorkTime = CurrentCleanTimeStamp - LastCleanTimeStamp;
+		if(RealWorkTime >CLEAN_WORK_TIME) return time_out_flag;
 	}
 	
 	//µÁ≥ÿµÁ¡øºÏ≤‚
