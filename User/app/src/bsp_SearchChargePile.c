@@ -289,6 +289,8 @@ void bsp_SearchChargePile(void)
 			}
 			else
 			{
+				#define CASE_RANDOM_15   (bsp_IR_GetRev(IR_RX_R,IR_TX_SITE_CENTER) && !bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_CENTER) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_CENTER))
+				
 				if(CASE_RANDOM_11) /*大弧线 侧面收到充电桩的2个窄角中的任何一个 ， 并且前面没有收到信号*/
 				{
 					bsp_SetMotorSpeed(MotorLeft, 8);
@@ -300,11 +302,6 @@ void bsp_SearchChargePile(void)
 					bsp_SetMotorSpeed(MotorRight,8);
 				}
 				else if(CASE_RANDOM_0 ||  CASE_RANDOM_10) /*（左能同时左右 并且 右能同时左右） 或者  （左收左左不能右  右收右右不能收左）*/
-				{
-					bsp_SetMotorSpeed(MotorLeft, 3);
-					bsp_SetMotorSpeed(MotorRight,3);
-				}
-				else if(CASE_RANDOM_7) /*左收不到左右任何一个 并且 右收不到左右任何一个*/
 				{
 					bsp_SetMotorSpeed(MotorLeft, 3);
 					bsp_SetMotorSpeed(MotorRight,3);
@@ -326,6 +323,18 @@ void bsp_SearchChargePile(void)
 					bsp_SetMotorSpeed(MotorRight,3);
 				}
 				
+				else if(CASE_RANDOM_15)
+				{
+					/*右边接收能收到广角  前面两个收不到广角*/
+					bsp_SetMotorSpeed(MotorLeft, 5);
+					bsp_SetMotorSpeed(MotorRight,3);
+				}
+				
+				else if(CASE_RANDOM_7) /*左收不到左右任何一个 并且 右收不到左右任何一个*/
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,3);
+				}
 			}
 		}break;
 		
