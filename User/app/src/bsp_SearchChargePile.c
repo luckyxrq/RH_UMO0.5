@@ -266,8 +266,8 @@ void bsp_SearchChargePile(void)
 	{
 		case 0:
 		{
-			bsp_SetMotorSpeed(MotorLeft, 8);
-			bsp_SetMotorSpeed(MotorRight,8);
+			bsp_SetMotorSpeed(MotorLeft, 6);
+			bsp_SetMotorSpeed(MotorRight,6);
 			
 			search.action++;
 		}break;
@@ -281,8 +281,8 @@ void bsp_SearchChargePile(void)
 			if(search.collision != CollisionNone )
 			{
 				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
-				bsp_SetMotorSpeed(MotorLeft, -5);
-				bsp_SetMotorSpeed(MotorRight,-5);
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight,-3);
 				
 				search.delay = xTaskGetTickCount();
 				search.action++;
@@ -291,13 +291,13 @@ void bsp_SearchChargePile(void)
 			{
 				if(CASE_RANDOM_11) /*大弧线 侧面收到充电桩的2个窄角中的任何一个 ， 并且前面没有收到信号*/
 				{
-					bsp_SetMotorSpeed(MotorLeft, 7);
+					bsp_SetMotorSpeed(MotorLeft, 8);
 					bsp_SetMotorSpeed(MotorRight,0);
 				}
 				else if(CASE_RANDOM_12) /*大弧线 侧面收到充电桩的2个窄角中的任何一个 ， 并且前面没有收到信号*/
 				{
 					bsp_SetMotorSpeed(MotorLeft, 0);
-					bsp_SetMotorSpeed(MotorRight,7);
+					bsp_SetMotorSpeed(MotorRight,8);
 				}
 				else if(CASE_RANDOM_0 ||  CASE_RANDOM_10) /*（左能同时左右 并且 右能同时左右） 或者  （左收左左不能右  右收右右不能收左）*/
 				{
@@ -340,13 +340,13 @@ void bsp_SearchChargePile(void)
 			{
 				if(CASE_RANDOM_3 || CASE_RANDOM_6 || CASE_RANDOM_8)
 				{
-					bsp_SetMotorSpeed(MotorLeft, -7);
-					bsp_SetMotorSpeed(MotorRight,-5);
+					bsp_SetMotorSpeed(MotorLeft, -5);
+					bsp_SetMotorSpeed(MotorRight,-2);
 				}
 				else if(CASE_RANDOM_4 || CASE_RANDOM_5 || CASE_RANDOM_9)
 				{
-					bsp_SetMotorSpeed(MotorLeft, -5);
-					bsp_SetMotorSpeed(MotorRight,-7);
+					bsp_SetMotorSpeed(MotorLeft, -2);
+					bsp_SetMotorSpeed(MotorRight,-5);
 				}
 			}
 		}break;
