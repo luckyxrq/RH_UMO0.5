@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jun 08 16:32:31 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jun 08 17:30:16 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -3122,7 +3122,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[1ee]"></a>bsp_SearchChargePile</STRONG> (Thumb, 1834 bytes, Stack size 24 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
+<P><STRONG><a name="[1ee]"></a>bsp_SearchChargePile</STRONG> (Thumb, 1998 bytes, Stack size 24 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = bsp_SearchChargePile &rArr; bsp_CloseAllStateRun &rArr; bsp_StopUpdateCleanStrategyB &rArr; bsp_ResetCleanStrategyBStatus &rArr; bsp_StartUpdateGridMap
 </UL>
 <BR>[Calls]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopStrategyRandom
@@ -3259,8 +3259,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[1d3]"></a>bsp_StartSearchChargePile</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_StartSearchChargePile))
-<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
+<P><STRONG><a name="[1d3]"></a>bsp_StartSearchChargePile</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, bsp_searchchargepile.o(i.bsp_StartSearchChargePile))
+<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
@@ -3315,7 +3315,7 @@ Global Symbols
 <LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
-<P><STRONG><a name="[14e]"></a>bsp_StopSearchChargePile</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_StopSearchChargePile))
+<P><STRONG><a name="[14e]"></a>bsp_StopSearchChargePile</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_StopSearchChargePile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = bsp_StopSearchChargePile &rArr; bsp_MotorCleanSetPWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
@@ -4195,7 +4195,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[1c9]"></a>bsp_KeyProc</STRONG> (Thumb, 938 bytes, Stack size 24 bytes, main.o(i.bsp_KeyProc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = bsp_KeyProc &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
+<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = bsp_KeyProc &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartVacuum
@@ -4273,7 +4273,7 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
 <P><STRONG><a name="[4a]"></a>vTaskDecision</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, main.o(i.vTaskDecision))
-<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = vTaskDecision &rArr; bsp_KeyProc &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
+<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = vTaskDecision &rArr; bsp_KeyProc &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_WifiStateProc
