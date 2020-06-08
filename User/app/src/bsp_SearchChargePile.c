@@ -69,7 +69,6 @@ typedef struct
 	uint32_t lastIsNeedEdgeTick;
 	
 	bool isNeedFirstRunRandom;
-	bool tickRxIRCenterBefore;
 	
 	Collision collision;
 }Serach;
@@ -93,7 +92,6 @@ void bsp_StartSearchChargePile(void)
 	search.delay = 0 ;
 	search.startTick = xTaskGetTickCount();
 	search.isNeedFirstRunRandom = true;
-	search.tickRxIRCenterBefore = 0 ;
 	search.isRunning = true;
 	
 	/*防止编译器警告*/
@@ -118,7 +116,6 @@ void bsp_StopSearchChargePile(void)
 	search.isNeedFirstRunRandom = false;
 	search.action = 0 ;
 	search.delay = 0 ;
-	search.tickRxIRCenterBefore = 0 ;
 	
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 	
@@ -280,53 +277,15 @@ void bsp_SearchChargePile(void)
 			/*首先判断碰撞*/
 			search.collision = bsp_CollisionScan();
 			
-			
-			/*碰撞之前 检测 前面接收头能否收到 广角*/
-			if(bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_CENTER) || bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_CENTER))
-			{
-				search.tickRxIRCenterBefore = xTaskGetTickCount();
-				
-			}
-			
+			//if(ret != CollisionNone || bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
 			if(search.collision != CollisionNone )
 			{
-				/*碰撞前夕 前面有收到红外广角*/
-				if(search.tickRxIRCenterBefore != 0 && xTaskGetTickCount() - search.tickRxIRCenterBefore <= 1000)
-				{
-					if(search.collision == CollisionLeft)
-					{
-						bsp_SetMotorSpeed(MotorLeft, -5);
-						bsp_SetMotorSpeed(MotorRight,-2);
-						
-						search.delay = xTaskGetTickCount();
-						search.action++;
-					}
-					else if(search.collision == CollisionRight)
-					{
-						bsp_SetMotorSpeed(MotorLeft, -2);
-						bsp_SetMotorSpeed(MotorRight,-5);
-						
-						search.delay = xTaskGetTickCount();
-						search.action++;
-					}	
-					else if(search.collision == CollisionAll)
-					{
-						bsp_SetMotorSpeed(MotorLeft, -3);
-						bsp_SetMotorSpeed(MotorRight,-3);
-						
-						search.delay = xTaskGetTickCount();
-						search.action++;
-					}
-				}
-				else
-				{
-					/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
-					bsp_SetMotorSpeed(MotorLeft, -3);
-					bsp_SetMotorSpeed(MotorRight,-3);
-					
-					search.delay = xTaskGetTickCount();
-					search.action++;
-				}
+				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight,-3);
+				
+				search.delay = xTaskGetTickCount();
+				search.action++;
 			}
 			else
 			{
