@@ -289,36 +289,39 @@ void bsp_SearchChargePile(void)
 			}
 			else
 			{
-				
-				
-				
-				if(CASE_RANDOM_11)
+				if(CASE_RANDOM_11) /*大弧线 侧面收到充电桩的2个窄角中的任何一个 ， 并且前面没有收到信号*/
 				{
 					bsp_SetMotorSpeed(MotorLeft, 7);
 					bsp_SetMotorSpeed(MotorRight,0);
 				}
-				else if(CASE_RANDOM_12)
+				else if(CASE_RANDOM_12) /*大弧线 侧面收到充电桩的2个窄角中的任何一个 ， 并且前面没有收到信号*/
 				{
 					bsp_SetMotorSpeed(MotorLeft, 0);
 					bsp_SetMotorSpeed(MotorRight,7);
 				}
-				else if(CASE_RANDOM_0 ||  CASE_RANDOM_10)
+				else if(CASE_RANDOM_0 ||  CASE_RANDOM_10) /*（左能同时左右 并且 右能同时左右） 或者  （左收左左不能右  右收右右不能收左）*/
 				{
 					bsp_SetMotorSpeed(MotorLeft, 3);
 					bsp_SetMotorSpeed(MotorRight,3);
 				}
-				else if(CASE_RANDOM_7)
+				else if(CASE_RANDOM_7) /*左收不到左右任何一个 并且 右收不到左右任何一个*/
 				{
 					bsp_SetMotorSpeed(MotorLeft, 3);
 					bsp_SetMotorSpeed(MotorRight,3);
 				}
 				else if(CASE_RANDOM_3 || CASE_RANDOM_6 || CASE_RANDOM_8)
 				{
+					/*左能收左右，右能收右不能收左*/
+					/*左能收右，并且右不能收左也不能收右*/
+					/*左能同时左右 右既不能左也不能右*/
 					bsp_SetMotorSpeed(MotorLeft, 3);
 					bsp_SetMotorSpeed(MotorRight,4);
 				}
 				else if(CASE_RANDOM_4 || CASE_RANDOM_5 || CASE_RANDOM_9)
 				{
+					/*左能左  左不能右 并且 右能左*/
+					/*左既不能左也不能右  右能左*/
+					/*左既不能左也不能右，右能同时左右*/
 					bsp_SetMotorSpeed(MotorLeft, 5);
 					bsp_SetMotorSpeed(MotorRight,3);
 				}
