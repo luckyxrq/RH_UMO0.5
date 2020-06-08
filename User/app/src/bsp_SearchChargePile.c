@@ -12,35 +12,8 @@
 #define GPIO_PORT_CHARGE_IS_DONE      GPIOG
 #define GPIO_PIN_CHARGE_IS_DONE	      GPIO_Pin_1
 
-
-#define STRAIGHT_SPEED_FAST      12
-#define STRAIGHT_SPEED_SLOW      3
-
-#define TURN_RIGHT_SPEED_FAST_L  5
-#define TURN_RIGHT_SPEED_FAST_R  4
-
-//
-#define TURN_RIGHT_SPEED_SLOW_L  6
-#define TURN_RIGHT_SPEED_SLOW_R  1
-
-
-#define TURN_LEFT_SPEED_FAST_L   3
-#define TURN_LEFT_SPEED_FAST_R   5
-       
-//	   
-#define TURN_LEFT_SPEED_SLOW_L   1
-#define TURN_LEFT_SPEED_SLOW_R   6
-
-#define PIROUETTE_SPEED          4
-
-#define BACKWARD_SPEED           -2
-
-#define ROTATE_CCW_SPEED_L             -5
-#define ROTATE_CCW_SPEED_R             5
-
 #define MAX_SEARCH_TICK         (1000*120)
 
-#define CORRECTION_ANGLE_TIME    200
 
 /*前面的2个接收头*/
 #define FRONT_RX_L      IR_CH2
@@ -102,25 +75,7 @@ typedef struct
 
 
 static Serach search;
-static void bsp_SearchRunStraightFast(void);
-static void bsp_SearchRunStraightSlow(void);
-static void bsp_SearchTurnRightFast(void)  ;
-static void bsp_SearchTurnRightSlow(void)  ;
-static void bsp_SearchTurnLeftFast(void)   ;
-static void bsp_SearchTurnLeftSlow(void)   ;
-static void bsp_PirouetteCW(void)          ;
-static void bsp_PirouetteCCW(void)         ;
-static void bsp_GoBackward(void)           ;
 
-static void bsp_SearchRunStraightFastBack(void);
-static void bsp_SearchRunStraightSlowBack(void);
-static void bsp_SearchTurnRightFastBack(void);
-static void bsp_SearchTurnRightSlowBack(void);
-static void bsp_SearchTurnLeftFastBack(void);
-static void bsp_SearchTurnLeftSlowBack(void);
-
-
-static void bsp_RotateCCW(void);
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_StartSearchChargePile
@@ -140,24 +95,7 @@ void bsp_StartSearchChargePile(void)
 	search.isRunning = true;
 	
 	/*防止编译器警告*/
-	UNUSED(bsp_SearchRunStraightFast);
-	UNUSED(bsp_SearchRunStraightSlow);
-	UNUSED(bsp_SearchTurnRightFast)  ;
-	UNUSED(bsp_SearchTurnRightSlow)  ;
-	UNUSED(bsp_SearchTurnLeftFast)   ;
-	UNUSED(bsp_SearchTurnLeftSlow)   ;
-	UNUSED(bsp_IsCharging);
-	UNUSED(bsp_IsChargeDone);
-	
-	UNUSED(bsp_SearchRunStraightFastBack);
-	UNUSED(bsp_SearchRunStraightSlowBack);
-	UNUSED(bsp_SearchTurnRightFastBack);
-	UNUSED(bsp_SearchTurnRightSlowBack);
-	UNUSED(bsp_SearchTurnLeftFastBack);
-	UNUSED(bsp_SearchTurnLeftSlowBack);
-	
-	UNUSED(bsp_RotateCCW);
-	
+
 	bsp_IRD_StartWork();
 }
 
@@ -209,7 +147,7 @@ void bsp_DetectIsTouchChargePile(void)
 *********************************************************************************************************
 */
 void bsp_SearchChargePile(void)
-{ 
+{
 	
 	bsp_IsTouchChargePile();
 	bsp_IsCharging();
@@ -218,8 +156,7 @@ void bsp_SearchChargePile(void)
 	
 	//DEBUG("%d %d  ---  %d %d\r\n",bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT),bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT),bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT),bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT));
 	//DEBUG("%d %d  ---  %d %d\r\n",bsp_IR_GetRev(IR_RX_L,IR_TX_SITE_LEFT),bsp_IR_GetRev(IR_RX_L,IR_TX_SITE_RIGHT),bsp_IR_GetRev(IR_RX_R,IR_TX_SITE_LEFT),bsp_IR_GetRev(IR_RX_R,IR_TX_SITE_RIGHT));
-	
-	
+
 	if(isCleanRunning())
 		return;
 	
@@ -251,11 +188,6 @@ void bsp_SearchChargePile(void)
 	}
 	else /*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
 	{
-		//DEBUG("接触桩:%s 充电中:%s 充满:%s\r\n",bsp_IsTouchChargePile()?"true":"false",bsp_IsCharging()?"true":"false",bsp_IsChargeDone()?"true":"false");
-		
-		
-		
-		
 		if((xTaskGetTickCount() >= search.lastIsTouchTick)  &&  (xTaskGetTickCount() - search.lastIsTouchTick >= 500))
 		{
 			 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!治理需要根据扫地与否更改*/
@@ -349,7 +281,8 @@ void bsp_SearchChargePile(void)
 			if(search.collision != CollisionNone )
 			{
 				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
-				bsp_GoBackward();
+				bsp_SetMotorSpeed(MotorLeft, -5);
+				bsp_SetMotorSpeed(MotorRight,-5);
 				
 				search.delay = xTaskGetTickCount();
 				search.action++;
@@ -421,235 +354,6 @@ void bsp_SearchChargePile(void)
 
 /*
 *********************************************************************************************************
-*	函 数 名: bsp_SearchRunStraightFast
-*	功能说明: 快速直行
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchRunStraightFast(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, STRAIGHT_SPEED_FAST);
-	bsp_SetMotorSpeed(MotorRight,STRAIGHT_SPEED_FAST);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchRunStraightSlow
-*	功能说明: 慢速直行
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchRunStraightSlow(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, STRAIGHT_SPEED_SLOW);
-	bsp_SetMotorSpeed(MotorRight,STRAIGHT_SPEED_SLOW);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchTurnRightFast
-*	功能说明: 快速右转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchTurnRightFast(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, TURN_RIGHT_SPEED_FAST_L);
-	bsp_SetMotorSpeed(MotorRight,TURN_RIGHT_SPEED_FAST_R);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchTurnRightSlow
-*	功能说明: 慢速右转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchTurnRightSlow(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, TURN_RIGHT_SPEED_SLOW_L);
-	bsp_SetMotorSpeed(MotorRight,TURN_RIGHT_SPEED_SLOW_R);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchTurnLeftFast
-*	功能说明: 快速左转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchTurnLeftFast(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, TURN_LEFT_SPEED_FAST_L);
-	bsp_SetMotorSpeed(MotorRight,TURN_LEFT_SPEED_FAST_R);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchTurnLeftSlow
-*	功能说明: 慢速左转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchTurnLeftSlow(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, TURN_LEFT_SPEED_SLOW_L);
-	bsp_SetMotorSpeed(MotorRight,TURN_LEFT_SPEED_SLOW_R);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_PirouetteCW
-*	功能说明: 原地顺时针旋转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_PirouetteCW(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, PIROUETTE_SPEED);
-	bsp_SetMotorSpeed(MotorRight,0);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_PirouetteCCW
-*	功能说明: 原地逆时针旋转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_PirouetteCCW(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, 0);
-	bsp_SetMotorSpeed(MotorRight,PIROUETTE_SPEED);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_GoBackward
-*	功能说明: 碰到障碍物后，快速倒退
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_GoBackward(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, BACKWARD_SPEED);
-	bsp_SetMotorSpeed(MotorRight,BACKWARD_SPEED);
-}
-
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchRunStraightFastBack
-*	功能说明: 快速直行
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchRunStraightFastBack(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, -STRAIGHT_SPEED_FAST);
-	bsp_SetMotorSpeed(MotorRight,-STRAIGHT_SPEED_FAST);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchRunStraightSlowBack
-*	功能说明: 慢速直行
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchRunStraightSlowBack(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, -STRAIGHT_SPEED_SLOW);
-	bsp_SetMotorSpeed(MotorRight,-STRAIGHT_SPEED_SLOW);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchTurnRightFastBack
-*	功能说明: 快速右转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchTurnRightFastBack(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, -TURN_RIGHT_SPEED_FAST_L);
-	bsp_SetMotorSpeed(MotorRight,-TURN_RIGHT_SPEED_FAST_R);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchTurnRightSlowBack
-*	功能说明: 慢速右转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchTurnRightSlowBack(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, -TURN_RIGHT_SPEED_SLOW_L);
-	bsp_SetMotorSpeed(MotorRight,-TURN_RIGHT_SPEED_SLOW_R);
-}
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchTurnLeftFastBack
-*	功能说明: 快速左转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchTurnLeftFastBack(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, -TURN_LEFT_SPEED_FAST_L);
-	bsp_SetMotorSpeed(MotorRight,-TURN_LEFT_SPEED_FAST_R);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchTurnLeftSlowBack
-*	功能说明: 慢速左转
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_SearchTurnLeftSlowBack(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, -TURN_LEFT_SPEED_SLOW_L);
-	bsp_SetMotorSpeed(MotorRight,-TURN_LEFT_SPEED_SLOW_R);
-}
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_RotateCCW
-*	功能说明: 原地旋转，左右轮都动，逆时针
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_RotateCCW(void)
-{
-	bsp_SetMotorSpeed(MotorLeft, ROTATE_CCW_SPEED_L);
-	bsp_SetMotorSpeed(MotorRight,ROTATE_CCW_SPEED_R);
-}
-
-
-/*
-*********************************************************************************************************
 *	函 数 名: bsp_InitIO
 *	功能说明: 初始化充电相关的IO
 *	形    参: 无
@@ -680,10 +384,6 @@ void bsp_InitChargeIO(void)
 	
 }
 
-uint32_t gIsTouchChargePile = 0 ;
-uint32_t gIsCharging = 0 ;
-uint32_t gIsChargeDone = 0 ;
-
 	
 /*
 *********************************************************************************************************
@@ -697,12 +397,10 @@ bool bsp_IsTouchChargePile(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
 	{
-		gIsTouchChargePile = 1 ;
 		return true ;
 	}
 	else
 	{
-		gIsTouchChargePile = 0 ;
 		return false ;
 	}
 }
@@ -720,12 +418,10 @@ bool bsp_IsCharging(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
 	{
-		gIsCharging = 1 ;
 		return true ;
 	}
 	else
 	{
-		gIsCharging = 0 ;
 		return false ;
 	}
 }
@@ -742,17 +438,11 @@ bool bsp_IsChargeDone(void)
 {
 	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
 	{
-		gIsChargeDone = 1 ;
 		return true ;
 	}
 	else
 	{
-		gIsChargeDone = 0 ;
 		return false ;
 	}
 }
-
-
-
-
 
