@@ -3113,11 +3113,19 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             break;
         }
         if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){
-            linear_velocity = 0;
+			            linear_velocity = 0;
             angular_velocity = 0;
-					  step=1;
-            right_edge_dilemma_status = COMPLETE_EL_DRYM;
+			      DelimmaNumber=0;
+            right_edge_dilemma_status = 0;
+					  step=0;
+			      complete_flag = 2;
             break;
+			
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//					  step=1;
+//            right_edge_dilemma_status = COMPLETE_EL_DRYM;
+//            break;
         }
         break;
     case COMPLETE_EL_DRYM:
@@ -3309,11 +3317,19 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             break;
         }
         if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+500){
-            linear_velocity = 0;
+						      linear_velocity = 0;
             angular_velocity = 0;
-					  step=1;
-            right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+			      DelimmaNumber=0;
+            right_edge_dilemma_status = 0;
+					  step=0;
+			      complete_flag = 2;
             break;
+			
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//					  step=1;
+//            right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+//            break;
         }
         break;
 
@@ -8589,12 +8605,20 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             complete_flag = 2;
             break;
         }
-        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){
-            linear_velocity = 0;
+        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){						      			
+			linear_velocity = 0;
             angular_velocity = 0;
-					  step=1;
-            right_edge_dilemma_status = COMPLETE_LEFT_DILEMMA;
+            right_edge_dilemma_status=0;
+            DelimmaNumber=0;
+					  step=0;
+            complete_flag = 2;
             break;
+			
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//					  step=1;
+//            right_edge_dilemma_status = COMPLETE_LEFT_DILEMMA;
+//            break;
         }
         break;
     case COMPLETE_LEFT_DILEMMA:
@@ -8778,11 +8802,19 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             break;
         }
         if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+500){
-            linear_velocity = 0;
+			linear_velocity = 0;
             angular_velocity = 0;
-					  step=1;
-            right_edge_dilemma_status=LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+            right_edge_dilemma_status=0;
+            DelimmaNumber=0;
+			step=0;
+            complete_flag = 2;
             break;
+//			
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//					  step=1;
+//            right_edge_dilemma_status=LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+//            break;
         }
         break;
 
