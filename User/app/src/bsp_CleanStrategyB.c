@@ -1043,13 +1043,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             ////log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 100;
+                linear_velocity = correction_straight_vel;
                 angular_velocity = correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 100;
+                linear_velocity = correction_straight_vel;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
@@ -1059,13 +1059,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             ////log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 100;
+                linear_velocity = correction_straight_vel;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 100;
+                linear_velocity = correction_straight_vel;
                 angular_velocity = correction_turn_vel;
                 break;
             }
@@ -5288,18 +5288,18 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         break;
     case GOSTR_LEFTRUN_STEP:
         ////log_debug("gostraight left run step!\n");
-        if (my_abs(Yaw) > 90 && my_abs(Yaw) < 178)
+        if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178)
         {
             ////log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 100;
+                linear_velocity = correction_straight_vel;
                 angular_velocity = correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 100;
+                linear_velocity = correction_straight_vel;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
@@ -5309,13 +5309,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             ////log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 100;
+                linear_velocity = correction_straight_vel;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 100;
+                linear_velocity = correction_straight_vel;
                 angular_velocity = correction_turn_vel;
                 break;
             }

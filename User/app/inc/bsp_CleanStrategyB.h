@@ -818,7 +818,8 @@
 #define W 5000
 #define long_stra_vel 300
 #define turn_vel 60
-#define correction_turn_vel 40
+#define correction_turn_vel 20//40 //10
+#define correction_straight_vel 100 //200
 
 
 //#define Deg2Rad(deg) (PI * deg / 180.0F)
