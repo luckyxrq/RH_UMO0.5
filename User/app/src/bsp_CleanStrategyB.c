@@ -898,7 +898,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					if (over_clean_finish == true)
 					{
 						linear_velocity = 0;
-            angular_velocity = 0;
+						angular_velocity = 0;
 						OVERALL_CLEANING_STRATEGY = 0;
 						edge_dilemma=false;
 						return_origin_step_status = 0;
@@ -911,7 +911,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 						temporary_wheel_pulse_r=wheel_pulse_r;
 						OVERALL_CLEANING_STRATEGY =  LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
 						linear_velocity = 0;
-            angular_velocity = 0;
+						angular_velocity = 0;
 						y_more_map=false;
 						edge_dilemma=false;
 						if(y_less_map==false){
@@ -960,7 +960,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					//OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
 					//bsp_StartEdgewiseRun();
 					linear_velocity = 0;
-          angular_velocity = 0;
+					angular_velocity = 0;
 					over_clean_finish = true;
 					left_running_step_status = 0;
 					ForceReturnOriginTimeStamp = xTaskGetTickCount();
@@ -12725,8 +12725,6 @@ int32_t bsp_GetStrategyCurrentPosY(void)
 {
 	return 	map_current_pose_y;
 }
-
-	
 
 
 
