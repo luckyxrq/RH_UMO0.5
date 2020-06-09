@@ -1043,13 +1043,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             ////log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 0;
+                linear_velocity = 100;
                 angular_velocity = correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 0;
+                linear_velocity = 100;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
@@ -1059,13 +1059,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             ////log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 0;
+                linear_velocity = 100;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 0;
+                linear_velocity = 100;
                 angular_velocity = correction_turn_vel;
                 break;
             }
@@ -4518,8 +4518,6 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
         }
         break;
     case FORWARDBOUNDARY_COMPLETE:
-				linear_velocity = 0;
-				angular_velocity = 0;
 		    old_bow_continue=false;
 				right_forward_boundary_status = 0;
 				judgment_Stuck_status = 0;
@@ -5295,13 +5293,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             ////log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 0;
+                linear_velocity = 100;
                 angular_velocity = correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 0;
+                linear_velocity = 100;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
@@ -5311,13 +5309,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             ////log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 0;
+                linear_velocity = 100;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 0;
+                linear_velocity = 100;
                 angular_velocity = correction_turn_vel;
                 break;
             }
@@ -5765,8 +5763,6 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
         }
         break;
     case LEFT_FORWARDBOUNDARY_COMPLETE:
-		    linear_velocity = 0;
-        angular_velocity = 0;
         right_forward_boundary_status = 0;
         judgment_Stuck_status=0;
 		    old_bow_continue=false;
