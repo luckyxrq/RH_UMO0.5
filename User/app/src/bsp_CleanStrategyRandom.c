@@ -71,8 +71,8 @@ void bsp_StrategyRandomProc(void)
 			    strategyRandom.middleCliff ||
 			    strategyRandom.rightCliff) /*有碰撞或者悬崖就后退*/
 			{
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-250));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-120));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-120));
 				
 				/*记录下此时的脉冲数*/
 				strategyRandom.pulse = bsp_GetCurrentBothPulse();
@@ -81,8 +81,8 @@ void bsp_StrategyRandomProc(void)
 			}
 			else /*没有碰撞就直接走，快速走*/
 			{
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(220));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(220));
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(200));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(200));
 			}
 			
 		}break;
@@ -96,30 +96,15 @@ void bsp_StrategyRandomProc(void)
 				
 				if(xTaskGetTickCount()%2 == 0 )
 				{
-					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-190));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+190));
+					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-100));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
 				}
 				else
 				{
-					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+190));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-190));
+					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+100));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
 				}
-//				if(strategyRandom.collision == CollisionLeft || strategyRandom.leftCliff)
-//				{
-//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+250));
-//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
-//				}
-//				else if(strategyRandom.collision == CollisionRight || strategyRandom.rightCliff)
-//				{
-//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-100));
-//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
-//				}
-//				else if(strategyRandom.collision == CollisionAll || strategyRandom.middleCliff)
-//				{
-//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+100));
-//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-//				}
-				
+
 				++strategyRandom.action;
 			}
 		}break;
