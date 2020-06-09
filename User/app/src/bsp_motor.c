@@ -160,8 +160,10 @@ static void bsp_InitVacuum(void)
 void bsp_VacuumClean(void)
 {	
 
-	const uint32_t max_tick = 5;
-	const uint32_t changeTick = 4;
+	const uint32_t changeTick = 2; //开 changeTick * 10ms
+	const uint32_t max_tick = 3;//总周期 max_tick * 10 ms 
+	
+	// 3/4 75%   1/2 50%   4/5 80%    2/3 66%
 	
 	if(!vacuum.isRunning)
 		return ;
