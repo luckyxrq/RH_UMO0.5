@@ -498,6 +498,25 @@
 #define LEFTREVERSEWALKEDGE                                                                    0x378
 #define LEFTEDGEDILEMMA                                                                        0x379
 
+
+#define LEFT_STUCK_FORWARD_BOUNDARY_LEFT_RUNSTEP                                                0x390
+#define LEFT_STUCK_FORWARD_BOUNDARY_STATUS                                                      0x391
+#define LEFT_TURN_RIGHT_YAW_MORE_90_STUCK_FORWARD_BOUNDARY_STATUS                               0x392
+#define LEFT_GO_STUCK_FORWARD_BOUNDARY_STATUS                                                   0x393
+#define LEFT_COLLISION_TURN_RIGHT_YAW_MORE_90_STUCK_FORWARD_BOUNDARY_STATUS                     0x394
+#define LEFT_COLLISION_GO_STUCK_FORWARD_BOUNDARY_STATUS                                         0x395
+#define LEFT_GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS                                          0x396
+#define LEFT_TURN_RIGHT_YAW_MORE_10_STUCK_FORWARD_BOUNDARY_STATUS                               0x397
+#define LEFT_COLLISION_TURN_RIGHT_YAW_MORE_10_STUCK_FORWARD_BOUNDARY_STATUS                     0x398
+#define LEFT_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                                          0x399
+#define LEFT_COLLISION_GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS                                0x39A
+#define LEFT_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                                0x39B
+#define LEFT_COLLISION_COLLISION_GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS                      0x39C
+#define LEFT_COMPETE_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                                  0x39D
+#define LEFT_TURN_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                           0x39E
+#define LEFT_COLLISION_TURN_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                 0x39F
+
+
 //**********return origin define*************
 #define GOSTR_RETURN_ORIGIN_STEP                                                               0x001
 #define DIR_Y_MORE_POSITIVE_200                                                                0x002
@@ -741,8 +760,39 @@
 #define A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                                 0x605
 #define A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                          0x606
 #define A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                       0x607
-
 #define EDGEWISERUN_CLEANING_STRATEGY                                                          0x608 
+#define MORE_MAP_OVERALL_CLEANING_STRATEGY                                                     0x609
+
+
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE                                                     0x19F
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP                                                0x1A0
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION                                      0x1A1
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_X_TURN                                         0x1A2
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN                                 0x1A3
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                       0x1A4
+
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE                                               0x1A5
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP                                          0x1A6
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION                                0x1A7
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_X_TURN                                   0x1A8
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN                           0x1A9
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                 0x1AA
+
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE                                                      0x2FF
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP                                                 0x300
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION                                       0x301
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_X_TURN                                          0x302
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN                                  0x303
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                        0x304
+
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE                                                0x305
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP                                           0x306
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION                                 0x307
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_X_TURN                                    0x308
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN                            0x309
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                  0x30A
+
+
 
 //all define left
 
@@ -757,6 +807,7 @@
 #define turn_backward_distance 10//3
 #define second_turn_backward_distance 10//4
 #define close_edge 160
+#define dilemma_close_edge 80
 #define return_origin_distance 200
 
 #define left_cliff 1
@@ -806,7 +857,7 @@
 #define AStar_North      (1 << 6)
 #define AStar_North_East (1 << 7)
 
-extern unsigned int RealWorkTime;
+extern unsigned int RealWorkTime ;
 
 typedef struct AStarPoint
 {
@@ -838,6 +889,8 @@ typedef struct AStar_Open
 
 #define uint8_t unsigned char
 
+
+
 typedef struct POSE{
     int x;
     int y;
@@ -855,12 +908,13 @@ typedef struct
 	volatile bool isRunning ;
 	volatile unsigned int delay ;
 }CleanStrategyB;
+
+double my_abs(double x);
 bool isCleanRunning(void);
 void bsp_StartUpdateCleanStrategyB(void);
 void bsp_ResetCleanStrategyBStatus(void);
 void bsp_StopUpdateCleanStrategyB(void);
-void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal, \
-	int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value);
+void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal, int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value);
 //uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal);
 
@@ -886,15 +940,18 @@ unsigned char CollisionFrontLeftRunStep(POSE *current_pose,unsigned char obstacl
 unsigned char LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char LeftEdgeDilemma(POSE *current_pose,unsigned char obstacleSignal);
+unsigned char StuckLeftRunStep(POSE *current_pose,unsigned char obstacleSignal);
 
 
-
-
-//stuck 
+void StuckRunStep(POSE *current_pose);
 unsigned char StuckRightRunStep(POSE *current_pose, unsigned char obstacleSignal);
+
+
 /////////////////////////////////
 
 //return origin
+
+void RightMapExtreme(void);
 void initOpen(AStar_Open *q);
 void push(AStar_Open *q, AStar_Close cls[AStar_Height][AStar_Width], unsigned char x, unsigned char y, short g);
 AStar_Close* shift(AStar_Open *q);
@@ -912,19 +969,24 @@ unsigned char AStarCollision(POSE *current_pose, unsigned char obstacleSignal);
 unsigned char AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obstacleSignal);
 /////////////////////////////////////
 
-unsigned char CliffRuningWorkStep(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
-unsigned char CloseEdgedMap(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
+//unsigned char CliffRuningWorkStep(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
+//unsigned char CloseEdgedMap(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
 void DetectionCloseEdge(void);
 unsigned char CliffCloseEdge(void);
-
-
+void MoreMap(POSE *current_pose);
+void LessMap(void);
 
 
 uint8_t GetReturnChargeStationStatus(void);
 void ResetReturnChargeStationStatus(void);
 
 
+int32_t bsp_GetStrategyCurrentPosX(void);
+int32_t bsp_GetStrategyCurrentPosY(void);
+
+
 #endif
+
 
 
 	

@@ -5,7 +5,7 @@
 #define MAX_POSITION_XY  5
 
 static Position position;
-static int global_currentX,global_currentY;
+//static int global_currentX,global_currentY;
 
 /*
 *********************************************************************************************************
@@ -144,16 +144,16 @@ void bsp_PositionUpdate(void)
 			position.action++;
 			
 			//定位超出地图最大边界 位置清0 地图清0 清扫状态清0
-			if(position.currentX > MAX_POSITION_XY || position.currentX < -MAX_POSITION_XY || position.currentY > MAX_POSITION_XY || position.currentY < -MAX_POSITION_XY) 
-			{
-				global_currentX += position.currentX;
-				global_currentY += position.currentY;
-				position.currentX = 0;
-				position.currentY = 0;
-				
-				bsp_ResetCleanStrategyBStatus();
-				bsp_StartUpdateGridMap();
-			}
+//			if(position.currentX > MAX_POSITION_XY || position.currentX < -MAX_POSITION_XY || position.currentY > MAX_POSITION_XY || position.currentY < -MAX_POSITION_XY) 
+//			{
+//				global_currentX += position.currentX;
+//				global_currentY += position.currentY;
+//				position.currentX = 0;
+//				position.currentY = 0;
+//				
+//				bsp_ResetCleanStrategyBStatus();
+//				bsp_StartUpdateGridMap();
+//			}
 			 
 			
 		}break;
