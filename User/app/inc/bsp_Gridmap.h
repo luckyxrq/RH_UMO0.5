@@ -30,7 +30,7 @@
 
 #define REFRESH_ZONE_SIZE 3
 
-#define map_robot_radius 160
+#define map_robot_radius 120
 
 
 
@@ -112,8 +112,9 @@ const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 
 extern GridMap gridmap;
 extern CLIFFADCVALUE cliff_valueB;
+extern unsigned char rightmapmin;
+extern unsigned char rightmapmax;
 
 #endif
-
 
 
