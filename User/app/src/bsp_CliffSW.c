@@ -1,7 +1,7 @@
 #include "bsp.h"
 
 #define DELAY_FOR_READ_CLIFF_US            800
-#define IS_OBSTACLE_CLIFF_MV               40   //障碍物差值电压，毫伏
+#define IS_OBSTACLE_CLIFF_MV               30   //障碍物差值电压，毫伏
 
 #define RCC_ALL_CLIFF_EMIT 	(RCC_APB2Periph_GPIOC)
 
@@ -237,6 +237,7 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 
 /*三个跳崖传感器，每个读两次*/
 static float cliffTwiceRead[3][2];
+static float cliffVal[3];
 static uint8_t cliffStates = 0x00;
 
 /*
@@ -284,7 +285,12 @@ uint8_t bsp_GetCliffStates(void)
 		data |= 1<< 2;
 	}
 	
-	//DEBUG("%d %d %d\r\n",abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000),abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000),abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000));
+	cliffVal[0] = abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000);
+	cliffVal[1] = abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000);
+	cliffVal[2] = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);
+	
+	
+	//DEBUG("%d %d %d\r\n",cliffVal[0],cliffVal[1],cliffVal[2]);
 	//DEBUG("data:%02X\r\n",data);
 	
 	cliffStates = data;
@@ -292,6 +298,30 @@ uint8_t bsp_GetCliffStates(void)
 	return data;
 }
 
+
+uint16_t bsp_GetCliffRealVal(CliffSWSN sn)
+{
+	uint16_t val = 0 ;
+	switch(sn)
+	{
+		case CliffLeft:
+		{
+			val = cliffVal[0];
+		}break;
+		
+		case CliffMiddle:
+		{
+			val = cliffVal[1];
+		}break;
+		
+		case CliffRight:
+		{
+			val = cliffVal[2];
+		}break;
+	}
+	
+	return val;
+}
 
 
 
@@ -320,14 +350,14 @@ bool bsp_CliffIsDangerous(CliffSWSN sn)
 
 void bsp_PrintCliff(void)
 {
-	DEBUG("CLIFF:%d %d %d\r\n",
+	DEBUG("CLIFF:%d %d %d %.2F %.2F %.2F\r\n",
 	bsp_CliffIsDangerous(CliffLeft),
 	bsp_CliffIsDangerous(CliffMiddle),
-	bsp_CliffIsDangerous(CliffRight));
+	bsp_CliffIsDangerous(CliffRight),
+	cliffVal[0],
+	cliffVal[1],
+	cliffVal[2]);
 }
-
-
-
 
 
 #define GO_BACK_PULSE                  (10/(3.14F*70)*1024)

@@ -165,6 +165,100 @@ void bsp_ComAnalysis(void)
 
 
 
+
+/**************************************************专用上传程序****************************************
+
+
+	
+	
+****************************************************************************************************************/
+static ReportFrameWithCRC16 reportFrameWithCRC16;
+
+void bsp_SendReportFrameWithCRC16(void)
+{
+	/*电压部分*/
+	float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+	float batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
+	float wheelL = bsp_GetFeedbackVoltage(eMotorLeft);
+	float wheelR = bsp_GetFeedbackVoltage(eMotorRight);
+	float roll = bsp_GetFeedbackVoltage(eRollingBrush);
+	float vacuum = bsp_GetFeedbackVoltage(eVacuum);
+	float sideBrush = bsp_GetFeedbackVoltage(eSideBrush);
+
+	reportFrameWithCRC16.dustBox = bsp_DustBoxGetState();
+	
+	reportFrameWithCRC16.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
+	reportFrameWithCRC16.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
+
+	reportFrameWithCRC16.wheelPulseL = bsp_MotorGetPulseVector(MotorLeft);
+	reportFrameWithCRC16.wheelPulseR = bsp_MotorGetPulseVector(MotorRight);
+
+	reportFrameWithCRC16.x_pos = bsp_GetCurrentPosX();
+	reportFrameWithCRC16.y_pos = bsp_GetCurrentPosY();
+
+	reportFrameWithCRC16.cliffMV_L = bsp_GetCliffRealVal(CliffLeft); 
+	reportFrameWithCRC16.cliffMV_M = bsp_GetCliffRealVal(CliffMiddle); 
+	reportFrameWithCRC16.cliffMV_R = bsp_GetCliffRealVal(CliffRight); 
+
+	reportFrameWithCRC16.yaw = bsp_AngleReadRaw(); 
+
+	reportFrameWithCRC16.irMV[0] = bsp_GetInfraRedAdcVoltage(IR0); 
+	reportFrameWithCRC16.irMV[1] = bsp_GetInfraRedAdcVoltage(IR1); 
+	reportFrameWithCRC16.irMV[2] = bsp_GetInfraRedAdcVoltage(IR2); 
+	reportFrameWithCRC16.irMV[3] = bsp_GetInfraRedAdcVoltage(IR3); 
+	reportFrameWithCRC16.irMV[4] = bsp_GetInfraRedAdcVoltage(IR4); 
+	reportFrameWithCRC16.irMV[5] = bsp_GetInfraRedAdcVoltage(IR5); 
+	reportFrameWithCRC16.irMV[6] = bsp_GetInfraRedAdcVoltage(IR6); 
+	reportFrameWithCRC16.irMV[7] = bsp_GetInfraRedAdcVoltage(IR7); 
+	reportFrameWithCRC16.irMV[8] = bsp_GetInfraRedAdcVoltage(IR8); 
+	reportFrameWithCRC16.irMV[9] = bsp_GetInfraRedAdcVoltage(IR9); 
+
+	reportFrameWithCRC16.irRX[0][0] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT); 
+	reportFrameWithCRC16.irRX[0][1] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER); 
+	reportFrameWithCRC16.irRX[0][2] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT); 
+
+	reportFrameWithCRC16.irRX[1][0] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT); 
+	reportFrameWithCRC16.irRX[1][1] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER); 
+	reportFrameWithCRC16.irRX[1][2] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT);
+
+	reportFrameWithCRC16.irRX[2][0] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT); 
+	reportFrameWithCRC16.irRX[2][1] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER); 
+	reportFrameWithCRC16.irRX[2][2] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT);
+
+	reportFrameWithCRC16.irRX[3][0] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT); 
+	reportFrameWithCRC16.irRX[3][1] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER); 
+	reportFrameWithCRC16.irRX[3][2] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT);
+
+	reportFrameWithCRC16.offsiteSW = bsp_OffSiteGetState();
+	reportFrameWithCRC16.collision = bsp_CollisionScan();
+
+	reportFrameWithCRC16.mA_wheelL           = wheelL * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	reportFrameWithCRC16.mA_wheelR           = wheelR * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	reportFrameWithCRC16.mA_roll             = roll * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	reportFrameWithCRC16.mA_sideBrush        = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
+	reportFrameWithCRC16.mA_vacuum           = vacuum * 1000.0F * 1000.0F / 33.0F / 50.0F;
+	reportFrameWithCRC16.v_batteryVoltage    = ((batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F)*1000; 
+	reportFrameWithCRC16.mA_batteryCurrent   = batteryCurrent*1000.0F * 1000.0F / 10.0F / 50.0F; 
+
+
+	reportFrameWithCRC16.head = 0xAAAA;
+	reportFrameWithCRC16.frame_len = sizeof(ReportFrameWithCRC16) & 0xFFFF;
+	reportFrameWithCRC16.frame_len_reverse = (~reportFrameWithCRC16.frame_len) & 0xFFFF;
+	
+	reportFrameWithCRC16.tx_addr = 0;
+	reportFrameWithCRC16.rx_addr = 0;
+	
+	reportFrameWithCRC16.main_sec = 0;
+	reportFrameWithCRC16.sub_sec = 0;
+	
+	uint16_t ret = CRC16_Modbus((uint8_t*)&reportFrameWithCRC16,sizeof(ReportFrameWithCRC16)-2);
+	reportFrameWithCRC16.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
+	
+	comSendBuf(COM2,(uint8_t*)&reportFrameWithCRC16,sizeof(ReportFrameWithCRC16));
+}
+
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_SendReportFrame

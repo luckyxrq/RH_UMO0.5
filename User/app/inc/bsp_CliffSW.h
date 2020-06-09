@@ -23,6 +23,7 @@ void bsp_CliffTest(void);
 
 void bsp_StartCliffTest(void);
 void bsp_StopCliffTest(void);
+uint16_t bsp_GetCliffRealVal(CliffSWSN sn);
 
 #endif
 
