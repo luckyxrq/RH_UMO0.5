@@ -5,7 +5,10 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
-#define CLEAN_WORK_TIME 40*60*1000
+#define CLEAN_WORK_TIME  5*60*1000//45*60*1000
+
+#define WAIT_WORK_TIME 20*1000//15*60*1000
+
 #define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
 #define FORCE_RETURN_ORIGIN_WORK_TIME 2*60*1000
 
@@ -110,6 +113,8 @@ unsigned int LastCleanTimeStamp = 0;
 unsigned int CurrentCleanTimeStamp  = 0;
 unsigned int EdgeWiseCleanTimeStamp = 0;
 unsigned int ForceReturnOriginTimeStamp = 0;
+unsigned int start_wait_timestamp = 0;
+
 
 //**************return origin value************************************
 AStar_MapNode AStar_graph[AStar_Height][AStar_Width];
@@ -665,13 +670,18 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 		
 		if(check_sensor_return_value  == time_out_flag )
 		{
-			bsp_SperkerPlay(Song5); /*返回充电*/
-			//log_debug("时间到，返回充电！\n");
+			  
+//			bsp_SperkerPlay(Song5); /*返回充电*/
+//			//log_debug("时间到，返回充电！\n");
 			bsp_StopVacuum();
 			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
 			bsp_MotorCleanSetPWM(MotorSideBrush, CCW , 0);
-			
-			while(bsp_SpeakerIsBusy()){}
+			linear_velocity = 0;
+			angular_velocity = 0;
+		  OVERALL_CLEANING_STRATEGY = WAIT_CLEANING_STRATEGY;
+			start_wait_timestamp = xTaskGetTickCount();
+//			
+//			while(bsp_SpeakerIsBusy()){}
 		}
 		if(check_sensor_return_value  == battery_out_flag)
 		{
@@ -686,12 +696,12 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 		linear_velocity = 0;
 		angular_velocity = 0;
 		//log_debug("开始返回原点，走A*策略！\n");
-		over_clean_finish = true;
+		//over_clean_finish = true;
 		bsp_StopEdgewiseRun();
 		//selectside='L';
-		OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
-		left_running_step_status = 0;
-		FunctionStatus = 0;
+		//OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+//		left_running_step_status = 0;
+//		FunctionStatus = 0;
 	}
 	
 	if(check_sensor_return_value  == collision_error)
@@ -773,8 +783,17 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 	}
 	else{
 	}
+	
+
 		switch (OVERALL_CLEANING_STRATEGY)
 		{
+			case WAIT_CLEANING_STRATEGY:
+				if( xTaskGetTickCount() -  start_wait_timestamp  > WAIT_WORK_TIME )
+				{
+					OVERALL_CLEANING_STRATEGY =0;
+					bsp_PutKey(KEY_LONG_CLEAN);
+				}
+				break;
 			case 0:
 				temporary_wheel_pulse_r=wheel_pulse_r;
 				OVERALL_CLEANING_STRATEGY = START_OVERALL_CLEANING_STRATEGY;
@@ -793,7 +812,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
 					selectside = 'L';
 					over_clean_finish = false;
-					OVERALL_CLEANING_STRATEGY  = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					OVERALL_CLEANING_STRATEGY  = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
 					right_running_step_status = 0;
 					FunctionStatus = 0;
 				  if(y_more_map==true){
@@ -964,7 +983,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					over_clean_finish = true;
 					left_running_step_status = 0;
 					ForceReturnOriginTimeStamp = xTaskGetTickCount();
-					OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+					OVERALL_CLEANING_STRATEGY = START_OVERALL_CLEANING_STRATEGY;
 					FunctionStatus = 0;
 					break;
 					}else{
@@ -976,7 +995,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 						}
 						else{
 							over_clean_finish=true;
-							OVERALL_CLEANING_STRATEGY=A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+							OVERALL_CLEANING_STRATEGY=START_OVERALL_CLEANING_STRATEGY;
 							left_running_step_status = 0;
 							FunctionStatus=0;
 						}
@@ -1043,13 +1062,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             ////log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 100;
+                linear_velocity = correction_linear_vel;
                 angular_velocity = correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 100;
+                linear_velocity = correction_linear_vel;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
@@ -1059,13 +1078,13 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             ////log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 100;
+                linear_velocity = correction_linear_vel;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 100;
+                linear_velocity = correction_linear_vel;
                 angular_velocity = correction_turn_vel;
                 break;
             }
@@ -5293,13 +5312,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             ////log_debug("backaward Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 100;
+                linear_velocity = correction_linear_vel;
                 angular_velocity = correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 100;
+                linear_velocity = correction_linear_vel;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
@@ -5309,13 +5328,13 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             ////log_debug("gostraight Corrected heading angle !\n");
             if (Yaw > 0)
             {
-                linear_velocity = 100;
+                linear_velocity = correction_linear_vel;
                 angular_velocity = -correction_turn_vel;
                 break;
             }
             else
             {
-                linear_velocity = 100;
+                linear_velocity = correction_linear_vel;
                 angular_velocity = correction_turn_vel;
                 break;
             }

@@ -762,6 +762,7 @@
 #define A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                       0x607
 #define EDGEWISERUN_CLEANING_STRATEGY                                                          0x608 
 #define MORE_MAP_OVERALL_CLEANING_STRATEGY                                                     0x609
+#define WAIT_CLEANING_STRATEGY                                                                 0x610
 
 
 #define RIGHT_LEAKING_SWEEP_START_WALK_EDGE                                                     0x19F
@@ -818,7 +819,8 @@
 #define W 5000
 #define long_stra_vel 300
 #define turn_vel 60
-#define correction_turn_vel 40
+#define correction_linear_vel 100
+#define correction_turn_vel 20
 
 
 //#define Deg2Rad(deg) (PI * deg / 180.0F)
