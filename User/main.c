@@ -118,7 +118,7 @@ static void vTaskMapping(void *pvParameters)
 		else{		
 			main_debug("bsp_GridMapUpdate() \n");
 			//bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-      bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX(),bsp_GetStrategyCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+			bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX(),bsp_GetStrategyCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 		}
 #endif
 		
