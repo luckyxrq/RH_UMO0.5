@@ -345,15 +345,21 @@ void bsp_SearchChargePile(void)
 			{
 				if(ONLY_F_RX_WIDE)
 				{
-					if(++search.ONLY_F_RX_WIDE_CNT >= 5)
+					if(++search.ONLY_F_RX_WIDE_CNT >= 50)
 					{
 						search.ONLY_F_RX_WIDE_CNT = 0 ;
 						bsp_SetMotorSpeed(MotorLeft, 0);
 						bsp_SetMotorSpeed(MotorRight,0);
 						
 						search.action = 3 ;
+						return;
 					}
 				}
+				else
+				{
+					search.ONLY_F_RX_WIDE_CNT = 0 ;
+				}
+				
 				if(ROTATE_CW_LITTLE)
 				{
 					bsp_SetMotorSpeed(MotorLeft, 7);
@@ -366,13 +372,13 @@ void bsp_SearchChargePile(void)
 				}
 				else if(ROTATE_CW)
 				{
-					bsp_SetMotorSpeed(MotorLeft, 4);
-					bsp_SetMotorSpeed(MotorRight,-4);
+					bsp_SetMotorSpeed(MotorLeft, 2);
+					bsp_SetMotorSpeed(MotorRight,-2);
 				}
 				else if(ROTATE_CCW)
 				{
-					bsp_SetMotorSpeed(MotorLeft, -4);
-					bsp_SetMotorSpeed(MotorRight,4);
+					bsp_SetMotorSpeed(MotorLeft, -2);
+					bsp_SetMotorSpeed(MotorRight,2);
 				}
 				else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
 				{
@@ -494,7 +500,7 @@ void bsp_SearchChargePile(void)
 			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 180)) <= 10)
 			{
 				bsp_SetMotorSpeed(MotorLeft, 2);
-				bsp_SetMotorSpeed(MotorRight,6);
+				bsp_SetMotorSpeed(MotorRight,7);
 				search.delay = xTaskGetTickCount();
 				++search.action;
 			}
