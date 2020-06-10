@@ -16,6 +16,8 @@
 
 #define REAL_ANGLE()      (bsp_AngleReadRaw()*0.01F)
 
+#define _SEARCH_PILE_GO_BACK_PULSE                  (10/(3.14F*70)*1024)
+
 /*
 **********************************************************************************************************
                                             直走
@@ -70,6 +72,9 @@
 #define SL_NO_SIGNAL          (!IR_SL_L && !IR_SL_R && !IR_SL_M)  /*边上的左边 没有任何信号*/
 #define SR_NO_SIGNAL          (!IR_SR_L && !IR_SR_R && !IR_SR_M)  /*边上的右边 没有任何信号*/
 
+#define FL_NO_SIGNAL          (!IR_FL_L && !IR_FL_R && !IR_FL_M)  /*前面左边没有任何信号*/
+#define FR_NO_SIGNAL          (!IR_FR_L && !IR_FR_R && !IR_FR_M)  /*前面右边没有任何信号*/
+
 
 #define ONLY_F_RX_WIDE        ( (IR_FL_M ||  IR_FR_M) && F_NO_NARROW_SIGNAL && SL_NO_SIGNAL && SR_NO_SIGNAL)    
 
@@ -97,6 +102,7 @@ typedef struct
 	bool isNeedFirstRunRandom;
 	Collision collision;
 	
+	uint32_t pulse;
 	float angle;
 }Serach;
 
@@ -330,17 +336,11 @@ void bsp_SearchChargePile(void)
 				}
 				else if(ROTATE_CW)
 				{
-//					bsp_SetMotorSpeed(MotorLeft, 8);
-//					bsp_SetMotorSpeed(MotorRight,0);
-					
 					bsp_SetMotorSpeed(MotorLeft, 4);
 					bsp_SetMotorSpeed(MotorRight,-4);
 				}
 				else if(ROTATE_CCW)
 				{
-//					bsp_SetMotorSpeed(MotorLeft, 0);
-//					bsp_SetMotorSpeed(MotorRight,8);
-					
 					bsp_SetMotorSpeed(MotorLeft, -4);
 					bsp_SetMotorSpeed(MotorRight,4);
 				}
@@ -417,9 +417,64 @@ void bsp_SearchChargePile(void)
 		
 		case 5:
 		{
-			if(xTaskGetTickCount() - search.delay >= 4000)
+			if(xTaskGetTickCount() - search.delay >= 3600  || bsp_CollisionScan() != CollisionNone)
 			{
+				
+				if(SL_NO_SIGNAL && SR_NO_SIGNAL && FL_NO_SIGNAL && FR_NO_SIGNAL)  /*边是错的，则换边*/
+				{
+					bsp_SetMotorSpeed(MotorLeft, 0);
+					bsp_SetMotorSpeed(MotorRight,0);
+					
+					++search.action;
+				}
+				else
+				{
+					search.action = 0;
+				}
+			}
+			else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2 || INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2 || ROTATE_CW || ROTATE_CCW)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 0);
+				bsp_SetMotorSpeed(MotorRight,0);
 				search.action = 0;
+			}
+		}break;
+		
+		case 6:
+		{
+			search.pulse = bsp_GetCurrentBothPulse();
+			bsp_SetMotorSpeed(MotorLeft, -3);
+			bsp_SetMotorSpeed(MotorRight,-3);
+			++search.action;
+		}break;
+		
+		case 7:
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse >= _SEARCH_PILE_GO_BACK_PULSE)
+			{
+				search.angle = REAL_ANGLE();
+				bsp_SetMotorSpeed(MotorLeft, 3);
+				bsp_SetMotorSpeed(MotorRight,-3);
+				++search.action;
+			}
+		}break;
+		
+		case 8:
+		{
+			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 180)) <= 10)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 2);
+				bsp_SetMotorSpeed(MotorRight,6);
+				search.delay = xTaskGetTickCount();
+				++search.action;
+			}
+		}break;
+		
+		case 9:
+		{
+			if(xTaskGetTickCount() - search.delay >= 3600 )
+			{
+				search.action = 1 ;
 			}
 		}break;
 	}
