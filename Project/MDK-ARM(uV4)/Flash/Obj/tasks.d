@@ -1,9 +1,9 @@
 .\flash\obj\tasks.o: ..\..\FreeRTOS\tasks.c
-.\flash\obj\tasks.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\tasks.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\tasks.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\tasks.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\tasks.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\tasks.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\tasks.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\tasks.o: ..\..\FreeRTOS\include\portable.h
@@ -14,4 +14,4 @@
 .\flash\obj\tasks.o: ..\..\FreeRTOS\include\list.h
 .\flash\obj\tasks.o: ..\..\FreeRTOS\include\timers.h
 .\flash\obj\tasks.o: ..\..\FreeRTOS\include\StackMacros.h
-.\flash\obj\tasks.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
