@@ -12,7 +12,7 @@
 #define GPIO_PORT_CHARGE_IS_DONE      GPIOG
 #define GPIO_PIN_CHARGE_IS_DONE	      GPIO_Pin_1
 
-#define MAX_SEARCH_TICK         (1000*120)
+#define MAX_SEARCH_TICK         (1000*60*5)
 
 #define REAL_ANGLE()      (bsp_AngleReadRaw()*0.01F)
 
@@ -75,8 +75,12 @@
 #define FL_NO_SIGNAL          (!IR_FL_L && !IR_FL_R && !IR_FL_M)  /*前面左边没有任何信号*/
 #define FR_NO_SIGNAL          (!IR_FR_L && !IR_FR_R && !IR_FR_M)  /*前面右边没有任何信号*/
 
+#define ALL_NO_SIGNAL         (SL_NO_SIGNAL && SR_NO_SIGNAL && FL_NO_SIGNAL && FR_NO_SIGNAL)
 
-#define ONLY_F_RX_WIDE        ( (IR_FL_M ||  IR_FR_M) && F_NO_NARROW_SIGNAL && SL_NO_SIGNAL && SR_NO_SIGNAL)    
+#define ONLY_F_RX_WIDE        ( (IR_FL_M ||  IR_FR_M) && F_NO_NARROW_SIGNAL && SL_NO_SIGNAL && SR_NO_SIGNAL)   
+
+
+
 
 typedef enum
 {
@@ -104,6 +108,8 @@ typedef struct
 	
 	uint32_t pulse;
 	float angle;
+	uint32_t lastSIGNAL_Tick;
+	uint32_t ONLY_F_RX_WIDE_CNT;
 }Serach;
 
 
@@ -124,6 +130,8 @@ void bsp_StartSearchChargePile(void)
 	search.action = 0 ;
 	search.delay = 0 ;
 	search.startTick = xTaskGetTickCount();
+	search.lastSIGNAL_Tick = xTaskGetTickCount();
+	search.ONLY_F_RX_WIDE_CNT = 0 ;
 	search.isNeedFirstRunRandom = true;
 	search.isRunning = true;
 	
@@ -279,7 +287,7 @@ void bsp_SearchChargePile(void)
 	/*如果在执行随机清扫，则不执行后面的寻找充电桩*/
 	if(bsp_IsStartStrategyRandom())
 	{
-		if(1) /*收到了信号就执行后面的寻找充电桩*/
+		if(!ALL_NO_SIGNAL) /*收到了信号就执行后面的寻找充电桩*/
 		{
 			DEBUG("退出随机\r\n");
 			
@@ -290,6 +298,24 @@ void bsp_SearchChargePile(void)
 		return;
 	}
 	
+	
+	
+	if(!ALL_NO_SIGNAL) /*最后一次有信号时间*/
+	{
+		search.lastSIGNAL_Tick = xTaskGetTickCount();
+	}
+	
+	
+	if(xTaskGetTickCount() - search.lastSIGNAL_Tick >= 1000*60*1.5)
+	{
+		search.action = 0 ;
+		search.lastSIGNAL_Tick = xTaskGetTickCount();
+		
+		bsp_SetMotorSpeed(MotorLeft,0);
+		bsp_SetMotorSpeed(MotorRight,0);
+		bsp_StartStrategyRandom();
+		return;
+	}
 	
 	switch(search.action)
 	{
@@ -319,20 +345,24 @@ void bsp_SearchChargePile(void)
 			{
 				if(ONLY_F_RX_WIDE)
 				{
-					bsp_SetMotorSpeed(MotorLeft, 0);
-					bsp_SetMotorSpeed(MotorRight,0);
-					
-					search.action = 3 ;
+					if(++search.ONLY_F_RX_WIDE_CNT >= 5)
+					{
+						search.ONLY_F_RX_WIDE_CNT = 0 ;
+						bsp_SetMotorSpeed(MotorLeft, 0);
+						bsp_SetMotorSpeed(MotorRight,0);
+						
+						search.action = 3 ;
+					}
 				}
 				if(ROTATE_CW_LITTLE)
 				{
-					bsp_SetMotorSpeed(MotorLeft, 6);
-					bsp_SetMotorSpeed(MotorRight,3);
+					bsp_SetMotorSpeed(MotorLeft, 7);
+					bsp_SetMotorSpeed(MotorRight,2);
 				}
 				else if(ROTATE_CW_LITTLE)
 				{
-					bsp_SetMotorSpeed(MotorLeft, 3);
-					bsp_SetMotorSpeed(MotorRight,6);
+					bsp_SetMotorSpeed(MotorLeft, 2);
+					bsp_SetMotorSpeed(MotorRight,7);
 				}
 				else if(ROTATE_CW)
 				{
@@ -361,8 +391,8 @@ void bsp_SearchChargePile(void)
 				}
 				else if(F_NO_NARROW_SIGNAL) 
 				{
-					bsp_SetMotorSpeed(MotorLeft, 3);
-					bsp_SetMotorSpeed(MotorRight,3);
+//					bsp_SetMotorSpeed(MotorLeft, 3);
+//					bsp_SetMotorSpeed(MotorRight,3);
 				}
 			}
 		}break;
@@ -420,7 +450,7 @@ void bsp_SearchChargePile(void)
 			if(xTaskGetTickCount() - search.delay >= 3600  || bsp_CollisionScan() != CollisionNone)
 			{
 				
-				if(SL_NO_SIGNAL && SR_NO_SIGNAL && FL_NO_SIGNAL && FR_NO_SIGNAL)  /*边是错的，则换边*/
+				if(SL_NO_SIGNAL && FL_NO_SIGNAL && FR_NO_SIGNAL)  /*边是错的，则换边*/
 				{
 					bsp_SetMotorSpeed(MotorLeft, 0);
 					bsp_SetMotorSpeed(MotorRight,0);
