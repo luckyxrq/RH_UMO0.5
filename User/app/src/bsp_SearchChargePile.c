@@ -14,38 +14,64 @@
 
 #define MAX_SEARCH_TICK         (1000*120)
 
+#define REAL_ANGLE()      (bsp_AngleReadRaw()*0.01F)
 
-/*前面的2个接收头*/
-#define FRONT_RX_L      IR_CH2
-#define FRONT_RX_R      IR_CH1
-
-#define IR_RX_L      IR_CH3
-#define IR_RX_R      IR_CH4
-
-/*直走*/
-#define CASE_RANDOM_0    (bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT) && bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT) && bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT))
-#define CASE_RANDOM_7    (!bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT))
-#define CASE_RANDOM_10    (bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT) && bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT))
-
-/*向右划大弧线*/
-#define CASE_RANDOM_11   ((bsp_IR_GetRev(IR_RX_R,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_RX_R,IR_TX_SITE_RIGHT)) && CASE_RANDOM_7)
-/*向左划大弧线*/
-#define CASE_RANDOM_12   ((bsp_IR_GetRev(IR_RX_L,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_RX_L,IR_TX_SITE_RIGHT)) && CASE_RANDOM_7)
+/*
+**********************************************************************************************************
+                                            直走
+**********************************************************************************************************
+*/
+#define RUN_STRAIGHT_0      ( IR_FL_L && IR_FL_R && IR_FR_L && IR_FR_R    )  /*前面两个都能收到2个窄角信号*/
+#define RUN_STRAIGHT_1      ( IR_FL_L && !IR_FL_R && !IR_FR_L && IR_FR_R  )  /*前面两个都能收到与之正对的窄角信号*/
 
 
-#define CASE_RANDOM_3    (bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT) && bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT) && bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT))
-#define CASE_RANDOM_4    (bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT) && bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT))
+/*
+**********************************************************************************************************
+                                     前面没有收到任何窄角信号
+**********************************************************************************************************
+*/
+#define F_NO_NARROW_SIGNAL  ( !IR_FL_L && !IR_FL_R && !IR_FR_L && !IR_FR_R  ) /*前面两个都收不到任何窄角信号*/
 
-#define CASE_RANDOM_5    (!bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT))
-#define CASE_RANDOM_6    (bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT))
 
-#define CASE_RANDOM_8    (bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT) && bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT))
-#define CASE_RANDOM_9    (!bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT) && !bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT) && bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT) && bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT))
+/*
+**********************************************************************************************************
+                                    边上收到了广角  需要小一点的大转弯
+**********************************************************************************************************
+*/
+#define ROTATE_CW_LITTLE    ( !(IR_SR_L && IR_SR_R) && IR_SR_M && F_NO_NARROW_SIGNAL)
+#define ROTATE_CCW_LITTLE   ( !(IR_SL_L && IR_SL_R) && IR_SL_M && F_NO_NARROW_SIGNAL)
 
-#define CASE_RANDOM_13   ((bsp_IR_GetRev(IR_RX_R,IR_TX_SITE_LEFT) || bsp_IR_GetRev(IR_RX_L,IR_TX_SITE_RIGHT)) && CASE_RANDOM_7)
-				
+/*
+**********************************************************************************************************
+                                    边上收到了2个窄角  需要大转弯
+**********************************************************************************************************
+*/
+#define ROTATE_CW           ( (IR_SR_L && IR_SR_R) && F_NO_NARROW_SIGNAL)
+#define ROTATE_CCW          ( (IR_SL_L && IR_SL_R) && F_NO_NARROW_SIGNAL)
 
-#define CASE_STOP_RANDOM (CASE_RANDOM_11 || CASE_RANDOM_12 || CASE_RANDOM_0 || CASE_RANDOM_10 || CASE_RANDOM_3 || CASE_RANDOM_4 || CASE_RANDOM_5 || CASE_RANDOM_6 || CASE_RANDOM_8 || CASE_RANDOM_9)
+/*
+**********************************************************************************************************
+                                     已经几乎到了正前面，准备微调
+**********************************************************************************************************
+*/
+#define INCLINATION_GO_L_0    ( IR_FL_L && IR_FL_R && !IR_FR_L && IR_FR_R    )  /*左能收左右，右能收右不能收左*/
+#define INCLINATION_GO_L_1    ( IR_FL_R && !IR_FR_L && !IR_FR_R    )            /*左能收右，并且右不能收左也不能收右*/
+#define INCLINATION_GO_L_2    ( IR_FL_L && IR_FL_R && !IR_FR_L && !IR_FR_R    ) /*左能同时左右 右既不能左也不能右*/
+
+#define INCLINATION_GO_R_0    ( IR_FL_L && !IR_FL_R && IR_FR_L && IR_FR_R    )  /*左能左  左不能右 并且 右能左也能右*/
+#define INCLINATION_GO_R_1    ( !IR_FL_L && !IR_FL_R && IR_FR_L              )  /*左既不能左也不能右  右能左*/
+#define INCLINATION_GO_R_2    ( !IR_FL_L && !IR_FL_R && IR_FR_L && IR_FR_R   )  /*左既不能左也不能右，右能同时左右*/
+
+/*
+**********************************************************************************************************
+                  头部收到了广角但是没有收到窄角，两边没有任何信号(科沃斯原地左转，再向右画弧线)
+**********************************************************************************************************
+*/
+#define SL_NO_SIGNAL          (!IR_SL_L && !IR_SL_R && !IR_SL_M)  /*边上的左边 没有任何信号*/
+#define SR_NO_SIGNAL          (!IR_SR_L && !IR_SR_R && !IR_SR_M)  /*边上的右边 没有任何信号*/
+
+
+#define ONLY_F_RX_WIDE        ( (IR_FL_M ||  IR_FR_M) && F_NO_NARROW_SIGNAL && SL_NO_SIGNAL && SR_NO_SIGNAL)    
 
 typedef enum
 {
@@ -69,8 +95,9 @@ typedef struct
 	uint32_t lastIsNeedEdgeTick;
 	
 	bool isNeedFirstRunRandom;
-	
 	Collision collision;
+	
+	float angle;
 }Serach;
 
 
@@ -153,10 +180,6 @@ void bsp_SearchChargePile(void)
 	bsp_IsCharging();
 	bsp_IsChargeDone();
 	
-	
-	//DEBUG("%d %d  ---  %d %d\r\n",bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_LEFT),bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_RIGHT),bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_LEFT),bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_RIGHT));
-	//DEBUG("%d %d  ---  %d %d\r\n",bsp_IR_GetRev(IR_RX_L,IR_TX_SITE_LEFT),bsp_IR_GetRev(IR_RX_L,IR_TX_SITE_RIGHT),bsp_IR_GetRev(IR_RX_R,IR_TX_SITE_LEFT),bsp_IR_GetRev(IR_RX_R,IR_TX_SITE_RIGHT));
-
 	if(isCleanRunning())
 		return;
 	
@@ -250,7 +273,7 @@ void bsp_SearchChargePile(void)
 	/*如果在执行随机清扫，则不执行后面的寻找充电桩*/
 	if(bsp_IsStartStrategyRandom())
 	{
-		if(CASE_STOP_RANDOM) /*收到了信号就执行后面的寻找充电桩*/
+		if(1) /*收到了信号就执行后面的寻找充电桩*/
 		{
 			DEBUG("退出随机\r\n");
 			
@@ -288,48 +311,55 @@ void bsp_SearchChargePile(void)
 			}
 			else
 			{
-				#define CASE_RANDOM_15   (bsp_IR_GetRev(IR_RX_R,IR_TX_SITE_CENTER) && !bsp_IR_GetRev(FRONT_RX_L,IR_TX_SITE_CENTER) && !bsp_IR_GetRev(FRONT_RX_R,IR_TX_SITE_CENTER))
-				
-				if(CASE_RANDOM_11) /*大弧线 侧面收到充电桩的2个窄角中的任何一个 ， 并且前面没有收到信号*/
-				{
-					bsp_SetMotorSpeed(MotorLeft, 8);
-					bsp_SetMotorSpeed(MotorRight,0);
-				}
-				else if(CASE_RANDOM_12) /*大弧线 侧面收到充电桩的2个窄角中的任何一个 ， 并且前面没有收到信号*/
+				if(ONLY_F_RX_WIDE)
 				{
 					bsp_SetMotorSpeed(MotorLeft, 0);
-					bsp_SetMotorSpeed(MotorRight,8);
+					bsp_SetMotorSpeed(MotorRight,0);
+					
+					search.action = 3 ;
 				}
-				else if(CASE_RANDOM_0 ||  CASE_RANDOM_10) /*（左能同时左右 并且 右能同时左右） 或者  （左收左左不能右  右收右右不能收左）*/
+				if(ROTATE_CW_LITTLE)
 				{
-					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorLeft, 6);
 					bsp_SetMotorSpeed(MotorRight,3);
 				}
-				else if(CASE_RANDOM_3 || CASE_RANDOM_6 || CASE_RANDOM_8)
+				else if(ROTATE_CW_LITTLE)
 				{
-					/*左能收左右，右能收右不能收左*/
-					/*左能收右，并且右不能收左也不能收右*/
-					/*左能同时左右 右既不能左也不能右*/
 					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,6);
+				}
+				else if(ROTATE_CW)
+				{
+//					bsp_SetMotorSpeed(MotorLeft, 8);
+//					bsp_SetMotorSpeed(MotorRight,0);
+					
+					bsp_SetMotorSpeed(MotorLeft, 4);
+					bsp_SetMotorSpeed(MotorRight,-4);
+				}
+				else if(ROTATE_CCW)
+				{
+//					bsp_SetMotorSpeed(MotorLeft, 0);
+//					bsp_SetMotorSpeed(MotorRight,8);
+					
+					bsp_SetMotorSpeed(MotorLeft, -4);
 					bsp_SetMotorSpeed(MotorRight,4);
 				}
-				else if(CASE_RANDOM_4 || CASE_RANDOM_5 || CASE_RANDOM_9)
+				else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
 				{
-					/*左能左  左不能右 并且 右能左*/
-					/*左既不能左也不能右  右能左*/
-					/*左既不能左也不能右，右能同时左右*/
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,3);
+				}
+				else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,5);
+				}
+				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
+				{
 					bsp_SetMotorSpeed(MotorLeft, 5);
 					bsp_SetMotorSpeed(MotorRight,3);
 				}
-				
-				else if(CASE_RANDOM_15)
-				{
-					/*右边接收能收到广角  前面两个收不到广角*/
-					bsp_SetMotorSpeed(MotorLeft, 5);
-					bsp_SetMotorSpeed(MotorRight,3);
-				}
-				
-				else if(CASE_RANDOM_7) /*左收不到左右任何一个 并且 右收不到左右任何一个*/
+				else if(F_NO_NARROW_SIGNAL) 
 				{
 					bsp_SetMotorSpeed(MotorLeft, 3);
 					bsp_SetMotorSpeed(MotorRight,3);
@@ -340,25 +370,58 @@ void bsp_SearchChargePile(void)
 
 		case 2:
 		{
-			if(xTaskGetTickCount() - search.delay >= 2000)
+			if(xTaskGetTickCount() - search.delay >= 3900)
 			{
 				search.action = 0 ;
 			}
 			else
 			{
-				if(CASE_RANDOM_3 || CASE_RANDOM_6 || CASE_RANDOM_8)
+				if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
 				{
 					bsp_SetMotorSpeed(MotorLeft, -5);
-					bsp_SetMotorSpeed(MotorRight,-2);
+					bsp_SetMotorSpeed(MotorRight,-3);
 				}
-				else if(CASE_RANDOM_4 || CASE_RANDOM_5 || CASE_RANDOM_9)
+				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
 				{
-					bsp_SetMotorSpeed(MotorLeft, -2);
+					bsp_SetMotorSpeed(MotorLeft, -3);
 					bsp_SetMotorSpeed(MotorRight,-5);
+				}
+				else if(F_NO_NARROW_SIGNAL) 
+				{
+					bsp_SetMotorSpeed(MotorLeft, -3);
+					bsp_SetMotorSpeed(MotorRight,-3);
 				}
 			}
 		}break;
-
+		
+		case 3:
+		{
+			search.angle = REAL_ANGLE();
+			bsp_SetMotorSpeed(MotorLeft, -3);
+			bsp_SetMotorSpeed(MotorRight,3);
+			
+			++search.action;
+		}break;
+		
+		case 4:
+		{
+			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 90)) <= 10)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 6);
+				bsp_SetMotorSpeed(MotorRight,2);
+				search.delay = xTaskGetTickCount();
+				++search.action;
+			}
+		}break;
+		
+		
+		case 5:
+		{
+			if(xTaskGetTickCount() - search.delay >= 4000)
+			{
+				search.action = 0;
+			}
+		}break;
 	}
 }
 
