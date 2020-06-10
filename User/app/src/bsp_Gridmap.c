@@ -15,6 +15,7 @@ static int map_last_robotX = 0, map_last_robotY = 0;
 static int8_t map_update = 0;
 
 static MapInfo TuYa_map[PER_UPLOAD_POINT_CNT] = {0};
+
 static double my_abs(double x){
     if (x<0){
         x= -x;
@@ -22,9 +23,7 @@ static double my_abs(double x){
     return x;
 }
 
-
 static bool obstacle_cliff_status_cls_flag = false;
-
 
 static signed char Under_extreme_point_x[10] = {0};
 static signed char Under_extreme_point_x_index = 0;
