@@ -1,8 +1,8 @@
 .\flash\obj\list.o: ..\..\FreeRTOS\list.c
-.\flash\obj\list.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\list.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\list.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\list.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\list.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\list.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\list.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\list.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\list.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\list.o: ..\..\FreeRTOS\include\portable.h

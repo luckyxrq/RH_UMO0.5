@@ -142,7 +142,9 @@ void bsp_EdgewiseRun(void)
 					bsp_EdgewiseRunStraightFast();
 				}
 			}
-			if(bsp_CollisionScan() != CollisionNone)
+			if(bsp_CollisionScan() != CollisionNone\
+			||  bsp_CliffIsDangerous(CliffLeft)|| bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
+
 			{
 				edgewiseRun.action++;
 			}
@@ -152,7 +154,11 @@ void bsp_EdgewiseRun(void)
 		{
 			float vol = bsp_GetInfraredVoltageRight();
 			edgewiseRun.collision = bsp_CollisionScan();
-			
+			if(bsp_CliffIsDangerous(CliffLeft)|| bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
+            {
+                edgewiseRun.collision = CollisionAll;
+            }
+
 			if(edgewiseRun.collision != CollisionNone)
 			{
 				bsp_GoBackward();
@@ -233,9 +239,12 @@ void bsp_EdgewiseRun(void)
 			{
 				edgewiseRun.action = 0 ;
 			}
-			
-
-			if(bsp_CollisionScan()!=CollisionNone || (vol >= 100 ))
+			edgewiseRun.collision = bsp_CollisionScan();
+			if(bsp_CliffIsDangerous(CliffLeft)|| bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
+            {
+                edgewiseRun.collision = CollisionAll;
+            }
+			if(edgewiseRun.collision !=CollisionNone || (vol >= 100 ))
 			{
 				edgewiseRun.action = 1 ;
 			}
