@@ -513,12 +513,12 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta, unsigned 
 	
 	if(cleanstrategy.isRunning)
 	{
-		if(obstacleSignal == CollisionNone)
-		{
-			if(IRSensorData_StrategyB[1] == 1 ) obstacleSignal = CollisionLeft;
-			if(IRSensorData_StrategyB[5] == 1 ) obstacleSignal = CollisionRight;
-			if(IRSensorData_StrategyB[3] == 1 ) obstacleSignal = CollisionAll;
-		}
+//		if(obstacleSignal == CollisionNone)
+//		{
+//			if(IRSensorData_StrategyB[1] == 1 ) obstacleSignal = CollisionLeft;
+//			if(IRSensorData_StrategyB[5] == 1 ) obstacleSignal = CollisionRight;
+//			if(IRSensorData_StrategyB[3] == 1 ) obstacleSignal = CollisionAll;
+//		}
 		
 		if(clean_strategyB(&current_pose,obstacleSignal) != ALL_CLEAN_COMPLETE)
 		{
@@ -590,7 +590,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 		if(obstacleSignal<3)   
 		{
 			collision_error_cnt++;
-			if(collision_error_cnt > 200) //4.5s
+			if(collision_error_cnt >  2000)  //  45s//   200) //4.5s
 			{
 				collision_error_cnt = 0;
 				return collision_error;
@@ -1054,52 +1054,8 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         right_running_step_status = GOSTR_RIGHTRUN_STEP;
         break;
     case GOSTR_RIGHTRUN_STEP:
-        ////log_debug("gostraight right run step!\n");
-        if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178)
-        {
-            ////log_debug("backaward Corrected heading angle !\n");
-            if (Yaw > 0)
-            {
-                linear_velocity = correction_linear_vel;
-                angular_velocity = correction_turn_vel;
-                break;
-            }
-            else
-            {
-                linear_velocity = correction_linear_vel;
-                angular_velocity = -correction_turn_vel;
-                break;
-            }
-        }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2)
-        {
-            ////log_debug("gostraight Corrected heading angle !\n");
-            if (Yaw > 0)
-            {
-                linear_velocity = correction_linear_vel;
-                angular_velocity = -correction_turn_vel;
-                break;
-            }
-            else
-            {
-                linear_velocity = correction_linear_vel;
-                angular_velocity = correction_turn_vel;
-                break;
-            }
-        }
-        else if (my_abs(current_pose->x) > half_map_wide - 2*GRIDHEIGHT)
-        {
-            ////log_debug("current pose x arrived width max!\n");
-            right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
-            break;
-        }
-        else if (my_abs(current_pose->y) > half_map_wide - 2*GRIDHEIGHT)
-        {
-            ////log_debug("current pose y arrived width max!\n");
-            right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
-            break;
-        }
-		else if (front_obstacle == obstacleSignal||(&cliff_valueB)->cliffValue0 == 1)
+        //log_debug("gostraight right run step!\n");
+		if (front_obstacle == obstacleSignal||(&cliff_valueB)->cliffValue0 == 1)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1168,6 +1124,116 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
                 ////log_debug("left obstacle,ready goto COLLISION_LEFT_RIGHTRUN_STEP\n");
                 collision_left_rightrun_step_status = 0;
                 right_running_step_status = COLLISION_LEFT_RIGHTRUN_STEP;
+                break;
+            }
+        }
+		else if (my_abs(current_pose->x) > half_map_wide - 2*GRIDHEIGHT)
+        {
+            ////log_debug("current pose x arrived width max!\n");
+            right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
+            break;
+        }
+        else if (my_abs(current_pose->y) > half_map_wide - 2*GRIDHEIGHT)
+        {
+            ////log_debug("current pose y arrived width max!\n");
+            right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
+            break;
+        }
+		else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 170)
+        {
+            ////log_debug("backaward Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = 0;
+                angular_velocity = turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = 0;
+                angular_velocity = -turn_vel;
+                break;
+            }
+        }		
+		else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 175)
+        {
+            ////log_debug("backaward Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = correction_big_linear_vel;
+                angular_velocity = correction_big_turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = correction_big_linear_vel;
+                angular_velocity = -correction_big_turn_vel;
+                break;
+            }
+        }
+		
+        else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178)
+        {
+            ////log_debug("backaward Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = correction_linear_vel;
+                angular_velocity = correction_turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = correction_linear_vel;
+                angular_velocity = -correction_turn_vel;
+                break;
+            }
+        }
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 10)
+        {
+            ////log_debug("gostraight Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = 0;
+                angular_velocity = -turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = 0;
+                angular_velocity = turn_vel;
+                break;
+            }
+        }
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
+        {
+            ////log_debug("gostraight Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = correction_big_linear_vel;
+                angular_velocity = -correction_big_turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = correction_big_linear_vel;
+                angular_velocity = correction_big_turn_vel;
+                break;
+            }
+        }
+		
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2)
+        {
+            ////log_debug("gostraight Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = correction_linear_vel;
+                angular_velocity = -correction_turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = correction_linear_vel;
+                angular_velocity = correction_turn_vel;
                 break;
             }
         }
@@ -5305,49 +5371,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         break;
     case GOSTR_LEFTRUN_STEP:
         ////log_debug("gostraight left run step!\n");
-        if (my_abs(Yaw) > 90 && my_abs(Yaw) < 178)
-        {
-            ////log_debug("backaward Corrected heading angle !\n");
-            if (Yaw > 0)
-            {
-                linear_velocity = correction_linear_vel;
-                angular_velocity = correction_turn_vel;
-                break;
-            }
-            else
-            {
-                linear_velocity = correction_linear_vel;
-                angular_velocity = -correction_turn_vel;
-                break;
-            }
-        }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2)
-        {
-            ////log_debug("gostraight Corrected heading angle !\n");
-            if (Yaw > 0)
-            {
-                linear_velocity = correction_linear_vel;
-                angular_velocity = -correction_turn_vel;
-                break;
-            }
-            else
-            {
-                linear_velocity = correction_linear_vel;
-                angular_velocity = correction_turn_vel;
-                break;
-            }
-        }
-        else if (my_abs(current_pose->x) > half_map_wide-2*GRIDWIDTH)
-        {
-            left_running_step_status = FORWARD_BOUNDARY_LEFTRUN_STEP;
-            break;
-        }
-        else if (my_abs(current_pose->y) > half_map_wide-2*GRIDWIDTH)
-        {
-            left_running_step_status = FORWARD_BOUNDARY_LEFTRUN_STEP;
-            break;
-        }
-		else if (front_obstacle == obstacleSignal||(&cliff_valueB)->cliffValue0 == 1)
+	    if (front_obstacle == obstacleSignal||(&cliff_valueB)->cliffValue0 == 1)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5414,6 +5438,114 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
                 ////log_debug("left obstacle,ready goto COLLISION_LEFT_LEFTRUN_STEP\n");
                 collision_left_rightrun_step_status = 0;
                 left_running_step_status = COLLISION_LEFT_LEFTRUN_STEP;
+                break;
+            }
+        }
+		else if (my_abs(current_pose->x) > half_map_wide-2*GRIDWIDTH)
+        {
+            left_running_step_status = FORWARD_BOUNDARY_LEFTRUN_STEP;
+            break;
+        }
+        else if (my_abs(current_pose->y) > half_map_wide-2*GRIDWIDTH)
+        {
+            left_running_step_status = FORWARD_BOUNDARY_LEFTRUN_STEP;
+            break;
+        }
+		else if (my_abs(Yaw) > 90 && my_abs(Yaw) < 170)
+        {
+            ////log_debug("backaward Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = 0;
+                angular_velocity = turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = 0;
+                angular_velocity = -turn_vel;
+                break;
+            }
+        }
+		else if (my_abs(Yaw) > 90 && my_abs(Yaw) < 175)
+        {
+            ////log_debug("backaward Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = correction_big_linear_vel;
+                angular_velocity = correction_big_turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = correction_linear_vel;
+                angular_velocity = -correction_turn_vel;
+                break;
+            }
+        }
+        else if (my_abs(Yaw) > 90 && my_abs(Yaw) < 178)
+        {
+            ////log_debug("backaward Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = correction_linear_vel;
+                angular_velocity = correction_turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = correction_linear_vel;
+                angular_velocity = -correction_turn_vel;
+                break;
+            }
+        }
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 10)
+        {
+            ////log_debug("gostraight Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = 0;
+                angular_velocity = -turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = 0;
+                angular_velocity = turn_vel;
+                break;
+            }
+        }
+		
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
+        {
+            ////log_debug("gostraight Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = correction_big_linear_vel;
+                angular_velocity = -correction_big_turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = correction_big_linear_vel;
+                angular_velocity = correction_big_turn_vel;
+                break;
+            }
+        }
+		
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2)
+        {
+            ////log_debug("gostraight Corrected heading angle !\n");
+            if (Yaw > 0)
+            {
+                linear_velocity = correction_linear_vel;
+                angular_velocity = -correction_turn_vel;
+                break;
+            }
+            else
+            {
+                linear_velocity = correction_linear_vel;
+                angular_velocity = correction_turn_vel;
                 break;
             }
         }
