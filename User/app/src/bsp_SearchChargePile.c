@@ -345,7 +345,7 @@ void bsp_SearchChargePile(void)
 			{
 				if(ONLY_F_RX_WIDE)
 				{
-					if(++search.ONLY_F_RX_WIDE_CNT >= 50)
+					if(++search.ONLY_F_RX_WIDE_CNT >= 100)
 					{
 						search.ONLY_F_RX_WIDE_CNT = 0 ;
 						bsp_SetMotorSpeed(MotorLeft, 0);
