@@ -484,13 +484,13 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta, unsigned 
 	
 	if(cleanstrategy.isRunning)
 	{
-		if(obstacleSignal == CollisionNone)
-		{
-			if(IRSensorData_StrategyB[1] == 1 ) obstacleSignal = CollisionLeft;
-			if(IRSensorData_StrategyB[5] == 1 ) obstacleSignal = CollisionRight;
-			if(IRSensorData_StrategyB[3] == 1 ) obstacleSignal = CollisionAll;
-		}
-		
+//		if(obstacleSignal == CollisionNone)
+//		{
+//			if(IRSensorData_StrategyB[1] == 1 ) obstacleSignal = CollisionLeft;
+//			if(IRSensorData_StrategyB[5] == 1 ) obstacleSignal = CollisionRight;
+//			if(IRSensorData_StrategyB[3] == 1 ) obstacleSignal = CollisionAll;
+//		}
+		obstacleSignal = CollisionNone;
 		if(clean_strategyB(&current_pose,obstacleSignal) != ALL_CLEAN_COMPLETE)
 		{
 			//nothing...
@@ -627,7 +627,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 	
 #if  1	
 	
-	check_sensor_return_value =  check_sensor(obstacleSignal);
+	//check_sensor_return_value =  check_sensor(obstacleSignal);
 	
 	if( (check_sensor_return_value < 3 && check_sensor_return_value>0) && time_battery_return_origin_statues)
 	{
