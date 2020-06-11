@@ -79,8 +79,12 @@
 
 #define ONLY_F_RX_WIDE        ( (IR_FL_M ||  IR_FR_M) && F_NO_NARROW_SIGNAL && SL_NO_SIGNAL && SR_NO_SIGNAL)   
 
-
-
+/*
+**********************************************************************************************************
+                                               状态
+**********************************************************************************************************
+*/
+#define  SET_CW_CCW_LITTLE_FALSE()      {search.isInCW_LITTLE  = false; search.isInCCW_LITTLE = false;}
 
 typedef enum
 {
@@ -110,6 +114,12 @@ typedef struct
 	float angle;
 	uint32_t lastSIGNAL_Tick;
 	uint32_t ONLY_F_RX_WIDE_CNT;
+	
+	bool isInCW_LITTLE;  /*顺时针旋转的时候收到了前面的信号*/
+	bool isInCCW_LITTLE; /*逆时针旋转的时候收到了前面的信号*/
+	
+	bool isInCW_LITTLE_RX_F;  /*顺时针旋转的时候收到了前面的信号*/
+	bool isInCCW_LITTLE_RX_F; /*逆时针旋转的时候收到了前面的信号*/
 }Serach;
 
 
@@ -343,10 +353,12 @@ void bsp_SearchChargePile(void)
 			}
 			else
 			{
+				static bool isNeedOpenONLY_F_RX_WIDE = true;
 				if(ONLY_F_RX_WIDE)
 				{
-					if(++search.ONLY_F_RX_WIDE_CNT >= 100)
+					if(++search.ONLY_F_RX_WIDE_CNT >= 100 && isNeedOpenONLY_F_RX_WIDE)
 					{
+						isNeedOpenONLY_F_RX_WIDE = false;
 						search.ONLY_F_RX_WIDE_CNT = 0 ;
 						bsp_SetMotorSpeed(MotorLeft, 0);
 						bsp_SetMotorSpeed(MotorRight,0);
@@ -360,45 +372,74 @@ void bsp_SearchChargePile(void)
 					search.ONLY_F_RX_WIDE_CNT = 0 ;
 				}
 				
+				
+				if(search.isInCW_LITTLE)
+				{
+					if((IR_FL_M || IR_FR_M) && (!IR_FL_L && !IR_FL_R && !IR_FR_L && !IR_FR_R) )
+					{
+						search.ONLY_F_RX_WIDE_CNT = 0 ;
+						bsp_SetMotorSpeed(MotorLeft, 0);
+						bsp_SetMotorSpeed(MotorRight,0);
+						
+						search.action = 3 ;
+					}
+				}
+				
+				
 				if(ROTATE_CW_LITTLE)
 				{
 					bsp_SetMotorSpeed(MotorLeft, 7);
 					bsp_SetMotorSpeed(MotorRight,2);
+					
+					search.isInCW_LITTLE = true;
 				}
 				else if(ROTATE_CW_LITTLE)
 				{
 					bsp_SetMotorSpeed(MotorLeft, 2);
 					bsp_SetMotorSpeed(MotorRight,7);
+					search.isInCCW_LITTLE = true;
 				}
 				else if(ROTATE_CW)
 				{
 					bsp_SetMotorSpeed(MotorLeft, 2);
 					bsp_SetMotorSpeed(MotorRight,-2);
+					
+					SET_CW_CCW_LITTLE_FALSE();
 				}
 				else if(ROTATE_CCW)
 				{
 					bsp_SetMotorSpeed(MotorLeft, -2);
 					bsp_SetMotorSpeed(MotorRight,2);
+					
+					SET_CW_CCW_LITTLE_FALSE();
 				}
 				else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
 				{
 					bsp_SetMotorSpeed(MotorLeft, 3);
 					bsp_SetMotorSpeed(MotorRight,3);
+					
+					SET_CW_CCW_LITTLE_FALSE();
 				}
 				else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
 				{
 					bsp_SetMotorSpeed(MotorLeft, 3);
 					bsp_SetMotorSpeed(MotorRight,5);
+					
+					SET_CW_CCW_LITTLE_FALSE();
 				}
 				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
 				{
 					bsp_SetMotorSpeed(MotorLeft, 5);
 					bsp_SetMotorSpeed(MotorRight,3);
+					
+					SET_CW_CCW_LITTLE_FALSE();
 				}
 				else if(F_NO_NARROW_SIGNAL) 
 				{
 //					bsp_SetMotorSpeed(MotorLeft, 3);
 //					bsp_SetMotorSpeed(MotorRight,3);
+					
+					SET_CW_CCW_LITTLE_FALSE();
 				}
 			}
 		}break;
@@ -463,7 +504,8 @@ void bsp_SearchChargePile(void)
 		
 		case 5:
 		{
-			if(xTaskGetTickCount() - search.delay >= 3600  || bsp_CollisionScan() != CollisionNone)
+			//if(xTaskGetTickCount() - search.delay >= 3600  || bsp_CollisionScan() != CollisionNone)
+			if(bsp_CollisionScan() != CollisionNone)
 			{
 				
 				if(SL_NO_SIGNAL && FL_NO_SIGNAL && FR_NO_SIGNAL)  /*边是错的，则换边*/
