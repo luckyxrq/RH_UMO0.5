@@ -2840,9 +2840,14 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 	   switch(right_edge_dilemma_status)
     {
     case 0:
-        linear_velocity = 0;
+		linear_velocity = 0;
         angular_velocity = 0;
-        right_edge_dilemma_status =GOSTR_DILEMMA;
+	    DelimmaNumber=0;
+        right_edge_dilemma_status = 0;
+	    complete_flag = 2;
+//        linear_velocity = 0;
+//        angular_velocity = 0;
+//        right_edge_dilemma_status =GOSTR_DILEMMA;
         break;
     case GOSTR_DILEMMA:
         if(close_edge_max_x-close_edge_min_x<=2){
@@ -8058,10 +8063,12 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 	  switch(right_edge_dilemma_status)
     {
     case 0:
-        linear_velocity = 0;
-        angular_velocity = 0;
-        right_edge_dilemma_status =LEFT_DILEMMA_GOSTR_DILEMMA;
-        break;
+       		linear_velocity = 0;
+            angular_velocity = 0;
+            right_edge_dilemma_status=0;
+            DelimmaNumber=0;
+            complete_flag = 2;
+            break;
     case LEFT_DILEMMA_GOSTR_DILEMMA:
         if(close_edge_max_x-close_edge_min_x<=2){
             if(my_abs(Yaw)<=90){
