@@ -408,7 +408,17 @@ void bsp_SearchChargePile(void)
 		{
 			if(xTaskGetTickCount() - search.delay >= 3900)
 			{
-				search.action = 0 ;
+				if(FL_NO_SIGNAL && FR_NO_SIGNAL) /*平常的碰撞处理*/
+				{
+					bsp_SetMotorSpeed(MotorLeft, 0);
+					bsp_SetMotorSpeed(MotorRight,0);
+					
+					search.action = 10 ;
+				}
+				else
+				{
+					search.action = 0 ;
+				}
 			}
 			else
 			{
@@ -510,6 +520,25 @@ void bsp_SearchChargePile(void)
 		{
 			if(xTaskGetTickCount() - search.delay >= 3600 )
 			{
+				search.action = 1 ;
+			}
+		}break;
+		
+		case 10: /*从这里开始处理碰撞往复问题*/
+		{
+			search.angle = REAL_ANGLE();
+			bsp_SetMotorSpeed(MotorLeft, -3);
+			bsp_SetMotorSpeed(MotorRight,3);
+			++search.action;
+		}break;
+		
+		case 11:
+		{
+			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 60)) <= 10)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 3);
+				bsp_SetMotorSpeed(MotorRight,3);
+				search.delay = xTaskGetTickCount();
 				search.action = 1 ;
 			}
 		}break;
