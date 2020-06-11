@@ -193,6 +193,7 @@ short endedgedelimmy=0;
 
 uint8_t return_charge_station_flag = 0;
 
+bool edge_dilemma=false;
 
 //#########################################
 
@@ -434,6 +435,8 @@ void bsp_ResetCleanStrategyBStatus(void)
 	clill_start_update=false;
 	cliffruningStatus=false;
 	FunctionStatus=0;
+	
+	edge_dilemma=false;
 	//CurrentCleanTimeStamp  = 0;
 	
 	//Î»×Ë¸´Î»
@@ -482,12 +485,12 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta, unsigned 
 	
 	if(cleanstrategy.isRunning)
 	{
-		if(obstacleSignal == CollisionNone)
-		{
-			if(IRSensorData_StrategyB[1] == 1 ) obstacleSignal = CollisionLeft;
-			if(IRSensorData_StrategyB[5] == 1 ) obstacleSignal = CollisionRight;
-			if(IRSensorData_StrategyB[3] == 1 ) obstacleSignal = CollisionAll;
-		}
+//		if(obstacleSignal == CollisionNone)
+//		{
+//			if(IRSensorData_StrategyB[1] == 1 ) obstacleSignal = CollisionLeft;
+//			if(IRSensorData_StrategyB[5] == 1 ) obstacleSignal = CollisionRight;
+//			if(IRSensorData_StrategyB[3] == 1 ) obstacleSignal = CollisionAll;
+//		}
 		
 		if(clean_strategyB(&current_pose,obstacleSignal) != ALL_CLEAN_COMPLETE)
 		{
@@ -719,7 +722,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				FunctionStatus = RightRunningWorkStep(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
-					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>500){
+					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
 					selectside = 'L';
 					over_clean_finish = false;
 					OVERALL_CLEANING_STRATEGY  = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
@@ -728,11 +731,21 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					//log_debug("OVERALL_CLEANING_STRATEGY:A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
 					right_running_step_status = 0;
 					FunctionStatus = 0;
-					}else{
-					OVERALL_CLEANING_STRATEGY = 0;
-					//log_debug("OVERALL_CLEANING_STRATEGY:0... ! \n" );
-					right_running_step_status = 0;
-					FunctionStatus = 0;
+					}
+					else{
+						if(edge_dilemma==false){
+							edge_dilemma=true;
+							right_running_step_status =0;
+							OVERALL_CLEANING_STRATEGY =START_OVERALL_CLEANING_STRATEGY;
+							FunctionStatus=0;
+						}
+						else{
+							selectside='L';
+							over_clean_finish=false;
+							OVERALL_CLEANING_STRATEGY =RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+							right_running_step_status =0;
+							FunctionStatus=0;
+						}
 					}
 					break;
 				}
@@ -817,7 +830,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					else
 					{
 						temporary_wheel_pulse_r=wheel_pulse_r;
-						
+						edge_dilemma=false;
 						if(selectside == 'L') OVERALL_CLEANING_STRATEGY =  LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
 						if(selectside == 'R') OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
 						if(selectside == 'E') 
@@ -837,7 +850,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 				FunctionStatus = LeftRunningWorkStep(current_pose, obstacleSignal);
 				if (1 == FunctionStatus)
 				{
-					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>500){
+					if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
 					//selectside = 'E';
 					over_clean_finish = false;
 					//OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
@@ -851,15 +864,25 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 					left_running_step_status = 0;
 					FunctionStatus = 0;
 					break;
-					}else{
-					//##############################################################################
-					//##############################################################################
-					//##############################################################################
-					OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
-					left_running_step_status = 0;
-					FunctionStatus = 0;
-					break;	
 					}
+					else{
+						if(edge_dilemma==false){
+							edge_dilemma=true;
+							OVERALL_CLEANING_STRATEGY=LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+							left_running_step_status = 0;
+							FunctionStatus=0;
+						}
+						else{
+							over_clean_finish = false;
+							OVERALL_CLEANING_STRATEGY = EDGEWISERUN_CLEANING_STRATEGY;
+							bsp_StartEdgewiseRun();
+							EdgeWiseCleanTimeStamp  = xTaskGetTickCount();	
+							left_running_step_status = 0;
+							FunctionStatus = 0;
+							break;
+						}
+						break;
+					}       
 				}
 				break;
 			case EDGEWISERUN_CLEANING_STRATEGY:
@@ -2827,6 +2850,8 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     return complete_flag;
 }
 
+
+
 unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 {
     ////cout << " RightEdgeDilemma..............==============RightEdgeDilemma" << endl;
@@ -2836,52 +2861,38 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 	signed char j=0;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
-	log_debug("RightEdgeDilemma =======>>>,%x,\n",right_edge_dilemma_status);
+	//log_debug("RightEdgeDilemma =======>>>,%x,\n",right_edge_dilemma_status);
 	   switch(right_edge_dilemma_status)
     {
     case 0:
-		linear_velocity = 0;
+        linear_velocity = 0;
         angular_velocity = 0;
-	    DelimmaNumber=0;
-        right_edge_dilemma_status = 0;
-	    complete_flag = 2;
-//        linear_velocity = 0;
-//        angular_velocity = 0;
-//        right_edge_dilemma_status =GOSTR_DILEMMA;
+        right_edge_dilemma_status =GOSTR_DILEMMA;
         break;
     case GOSTR_DILEMMA:
-        if(close_edge_max_x-close_edge_min_x<=2){
-            if(my_abs(Yaw)<=90){
-                right_edge_dilemma_status =CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA;
-            }else{
-                right_edge_dilemma_status = YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
-            }
-
-        }
-        else{
-            if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-500){
-                if(my_abs(Yaw)<=90){
-                    right_edge_dilemma_status = COLLISION_YAW_LESS_ABS90_DILEMMA;
-                }
-                else{
-                    right_edge_dilemma_status = YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
-                }
-
-            }
-            else{
-                if(my_abs(Yaw)<=90){
-                    right_edge_dilemma_status =CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA;
-                }else{
-                    right_edge_dilemma_status =COLLISION_YAW_MORE_ABS90_DILEMMA;
-                }
-            }
-        }
-        DelimmaNumber++;
-        break;
-    case YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA:
+				if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-500){
+					if(my_abs(Yaw)<=90){
+						right_edge_dilemma_status = COLLISION_YAW_LESS_ABS90_DILEMMA;
+					}
+					else{
+						right_edge_dilemma_status = YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+					}
+				}
+				else{
+					if(my_abs(Yaw)<=90){
+						right_edge_dilemma_status =CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA;
+					}
+					else{
+						right_edge_dilemma_status =COLLISION_YAW_MORE_ABS90_DILEMMA;
+					}
+				}
+			DelimmaNumber++;
+			step=1;
+			break;
+		case YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (my_abs(Yaw)<5)
+        if (my_abs(Yaw)<10)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2917,7 +2928,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
     case CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA:
         linear_velocity = 0;
         angular_velocity =-turn_vel;
-        if (my_abs(Yaw)>175)
+        if (my_abs(Yaw)>170)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -2956,6 +2967,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         last_position_x = current_pose->x;
         last_position_y = current_pose->y;
         right_edge_dilemma_status = LOOP_TEN_NUM_DILEMMA;
+		    temporary_close_edge=close_edge;
         break;
     case LOOP_TEN_NUM_DILEMMA:
         linear_velocity = long_stra_vel;
@@ -2963,44 +2975,56 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_edge_dilemma_status = GOSTR_COLLISION_DILEMMA;
+					  step=1;
             break;
         }
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
+        if (my_abs(last_position_x - current_pose->x) > temporary_close_edge||my_abs(last_position_y - current_pose->y) > temporary_close_edge)
         {
             temporary_yaw = Yaw;
             right_edge_dilemma_status = GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
             break;
         }
         if(-105<Yaw&&Yaw<-60){
-			i=(current_pose->x+half_map_long)/100;
-			j=(current_pose->y+half_map_long-130)/100;			
-			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
-			}
-			else{
-				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
-				last_position_x = current_pose->x;
-				last_position_y = current_pose->y;
-				if(j>=2){
-					right_edge_dilemma_status=0;
-					DelimmaNumber=0;
-					complete_flag = 1;
-				}
-			}           
+					i=(current_pose->x+half_map_long)/100;
+					j=(current_pose->y+half_map_long-110)/100;			
+					if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+					}
+					else{
+						j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+						last_position_x = current_pose->x;
+						last_position_y = current_pose->y;
+						if(j==3){
+							right_edge_dilemma_status=0;
+							DelimmaNumber=0;
+							step=0;
+							complete_flag = 1;
+						}
+					}           
             break;
         }
-        if(current_pose->y>-3*return_origin_distance){
+        if(current_pose->y>-return_origin_distance){
             linear_velocity = 0;
             angular_velocity = 0;
-			DelimmaNumber=0;
+			      DelimmaNumber=0;
             right_edge_dilemma_status = 0;
-			complete_flag = 2;
+					  step=0;
+			      complete_flag = 2;
             break;
         }
         if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){
-            linear_velocity = 0;
+			            linear_velocity = 0;
             angular_velocity = 0;
-            right_edge_dilemma_status = COMPLETE_EL_DRYM;
+			      DelimmaNumber=0;
+            right_edge_dilemma_status = 0;
+					  step=0;
+			      complete_flag = 2;
             break;
+			
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//					  step=1;
+//            right_edge_dilemma_status = COMPLETE_EL_DRYM;
+//            break;
         }
         break;
     case COMPLETE_EL_DRYM:
@@ -3019,11 +3043,13 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
                 }else{
                     right_edge_dilemma_status=0;
                     DelimmaNumber=0;
+									  step=0;
                     complete_flag = 2;
                 }
             }else{
                 right_edge_dilemma_status=0;
                 DelimmaNumber=0;
+							  step=0;
                 complete_flag = 2;
             }
         }
@@ -3084,14 +3110,25 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         }
         break;
     case GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA:
+			 if (-105<Yaw&&Yaw<-60)
+        {
+          last_position_x = current_pose->x;
+          last_position_y = current_pose->y;
+					temporary_close_edge=dilemma_close_edge;
+          right_edge_dilemma_status = LOOP_TEN_NUM_DILEMMA;
+					break;
+        }
         linear_velocity = 0;
         angular_velocity =-turn_vel;
-        if (my_abs(temporary_yaw - Yaw) > 30)
+        if (my_abs(temporary_yaw - Yaw) > 30||(-105<Yaw&&Yaw<-60))
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
-            right_edge_dilemma_status =COLLISION_YAW_LESS_ABS90_DILEMMA;
-            break;
+					linear_velocity = 0;
+          angular_velocity = 0;
+          last_position_x = current_pose->x;
+          last_position_y = current_pose->y;
+					temporary_close_edge=dilemma_close_edge;
+          right_edge_dilemma_status = LOOP_TEN_NUM_DILEMMA;
+					break;
         }
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1 )
         {
@@ -3125,6 +3162,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         angular_velocity = 0;
         last_position_x = current_pose->x;
         last_position_y = current_pose->y;
+		    temporary_close_edge=close_edge;
         right_edge_dilemma_status = GOSTR_CYM_DILEMMA;
         break;
     case GOSTR_CYM_DILEMMA:
@@ -3133,61 +3171,87 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_edge_dilemma_status = GOSTR_COLLISION_CYM_DILEMMA;
+					  step=1;
             break;
         }
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
+        if (my_abs(last_position_x - current_pose->x) > temporary_close_edge)
         {
             temporary_yaw = Yaw;
+					  step=2;
+            right_edge_dilemma_status = GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
+            break;
+        }
+				 if (my_abs(last_position_y - current_pose->y) > temporary_close_edge)
+        {
+            temporary_yaw = Yaw;
+					  step=2;
             right_edge_dilemma_status = GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
             break;
         }
         if(Yaw<-75&&Yaw>-120){
-            i=(current_pose->x+half_map_long)/100;
-			j=(current_pose->y+half_map_long-130)/100;			
-			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
-			}
-			else{
-				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
-				last_position_x = current_pose->x;
-				last_position_y = current_pose->y;
-				if(j>=2){
-					right_edge_dilemma_status=0;
-					DelimmaNumber=0;
-					complete_flag = 1;
-				}
-			}           
+					i=(current_pose->x+half_map_long)/100;
+					j=(current_pose->y+half_map_long-110)/100;			
+					if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+					}
+					else{
+						j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+						last_position_x = current_pose->x;
+						last_position_y = current_pose->y;
+						if(j==3){
+							right_edge_dilemma_status=0;
+							DelimmaNumber=0;
+							step=0;
+							complete_flag = 1;
+						}
+					}           
             break;
         }
-        if( current_pose->y>-3*return_origin_distance){
-			linear_velocity = 0;
+        if( current_pose->y>-return_origin_distance){
+			      linear_velocity = 0;
             angular_velocity = 0;
-			DelimmaNumber=0;
+			      DelimmaNumber=0;
             right_edge_dilemma_status = 0;
-			complete_flag = 2;
+					  step=0;
+			      complete_flag = 2;
             break;
         }
         if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+500){
-            linear_velocity = 0;
+						      linear_velocity = 0;
             angular_velocity = 0;
-            right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+			      DelimmaNumber=0;
+            right_edge_dilemma_status = 0;
+					  step=0;
+			      complete_flag = 2;
             break;
         }
         break;
 
     case GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA:
+			 if (Yaw<-75&&Yaw>-120)
+        {
+            last_position_x = current_pose->x;
+            last_position_y = current_pose->y;
+					  temporary_close_edge=dilemma_close_edge;
+            right_edge_dilemma_status =GOSTR_CYM_DILEMMA;
+            break;
+        }
         linear_velocity = 0;
         angular_velocity =turn_vel;
         if (my_abs(temporary_yaw - Yaw) > 30)
         {
-            linear_velocity = 0;
+			linear_velocity = 0;
             angular_velocity = 0;
-            right_edge_dilemma_status =COLLISION_YAW_MORE_ABS90_DILEMMA;
+            last_position_x = current_pose->x;
+            last_position_y = current_pose->y;
+			temporary_close_edge=dilemma_close_edge;
+            right_edge_dilemma_status =GOSTR_CYM_DILEMMA;
             break;
         }
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             linear_velocity = 0;
             angular_velocity = 0;
+					  step=1;
             right_edge_dilemma_status = GOSTR_COLLISION_CYL_DILEMMA;
             break;
         }
@@ -3283,11 +3347,13 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
                 }else{
                     right_edge_dilemma_status=0;
                     DelimmaNumber=0;
+									  step=0;
                     complete_flag = 2;
                 }
             }else{
                 right_edge_dilemma_status=0;
                 DelimmaNumber=0;
+							  step=0;
                 complete_flag = 2;
             }
         }
@@ -3295,6 +3361,480 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
     }
     return complete_flag;
 }
+
+
+
+
+//unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
+//{
+//    ////cout << " RightEdgeDilemma..............==============RightEdgeDilemma" << endl;
+//    int Yaw;
+//    unsigned char complete_flag = 0;
+//	signed char i=0;
+//	signed char j=0;
+//    Yaw = current_pose->orientation;
+//	Yaw = Yaw /100;
+//	log_debug("RightEdgeDilemma =======>>>,%x,\n",right_edge_dilemma_status);
+//	   switch(right_edge_dilemma_status)
+//    {
+//    case 0:
+//		linear_velocity = 0;
+//        angular_velocity = 0;
+//	    DelimmaNumber=0;
+//        right_edge_dilemma_status = 0;
+//	    complete_flag = 2;
+////        linear_velocity = 0;
+////        angular_velocity = 0;
+////        right_edge_dilemma_status =GOSTR_DILEMMA;
+//        break;
+//    case GOSTR_DILEMMA:
+//        if(close_edge_max_x-close_edge_min_x<=2){
+//            if(my_abs(Yaw)<=90){
+//                right_edge_dilemma_status =CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA;
+//            }else{
+//                right_edge_dilemma_status = YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+//            }
+
+//        }
+//        else{
+//            if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-500){
+//                if(my_abs(Yaw)<=90){
+//                    right_edge_dilemma_status = COLLISION_YAW_LESS_ABS90_DILEMMA;
+//                }
+//                else{
+//                    right_edge_dilemma_status = YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+//                }
+
+//            }
+//            else{
+//                if(my_abs(Yaw)<=90){
+//                    right_edge_dilemma_status =CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA;
+//                }else{
+//                    right_edge_dilemma_status =COLLISION_YAW_MORE_ABS90_DILEMMA;
+//                }
+//            }
+//        }
+//        DelimmaNumber++;
+//        break;
+//    case YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = turn_vel;
+//        if (my_abs(Yaw)<5)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =COLLISION_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = CCLOCK_TARGET_YAW_MORE_ABS178_COLLISION_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case CCLOCK_TARGET_YAW_MORE_ABS178_COLLISION_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity =-turn_vel;
+//        if (my_abs(Yaw)>175)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =COLLISION_YAW_MORE_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = GOSTR_CYL_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case GOSTR_CYL_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case COLLISION_YAW_LESS_ABS90_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = 0;
+//        last_position_x = current_pose->x;
+//        last_position_y = current_pose->y;
+//        right_edge_dilemma_status = LOOP_TEN_NUM_DILEMMA;
+//        break;
+//    case LOOP_TEN_NUM_DILEMMA:
+//        linear_velocity = long_stra_vel;
+//        angular_velocity =0;
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            right_edge_dilemma_status = GOSTR_COLLISION_DILEMMA;
+//            break;
+//        }
+//        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
+//        {
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
+//            break;
+//        }
+//        if(-105<Yaw&&Yaw<-60){
+//			i=(current_pose->x+half_map_long)/100;
+//			j=(current_pose->y+half_map_long-130)/100;			
+//			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+//			}
+//			else{
+//				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+//				last_position_x = current_pose->x;
+//				last_position_y = current_pose->y;
+//				if(j>=2){
+//					right_edge_dilemma_status=0;
+//					DelimmaNumber=0;
+//					complete_flag = 1;
+//				}
+//			}           
+//            break;
+//        }
+//        if(current_pose->y>-3*return_origin_distance){
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//			DelimmaNumber=0;
+//            right_edge_dilemma_status = 0;
+//			complete_flag = 2;
+//            break;
+//        }
+//        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = COMPLETE_EL_DRYM;
+//            break;
+//        }
+//        break;
+//    case COMPLETE_EL_DRYM:
+//        linear_velocity = 0;
+//        angular_velocity = 0;
+//        if(!detection_close_edge){
+//            detection_close_edge=true;
+//        }
+//        else{
+//            detection_close_edge=false;
+//            if(detection_close==true){
+//                detection_close=false;
+//                if(DelimmaNumber<2){
+//                    DelimmaNumber++;
+//                    right_edge_dilemma_status =CCLOCK_TARGET_YAW_MORE_ABS178_DILEMMA;
+//                }else{
+//                    right_edge_dilemma_status=0;
+//                    DelimmaNumber=0;
+//                    complete_flag = 2;
+//                }
+//            }else{
+//                right_edge_dilemma_status=0;
+//                DelimmaNumber=0;
+//                complete_flag = 2;
+//            }
+//        }
+//        break;
+//    case GOSTR_COLLISION_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = turn_vel;
+//        if (my_abs(Yaw - temporary_yaw) > 15)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =COLLISION_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS90_COLLISION_DILEMMA ;
+//            break;
+//        }
+//        break;
+//    case CLOCK_TARGET_YAW_LESS_ABS90_COLLISION_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity =-turn_vel;
+//        if (my_abs(temporary_yaw - Yaw) > 30)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =COLLISION_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1 )
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = TURN_CCLOCK_TARGET_YAW_LESS_135_DETAL_YAW_MORE_30_COLLISION_WE;
+//            break;
+//        }
+//        break;
+
+//    case TURN_CCLOCK_TARGET_YAW_LESS_135_DETAL_YAW_MORE_30_COLLISION_WE:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
+//        }
+//        break;
+//    case COLLISION_YAW_MORE_ABS90_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = 0;
+//        last_position_x = current_pose->x;
+//        last_position_y = current_pose->y;
+//        right_edge_dilemma_status = GOSTR_CYM_DILEMMA;
+//        break;
+//    case GOSTR_CYM_DILEMMA:
+//        linear_velocity = long_stra_vel;
+//        angular_velocity =0;
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            right_edge_dilemma_status = GOSTR_COLLISION_CYM_DILEMMA;
+//            break;
+//        }
+//        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
+//        {
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
+//            break;
+//        }
+//        if(Yaw<-75&&Yaw>-120){
+//            i=(current_pose->x+half_map_long)/100;
+//			j=(current_pose->y+half_map_long-130)/100;			
+//			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+//			}
+//			else{
+//				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+//				last_position_x = current_pose->x;
+//				last_position_y = current_pose->y;
+//				if(j>=2){
+//					right_edge_dilemma_status=0;
+//					DelimmaNumber=0;
+//					complete_flag = 1;
+//				}
+//			}           
+//            break;
+//        }
+//        if( current_pose->y>-3*return_origin_distance){
+//			linear_velocity = 0;
+//            angular_velocity = 0;
+//			DelimmaNumber=0;
+//            right_edge_dilemma_status = 0;
+//			complete_flag = 2;
+//            break;
+//        }
+//        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+500){
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+//            break;
+//        }
+//        break;
+
+//    case GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity =turn_vel;
+//        if (my_abs(temporary_yaw - Yaw) > 30)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =COLLISION_YAW_MORE_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = GOSTR_COLLISION_CYL_DILEMMA;
+//            break;
+//        }
+//        break;
+
+//    case GOSTR_COLLISION_CYL_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
+//        }
+//        break;
+
+//    case GOSTR_COLLISION_CYM_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA ;
+//            break;
+//        }
+//        break;
+//    case CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity =-turn_vel;
+//        if (my_abs(Yaw - temporary_yaw) > 15)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =COLLISION_YAW_MORE_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS3_COLLISION_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case CLOCK_TARGET_YAW_LESS_ABS3_COLLISION_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA ;
+//            break;
+//        }
+//        break;
+
+//    case DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = 0;
+//        if(!detection_close_edge){
+//            detection_close_edge=true;
+//        }
+//        else{
+//            detection_close_edge=false;
+//            if(detection_close==true){
+//                detection_close=false;
+//                if(DelimmaNumber<2){
+//                    DelimmaNumber++;
+//                    right_edge_dilemma_status = YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+//                }else{
+//                    right_edge_dilemma_status=0;
+//                    DelimmaNumber=0;
+//                    complete_flag = 2;
+//                }
+//            }else{
+//                right_edge_dilemma_status=0;
+//                DelimmaNumber=0;
+//                complete_flag = 2;
+//            }
+//        }
+//        break;
+//    }
+//    return complete_flag;
+//}
+
+
 
 
 unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
@@ -3706,6 +4246,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     }
     return complete_flag;
 }
+
 
 
 
@@ -4176,6 +4717,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
 
 
 
+
 unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obstacleSignal)
 {
     int Yaw;
@@ -4335,6 +4877,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
     }
     return complete_flag;
 }
+
 
 unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSignal)
 {
@@ -8051,70 +8594,62 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
 
 
 
+
+
 unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 {
     int Yaw;
     unsigned char complete_flag = 0;
-	signed char i=0;
-	signed char j=0;
+	  signed char i=0;
+	  signed char j=0;
     Yaw = current_pose->orientation;
-	Yaw = Yaw /100;
-	log_debug("right_edge_dilemma_status =======>>>,%x,\n",right_edge_dilemma_status);
+	  Yaw = Yaw /100;
+	//log_debug("right_edge_dilemma_status =======>>>,%x,\n",right_edge_dilemma_status);
 	  switch(right_edge_dilemma_status)
     {
     case 0:
-       		linear_velocity = 0;
-            angular_velocity = 0;
-            right_edge_dilemma_status=0;
-            DelimmaNumber=0;
-            complete_flag = 2;
-            break;
-    case LEFT_DILEMMA_GOSTR_DILEMMA:
-        if(close_edge_max_x-close_edge_min_x<=2){
-            if(my_abs(Yaw)<=90){
-                right_edge_dilemma_status =LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
-            }else{
-                right_edge_dilemma_status = LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
-            }
-        }
-        else{
-            if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-500){
-                if(my_abs(Yaw)<=90){
-                    right_edge_dilemma_status = LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
-                }
-                else{
-                    right_edge_dilemma_status = LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
-                }
-
-            }
-            else{
-                if(my_abs(Yaw)<=90){
-                    right_edge_dilemma_status =LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
-                }else{
-                    right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA;
-                }
-            }
-        }
-        DelimmaNumber++;
-        break;
-    case LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA:
         linear_velocity = 0;
-        angular_velocity =-turn_vel;
-        if (my_abs(Yaw)<5)
-        {
-            linear_velocity = 0;
-            angular_velocity = 0;
-            right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
-            break;
-        }
-        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
-        {
-            linear_velocity = 0;
-            angular_velocity = 0;
-            right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION_DILEMMA;
-            break;
-        }
+        angular_velocity = 0;
+        right_edge_dilemma_status =LEFT_DILEMMA_GOSTR_DILEMMA;
         break;
+    case LEFT_DILEMMA_GOSTR_DILEMMA:
+				if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-500){
+					if(my_abs(Yaw)<=90){
+						right_edge_dilemma_status = LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
+					}
+					else{
+						right_edge_dilemma_status = LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+					}
+				}
+				else{
+					if(my_abs(Yaw)<=90){
+						right_edge_dilemma_status =LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
+					}
+					else{
+						right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA;
+					}
+				}
+				step=1;
+				DelimmaNumber++;
+				break;
+		case LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA:
+				linear_velocity = 0;
+				angular_velocity =-turn_vel;
+				if (my_abs(Yaw)<10)
+				{
+						linear_velocity = 0;
+						angular_velocity = 0;
+						right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
+						break;
+				}
+				if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+				{
+						linear_velocity = 0;
+						angular_velocity = 0;
+						right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION_DILEMMA;
+						break;
+				}
+				break;
     case LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION_DILEMMA:
         if(turn_start_update == 0)
         {
@@ -8136,7 +8671,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
     case LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA:
         linear_velocity = 0;
         angular_velocity =turn_vel;
-        if (my_abs(Yaw)>175)
+        if (my_abs(Yaw)>170)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -8174,6 +8709,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         angular_velocity = 0;
         last_position_x = current_pose->x;
         last_position_y = current_pose->y;
+		    temporary_close_edge=close_edge;
         right_edge_dilemma_status = LEFT_DILEMMA_LOOP_TEN_NUM_DILEMMA;
         break;
     case LEFT_DILEMMA_LOOP_TEN_NUM_DILEMMA:
@@ -8181,45 +8717,64 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         angular_velocity =0;
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
-            right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_DILEMMA;
-            break;
+          right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_DILEMMA;
+					step=1;
+          break;
         }
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
+        if (my_abs(last_position_x - current_pose->x) > temporary_close_edge)
         {
-            temporary_yaw = Yaw;
-            right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
-            break;
+          temporary_yaw = Yaw;
+          right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
+          break;
+        }
+				 if (my_abs(last_position_y - current_pose->y) > temporary_close_edge)
+        {
+          temporary_yaw = Yaw;
+					step=2;
+          right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
+          break;
         }
         if(60<Yaw&&Yaw<105){
-			i=(current_pose->x+half_map_long)/100;
-			j=(current_pose->y+half_map_long+130)/100;			
-			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
-			}
-			else{
-				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
-				last_position_x = current_pose->x;
-				last_position_y = current_pose->y;
-				if(j>=2){
-					right_edge_dilemma_status=0;
-					DelimmaNumber=0;
-					complete_flag = 1;
-				}
-			}           
+					i=(current_pose->x+half_map_long)/100;
+					j=(current_pose->y+half_map_long+110)/100;			
+					if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+					}
+					else{
+						j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+						last_position_x = current_pose->x;
+						last_position_y = current_pose->y;
+						if(j==3){
+							right_edge_dilemma_status=0;
+							DelimmaNumber=0;
+							step=0;
+							complete_flag = 1;
+						}
+					}           
             break;
         }
-        if(my_abs(current_pose->y)<3*return_origin_distance){
+        if(my_abs(current_pose->y)<return_origin_distance){
+			      linear_velocity = 0;
+            angular_velocity = 0;
+            right_edge_dilemma_status=0;
+            DelimmaNumber=0;
+					  step=0;
+            complete_flag = 2;
+            break;
+        }
+        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){						      			
 			linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status=0;
             DelimmaNumber=0;
+					  step=0;
             complete_flag = 2;
             break;
-        }
-        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){
-            linear_velocity = 0;
-            angular_velocity = 0;
-            right_edge_dilemma_status = COMPLETE_LEFT_DILEMMA;
-            break;
+			
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//					  step=1;
+//            right_edge_dilemma_status = COMPLETE_LEFT_DILEMMA;
+//            break;
         }
         break;
     case COMPLETE_LEFT_DILEMMA:
@@ -8238,11 +8793,13 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                 }else{
                     right_edge_dilemma_status=0;
                     DelimmaNumber=0;
+									  step=0;
                     complete_flag = 2;
                 }
             }else{
                 right_edge_dilemma_status=0;
                 DelimmaNumber=0;
+							  step=0;
                 complete_flag = 2;
             }
         }
@@ -8303,19 +8860,31 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         }
         break;
     case LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA:
+			   if( 60<Yaw && Yaw<105)
+        { 
+					last_position_x = current_pose->x;
+					last_position_y = current_pose->y;
+					right_edge_dilemma_status = LEFT_DILEMMA_LOOP_TEN_NUM_DILEMMA;
+					temporary_close_edge=dilemma_close_edge;
+          break;
+        }
         linear_velocity = 0;
         angular_velocity =turn_vel;
         if (my_abs(temporary_yaw - Yaw) > 30)
-        {
-            linear_velocity = 0;
-            angular_velocity = 0;
-            right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
-            break;
+        { 
+					linear_velocity = 0;
+					angular_velocity = 0;
+					last_position_x = current_pose->x;
+					last_position_y = current_pose->y;
+					right_edge_dilemma_status = LEFT_DILEMMA_LOOP_TEN_NUM_DILEMMA;
+					temporary_close_edge=dilemma_close_edge;
+          break;
         }
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
+					  step=1;
             right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS87_COLLISION_DILEMMA;
             break;
         }
@@ -8344,6 +8913,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         angular_velocity = 0;
         last_position_x = current_pose->x;
         last_position_y = current_pose->y;
+		    temporary_close_edge=close_edge;
         right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_CYM_DILEMMA;
         break;
     case LEFT_DILEMMA_GOSTR_CYM_DILEMMA:
@@ -8354,64 +8924,86 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_CYM_DILEMMA;
             break;
         }
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
+        if (my_abs(last_position_x - current_pose->x) > temporary_close_edge||my_abs(last_position_y - current_pose->y) > temporary_close_edge)
         {
             temporary_yaw = Yaw;
             right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
             break;
         }
         if(Yaw<120&&Yaw>75){
-            i=(current_pose->x+half_map_long)/100;
-			j=(current_pose->y+half_map_long+130)/100;			
-			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
-			}
-			else{
-				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
-				last_position_x = current_pose->x;
-				last_position_y = current_pose->y;
-				if(j>=2){
-					right_edge_dilemma_status=0;
-					DelimmaNumber=0;
-					complete_flag = 1;
-				}
-			}           
-            break;
+					i=(current_pose->x+half_map_long)/100;
+					j=(current_pose->y+half_map_long+110)/100;			
+					if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+					}
+					else{
+						j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+						last_position_x = current_pose->x;
+						last_position_y = current_pose->y;
+						if(j==2){
+							right_edge_dilemma_status=0;
+							DelimmaNumber=0;
+							step=0;
+							complete_flag = 1;
+						}
+					}
+					break;
         }
-        if(my_abs(current_pose->y)<3*return_origin_distance){
-			linear_velocity = 0;
+        if(my_abs(current_pose->y)<return_origin_distance){
+			      linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status=0;
             DelimmaNumber=0;
+					  step=0;
             complete_flag = 2;
             break;
         }
         if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+500){
-            linear_velocity = 0;
+			linear_velocity = 0;
             angular_velocity = 0;
-            right_edge_dilemma_status=LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+            right_edge_dilemma_status=0;
+            DelimmaNumber=0;
+			step=0;
+            complete_flag = 2;
             break;
+//			
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//					  step=1;
+//            right_edge_dilemma_status=LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+//            break;
         }
         break;
 
     case LEFT_DILEMMA_GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA:
+			if (Yaw>75&&Yaw<120)
+        {
+           last_position_x = current_pose->x;
+           last_position_y = current_pose->y;
+					 temporary_close_edge=dilemma_close_edge;
+					 right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_CYM_DILEMMA;
+           break;
+        }
         linear_velocity = 0;
         angular_velocity =-turn_vel;
         if (my_abs(temporary_yaw - Yaw) > 30)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
-            right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA;
-            break;
+					 linear_velocity = 0;
+           angular_velocity = 0;
+           last_position_x = current_pose->x;
+           last_position_y = current_pose->y;
+					 temporary_close_edge=dilemma_close_edge;
+					 right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_CYM_DILEMMA;
+           break;
         }
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1 )
         {
             linear_velocity = 0;
             angular_velocity = 0;
+					  step=1;
             right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_CYL_DILEMMA;
             break;
         }
         break;
-
     case LEFT_DILEMMA_GOSTR_COLLISION_CYL_DILEMMA:
         if(turn_start_update == 0)
         {
@@ -8502,11 +9094,13 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                 }else{
                     right_edge_dilemma_status=0;
                     DelimmaNumber=0;
+									  step=0;
                     complete_flag = 2;
                 }
             }else{
                 right_edge_dilemma_status=0;
                 DelimmaNumber=0;
+							  step=0;
                 complete_flag = 2;
             }
         }
@@ -8514,6 +9108,475 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
     }
     return complete_flag;
 }
+
+
+
+//unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
+//{
+//    int Yaw;
+//    unsigned char complete_flag = 0;
+//	signed char i=0;
+//	signed char j=0;
+//    Yaw = current_pose->orientation;
+//	Yaw = Yaw /100;
+//	log_debug("right_edge_dilemma_status =======>>>,%x,\n",right_edge_dilemma_status);
+//	  switch(right_edge_dilemma_status)
+//    {
+//    case 0:
+//       		linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status=0;
+//            DelimmaNumber=0;
+//            complete_flag = 2;
+//            break;
+//    case LEFT_DILEMMA_GOSTR_DILEMMA:
+//        if(close_edge_max_x-close_edge_min_x<=2){
+//            if(my_abs(Yaw)<=90){
+//                right_edge_dilemma_status =LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
+//            }else{
+//                right_edge_dilemma_status = LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+//            }
+//        }
+//        else{
+//            if(my_abs(current_pose->x+half_map_wide)<=100*close_edge_max_x-500){
+//                if(my_abs(Yaw)<=90){
+//                    right_edge_dilemma_status = LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
+//                }
+//                else{
+//                    right_edge_dilemma_status = LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+//                }
+
+//            }
+//            else{
+//                if(my_abs(Yaw)<=90){
+//                    right_edge_dilemma_status =LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
+//                }else{
+//                    right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA;
+//                }
+//            }
+//        }
+//        DelimmaNumber++;
+//        break;
+//    case LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity =-turn_vel;
+//        if (my_abs(Yaw)<5)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_COLLISION_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity =turn_vel;
+//        if (my_abs(Yaw)>175)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_CYL_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case LEFT_DILEMMA_GOSTR_CYL_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = 0;
+//        last_position_x = current_pose->x;
+//        last_position_y = current_pose->y;
+//        right_edge_dilemma_status = LEFT_DILEMMA_LOOP_TEN_NUM_DILEMMA;
+//        break;
+//    case LEFT_DILEMMA_LOOP_TEN_NUM_DILEMMA:
+//        linear_velocity = long_stra_vel;
+//        angular_velocity =0;
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_DILEMMA;
+//            break;
+//        }
+//        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
+//        {
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
+//            break;
+//        }
+//        if(60<Yaw&&Yaw<105){
+//			i=(current_pose->x+half_map_long)/100;
+//			j=(current_pose->y+half_map_long+130)/100;			
+//			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+//			}
+//			else{
+//				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+//				last_position_x = current_pose->x;
+//				last_position_y = current_pose->y;
+//				if(j>=2){
+//					right_edge_dilemma_status=0;
+//					DelimmaNumber=0;
+//					complete_flag = 1;
+//				}
+//			}           
+//            break;
+//        }
+//        if(my_abs(current_pose->y)<3*return_origin_distance){
+//			linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status=0;
+//            DelimmaNumber=0;
+//            complete_flag = 2;
+//            break;
+//        }
+//        if(my_abs(current_pose->x+half_map_wide)>=100*close_edge_max_x-500){
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = COMPLETE_LEFT_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case COMPLETE_LEFT_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = 0;
+//        if(!detection_close_edge){
+//            detection_close_edge=true;
+//        }
+//        else{
+//            detection_close_edge=false;
+//            if(detection_close==true){
+//                detection_close=false;
+//                if(DelimmaNumber<2){
+//                    DelimmaNumber++;
+//                    right_edge_dilemma_status =LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
+//                }else{
+//                    right_edge_dilemma_status=0;
+//                    DelimmaNumber=0;
+//                    complete_flag = 2;
+//                }
+//            }else{
+//                right_edge_dilemma_status=0;
+//                DelimmaNumber=0;
+//                complete_flag = 2;
+//            }
+//        }
+//        break;
+//    case LEFT_DILEMMA_GOSTR_COLLISION_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = -turn_vel;
+//        if (my_abs(Yaw - temporary_yaw) > 15)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_COLLISION_DILEMMA ;
+//            break;
+//        }
+//        break;
+//    case LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_COLLISION_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity =turn_vel;
+//        if (my_abs(temporary_yaw - Yaw) > 30)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1 )
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS87_COLLISION_DILEMMA;
+//            break;
+//        }
+//        break;
+
+//    case LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS87_COLLISION_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
+//        }
+//        break;
+//    case LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = 0;
+//        last_position_x = current_pose->x;
+//        last_position_y = current_pose->y;
+//        right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_CYM_DILEMMA;
+//        break;
+//    case LEFT_DILEMMA_GOSTR_CYM_DILEMMA:
+//        linear_velocity = long_stra_vel;
+//        angular_velocity =0;
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_CYM_DILEMMA;
+//            break;
+//        }
+//        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
+//        {
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
+//            break;
+//        }
+//        if(Yaw<120&&Yaw>75){
+//            i=(current_pose->x+half_map_long)/100;
+//			j=(current_pose->y+half_map_long+130)/100;			
+//			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+//			}
+//			else{
+//				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+//				last_position_x = current_pose->x;
+//				last_position_y = current_pose->y;
+//				if(j>=2){
+//					right_edge_dilemma_status=0;
+//					DelimmaNumber=0;
+//					complete_flag = 1;
+//				}
+//			}           
+//            break;
+//        }
+//        if(my_abs(current_pose->y)<3*return_origin_distance){
+//			linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status=0;
+//            DelimmaNumber=0;
+//            complete_flag = 2;
+//            break;
+//        }
+//        if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+500){
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status=LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
+//            break;
+//        }
+//        break;
+
+//    case LEFT_DILEMMA_GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity =-turn_vel;
+//        if (my_abs(temporary_yaw - Yaw) > 30)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1 )
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_CYL_DILEMMA;
+//            break;
+//        }
+//        break;
+
+//    case LEFT_DILEMMA_GOSTR_COLLISION_CYL_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA;
+//        }
+//        break;
+
+//    case LEFT_DILEMMA_GOSTR_COLLISION_CYM_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            temporary_yaw = Yaw;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA ;
+//            break;
+//        }
+//        break;
+//    case LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity =turn_vel;
+//        if (my_abs(Yaw - temporary_yaw) > 15)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA;
+//            break;
+//        }
+//        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS87_DILEMMA;
+//            break;
+//        }
+//        break;
+//    case LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS87_DILEMMA:
+//        if(turn_start_update == 0)
+//        {
+//            turn_start_x = current_pose->x;
+//            turn_start_y = current_pose->y;
+//            turn_start_update = 1;
+//        }
+//        linear_velocity = -long_stra_vel;
+//        angular_velocity = 0;
+//        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+//        {
+//            linear_velocity = 0;
+//            angular_velocity = 0;
+//            turn_start_update = 0;
+//            right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA ;
+//            break;
+//        }
+//        break;
+
+//    case LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA:
+//        linear_velocity = 0;
+//        angular_velocity = 0;
+//        if(!detection_close_edge){
+//            detection_close_edge=true;
+//        }
+//        else{
+//            detection_close_edge=false;
+//            if(detection_close==true){
+//                detection_close=false;
+//                if(DelimmaNumber<2){
+//                    DelimmaNumber++;
+//                    right_edge_dilemma_status = LEFT_DILEMMA_YAW_MORE_ABS90_LESS_ABS176_CCLOCK_LESS_ABS90_MORE_ABS4_CLOCK_DILEMMA;
+//                }else{
+//                    right_edge_dilemma_status=0;
+//                    DelimmaNumber=0;
+//                    complete_flag = 2;
+//                }
+//            }else{
+//                right_edge_dilemma_status=0;
+//                DelimmaNumber=0;
+//                complete_flag = 2;
+//            }
+//        }
+//        break;
+//    }
+//    return complete_flag;
+//}
+
+
+
 
 unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleSignal)
 {

@@ -757,6 +757,7 @@
 #define turn_backward_distance 10//3
 #define second_turn_backward_distance 10//4
 #define close_edge 160
+#define dilemma_close_edge 80
 #define return_origin_distance 200
 
 #define left_cliff 1
