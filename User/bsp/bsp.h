@@ -74,6 +74,7 @@
 
 #define UINT32_T_MAX      0xFFFFFFFF
 
+#define ABS(val) ( (val)>0?(val):-(val) )
 
 /*
 	EXTI9_5_IRQHandler 的中断服务程序分散在几个独立的 bsp文件中。
