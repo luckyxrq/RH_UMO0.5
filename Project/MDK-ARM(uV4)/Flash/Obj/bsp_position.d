@@ -94,4 +94,5 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
+.\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
 .\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

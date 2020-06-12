@@ -14,7 +14,7 @@
 
 #define MAX_SEARCH_TICK         (1000*60*5)
 
-#define REAL_ANGLE()      (bsp_AngleReadRaw()*0.01F)
+
 
 #define _SEARCH_PILE_GO_BACK_PULSE                  (10/(3.14F*70)*1024)
 

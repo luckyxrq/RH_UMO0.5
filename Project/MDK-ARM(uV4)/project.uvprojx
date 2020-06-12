@@ -562,11 +562,6 @@
               <FilePath>..\..\User\app\src\bsp_Position.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_SearchChargePile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_SearchChargePile.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_param.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_param.c</FilePath>
@@ -645,6 +640,16 @@
               <FileName>bsp_UploadMap.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_UploadMap.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_SearchChargePile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_SearchChargePile.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_SearchPileSubProc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_SearchPileSubProc.c</FilePath>
             </File>
           </Files>
         </Group>
