@@ -1,8 +1,8 @@
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\bsp\src\bsp_tim_pwm.c
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\bsp\bsp.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\bsp_tim_pwm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\bsp_tim_pwm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\bsp_tim_pwm.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\bsp_tim_pwm.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\FreeRTOS\include\portable.h
@@ -41,10 +41,10 @@
 .\flash\obj\bsp_tim_pwm.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\flash\obj\bsp_tim_pwm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\flash\obj\bsp_tim_pwm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\flash\obj\bsp_tim_pwm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\bsp_tim_pwm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_tim_pwm.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\bsp_tim_pwm.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\bsp_tim_pwm.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\bsp_tim_pwm.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\main.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
@@ -79,7 +79,6 @@
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_speaker.h
-.\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_Gridmap.h
@@ -94,3 +93,5 @@
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
+.\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_SearchChargePile.h
+.\flash\obj\bsp_tim_pwm.o: ..\..\User\app\inc\bsp_searchpilesubproc.h

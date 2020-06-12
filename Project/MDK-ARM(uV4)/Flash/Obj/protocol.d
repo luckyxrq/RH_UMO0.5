@@ -2,7 +2,7 @@
 .\flash\obj\protocol.o: ..\..\User\tuya_sdk\wifi.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Include\core_cm3.h
-.\flash\obj\protocol.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\system_stm32f10x.h
@@ -36,7 +36,7 @@
 .\flash\obj\protocol.o: ..\..\User\tuya_sdk\mcu_api.h
 .\flash\obj\protocol.o: ..\..\User\bsp\bsp.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\protocol.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
 .\flash\obj\protocol.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\portable.h
@@ -45,10 +45,10 @@
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\mpu_wrappers.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\task.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\list.h
-.\flash\obj\protocol.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\flash\obj\protocol.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\flash\obj\protocol.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\protocol.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\protocol.o: ..\..\User\main.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\protocol.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
@@ -83,7 +83,6 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_speaker.h
-.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_Gridmap.h
@@ -94,3 +93,5 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_SearchChargePile.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_searchpilesubproc.h

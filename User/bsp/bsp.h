@@ -203,7 +203,6 @@
 #include "bsp_DustBox.h"
 #include "bsp_speaker.h"
 #include "bsp_RunControl.h"
-#include "bsp_SearchChargePile.h"
 #include "bsp_assistJudgeDirection.h"
 #include "bsp_StopMode.h"
 #include "bsp_Gridmap.h"
@@ -216,6 +215,11 @@
 #include "bsp_passwd.h"
 #include "bsp_UploadMap.h"
 #include "bsp_CleanStrategyRandom.h"
+#include "bsp_SearchChargePile.h"
+#include "bsp_searchpilesubproc.h"
+
+/* 上面头文件函数的宏封装 */
+#define REAL_ANGLE()      (bsp_AngleReadRaw()*0.01F)
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
