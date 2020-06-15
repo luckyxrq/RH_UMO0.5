@@ -399,7 +399,7 @@ static void bsp_DetectKey(uint8_t i)
 		如果没有初始化按键函数，则报错
 		if (s_tBtn[i].IsKeyDownFunc == 0)
 		{
-			printf("Fault : DetectButton(), s_tBtn[i].IsKeyDownFunc undefine");
+			DEBUG("Fault : DetectButton(), s_tBtn[i].IsKeyDownFunc undefine");
 		}
 	*/
 

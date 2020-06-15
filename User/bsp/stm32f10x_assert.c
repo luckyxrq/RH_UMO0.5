@@ -47,7 +47,7 @@ void assert_failed(uint8_t* file, uint32_t line)
 { 
 	/* 
 		用户可以添加自己的代码报告源代码文件名和代码行号，比如将错误文件和行号打印到串口
-		printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+		DEBUG("Wrong parameters value: file %s on line %d\r\n", file, line) */
 	*/
 	
 	/* 这是一个死循环，断言失败时程序会在此处死机，以便于用户查错 */

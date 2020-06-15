@@ -9,7 +9,7 @@
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
-#define main_debug(format, ...) //printf (format, ##__VA_ARGS__)
+
 /*
 **********************************************************************************************************
                                             函数声明
@@ -481,7 +481,7 @@ void  App_Printf(char *format, ...)
     /* 互斥信号量 */
     xSemaphoreTake(xMutex, portMAX_DELAY);
     
-    printf("%s", buf_str);
+    DEBUG("%s", buf_str);
     
     xSemaphoreGive(xMutex);
 }

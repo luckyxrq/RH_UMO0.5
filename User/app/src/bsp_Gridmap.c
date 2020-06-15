@@ -3,11 +3,7 @@
 
 
 
-#if STRATEGY_DEBUG	
-#define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)
-#else
-#define gridmap_debug(format, ...) 
-#endif
+
 
 CLIFFADCVALUE cliff_valueB;
 GridMap gridmap;

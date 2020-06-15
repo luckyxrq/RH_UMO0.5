@@ -89,11 +89,11 @@
 
 #define UNUSED(x)    (void)(x) /*防止出现未使用的警告*/
 
-#define DEBUG_EN      1 
-#define LOG_EN        1 
-#define WARNING_EN    1 
-#define STRATEGY_DEBUG      0 //0 关闭串口调试
-#define STRATEGY_DEBUG	 0 //0 关闭串口调试
+#define DEBUG_EN            1 
+#define LOG_EN              1 
+#define WARNING_EN          1 
+#define STRATEGY_DEBUG      0
+#define WIFI_DEBUG_EN       0
 
 #if DEBUG_EN
 #define DEBUG(format, ...) printf (format, ##__VA_ARGS__)
@@ -111,6 +111,22 @@
 #define WARNING(format, ...) printf (format, ##__VA_ARGS__)
 #else
 #define WARNING(format, ...)
+#endif
+
+#if WIFI_DEBUG_EN
+#define WIFI_DEBUG(format, ...) printf (format, ##__VA_ARGS__)
+#else
+#define WIFI_DEBUG(format, ...)
+#endif
+	
+#if STRATEGY_DEBUG	
+#define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)
+#define main_debug(format, ...)    printf (format, ##__VA_ARGS__)
+#define log_debug(format, ...)     printf (format, ##__VA_ARGS__)
+#else
+#define gridmap_debug(format, ...) 
+#define main_debug(format, ...) 
+#define log_debug(format, ...) 
 #endif
 
 

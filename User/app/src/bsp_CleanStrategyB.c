@@ -205,11 +205,7 @@ static double my_abs(double x){
     return x;}
 
 	
-#if STRATEGY_DEBUG	
-#define log_debug(format, ...) printf (format, ##__VA_ARGS__)
-#else
-#define log_debug(format, ...) 
-#endif
+
 	
 //static void log_debug(char* str)
 //{

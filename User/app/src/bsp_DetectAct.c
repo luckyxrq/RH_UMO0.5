@@ -421,9 +421,9 @@ void bsp_DetectDeal(void)
 #if 0	
 	for(i=0;i<10;i++)
 	{
-		printf("[%d]:%4d",i,(uint32_t)adcRealTime[i]);
+		DEBUG("[%d]:%4d",i,(uint32_t)adcRealTime[i]);
 	}
-	printf("\r\n");
+	DEBUG("\r\n");
 #endif
 	
 #if 0	
