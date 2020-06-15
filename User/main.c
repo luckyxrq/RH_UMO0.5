@@ -364,8 +364,6 @@ static void vTaskPerception(void *pvParameters)
 		DEBUG("BatteryVoltage:%f\n",((bsp_GetFeedbackVoltage(eBatteryVoltage) * 430 / 66.5) + bsp_GetFeedbackVoltage(eBatteryVoltage) + 0.2F));
 #endif
 		
-		
-		
 
 		bsp_StrategyRandomProc();
 		
@@ -391,6 +389,11 @@ static void vTaskPerception(void *pvParameters)
 		
 		/*更新跳崖传感器信息*/
 		bsp_GetCliffStates();
+		
+		if(count % 50 == 0)
+		{
+			bsp_SendReportFrameWithCRC16();
+		}
 		
 		count++;
         vTaskDelay(5);	
