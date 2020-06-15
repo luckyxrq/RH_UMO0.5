@@ -637,7 +637,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 		
 		if(check_sensor_return_value  == time_out_flag )
 		{
-			bsp_SperkerPlay(Song5); /*返回充电*/
+			//bsp_SperkerPlay(Song5); /*返回充电*/
 			log_debug("时间到，返回充电！\n");
 			bsp_StopVacuum();
 			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
