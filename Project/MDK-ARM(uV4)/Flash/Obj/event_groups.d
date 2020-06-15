@@ -1,8 +1,8 @@
 .\flash\obj\event_groups.o: ..\..\FreeRTOS\event_groups.c
-.\flash\obj\event_groups.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\event_groups.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\event_groups.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\event_groups.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\event_groups.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\event_groups.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\event_groups.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\event_groups.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\event_groups.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\event_groups.o: ..\..\FreeRTOS\include\portable.h

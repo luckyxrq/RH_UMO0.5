@@ -1,7 +1,7 @@
 #include "bsp.h"
 #include <math.h>
 
-#define STRATEGY_DEBUG	 0 //0 ¹Ø±Õ´®¿Úµ÷ÊÔ
+
 
 #if STRATEGY_DEBUG	
 #define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)

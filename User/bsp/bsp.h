@@ -92,7 +92,8 @@
 #define DEBUG_EN      1 
 #define LOG_EN        1 
 #define WARNING_EN    1 
-
+#define STRATEGY_DEBUG      0 //0 关闭串口调试
+#define STRATEGY_DEBUG	 0 //0 关闭串口调试
 
 #if DEBUG_EN
 #define DEBUG(format, ...) printf (format, ##__VA_ARGS__)

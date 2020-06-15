@@ -1,7 +1,7 @@
 #include "bsp.h"
 #include <math.h>
 
-#define STRATEGY_DEBUG      0 //0 ¹Ø±Õ´®¿Úµ÷ÊÔ
+
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
