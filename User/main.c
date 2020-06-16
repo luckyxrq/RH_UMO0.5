@@ -143,15 +143,53 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     
     uint32_t count = 0 ;
-	vTaskDelay(1000);
+	vTaskDelay(2000);
+	
+	uint32_t StartTimeStamp = 0;
+	uint32_t StopTimeStamp = 0;
+	uint8_t IsOnWork = 0;
+	uint32_t work_time = 30*1000;//60*60*1000;
+	uint32_t rest_time = 10*1000;//15*60*1000;
+	
+	
+	IsOnWork = 1;
+	bsp_PutKey(KEY_LONG_CLEAN);
+	StartTimeStamp  = xTaskGetTickCount();
+	
+	
     while(1)
     {
+		count++;
         /* 处理按键事件 */
 		main_debug("bsp_KeyProc() \n");
         bsp_KeyProc();
 		
 		
-        if(count++ % 10 == 0)
+		if(count % 10 == 0)
+		{
+			if(IsOnWork)
+			{
+				if(xTaskGetTickCount() - StartTimeStamp > work_time ) 
+				{
+					IsOnWork = 0;
+					bsp_PutKey(KEY_DOWN_CLEAN);
+					bsp_CleanZeroYaw();
+					StopTimeStamp  = xTaskGetTickCount();
+				}
+			}else
+			{
+				if(xTaskGetTickCount() - StopTimeStamp > rest_time ) 
+				{
+					IsOnWork = 1;
+					bsp_PutKey(KEY_LONG_CLEAN);
+					StartTimeStamp  = xTaskGetTickCount();
+				}
+			}
+			
+		}
+		
+		
+        if(count % 10 == 0)
         {
 #if 0 
 			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
