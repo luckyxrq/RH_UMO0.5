@@ -63,6 +63,7 @@ typedef struct
 	volatile bool isRunning;
 	volatile uint32_t action;
 	volatile uint32_t delay;
+	volatile uint16_t cnt;
 }DustBoxProc;
 
 static DustBoxProc dustBoxProc;
@@ -73,6 +74,7 @@ void bsp_StartDustBoxProc(void)
 	dustBoxProc.action = 0 ;
 	dustBoxProc.delay = 0 ;
 	dustBoxProc.isRunning = true;
+	dustBoxProc.cnt = 0;
 }
 
 void bsp_StopDustBoxProc(void)
@@ -106,11 +108,14 @@ void bsp_DustBoxProc(void)
 			state = bsp_DustBoxGetState();
 			if(state == DustBoxOutside)
 			{
-				bsp_OffsiteSuspend();
-				/*尘盒取出*/
-				bsp_SperkerPlay(Song9);
-				
-				dustBoxProc.action++;
+				dustBoxProc.cnt++;
+				if(dustBoxProc.cnt > 300)
+				{
+					bsp_OffsiteSuspend();
+					/*尘盒取出*/
+					bsp_SperkerPlay(Song9);
+					dustBoxProc.action++;
+				} 
 			}
 		}break;
 		
@@ -119,8 +124,12 @@ void bsp_DustBoxProc(void)
 			state = bsp_DustBoxGetState();
 			if(state == DustBoxInside)
 			{
-				bsp_SperkerPlay(Song10);
-				dustBoxProc.action = 0 ;
+				if(dustBoxProc.cnt > 0) dustBoxProc.cnt--;
+				if(dustBoxProc.cnt == 0)
+				{					
+					bsp_SperkerPlay(Song10);
+					dustBoxProc.action = 0 ;
+				}
 				
 			}
 		}break;
