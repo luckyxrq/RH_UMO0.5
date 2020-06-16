@@ -90,8 +90,9 @@ bool bsp_DX8_CMD(void)
 	char *dx8Version;
 	unsigned char rv;
 	
-	dx8_Init();
+	UNUSED(dx8Version);
 	
+	dx8_Init();
 	/*获取加密版本信息*/
 	dx8Version = DX8_Version();
 	DEBUG("加密版本：%s\r\n",dx8Version);
@@ -100,7 +101,11 @@ bool bsp_DX8_CMD(void)
 	rv = AuthenticationTest();
 	if(rv)
 	{
-		DEBUG("FAIL\r\n");
+		
+		while(1)
+		{
+			DEBUG("FAIL\r\n");
+		};
 	}
 	else
 	{
@@ -109,3 +114,4 @@ bool bsp_DX8_CMD(void)
 	
 	return rv;
 }
+

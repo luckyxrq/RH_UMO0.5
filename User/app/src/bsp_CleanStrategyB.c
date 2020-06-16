@@ -515,104 +515,108 @@ void ResetReturnChargeStationStatus(void)
 
 static uint8_t check_sensor(unsigned char obstacleSignal)
 {
-	float batteryvoltage;
-//	uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent,batteryvoltage;
-//	IRSensorData_StrategyB
-//	cliff_valueB
+	UNUSED(obstacleSignal);
 	
-	check_sensor_cnt++;
-	if (check_sensor_cnt >201) check_sensor_cnt = 0;
-	
-	//π§◊˜ ±º‰ºÏ≤‚
-	if(check_sensor_cnt%100){
-		
-		CurrentCleanTimeStamp = xTaskGetTickCount();
-		RealWorkTime = CurrentCleanTimeStamp - LastCleanTimeStamp;
-		if(RealWorkTime >CLEAN_WORK_TIME) return time_out_flag;
-	}
-	
-	//µÁ≥ÿµÁ¡øºÏ≤‚
-	if(check_sensor_cnt%100){
-		
-	//	motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*100;
-	//	motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight)*100;
-	//	motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum)*100;
-	//	motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush)*100;
-	//	motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush)*100;
-	//	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
-		batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
-		batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-		if(batteryvoltage < 13)   //12v-16v
-		{
-			batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
-			batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-			if(batteryvoltage < 13)
-			{
-				return  battery_out_flag;//battery_out_flag;
-			}
-		}
-	}
-	
-	//≈ˆ◊≤“Ï≥£ºÏ≤‚
-	if(check_sensor_cnt%20){
-		if(obstacleSignal<3)   
-		{
-			collision_error_cnt++;
-			if(collision_error_cnt > 200) //4.5s
-			{
-				collision_error_cnt = 0;
-				return collision_error;
-			}
-		}else{
-			collision_error_cnt = 0;
-		}
-	}
-	//Ã¯—¬“Ï≥£ºÏ≤‚
-	if(check_sensor_cnt%20){
-		if(cliff_valueB.cliffValue0 == 1)   
-		{
-			cliff_error_cnt++;
-			if(cliff_error_cnt >100) 
-			{
-				cliff_error_cnt = 0;
-				return cliff_error;
-			}
-		}else{
-			cliff_error_cnt = 0;
-		}
-	}
-	//Õ”¬›“«“Ï≥£ºÏ≤‚
-	if(check_sensor_cnt%50){
-		if(bsp_AngleReadRaw() == 0)   
-		{
-			imu_error_cnt++;
-			if(imu_error_cnt >50)
-			{
-				imu_error_cnt = 0;
-				return imu_error;
-			}
-		}else{
-			imu_error_cnt = 0;
-		}
-	}
-#if 0	
-	//∫ÏÕ‚“Ï≥£ºÏ≤‚
-	if(check_sensor_cnt%200){
-		if(IRSensorData_StrategyB[1] == 1 || IRSensorData_StrategyB[3] == 1 || \
-		   IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1) 
-		{
-			infra_collision_error_cnt++;
-			if(infra_collision_error_cnt>500)
-			{
-				infra_collision_error_cnt = 0;
-				return infra_collision_error;
-			}
-		}else{
-			infra_collision_error_cnt = 0;
-		}	
-	}
-#endif		
 	return 0;
+	
+//	float batteryvoltage;
+////	uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent,batteryvoltage;
+////	IRSensorData_StrategyB
+////	cliff_valueB
+//	
+//	check_sensor_cnt++;
+//	if (check_sensor_cnt >201) check_sensor_cnt = 0;
+//	
+//	//π§◊˜ ±º‰ºÏ≤‚
+//	if(check_sensor_cnt%100){
+//		
+//		CurrentCleanTimeStamp = xTaskGetTickCount();
+//		RealWorkTime = CurrentCleanTimeStamp - LastCleanTimeStamp;
+//		if(RealWorkTime >CLEAN_WORK_TIME) return time_out_flag;
+//	}
+//	
+//	//µÁ≥ÿµÁ¡øºÏ≤‚
+//	if(check_sensor_cnt%100){
+//		
+//	//	motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*100;
+//	//	motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight)*100;
+//	//	motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum)*100;
+//	//	motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush)*100;
+//	//	motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush)*100;
+//	//	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
+//		batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+//		batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
+//		if(batteryvoltage < 13)   //12v-16v
+//		{
+//			batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
+//			batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
+//			if(batteryvoltage < 13)
+//			{
+//				return  battery_out_flag;//battery_out_flag;
+//			}
+//		}
+//	}
+//	
+//	//≈ˆ◊≤“Ï≥£ºÏ≤‚
+//	if(check_sensor_cnt%20){
+//		if(obstacleSignal<3)   
+//		{
+//			collision_error_cnt++;
+//			if(collision_error_cnt > 200) //4.5s
+//			{
+//				collision_error_cnt = 0;
+//				return collision_error;
+//			}
+//		}else{
+//			collision_error_cnt = 0;
+//		}
+//	}
+//	//Ã¯—¬“Ï≥£ºÏ≤‚
+//	if(check_sensor_cnt%20){
+//		if(cliff_valueB.cliffValue0 == 1)   
+//		{
+//			cliff_error_cnt++;
+//			if(cliff_error_cnt >100) 
+//			{
+//				cliff_error_cnt = 0;
+//				return cliff_error;
+//			}
+//		}else{
+//			cliff_error_cnt = 0;
+//		}
+//	}
+//	//Õ”¬›“«“Ï≥£ºÏ≤‚
+//	if(check_sensor_cnt%50){
+//		if(bsp_AngleReadRaw() == 0)   
+//		{
+//			imu_error_cnt++;
+//			if(imu_error_cnt >50)
+//			{
+//				imu_error_cnt = 0;
+//				return imu_error;
+//			}
+//		}else{
+//			imu_error_cnt = 0;
+//		}
+//	}
+//#if 0	
+//	//∫ÏÕ‚“Ï≥£ºÏ≤‚
+//	if(check_sensor_cnt%200){
+//		if(IRSensorData_StrategyB[1] == 1 || IRSensorData_StrategyB[3] == 1 || \
+//		   IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1) 
+//		{
+//			infra_collision_error_cnt++;
+//			if(infra_collision_error_cnt>500)
+//			{
+//				infra_collision_error_cnt = 0;
+//				return infra_collision_error;
+//			}
+//		}else{
+//			infra_collision_error_cnt = 0;
+//		}	
+//	}
+//#endif		
+//	return 0;
 	
 }
 
