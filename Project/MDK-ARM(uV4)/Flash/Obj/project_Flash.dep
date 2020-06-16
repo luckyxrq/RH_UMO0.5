@@ -2702,7 +2702,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EDA087C)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE72AC0)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE2EA51)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5EE7449D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
+F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5EE823C6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
 I (..\..\User\bsp\bsp.h)(0x5EE74019)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5ED62BB4)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -5090,3 +5090,4 @@ F (..\..\FreeRTOS\portable\RVDS\ARM_CM3\portmacro.h)(0x5ED62BB6)()
 F (..\..\Doc\01.例程功能说明.txt)(0x5ED62BB4)()
 F (..\..\Doc\02.例程修改记录.txt)(0x5ED62BB4)()
 F (..\..\Doc\03.开发环境说明.txt)(0x5ED62BB4)()
+F (..\..\Doc\04.笔记.txt)(0x5EE82305)()
