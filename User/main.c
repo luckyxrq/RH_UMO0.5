@@ -718,7 +718,9 @@ static void bsp_KeyProc(void)
 				}
 					
 				bsp_StartUpdateCleanStrategyB();
+				
 				//bsp_StartEdgewiseRun();
+				//bsp_SetEdgeLeftRight(Dir_left);
 				
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);

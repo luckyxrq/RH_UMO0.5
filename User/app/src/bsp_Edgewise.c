@@ -49,6 +49,8 @@ typedef struct
 	uint8_t Left_Right;
 }EdgewiseRun;
 
+
+
 static EdgewiseRun edgewiseRun;
 static void bsp_EdgewiseRunStraightFast(void);
 static void bsp_EdgewiseRunStraightSlow(void);
@@ -115,12 +117,12 @@ void bsp_StopEdgewiseRun(void)
 
 void bsp_SetEdgeLeftRight(uint8_t Edg_dir)
 {
-	if(Edg_dir)
+	if(Edg_dir  == Dir_left)
 	{
-		edgewiseRun.Left_Right = 1;	
-	}else
+		edgewiseRun.Left_Right = Dir_left;	
+	}else if(Edg_dir  == Dir_right)
 	{
-		edgewiseRun.Left_Right = 0;
+		edgewiseRun.Left_Right = Dir_right;
 	}
 }
 
@@ -163,7 +165,11 @@ void bsp_EdgewiseRun(void)
 		
 		case 1:/*如果发生了碰撞，碰撞后退*/
 		{
-			float vol = bsp_GetInfraredVoltageRight();
+			float vol= 0 ;
+			
+			if(edgewiseRun.Left_Right == Dir_right ) vol = bsp_GetInfraredVoltageRight();
+			if(edgewiseRun.Left_Right == Dir_left ) vol = bsp_GetInfraredVoltageLeft();
+			
 			edgewiseRun.collision = bsp_CollisionScan();
 			if(bsp_CliffIsDangerous(CliffLeft)|| bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))
 			{
@@ -186,7 +192,10 @@ void bsp_EdgewiseRun(void)
 			/*向右靠近的过程中还需要检测靠近的时间，如果靠近了很久还是没能找到电压值，那么就是走到了尽头*/
 			else if(vol < 100)
 			{
-				bsp_EdgewiseTurnRightSlow();
+				//bsp_EdgewiseTurnRightSlow();
+				if(edgewiseRun.Left_Right == Dir_right ) bsp_EdgewiseTurnRightSlow();
+				if(edgewiseRun.Left_Right == Dir_left ) bsp_EdgewiseTurnLeftSlow();
+				
 				if(vol < 80)
 				{
 					
@@ -199,7 +208,9 @@ void bsp_EdgewiseRun(void)
 			}
 			else if(vol > 100)
 			{
-				bsp_EdgewiseTurnLeftSlow();
+				//bsp_EdgewiseTurnLeftSlow();
+				if(edgewiseRun.Left_Right == Dir_right ) bsp_EdgewiseTurnLeftSlow();
+				if(edgewiseRun.Left_Right == Dir_left ) bsp_EdgewiseTurnRightSlow();
 				edgewiseRun.possibleEnd = 0 ;
 			}
 
@@ -209,7 +220,9 @@ void bsp_EdgewiseRun(void)
 		{
 			if((xTaskGetTickCount() - edgewiseRun.delay >= 2000) || (bsp_GetCurrentBothPulse()-edgewiseRun.pulse)>=GO_BACK_PULSE)
 			{
-				bsp_RotateCCW();
+				//bsp_RotateCCW();
+				if(edgewiseRun.Left_Right == Dir_right ) bsp_RotateCCW();
+				if(edgewiseRun.Left_Right == Dir_left ) bsp_RotateCW();
 				/*获取角度和时间，转动固定角度，时间太久还没转到代表异常*/
 				edgewiseRun.angle = bsp_AngleRead();
 				edgewiseRun.delay = xTaskGetTickCount();
@@ -219,12 +232,28 @@ void bsp_EdgewiseRun(void)
 		
 		case 3:/*旋转一会儿，继续直行，回到状态1*/
 		{
-			float val = bsp_GetInfraredVoltageRight();
-			if(myabs(bsp_AngleAdd(edgewiseRun.angle ,20) - (bsp_AngleRead())) <= 2.0F ||
-				(val>=1.0F && val<=3.3F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=10.0F ))
-			{
-				bsp_EdgewiseRunStraightSlow();
-				edgewiseRun.action = 1;
+			float val = 0;
+			//bsp_GetInfraredVoltageRight();
+			if(edgewiseRun.Left_Right == Dir_right ) val = bsp_GetInfraredVoltageRight();
+			if(edgewiseRun.Left_Right == Dir_left ) val = bsp_GetInfraredVoltageLeft();
+			
+			if(edgewiseRun.Left_Right == Dir_right ){
+				if(myabs(bsp_AngleAdd(edgewiseRun.angle ,20) - (bsp_AngleRead())) <= 2.0F ||
+					(val>=1.0F && val<=3.3F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=10.0F ))
+				{
+					
+					bsp_EdgewiseRunStraightSlow();
+					edgewiseRun.action = 1;
+				}
+			}
+			if(edgewiseRun.Left_Right == Dir_left ){
+				if(myabs(bsp_AngleAdd(edgewiseRun.angle ,-20) - (bsp_AngleRead())) <= 2.0F ||
+					(val>=1.0F && val<=3.3F && myabs(bsp_AngleRead()-edgewiseRun.angle)>=10.0F ))
+				{
+					
+					bsp_EdgewiseRunStraightSlow();
+					edgewiseRun.action = 1;
+				}
 			}
 
 		}break;
@@ -235,20 +264,36 @@ void bsp_EdgewiseRun(void)
 			edgewiseRun.delay = xTaskGetTickCount();
 			
 			
-			bsp_PirouetteCW();
+			//bsp_PirouetteCW();
+			
+			if(edgewiseRun.Left_Right == Dir_right )  bsp_PirouetteCW();
+			if(edgewiseRun.Left_Right == Dir_left ) bsp_PirouetteCCW();
+			
 			edgewiseRun.action++;
 		}break;
 		
 		case 5:
 		{
-			float vol = bsp_GetInfraredVoltageRight();
+			float vol = 0;
+			if(edgewiseRun.Left_Right == Dir_right ) vol = bsp_GetInfraredVoltageRight();
+			if(edgewiseRun.Left_Right == Dir_left ) vol = bsp_GetInfraredVoltageLeft();
 			
-			
-			/*判断下旋转了太久了*/
-			if((xTaskGetTickCount() - edgewiseRun.delay)>= 3000 && 
-				myabs(bsp_AngleAdd(edgewiseRun.angle ,360) - (bsp_AngleRead())) <= 10.0F)
-			{
-				edgewiseRun.action = 0 ;
+			if(edgewiseRun.Left_Right == Dir_right ){
+				/*判断下旋转了太久了*/
+				if((xTaskGetTickCount() - edgewiseRun.delay)>= 3000 && 
+					ABS(edgewiseRun.angle - bsp_AngleRead()) <= 10.0F)
+				{
+					edgewiseRun.action = 0 ;
+				}
+			}
+			if(edgewiseRun.Left_Right == Dir_left ){
+				/*判断下旋转了太久了*/
+				if((xTaskGetTickCount() - edgewiseRun.delay)>= 3000 && 
+					//myabs(bsp_AngleAdd(edgewiseRun.angle ,-360) - (bsp_AngleRead())) <= 10.0F)
+					ABS(edgewiseRun.angle - bsp_AngleRead()) <= 10.0F)
+				{
+					edgewiseRun.action = 0 ;
+				}
 			}
 			
 			edgewiseRun.collision = bsp_CollisionScan();
