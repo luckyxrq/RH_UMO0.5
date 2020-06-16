@@ -148,8 +148,8 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 	uint32_t StartTimeStamp = 0;
 	uint32_t StopTimeStamp = 0;
 	uint8_t IsOnWork = 0;
-	uint32_t work_time = 30*1000;//60*60*1000;
-	uint32_t rest_time = 10*1000;//15*60*1000;
+	uint32_t work_time =  60*60*1000;
+	uint32_t rest_time =  15*60*1000;
 	
 	
 	IsOnWork = 1;
