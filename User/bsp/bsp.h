@@ -122,11 +122,11 @@
 #if STRATEGY_DEBUG	
 #define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)
 #define main_debug(format, ...)    printf (format, ##__VA_ARGS__)
-#define log_debug(format, ...)     printf (format, ##__VA_ARGS__)
+#define strategy_debug(format, ...)     printf (format, ##__VA_ARGS__)
 #else
 #define gridmap_debug(format, ...)  {}
 #define main_debug(format, ...)  {}
-#define log_debug(format, ...)  {}
+#define strategy_debug(format, ...)  {}
 #endif
 
 
