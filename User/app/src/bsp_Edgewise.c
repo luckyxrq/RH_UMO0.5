@@ -46,6 +46,7 @@ typedef struct
 	Collision collision;
 	uint32_t possibleEnd;
 	uint32_t ErlangGodStartTime ;
+	uint8_t Left_Right;
 }EdgewiseRun;
 
 static EdgewiseRun edgewiseRun;
@@ -77,6 +78,7 @@ void bsp_StartEdgewiseRun(void)
 	edgewiseRun.possibleEnd = 0 ;
 	edgewiseRun.ErlangGodStartTime = 0 ;
 	edgewiseRun.isRunning = true;
+	edgewiseRun.Left_Right = 0;
 	
 	/*Ïû³ý±àÒëÆ÷¾¯¸æ*/
 	UNUSED(bsp_EdgewiseRunStraightFast) ;
@@ -111,6 +113,16 @@ void bsp_StopEdgewiseRun(void)
 
 }
 
+void bsp_SetEdgeLeftRight(uint8_t Edg_dir)
+{
+	if(Edg_dir)
+	{
+		edgewiseRun.Left_Right = 1;	
+	}else
+	{
+		edgewiseRun.Left_Right = 0;
+	}
+}
 
 
 /*
