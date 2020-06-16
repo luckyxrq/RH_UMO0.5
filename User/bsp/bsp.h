@@ -11,8 +11,8 @@
 *********************************************************************************************************
 */
 
-#ifndef _BSP_H_
-#define _BSP_H
+#ifndef __BSP_H
+#define __BSP_H
 
 #define STM32_V4
 //#define STM32_X2
@@ -21,6 +21,8 @@
 #define OLD_BOARD      1 /*旧主板*/
 #define NEW_BOARD      2 /*新主板*/
 #define BOARD_VER      NEW_BOARD
+
+
 
 
 /* 检查是否定义了开发板型号 */
@@ -235,8 +237,12 @@
 #include "bsp_SearchChargePile.h"
 #include "bsp_searchpilesubproc.h"
 
-/* 上面头文件函数的宏封装 */
-#define REAL_ANGLE()      (bsp_AngleReadRaw()*0.01F)
+typedef enum
+{
+	CLEAN_CAR_NORMAL = 0 ,            /*普通正常运行模式*/
+	CLEAN_CAR_MAIN_BOARD_UPLOAD_DATA, /*主板工装上报数据模式*/
+}CleanCarRunMode;
+
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
@@ -244,6 +250,13 @@ void bsp_Idle(void);
 void BSP_Tick_Init (void);
 void bsp_InitFormAwaken(void);
 void bsp_CloseAllStateRun(void);
+void bsp_SetAppRunMode(CleanCarRunMode mode);
+CleanCarRunMode bsp_GetAppRunMode(void);
+
+/* 上面头文件函数的宏封装 */
+#define REAL_ANGLE()      (bsp_AngleReadRaw()*0.01F)
+
+
 #endif
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

@@ -23,6 +23,24 @@ extern void vSetupSysInfoTest(void);
 
 
 
+
+
+
+static CleanCarRunMode cleanCarRunMode;
+
+void bsp_SetAppRunMode(CleanCarRunMode mode)
+{
+	cleanCarRunMode = mode;
+}
+
+CleanCarRunMode bsp_GetAppRunMode(void)
+{
+	return cleanCarRunMode;
+}
+
+
+
+
 /*
 *********************************************************************************************************
 *	º¯ Êý Ãû: bsp_Init

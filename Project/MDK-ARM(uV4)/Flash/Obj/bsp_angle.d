@@ -96,4 +96,3 @@
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
 .\flash\obj\bsp_angle.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.c
-.\flash\obj\bsp_angle.o: ..\..\User\bsp\bsp.h
