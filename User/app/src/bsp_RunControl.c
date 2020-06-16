@@ -78,7 +78,7 @@ void bsp_PowerOnLedProc(void)
 	bsp_LedOn(LED_LOGO_POWER);
 	bsp_LedOn(LED_LOGO_CHARGE);
 	
-	for(i=0;i<10;i++)
+	for(i=0;i<6;i++)
 	{
 		bsp_LedToggle(LED_LOGO_CLEAN);
 		bsp_LedToggle(LED_LOGO_POWER);

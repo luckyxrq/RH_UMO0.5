@@ -65,7 +65,7 @@ void bsp_Init(void)
 	
 	bsp_AngleRst();
 	bsp_SwOn(SW_5V_EN_CTRL);
-	bsp_DelayMS(1000);
+	bsp_DelayMS(500);
 	bsp_SwOn(SW_3V3_EN_CTRL);
 	bsp_SwOn(SW_IR_POWER);
 	bsp_SwOn(SW_MOTOR_POWER);

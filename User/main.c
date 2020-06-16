@@ -143,7 +143,7 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
 {
     
     uint32_t count = 0 ;
-
+	vTaskDelay(1000);
     while(1)
     {
         /* 处理按键事件 */
@@ -288,8 +288,6 @@ static void vTaskPerception(void *pvParameters)
 	
 	//bsp_StartCliffTest();
 
-	vTaskDelay(2000);		
-	
 	bsp_InitCliffSW();
 	
 	
