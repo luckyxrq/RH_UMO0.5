@@ -240,7 +240,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 			   IRSensorData_StrategyB[4] == 1 || IRSensorData_StrategyB[6] == 1)
 			//if(IRSensorData_StrategyB[3] == 1 || IRSensorData_StrategyB[7] == 1)
 			{
-				cmd_linear_velocity = 0.7*cmd_linear_velocity;
+				cmd_linear_velocity = 0.5*cmd_linear_velocity;
 				
 				linear_velocity_IR = cmd_linear_velocity;
 				
@@ -290,8 +290,8 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 				if(speed_pid_cnt_ir <=20) speed_pid_cnt_ir +=1;
 				if(speed_pid_cnt_ir >20)  speed_pid_cnt_ir  =20; 
 				
-				if(cmd_linear_velocity >  40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity-40) + 40;	
-				if(cmd_linear_velocity < -40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity+40) - 40;	
+				if(cmd_linear_velocity >  40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(cmd_linear_velocity-40) + 40;	
+				if(cmd_linear_velocity < -40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(cmd_linear_velocity+40) - 40;	
 			}
 			else
 			{
@@ -989,6 +989,14 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         {
             linear_velocity = 0;
             angular_velocity = 0;
+			//有跳崖信息时 不进行补漏计算
+			if((&cliff_valueB)->cliffValue0 == 1)
+			{
+				collision_front_rightrun_step_status = 0;
+                right_running_step_status = COLLISION_FRONT_RIGHTRUN_STEP;
+                break;
+			}
+			
             if (my_abs(leakingsweep_x - current_pose->x) > 500 && my_abs(leakingsweep_y - current_pose->y) > 100)
             {
                 leakingsweep_x = current_pose->x;
@@ -5559,6 +5567,15 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         {
             linear_velocity = 0;
             angular_velocity = 0;
+			//有跳崖信息时 不进行补漏计算
+			if((&cliff_valueB)->cliffValue0 == 1)
+			{
+				collision_front_rightrun_step_status = 0;
+                left_running_step_status = COLLISION_FRONT_LEFTRUN_STEP;
+                break;
+			}
+			
+			
             if (my_abs(leakingsweep_x - current_pose->x) > 500 && my_abs(leakingsweep_y - current_pose->y) > 100)
             {
                 leakingsweep_x = current_pose->x;
