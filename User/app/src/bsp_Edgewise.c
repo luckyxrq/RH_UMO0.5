@@ -137,14 +137,20 @@ void bsp_SetEdgeLeftRight(uint8_t Edg_dir)
 */
 void bsp_EdgewiseRun(void)
 {
+	static unsigned char IRSensorData[10] = {0};
+	
 	if(!edgewiseRun.isRunning)
 		return ;
+	
+	bsp_GetAllIrIsObstacle(IRSensorData);
 	
 	switch(edgewiseRun.action)
 	{
 		case 0:/*进入沿边模式，首先直走*/
 		{
-			if(bsp_GetInfraRedAdcVoltage(IR7) >= 1.0F )
+			if( IRSensorData[2] == 1 || IRSensorData[7] == 1 || \
+			    IRSensorData[0] == 1 || IRSensorData[4] == 1 || \
+			    IRSensorData[6] == 1)
 			{
 				edgewiseRun.ErlangGodStartTime = xTaskGetTickCount() ;
 				bsp_EdgewiseRunStraightSlow();
