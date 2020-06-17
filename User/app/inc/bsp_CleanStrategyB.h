@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+
 #define RIGHTRUNNING_WORK_SETP        0x01
 #define LEFTRUNNING_WORK_SETP         0x02
 #define RIGHTRETURN_ORIGIN_WORK_SETP  0x03
@@ -974,10 +975,11 @@ unsigned char AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obsta
 
 //unsigned char CliffRuningWorkStep(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
 //unsigned char CloseEdgedMap(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
-void DetectionCloseEdge(void);
+unsigned char DetectionCloseEdge(void);
 unsigned char CliffCloseEdge(void);
 void MoreMap(POSE *current_pose);
 void LessMap(void);
+void StartUpdateGridMap(void);
 
 
 uint8_t GetReturnChargeStationStatus(void);
