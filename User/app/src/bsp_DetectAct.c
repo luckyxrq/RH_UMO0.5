@@ -38,7 +38,8 @@ static float adcRealTime[PIN_MAP_MAX];    //判断是否有障碍物
 static uint8_t adcIsSunlight[PIN_MAP_MAX];//是否是太阳光
 
 static void bsp_ADCConfig(void);
-
+//static float adcRealTime[PIN_MAP_MAX];    //判断是否有障碍物
+float adcRealTime[PIN_MAP_MAX];    //判断是否有障碍物
 
 /*
 *********************************************************************************************************

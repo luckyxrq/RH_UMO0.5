@@ -216,6 +216,10 @@ short origin_thephi=0;
 signed char reverse_moremap=0;
 bool b_reverse_moremap=false;
 
+//float Clean_Strategy_Infrared[10];
+extern float adcRealTime[10];
+
+
 double my_abs(double x){
 	if(x<0){
 		x=-x;
@@ -338,7 +342,6 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 			if(rightVelocity<-300) rightVelocity = -300;
 		}
 	}
-	
 	
     bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
     bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
@@ -662,6 +665,12 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
     Yaw = current_pose->orientation;
     Yaw= Yaw/100;
     uint8_t check_sensor_return_value = 0;
+	
+//	Clean_Strategy_Infrared[8]=bsp_GetInfraredVoltageLeft();
+//	Clean_Strategy_Infrared[9]=bsp_GetInfraredVoltageRight();
+	
+//	Clean_Strategy_Infrared[8]=adcRealTime[8];
+//	Clean_Strategy_Infrared[9]=adcRealTime[9];
     
     
 #if  1	
@@ -734,15 +743,17 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
     //	}
     
 #endif
+	
+	
     
     current_pose->x=current_pose->x-x_error;
     current_pose->y=current_pose->y-y_error;
 	if(b_reverse_moremap==true){
 		if(reverse_moremap==1){
-			current_pose->x=current_pose->x-4000;
+			current_pose->x=current_pose->x-reverse_x_more_map;
 		}
 		else{
-			current_pose->x=current_pose->x+4000;
+			current_pose->x=current_pose->x+reverse_x_more_map;
 		}
 		
 	}
@@ -800,7 +811,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
     case START_OVERALL_CLEANING_STRATEGY:
         OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
         selectside = 'R';
-        //log_debug("OVERALL_CLEANING_STRATEGY:START_OVERALL_CLEANING_STRATEGY... ! \n" );
         break;
     case RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
         //log_debug("OVERALL_CLEANING_STRATEGY:RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY... ! \n" );
@@ -1140,7 +1150,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
                 break;
             }
         }
-				else if (my_abs(current_pose->x) > half_map_wide - 2*GRIDHEIGHT)
+		else if (my_abs(current_pose->x) > half_map_wide - 2*GRIDHEIGHT)
         {
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
@@ -1150,7 +1160,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
         }
-		   else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 170){
+		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 170){
 					if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -1163,7 +1173,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
 						break;
 				}
-			 else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 175){
+	    else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 175){
 					if (Yaw > 0)
             {
                 linear_velocity = correction_big_straight_vel;
@@ -1176,7 +1186,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
 						break;
 				}
-			else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178){
+		else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178){
             if (Yaw > 0)
             {
                 linear_velocity = correction_straight_vel;
@@ -1189,8 +1199,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
 						break;
         }
-				else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 10)
-        {
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 10){
             if (Yaw > 0)
             {
                 linear_velocity = 0;
@@ -1203,7 +1212,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
 						break;
         }
-				else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
         {
             if (Yaw > 0)
             {
