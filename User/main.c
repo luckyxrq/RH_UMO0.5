@@ -302,7 +302,7 @@ static void vTaskPerception(void *pvParameters)
 	
     while(1)
     {
-		//bsp_ComAnalysis();
+		bsp_ComAnalysis();
 		//bsp_CliffTest();
 		
 		//roll = bsp_IMU_GetData(ROLL)*100*0.01F;

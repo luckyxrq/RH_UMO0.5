@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5EE876AD)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5EE9B6B8)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5EE83863)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
@@ -21,7 +21,7 @@ I (..\..\FreeRTOS\include\croutine.h)(0x5EE8385D)
 I (..\..\FreeRTOS\include\semphr.h)(0x5EE8385D)
 I (..\..\FreeRTOS\include\event_groups.h)(0x5EE8385D)
 I (..\..\FreeRTOS\include\timers.h)(0x5EE8385D)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x5EE8385D)
 I (..\..\Libraries\CMSIS\Include\core_cm3.h)(0x5EE8385E)
 I (..\..\Libraries\CMSIS\Include\core_cmInstr.h)(0x5EE8385E)
@@ -55,7 +55,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -73,7 +73,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -105,7 +105,7 @@ I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\includes.h)(0x5EE83863)()
 F (..\..\User\SysInfoTest.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\sysinfotest.o --omf_browse .\flash\obj\sysinfotest.crf --depend .\flash\obj\sysinfotest.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -152,7 +152,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -170,7 +170,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -204,7 +204,7 @@ F (..\..\User\FreeRTOSConfig.h)(0x5EE83862)()
 F (..\..\User\main.h)(0x5EE83863)()
 F (..\..\User\app\src\paste.c)(0x5EE83862)()
 F (..\..\User\app\src\bsp_PowerSwitch.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_powerswitch.o --omf_browse .\flash\obj\bsp_powerswitch.crf --depend .\flash\obj\bsp_powerswitch.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -251,7 +251,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -269,7 +269,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -300,7 +300,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_Collision.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_collision.o --omf_browse .\flash\obj\bsp_collision.crf --depend .\flash\obj\bsp_collision.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -347,7 +347,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -365,7 +365,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -396,7 +396,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_Angle.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_angle.o --omf_browse .\flash\obj\bsp_angle.crf --depend .\flash\obj\bsp_angle.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -443,7 +443,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -461,7 +461,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -493,7 +493,7 @@ I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 I (..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.c)(0x5EE874E5)
 F (..\..\User\app\src\bsp_Action.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_action.o --omf_browse .\flash\obj\bsp_action.crf --depend .\flash\obj\bsp_action.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -540,7 +540,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -558,7 +558,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -589,7 +589,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_aw9523b.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_aw9523b.o --omf_browse .\flash\obj\bsp_aw9523b.crf --depend .\flash\obj\bsp_aw9523b.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -636,7 +636,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -654,7 +654,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -684,8 +684,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_DetectAct.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_DetectAct.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -732,7 +732,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -750,7 +750,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -781,7 +781,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_PulseMark.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_pulsemark.o --omf_browse .\flash\obj\bsp_pulsemark.crf --depend .\flash\obj\bsp_pulsemark.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -828,7 +828,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -846,7 +846,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -877,7 +877,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_IWDG.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_iwdg.o --omf_browse .\flash\obj\bsp_iwdg.crf --depend .\flash\obj\bsp_iwdg.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -924,7 +924,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -942,7 +942,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -972,8 +972,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_Edgewise.c)(0x5EE876AD)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_Edgewise.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_edgewise.o --omf_browse .\flash\obj\bsp_edgewise.crf --depend .\flash\obj\bsp_edgewise.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1020,7 +1020,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1038,7 +1038,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1068,8 +1068,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_communication.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_communication.o --omf_browse .\flash\obj\bsp_communication.crf --depend .\flash\obj\bsp_communication.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_communication.c)(0x5EE99650)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_communication.o --omf_browse .\flash\obj\bsp_communication.crf --depend .\flash\obj\bsp_communication.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1116,7 +1116,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1134,7 +1134,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1165,7 +1165,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_Encoder.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_encoder.o --omf_browse .\flash\obj\bsp_encoder.crf --depend .\flash\obj\bsp_encoder.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1212,7 +1212,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1230,7 +1230,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1261,7 +1261,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_motor.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_motor.o --omf_browse .\flash\obj\bsp_motor.crf --depend .\flash\obj\bsp_motor.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1308,7 +1308,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1326,7 +1326,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1357,7 +1357,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_Control.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_control.o --omf_browse .\flash\obj\bsp_control.crf --depend .\flash\obj\bsp_control.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1404,7 +1404,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1422,7 +1422,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1453,7 +1453,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_Scope.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_scope.o --omf_browse .\flash\obj\bsp_scope.crf --depend .\flash\obj\bsp_scope.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1500,7 +1500,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1518,7 +1518,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1548,8 +1548,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_Position.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_position.o --omf_browse .\flash\obj\bsp_position.crf --depend .\flash\obj\bsp_position.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_Position.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_position.o --omf_browse .\flash\obj\bsp_position.crf --depend .\flash\obj\bsp_position.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1596,7 +1596,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1614,7 +1614,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1646,7 +1646,7 @@ I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (..\..\User\app\src\bsp_param.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_param.o --omf_browse .\flash\obj\bsp_param.crf --depend .\flash\obj\bsp_param.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1693,7 +1693,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1711,7 +1711,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1742,7 +1742,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_stflash.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_stflash.o --omf_browse .\flash\obj\bsp_stflash.crf --depend .\flash\obj\bsp_stflash.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1789,7 +1789,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1807,7 +1807,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1838,7 +1838,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_OffSiteSW.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_offsitesw.o --omf_browse .\flash\obj\bsp_offsitesw.crf --depend .\flash\obj\bsp_offsitesw.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1885,7 +1885,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1903,7 +1903,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -1933,8 +1933,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_CurrentFeedback.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_currentfeedback.o --omf_browse .\flash\obj\bsp_currentfeedback.crf --depend .\flash\obj\bsp_currentfeedback.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_CurrentFeedback.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_currentfeedback.o --omf_browse .\flash\obj\bsp_currentfeedback.crf --depend .\flash\obj\bsp_currentfeedback.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1981,7 +1981,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -1999,7 +1999,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2030,7 +2030,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_CliffSW.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cliffsw.o --omf_browse .\flash\obj\bsp_cliffsw.crf --depend .\flash\obj\bsp_cliffsw.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2077,7 +2077,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2095,7 +2095,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2125,8 +2125,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_DustBox.c)(0x5EE876AD)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dustbox.o --omf_browse .\flash\obj\bsp_dustbox.crf --depend .\flash\obj\bsp_dustbox.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_DustBox.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dustbox.o --omf_browse .\flash\obj\bsp_dustbox.crf --depend .\flash\obj\bsp_dustbox.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2173,7 +2173,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2191,7 +2191,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2222,7 +2222,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_speaker.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_speaker.o --omf_browse .\flash\obj\bsp_speaker.crf --depend .\flash\obj\bsp_speaker.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2269,7 +2269,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2287,7 +2287,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2317,8 +2317,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_RunControl.c)(0x5EE876AD)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_runcontrol.o --omf_browse .\flash\obj\bsp_runcontrol.crf --depend .\flash\obj\bsp_runcontrol.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_RunControl.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_runcontrol.o --omf_browse .\flash\obj\bsp_runcontrol.crf --depend .\flash\obj\bsp_runcontrol.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2365,7 +2365,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2383,7 +2383,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2414,7 +2414,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_assistJudgeDirection.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_assistjudgedirection.o --omf_browse .\flash\obj\bsp_assistjudgedirection.crf --depend .\flash\obj\bsp_assistjudgedirection.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2461,7 +2461,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2479,7 +2479,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2510,7 +2510,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_StopMode.c)(0x5EE83862)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_stopmode.o --omf_browse .\flash\obj\bsp_stopmode.crf --depend .\flash\obj\bsp_stopmode.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2557,7 +2557,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2575,7 +2575,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2605,8 +2605,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_Gridmap.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_gridmap.o --omf_browse .\flash\obj\bsp_gridmap.crf --depend .\flash\obj\bsp_gridmap.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_Gridmap.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_gridmap.o --omf_browse .\flash\obj\bsp_gridmap.crf --depend .\flash\obj\bsp_gridmap.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2653,7 +2653,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2671,7 +2671,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2702,8 +2702,8 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5EE8776F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_CleanStrategyB.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyb.o --omf_browse .\flash\obj\bsp_cleanstrategyb.crf --depend .\flash\obj\bsp_cleanstrategyb.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2750,7 +2750,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2768,7 +2768,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2800,7 +2800,7 @@ I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (..\..\User\app\src\bsp_CleanStrategyRandom.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_cleanstrategyrandom.o --omf_browse .\flash\obj\bsp_cleanstrategyrandom.crf --depend .\flash\obj\bsp_cleanstrategyrandom.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2847,7 +2847,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2865,7 +2865,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2895,8 +2895,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_wifi_app.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_wifi_app.o --omf_browse .\flash\obj\bsp_wifi_app.crf --depend .\flash\obj\bsp_wifi_app.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_wifi_app.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_wifi_app.o --omf_browse .\flash\obj\bsp_wifi_app.crf --depend .\flash\obj\bsp_wifi_app.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -2943,7 +2943,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -2961,7 +2961,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -2991,8 +2991,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_passwd.c)(0x5EE8782C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_passwd.o --omf_browse .\flash\obj\bsp_passwd.crf --depend .\flash\obj\bsp_passwd.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_passwd.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_passwd.o --omf_browse .\flash\obj\bsp_passwd.crf --depend .\flash\obj\bsp_passwd.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3039,7 +3039,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3057,7 +3057,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -3087,8 +3087,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\app\src\bsp_UploadMap.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uploadmap.o --omf_browse .\flash\obj\bsp_uploadmap.crf --depend .\flash\obj\bsp_uploadmap.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\app\src\bsp_UploadMap.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uploadmap.o --omf_browse .\flash\obj\bsp_uploadmap.crf --depend .\flash\obj\bsp_uploadmap.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3135,7 +3135,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3153,7 +3153,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -3184,7 +3184,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_SearchChargePile.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_searchchargepile.o --omf_browse .\flash\obj\bsp_searchchargepile.crf --depend .\flash\obj\bsp_searchchargepile.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3231,7 +3231,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3249,7 +3249,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -3280,7 +3280,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\app\src\bsp_SearchPileSubProc.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_searchpilesubproc.o --omf_browse .\flash\obj\bsp_searchpilesubproc.crf --depend .\flash\obj\bsp_searchpilesubproc.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3327,7 +3327,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3345,7 +3345,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -3375,8 +3375,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\bsp\bsp.c)(0x5EE87D7E)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\bsp\bsp.c)(0x5EE9B69F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3423,7 +3423,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3441,7 +3441,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -3471,9 +3471,9 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\bsp\bsp.h)(0x5EE87EEF)()
+F (..\..\User\bsp\bsp.h)(0x5EE9B0C4)()
 F (..\..\User\bsp\src\bsp_dwt.c)(0x5EE83863)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_dwt.o --omf_browse .\flash\obj\bsp_dwt.crf --depend .\flash\obj\bsp_dwt.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3520,7 +3520,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3538,7 +3538,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -3569,7 +3569,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\bsp\src\bsp_uart_fifo.c)(0x5EE83863)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_uart_fifo.o --omf_browse .\flash\obj\bsp_uart_fifo.crf --depend .\flash\obj\bsp_uart_fifo.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3616,7 +3616,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3634,7 +3634,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -3699,7 +3699,7 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5EE8385E)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 F (..\..\User\bsp\src\bsp_tim_pwm.c)(0x5EE83863)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_tim_pwm.o --omf_browse .\flash\obj\bsp_tim_pwm.crf --depend .\flash\obj\bsp_tim_pwm.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3746,7 +3746,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3764,7 +3764,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -3794,7 +3794,7 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\bsp\stm32f10x_assert.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_assert.o --omf_browse .\flash\obj\stm32f10x_assert.crf --depend .\flash\obj\stm32f10x_assert.d)
+F (..\..\User\bsp\stm32f10x_assert.c)(0x5EE9B0C5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\stm32f10x_assert.o --omf_browse .\flash\obj\stm32f10x_assert.crf --depend .\flash\obj\stm32f10x_assert.d)
 I (..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h)(0x5EE8385D)
 I (..\..\Libraries\CMSIS\Include\core_cm3.h)(0x5EE8385E)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3826,8 +3826,8 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x5EE8385E)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x5EE8385E)
 I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5EE8385E)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
-F (..\..\User\bsp\src\bsp_key.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_key.o --omf_browse .\flash\obj\bsp_key.crf --depend .\flash\obj\bsp_key.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\bsp\src\bsp_key.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_key.o --omf_browse .\flash\obj\bsp_key.crf --depend .\flash\obj\bsp_key.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3874,7 +3874,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3892,7 +3892,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -3923,7 +3923,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\bsp\src\bsp_led.c)(0x5EE83863)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_led.o --omf_browse .\flash\obj\bsp_led.crf --depend .\flash\obj\bsp_led.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -3970,7 +3970,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -3988,7 +3988,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -4018,8 +4018,8 @@ I (..\..\User\app\inc\bsp_UploadMap.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
-F (..\..\User\bsp\src\bsp_timer.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_timer.o --omf_browse .\flash\obj\bsp_timer.crf --depend .\flash\obj\bsp_timer.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+F (..\..\User\bsp\src\bsp_timer.c)(0x5EE9B0C4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_timer.o --omf_browse .\flash\obj\bsp_timer.crf --depend .\flash\obj\bsp_timer.d)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -4066,7 +4066,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -4084,7 +4084,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -4115,7 +4115,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\bsp\src\bsp_i2c_gpio.c)(0x5EE83863)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_i2c_gpio.o --omf_browse .\flash\obj\bsp_i2c_gpio.crf --depend .\flash\obj\bsp_i2c_gpio.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -4162,7 +4162,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -4180,7 +4180,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -4211,7 +4211,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\bsp\src\bsp_user_lib.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_user_lib.o --omf_browse .\flash\obj\bsp_user_lib.crf --depend .\flash\obj\bsp_user_lib.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -4258,7 +4258,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -4276,7 +4276,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -4307,7 +4307,7 @@ I (..\..\User\app\inc\bsp_CleanStrategyRandom.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_SearchChargePile.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EE874E5)
 F (..\..\User\bsp\src\bsp_ir_decode.c)(0x5EE874E5)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_ir_decode.o --omf_browse .\flash\obj\bsp_ir_decode.crf --depend .\flash\obj\bsp_ir_decode.d)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -4354,7 +4354,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -4372,7 +4372,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -4846,7 +4846,7 @@ I (..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x5EE8385E)
 I (..\..\User\tuya_sdk\protocol.h)(0x5EE83863)
 I (..\..\User\tuya_sdk\system.h)(0x5EE83863)
 I (..\..\User\tuya_sdk\mcu_api.h)(0x5EE83863)
-I (..\..\User\bsp\bsp.h)(0x5EE87EEF)
+I (..\..\User\bsp\bsp.h)(0x5EE9B0C4)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EE8385D)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (..\..\User\FreeRTOSConfig.h)(0x5EE83862)
@@ -4863,7 +4863,7 @@ I (D:\soft\MDK5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (..\..\User\main.h)(0x5EE83863)
 I (..\..\User\app\inc\bsp_RunControl.h)(0x5EE83862)
-I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE83863)
+I (..\..\User\bsp\inc\bsp_uart_fifo.h)(0x5EE9B60F)
 I (..\..\User\bsp\inc\bsp_led.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_timer.h)(0x5EE83863)
 I (..\..\User\bsp\inc\bsp_key.h)(0x5EE874E5)
@@ -4881,7 +4881,7 @@ I (..\..\User\app\inc\bsp_aw9523b.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_DetectAct.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_PulseMark.h)(0x5EE83862)
 I (..\..\User\bsp\inc\bsp_IWDG.h)(0x5EE83863)
-I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE876AD)
+I (..\..\User\app\inc\bsp_Edgewise.h)(0x5EE9B0C4)
 I (..\..\User\app\inc\bsp_communication.h)(0x5EE874E5)
 I (..\..\User\app\inc\bsp_Encoder.h)(0x5EE83862)
 I (..\..\User\app\inc\bsp_motor.h)(0x5EE83862)
@@ -5090,4 +5090,4 @@ F (..\..\FreeRTOS\portable\RVDS\ARM_CM3\portmacro.h)(0x5EE8385D)()
 F (..\..\Doc\01.例程功能说明.txt)(0x5EE8385D)()
 F (..\..\Doc\02.例程修改记录.txt)(0x5EE8385D)()
 F (..\..\Doc\03.开发环境说明.txt)(0x5EE8385D)()
-F (..\..\Doc\04.笔记.txt)(0x5EE8769C)()
+F (..\..\Doc\04.笔记.txt)(0x5EE9B0C4)()

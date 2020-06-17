@@ -105,7 +105,7 @@ void bsp_Init(void)
 	bsp_InitDustBox();
 	
 	
-	bsp_DX8_CMD();
+	//bsp_DX8_CMD();
 	
 	
 	
