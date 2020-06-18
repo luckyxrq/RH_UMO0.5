@@ -112,7 +112,7 @@ void bsp_SetAngleChk(uint8_t val)
 static void bsp_SendSelfCheck(void)
 {
 	selfCheck.head = 0xAAAA;
-	selfCheck.frame_len = sizeof(ReportFrameWithCRC16) & 0xFFFF;
+	selfCheck.frame_len = sizeof(selfCheck) & 0xFFFF;
 	selfCheck.frame_len_reverse = (~selfCheck.frame_len) & 0xFFFF;
 	
 	selfCheck.tx_addr = 0;
