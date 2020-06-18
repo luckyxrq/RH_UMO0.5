@@ -97,3 +97,4 @@
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
+.\flash\obj\bsp_aw9523b.o: ..\..\User\app\inc\bsp_communication_bot3.h

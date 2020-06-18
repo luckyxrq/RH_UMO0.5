@@ -97,4 +97,5 @@
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
+.\flash\obj\bsp_position.o: ..\..\User\app\inc\bsp_communication_bot3.h
 .\flash\obj\bsp_position.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h

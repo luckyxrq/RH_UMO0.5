@@ -60,6 +60,7 @@
 #define BSP_Printf		printf
 //#define BSP_Printf(...)
 
+
 #include "stm32f10x.h"
 #include <stdio.h>
 #include <string.h>
@@ -97,6 +98,8 @@
 #define WARNING_EN          0 
 #define STRATEGY_DEBUG      0
 #define WIFI_DEBUG_EN       0
+#define RTT_EN              1
+
 
 #if DEBUG_EN
 #define DEBUG(format, ...) printf (format, ##__VA_ARGS__)
@@ -121,6 +124,15 @@
 #else
 #define WIFI_DEBUG(format, ...) {}
 #endif
+	
+	
+#if RTT_EN
+#define RTT(format, ...) SEGGER_RTT_printf (0,format, ##__VA_ARGS__)
+#else
+#define RTT(format, ...) {}
+#endif	
+	
+	
 	
 #if STRATEGY_DEBUG	
 #define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)
@@ -237,6 +249,7 @@
 #include "bsp_CleanStrategyRandom.h"
 #include "bsp_SearchChargePile.h"
 #include "bsp_searchpilesubproc.h"
+#include "bsp_communication_bot3.h"
 
 typedef enum
 {

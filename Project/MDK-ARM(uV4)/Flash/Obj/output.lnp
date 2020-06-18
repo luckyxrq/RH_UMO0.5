@@ -11,6 +11,7 @@
 ".\flash\obj\bsp_iwdg.o"
 ".\flash\obj\bsp_edgewise.o"
 ".\flash\obj\bsp_communication.o"
+".\flash\obj\bsp_communication_bot3.o"
 ".\flash\obj\bsp_encoder.o"
 ".\flash\obj\bsp_motor.o"
 ".\flash\obj\bsp_control.o"

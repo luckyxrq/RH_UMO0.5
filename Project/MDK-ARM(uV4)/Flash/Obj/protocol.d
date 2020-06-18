@@ -97,3 +97,4 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_communication_bot3.h

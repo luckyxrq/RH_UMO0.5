@@ -537,6 +537,11 @@
               <FilePath>..\..\User\app\src\bsp_communication.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_communication_bot3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_communication_bot3.c</FilePath>
+            </File>
+            <File>
               <FileName>bsp_Encoder.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Encoder.c</FilePath>
