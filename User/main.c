@@ -358,10 +358,11 @@ static void vTaskPerception(void *pvParameters)
 		/*更新跳崖传感器信息*/
 		bsp_GetCliffStates();
 		
-//		if(count % 50 == 0)
-//		{
-//			bsp_SendReportFrameWithCRC16();
-//		}
+		/*上传开关和时间间隔同时限制*/
+		if(GetCmdStartUpload() && count % 50 == 0)
+		{
+			bsp_SendReportFrameWithCRC16();
+		}
 		
 		count++;
         vTaskDelay(5);	

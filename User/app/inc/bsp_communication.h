@@ -138,4 +138,7 @@ void bsp_SendReportFrame(void); /*发送帧*/
 void bsp_ComAnalysis(void);     /*接收帧*/
 void bsp_SendReportFrameWithCRC16(void);
 
+/*新协议*/
+uint8_t GetCmdStartUpload(void);
+
 #endif
