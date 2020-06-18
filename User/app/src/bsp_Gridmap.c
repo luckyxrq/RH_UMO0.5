@@ -48,7 +48,7 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
 {
     int o_x = x;
     int o_y = y;
-    int r=grid_dist;
+//    int r=grid_dist;
     short phi= (short)(180*(atan2(yi - o_y,xi - o_x)/3.1415926));
     short theta_phi=phi-theta;
     if(my_abs(theta_phi)>180){
