@@ -216,7 +216,7 @@ short origin_thephi=0;
 signed char reverse_moremap=0;
 bool b_reverse_moremap=false;
 
-//float Clean_Strategy_Infrared[10];
+float Clean_Strategy_Infrared;
 extern float adcRealTime[10];
 
 
@@ -661,11 +661,13 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 
 unsigned char InfraredWalkEdgeRun(POSE *current_pose,unsigned char obstacleSignal){
 	if((&cliff_valueB)->cliffValue0 == 1 ){
+		linear_velocity = -200;
+        angular_velocity = 0;
 	
 	}
 	else if (front_obstacle == obstacleSignal){
 		linear_velocity = -200;
-        angular_velocity = -10;
+        angular_velocity = 10;
 	}
 	else if(right_obstacle == obstacleSignal){
 		linear_velocity = -200;
@@ -677,16 +679,18 @@ unsigned char InfraredWalkEdgeRun(POSE *current_pose,unsigned char obstacleSigna
 	}
 	else if(adcRealTime[8]>100){
 		linear_velocity = 200;
-        angular_velocity = 10;
+        angular_velocity = -10;
 	}
 	else if(adcRealTime[8]<100){
 		linear_velocity = 200;
-        angular_velocity = -10;
+        angular_velocity = 10;
 	}else{
 		linear_velocity = 200;
         angular_velocity = 0;
 	}
 	sendvelocity(&linear_velocity, &angular_velocity);
+	Clean_Strategy_Infrared=adcRealTime[8];
+	return 1;
 }
 
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
@@ -774,10 +778,11 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
     
 #endif
 	
-//	InfraredWalkEdgeRun(current_pose, obstacleSignal);
-//	return 1;
+	InfraredWalkEdgeRun(current_pose, obstacleSignal);
+	if(my_abs(current_pose->x)<100000){
+	return 1;
+	}
 	
-    
     current_pose->x=current_pose->x-x_error;
     current_pose->y=current_pose->y-y_error;
 	if(b_reverse_moremap==true){
