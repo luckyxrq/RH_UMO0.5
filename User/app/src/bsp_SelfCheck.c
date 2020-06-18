@@ -271,7 +271,7 @@ void bsp_SelfCheckProc(void)
 				selfCheck.b_wheelR_Speed =0 ;
 			}
 			
-			if(vacuum >= 300 && vacuum <= 600)
+			if(vacuum >= 200 && vacuum <= 800)
 			{
 				selfCheck.b_vacuum_I =1 ;
 			}
@@ -444,7 +444,7 @@ void bsp_SelfCheckProc(void)
 		
 		case 10:
 		{
-			if(xTaskGetTickCount() - selfCheck.delay >= 1000)
+			if(xTaskGetTickCount() - selfCheck.delay >= 1000 && selfCheck.isAllOK)
 			{
 				/*进入休眠模式*/
 				bsp_SperkerPlay(Song31);
