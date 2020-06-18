@@ -28,6 +28,32 @@ typedef struct
 }CMD_START_UPLOAD;
 #pragma pack()
 
+
+/*按照1字节对齐，便于存储到uint8_t类型buf*/
+#pragma pack(1)
+typedef struct
+{
+	uint16_t head;
+	
+	uint16_t frame_len;
+	uint16_t frame_len_reverse;
+	
+    uint16_t tx_addr;
+    uint16_t rx_addr;
+	
+    uint16_t main_sec ;
+    uint16_t sub_sec ;
+	
+	/*********数据部分开始***********/
+    
+	uint8_t isOpen; /*上传数据与否，1：上传，0：不上传*/
+    
+	/*********数据部分结束***********/
+	
+	uint16_t crc16;
+}CMD_START_UPLOAD_FIXTURE;
+#pragma pack()
+
 /*
 **********************************************************************************************************
 											变量声明
@@ -37,6 +63,7 @@ static uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0};    /*用于解析帧数据*/
 static ReportFrameWithCRC16 reportFrameWithCRC16;
 
 static CMD_START_UPLOAD cmd_START_UPLOAD;
+static CMD_START_UPLOAD_FIXTURE cmd_START_UPLOAD_FIXTURE;
 /*
 **********************************************************************************************************
 											函数声明
@@ -52,9 +79,17 @@ uint8_t GetCmdStartUpload(void)
 
 void bsp_ExexCmd(uint8_t *cmd , uint16_t main_sec , uint16_t sub_sec)
 {
-    if(main_sec == 0 && sub_sec == 0) /*主章节0 子章节0*/
+    if(main_sec == 2 && sub_sec == 1) /*PC机命令主机上报所有数据*/
 	{
 		memcpy(&cmd_START_UPLOAD,cmd,sizeof(cmd_START_UPLOAD));
+	}
+	if(main_sec == 2 && sub_sec == 2) /*PC机命令治具主板开启测试并上报数据*/
+	{
+		memcpy(&cmd_START_UPLOAD_FIXTURE,cmd,sizeof(cmd_START_UPLOAD_FIXTURE));
+		if(cmd_START_UPLOAD_FIXTURE.isOpen)
+		{
+			bsp_StartSelfCheck();
+		}
 	}
 }
 

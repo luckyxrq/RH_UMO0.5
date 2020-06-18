@@ -224,6 +224,7 @@ static void bsp_AnglePoll(void)
 		goto err_ret;
 	}
 	
+	bsp_SetAngleChk(1);
 	/* 分析应用层协议 */
 	bsp_AngleAnalyzeApp();
 

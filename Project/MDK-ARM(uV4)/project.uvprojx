@@ -557,11 +557,6 @@
               <FilePath>..\..\User\app\src\bsp_Control.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_Scope.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_Scope.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_Position.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Position.c</FilePath>
@@ -655,6 +650,11 @@
               <FileName>bsp_SearchPileSubProc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_SearchPileSubProc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_SelfCheck.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_SelfCheck.c</FilePath>
             </File>
           </Files>
         </Group>

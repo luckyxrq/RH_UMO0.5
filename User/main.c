@@ -358,6 +358,9 @@ static void vTaskPerception(void *pvParameters)
 		/*更新跳崖传感器信息*/
 		bsp_GetCliffStates();
 		
+		/*自检程序*/
+		bsp_SelfCheckProc();
+		
 		/*上传开关和时间间隔同时限制*/
 		if(GetCmdStartUpload() && count % 50 == 0)
 		{
@@ -382,15 +385,15 @@ static void vTaskPerception(void *pvParameters)
 static void AppTaskCreate (void)
 {
 	
-	xTaskCreate( vTaskMapping,     		    /* 任务函数  */
-                 "vTaskMapping",   		    /* 任务名    */
+	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
+                 "vTaskMapping",   		        /* 任务名    */
                  1024*2,            		    /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
-                 &xHandleTaskMapping );        /* 任务句柄  */
+                 &xHandleTaskMapping );         /* 任务句柄  */
     xTaskCreate( vTaskDecision,     		    /* 任务函数  */
                  "vTaskDecision",   		    /* 任务名    */
-                 512,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  2,              		        /* 任务优先级*/
                  &xHandleTaskDecision );        /* 任务句柄  */

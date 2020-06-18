@@ -237,8 +237,9 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 
 /*三个跳崖传感器，每个读两次*/
 static float cliffTwiceRead[3][2];
-static float cliffVal[3];
 static uint8_t cliffStates = 0x00;
+static float cliffSub[3] = {0};
+
 
 /*
 *********************************************************************************************************
@@ -270,58 +271,38 @@ uint8_t bsp_GetCliffStates(void)
 	cliffTwiceRead [2][1] = bsp_GetCliffVoltage(CliffRight);
 	
 	
-	if( abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000) <= IS_OBSTACLE_CLIFF_MV )
+	cliffSub[0] = abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000);
+	cliffSub[1] = abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000);
+	cliffSub[2] = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);
+	
+	if( cliffSub[0] <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 0;
 	}
 	
-	if( abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000) <= IS_OBSTACLE_CLIFF_MV )
+	if( cliffSub[1] <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 1;
 	}
 	
-	if( abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000) <= IS_OBSTACLE_CLIFF_MV )
+	if( cliffSub[2] <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 2;
 	}
 	
-	cliffVal[0] = abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000);
-	cliffVal[1] = abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000);
-	cliffVal[2] = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);
-	
-	
-	//DEBUG("%d %d %d\r\n",cliffVal[0],cliffVal[1],cliffVal[2]);
-	//DEBUG("data:%02X\r\n",data);
 	
 	cliffStates = data;
 	
 	return data;
 }
 
-
-uint16_t bsp_GetCliffRealVal(CliffSWSN sn)
+void bsp_GetCliffSub(float arr[])
 {
-	uint16_t val = 0 ;
-	switch(sn)
-	{
-		case CliffLeft:
-		{
-			val = cliffVal[0];
-		}break;
-		
-		case CliffMiddle:
-		{
-			val = cliffVal[1];
-		}break;
-		
-		case CliffRight:
-		{
-			val = cliffVal[2];
-		}break;
-	}
-	
-	return val;
+	arr[0] = cliffSub[0];
+	arr[1] = cliffSub[1];
+	arr[2] = cliffSub[2];
 }
+
 
 
 
@@ -345,19 +326,22 @@ bool bsp_CliffIsDangerous(CliffSWSN sn)
 	return false;
 }
 
-
+float bsp_GetCliffRealVal(CliffSWSN sn)
+{
+	return cliffSub[sn % 3];
+}
 
 
 void bsp_PrintCliff(void)
 {
-	DEBUG("CLIFF:%d %d %d %.2F %.2F %.2F\r\n",
+	DEBUG("CLIFF:%d %d %d\r\n",
 	bsp_CliffIsDangerous(CliffLeft),
 	bsp_CliffIsDangerous(CliffMiddle),
-	bsp_CliffIsDangerous(CliffRight),
-	cliffVal[0],
-	cliffVal[1],
-	cliffVal[2]);
+	bsp_CliffIsDangerous(CliffRight));
 }
+
+
+
 
 
 #define GO_BACK_PULSE                  (10/(3.14F*70)*1024)

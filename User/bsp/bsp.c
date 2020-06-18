@@ -163,7 +163,7 @@ void bsp_Init(void)
 	
 	
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/
-	DEBUG("初始化完毕\r\n");
+	RTT("all init complete\r\n");
 	
 	vSetupSysInfoTest();
 	

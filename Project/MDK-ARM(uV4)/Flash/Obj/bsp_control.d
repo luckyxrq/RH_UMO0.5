@@ -72,7 +72,6 @@
 .\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_motor.h
 .\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_Control.h
-.\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_Scope.h
 .\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_Position.h
 .\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_stflash.h
 .\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_param.h
@@ -98,3 +97,4 @@
 .\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
 .\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_communication_bot3.h
+.\flash\obj\bsp_control.o: ..\..\User\app\inc\bsp_selfcheck.h

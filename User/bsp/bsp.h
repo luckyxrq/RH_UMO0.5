@@ -225,7 +225,6 @@
 #include "bsp_Encoder.h"
 #include "bsp_motor.h"
 #include "bsp_Control.h"
-#include "bsp_Scope.h"
 #include "bsp_Position.h"
 #include "bsp_stflash.h"
 #include "bsp_param.h"
@@ -250,6 +249,7 @@
 #include "bsp_SearchChargePile.h"
 #include "bsp_searchpilesubproc.h"
 #include "bsp_communication_bot3.h"
+#include "bsp_selfcheck.h"
 
 typedef enum
 {
