@@ -19,7 +19,7 @@
 
 #define half_map_wide 5000
 #define half_map_long 5000
-#define reverse_x_more_map 4000
+#define reverse_x_more_map 4500
 
 #define ROBOTXOFFSET   MAPWIDTH/2
 #define ROBOTYOFFSET   MAPHEIGHT/2

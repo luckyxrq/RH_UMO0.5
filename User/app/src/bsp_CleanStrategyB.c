@@ -659,6 +659,36 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 
 //#################################################################################
 
+unsigned char InfraredWalkEdgeRun(POSE *current_pose,unsigned char obstacleSignal){
+	if((&cliff_valueB)->cliffValue0 == 1 ){
+	
+	}
+	else if (front_obstacle == obstacleSignal){
+		linear_velocity = -200;
+        angular_velocity = -10;
+	}
+	else if(right_obstacle == obstacleSignal){
+		linear_velocity = -200;
+        angular_velocity = 10;
+	}
+	else if(left_obstacle == obstacleSignal){
+		linear_velocity = -200;
+        angular_velocity = -10;
+	}
+	else if(adcRealTime[8]>100){
+		linear_velocity = 200;
+        angular_velocity = 10;
+	}
+	else if(adcRealTime[8]<100){
+		linear_velocity = 200;
+        angular_velocity = -10;
+	}else{
+		linear_velocity = 200;
+        angular_velocity = 0;
+	}
+	sendvelocity(&linear_velocity, &angular_velocity);
+}
+
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 {
     int Yaw;
@@ -744,23 +774,27 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
     
 #endif
 	
+//	InfraredWalkEdgeRun(current_pose, obstacleSignal);
+//	return 1;
 	
     
     current_pose->x=current_pose->x-x_error;
     current_pose->y=current_pose->y-y_error;
 	if(b_reverse_moremap==true){
 		if(reverse_moremap==1){
-			current_pose->x=current_pose->x-reverse_x_more_map;
+			current_pose->x=current_pose->x+reverse_x_more_map;
 		}
 		else{
-			current_pose->x=current_pose->x+reverse_x_more_map;
+			current_pose->x=current_pose->x-reverse_x_more_map;
 		}
 		
 	}
     if(over_clean_finish==false){
         if(x_more_map==true||y_more_map==true){
             if(x_more_map==true){
+				if(b_reverse_moremap==false){
                 current_pose->x=current_pose->x-x_more_positive_start*half_map_wide;
+				}
             }
             if(y_more_map==true){
                 current_pose->y=current_pose->y-y_more_positive_start*half_map_wide;
@@ -943,7 +977,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
                     if(reverse_moremap!=0){
 						over_clean_finish=false;
                         edge_dilemma=false;
-                        x_more_map=false;
+                        x_more_map=true;
                         y_more_map=false;
                         y_less_map=false; 						
                         right_running_step_status =0;
@@ -1078,7 +1112,14 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         break;
     case GOSTR_RIGHTRUN_STEP:
         ////log_debug("gostraight right run step!\n");
-			if (front_obstacle == obstacleSignal||(&cliff_valueB)->cliffValue0 == 1)
+	 if((&cliff_valueB)->cliffValue0 == 1){
+		  collision_front_rightrun_step_status = 0;
+          right_running_step_status = COLLISION_FRONT_RIGHTRUN_STEP;
+          break;
+	 
+	 }
+	
+		else	if (front_obstacle == obstacleSignal)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -1250,16 +1291,33 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
     case FORWARD_BOUNDARY_RIGHTRUN_STEP:
         ////log_debug("forward boundary rightrun step!\n");
         FunctionStatus = ForwardBoundaryRightRunStep(current_pose, obstacleSignal);
-		    if(FunctionStatus==1||FunctionStatus==3)
-        {
+	    if(FunctionStatus==1||FunctionStatus==3)
+			{
 					if((FunctionStatus==1&&x_more_map==false)||(FunctionStatus==3&&y_more_map==false)){
 						if(FunctionStatus==1){
-							motionSteps=1;
+							if(reverse_moremap==1){
+								if(current_pose->x>0){
+								}else{
+									motionSteps=1;
+								    more_map=true;
+								}
+							}
+							else if(reverse_moremap==-1){
+								if(current_pose->x>0){
+									motionSteps=1;
+								    more_map=true;	
+								}else{
+								}
+							}
+							else{
+								motionSteps=1;
+								more_map=true;
+							}
 						}
 						else{
 							motionSteps=3;
-						}
-						more_map=true;
+							more_map=true;
+						}						
 					}
 					else{
 						if(FunctionStatus==3){
@@ -4487,7 +4545,6 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
 				}
 			}
 		}
-	//log_debug("right_forward_boundary_status =======>>>,%x,\n",right_forward_boundary_status);
     switch (right_forward_boundary_status)
     {
     case 0:
@@ -4581,16 +4638,12 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
         }
         if ((my_abs(turn_start_x - current_pose->x) > 2*GRIDWIDTH || my_abs(turn_start_y - current_pose->y) > 2*GRIDWIDTH) && my_abs(Yaw) < 90 && current_pose->x > 0)
         {
-//            linear_velocity = 0;
-//            angular_velocity = 0;
             turn_start_update = 0;
             right_forward_boundary_status = FORWARDBOUNDARY_COMPLETE;
             break;
         }
         if ((my_abs(turn_start_x - current_pose->x) > 2*GRIDWIDTH || my_abs(turn_start_y - current_pose->y) > 2*GRIDWIDTH)&& my_abs(Yaw) > 90 && current_pose->x < 0)
         {
-//            linear_velocity = 0;
-//            angular_velocity = 0;
             turn_start_update = 0;
             right_forward_boundary_status = FORWARDBOUNDARY_COMPLETE;
             break;
@@ -4604,8 +4657,6 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
         }
         if (my_abs(current_pose->x) < half_map_wide-2*GRIDWIDTH)
         {
-//            linear_velocity = 0;
-//            angular_velocity = 0;
             right_forward_boundary_status = FORWARDBOUNDARY_COMPLETE;
             break;
         }
@@ -5555,17 +5606,35 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         }
         break;
     case FORWARD_BOUNDARY_LEFTRUN_STEP:
-				FunctionStatus=ForwardBoundaryLeftRunStep(current_pose,obstacleSignal);
-				if((FunctionStatus==1||FunctionStatus==3)&&more_map==false){
-					if((FunctionStatus==1&&x_more_map==false)||(FunctionStatus==3&&y_more_map==false)){
+		FunctionStatus=ForwardBoundaryLeftRunStep(current_pose,obstacleSignal);
+	    if(FunctionStatus==1||FunctionStatus==3)
+			{
+				if((FunctionStatus==1&&x_more_map==false)||(FunctionStatus==3&&y_more_map==false)){
 						if(FunctionStatus==1){
-							motionSteps=1;
+							if(reverse_moremap==1){
+								if(current_pose->x>0){
+								}else{
+									motionSteps=1;
+								    more_map=true;
+								}
+							}
+							else if(reverse_moremap==-1){
+								if(current_pose->x>0){
+									motionSteps=1;
+								    more_map=true;	
+								}else{
+								}
+							}
+							else{
+								motionSteps=1;
+								more_map=true;
+							}
 						}
 						else{
 							motionSteps=3;
+							more_map=true;
 						}
-						more_map=true;
-					}
+					}						
 					else{
 						if(FunctionStatus==3){
 							left_running_step_status = 0;
@@ -5806,7 +5875,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
         if (my_abs(Yaw) > 175)
         {
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_GOSTRAIGHT;
-					  old_bow_continue=true;
+		    old_bow_continue=true;
             break;
         }
         if (obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
@@ -5880,8 +5949,6 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
         angular_velocity = 0;
         if ((my_abs(turn_start_x - current_pose->x) > 2*GRIDWIDTH || my_abs(turn_start_y - current_pose->y) > 2*GRIDWIDTH) && my_abs(Yaw) < 90 && current_pose->x > 0)
         {
-//            linear_velocity = 0;
-//            angular_velocity = 0;
             turn_start_update = 0;
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_COMPLETE;
             break;
@@ -5889,8 +5956,6 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
 
         if ((my_abs(turn_start_x - current_pose->x) > 2*GRIDWIDTH || my_abs(turn_start_y - current_pose->y) > 2*GRIDWIDTH) && my_abs(Yaw) > 90 && current_pose->x < 0)
         {
-//            linear_velocity = 0;
-//            angular_velocity = 0;
             turn_start_update = 0;
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_COMPLETE;
             break;
@@ -5904,8 +5969,6 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
         }
         if (my_abs(current_pose->x) < half_map_wide-2*GRIDWIDTH)
         {
-//            linear_velocity = 0;
-//            angular_velocity = 0;
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_COMPLETE;
             break;
         }
@@ -7656,12 +7719,11 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
-	  Yaw = Yaw /100;
+	Yaw = Yaw /100;
 	if (my_abs(current_pose->x)>half_map_wide-2*GRIDWIDTH||my_abs(current_pose->y)>half_map_wide-2*GRIDWIDTH){
 		complete_flag = 3;
 		return complete_flag;
 	}
-	//log_debug("right_walk_edge_status =======>>>,%x,\n",right_walk_edge_status);
     switch(right_walk_edge_status)
     {
     case 0:

@@ -981,6 +981,8 @@ void MoreMap(POSE *current_pose);
 void LessMap(void);
 void StartUpdateGridMap(void);
 
+unsigned char InfraredWalkEdgeRun(POSE *current_pose,unsigned char obstacleSignal);
+
 
 uint8_t GetReturnChargeStationStatus(void);
 void ResetReturnChargeStationStatus(void);
