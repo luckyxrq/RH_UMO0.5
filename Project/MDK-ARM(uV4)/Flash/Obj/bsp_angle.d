@@ -45,6 +45,8 @@
 .\flash\obj\bsp_angle.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\bsp_angle.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\bsp_angle.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_angle.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
+.\flash\obj\bsp_angle.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h
 .\flash\obj\bsp_angle.o: ..\..\User\main.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\bsp_angle.o: ..\..\User\bsp\inc\bsp_uart_fifo.h

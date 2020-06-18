@@ -54,6 +54,8 @@
 .\flash\obj\main.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\flash\obj\main.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\main.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\main.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
+.\flash\obj\main.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h
 .\flash\obj\main.o: ..\..\User\main.h
 .\flash\obj\main.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\main.o: ..\..\User\bsp\inc\bsp_uart_fifo.h

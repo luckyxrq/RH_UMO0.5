@@ -365,7 +365,7 @@
               <MiscControls>--diag_suppress=870 --C99</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include;..\..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\User\bsp;..\..\User\bsp\inc;..\..\User;..\..\Libraries\CMSIS\Include;..\..\FreeRTOS\include;..\..\FreeRTOS\portable\RVDS\ARM_CM3;..\..\User\app\inc;..\..\User\dx8\inc;..\..\User\tuya_sdk;..\..\User\angle\yuan_zi_Angle;..\..\User\angle\gan_rui_Angle</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include;..\..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\User\bsp;..\..\User\bsp\inc;..\..\User;..\..\Libraries\CMSIS\Include;..\..\FreeRTOS\include;..\..\FreeRTOS\portable\RVDS\ARM_CM3;..\..\User\app\inc;..\..\User\dx8\inc;..\..\User\tuya_sdk;..\..\User\angle\yuan_zi_Angle;..\..\User\angle\gan_rui_Angle;..\..\SEGGER_RTT_V618c\RTT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -890,6 +890,31 @@
               <FileName>portmacro.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\FreeRTOS\portable\RVDS\ARM_CM3\portmacro.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>SEGGER_RTT_V618c</GroupName>
+          <Files>
+            <File>
+              <FileName>SEGGER_RTT_Conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_Syscalls_KEIL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SEGGER_RTT_V618c\Syscalls\SEGGER_RTT_Syscalls_KEIL.c</FilePath>
             </File>
           </Files>
         </Group>

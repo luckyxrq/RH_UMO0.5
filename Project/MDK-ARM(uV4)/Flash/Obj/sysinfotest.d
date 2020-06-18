@@ -45,6 +45,8 @@
 .\flash\obj\sysinfotest.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\sysinfotest.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\sysinfotest.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\sysinfotest.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
+.\flash\obj\sysinfotest.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h
 .\flash\obj\sysinfotest.o: ..\..\User\main.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\sysinfotest.o: ..\..\User\bsp\inc\bsp_uart_fifo.h

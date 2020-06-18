@@ -157,7 +157,8 @@ void bsp_ComAnalysis(void)
 	port = COM2;
 	while(comGetChar(port, &ch))
 	{
-		comSendChar(COM2, ch);
+		//comSendChar(COM2, ch);
+		//SEGGER_RTT_printf(0,"%02X ",ch);
 	}
 	/*Ñ¡¶¨´®¿Ú*/
 	port = COM3;
