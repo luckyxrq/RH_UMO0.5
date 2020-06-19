@@ -218,6 +218,7 @@ bool b_reverse_moremap=false;
 
 float Clean_Strategy_Infrared;
 extern float adcRealTime[10];
+unsigned char delimma_edge=0;
 
 
 double my_abs(double x){
@@ -677,19 +678,18 @@ unsigned char InfraredWalkEdgeRun(POSE *current_pose,unsigned char obstacleSigna
 		linear_velocity = -200;
         angular_velocity = -10;
 	}
-	else if(adcRealTime[8]>100){
-		linear_velocity = 200;
-        angular_velocity = -10;
-	}
-	else if(adcRealTime[8]<100){
-		linear_velocity = 200;
-        angular_velocity = 10;
-	}else{
+	else if(adcRealTime[8]>100&&adcRealTime[8]<1500){
 		linear_velocity = 200;
         angular_velocity = 0;
 	}
+	else if(adcRealTime[8]>=1500){
+		linear_velocity = 200;
+        angular_velocity = -10;
+	}else{
+		linear_velocity = 200;
+        angular_velocity = 10;
+	}
 	sendvelocity(&linear_velocity, &angular_velocity);
-	Clean_Strategy_Infrared=adcRealTime[8];
 	return 1;
 }
 
@@ -778,10 +778,10 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
     
 #endif
 	
-	InfraredWalkEdgeRun(current_pose, obstacleSignal);
-	if(my_abs(current_pose->x)<100000){
-	return 1;
-	}
+//	InfraredWalkEdgeRun(current_pose, obstacleSignal);
+//	if(my_abs(current_pose->x)<100000){
+//	return 1;
+//	}
 	
     current_pose->x=current_pose->x-x_error;
     current_pose->y=current_pose->y-y_error;
@@ -1084,6 +1084,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
     if (OVERALL_CLEANING_STRATEGY != EDGEWISERUN_CLEANING_STRATEGY) sendvelocity(&linear_velocity, &angular_velocity);
     return 1;
 }
+
 
 
 unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal)
@@ -3108,11 +3109,11 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
 
 unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 {
-    ////cout << " RightEdgeDilemma..............==============RightEdgeDilemma" << endl;
     int Yaw;
     unsigned char complete_flag = 0;
 	signed char i=0;
 	signed char j=0;
+	signed char k,ij;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
 	//log_debug("RightEdgeDilemma =======>>>,%x,\n",right_edge_dilemma_status);
@@ -3221,39 +3222,60 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         last_position_x = current_pose->x;
         last_position_y = current_pose->y;
         right_edge_dilemma_status = LOOP_TEN_NUM_DILEMMA;
-		    temporary_close_edge=close_edge;
+		temporary_close_edge=close_edge;
         break;
     case LOOP_TEN_NUM_DILEMMA:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_edge_dilemma_status = GOSTR_COLLISION_DILEMMA;
-					  step=1;
             break;
         }
         if (my_abs(last_position_x - current_pose->x) > temporary_close_edge||my_abs(last_position_y - current_pose->y) > temporary_close_edge)
         {
-            temporary_yaw = Yaw;
-            right_edge_dilemma_status = GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
+			if(-105<Yaw&&Yaw<-60){
+				right_edge_dilemma_status = GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
+			}
+			else{
+				k=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				ij=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
+				if(k>0&&k<99&&ij>=0&&ij<GRIDWIDTH){
+				gridmap.map[k-1][ij-1]=0;
+				gridmap.map[k][ij-1]=0;
+				gridmap.map[k+1][ij-1]=0;		
+				gridmap.map[k-1][ij]=0;
+				gridmap.map[k][ij]=0;
+				gridmap.map[k+1][ij]=0;
+				gridmap.map[k-1][ij+1]=0;
+				gridmap.map[k][ij+1]=0;
+				gridmap.map[k+1][ij+1]=0;
+				last_position_x = current_pose->x;
+                last_position_y = current_pose->y;
+				step++;
+			   if(step>5){
+				step=0;
+				right_edge_dilemma_status = GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
+			   }
+			}
+			}
+			temporary_yaw = Yaw;
             break;
         }
         if(-105<Yaw&&Yaw<-60){
-					i=(current_pose->x+half_map_long)/100;
-					j=(current_pose->y+half_map_long-110)/100;			
-					if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
-					}
-					else{
-						j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
-						last_position_x = current_pose->x;
-						last_position_y = current_pose->y;
-						if(j==3){
-							right_edge_dilemma_status=0;
-							DelimmaNumber=0;
-							step=0;
-							complete_flag = 1;
-						}
-					}           
+			i=(current_pose->x+half_map_long)/100;
+			j=(current_pose->y+half_map_long-110)/100;			
+			if(j<0||i<1||j>MAPWIDECELLS-1||i>MAPLONGCELLS-2){
+			}
+			else{
+				j=((gridmap.map[i-1][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0)+((gridmap.map[i][j]==125)?1:0);
+				last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				if(j==3){
+					right_edge_dilemma_status=0;
+					DelimmaNumber=0;
+					step=0;
+					complete_flag = 1;
+				}
+			}           
             break;
         }
         if(current_pose->y>-return_origin_distance){
@@ -3273,13 +3295,28 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 					  step=0;
 			      complete_flag = 2;
             break;
-			
-//            linear_velocity = 0;
-//            angular_velocity = 0;
-//					  step=1;
-//            right_edge_dilemma_status = COMPLETE_EL_DRYM;
-//            break;
         }
+		if(adcRealTime[9]>100&&adcRealTime[9]<1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[9]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 10;
+		}
+		if(adcRealTime[9]<=100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			    angular_velocity = -10;	
+			}
+			else{
+				linear_velocity = 100;
+			    angular_velocity = -20;
+			}
+		}
         break;
     case COMPLETE_EL_DRYM:
         linear_velocity = 0;
@@ -3332,6 +3369,11 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         angular_velocity = turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
+			if(my_abs(Yaw)>170){
+				right_edge_dilemma_status =CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
+				temporary_yaw=Yaw;
+				break;
+			}
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status =COLLISION_YAW_LESS_ABS90_DILEMMA;
@@ -3364,23 +3406,23 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         }
         break;
     case GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA:
-			 if (-105<Yaw&&Yaw<-60)
+		if (-105<Yaw&&Yaw<-60)
         {
           last_position_x = current_pose->x;
           last_position_y = current_pose->y;
-					temporary_close_edge=dilemma_close_edge;
+		  temporary_close_edge=dilemma_close_edge;
           right_edge_dilemma_status = LOOP_TEN_NUM_DILEMMA;
-					break;
+		  break;
         }
         linear_velocity = 0;
         angular_velocity =-turn_vel;
         if (my_abs(temporary_yaw - Yaw) > 30||(-105<Yaw&&Yaw<-60))
         {
-					linear_velocity = 0;
+		  linear_velocity = 0;
           angular_velocity = 0;
           last_position_x = current_pose->x;
           last_position_y = current_pose->y;
-					temporary_close_edge=dilemma_close_edge;
+		  temporary_close_edge=dilemma_close_edge;
           right_edge_dilemma_status = LOOP_TEN_NUM_DILEMMA;
 					break;
         }
@@ -3420,26 +3462,41 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         right_edge_dilemma_status = GOSTR_CYM_DILEMMA;
         break;
     case GOSTR_CYM_DILEMMA:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_edge_dilemma_status = GOSTR_COLLISION_CYM_DILEMMA;
 					  step=1;
             break;
         }
-        if (my_abs(last_position_x - current_pose->x) > temporary_close_edge)
+        if (my_abs(last_position_x - current_pose->x) > dilemma_close_edge||my_abs(last_position_y - current_pose->y) > dilemma_close_edge)
         {
+			if(Yaw<-75&&Yaw>-120){
+				 right_edge_dilemma_status = GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
+			}
+			else{
+				k=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				ij=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
+				if(k>0&&k<99&&ij>=0&&ij<GRIDWIDTH){
+				gridmap.map[k-1][ij-1]=0;
+				gridmap.map[k][ij-1]=0;
+				gridmap.map[k+1][ij-1]=0;	
+				gridmap.map[k-1][ij]=0;
+				gridmap.map[k][ij]=0;
+				gridmap.map[k+1][ij]=0;
+				gridmap.map[k-1][ij+1]=0;
+				gridmap.map[k][ij+1]=0;
+				gridmap.map[k+1][ij+1]=0;
+				last_position_x = current_pose->x;
+                last_position_y = current_pose->y;
+			    step++;
+			   if(step>5){
+				step=0;
+				right_edge_dilemma_status = GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
+			   }
+			}
+		}		
             temporary_yaw = Yaw;
-					  step=2;
-            right_edge_dilemma_status = GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
-            break;
-        }
-				 if (my_abs(last_position_y - current_pose->y) > temporary_close_edge)
-        {
-            temporary_yaw = Yaw;
-					  step=2;
-            right_edge_dilemma_status = GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
+			step=2;
             break;
         }
         if(Yaw<-75&&Yaw>-120){
@@ -3459,7 +3516,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 						}
 					}           
             break;
-        }
+        }		
         if( current_pose->y>-return_origin_distance){
 			      linear_velocity = 0;
             angular_velocity = 0;
@@ -3477,13 +3534,29 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 					  step=0;
 			      complete_flag = 2;
             break;
-			
-//            linear_velocity = 0;
-//            angular_velocity = 0;
-//					  step=1;
-//            right_edge_dilemma_status=DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
-//            break;
         }
+		if(adcRealTime[8]>100&&adcRealTime[8]<1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[8]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = -10;
+		}
+		if(adcRealTime[8]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			    angular_velocity = 10;
+			}
+			else{
+				linear_velocity = 100;
+			    angular_velocity = 20;
+			}
+							
+		}
         break;
 
     case GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA:
@@ -3559,6 +3632,11 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
         angular_velocity =-turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
+			if(my_abs(Yaw)>170){
+				right_edge_dilemma_status =CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
+				temporary_yaw=Yaw;
+				break;
+			}
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status =COLLISION_YAW_MORE_ABS90_DILEMMA;
@@ -3628,6 +3706,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
 {
     int Yaw;
     unsigned char complete_flag=0;
+	signed char i,j;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
 	//log_debug("right_walk_edge_status =======>>>,%x,\n",right_walk_edge_status);
@@ -3712,18 +3791,50 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         break;
 
     case GOSTR_BYPASS_WE:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
         if (obstacleSignal !=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_walk_edge_status = COLLISION_BYPASS_WE;
             break;
         }
-
+		if(adcRealTime[8]>100&&adcRealTime[8]<1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[8]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = -10;
+		}
+		if(adcRealTime[8]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			    angular_velocity = 10;			
+			}else{
+				linear_velocity = 100;
+			    angular_velocity = 20;
+				
+			}
+		}
         if (my_abs(last_position_x - current_pose->x) > lateral_move_distance)
         {
-            right_walk_edge_status = GOSTR_X_MORE_LATERALDIS_BYPASS_WE;
-            break;
+			if(Yaw>-135&&Yaw<0){
+				right_walk_edge_status = GOSTR_X_MORE_LATERALDIS_BYPASS_WE;
+			}
+			else{
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
+				if(i>0&&i<99&&j>=0&&j<GRIDWIDTH)
+				gridmap.map[i-1][j]=0;
+				gridmap.map[i][j]=0;
+				gridmap.map[i+1][j]=0;
+				gridmap.map[i-1][j+1]=0;
+				gridmap.map[i][j+1]=0;
+				gridmap.map[i+1][j+1]=0;
+				last_position_x = current_pose->x;
+			}
+			break;			
         }
         if (last_position_y - current_pose->y > temporary_close_edge)
         {
@@ -3732,13 +3843,16 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         }
         if (b_last_position_yy == true && my_abs(last_position_yy - current_pose->y) > 3 * lateral_move_distance)
         {
-            right_walk_edge_status = BOW_CONTINUE_WE;
+			linear_velocity = 0;
+            angular_velocity = 0;
+            right_walk_edge_status = TARGET_YAW_LESS_ABS105_MORE_0_BYPASS_WE;
             break;
         }
         if (my_abs(Yaw) < 120 && (Yaw > 0) && (b_last_position_yy == false))
         {
             last_position_yy = current_pose->y;
             b_last_position_yy = true;
+			break;
         }
         break;
 
@@ -3748,10 +3862,9 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
             right_walk_edge_status = TARGET_YAW_LESS_ABS105_MORE_0_BYPASS_WE;
             break;
         }
-				if(!returnorigin){
-					if ((my_abs(current_pose->x + half_map_wide- edge_length_start) > Edge_length()/2)&&(my_abs(current_pose->x + half_map_wide - edge_length_start) > 500))
-						{
-							right_walk_edge_status = DELTA_X_MORE_ONE_FOURTH_CLEANED_MAP_WIDTH_WE;
+		if(!returnorigin){
+			if ((my_abs(current_pose->x + half_map_wide- edge_length_start) > Edge_length()/2)&&(my_abs(current_pose->x + half_map_wide - edge_length_start) > 500)){
+				  right_walk_edge_status = DELTA_X_MORE_ONE_FOURTH_CLEANED_MAP_WIDTH_WE;
 							break;
 						}
 				}
@@ -3781,6 +3894,11 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         angular_velocity = -turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
+			if(my_abs(Yaw)>170){
+				right_walk_edge_status =TURN_CLOCK_YAW_ADD_ABS15_WE;
+				temporary_yaw=Yaw;
+				break;
+			}
             linear_velocity = 0;
             angular_velocity = 0;
             right_walk_edge_status = REBACK_GOSTR_BYPASS_CHECK_WE;
@@ -4029,7 +4147,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case RETURN_ORIGIN_WE:
         linear_velocity = 0;
         angular_velocity = 0;
-		    returnorigin=false;
+		returnorigin=false;
         complete_flag = 3;
         right_walk_edge_status = 0;
         break;
@@ -4044,6 +4162,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
 {
     int Yaw;
     unsigned char complete_flag=0;
+	signed char i,j;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
 	if (my_abs(current_pose->x)>half_map_wide-2*MAPWIDECELLS||my_abs(current_pose->y)>half_map_wide-2*MAPWIDECELLS){
@@ -4163,8 +4282,6 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
         }
         break;
     case STRAIGHT_CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
         if (obstacleSignal!=none_obstacle)
         {
             last_position_x = current_pose->x;
@@ -4181,17 +4298,51 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
         break;
 
     case GOSTR_BYPASS_RWE:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
         if (obstacleSignal !=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_reverse_walk_edge_status = COLLISION_BYPASS_RWE;
             break;
         }
+		if(adcRealTime[9]>100&&adcRealTime[9]<1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[9]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 10;
+		}
+		if(adcRealTime[9]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			    angular_velocity = -10;
+			}
+			else{
+				linear_velocity = 100;
+			    angular_velocity = -20;
+			}
+		}
         if (my_abs(last_position_x - current_pose->x) > lateral_move_distance)
         {
-            right_reverse_walk_edge_status = GOSTR_X_MORE_LATERALDIS_BYPASS_RWE;
-            break;
+			if(Yaw<-45){
+				right_reverse_walk_edge_status = GOSTR_X_MORE_LATERALDIS_BYPASS_RWE;
+			}
+			else{
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
+				if(i>0&&i<99&&j>=0&&j<GRIDWIDTH)
+				gridmap.map[i-1][j]=0;
+				gridmap.map[i][j]=0;
+				gridmap.map[i+1][j]=0;
+				gridmap.map[i-1][j+1]=0;
+				gridmap.map[i][j+1]=0;
+				gridmap.map[i+1][j+1]=0;
+				last_position_x = current_pose->x;
+			}
+			break;
+			
         }
         if (last_position_y - current_pose->y > temporary_close_edge)
         {
@@ -4200,7 +4351,9 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
         }
         if (b_last_position_yy == true && my_abs(last_position_yy - current_pose->y) > 3 * lateral_move_distance)
         {
-            right_reverse_walk_edge_status = BOW_CONTINUE_RWE;
+			linear_velocity = 0;
+            angular_velocity = 0;
+            right_reverse_walk_edge_status = TARGET_YAW_MORE_ABS75_MORE_ABS0_RWE;
             break;
         }
         if (my_abs(Yaw) < 120 && (Yaw > 0) && (b_last_position_yy == false))
@@ -4248,6 +4401,11 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
         angular_velocity = turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
+			if(my_abs(Yaw)>170){
+				right_reverse_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_RWE;
+				temporary_yaw=Yaw;
+				break;
+			}
             linear_velocity = 0;
             angular_velocity = 0;
             right_reverse_walk_edge_status = REBACK_GOSTR_BYPASS_CHECK_RWE;
@@ -4373,7 +4531,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
         linear_velocity = 0;
         angular_velocity = turn_vel;
         break;
-    case TURN_CCLOCK_YAW_MORE_178ABS_COLLISION_RWE                       :
+    case TURN_CCLOCK_YAW_MORE_178ABS_COLLISION_RWE:
         if(turn_start_update == 0)
         {
             turn_start_x = current_pose->x;
@@ -5040,14 +5198,36 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
         break;
 
     case RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
-        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+		 if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_ready_leaking_sweep_status = RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION;
             break;
         }
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_yy - current_pose->y) > lateral_move_distance)
+		if(my_abs(Yaw)>90){
+       	if(adcRealTime[8]>100&&adcRealTime[8]<1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[8]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = -10;
+		}
+		if(adcRealTime[8]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			    angular_velocity = 10;
+			}
+			else{
+				linear_velocity = 100;
+			    angular_velocity = 20;
+			}
+							
+		}
+	}else{
+		if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_yy - current_pose->y) > lateral_move_distance)
         {
             if(Yaw>60){
                 last_position_x=current_pose->x;
@@ -5059,6 +5239,10 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
             }
             break;
         }
+		linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+	}
+       
         if(Yaw<-75||current_pose->y<last_position_y||my_abs(last_position_y-current_pose->y)>leakingsweep){
             right_ready_leaking_sweep_status = RIGHT_LEAKING_SWEEP_CLOCK_TARGER_YAW_LESS_ABS3;
             break;
@@ -5253,14 +5437,36 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
         break;
 
     case RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
-        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+		if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_ready_leaking_sweep_status = RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION;
             break;
         }
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_yy - current_pose->y) > lateral_move_distance)
+	
+		if(my_abs(Yaw)<90){
+        if(adcRealTime[9]>100&&adcRealTime[9]<1500){
+		   delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[9]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 10;
+		}
+		if(adcRealTime[9]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			angular_velocity = -10;
+			}
+			else{
+				linear_velocity = 100;
+			angular_velocity = -20;
+			}
+		}
+	}else{
+		 if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_yy - current_pose->y) > lateral_move_distance)
         {
             if(Yaw<120&&Yaw>90){
                 last_position_x=current_pose->x;
@@ -5272,6 +5478,9 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
             }
             break;
         }
+		 linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+	}
         if((Yaw>-105&&Yaw<0)||current_pose->y<last_position_y||my_abs(last_position_y-current_pose->y)>leakingsweep){
             right_ready_leaking_sweep_status = RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS178;
             break;
@@ -7723,6 +7932,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
 {
     int Yaw;
     unsigned char complete_flag=0;
+	signed char i,j;
     Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
 	if (my_abs(current_pose->x)>half_map_wide-2*GRIDWIDTH||my_abs(current_pose->y)>half_map_wide-2*GRIDWIDTH){
@@ -7801,8 +8011,8 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
     case LEFT_EDGE_GOSTR_BYPASS_WE_X:
         linear_velocity = 0;
         angular_velocity = 0;
-                last_position_x = current_pose->x;
-                right_walk_edge_status = LEFT_EDGE_GOSTR_BYPASS_WE;
+        last_position_x = current_pose->x;
+        right_walk_edge_status = LEFT_EDGE_GOSTR_BYPASS_WE;
         break;
     case CLOSE_EDGE_MAP_LEFT_WALK:
         linear_velocity = 0;
@@ -7860,26 +8070,65 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         break;
 
     case LEFT_EDGE_GOSTR_BYPASS_WE:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
         if (obstacleSignal !=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_walk_edge_status = LEFT_EDGE_COLLISION_BYPASS_WE;
             break;
         }
+		if(adcRealTime[9]>100&&adcRealTime[9]<1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[9]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 10;
+		}
+		if(adcRealTime[9]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			angular_velocity = -10;
+				
+			}
+			else{
+				linear_velocity = 100;
+			angular_velocity = -20;
+				
+			}
+		}
         if (my_abs(last_position_x - current_pose->x) > lateral_move_distance)
         {
-            right_walk_edge_status = LEFT_EDGE_GOSTR_X_MORE_LATERALDIS_BYPASS_WE;
-            break;
+			if(Yaw<135&&Yaw>0){
+				right_walk_edge_status = LEFT_EDGE_GOSTR_X_MORE_LATERALDIS_BYPASS_WE;
+			}
+			else{
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
+				if(i>0&&i<99&&j>=0&&j<GRIDWIDTH)
+				gridmap.map[i-1][j]=0;
+				gridmap.map[i][j]=0;
+				gridmap.map[i+1][j]=0;
+				gridmap.map[i-1][j-1]=0;
+				gridmap.map[i][j-1]=0;
+				gridmap.map[i+1][j-1]=0;
+				last_position_x = current_pose->x;
+			}
+			break;			
         }
         if ((current_pose->y - last_position_y)  > temporary_close_edge)
         {
+			linear_velocity = 0;
+            angular_velocity = 0;
             right_walk_edge_status = LEFT_EDGE_BOW_CONTINUE_WE;
             break;
         }
         if (b_last_position_yy == true && my_abs(last_position_yy - current_pose->y) > 3 * lateral_move_distance)
         {
-            right_walk_edge_status = LEFT_EDGE_BOW_CONTINUE_WE;
+			linear_velocity = 0;
+            angular_velocity = 0;
+            right_walk_edge_status = LEFT_EDGE_TARGET_YAW_LESS_ABS105_LESS_0_BYPASS_WE;
             break;
         }
         if (my_abs(Yaw) < 120 && (Yaw < 0) && (b_last_position_yy == false))
@@ -7928,6 +8177,11 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
         angular_velocity = turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
+			if(my_abs(Yaw)>170){
+				temporary_yaw=Yaw;
+				right_walk_edge_status =LEFT_EDGE_TURN_CCLOCK_YAW_ADD_ABS15_WE;
+				break;
+			}
             linear_velocity = 0;
             angular_velocity = 0;
             right_walk_edge_status = LEFT_EDGE_REBACK_GOSTR_BYPASS_CHECK_WE;
@@ -8191,6 +8445,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
 {
     int Yaw;
     unsigned char complete_flag=0;
+	signed char i,j;
     Yaw = current_pose->orientation;
 	  Yaw = Yaw /100;
 	if (my_abs(current_pose->x)>half_map_wide-2*GRIDWIDTH||my_abs(current_pose->y)>half_map_wide-2*GRIDWIDTH){
@@ -8327,17 +8582,52 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         break;
 
     case LEFT_REVERSE_EDGE_GOSTR_BYPASS_RWE:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_COLLISION_BYPASS_RWE;
             break;
         }
+		if(adcRealTime[8]>100&&adcRealTime[8]<1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[8]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = -10;
+		}
+		if(adcRealTime[8]<100){
+			if(delimma_edge<10){
+				linear_velocity = 200;
+			angular_velocity = 10;
+				delimma_edge++;
+			}
+			else{
+				linear_velocity = 100;
+			angular_velocity = 20;
+				
+			}
+			
+		}
         if (my_abs(last_position_x - current_pose->x) > lateral_move_distance)
         {
-            right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_GOSTR_X_MORE_LATERALDIS_BYPASS_RWE;
-            break;
+			if(Yaw>45&&Yaw<90){
+				right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_GOSTR_X_MORE_LATERALDIS_BYPASS_RWE;
+			}
+			else{
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
+				if(i>0&&i<99&&j>=0&&j<GRIDWIDTH)
+				gridmap.map[i-1][j]=0;
+				gridmap.map[i][j]=0;
+				gridmap.map[i+1][j]=0;
+				gridmap.map[i-1][j-1]=0;
+				gridmap.map[i][j-1]=0;
+				gridmap.map[i+1][j-1]=0;
+				last_position_x = current_pose->x;
+			}
+			break;			
         }
         if ((current_pose->y - last_position_y)  > temporary_close_edge)
         {
@@ -8346,7 +8636,9 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         }
         if (b_last_position_yy == true && my_abs(last_position_yy - current_pose->y) > 3 * lateral_move_distance)
         {
-            right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_BOW_CONTINUE_RWE;
+			linear_velocity = 0;
+            angular_velocity = 0;
+            right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_TARGET_YAW_MORE_ABS75_LESS_ABS0_RWE;
             break;
         }
         if (my_abs(Yaw) > 60 && (Yaw < 0) && (b_last_position_yy == false))
@@ -8394,6 +8686,11 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         angular_velocity = -turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
+			if(my_abs(Yaw)>170){
+				temporary_yaw=Yaw;
+				right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_TURN_CLOCK_YAW_ADD_ABS15_RWE;
+				break;
+			}
             linear_velocity = 0;
             angular_velocity = 0;
             right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_REBACK_GOSTR_BYPASS_CHECK_RWE;
@@ -8657,6 +8954,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
     unsigned char complete_flag = 0;
 	  signed char i=0;
 	  signed char j=0;
+	signed char k,ij;
     Yaw = current_pose->orientation;
 	  Yaw = Yaw /100;
 	//log_debug("right_edge_dilemma_status =======>>>,%x,\n",right_edge_dilemma_status);
@@ -8768,25 +9066,61 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         right_edge_dilemma_status = LEFT_DILEMMA_LOOP_TEN_NUM_DILEMMA;
         break;
     case LEFT_DILEMMA_LOOP_TEN_NUM_DILEMMA:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
+		if(adcRealTime[8]>100&&adcRealTime[8]<1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[8]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = -10;
+		}
+		if(adcRealTime[8]<100){
+			if(delimma_edge<10){
+				linear_velocity = 200;
+			angular_velocity = 10;
+				delimma_edge++;
+			}
+			else{
+				linear_velocity = 100;
+			angular_velocity = 20;
+			}
+			
+		}
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
           right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_DILEMMA;
-					step=1;
           break;
         }
-        if (my_abs(last_position_x - current_pose->x) > temporary_close_edge)
+        if (my_abs(last_position_x - current_pose->x) > dilemma_close_edge||my_abs(last_position_y - current_pose->y) > dilemma_close_edge)
         {
+			if(60<Yaw&&Yaw<105){
+				right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
+			}
+			else{
+				k=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				ij=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
+				if(k>0&&k<99&&ij>=0&&ij<GRIDWIDTH){
+				gridmap.map[k-1][ij+1]=0;
+				gridmap.map[k][ij+1]=0;
+				gridmap.map[k+1][ij+1]=0;
+				gridmap.map[k-1][ij]=0;
+				gridmap.map[k][ij]=0;
+				gridmap.map[k+1][ij]=0;
+				gridmap.map[k-1][ij-1]=0;
+				gridmap.map[k][ij-1]=0;
+				gridmap.map[k+1][ij-1]=0;
+				last_position_x = current_pose->x;
+                last_position_y = current_pose->y;
+				step++;
+				if(step>5){
+					step=0;
+					right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
+				}
+			}
+		}
           temporary_yaw = Yaw;
-          right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
-          break;
-        }
-				 if (my_abs(last_position_y - current_pose->y) > temporary_close_edge)
-        {
-          temporary_yaw = Yaw;
-					step=2;
-          right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA;
           break;
         }
         if(60<Yaw&&Yaw<105){
@@ -8807,12 +9141,13 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 					}           
             break;
         }
+		
         if(my_abs(current_pose->y)<return_origin_distance){
 			      linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status=0;
             DelimmaNumber=0;
-					  step=0;
+			step=0;
             complete_flag = 2;
             break;
         }
@@ -8824,13 +9159,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 					  step=0;
             complete_flag = 2;
             break;
-			
-//            linear_velocity = 0;
-//            angular_velocity = 0;
-//					  step=1;
-//            right_edge_dilemma_status = COMPLETE_LEFT_DILEMMA;
-//            break;
         }
+
         break;
     case COMPLETE_LEFT_DILEMMA:
         linear_velocity = 0;
@@ -8883,6 +9213,11 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         angular_velocity = -turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
+			if(my_abs(Yaw)>170){
+				temporary_yaw=Yaw;
+				right_edge_dilemma_status =LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
+				break;
+			}
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_LESS_ABS90_DILEMMA;
@@ -8939,7 +9274,6 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         {
             linear_velocity = 0;
             angular_velocity = 0;
-					  step=1;
             right_edge_dilemma_status = LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS87_COLLISION_DILEMMA;
             break;
         }
@@ -8972,17 +9306,39 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_CYM_DILEMMA;
         break;
     case LEFT_DILEMMA_GOSTR_CYM_DILEMMA:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
         if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_COLLISION_CYM_DILEMMA;
             break;
         }
-        if (my_abs(last_position_x - current_pose->x) > temporary_close_edge||my_abs(last_position_y - current_pose->y) > temporary_close_edge)
+        if (my_abs(last_position_x - current_pose->x) > dilemma_close_edge||my_abs(last_position_y - current_pose->y) > dilemma_close_edge)
         {
+			if(Yaw<120&&Yaw>75){
+				 right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
+			}
+			else{
+				k=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				ij=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
+				if(k>0&&k<99&&ij>=0&&ij<GRIDWIDTH){
+				gridmap.map[k-1][ij+1]=0;
+				gridmap.map[k][ij+1]=0;
+				gridmap.map[k+1][ij+1]=0;
+				gridmap.map[k-1][ij]=0;
+				gridmap.map[k][ij]=0;
+				gridmap.map[k+1][ij]=0;
+				gridmap.map[k-1][ij-1]=0;
+				gridmap.map[k][ij-1]=0;
+				gridmap.map[k+1][ij-1]=0;
+				last_position_x = current_pose->x;
+                last_position_y = current_pose->y;
+			    step++;
+				if(step>5){
+					step=0;
+					right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
+				}
+			}
+		}
             temporary_yaw = Yaw;
-            right_edge_dilemma_status = LEFT_DILEMMA_GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA;
             break;
         }
         if(Yaw<120&&Yaw>75){
@@ -9012,6 +9368,28 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             complete_flag = 2;
             break;
         }
+	   if(adcRealTime[9]>100&&adcRealTime[9]<1500){
+		   delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[9]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 10;
+		}
+		if(adcRealTime[9]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			angular_velocity = -10;
+			}
+			else{
+				linear_velocity = 100;
+			angular_velocity = -20;
+			}
+			
+		}
         if(my_abs(current_pose->x+half_map_wide)<100*close_edge_min_x+500){
 			linear_velocity = 0;
             angular_velocity = 0;
@@ -9020,13 +9398,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 			step=0;
             complete_flag = 2;
             break;
-//			
-//            linear_velocity = 0;
-//            angular_velocity = 0;
-//					  step=1;
-//            right_edge_dilemma_status=LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA;
-//            break;
         }
+		
         break;
 
     case LEFT_DILEMMA_GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA:
@@ -9101,6 +9474,11 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
         angular_velocity =turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
+			if(my_abs(Yaw)>170){
+				temporary_yaw=Yaw;
+				right_edge_dilemma_status =LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA;
+				break;
+			}
             linear_velocity = 0;
             angular_velocity = 0;
             right_edge_dilemma_status =LEFT_DILEMMA_COLLISION_YAW_MORE_ABS90_DILEMMA;
@@ -9263,14 +9641,35 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
         right_ready_leaking_sweep_status = LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP;
         break;
     case LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
-        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+		  if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_ready_leaking_sweep_status = LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION;
             break;
         }
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_yy - current_pose->y) > lateral_move_distance)
+		if(my_abs(Yaw)>90){
+        if(adcRealTime[9]>100&&adcRealTime[9]<1500){
+		   delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[9]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 10;
+		}
+		if(adcRealTime[9]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			angular_velocity = -10;
+			}
+			else{
+				linear_velocity = 100;
+			angular_velocity = -20;
+			}
+		}
+	}else{
+		 if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_yy - current_pose->y) > lateral_move_distance)
         {
             if(Yaw<-60&&Yaw>-90){
                 last_position_x=current_pose->x;
@@ -9282,6 +9681,11 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
             }
             break;
         }
+		linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+	
+	}
+       
         if(Yaw>75||current_pose->y>last_position_y||my_abs(last_position_y-current_pose->y)>leakingsweep){
             right_ready_leaking_sweep_status = LEFT_LEAKING_SWEEP_CCLOCK_TARGER_YAW_LESS_ABS8;
             break;
@@ -9476,14 +9880,32 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
         break;
 
     case LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP:
-        linear_velocity = long_stra_vel;
-        angular_velocity =0;
-        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
-        {
-            right_ready_leaking_sweep_status = LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION;
-            break;
-        }
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_yy - current_pose->y) > lateral_move_distance)
+		if(my_abs(Yaw)<90){
+        if(adcRealTime[8]>100&&adcRealTime[8]<1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[8]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = -10;
+		}
+		if(adcRealTime[8]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+			    angular_velocity = 10;
+			}
+			else{
+				linear_velocity = 100;
+			    angular_velocity = 20;
+			}
+							
+		}
+	}
+		else{
+			 if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_yy - current_pose->y) > lateral_move_distance)
         {
             if(Yaw>-120&&Yaw<-90){
                 last_position_x=current_pose->x;
@@ -9495,6 +9917,16 @@ unsigned char  LeftReadyLeakingSweep(POSE *current_pose, unsigned char obstacleS
             }
             break;
         }
+		linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+		
+		}
+        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
+        {
+            right_ready_leaking_sweep_status = LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION;
+            break;
+        }
+       
         if((Yaw<105&&Yaw>0)||current_pose->y>last_position_y||my_abs(last_position_y-current_pose->y)>leakingsweep){
             right_ready_leaking_sweep_status = LEFT_LEAKING_SWEEP_CLOCK_TARGET_YAW_MORE_ABS173;
             break;
@@ -10727,6 +11159,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal)
     }
     return complete_flag;
 }
+
 
 
 
