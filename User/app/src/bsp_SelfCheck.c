@@ -437,6 +437,13 @@ void bsp_SelfCheckProc(void)
 			{
 				bsp_SendSelfCheck();
 				
+				bsp_StopVacuum();
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
+				bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
+				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+
+				
 				selfCheck.delay = xTaskGetTickCount();
 				++selfCheck.action;
 			}
