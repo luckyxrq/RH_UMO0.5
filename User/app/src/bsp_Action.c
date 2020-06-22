@@ -37,7 +37,7 @@ void bsp_StartSleepProc(void)
 */
 void bsp_SleepProc(void)
 {
-	if(!sleepProc.isRunning)
+	if(!sleepProc.isRunning || GetCmdStartUpload()) /*上传数据的时候也不进行休眠模式*/
 	{
 		return;
 	}
