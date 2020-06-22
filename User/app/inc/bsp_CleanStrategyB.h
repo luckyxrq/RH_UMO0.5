@@ -766,7 +766,8 @@
 #define none_cliff 0
 
 #define W 5000
-#define long_stra_vel 300
+#define long_stra_vel 150
+#define real_gostaright_vel 300
 #define turn_vel 60
 #define correction_turn_vel 40
 
