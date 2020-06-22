@@ -66,6 +66,8 @@ void bsp_StrategyRandomProc(void)
 	{
 		case 0: /*开机直接先跑*/
 		{
+			static int16_t speed = 0 ;
+			
 			strategyRandom.collision = bsp_CollisionScan();
 			
 			strategyRandom.leftCliff = bsp_CliffIsDangerous(CliffLeft);
@@ -82,6 +84,7 @@ void bsp_StrategyRandomProc(void)
 				
 				/*记录下此时的脉冲数*/
 				strategyRandom.pulse = bsp_GetCurrentBothPulse();
+				speed = 0 ;
 				
 				strategyRandom.action =  1;
 			}
@@ -92,6 +95,8 @@ void bsp_StrategyRandomProc(void)
 				
 				/*记录下此时的脉冲数*/
 				strategyRandom.pulse = bsp_GetCurrentBothPulse();
+				speed = 0 ;
+				
 				strategyRandom.action =  3;
 			}
 			else if(strategyRandom.collision == CollisionLeft)
@@ -101,6 +106,8 @@ void bsp_StrategyRandomProc(void)
 				
 				/*记录下此时的脉冲数*/
 				strategyRandom.pulse = bsp_GetCurrentBothPulse();
+				speed = 0 ;
+				
 				strategyRandom.action =  5;
 			}
 			else /*没有碰撞就直接走，快速走*/
@@ -108,13 +115,23 @@ void bsp_StrategyRandomProc(void)
 				if(IRSensorData[2] == 1 || IRSensorData[7] == 1 || IRSensorData[0] == 1 ||\
 				   IRSensorData[4] == 1 || IRSensorData[6] == 1)
 				{
-					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(120));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));			
+					if(speed < 120 )
+					{
+						speed += 20;
+					}
+					
+					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(speed));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(speed));			
 				}
 				else
 				{
-					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(180));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(180));
+					if(speed < 180 )
+					{
+						speed += 20;
+					}
+					
+					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(speed));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(speed));
 				}
 			}
 			
@@ -192,12 +209,6 @@ void bsp_StrategyRandomProc(void)
 				strategyRandom.action = 0 ;
 			}
 		}break;
-		
-		
-		
-		
-		
-		
 	}
 }
 

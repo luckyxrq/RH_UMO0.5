@@ -115,7 +115,7 @@ void bsp_StopEdgewiseRun(void)
 
 }
 
-void bsp_SetEdgeLeftRight(uint8_t Edg_dir)
+void bsp_SetEdgeLeftRight(Dir_Right_Left Edg_dir)
 {
 	if(Edg_dir  == Dir_left)
 	{

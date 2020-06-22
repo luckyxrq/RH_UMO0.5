@@ -120,6 +120,8 @@ typedef struct
 	
 	bool isInCW_LITTLE_RX_F;  /*顺时针旋转的时候收到了前面的信号*/
 	bool isInCCW_LITTLE_RX_F; /*逆时针旋转的时候收到了前面的信号*/
+	
+	bool isBanOnlyF_Wide;
 }Serach;
 
 
@@ -143,6 +145,7 @@ void bsp_StartSearchChargePile(void)
 	search.lastSIGNAL_Tick = xTaskGetTickCount();
 	search.ONLY_F_RX_WIDE_CNT = 0 ;
 	search.isNeedFirstRunRandom = true;
+	search.isBanOnlyF_Wide = false;
 	search.isRunning = true;
 	
 	/*防止编译器警告*/
@@ -165,6 +168,7 @@ void bsp_StopSearchChargePile(void)
 	bsp_SetMotorSpeed(MotorRight,0);
 	search.isRunning = false;
 	search.isNeedFirstRunRandom = false;
+	search.isBanOnlyF_Wide = false;
 	search.action = 0 ;
 	search.delay = 0 ;
 	
@@ -327,6 +331,13 @@ void bsp_SearchChargePile(void)
 		return;
 	}
 	
+	
+	if(IR_FL_L || IR_FL_R || IR_FR_L || IR_FR_R)
+	{
+		search.isBanOnlyF_Wide = true;
+	}
+	
+	
 	switch(search.action)
 	{
 		case 0:
@@ -353,12 +364,10 @@ void bsp_SearchChargePile(void)
 			}
 			else
 			{
-				static bool isNeedOpenONLY_F_RX_WIDE = true;
-				if(ONLY_F_RX_WIDE)
+				if(!search.isBanOnlyF_Wide && ONLY_F_RX_WIDE)
 				{
-					if(++search.ONLY_F_RX_WIDE_CNT >= 100 && isNeedOpenONLY_F_RX_WIDE)
+					if(++search.ONLY_F_RX_WIDE_CNT >= 100)
 					{
-						isNeedOpenONLY_F_RX_WIDE = false;
 						search.ONLY_F_RX_WIDE_CNT = 0 ;
 						bsp_SetMotorSpeed(MotorLeft, 0);
 						bsp_SetMotorSpeed(MotorRight,0);
@@ -384,7 +393,6 @@ void bsp_SearchChargePile(void)
 						search.action = 3 ;
 					}
 				}
-				
 				
 				if(ROTATE_CW_LITTLE)
 				{
@@ -499,6 +507,12 @@ void bsp_SearchChargePile(void)
 				search.delay = xTaskGetTickCount();
 				++search.action;
 			}
+//			else if(IR_FL_L || IR_FL_R  || IR_FR_L || IR_FR_R || IR_SL_L || IR_SL_R || IR_SR_L || IR_SR_R)
+//			{
+//				bsp_SetMotorSpeed(MotorLeft, 3);
+//				bsp_SetMotorSpeed(MotorRight,3);
+//				search.action = 0 ;
+//			}
 		}break;
 		
 		

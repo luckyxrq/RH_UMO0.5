@@ -286,8 +286,9 @@ static void vTaskPerception(void *pvParameters)
 	/*开清扫策略*/
 	//bsp_StartUpdateCleanStrategyB();
 	
-	//bsp_StartCliffTest();
-
+	/*空闲休眠模式检测*/
+	bsp_StartSleepProc();
+	
 	bsp_InitCliffSW();
 	
 	
@@ -360,6 +361,9 @@ static void vTaskPerception(void *pvParameters)
 		
 		/*自检程序*/
 		bsp_SelfCheckProc();
+		
+		/*空闲休眠模式检测*/
+		bsp_SleepProc();
 		
 		/*上传开关和时间间隔同时限制*/
 		if(GetCmdStartUpload() && count % 50 == 0)
