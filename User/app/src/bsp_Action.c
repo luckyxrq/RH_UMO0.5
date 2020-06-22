@@ -71,8 +71,5 @@ void bsp_SleepProc(void)
 		
 		default:break;
 	}
-	
-	
-	
 }
 

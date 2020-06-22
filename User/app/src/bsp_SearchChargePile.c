@@ -101,11 +101,13 @@ typedef struct
 	
 	uint32_t startTick;
 	
+	
 	bool isNeedPlaySong;
 	uint32_t isNeedPlaySongTick;
 	uint32_t lastIsChargeDoneTick;
 	uint32_t lastIsTouchTick;
 	uint32_t lastIsNeedEdgeTick;
+	uint32_t lastReallyChargeTime;
 	
 	bool isNeedFirstRunRandom;
 	Collision collision;
@@ -143,6 +145,7 @@ void bsp_StartSearchChargePile(void)
 	search.delay = 0 ;
 	search.startTick = xTaskGetTickCount();
 	search.lastSIGNAL_Tick = xTaskGetTickCount();
+	search.lastReallyChargeTime = 0 ;
 	search.ONLY_F_RX_WIDE_CNT = 0 ;
 	search.isNeedFirstRunRandom = true;
 	search.isBanOnlyF_Wide = false;
@@ -219,6 +222,8 @@ void bsp_SearchChargePile(void)
 			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
 			bsp_SperkerPlay(Song22);
 			search.isNeedPlaySong = false;
+			
+			search.lastReallyChargeTime = xTaskGetTickCount();
 		}
 
 		if(bsp_IsChargeDone())
@@ -241,7 +246,7 @@ void bsp_SearchChargePile(void)
 	{
 		if((xTaskGetTickCount() >= search.lastIsTouchTick)  &&  (xTaskGetTickCount() - search.lastIsTouchTick >= 500))
 		{
-			 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!治理需要根据扫地与否更改*/
+			 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!这里需要根据扫地与否更改*/
 			if( bsp_GetLedAppState() != AT_CLEAN && 
 				bsp_GetLedAppState() != AT_SEARCH_CHARGE &&
 				bsp_GetLedAppState() != THREE_WHITE_TOOGLE &&
@@ -253,6 +258,12 @@ void bsp_SearchChargePile(void)
 			search.isNeedPlaySongTick = xTaskGetTickCount();
 			search.isNeedPlaySong = true;
 			search.lastIsTouchTick = UINT32_T_MAX;
+		}
+		
+		
+		if(search.lastReallyChargeTime != 0 && (xTaskGetTickCount() - search.lastReallyChargeTime <= 10*1000))
+		{
+			bsp_StartSearchChargePile(); /*冲上又抖掉了  再次开启充电*/
 		}
 		
 	}
