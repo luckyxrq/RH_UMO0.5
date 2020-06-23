@@ -143,7 +143,7 @@ static void vTaskDecision(void *pvParameters)
 {
     
     uint32_t count = 0 ;
-	vTaskDelay(1000);
+	vTaskDelay(2000);
     while(1)
     {
         /* 处理按键事件 */
