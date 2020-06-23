@@ -98,3 +98,4 @@
 .\flash\obj\bsp_cliffsw.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
 .\flash\obj\bsp_cliffsw.o: ..\..\User\app\inc\bsp_communication_bot3.h
 .\flash\obj\bsp_cliffsw.o: ..\..\User\app\inc\bsp_selfcheck.h
+.\flash\obj\bsp_cliffsw.o: ..\..\User\app\inc\bsp_functiontest.h

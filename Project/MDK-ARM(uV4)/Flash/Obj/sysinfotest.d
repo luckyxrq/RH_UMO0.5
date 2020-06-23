@@ -98,3 +98,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_communication_bot3.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_selfcheck.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_functiontest.h
