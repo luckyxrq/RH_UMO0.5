@@ -116,6 +116,10 @@ void bsp_DustBoxProc(void)
 					bsp_SperkerPlay(Song9);
 					dustBoxProc.action++;
 				} 
+				else
+				{
+					dustBoxProc.cnt = 0 ;
+				}
 			}
 		}break;
 		

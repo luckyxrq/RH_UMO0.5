@@ -29,6 +29,7 @@ static void AppObjCreate (void);
 void  App_Printf(char *format, ...);
 static void bsp_KeyProc(void);
 static void bsp_KeySuspend(void);
+static void bsp_UploadBatteryInfo(void);
 /*
 **********************************************************************************************************
                                             变量声明
@@ -102,44 +103,43 @@ int main(void)
 *   优 先 级: 4  
 *********************************************************************************************************
 */
-
-
 static void vTaskMapping(void *pvParameters)
 {
 	uint32_t count = 0 ;
-	float battery_adc_value = 0;
-	uint32_t battery_precent = 0 ;
+	
+	
     while(1)
     {
      		
 #if 1 /*更新地图*/
 		
-		if(isSearchCharge){}
-		else{		
-			main_debug("bsp_GridMapUpdate() \n");
+		if(isSearchCharge == false)
+		{		
 			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-
 		}
 #endif
 		
 		//bsp_UploadMap();
 		if(count++ % 100 == 0)
-		{	battery_adc_value  = bsp_GetFeedbackVoltage(eBatteryVoltage);
-			battery_adc_value  = ((battery_adc_value * 430.0f / 66.5f) + battery_adc_value + 0.2F);
-			battery_precent = ((battery_adc_value - 11.9f) / 4.8f)*100; 
-			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY, battery_precent);
-			mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
-			
+		{	
+			bsp_UploadBatteryInfo();
 		}
         vTaskDelay(100);
-		
-		
     }
 
 }
 
 
-static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
+/*
+*********************************************************************************************************
+*	函 数 名: vTaskDecision
+*	功能说明: 决策 整机软件控制流程
+*	形    参: pvParameters 是在创建该任务时传递的形参
+*	返 回 值: 无
+*   优 先 级: 4  
+*********************************************************************************************************
+*/
+static void vTaskDecision(void *pvParameters)
 {
     
     uint32_t count = 0 ;
@@ -147,26 +147,14 @@ static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
     while(1)
     {
         /* 处理按键事件 */
-		main_debug("bsp_KeyProc() \n");
         bsp_KeyProc();
-		
 		
         if(count++ % 10 == 0)
         {
-#if 0 
-			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
-#endif
-			//main_debug("bsp_ChangeWifi2SmartConfigStateProc() \n");
 			bsp_ChangeWifi2SmartConfigStateProc();
 			
 			/*下面是打印开关，酌情注释*/
-			//main_debug("bsp_WifiStateProc() \n");
 			bsp_WifiStateProc();
-//			bsp_PrintCollision();
-//			bsp_PrintIR_Rev();
-//			bsp_PrintAllVoltage();
-			bsp_GetCliffStates();
-//			bsp_PrintCliff();
         }
 		
         vTaskDelay(50);	
@@ -201,39 +189,19 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		if(count%100 ==0)
 		{
 			bsp_CleanZeroYaw();
-			DEBUG("bsp_CleanZeroYaw()\r\n");
 		}
-		
-		DEBUG("Orientation: %f ° \r\n", Rad2Deg(bsp_GetCurrentOrientation()));
 #endif
 		
-		
-		if(isSearchCharge)
-		{
-		
-		}
-		else
+		if(isSearchCharge == false)
 		{	
-			main_debug("bsp_UpdateCleanStrategyB() \n");
 			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
 			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			
-		}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
-		
-		
-		
+		}
 		if(GetReturnChargeStationStatus())
 		{
-			
-			//main_debug("bsp_StopUpdateCleanStrategyB() \n");
 			bsp_StopUpdateCleanStrategyB();
-			
-			
-			//main_debug("ResetReturnChargeStationStatus() \n");
 			ResetReturnChargeStationStatus();
-			
-			
-			//main_debug("bsp_PutKey(KEY_LONG_CHARGE) \n");
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
@@ -255,7 +223,6 @@ bool isNeedRun = false;
 *   优 先 级: 4  
 *********************************************************************************************************
 */
-float roll = 0.0F;
 static void vTaskPerception(void *pvParameters)
 {
 	uint32_t count = 0 ;
@@ -266,29 +233,19 @@ static void vTaskPerception(void *pvParameters)
 	/*检测主机悬空*/
 	bsp_StartOffSiteProc();
 	
+	/*打开检测尘盒*/
 	bsp_StartDustBoxProc();
-	
-	/*开启寻找充电桩*/
-	//bsp_StartSearchChargePile();
-	
-	/*开启沿边行走*/
-	//bsp_StartEdgewiseRun();
 	
 	/*开启位置坐标更新*/
     bsp_StartUpdatePos();
 	
-    /*开启正面碰撞协助*/
-	//bsp_StartAssistJudgeDirection();
-	
 	/*开启栅格地图跟新*/
 	bsp_StartUpdateGridMap();
 
-	/*开清扫策略*/
-	//bsp_StartUpdateCleanStrategyB();
-	
 	/*空闲休眠模式检测*/
 	bsp_StartSleepProc();
 	
+	/*初始化跳崖传感器*/
 	bsp_InitCliffSW();
 	
 	
@@ -308,60 +265,33 @@ static void vTaskPerception(void *pvParameters)
 #if 1
 		if(bsp_IsInitAW9523B_OK())
 		{
-			//main_debug("bsp_DetectAct() \n");
 			bsp_DetectAct();  /*红外对管轮询扫描*/
-			//main_debug("bsp_DetectDeal() \n");
 			bsp_DetectDeal(); /*红外对管扫描结果处理*/
 		}
 #endif
        
-#if 0   /*测试红外测距的距离，测到后就停下来*/
-		bsp_DetectMeasureTest();
-#endif
-
-#if 0  /*测试跳崖传感器 、红外、碰撞共同测试*/	 
-		//main_debug("bsp_CliffTest() \n");
-		bsp_CliffTest();
-#endif
-		
-#if 0  /*测试IMU数据是否正常*/	 
-		DEBUG("bsp_AngleReadRaw:%d\n",bsp_AngleReadRaw());
-#endif
-		
-#if 0  /*测试电池电压数据是否正常*/	 
-		
-		DEBUG("BatteryVoltage:%f\n",((bsp_GetFeedbackVoltage(eBatteryVoltage) * 430 / 66.5) + bsp_GetFeedbackVoltage(eBatteryVoltage) + 0.2F));
-#endif
-		
-
+		/*随机策略*/
 		bsp_StrategyRandomProc();
 		
 		/*检测主机悬空*/
-		//main_debug("bsp_OffSiteProc() \n");
 		if(!GetCmdStartUpload())
 		{
 			bsp_OffSiteProc();
 		}
 		
-		//check dust box
+		/*检测尘盒*/
 		if(!GetCmdStartUpload())
 		{
 			bsp_DustBoxProc();
 		}
 		
         /*寻找充电桩*/
-		//main_debug("bsp_SearchChargePile() \n");
 		bsp_SearchChargePile();
 		/*沿边行走*/
-		//main_debug("bsp_EdgewiseRun() \n");
 		bsp_EdgewiseRun();
         /*更新坐标*/
-		//main_debug("bsp_PositionUpdate() \n");
         bsp_PositionUpdate();
-		//main_debug("bsp_LedAppProc() \n");
 		bsp_LedAppProc();
-		
-		//main_debug("wifi_uart_service() \n");
 		wifi_uart_service();
 		
 		/*更新跳崖传感器信息*/
@@ -375,7 +305,6 @@ static void vTaskPerception(void *pvParameters)
 		
 		/*上传开关和时间间隔同时限制*/
 		if(GetCmdStartUpload() && count % 50 == 0)
-		//if(count % 50 == 0)
 		{
 			bsp_SendReportFrameWithCRC16();
 		}
@@ -472,6 +401,26 @@ void  App_Printf(char *format, ...)
     DEBUG("%s", buf_str);
     
     xSemaphoreGive(xMutex);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_UploadBatteryInfo
+*	功能说明: 无		  			  
+*	形    参: 上传电池信息到APP
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_UploadBatteryInfo(void)
+{
+	float battery_adc_value = 0;
+	uint32_t battery_precent = 0 ;
+
+	battery_adc_value  = bsp_GetFeedbackVoltage(eBatteryVoltage);
+	battery_adc_value  = ((battery_adc_value * 430.0f / 66.5f) + battery_adc_value + 0.2F);
+	battery_precent = ((battery_adc_value - 11.9f) / 4.8f)*100; 
+	mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY, battery_precent);
+	mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
 }
 
 static void bsp_StopAllMotor(void)
@@ -807,9 +756,6 @@ static void bsp_KeyProc(void)
 				bsp_SperkerPlay(Song34);
 				bsp_StartEdgewiseRun();
 			}break;
-			
-			
-			
 		}   
 	}
 }
