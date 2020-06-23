@@ -338,9 +338,17 @@ static void vTaskPerception(void *pvParameters)
 		
 		/*检测主机悬空*/
 		//main_debug("bsp_OffSiteProc() \n");
-		bsp_OffSiteProc();
+		if(!GetCmdStartUpload())
+		{
+			bsp_OffSiteProc();
+		}
+		
 		//check dust box
-		bsp_DustBoxProc();
+		if(!GetCmdStartUpload())
+		{
+			bsp_DustBoxProc();
+		}
+		
         /*寻找充电桩*/
 		//main_debug("bsp_SearchChargePile() \n");
 		bsp_SearchChargePile();
@@ -620,7 +628,7 @@ static void bsp_KeyProc(void)
 				DEBUG("充电按键长按\r\n");
 
 				/*首先判断是否主机悬空*/
-				if(bsp_OffSiteGetState() != OffSiteNone)
+				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
 				{
 					bsp_SperkerPlay(Song16);
 					return;
@@ -642,14 +650,14 @@ static void bsp_KeyProc(void)
 				DEBUG("清扫按键长按\r\n");
 				
 				/*首先判断是否主机悬空*/
-				if(bsp_OffSiteGetState() == OffSiteBoth)
+				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
 				{
 					bsp_SperkerPlay(Song16);
 					return;
 				}
 				
 				/*首先判断尘盒*/
-				if(bsp_DustBoxGetState() == DustBoxOutside)
+				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
 				{
 					bsp_SperkerPlay(Song9);
 					return;

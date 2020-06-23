@@ -542,6 +542,15 @@ static uint8_t check_sensor(unsigned char obstacleSignal)
 //	IRSensorData_StrategyB
 //	cliff_valueB
 	
+	
+	/*如果 处在 上传数据的状态 ， 则屏蔽异异常检测*/
+	if(GetCmdStartUpload())
+	{
+		return 0 ;
+	}
+	
+	
+	
 	check_sensor_cnt++;
 	if (check_sensor_cnt >201) check_sensor_cnt = 0;
 	
