@@ -371,7 +371,7 @@ static void vTaskPerception(void *pvParameters)
 		//main_debug("bsp_OffSiteProc() \n");
 		//bsp_OffSiteProc();
 		//check dust box
-		bsp_DustBoxProc();
+		//bsp_DustBoxProc();
         /*Ñ°ÕÒ³äµç×®*/
 		//main_debug("bsp_SearchChargePile() \n");
 		bsp_SearchChargePile();
