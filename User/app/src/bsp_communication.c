@@ -54,6 +54,32 @@ typedef struct
 }CMD_START_UPLOAD_FIXTURE;
 #pragma pack()
 
+
+/*按照1字节对齐，便于存储到uint8_t类型buf*/
+#pragma pack(1)
+typedef struct
+{
+	uint16_t head;
+	
+	uint16_t frame_len;
+	uint16_t frame_len_reverse;
+	
+    uint16_t tx_addr;
+    uint16_t rx_addr;
+	
+    uint16_t main_sec ;
+    uint16_t sub_sec ;
+	
+	/*********通用数据部分开始***********/
+    
+	uint32_t paraNormal;
+    
+	/*********通用数据部分结束***********/
+	
+	uint16_t crc16;
+}CommunicationNormal;
+#pragma pack()
+
 /*
 **********************************************************************************************************
 											变量声明
@@ -64,6 +90,7 @@ static ReportFrameWithCRC16 reportFrameWithCRC16;
 
 static CMD_START_UPLOAD cmd_START_UPLOAD;
 static CMD_START_UPLOAD_FIXTURE cmd_START_UPLOAD_FIXTURE;
+static CommunicationNormal communicationNormal;
 /*
 **********************************************************************************************************
 											函数声明
@@ -83,12 +110,20 @@ void bsp_ExexCmd(uint8_t *cmd , uint16_t main_sec , uint16_t sub_sec)
 	{
 		memcpy(&cmd_START_UPLOAD,cmd,sizeof(cmd_START_UPLOAD));
 	}
-	if(main_sec == 2 && sub_sec == 2) /*PC机命令治具主板开启测试并上报数据*/
+	else if(main_sec == 2 && sub_sec == 2) /*PC机命令治具主板开启测试并上报数据*/
 	{
 		memcpy(&cmd_START_UPLOAD_FIXTURE,cmd,sizeof(cmd_START_UPLOAD_FIXTURE));
 		if(cmd_START_UPLOAD_FIXTURE.isOpen)
 		{
 			bsp_StartSelfCheck();
+		}
+	}
+	else if(main_sec == 2 && sub_sec == 4) /*PC机命令命令主机执行测试床程序*/
+	{
+		memcpy(&communicationNormal,cmd,sizeof(communicationNormal));
+		if(communicationNormal.paraNormal)
+		{
+			bsp_StartFunctionTest();
 		}
 	}
 }

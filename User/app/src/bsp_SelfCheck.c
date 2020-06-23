@@ -335,6 +335,13 @@ void bsp_SelfCheckProc(void)
 				selfCheck.b_hall = 0 ;
 			}
 			
+			/*测试完需要的数据之后就直接关闭电机 风机 接着测试按键和碰撞开关*/
+			bsp_StopVacuum();
+			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
+			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
+			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			
 			bsp_SendSelfCheck();
 			
 			++selfCheck.action;
@@ -437,11 +444,7 @@ void bsp_SelfCheckProc(void)
 			{
 				bsp_SendSelfCheck();
 				
-				bsp_StopVacuum();
-				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
-				bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
-				bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+				
 
 				
 				selfCheck.delay = xTaskGetTickCount();

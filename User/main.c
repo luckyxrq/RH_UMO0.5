@@ -273,6 +273,9 @@ static void vTaskPerception(void *pvParameters)
 		/*随机策略*/
 		bsp_StrategyRandomProc();
 		
+		/*测试床程序*/
+		bsp_FunctionTestUpdate();
+		
 		/*检测主机悬空*/
 		if(!GetCmdStartUpload())
 		{
