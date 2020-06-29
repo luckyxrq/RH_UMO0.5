@@ -9,7 +9,7 @@
 #define IS_OBSTACLE_MV         60  //障碍物差值电压，毫伏
 
 #define IR_OBSTACLE_2_4      30
-#define IR_OBSTACLE_0_6      80
+#define IR_OBSTACLE_0_6      160
 #define IR_OBSTACLE_3        900  //1200
 #define IR_OBSTACLE_1_5      1700 //2000
 #define IR_OBSTACLE_7        30  /*二郎神*/
@@ -381,10 +381,6 @@ void bsp_GetAllIrIsObstacle(uint8_t ret[])
 	{
 		ret[5] = 0;
 	}
-	
-	
-	
-	
 	
 	/*二郎神*/
 	if(adcRealTime[7] >= IR_OBSTACLE_7)
