@@ -1,8 +1,8 @@
 .\flash\obj\timers.o: ..\..\FreeRTOS\timers.c
-.\flash\obj\timers.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\timers.o: C:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\timers.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\timers.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\timers.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\timers.o: C:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\timers.o: C:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\timers.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\timers.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\timers.o: ..\..\FreeRTOS\include\portable.h

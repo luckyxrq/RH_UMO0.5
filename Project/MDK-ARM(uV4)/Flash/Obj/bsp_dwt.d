@@ -1,8 +1,8 @@
 .\flash\obj\bsp_dwt.o: ..\..\User\bsp\src\bsp_dwt.c
 .\flash\obj\bsp_dwt.o: ..\..\User\bsp\bsp.h
 .\flash\obj\bsp_dwt.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\bsp_dwt.o: C:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\bsp_dwt.o: C:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\bsp_dwt.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\bsp_dwt.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\bsp_dwt.o: ..\..\FreeRTOS\include\portable.h
@@ -41,10 +41,10 @@
 .\flash\obj\bsp_dwt.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\flash\obj\bsp_dwt.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\flash\obj\bsp_dwt.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
-.\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
-.\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\bsp_dwt.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_dwt.o: C:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\bsp_dwt.o: C:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\bsp_dwt.o: C:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\bsp_dwt.o: C:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_dwt.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
 .\flash\obj\bsp_dwt.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h
 .\flash\obj\bsp_dwt.o: ..\..\User\main.h
