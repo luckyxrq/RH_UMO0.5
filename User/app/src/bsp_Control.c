@@ -1,7 +1,7 @@
 #include "bsp.h"
 
-#define MAX_PWM               (3600) //最大PWM绝对
-#define SPEED_SAMP_COUNT      (10)   //速度滤波处理，FIFO深度
+#define MAX_PWM               CONSTANT_HIGH_PWM  //最大PWM绝对
+#define SPEED_SAMP_COUNT      (10)                //速度滤波处理，FIFO深度
 
 typedef struct
 {

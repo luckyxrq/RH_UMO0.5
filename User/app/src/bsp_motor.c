@@ -33,8 +33,8 @@ static void bsp_InitVacuum(void);
 void bsp_InitMotor(void)
 {
 	/*初始化PWM 20KHZ，用于驱动电机，10KHZ会有噪声*/
-	bsp_InitTimer1(3599,0); 
-	bsp_InitTimer4(3599,0);
+	bsp_InitTimer1(CONSTANT_HIGH_PWM-1,0); 
+	bsp_InitTimer4(CONSTANT_HIGH_PWM-1,0);
 	bsp_InitVacuum();
 	
 }
