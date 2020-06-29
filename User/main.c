@@ -276,17 +276,17 @@ static void vTaskPerception(void *pvParameters)
 		/*测试床程序*/
 		bsp_FunctionTestUpdate();
 		
-		/*检测主机悬空*/
-		if(!GetCmdStartUpload())
-		{
-			bsp_OffSiteProc();
-		}
-		
-		/*检测尘盒*/
-		if(!GetCmdStartUpload())
-		{
-			bsp_DustBoxProc();
-		}
+//		/*检测主机悬空*/
+//		if(!GetCmdStartUpload())
+//		{
+//			bsp_OffSiteProc();
+//		}
+//		
+//		/*检测尘盒*/
+//		if(!GetCmdStartUpload())
+//		{
+//			bsp_DustBoxProc();
+//		}
 		
         /*寻找充电桩*/
 		bsp_SearchChargePile();
@@ -579,12 +579,12 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("充电按键长按\r\n");
 
-				/*首先判断是否主机悬空*/
-				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
-				{
-					bsp_SperkerPlay(Song16);
-					return;
-				}
+//				/*首先判断是否主机悬空*/
+//				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
+//				{
+//					bsp_SperkerPlay(Song16);
+//					return;
+//				}
 				
 				bsp_SperkerPlay(Song5);
 				bsp_StartSearchChargePile();
@@ -601,19 +601,19 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("清扫按键长按\r\n");
 				
-				/*首先判断是否主机悬空*/
-				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
-				{
-					bsp_SperkerPlay(Song16);
-					return;
-				}
-				
-				/*首先判断尘盒*/
-				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
-				{
-					bsp_SperkerPlay(Song9);
-					return;
-				}
+//				/*首先判断是否主机悬空*/
+//				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
+//				{
+//					bsp_SperkerPlay(Song16);
+//					return;
+//				}
+//				
+//				/*首先判断尘盒*/
+//				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
+//				{
+//					bsp_SperkerPlay(Song9);
+//					return;
+//				}
 				
 				bsp_SperkerPlay(Song3);
 				
