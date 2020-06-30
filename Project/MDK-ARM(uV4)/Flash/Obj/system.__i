@@ -1,6 +1,0 @@
--c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle --diag_suppress=870 --C99
--I C:\Users\User009\Documents\CleanCar\Project\MDK-ARM(uV4)\RTE
--I E:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include
--I E:\Keil_v5\ARM\CMSIS\Include
--D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD
--o .\flash\obj\system.o --omf_browse .\flash\obj\system.crf --depend .\flash\obj\system.d "..\..\User\tuya_sdk\system.c"

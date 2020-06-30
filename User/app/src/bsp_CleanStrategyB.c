@@ -1188,9 +1188,31 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             right_running_step_status = COLLISION_RIGHT_RIGHTRUN_STEP;
 			break;
 		}
-		else if((IRSensorData_StrategyB[4]|| IRSensorData_StrategyB[5])&&IRSensorData_StrategyB[1]==0&&IRSensorData_StrategyB[2]==0&&IRSensorData_StrategyB[3]==0){
-			
+		else if((adcRealTime[2]>200||adcRealTime[3]>200||adcRealTime[4]>200)&&(adcRealTime[1]<100)&&(adcRealTime[5]<100)){
+			 linear_velocity = 0;
+            angular_velocity = 0;
+			obstacleSignal=front_obstacle;
+            if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
+                leakingsweep_x=current_pose->x;
+                leakingsweep_y=current_pose->y;
+                boolleaksweep=true;
+                break;
+            }
+            if (0 != leakingsweep)
+            {
+                ////log_debug("front obstacle,ready goto LEAKING_SWEEP_RIGHTRUN_STEP\n");
+                right_running_step_status = LEAKING_SWEEP_RIGHTRUN_STEP;
+                break;
+            }
+            else
+            {
+                ////log_debug("front obstacle,ready goto COLLISION_FRONT_RIGHTRUN_STEP\n");
+                collision_front_rightrun_step_status = 0;
+                right_running_step_status = COLLISION_FRONT_RIGHTRUN_STEP;
+                break;
+            }
 		}
+		
 		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 170){
 					if (Yaw > 0)
             {
@@ -5894,7 +5916,14 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         left_running_step_status = GOSTR_LEFTRUN_STEP;
         break;
     case GOSTR_LEFTRUN_STEP:
-				if (front_obstacle == obstacleSignal||(&cliff_valueB)->cliffValue0 == 1)
+		if ((&cliff_valueB)->cliffValue0 == 1)
+        {
+           
+                collision_front_rightrun_step_status = 0;
+                left_running_step_status = COLLISION_FRONT_LEFTRUN_STEP;
+                break;
+        }
+		else if (front_obstacle == obstacleSignal)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -5982,6 +6011,30 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
 			collision_right_rightrun_step_status = 0;
             left_running_step_status = COLLISION_RIGHT_LEFTRUN_STEP;
 			break;
+		}
+		else if((adcRealTime[2]>200||adcRealTime[3]>200||adcRealTime[4]>200)&&(adcRealTime[1]<100)&&(adcRealTime[5]<100)){
+			 linear_velocity = 0;
+            angular_velocity = 0;
+			obstacleSignal=front_obstacle;
+			linear_velocity = 0;
+            angular_velocity = 0;
+					  if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
+                leakingsweep_x=current_pose->x;
+                leakingsweep_y=current_pose->y;
+                leftboolleaksweep=true;
+                break;
+            }
+            if (0 != leakingsweep)
+            {
+                left_running_step_status = LEAKING_SWEEP_LEFTRUN_STEP;
+                break;
+            }
+            else
+            {
+                collision_front_rightrun_step_status = 0;
+                left_running_step_status = COLLISION_FRONT_LEFTRUN_STEP;
+                break;
+            }
 		}
 		
 		
