@@ -234,7 +234,7 @@ void bsp_SelfCheckProc(void)
 			sideBrush = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
 			
 			
-			if(wheelL >= 60 && wheelL <= 200)
+			if(wheelL >= 40 && wheelL <= 200)
 			{
 				selfCheck.b_wheelL_I =1 ;
 			}
@@ -244,7 +244,7 @@ void bsp_SelfCheckProc(void)
 			}
 			
 			
-			if(wheelR >= 50 && wheelR <= 150)
+			if(wheelR >= 40 && wheelR <= 200)
 			{
 				selfCheck.b_wheelR_I =1 ;
 			}

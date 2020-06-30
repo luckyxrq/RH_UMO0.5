@@ -106,7 +106,7 @@ void bsp_Init(void)
 	
 	
 	/*º”√‹–æ∆¨*/
-	//bsp_DX8_CMD();
+	bsp_DX8_CMD();
 	
 	
 	

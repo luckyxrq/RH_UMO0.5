@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Flash': (DO NOT MODIFY !)
-F (..\..\User\main.c)(0x5EFA96CB)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
+F (..\..\User\main.c)(0x5EFAFDC1)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\main.o --omf_browse .\flash\obj\main.crf --depend .\flash\obj\main.d)
 I (..\..\User\includes.h)(0x5EF7F6B6)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
 I (D:\soft\MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
@@ -84,7 +84,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -108,7 +108,7 @@ I (..\..\User\app\inc\bsp_communication_bot3.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_selfcheck.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_functiontest.h)(0x5EF800D9)
 F (..\..\User\includes.h)(0x5EF7F6B6)()
-F (..\..\User\SysInfoTest.c)(0x5EF800D9)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\sysinfotest.o --omf_browse .\flash\obj\sysinfotest.crf --depend .\flash\obj\sysinfotest.d)
+F (..\..\User\SysInfoTest.c)(0x5EFAEEAA)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\sysinfotest.o --omf_browse .\flash\obj\sysinfotest.crf --depend .\flash\obj\sysinfotest.d)
 I (..\..\User\bsp\bsp.h)(0x5EF800D9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EF7F69F)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -185,7 +185,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -288,7 +288,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -388,7 +388,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -488,7 +488,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -589,7 +589,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -689,7 +689,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -712,7 +712,7 @@ I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_communication_bot3.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_selfcheck.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_functiontest.h)(0x5EF800D9)
-F (..\..\User\app\src\bsp_DetectAct.c)(0x5EF800D9)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
+F (..\..\User\app\src\bsp_DetectAct.c)(0x5EFAFDC1)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_detectact.o --omf_browse .\flash\obj\bsp_detectact.crf --depend .\flash\obj\bsp_detectact.d)
 I (..\..\User\bsp\bsp.h)(0x5EF800D9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EF7F69F)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -789,7 +789,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -889,7 +889,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -989,7 +989,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1089,7 +1089,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1112,7 +1112,7 @@ I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_communication_bot3.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_selfcheck.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_functiontest.h)(0x5EF800D9)
-F (..\..\User\app\src\bsp_communication.c)(0x5EF800D9)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_communication.o --omf_browse .\flash\obj\bsp_communication.crf --depend .\flash\obj\bsp_communication.d)
+F (..\..\User\app\src\bsp_communication.c)(0x5EFAFDC1)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_communication.o --omf_browse .\flash\obj\bsp_communication.crf --depend .\flash\obj\bsp_communication.d)
 I (..\..\User\bsp\bsp.h)(0x5EF800D9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EF7F69F)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -1189,7 +1189,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1289,7 +1289,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1389,7 +1389,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1489,7 +1489,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1589,7 +1589,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1689,7 +1689,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1790,7 +1790,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1890,7 +1890,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -1990,7 +1990,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2013,7 +2013,7 @@ I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_communication_bot3.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_selfcheck.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_functiontest.h)(0x5EF800D9)
-F (..\..\User\app\src\bsp_CurrentFeedback.c)(0x5EF800D9)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_currentfeedback.o --omf_browse .\flash\obj\bsp_currentfeedback.crf --depend .\flash\obj\bsp_currentfeedback.d)
+F (..\..\User\app\src\bsp_CurrentFeedback.c)(0x5EFAFDC1)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_currentfeedback.o --omf_browse .\flash\obj\bsp_currentfeedback.crf --depend .\flash\obj\bsp_currentfeedback.d)
 I (..\..\User\bsp\bsp.h)(0x5EF800D9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EF7F69F)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -2090,7 +2090,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2190,7 +2190,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2290,7 +2290,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2390,7 +2390,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2490,7 +2490,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2590,7 +2590,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2690,7 +2690,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2790,7 +2790,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2891,7 +2891,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -2992,7 +2992,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3092,7 +3092,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3192,7 +3192,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3292,7 +3292,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3392,7 +3392,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3492,7 +3492,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3515,7 +3515,7 @@ I (..\..\User\app\inc\bsp_searchpilesubproc.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_communication_bot3.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_selfcheck.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_functiontest.h)(0x5EF800D9)
-F (..\..\User\app\src\bsp_SelfCheck.c)(0x5EF800D9)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_selfcheck.o --omf_browse .\flash\obj\bsp_selfcheck.crf --depend .\flash\obj\bsp_selfcheck.d)
+F (..\..\User\app\src\bsp_SelfCheck.c)(0x5EFB007C)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp_selfcheck.o --omf_browse .\flash\obj\bsp_selfcheck.crf --depend .\flash\obj\bsp_selfcheck.d)
 I (..\..\User\bsp\bsp.h)(0x5EF800D9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EF7F69F)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -3592,7 +3592,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3692,7 +3692,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3716,7 +3716,7 @@ I (..\..\User\app\inc\bsp_communication_bot3.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_selfcheck.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_functiontest.h)(0x5EF800D9)
 I (D:\soft\MDK5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\..\User\bsp\bsp.c)(0x5EF9ACF2)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
+F (..\..\User\bsp\bsp.c)(0x5EFB00A0)(-c --cpu Cortex-M3 -D__MICROLIB -g -O1 --apcs=interwork --split_sections -I..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include -I..\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\..\User\bsp -I..\..\User\bsp\inc -I..\..\User -I..\..\Libraries\CMSIS\Include -I..\..\FreeRTOS\include -I..\..\FreeRTOS\portable\RVDS\ARM_CM3 -I..\..\User\app\inc -I..\..\User\dx8\inc -I..\..\User\tuya_sdk -I..\..\User\angle\yuan_zi_Angle -I..\..\User\angle\gan_rui_Angle -I..\..\SEGGER_RTT_V618c\RTT --diag_suppress=870 --C99-I G:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE-I D:\soft\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\soft\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\flash\obj\bsp.o --omf_browse .\flash\obj\bsp.crf --depend .\flash\obj\bsp.d)
 I (..\..\User\bsp\bsp.h)(0x5EF800D9)
 I (..\..\FreeRTOS\include\FreeRTOS.h)(0x5EF7F69F)
 I (D:\soft\MDK5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -3793,7 +3793,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3894,7 +3894,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -3994,7 +3994,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -4128,7 +4128,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -4260,7 +4260,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -4360,7 +4360,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -4460,7 +4460,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -4560,7 +4560,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -4660,7 +4660,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -4760,7 +4760,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
@@ -5273,7 +5273,7 @@ I (..\..\User\app\inc\bsp_Position.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_stflash.h)(0x5EFA9D2F)
 I (..\..\User\app\inc\bsp_param.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_OffSiteSW.h)(0x5EF800D9)
-I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EF800D9)
+I (..\..\User\app\inc\bsp_CurrentFeedback.h)(0x5EFAFDC1)
 I (..\..\User\app\inc\bsp_CliffSW.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_DustBox.h)(0x5EF800D9)
 I (..\..\User\app\inc\bsp_speaker.h)(0x5EF800D9)
