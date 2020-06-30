@@ -1,0 +1,10 @@
+.\flash\obj\segger_rtt_syscalls_keil.o: ..\..\SEGGER_RTT_V618c\Syscalls\SEGGER_RTT_Syscalls_KEIL.c
+.\flash\obj\segger_rtt_syscalls_keil.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\segger_rtt_syscalls_keil.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\segger_rtt_syscalls_keil.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\segger_rtt_syscalls_keil.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\rt_sys.h
+.\flash\obj\segger_rtt_syscalls_keil.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\rt_misc.h
+.\flash\obj\segger_rtt_syscalls_keil.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\segger_rtt_syscalls_keil.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\segger_rtt_syscalls_keil.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
+.\flash\obj\segger_rtt_syscalls_keil.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h

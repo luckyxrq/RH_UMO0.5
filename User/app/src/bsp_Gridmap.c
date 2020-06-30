@@ -429,8 +429,8 @@ const unsigned char*  bsp_Get_GridMap(int robotX,int robotY)
 		for ( grid_index_y = min_y; grid_index_y <= max_y; grid_index_y++)
 		//for ( grid_index_y = max_y; grid_index_y >= min_y; grid_index_y--)
 		{
-			TuYa_map[i].x = grid_index_x;
-			TuYa_map[i].y = grid_index_y ;
+			TuYa_map[i].y = 100 - grid_index_x;
+			TuYa_map[i].x = 100 - grid_index_y ;
 			if(gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_default) TuYa_map[i].posInfo = RESERVE_POS;
 			else if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_occupancy) TuYa_map[i].posInfo = OBSTACLE_POS;
 			else if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) TuYa_map[i].posInfo = CLEANED_POS;
