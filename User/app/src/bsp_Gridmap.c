@@ -590,7 +590,7 @@ short __bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsig
 	y_boundary = y_boundary%100;
 	x_boundary = x_boundary%100;
 	
-    if(my_abs(robotTheta)>170){
+    if(my_abs(robotTheta)>150){
         for ( i=0;i<100;i++) {
             for( j=y_boundary;j<=50;j++){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -663,7 +663,7 @@ short __bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsig
             }
         }
     }
-    else if(my_abs(robotTheta)<10){
+    else if(my_abs(robotTheta)<30){
         for( i=99;i>0;i--){
             for( j=47;j>=y_boundary;j--){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -939,7 +939,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
 	}
 	y_boundary=(robotY+half_map_wide)/100;
     x_boundary=(robotX+half_map_long)/100;
-    if(my_abs(robotTheta)>170){
+    if(my_abs(robotTheta)>90){
         for ( i=0;i<100;i++) {
             for( j=y_boundary;j<=50;j++){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -959,7 +959,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                     if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                         if(Extreme_point-i<-4){
                             if(x_boundary-i<-4){
-                                if((j-y_boundary)>2){
+                                if((j-y_boundary)>0){
                                     for( z=i-1;z>0;z--){
                                         if(gridmap.map[z][j]==125){
                                             firsttrap=true;
@@ -985,8 +985,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                                         else{
                                             leak=true;
                                             for( t=0;t<Under_extreme_point_y_index;t++){
-                                                if(Under_extreme_point_y[t]==(j-2)||Under_extreme_point_y[t]==(j-1)||Under_extreme_point_y[t]==j||
-                                                        Under_extreme_point_y[t]==(j+1)||Under_extreme_point_y[t]==(j+2)){
+                                                if(Under_extreme_point_y[t]==(j-1)||Under_extreme_point_y[t]==j){
                                                     if (Under_extreme_point_x[t]-x_boundary>10)
                                                     {
                                                         break;
@@ -1018,7 +1017,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
             }
         }
     }
-    else if(my_abs(robotTheta)<10){
+    else if(my_abs(robotTheta)<90){
         for( i=99;i>0;i--){
             for( j=47;j>=y_boundary;j--){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -1038,7 +1037,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                     if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                         if(Extreme_point-i>4){
                             if(x_boundary-i>4){
-                                if((j-y_boundary)>2){
+                                if((j-y_boundary)>0){
                                     for( z=i+1;z<99;z++){
                                         if(gridmap.map[z][j]==125){
                                             firsttrap=true;
@@ -1064,8 +1063,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                                         else{
                                             leak=true;
                                             for( t=0;t<On_extreme_point_y_index;t++){
-                                                if(On_extreme_point_y[t]==(j-2)||On_extreme_point_y[t]==(j-1)||On_extreme_point_y[t]==j
-                                                        ||On_extreme_point_y[t]==(j+1)||On_extreme_point_y[t]==(j+2)){
+                                                if(On_extreme_point_y[t]==(j-1)||On_extreme_point_y[t]==j){
                                                     if (x_boundary-On_extreme_point_x[t]>10)
                                                     {
                                                         break;
@@ -1120,7 +1118,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
 	}
 	x_boundary=(robotX+half_map_long)/100;
     y_boundary=(robotY+half_map_wide)/100;
-    if(my_abs(robotTheta)>170){
+    if(my_abs(robotTheta)>90){
         for ( i=0;i<100;i++) {
             for( j=51;j<=y_boundary;j++){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -1140,7 +1138,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                     if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                         if(Extreme_point-i<-4){
                             if(x_boundary-i<-4){
-                                if((y_boundary-j)>2){
+                                if((y_boundary-j)>0){
                                     for( z=i-1;z>0;z--){
                                         if(gridmap.map[z][j]==125){
                                             firsttrap=true;
@@ -1166,8 +1164,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                                         else{
                                             leak=true;
                                             for( t=0;t<Left_Under_extreme_point_y_index;t++){
-                                                if(Left_Under_extreme_point_y[t]==(j-2)||Left_Under_extreme_point_y[t]==(j-1)||Left_Under_extreme_point_y[t]==j||
-                                                        Left_Under_extreme_point_y[t]==(j+1)||Left_Under_extreme_point_y[t]==(j+2)||Left_Under_extreme_point_y[t]==(j+3)||Left_Under_extreme_point_y[t]==(j+4)){
+                                                if(Left_Under_extreme_point_y[t]==j||Left_Under_extreme_point_y[t]==(j+1)){
                                                     if (Left_Under_extreme_point_x[t]-x_boundary>10)
                                                     {
                                                         break;
@@ -1199,7 +1196,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
             }
         }
     }
-    else if(my_abs(robotTheta)<10){
+    else if(my_abs(robotTheta)<90){
         for( i=99;i>0;i--){
             for( j=50;j<=y_boundary;j++){
                 if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
@@ -1219,7 +1216,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                     if(gridmap.map[i][j]==250||gridmap.map[i][j]==0){
                         if(Extreme_point-i>4){
                             if(x_boundary-i>4){
-                                if((y_boundary-j)>2){
+                                if((y_boundary-j)>0){
                                     for( z=i+1;z<99;z++){
                                         if(gridmap.map[z][j]==125){
                                             firsttrap=true;
@@ -1244,8 +1241,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                                         else{
                                             leak=true;
                                             for( t=0;t<Left_On_extreme_point_y_index;t++){
-                                                if(Left_On_extreme_point_y[t]==(j-2)||Left_On_extreme_point_y[t]==(j-1)||Left_On_extreme_point_y[t]==j
-                                                        ||Left_On_extreme_point_y[t]==(j+1)||Left_On_extreme_point_y[t]==(j+2)||Left_On_extreme_point_y[t]==(j+3)||Left_On_extreme_point_y[t]==(j+4)){
+                                                if(Left_On_extreme_point_y[t]==j||Left_On_extreme_point_y[t]==(j+1)){
                                                     if (x_boundary-Left_On_extreme_point_x[t]>10)
                                                     {
                                                         break;
