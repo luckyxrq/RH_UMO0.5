@@ -803,7 +803,7 @@
 #define star_collision_backward 50
 #define star_collision_go 400
 #define collision_backward_distance 10//3
-#define lateral_move_distance 150
+#define lateral_move_distance 140
 #define close_map_move_distance 5
 #define turn_backward_distance 10//3
 #define second_turn_backward_distance 10//4
@@ -974,7 +974,7 @@ unsigned char AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obsta
 /////////////////////////////////////
 
 //unsigned char CliffRuningWorkStep(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
-//unsigned char CloseEdgedMap(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
+unsigned char CloseEdgedMap(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
 unsigned char DetectionCloseEdge(void);
 unsigned char CliffCloseEdge(void);
 void MoreMap(POSE *current_pose);

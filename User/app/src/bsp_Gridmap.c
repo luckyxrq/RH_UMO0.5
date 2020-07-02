@@ -221,7 +221,12 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 	}
 	
 	if ((abs(map_last_robotX - robotX) >150 || abs(map_last_robotY - robotY) >100) || ((obstacleSignal!=3 || cliff_value->cliffValue0 == 1)&&obstacle_cliff_status_cls_flag)){
-		gridmap.action = 0;
+		if(mapstopupdate==false){
+			gridmap.action = 0;
+		}
+		else{
+			gridmap.action = 1;
+		}
 		map_last_robotX = robotX;
 		map_last_robotY = robotY;
 		gridmap_debug("map_last_robotX - robotX) >100 ,ready update map!  \n");
@@ -229,10 +234,10 @@ void bsp_GridMapUpdate(int robotX,int robotY, double robotTheta, unsigned char o
 		gridmap_debug("robotX£º%d   robotY£º%d   robotTheta£º%d  \n",robotX,robotY,(int)Rad2Deg(robotTheta));
 		gridmap_debug("###########################################################################!  \n");
 		obstacle_cliff_status_cls_flag = false;
-	}else 
+	}
+	else 
 	{
 		gridmap.action = 1;
-		//gridmap_debug("gridmap.action = 1  !  \n");
 	}
 
 	
