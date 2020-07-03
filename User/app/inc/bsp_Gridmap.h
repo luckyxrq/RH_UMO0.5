@@ -117,7 +117,6 @@ extern GridMap gridmap;
 extern CLIFFADCVALUE cliff_valueB;
 extern unsigned char rightmapmin;
 extern unsigned char rightmapmax;
-bool mapstopupdate=false;
 
 #endif
 

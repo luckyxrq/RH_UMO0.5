@@ -15,6 +15,9 @@ static int map_last_robotX = 0, map_last_robotY = 0;
 static int8_t map_update = 0;
 
 static MapInfo TuYa_map[PER_UPLOAD_POINT_CNT] = {0};
+ 
+extern bool mapstopupdate;
+
 
 static double my_abs(double x){
     if (x<0){
@@ -123,23 +126,6 @@ static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid
 
 
 
-
-
-
-
-
-//static void GridToXY( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
-//    
-//    *x_point = *x_grid * GRIDWIDTH + GRIDWIDTH / 2;
-//    *y_point = *y_grid * GRIDHEIGHT + GRIDHEIGHT / 2;
-
-//}
-//static void XYToGrid( int* x_point,  int* y_point, int* x_grid,  int* y_grid) {
-//    
-//    *x_grid = (*x_point  + GRIDWIDTH / 2) / GRIDWIDTH;
-//    *y_grid = (*y_point  + GRIDHEIGHT / 2) / GRIDHEIGHT;
-//    
-//}
 
 
 
