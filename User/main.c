@@ -616,7 +616,7 @@ static void bsp_KeyProc(void)
 				}
 				
 				bsp_SperkerPlay(Song3);
-				
+				bsp_IRD_StopWork();
 				
 				/*º”»Î∫ÛÕÀ*/
 			    if(bsp_IsTouchChargePile())

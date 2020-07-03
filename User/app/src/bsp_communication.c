@@ -117,6 +117,7 @@ void bsp_ExexCmd(uint8_t *cmd , uint16_t main_sec , uint16_t sub_sec)
 			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
 			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+			bsp_IRD_StartWork();
 		}
 		else
 		{

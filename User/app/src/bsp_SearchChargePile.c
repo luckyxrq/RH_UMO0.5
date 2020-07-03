@@ -177,7 +177,6 @@ void bsp_StopSearchChargePile(void)
 	
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 	
-	bsp_IRD_StopWork();
 }	
 
 
@@ -211,7 +210,7 @@ void bsp_SearchChargePile(void)
 	bsp_IsCharging();
 	bsp_IsChargeDone();
 	
-	if(isCleanRunning())
+	if(isCleanRunning() || GetCmdStartUpload())
 		return;
 	
 	if(bsp_IsTouchChargePile())
