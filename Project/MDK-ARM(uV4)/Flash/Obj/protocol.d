@@ -99,3 +99,4 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_communication_bot3.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_selfcheck.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_functiontest.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_bed.h

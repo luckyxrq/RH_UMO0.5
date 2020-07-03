@@ -684,9 +684,9 @@ static void bsp_KeyProc(void)
 			}break;
 			
 			
-			case KEY_10_DOWN:
+			case KEY_10_LONG:
 			{
-				
+				bsp_StartFunctionTest();
 			}break;
 			
 			

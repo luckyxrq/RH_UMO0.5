@@ -195,7 +195,7 @@
 #include "bsp_communication_bot3.h"
 #include "bsp_selfcheck.h"
 #include "bsp_functiontest.h"
-
+#include "bsp_bed.h"
 
 typedef enum
 {

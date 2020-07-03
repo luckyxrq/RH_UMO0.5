@@ -36,6 +36,7 @@
 ".\flash\obj\bsp_searchpilesubproc.o"
 ".\flash\obj\bsp_selfcheck.o"
 ".\flash\obj\bsp_functiontest.o"
+".\flash\obj\bsp_bed.o"
 ".\flash\obj\bsp.o"
 ".\flash\obj\bsp_dwt.o"
 ".\flash\obj\bsp_uart_fifo.o"

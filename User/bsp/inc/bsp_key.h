@@ -112,7 +112,10 @@ typedef enum
 	KID_JOY_D,
 	KID_JOY_L,
 	KID_JOY_R,
-	KID_JOY_OK
+	KID_JOY_OK,
+	
+	KID_K9,
+	KID_K10
 }KEY_ID_E;
 
 /*
