@@ -109,6 +109,23 @@ void bsp_ExexCmd(uint8_t *cmd , uint16_t main_sec , uint16_t sub_sec)
     if(main_sec == 2 && sub_sec == 1) /*PC机命令主机上报所有数据*/
 	{
 		memcpy(&cmd_START_UPLOAD,cmd,sizeof(cmd_START_UPLOAD));
+		
+		if(cmd_START_UPLOAD.isOpen)
+		{
+			bsp_StartVacuum();
+			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+		}
+		else
+		{
+			bsp_StartVacuum();
+			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
+			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
+			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+		}
 	}
 	else if(main_sec == 2 && sub_sec == 2) /*PC机命令治具主板开启测试并上报数据*/
 	{
