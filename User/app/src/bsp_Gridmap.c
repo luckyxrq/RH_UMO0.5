@@ -1,6 +1,14 @@
 #include "bsp.h"
 #include <math.h>
 
+#define STRATEGY_DEBUG	 0 //0 ¹Ø±Õ´®¿Úµ÷ÊÔ
+
+#if STRATEGY_DEBUG	
+#define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)
+#else
+//#define gridmap_debug(format, ...) 
+#endif
+
 CLIFFADCVALUE cliff_valueB;
 GridMap gridmap;
 static int map_last_robotX = 0, map_last_robotY = 0;
@@ -37,8 +45,7 @@ static signed char Left_Under_extreme_point_y_index;
 static signed char Left_On_extreme_point_y[10] = {0};
 static signed char Left_On_extreme_point_y_index = 0;
 
-static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid_y,int x,int y,short theta,int xi,int yi,unsigned char obstacleSignal,int grid_dist,CLIFFADCVALUE *cliff_value)
-{
+static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid_y,int x,int y,short theta,int xi,int yi,unsigned char obstacleSignal,int grid_dist,CLIFFADCVALUE *cliff_value){
     int o_x = x;
     int o_y = y;
     int r=grid_dist;
@@ -425,8 +432,7 @@ const unsigned char*  bsp_Get_GridMap(int robotX,int robotY)
 
 
 
-unsigned char* bsp_GetIRSensorData(void)
-{
+unsigned char* bsp_GetIRSensorData(void){
 	
 	static unsigned char IRSensorData[10] = {0};
 	
@@ -448,9 +454,7 @@ unsigned char* bsp_GetIRSensorData(void)
 
 }
 
-
-CLIFFADCVALUE* bsp_GetCliffSensorData(void)
-{
+CLIFFADCVALUE* bsp_GetCliffSensorData(void){
 	cliff_valueB.cliffValue0 =0;
 	if(bsp_CliffIsDangerous(CliffLeft))  
 	{	
@@ -477,46 +481,6 @@ CLIFFADCVALUE* bsp_GetCliffSensorData(void)
 
 
 
-///*! \brief Square root routine.
-// *
-// * sqrt routine 'grupe', from comp.sys.ibm.pc.programmer
-// * Subject: Summary: SQRT(int) algorithm (with profiling)
-// *    From: warwick@cs.uq.oz.au (Warwick Allison)
-// *    Date: Tue Oct 8 09:16:35 1991
-// *
-// *  \param x  Value to find square root of.
-// *  \return  Square root of x.
-// */
-//static unsigned long mysqrt(unsigned long x)
-//{
-//  register unsigned long xr;  // result register
-//  register unsigned long q2;  // scan-bit register
-//  register unsigned char f;   // flag (one bit)
-
-//  xr = 0;                     // clear result
-//  q2 = 0x40000000L;           // higest possible result bit
-//  do
-//  {
-//    if((xr + q2) <= x)
-//    {
-//      x -= xr + q2;
-//      f = 1;                  // set flag
-//    }
-//    else{
-//      f = 0;                  // clear flag
-//    }
-//    xr >>= 1;
-//    if(f){
-//      xr += q2;               // test flag
-//    }
-//  } while(q2 >>= 2);          // shift twice
-//  if(xr < x){
-//    return xr +1;             // add for rounding
-//  }
-//  else{
-//    return xr;
-//  }
-//}
 
 
 
@@ -906,8 +870,7 @@ short __bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsign
 
 
 
-short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal)
-{
+short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal){
 	unsigned char y_boundary=0;
     unsigned char x_boundary=0;
     bool end_x=false;
@@ -1084,6 +1047,8 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
     return 0;
 }
 	
+
+
 
 short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal){
 	unsigned char y_boundary;

@@ -5,7 +5,7 @@
 #define MAX_POSITION_XY  5
 
 static Position position;
-static int global_currentX,global_currentY;
+int global_currentX,global_currentY;
 
 /*
 *********************************************************************************************************
