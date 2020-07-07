@@ -838,7 +838,7 @@
 #define A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                          0x606
 #define A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                       0x607
 #define EDGEWISERUN_CLEANING_STRATEGY                                                          0x608 
-#define MORE_MAP_OVERALL_CLEANING_STRATEGY                                                     0x609
+#define CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY                                              0x609
 
 
 
@@ -970,7 +970,7 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta,unsigned c
 //uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal);
 
-unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal);
+//unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal);
 
 unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
@@ -1022,7 +1022,7 @@ unsigned char AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obsta
 /////////////////////////////////////
 
 //unsigned char CliffRuningWorkStep(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
-unsigned char CloseEdgedMap(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
+unsigned char CloseEdgedMap(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char DetectionCloseEdge(void);
 unsigned char CliffCloseEdge(void);
 void MoreMap(POSE *current_pose);

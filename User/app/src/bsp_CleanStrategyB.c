@@ -21,18 +21,17 @@ int wheel_pulse_r;
 int temporary_wheel_pulse_r;
 int temporary_wheel_pulse_l;
 
-int OVERALL_CLEANING_STRATEGY = 0;
+short OVERALL_CLEANING_STRATEGY = 0;
+short right_running_step_status = 0;
+short collision_right_rightrun_step_status = 0;
+short collision_left_rightrun_step_status = 0;
+short collision_front_rightrun_step_status = 0;
 
-int right_running_step_status = 0;
-int collision_right_rightrun_step_status = 0;
-int collision_left_rightrun_step_status = 0;
-int collision_front_rightrun_step_status = 0;
-
-int left_running_step_status = 0;
-int collision_right_leftrun_step_status = 0;
-int collision_left_leftrun_step_status = 0;
-int collision_front_leftrun_step_status = 0;
-int close_edge_map_run_step_status=0;
+short left_running_step_status = 0;
+short collision_right_leftrun_step_status = 0;
+short collision_left_leftrun_step_status = 0;
+short collision_front_leftrun_step_status = 0;
+short close_edge_map_run_step_status=0;
 
 short stuck_right_run_step=0;
 
@@ -40,7 +39,6 @@ short return_origin_step_status = 0;
 short a_star_motion_return_origin_status=0;
 short a_star_not_motion_status=0;
 short a_star_collision_status=0;
-short cliff_running_step_status=0;
 bool  over_clean_finish=false;
 
 int8_t return_origin_positive_start= 1;
@@ -48,20 +46,18 @@ int8_t selectside=0;
 
 
 //for  walk edge
-int right_walk_edge_status = 0;
-int right_reverse_walk_edge_status = 0;
-int right_edge_dilemma_status = 0;
-int right_forward_boundary_status = 0;
-int right_ready_leaking_sweep_status = 0;
+short right_walk_edge_status = 0;
+short right_reverse_walk_edge_status = 0;
+short right_edge_dilemma_status = 0;
+short right_forward_boundary_status = 0;
+short right_ready_leaking_sweep_status = 0;
 
-int left_walk_edge_status = 0;
-int left_reverse_walk_edge_status = 0;
-int left_edge_dilemma_status = 0;
-int left_forward_boundary_status = 0;
-int left_ready_leaking_sweep_status = 0;
+short left_walk_edge_status = 0;
+short left_reverse_walk_edge_status = 0;
+short left_edge_dilemma_status = 0;
+short left_forward_boundary_status = 0;
+short left_ready_leaking_sweep_status = 0;
 
-
-int number = 0;
 int leakingsweep = 0;
 int leakingsweep_x = 0;
 int leakingsweep_y = 0;
@@ -87,7 +83,6 @@ int last_position_yy = 0;
 bool b_last_position_yy = false;
 int turn_start_x = 0;
 int turn_start_y = 0;
-int maintain_bow_distance = 0;
 int cnt_update = 0;
 bool bow_continue = false;
 bool old_bow_continue = false;
@@ -100,10 +95,6 @@ unsigned char rightmapmin;
 unsigned char rightmapmax;
 
 unsigned char DelimmaNumber=0;
-//unsigned char CliffDelimmaNumber = 0;
-//unsigned char CliffFunctionStatus=0;
-//unsigned char CliffNumber=0;
-//unsigned char totalCDN=0;
 
 bool clill_start_update=false;
 bool cliffruningStatus=false;
@@ -407,10 +398,10 @@ void bsp_ResetCleanStrategyBStatus(void)
 	collision_front_leftrun_step_status = 0;
 	stuck_right_run_step=0;
 	return_origin_step_status = 0;
+	close_edge_map_run_step_status=0;
 	a_star_motion_return_origin_status=0;
 	a_star_not_motion_status=0;
 	a_star_collision_status=0;
-	cliff_running_step_status=0;
 	over_clean_finish=false;
 	return_origin_positive_start= 1;
 	selectside=0;
@@ -425,7 +416,6 @@ void bsp_ResetCleanStrategyBStatus(void)
 	left_edge_dilemma_status = 0;
 	left_forward_boundary_status = 0;
 	left_ready_leaking_sweep_status = 0;
-	number = 0;
 	leakingsweep = 0;
 	leakingsweep_x = 0;
 	leakingsweep_y = 0;
@@ -443,7 +433,6 @@ void bsp_ResetCleanStrategyBStatus(void)
 	b_last_position_yy = false;
 	turn_start_x = 0;
 	turn_start_y = 0;
-	maintain_bow_distance = 0;
 	cnt_update = 0;
 	bow_continue = false;
 	old_bow_continue = false;
@@ -1061,13 +1050,30 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
             }
         }
         break;
-    case EDGEWISERUN_CLEANING_STRATEGY:
-        FunctionStatus = EdgeWiseRunningWorkStep(current_pose, obstacleSignal);
-        if (1 == FunctionStatus)
+    case CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY:
+        FunctionStatus = CloseEdgedMap(current_pose, obstacleSignal);
+        if(1 == FunctionStatus)
         {
-            selectside = 'R';
-            bsp_StopEdgewiseRun();
-            OVERALL_CLEANING_STRATEGY = RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+            OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+            //跳转暴力回原点时，记录当前时间
+            ForceReturnOriginTimeStamp = xTaskGetTickCount();
+            FunctionStatus = 0;
+            break;
+        }
+		if(2 == FunctionStatus)
+        {
+            OVERALL_CLEANING_STRATEGY = START_OVERALL_CLEANING_STRATEGY;
+            //跳转暴力回原点时，记录当前时间
+            //ForceReturnOriginTimeStamp = xTaskGetTickCount();
+            FunctionStatus = 0;
+            break;
+        }
+		if(3 == FunctionStatus)
+        {
+			OVERALL_CLEANING_STRATEGY =  LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+			y_more_map=false;
+			return_origin_step_status = 0;
+			FunctionStatus = 0;		
             //跳转暴力回原点时，记录当前时间
             //ForceReturnOriginTimeStamp = xTaskGetTickCount();
             FunctionStatus = 0;
@@ -1081,21 +1087,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
     return 1;
 }
 
-
-
-
-
-unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
-	if((xTaskGetTickCount() - EdgeWiseCleanTimeStamp)> EDGEWISE_CLEAN_WORK_TIME)
-	{
-		return 1;
-	}else{
-		//bsp_EdgewiseRun();
-		return 0;
-	}
-	
-	
-}
 
 //####################################################           RIGHT        #####    
 //#################################################################################
@@ -11535,7 +11526,8 @@ unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal)
 	Yaw = Yaw/100;
     unsigned char i;
 	if((xTaskGetTickCount() - ForceReturnOriginTimeStamp)> EDGEWISE_CLEAN_WORK_TIME){
-		return 1;
+		complete_flag=1;
+		return complete_flag;
 	}
     switch(return_origin_step_status)
     {
@@ -14090,7 +14082,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
 
 //还未使用 ，原来打算做沿边
 
-unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, unsigned char obstacleSignal){
+unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char i;
 	unsigned char j;
@@ -14580,8 +14572,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 		}
 		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
 		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
-        {
+        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance){
 			end_x=false;
 			if(i>0&&i<99&&j>0&&j<99){
 				for(k=i-1;k<=i+1;k++){
@@ -15029,8 +15020,6 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 			close_edge_map_run_step_status=TURN_COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP;
             break;
         }
-		
-		
 	case Y_LESS_LOOP_CLOSE_EDGE_MAP:
 		if (Yaw<95&&Yaw>85)
         {
@@ -15518,18 +15507,28 @@ void StartUpdateGridMap(void){
 
 
 
-int32_t bsp_GetStrategyCurrentPosX(void)
-{
+int32_t bsp_GetStrategyCurrentPosX(void){
 	return 	map_current_pose_x;
 }
 
 
 
-int32_t bsp_GetStrategyCurrentPosY(void)
-{
+int32_t bsp_GetStrategyCurrentPosY(void){
 	return 	map_current_pose_y;
 }
 
+
+//unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
+//	if((xTaskGetTickCount() - EdgeWiseCleanTimeStamp)> EDGEWISE_CLEAN_WORK_TIME)
+//	{
+//		return 1;
+//	}else{
+//		//bsp_EdgewiseRun();
+//		return 0;
+//	}
+//	
+//	
+//}
 
 
 
