@@ -11,6 +11,246 @@
 #define ALL_FINSHED_WORK_SETP         0x05
 
 
+
+
+
+//**********return origin define*************
+#define GOSTR_RETURN_ORIGIN_STEP                                                               0x001
+#define DIR_Y_MORE_POSITIVE_200                                                                0x002
+#define DIR_Y_LESS_NEGATIVE_200                                                                0x003
+#define DIR_X_MORE_POSITIVE_200                                                                0x004
+#define DIR_X_LESS_NEGATIVE_200                                                                0x005
+
+#define TURN_CLOCK_TARGET_YAW_NEGATIVE_90_RETURN_ORIGIN                                        0x006
+#define TURN_CLOCK_TARGET_YAW_POSITIVE_90_RETURN_ORIGIN                                        0x007
+#define TURN_CLOCK_TARGET_YAW_180_RETURN_ORIGIN                                                0x008
+#define TURN_CLOCK_TARGET_YAW_5_RETURN_ORIGIN                                                  0x009
+
+#define COLLISION_Y_POSITIVE_90_RETURN_ORIGIN                                                  0x00A
+#define COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN                                                  0x00B
+#define COLLISION_X_POSITIVE_180_RETURN_ORIGIN                                                 0x00C
+#define COLLISION_X_NEGATIVE_5_RETURN_ORIGIN                                                   0x00D
+
+#define TURN_CLOCK_Y_POSITIVE_90_RETURN_ORIGIN                                                 0x00E
+#define TURN_CLOCK_Y_NEGATIVE_90_RETURN_ORIGIN                                                 0x00F
+#define TURN_CLOCK_X_POSITIVE_180_RETURN_ORIGIN                                                0x010
+#define TURN_CLOCK_X_NEGATIVE_5_RETURN_ORIGIN                                                  0x011
+
+#define TURN_CLOCK_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN                                       0x012
+#define TURN_CLOCK_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN                                       0x013
+#define TURN_CLOCK_COLLISION_X_POSITIVE_180_RETURN_ORIGIN                                      0x014
+#define TURN_CLOCK_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN                                        0x015
+
+#define BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN                                           0x016
+#define BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN                                           0x017
+#define BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN                                          0x018
+#define BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN                                            0x019
+
+#define LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN                                      0x01A
+#define LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN                                      0x01B
+#define LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN                                     0x01C
+#define LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN                                       0x01D
+
+#define COLLISION_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN                            0x01E
+#define COLLISION_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN                            0x01F
+#define COLLISION_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN                           0x020
+#define COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN                             0x021
+
+#define Y_MORE_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN                               0x022
+#define Y_MORE_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN                               0x023
+#define X_MORE_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN                              0x024
+#define X_MORE_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN                                0x025
+
+#define TURN_CLOCK_LOOP_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN                                  0x026
+#define TURN_CLOCK_LOOP_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN                                  0x027
+#define TURN_CLOCK_LOOP_COLLISION_X_POSITIVE_180_RETURN_ORIGIN                                 0x028
+#define TURN_CLOCK_LOOP_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN                                   0x029
+
+#define TURN_CLOCK_DIR_Y_MORE_POSITIVE_200                                                     0x02A
+#define TURN_CLOCK_DIR_Y_LESS_NEGATIVE_200                                                     0x02B
+#define TURN_CLOCK_DIR_X_MORE_POSITIVE_200                                                     0x02C
+#define TURN_CLOCK_DIR_X_LESS_NEGATIVE_200                                                     0x02D
+
+//*************stuck*************
+#define STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP                                                   0x030
+#define STUCK_FORWARD_BOUNDARY_STATUS                                                          0x031
+#define TURN_RIGHT_YAW_MORE_90_STUCK_FORWARD_BOUNDARY_STATUS                                   0x032
+#define GO_STUCK_FORWARD_BOUNDARY_STATUS                                                       0x033
+#define COLLISION_TURN_RIGHT_YAW_MORE_90_STUCK_FORWARD_BOUNDARY_STATUS                         0x034
+#define COLLISION_GO_STUCK_FORWARD_BOUNDARY_STATUS                                             0x035
+#define GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS                                              0x036
+#define TURN_RIGHT_YAW_MORE_10_STUCK_FORWARD_BOUNDARY_STATUS                                   0x037
+#define COLLISION_TURN_RIGHT_YAW_MORE_10_STUCK_FORWARD_BOUNDARY_STATUS                         0x038
+#define ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                                              0x039
+#define COLLISION_GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS                                    0x03A
+#define COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                                    0x03B
+#define COLLISION_COLLISION_GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS                          0x03C
+#define COMPETE_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                                      0x03D
+#define TURN_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                               0x03E
+#define COLLISION_TURN_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                     0x03F
+
+//*************A* return origin*************
+#define ASTAR_MOTION_GOSTR_RETURN                                                              0x040
+#define PLAN_ASTAR_MOTION_GOSTR_RETURN                                                         0x041
+#define START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                                   0x042
+#define COLLISION_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                         0x043
+#define TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                        0x044
+#define DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                            0x045
+#define FINISH_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                            0x046
+#define COLLISION_TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                              0x047
+#define A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x048
+#define B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x049
+#define C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04A
+#define D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04B
+#define E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04C
+#define F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04D
+#define G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04E
+#define H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04F
+#define LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x050
+#define MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x051
+#define GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x052
+#define COLLISION_LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x053
+#define COLLISION_MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x054
+
+#define LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x055
+#define MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x056
+#define GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x057
+#define COLLISION_LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x058
+#define COLLISION_MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x059
+
+#define LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x05A
+#define MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x05B
+#define GO_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x05C
+#define COLLISION_LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x05D
+#define COLLISION_MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x05E
+
+#define LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x05F
+#define MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x060
+#define GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x061
+#define COLLISION_LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x062
+#define COLLISION_MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x063
+
+#define LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x064
+#define MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x065
+#define GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x066
+#define COLLISION_LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x067
+#define COLLISION_MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x068
+
+#define LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x069
+#define MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x06A
+#define GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x06B
+#define COLLISION_LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x06C
+#define COLLISION_MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x06D
+
+#define LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x06E
+#define MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x06F
+#define GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x070
+#define COLLISION_LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x071
+#define COLLISION_MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x072
+
+#define LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x073
+#define MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x074
+#define GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x075
+#define COLLISION_LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x076
+#define COLLISION_MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x077
+
+#define A_STAR_COMPLETED                                                                       0x078
+
+#define A_STAR_COLLISION_COMPLETED                                                             0x081
+#define A_STAR_COLLISION                                                                       0x082
+#define START_A_STAR_COLLISION                                                                 0x083
+#define RECALCULATE_A_STAR_COLLISION_COMPLETED                                                 0x084
+#define BACK_START_A_STAR_COLLISION                                                            0x085
+#define LEFT_OBSTACLE_START_A_STAR_COLLISION                                                   0x086
+#define RIGHT_OBSTACLE_START_A_STAR_COLLISION                                                  0x087
+#define FRONT_OBSTACLE_START_A_STAR_COLLISION                                                  0x088
+
+#define GO_LEFT_OBSTACLE_START_A_STAR_COLLISION                                                0x089
+#define COLLISION_LEFT_OBSTACLE_START_A_STAR_COLLISION                                         0x08A
+#define GO_RIGHT_OBSTACLE_START_A_STAR_COLLISION                                               0x08B
+#define COLLISION_RIGHT_OBSTACLE_START_A_STAR_COLLISION                                        0x08C
+#define GO_FRONT_OBSTACLE_START_A_STAR_COLLISION                                               0x08D
+#define COLLISION_FRONT_OBSTACLE_START_A_STAR_COLLISION                                        0x08E
+
+#define GOSTR_CLIFF_RUNNING_STEP                                                               0x0A0
+#define CLIFF_COMPLETE                                                                         0x0A1
+#define LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                                     0x0A2
+#define GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                                  0x0A3
+#define LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                                     0x0A4
+#define GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                                  0x0A5
+#define ORIGIN_FRONT_CLIFF_RUNNING_STEP                                                        0x0A6
+
+#define LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                                     0x0A7
+#define GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                                  0x0A8
+#define GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                                   0x0A9
+#define LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                                      0x0AA
+
+#define TURN_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                                0x0AC
+#define GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                               0x0AD
+#define COLLISION_TURN_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                      0x0AE
+#define COLLISION_GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                     0x0AF
+#define TURN_GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                          0x0B0
+#define COLLISION_TURN_GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                0x0B1
+
+#define TURN_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                             0x0B2
+#define GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                            0x0B3
+#define COLLISION_TURN_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                   0x0B4
+#define COLLISION_GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                  0x0B5
+#define TURN_GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                       0x0B6
+#define COLLISION_TURN_GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                             0x0B8
+
+#define TURN_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                             0x0B9
+#define GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                            0x0BA
+#define COLLISION_TURN_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                   0x0BB
+#define COLLISION_GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                  0x0BC
+#define TURN_GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                       0x0BD
+#define COLLISION_TURN_GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                             0x0BE
+
+#define TURN_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                                0x0BF
+#define GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                               0x0C0
+#define COLLISION_TURN_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                      0x0C1
+#define COLLISION_GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                     0x0C2
+#define TURN_GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                          0x0C3
+#define COLLISION_TURN_GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                0x0C4
+
+#define TURN_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                                   0x0C5
+#define GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                                  0x0C6
+#define COLLISION_TURN_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                         0x0C7
+#define COLLISION_GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                        0x0C8
+#define TURN_GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                             0x0C9
+#define COLLISION_TURN_GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                   0x0CA
+
+#define TURN_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                                0x0CB
+#define GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                               0x0CC
+#define COLLISION_TURN_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                      0x0CD
+#define COLLISION_GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                     0x0CE
+#define TURN_GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                          0x0CF
+#define COLLISION_TURN_GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                0x0D0
+
+#define TURN_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                             0x0D1
+#define GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                            0x0D2
+#define COLLISION_TURN_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                   0x0D3
+#define COLLISION_GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                  0x0D4
+#define TURN_GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                       0x0D5
+#define COLLISION_TURN_GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                             0x0D6
+
+#define TURN_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                              0x0D7
+#define GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                             0x0D8
+#define COLLISION_TURN_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                    0x0D9
+#define COLLISION_GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                   0x0DA
+#define TURN_GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                        0x0DB
+#define COLLISION_TURN_GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                              0x0DC
+
+#define TURN_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                                 0x0DD
+#define GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                                0x0DE
+#define COLLISION_TURN_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                       0x0DF
+#define COLLISION_GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                      0x0E0
+#define TURN_GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                           0x0E1
+#define COLLISION_TURN_GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                 0x0E2
+#define INTERRUPT_AND_STOP                                                                     0x0E3
+
+
+
 #define GOSTR_RIGHTRUN_STEP                                                                     0x100 //go straight
 #define GOSTR_RIGHT_DEV_RIGHTRUN_STEP                                                           0x101 //go straight left deviation
 #define GOSTR_LEFT_DEV_RIGHTRUN_STEP                                                            0x102 //go srtaight right deviation
@@ -146,6 +386,21 @@
 #define RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MORE_ABS178                                       0x19C
 #define RIGHT_LEAKING_SWEEP_CCLOCK_TARGET_YAW_MOEE_ABS178_COLLISIION                            0x19D
 #define RIGHT_LEAKING_SWEEP_COMPLETE                                                            0x19E
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE                                                     0x19F
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP                                                0x1A0
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION                                      0x1A1
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_X_TURN                                         0x1A2
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN                                 0x1A3
+#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                       0x1A4
+
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE                                               0x1A5
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP                                          0x1A6
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION                                0x1A7
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_X_TURN                                   0x1A8
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN                           0x1A9
+#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                 0x1AA
+
+
 
 #define FORWARD_BOUNDARY_RIGHTRUN_STEP                                                          0x1B0
 #define FORWARDBOUNDARY_YAW_LESS_ABS10                                                          0x1B1
@@ -395,8 +650,23 @@
 #define LEFT_LEAKING_SWEEP_CLOCK_TARGET_YAW_MORE_ABS173                                        0x2FC
 #define LEFT_LEAKING_SWEEP_CLOCK_TARGET_YAW_MOEE_ABS173_COLLISIION                             0x2FD
 #define LEFT_LEAKING_SWEEP_COMPLETE                                                            0x2FE
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE                                                      0x2FF
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP                                                 0x300
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION                                       0x301
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_X_TURN                                          0x302
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN                                  0x303
+#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                        0x304
 
-#define FORWARD_BOUNDARY_LEFTRUN_STEP                                                          0x06
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE                                                0x305
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP                                           0x306
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION                                 0x307
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_X_TURN                                    0x308
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN                            0x309
+#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                  0x30A
+
+
+
+#define FORWARD_BOUNDARY_LEFTRUN_STEP                                                          0x310
 #define LEFT_FORWARDBOUNDARY_YAW_LESS_ABS10                                                    0x311
 #define LEFT_FORWARDBOUNDARY_CCLOCK_TARGET_YAW_MORE_ABS178                                     0x312
 #define LEFT_FORWARDBOUNDARY_CCLOCK_TARGET_YAW_MORE_ABS178_COLLISION                           0x313
@@ -518,240 +788,46 @@
 #define LEFT_COLLISION_TURN_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                 0x39F
 
 
-//**********return origin define*************
-#define GOSTR_RETURN_ORIGIN_STEP                                                               0x001
-#define DIR_Y_MORE_POSITIVE_200                                                                0x002
-#define DIR_Y_LESS_NEGATIVE_200                                                                0x003
-#define DIR_X_MORE_POSITIVE_200                                                                0x004
-#define DIR_X_LESS_NEGATIVE_200                                                                0x005
 
-#define TURN_CLOCK_TARGET_YAW_NEGATIVE_90_RETURN_ORIGIN                                        0x006
-#define TURN_CLOCK_TARGET_YAW_POSITIVE_90_RETURN_ORIGIN                                        0x007
-#define TURN_CLOCK_TARGET_YAW_180_RETURN_ORIGIN                                                0x008
-#define TURN_CLOCK_TARGET_YAW_5_RETURN_ORIGIN                                                  0x009
+#define START_TURN_CLOCK_TARGET_CLOSE_EDGE_MAP                                                  0x3D0
+#define START_LOOP_CLOSE_EDGE_MAP                                                               0x3D1
+#define LESS_ABS176__CLOSE_EDGE_MAP                                                             0x3D2
+#define COLLISION_LESS_ABS176_CLOSE_EDGE_MAP                                                    0x3D3
+#define LOOP_CLOSE_EDGE_MAP                                                                     0x3D4
+#define COLLISION_LOOP_CLOSE_EDGE_MAP                                                           0x3D5
+#define MORE_LOOP_CLOSE_EDGE_MAP                                                                0x3D6
+#define COMPLETE_LOOP_CLOSE_EDGE_MAP                                                            0x3D7
+#define LEFT_COLLISION_LOOP_CLOSE_EDGE_MAP                                                      0x3D8
+#define RIGHT_COLLISION_LOOP_CLOSE_EDGE_MAP                                                     0x3D9
+#define COMPLETE_CLOSE_EDGE_MAP                                                                 0x3DA
+#define FRONT_COLLISION_LOOP_CLOSE_EDGE_MAP                                                     0x3DB
+#define COLLISION_LEFT_COLLISION_LOOP_CLOSE_EDGE_MAP                                            0x3DC
+#define X_MORE_LOOP_CLOSE_EDGE_MAP                                                              0x3DD
+#define X_LESS_LOOP_CLOSE_EDGE_MAP                                                              0x3DE
+#define Y_MORE_LOOP_CLOSE_EDGE_MAP                                                              0x3DF
+#define GO_X_MORE_LOOP_CLOSE_EDGE_MAP                                                           0x3E0
+#define COLLISION_X_MORE_LOOP_CLOSE_EDGE_MAP                                                    0x3E1
+#define COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP                                                 0x3E2
+#define TURN_COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP                                            0x3E3
+#define COLLISION_TURN_COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP                                  0x3E4
+#define GO_X_LESS_LOOP_CLOSE_EDGE_MAP                                                           0x3E5
+#define COLLISION_X_LESS_LOOP_CLOSE_EDGE_MAP                                                    0x3E6
+#define COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP                                                 0x3E7
+#define TURN_COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP                                            0x3E8
+#define COLLISION_TURN_COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP                                  0x3E9
+#define GO_Y_MORE_LOOP_CLOSE_EDGE_MAP                                                           0x3EA
+#define COLLISION_Y_MORE_LOOP_CLOSE_EDGE_MAP                                                    0x3EB
+#define COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP                                                 0x3EC
+#define TURN_COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP                                            0x3ED
+#define COLLISION_TURN_COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP                                  0x3EE
+#define GO_Y_LESS_LOOP_CLOSE_EDGE_MAP                                                           0x3EF
+#define COLLISION_Y_LESS_LOOP_CLOSE_EDGE_MAP                                                    0x3F0
+#define COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP                                                 0x3F1
+#define TURN_COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP                                            0x3F2
+#define COLLISION_TURN_COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP                                  0x3F3
+#define Y_LESS_LOOP_CLOSE_EDGE_MAP                                                              0x3F4
 
-#define COLLISION_Y_POSITIVE_90_RETURN_ORIGIN                                                  0x00A
-#define COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN                                                  0x00B
-#define COLLISION_X_POSITIVE_180_RETURN_ORIGIN                                                 0x00C
-#define COLLISION_X_NEGATIVE_5_RETURN_ORIGIN                                                   0x00D
 
-#define TURN_CLOCK_Y_POSITIVE_90_RETURN_ORIGIN                                                 0x00E
-#define TURN_CLOCK_Y_NEGATIVE_90_RETURN_ORIGIN                                                 0x00F
-#define TURN_CLOCK_X_POSITIVE_180_RETURN_ORIGIN                                                0x010
-#define TURN_CLOCK_X_NEGATIVE_5_RETURN_ORIGIN                                                  0x011
-
-#define TURN_CLOCK_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN                                       0x012
-#define TURN_CLOCK_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN                                       0x013
-#define TURN_CLOCK_COLLISION_X_POSITIVE_180_RETURN_ORIGIN                                      0x014
-#define TURN_CLOCK_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN                                        0x015
-
-#define BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN                                           0x016
-#define BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN                                           0x017
-#define BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN                                          0x018
-#define BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN                                            0x019
-
-#define LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN                                      0x01A
-#define LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN                                      0x01B
-#define LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN                                     0x01C
-#define LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN                                       0x01D
-
-#define COLLISION_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN                            0x01E
-#define COLLISION_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN                            0x01F
-#define COLLISION_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN                           0x020
-#define COLLISION_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN                             0x021
-
-#define Y_MORE_LOOP_BYPASS_OBSTACLES_Y_POSITIVE_90_RETURN_ORIGIN                               0x022
-#define Y_MORE_LOOP_BYPASS_OBSTACLES_Y_NEGATIVE_90_RETURN_ORIGIN                               0x023
-#define X_MORE_LOOP_BYPASS_OBSTACLES_X_POSITIVE_180_RETURN_ORIGIN                              0x024
-#define X_MORE_LOOP_BYPASS_OBSTACLES_X_NEGATIVE_5_RETURN_ORIGIN                                0x025
-
-#define TURN_CLOCK_LOOP_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN                                  0x026
-#define TURN_CLOCK_LOOP_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN                                  0x027
-#define TURN_CLOCK_LOOP_COLLISION_X_POSITIVE_180_RETURN_ORIGIN                                 0x028
-#define TURN_CLOCK_LOOP_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN                                   0x029
-
-#define TURN_CLOCK_DIR_Y_MORE_POSITIVE_200                                                     0x02A
-#define TURN_CLOCK_DIR_Y_LESS_NEGATIVE_200                                                     0x02B
-#define TURN_CLOCK_DIR_X_MORE_POSITIVE_200                                                     0x02C
-#define TURN_CLOCK_DIR_X_LESS_NEGATIVE_200                                                     0x02D
-
-//*************stuck*************
-#define STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP                                                   0x030
-#define STUCK_FORWARD_BOUNDARY_STATUS                                                          0x031
-#define TURN_RIGHT_YAW_MORE_90_STUCK_FORWARD_BOUNDARY_STATUS                                   0x032
-#define GO_STUCK_FORWARD_BOUNDARY_STATUS                                                       0x033
-#define COLLISION_TURN_RIGHT_YAW_MORE_90_STUCK_FORWARD_BOUNDARY_STATUS                         0x034
-#define COLLISION_GO_STUCK_FORWARD_BOUNDARY_STATUS                                             0x035
-#define GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS                                              0x036
-#define TURN_RIGHT_YAW_MORE_10_STUCK_FORWARD_BOUNDARY_STATUS                                   0x037
-#define COLLISION_TURN_RIGHT_YAW_MORE_10_STUCK_FORWARD_BOUNDARY_STATUS                         0x038
-#define ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                                              0x039
-#define COLLISION_GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS                                    0x03A
-#define COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                                    0x03B
-#define COLLISION_COLLISION_GO_X_Y_MORE_STUCK_FORWARD_BOUNDARY_STATUS                          0x03C
-#define COMPETE_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                                      0x03D
-#define TURN_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                               0x03E
-#define COLLISION_TURN_COLLISION_ESCAPE_FROM_STUCK_FORWARD_BOUNDARY_STATUS                     0x03F
-
-//*************A* return origin*************
-#define ASTAR_MOTION_GOSTR_RETURN                                                              0x040
-#define PLAN_ASTAR_MOTION_GOSTR_RETURN                                                         0x041
-#define START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                                   0x042
-#define COLLISION_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                         0x043
-#define TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                        0x044
-#define DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                            0x045
-#define FINISH_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                            0x046
-#define COLLISION_TURN_CLOCK_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                              0x047
-#define A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x048
-#define B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x049
-#define C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04A
-#define D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04B
-#define E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04C
-#define F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04D
-#define G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04E
-#define H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                          0x04F
-#define LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x050
-#define MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x051
-#define GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x052
-#define COLLISION_LESS_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x053
-#define COLLISION_MORE_45_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x054
-
-#define LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x055
-#define MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x056
-#define GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x057
-#define COLLISION_LESS_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x058
-#define COLLISION_MORE_45_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x059
-
-#define LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x05A
-#define MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x05B
-#define GO_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x05C
-#define COLLISION_LESS_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x05D
-#define COLLISION_MORE_45_C_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x05E
-
-#define LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x05F
-#define MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x060
-#define GO_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x061
-#define COLLISION_LESS_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x062
-#define COLLISION_MORE_45_D_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x063
-
-#define LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x064
-#define MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x065
-#define GO_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x066
-#define COLLISION_LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x067
-#define COLLISION_MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x068
-
-#define LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x069
-#define MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x06A
-#define GO_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x06B
-#define COLLISION_LESS_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x06C
-#define COLLISION_MORE_45_F_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x06D
-
-#define LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x06E
-#define MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x06F
-#define GO_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x070
-#define COLLISION_LESS_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x071
-#define COLLISION_MORE_45_G_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x072
-
-#define LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x073
-#define MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                  0x074
-#define GO_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                                       0x075
-#define COLLISION_LESS_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x076
-#define COLLISION_MORE_45_H_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN                        0x077
-
-#define A_STAR_COMPLETED                                                                       0x078
-
-#define A_STAR_COLLISION_COMPLETED                                                             0x081
-#define A_STAR_COLLISION                                                                       0x082
-#define START_A_STAR_COLLISION                                                                 0x083
-#define RECALCULATE_A_STAR_COLLISION_COMPLETED                                                 0x084
-#define BACK_START_A_STAR_COLLISION                                                            0x085
-#define LEFT_OBSTACLE_START_A_STAR_COLLISION                                                   0x086
-#define RIGHT_OBSTACLE_START_A_STAR_COLLISION                                                  0x087
-#define FRONT_OBSTACLE_START_A_STAR_COLLISION                                                  0x088
-
-#define GO_LEFT_OBSTACLE_START_A_STAR_COLLISION                                                0x089
-#define COLLISION_LEFT_OBSTACLE_START_A_STAR_COLLISION                                         0x08A
-#define GO_RIGHT_OBSTACLE_START_A_STAR_COLLISION                                               0x08B
-#define COLLISION_RIGHT_OBSTACLE_START_A_STAR_COLLISION                                        0x08C
-#define GO_FRONT_OBSTACLE_START_A_STAR_COLLISION                                               0x08D
-#define COLLISION_FRONT_OBSTACLE_START_A_STAR_COLLISION                                        0x08E
-
-#define GOSTR_CLIFF_RUNNING_STEP                                                               0x0A0
-#define CLIFF_COMPLETE                                                                         0x0A1
-#define LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                                     0x0A2
-#define GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                                  0x0A3
-#define LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                                     0x0A4
-#define GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                                  0x0A5
-#define ORIGIN_FRONT_CLIFF_RUNNING_STEP                                                        0x0A6
-
-#define LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                                     0x0A7
-#define GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                                  0x0A8
-#define GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                                   0x0A9
-#define LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                                      0x0AA
-
-#define TURN_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                                0x0AC
-#define GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                               0x0AD
-#define COLLISION_TURN_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                      0x0AE
-#define COLLISION_GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                     0x0AF
-#define TURN_GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                          0x0B0
-#define COLLISION_TURN_GOSTR_LESS_90_R_FRONT_CLIFF_RUNNING_STEP                                0x0B1
-
-#define TURN_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                             0x0B2
-#define GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                            0x0B3
-#define COLLISION_TURN_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                   0x0B4
-#define COLLISION_GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                  0x0B5
-#define TURN_GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                                       0x0B6
-#define COLLISION_TURN_GOSTR_GREATER_90_R_FRONT_CLIFF_RUNNING_STEP                             0x0B8
-
-#define TURN_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                             0x0B9
-#define GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                            0x0BA
-#define COLLISION_TURN_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                   0x0BB
-#define COLLISION_GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                  0x0BC
-#define TURN_GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                                       0x0BD
-#define COLLISION_TURN_GOSTR_GREATER_90_L_FRONT_CLIFF_RUNNING_STEP                             0x0BE
-
-#define TURN_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                                0x0BF
-#define GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                               0x0C0
-#define COLLISION_TURN_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                      0x0C1
-#define COLLISION_GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                     0x0C2
-#define TURN_GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                          0x0C3
-#define COLLISION_TURN_GOSTR_LESS_90_L_FRONT_CLIFF_RUNNING_STEP                                0x0C4
-
-#define TURN_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                                   0x0C5
-#define GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                                  0x0C6
-#define COLLISION_TURN_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                         0x0C7
-#define COLLISION_GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                        0x0C8
-#define TURN_GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                             0x0C9
-#define COLLISION_TURN_GOSTR_ORIGIN_FRONT_CLIFF_RUNNING_STEP                                   0x0CA
-
-#define TURN_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                                0x0CB
-#define GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                               0x0CC
-#define COLLISION_TURN_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                      0x0CD
-#define COLLISION_GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                     0x0CE
-#define TURN_GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                          0x0CF
-#define COLLISION_TURN_GOSTR_LESS_90_R_RIGHT_CLIFF_RUNNING_STEP                                0x0D0
-
-#define TURN_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                             0x0D1
-#define GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                            0x0D2
-#define COLLISION_TURN_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                   0x0D3
-#define COLLISION_GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                  0x0D4
-#define TURN_GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                                       0x0D5
-#define COLLISION_TURN_GOSTR_GREATER_90_L_RIGHT_CLIFF_RUNNING_STEP                             0x0D6
-
-#define TURN_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                              0x0D7
-#define GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                             0x0D8
-#define COLLISION_TURN_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                    0x0D9
-#define COLLISION_GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                   0x0DA
-#define TURN_GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                                        0x0DB
-#define COLLISION_TURN_GOSTR_GREATER_90_R_LEFT_CLIFF_RUNNING_STEP                              0x0DC
-
-#define TURN_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                                 0x0DD
-#define GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                                0x0DE
-#define COLLISION_TURN_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                       0x0DF
-#define COLLISION_GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                      0x0E0
-#define TURN_GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                           0x0E1
-#define COLLISION_TURN_GOSTR_LESS_90_L_LEFT_CLIFF_RUNNING_STEP                                 0x0E2
-#define INTERRUPT_AND_STOP                                                                     0x0E3
 
 #define START_OVERALL_CLEANING_STRATEGY                                                        0x600
 #define RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY                                        0x601
@@ -764,34 +840,6 @@
 #define EDGEWISERUN_CLEANING_STRATEGY                                                          0x608 
 #define MORE_MAP_OVERALL_CLEANING_STRATEGY                                                     0x609
 
-
-#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE                                                     0x19F
-#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP                                                0x1A0
-#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION                                      0x1A1
-#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_X_TURN                                         0x1A2
-#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN                                 0x1A3
-#define RIGHT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                       0x1A4
-
-#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE                                               0x1A5
-#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP                                          0x1A6
-#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION                                0x1A7
-#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_X_TURN                                   0x1A8
-#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN                           0x1A9
-#define RIGHT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                 0x1AA
-
-#define LEFT_LEAKING_SWEEP_START_WALK_EDGE                                                      0x2FF
-#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP                                                 0x300
-#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION                                       0x301
-#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_X_TURN                                          0x302
-#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN                                  0x303
-#define LEFT_LEAKING_SWEEP_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                        0x304
-
-#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE                                                0x305
-#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP                                           0x306
-#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION                                 0x307
-#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_X_TURN                                    0x308
-#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN                            0x309
-#define LEFT_LEAKING_SWEEP_OTHER_START_WALK_EDGE_LOOP_COLLISION_TURN_COLLISION                  0x30A
 
 
 

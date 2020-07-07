@@ -480,7 +480,7 @@ void bsp_ResetCleanStrategyBStatus(void)
 	y_error = 0;
 	reverse_moremap=0;
 	b_reverse_moremap=false;
-	mapstopupdate==false;
+	mapstopupdate=false;
 
 	//CurrentCleanTimeStamp  = 0;
 	
@@ -760,11 +760,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
     
 #endif
 	
-//	InfraredWalkEdgeRun(current_pose, obstacleSignal);
-//	if(my_abs(current_pose->x)<100000){
-//	return 1;
-//	}
-	
     current_pose->x=current_pose->x-x_error;
     current_pose->y=current_pose->y-y_error;
 	if(b_reverse_moremap==true){
@@ -1032,7 +1027,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
         }
         break;
     case LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
-        ////log_debug("OVERALL_CLEANING_STRATEGY:LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY");
+        //log_debug("OVERALL_CLEANING_STRATEGY:LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY");
         if(right_map_extreme==true){
             RightMapExtreme();
             right_map_extreme=false;
@@ -1089,8 +1084,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal)
 
 
 
-unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal)
-{
+
+unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
 	if((xTaskGetTickCount() - EdgeWiseCleanTimeStamp)> EDGEWISE_CLEAN_WORK_TIME)
 	{
 		return 1;
@@ -1102,12 +1097,9 @@ unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacl
 	
 }
 
-
-//#################################################################################
 //####################################################           RIGHT        #####    
 //#################################################################################
-unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal)
-{
+unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
@@ -1660,8 +1652,8 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 }
 
 
-unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obstacleSignal)
-{
+
+unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
@@ -2320,8 +2312,8 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
 }
 
 
-unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacleSignal)
-{
+
+unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
@@ -3005,8 +2997,8 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
 
 
 
-unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obstacleSignal)
-{
+
+unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obstacleSignal){
 	int Yaw;
   unsigned char complete_flag = 0;
 	Yaw = current_pose->orientation;
@@ -3374,8 +3366,8 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
 
 
 
-unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
-{
+
+unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
 	signed char i=0;
@@ -4139,8 +4131,8 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 }
 
 
-unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
-{
+
+unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
 	signed char i,j;
@@ -4659,8 +4651,8 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
 
 
 
-unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal)
-{
+
+unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
 	signed char i,j;
@@ -5222,8 +5214,8 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
 
 
 
-unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obstacleSignal)
-{
+
+unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
@@ -5391,8 +5383,8 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
 }
 
 
-unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSignal)
-{
+
+unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
@@ -5654,8 +5646,8 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
 }
 
 
-unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacleSignal)
-{
+
+unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
 	  unsigned char i=0;
@@ -6183,15 +6175,11 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
 
 
 
-///////////////////////////////////////////////////////////////////////////////////
-//#################################################################################
+
 //##########           LEFT             ###########################################	
-//#################################################################################	
 ///////////////////////////////////////////////////////////////////////////////////
 
-unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal)
-
-{
+unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
@@ -6738,8 +6726,8 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
 }
 
 
-unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obstacleSignal)
-{
+
+unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
@@ -6909,8 +6897,8 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
 }
 
 
-unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstacleSignal)
-{
+
+unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
@@ -7664,8 +7652,8 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     return complete_flag;
 }
 
-unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacleSignal)
-{
+
+unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
@@ -8391,8 +8379,9 @@ else{
     return complete_flag;
 }
 
-unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obstacleSignal)
-{
+
+
+unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
@@ -8757,6 +8746,8 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     }
     return complete_flag;
 }
+
+
 
 unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
@@ -9323,6 +9314,8 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
 }
 
 
+
+
 unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
@@ -9882,6 +9875,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
     }
     return complete_flag;
 }
+
 
 
 unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal){
@@ -10644,6 +10638,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 }
 
 
+
 unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -11172,6 +11167,7 @@ unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSig
 }
 
 
+
 unsigned char StuckLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
@@ -11430,6 +11426,7 @@ unsigned char StuckLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
 
 
 
+
 void StuckRunStep(POSE *current_pose){
     signed char i,j,k;
     if(stuck_x==true){
@@ -11527,10 +11524,7 @@ void StuckRunStep(POSE *current_pose){
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-//#################################################################################
 //##############A* return origin function define###################################
 //#################################################################################
 
@@ -11540,6 +11534,9 @@ unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal)
     Yaw = current_pose->orientation;
 	Yaw = Yaw/100;
     unsigned char i;
+	if((xTaskGetTickCount() - ForceReturnOriginTimeStamp)> EDGEWISE_CLEAN_WORK_TIME){
+		return 1;
+	}
     switch(return_origin_step_status)
     {
     case 0:
@@ -11623,7 +11620,6 @@ unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal)
                 edge_dilemma=false;
                 complete_flag = 1;
             }
-
         }
         break;
     case DIR_X_MORE_POSITIVE_200:
@@ -14094,16 +14090,16 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal)
 
 //还未使用 ，原来打算做沿边
 
-unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, unsigned char obstacleSignal)
-{
+unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, unsigned char obstacleSignal){
     int Yaw;
-	unsigned char complete_flag = 0
-    unsigned char i,j,k, ij;
+    unsigned char i;
+	unsigned char j;
+	unsigned char k;
+	unsigned char ij;
+	unsigned char complete_flag = 0;
 	bool end_x=false;
 	Yaw = current_pose->orientation;
 	Yaw = Yaw /100;
-    map_robot_x = (current_pose->x + half_map_wide) / GRIDWIDTH;
-    map_robot_y = (current_pose->y + half_map_long) / GRIDHEIGHT;
 	switch (close_edge_map_run_step_status){
 		case 0:
 			step=0;
@@ -14220,7 +14216,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
             linear_velocity = 0;
             angular_velocity = 0;
             turn_start_update = 0;
-            close_edge_map_run_step_status= ;
+            close_edge_map_run_step_status= LESS_ABS176__CLOSE_EDGE_MAP;
             break;
         }
         break;
@@ -14267,35 +14263,13 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 				detection_close=true;
 			}
 		}
-		if(my_abs(current_pose->x)>half_map_wide||my_abs(current_pose->y)>half_map_wide){
-			if(my_abs(current_pose->x)>half_map_wide){
-				if(my_abs(current_pose->y)>half_map_wide){
-					 close_edge_map_run_step_status=COMPLETE_CLOSE_EDGE_MAP;
-					break;
-				}
-				else{
-					if(current_pose->x>half_map_wide){
-						close_edge_map_run_step_status=X_MORE_LOOP_CLOSE_EDGE_MAP;
-					}
-					else{
-						close_edge_map_run_step_status=X_LESS_LOOP_CLOSE_EDGE_MAP;
-					}
-				}
-			}
-			else{
-				if(current_pose->y>half_map_wide){
-						close_edge_map_run_step_status=Y_MORE_LOOP_CLOSE_EDGE_MAP;
-					}
-					else{
-						close_edge_map_run_step_status=Y_LESS_LOOP_CLOSE_EDGE_MAP;
-					}
-			}
+		if(my_abs(current_pose->x)>half_map_wide-2*GRIDWIDTH||my_abs(current_pose->y)>half_map_wide-2*GRIDWIDTH){
+			close_edge_map_run_step_status=MORE_LOOP_CLOSE_EDGE_MAP;
 			break;
 		}
 		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
 		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
-        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
-        {
+        if(my_abs(last_position_x - current_pose->x)>lateral_move_distance||my_abs(last_position_y - current_pose->y)>lateral_move_distance){
 			end_x=false;
 			if(i>0&&i<99&&j>0&&j<99){
 				for(k=i-1;k<=i+1;k++){
@@ -14333,9 +14307,11 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 			}
 			if(my_abs(i-close_edge_min_x)<5&&my_abs(j-close_edge_min_x)<5){
 				DelimmaNumber=2;
+				step=0;
 			}
 			if(my_abs(i-close_l_edge_max_x)<5&&my_abs(j-close_l_edge_max_y)<5){
 				DelimmaNumber=3;
+				step=0;
 			}
 		}
 		else if(DelimmaNumber==2){
@@ -14351,9 +14327,11 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 			}
 			if(my_abs(i-close_l_edge_max_x)<5&&my_abs(j-close_l_edge_max_y)<5){
 				DelimmaNumber=3;
+				step=0;
 			}
 			if(my_abs(i-close_edge_max_x)<5&&my_abs(j-close_edge_max_y)<5){
 				DelimmaNumber=4;
+				step=0;
 			}
 		}
 		else if(DelimmaNumber==3){
@@ -14369,11 +14347,13 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 			}
 			if(my_abs(i-close_edge_max_x)<5&&my_abs(j-close_edge_max_y)<5){
 				DelimmaNumber=4;
+				step=0;
 			}
 			if(detection_close==true){
 			if(my_abs(i-close_r_edge_min_x)<5&&my_abs(j-close_r_edge_min_y)<5){
 				DelimmaNumber=1;
-				close_edge_map_run_step_status= COMPLETE_CLOSE_EDGE_MAP;
+				step=0;
+				close_edge_map_run_step_status=COMPLETE_CLOSE_EDGE_MAP;
 				break;
 			}
 		}
@@ -14397,6 +14377,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 				DelimmaNumber=2;
 			}
 			if(DelimmaNumber!=4){
+				step=0;
 				close_edge_map_run_step_status= COMPLETE_CLOSE_EDGE_MAP;
 				break;
 			}
@@ -14457,7 +14438,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            close_edge_map_run_step_status = COLLISION_LEFT_OBSTACLE_START_A_STAR_COLLISION;
+            close_edge_map_run_step_status = COLLISION_LEFT_COLLISION_LOOP_CLOSE_EDGE_MAP;
             break;
         }
         linear_velocity = 0;
@@ -14482,7 +14463,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            close_edge_map_run_step_status = COLLISION_LEFT_OBSTACLE_START_A_STAR_COLLISION;
+            close_edge_map_run_step_status = COLLISION_LEFT_COLLISION_LOOP_CLOSE_EDGE_MAP;
             break;
         }
         linear_velocity = 0;
@@ -14507,13 +14488,13 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            close_edge_map_run_step_status = COLLISION_LEFT_OBSTACLE_START_A_STAR_COLLISION;
+            close_edge_map_run_step_status = COLLISION_LEFT_COLLISION_LOOP_CLOSE_EDGE_MAP;
             break;
         }
         linear_velocity = 0;
         angular_velocity = turn_vel;
         break;
-    case COLLISION_LEFT_OBSTACLE_START_A_STAR_COLLISION:
+    case COLLISION_LEFT_COLLISION_LOOP_CLOSE_EDGE_MAP:
         if (turn_start_update == 0)
         {
             turn_start_x = current_pose->x;
@@ -14539,6 +14520,172 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
             break;
         }
         break;
+	case MORE_LOOP_CLOSE_EDGE_MAP:
+		if(adcRealTime[8]>100&&adcRealTime[8]<1500){
+		   delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = 0;
+		}
+		if(adcRealTime[8]>=1500){
+			delimma_edge=0;
+			linear_velocity = 200;
+			angular_velocity = -10;
+		}
+		if(adcRealTime[8]<100){
+			if(delimma_edge<10){
+				delimma_edge++;
+				linear_velocity = 200;
+				angular_velocity = 10;
+			}
+			else{
+				linear_velocity = 100;
+				angular_velocity = 20;
+			}
+		}
+        if (obstacleSignal!=none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
+			linear_velocity = 0;
+			angular_velocity = 0;
+            close_edge_map_run_step_status= COLLISION_LOOP_CLOSE_EDGE_MAP;
+            break;
+        }
+		if(current_pose->x<half_map_wide-1000){
+			last_position_x = current_pose->x;
+			last_position_y = current_pose->y;
+            close_edge_map_run_step_status = LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+		if(my_abs(current_pose->x)>half_map_wide||my_abs(current_pose->y)>half_map_wide){
+		if(my_abs(current_pose->x)>half_map_wide){
+				if(my_abs(current_pose->y)>half_map_wide){
+					 close_edge_map_run_step_status=COMPLETE_CLOSE_EDGE_MAP;
+					break;
+				}
+				else{
+					if(current_pose->x>half_map_wide){
+						close_edge_map_run_step_status=X_MORE_LOOP_CLOSE_EDGE_MAP;
+					}
+					else{
+						close_edge_map_run_step_status=X_LESS_LOOP_CLOSE_EDGE_MAP;
+					}
+				}
+			}
+			else{
+				if(current_pose->y>half_map_wide){
+						close_edge_map_run_step_status=Y_MORE_LOOP_CLOSE_EDGE_MAP;
+					}
+					else{
+						close_edge_map_run_step_status=Y_LESS_LOOP_CLOSE_EDGE_MAP;
+					}
+			}
+		}
+		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+        if (my_abs(last_position_x - current_pose->x) > lateral_move_distance||my_abs(last_position_y - current_pose->y) > lateral_move_distance)
+        {
+			end_x=false;
+			if(i>0&&i<99&&j>0&&j<99){
+				for(k=i-1;k<=i+1;k++){
+					for(ij=j-1;ij<=j+1;ij++){
+						if(gridmap.map[k][ij]!=125){
+							end_x=true;
+							break;
+						}
+					}
+					if(end_x==true){
+						break;
+					}
+				}
+			}
+			if(end_x==true){
+				 last_position_x = current_pose->x;
+				last_position_y = current_pose->y;
+				close_edge_map_run_step_status=MORE_LOOP_CLOSE_EDGE_MAP;
+			}
+			else{
+				close_edge_map_run_step_status= COMPLETE_LOOP_CLOSE_EDGE_MAP;
+			}
+			break;
+		}
+		if(DelimmaNumber==1){
+			if(Yaw<0){
+			}
+			else{
+				linear_velocity = 0;
+				angular_velocity = turn_vel;
+			}
+			if(my_abs(i-close_edge_min_x)<5&&my_abs(j-close_edge_min_x)<5){
+				DelimmaNumber=2;
+				step=0;
+			}
+			if(my_abs(i-close_l_edge_max_x)<5&&my_abs(j-close_l_edge_max_y)<5){
+				DelimmaNumber=3;
+				step=0;
+			}
+		}
+		else if(DelimmaNumber==2){
+			if(my_abs(Yaw)<90){
+			}
+			else{
+				linear_velocity = 0;
+				angular_velocity = turn_vel;
+			}
+			if(my_abs(i-close_l_edge_max_x)<5&&my_abs(j-close_l_edge_max_y)<5){
+				DelimmaNumber=3;
+				step=0;
+			}
+			if(my_abs(i-close_edge_max_x)<5&&my_abs(j-close_edge_max_y)<5){
+				DelimmaNumber=4;
+				step=0;
+			}
+		}
+		else if(DelimmaNumber==3){
+			if(Yaw>0){
+			}
+			else{
+				linear_velocity = 0;
+				angular_velocity = turn_vel;
+			}
+			if(my_abs(i-close_edge_max_x)<5&&my_abs(j-close_edge_max_y)<5){
+				DelimmaNumber=4;
+				step=0;
+			}
+			if(detection_close==true){
+			if(my_abs(i-close_r_edge_min_x)<5&&my_abs(j-close_r_edge_min_y)<5){
+				DelimmaNumber=1;
+				step=0;
+				close_edge_map_run_step_status= COMPLETE_CLOSE_EDGE_MAP;
+				break;
+			}
+		}
+		}
+		else if(DelimmaNumber==4){
+			if(my_abs(Yaw)>90){
+			}
+			else{
+				linear_velocity = 0;
+				angular_velocity = turn_vel;
+			}
+			if(detection_close==true){
+			if(my_abs(i-close_r_edge_min_x)<5&&my_abs(j-close_r_edge_min_y)<5){
+				DelimmaNumber=1;
+			}
+			if(my_abs(i-close_edge_min_x)<5&&my_abs(j-close_edge_min_x)<5){
+				DelimmaNumber=2;
+			}
+			if(DelimmaNumber!=4){
+				step=0;
+				close_edge_map_run_step_status= COMPLETE_CLOSE_EDGE_MAP;
+				break;
+			}
+		}
+		}
+		else{
+			linear_velocity = long_stra_vel;
+			angular_velocity = 0;
+		}
+		break;
+		
+		
 	case X_MORE_LOOP_CLOSE_EDGE_MAP:
 		if (my_abs(Yaw) > 175)
         {
@@ -14577,24 +14724,19 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 	case GO_X_MORE_LOOP_CLOSE_EDGE_MAP:
 		linear_velocity = long_stra_vel;
         angular_velocity = 0;
-	if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
-		if(current_pose->x<half_map_wide-1000){
+	    if(current_pose->x<half_map_wide-500){
 			last_position_x = current_pose->x;
 			last_position_y = current_pose->y;
             close_edge_map_run_step_status = LOOP_CLOSE_EDGE_MAP;
 			break;
 		}
-		linear_velocity = 0;
-        angular_velocity = 0;
-		step++;
-		motionSteps++;
-		if(motionSteps>6){
-			if(my_abs(Yaw)<90){
-			}
+		if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP;
+			break;
 		}
-		close_edge_map_run_step_status=COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP;
 		break;
-	}
 	case COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP:
 		if (turn_start_update == 0)
         {
@@ -14614,27 +14756,32 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
             break;
         }
 	case TURN_COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP:
-		if(step<3){
-		linear_velocity = 0;
-        angular_velocity = turn_vel;
+		if (Yaw<90&&Yaw>0){
+			step=6;
 		}
-		else{
+		if(step<3){
 			linear_velocity = 0;
 			angular_velocity = -turn_vel;
-		
 		}
-	if (my_abs(temporary_yaw - Yaw) > 30){
-		linear_velocity = 0;
-        angular_velocity = 0;
-		close_edge_map_run_step_status=GO_X_MORE_LOOP_CLOSE_EDGE_MAP;
-	
-	}
-	if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
-		linear_velocity = 0;
-        angular_velocity = 0;
-		close_edge_map_run_step_status=COLLISION_TURN_COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP;
-		break;
-	}
+		else{
+			if(Yaw>-90&&Yaw<0){
+				close_edge_map_run_step_status= COMPLETE_CLOSE_EDGE_MAP;
+				break;
+			}
+			linear_velocity = 0;
+			angular_velocity = turn_vel;
+		}
+		if (my_abs(temporary_yaw - Yaw) > 30){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=GO_X_MORE_LOOP_CLOSE_EDGE_MAP;
+		}
+		if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=COLLISION_TURN_COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
 	case COLLISION_TURN_COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP:
 		if (turn_start_update == 0)
         {
@@ -14652,10 +14799,6 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 			close_edge_map_run_step_status=TURN_COLLISION_GO_X_MORE_LOOP_CLOSE_EDGE_MAP;
             break;
         }
-		
-		
-		
-		
 		
 	case X_LESS_LOOP_CLOSE_EDGE_MAP:
 		if (my_abs(Yaw) < 5)
@@ -14692,13 +14835,86 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 			close_edge_map_run_step_status=X_LESS_LOOP_CLOSE_EDGE_MAP;
         }
         break;
+		
 	case GO_X_LESS_LOOP_CLOSE_EDGE_MAP:
 		linear_velocity = long_stra_vel;
         angular_velocity = 0;
-		
-		
-		
-	
+	    if(current_pose->x>-half_map_wide+500){
+			last_position_x = current_pose->x;
+			last_position_y = current_pose->y;
+            close_edge_map_run_step_status = LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+		if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+		break;
+	case COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP:
+		if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+			temporary_yaw=Yaw;
+			close_edge_map_run_step_status=TURN_COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP;
+            break;
+        }
+	case TURN_COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP:
+		if (Yaw<-90){
+			step=6;
+		}
+		if(step<3){
+			linear_velocity = 0;
+			angular_velocity = -turn_vel;
+		}
+		else{
+			if(Yaw>90){
+				close_edge_map_run_step_status= COMPLETE_CLOSE_EDGE_MAP;
+				break;
+			}
+			linear_velocity = 0;
+			angular_velocity = turn_vel;
+		}
+		if (my_abs(temporary_yaw - Yaw) > 30){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=GO_X_LESS_LOOP_CLOSE_EDGE_MAP;
+		}
+		if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=COLLISION_TURN_COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+	case COLLISION_TURN_COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP:
+		if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+			close_edge_map_run_step_status=TURN_COLLISION_GO_X_LESS_LOOP_CLOSE_EDGE_MAP;
+            break;
+        }
+		break;
 	case Y_MORE_LOOP_CLOSE_EDGE_MAP:
 		if (Yaw>-95&&Yaw<-85)
         {
@@ -14734,6 +14950,85 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 			close_edge_map_run_step_status=Y_MORE_LOOP_CLOSE_EDGE_MAP;
         }
         break;
+
+	case GO_Y_MORE_LOOP_CLOSE_EDGE_MAP:
+		linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+	    if(current_pose->y<half_map_wide-500){
+			last_position_x = current_pose->x;
+			last_position_y = current_pose->y;
+            close_edge_map_run_step_status = LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+		if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+		break;
+	case COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP:
+		if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+			temporary_yaw=Yaw;
+			close_edge_map_run_step_status=TURN_COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP;
+            break;
+        }
+	case TURN_COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP:
+		if (Yaw>90){
+			step=6;
+		}
+		if(step<3){
+			linear_velocity = 0;
+			angular_velocity = -turn_vel;
+		}
+		else{
+			if(Yaw<90&&Yaw>0){
+				close_edge_map_run_step_status= COMPLETE_CLOSE_EDGE_MAP;
+				break;
+			}
+			linear_velocity = 0;
+			angular_velocity = turn_vel;
+		}
+		if (my_abs(temporary_yaw - Yaw) > 30){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=GO_Y_MORE_LOOP_CLOSE_EDGE_MAP;
+		}
+		if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=COLLISION_TURN_COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+	case COLLISION_TURN_COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP:
+		if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+			close_edge_map_run_step_status=TURN_COLLISION_GO_Y_MORE_LOOP_CLOSE_EDGE_MAP;
+            break;
+        }
 		
 		
 	case Y_LESS_LOOP_CLOSE_EDGE_MAP:
@@ -14771,35 +15066,114 @@ unsigned char  CloseEdgedMap(POSE *current_pose, CLIFFADCVALUE *cliff_value, uns
 			close_edge_map_run_step_status=Y_LESS_LOOP_CLOSE_EDGE_MAP;
         }
         break;
+		
+	case GO_Y_LESS_LOOP_CLOSE_EDGE_MAP:
+		linear_velocity = long_stra_vel;
+        angular_velocity = 0;
+	    if(current_pose->y>-half_map_wide+500){
+			last_position_x = current_pose->x;
+			last_position_y = current_pose->y;
+            close_edge_map_run_step_status = LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+		if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+		break;
+	case COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP:
+		if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+			temporary_yaw=Yaw;
+			close_edge_map_run_step_status=TURN_COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP;
+            break;
+        }
+	case TURN_COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP:
+		if (Yaw<0){
+			step=6;
+		}
+		if(step<3){
+			linear_velocity = 0;
+			angular_velocity = -turn_vel;
+		}
+		else{
+			if(Yaw<-90){
+				close_edge_map_run_step_status= COMPLETE_CLOSE_EDGE_MAP;
+				break;
+			}
+			linear_velocity = 0;
+			angular_velocity = turn_vel;
+		}
+		if (my_abs(temporary_yaw - Yaw) > 30){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=GO_Y_LESS_LOOP_CLOSE_EDGE_MAP;
+		}
+		if(obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1){
+			linear_velocity = 0;
+			angular_velocity = 0;
+			close_edge_map_run_step_status=COLLISION_TURN_COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP;
+			break;
+		}
+	case COLLISION_TURN_COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP:
+		if (turn_start_update == 0)
+        {
+            turn_start_x = current_pose->x;
+            turn_start_y = current_pose->y;
+            turn_start_update = 1;
+        }
+        linear_velocity = -long_stra_vel;
+        angular_velocity = 0;
+        if (my_abs(turn_start_x - current_pose->x) > collision_backward_distance || my_abs(turn_start_y - current_pose->y) > collision_backward_distance)
+        {
+            linear_velocity = 0;
+            angular_velocity = 0;
+            turn_start_update = 0;
+			close_edge_map_run_step_status=TURN_COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP;
+            break;
+        }
 	case COMPLETE_LOOP_CLOSE_EDGE_MAP:
 		if(current_pose->y<0){
 			complete_flag=2;
-				}
-				else{
-					complete_flag=3;
-				}
-				 linear_velocity = 0;
-				 angular_velocity = 0;
-				step=0;
-		        motionSteps=0;
-				mapstopupdate=false;
-				DelimmaNumber=0;
-		        detection_close=false;
-				break;
-			}
+		}
+		else{
+			complete_flag=3;
+		}
+		linear_velocity = 0;
+		angular_velocity = 0;
+		step=0;
+		motionSteps=0;
+		mapstopupdate=false;
+		DelimmaNumber=0;
 		break;
 	case COMPLETE_CLOSE_EDGE_MAP:
+		 complete_flag=1;
 		 linear_velocity = 0;
 		 angular_velocity = 0;
 		 step=0;
 		 motionSteps=0;
 		 mapstopupdate=false;
-	DelimmaNumber=0;
+	     DelimmaNumber=0;
 		 detection_close=false;
-	break;
+	     break;
 	}
     return complete_flag;
 }
+
+
 
 //检测地图是否封边
 
