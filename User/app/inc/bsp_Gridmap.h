@@ -19,6 +19,7 @@
 
 #define half_map_wide 5000
 #define half_map_long 5000
+#define reverse_x_more_map 4500
 
 #define ROBOTXOFFSET   MAPWIDTH/2
 #define ROBOTYOFFSET   MAPHEIGHT/2
@@ -95,6 +96,8 @@ typedef struct
 	volatile unsigned int delay ;
 }GridMap;
 
+
+
 void bsp_StartUpdateGridMap(void);
 void bsp_StopUpdateGridMap(void);
 void bsp_GridMapUpdate(int robotX,int robotY,double robotTheta, unsigned char obstacleSignal,unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value);
@@ -112,8 +115,9 @@ const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 
 extern GridMap gridmap;
 extern CLIFFADCVALUE cliff_valueB;
+extern unsigned char rightmapmin;
+extern unsigned char rightmapmax;
 
 #endif
-
 
 
