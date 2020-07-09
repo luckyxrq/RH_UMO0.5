@@ -109,17 +109,13 @@ void bsp_DustBoxProc(void)
 			if(state == DustBoxOutside)
 			{
 				dustBoxProc.cnt++;
-				if(dustBoxProc.cnt > 300)
+				if(dustBoxProc.cnt > 150)
 				{
 					bsp_OffsiteSuspend();
 					/*³¾ºÐÈ¡³ö*/
 					bsp_SperkerPlay(Song9);
 					dustBoxProc.action++;
 				} 
-				else
-				{
-					dustBoxProc.cnt = 0 ;
-				}
 			}
 		}break;
 		

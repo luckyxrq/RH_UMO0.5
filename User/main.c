@@ -288,6 +288,13 @@ static void vTaskPerception(void *pvParameters)
 			bsp_DustBoxProc();
 		}
 		
+//		if(isCleanRunning() && bsp_DustBoxGetState() == DustBoxOutside)
+//		{
+//			bsp_OffsiteSuspend();
+//			/*尘盒取出*/
+//			bsp_SperkerPlay(Song9);
+//		}
+		
         /*寻找充电桩*/
 		bsp_SearchChargePile();
 		/*沿边行走*/
@@ -586,6 +593,13 @@ static void bsp_KeyProc(void)
 					return;
 				}
 				
+				/*首先判断尘盒*/
+				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
+				{
+					bsp_SperkerPlay(Song9);
+					return;
+				}
+				
 				bsp_SperkerPlay(Song5);
 				bsp_StartSearchChargePile();
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.6F);
@@ -661,7 +675,7 @@ static void bsp_KeyProc(void)
 				
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_StartVacuum();
 				}
 				
