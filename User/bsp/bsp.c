@@ -98,17 +98,17 @@ void bsp_Init(void)
 		//DEBUG("加密版本：%s\r\n",dx8Version);
 		
 		// Authention Test
-		rv = AuthenticationTest();
-		if(rv)
-		{
-			DEBUG("未能通过! \r\n");
-			while(1)
-			{;}
-		}
-		else
-		{
-			DEBUG("通过! \r\n");
-		}
+//		rv = AuthenticationTest();
+//		if(rv)
+//		{
+//			DEBUG("未能通过! \r\n");
+//			while(1)
+//			{;}
+//		}
+//		else
+//		{
+//			DEBUG("通过! \r\n");
+//		}
 		
 		
 	}
