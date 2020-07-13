@@ -157,6 +157,8 @@ static void vTaskDecision(void *pvParameters)
 			bsp_WifiStateProc();
         }
 		
+		RTT("count:%d\r\n",count);
+		
         vTaskDelay(50);	
     }
 
@@ -251,7 +253,7 @@ static void vTaskPerception(void *pvParameters)
 	
 	
 #if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
-	bsp_StartVacuum();
+	bsp_StartVacuum(VACUUM_DEFAULT_PER);
 	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
@@ -676,7 +678,7 @@ static void bsp_KeyProc(void)
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_StartVacuum();
+				bsp_StartVacuum(VACUUM_DEFAULT_PER);
 				}
 				
 				

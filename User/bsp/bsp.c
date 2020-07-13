@@ -104,12 +104,9 @@ void bsp_Init(void)
 	bsp_InitCurrentFeedbackADC();
 	bsp_InitDustBox();
 	
-	
 	/*加密芯片*/
 	//bsp_DX8_CMD();
-	
-	
-	
+
 #if 0
 	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
 #endif
@@ -133,14 +130,8 @@ void bsp_Init(void)
 	}
 
 #endif
-	
-	
-	
-	
-	
+
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
-	
-	
 	bsp_IRD_StartWork();
 	
 		/*播放开机音乐*/
@@ -160,9 +151,7 @@ void bsp_Init(void)
 	bsp_PowerOnLedProc();
 	
 	wifi_protocol_init();/* 初始化WIFI协议栈 */	
-	
-	
-	
+
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/
 	RTT("all init complete\r\n");
 	
@@ -171,6 +160,8 @@ void bsp_Init(void)
 	bsp_ClearKey();
 	bsp_SetIsStartKeyProc(true);
 	bsp_InitChargeIO();
+	
+	bsp_StartVacuum(VACUUM_DEFAULT_PER);
 }
 
 

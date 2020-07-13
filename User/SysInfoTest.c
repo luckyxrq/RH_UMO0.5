@@ -61,9 +61,7 @@ void TIM6_IRQHandler( void )
 	if(TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET)
 	{
 		bsp_DetectIsTouchChargePile();
-		
-		bsp_VacuumClean();
-		
+
 		if(bsp_GetIsStartKeyProc())
 			bsp_KeyScan();
 		

@@ -20,7 +20,7 @@
 static Vacuum vacuum;
 static void bsp_InitTimer1(uint16_t arr,uint16_t psc);
 static void bsp_InitTimer4(uint16_t arr,uint16_t psc);
-static void bsp_InitVacuum(void);
+static void bsp_InitTimer2(uint16_t arr,uint16_t psc);
 
 /*
 *********************************************************************************************************
@@ -35,8 +35,8 @@ void bsp_InitMotor(void)
 	/*初始化PWM 20KHZ，用于驱动电机，10KHZ会有噪声*/
 	bsp_InitTimer1(3599,0); 
 	bsp_InitTimer4(3599,0);
-	bsp_InitVacuum();
-	
+	bsp_InitTimer2(3599,0);
+
 }
 
 /*
@@ -125,68 +125,6 @@ void bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm)
 }
 
 
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_InitVacuum
-*	功能说明: 初始化吸尘器IO口，使用IO口模拟PWM
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-static void bsp_InitVacuum(void)
-{
-	GPIO_InitTypeDef GPIO_InitStructure;
-
-	/* 打开GPIO时钟 */
-	RCC_APB2PeriphClockCmd(RCC_ALL_VACUUM, ENABLE);
-
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_VACUUM;
-	GPIO_Init(GPIO_PORT_VACUUM, &GPIO_InitStructure);
-	
-	GPIO_ResetBits(GPIO_PORT_VACUUM,GPIO_PIN_VACUUM);
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_VacuumClean
-*	功能说明: 周期性调用，用于吸尘器
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_VacuumClean(void)
-{	
-
-	const uint32_t changeTick = 2; //开 changeTick * 10ms
-	const uint32_t max_tick = 3;//总周期 max_tick * 10 ms 
-	
-	// 3/4 75%   1/2 50%   4/5 80%    2/3 66%
-	
-	if(!vacuum.isRunning)
-		return ;
-#if 1
-	++vacuum.tick;
-	
-	if(vacuum.tick <= changeTick)
-	{
-		GPIO_SetBits(GPIOA,GPIO_Pin_0);
-	}
-	else if(vacuum.tick > changeTick && vacuum.tick <=max_tick)
-	{
-		GPIO_ResetBits(GPIOA,GPIO_Pin_0);
-	}
-	else
-	{
-		vacuum.tick = 0 ;
-	}
-	
-#else
-	GPIO_SetBits(GPIOA,GPIO_Pin_0);
-#endif
-}
 
 /*
 *********************************************************************************************************
@@ -196,10 +134,14 @@ void bsp_VacuumClean(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_StartVacuum(void)
+void bsp_StartVacuum(uint8_t pwm)
 {
-	vacuum.tick = 0 ;
-	vacuum.isRunning = true;
+	if(pwm > 100)
+	{
+		return;
+	}
+
+	TIM_SetCompare1(TIM2 , pwm / 100.0F * CONSTANT_HIGH_PWM); /*恒定为低*/
 }
 
 /*
@@ -212,10 +154,7 @@ void bsp_StartVacuum(void)
 */
 void bsp_StopVacuum(void)
 {
-	vacuum.isRunning = false;
-	vacuum.tick = 0 ;
-	
-	GPIO_ResetBits(GPIO_PORT_VACUUM,GPIO_PIN_VACUUM);
+	TIM_SetCompare1(TIM2,CONSTANT_HIGH_PWM * 0.0F); /*恒定为低*/
 }
 
 
@@ -378,5 +317,72 @@ static void bsp_InitTimer4(uint16_t arr,uint16_t psc)
 	
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_InitTimer2
+*	功能说明: 初始化PWM，注意定时器是否需要重映射
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_InitTimer2(uint16_t arr,uint16_t psc)
+{  
+	
+	GPIO_InitTypeDef   GPIO_InitStructure;
+	TIM_OCInitTypeDef  TIM_OCInitStructure;
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+ 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO, ENABLE);
+	//GPIO_PinRemapConfig(GPIO_FullRemap_TIM2, ENABLE); /*Timer2重映射*/     	
 
+	/*GPIO初始化*/
+	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_0;
+	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;  //复用推挽输出
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	/*定时器初始化*/
+	TIM_TimeBaseStructure.TIM_Period 		= arr; 					
+	TIM_TimeBaseStructure.TIM_Prescaler     = psc; 					
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 		
+	TIM_TimeBaseStructure.TIM_CounterMode 	= TIM_CounterMode_Up;  	
+	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure); 
+	
+	/*
+	PWM一共有两种模式，PWM1模式：CNT<CRRx为有效电平（不包括等于）。CNT>=CRRx为无效电平。PWM2模式相反。
+	那么问题来了什么为有效电平？他又怎么确定？
+	它是由TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;输出极性来定的。
+	有效电平加输出极性就等于什么时候输出高电
+	*/ 
+	TIM_OCInitStructure.TIM_OCMode 		= TIM_OCMode_PWM1; 			
+ 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; 	
+	TIM_OCInitStructure.TIM_OCPolarity  = TIM_OCPolarity_High;	
+
+	/*TIM1，TIM8必须使用，否则在RTOS中无法使用，暂时不了解原因*/
+	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Disable;	/* only for TIM1 and TIM8. */	
+	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;			/* only for TIM1 and TIM8. */		
+	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;		/* only for TIM1 and TIM8. */
+	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;		/* only for TIM1 and TIM8. */
+	
+	/*CH1*/
+	TIM_OC1Init(TIM2, &TIM_OCInitStructure);	 
+	TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Enable);
+	
+	/*使能TIM2*/
+	TIM_Cmd(TIM2, ENABLE); 
+	
+	/*TIM2，TIM8必须使用，其他定时器可使用或不使用*/
+	TIM_CtrlPWMOutputs(TIM2,ENABLE);
+	
+	/*4个通道全部输出高电平*/
+	TIM_SetCompare1(TIM2,CONSTANT_HIGH_PWM * 0.0F);
+	
+	/*
+		TIM_SetCompare1(TIM2,CONSTANT_HIGH_PWM / 2);   占空比50%
+		TIM_SetCompare1(TIM2,CONSTANT_HIGH_PWM);       恒定为高
+		TIM_SetCompare1(TIM2,CONSTANT_HIGH_PWM * 0.0F);恒定为低
+	*/
+
+}
 

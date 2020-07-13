@@ -112,7 +112,7 @@ void bsp_ExexCmd(uint8_t *cmd , uint16_t main_sec , uint16_t sub_sec)
 		
 		if(cmd_START_UPLOAD.isOpen)
 		{
-			bsp_StartVacuum();
+			bsp_StartVacuum(VACUUM_DEFAULT_PER);
 			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
 			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
