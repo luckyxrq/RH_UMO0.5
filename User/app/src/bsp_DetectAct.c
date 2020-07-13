@@ -8,13 +8,21 @@
 #define DELAY_FOR_READ_US      200
 #define IS_OBSTACLE_MV         60  //障碍物差值电压，毫伏
 
+//#define IR_OBSTACLE_2_4      30
+//#define IR_OBSTACLE_0_6      80
+//#define IR_OBSTACLE_3        900  //1200
+//#define IR_OBSTACLE_1_5      1700 //2000
+//#define IR_OBSTACLE_7        30  /*二郎神*/
+//#define IR_OBSTACLE_8        100 /*左沿边*/
+//#define IR_OBSTACLE_9        100 /*右沿边*/
 #define IR_OBSTACLE_2_4      30
-#define IR_OBSTACLE_0_6      80
+#define IR_OBSTACLE_0_6      500
 #define IR_OBSTACLE_3        900  //1200
 #define IR_OBSTACLE_1_5      1700 //2000
 #define IR_OBSTACLE_7        30  /*二郎神*/
 #define IR_OBSTACLE_8        100 /*左沿边*/
 #define IR_OBSTACLE_9        100 /*右沿边*/
+
 
 AW_PIN PinMap[PIN_MAP_MAX][2]=
 {
@@ -34,7 +42,10 @@ AW_PIN PinMap[PIN_MAP_MAX][2]=
 
 static DetectAct detectAct;
 static float adcContrast[PIN_MAP_MAX][2]; //开发射前后的电压值
-static float adcRealTime[PIN_MAP_MAX];    //判断是否有障碍物
+//static float adcRealTime[PIN_MAP_MAX];    //判断是否有障碍物
+float adcRealTime[PIN_MAP_MAX];    //判断是否有障碍物
+
+
 static uint8_t adcIsSunlight[PIN_MAP_MAX];//是否是太阳光
 
 static void bsp_ADCConfig(void);
