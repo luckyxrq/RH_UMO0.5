@@ -363,7 +363,7 @@ void bsp_SearchChargePile(void)
 			/*首先判断碰撞*/
 			search.collision = bsp_CollisionScan();
 			
-			if(search.collision != CollisionNone )
+			if(search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight)))
 			{
 				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
 				bsp_SetMotorSpeed(MotorLeft, -3);
