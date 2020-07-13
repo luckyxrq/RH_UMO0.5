@@ -161,7 +161,6 @@ void bsp_Init(void)
 	bsp_SetIsStartKeyProc(true);
 	bsp_InitChargeIO();
 	
-	bsp_StartVacuum(VACUUM_DEFAULT_PER);
 }
 
 

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jul 13 17:23:34 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jul 13 17:30:40 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2668,7 +2668,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 </UL>
 
-<P><STRONG><a name="[17e]"></a>bsp_Init</STRONG> (Thumb, 222 bytes, Stack size 8 bytes, bsp.o(i.bsp_Init))
+<P><STRONG><a name="[17e]"></a>bsp_Init</STRONG> (Thumb, 216 bytes, Stack size 8 bytes, bsp.o(i.bsp_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = bsp_Init &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayMS
@@ -2678,7 +2678,6 @@ Global Symbols
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SwOn
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitSW
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vSetupSysInfoTest
-<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartVacuum
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
 <LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ClearKey
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SEGGER_RTT_printf
@@ -3469,7 +3468,6 @@ Global Symbols
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
-<LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ExexCmd
 </UL>
