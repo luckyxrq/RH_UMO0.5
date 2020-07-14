@@ -1,4 +1,5 @@
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\src\bsp_CleanStrategyB.c
+.\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\bsp\bsp.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\FreeRTOS\include\FreeRTOS.h
 .\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
@@ -44,7 +45,6 @@
 .\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\main.h
@@ -99,9 +99,5 @@
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_communication_bot3.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_selfcheck.h
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_functiontest.h
-<<<<<<< HEAD
 .\flash\obj\bsp_cleanstrategyb.o: ..\..\User\app\inc\bsp_bed.h
-.\flash\obj\bsp_cleanstrategyb.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h
-=======
 .\flash\obj\bsp_cleanstrategyb.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
->>>>>>> ES2_Release_融合沿边策略

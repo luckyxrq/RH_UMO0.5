@@ -99,9 +99,5 @@
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_communication_bot3.h
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_selfcheck.h
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_functiontest.h
-<<<<<<< HEAD
 .\flash\obj\bsp_gridmap.o: ..\..\User\app\inc\bsp_bed.h
-.\flash\obj\bsp_gridmap.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\math.h
-=======
 .\flash\obj\bsp_gridmap.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
->>>>>>> ES2_Release_融合沿边策略

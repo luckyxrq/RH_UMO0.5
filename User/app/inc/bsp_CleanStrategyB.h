@@ -37,7 +37,7 @@
 #define TURN_CLOCK_X_NEGATIVE_5_RETURN_ORIGIN                                                  0x011
 
 #define TURN_CLOCK_COLLISION_Y_POSITIVE_90_RETURN_ORIGIN                                       0x012
-#define TURN_CLOCK_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN                                       0x013
+//#define TURN_CLOCK_COLLISION_Y_NEGATIVE_90_RETURN_ORIGIN                                       0x013
 #define TURN_CLOCK_COLLISION_X_POSITIVE_180_RETURN_ORIGIN                                      0x014
 #define TURN_CLOCK_COLLISION_X_NEGATIVE_5_RETURN_ORIGIN                                        0x015
 
@@ -838,8 +838,7 @@
 #define A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                          0x606
 #define A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY                       0x607
 #define EDGEWISERUN_CLEANING_STRATEGY                                                          0x608 
-#define MORE_MAP_OVERALL_CLEANING_STRATEGY                                                     0x609
-
+#define CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY                                              0x609
 
 
 
@@ -950,15 +949,15 @@ typedef struct POSE{
 
 typedef struct
 {
-	int work_step_status;
-	uint8_t right_running_complete;
-	uint8_t right_return_origin_complete;
-	uint8_t left_running_complete;
-	uint8_t left_return_origin_complete;
-
-	volatile unsigned char action ;
-	volatile bool isRunning ;
-	volatile unsigned int delay ;
+    int work_step_status;
+    uint8_t right_running_complete;
+    uint8_t right_return_origin_complete;
+    uint8_t left_running_complete;
+    uint8_t left_return_origin_complete;
+    
+    volatile unsigned char action ;
+    volatile bool isRunning ;
+    volatile unsigned int delay ;
 }CleanStrategyB;
 
 double my_abs(double x);
@@ -970,7 +969,7 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta,unsigned c
 //uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal);
 
-unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal);
+//unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal);
 
 unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
@@ -1022,7 +1021,7 @@ unsigned char AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obsta
 /////////////////////////////////////
 
 //unsigned char CliffRuningWorkStep(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
-unsigned char CloseEdgedMap(POSE *current_pose,CLIFFADCVALUE * cliff_value,unsigned char obstacleSignal);
+unsigned char CloseEdgedMap(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char DetectionCloseEdge(void);
 unsigned char CliffCloseEdge(void);
 void MoreMap(POSE *current_pose);
@@ -1032,7 +1031,7 @@ void StartUpdateGridMap(void);
 
 uint8_t GetReturnChargeStationStatus(void);
 void ResetReturnChargeStationStatus(void);
-
+void ReturnExtreme_point_init(void);
 
 int32_t bsp_GetStrategyCurrentPosX(void);
 int32_t bsp_GetStrategyCurrentPosY(void);
@@ -1041,5 +1040,3 @@ int32_t bsp_GetStrategyCurrentPosY(void);
 #endif
 
 
-
-	
