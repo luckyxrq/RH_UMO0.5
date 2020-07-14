@@ -969,7 +969,7 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta,unsigned c
 //uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal);
 
-unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal);
+//unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal);
 
 unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
@@ -1031,7 +1031,7 @@ void StartUpdateGridMap(void);
 
 uint8_t GetReturnChargeStationStatus(void);
 void ResetReturnChargeStationStatus(void);
-
+void ReturnExtreme_point_init(void);
 
 int32_t bsp_GetStrategyCurrentPosX(void);
 int32_t bsp_GetStrategyCurrentPosY(void);

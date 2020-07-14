@@ -75,9 +75,7 @@ typedef struct {
     uint16_t cliffValue3;
 }CLIFFADCVALUE;
 
-
-typedef struct
-{
+typedef struct{
 	unsigned char grid_default;
 	unsigned char grid_occupancy;
 	unsigned char grid_half_occupancy;
@@ -97,6 +95,12 @@ typedef struct
 }GridMap;
 
 
+extern GridMap gridmap;
+extern CLIFFADCVALUE cliff_valueB;
+extern unsigned char rightmapmin;
+extern unsigned char rightmapmax;
+
+
 
 void bsp_StartUpdateGridMap(void);
 void bsp_StopUpdateGridMap(void);
@@ -113,10 +117,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
 //	int grid_dist,CLIFFADCVALUE *cliff_value);
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 
-extern GridMap gridmap;
-extern CLIFFADCVALUE cliff_valueB;
-extern unsigned char rightmapmin;
-extern unsigned char rightmapmax;
+
 
 #endif
 
