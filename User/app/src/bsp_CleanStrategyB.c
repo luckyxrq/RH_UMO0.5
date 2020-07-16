@@ -505,8 +505,29 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
         }
     }
     
-    bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
-    bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+	int roll = (int)bsp_IMU_GetData(ROLL);
+	RTT("ROLL:%d\r\n",roll);
+	
+	if(roll >= -170 && roll <= -100)          //下坡
+	{
+		RTT("DOWN\r\n");
+		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse (120));
+		bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));
+	}
+	else if(roll >= 100 && roll <= 170)   //上坡
+	{
+		RTT("UP\r\n");
+		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(120));
+		bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));
+	}
+	else                                                    //平地      
+	{
+		RTT("==\r\n");
+		bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
+		bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+	}
+	
+    
     
 }
 
