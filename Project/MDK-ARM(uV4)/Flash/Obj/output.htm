@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Jul 16 19:06:55 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jul 13 17:46:37 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -661,7 +661,6 @@ Global Symbols
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidExec
 <LI><a href="#[1c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
@@ -1566,7 +1565,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
+<LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 </UL>
 
 <P><STRONG><a name="[be]"></a>SEGGER_RTT_vprintf</STRONG> (Thumb, 416 bytes, Stack size 120 bytes, segger_rtt_printf.o(i.SEGGER_RTT_vprintf))
@@ -2168,9 +2167,9 @@ Global Symbols
 <P><STRONG><a name="[115]"></a>bsp_AngleReadRaw</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, bsp_angle.o(i.bsp_AngleReadRaw))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_AngleReadRaw &rArr; __aeabi_fmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IMU_GetData
+<BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IMU_GetData
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
@@ -2300,9 +2299,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = bsp_DetectAct &rArr; bsp_AWSetPinVal &rArr; aw_WriteBytes &rArr; i2c_SendByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetAdScanValue
@@ -2484,11 +2483,11 @@ Global Symbols
 <P><STRONG><a name="[16b]"></a>bsp_GetCliffStates</STRONG> (Thumb, 228 bytes, Stack size 32 bytes, bsp_cliffsw.o(i.bsp_GetCliffStates))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = bsp_GetCliffStates &rArr; bsp_GetCliffVoltage &rArr; ADC_RegularChannelConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffVoltage
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
@@ -2636,7 +2635,6 @@ Global Symbols
 <P><STRONG><a name="[114]"></a>bsp_IMU_GetData</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, bsp_angle.o(i.bsp_IMU_GetData))
 <BR><BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRead
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 </UL>
 
 <P><STRONG><a name="[15a]"></a>bsp_IRD_StartWork</STRONG> (Thumb, 296 bytes, Stack size 56 bytes, bsp_ir_decode.o(i.bsp_IRD_StartWork))
@@ -3010,8 +3008,8 @@ Global Symbols
 <P><STRONG><a name="[1c5]"></a>bsp_MotorGetSpeed</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, bsp_control.o(i.bsp_MotorGetSpeed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_MotorGetSpeed &rArr; __aeabi_fdiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
@@ -3033,16 +3031,15 @@ Global Symbols
 <P><STRONG><a name="[159]"></a>bsp_MotorSpeedMM2Pulse</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, bsp_control.o(i.bsp_MotorSpeedMM2Pulse))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_MotorSpeedMM2Pulse &rArr; __aeabi_fmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StrategyRandomProc
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FunctionTestUpdate
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ExexCmd
 <LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
@@ -3307,7 +3304,6 @@ Global Symbols
 <LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FunctionTestUpdate
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopAllMotor
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ExexCmd
@@ -4460,23 +4456,21 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[4a]"></a>vTaskDecision</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, main.o(i.vTaskDecision))
-<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = vTaskDecision &rArr; bsp_KeyProc &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
+<P><STRONG><a name="[4a]"></a>vTaskDecision</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, main.o(i.vTaskDecision))
+<BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = vTaskDecision &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_WifiStateProc
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ChangeWifi2SmartConfigStateProc
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SEGGER_RTT_printf
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[49]"></a>vTaskMapping</STRONG> (Thumb, 252 bytes, Stack size 16 bytes, main.o(i.vTaskMapping))
+<P><STRONG><a name="[49]"></a>vTaskMapping</STRONG> (Thumb, 94 bytes, Stack size 16 bytes, main.o(i.vTaskMapping))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = vTaskMapping &rArr; bsp_GridMapUpdate &rArr; inverseSensorModelB &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
-<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IMU_GetData
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetIRSensorData
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
@@ -4484,8 +4478,6 @@ Local Symbols
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentOrientation
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffSensorData
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SEGGER_RTT_printf
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UploadBatteryInfo
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
@@ -4787,11 +4779,11 @@ Local Symbols
 <P><STRONG><a name="[1c8]"></a>bsp_PidExec</STRONG> (Thumb, 484 bytes, Stack size 32 bytes, bsp_control.o(i.bsp_PidExec))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = bsp_PidExec &rArr; __aeabi_fsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
+<BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidClear
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myabs
 <LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PwmLimit

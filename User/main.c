@@ -107,7 +107,6 @@ static void vTaskMapping(void *pvParameters)
 {
 	uint32_t count = 0 ;
 	
-	vTaskDelay(1000*5);
 	
     while(1)
     {
@@ -125,31 +124,6 @@ static void vTaskMapping(void *pvParameters)
 		{	
 			bsp_UploadBatteryInfo();
 		}
-		
-		
-		int roll = (int)bsp_IMU_GetData(ROLL);
-		RTT("ROLL:%d\r\n",roll);
-		
-		if(roll >= -170 && roll <= -100)
-		{
-			RTT("DOWN\r\n");
-			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse (120));
-			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));
-		}
-		else if(roll >= 100 && roll <= 170)
-		{
-			RTT("UP\r\n");
-			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(120));
-			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));
-		}
-		else
-		{
-			RTT("==\r\n");
-			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(300));
-			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(300));
-		}
-		
-		
         vTaskDelay(100);
     }
 
@@ -182,6 +156,8 @@ static void vTaskDecision(void *pvParameters)
 			/*下面是打印开关，酌情注释*/
 			bsp_WifiStateProc();
         }
+		
+		RTT("count:%d\r\n",count);
 		
         vTaskDelay(50);	
     }
