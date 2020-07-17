@@ -826,7 +826,7 @@
 #define TURN_COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP                                            0x3F2
 #define COLLISION_TURN_COLLISION_GO_Y_LESS_LOOP_CLOSE_EDGE_MAP                                  0x3F3
 #define Y_LESS_LOOP_CLOSE_EDGE_MAP                                                              0x3F4
-
+#define CALCULATION_DELIMMANUMBER_CLOSE_EDGE_MAP                                                0x3F5
 
 
 #define START_OVERALL_CLEANING_STRATEGY                                                        0x600
