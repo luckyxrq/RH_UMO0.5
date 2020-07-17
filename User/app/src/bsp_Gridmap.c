@@ -679,22 +679,22 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                                                 break;
                                             }
                                         }                                    
-                                        if(firsttrap==false){
-										  if(gridmap.map[i+1][j]!=125&&gridmap.map[i+2][j]!=125){
-                                            for(z=x_boundary+1;z<i;z++){
-                                                k++;
-                                                if(k>10){
-                                                    break;
-                                                }
-                                                for(t=y_boundary+1;t<j;t++){
-                                                    if(gridmap.map[z][t]==0){
-                                                        k=0;
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-									}										  
+//                                        if(firsttrap==false){
+//										  if(gridmap.map[i+1][j]!=125&&gridmap.map[i+2][j]!=125){
+//                                            for(z=x_boundary+1;z<i;z++){
+//                                                k++;
+//                                                if(k>10){
+//                                                    break;
+//                                                }
+//                                                for(t=y_boundary+1;t<j;t++){
+//                                                    if(gridmap.map[z][t]==0){
+//                                                        k=0;
+//                                                        break;
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//									}										  
                                         if(k>10||firsttrap==true){											
                                             Extreme_point=0;
                                             Leaksweep=100*(j-y_boundary+2);
@@ -712,7 +712,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                                                 if(Under_extreme_point_y_index<10){												
                                                     leak=true;
                                                     for( t=0;t<Under_extreme_point_y_index;t++){
-                                                        if(Under_extreme_point_y[t]==j+1||Under_extreme_point_y[t]==j||Under_extreme_point_y[t]==j-1||Under_extreme_point_y[t]==j-2||Under_extreme_point_y[t]==j-3){
+                                                        if(Under_extreme_point_y[t]==j+1||Under_extreme_point_y[t]==j||Under_extreme_point_y[t]==j-1){
                                                             if(Under_extreme_point_x[t]-x_boundary>10){
                                                                 break;
                                                             }
@@ -780,22 +780,22 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                                                 break;
                                             }
                                         }
-                                        if(firsttrap==false){
-											 if(gridmap.map[i-1][j]!=125&&gridmap.map[i-2][j]!=125){
-                                            for(z=x_boundary-1;z>i;z--){
-                                                k++;
-                                                if(k>10){
-                                                    break;
-                                                }
-                                                for(t=y_boundary+1;t<j;t++){
-                                                    if(gridmap.map[z][t]==0){
-                                                        k=0;
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-									}											 
+//                                        if(firsttrap==false){
+//											 if(gridmap.map[i-1][j]!=125&&gridmap.map[i-2][j]!=125){
+//                                            for(z=x_boundary-1;z>i;z--){
+//                                                k++;
+//                                                if(k>10){
+//                                                    break;
+//                                                }
+//                                                for(t=y_boundary+1;t<j;t++){
+//                                                    if(gridmap.map[z][t]==0){
+//                                                        k=0;
+//                                                        break;
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//									}											 
                                         if(k>10||firsttrap==true){
                                             Extreme_point=0;
                                             Leaksweep=100*(j-y_boundary+2);
@@ -813,7 +813,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                                                 if(On_extreme_point_y_index<10){												
                                                     leak=true;
                                                     for( t=0;t<On_extreme_point_y_index;t++){
-                                                        if(On_extreme_point_y[t]==j+1||On_extreme_point_y[t]==j||On_extreme_point_y[t]==j-1||On_extreme_point_y[t]==j-2||On_extreme_point_y[t]==j-3){
+                                                        if(On_extreme_point_y[t]==j+1||On_extreme_point_y[t]==j||On_extreme_point_y[t]==j-1){
                                                             if (x_boundary-On_extreme_point_x[t]>10){
                                                                 break;
                                                             }
@@ -901,22 +901,22 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                                                 break;
                                             }
                                         }
-                                        if(firsttrap==false){
-											if(gridmap.map[i+1][j]!=125&&gridmap.map[i+2][j]!=125){
-                                            for(z=x_boundary+1;z<i;z++){
-                                                k++;
-                                                if(k>10){
-                                                    break;
-                                                }
-                                                for(t=y_boundary-1;t>j;t--){
-                                                    if(gridmap.map[z][t]==0){
-                                                        k=0;
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-									}											
+//                                        if(firsttrap==false){
+//											if(gridmap.map[i+1][j]!=125&&gridmap.map[i+2][j]!=125){
+//                                            for(z=x_boundary+1;z<i;z++){
+//                                                k++;
+//                                                if(k>10){
+//                                                    break;
+//                                                }
+//                                                for(t=y_boundary-1;t>j;t--){
+//                                                    if(gridmap.map[z][t]==0){
+//                                                        k=0;
+//                                                        break;
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//									}											
                                         if(firsttrap==true||k>10){
                                             Extreme_point=0;
                                             Leaksweep=100*(y_boundary-j+2);
@@ -934,7 +934,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                                                 if(Left_Under_extreme_point_y_index<10){
                                                     leak=true;
                                                     for( t=0;t<Left_Under_extreme_point_y_index;t++){
-                                                        if(Left_Under_extreme_point_y[t]==(j-1)||Left_Under_extreme_point_y[t]==j||Left_Under_extreme_point_y[t]==(j+1)||Left_Under_extreme_point_y[t]==j+2||Left_Under_extreme_point_y[t]==(j+3)){
+                                                        if(Left_Under_extreme_point_y[t]==(j-1)||Left_Under_extreme_point_y[t]==j||Left_Under_extreme_point_y[t]==(j+1)){
                                                             if (Left_Under_extreme_point_x[t]-x_boundary>10)
                                                             {
                                                                 break;
@@ -1003,22 +1003,22 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                                                 break;
                                             }
                                         }
-                                        if(firsttrap==false){
-											if(gridmap.map[i-1][j]!=125&&gridmap.map[i-2][j]!=125){											
-                                            for(z=x_boundary-1;z>i;z--){
-                                                k++;
-                                                if(k>10){
-                                                    break;
-                                                }
-                                                for(t=y_boundary-1;t>j;t--){
-                                                    if(gridmap.map[z][t]==0){
-                                                        k=0;
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-									}											
+//                                        if(firsttrap==false){
+//											if(gridmap.map[i-1][j]!=125&&gridmap.map[i-2][j]!=125){											
+//                                            for(z=x_boundary-1;z>i;z--){
+//                                                k++;
+//                                                if(k>10){
+//                                                    break;
+//                                                }
+//                                                for(t=y_boundary-1;t>j;t--){
+//                                                    if(gridmap.map[z][t]==0){
+//                                                        k=0;
+//                                                        break;
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//									}											
                                         if(k>10||firsttrap==true){
                                             Extreme_point=0;
                                             Leaksweep=100*(y_boundary-j+2);
@@ -1036,7 +1036,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                                                 if(Left_On_extreme_point_y_index<10){
                                                     leak=true;
                                                     for( t=0;t<Left_On_extreme_point_y_index;t++){
-                                                        if(Left_On_extreme_point_y[t]==j-1||Left_On_extreme_point_y[t]==j||Left_On_extreme_point_y[t]==j+1||Left_On_extreme_point_y[t]==j+2||Left_On_extreme_point_y[t]==j+3){
+                                                        if(Left_On_extreme_point_y[t]==j-1||Left_On_extreme_point_y[t]==j||Left_On_extreme_point_y[t]==j+1){
                                                             if (x_boundary-Left_On_extreme_point_x[t]>10)
                                                             {
                                                                 break;
