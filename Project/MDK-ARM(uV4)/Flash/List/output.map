@@ -2868,7 +2868,7 @@ Removing Unused input sections from the image.
     Removing bsp_stopmode.o(.revsh_text), (4 bytes).
     Removing bsp_gridmap.o(.rev16_text), (4 bytes).
     Removing bsp_gridmap.o(.revsh_text), (4 bytes).
-    Removing bsp_gridmap.o(i.bsp_Get_GridMap), (224 bytes).
+    Removing bsp_gridmap.o(i.bsp_Get_GridMap), (228 bytes).
     Removing bsp_gridmap.o(i.bsp_StopUpdateGridMap), (24 bytes).
     Removing bsp_cleanstrategyb.o(.rev16_text), (4 bytes).
     Removing bsp_cleanstrategyb.o(.revsh_text), (4 bytes).
@@ -3405,7 +3405,7 @@ Removing Unused input sections from the image.
     Removing streamec.o(i.q_b2), (64 bytes).
     Removing streamec.o(.bss), (48 bytes).
 
-636 unused section(s) (total 29833 bytes) removed from the image.
+636 unused section(s) (total 29837 bytes) removed from the image.
 
 ==============================================================================
 
