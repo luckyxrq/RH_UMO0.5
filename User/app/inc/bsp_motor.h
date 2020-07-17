@@ -9,7 +9,7 @@
 #define CONSTANT_LOW_PWM       (0)
 
 
-#define VACUUM_DEFAULT_PER      80
+#define VACUUM_DEFAULT_PER      60//80
 
 typedef enum
 {

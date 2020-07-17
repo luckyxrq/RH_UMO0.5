@@ -119,7 +119,7 @@ static void vTaskMapping(void *pvParameters)
 		}
 #endif
 		
-		//bsp_UploadMap();
+		bsp_UploadMap();
 		if(count++ % 100 == 0)
 		{	
 			bsp_UploadBatteryInfo();
@@ -249,6 +249,9 @@ static void vTaskPerception(void *pvParameters)
 	
 	/*初始化跳崖传感器*/
 	bsp_InitCliffSW();
+	
+	/*开启地图更新*/
+	bsp_StartUploadMap();
 	
 	
 	
