@@ -250,6 +250,30 @@ static void bsp_MotorBrake(MotorSN sn)
 
 }
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_MotorBrake
+*	功能说明: 电机急停
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_MotorBrakeSlide(MotorSN sn)
+{
+	if(sn == MotorLeft)
+	{
+		TIM_SetCompare3(TIM1,0);
+		TIM_SetCompare4(TIM1,0);
+	}
+	else if(sn == MotorRight)
+	{
+		TIM_SetCompare1(TIM1,0);
+		TIM_SetCompare2(TIM1,0);
+	}
+
+}
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_PidExec
@@ -346,8 +370,6 @@ static void bsp_PidExec(MotorSN sn , int32_t Encoder, int32_t Target)
 		}
 		
 		bsp_MotorSetPWM(MotorRight,Target >0 ? Forward : Backward ,myabs(pid[1].pwm));
-		
-		
 	}
 	
 }
