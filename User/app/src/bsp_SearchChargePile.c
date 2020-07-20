@@ -430,11 +430,184 @@ void bsp_SearchChargePile(void)
 	{
 		case 0:
 		{
+			search.pulse = bsp_GetCurrentBothPulse();
 			bsp_SetMotorSpeed(MotorLeft, 3);
 			bsp_SetMotorSpeed(MotorRight,-3);
 			
-			search.action++;
+			++search.action;
 		}break;
+		
+		case 1: /*第1圈过程中，如果捕捉到了明确走向的位置*/
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse <= CCW_360_PULSE) 
+			{
+				if(ROTATE_CW)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 2);
+					bsp_SetMotorSpeed(MotorRight,-2);
+					
+					search.action = 3;
+				}
+				else if(ROTATE_CCW)
+				{
+					bsp_SetMotorSpeed(MotorLeft, -2);
+					bsp_SetMotorSpeed(MotorRight,2);
+					
+					search.action = 3;
+				}
+				else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,3);
+					
+					search.action = 3;
+				}
+				else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,5);
+					
+					search.action = 3;
+				}
+				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 5);
+					bsp_SetMotorSpeed(MotorRight,3);
+					
+					search.action = 3;
+				}
+			}
+			else
+			{
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight, 3);
+				
+				++search.action;
+			}
+		}break;
+		
+		case 2:  /*第2圈过程中，找不到明确的位置，那么就退而求其次*/
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse <= CCW_360_PULSE) /*第1圈过程中，如果捕捉到了明确走向的位置*/
+			{
+				if(ROTATE_CW)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 2);
+					bsp_SetMotorSpeed(MotorRight,-2);
+					
+					search.action = 3;
+				}
+				else if(ROTATE_CCW)
+				{
+					bsp_SetMotorSpeed(MotorLeft, -2);
+					bsp_SetMotorSpeed(MotorRight,2);
+					
+					search.action = 3;;
+				}
+				else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,3);
+					
+					search.action = 3;
+				}
+				else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,5);
+					
+					search.action = 3;
+				}
+				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 5);
+					bsp_SetMotorSpeed(MotorRight,3);
+					
+					search.action = 3;
+				}
+				else if(ROTATE_CW_LITTLE)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 7);
+					bsp_SetMotorSpeed(MotorRight,2);
+					
+					search.action = 3;
+				}
+				else if(ROTATE_CW_LITTLE)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 2);
+					bsp_SetMotorSpeed(MotorRight,7);
+					
+					search.action = 3;
+				}
+			}
+			else /*转第二圈，时间超过了，还没有知道怎么走，就直走*/
+			{
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft,  0);
+				bsp_SetMotorSpeed(MotorRight, 0);
+				
+				++search.action;
+			}
+		}break;	
+		
+		case 3: /*根据角度调整*/
+		{
+			if(ROTATE_CW)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 2);
+				bsp_SetMotorSpeed(MotorRight,-2);
+				
+				search.action = 3;
+			}
+			else if(ROTATE_CCW)
+			{
+				bsp_SetMotorSpeed(MotorLeft, -2);
+				bsp_SetMotorSpeed(MotorRight,2);
+				
+				search.action = 3;;
+			}
+			else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 3);
+				bsp_SetMotorSpeed(MotorRight,3);
+				
+				search.action = 3;
+			}
+			else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 3);
+				bsp_SetMotorSpeed(MotorRight,5);
+				
+				search.action = 3;
+			}
+			else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 5);
+				bsp_SetMotorSpeed(MotorRight,3);
+				
+				search.action = 3;
+			}
+			else if(ROTATE_CW_LITTLE)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 7);
+				bsp_SetMotorSpeed(MotorRight,2);
+				
+				search.action = 3;
+			}
+			else if(ROTATE_CW_LITTLE)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 2);
+				bsp_SetMotorSpeed(MotorRight,7);
+				
+				search.action = 3;
+			}
+			else
+			{
+			
+			}
+		}break;
+		
 		
 	}
 }
