@@ -16,6 +16,12 @@
 
 
 
+#define CCW_180_PULSE      1700                /*转动180度的脉冲数*/
+#define CCW_360_PULSE      (CCW_180_PULSE*2)   /*转动360度的脉冲数*/
+#define CCW_90_PULSE       (CCW_180_PULSE/2)   /*转动90 度的脉冲数*/
+#define CCW_45_PULSE       (CCW_180_PULSE/4)   /*转动45 度的脉冲数*/
+
+
 #define _SEARCH_PILE_GO_BACK_PULSE                  (10/(3.14F*70)*1024)
 
 /*
@@ -301,6 +307,26 @@ bool bsp_IsChargeDone(void)
 
 
 
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_CCW_360_BY_Encoder
+*	功能说明: 顺时针旋转360度
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+
+
+
+
+
+
+
+
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_SearchChargePile
@@ -400,316 +426,16 @@ void bsp_SearchChargePile(void)
 	
 	/********************************************************************真正寻找充电桩的动作************************************************************************/
 	
-	
-	/*先随机清扫*/
-	if(search.isNeedFirstRunRandom)
-	{
-		bsp_StartStrategyRandom();
-		search.isNeedFirstRunRandom = false;
-	}
-	
-	
-	
-	/*如果在执行随机清扫，则不执行后面的寻找充电桩*/
-	if(bsp_IsStartStrategyRandom())
-	{
-		if(!ALL_NO_SIGNAL) /*收到了信号就执行后面的寻找充电桩*/
-		{
-			DEBUG("退出随机\r\n");
-			
-			bsp_SetMotorSpeed(MotorLeft,0);
-			bsp_SetMotorSpeed(MotorRight,0);
-			bsp_StopStrategyRandom();
-		}
-		return;
-	}
-	
-	
-	
-	if(!ALL_NO_SIGNAL) /*最后一次有信号时间*/
-	{
-		search.lastSIGNAL_Tick = xTaskGetTickCount();
-	}
-	
-	
-	if(xTaskGetTickCount() - search.lastSIGNAL_Tick >= 1000*60*1.5)
-	{
-		search.action = 0 ;
-		search.lastSIGNAL_Tick = xTaskGetTickCount();
-		
-		bsp_SetMotorSpeed(MotorLeft,0);
-		bsp_SetMotorSpeed(MotorRight,0);
-		bsp_StartStrategyRandom();
-		return;
-	}
-	
-	
-	if(IR_FL_L || IR_FL_R || IR_FR_L || IR_FR_R)
-	{
-		search.isBanOnlyF_Wide = true;
-	}
-	
-	
 	switch(search.action)
 	{
 		case 0:
 		{
-			bsp_SetMotorSpeed(MotorLeft, 6);
-			bsp_SetMotorSpeed(MotorRight,6);
+			bsp_SetMotorSpeed(MotorLeft, 3);
+			bsp_SetMotorSpeed(MotorRight,-3);
 			
 			search.action++;
 		}break;
 		
-		case 1:
-		{
-			/*首先判断碰撞*/
-			search.collision = bsp_CollisionScan();
-			
-			if(search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight)))
-			{
-				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
-				bsp_SetMotorSpeed(MotorLeft, -3);
-				bsp_SetMotorSpeed(MotorRight,-3);
-				
-				search.delay = xTaskGetTickCount();
-				search.action++;
-			}
-			else
-			{
-				if(!search.isBanOnlyF_Wide && ONLY_F_RX_WIDE)
-				{
-					if(++search.ONLY_F_RX_WIDE_CNT >= 100)
-					{
-						search.ONLY_F_RX_WIDE_CNT = 0 ;
-						bsp_SetMotorSpeed(MotorLeft, 0);
-						bsp_SetMotorSpeed(MotorRight,0);
-						
-						search.action = 3 ;
-						return;
-					}
-				}
-				else
-				{
-					search.ONLY_F_RX_WIDE_CNT = 0 ;
-				}
-				
-				
-				if(search.isInCW_LITTLE)
-				{
-					if((IR_FL_M || IR_FR_M) && (!IR_FL_L && !IR_FL_R && !IR_FR_L && !IR_FR_R) )
-					{
-						search.ONLY_F_RX_WIDE_CNT = 0 ;
-						bsp_SetMotorSpeed(MotorLeft, 0);
-						bsp_SetMotorSpeed(MotorRight,0);
-						
-						search.action = 3 ;
-					}
-				}
-				
-				if(ROTATE_CW_LITTLE)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 7);
-					bsp_SetMotorSpeed(MotorRight,2);
-					
-					search.isInCW_LITTLE = true;
-				}
-				else if(ROTATE_CW_LITTLE)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 2);
-					bsp_SetMotorSpeed(MotorRight,7);
-					search.isInCCW_LITTLE = true;
-				}
-				else if(ROTATE_CW)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 2);
-					bsp_SetMotorSpeed(MotorRight,-2);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(ROTATE_CCW)
-				{
-					bsp_SetMotorSpeed(MotorLeft, -2);
-					bsp_SetMotorSpeed(MotorRight,2);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 3);
-					bsp_SetMotorSpeed(MotorRight,3);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 3);
-					bsp_SetMotorSpeed(MotorRight,5);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 5);
-					bsp_SetMotorSpeed(MotorRight,3);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(F_NO_NARROW_SIGNAL) 
-				{
-//					bsp_SetMotorSpeed(MotorLeft, 3);
-//					bsp_SetMotorSpeed(MotorRight,3);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-			}
-		}break;
-		
-
-		case 2:
-		{
-			if(xTaskGetTickCount() - search.delay >= 3900)
-			{
-				if(FL_NO_SIGNAL && FR_NO_SIGNAL) /*平常的碰撞处理*/
-				{
-					bsp_SetMotorSpeed(MotorLeft, 0);
-					bsp_SetMotorSpeed(MotorRight,0);
-					
-					search.action = 10 ;
-				}
-				else
-				{
-					search.action = 0 ;
-				}
-			}
-			else
-			{
-				if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
-				{
-					bsp_SetMotorSpeed(MotorLeft, -5);
-					bsp_SetMotorSpeed(MotorRight,-3);
-				}
-				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
-				{
-					bsp_SetMotorSpeed(MotorLeft, -3);
-					bsp_SetMotorSpeed(MotorRight,-5);
-				}
-				else if(F_NO_NARROW_SIGNAL) 
-				{
-					bsp_SetMotorSpeed(MotorLeft, -3);
-					bsp_SetMotorSpeed(MotorRight,-3);
-				}
-			}
-		}break;
-		
-		case 3:
-		{
-			search.angle = REAL_ANGLE();
-			bsp_SetMotorSpeed(MotorLeft, -3);
-			bsp_SetMotorSpeed(MotorRight,3);
-			
-			++search.action;
-		}break;
-		
-		case 4:
-		{
-			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 90)) <= 10)
-			{
-				bsp_SetMotorSpeed(MotorLeft, 6);
-				bsp_SetMotorSpeed(MotorRight,2);
-				search.delay = xTaskGetTickCount();
-				++search.action;
-			}
-//			else if(IR_FL_L || IR_FL_R  || IR_FR_L || IR_FR_R || IR_SL_L || IR_SL_R || IR_SR_L || IR_SR_R)
-//			{
-//				bsp_SetMotorSpeed(MotorLeft, 3);
-//				bsp_SetMotorSpeed(MotorRight,3);
-//				search.action = 0 ;
-//			}
-		}break;
-		
-		
-		case 5:
-		{
-			//if(xTaskGetTickCount() - search.delay >= 3600  || bsp_CollisionScan() != CollisionNone)
-			if(bsp_CollisionScan() != CollisionNone)
-			{
-				
-				if(SL_NO_SIGNAL && FL_NO_SIGNAL && FR_NO_SIGNAL)  /*边是错的，则换边*/
-				{
-					bsp_SetMotorSpeed(MotorLeft, 0);
-					bsp_SetMotorSpeed(MotorRight,0);
-					
-					++search.action;
-				}
-				else
-				{
-					search.action = 0;
-				}
-			}
-			else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2 || INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2 || ROTATE_CW || ROTATE_CCW)
-			{
-				bsp_SetMotorSpeed(MotorLeft, 0);
-				bsp_SetMotorSpeed(MotorRight,0);
-				search.action = 0;
-			}
-		}break;
-		
-		case 6:
-		{
-			search.pulse = bsp_GetCurrentBothPulse();
-			bsp_SetMotorSpeed(MotorLeft, -3);
-			bsp_SetMotorSpeed(MotorRight,-3);
-			++search.action;
-		}break;
-		
-		case 7:
-		{
-			if(bsp_GetCurrentBothPulse() - search.pulse >= _SEARCH_PILE_GO_BACK_PULSE)
-			{
-				search.angle = REAL_ANGLE();
-				bsp_SetMotorSpeed(MotorLeft, 3);
-				bsp_SetMotorSpeed(MotorRight,-3);
-				++search.action;
-			}
-		}break;
-		
-		case 8:
-		{
-			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 180)) <= 10)
-			{
-				bsp_SetMotorSpeed(MotorLeft, 2);
-				bsp_SetMotorSpeed(MotorRight,7);
-				search.delay = xTaskGetTickCount();
-				++search.action;
-			}
-		}break;
-		
-		case 9:
-		{
-			if(xTaskGetTickCount() - search.delay >= 3600 )
-			{
-				search.action = 1 ;
-			}
-		}break;
-		
-		case 10: /*从这里开始处理碰撞往复问题*/
-		{
-			search.angle = REAL_ANGLE();
-			bsp_SetMotorSpeed(MotorLeft, -3);
-			bsp_SetMotorSpeed(MotorRight,3);
-			++search.action;
-		}break;
-		
-		case 11:
-		{
-			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 60)) <= 10)
-			{
-				bsp_SetMotorSpeed(MotorLeft, 3);
-				bsp_SetMotorSpeed(MotorRight,3);
-				search.delay = xTaskGetTickCount();
-				search.action = 1 ;
-			}
-		}break;
 	}
 }
 

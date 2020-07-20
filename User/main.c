@@ -93,7 +93,6 @@ int main(void)
     while(1);
 }
 
-
 /*
 *********************************************************************************************************
 *	函 数 名: vTaskStart
@@ -124,6 +123,9 @@ static void vTaskMapping(void *pvParameters)
 		{	
 			bsp_UploadBatteryInfo();
 		}
+		
+		
+		
         vTaskDelay(100);
     }
 
@@ -156,9 +158,7 @@ static void vTaskDecision(void *pvParameters)
 			/*下面是打印开关，酌情注释*/
 			bsp_WifiStateProc();
         }
-		
-		RTT("count:%d\r\n",count);
-		
+
         vTaskDelay(50);	
     }
 
@@ -320,7 +320,7 @@ static void vTaskPerception(void *pvParameters)
 		{
 			bsp_SendReportFrameWithCRC16();
 		}
-		
+
 		count++;
         vTaskDelay(5);	
     }		

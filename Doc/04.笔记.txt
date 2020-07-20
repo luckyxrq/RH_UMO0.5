@@ -3,3 +3,19 @@
 
 G:\LuckyXRQ\CleanCar\User\app\src\bsp_CleanStrategyB.c
 static uint8_t check_sensor(unsigned char obstacleSignal)
+
+
+/*用于测试转180度的脉冲数*/
+void bsp_CCW_180_BY_Encoder(void)
+{
+	static uint32_t pulse = 0;
+	
+	bsp_SetMotorSpeed(MotorLeft,  6);
+	bsp_SetMotorSpeed(MotorRight,-6);
+	
+	if(bsp_GetCurrentBothPulse() - pulse >= 1700*2)
+	{
+		bsp_SetMotorSpeed(MotorLeft, 0);
+		bsp_SetMotorSpeed(MotorRight,0);
+	}
+}
