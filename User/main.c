@@ -588,23 +588,23 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("充电按键长按\r\n");
 
-				/*首先判断是否主机悬空*/
-				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
-				{
-					bsp_SperkerPlay(Song16);
-					return;
-				}
-				
-				/*首先判断尘盒*/
-				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
-				{
-					bsp_SperkerPlay(Song9);
-					return;
-				}
+//				/*首先判断是否主机悬空*/
+//				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
+//				{
+//					bsp_SperkerPlay(Song16);
+//					return;
+//				}
+//				
+//				/*首先判断尘盒*/
+//				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
+//				{
+//					bsp_SperkerPlay(Song9);
+//					return;
+//				}
 				
 				bsp_SperkerPlay(Song5);
 				bsp_StartSearchChargePile();
-				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.6F);
+				//bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.6F);
 				/*设置上一次按键值*/
 				bsp_SetLastKeyState(eKEY_NONE);
 				/*设置LED状态*/

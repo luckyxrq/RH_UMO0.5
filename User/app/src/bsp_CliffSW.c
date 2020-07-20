@@ -309,21 +309,23 @@ void bsp_GetCliffSub(float arr[])
 bool bsp_CliffIsDangerous(CliffSWSN sn)
 {
 	
-	if(sn == CliffLeft && (cliffStates&(1<<0)))
-	{
-		return true;
-	}
-	else if(sn == CliffMiddle && (cliffStates&(1<<1)))
-	{
-		return true;
-	}
-	else if(sn == CliffRight && (cliffStates&(1<<2)))
-	{
-		return true;
-	}
-	
-	
 	return false;
+	
+//	if(sn == CliffLeft && (cliffStates&(1<<0)))
+//	{
+//		return true;
+//	}
+//	else if(sn == CliffMiddle && (cliffStates&(1<<1)))
+//	{
+//		return true;
+//	}
+//	else if(sn == CliffRight && (cliffStates&(1<<2)))
+//	{
+//		return true;
+//	}
+//	
+//	
+//	return false;
 }
 
 float bsp_GetCliffRealVal(CliffSWSN sn)
