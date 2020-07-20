@@ -9,6 +9,8 @@
 #define CONSTANT_LOW_PWM       (0)
 
 
+#define VACUUM_DEFAULT_PER      80
+
 typedef enum
 {
 	MotorLeft = 0 ,
@@ -43,8 +45,7 @@ void bsp_InitMotor(void);
 void bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
 void bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm);
 
-void bsp_VacuumClean(void);
-void bsp_StartVacuum(void);
+void bsp_StartVacuum(uint8_t pwm);
 void bsp_StopVacuum(void);
 
 #endif

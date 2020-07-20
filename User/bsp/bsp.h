@@ -11,8 +11,8 @@
 *********************************************************************************************************
 */
 
-#ifndef _BSP_H_
-#define _BSP_H
+#ifndef __BSP_H
+#define __BSP_H
 
 #define STM32_V4
 //#define STM32_X2
@@ -21,6 +21,8 @@
 #define OLD_BOARD      1 /*旧主板*/
 #define NEW_BOARD      2 /*新主板*/
 #define BOARD_VER      NEW_BOARD
+
+
 
 
 /* 检查是否定义了开发板型号 */
@@ -58,11 +60,13 @@
 #define BSP_Printf		printf
 //#define BSP_Printf(...)
 
+
 #include "stm32f10x.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "SEGGER_RTT.h"
 
 #ifndef TRUE
 	#define TRUE  1
@@ -74,6 +78,7 @@
 
 #define UINT32_T_MAX      0xFFFFFFFF
 
+#define ABS(val) ( (val)>0?(val):-(val) )
 
 /*
 	EXTI9_5_IRQHandler 的中断服务程序分散在几个独立的 bsp文件中。
@@ -88,27 +93,55 @@
 
 #define UNUSED(x)    (void)(x) /*防止出现未使用的警告*/
 
-#define DEBUG_EN      1 
-#define LOG_EN        1 
-#define WARNING_EN    1 
+#define DEBUG_EN            1 
+#define LOG_EN              0 
+#define WARNING_EN          0 
+#define STRATEGY_DEBUG      0
+#define WIFI_DEBUG_EN       0
+#define RTT_EN              1
 
 
 #if DEBUG_EN
 #define DEBUG(format, ...) printf (format, ##__VA_ARGS__)
 #else
-#define DEBUG(format, ...)
+#define DEBUG(format, ...) {}
 #endif
 	
 #if LOG_EN
 #define LOG(format, ...) printf (format, ##__VA_ARGS__)
 #else
-#define LOG(format, ...)
+#define LOG(format, ...)   {}
 #endif
 	
 #if WARNING_EN
 #define WARNING(format, ...) printf (format, ##__VA_ARGS__)
 #else
-#define WARNING(format, ...)
+#define WARNING(format, ...) {}
+#endif
+
+#if WIFI_DEBUG_EN
+#define WIFI_DEBUG(format, ...) printf (format, ##__VA_ARGS__)
+#else
+#define WIFI_DEBUG(format, ...) {}
+#endif
+	
+	
+#if RTT_EN
+#define RTT(format, ...) SEGGER_RTT_printf (0,format, ##__VA_ARGS__)
+#else
+#define RTT(format, ...) {}
+#endif	
+	
+	
+	
+#if STRATEGY_DEBUG	
+#define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)
+#define main_debug(format, ...)    printf (format, ##__VA_ARGS__)
+#define strategy_debug(format, ...)     printf (format, ##__VA_ARGS__)
+#else
+#define gridmap_debug(format, ...)  {}
+#define main_debug(format, ...)  {}
+#define strategy_debug(format, ...)  {}
 #endif
 
 
@@ -119,66 +152,10 @@
 #include "bsp_timer.h"
 #include "bsp_key.h"
 #include "bsp_dwt.h"
-
-//#include "bsp_msg.h"
-
-//#include "bsp_beep.h"
-
 #include "bsp_tim_pwm.h"
-
-//#include "bsp_cpu_flash.h"
-//#include "bsp_sdio_sd.h"
 #include "bsp_i2c_gpio.h"
-//#include "bsp_eeprom_24xx.h"
-//#include "bsp_si4730.h"
-//#include "bsp_hmc5883l.h"
-//#include "bsp_mpu6050.h"
-//#include "bsp_bh1750.h"
-//#include "bsp_bmp180.h"
-//#include "bsp_wm8978.h"
-//#include "bsp_gt811.h"
-
-//#include "bsp_fsmc_sram.h"
-//#include "bsp_nand_flash.h"
-//#include "bsp_nor_flash.h"
-
-//#include "LCD_RA8875.h"
-//#include "LCD_SPFD5420.h"
-//#include "LCD_ILI9488.h"
-//#include "bsp_ra8875_port.h"
-//#include "bsp_tft_lcd.h"
-
-//#include "bsp_touch.h"
-
-
-//#include "bsp_oled.h"
-//#include "bsp_sim800.h"
-//#include "bsp_ra8875_flash.h"
-
-//#include "bsp_spi_bus.h"
-//#include "bsp_spi_flash.h"
-//#include "bsp_tm7705.h"
-//#include "bsp_vs1053b.h"
-//#include "bsp_tsc2046.h"
-
-//#include "bsp_ds18b20.h"
-//#include "bsp_dac8501.h"
-//#include "bsp_dht11.h"
-
 #include "bsp_ir_decode.h"
-//#include "bsp_ps2.h"
-
-//#include "bsp_modbus.h"
-//#include "bsp_rs485_led.h"
 #include "bsp_user_lib.h"
-
-//#include "bsp_dac8501.h"
-//#include "bsp_dac8562.h"
-
-//#include "bsp_esp8266.h"
-//#include "bsp_step_moto.h"
-
-
 #include "bsp_PowerSwitch.h"
 #include "bsp_Collision.h"
 #include "bsp_Angle.h"
@@ -192,7 +169,6 @@
 #include "bsp_Encoder.h"
 #include "bsp_motor.h"
 #include "bsp_Control.h"
-#include "bsp_Scope.h"
 #include "bsp_Position.h"
 #include "bsp_stflash.h"
 #include "bsp_param.h"
@@ -202,13 +178,9 @@
 #include "bsp_DustBox.h"
 #include "bsp_speaker.h"
 #include "bsp_RunControl.h"
-#include "bsp_SearchChargePile.h"
 #include "bsp_assistJudgeDirection.h"
 #include "bsp_StopMode.h"
 #include "bsp_Gridmap.h"
-#ifdef A
-#include "bsp_CleanStrategy.h"
-#endif
 #include "bsp_CleanStrategyB.h"
 #include "bsp_Gridmap.h"
 #include "DX8_API.h"
@@ -218,8 +190,21 @@
 #include "bsp_passwd.h"
 #include "bsp_UploadMap.h"
 #include "bsp_CleanStrategyRandom.h"
+#include "bsp_SearchChargePile.h"
+#include "bsp_searchpilesubproc.h"
+#include "bsp_communication_bot3.h"
+#include "bsp_selfcheck.h"
+#include "bsp_functiontest.h"
+#include "bsp_bed.h"
 #include "bsp_electrolyticwater.h"
 #include "bsp_pump.h"
+
+typedef enum
+{
+	CLEAN_CAR_NORMAL = 0 ,            /*普通正常运行模式*/
+	CLEAN_CAR_MAIN_BOARD_UPLOAD_DATA, /*主板工装上报数据模式*/
+}CleanCarRunMode;
+
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
@@ -227,6 +212,13 @@ void bsp_Idle(void);
 void BSP_Tick_Init (void);
 void bsp_InitFormAwaken(void);
 void bsp_CloseAllStateRun(void);
+void bsp_SetAppRunMode(CleanCarRunMode mode);
+CleanCarRunMode bsp_GetAppRunMode(void);
+
+/* 上面头文件函数的宏封装 */
+#define REAL_ANGLE()      (bsp_AngleReadRaw()*0.01F)
+
+
 #endif
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/

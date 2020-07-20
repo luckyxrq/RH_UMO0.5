@@ -30,7 +30,7 @@
 
 #define REFRESH_ZONE_SIZE 3
 
-#define map_robot_radius 160
+#define map_robot_radius 120
 
 
 

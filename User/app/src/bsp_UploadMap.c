@@ -135,7 +135,7 @@ void bsp_UploadMap(void)
 		
 		case 4:
 		{
-			printf("发送地图数据\r\n");
+			DEBUG("发送地图数据\r\n");
 			/*传输地图数据，1字节对齐的结构体数组 转unsigned char*  */
 			stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)bsp_Get_GridMap(bsp_GetCurrentPosX(),bsp_GetCurrentPosY()), PER_UPLOAD_POINT_CNT*3);
 			//stream_trans(uploadMap.id, uploadMap.offset++ , (unsigned char*)map, 3);

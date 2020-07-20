@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 /*内部FLASH大小（单位KB）*/
-#define STM32_FLASH_SIZE 64
+#define STM32_FLASH_SIZE 512
 
 /*PAGE大小（单位字节）*/
 #if STM32_FLASH_SIZE<256

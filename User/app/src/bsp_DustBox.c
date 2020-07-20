@@ -47,14 +47,92 @@ DustBoxState bsp_DustBoxGetState(void)
 	
 	if(GPIO_ReadInputDataBit(GPIO_PORT_DUST_BOX,GPIO_PIN_DUST_BOX))
 	{
-		ret = DustBoxInside;
+		ret = DustBoxOutside;
 	}
 	else
 	{
-		ret = DustBoxOutside;
+		ret = DustBoxInside ;
 	}
 	
 	return ret ;
 }
 
+
+typedef struct
+{
+	volatile bool isRunning;
+	volatile uint32_t action;
+	volatile uint32_t delay;
+	volatile uint16_t cnt;
+}DustBoxProc;
+
+static DustBoxProc dustBoxProc;
+
+
+void bsp_StartDustBoxProc(void)
+{
+	dustBoxProc.action = 0 ;
+	dustBoxProc.delay = 0 ;
+	dustBoxProc.isRunning = true;
+	dustBoxProc.cnt = 0;
+}
+
+void bsp_StopDustBoxProc(void)
+{
+	dustBoxProc.isRunning = false;
+	dustBoxProc.action = 0 ;
+	dustBoxProc.delay = 0 ;
+}
+
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_OffSiteProc
+*	功能说明: 离地开关处理函数
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_DustBoxProc(void)
+{
+	DustBoxState state;
+	
+	if(!dustBoxProc.isRunning)
+		return;
+	
+	switch(dustBoxProc.action)
+	{
+		case 0:
+		{
+			state = bsp_DustBoxGetState();
+			if(state == DustBoxOutside)
+			{
+				dustBoxProc.cnt++;
+				if(dustBoxProc.cnt > 150)
+				{
+					bsp_OffsiteSuspend();
+					/*尘盒取出*/
+					bsp_SperkerPlay(Song9);
+					dustBoxProc.action++;
+				} 
+			}
+		}break;
+		
+		case 1: /*等待成盒装回*/
+		{
+			state = bsp_DustBoxGetState();
+			if(state == DustBoxInside)
+			{
+				if(dustBoxProc.cnt > 0) dustBoxProc.cnt--;
+				if(dustBoxProc.cnt == 0)
+				{					
+					bsp_SperkerPlay(Song10);
+					dustBoxProc.action = 0 ;
+				}
+				
+			}
+		}break;
+	}
+}
 

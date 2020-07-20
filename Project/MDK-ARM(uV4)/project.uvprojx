@@ -365,7 +365,7 @@
               <MiscControls>--diag_suppress=870 --C99</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include;..\..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\User\bsp;..\..\User\bsp\inc;..\..\User;..\..\Libraries\CMSIS\Include;..\..\FreeRTOS\include;..\..\FreeRTOS\portable\RVDS\ARM_CM3;..\..\User\app\inc;..\..\User\dx8\inc;..\..\User\tuya_sdk;..\..\User\angle\yuan_zi_Angle;..\..\User\angle\gan_rui_Angle</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include;..\..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\User\bsp;..\..\User\bsp\inc;..\..\User;..\..\Libraries\CMSIS\Include;..\..\FreeRTOS\include;..\..\FreeRTOS\portable\RVDS\ARM_CM3;..\..\User\app\inc;..\..\User\dx8\inc;..\..\User\tuya_sdk;..\..\User\angle\yuan_zi_Angle;..\..\User\angle\gan_rui_Angle;..\..\SEGGER_RTT_V618c\RTT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -537,6 +537,11 @@
               <FilePath>..\..\User\app\src\bsp_communication.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_communication_bot3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_communication_bot3.c</FilePath>
+            </File>
+            <File>
               <FileName>bsp_Encoder.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Encoder.c</FilePath>
@@ -552,19 +557,9 @@
               <FilePath>..\..\User\app\src\bsp_Control.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_Scope.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_Scope.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_Position.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_Position.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_SearchChargePile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_SearchChargePile.c</FilePath>
             </File>
             <File>
               <FileName>bsp_param.c</FileName>
@@ -622,11 +617,6 @@
               <FilePath>..\..\User\app\src\bsp_Gridmap.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_CleanStrategy.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\src\bsp_CleanStrategy.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_CleanStrategyB.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_CleanStrategyB.c</FilePath>
@@ -650,6 +640,31 @@
               <FileName>bsp_UploadMap.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\app\src\bsp_UploadMap.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_SearchChargePile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_SearchChargePile.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_SearchPileSubProc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_SearchPileSubProc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_SelfCheck.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_SelfCheck.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_functiontest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_functiontest.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_bed.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\app\src\bsp_bed.c</FilePath>
             </File>
             <File>
               <FileName>bsp_ElectrolyticWater.c</FileName>
@@ -904,6 +919,31 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>SEGGER_RTT_V618c</GroupName>
+          <Files>
+            <File>
+              <FileName>SEGGER_RTT_Conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_Syscalls_KEIL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SEGGER_RTT_V618c\Syscalls\SEGGER_RTT_Syscalls_KEIL.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Doc</GroupName>
           <Files>
             <File>
@@ -920,6 +960,11 @@
               <FileName>03.开发环境说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Doc\03.开发环境说明.txt</FilePath>
+            </File>
+            <File>
+              <FileName>04.笔记.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Doc\04.笔记.txt</FilePath>
             </File>
           </Files>
         </Group>

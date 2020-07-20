@@ -1,0 +1,5 @@
+
+ÆÁ±Î´«¸ÐÆ÷¼ì²â
+
+G:\LuckyXRQ\CleanCar\User\app\src\bsp_CleanStrategyB.c
+static uint8_t check_sensor(unsigned char obstacleSignal)

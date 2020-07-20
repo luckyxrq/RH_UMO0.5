@@ -49,6 +49,8 @@
 .\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\protocol.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
+.\flash\obj\protocol.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h
 .\flash\obj\protocol.o: ..\..\User\main.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\protocol.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
@@ -74,7 +76,6 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_Encoder.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_motor.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_Control.h
-.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_Scope.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_Position.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_stflash.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_param.h
@@ -83,7 +84,6 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_speaker.h
-.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_Gridmap.h
@@ -94,5 +94,11 @@
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_SearchChargePile.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_communication_bot3.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_selfcheck.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_functiontest.h
+.\flash\obj\protocol.o: ..\..\User\app\inc\bsp_bed.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_electrolyticwater.h
 .\flash\obj\protocol.o: ..\..\User\app\inc\bsp_pump.h

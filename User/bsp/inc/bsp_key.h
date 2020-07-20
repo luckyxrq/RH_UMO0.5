@@ -14,6 +14,50 @@
 #ifndef __BSP_KEY_H
 #define __BSP_KEY_H
 
+
+/*
+
+	如果用于其它硬件，请修改GPIO定义和 IsKeyDown1 - IsKeyDown8 函数
+
+	如果用户的按键个数小于8个，你可以将多余的按键全部定义为和第1个按键一样，并不影响程序功能
+	#define KEY_COUNT    8	  这个在 bsp_key.h 文件中定义
+*/
+
+/*
+	按键口线分配：
+		K1 键      : PE7     (低电平表示按下)
+		K2 键      : PE8     (低电平表示按下)
+		K3 键      : PE10    (低电平表示按下)
+*/
+
+/* 按键口对应的RCC时钟 */
+#define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
+
+#define GPIO_PORT_K1    GPIOE
+#define GPIO_PIN_K1	    GPIO_Pin_10
+
+#define GPIO_PORT_K2    GPIOE
+#define GPIO_PIN_K2	    GPIO_Pin_8
+
+#define GPIO_PORT_K3    GPIOE
+#define GPIO_PIN_K3	    GPIO_Pin_7
+
+#define GPIO_PORT_K4    GPIOE
+#define GPIO_PIN_K4	    GPIO_Pin_7
+
+#define GPIO_PORT_K5    GPIOE
+#define GPIO_PIN_K5	    GPIO_Pin_7
+
+#define GPIO_PORT_K6    GPIOE
+#define GPIO_PIN_K6	    GPIO_Pin_7
+
+#define GPIO_PORT_K7    GPIOE
+#define GPIO_PIN_K7	    GPIO_Pin_7
+
+#define GPIO_PORT_K8    GPIOE
+#define GPIO_PIN_K8	    GPIO_Pin_7
+
+
 #define KEY_COUNT    10	   					/* 按键个数, 8个独立建 + 2个组合键 */
 
 /* 根据应用程序的功能重命名按键宏 */
@@ -21,13 +65,13 @@
 #define KEY_UP_POWER	KEY_3_UP
 #define KEY_LONG_POWER	KEY_3_LONG
 
-#define KEY_DOWN_CHARGE	KEY_2_DOWN
-#define KEY_UP_CHARGE	KEY_2_UP
-#define KEY_LONG_CHARGE	KEY_2_LONG
+#define KEY_DOWN_CHARGE	KEY_1_DOWN
+#define KEY_UP_CHARGE	KEY_1_UP
+#define KEY_LONG_CHARGE	KEY_1_LONG
 
-#define KEY_DOWN_CLEAN	KEY_1_DOWN
-#define KEY_UP_CLEAN	KEY_1_UP
-#define KEY_LONG_CLEAN	KEY_1_LONG
+#define KEY_DOWN_CLEAN	KEY_2_DOWN
+#define KEY_UP_CLEAN	KEY_2_UP
+#define KEY_LONG_CLEAN	KEY_2_LONG
 
 #define JOY_DOWN_U		KEY_4_DOWN		/* 上 */
 #define JOY_UP_U		KEY_4_UP
@@ -68,7 +112,10 @@ typedef enum
 	KID_JOY_D,
 	KID_JOY_L,
 	KID_JOY_R,
-	KID_JOY_OK
+	KID_JOY_OK,
+	
+	KID_K9,
+	KID_K10
 }KEY_ID_E;
 
 /*

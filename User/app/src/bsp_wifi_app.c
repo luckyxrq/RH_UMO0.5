@@ -1,12 +1,6 @@
 #include "bsp.h"
 
-#define WIFI_DEBUG_EN      0
 
-#if WIFI_DEBUG_EN
-#define WIFI_DEBUG(format, ...) printf (format, ##__VA_ARGS__)
-#else
-#define WIFI_DEBUG(format, ...) {}
-#endif
 
 
 #define DETECT_SMART_CONFIG_PULSE_MS      1000

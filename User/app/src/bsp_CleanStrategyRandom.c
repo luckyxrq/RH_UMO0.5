@@ -1,7 +1,7 @@
 #include "bsp.h"
 
 /*轮子后退20MM，脉冲数*/               
-#define GO_BACK_PULSE                  (10/(3.14F*70)*1024)
+#define GO_BACK_PULSE                  (30/(3.14F*70)*1024)
 
 typedef struct
 {
@@ -34,6 +34,8 @@ void bsp_StopStrategyRandom(void)
 	strategyRandom.action = 0 ;
 	strategyRandom.delay = 0 ;
 	
+	bsp_StopEdgewiseRun();
+	
 }
 
 bool bsp_IsStartStrategyRandom(void)
@@ -45,11 +47,20 @@ bool bsp_IsStartStrategyRandom(void)
 static uint32_t CIRCLE_DELAY[6] = {500,800,1000,1200,1500,2000};
 static uint32_t CIRCLE_DELAY_INDEX = 0 ;
 
+
 void bsp_StrategyRandomProc(void)
 {
+	
+	uint8_t random_num = 0;
+	static unsigned char IRSensorData[10] = {0};
+	
+	UNUSED(random_num);
+	
 	if(!strategyRandom.isRunning)
 		return;
 	
+	
+	bsp_GetAllIrIsObstacle(IRSensorData);
 	
 	switch(strategyRandom.action)
 	{
@@ -70,8 +81,8 @@ void bsp_StrategyRandomProc(void)
 			}
 			else /*没有碰撞就直接走，快速走*/
 			{
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(250));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(120));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));
 			}
 			
 		}break;
@@ -92,12 +103,18 @@ void bsp_StrategyRandomProc(void)
 		
 		case 2: /*退了就原地转*/
 		{
-			if((xTaskGetTickCount() - strategyRandom.delay)>= CIRCLE_DELAY[++CIRCLE_DELAY_INDEX %6])
+			if((xTaskGetTickCount() - strategyRandom.delay)>= 500)
 			{
 				strategyRandom.action = 0 ;
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(120));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));
 			}
 		}break;
 		
 	}
 }
+
+
+
+
 

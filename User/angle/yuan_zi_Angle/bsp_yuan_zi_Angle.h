@@ -50,6 +50,7 @@ void bsp_AngleRevByte(uint8_t byte);
 float bsp_AngleAdd(float angle1 , float angle2);
 void bsp_InitAngle(void);
 void bsp_AngleRst(void);
+void bsp_CleanZeroYaw(void);
 
 /*为了兼容旧版驱动接口，故提供此函数*/
 float bsp_AngleRead(void);

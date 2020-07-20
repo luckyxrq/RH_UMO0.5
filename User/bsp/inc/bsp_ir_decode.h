@@ -61,6 +61,36 @@ typedef struct
 	volatile uint16_t TotalWitdh[IR_COUNT];               /*用于decode函数，使之成为线程安全的函数*/
 }IRD_T;
 
+/*
+**********************************************************************************************************
+                                            private 声明 ，用户不该调用的
+**********************************************************************************************************
+*/
+extern IRD_T g_tIR;
+
+
+
+/*
+**********************************************************************************************************
+                                            public 声明 ，用户可调用的
+**********************************************************************************************************
+*/
+
+#define IR_FL_L     (g_tIR.isRev[IR_CH2][IR_TX_SITE_LEFT]   )
+#define IR_FL_M     (g_tIR.isRev[IR_CH2][IR_TX_SITE_CENTER] )
+#define IR_FL_R     (g_tIR.isRev[IR_CH2][IR_TX_SITE_RIGHT]  )
+				  
+#define IR_FR_L     (g_tIR.isRev[IR_CH1][IR_TX_SITE_LEFT]   )
+#define IR_FR_M     (g_tIR.isRev[IR_CH1][IR_TX_SITE_CENTER] )
+#define IR_FR_R     (g_tIR.isRev[IR_CH1][IR_TX_SITE_RIGHT]  )
+				  
+#define IR_SL_L     (g_tIR.isRev[IR_CH3][IR_TX_SITE_LEFT]   )
+#define IR_SL_M     (g_tIR.isRev[IR_CH3][IR_TX_SITE_CENTER] )
+#define IR_SL_R     (g_tIR.isRev[IR_CH3][IR_TX_SITE_RIGHT]  )
+				   
+#define IR_SR_L     (g_tIR.isRev[IR_CH4][IR_TX_SITE_LEFT]   )
+#define IR_SR_M     (g_tIR.isRev[IR_CH4][IR_TX_SITE_CENTER] )
+#define IR_SR_R     (g_tIR.isRev[IR_CH4][IR_TX_SITE_RIGHT]  )
 
 void bsp_InitIRD(void);
 void bsp_IRD_StartWork(void);

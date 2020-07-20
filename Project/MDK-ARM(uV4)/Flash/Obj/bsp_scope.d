@@ -45,6 +45,8 @@
 .\flash\obj\bsp_scope.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
 .\flash\obj\bsp_scope.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\bsp_scope.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_scope.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
+.\flash\obj\bsp_scope.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h
 .\flash\obj\bsp_scope.o: ..\..\User\main.h
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_RunControl.h
 .\flash\obj\bsp_scope.o: ..\..\User\bsp\inc\bsp_uart_fifo.h
@@ -79,7 +81,6 @@
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_CliffSW.h
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_DustBox.h
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_speaker.h
-.\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_SearchChargePile.h
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_assistJudgeDirection.h
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_StopMode.h
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_Gridmap.h
@@ -94,5 +95,6 @@
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_passwd.h
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_UploadMap.h
 .\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_CleanStrategyRandom.h
-.\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_electrolyticwater.h
-.\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_pump.h
+.\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_SearchChargePile.h
+.\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_searchpilesubproc.h
+.\flash\obj\bsp_scope.o: ..\..\User\app\inc\bsp_communication_bot3.h

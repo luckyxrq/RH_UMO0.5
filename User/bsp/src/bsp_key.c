@@ -24,47 +24,7 @@
 
 #include "bsp.h"
 
-/*
 
-	如果用于其它硬件，请修改GPIO定义和 IsKeyDown1 - IsKeyDown8 函数
-
-	如果用户的按键个数小于8个，你可以将多余的按键全部定义为和第1个按键一样，并不影响程序功能
-	#define KEY_COUNT    8	  这个在 bsp_key.h 文件中定义
-*/
-
-/*
-	按键口线分配：
-		K1 键      : PE7     (低电平表示按下)
-		K2 键      : PE8     (低电平表示按下)
-		K3 键      : PE10    (低电平表示按下)
-*/
-
-/* 按键口对应的RCC时钟 */
-#define RCC_ALL_KEY 	(RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOF)
-
-#define GPIO_PORT_K1    GPIOE
-#define GPIO_PIN_K1	    GPIO_Pin_10
-
-#define GPIO_PORT_K2    GPIOE
-#define GPIO_PIN_K2	    GPIO_Pin_8
-
-#define GPIO_PORT_K3    GPIOE
-#define GPIO_PIN_K3	    GPIO_Pin_7
-
-#define GPIO_PORT_K4    GPIOE
-#define GPIO_PIN_K4	    GPIO_Pin_7
-
-#define GPIO_PORT_K5    GPIOE
-#define GPIO_PIN_K5	    GPIO_Pin_7
-
-#define GPIO_PORT_K6    GPIOE
-#define GPIO_PIN_K6	    GPIO_Pin_7
-
-#define GPIO_PORT_K7    GPIOE
-#define GPIO_PIN_K7	    GPIO_Pin_7
-
-#define GPIO_PORT_K8    GPIOE
-#define GPIO_PIN_K8	    GPIO_Pin_7
 
 static KEY_T s_tBtn[KEY_COUNT];
 static KEY_FIFO_T s_tKey;		/* 按键FIFO变量,结构体 */
@@ -129,9 +89,9 @@ static uint8_t IsKeyDown9(void)	/* K1 K2组合键 */
 	else 
 		return 0;
 }
-static uint8_t IsKeyDown10(void)	/* K1 K3组合键 */
+static uint8_t IsKeyDown10(void)	/* K2 K3组合键 */
 {
-	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) == 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) != 0
+	if ((GPIO_PORT_K1->IDR & GPIO_PIN_K1) != 0 && (GPIO_PORT_K2->IDR & GPIO_PIN_K2) == 0
 		&& (GPIO_PORT_K3->IDR & GPIO_PIN_K3) == 0)
 		return 1;
 	else 
@@ -367,6 +327,8 @@ static void bsp_InitKeyVar(void)
 	/* 比如，我们希望按键1按下超过1秒后，自动重发相同键值 */
 	s_tBtn[KID_K3].LongTime = KEY_LONG_TIME*3;
 	s_tBtn[KID_K3].RepeatSpeed = 0;	/* 每隔x ms自动发送键值（单位10ms） */
+	
+	s_tBtn[KID_K10].LongTime = KEY_LONG_TIME*3;
 
 	/* 判断按键按下的函数 */
 	s_tBtn[0].IsKeyDownFunc = IsKeyDown1;
@@ -399,7 +361,7 @@ static void bsp_DetectKey(uint8_t i)
 		如果没有初始化按键函数，则报错
 		if (s_tBtn[i].IsKeyDownFunc == 0)
 		{
-			printf("Fault : DetectButton(), s_tBtn[i].IsKeyDownFunc undefine");
+			DEBUG("Fault : DetectButton(), s_tBtn[i].IsKeyDownFunc undefine");
 		}
 	*/
 

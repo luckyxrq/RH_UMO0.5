@@ -9,7 +9,7 @@
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
-#define main_debug(format, ...) //printf (format, ##__VA_ARGS__)
+
 /*
 **********************************************************************************************************
                                             函数声明
@@ -29,6 +29,7 @@ static void AppObjCreate (void);
 void  App_Printf(char *format, ...);
 static void bsp_KeyProc(void);
 static void bsp_KeySuspend(void);
+static void bsp_UploadBatteryInfo(void);
 /*
 **********************************************************************************************************
                                             变量声明
@@ -43,8 +44,8 @@ static TaskHandle_t xHandleTaskMapping       = NULL;
 static SemaphoreHandle_t  xMutex = NULL;
 
 bool isSearchCharge = false;
+bool isODDStart  = true;
 
-extern PARAM_T param;
 /*
 *********************************************************************************************************
 *	函 数 名: main
@@ -102,68 +103,62 @@ int main(void)
 *   优 先 级: 4  
 *********************************************************************************************************
 */
-
-
 static void vTaskMapping(void *pvParameters)
 {
 	uint32_t count = 0 ;
-	uint32_t battery = 0 ;
+	
+	
     while(1)
     {
      		
 #if 1 /*更新地图*/
 		
-		if(isSearchCharge){}
-		else{		
-			main_debug("bsp_GridMapUpdate() \n");
+		if(isSearchCharge == false)
+		{		
 			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-
 		}
 #endif
 		
 		//bsp_UploadMap();
-		if(count % 20 == 0)
-		{
-			mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY,++battery % 100);
+		if(count++ % 100 == 0)
+		{	
+			bsp_UploadBatteryInfo();
 		}
+		
+		
+		//bsp_PrintCollision();
+		
         vTaskDelay(100);
-		
-		
     }
 
 }
 
 
-static void vTaskDecision(void *pvParameters)      //决策 整机软件控制流程
+/*
+*********************************************************************************************************
+*	函 数 名: vTaskDecision
+*	功能说明: 决策 整机软件控制流程
+*	形    参: pvParameters 是在创建该任务时传递的形参
+*	返 回 值: 无
+*   优 先 级: 4  
+*********************************************************************************************************
+*/
+static void vTaskDecision(void *pvParameters)
 {
     
     uint32_t count = 0 ;
-
+	vTaskDelay(2000);
     while(1)
     {
         /* 处理按键事件 */
-		main_debug("bsp_KeyProc() \n");
         bsp_KeyProc();
-		
 		
         if(count++ % 10 == 0)
         {
-#if 0 
-			bsp_PrintIR_Rev(); /*用于打印红外接收状态*/
-#endif
-			//main_debug("bsp_ChangeWifi2SmartConfigStateProc() \n");
 			bsp_ChangeWifi2SmartConfigStateProc();
 			
 			/*下面是打印开关，酌情注释*/
-			//main_debug("bsp_WifiStateProc() \n");
 			bsp_WifiStateProc();
-			bsp_PrintCollision();
-//			bsp_PrintIR_Rev();
-//			bsp_PrintAllVoltage();
-//			bsp_GetCliffStates();
-			
-			//DEBUG("%6d run\r\n",count);
-			//DEBUG("param.data1:%d\r\n",param.data1);
         }
 		
         vTaskDelay(50);	
@@ -190,38 +185,27 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_IWDG_Feed(); /* 喂狗 */
 #endif
         		
-#if 1		
+#if 0		
         DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
         DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
-		
-		
-		if(isSearchCharge)
+#if 0
+		if(count%100 ==0)
 		{
-		
+			bsp_CleanZeroYaw();
 		}
-		else
+#endif
+		
+		if(isSearchCharge == false)
 		{	
-			main_debug("bsp_UpdateCleanStrategyB() \n");
 			bsp_UpdateCleanStrategyB(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(), bsp_CollisionScan(), \
 			bsp_MotorGetPulseVector(MotorLeft), bsp_MotorGetPulseVector(MotorRight), bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 			
-		}//DEBUG("%+4d,%+4d#%+3d \n",bsp_GetCurrentPosX()/10,bsp_GetCurrentPosY()/10,(int)Rad2Deg(bsp_GetCurrentOrientation()));
-		
-		
-		
+		}
 		if(GetReturnChargeStationStatus())
 		{
-			
-			//main_debug("bsp_StopUpdateCleanStrategyB() \n");
 			bsp_StopUpdateCleanStrategyB();
-			
-			
-			//main_debug("ResetReturnChargeStationStatus() \n");
 			ResetReturnChargeStationStatus();
-			
-			
-			//main_debug("bsp_PutKey(KEY_LONG_CHARGE) \n");
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
@@ -255,88 +239,84 @@ static void vTaskPerception(void *pvParameters)
 	/*检测主机悬空*/
 	bsp_StartOffSiteProc();
 	
-	/*开启寻找充电桩*/
-	//bsp_StartSearchChargePile();
-	
-	/*开启沿边行走*/
-	//bsp_StartEdgewiseRun();
+	/*打开检测尘盒*/
+	bsp_StartDustBoxProc();
 	
 	/*开启位置坐标更新*/
     bsp_StartUpdatePos();
 	
-    /*开启正面碰撞协助*/
-	//bsp_StartAssistJudgeDirection();
-	
 	/*开启栅格地图跟新*/
 	bsp_StartUpdateGridMap();
 
-	/*开清扫策略*/
-	//bsp_StartUpdateCleanStrategyB();
+	/*空闲休眠模式检测*/
+	bsp_StartSleepProc();
 	
-	//bsp_StartCliffTest();
-
-	vTaskDelay(2000);		
-	
+	/*初始化跳崖传感器*/
 	bsp_InitCliffSW();
 	
 	
 	
 #if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
-	//bsp_StartVacuum();
-	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.8F);
-	bsp_StartPump();
-	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(100));
-	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(100));
-	
-	bsp_StartStrategyRandom();
+	bsp_StartVacuum(VACUUM_DEFAULT_PER);
+	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
 #endif
-	
 	
     while(1)
     {
-
-#if 1
+		bsp_ComAnalysis();
+		
+#if 0
 		if(bsp_IsInitAW9523B_OK())
 		{
-			//main_debug("bsp_DetectAct() \n");
 			bsp_DetectAct();  /*红外对管轮询扫描*/
-			//main_debug("bsp_DetectDeal() \n");
 			bsp_DetectDeal(); /*红外对管扫描结果处理*/
 		}
 #endif
        
-#if 0   /*测试红外测距的距离，测到后就停下来*/
-		bsp_DetectMeasureTest();
-#endif
-
-#if 0  /*测试跳崖传感器 、红外、碰撞共同测试*/	 
-		//main_debug("bsp_CliffTest() \n");
-		bsp_CliffTest();
-#endif
-		
-#if 0  /*测试IMU数据是否正常*/	 
-		DEBUG("bsp_AngleReadRaw:%d\n",bsp_AngleReadRaw());
-#endif
-
+		/*随机策略*/
 		bsp_StrategyRandomProc();
 		
+		/*测试床程序*/
+		bsp_FunctionTestUpdate();
+		
 		/*检测主机悬空*/
-		//main_debug("bsp_OffSiteProc() \n");
-		//bsp_OffSiteProc();
+		if(!GetCmdStartUpload())
+		{
+			bsp_OffSiteProc();
+		}
+		
+		/*检测尘盒*/
+//		if(!GetCmdStartUpload())
+//		{
+//			bsp_DustBoxProc();
+//		}
+		
         /*寻找充电桩*/
-		//main_debug("bsp_SearchChargePile() \n");
 		bsp_SearchChargePile();
 		/*沿边行走*/
-		//main_debug("bsp_EdgewiseRun() \n");
 		bsp_EdgewiseRun();
         /*更新坐标*/
-		//main_debug("bsp_PositionUpdate() \n");
         bsp_PositionUpdate();
-		//main_debug("bsp_LedAppProc() \n");
 		bsp_LedAppProc();
-		
-		//main_debug("wifi_uart_service() \n");
 		wifi_uart_service();
+		
+		/*更新跳崖传感器信息*/
+		bsp_GetCliffStates();
+		
+		/*自检程序*/
+		bsp_SelfCheckProc();
+		
+		/*空闲休眠模式检测*/
+		bsp_SleepProc();
+		
+		/*上传开关和时间间隔同时限制*/
+		if(GetCmdStartUpload() && count % 50 == 0)
+		{
+			bsp_SendReportFrameWithCRC16();
+		}
 		
 		count++;
         vTaskDelay(5);	
@@ -356,15 +336,15 @@ static void vTaskPerception(void *pvParameters)
 static void AppTaskCreate (void)
 {
 	
-	xTaskCreate( vTaskMapping,     		    /* 任务函数  */
-                 "vTaskMapping",   		    /* 任务名    */
+	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
+                 "vTaskMapping",   		        /* 任务名    */
                  1024*2,            		    /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
-                 &xHandleTaskMapping );        /* 任务句柄  */
+                 &xHandleTaskMapping );         /* 任务句柄  */
     xTaskCreate( vTaskDecision,     		    /* 任务函数  */
                  "vTaskDecision",   		    /* 任务名    */
-                 512,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  2,              		        /* 任务优先级*/
                  &xHandleTaskDecision );        /* 任务句柄  */
@@ -427,9 +407,29 @@ void  App_Printf(char *format, ...)
     /* 互斥信号量 */
     xSemaphoreTake(xMutex, portMAX_DELAY);
     
-    printf("%s", buf_str);
+    DEBUG("%s", buf_str);
     
     xSemaphoreGive(xMutex);
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_UploadBatteryInfo
+*	功能说明: 无		  			  
+*	形    参: 上传电池信息到APP
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void bsp_UploadBatteryInfo(void)
+{
+	float battery_adc_value = 0;
+	uint32_t battery_precent = 0 ;
+
+	battery_adc_value  = bsp_GetFeedbackVoltage(eBatteryVoltage);
+	battery_adc_value  = ((battery_adc_value * 430.0f / 66.5f) + battery_adc_value + 0.2F);
+	battery_precent = ((battery_adc_value - 11.9f) / 4.8f)*100; 
+	mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY, battery_precent);
+	mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
 }
 
 static void bsp_StopAllMotor(void)
@@ -476,11 +476,11 @@ void bsp_OffsiteSuspend(void)
 	bsp_OpenThreeWhileLed();
 	bsp_SetLedState(LED_DEFAULT_STATE);
 	
-	/*关闭所有电机*/
-	bsp_StopAllMotor();
-	
 	/*关闭所有状态机*/
 	bsp_CloseAllStateRun();
+	
+	/*关闭所有电机*/
+	bsp_StopAllMotor();
 
 	
 	/*设置上一次按键值*/
@@ -503,6 +503,9 @@ static void bsp_KeySuspend(void)
 	
 	/*关闭所有电机*/
 	bsp_StopAllMotor();
+	
+	/*关闭水泵*/
+	bsp_StopPump();
 	
 	/*关闭所有状态机*/
 	bsp_CloseAllStateRun();
@@ -537,17 +540,187 @@ static void bsp_KeyProc(void)
 		{
 			case KEY_DOWN_POWER:
 			{
-
+				DEBUG("KEY_DOWN_POWER\r\n");
+				bsp_KeySuspend();
+				isNeedRun = true;
 			}break;
 				
 			case KEY_DOWN_CHARGE:
 			{
-
+				DEBUG("KEY_DOWN_CHARGE\r\n");
+				bsp_KeySuspend();
 			}break;
 				
 			case KEY_DOWN_CLEAN:	
 			{
+				DEBUG("KEY_DOWN_CLEAN\r\n");
+				bsp_KeySuspend();
+			}break;
+			
 
+			
+			case KEY_LONG_POWER: /*关机*/
+			{
+				DEBUG("电源按键长按\r\n");
+				
+				/*灯光亮3颗白色灯*/
+				bsp_CloseAllLed();
+				bsp_SetLedState(LED_DEFAULT_STATE);
+				
+				/*关闭所有电机*/
+				bsp_StopAllMotor();
+				
+				/*关闭所有状态机*/
+				bsp_CloseAllStateRun();
+
+				/*设置上一次按键值*/
+				bsp_SetLastKeyState(eKEY_NONE);
+				/*进入休眠模式*/
+				bsp_SperkerPlay(Song31);
+				vTaskDelay(10);	
+				while(bsp_SpeakerIsBusy()){}
+				
+				bsp_ClearKey();
+				bsp_EnterStopMODE();
+			}break;
+			
+			case KEY_LONG_CHARGE: /*充电*/	
+			{
+				DEBUG("充电按键长按\r\n");
+
+				/*首先判断是否主机悬空*/
+				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
+				{
+					bsp_SperkerPlay(Song16);
+					return;
+				}
+				
+				/*首先判断尘盒*/
+				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
+				{
+					bsp_SperkerPlay(Song9);
+					return;
+				}
+				
+				bsp_SperkerPlay(Song5);
+				bsp_StartSearchChargePile();
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.6F);
+				/*设置上一次按键值*/
+				bsp_SetLastKeyState(eKEY_NONE);
+				/*设置LED状态*/
+				bsp_SetLedState(AT_SEARCH_CHARGE);
+				isSearchCharge = true;
+				bsp_ClearKey();
+			}break;
+			
+			case KEY_LONG_CLEAN: /*清扫*/
+			{
+				DEBUG("清扫按键长按\r\n");
+				
+				/*首先判断是否主机悬空*/
+				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
+				{
+					bsp_SperkerPlay(Song16);
+					return;
+				}
+
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.8F);
+				bsp_StartPump();
+				bsp_StartStrategyRandom();
+				
+				
+				/*设置上一次按键值*/
+				bsp_SetLastKeyState(eKEY_CLEAN);
+				/*设置LED状态*/
+				bsp_SetLedState(AT_CLEAN);
+				isSearchCharge = false;
+				bsp_ClearKey();
+				
+			}break;
+			
+			case KEY_9_DOWN:
+			{
+				DEBUG("重新配网：同时按充电和清扫\r\n");
+				bsp_SperkerPlay(Song29);
+				bsp_StartChangeWifi2SmartConfigState();
+				bsp_SetLedState(AT_LINK);
+			}break;
+			
+			
+			case KEY_10_LONG:
+			{
+				bsp_StartFunctionTest();
+			}break;
+			
+			
+			case KEY_WIFI_OPEN_CLEAN_CAR:
+			{
+				bsp_SperkerPlay(Song1);
+			}break;
+			
+			case KEY_WIFI_CLOSE_CLEAN_CAR:
+			{
+				bsp_SperkerPlay(Song2);
+				
+				/*灯光亮3颗白色灯*/
+				bsp_OpenThreeWhileLed();
+				bsp_SetLedState(LED_DEFAULT_STATE);
+				
+				/*关闭所有电机*/
+				bsp_StopAllMotor();
+				
+				/*关闭所有状态机*/
+				bsp_CloseAllStateRun();
+				
+				/*设置上一次按键值*/
+				bsp_SetLastKeyState(eKEY_NONE);
+			}break;
+			
+			case KEY_WIFI_DIR_FRONT:
+			{
+				bsp_KeySuspend();
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+				vTaskDelay(1000);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}break;
+			
+			case KEY_WIFI_DIR_BACK:
+			{
+				bsp_KeySuspend();
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-250));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+				vTaskDelay(1000);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}break;
+			
+			case KEY_WIFI_DIR_LEFT:
+			{
+				bsp_KeySuspend();
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-150));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+150));
+				vTaskDelay(1500);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}break;
+			
+			case KEY_WIFI_DIR_RIGHT:
+			{
+				bsp_KeySuspend();
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+150));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
+				vTaskDelay(1500);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}break;
+			
+			case KEY_WIFI_EDGE:
+			{
+				bsp_KeySuspend();
+				bsp_SperkerPlay(Song34);
+				bsp_StartEdgewiseRun();
 			}break;
 		}   
 	}

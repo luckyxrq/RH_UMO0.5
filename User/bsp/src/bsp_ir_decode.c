@@ -29,7 +29,7 @@
 #define PIN_IRD		(GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9)
 
 
-static IRD_T g_tIR;
+IRD_T g_tIR;
 
 static void bsp_IR_SoftTimerInit(void);
 

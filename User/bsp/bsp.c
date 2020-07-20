@@ -23,6 +23,24 @@ extern void vSetupSysInfoTest(void);
 
 
 
+
+
+
+static CleanCarRunMode cleanCarRunMode;
+
+void bsp_SetAppRunMode(CleanCarRunMode mode)
+{
+	cleanCarRunMode = mode;
+}
+
+CleanCarRunMode bsp_GetAppRunMode(void)
+{
+	return cleanCarRunMode;
+}
+
+
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_Init
@@ -65,7 +83,7 @@ void bsp_Init(void)
 	
 	bsp_AngleRst();
 	bsp_SwOn(SW_5V_EN_CTRL);
-	bsp_DelayMS(1000);
+	bsp_DelayMS(500);
 	bsp_SwOn(SW_3V3_EN_CTRL);
 	bsp_SwOn(SW_IR_POWER);
 	bsp_SwOn(SW_MOTOR_POWER);
@@ -86,33 +104,9 @@ void bsp_Init(void)
 	bsp_InitCurrentFeedbackADC();
 	bsp_InitDustBox();
 	
-	
-	{
-		char *dx8Version;
-		unsigned char rv;
-		
-		dx8_Init();
-		
-		/*获取加密版本信息*/
-		dx8Version = DX8_Version();
-		//DEBUG("加密版本：%s\r\n",dx8Version);
-		
-		// Authention Test
-		rv = AuthenticationTest();
-		if(rv)
-		{
-			DEBUG("未能通过! \r\n");
-		}
-		else
-		{
-			DEBUG("通过! \r\n");
-		}
-		
-		
-	}
-	
-	
-	
+	/*加密芯片*/
+	//bsp_DX8_CMD();
+
 #if 0
 	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
 #endif
@@ -136,15 +130,9 @@ void bsp_Init(void)
 	}
 
 #endif
-	
-	
-	
-	
-	
+
 	bsp_InitDetectAct();/* IO拓展芯片初始化成功了之后再初始化红外轮询扫描 */	
-	
-	
-	bsp_IRD_StopWork();
+	bsp_IRD_StartWork();
 	
 		/*播放开机音乐*/
 #if 1
@@ -163,11 +151,9 @@ void bsp_Init(void)
 	bsp_PowerOnLedProc();
 	
 	wifi_protocol_init();/* 初始化WIFI协议栈 */	
-	
-	
-	
+
 	/*打印初始化完毕，还可以检测是否被看门狗重启了*/
-	DEBUG("初始化完毕\r\n");
+	RTT("all init complete\r\n");
 	
 	vSetupSysInfoTest();
 	
@@ -178,7 +164,6 @@ void bsp_Init(void)
 	bsp_InitElectrolyticWater();
 	bsp_StartElectrolyticWaterProc();
 	
-	bsp_ParamUpdateTest();
 }
 
 

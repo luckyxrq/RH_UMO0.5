@@ -748,15 +748,16 @@
 
 #define PI 3.14159265
 #define front_backward_distance 10
-#define side_backward_distance 25
+#define side_backward_distance 20//15 //25
 #define star_collision_backward 50
 #define star_collision_go 400
-#define collision_backward_distance 3
+#define collision_backward_distance 10//3
 #define lateral_move_distance 160
 #define close_map_move_distance 5
-#define turn_backward_distance 3
-#define second_turn_backward_distance 4
+#define turn_backward_distance 10//3
+#define second_turn_backward_distance 10//4
 #define close_edge 160
+#define dilemma_close_edge 80
 #define return_origin_distance 200
 
 #define left_cliff 1
@@ -765,7 +766,8 @@
 #define none_cliff 0
 
 #define W 5000
-#define long_stra_vel 300
+#define long_stra_vel 150
+#define real_gostaright_vel 300
 #define turn_vel 60
 #define correction_turn_vel 40
 
@@ -805,6 +807,8 @@
 #define AStar_North_West (1 << 5)
 #define AStar_North      (1 << 6)
 #define AStar_North_East (1 << 7)
+
+extern unsigned int RealWorkTime;
 
 typedef struct AStarPoint
 {

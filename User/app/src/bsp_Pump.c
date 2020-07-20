@@ -1,19 +1,8 @@
 #include "bsp.h"
 
-extern PARAM_T param;
-
-
-//#define PUMP_ON()       bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM)
-//#define PUMP_OFF()      bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0)
-
 
 #define PUMP_ON()       bsp_MotorCleanSetPWM(MotorSideBrush, CW , 2500)
 #define PUMP_OFF()      bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0)
-
-
-//#define PUMP_ON()       bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0)
-//#define PUMP_OFF()      bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0)
-
 
 typedef struct
 {
