@@ -37,7 +37,7 @@
 
 /*
 **********************************************************************************************************
-                                    边上收到了广角  需要小一点的大转弯
+                      边上收到了广角  并且边上不能同时收到两个窄角信号  并且前面收不到任何窄角信号
 **********************************************************************************************************
 */
 #define ROTATE_CW_LITTLE    ( !(IR_SR_L && IR_SR_R) && IR_SR_M && F_NO_NARROW_SIGNAL)
@@ -45,7 +45,7 @@
 
 /*
 **********************************************************************************************************
-                                    边上收到了2个窄角  需要大转弯
+                          边上收到了2个窄角  需要原地大转弯  并且前面收不到窄角信号
 **********************************************************************************************************
 */
 #define ROTATE_CW           ( (IR_SR_L && IR_SR_R) && F_NO_NARROW_SIGNAL)
@@ -180,7 +180,14 @@ void bsp_StopSearchChargePile(void)
 }	
 
 
-
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_DetectIsTouchChargePile
+*	功能说明: 检测到充电桩了，可以停止了
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 void bsp_DetectIsTouchChargePile(void)
 {
 	if(search.isRunning && bsp_IsTouchChargePile())
@@ -197,6 +204,105 @@ void bsp_DetectIsTouchChargePile(void)
 
 /*
 *********************************************************************************************************
+*	函 数 名: bsp_InitIO
+*	功能说明: 初始化充电相关的IO
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_InitChargeIO(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	/* 打开GPIO时钟 */
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
+
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
+	
+	/*上桩检测*/
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_TOUCH_PILE;
+	GPIO_Init(GPIO_PORT_CHARGE_TOUCH_PILE, &GPIO_InitStructure);
+	
+	/*正在充电中*/
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_CHARGING;
+	GPIO_Init(GPIO_PORT_CHARGE_IS_CHARGING, &GPIO_InitStructure);
+	
+	/*充电完成*/
+	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_DONE;
+	GPIO_Init(GPIO_PORT_CHARGE_IS_DONE, &GPIO_InitStructure);
+	
+}
+
+	
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IsTouchChargePile
+*	功能说明: 获取充电反馈
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_IsTouchChargePile(void)
+{
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
+	{
+		return true ;
+	}
+	else
+	{
+		return false ;
+	}
+}
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IsCharging
+*	功能说明: 是否已经充满
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_IsCharging(void)
+{
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
+	{
+		return true ;
+	}
+	else
+	{
+		return false ;
+	}
+}
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IsChargeDone
+*	功能说明: 是否已经充满
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_IsChargeDone(void)
+{
+	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
+	{
+		return true ;
+	}
+	else
+	{
+		return false ;
+	}
+}
+
+
+
+
+
+
+/*
+*********************************************************************************************************
 *	函 数 名: bsp_SearchChargePile
 *	功能说明: 寻找充电桩状态机
 *	形    参: 无
@@ -205,18 +311,18 @@ void bsp_DetectIsTouchChargePile(void)
 */
 void bsp_SearchChargePile(void)
 {
-	
-	bsp_IsTouchChargePile();
-	bsp_IsCharging();
-	bsp_IsChargeDone();
-	
+
+	/**************************************************************如果处在清扫状态 或者 处在上传数据的状态 则直接返回**********************************************************************************/
 	if(isCleanRunning() || GetCmdStartUpload())
 		return;
 	
+	
+	
+	/********************************************************************这一段是在找充电桩的动作前面判断的********************************************************************************************/
 	if(bsp_IsTouchChargePile())
 	{
 		/*播放开始充电*/
-		if(search.isNeedPlaySong && (xTaskGetTickCount() >= search.isNeedPlaySongTick  && xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
+		if(search.isNeedPlaySong && ((xTaskGetTickCount() >= search.isNeedPlaySongTick)  && (xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000)) ) /*这个时间判断避免了抖动播放开始充电*/
 		{
 			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
 			bsp_SperkerPlay(Song22);
@@ -258,13 +364,6 @@ void bsp_SearchChargePile(void)
 			search.isNeedPlaySong = true;
 			search.lastIsTouchTick = UINT32_T_MAX;
 		}
-		
-		
-		if(search.lastReallyChargeTime != 0 && (xTaskGetTickCount() - search.lastReallyChargeTime <= 10*1000))
-		{
-			bsp_StartSearchChargePile(); /*冲上又抖掉了  再次开启充电*/
-		}
-		
 	}
 	
 	
@@ -272,9 +371,11 @@ void bsp_SearchChargePile(void)
 	{
 		return;
 	}
-		
+	
 
-	/*计时，时间到了还没找到充电桩*/
+	/***********************************************************************停止寻找充电桩**************************************************************************/
+
+	/*停止寻找-----------计时，时间到了还没找到充电桩*/
 	if(xTaskGetTickCount() - search.startTick >= MAX_SEARCH_TICK)
 	{
 		bsp_SetMotorSpeed(MotorLeft,0);
@@ -287,9 +388,7 @@ void bsp_SearchChargePile(void)
 		return;
 	}
 	
-	
-	
-	/*充电*/
+	/*停止寻找-----------检测接触到充电桩了*/
 	if(bsp_IsTouchChargePile() == true)
 	{
 		bsp_SetMotorSpeed(MotorLeft,0);
@@ -298,6 +397,9 @@ void bsp_SearchChargePile(void)
 		
 		return ;
 	}
+	
+	/********************************************************************真正寻找充电桩的动作************************************************************************/
+	
 	
 	/*先随机清扫*/
 	if(search.isNeedFirstRunRandom)
@@ -612,97 +714,4 @@ void bsp_SearchChargePile(void)
 }
 
 
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_InitIO
-*	功能说明: 初始化充电相关的IO
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_InitChargeIO(void)
-{
-	GPIO_InitTypeDef GPIO_InitStructure;
-
-	/* 打开GPIO时钟 */
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
-
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	
-	
-	/*上桩检测*/
-	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_TOUCH_PILE;
-	GPIO_Init(GPIO_PORT_CHARGE_TOUCH_PILE, &GPIO_InitStructure);
-	
-	/*正在充电中*/
-	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_CHARGING;
-	GPIO_Init(GPIO_PORT_CHARGE_IS_CHARGING, &GPIO_InitStructure);
-	
-	/*充电完成*/
-	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_CHARGE_IS_DONE;
-	GPIO_Init(GPIO_PORT_CHARGE_IS_DONE, &GPIO_InitStructure);
-	
-}
-
-	
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_IsTouchChargePile
-*	功能说明: 获取充电反馈
-*	形    参：无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-bool bsp_IsTouchChargePile(void)
-{
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_TOUCH_PILE,GPIO_PIN_CHARGE_TOUCH_PILE))
-	{
-		return true ;
-	}
-	else
-	{
-		return false ;
-	}
-}
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_IsCharging
-*	功能说明: 是否已经充满
-*	形    参：无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-bool bsp_IsCharging(void)
-{
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_CHARGING,GPIO_PIN_CHARGE_IS_CHARGING)==0)
-	{
-		return true ;
-	}
-	else
-	{
-		return false ;
-	}
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_IsChargeDone
-*	功能说明: 是否已经充满
-*	形    参：无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-bool bsp_IsChargeDone(void)
-{
-	if(GPIO_ReadInputDataBit(GPIO_PORT_CHARGE_IS_DONE,GPIO_PIN_CHARGE_IS_DONE)==0)
-	{
-		return true ;
-	}
-	else
-	{
-		return false ;
-	}
-}
 
