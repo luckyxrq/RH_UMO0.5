@@ -123,12 +123,7 @@ typedef struct
 	uint32_t lastSIGNAL_Tick;
 	uint32_t ONLY_F_RX_WIDE_CNT;
 	
-	bool isInCW_LITTLE;  /*顺时针旋转的时候收到了前面的信号*/
-	bool isInCCW_LITTLE; /*逆时针旋转的时候收到了前面的信号*/
-	
-	bool isInCW_LITTLE_RX_F;  /*顺时针旋转的时候收到了前面的信号*/
-	bool isInCCW_LITTLE_RX_F; /*逆时针旋转的时候收到了前面的信号*/
-	
+	bool isInBack;  /*后退过程中*/
 	bool isBanOnlyF_Wide;
 }Serach;
 
@@ -155,6 +150,7 @@ void bsp_StartSearchChargePile(void)
 	search.ONLY_F_RX_WIDE_CNT = 0 ;
 	search.isNeedFirstRunRandom = true;
 	search.isBanOnlyF_Wide = false;
+	search.isInBack = false;
 	search.isRunning = true;
 	
 	/*防止编译器警告*/
@@ -553,7 +549,28 @@ void bsp_SearchChargePile(void)
 		
 		case 3: /*根据角度调整*/
 		{
-			if(ROTATE_CW)
+			search.collision = bsp_CollisionScan();
+		
+			if(search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight)))
+			{
+				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
+				bsp_SetMotorSpeed(MotorLeft, -6);
+				bsp_SetMotorSpeed(MotorRight,-6);
+				
+				search.isInBack = true;
+				search.pulse = bsp_GetCurrentBothPulse();
+				search.action = 3;
+			}
+			else if(search.isInBack)
+			{
+				if(bsp_GetCurrentBothPulse() - search.pulse >= _SEARCH_PILE_GO_BACK_PULSE*20)
+				{
+					search.isInBack = false;
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,5);
+				}
+			}
+			else if(ROTATE_CW)
 			{
 				bsp_SetMotorSpeed(MotorLeft, 2);
 				bsp_SetMotorSpeed(MotorRight,-2);
