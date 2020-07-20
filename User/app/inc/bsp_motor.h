@@ -11,6 +11,12 @@
 
 #define VACUUM_DEFAULT_PER      80
 
+
+
+#define VACUUM_0_AS_ELECTROLYTIC_H2O   TIM_SetCompare1(TIM2,CONSTANT_HIGH_PWM * 0.0F) /*将风机的IO用作电解水的IO,定时器PWM用作普通IO*/
+#define VACUUM_1_AS_ELECTROLYTIC_H2O   TIM_SetCompare1(TIM2,CONSTANT_HIGH_PWM)        /*将风机的IO用作电解水的IO,定时器PWM用作普通IO*/
+
+
 typedef enum
 {
 	MotorLeft = 0 ,

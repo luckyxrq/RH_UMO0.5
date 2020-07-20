@@ -386,3 +386,6 @@ static void bsp_InitTimer2(uint16_t arr,uint16_t psc)
 
 }
 
+
+
+
