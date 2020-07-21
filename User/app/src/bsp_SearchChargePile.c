@@ -123,7 +123,9 @@ typedef struct
 	uint32_t lastSIGNAL_Tick;
 	uint32_t ONLY_F_RX_WIDE_CNT;
 	
-	bool isInBack;  /*后退过程中*/
+	bool isInBack;                    /*后退过程中*/
+	bool isNeedRote180;               /*在没有任何信号的情况下，可能需要掉头180度*/
+	uint32_t isNeedRote180StartPulse; /*在没有任何信号的情况下，可能需要掉头180度，起始脉冲*/
 	bool isBanOnlyF_Wide;
 }Serach;
 
@@ -151,6 +153,8 @@ void bsp_StartSearchChargePile(void)
 	search.isNeedFirstRunRandom = true;
 	search.isBanOnlyF_Wide = false;
 	search.isInBack = false;
+	search.isNeedRote180 = false;
+	search.isNeedRote180StartPulse = 0 ;
 	search.isRunning = true;
 	
 	/*防止编译器警告*/
@@ -540,8 +544,8 @@ void bsp_SearchChargePile(void)
 			else /*转第二圈，时间超过了，还没有知道怎么走，就直走*/
 			{
 				search.pulse = bsp_GetCurrentBothPulse();
-				bsp_SetMotorSpeed(MotorLeft,  0);
-				bsp_SetMotorSpeed(MotorRight, 0);
+				bsp_SetMotorSpeed(MotorLeft,  3);
+				bsp_SetMotorSpeed(MotorRight, 3);
 				
 				++search.action;
 			}
@@ -551,11 +555,23 @@ void bsp_SearchChargePile(void)
 		{
 			search.collision = bsp_CollisionScan();
 		
-			if(search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight)))
+			/*无信号碰撞*/
+			if(ALL_NO_SIGNAL && (search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))))
 			{
 				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
-				bsp_SetMotorSpeed(MotorLeft, -6);
-				bsp_SetMotorSpeed(MotorRight,-6);
+				bsp_SetMotorSpeed(MotorLeft, -8);
+				bsp_SetMotorSpeed(MotorRight,-8);
+				
+				search.isInBack = true;
+				search.pulse = bsp_GetCurrentBothPulse();
+				search.action = 3;
+			}
+			/*有信号碰撞*/
+			else if(!ALL_NO_SIGNAL && (search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))))
+			{
+				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
+				bsp_SetMotorSpeed(MotorLeft, -8);
+				bsp_SetMotorSpeed(MotorRight,-8);
 				
 				search.isInBack = true;
 				search.pulse = bsp_GetCurrentBothPulse();
@@ -563,15 +579,32 @@ void bsp_SearchChargePile(void)
 			}
 			else if(search.isInBack)
 			{
-				if(bsp_GetCurrentBothPulse() - search.pulse >= _SEARCH_PILE_GO_BACK_PULSE*20)
+				if(bsp_GetCurrentBothPulse() - search.pulse >= _SEARCH_PILE_GO_BACK_PULSE*50)
 				{
 					search.isInBack = false;
-					bsp_SetMotorSpeed(MotorLeft, 3);
-					bsp_SetMotorSpeed(MotorRight,5);
+					if(search.collision == CollisionLeft)
+					{
+						bsp_SetMotorSpeed(MotorLeft, 5);
+						bsp_SetMotorSpeed(MotorRight,2);
+					}
+					else if(search.collision == CollisionRight)
+					{
+						bsp_SetMotorSpeed(MotorLeft, 2);
+						bsp_SetMotorSpeed(MotorRight,5);
+					}
+					else
+					{
+						bsp_SetMotorSpeed(MotorLeft, 3);
+						bsp_SetMotorSpeed(MotorRight,3);
+					}
+					
 				}
 			}
 			else if(ROTATE_CW)
 			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
 				bsp_SetMotorSpeed(MotorLeft, 2);
 				bsp_SetMotorSpeed(MotorRight,-2);
 				
@@ -579,6 +612,9 @@ void bsp_SearchChargePile(void)
 			}
 			else if(ROTATE_CCW)
 			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
 				bsp_SetMotorSpeed(MotorLeft, -2);
 				bsp_SetMotorSpeed(MotorRight,2);
 				
@@ -607,21 +643,42 @@ void bsp_SearchChargePile(void)
 			}
 			else if(ROTATE_CW_LITTLE)
 			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
 				bsp_SetMotorSpeed(MotorLeft, 7);
 				bsp_SetMotorSpeed(MotorRight,2);
 				
 				search.action = 3;
 			}
-			else if(ROTATE_CW_LITTLE)
+			else if(ROTATE_CCW_LITTLE)
 			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
 				bsp_SetMotorSpeed(MotorLeft, 2);
 				bsp_SetMotorSpeed(MotorRight,7);
 				
 				search.action = 3;
 			}
-			else
+			else if( search.isNeedRote180 && ALL_NO_SIGNAL && (bsp_GetCurrentBothPulse()-search.isNeedRote180StartPulse>=CCW_180_PULSE)) /*什么信号也没有了，就转180度吧*/
 			{
-			
+				search.isNeedRote180 = false;
+				
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight, 3);
+				++search.action ;
+			}
+		}break;
+		
+		case 4:
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse >= CCW_180_PULSE)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 3);
+				bsp_SetMotorSpeed(MotorRight,3);
+				search.action = 3 ;
 			}
 		}break;
 		
