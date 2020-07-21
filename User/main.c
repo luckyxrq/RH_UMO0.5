@@ -711,13 +711,16 @@ static void bsp_KeyProc(void)
 			
 			case KEY_WIFI_OPEN_CLEAN_CAR:
 			{
-				bsp_SperkerPlay(Song1);
+				//bsp_SperkerPlay(Song1);
+				//开启清扫
+				bsp_PutKey(KEY_LONG_CLEAN); 
+				
 			}break;
 			
 			case KEY_WIFI_CLOSE_CLEAN_CAR:
 			{
-				bsp_SperkerPlay(Song2);
-				
+				//bsp_SperkerPlay(Song2);
+				bsp_PutKey(KEY_DOWN_CLEAN);
 				/*灯光亮3颗白色灯*/
 				bsp_OpenThreeWhileLed();
 				bsp_SetLedState(LED_DEFAULT_STATE);
