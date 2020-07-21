@@ -712,8 +712,8 @@ void bsp_SearchChargePile(void)
 			{
 				search.isPossibleRight = true;
 				
-//				search.isNeedRote180 = true;
-//				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
 				
 				bsp_SetMotorSpeed(MotorLeft, 5);
 				bsp_SetMotorSpeed(MotorRight,2);
