@@ -2666,8 +2666,6 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
             linear_velocity = long_stra_vel;
             angular_velocity = 0;
         }
-        
-        
         break;
         
     case  GOSTR_BYPASS_BOW_CONTINUE_CL_DRYL:
@@ -15384,8 +15382,10 @@ unsigned char  DetectionCloseEdge(){
     {
         for (i = 0; i < GRIDHEIGHT; i++)
         {
+			i++;
             for (j = 0; j < GRIDHEIGHT/2; j++)
             {
+				j++;
                 if (gridmap.map[i][j] == 0)
                 {
                     close_edge_min_x = i;
@@ -15402,8 +15402,10 @@ unsigned char  DetectionCloseEdge(){
         }
         for (i = GRIDHEIGHT - 1; i > 0; i--)
         {
+			i--;
             for (j = 0; j < GRIDHEIGHT / 2; j++)
             {
+				j++;
                 if (gridmap.map[i][j] == 0)
                 {
                     close_edge_max_x = i;
@@ -15447,12 +15449,14 @@ unsigned char  DetectionCloseEdge(){
                 if(close_edge_max_x-close_l_edge_max_x<0){
                     i=close_edge_max_x;
                     for (j = 0; j < close_edge_max_y;j++)
-                    {								
+                    {
+						j++;					
                         if (gridmap.map[i][j] == 0)
                         {
                             if (my_abs(close_edge_max_y - j) <=3)
                             {
                                 for(k=j;k>0;k-- ){
+									k--;
                                     if(gridmap.map[i][k] != 0){
                                         close_edge_max_x = i;
                                         close_l_edge_max_x = i;
@@ -15469,12 +15473,14 @@ unsigned char  DetectionCloseEdge(){
                     }
                     if(end_x == false){
                         for (j =close_edge_max_y+1; j <GRIDHEIGHT/2+10 ; j++)
-                        {              
+                        {
+							j++;
                             if (gridmap.map[i][j] == 0)
                             {
                                 if (my_abs(close_edge_max_y - j) <=3)
                                 {
                                     for(k=j;k<GRIDHEIGHT/2+10;k++){
+										k++;
                                         if(gridmap.map[i][k] != 0){                                           
                                             close_edge_max_x = i;
                                             close_l_edge_max_x = i;
@@ -15506,8 +15512,10 @@ unsigned char  DetectionCloseEdge(){
     {
         for (i = 0; i < GRIDHEIGHT; i++)
         {
+			i++;
             for (j = GRIDHEIGHT - 1; j > 1; j--)
             {
+				j--;
                 if (gridmap.map[i][j] == 0)
                 {
                     close_edge_min_x = i;
@@ -15524,8 +15532,10 @@ unsigned char  DetectionCloseEdge(){
         }
         for (i = GRIDHEIGHT - 1; i > 0; i--)
         {
+			i--;
             for (j = GRIDHEIGHT - 1; j > 1; j--)
             {
+				j--;
                 if (gridmap.map[i][j] == 0)
                 {
                     close_edge_max_x = i;
@@ -15569,12 +15579,14 @@ unsigned char  DetectionCloseEdge(){
                 if(close_edge_max_x-close_l_edge_max_x<0){
                     i=close_edge_max_x;
                     for (j = GRIDHEIGHT - 1; j > close_edge_max_y; j--)
-                    {              
+                    {
+						j--;						
                         if (gridmap.map[i][j] == 0)
                         {
                             if (my_abs(close_edge_max_y - j) <=3)
                             {
                                 for(k=j;k<GRIDHEIGHT;k++){
+									k++;
                                     if(gridmap.map[i][k] != 0){                                           
                                         close_edge_max_x = i;
                                         close_l_edge_max_x = i;
@@ -15592,12 +15604,14 @@ unsigned char  DetectionCloseEdge(){
                     }
                     if(end_x == false){
                         for (j =close_edge_max_y-1; j >GRIDHEIGHT/2-40 ; j--)
-                        {              
+                        {
+							j--;							
                             if (gridmap.map[i][j] == 0)
                             {
                                 if (my_abs(close_edge_max_y - j) <=3)
                                 {                                    
                                     for(k=j;k>GRIDHEIGHT/2-20;k--){
+										k--;
                                         if(gridmap.map[i][k] != 0){                                           
                                             close_edge_max_x = i;
                                             close_l_edge_max_x = i;
@@ -15626,7 +15640,7 @@ unsigned char  DetectionCloseEdge(){
             }
         }
     }
-    if (close_edge_max_x - close_edge_min_x >= 3)
+    if (close_edge_max_x - close_edge_min_x > 3)
     {
         detection_close = true;
     }
