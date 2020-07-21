@@ -126,7 +126,8 @@ typedef struct
 	bool isInBack;                    /*后退过程中*/
 	bool isNeedRote180;               /*在没有任何信号的情况下，可能需要掉头180度*/
 	uint32_t isNeedRote180StartPulse; /*在没有任何信号的情况下，可能需要掉头180度，起始脉冲*/
-	bool isBanOnlyF_Wide;
+	bool isPossibleRightJustOnce;     /*只执行1次*/
+	bool isPossibleRight;             /*只有前面收到了广角，转90，画大弧线*/
 }Serach;
 
 
@@ -151,10 +152,13 @@ void bsp_StartSearchChargePile(void)
 	search.lastReallyChargeTime = 0 ;
 	search.ONLY_F_RX_WIDE_CNT = 0 ;
 	search.isNeedFirstRunRandom = true;
-	search.isBanOnlyF_Wide = false;
 	search.isInBack = false;
 	search.isNeedRote180 = false;
 	search.isNeedRote180StartPulse = 0 ;
+	search.isPossibleRight = false;
+	
+	//search.isPossibleRightJustOnce = true;  不清除，只有停止了才清除
+	
 	search.isRunning = true;
 	
 	/*防止编译器警告*/
@@ -177,9 +181,9 @@ void bsp_StopSearchChargePile(void)
 	bsp_SetMotorSpeed(MotorRight,0);
 	search.isRunning = false;
 	search.isNeedFirstRunRandom = false;
-	search.isBanOnlyF_Wide = false;
 	search.action = 0 ;
 	search.delay = 0 ;
+	search.isPossibleRightJustOnce = true;
 	
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 	
@@ -559,12 +563,10 @@ void bsp_SearchChargePile(void)
 			if(ALL_NO_SIGNAL && (search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))))
 			{
 				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
-				bsp_SetMotorSpeed(MotorLeft, -8);
-				bsp_SetMotorSpeed(MotorRight,-8);
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight,-3);
 				
-				search.isInBack = true;
-				search.pulse = bsp_GetCurrentBothPulse();
-				search.action = 3;
+				search.action = 7;
 			}
 			/*有信号碰撞*/
 			else if(!ALL_NO_SIGNAL && (search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))))
@@ -598,7 +600,19 @@ void bsp_SearchChargePile(void)
 						bsp_SetMotorSpeed(MotorRight,3);
 					}
 					
+					/*为了再次转圈圈*/
+					bsp_StartSearchChargePile();
+					
 				}
+			}
+			else if(search.isPossibleRightJustOnce && ONLY_F_RX_WIDE) /*如果只有前面收到了广角，而且前面收不到窄角信号  而且边上没有信号  进行特殊处理*/
+			{
+				search.isPossibleRightJustOnce = false;
+				
+				bsp_SetMotorSpeed(MotorLeft, 0);
+				bsp_SetMotorSpeed(MotorRight,0);
+				
+				search.action = 5;
 			}
 			else if(ROTATE_CW)
 			{
@@ -672,7 +686,7 @@ void bsp_SearchChargePile(void)
 			}
 		}break;
 		
-		case 4:
+		case 4: /*信号都丢了 ， 原地转180吧*/
 		{
 			if(bsp_GetCurrentBothPulse() - search.pulse >= CCW_180_PULSE)
 			{
@@ -682,6 +696,54 @@ void bsp_SearchChargePile(void)
 			}
 		}break;
 		
+		/**********************************************从这里开始 专门处理只有广角信号的情况********************************************/
+		
+		case 5: /*认为机器在桩的右边，所以左转90，然后画弧线*/
+		{
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight, 3);
+				++search.action ;
+		}break;
+		
+		case 6:  /*认为机器在桩的右边，所以左转90，然后画弧线*/
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse >= CCW_90_PULSE)
+			{
+				search.isPossibleRight = true;
+				
+//				search.isNeedRote180 = true;
+//				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
+				bsp_SetMotorSpeed(MotorLeft, 5);
+				bsp_SetMotorSpeed(MotorRight,2);
+				search.action = 3 ;
+			}
+		}break;
+		
+		
+		
+		case 7: /*认为机器在桩的左边，掉头180，然后画弧线*/
+		{
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft,  -3);
+				bsp_SetMotorSpeed(MotorRight,  3);
+				++search.action ;
+		}break;
+		
+		case 8:  /*认为机器在桩的左边，掉头180，然后画弧线*/
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse >= CCW_180_PULSE)
+			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
+				
+				bsp_SetMotorSpeed(MotorLeft, 2);
+				bsp_SetMotorSpeed(MotorRight,5);
+				search.action = 3 ;
+			}
+		}break;
 		
 	}
 }

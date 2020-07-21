@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jul 20 18:41:57 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Jul 21 14:04:03 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -3151,11 +3151,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[1d3]"></a>bsp_SearchChargePile</STRONG> (Thumb, 2426 bytes, Stack size 40 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
-<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = bsp_SearchChargePile &rArr; bsp_CloseAllStateRun &rArr; bsp_StopUpdateCleanStrategyB &rArr; bsp_ResetCleanStrategyBStatus &rArr; bsp_StartUpdateGridMap
+<P><STRONG><a name="[1d3]"></a>bsp_SearchChargePile</STRONG> (Thumb, 2678 bytes, Stack size 40 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
+<BR><BR>[Stack]<UL><LI>Max Depth = 148<LI>Call Chain = bsp_SearchChargePile &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetLedAppState
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartSearchChargePile
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 <LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
@@ -3390,7 +3391,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
+<BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
 <P><STRONG><a name="[15d]"></a>bsp_StartSelfCheck</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, bsp_selfcheck.o(i.bsp_StartSelfCheck))
@@ -3461,7 +3463,7 @@ Global Symbols
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
-<P><STRONG><a name="[126]"></a>bsp_StopSearchChargePile</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_StopSearchChargePile))
+<P><STRONG><a name="[126]"></a>bsp_StopSearchChargePile</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, bsp_searchchargepile.o(i.bsp_StopSearchChargePile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = bsp_StopSearchChargePile &rArr; bsp_MotorCleanSetPWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
