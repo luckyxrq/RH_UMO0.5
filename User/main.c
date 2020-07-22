@@ -252,6 +252,8 @@ static void vTaskPerception(void *pvParameters)
 	
 	
 	
+	bsp_StartVacuum(100);
+	
 #if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 	bsp_StartVacuum(VACUUM_DEFAULT_PER);
 	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
@@ -678,7 +680,7 @@ static void bsp_KeyProc(void)
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_StartVacuum(VACUUM_DEFAULT_PER);
+				bsp_StartVacuum(100);
 				}
 				
 				
