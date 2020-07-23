@@ -437,12 +437,18 @@
 #define REBACK_GOSTR_BYPASS_CHECK_WE                                                            0x1F4
 
 #define GOSTR_BYPASS_WE_X                                                                       0x1F5
-#define CLOSE_EDGE_MAP_RIGHT_WALK                                                               0x1F6
-#define TURN_CLOSE_EDGE_MAP_RIGHT_WALK                                                          0x1F7
-#define COLLISION_TURN_CLOSE_EDGE_MAP_RIGHT_WALK                                                0x1F8
-#define STRAIGHT_CLOSE_EDGE_MAP_RIGHT_WALK                                                      0x1F9
-#define CLOSE_EDGE_MAP_RIGHT_WALK_TURN_CLOCK_YAW_ADD_ABS15_WE                                   0x1FA
-#define COLLISION_CLOSE_EDGE_MAP_RIGHT_WALK_TURN_CLOCK_YAW_ADD_ABS15_WE                         0x1FB
+
+
+//#define CLOSE_EDGE_MAP_RIGHT_WALK                                                               0x1F6
+//#define TURN_CLOSE_EDGE_MAP_RIGHT_WALK                                                          0x1F7
+//#define COLLISION_TURN_CLOSE_EDGE_MAP_RIGHT_WALK                                                0x1F8
+//#define STRAIGHT_CLOSE_EDGE_MAP_RIGHT_WALK                                                      0x1F9
+
+#define CLOSE_EDGE_MAP_RIGHT_WALK_TURN_CLOCK_YAW_ADD_ABS15_WE                                   0x1F6
+#define COLLISION_CLOSE_EDGE_MAP_RIGHT_WALK_TURN_CLOCK_YAW_ADD_ABS15_WE                         0x1F7
+#define FRONT_COLLISION_TURN_CLOCK_YAW_ADD_ABS15_WE                                             0x1F8
+#define FRONT_COLLISION_TURN_CLOCK_YAW_ADD_ABS15_COLLISION_WE                                   0x1F9
+
 
 
 #define GOBACK_REVERSE_WALK_EDGE                                                                0x200
@@ -470,11 +476,14 @@
 #define REBACK_GOSTR_BYPASS_CHECK_RWE                                                           0x214
 
 #define GOSTR_BYPASS_RWE_X                                                                      0x215
-#define CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK                                                       0x216
-#define STRAIGHT_CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK                                              0x217
-#define COLLISION_TURN_CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK                                        0x219
-#define CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK_TURN_CCLOCK_YAW_ADD_ABS15_RWE                         0x21A
-#define COLLISION_CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK_TURN_CCLOCK_YAW_ADD_ABS15_RWE               0x21B
+//#define CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK                                                       0x216
+//#define STRAIGHT_CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK                                              0x217
+//#define COLLISION_TURN_CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK                                        0x219
+#define CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK_TURN_CCLOCK_YAW_ADD_ABS15_RWE                         0x216
+#define COLLISION_CLOSE_EDGE_MAP_RIGHT_REVERSE_WALK_TURN_CCLOCK_YAW_ADD_ABS15_RWE               0x217
+#define FRONT_COLLISION_TURN_CCLOCK_YAW_ADD_ABS15_RWE                                           0x218
+#define FRONT_COLLISION_TURN_CCLOCK_YAW_ADD_ABS15_COLLISION_RWE                                 0x219
+
 
 //dilemma function
 #define DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA                                       0x221
@@ -505,6 +514,12 @@
 #define RIGHTWALKEDGE                                                                          0x237
 #define RIGHTREVERSEWALKEDGE                                                                   0x238
 #define RIGHTEDGEDILEMMA                                                                       0x239
+#define FRONT_COLLISION_CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA                                    0x23A
+#define FRONT_COLLISION_CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA_COLLISION                          0x23B
+#define FRONT_COLLISION_CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA                                     0x23C
+#define FRONT_COLLISION_CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA_COLLISION                           0x23D
+
+
 
 #define GOSTR_LEFTRUN_STEP                                                                     0x250 //go straight
 #define GOSTR_RIGHT_DEV_LEFTRUN_STEP                                                           0x251 //go straight left deviation
@@ -705,7 +720,8 @@
 #define COLLISION_TURN_CLOSE_EDGE_MAP_LEFT_WALK                                                0x338
 #define CLOSE_EDGE_MAP_LEFT_WALK_TURN_CCLOCK_YAW_ADD_ABS15_WE                                  0x339
 #define COLLISION_CLOSE_EDGE_MAP_LEFT_WALK_TURN_CCLOCK_YAW_ADD_ABS15_WE                        0x33A
-
+#define LEFT_EDGE_TURN_CCLOCK_YAW_ADD_ABS15_WE_FRONT_COLLISION                                 0x33B
+#define LEFT_EDGE_TURN_CCLOCK_YAW_ADD_ABS15_WE_FRONT_COLLISION_COLLISION                       0x33C
 
 #define LEFT_GOBACK_REVERSE_WALK_EDGE                                                          0x340
 #define LEFT_REVERSE_EDGE_TURN_CLOCK_TARGET_YAW_LESS_ABS63_RWE                                 0x341
@@ -732,12 +748,10 @@
 #define LEFT_REVERSE_EDGE_REBACK_GOSTR_BYPASS_CHECK_RWE                                        0x354
 
 #define LEFT_REVERSE_EDGE_GOSTR_BYPASS_RWE_X                                                   0x355
-#define CLOSE_EDGE_MAP_LEFT_REVERSE_WALK                                                       0x356
-#define STRAIGHT_CLOSE_EDGE_MAP_LEFT_REVERSE_WALK                                              0x357
-#define COLLISION_TURN_CLOSE_EDGE_MAP_LEFT_REVERSE_WALK                                        0x358
-#define CLOSE_EDGE_MAP_LEFT_REVERSE_WALK_TURN_CLOCK_YAW_ADD_ABS15_RWE                          0x359
-#define COLLISION_CLOSE_EDGE_MAP_LEFT_REVERSE_WALK_TURN_CLOCK_YAW_ADD_ABS15_RWE                0x35A
-
+#define CLOSE_EDGE_MAP_LEFT_REVERSE_WALK_TURN_CLOCK_YAW_ADD_ABS15_RWE                          0x356
+#define COLLISION_CLOSE_EDGE_MAP_LEFT_REVERSE_WALK_TURN_CLOCK_YAW_ADD_ABS15_RWE                0x357
+#define LEFT_REVERSE_EDGE_TURN_CLOCK_YAW_ADD_ABS15_RWE_FRONT_COLLISION                         0x358
+#define LEFT_REVERSE_EDGE_TURN_CLOCK_YAW_ADD_ABS15_RWE_FRONT_COLLISION_COLLISION               0x359
 
 //left dilemma function
 #define LEFT_DILEMMA_DELTA_X_MORE_ONE_THIRD_CLEANED_MAP_WIDTH_DILEMMA                          0x361
@@ -763,11 +777,14 @@
 #define LEFT_DILEMMA_GOSTR_GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYL_DILEMMA                          0x373
 #define LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA                                      0x374
 #define LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_COLLISION_DILEMMA                            0x375
-
 #define COMPLETE_LEFT_DILEMMA                                                                  0x376
 #define LEFTWALKEDGE                                                                           0x377
 #define LEFTREVERSEWALKEDGE                                                                    0x378
 #define LEFTEDGEDILEMMA                                                                        0x379
+#define LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA_FRONT_COLLISION                      0x37A
+#define LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA_FRONT_COLLISION_COLLISION            0x37B
+#define LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA_FRONT_COLLISION                      0x37C
+#define LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA_FRONT_COLLISION_COLLISION            0x37D
 
 
 #define LEFT_STUCK_FORWARD_BOUNDARY_LEFT_RUNSTEP                                                0x390
