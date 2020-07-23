@@ -105,7 +105,7 @@ void bsp_Init(void)
 	bsp_InitDustBox();
 	
 	/*加密芯片*/
-	//bsp_DX8_CMD();
+	bsp_DX8_CMD();
 
 #if 0
 	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
