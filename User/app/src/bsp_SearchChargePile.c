@@ -16,6 +16,12 @@
 
 
 
+#define CCW_180_PULSE      1700                /*转动180度的脉冲数*/
+#define CCW_360_PULSE      (CCW_180_PULSE*2)   /*转动360度的脉冲数*/
+#define CCW_90_PULSE       (CCW_180_PULSE/2)   /*转动90 度的脉冲数*/
+#define CCW_45_PULSE       (CCW_180_PULSE/4)   /*转动45 度的脉冲数*/
+
+
 #define _SEARCH_PILE_GO_BACK_PULSE                  (10/(3.14F*70)*1024)
 
 /*
@@ -37,7 +43,7 @@
 
 /*
 **********************************************************************************************************
-                                    边上收到了广角  需要小一点的大转弯
+                      边上收到了广角  并且边上不能同时收到两个窄角信号  并且前面收不到任何窄角信号
 **********************************************************************************************************
 */
 #define ROTATE_CW_LITTLE    ( !(IR_SR_L && IR_SR_R) && IR_SR_M && F_NO_NARROW_SIGNAL)
@@ -45,7 +51,7 @@
 
 /*
 **********************************************************************************************************
-                                    边上收到了2个窄角  需要大转弯
+                          边上收到了2个窄角  需要原地大转弯  并且前面收不到窄角信号
 **********************************************************************************************************
 */
 #define ROTATE_CW           ( (IR_SR_L && IR_SR_R) && F_NO_NARROW_SIGNAL)
@@ -117,13 +123,11 @@ typedef struct
 	uint32_t lastSIGNAL_Tick;
 	uint32_t ONLY_F_RX_WIDE_CNT;
 	
-	bool isInCW_LITTLE;  /*顺时针旋转的时候收到了前面的信号*/
-	bool isInCCW_LITTLE; /*逆时针旋转的时候收到了前面的信号*/
-	
-	bool isInCW_LITTLE_RX_F;  /*顺时针旋转的时候收到了前面的信号*/
-	bool isInCCW_LITTLE_RX_F; /*逆时针旋转的时候收到了前面的信号*/
-	
-	bool isBanOnlyF_Wide;
+	bool isInBack;                    /*后退过程中*/
+	bool isNeedRote180;               /*在没有任何信号的情况下，可能需要掉头180度*/
+	uint32_t isNeedRote180StartPulse; /*在没有任何信号的情况下，可能需要掉头180度，起始脉冲*/
+	bool isPossibleRightJustOnce;     /*只执行1次*/
+	bool isPossibleRight;             /*只有前面收到了广角，转90，画大弧线*/
 }Serach;
 
 
@@ -148,7 +152,13 @@ void bsp_StartSearchChargePile(void)
 	search.lastReallyChargeTime = 0 ;
 	search.ONLY_F_RX_WIDE_CNT = 0 ;
 	search.isNeedFirstRunRandom = true;
-	search.isBanOnlyF_Wide = false;
+	search.isInBack = false;
+	search.isNeedRote180 = false;
+	search.isNeedRote180StartPulse = 0 ;
+	search.isPossibleRight = false;
+	
+	//search.isPossibleRightJustOnce = true;  不清除，只有停止了才清除
+	
 	search.isRunning = true;
 	
 	/*防止编译器警告*/
@@ -171,16 +181,23 @@ void bsp_StopSearchChargePile(void)
 	bsp_SetMotorSpeed(MotorRight,0);
 	search.isRunning = false;
 	search.isNeedFirstRunRandom = false;
-	search.isBanOnlyF_Wide = false;
 	search.action = 0 ;
 	search.delay = 0 ;
+	search.isPossibleRightJustOnce = true;
 	
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , 0);
 	
 }	
 
 
-
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_DetectIsTouchChargePile
+*	功能说明: 检测到充电桩了，可以停止了
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 void bsp_DetectIsTouchChargePile(void)
 {
 	if(search.isRunning && bsp_IsTouchChargePile())
@@ -191,423 +208,6 @@ void bsp_DetectIsTouchChargePile(void)
 		bsp_CloseAllStateRun();
 		
 		search.isRunning = false;
-	}
-}
-
-
-/*
-*********************************************************************************************************
-*	函 数 名: bsp_SearchChargePile
-*	功能说明: 寻找充电桩状态机
-*	形    参: 无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void bsp_SearchChargePile(void)
-{
-	
-	bsp_IsTouchChargePile();
-	bsp_IsCharging();
-	bsp_IsChargeDone();
-	
-	if(isCleanRunning() || GetCmdStartUpload())
-		return;
-	
-	if(bsp_IsTouchChargePile())
-	{
-		/*播放开始充电*/
-		if(search.isNeedPlaySong && (xTaskGetTickCount() >= search.isNeedPlaySongTick  && xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000) ) /*这个时间判断避免了抖动播放开始充电*/
-		{
-			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
-			bsp_SperkerPlay(Song22);
-			search.isNeedPlaySong = false;
-			
-			search.lastReallyChargeTime = xTaskGetTickCount();
-		}
-
-		if(bsp_IsChargeDone())
-		{
-			
-			if(xTaskGetTickCount() - search.lastIsChargeDoneTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
-			{
-				bsp_SetLedState(AT_CHARGE_DONE);
-			}
-		}
-		else
-		{
-			bsp_SetLedState(AT_CHARGING);
-			search.lastIsChargeDoneTick = xTaskGetTickCount();
-		}
-		
-		search.lastIsTouchTick = xTaskGetTickCount();
-	}
-	else /*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
-	{
-		if((xTaskGetTickCount() >= search.lastIsTouchTick)  &&  (xTaskGetTickCount() - search.lastIsTouchTick >= 500))
-		{
-			 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!这里需要根据扫地与否更改*/
-			if( bsp_GetLedAppState() != AT_CLEAN && 
-				bsp_GetLedAppState() != AT_SEARCH_CHARGE &&
-				bsp_GetLedAppState() != THREE_WHITE_TOOGLE &&
-			    bsp_GetLedAppState() != AT_LINK)
-			{
-				bsp_SetLedState(THREE_WHITE_ON);
-			}
-			
-			search.isNeedPlaySongTick = xTaskGetTickCount();
-			search.isNeedPlaySong = true;
-			search.lastIsTouchTick = UINT32_T_MAX;
-		}
-		
-		
-		if(search.lastReallyChargeTime != 0 && (xTaskGetTickCount() - search.lastReallyChargeTime <= 10*1000))
-		{
-			bsp_StartSearchChargePile(); /*冲上又抖掉了  再次开启充电*/
-		}
-		
-	}
-	
-	
-	if(!search.isRunning)
-	{
-		return;
-	}
-		
-
-	/*计时，时间到了还没找到充电桩*/
-	if(xTaskGetTickCount() - search.startTick >= MAX_SEARCH_TICK)
-	{
-		bsp_SetMotorSpeed(MotorLeft,0);
-		bsp_SetMotorSpeed(MotorRight,0);
-		bsp_CloseAllStateRun();
-		
-		bsp_SetLedState(THREE_WHITE_ON); 
-		bsp_SperkerPlay(Song24);
-		
-		return;
-	}
-	
-	
-	
-	/*充电*/
-	if(bsp_IsTouchChargePile() == true)
-	{
-		bsp_SetMotorSpeed(MotorLeft,0);
-		bsp_SetMotorSpeed(MotorRight,0);
-		bsp_CloseAllStateRun();
-		
-		return ;
-	}
-	
-	/*先随机清扫*/
-	if(search.isNeedFirstRunRandom)
-	{
-		bsp_StartStrategyRandom();
-		search.isNeedFirstRunRandom = false;
-	}
-	
-	
-	
-	/*如果在执行随机清扫，则不执行后面的寻找充电桩*/
-	if(bsp_IsStartStrategyRandom())
-	{
-		if(!ALL_NO_SIGNAL) /*收到了信号就执行后面的寻找充电桩*/
-		{
-			DEBUG("退出随机\r\n");
-			
-			bsp_SetMotorSpeed(MotorLeft,0);
-			bsp_SetMotorSpeed(MotorRight,0);
-			bsp_StopStrategyRandom();
-		}
-		return;
-	}
-	
-	
-	
-	if(!ALL_NO_SIGNAL) /*最后一次有信号时间*/
-	{
-		search.lastSIGNAL_Tick = xTaskGetTickCount();
-	}
-	
-	
-	if(xTaskGetTickCount() - search.lastSIGNAL_Tick >= 1000*60*1.5)
-	{
-		search.action = 0 ;
-		search.lastSIGNAL_Tick = xTaskGetTickCount();
-		
-		bsp_SetMotorSpeed(MotorLeft,0);
-		bsp_SetMotorSpeed(MotorRight,0);
-		bsp_StartStrategyRandom();
-		return;
-	}
-	
-	
-	if(IR_FL_L || IR_FL_R || IR_FR_L || IR_FR_R)
-	{
-		search.isBanOnlyF_Wide = true;
-	}
-	
-	
-	switch(search.action)
-	{
-		case 0:
-		{
-			bsp_SetMotorSpeed(MotorLeft, 6);
-			bsp_SetMotorSpeed(MotorRight,6);
-			
-			search.action++;
-		}break;
-		
-		case 1:
-		{
-			/*首先判断碰撞*/
-			search.collision = bsp_CollisionScan();
-			
-			if(search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight)))
-			{
-				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
-				bsp_SetMotorSpeed(MotorLeft, -3);
-				bsp_SetMotorSpeed(MotorRight,-3);
-				
-				search.delay = xTaskGetTickCount();
-				search.action++;
-			}
-			else
-			{
-				if(!search.isBanOnlyF_Wide && ONLY_F_RX_WIDE)
-				{
-					if(++search.ONLY_F_RX_WIDE_CNT >= 100)
-					{
-						search.ONLY_F_RX_WIDE_CNT = 0 ;
-						bsp_SetMotorSpeed(MotorLeft, 0);
-						bsp_SetMotorSpeed(MotorRight,0);
-						
-						search.action = 3 ;
-						return;
-					}
-				}
-				else
-				{
-					search.ONLY_F_RX_WIDE_CNT = 0 ;
-				}
-				
-				
-				if(search.isInCW_LITTLE)
-				{
-					if((IR_FL_M || IR_FR_M) && (!IR_FL_L && !IR_FL_R && !IR_FR_L && !IR_FR_R) )
-					{
-						search.ONLY_F_RX_WIDE_CNT = 0 ;
-						bsp_SetMotorSpeed(MotorLeft, 0);
-						bsp_SetMotorSpeed(MotorRight,0);
-						
-						search.action = 3 ;
-					}
-				}
-				
-				if(ROTATE_CW_LITTLE)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 7);
-					bsp_SetMotorSpeed(MotorRight,2);
-					
-					search.isInCW_LITTLE = true;
-				}
-				else if(ROTATE_CW_LITTLE)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 2);
-					bsp_SetMotorSpeed(MotorRight,7);
-					search.isInCCW_LITTLE = true;
-				}
-				else if(ROTATE_CW)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 2);
-					bsp_SetMotorSpeed(MotorRight,-2);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(ROTATE_CCW)
-				{
-					bsp_SetMotorSpeed(MotorLeft, -2);
-					bsp_SetMotorSpeed(MotorRight,2);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 3);
-					bsp_SetMotorSpeed(MotorRight,3);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 3);
-					bsp_SetMotorSpeed(MotorRight,5);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
-				{
-					bsp_SetMotorSpeed(MotorLeft, 5);
-					bsp_SetMotorSpeed(MotorRight,3);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-				else if(F_NO_NARROW_SIGNAL) 
-				{
-//					bsp_SetMotorSpeed(MotorLeft, 3);
-//					bsp_SetMotorSpeed(MotorRight,3);
-					
-					SET_CW_CCW_LITTLE_FALSE();
-				}
-			}
-		}break;
-		
-
-		case 2:
-		{
-			if(xTaskGetTickCount() - search.delay >= 3900)
-			{
-				if(FL_NO_SIGNAL && FR_NO_SIGNAL) /*平常的碰撞处理*/
-				{
-					bsp_SetMotorSpeed(MotorLeft, 0);
-					bsp_SetMotorSpeed(MotorRight,0);
-					
-					search.action = 10 ;
-				}
-				else
-				{
-					search.action = 0 ;
-				}
-			}
-			else
-			{
-				if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
-				{
-					bsp_SetMotorSpeed(MotorLeft, -5);
-					bsp_SetMotorSpeed(MotorRight,-3);
-				}
-				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
-				{
-					bsp_SetMotorSpeed(MotorLeft, -3);
-					bsp_SetMotorSpeed(MotorRight,-5);
-				}
-				else if(F_NO_NARROW_SIGNAL) 
-				{
-					bsp_SetMotorSpeed(MotorLeft, -3);
-					bsp_SetMotorSpeed(MotorRight,-3);
-				}
-			}
-		}break;
-		
-		case 3:
-		{
-			search.angle = REAL_ANGLE();
-			bsp_SetMotorSpeed(MotorLeft, -3);
-			bsp_SetMotorSpeed(MotorRight,3);
-			
-			++search.action;
-		}break;
-		
-		case 4:
-		{
-			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 90)) <= 10)
-			{
-				bsp_SetMotorSpeed(MotorLeft, 6);
-				bsp_SetMotorSpeed(MotorRight,2);
-				search.delay = xTaskGetTickCount();
-				++search.action;
-			}
-//			else if(IR_FL_L || IR_FL_R  || IR_FR_L || IR_FR_R || IR_SL_L || IR_SL_R || IR_SR_L || IR_SR_R)
-//			{
-//				bsp_SetMotorSpeed(MotorLeft, 3);
-//				bsp_SetMotorSpeed(MotorRight,3);
-//				search.action = 0 ;
-//			}
-		}break;
-		
-		
-		case 5:
-		{
-			//if(xTaskGetTickCount() - search.delay >= 3600  || bsp_CollisionScan() != CollisionNone)
-			if(bsp_CollisionScan() != CollisionNone)
-			{
-				
-				if(SL_NO_SIGNAL && FL_NO_SIGNAL && FR_NO_SIGNAL)  /*边是错的，则换边*/
-				{
-					bsp_SetMotorSpeed(MotorLeft, 0);
-					bsp_SetMotorSpeed(MotorRight,0);
-					
-					++search.action;
-				}
-				else
-				{
-					search.action = 0;
-				}
-			}
-			else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2 || INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2 || ROTATE_CW || ROTATE_CCW)
-			{
-				bsp_SetMotorSpeed(MotorLeft, 0);
-				bsp_SetMotorSpeed(MotorRight,0);
-				search.action = 0;
-			}
-		}break;
-		
-		case 6:
-		{
-			search.pulse = bsp_GetCurrentBothPulse();
-			bsp_SetMotorSpeed(MotorLeft, -3);
-			bsp_SetMotorSpeed(MotorRight,-3);
-			++search.action;
-		}break;
-		
-		case 7:
-		{
-			if(bsp_GetCurrentBothPulse() - search.pulse >= _SEARCH_PILE_GO_BACK_PULSE)
-			{
-				search.angle = REAL_ANGLE();
-				bsp_SetMotorSpeed(MotorLeft, 3);
-				bsp_SetMotorSpeed(MotorRight,-3);
-				++search.action;
-			}
-		}break;
-		
-		case 8:
-		{
-			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 180)) <= 10)
-			{
-				bsp_SetMotorSpeed(MotorLeft, 2);
-				bsp_SetMotorSpeed(MotorRight,7);
-				search.delay = xTaskGetTickCount();
-				++search.action;
-			}
-		}break;
-		
-		case 9:
-		{
-			if(xTaskGetTickCount() - search.delay >= 3600 )
-			{
-				search.action = 1 ;
-			}
-		}break;
-		
-		case 10: /*从这里开始处理碰撞往复问题*/
-		{
-			search.angle = REAL_ANGLE();
-			bsp_SetMotorSpeed(MotorLeft, -3);
-			bsp_SetMotorSpeed(MotorRight,3);
-			++search.action;
-		}break;
-		
-		case 11:
-		{
-			if(ABS(REAL_ANGLE() - bsp_AngleAdd(search.angle, 60)) <= 10)
-			{
-				bsp_SetMotorSpeed(MotorLeft, 3);
-				bsp_SetMotorSpeed(MotorRight,3);
-				search.delay = xTaskGetTickCount();
-				search.action = 1 ;
-			}
-		}break;
 	}
 }
 
@@ -705,4 +305,448 @@ bool bsp_IsChargeDone(void)
 		return false ;
 	}
 }
+
+
+
+
+
+
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_CCW_360_BY_Encoder
+*	功能说明: 顺时针旋转360度
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+
+
+
+
+
+
+
+
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_SearchChargePile
+*	功能说明: 寻找充电桩状态机
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_SearchChargePile(void)
+{
+
+	/**************************************************************如果处在清扫状态 或者 处在上传数据的状态 则直接返回**********************************************************************************/
+	if(isCleanRunning() || GetCmdStartUpload())
+		return;
+	
+	
+	
+	/********************************************************************这一段是在找充电桩的动作前面判断的********************************************************************************************/
+	if(bsp_IsTouchChargePile())
+	{
+		/*播放开始充电*/
+		if(search.isNeedPlaySong && ((xTaskGetTickCount() >= search.isNeedPlaySongTick)  && (xTaskGetTickCount() - search.isNeedPlaySongTick >= 1000)) ) /*这个时间判断避免了抖动播放开始充电*/
+		{
+			search.isNeedPlaySongTick = UINT32_T_MAX; /*给个最大时间刻度，下次自然不会满足*/
+			bsp_SperkerPlay(Song22);
+			search.isNeedPlaySong = false;
+			
+			search.lastReallyChargeTime = xTaskGetTickCount();
+		}
+
+		if(bsp_IsChargeDone())
+		{
+			
+			if(xTaskGetTickCount() - search.lastIsChargeDoneTick >= 1000) /*这个时间判断避免了黄灯，绿灯闪烁*/
+			{
+				bsp_SetLedState(AT_CHARGE_DONE);
+			}
+		}
+		else
+		{
+			bsp_SetLedState(AT_CHARGING);
+			search.lastIsChargeDoneTick = xTaskGetTickCount();
+		}
+		
+		search.lastIsTouchTick = xTaskGetTickCount();
+	}
+	else /*离桩状态需要立马更改，但是灯需要等会儿处理，不然会抖动*/
+	{
+		if((xTaskGetTickCount() >= search.lastIsTouchTick)  &&  (xTaskGetTickCount() - search.lastIsTouchTick >= 500))
+		{
+			 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!这里需要根据扫地与否更改*/
+			if( bsp_GetLedAppState() != AT_CLEAN && 
+				bsp_GetLedAppState() != AT_SEARCH_CHARGE &&
+				bsp_GetLedAppState() != THREE_WHITE_TOOGLE &&
+			    bsp_GetLedAppState() != AT_LINK)
+			{
+				bsp_SetLedState(THREE_WHITE_ON);
+			}
+			
+			search.isNeedPlaySongTick = xTaskGetTickCount();
+			search.isNeedPlaySong = true;
+			search.lastIsTouchTick = UINT32_T_MAX;
+		}
+	}
+	
+	
+	if(!search.isRunning)
+	{
+		return;
+	}
+	
+
+	/***********************************************************************停止寻找充电桩**************************************************************************/
+
+	/*停止寻找-----------计时，时间到了还没找到充电桩*/
+	if(xTaskGetTickCount() - search.startTick >= MAX_SEARCH_TICK)
+	{
+		bsp_SetMotorSpeed(MotorLeft,0);
+		bsp_SetMotorSpeed(MotorRight,0);
+		bsp_CloseAllStateRun();
+		
+		bsp_SetLedState(THREE_WHITE_ON); 
+		bsp_SperkerPlay(Song24);
+		
+		return;
+	}
+	
+	/*停止寻找-----------检测接触到充电桩了*/
+	if(bsp_IsTouchChargePile() == true)
+	{
+		bsp_SetMotorSpeed(MotorLeft,0);
+		bsp_SetMotorSpeed(MotorRight,0);
+		bsp_CloseAllStateRun();
+		
+		return ;
+	}
+	
+	/********************************************************************真正寻找充电桩的动作************************************************************************/
+	
+	switch(search.action)
+	{
+		case 0:
+		{
+			search.pulse = bsp_GetCurrentBothPulse();
+			bsp_SetMotorSpeed(MotorLeft, 3);
+			bsp_SetMotorSpeed(MotorRight,-3);
+			
+			++search.action;
+		}break;
+		
+		case 1: /*第1圈过程中，如果捕捉到了明确走向的位置*/
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse <= CCW_360_PULSE) 
+			{
+				if(ROTATE_CW)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 2);
+					bsp_SetMotorSpeed(MotorRight,-2);
+					
+					search.action = 3;
+				}
+				else if(ROTATE_CCW)
+				{
+					bsp_SetMotorSpeed(MotorLeft, -2);
+					bsp_SetMotorSpeed(MotorRight,2);
+					
+					search.action = 3;
+				}
+				else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,3);
+					
+					search.action = 3;
+				}
+				else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,5);
+					
+					search.action = 3;
+				}
+				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 5);
+					bsp_SetMotorSpeed(MotorRight,3);
+					
+					search.action = 3;
+				}
+			}
+			else
+			{
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight, 3);
+				
+				++search.action;
+			}
+		}break;
+		
+		case 2:  /*第2圈过程中，找不到明确的位置，那么就退而求其次*/
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse <= CCW_360_PULSE) /*第1圈过程中，如果捕捉到了明确走向的位置*/
+			{
+				if(ROTATE_CW)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 2);
+					bsp_SetMotorSpeed(MotorRight,-2);
+					
+					search.action = 3;
+				}
+				else if(ROTATE_CCW)
+				{
+					bsp_SetMotorSpeed(MotorLeft, -2);
+					bsp_SetMotorSpeed(MotorRight,2);
+					
+					search.action = 3;;
+				}
+				else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,3);
+					
+					search.action = 3;
+				}
+				else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 3);
+					bsp_SetMotorSpeed(MotorRight,5);
+					
+					search.action = 3;
+				}
+				else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 5);
+					bsp_SetMotorSpeed(MotorRight,3);
+					
+					search.action = 3;
+				}
+				else if(ROTATE_CW_LITTLE)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 7);
+					bsp_SetMotorSpeed(MotorRight,2);
+					
+					search.action = 3;
+				}
+				else if(ROTATE_CW_LITTLE)
+				{
+					bsp_SetMotorSpeed(MotorLeft, 2);
+					bsp_SetMotorSpeed(MotorRight,7);
+					
+					search.action = 3;
+				}
+			}
+			else /*转第二圈，时间超过了，还没有知道怎么走，就直走*/
+			{
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft,  3);
+				bsp_SetMotorSpeed(MotorRight, 3);
+				
+				++search.action;
+			}
+		}break;	
+		
+		case 3: /*根据角度调整*/
+		{
+			search.collision = bsp_CollisionScan();
+		
+			/*无信号碰撞*/
+			if(ALL_NO_SIGNAL && (search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))))
+			{
+				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight,-3);
+				
+				search.action = 7;
+			}
+			/*有信号碰撞*/
+			else if(!ALL_NO_SIGNAL && (search.collision != CollisionNone || (bsp_CliffIsDangerous(CliffLeft) || bsp_CliffIsDangerous(CliffMiddle) || bsp_CliffIsDangerous(CliffRight))))
+			{
+				/*不管如何碰到了就后退，在后退的过程中再来调节轮子*/
+				bsp_SetMotorSpeed(MotorLeft, -8);
+				bsp_SetMotorSpeed(MotorRight,-8);
+				
+				search.isInBack = true;
+				search.pulse = bsp_GetCurrentBothPulse();
+				search.action = 3;
+			}
+			else if(search.isInBack)
+			{
+				if(bsp_GetCurrentBothPulse() - search.pulse >= _SEARCH_PILE_GO_BACK_PULSE*50)
+				{
+					search.isInBack = false;
+					if(search.collision == CollisionLeft)
+					{
+						bsp_SetMotorSpeed(MotorLeft, 5);
+						bsp_SetMotorSpeed(MotorRight,2);
+					}
+					else if(search.collision == CollisionRight)
+					{
+						bsp_SetMotorSpeed(MotorLeft, 2);
+						bsp_SetMotorSpeed(MotorRight,5);
+					}
+					else
+					{
+						bsp_SetMotorSpeed(MotorLeft, 3);
+						bsp_SetMotorSpeed(MotorRight,3);
+					}
+					
+					/*为了再次转圈圈*/
+					bsp_StartSearchChargePile();
+					
+				}
+			}
+			else if(search.isPossibleRightJustOnce && ONLY_F_RX_WIDE) /*如果只有前面收到了广角，而且前面收不到窄角信号  而且边上没有信号  进行特殊处理*/
+			{
+				search.isPossibleRightJustOnce = false;
+				
+				bsp_SetMotorSpeed(MotorLeft, 0);
+				bsp_SetMotorSpeed(MotorRight,0);
+				
+				search.action = 5;
+			}
+			else if(ROTATE_CW)
+			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
+				bsp_SetMotorSpeed(MotorLeft, 2);
+				bsp_SetMotorSpeed(MotorRight,-2);
+				
+				search.action = 3;
+			}
+			else if(ROTATE_CCW)
+			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
+				bsp_SetMotorSpeed(MotorLeft, -2);
+				bsp_SetMotorSpeed(MotorRight,2);
+				
+				search.action = 3;;
+			}
+			else if(RUN_STRAIGHT_0 ||  RUN_STRAIGHT_1)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 3);
+				bsp_SetMotorSpeed(MotorRight,3);
+				
+				search.action = 3;
+			}
+			else if(INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 3);
+				bsp_SetMotorSpeed(MotorRight,5);
+				
+				search.action = 3;
+			}
+			else if(INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 5);
+				bsp_SetMotorSpeed(MotorRight,3);
+				
+				search.action = 3;
+			}
+			else if(ROTATE_CW_LITTLE)
+			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
+				bsp_SetMotorSpeed(MotorLeft, 7);
+				bsp_SetMotorSpeed(MotorRight,2);
+				
+				search.action = 3;
+			}
+			else if(ROTATE_CCW_LITTLE)
+			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
+				bsp_SetMotorSpeed(MotorLeft, 2);
+				bsp_SetMotorSpeed(MotorRight,7);
+				
+				search.action = 3;
+			}
+			else if( search.isNeedRote180 && ALL_NO_SIGNAL && (bsp_GetCurrentBothPulse()-search.isNeedRote180StartPulse>=CCW_180_PULSE)) /*什么信号也没有了，就转180度吧*/
+			{
+				search.isNeedRote180 = false;
+				
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight, 3);
+				++search.action ;
+			}
+		}break;
+		
+		case 4: /*信号都丢了 ， 原地转180吧*/
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse >= CCW_180_PULSE)
+			{
+				bsp_SetMotorSpeed(MotorLeft, 3);
+				bsp_SetMotorSpeed(MotorRight,3);
+				search.action = 3 ;
+			}
+		}break;
+		
+		/**********************************************从这里开始 专门处理只有广角信号的情况********************************************/
+		
+		case 5: /*认为机器在桩的右边，所以左转90，然后画弧线*/
+		{
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight, 3);
+				++search.action ;
+		}break;
+		
+		case 6:  /*认为机器在桩的右边，所以左转90，然后画弧线*/
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse >= CCW_90_PULSE)
+			{
+				search.isPossibleRight = true;
+				
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
+				bsp_SetMotorSpeed(MotorLeft, 5);
+				bsp_SetMotorSpeed(MotorRight,2);
+				search.action = 3 ;
+			}
+		}break;
+		
+		
+		
+		case 7: /*认为机器在桩的左边，掉头180，然后画弧线*/
+		{
+				search.pulse = bsp_GetCurrentBothPulse();
+				bsp_SetMotorSpeed(MotorLeft,  -3);
+				bsp_SetMotorSpeed(MotorRight,  3);
+				++search.action ;
+		}break;
+		
+		case 8:  /*认为机器在桩的左边，掉头180，然后画弧线*/
+		{
+			if(bsp_GetCurrentBothPulse() - search.pulse >= CCW_180_PULSE)
+			{
+				search.isNeedRote180 = true;
+				search.isNeedRote180StartPulse = bsp_GetCurrentBothPulse();
+				
+				
+				bsp_SetMotorSpeed(MotorLeft, 2);
+				bsp_SetMotorSpeed(MotorRight,5);
+				search.action = 3 ;
+			}
+		}break;
+		
+	}
+}
+
+
 
