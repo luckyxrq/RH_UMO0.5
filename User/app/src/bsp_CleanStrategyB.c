@@ -372,15 +372,13 @@ double my_abs(double x){
 }
 
 
-
 static void sendvelocity(double* linear_velocity,double* angular_velocity){
     short leftVelocity,rightVelocity;
     double linear_velocity_IR,cmd_linear_velocity,cmd_angular_velocity;
-    
     cmd_linear_velocity = *linear_velocity;
     cmd_angular_velocity = *angular_velocity;
     
-    if (cmd_linear_velocity == 0 && cmd_angular_velocity == 0){
+    if(cmd_linear_velocity == 0 && cmd_angular_velocity == 0){
         leftVelocity = 0;
         rightVelocity = 0;
         bsp_PidClear(MotorLeft);
@@ -388,12 +386,10 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
         speed_pid_cnt_default = 1;
         speed_pid_cnt_ir = 1;
         speed_pid_cnt_goback = 1;
-        
-    }else{
-        if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100))
-        {
-            if(IRSensorData_StrategyB[0]||IRSensorData_StrategyB[1]|| IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]|| IRSensorData_StrategyB[5]||IRSensorData_StrategyB[6]|| IRSensorData_StrategyB[7])
-            {
+    }
+    else{
+        if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100)){
+            if(IRSensorData_StrategyB[0]||IRSensorData_StrategyB[1]|| IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]||IRSensorData_StrategyB[5]||IRSensorData_StrategyB[6]||IRSensorData_StrategyB[7]){
                 if(cmd_linear_velocity==200){
                     if(IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]){
                         cmd_linear_velocity = 0.5*cmd_linear_velocity;
@@ -402,15 +398,11 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
                 else{
                     cmd_linear_velocity = 0.5*cmd_linear_velocity;
                 }
-                
-                linear_velocity_IR = cmd_linear_velocity;
-                
+                linear_velocity_IR = cmd_linear_velocity;            
             }
-            if(cmd_linear_velocity <0)//== -long_stra_vel)
-            {
+            if(cmd_linear_velocity <0){
                 cmd_linear_velocity = -160;
-                if(speed_pid_cnt_goback == 1) 
-                {
+                if(speed_pid_cnt_goback == 1){
                     bsp_PidClear(MotorLeft);
                     bsp_PidClear(MotorRight);
                 }
@@ -418,16 +410,11 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
                 if(speed_pid_cnt_goback >50)  speed_pid_cnt_goback  =50; 
                 cmd_linear_velocity = speed_pid_cnt_goback*0.02*(cmd_linear_velocity+40)-40;	
             }
-            else
-            {
+            else{
                 speed_pid_cnt_goback = 1;
             }
-            
-            
-            if(cmd_linear_velocity == long_stra_vel )
-            {
-                if(speed_pid_cnt_default == 1) 
-                {
+            if(cmd_linear_velocity == long_stra_vel){
+                if(speed_pid_cnt_default == 1) {
                     bsp_PidClear(MotorLeft);
                     bsp_PidClear(MotorRight);
                 }
@@ -435,97 +422,83 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
                 if(speed_pid_cnt_default >20)  speed_pid_cnt_default  =20; 
                 cmd_linear_velocity = speed_pid_cnt_default*0.05*(cmd_linear_velocity-40) + 40;	
             }
-            else
-            {
+            else{
                 speed_pid_cnt_default = 1;
             }
-            
-            
-            if(cmd_linear_velocity ==  linear_velocity_IR)
-            {
-                if(speed_pid_cnt_ir == 1) 
-                {
+            if(cmd_linear_velocity ==  linear_velocity_IR){
+                if(speed_pid_cnt_ir == 1){
                     bsp_PidClear(MotorLeft);
                     bsp_PidClear(MotorRight);
                 }
                 if(speed_pid_cnt_ir <=20) speed_pid_cnt_ir +=1;
                 if(speed_pid_cnt_ir >20)  speed_pid_cnt_ir  =20; 
-                
                 if(cmd_linear_velocity >  40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity-40) + 40;	
                 if(cmd_linear_velocity < -40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity+40) - 40;	
             }
-            else
-            {
+            else{
                 speed_pid_cnt_ir = 1;
-            }
-            
+            }            
         }
         else{
             speed_pid_cnt_default = 1;
             speed_pid_cnt_ir = 1;
             speed_pid_cnt_goback = 1;
         }
-        
         leftVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 - Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
         rightVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 + Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
         
-        if(leftVelocity>0) 
-        {
+        if(leftVelocity>0){
             if(leftVelocity<50) leftVelocity = 50;
             if(leftVelocity>300) leftVelocity = 300;
         }
-        if(rightVelocity>0) 
-        {
+        if(rightVelocity>0){
             if(rightVelocity<50) rightVelocity = 50;
             if(rightVelocity>300) rightVelocity = 300;
         }
-        
-        if(leftVelocity<0) 
-        {
+        if(leftVelocity<0){
             if(leftVelocity>-50) leftVelocity = -50;
             if(leftVelocity<-300) leftVelocity = -300;
         }
-        if(rightVelocity<0) 
-        {
+        if(rightVelocity<0){
             if(rightVelocity>-50) rightVelocity = -50;
             if(rightVelocity<-300) rightVelocity = -300;
         }
     }
     
-	int roll = (int)bsp_IMU_GetData(ROLL);
-	if(my_abs(roll)<172){
-	if(leftVelocity>0&&rightVelocity>0){
-	if(roll >= -165 && roll <= -100){
-		leftVelocity=150;
-		rightVelocity=150;
-	}
-	else if(roll > -170 && roll <= -100){
-		leftVelocity=100;
-		rightVelocity=100;
-	}
-	else if(roll > -172 && roll <= -100){
-		leftVelocity=30;
-		rightVelocity=30;
-	}
-	else if(roll >= 100 && roll <= 165){
-		leftVelocity=300;
-		rightVelocity=300;
-	}
-	else if(roll >= 100 && roll < 170){
-		leftVelocity=280;
-		rightVelocity=280;
-	}
-	else if(roll >= 100 && roll < 172){
-		leftVelocity=250;
-		rightVelocity=250;
-	}
-	else                                                    //Æ½µØ      
-	{
-	}
-	}
-}
-	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
-	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+    int roll = (int)bsp_IMU_GetData(ROLL);
+    if(my_abs(roll)<172){
+        if(leftVelocity>0&&rightVelocity>0){
+            if(roll >= -165 && roll <= -100){
+                leftVelocity=150;
+                rightVelocity=150;
+            }
+            else if(roll > -170 && roll <= -100){
+                leftVelocity=100;
+                rightVelocity=100;
+            }
+            else if(roll > -172 && roll <= -100){
+                leftVelocity=30;
+                rightVelocity=30;
+            }
+            else if(roll >= 100 && roll <= 165){
+                leftVelocity=300;
+                rightVelocity=300;
+            }
+            else if(roll >= 100 && roll < 170){
+                leftVelocity=280;
+                rightVelocity=280;
+            }
+            else if(roll >= 100 && roll < 172){
+                leftVelocity=250;
+                rightVelocity=250;
+            }
+            else                                      
+            {
+            }
+        }
+    }
+    bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
+    bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
 }
 
 
@@ -1251,6 +1224,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
 unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
+	unsigned char i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
     switch (right_running_step_status)
@@ -1423,7 +1397,14 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         else if((adcRealTime[0]>500||adcRealTime[1]>50||adcRealTime[2]>50)&&(adcRealTime[3]<25)&&(adcRealTime[4]<25)&&(adcRealTime[5]<25)&&my_abs(Yaw)<90){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=left_obstacle;
+		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+		if(i>0&&i<97&&j>=1&&j<GRIDWIDTH-1){
+			gridmap.map[i+2][j]=0;
+			gridmap.map[i+3][j]=0;
+            gridmap.map[i+2][j+1]=0;
+            gridmap.map[i+3][j+1]=0;
+		}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -1445,7 +1426,14 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         else if((adcRealTime[0]>500||adcRealTime[1]>200||adcRealTime[2]>200)&&(adcRealTime[3]<100)&&(adcRealTime[4]<100)&&(adcRealTime[5]<100)&&my_abs(Yaw)>90){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=left_obstacle;
+		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+		if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH){
+			gridmap.map[i-2][j]=0;
+			gridmap.map[i-3][j]=0;
+            gridmap.map[i-2][j-1]=0;
+            gridmap.map[i-3][j-1]=0;
+		}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -1467,7 +1455,14 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         else if((adcRealTime[6]>500||adcRealTime[5]>200||adcRealTime[4]>200)&&(adcRealTime[3]<100)&&(adcRealTime[2]<100)&&(adcRealTime[1]<100)&&my_abs(Yaw)<90){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=right_obstacle;
+		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+		if(i>0&&i<97&&j>0&&j<GRIDWIDTH){
+			gridmap.map[i+2][j]=0;
+			gridmap.map[i+3][j]=0;
+            gridmap.map[i+2][j-1]=0;
+            gridmap.map[i+3][j-1]=0;
+		}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -1489,7 +1484,14 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         else if((adcRealTime[6]>500||adcRealTime[5]>50||adcRealTime[4]>50)&&(adcRealTime[3]<25)&&(adcRealTime[2]<25)&&(adcRealTime[1]<25)&&my_abs(Yaw)>90){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=right_obstacle;
+		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+		if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+			gridmap.map[i-2][j]=0;
+			gridmap.map[i-3][j]=0;
+            gridmap.map[i-2][j+1]=0;
+            gridmap.map[i-3][j+1]=0;
+		}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -1512,7 +1514,22 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         else if((adcRealTime[2]>200||adcRealTime[3]>200||adcRealTime[4]>200)&&(adcRealTime[1]<100)&&(adcRealTime[5]<100)){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=front_obstacle;
+			i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+			j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+			if(my_abs(Yaw)>90){
+				if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i-3][j-1]=0;
+					gridmap.map[i-3][j]=0;
+					gridmap.map[i-3][j+1]=0;
+				}
+			}
+			else{
+				if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i+3][j-1]=0;
+					gridmap.map[i+3][j]=0;
+					gridmap.map[i+3][j+1]=0;
+				}
+			}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -6486,6 +6503,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
 unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
+	unsigned char i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
     complete_flag = 0;
@@ -6666,7 +6684,14 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         else if((adcRealTime[0]>500||adcRealTime[1]>50||adcRealTime[2]>50)&&(adcRealTime[3]<25)&&(adcRealTime[4]<25)&&(adcRealTime[5]<25)&&(my_abs(Yaw)>90)){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=left_obstacle;
+		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+		if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH){
+			gridmap.map[i-2][j]=0;
+			gridmap.map[i-3][j]=0;
+            gridmap.map[i-2][j-1]=0;
+            gridmap.map[i-3][j-1]=0;
+		}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -6688,7 +6713,14 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         else if((adcRealTime[0]>500||adcRealTime[1]>200||adcRealTime[2]>200)&&(adcRealTime[3]<100)&&(adcRealTime[4]<100)&&(adcRealTime[5]<100)&&(my_abs(Yaw)<90)){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=left_obstacle;
+		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+		if(i>0&&i<97&&j>0&&j<GRIDWIDTH-1){
+			gridmap.map[i+2][j]=0;
+			gridmap.map[i+3][j]=0;
+            gridmap.map[i+2][j+1]=0;
+            gridmap.map[i+3][j+1]=0;
+		}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -6711,7 +6743,14 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         else if((adcRealTime[6]>500||adcRealTime[5]>50||adcRealTime[4]>50)&&(adcRealTime[3]<25)&&(adcRealTime[2]<25)&&(adcRealTime[1]<25)&&(my_abs(Yaw)<90)){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=right_obstacle;
+		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+		if(i>0&&i<97&&j>0&&j<GRIDWIDTH){
+			gridmap.map[i+2][j]=0;
+			gridmap.map[i+3][j]=0;
+            gridmap.map[i+2][j-1]=0;
+            gridmap.map[i+3][j-1]=0;
+		}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -6733,7 +6772,14 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         else if((adcRealTime[6]>500||adcRealTime[5]>200||adcRealTime[4]>200)&&(adcRealTime[3]<100)&&(adcRealTime[2]<100)&&(adcRealTime[1]<100)&&(my_abs(Yaw)>90)){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=right_obstacle;
+		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+		if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+			gridmap.map[i-2][j]=0;
+			gridmap.map[i-3][j]=0;
+            gridmap.map[i-2][j+1]=0;
+            gridmap.map[i-3][j+1]=0;
+		}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -6756,7 +6802,22 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         else if((adcRealTime[2]>200||adcRealTime[3]>200||adcRealTime[4]>200)&&(adcRealTime[1]<100)&&(adcRealTime[5]<100)){
             linear_velocity = 0;
             angular_velocity = 0;
-            obstacleSignal=front_obstacle;
+			i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+			j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+			if(my_abs(Yaw)>90){
+				if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i-3][j-1]=0;
+					gridmap.map[i-3][j]=0;
+					gridmap.map[i-3][j+1]=0;
+				}
+			}
+			else{
+				if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i+3][j-1]=0;
+					gridmap.map[i+3][j]=0;
+					gridmap.map[i+3][j+1]=0;
+				}
+			}
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
                 leakingsweep_x=current_pose->x;
                 leakingsweep_y=current_pose->y;
@@ -15760,7 +15821,7 @@ unsigned char  DetectionCloseEdge(){
     bool end_x = false;
     if (selectside == 'R')
     {
-        for (i = 0; i < GRIDHEIGHT; i++)
+        for (i = 0; i < GRIDHEIGHT-2; i++)
         {
 			i++;
             for (j = 0; j < GRIDHEIGHT/2; j++)
@@ -15779,7 +15840,7 @@ unsigned char  DetectionCloseEdge(){
                 break;
             }
         }
-        for (i = GRIDHEIGHT - 1; i > 0; i--)
+        for (i = GRIDHEIGHT - 1; i > 1; i--)
         {
 			i--;
             for (j = 0; j < GRIDHEIGHT / 2; j++)
