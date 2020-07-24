@@ -669,7 +669,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
 											k=0;
 											if(gridmap.map[i][j-1]!=0&&gridmap.map[i][j]==250&&gridmap.map[i][j+1]!=0){											
                                             for(z=x_boundary+1;z<i;z++){
-												if(k>5){
+												if(k>6){
 													break;
 												}
                                                 for(t=y_boundary+1;t<j;t++){
@@ -690,7 +690,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                                             }
 										}
 									}										  
-                                        if(k>5||firsttrap==true){											
+                                        if(k>6||firsttrap==true){											
                                             Leaksweep=100*(j-y_boundary+2);
                                             if(Under_extreme_point_y_index==0){
                                                 Under_extreme_point_y[0]=j;
@@ -764,7 +764,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
 											k=0;
 							                 if(gridmap.map[i][j-1]!=0&&gridmap.map[i][j]==250&&gridmap.map[i][j+1]!=0){
                                             for(z=x_boundary-1;z>i;z--){
-                                                if(k>5){
+                                                if(k>6){
                                                     break;
                                                 }
                                                 for(t=y_boundary+1;t<j;t++){
@@ -785,7 +785,7 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
                                             }
                                         }
 									}											 
-                                        if(k>5||firsttrap==true){
+                                        if(k>6||firsttrap==true){
                                             Leaksweep=100*(j-y_boundary+2);
                                             if(On_extreme_point_y_index==0){
                                                 On_extreme_point_y[0]=j;
@@ -877,7 +877,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
 											k=0;
 											if(gridmap.map[i][j-1]!=0&&gridmap.map[i][j]==250&&gridmap.map[i][j+1]!=0){
                                             for(z=x_boundary+1;z<i;z++){
-                                                if(k>5){
+                                                if(k>6){
                                                     break;
                                                 }
                                                 for(t=y_boundary-1;t>j;t--){
@@ -898,7 +898,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                                         }
 									}
 								}											
-                                        if(firsttrap==true||k>5){
+                                        if(firsttrap==true||k>6){
                                             Leaksweep=100*(y_boundary-j+2);
                                             if(Left_Under_extreme_point_y_index==0){
                                                 Left_Under_extreme_point_y[0] = j;
@@ -973,7 +973,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
 											k=0;
 											if(gridmap.map[i][j-1]!=0&&gridmap.map[i][j]==250&&gridmap.map[i][j+1]!=0){											
                                             for(z=x_boundary-1;z>i;z--){
-                                                if(k>5){
+                                                if(k>6){
                                                     break;
                                                 }
                                                 for(t=y_boundary-1;t>j;t--){
@@ -994,7 +994,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                                             }
                                         }
 									}											
-                                        if(k>5||firsttrap==true){
+                                        if(k>6||firsttrap==true){
                                             Leaksweep=100*(y_boundary-j+2);
                                             if( Left_On_extreme_point_y_index==0){
                                                 Left_On_extreme_point_y[0] = j;

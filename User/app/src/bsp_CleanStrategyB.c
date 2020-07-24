@@ -2179,7 +2179,7 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
                 linear_velocity = 100;
                 angular_velocity = 57;
                 if(adcRealTime[4]>50){
-                    linear_velocity = 0;
+                    linear_velocity = 50;
                     angular_velocity = turn_vel;
                 }
             }
@@ -2685,7 +2685,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
                 linear_velocity = 100;
                 angular_velocity = -57;
                 if(adcRealTime[2]>50){
-                    linear_velocity = 0;
+                    linear_velocity = 50;
                     angular_velocity = -turn_vel;
                 }
             }
@@ -7673,7 +7673,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
                 linear_velocity = 100;
                 angular_velocity = 57;
                 if(adcRealTime[4]>50){
-                    linear_velocity = 0;
+                    linear_velocity = 50;
                     angular_velocity = turn_vel;
                 }
             }
@@ -8236,7 +8236,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
                 linear_velocity = 50;
                 angular_velocity = -57;
                 if(adcRealTime[2]>50){
-                    linear_velocity = 0;
+                    linear_velocity = 50;
                     angular_velocity = -turn_vel;
                 }
             }
