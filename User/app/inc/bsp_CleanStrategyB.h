@@ -867,7 +867,7 @@
 #define star_collision_backward 50
 #define star_collision_go 400
 #define collision_backward_distance 10//3
-#define lateral_move_distance 160
+#define lateral_move_distance 170
 #define close_map_move_distance 5
 #define turn_backward_distance 10//3
 #define second_turn_backward_distance 10//4
@@ -894,10 +894,6 @@
 
 #define DegToRad Deg2Rad
 #define RadToDeg Rad2Deg
-
-//#define FRONT_OBSTACLE_SIGNAL 2
-//#define LEFT_OBSTACLE_SIGNAL 0
-//#define RIGHT_OBSTACLE_SIGNAL 1
 
 #define front_obstacle FRONT_OBSTACLE_SIGNAL 
 #define left_obstacle LEFT_OBSTACLE_SIGNAL 

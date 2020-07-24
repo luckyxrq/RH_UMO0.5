@@ -682,7 +682,7 @@ static void bsp_KeyProc(void)
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_StartVacuum(100);
+				bsp_StartVacuum(50);
 				}
 				
 				

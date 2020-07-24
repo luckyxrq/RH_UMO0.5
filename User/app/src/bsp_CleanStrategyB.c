@@ -497,6 +497,37 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
             }
         }
     }
+//	    if(my_abs(roll)<=175){
+//        if(leftVelocity>0&&rightVelocity>0){
+//            if(roll >= -165 && roll <= -100){
+//                leftVelocity=200;
+//                rightVelocity=200;
+//            }
+//            else if(roll >= -170 && roll <= -100){
+//                leftVelocity=100;
+//                rightVelocity=100;
+//            }
+//            else if(roll >= -175 && roll <= -100){
+//                leftVelocity=30;
+//                rightVelocity=30;
+//            }
+//            else if(roll >= 100 && roll <= 165){
+//                leftVelocity=300;
+//                rightVelocity=300;
+//            }
+//            else if(roll >= 100 && roll < 170){
+//                leftVelocity=280;
+//                rightVelocity=280;
+//            }
+//            else if(roll >= 100 && roll < 172){
+//                leftVelocity=250;
+//                rightVelocity=250;
+//            }
+//            else                                      
+//            {
+//            }
+//        }
+//   }
     bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
     bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
 }
@@ -1518,6 +1549,9 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 			j=(current_pose->y+half_map_wide)/GRIDWIDTH;
 			if(my_abs(Yaw)>90){
 				if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i-2][j-1]=0;
+					gridmap.map[i-2][j]=0;
+					gridmap.map[i-2][j+1]=0;
 					gridmap.map[i-3][j-1]=0;
 					gridmap.map[i-3][j]=0;
 					gridmap.map[i-3][j+1]=0;
@@ -1525,6 +1559,9 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 			}
 			else{
 				if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i+2][j-1]=0;
+					gridmap.map[i+2][j]=0;
+					gridmap.map[i+2][j+1]=0;
 					gridmap.map[i+3][j-1]=0;
 					gridmap.map[i+3][j]=0;
 					gridmap.map[i+3][j+1]=0;
@@ -3228,8 +3265,6 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
             angular_velocity = 0;
             collision_front_rightrun_step_status = RIGHT_WALK_EDGE_CF_DRYL;
             break;		
-//            collision_front_rightrun_step_status = TURN_CLOCK_TARGET_YAW_NEG82_CF_DRYL;
-//            break;
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
@@ -3686,56 +3721,56 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
                 k=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 ij=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
                 if(k>1&&k<99&&ij>0&&ij<GRIDWIDTH){
-                    gridmap.map[k-2][ij-1]=0;
                     gridmap.map[k-1][ij-1]=0;
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k+1][ij-1]=0;
-                    gridmap.map[k-2][ij]=0;
                     gridmap.map[k-1][ij]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k+1][ij]=0;
+                    gridmap.map[k][ij-2]=0;
+                    gridmap.map[k+1][ij-2]=0;
                 }
             }
             else if(Yaw<135&&Yaw>45){
                 k=(current_pose->x+half_map_wide)/GRIDWIDTH+3;
                 ij=(current_pose->y+half_map_wide)/GRIDWIDTH;
                 if(k>0&&k<GRIDWIDTH&&ij>1&&ij<99){
-                    gridmap.map[k-1][ij-2]=0;
-                    gridmap.map[k-1][ij-1]=0;
-                    gridmap.map[k-1][ij]=0;
-                    gridmap.map[k-1][ij+1]=0;
-                    gridmap.map[k][ij-2]=0;
+                    gridmap.map[k+1][ij-2]=0;
+                    gridmap.map[k+1][ij-1]=0;
+                    gridmap.map[k+1][ij]=0;
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k][ij+1]=0;
+                    gridmap.map[k+2][ij]=0;
+                    gridmap.map[k+2][ij-1]=0;
                 }
             }
             else if(my_abs(Yaw)>=135){
                 k=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 ij=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
-                if(k>0&&k<98&&ij>0&&ij<GRIDWIDTH){
+                if(k>0&&k<98&&ij>0&&ij<GRIDWIDTH-1){
                     gridmap.map[k-1][ij-1]=0;
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k+1][ij-1]=0;
-                    gridmap.map[k+2][ij-1]=0;
                     gridmap.map[k-1][ij]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k+1][ij]=0;
-                    gridmap.map[k+2][ij]=0;
+                    gridmap.map[k][ij+1]=0;
+                    gridmap.map[k][ij+2]=0;
                 }
             }
             else{
                 k=(current_pose->x+half_map_wide)/GRIDWIDTH-3;
                 ij=(current_pose->y+half_map_wide)/GRIDWIDTH;
-                if(k>=0&&k<99&&ij>0&&ij<98){
+                if(k>0&&k<99&&ij>0&&ij<98){
                     gridmap.map[k+1][ij-1]=0;
                     gridmap.map[k+1][ij]=0;
                     gridmap.map[k+1][ij+1]=0;
-                    gridmap.map[k+1][ij+2]=0;
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k][ij+1]=0;
-                    gridmap.map[k][ij+2]=0;
+                    gridmap.map[k-1][ij]=0;
+                    gridmap.map[k-2][ij]=0;
                 }
             }
             last_position_x = current_pose->x;
@@ -3834,7 +3869,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             angular_velocity = turn_vel;
             if (my_abs(Yaw - temporary_yaw) > 15)
             {
-                if(my_abs(Yaw)>170){
+                if(my_abs(Yaw)>175){
                     right_edge_dilemma_status =CLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
                     temporary_yaw=Yaw;
                     break;
@@ -3934,9 +3969,6 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             break;
         }
         break;
-		
-		
-		
     case GOSTR_DELTA_Y_MORE_LATERAL_DIS_CYM_DILEMMA:
         if (-105<Yaw&&Yaw<-60)
         {
@@ -4083,36 +4115,36 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
                     gridmap.map[k-1][ij-1]=0;
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k+1][ij-1]=0;
-                    gridmap.map[k+2][ij-1]=0;
                     gridmap.map[k-1][ij]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k+1][ij]=0;
-                    gridmap.map[k+2][ij]=0;
+                    gridmap.map[k][ij-2]=0;
+                    gridmap.map[k+1][ij-2]=0;
                 }
             }
             else if(Yaw<-45&&Yaw>-135){
                 k=(current_pose->x+half_map_wide)/GRIDWIDTH+3;
                 ij=(current_pose->y+half_map_wide)/GRIDWIDTH;
                 if(k>0&&k<GRIDWIDTH&&ij>0&&ij<98){
-                    gridmap.map[k-1][ij-1]=0;
-                    gridmap.map[k-1][ij]=0;
-                    gridmap.map[k-1][ij+1]=0;
-                    gridmap.map[k-1][ij+2]=0;
+                    gridmap.map[k+1][ij-1]=0;
+                    gridmap.map[k+1][ij]=0;
+                    gridmap.map[k+1][ij+1]=0;
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k][ij+1]=0;
-                    gridmap.map[k][ij+2]=0;
+                    gridmap.map[k+2][ij]=0;
+                    gridmap.map[k+2][ij+1]=0;
                 }
             }
             else if(my_abs(Yaw)<=45){
                 k=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 ij=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
                 if(k>1&&k<99&&ij>0&&ij<GRIDWIDTH){
-                    gridmap.map[k-2][ij-1]=0;
+                    gridmap.map[k][ij+1]=0;
                     gridmap.map[k-1][ij-1]=0;
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k+1][ij-1]=0;
-                    gridmap.map[k-2][ij]=0;
+                    gridmap.map[k-1][ij+2]=0;
                     gridmap.map[k-1][ij]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k+1][ij]=0;
@@ -4122,14 +4154,15 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
                 k=(current_pose->x+half_map_wide)/GRIDWIDTH-3;
                 ij=(current_pose->y+half_map_wide)/GRIDWIDTH;
                 if(k>=0&&k<99&&ij>1&&ij<99){
-                    gridmap.map[k+1][ij-2]=0;
-                    gridmap.map[k+1][ij-1]=0;
-                    gridmap.map[k+1][ij]=0;
-                    gridmap.map[k+1][ij+1]=0;
+                    gridmap.map[k-1][ij-1]=0;
+                    gridmap.map[k-1][ij]=0;
+                    gridmap.map[k-1][ij+1]=0;
                     gridmap.map[k][ij-2]=0;
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k][ij+1]=0;
+                    gridmap.map[k-2][ij]=0;
+                    gridmap.map[k-2][ij-1]=0;
                 }
             }
             last_position_x = current_pose->x;
@@ -4252,7 +4285,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
             angular_velocity =-turn_vel;
             if (my_abs(Yaw - temporary_yaw) > 15)
             {
-                if(my_abs(Yaw)>170){
+                if(my_abs(Yaw)>175){
                     right_edge_dilemma_status =CLOCK_TARGET_YAW_LESS_ABS3_DILEMMA;
                     temporary_yaw=Yaw;
                     break;
@@ -4536,14 +4569,14 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
                 if(i>0&&i<98&&j>=0&&j<GRIDWIDTH)
-                    gridmap.map[i-1][j]=0;
+                 gridmap.map[i-1][j]=0;
                 gridmap.map[i][j]=0;
                 gridmap.map[i+1][j]=0;
-                gridmap.map[i+2][j]=0;
                 gridmap.map[i-1][j+1]=0;
                 gridmap.map[i][j+1]=0;
                 gridmap.map[i+1][j+1]=0;
-                gridmap.map[i+2][j+1]=0;
+                gridmap.map[i][j-2]=0;
+                gridmap.map[i+1][j-2]=0;
                 last_position_x = current_pose->x;
             }
             break;			
@@ -4620,7 +4653,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
         angular_velocity = -turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
-            if(my_abs(Yaw)>170){
+            if(my_abs(Yaw)>175){
                 right_walk_edge_status =TURN_CLOCK_YAW_ADD_ABS15_WE;
                 temporary_yaw=Yaw;
                 break;
@@ -5113,14 +5146,14 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
                 if(i>1&&i<99&&j>=0&&j<GRIDWIDTH)
-                    gridmap.map[i-2][j]=0;	
                 gridmap.map[i-1][j]=0;
                 gridmap.map[i][j]=0;
                 gridmap.map[i+1][j]=0;
-                gridmap.map[i-2][j+1]=0;
                 gridmap.map[i-1][j+1]=0;
                 gridmap.map[i][j+1]=0;
                 gridmap.map[i+1][j+1]=0;
+                gridmap.map[i][j-2]=0;
+                gridmap.map[i-1][j-2]=0;	
                 last_position_x = current_pose->x;
             }
             break;
@@ -5195,7 +5228,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
         angular_velocity = turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
-            if(my_abs(Yaw)>170){
+            if(my_abs(Yaw)>175){
                 right_reverse_walk_edge_status = TURN_CCLOCK_YAW_ADD_ABS15_RWE;
                 temporary_yaw=Yaw;
                 break;
@@ -6806,6 +6839,9 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
 			j=(current_pose->y+half_map_wide)/GRIDWIDTH;
 			if(my_abs(Yaw)>90){
 				if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i-2][j-1]=0;
+					gridmap.map[i-2][j]=0;
+					gridmap.map[i-2][j+1]=0;
 					gridmap.map[i-3][j-1]=0;
 					gridmap.map[i-3][j]=0;
 					gridmap.map[i-3][j+1]=0;
@@ -6813,6 +6849,9 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
 			}
 			else{
 				if(i>2&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i+2][j-1]=0;
+					gridmap.map[i+2][j]=0;
+					gridmap.map[i+2][j+1]=0;
 					gridmap.map[i+3][j-1]=0;
 					gridmap.map[i+3][j]=0;
 					gridmap.map[i+3][j+1]=0;
@@ -9271,12 +9310,14 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
                 if(i>0&&i<99&&j>=0&&j<GRIDWIDTH)
-                    gridmap.map[i-1][j]=0;
+                gridmap.map[i-1][j]=0;
                 gridmap.map[i][j]=0;
                 gridmap.map[i+1][j]=0;
                 gridmap.map[i-1][j-1]=0;
                 gridmap.map[i][j-1]=0;
                 gridmap.map[i+1][j-1]=0;
+				gridmap.map[i][j+2]=0;
+				gridmap.map[i][j+1]=0;
                 last_position_x = current_pose->x;
             }
             break;			
@@ -9355,7 +9396,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
         angular_velocity = turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
-            if(my_abs(Yaw)>170){
+            if(my_abs(Yaw)>175){
                 temporary_yaw=Yaw;
                 right_walk_edge_status =LEFT_EDGE_TURN_CCLOCK_YAW_ADD_ABS15_WE;
                 break;
@@ -9836,12 +9877,14 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
                 if(i>0&&i<99&&j>=0&&j<GRIDWIDTH)
-                    gridmap.map[i-1][j]=0;
+                gridmap.map[i-1][j]=0;
                 gridmap.map[i][j]=0;
                 gridmap.map[i+1][j]=0;
                 gridmap.map[i-1][j-1]=0;
                 gridmap.map[i][j-1]=0;
                 gridmap.map[i+1][j-1]=0;
+				gridmap.map[i][j+1]=0;
+                gridmap.map[i][j+2]=0;
                 last_position_x = current_pose->x;
             }
             break;			
@@ -9917,7 +9960,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
         angular_velocity = -turn_vel;
         if (my_abs(Yaw - temporary_yaw) > 15)
         {
-            if(my_abs(Yaw)>170){
+            if(my_abs(Yaw)>175){
                 temporary_yaw=Yaw;
                 right_reverse_walk_edge_status = LEFT_REVERSE_EDGE_TURN_CLOCK_YAW_ADD_ABS15_RWE;
                 break;
@@ -10470,6 +10513,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                     gridmap.map[k-1][ij]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k+1][ij]=0;
+					gridmap.map[k][ij-2]=0;
+					gridmap.map[k+1][ij-2]=0;
                 }
             }
             else if(Yaw<-45&&Yaw>-135){
@@ -10482,6 +10527,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k][ij+1]=0;
+				    gridmap.map[k+1][ij]=0;
+				    gridmap.map[k+2][ij]=0;
                 }
             }
             else if(my_abs(Yaw)<=45){
@@ -10494,6 +10541,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                     gridmap.map[k-1][ij]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k+1][ij]=0;
+                    gridmap.map[k][ij+1]=0;
+					gridmap.map[k][ij+2]=0;
                 }
             }
             else{
@@ -10506,6 +10555,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k][ij+1]=0;
+					gridmap.map[k-1][ij]=0;
+					gridmap.map[k-1][ij-1]=0;
                 }
             }
             last_position_x = current_pose->x;
@@ -10607,7 +10658,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             angular_velocity = -turn_vel;
             if (my_abs(Yaw - temporary_yaw) > 15)
             {
-                if(my_abs(Yaw)>170){
+                if(my_abs(Yaw)>175){
                     temporary_yaw=Yaw;
                     right_edge_dilemma_status =LEFT_DILEMMA_CCLOCK_TARGET_YAW_LESS_ABS90_DILEMMA;
                     break;
@@ -10863,6 +10914,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                     gridmap.map[k-1][ij]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k+1][ij]=0;
+                    gridmap.map[k][ij-1]=0;
+                    gridmap.map[k-1][ij-1]=0;
                 }
             }
             else if(Yaw<135&&Yaw>45){
@@ -10875,6 +10928,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k][ij+1]=0;
+                    gridmap.map[k+1][ij]=0;
+                    gridmap.map[k+1][ij-1]=0;
                 }
             }
             else if(my_abs(Yaw)>=135){
@@ -10887,6 +10942,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                     gridmap.map[k-1][ij]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k+1][ij]=0;
+                    gridmap.map[k][ij+1]=0;
+                    gridmap.map[k+1][ij+1]=0;
                 }
             }
             else{
@@ -10899,6 +10956,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
                     gridmap.map[k][ij-1]=0;
                     gridmap.map[k][ij]=0;
                     gridmap.map[k][ij+1]=0;
+                    gridmap.map[k-1][ij]=0;
+                    gridmap.map[k-1][ij+1]=0;
                 }
             }
             last_position_x = current_pose->x;
@@ -11019,7 +11078,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
             angular_velocity =turn_vel;
             if (my_abs(Yaw - temporary_yaw) > 15)
             {
-                if(my_abs(Yaw)>170){
+                if(my_abs(Yaw)>175){
                     temporary_yaw=Yaw;
                     right_edge_dilemma_status =LEFT_DILEMMA_CLOCK_TARGET_YAW_MORE_ABS173_DILEMMA;
                     break;
