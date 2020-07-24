@@ -6,7 +6,7 @@
 **********************************************************************************************************
 */
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
-#define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
+#define AT_POWER_ON_OPEN_ALL_MODULE_EN       1     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
 
@@ -185,9 +185,9 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
         bsp_IWDG_Feed(); /* 喂狗 */
 #endif
         		
-#if 0		
-        DEBUG("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
-        DEBUG("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
+#if 1		
+        RTT("L %d MM/S\r\n",bsp_MotorGetSpeed(MotorLeft));
+        RTT("R %d MM/S\r\n",bsp_MotorGetSpeed(MotorRight));
 #endif		
 #if 0
 		if(count%100 ==0)
@@ -260,8 +260,8 @@ static void vTaskPerception(void *pvParameters)
 	bsp_StartVacuum(VACUUM_DEFAULT_PER);
 	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
 	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse (120));
+	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));
 #endif
 	
     while(1)
