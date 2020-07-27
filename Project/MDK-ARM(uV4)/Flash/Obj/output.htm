@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jul 27 14:15:55 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jul 27 14:20:52 2020
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2449,7 +2449,6 @@ Global Symbols
 <P><STRONG><a name="[1ce]"></a>bsp_ClearKey</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_key.o(i.bsp_ClearKey))
 <BR><BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
@@ -2631,7 +2630,6 @@ Global Symbols
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DISABLE_ALL_EXIT
 </UL>
 <BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
@@ -3357,6 +3355,7 @@ Global Symbols
 <P><STRONG><a name="[172]"></a>bsp_PutKey</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, bsp_key.o(i.bsp_PutKey))
 <BR><BR>[Called By]<UL><LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SleepProc
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FunctionTestUpdate
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectKey
@@ -3563,7 +3562,6 @@ Global Symbols
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 <LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
@@ -3579,7 +3577,6 @@ Global Symbols
 <LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 <LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 <LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
@@ -4799,27 +4796,23 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[49]"></a>vTaskMapping</STRONG> (Thumb, 128 bytes, Stack size 16 bytes, main.o(i.vTaskMapping))
+<P><STRONG><a name="[49]"></a>vTaskMapping</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, main.o(i.vTaskMapping))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = vTaskMapping &rArr; bsp_GridMapUpdate &rArr; inverseSensorModelB &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UploadMap
-<LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
-<LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SpeakerIsBusy
 <LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetIRSensorData
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
 <LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
 <LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentOrientation
 <LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffSensorData
-<LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
-<LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ClearKey
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UploadBatteryInfo
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[4c]"></a>vTaskPerception</STRONG> (Thumb, 124 bytes, Stack size 0 bytes, main.o(i.vTaskPerception))
+<P><STRONG><a name="[4c]"></a>vTaskPerception</STRONG> (Thumb, 130 bytes, Stack size 0 bytes, main.o(i.vTaskPerception))
 <BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = vTaskPerception &rArr; bsp_ComAnalysis &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
@@ -4835,6 +4828,7 @@ Local Symbols
 <LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
 <LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 <LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsInitAW9523B_OK

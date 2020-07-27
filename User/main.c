@@ -124,19 +124,6 @@ static void vTaskMapping(void *pvParameters)
 			bsp_UploadBatteryInfo();
 		}
 		
-		
-		
-		if(count == 10*5)
-		{
-			/*进入休眠模式*/
-			bsp_SperkerPlay(Song31);
-			vTaskDelay(10);	
-			while(bsp_SpeakerIsBusy()){}
-
-			bsp_ClearKey();
-			bsp_EnterStopMODE();
-		}
-		
 		++count;
 		
         vTaskDelay(100);
@@ -276,6 +263,11 @@ static void vTaskPerception(void *pvParameters)
 	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
 	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
 #endif
+	
+	
+	
+	bsp_PutKey(KEY_LONG_CLEAN);
+	
 	
     while(1)
     {
