@@ -123,7 +123,7 @@ typedef enum
 	只有连续检测到50ms状态不变才认为有效，包括弹起和按下两种事件
 	即使按键电路不做硬件滤波，该滤波机制也可以保证可靠地检测到按键事件
 */
-#define KEY_FILTER_TIME   6
+#define KEY_FILTER_TIME   10
 #define KEY_LONG_TIME     50			/* 单位10ms， 持续1秒，认为长按事件 */
 
 /*
