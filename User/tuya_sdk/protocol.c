@@ -682,7 +682,7 @@ static unsigned char dp_download_suction_handle(const unsigned char value[], uns
     case 0:
 	{
 		bsp_SetVacuumPowerGrade(VACUUM_STRENGTH);
-		if(isCleanRunning())
+		if(bsp_IsVacuumOpen())
 		{
 			bsp_StartVacuum(bsp_GetVacuumPowerGrade());
 		}
@@ -691,7 +691,7 @@ static unsigned char dp_download_suction_handle(const unsigned char value[], uns
     case 1:
 	{
 		bsp_SetVacuumPowerGrade(VACUUM_NORMAL);
-		if(isCleanRunning())
+		if(bsp_IsVacuumOpen())
 		{
 			bsp_StartVacuum(bsp_GetVacuumPowerGrade());
 		}
@@ -700,7 +700,7 @@ static unsigned char dp_download_suction_handle(const unsigned char value[], uns
 	case 2:
 	{
 		bsp_SetVacuumPowerGrade(VACUUM_QUIET);
-		if(isCleanRunning())
+		if(bsp_IsVacuumOpen())
 		{
 			bsp_StartVacuum(bsp_GetVacuumPowerGrade());
 		}

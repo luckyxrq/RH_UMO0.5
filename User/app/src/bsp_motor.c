@@ -18,6 +18,7 @@
 
 
 static Vacuum vacuum;
+static bool isVacuumOpen = false;
 static void bsp_InitTimer1(uint16_t arr,uint16_t psc);
 static void bsp_InitTimer4(uint16_t arr,uint16_t psc);
 static void bsp_InitTimer2(uint16_t arr,uint16_t psc);
@@ -126,6 +127,21 @@ void bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm)
 
 
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IsVacuumOpen
+*	功能说明: 判断吸尘器是否正在工作
+*	形    参: VACUUM_STRENGTH  VACUUM_NORMAL  VACUUM_QUIET
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_IsVacuumOpen(void)
+{
+	return isVacuumOpen;
+}
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_StartVacuum
@@ -157,6 +173,8 @@ void bsp_StartVacuum(uint8_t grade)
 	}
 
 	TIM_SetCompare1(TIM2 , pwm / 100.0F * CONSTANT_HIGH_PWM); /*恒定为低*/
+	
+	isVacuumOpen = true;
 }
 
 /*
@@ -170,6 +188,8 @@ void bsp_StartVacuum(uint8_t grade)
 void bsp_StopVacuum(void)
 {
 	TIM_SetCompare1(TIM2,CONSTANT_HIGH_PWM * 0.0F); /*恒定为低*/
+	
+	isVacuumOpen = false;
 }
 
 
