@@ -1,7 +1,12 @@
 #include "bsp.h"
 
-#define PARAM_VER			 0x00000102      /* 参数版本 */
+#define PARAM_VER			 0x00000103      /* 参数版本 */
 #define PARAM_SAVE_PAGE      255             /* 保存参数的页序号 */
+
+
+
+
+
 
 
 /*
@@ -13,10 +18,7 @@ typedef struct
 {
 	uint32_t ParamVer;			/* 参数区版本控制（可用于程序升级时，决定是否对参数区进行升级） */
 
-	uint8_t data1;
-	uint32_t data2;
-	uint16_t data3;
-	uint8_t data4;
+	uint8_t VacuumPowerGrade;   /* VACUUM_STRENGTH    VACUUM_NORMAL    VACUUM_QUIET*/
 }
 PARAM_T;
 #pragma pack()
@@ -44,10 +46,7 @@ void bsp_LoadParam(void)
 	{
 		param.ParamVer = PARAM_VER;
 
-		param.data1 = 101;
-		param.data2 = 305;
-		param.data3 = 409;
-		param.data4 = 200;
+		param.VacuumPowerGrade = VACUUM_NORMAL;
 
 		bsp_SaveParam();							/* 将新参数写入Flash */
 	}
@@ -75,18 +74,56 @@ void bsp_SaveParam(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_ParamUpdateTest(void)
+void bsp_ParamReadAtPowerOn(void)
 {
 	memset(&param,0,sizeof(param));
 	
 	bsp_LoadParam();
-	DEBUG("param.ParamVer:%03X\r\n",param.ParamVer);
-	DEBUG("param.data1:%d\r\n",param.data1);
-	DEBUG("param.data2:%d\r\n",param.data2);
-	DEBUG("param.data3:%d\r\n",param.data3);
-	DEBUG("param.data4:%d\r\n",param.data4);
+	RTT("param.ParamVer:%03X\r\n",param.ParamVer);
 
+	RTT("param.VacuumPowerGrade:%d\r\n",param.VacuumPowerGrade);
+}
+
+
+/********************************************************************************************************
+
+
+									      下面都是 SET GET
+
+
+********************************************************************************************************/
+
+
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_ParamUpdateTest
+*	功能说明: 风机吸力
+*	形    参: VACUUM_STRENGTH    VACUUM_NORMAL    VACUUM_QUIET
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_SetVacuumPowerGrade(uint8_t grade)
+{
+	param.VacuumPowerGrade = grade;
 	
+	bsp_SaveParam();
+}
+
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_ParamUpdateTest
+*	功能说明: 更新内部FLASH数据
+*	形    参: 无
+*	返 回 值: VACUUM_STRENGTH    VACUUM_NORMAL    VACUUM_QUIET
+*********************************************************************************************************
+*/
+uint8_t bsp_GetVacuumPowerGrade(void)
+{
+	return param.VacuumPowerGrade;
 }
 
 

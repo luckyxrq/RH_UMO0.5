@@ -107,6 +107,8 @@ void bsp_Init(void)
 	/*加密芯片*/
 	bsp_DX8_CMD();
 
+	bsp_ParamReadAtPowerOn();
+
 #if 0
 	bsp_InitIWDG();     /*初始化看门狗，一旦开启，就不能停止*/
 #endif

@@ -679,12 +679,31 @@ static unsigned char dp_download_suction_handle(const unsigned char value[], uns
     switch(suction)
     {
     case 0:
-        DEBUG("吸力0\r\n");
-        break;
+	{
+		bsp_SetVacuumPowerGrade(VACUUM_STRENGTH);
+		if(isCleanRunning())
+		{
+			bsp_StartVacuum(bsp_GetVacuumPowerGrade());
+		}
+	}break;
         
     case 1:
-        DEBUG("吸力1\r\n");
-        break;
+	{
+		bsp_SetVacuumPowerGrade(VACUUM_NORMAL);
+		if(isCleanRunning())
+		{
+			bsp_StartVacuum(bsp_GetVacuumPowerGrade());
+		}
+	}break;
+	
+	case 2:
+	{
+		bsp_SetVacuumPowerGrade(VACUUM_QUIET);
+		if(isCleanRunning())
+		{
+			bsp_StartVacuum(bsp_GetVacuumPowerGrade());
+		}
+	}break;
         
     default:
         

@@ -45,7 +45,7 @@ void bsp_InitMotor(void);
 void bsp_MotorSetPWM(MotorSN sn ,MotorDir dir,uint16_t pwm);
 void bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm);
 
-void bsp_StartVacuum(uint8_t pwm);
+void bsp_StartVacuum(uint8_t grade);
 void bsp_StopVacuum(void);
 
 #endif
