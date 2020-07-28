@@ -410,15 +410,14 @@ void bsp_PrintAllVoltage(void)
 	sideBrush = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
 	
 	
-	DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA 开机到结束秒:%d\r\n",
+	DEBUG("左轮:%.2fmA  右轮:%.2fmA  风机:%.2fmA  滚刷:%.2fmA  边刷:%.2fmA  电池电压:%.2fV  电池电流:%.2fmA\r\n",
 	wheelL,
 	wheelR,
 	vacuum,
 	roll,
 	sideBrush,
 	batteryVoltage,
-	batteryCurrent,
-	stopTickRTOS);
+	batteryCurrent);
 
 
 }
@@ -427,5 +426,134 @@ void bsp_PrintAllVoltage(void)
 
 
 
+/*******************************************滤波专用变量**************************************************/
 
+#define FILTER_ARR            512
+#define ARR_FILTER_START      156
+#define ARR_FILTER_END        356
+
+float g_vMotorLeft        = 0.0F;
+float g_vMotorRight       = 0.0F;
+float g_vVacuum           = 0.0F;
+float g_vRollingBrush     = 0.0F;
+float g_vSideBrush        = 0.0F;
+float g_vBatteryVoltage   = 0.0F;
+float g_vBatteryCurrent   = 0.0F;
+
+float vArrForFilter[FILTER_ARR] = {0};
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetVoltageFilterProc
+*	功能说明: 采用滤波的方式获取电压
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void bsp_GetVoltageFilterProc(void)
+{
+	uint32_t i = 0 ;
+	float sum = 0.0F;
+	memset(vArrForFilter,0,FILTER_ARR);
+	
+	/*左轮*/
+	sum = 0.0F;
+	memset(vArrForFilter,0,FILTER_ARR);
+	for(i=0;i<FILTER_ARR;++i)
+	{
+		vArrForFilter[i] = bsp_GetFeedbackVoltage(eMotorLeft);
+	}
+	sort_float(vArrForFilter,FILTER_ARR);
+	for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+	{
+		sum += vArrForFilter[i];
+	}
+	g_vMotorLeft = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
+	
+	
+	
+	/*右轮*/
+	sum = 0.0F;
+	memset(vArrForFilter,0,FILTER_ARR);
+	for(i=0;i<FILTER_ARR;++i)
+	{
+		vArrForFilter[i] = bsp_GetFeedbackVoltage(eMotorRight);
+	}
+	sort_float(vArrForFilter,FILTER_ARR);
+	for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+	{
+		sum += vArrForFilter[i];
+	}
+	g_vMotorRight = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
+	
+	/*风机*/
+	sum = 0.0F;
+	memset(vArrForFilter,0,FILTER_ARR);
+	for(i=0;i<FILTER_ARR;++i)
+	{
+		vArrForFilter[i] = bsp_GetFeedbackVoltage(eVacuum);
+	}
+	sort_float(vArrForFilter,FILTER_ARR);
+	for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+	{
+		sum += vArrForFilter[i];
+	}
+	g_vVacuum = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
+	
+	/*滚刷*/
+	sum = 0.0F;
+	memset(vArrForFilter,0,FILTER_ARR);
+	for(i=0;i<FILTER_ARR;++i)
+	{
+		vArrForFilter[i] = bsp_GetFeedbackVoltage(eRollingBrush);
+	}
+	sort_float(vArrForFilter,FILTER_ARR);
+	for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+	{
+		sum += vArrForFilter[i];
+	}
+	g_vRollingBrush = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
+	
+	/*边刷*/
+	sum = 0.0F;
+	memset(vArrForFilter,0,FILTER_ARR);
+	for(i=0;i<FILTER_ARR;++i)
+	{
+		vArrForFilter[i] = bsp_GetFeedbackVoltage(eSideBrush);
+	}
+	sort_float(vArrForFilter,FILTER_ARR);
+	for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+	{
+		sum += vArrForFilter[i];
+	}
+	g_vSideBrush = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
+	
+	/*电池电压*/
+	sum = 0.0F;
+	memset(vArrForFilter,0,FILTER_ARR);
+	for(i=0;i<FILTER_ARR;++i)
+	{
+		vArrForFilter[i] = bsp_GetFeedbackVoltage(eBatteryVoltage);
+	}
+	sort_float(vArrForFilter,FILTER_ARR);
+	for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+	{
+		sum += vArrForFilter[i];
+	}
+	g_vBatteryVoltage = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);	
+	
+	/*电池电流*/
+	sum = 0.0F;
+	memset(vArrForFilter,0,FILTER_ARR);
+	for(i=0;i<FILTER_ARR;++i)
+	{
+		vArrForFilter[i] = bsp_GetFeedbackVoltage(eBatteryCurrent);
+	}
+	sort_float(vArrForFilter,FILTER_ARR);
+	for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+	{
+		sum += vArrForFilter[i];
+	}
+	g_vBatteryCurrent = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);	
+}
 
