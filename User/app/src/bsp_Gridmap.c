@@ -430,6 +430,22 @@ const unsigned char*  ____bsp_Get_GridMap(int robotX,int robotY)
     return (unsigned char*)TuYa_map;
     
 }
+
+short bsp_Get_GridMapArea(void)
+{
+	int grid_index_x,grid_index_y;
+	short cleaned_area = 0;
+	
+	for ( grid_index_x = 0; grid_index_x <= 99; grid_index_x++)
+	{
+		for ( grid_index_y = 0; grid_index_y <= 99; grid_index_y++)
+		{
+			if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) cleaned_area++;
+		}
+	}
+	return cleaned_area;
+	
+}
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY)
 {
 	int grid_index_x,grid_index_y;

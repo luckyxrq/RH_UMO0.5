@@ -437,6 +437,7 @@ static void bsp_UploadBatteryInfo(void)
 	battery_precent = ((battery_adc_value - 11.9f) / 4.8f)*100; 
 	mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY, battery_precent);
 	mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
+	mcu_dp_value_update(DPID_CLEAN_AREA,(unsigned long)((bsp_Get_GridMapArea())*0.01)); 
 }
 
 static void bsp_StopAllMotor(void)
@@ -739,8 +740,8 @@ static void bsp_KeyProc(void)
 			case KEY_WIFI_DIR_FRONT:
 			{
 				bsp_KeySuspend();
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(250));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(150));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(150));
 				vTaskDelay(1000);	
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
@@ -749,8 +750,8 @@ static void bsp_KeyProc(void)
 			case KEY_WIFI_DIR_BACK:
 			{
 				bsp_KeySuspend();
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-250));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-150));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
 				vTaskDelay(1000);	
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
@@ -759,9 +760,9 @@ static void bsp_KeyProc(void)
 			case KEY_WIFI_DIR_LEFT:
 			{
 				bsp_KeySuspend();
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-150));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+150));
-				vTaskDelay(1500);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-100));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
+				vTaskDelay(500);	
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 			}break;
@@ -769,9 +770,9 @@ static void bsp_KeyProc(void)
 			case KEY_WIFI_DIR_RIGHT:
 			{
 				bsp_KeySuspend();
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+150));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
-				vTaskDelay(1500);	
+				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+100));
+				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+				vTaskDelay(500);	
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 			}break;

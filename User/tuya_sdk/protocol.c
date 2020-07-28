@@ -646,10 +646,12 @@ static unsigned char dp_download_seek_handle(const unsigned char value[], unsign
     if(seek == 0)
     {
         //开关关
+		
     }
     else
     {
         //开关开
+		bsp_SperkerPlay(Song24);
     }
     
     //处理完DP数据后应有反馈
