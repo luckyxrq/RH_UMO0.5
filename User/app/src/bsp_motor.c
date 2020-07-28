@@ -130,12 +130,27 @@ void bsp_MotorCleanSetPWM(MotorCleanSN sn, MotorCleanDir dir , uint16_t pwm)
 *********************************************************************************************************
 *	函 数 名: bsp_StartVacuum
 *	功能说明: 开启吸尘器
-*	形    参: 无
+*	形    参: VACUUM_STRENGTH  VACUUM_NORMAL  VACUUM_QUIET
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void bsp_StartVacuum(uint8_t pwm)
+void bsp_StartVacuum(uint8_t grade)
 {
+	uint8_t pwm = 0 ;
+	
+	if(VACUUM_STRENGTH == grade)
+	{
+		pwm = 100;
+	}
+	else if(VACUUM_NORMAL == grade)
+	{
+		pwm = 70;
+	}
+	else if(VACUUM_QUIET == grade)
+	{
+		pwm = 50;
+	}
+	
 	if(pwm > 100)
 	{
 		return;

@@ -581,7 +581,7 @@ void bsp_SearchChargePile(void)
 			}
 			else if(search.isInBack)
 			{
-				if(bsp_GetCurrentBothPulse() - search.pulse >= _SEARCH_PILE_GO_BACK_PULSE*50)
+				if(bsp_GetCurrentBothPulse() - search.pulse >= _SEARCH_PILE_GO_BACK_PULSE*35)
 				{
 					search.isInBack = false;
 					if(search.collision == CollisionLeft)

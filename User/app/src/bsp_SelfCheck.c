@@ -140,7 +140,7 @@ void bsp_SelfCheckProc(void)
 		{
 			bsp_SendSelfCheck();
 			
-			bsp_StartVacuum(VACUUM_DEFAULT_PER);
+			bsp_StartVacuum(VACUUM_NORMAL);
 			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
 			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
