@@ -33,6 +33,9 @@ char BcdToChar(uint8_t _bcd);
 void HexToAscll(uint8_t * _pHex, char *_pAscii, uint16_t _BinBytes);
 uint32_t AsciiToUint32(char *pAscii);
 
+void sort_int(int a[],int n);
+void sort_float(float a[],int n);
+
 #endif
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
