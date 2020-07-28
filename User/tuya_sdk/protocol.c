@@ -497,26 +497,27 @@ static unsigned char dp_download_direction_control_handle(const unsigned char va
     switch(direction_control)
     {
     case 0:
-        DEBUG("direction 0\r\n");
+        RTT("direction 0\r\n");
 		bsp_PutKey(KEY_WIFI_DIR_FRONT);  
         break;
         
     case 1:
-        DEBUG("direction 1\r\n");
+        RTT("direction 1\r\n");
 		bsp_PutKey(KEY_WIFI_DIR_BACK);  
         break;
         
     case 2:
-        DEBUG("direction 2\r\n");
+        RTT("direction 2\r\n");
 		bsp_PutKey(KEY_WIFI_DIR_LEFT); 
         break;
         
     case 3:
-        DEBUG("direction 3\r\n");
+        RTT("direction 3\r\n");
 		bsp_PutKey(KEY_WIFI_DIR_RIGHT);
         break;
         
     case 4:
+		RTT("4dir\r\n");
         break;
         
     default:

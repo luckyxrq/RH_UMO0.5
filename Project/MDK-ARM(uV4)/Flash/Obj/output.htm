@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Jul 28 11:28:05 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Jul 28 11:58:51 2020
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1784,6 +1784,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ParamReadAtPowerOn
+<LI><a href="#[24f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
 </UL>
 
 <P><STRONG><a name="[ea]"></a>SEGGER_RTT_vprintf</STRONG> (Thumb, 416 bytes, Stack size 120 bytes, segger_rtt_printf.o(i.SEGGER_RTT_vprintf))
@@ -4070,7 +4071,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[246]"></a>data_handle</STRONG> (Thumb, 372 bytes, Stack size 32 bytes, system.o(i.data_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_direction_control_handle &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[249]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
 <LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;heat_beat_check
@@ -4085,7 +4086,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[24e]"></a>dp_download_handle</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, protocol.o(i.dp_download_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = dp_download_handle &rArr; dp_download_direction_control_handle &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
 <LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
@@ -4667,7 +4668,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[287]"></a>wifi_uart_service</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, mcu_api.o(i.wifi_uart_service))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = wifi_uart_service &rArr; data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = wifi_uart_service &rArr; data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_direction_control_handle &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_queue_total_data
 <LI><a href="#[28e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_check_sum
@@ -4855,7 +4856,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1f0]"></a>bsp_KeyProc</STRONG> (Thumb, 964 bytes, Stack size 32 bytes, main.o(i.bsp_KeyProc))
+<P><STRONG><a name="[1f0]"></a>bsp_KeyProc</STRONG> (Thumb, 988 bytes, Stack size 32 bytes, main.o(i.bsp_KeyProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 140<LI>Call Chain = bsp_KeyProc &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
@@ -4982,7 +4983,7 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
 <P><STRONG><a name="[4c]"></a>vTaskPerception</STRONG> (Thumb, 144 bytes, Stack size 0 bytes, main.o(i.vTaskPerception))
-<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = vTaskPerception &rArr; bsp_ComAnalysis &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
+<BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = vTaskPerception &rArr; wifi_uart_service &rArr; data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_direction_control_handle &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[287]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
 <LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
@@ -5710,10 +5711,11 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ICInit
 </UL>
 
-<P><STRONG><a name="[24f]"></a>dp_download_direction_control_handle</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, protocol.o(i.dp_download_direction_control_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_direction_control_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<P><STRONG><a name="[24f]"></a>dp_download_direction_control_handle</STRONG> (Thumb, 114 bytes, Stack size 8 bytes, protocol.o(i.dp_download_direction_control_handle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = dp_download_direction_control_handle &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SEGGER_RTT_printf
 <LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
 <LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
 </UL>
@@ -5801,7 +5803,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[24b]"></a>data_point_handle</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, system.o(i.data_point_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = data_point_handle &rArr; dp_download_handle &rArr; dp_download_direction_control_handle &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_dowmload_dpid_index
 <LI><a href="#[24e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle

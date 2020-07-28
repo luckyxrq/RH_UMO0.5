@@ -781,6 +781,9 @@ static void bsp_KeyProc(void)
 				bsp_KeySuspend();
 				bsp_SperkerPlay(Song34);
 				bsp_StartEdgewiseRun();
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
 			}break;
 		}   
 	}
