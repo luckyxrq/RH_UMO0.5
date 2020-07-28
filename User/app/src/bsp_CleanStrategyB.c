@@ -15035,9 +15035,9 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
         j=(current_pose->y+half_map_wide)/GRIDWIDTH;
         if(my_abs(last_position_x - current_pose->x)>lateral_move_distance||my_abs(last_position_y - current_pose->y)>lateral_move_distance){
             end_x=false;
-            if(i>2&&i<97&&j>2&&j<97){
-                for(k=i-3;k<=i+3;k++){
-                    for(ij=j-3;ij<=j+3;ij++){
+            if(i>3&&i<96&&j>3&&j<96){
+                for(k=i-4;k<=i+4;k++){
+                    for(ij=j-4;ij<=j+4;ij++){
                         if(gridmap.map[k][ij]!=125){
                             end_x=true;
                             break;
