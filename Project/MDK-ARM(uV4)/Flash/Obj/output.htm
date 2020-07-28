@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Jul 28 12:04:32 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Jul 28 14:30:51 2020
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -499,7 +499,6 @@ Global Symbols
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
@@ -507,6 +506,7 @@ Global Symbols
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 
 <P><STRONG><a name="[6e]"></a>__aeabi_dsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, dadd.o(.text))
@@ -738,12 +738,9 @@ Global Symbols
 <P><STRONG><a name="[84]"></a>__aeabi_cdcmple</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, cdcmple.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_FunctionTestUpdate
 <LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
-<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Right_ReturnExtreme_point
-<LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Left_ReturnExtreme_point
 <LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
-<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightWalkEdge
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightReverseWalkEdge
@@ -1140,7 +1137,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[ac]"></a>CollisionRightRightRunStep</STRONG> (Thumb, 4156 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionRightRightRunStep))
+<P><STRONG><a name="[ac]"></a>CollisionRightRightRunStep</STRONG> (Thumb, 4158 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionRightRightRunStep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = CollisionRightRightRunStep &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1481,7 +1478,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Init
 </UL>
 
-<P><STRONG><a name="[d5]"></a>LeftEdgeDilemma</STRONG> (Thumb, 5686 bytes, Stack size 56 bytes, bsp_cleanstrategyb.o(i.LeftEdgeDilemma))
+<P><STRONG><a name="[d5]"></a>LeftEdgeDilemma</STRONG> (Thumb, 5980 bytes, Stack size 56 bytes, bsp_cleanstrategyb.o(i.LeftEdgeDilemma))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = LeftEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1503,7 +1500,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[d7]"></a>LeftReverseWalkEdge</STRONG> (Thumb, 3188 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.LeftReverseWalkEdge))
+<P><STRONG><a name="[d7]"></a>LeftReverseWalkEdge</STRONG> (Thumb, 3360 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.LeftReverseWalkEdge))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = LeftReverseWalkEdge &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1515,7 +1512,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[d9]"></a>LeftRunningWorkStep</STRONG> (Thumb, 3084 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.LeftRunningWorkStep))
+<P><STRONG><a name="[d9]"></a>LeftRunningWorkStep</STRONG> (Thumb, 3488 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.LeftRunningWorkStep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = LeftRunningWorkStep &rArr; LeftEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1535,7 +1532,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
-<P><STRONG><a name="[db]"></a>LeftWalkEdge</STRONG> (Thumb, 3536 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.LeftWalkEdge))
+<P><STRONG><a name="[db]"></a>LeftWalkEdge</STRONG> (Thumb, 3664 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.LeftWalkEdge))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = LeftWalkEdge &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1683,7 +1680,7 @@ Global Symbols
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[dc]"></a>RightEdgeDilemma</STRONG> (Thumb, 5804 bytes, Stack size 64 bytes, bsp_cleanstrategyb.o(i.RightEdgeDilemma))
+<P><STRONG><a name="[dc]"></a>RightEdgeDilemma</STRONG> (Thumb, 6040 bytes, Stack size 64 bytes, bsp_cleanstrategyb.o(i.RightEdgeDilemma))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1711,7 +1708,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[de]"></a>RightReverseWalkEdge</STRONG> (Thumb, 3232 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightReverseWalkEdge))
+<P><STRONG><a name="[de]"></a>RightReverseWalkEdge</STRONG> (Thumb, 3382 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightReverseWalkEdge))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = RightReverseWalkEdge &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1723,7 +1720,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[df]"></a>RightRunningWorkStep</STRONG> (Thumb, 3118 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.RightRunningWorkStep))
+<P><STRONG><a name="[df]"></a>RightRunningWorkStep</STRONG> (Thumb, 3502 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.RightRunningWorkStep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = RightRunningWorkStep &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1744,7 +1741,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
-<P><STRONG><a name="[e2]"></a>RightWalkEdge</STRONG> (Thumb, 3316 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightWalkEdge))
+<P><STRONG><a name="[e2]"></a>RightWalkEdge</STRONG> (Thumb, 3460 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightWalkEdge))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = RightWalkEdge &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -2263,8 +2260,8 @@ Global Symbols
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 <LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
@@ -2289,10 +2286,10 @@ Global Symbols
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 <LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
@@ -2398,11 +2395,11 @@ Global Symbols
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
 </UL>
@@ -2412,9 +2409,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan2
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
@@ -3301,12 +3298,11 @@ Global Symbols
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PowerOnLedProc
 </UL>
 
-<P><STRONG><a name="[203]"></a>bsp_Left_ReturnExtreme_point</STRONG> (Thumb, 1360 bytes, Stack size 48 bytes, bsp_gridmap.o(i.bsp_Left_ReturnExtreme_point))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = bsp_Left_ReturnExtreme_point &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[203]"></a>bsp_Left_ReturnExtreme_point</STRONG> (Thumb, 1428 bytes, Stack size 56 bytes, bsp_gridmap.o(i.bsp_Left_ReturnExtreme_point))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = bsp_Left_ReturnExtreme_point &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
@@ -3515,12 +3511,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ResetCleanStrategyBStatus
 </UL>
 
-<P><STRONG><a name="[21a]"></a>bsp_Right_ReturnExtreme_point</STRONG> (Thumb, 1356 bytes, Stack size 40 bytes, bsp_gridmap.o(i.bsp_Right_ReturnExtreme_point))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = bsp_Right_ReturnExtreme_point &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[21a]"></a>bsp_Right_ReturnExtreme_point</STRONG> (Thumb, 1414 bytes, Stack size 48 bytes, bsp_gridmap.o(i.bsp_Right_ReturnExtreme_point))
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = bsp_Right_ReturnExtreme_point &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
@@ -3999,7 +3994,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDecision
 </UL>
 
-<P><STRONG><a name="[233]"></a>clean_strategyB</STRONG> (Thumb, 1592 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.clean_strategyB))
+<P><STRONG><a name="[233]"></a>clean_strategyB</STRONG> (Thumb, 1472 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.clean_strategyB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 504<LI>Call Chain = clean_strategyB &rArr; AStarReturnOrigin &rArr; printShortest &rArr; getShortest &rArr; astar &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
@@ -4014,7 +4009,6 @@ Global Symbols
 <LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Right_ReturnExtreme_point
 <LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Left_ReturnExtreme_point
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
@@ -4372,7 +4366,6 @@ Global Symbols
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
@@ -4381,6 +4374,7 @@ Global Symbols
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan2
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_divzero
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate

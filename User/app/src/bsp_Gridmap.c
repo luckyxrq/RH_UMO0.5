@@ -429,9 +429,7 @@ const unsigned char*  ____bsp_Get_GridMap(int robotX,int robotY){
     return (unsigned char*)TuYa_map;
     
 }
-//<<<<<<< HEAD
-//const unsigned char*  bsp_Get_GridMap(int robotX,int robotY){
-//=======
+
 
 short bsp_Get_GridMapArea(void)
 {
@@ -450,7 +448,6 @@ short bsp_Get_GridMapArea(void)
 }
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY)
 {
-//>>>>>>> d8e0bad8197c702aa27c01f17e3b2d57a85c7e9d
 	int grid_index_x,grid_index_y;
 	int map_robot_x,map_robot_y;
 	int min_x,min_y,max_x,max_y;
@@ -659,9 +656,6 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
     short Leaksweep=0;
     bool leak;
     bool firsttrap=false;
-    if((my_abs(robotX)>half_map_wide-300)||(my_abs(robotY)>half_map_wide-300)){
-        return 0;
-    }
     y_boundary=(robotY+half_map_wide)/100;
     x_boundary=(robotX+half_map_long)/100;
     if(my_abs(robotTheta)>90){
@@ -916,9 +910,6 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
     short Leaksweep=0;
     bool leak;
     bool firsttrap=false;
-    if((my_abs(robotX)>half_map_wide-300)||(my_abs(robotY)>half_map_wide-300)){
-        return 0;
-    }
     x_boundary=(robotX+half_map_long)/100;
     y_boundary=(robotY+half_map_wide)/100;
     if(my_abs(robotTheta)>90){
