@@ -256,13 +256,13 @@ void bsp_ComAnalysis(void)
 void bsp_SendReportFrameWithCRC16(void)
 {
 	/*µÁ—π≤ø∑÷*/
-	float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
-	float batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
-	float wheelL = bsp_GetFeedbackVoltage(eMotorLeft);
-	float wheelR = bsp_GetFeedbackVoltage(eMotorRight);
-	float roll = bsp_GetFeedbackVoltage(eRollingBrush);
-	float vacuum = bsp_GetFeedbackVoltage(eVacuum);
-	float sideBrush = bsp_GetFeedbackVoltage(eSideBrush);
+	float batteryVoltage = bsp_GetVolAfterFilter(eBatteryVoltage);
+	float batteryCurrent = bsp_GetVolAfterFilter(eBatteryCurrent);
+	float wheelL = bsp_GetVolAfterFilter(eMotorLeft);
+	float wheelR = bsp_GetVolAfterFilter(eMotorRight);
+	float roll = bsp_GetVolAfterFilter(eRollingBrush);
+	float vacuum = bsp_GetVolAfterFilter(eVacuum);
+	float sideBrush = bsp_GetVolAfterFilter(eSideBrush);
 
 	reportFrameWithCRC16.dustBox = bsp_DustBoxGetState();
 	
