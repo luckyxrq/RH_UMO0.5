@@ -159,6 +159,8 @@ static void vTaskDecision(void *pvParameters)
 			bsp_WifiStateProc();
         }
 
+		bsp_GetVoltageFilterProc();
+		
         vTaskDelay(50);	
     }
 
