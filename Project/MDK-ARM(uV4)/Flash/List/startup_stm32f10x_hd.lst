@@ -70,25 +70,25 @@ ARM Macro Assembler    Page 2
 
 
    41 00000000         
-   42 00000000 00001800 
+   42 00000000 00001000 
                        Stack_Size
-                               EQU              0x00001800
+                               EQU              0x00001000
    43 00000000         
    44 00000000                 AREA             STACK, NOINIT, READWRITE, ALIGN
 =3
    45 00000000         Stack_Mem
                                SPACE            Stack_Size
-   46 00001800         __initial_sp
-   47 00001800         
-   48 00001800         ; <h> Heap Configuration
-   49 00001800         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
-   50 00001800         ; </h>
-   51 00001800         
-   52 00001800 00000400 
+   46 00001000         __initial_sp
+   47 00001000         
+   48 00001000         ; <h> Heap Configuration
+   49 00001000         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+   50 00001000         ; </h>
+   51 00001000         
+   52 00001000 00000400 
                        Heap_Size
                                EQU              0x00000400
-   53 00001800         
-   54 00001800                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
+   53 00001000         
+   54 00001000                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
 3
    55 00000000         __heap_base
    56 00000000         Heap_Mem
@@ -561,12 +561,11 @@ ARM Macro Assembler    Page 9
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\flash\obj\startup_stm32f10x_hd.d -o.\flash\obj\startup_stm32f10x
-_hd.o -IC:\Users\User009\Documents\CleanCar\Project\MDK-ARM(uV4)\RTE -IE:\Keil_
-v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include -IE:\Keil_v5\ARM\CMSIS\Incl
-ude --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 514" --
-predefine="STM32F10X_HD SETA 1" --list=.\flash\list\startup_stm32f10x_hd.lst ..
-\..\Libraries\CMSIS\Device\ST\STM32F10x\Source\Templates\arm\startup_stm32f10x_
-hd.s
+_hd.o -IG:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE -ID:\soft\MDK5\ARM\PACK\K
+eil\STM32F1xx_DFP\1.0.5\Device\Include -ID:\soft\MDK5\ARM\CMSIS\Include --prede
+fine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 514" --predefine="
+STM32F10X_HD SETA 1" --list=.\flash\list\startup_stm32f10x_hd.lst ..\..\Librari
+es\CMSIS\Device\ST\STM32F10x\Source\Templates\arm\startup_stm32f10x_hd.s
 
 
 
@@ -591,7 +590,7 @@ ates\arm\startup_stm32f10x_hd.s
    Uses
       None
 Comment: Stack_Mem unused
-__initial_sp 00001800
+__initial_sp 00001000
 
 Symbol: __initial_sp
    Definitions
@@ -1654,7 +1653,7 @@ ates\arm\startup_stm32f10x_hd.s
       At line 56 in file ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Source\Templ
 ates\arm\startup_stm32f10x_hd.s
 Comment: Heap_Size used once
-Stack_Size 00001800
+Stack_Size 00001000
 
 Symbol: Stack_Size
    Definitions

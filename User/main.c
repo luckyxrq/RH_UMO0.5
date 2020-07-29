@@ -124,10 +124,10 @@ static void vTaskMapping(void *pvParameters)
 			bsp_UploadBatteryInfo();
 		}
 		
-		//bsp_GetVoltageFilterProc();
-		//PrintVolAfterFilter();
 		
-		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		
+		
+		//RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
         vTaskDelay(100);
     }
@@ -161,7 +161,9 @@ static void vTaskDecision(void *pvParameters)
 			/*下面是打印开关，酌情注释*/
 			bsp_WifiStateProc();
         }
-
+			
+		//RTT("vTaskDecision:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		
         vTaskDelay(50);	
     }
 
@@ -209,6 +211,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			ResetReturnChargeStationStatus();
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
+		
+		//RTT("vTaskControl:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
         vTaskDelay(20);
@@ -327,6 +331,10 @@ static void vTaskPerception(void *pvParameters)
 			bsp_SendReportFrameWithCRC16();
 		}
 
+		bsp_GetVoltageFilterProc();
+		PrintVolAfterFilter();
+		RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		
 		count++;
         vTaskDelay(5);	
     }		
@@ -347,7 +355,7 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
                  "vTaskMapping",   		        /* 任务名    */
-                 1024*2,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskMapping );         /* 任务句柄  */
