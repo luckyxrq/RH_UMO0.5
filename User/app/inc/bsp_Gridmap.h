@@ -1,7 +1,4 @@
 
-
-
-
 #ifndef __BSP_GRIDMAP_H
 #define __BSP_GRIDMAP_H
 
@@ -117,6 +114,9 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
 //	int grid_dist,CLIFFADCVALUE *cliff_value);
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 short bsp_Get_GridMapArea(void);
+
+
+
 
 extern GridMap gridmap;
 extern CLIFFADCVALUE cliff_valueB;

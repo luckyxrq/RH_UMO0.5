@@ -1051,6 +1051,16 @@ int32_t bsp_GetStrategyCurrentPosX(void);
 int32_t bsp_GetStrategyCurrentPosY(void);
 
 
+void bsp_StartUpdateGridMap(void);
+void bsp_StopUpdateGridMap(void);
+unsigned char* bsp_GetIRSensorData(void);
+short Edge_length(void);
+short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
+short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal);
+
+const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
+
+
 #endif
 
 
