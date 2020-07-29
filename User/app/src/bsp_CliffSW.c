@@ -192,9 +192,9 @@ static void bsp_InitCliffEmit_GPIO(void)
 }
 
 
-#define FILTER_ARR            8
-#define ARR_FILTER_START      3
-#define ARR_FILTER_END        5
+#define FILTER_ARR            32
+#define ARR_FILTER_START      14
+#define ARR_FILTER_END        18
 
 static float vArrForFilter[FILTER_ARR] = {0};
 
@@ -211,8 +211,9 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 {
 	float sum = 0.0F;
 	float ret = 0.0F;
+	float adc = 0 ;
 	uint32_t i = 0 ;
-	uint16_t adc = 0 ;
+	
 	
 	memset(vArrForFilter,0,FILTER_ARR);
 	
@@ -227,7 +228,7 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 				while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
 				adc = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
 				
-				vArrForFilter[i] = adc*3.3F/4096;
+				vArrForFilter[i] = adc;
 			}
 			
 			sort_float(vArrForFilter,FILTER_ARR);
@@ -248,7 +249,7 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 				while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
 				adc = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
 				
-				vArrForFilter[i] = adc*3.3F/4096;
+				vArrForFilter[i] =  adc;
 			}
 			
 			sort_float(vArrForFilter,FILTER_ARR);
@@ -269,7 +270,7 @@ float bsp_GetCliffVoltage(CliffSWSN sn)
 				while(!ADC_GetFlagStatus(ADC3, ADC_FLAG_EOC ));
 				adc = ADC_GetConversionValue(ADC3) * 3.3F / 4096;
 				
-				vArrForFilter[i] = adc*3.3F/4096;
+				vArrForFilter[i] =  adc;
 			}
 			
 			sort_float(vArrForFilter,FILTER_ARR);
