@@ -669,3 +669,7 @@ void PrintVolAfterFilter(void)
 	RTT("eBatteryVoltage:%d\r\n",(int)(bsp_GetVolAfterFilter(eBatteryVoltage)*1000));
 	RTT("eBatteryCurrent:%d\r\n",(int)bsp_GetVolAfterFilter(eBatteryCurrent));
 }
+
+
+
+

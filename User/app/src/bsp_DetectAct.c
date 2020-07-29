@@ -225,6 +225,12 @@ static void bsp_ADCConfig(void)
 
 
 
+#define FILTER_ARR            128
+#define ARR_FILTER_START      60
+#define ARR_FILTER_END        68
+
+static float vArrForFilter[FILTER_ARR] = {0};
+
 /*
 *********************************************************************************************************
 *	函 数 名: AdcPro
@@ -235,14 +241,15 @@ static void bsp_ADCConfig(void)
 */
 float bsp_GetAdScanValue(void)
 {
-	uint16_t ret;
-	uint8_t i = 0 ;
-	uint8_t sampleCount = 3 ; 
-	uint32_t sum = 0 ;
-	float voltage;
+	float sum = 0.0F;
+	float ret = 0.0F;
+	uint32_t i = 0 ;
+	uint16_t adc = 0 ;
+	
+	memset(vArrForFilter,0,FILTER_ARR);
 	
 	
-	for(i = 0;i<sampleCount;i++)
+	for(i = 0;i<FILTER_ARR;++i)
 	{
 		//设置指定ADC的规则组通道，一个序列，采样时间
 		ADC_RegularChannelConfig(ADC2, ADC_Channel_14, 1, ADC_SampleTime_239Cycles5 );	//ADC2,ADC通道,采样时间为239.5周期	  			    
@@ -250,14 +257,20 @@ float bsp_GetAdScanValue(void)
 		ADC_SoftwareStartConvCmd(ADC2, ENABLE);		//使能指定的ADC2的软件转换启动功能	
 		 
 		while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));//等待转换结束
-		ret = ADC_GetConversionValue(ADC2);	//返回最近一次ADC2规则组的转换结果
-		
-		sum += ret;
+		adc = ADC_GetConversionValue(ADC2);	//返回最近一次ADC2规则组的转换结果
+
+		vArrForFilter[i] = adc*3.3F/4096;
 	}
 	
-	voltage = (sum / (float)sampleCount)*3.3F/4096;
+	sort_float(vArrForFilter,FILTER_ARR);
+	for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+	{
+		sum += vArrForFilter[i];
+	}
+	
+	ret = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
 
-	return voltage;
+	return ret;
 }
 
 
