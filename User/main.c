@@ -257,11 +257,11 @@ static void vTaskPerception(void *pvParameters)
 	
 	
 #if AT_POWER_ON_OPEN_ALL_MODULE_EN /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
-	bsp_StartVacuum(VACUUM_DEFAULT_PER);
-	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse (120));
-	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));
+//	bsp_StartVacuum(VACUUM_DEFAULT_PER);
+	bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.8F);
+//	bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+//	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse (120));
+//	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(120));
 #endif
 	
     while(1)
