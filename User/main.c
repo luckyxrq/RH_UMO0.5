@@ -124,7 +124,10 @@ static void vTaskMapping(void *pvParameters)
 			bsp_UploadBatteryInfo();
 		}
 		
+		//bsp_GetVoltageFilterProc();
+		//PrintVolAfterFilter();
 		
+		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
         vTaskDelay(100);
     }
@@ -159,8 +162,6 @@ static void vTaskDecision(void *pvParameters)
 			bsp_WifiStateProc();
         }
 
-		bsp_GetVoltageFilterProc();
-		
         vTaskDelay(50);	
     }
 

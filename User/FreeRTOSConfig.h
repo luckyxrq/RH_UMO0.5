@@ -125,6 +125,14 @@ to exclude the API function. */
 #define INCLUDE_vTaskDelayUntil			1
 #define INCLUDE_vTaskDelay				1
 
+/*
+	任务栈空间的实际使用量会随着任务执行和中断处理过程上下浮动。
+	uxTaskGetStackHighWaterMark()返回从任务启动执行开始的运行历史中，栈空间具有的最小剩余量。
+	这个值即是栈空间使用达到最深时的剩下的未使用的栈空间。这个值越是接近0，则这个任务就越是离栈溢出不远了。
+*/
+#define INCLUDE_uxTaskGetStackHighWaterMark 1
+
+
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS
 	/* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */

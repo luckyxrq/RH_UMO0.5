@@ -20,6 +20,8 @@ void bsp_PrintAllVoltage(void);
 
 void bsp_GetVoltageFilterProc(void);
 float bsp_GetVolAfterFilter(FeedbackSN sn);
+void PrintVolAfterFilter(void);
+
 
 #endif
 

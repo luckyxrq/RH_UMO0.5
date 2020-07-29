@@ -428,19 +428,19 @@ void bsp_PrintAllVoltage(void)
 
 /*******************************************滤波专用变量**************************************************/
 
-#define FILTER_ARR            512
-#define ARR_FILTER_START      156
-#define ARR_FILTER_END        356
+#define FILTER_ARR            8
+#define ARR_FILTER_START      2
+#define ARR_FILTER_END        6
 
-float g_vMotorLeft        = 0.0F;
-float g_vMotorRight       = 0.0F;
-float g_vVacuum           = 0.0F;
-float g_vRollingBrush     = 0.0F;
-float g_vSideBrush        = 0.0F;
-float g_vBatteryVoltage   = 0.0F;
-float g_vBatteryCurrent   = 0.0F;
+static float g_vMotorLeft        = 0.0F;
+static float g_vMotorRight       = 0.0F;
+static float g_vVacuum           = 0.0F;
+static float g_vRollingBrush     = 0.0F;
+static float g_vSideBrush        = 0.0F;
+static float g_vBatteryVoltage   = 0.0F;
+static float g_vBatteryCurrent   = 0.0F;
 
-float vArrForFilter[FILTER_ARR] = {0};
+static float vArrForFilter[FILTER_ARR] = {0};
 
 /*
 *********************************************************************************************************
@@ -570,11 +570,10 @@ void bsp_GetVoltageFilterProc(void)
 }
 
 
-
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_GetFeedbackVoltage
-*	功能说明: 返回反馈的电压
+*	功能说明: 获取滤波后的电压
 *	形    参：无
 *	返 回 值: 无
 *********************************************************************************************************
@@ -624,7 +623,14 @@ float bsp_GetVolAfterFilter(FeedbackSN sn)
 	return ret ;
 }
 
-
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetFeedbackVoltage
+*	功能说明: 打印滤波后的电压
+*	形    参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
 void PrintVolAfterFilter(void)
 {
 	RTT("eMotorLeft:%d\r\n",(int)bsp_GetVolAfterFilter(eMotorLeft));
