@@ -1341,7 +1341,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             break;
         }
-        else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 171){
+		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 175){
             if (Yaw > 0){
                 linear_velocity = correction_big_straight_vel;
                 angular_velocity = correction_big_turn_vel;
@@ -1374,7 +1374,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             break;
         }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 9)
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
         {
             if (Yaw > 0){
                 linear_velocity = correction_big_straight_vel;
@@ -1961,10 +1961,8 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_ABS173_CR_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-        if (my_abs(Yaw) > 173)
+        if (my_abs(Yaw) > 172)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
             collision_right_rightrun_step_status = COMPLETE_CR_DRYL;
             break;
         }
@@ -2121,7 +2119,6 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
 			infrared_collision=false;
             break;
         }
-        
         if (my_abs(last_position_y - current_pose->y) > close_edge)
         {
             collision_right_rightrun_step_status = GOSTR_BYPASS_BOW_CONTINUE_CR_DRYM;
@@ -6643,15 +6640,15 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
                 break;
             }
         }
-        else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 171){
+        else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 175){
             if (Yaw > 0){
-                linear_velocity = correction_big_straight_vel;
-                angular_velocity = correction_big_turn_vel;
+                linear_velocity = 0;
+                angular_velocity = 20;
                 break;
             }
             else{
-                linear_velocity = correction_big_straight_vel;
-                angular_velocity = -correction_big_turn_vel;
+                linear_velocity = 0;
+                angular_velocity = -20;
                 break;
             }
         }
@@ -6682,7 +6679,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
                 break;
             }
         }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 9)
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
         {
             if (Yaw > 0){
                 linear_velocity = correction_big_straight_vel;
@@ -7621,8 +7618,6 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
         if (obstacleSignal == right_obstacle)
         {
             collision_right_rightrun_step_status = RIGHT_COLLISION_BYPASS_LRUN_CR_DLYL;
-			last_position_x=current_pose->x;
-			temporary_yaw = Yaw;
 			infrared_collision=false;
             break;
         }
@@ -7636,7 +7631,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             collision_right_rightrun_step_status = TURN_CLOCK_TARGET_YAW_ABS90_LRUN_CR_DLYM;
             break;
         }
-        if (last_position_y > current_pose->y + 1)
+        if (last_position_y > current_pose->y)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7697,16 +7692,26 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
         }
         break;
     case GOSTR_BYPASS_BOW_CONTINUE_TARGET_YAW_ABS3_LRUN_CR_DLYL:
-        linear_velocity = 0;
-        angular_velocity =turn_vel;
+		if(Yaw>0){
+			linear_velocity = 0;
+			angular_velocity =-turn_vel;
+		}else{
+			linear_velocity = 0;
+			angular_velocity =turn_vel;
+		}
+		if (my_abs(Yaw) >90)
+        {
+            collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_AB173_LRUN_CR_DLYL;
+            break;
+        }
         if (obstacleSignal !=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             linear_velocity = 0;
             angular_velocity = 0;
-            collision_right_rightrun_step_status =  GOSTR_BYPASS_BOW_CONTINUE_TARGET_YAW_ABS3_COLLISION_LRUN_CR_DLYL;
+            collision_right_rightrun_step_status = GOSTR_BYPASS_BOW_CONTINUE_TARGET_YAW_ABS3_COLLISION_LRUN_CR_DLYL;
             break;
         }
-        if (my_abs(Yaw) < 8)
+        if (my_abs(Yaw) <8)
         {
             collision_right_rightrun_step_status =  GOSTR_BYPASS_BOW_CONTINUE_EXIT_LRUN_CR_DLYL;
             break;
