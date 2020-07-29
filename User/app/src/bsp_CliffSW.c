@@ -192,6 +192,12 @@ static void bsp_InitCliffEmit_GPIO(void)
 }
 
 
+#define FILTER_ARR            8
+#define ARR_FILTER_START      3
+#define ARR_FILTER_END        5
+
+static float vArrForFilter[FILTER_ARR] = {0};
+
 
 /*
 *********************************************************************************************************
@@ -203,32 +209,77 @@ static void bsp_InitCliffEmit_GPIO(void)
 */
 float bsp_GetCliffVoltage(CliffSWSN sn)
 {
-	float ret = 0 ;
+	float sum = 0.0F;
+	float ret = 0.0F;
+	uint32_t i = 0 ;
+	uint16_t adc = 0 ;
+	
+	memset(vArrForFilter,0,FILTER_ARR);
 	
 	switch(sn)
 	{
 		case CliffLeft:
 		{
-			ADC_RegularChannelConfig(ADC2, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
-			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
-			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
-			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+			for(i = 0;i<FILTER_ARR;++i)
+			{
+				ADC_RegularChannelConfig(ADC2, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
+				ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+				while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+				adc = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+				
+				vArrForFilter[i] = adc*3.3F/4096;
+			}
+			
+			sort_float(vArrForFilter,FILTER_ARR);
+			for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+			{
+				sum += vArrForFilter[i];
+			}
+			
+			ret = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
 		}break;
 		
 		case CliffMiddle:
 		{
-			ADC_RegularChannelConfig(ADC2, ADC_Channel_6, 1, ADC_SampleTime_239Cycles5 );
-			ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
-			while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
-			ret = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+			for(i = 0;i<FILTER_ARR;++i)
+			{
+				ADC_RegularChannelConfig(ADC2, ADC_Channel_6, 1, ADC_SampleTime_239Cycles5 );
+				ADC_SoftwareStartConvCmd(ADC2, ENABLE);	
+				while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));
+				adc = ADC_GetConversionValue(ADC2) * 3.3F / 4096;
+				
+				vArrForFilter[i] = adc*3.3F/4096;
+			}
+			
+			sort_float(vArrForFilter,FILTER_ARR);
+			for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+			{
+				sum += vArrForFilter[i];
+			}
+			
+			ret = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
 		}break;
 		
 		case CliffRight:
 		{
-			ADC_RegularChannelConfig(ADC3, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
-			ADC_SoftwareStartConvCmd(ADC3, ENABLE);	
-			while(!ADC_GetFlagStatus(ADC3, ADC_FLAG_EOC ));
-			ret = ADC_GetConversionValue(ADC3) * 3.3F / 4096;
+			for(i = 0;i<FILTER_ARR;++i)
+			{
+				ADC_RegularChannelConfig(ADC3, ADC_Channel_7, 1, ADC_SampleTime_239Cycles5 );
+				ADC_SoftwareStartConvCmd(ADC3, ENABLE);	
+				while(!ADC_GetFlagStatus(ADC3, ADC_FLAG_EOC ));
+				adc = ADC_GetConversionValue(ADC3) * 3.3F / 4096;
+				
+				vArrForFilter[i] = adc*3.3F/4096;
+			}
+			
+			sort_float(vArrForFilter,FILTER_ARR);
+			for(i=ARR_FILTER_START;i<ARR_FILTER_END;++i)
+			{
+				sum += vArrForFilter[i];
+			}
+			
+			ret = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
+
 		}break;
 	}
 	
@@ -289,6 +340,11 @@ uint8_t bsp_GetCliffStates(void)
 	{
 		data |= 1<< 2;
 	}
+	
+	RTT("cliffSub[0]:%d\r\n",(int)cliffSub[0]);
+	RTT("cliffSub[1]:%d\r\n",(int)cliffSub[1]);
+	RTT("cliffSub[2]:%d\r\n",(int)cliffSub[2]);
+	
 	
 	
 	cliffStates = data;

@@ -325,8 +325,8 @@ static void vTaskPerception(void *pvParameters)
 		}
 
 		bsp_GetVoltageFilterProc();
-		PrintVolAfterFilter();
-		RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//PrintVolAfterFilter();
+		//RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
         vTaskDelay(5);	
