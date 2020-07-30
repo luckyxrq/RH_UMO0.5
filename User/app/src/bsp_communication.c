@@ -255,15 +255,6 @@ void bsp_ComAnalysis(void)
 
 void bsp_SendReportFrameWithCRC16(void)
 {
-	/*µÁ—π≤ø∑÷*/
-	float batteryVoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
-	float batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent);
-	float wheelL = bsp_GetFeedbackVoltage(eMotorLeft);
-	float wheelR = bsp_GetFeedbackVoltage(eMotorRight);
-	float roll = bsp_GetFeedbackVoltage(eRollingBrush);
-	float vacuum = bsp_GetFeedbackVoltage(eVacuum);
-	float sideBrush = bsp_GetFeedbackVoltage(eSideBrush);
-
 	reportFrameWithCRC16.dustBox = bsp_DustBoxGetState();
 	
 	reportFrameWithCRC16.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
@@ -311,13 +302,13 @@ void bsp_SendReportFrameWithCRC16(void)
 	reportFrameWithCRC16.offsiteSW = bsp_OffSiteGetState();
 	reportFrameWithCRC16.collision = bsp_CollisionScan();
 
-	reportFrameWithCRC16.mA_wheelL           = wheelL * 1000.0F * 1000.0F / 33.0F / 50.0F;
-	reportFrameWithCRC16.mA_wheelR           = wheelR * 1000.0F * 1000.0F / 33.0F / 50.0F;
-	reportFrameWithCRC16.mA_roll             = roll * 1000.0F * 1000.0F / 33.0F / 50.0F;
-	reportFrameWithCRC16.mA_sideBrush        = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
-	reportFrameWithCRC16.mA_vacuum           = vacuum * 1000.0F * 1000.0F / 33.0F / 50.0F;
-	reportFrameWithCRC16.v_batteryVoltage    = ((batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F)*1000; 
-	reportFrameWithCRC16.mA_batteryCurrent   = batteryCurrent*1000.0F * 1000.0F / 10.0F / 50.0F; 
+	reportFrameWithCRC16.mA_wheelL           = bsp_GetVoltageAfterFilter(eMotorLeft);
+	reportFrameWithCRC16.mA_wheelR           = bsp_GetVoltageAfterFilter(eMotorRight);
+	reportFrameWithCRC16.mA_roll             = bsp_GetVoltageAfterFilter(eRollingBrush);
+	reportFrameWithCRC16.mA_sideBrush        = bsp_GetVoltageAfterFilter(eSideBrush);
+	reportFrameWithCRC16.mA_vacuum           = bsp_GetVoltageAfterFilter(eVacuum);
+	reportFrameWithCRC16.v_batteryVoltage    = bsp_GetVoltageAfterFilter(eBatteryVoltage);
+	reportFrameWithCRC16.mA_batteryCurrent   = bsp_GetVoltageAfterFilter(eBatteryCurrent);
 
 
 	reportFrameWithCRC16.head = 0xAAAA;
