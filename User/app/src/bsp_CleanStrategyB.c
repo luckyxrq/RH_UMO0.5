@@ -1,112 +1,3 @@
-#ifndef __BSP_GRIDMAP_H
-#define __BSP_GRIDMAP_H
-
-#include <stdbool.h>
-/** Grid Size (mm) */
-// 10cm * 10cm
-#define GRIDWIDTH  100
-#define GRIDHEIGHT 100
-
-//数量个数
-#define MAPWIDECELLS 100
-#define MAPLONGCELLS 100
-#define MAPMAXCELLS 100
-
-/** Map Size (mm) */ 
-// 10m * 10m
-#define MAPWIDTH  10000
-#define MAPHEIGHT 10000
-
-#define half_map_wide 5000
-#define half_map_long 5000
-#define reverse_x_more_map 4500
-
-#define ROBOTXOFFSET   MAPWIDTH/2
-#define ROBOTYOFFSET   MAPHEIGHT/2
-
-#define FRONT_OBSTACLE_SIGNAL 2
-#define LEFT_OBSTACLE_SIGNAL 0
-#define RIGHT_OBSTACLE_SIGNAL 1
-#define NONE_OBSTACLE_SIGNAL 3
-
-#define REFRESH_ZONE_SIZE 3
-
-#define map_robot_radius 120
-
-
-
-#define OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07 250 
-#define OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM89 50
-
-
-
-//#define CUR_POS             (uint8_t)0x00    /*当前点*/
-//#define OBSTACLE_POS        (uint8_t)0x01    /*障碍物*/
-//#define CLEANED_POS         (uint8_t)0x02    /*已清扫*/
-//#define CHARGING_PILE_POS   (uint8_t)0x03    /*充电桩*/
-//#define RESERVE_POS         (uint8_t)0x04    /*保留*/
-
-
-//#pragma pack(1)
-//typedef struct 
-//{
-//	unsigned char x ; 
-//	unsigned char y ;
-//	unsigned char posInfo;
-//}MapInfo;
-//#pragma pack()
-
-// Initialize GridMapping
-//l0,  locc,  lfree,  alpha,  alpha1,  beta,  Zmax,  Zmin,  sensorType
-//l0     :  Init default grid map data   0.5
-//locc   :  Occupancy grid map data      1
-//lfree  :  free grid map data           0
-//alpha  :  obstacle distance from robot center to draw the grid map   170mm
-//alpha1 :  free zone from robot center to draw the grid map           140mm
-//beta   :  sensor installation angle on robot  45°
-//Zmax   :  refresh zone max radius  300mm
-//Zmin   :  refresh zone min radius  170mm
-//sensorType: collision or  infrared
-
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-
-typedef struct {
-    uint8_t cliffValue0;
-    uint16_t cliffValue1;
-    uint16_t cliffValue2;
-    uint16_t cliffValue3;
-}CLIFFADCVALUE;
-
-typedef struct{
-    unsigned char grid_default;
-    unsigned char grid_occupancy;
-    unsigned char grid_half_occupancy;
-    unsigned char grid_free;
-    short obstacle_distance_from_robot_center;
-    short free_zone_from_robot_center;
-    //short collision_sensor_installation_angle_on_robot;
-    double collision_sensor_installation_angle_on_robot;
-    short refresh_zone_max_radius;
-    short refresh_zone_min_radius;
-    short sensor_type;
-    volatile unsigned char map[MAPWIDTH/GRIDWIDTH][MAPHEIGHT/GRIDHEIGHT];
-    /*状态机*/
-    volatile unsigned char action ;
-    volatile bool isRunning ;
-    volatile unsigned int delay ;
-}GridMap;
-
-
-extern GridMap gridmap;
-extern CLIFFADCVALUE cliff_valueB;
-extern unsigned char rightmapmin;
-extern unsigned char rightmapmax;
-
-
-
-#endif
-
 #include "bsp.h"
 #include <math.h>
 
@@ -346,6 +237,10 @@ extern char Left_On_extreme_point_x[10];
 extern char Left_Under_extreme_point_y[10];
 extern char Left_On_extreme_point_y[10];
 
+extern GridMap gridmap;
+extern CLIFFADCVALUE cliff_valueB;
+
+
 
 double my_abs(double x){
     if(x<0){
@@ -355,7 +250,10 @@ double my_abs(double x){
 }
 
 
-static void sendvelocity(double* linear_velocity,double* angular_velocity){
+static void sendvelocity(double* linear_velocity,double* angular_velocity)
+{
+/*角速度范围：5~60 度/秒*/
+/*线速度范围：20~250 毫米/秒*/
     short leftVelocity,rightVelocity;
     double linear_velocity_IR,cmd_linear_velocity,cmd_angular_velocity;
     cmd_linear_velocity = *linear_velocity;
@@ -720,7 +618,6 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
     //	IRSensorData_StrategyB
     //	cliff_valueB
     
-    
     /*如果 处在 上传数据的状态 ， 则屏蔽异异常检测*/
     if(GetCmdStartUpload())
     {
@@ -824,7 +721,6 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 }
 
 //#################################################################################
-
 
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
@@ -1229,8 +1125,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
 }
 
 //####################################################           RIGHT        #####    
-
-
 unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -6537,7 +6431,6 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
 
 //##########           LEFT             ###########################################	
 ///////////////////////////////////////////////////////////////////////////////////
-
 unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -12094,9 +11987,6 @@ void StuckRunStep(POSE *current_pose){
 
 //##############A* return origin function define###################################
 //#################################################################################
-
-
-
 unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
@@ -14694,13 +14584,6 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal){
     }
     return complete_flag;
 }
-
-
-//还未使用 ，原来打算做沿边
-
-
-
-
 unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char i;
@@ -15865,12 +15748,6 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
     }
     return complete_flag;
 }
-
-
-
-//检测地图是否封边
-
-
 unsigned char  DetectionCloseEdge(){
     int8_t i,j,k;
     bool end_x = false;

@@ -120,8 +120,7 @@ short bsp_Get_GridMapArea(void);
 
 extern GridMap gridmap;
 extern CLIFFADCVALUE cliff_valueB;
-extern unsigned char rightmapmin;
-extern unsigned char rightmapmax;
+
 
 #endif
 

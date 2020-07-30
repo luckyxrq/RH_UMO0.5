@@ -3,15 +3,11 @@
 
 #include <stdbool.h>
 
-
 #define RIGHTRUNNING_WORK_SETP        0x01
 #define LEFTRUNNING_WORK_SETP         0x02
 #define RIGHTRETURN_ORIGIN_WORK_SETP  0x03
 #define LEFTRETURN_ORIGIN_WORK_SETP   0x04
 #define ALL_FINSHED_WORK_SETP         0x05
-
-
-
 
 
 //**********return origin define*************
@@ -860,7 +856,6 @@
 
 
 //all define left
-
 #define PI 3.14159265
 #define front_backward_distance 10
 #define side_backward_distance 20//15 //25
@@ -886,7 +881,7 @@
 #define turn_vel 60
 #define correction_turn_vel 10//40 //10
 #define correction_straight_vel 200 //200
-#define correction_big_turn_vel 20
+#define correction_big_turn_vel 10
 #define correction_big_straight_vel 100 
 
 
@@ -955,7 +950,6 @@ typedef struct AStar_Open
 #define uint8_t unsigned char
 
 
-
 typedef struct POSE{
     int x;
     int y;
@@ -980,10 +974,8 @@ void bsp_StartUpdateCleanStrategyB(void);
 void bsp_ResetCleanStrategyBStatus(void);
 void bsp_StopUpdateCleanStrategyB(void);
 void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta,unsigned char obstacleSignal, int current_wheel_pulse_l, int current_wheel_pulse_r, unsigned char IRSensorData[],CLIFFADCVALUE * cliff_value);
-//uint8_t clean_strategy(POSE *current_pose,unsigned char obstacleSignal);
-uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal);
 
-//unsigned char  EdgeWiseRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal);
+uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal);
 
 unsigned char RightRunningWorkStep(POSE *current_pose,unsigned char obstacleSignal);
 unsigned char RightReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal);
@@ -1047,9 +1039,8 @@ uint8_t GetReturnChargeStationStatus(void);
 void ResetReturnChargeStationStatus(void);
 void ReturnExtreme_point_init(void);
 
-int32_t bsp_GetStrategyCurrentPosX(void);
-int32_t bsp_GetStrategyCurrentPosY(void);
-
+int bsp_GetStrategyCurrentPosX(void);
+int bsp_GetStrategyCurrentPosY(void);
 
 void bsp_StartUpdateGridMap(void);
 void bsp_StopUpdateGridMap(void);

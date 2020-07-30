@@ -47,7 +47,8 @@ signed char Left_On_extreme_point_x[10] = {0};
 signed char Left_Under_extreme_point_y[10]={0};
 signed char Left_On_extreme_point_y[10] = {0};
 
-
+extern unsigned char rightmapmin;
+extern unsigned char rightmapmax;
 
 static unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid_y,int x,int y,short theta,int xi,int yi,unsigned char obstacleSignal,int grid_dist,CLIFFADCVALUE *cliff_value){
     int o_x = x;
