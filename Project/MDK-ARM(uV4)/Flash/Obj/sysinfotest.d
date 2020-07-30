@@ -100,3 +100,4 @@
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_selfcheck.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_functiontest.h
 .\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_bed.h
+.\flash\obj\sysinfotest.o: ..\..\User\app\inc\bsp_kalman.h

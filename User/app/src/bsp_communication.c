@@ -256,13 +256,13 @@ void bsp_ComAnalysis(void)
 void bsp_SendReportFrameWithCRC16(void)
 {
 	/*µÁ—π≤ø∑÷*/
-	float batteryVoltage = bsp_GetVolAfterFilter(eBatteryVoltage);
-	float batteryCurrent = bsp_GetVolAfterFilter(eBatteryCurrent);
-	float wheelL = bsp_GetVolAfterFilter(eMotorLeft);
-	float wheelR = bsp_GetVolAfterFilter(eMotorRight);
-	float roll = bsp_GetVolAfterFilter(eRollingBrush);
-	float vacuum = bsp_GetVolAfterFilter(eVacuum);
-	float sideBrush = bsp_GetVolAfterFilter(eSideBrush);
+//	float batteryVoltage = bsp_GetVolAfterFilter(eBatteryVoltage);
+//	float batteryCurrent = bsp_GetVolAfterFilter(eBatteryCurrent);
+//	float wheelL = bsp_GetVolAfterFilter(eMotorLeft);
+//	float wheelR = bsp_GetVolAfterFilter(eMotorRight);
+//	float roll = bsp_GetVolAfterFilter(eRollingBrush);
+//	float vacuum = bsp_GetVolAfterFilter(eVacuum);
+//	float sideBrush = bsp_GetVolAfterFilter(eSideBrush);
 
 	reportFrameWithCRC16.dustBox = bsp_DustBoxGetState();
 	
@@ -311,13 +311,13 @@ void bsp_SendReportFrameWithCRC16(void)
 	reportFrameWithCRC16.offsiteSW = bsp_OffSiteGetState();
 	reportFrameWithCRC16.collision = bsp_CollisionScan();
 
-	reportFrameWithCRC16.mA_wheelL           = wheelL * 1000.0F * 1000.0F / 33.0F / 50.0F;
-	reportFrameWithCRC16.mA_wheelR           = wheelR * 1000.0F * 1000.0F / 33.0F / 50.0F;
-	reportFrameWithCRC16.mA_roll             = roll * 1000.0F * 1000.0F / 33.0F / 50.0F;
-	reportFrameWithCRC16.mA_sideBrush        = sideBrush * 1000.0F * 1000.0F / 100.0F / 50.0F;
-	reportFrameWithCRC16.mA_vacuum           = vacuum * 1000.0F * 1000.0F / 33.0F / 50.0F;
-	reportFrameWithCRC16.v_batteryVoltage    = ((batteryVoltage * 430 / 66.5) + batteryVoltage + 0.2F)*1000; 
-	reportFrameWithCRC16.mA_batteryCurrent   = batteryCurrent*1000.0F * 1000.0F / 10.0F / 50.0F; 
+	reportFrameWithCRC16.mA_wheelL           = bsp_GetVolAfterFilter(eMotorLeft);
+	reportFrameWithCRC16.mA_wheelR           = bsp_GetVolAfterFilter(eMotorRight);
+	reportFrameWithCRC16.mA_roll             = bsp_GetVolAfterFilter(eRollingBrush);
+	reportFrameWithCRC16.mA_sideBrush        = bsp_GetVolAfterFilter(eSideBrush);
+	reportFrameWithCRC16.mA_vacuum           = bsp_GetVolAfterFilter(eVacuum);
+	reportFrameWithCRC16.v_batteryVoltage    = bsp_GetVolAfterFilter(eBatteryVoltage);
+	reportFrameWithCRC16.mA_batteryCurrent   = bsp_GetVolAfterFilter(eBatteryCurrent); 
 
 
 	reportFrameWithCRC16.head = 0xAAAA;

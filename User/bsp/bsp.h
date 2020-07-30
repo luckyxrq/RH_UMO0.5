@@ -196,6 +196,8 @@
 #include "bsp_selfcheck.h"
 #include "bsp_functiontest.h"
 #include "bsp_bed.h"
+#include "bsp_kalman.h"
+
 
 typedef enum
 {

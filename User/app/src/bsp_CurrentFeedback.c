@@ -572,6 +572,7 @@ void bsp_GetVoltageFilterProc(void)
 			}
 			g_vBatteryVoltage = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);	
 			g_vBatteryVoltage = (g_vBatteryVoltage * 430 / 66.5) + g_vBatteryVoltage + 0.2F;
+			g_vBatteryVoltage = g_vBatteryVoltage * 1000;
 			++action;
 		}break;
 		
@@ -606,6 +607,9 @@ void bsp_GetVoltageFilterProc(void)
 *	·µ »Ø Öµ: ÎÞ
 *********************************************************************************************************
 */
+
+extern Kalman kalman;
+
 float bsp_GetVolAfterFilter(FeedbackSN sn)
 {
 	float ret = 0.0F ;
@@ -615,6 +619,7 @@ float bsp_GetVolAfterFilter(FeedbackSN sn)
 		case eMotorLeft:
 		{
 			ret = g_vMotorLeft;
+//			ret = KalmanFilter(&kalman,ret);
 		}break;
 		
 		case eMotorRight:
@@ -647,6 +652,8 @@ float bsp_GetVolAfterFilter(FeedbackSN sn)
 			ret = g_vBatteryCurrent;
 		}break;
 	}
+	
+	
 	
 	return ret ;
 }

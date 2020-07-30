@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Jul 29 15:42:24 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Jul 30 15:00:41 2020
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -157,11 +157,6 @@ Global Symbols
 <LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
-<LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
-<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
-<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 <LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[26b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 <LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
@@ -171,6 +166,11 @@ Global Symbols
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvTaskExitError
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSwitchContext
+<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
+<LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
+<LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
+<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
+<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 </UL>
 
 <P><STRONG><a name="[f2]"></a>vPortClearInterruptMask</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, port.o(.emb_text))
@@ -447,7 +447,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartVacuum
-<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
@@ -469,7 +468,6 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 </UL>
 <BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartVacuum
-<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
@@ -498,24 +496,23 @@ Global Symbols
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_lasr
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsl
 </UL>
-<BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
+<BR>[Called By]<UL><LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetVoltageFilterProc
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;astar
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan2
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[6e]"></a>__aeabi_dsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, dadd.o(.text))
@@ -525,12 +522,12 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[6f]"></a>__aeabi_drsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, dadd.o(.text))
@@ -538,12 +535,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[70]"></a>__aeabi_dmul</STRONG> (Thumb, 228 bytes, Stack size 48 bytes, dmul.o(.text))
@@ -552,7 +549,6 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
-<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
@@ -562,13 +558,13 @@ Global Symbols
 <LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[71]"></a>__aeabi_ddiv</STRONG> (Thumb, 222 bytes, Stack size 32 bytes, ddiv.o(.text))
@@ -577,7 +573,6 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_round
 </UL>
 <BR>[Called By]<UL><LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
-<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetVoltageFilterProc
@@ -586,26 +581,26 @@ Global Symbols
 <LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_divzero
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[121]"></a>__ARM_scalbn</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, dscalb.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __ARM_scalbn
 </UL>
 <BR>[Called By]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_overflow
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[2a7]"></a>scalbn</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, dscalb.o(.text), UNUSED)
@@ -721,8 +716,8 @@ Global Symbols
 <LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 </UL>
 
 <P><STRONG><a name="[78]"></a>__aeabi_d2uiz</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, dfixui.o(.text))
@@ -730,13 +725,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
-<LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UploadBatteryInfo
+<BR>[Called By]<UL><LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UploadBatteryInfo
 </UL>
 
 <P><STRONG><a name="[1b2]"></a>__aeabi_f2d</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, f2d.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
-<LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
+<BR><BR>[Called By]<UL><LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetVoltageFilterProc
 <LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
@@ -892,8 +885,8 @@ Global Symbols
 <P><STRONG><a name="[6d]"></a>_double_round</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, depilogue.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _double_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsqrt
 </UL>
@@ -1177,8 +1170,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = DX8_GetRandom &rArr; DX8_GetResponse &rArr; Stream_Dec &rArr; Crypto_Data &rArr; q_b2
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dxif_transfer
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetResponse
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PollingStatus
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetResponse
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_Reset
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
@@ -1188,11 +1181,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 140<LI>Call Chain = DX8_HostAuth &rArr; DX8_GetResponse &rArr; Stream_Dec &rArr; Crypto_Data &rArr; q_b2
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dxif_transfer
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetResponse
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_CompareCheckSum
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PollingStatus
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_memcpy
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_crc16
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetResponse
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_CompareCheckSum
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AuthenticationTest
 </UL>
@@ -1201,9 +1194,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = DX8_Reset &rArr; DX8_GetRandom &rArr; DX8_GetResponse &rArr; Stream_Dec &rArr; Crypto_Data &rArr; q_b2
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dxif_transfer
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CMD_GetChipInfo
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetRandom
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PollingStatus
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CMD_GetChipInfo
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AuthenticationTest
 </UL>
@@ -1220,10 +1213,10 @@ Global Symbols
 <P><STRONG><a name="[91]"></a>DX8_VerifyPin</STRONG> (Thumb, 58 bytes, Stack size 32 bytes, dx8_api.o(i.DX8_VerifyPin))
 <BR><BR>[Stack]<UL><LI>Max Depth = 204<LI>Call Chain = DX8_VerifyPin &rArr; DX8_VerifyPassword &rArr; DX8_GetRandom &rArr; DX8_GetResponse &rArr; Stream_Dec &rArr; Crypto_Data &rArr; q_b2
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalHMAC
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stream_Dec
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stream_Dec
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalHMAC
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AuthenticationTest
 </UL>
@@ -1342,15 +1335,15 @@ Global Symbols
 <P><STRONG><a name="[c4]"></a>ForceReturnOrigin</STRONG> (Thumb, 5036 bytes, Stack size 56 bytes, bsp_cleanstrategyb.o(i.ForceReturnOrigin))
 <BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = ForceReturnOrigin &rArr; pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
@@ -1570,13 +1563,13 @@ Global Symbols
 <P><STRONG><a name="[94]"></a>Lib_HostAuth</STRONG> (Thumb, 172 bytes, Stack size 40 bytes, dx8_api.o(i.Lib_HostAuth))
 <BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = Lib_HostAuth &rArr; Stream_Dec &rArr; Crypto_Data &rArr; q_b2
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalHMAC
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stream_Dec
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stream_Dec
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sha1update
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sha1init
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sha1final
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_memset
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalHMAC
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AuthenticationTest
 </UL>
@@ -1824,16 +1817,16 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SHA1PadMessage
 </UL>
 <BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_HostAuth
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalHMAC
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
 </UL>
 
 <P><STRONG><a name="[a0]"></a>Sha1init</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, sha1.o(i.Sha1init))
 <BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_HostAuth
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalHMAC
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MAC_Password
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalHMAC
 </UL>
 
 <P><STRONG><a name="[a1]"></a>Sha1update</STRONG> (Thumb, 60 bytes, Stack size 24 bytes, sha1.o(i.Sha1update))
@@ -1842,10 +1835,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SHA1ProcessMessageBlock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_HostAuth
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalHMAC
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MAC_Password
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalHMAC
 </UL>
 
 <P><STRONG><a name="[242]"></a>StartUpdateGridMap</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, bsp_cleanstrategyb.o(i.StartUpdateGridMap))
@@ -1993,14 +1986,14 @@ Global Symbols
 <P><STRONG><a name="[fd]"></a>TIM_ICInit</STRONG> (Thumb, 122 bytes, Stack size 16 bytes, stm32f10x_tim.o(i.TIM_ICInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = TIM_ICInit &rArr; TI4_Config
 </UL>
-<BR>[Calls]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI4_Config
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI3_Config
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC4Prescaler
+<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC4Prescaler
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC3Prescaler
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC2Prescaler
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetIC1Prescaler
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI4_Config
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI3_Config
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_TimeOutProc
@@ -2251,9 +2244,9 @@ Global Symbols
 <P><STRONG><a name="[2b3]"></a>printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
 
 <P><STRONG><a name="[125]"></a>__ARM_fpclassify</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, fpclassify.o(i.__ARM_fpclassify))
-<BR><BR>[Called By]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
+<BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[120]"></a>__ieee754_rem_pio2</STRONG> (Thumb, 828 bytes, Stack size 128 bytes, rred.o(i.__ieee754_rem_pio2))
@@ -2263,9 +2256,9 @@ Global Symbols
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
@@ -2292,10 +2285,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[124]"></a>__kernel_sin</STRONG> (Thumb, 224 bytes, Stack size 64 bytes, sin_i.o(i.__kernel_sin))
@@ -2303,8 +2296,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
@@ -2327,9 +2320,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 </UL>
-<BR>[Called By]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
+<BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 <LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[129]"></a>__mathlib_dbl_infnan2</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, dunder.o(i.__mathlib_dbl_infnan2))
@@ -2364,9 +2357,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 </UL>
-<BR>[Called By]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 
 <P><STRONG><a name="[2b4]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
@@ -2411,9 +2404,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
@@ -2428,9 +2421,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan2
+<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ForceReturnOrigin
@@ -2609,8 +2602,7 @@ Global Symbols
 <P><STRONG><a name="[170]"></a>bsp_DetectAct</STRONG> (Thumb, 326 bytes, Stack size 32 bytes, bsp_detectact.o(i.bsp_DetectAct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = bsp_DetectAct &rArr; bsp_GetAdScanValue &rArr; sort_float
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<BR>[Calls]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
@@ -2618,6 +2610,7 @@ Global Symbols
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetAdScanValue
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DelayUS
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AWSetPinVal
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -2664,8 +2657,7 @@ Global Symbols
 <P><STRONG><a name="[17e]"></a>bsp_EdgewiseRun</STRONG> (Thumb, 838 bytes, Stack size 40 bytes, bsp_edgewise.o(i.bsp_EdgewiseRun))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = bsp_EdgewiseRun &rArr; bsp_AngleAdd &rArr; __aeabi_frsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_frsub
+<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_frsub
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRead
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleAdd
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
@@ -2686,6 +2678,7 @@ Global Symbols
 <LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetInfraredVoltageRight
 <LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetInfraredVoltageLeft
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetAllIrIsObstacle
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -2764,10 +2757,10 @@ Global Symbols
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetInfraRedAdcVoltage
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;int_abs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
@@ -2798,7 +2791,7 @@ Global Symbols
 <LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EdgewiseRun
 </UL>
 
-<P><STRONG><a name="[228]"></a>bsp_GetCliffRealVal</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, bsp_cliffsw.o(i.bsp_GetCliffRealVal))
+<P><STRONG><a name="[227]"></a>bsp_GetCliffRealVal</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, bsp_cliffsw.o(i.bsp_GetCliffRealVal))
 <BR><BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 </UL>
 
@@ -2960,11 +2953,11 @@ Global Symbols
 <LI><a href="#[25c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_suction_handle
 </UL>
 
-<P><STRONG><a name="[226]"></a>bsp_GetVolAfterFilter</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, bsp_currentfeedback.o(i.bsp_GetVolAfterFilter))
+<P><STRONG><a name="[229]"></a>bsp_GetVolAfterFilter</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, bsp_currentfeedback.o(i.bsp_GetVolAfterFilter))
 <BR><BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 </UL>
 
-<P><STRONG><a name="[1b1]"></a>bsp_GetVoltageFilterProc</STRONG> (Thumb, 744 bytes, Stack size 40 bytes, bsp_currentfeedback.o(i.bsp_GetVoltageFilterProc))
+<P><STRONG><a name="[1b1]"></a>bsp_GetVoltageFilterProc</STRONG> (Thumb, 750 bytes, Stack size 40 bytes, bsp_currentfeedback.o(i.bsp_GetVoltageFilterProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = bsp_GetVoltageFilterProc &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetFeedbackVoltage
@@ -2972,10 +2965,10 @@ Global Symbols
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sort_float
 <LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbnf
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
@@ -2999,10 +2992,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inverseSensorModelB
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 </UL>
@@ -3043,7 +3036,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
-<P><STRONG><a name="[229]"></a>bsp_IR_GetRev</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp_ir_decode.o(i.bsp_IR_GetRev))
+<P><STRONG><a name="[228]"></a>bsp_IR_GetRev</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp_ir_decode.o(i.bsp_IR_GetRev))
 <BR><BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 </UL>
 
@@ -3324,8 +3317,8 @@ Global Symbols
 <P><STRONG><a name="[203]"></a>bsp_LedAppProc</STRONG> (Thumb, 332 bytes, Stack size 16 bytes, bsp_runcontrol.o(i.bsp_LedAppProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_LedAppProc &rArr; bsp_SetLedState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
+<BR>[Calls]<UL><LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
 <LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOn
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedOff
@@ -3387,7 +3380,7 @@ Global Symbols
 <LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
-<P><STRONG><a name="[227]"></a>bsp_MotorGetPulseVector</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_MotorGetPulseVector))
+<P><STRONG><a name="[226]"></a>bsp_MotorGetPulseVector</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_control.o(i.bsp_MotorGetPulseVector))
 <BR><BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 </UL>
@@ -3511,17 +3504,17 @@ Global Symbols
 <P><STRONG><a name="[216]"></a>bsp_PositionUpdate</STRONG> (Thumb, 492 bytes, Stack size 32 bytes, bsp_position.o(i.bsp_PositionUpdate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = bsp_PositionUpdate &rArr; sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
+<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
-<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 <LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbnf
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sin
 <LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
 </UL>
@@ -3586,9 +3579,7 @@ Global Symbols
 <P><STRONG><a name="[21d]"></a>bsp_SearchChargePile</STRONG> (Thumb, 2690 bytes, Stack size 40 bytes, bsp_searchchargepile.o(i.bsp_SearchChargePile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 148<LI>Call Chain = bsp_SearchChargePile &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetLedAppState
-<LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartSearchChargePile
+<BR>[Calls]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartSearchChargePile
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetMotorSpeed
 <LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
@@ -3599,6 +3590,8 @@ Global Symbols
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentBothPulse
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CliffIsDangerous
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetLedAppState
 <LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsChargeDone
 <LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isCleanRunning
 </UL>
@@ -3608,8 +3601,7 @@ Global Symbols
 <P><STRONG><a name="[220]"></a>bsp_SelfCheckProc</STRONG> (Thumb, 1388 bytes, Stack size 64 bytes, bsp_selfcheck.o(i.bsp_SelfCheckProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = bsp_SelfCheckProc &rArr; bsp_EnterStopMODE &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
+<BR>[Calls]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartVacuum
@@ -3627,12 +3619,13 @@ Global Symbols
 <LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ClearKey
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
-<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetInfraRedAdcVoltage
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffSub
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopSelfCheck
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendSelfCheck
@@ -3640,29 +3633,22 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[225]"></a>bsp_SendReportFrameWithCRC16</STRONG> (Thumb, 768 bytes, Stack size 48 bytes, bsp_communication.o(i.bsp_SendReportFrameWithCRC16))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = bsp_SendReportFrameWithCRC16 &rArr; bsp_GetCurrentPosY &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[225]"></a>bsp_SendReportFrameWithCRC16</STRONG> (Thumb, 532 bytes, Stack size 8 bytes, bsp_communication.o(i.bsp_SendReportFrameWithCRC16))
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = bsp_SendReportFrameWithCRC16 &rArr; bsp_GetCurrentPosY &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comSendBuf
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffSiteGetState
-<LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetPulseVector
+<LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetPulseVector
 <LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
 <LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DustBoxGetState
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
-<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
-<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
 <LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
-<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetRev
-<LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetVolAfterFilter
-<LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffRealVal
-<LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetRev
+<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetVolAfterFilter
+<LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffRealVal
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC16_Modbus
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetInfraRedAdcVoltage
 </UL>
@@ -3749,11 +3735,11 @@ Global Symbols
 <P><STRONG><a name="[22e]"></a>bsp_SleepProc</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, bsp_action.o(i.bsp_SleepProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_SleepProc &rArr; bsp_IsTouchChargePile
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetLedAppState
-<LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
+<BR>[Calls]<UL><LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IsTouchChargePile
 <LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetCmdStartUpload
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetLedAppState
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -3828,8 +3814,8 @@ Global Symbols
 <P><STRONG><a name="[1fe]"></a>bsp_StartSearchChargePile</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, bsp_searchchargepile.o(i.bsp_StartSearchChargePile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<BR>[Calls]<UL><LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
@@ -3961,8 +3947,7 @@ Global Symbols
 <P><STRONG><a name="[230]"></a>bsp_StrategyRandomProc</STRONG> (Thumb, 734 bytes, Stack size 40 bytes, bsp_cleanstrategyrandom.o(i.bsp_StrategyRandomProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = bsp_StrategyRandomProc &rArr; __aeabi_frsub &rArr; __aeabi_fadd &rArr; _float_epilogue
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_frsub
+<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_frsub
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRead
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopEdgewiseRun
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartEdgewiseRun
@@ -3975,6 +3960,7 @@ Global Symbols
 <LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetEdgeLeftRight
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetAllIrIsObstacle
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -4028,9 +4014,9 @@ Global Symbols
 <P><STRONG><a name="[23a]"></a>bsp_UploadMap</STRONG> (Thumb, 206 bytes, Stack size 16 bytes, bsp_uploadmap.o(i.bsp_UploadMap))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = bsp_UploadMap &rArr; bsp_GetCurrentPosY &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Get_GridMap
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stream_trans
 <LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StreamTransOpen
@@ -4052,8 +4038,7 @@ Global Symbols
 <P><STRONG><a name="[236]"></a>clean_strategyB</STRONG> (Thumb, 1472 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.clean_strategyB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 504<LI>Call Chain = clean_strategyB &rArr; AStarReturnOrigin &rArr; printShortest &rArr; getShortest &rArr; astar &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
+<BR>[Calls]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitAngle
 <LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopVacuum
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopEdgewiseRun
@@ -4061,6 +4046,7 @@ Global Symbols
 <LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SpeakerIsBusy
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorCleanSetPWM
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 <LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
@@ -4109,12 +4095,12 @@ Global Symbols
 <P><STRONG><a name="[217]"></a>cos</STRONG> (Thumb, 148 bytes, Stack size 32 bytes, cos.o(i.cos))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
-<LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
+<BR>[Calls]<UL><LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 </UL>
 <BR>[Called By]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
@@ -4174,12 +4160,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_Sleep
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_Reset
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_HostAuth
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetRandom
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PollingStatus
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetResponse
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_CompareCheckSum
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CMD_GetChipInfo
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetRandom
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PollingStatus
 </UL>
 
 <P><STRONG><a name="[4f]"></a>fputc</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, bsp_uart_fifo.o(i.fputc))
@@ -4416,12 +4402,12 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sqrt
 <LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
@@ -4494,12 +4480,12 @@ Global Symbols
 <P><STRONG><a name="[218]"></a>sin</STRONG> (Thumb, 150 bytes, Stack size 32 bytes, sin.o(i.sin))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
-<LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
+<BR>[Calls]<UL><LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 </UL>
 <BR>[Called By]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
@@ -4552,12 +4538,12 @@ Global Symbols
 
 <P><STRONG><a name="[26f]"></a>uxListRemove</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, list.o(i.uxListRemove))
 <BR><BR>[Called By]<UL><LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
-<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 <LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
+<LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
+<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 </UL>
 
 <P><STRONG><a name="[278]"></a>vListInitialise</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, list.o(i.vListInitialise))
@@ -4572,17 +4558,17 @@ Global Symbols
 <P><STRONG><a name="[268]"></a>vListInsert</STRONG> (Thumb, 48 bytes, Stack size 12 bytes, list.o(i.vListInsert))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = vListInsert
 </UL>
-<BR>[Called By]<UL><LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
-<LI><a href="#[267]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
+<BR>[Called By]<UL><LI><a href="#[267]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
+<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 </UL>
 
 <P><STRONG><a name="[28e]"></a>vListInsertEnd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, list.o(i.vListInsertEnd))
 <BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
+<LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 <LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskPriorityDisinherit
 <LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
-<LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 </UL>
 
 <P><STRONG><a name="[26e]"></a>vPortEnterCritical</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, port.o(i.vPortEnterCritical))
@@ -4592,11 +4578,11 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 <LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 <LI><a href="#[279]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
 <LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 </UL>
 
 <P><STRONG><a name="[270]"></a>vPortExitCritical</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, port.o(i.vPortExitCritical))
@@ -4607,11 +4593,11 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 <LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 <LI><a href="#[279]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
 <LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
+<LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 </UL>
 
 <P><STRONG><a name="[26b]"></a>vPortFree</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, heap_4.o(i.vPortFree))
@@ -4781,10 +4767,6 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = xQueueGenericSend &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
-<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
-<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
-<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 <LI><a href="#[279]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
 <LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
@@ -4793,17 +4775,21 @@ Global Symbols
 <LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
+<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
+<LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
+<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
+<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
 </UL>
 
 <P><STRONG><a name="[298]"></a>xTaskCheckForTimeOut</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, tasks.o(i.xTaskCheckForTimeOut))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = xTaskCheckForTimeOut &rArr; vTaskSetTimeOutState
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = xTaskCheckForTimeOut &rArr; vPortExitCritical
 </UL>
-<BR>[Calls]<UL><LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
-<LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<BR>[Calls]<UL><LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulPortSetInterruptMask
+<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSetTimeOutState
 </UL>
 <BR>[Called By]<UL><LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
@@ -5002,7 +4988,7 @@ Local Symbols
 <LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UpdateCleanStrategyB
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopUpdateCleanStrategyB
 <LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
-<LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetPulseVector
+<LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetPulseVector
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetIRSensorData
 <LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
@@ -5399,10 +5385,10 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan2
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
@@ -5421,14 +5407,14 @@ Local Symbols
 <P><STRONG><a name="[23f]"></a>check_sensor</STRONG> (Thumb, 338 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.check_sensor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = check_sensor &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
+<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetFeedbackVoltage
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetCmdStartUpload
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
@@ -5445,12 +5431,12 @@ Local Symbols
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PidClear
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[27f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_abs
 </UL>
@@ -5938,10 +5924,10 @@ Local Symbols
 <P><STRONG><a name="[27a]"></a>prvUnlockQueue</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, queue.o(i.prvUnlockQueue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = prvUnlockQueue &rArr; xTaskRemoveFromEventList
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMissedYield
-<LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<BR>[Calls]<UL><LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMissedYield
 </UL>
 <BR>[Called By]<UL><LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
@@ -6113,8 +6099,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LoadKey
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_xor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
+<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
 </UL>
 
 <P><STRONG><a name="[b3]"></a>DX8_CompareCheckSum</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, dx8_api.o(i.DX8_CompareCheckSum))
@@ -6132,23 +6118,20 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = DX8_GetResponse &rArr; Stream_Dec &rArr; Crypto_Data &rArr; q_b2
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dxif_transfer
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_CompareCheckSum
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stream_Dec
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_memcpy
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_crc16
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_CompareCheckSum
 </UL>
 <BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_HostAuth
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetRandom
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
 </UL>
 
 <P><STRONG><a name="[ba]"></a>DX8_VerifyPassword</STRONG> (Thumb, 288 bytes, Stack size 40 bytes, dx8_api.o(i.DX8_VerifyPassword))
 <BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = DX8_VerifyPassword &rArr; DX8_GetRandom &rArr; DX8_GetResponse &rArr; Stream_Dec &rArr; Crypto_Data &rArr; q_b2
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dxif_transfer
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetResponse
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_CompareCheckSum
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalStreamKey
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sha1update
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sha1final
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetRandom
@@ -6156,6 +6139,9 @@ Local Symbols
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MAC_Password
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_memcmp
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_crc16
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetResponse
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_CompareCheckSum
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalStreamKey
 </UL>
 <BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPin
 </UL>
@@ -6163,12 +6149,12 @@ Local Symbols
 <P><STRONG><a name="[bc]"></a>InitStreamKey</STRONG> (Thumb, 80 bytes, Stack size 24 bytes, dx8_api.o(i.InitStreamKey))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = InitStreamKey &rArr; Sha1update &rArr; SHA1ProcessMessageBlock
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalStreamKey
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sha1update
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sha1update
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sha1init
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sha1final
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_memset
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_memcpy
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CalStreamKey
 </UL>
 <BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_HostAuth
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPin
@@ -6191,16 +6177,16 @@ Local Symbols
 
 <P><STRONG><a name="[9e]"></a>Lib_memcpy</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, dx8_api.o(i.Lib_memcpy))
 <BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_HostAuth
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetResponse
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CMD_GetChipInfo
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
 </UL>
 
 <P><STRONG><a name="[9c]"></a>Lib_memset</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, dx8_api.o(i.Lib_memset))
 <BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Lib_HostAuth
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CMD_GetChipInfo
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MAC_Password
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitStreamKey
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CMD_GetChipInfo
 </UL>
 
 <P><STRONG><a name="[a4]"></a>Lib_xor</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, dx8_api.o(i.Lib_xor))
@@ -6227,8 +6213,8 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_Sleep
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_Reset
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_HostAuth
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_GetRandom
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DX8_VerifyPassword
 </UL>
 
 <P><STRONG><a name="[ee]"></a>SHA1PadMessage</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, sha1.o(i.SHA1PadMessage))
@@ -6274,9 +6260,9 @@ Local Symbols
 
 <P><STRONG><a name="[12c]"></a>_fp_digits</STRONG> (Thumb, 334 bytes, Stack size 56 bytes, printfa.o(i._fp_digits), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2ulz
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>

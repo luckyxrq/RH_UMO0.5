@@ -100,4 +100,5 @@
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_selfcheck.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_functiontest.h
 .\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_bed.h
+.\flash\obj\bsp_angle.o: ..\..\User\app\inc\bsp_kalman.h
 .\flash\obj\bsp_angle.o: ..\..\User\angle\yuan_zi_Angle\bsp_yuan_zi_Angle.c
