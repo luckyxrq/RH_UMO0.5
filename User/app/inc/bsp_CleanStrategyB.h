@@ -878,7 +878,7 @@
 #define W 5000
 #define real_gostaright_vel 280
 #define long_stra_vel 240
-#define turn_vel 60
+#define turn_vel 50
 #define correction_turn_vel 10//40 //10
 #define correction_straight_vel 200 //200
 #define correction_big_turn_vel 10

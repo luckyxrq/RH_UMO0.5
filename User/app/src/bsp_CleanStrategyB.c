@@ -172,9 +172,10 @@ int32_t map_current_pose_y;
 //static int Yaw;
 static short speed_pid_cnt_goback  = 0;
 static short speed_pid_cnt_default = 0;
-short speed_pid_cnt_realgo = 0;
-//short real_gostaright_vel = 300;
+static short speed_pid_cnt_realgo = 0;
 static short speed_pid_cnt_ir = 0;
+static short speed_pid_cnt_spin = 0;
+static double Last_cmd_angular_velocity = 0;
 static unsigned char* IRSensorData_StrategyB;
 
 
@@ -258,7 +259,42 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
     double linear_velocity_IR,cmd_linear_velocity,cmd_angular_velocity;
     cmd_linear_velocity = *linear_velocity;
     cmd_angular_velocity = *angular_velocity;
-    
+	
+	if(Last_cmd_angular_velocity != cmd_angular_velocity)
+	{
+		bsp_PidClear(MotorLeft);
+        bsp_PidClear(MotorRight);
+        speed_pid_cnt_default = 1;
+        speed_pid_cnt_ir = 1;
+        speed_pid_cnt_goback = 1;
+		speed_pid_cnt_realgo =1;
+		speed_pid_cnt_spin = 1;
+	}
+	
+	if(cmd_angular_velocity > 10 || cmd_angular_velocity < -10)
+	{
+		if(cmd_angular_velocity < 0)
+		{
+                if(speed_pid_cnt_spin == 1){
+                    bsp_PidClear(MotorLeft);
+                    bsp_PidClear(MotorRight);
+                }
+                if(speed_pid_cnt_spin <=20) speed_pid_cnt_spin +=1;
+                if(speed_pid_cnt_spin >20)  speed_pid_cnt_spin  =20; 
+                cmd_angular_velocity = speed_pid_cnt_spin*0.05*(cmd_angular_velocity+10)-10;	
+        }
+        if(cmd_angular_velocity > 0)
+		{
+                if(speed_pid_cnt_spin == 1) {
+                    bsp_PidClear(MotorLeft);
+                    bsp_PidClear(MotorRight);
+                }
+                if(speed_pid_cnt_spin <=20) speed_pid_cnt_spin +=1;
+                if(speed_pid_cnt_spin >20)  speed_pid_cnt_spin  =20; 
+                cmd_angular_velocity = speed_pid_cnt_spin*0.05*(cmd_angular_velocity-10) + 10;	
+		}
+	}
+	
     if(cmd_linear_velocity == 0 && cmd_angular_velocity == 0){
         leftVelocity = 0;
         rightVelocity = 0;
@@ -268,6 +304,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
         speed_pid_cnt_ir = 1;
         speed_pid_cnt_goback = 1;
 		speed_pid_cnt_realgo =1;
+		speed_pid_cnt_spin = 1;
     }
     else{
         if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100)){
@@ -295,7 +332,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
             else{
                 speed_pid_cnt_goback = 1;
             }
-            if(cmd_linear_velocity == long_stra_vel){
+            if(cmd_linear_velocity == long_stra_vel || cmd_linear_velocity == 200 ){
                 if(speed_pid_cnt_default == 1) {
                     bsp_PidClear(MotorLeft);
                     bsp_PidClear(MotorRight);
@@ -360,7 +397,9 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
         }
     }
     
-    int roll = (int)bsp_IMU_GetData(ROLL);
+    
+	
+	int roll = (int)bsp_IMU_GetData(ROLL);
     if(my_abs(roll)<172){
         if(leftVelocity>0&&rightVelocity>0){
             if(roll >= -165 && roll <= -100){
@@ -425,6 +464,8 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 //   }
     bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
     bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+	
+	Last_cmd_angular_velocity = *angular_velocity;
 }
 
 
