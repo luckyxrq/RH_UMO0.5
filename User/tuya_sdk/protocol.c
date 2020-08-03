@@ -517,7 +517,8 @@ static unsigned char dp_download_direction_control_handle(const unsigned char va
         break;
         
     case 4:
-		RTT("4dir\r\n");
+		RTT("direction 4\r\n");
+		bsp_PutKey(KEY_WIFI_STOP);
         break;
         
     default:

@@ -46,6 +46,27 @@ static SemaphoreHandle_t  xMutex = NULL;
 bool isSearchCharge = false;
 bool isODDStart  = true;
 
+
+typedef enum
+{
+	smart,
+	wall_follow,
+	standby
+}WORK_MODE;
+
+static uint8_t  work_mode = standby;
+static uint8_t  work_switch_go = false;
+
+typedef enum
+{
+	forward,
+	backward,
+	turn_left,
+	turn_right,
+	stop
+}WORK_DIRECTION_CONTROL;
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: main
@@ -437,6 +458,11 @@ static void bsp_UploadBatteryInfo(void)
 	mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY, battery_precent);
 	mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
 	mcu_dp_value_update(DPID_CLEAN_AREA,(unsigned long)((bsp_Get_GridMapArea())*0.01)); 
+	
+	mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //BOOL型数据上报;
+	mcu_dp_enum_update(DPID_MODE,work_mode); //枚举型数据上报;
+	//mcu_dp_enum_update(DPID_STATUS,当前设备状态); //枚举型数据上报;
+	
 }
 
 static void bsp_StopAllMotor(void)
@@ -504,6 +530,12 @@ void bsp_OffsiteSuspend(void)
 */
 static void bsp_KeySuspend(void)
 {
+	//工作模式 待机
+	work_mode = standby;
+	//清扫开关关闭
+	work_switch_go = false;
+	
+	
 	/*灯光亮3颗白色灯*/
 	bsp_OpenThreeWhileLed();
 	bsp_SetLedState(LED_DEFAULT_STATE);
@@ -591,6 +623,7 @@ static void bsp_KeyProc(void)
 			case KEY_LONG_CHARGE: /*充电*/	
 			{
 				DEBUG("充电按键长按\r\n");
+				
 
 				/*首先判断是否主机悬空*/
 				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
@@ -620,6 +653,10 @@ static void bsp_KeyProc(void)
 			case KEY_LONG_CLEAN: /*清扫*/
 			{
 				DEBUG("清扫按键长按\r\n");
+				
+				//工作模式智能 清扫开关 打开
+				work_mode = smart;
+				work_switch_go = true;
 				
 				/*首先判断是否主机悬空*/
 				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
@@ -739,41 +776,51 @@ static void bsp_KeyProc(void)
 			case KEY_WIFI_DIR_FRONT:
 			{
 				bsp_KeySuspend();
+				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,forward); 
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(150));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(150));
-				vTaskDelay(1000);	
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+//				vTaskDelay(1000);	
+//				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 			}break;
 			
 			case KEY_WIFI_DIR_BACK:
 			{
 				bsp_KeySuspend();
+				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,backward);
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-150));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
-				vTaskDelay(1000);	
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+//				vTaskDelay(1000);	
+//				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 			}break;
 			
 			case KEY_WIFI_DIR_LEFT:
 			{
 				bsp_KeySuspend();
+				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,turn_left);
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-100));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
-				vTaskDelay(500);	
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+//				vTaskDelay(500);	
+//				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
 			}break;
 			
 			case KEY_WIFI_DIR_RIGHT:
 			{
 				bsp_KeySuspend();
+				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,turn_right);
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+100));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
-				vTaskDelay(500);	
-				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
-				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+//				vTaskDelay(500);	
+//				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
+//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			}break;
+			
+			case KEY_WIFI_STOP:
+			{
+				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,stop);
+				bsp_KeySuspend();
 			}break;
 			
 			case KEY_WIFI_EDGE:
@@ -781,6 +828,11 @@ static void bsp_KeyProc(void)
 				bsp_KeySuspend();
 				bsp_SperkerPlay(Song34);
 				bsp_StartEdgewiseRun();
+				
+				//工作模式 沿边 清扫开关 打开
+				work_mode = wall_follow;
+				work_switch_go = true;
+				
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
