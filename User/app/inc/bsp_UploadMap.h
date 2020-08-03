@@ -35,5 +35,6 @@ typedef struct
 void bsp_StartUploadMap(void);
 void bsp_StopUploadMap(void);
 void bsp_UploadMap(void);
+void bsp_SetUploadMapIdIndex(void);
 
 #endif

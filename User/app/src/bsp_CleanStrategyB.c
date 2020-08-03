@@ -246,6 +246,8 @@ extern char Left_On_extreme_point_y[10];
 extern GridMap gridmap;
 extern CLIFFADCVALUE cliff_valueB;
 
+extern uint8_t  work_mode;
+
 
 
 double my_abs(double x){
@@ -483,15 +485,18 @@ void bsp_StartUpdateCleanStrategyB(void){
     LastCleanTimeStamp = xTaskGetTickCount();
     bsp_ResetCleanStrategyBStatus();
     
-    cleanstrategy.work_step_status = RIGHTRUNNING_WORK_SETP;
-    cleanstrategy.right_running_complete  = 0;
-    cleanstrategy.right_return_origin_complete = 0;
-    cleanstrategy.left_running_complete = 0;
-    cleanstrategy.left_return_origin_complete = 0;
+//    cleanstrategy.work_step_status = RIGHTRUNNING_WORK_SETP;
+//    cleanstrategy.right_running_complete  = 0;
+//    cleanstrategy.right_return_origin_complete = 0;
+//    cleanstrategy.left_running_complete = 0;
+//    cleanstrategy.left_return_origin_complete = 0;
+	
     cleanstrategy.action = 0 ;
     cleanstrategy.delay = 0 ;
     cleanstrategy.isRunning = true;
     linear_velocity = 0,angular_velocity = 0;
+	RealWorkTime = 0;
+	bsp_StartUpdateGridMap();
 }
 
 
@@ -583,7 +588,7 @@ void bsp_ResetCleanStrategyBStatus(void){
     //位姿复位
     bsp_ResetPosArgument();
     //栅格图复位
-    bsp_StartUpdateGridMap();
+    //bsp_StartUpdateGridMap();
     
 }
 
@@ -597,11 +602,11 @@ void bsp_StopUpdateCleanStrategyB(void){
     cleanstrategy.delay = 0 ;
     cleanstrategy.isRunning = false;
     
-    cleanstrategy.work_step_status = 0;
-    cleanstrategy.right_running_complete  = 0;
-    cleanstrategy.right_return_origin_complete = 0;
-    cleanstrategy.left_running_complete = 0;
-    cleanstrategy.left_return_origin_complete = 0;
+//    cleanstrategy.work_step_status = 0;
+//    cleanstrategy.right_running_complete  = 0;
+//    cleanstrategy.right_return_origin_complete = 0;
+//    cleanstrategy.left_running_complete = 0;
+//    cleanstrategy.left_return_origin_complete = 0;
     
     bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
     bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
@@ -660,7 +665,7 @@ void ResetReturnChargeStationStatus(void){
 
 static uint8_t check_sensor(unsigned char obstacleSignal){
     float batteryvoltage;
-	uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent;
+	//uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent;
     //	IRSensorData_StrategyB
     //	cliff_valueB
     
@@ -731,7 +736,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
         if(obstacleSignal<3)   
         {
             collision_error_cnt++;
-            if(collision_error_cnt > 2000) //4.5s
+            if(collision_error_cnt > 200) //4.5s
             {
                 collision_error_cnt = 0;
                 return collision_error;
@@ -861,69 +866,71 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     }
     
 #endif
-    
-    current_pose->x=current_pose->x-x_error;
-    current_pose->y=current_pose->y-y_error;
-    if(b_reverse_moremap==true){
-        if(reverse_moremap==1){
-            current_pose->x=current_pose->x+reverse_x_more_map;
-        }
-        else{
-            current_pose->x=current_pose->x-reverse_x_more_map;
-        }		
-    }
-    if(over_clean_finish==false){
-        if(x_more_map==true||y_more_map==true){
-            if(x_more_map==true){
-                if(b_reverse_moremap==false){
-                    current_pose->x=current_pose->x-x_more_positive_start*half_map_wide;
-                }
-            }
-            if(y_more_map==true){
-                current_pose->y=current_pose->y-y_more_positive_start*half_map_wide;
-            }
-        }
-    }
-    if (detection_close_edge == true){
-        DetectionCloseEdge();
-    }
-    else if(astar_origin==true){
-        AStarReturnOrigin(current_pose, obstacleSignal);
-    }
-    else if(stuck==true){
-        StuckRunStep(current_pose);
-        stuck=false;
-    }
-    else if(boolleaksweep==true){
-            leakingsweep =bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,Yaw,obstacleSignal);
-        boolleaksweep=false;
-    }
-    else if(leftboolleaksweep==true){
-            leakingsweep =bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,Yaw,obstacleSignal);
-        leftboolleaksweep=false;
-    }
-    else if(more_map==true){
-        MoreMap(current_pose);
-        motionSteps=0;
-        more_map=false;
-    }
-    else{
-    }
-    map_current_pose_x=current_pose->x;
-    map_current_pose_y=current_pose->y;
-    if(bool_leakingsweep_y==true){
-        if(selectside =='R'){
-            if(leakingsweep_y_flag+return_origin_distance>current_pose->y){
-                bool_leakingsweep_y=false;
-            }
-        }
-        else{
-            if(leakingsweep_y_flag-return_origin_distance<current_pose->y){
-                bool_leakingsweep_y=false;
-            }
-        }
-    }
-    switch (OVERALL_CLEANING_STRATEGY)
+	
+	{	
+		current_pose->x=current_pose->x-x_error;
+		current_pose->y=current_pose->y-y_error;
+		if(b_reverse_moremap==true){
+			if(reverse_moremap==1){
+				current_pose->x=current_pose->x+reverse_x_more_map;
+			}
+			else{
+				current_pose->x=current_pose->x-reverse_x_more_map;
+			}		
+		}
+		if(over_clean_finish==false){
+			if(x_more_map==true||y_more_map==true){
+				if(x_more_map==true){
+					if(b_reverse_moremap==false){
+						current_pose->x=current_pose->x-x_more_positive_start*half_map_wide;
+					}
+				}
+				if(y_more_map==true){
+					current_pose->y=current_pose->y-y_more_positive_start*half_map_wide;
+				}
+			}
+		}
+		if (detection_close_edge == true){
+			DetectionCloseEdge();
+		}
+		else if(astar_origin==true){
+			AStarReturnOrigin(current_pose, obstacleSignal);
+		}
+		else if(stuck==true){
+			StuckRunStep(current_pose);
+			stuck=false;
+		}
+		else if(boolleaksweep==true){
+				leakingsweep =bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,Yaw,obstacleSignal);
+			boolleaksweep=false;
+		}
+		else if(leftboolleaksweep==true){
+				leakingsweep =bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,Yaw,obstacleSignal);
+			leftboolleaksweep=false;
+		}
+		else if(more_map==true){
+			MoreMap(current_pose);
+			motionSteps=0;
+			more_map=false;
+		}
+		else{
+		}
+		map_current_pose_x=current_pose->x;
+		map_current_pose_y=current_pose->y;
+		if(bool_leakingsweep_y==true){
+			if(selectside =='R'){
+				if(leakingsweep_y_flag+return_origin_distance>current_pose->y){
+					bool_leakingsweep_y=false;
+				}
+			}
+			else{
+				if(leakingsweep_y_flag-return_origin_distance<current_pose->y){
+					bool_leakingsweep_y=false;
+				}
+			}
+		}
+	}
+	switch (OVERALL_CLEANING_STRATEGY)
     {
     case 0:
         linear_velocity=0;
@@ -931,7 +938,16 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         temporary_wheel_pulse_r=wheel_pulse_r;	
         StartUpdateGridMap();
         ReturnExtreme_point_init();
-        OVERALL_CLEANING_STRATEGY = START_OVERALL_CLEANING_STRATEGY;
+        if(work_mode == 0 ) 
+		{
+			OVERALL_CLEANING_STRATEGY = START_OVERALL_CLEANING_STRATEGY;
+		}
+		if(work_mode == 1 ) 
+		{
+			bsp_SperkerPlay(Song34);
+			bsp_StartEdgewiseRun();
+			OVERALL_CLEANING_STRATEGY = EDGEWISERUN_CLEANING_STRATEGY;
+		}
         break;
     case START_OVERALL_CLEANING_STRATEGY:
         OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
@@ -1186,10 +1202,16 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             break;
         }
         break;
+	case EDGEWISERUN_CLEANING_STRATEGY:
+		{
+			 return 1;//nothing...
+		}
+		//break;
     default:
         break;
     }
-    sendvelocity(&linear_velocity, &angular_velocity);
+    //if(OVERALL_CLEANING_STRATEGY!=EDGEWISERUN_CLEANING_STRATEGY) 
+	sendvelocity(&linear_velocity, &angular_velocity);
     return 1;
 }
 

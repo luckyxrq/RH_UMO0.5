@@ -27,20 +27,18 @@ Project File Date:  07/29/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Flash'
-compiling protocol.c...
-..\..\User\tuya_sdk\protocol.c(383): warning:  #177-D: variable "isOpenClean"  was declared but never referenced
-      static bool isOpenClean = true;
-..\..\User\tuya_sdk\protocol.c(385): warning:  #177-D: variable "isEdge"  was declared but never referenced
-      static bool isEdge = true;
-..\..\User\tuya_sdk\protocol.c: 2 warnings, 0 errors
+compiling main.c...
+..\..\User\main.c(181): warning:  #177-D: variable "count"  was declared but never referenced
+      uint32_t count = 0 ;
+..\..\User\main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=153464 RO-data=1680 RW-data=808 ZI-data=62496  
+Program Size: Code=153400 RO-data=1680 RW-data=816 ZI-data=62480  
 FromELF: creating hex file...
 After Build - User command #1: E:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin -o ..\MDK-ARM(uV4)\Flash\output.bin  ..\MDK-ARM(uV4)\Flash\Obj\output.axf
 After Build - User command #2: CopyHex_Flash.bat
 C:\Users\User020\Documents\CleanCar\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
 已复制         1 个文件。
-".\Flash\Obj\output.axf" - 0 Error(s), 2 Warning(s).
+".\Flash\Obj\output.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 

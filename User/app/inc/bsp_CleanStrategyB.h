@@ -957,11 +957,11 @@ typedef struct POSE{
 
 typedef struct
 {
-    int work_step_status;
-    uint8_t right_running_complete;
-    uint8_t right_return_origin_complete;
-    uint8_t left_running_complete;
-    uint8_t left_return_origin_complete;
+//    int work_step_status;
+//    uint8_t right_running_complete;
+//    uint8_t right_return_origin_complete;
+//    uint8_t left_running_complete;
+//    uint8_t left_return_origin_complete;
     
     volatile unsigned char action ;
     volatile bool isRunning ;

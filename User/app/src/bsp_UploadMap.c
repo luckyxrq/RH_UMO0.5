@@ -56,6 +56,7 @@ void bsp_StartUploadMap(void)
 	uploadMap.action = 0 ;
 	uploadMap.delay = 0 ;
 	uploadMap.isRunning = true;
+	uploadMap.id = 0;
 }
 
 /*
@@ -154,6 +155,11 @@ void bsp_UploadMap(void)
 	}		
 }
 
+
+void bsp_SetUploadMapIdIndex(void)
+{
+	uploadMap.id+=1;
+}
 
 // 1 开启流服务
 // 2 开启流传输

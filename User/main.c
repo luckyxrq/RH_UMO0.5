@@ -54,7 +54,7 @@ typedef enum
 	standby
 }WORK_MODE;
 
-uint8_t  work_mode = standby;
+uint8_t  work_mode = smart;
 uint8_t  work_switch_go = false;
 
 typedef enum
@@ -130,7 +130,7 @@ static void vTaskMapping(void *pvParameters)
 	
     while(1)
     {
-     		
+     	count++;	
 #if 1 /*更新地图*/
 		
 		if(isSearchCharge == false)
@@ -140,13 +140,26 @@ static void vTaskMapping(void *pvParameters)
 #endif
 		
 		bsp_UploadMap();
-		if(count++ % 100 == 0)
+		
+		if(count % 5 == 0)
+        {
+			bsp_ChangeWifi2SmartConfigStateProc();
+			
+			/*下面是打印开关，酌情注释*/
+			bsp_WifiStateProc();
+        }
+		
+		if(count % 100 == 0)
 		{	
 			bsp_UploadBatteryInfo();
 		}
-		
-		
-		
+		if(count % 10 == 0)
+		{	
+			mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
+			mcu_dp_value_update(DPID_CLEAN_AREA,(unsigned long)((bsp_Get_GridMapArea())*0.01)); 
+			mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //BOOL型数据上报;
+			mcu_dp_enum_update(DPID_MODE,work_mode); //枚举型数据上报;
+		}
         vTaskDelay(100);
     }
 
@@ -171,14 +184,6 @@ static void vTaskDecision(void *pvParameters)
     {
         /* 处理按键事件 */
         bsp_KeyProc();
-		
-        if(count++ % 10 == 0)
-        {
-			bsp_ChangeWifi2SmartConfigStateProc();
-			
-			/*下面是打印开关，酌情注释*/
-			bsp_WifiStateProc();
-        }
 		
 		bsp_GetVoltageFilterProc();
 		
@@ -458,12 +463,11 @@ static void bsp_UploadBatteryInfo(void)
 	battery_adc_value  = ((battery_adc_value * 430.0f / 66.5f) + battery_adc_value + 0.2F);
 	battery_precent = ((battery_adc_value - 11.9f) / 4.8f)*100; 
 	mcu_dp_value_update(DPID_RESIDUAL_ELECTRICITY, battery_precent);
-	mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
-	mcu_dp_value_update(DPID_CLEAN_AREA,(unsigned long)((bsp_Get_GridMapArea())*0.01)); 
-	
-	mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //BOOL型数据上报;
-	mcu_dp_enum_update(DPID_MODE,work_mode); //枚举型数据上报;
-	//mcu_dp_enum_update(DPID_STATUS,当前设备状态); //枚举型数据上报;
+//	mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
+//	mcu_dp_value_update(DPID_CLEAN_AREA,(unsigned long)((bsp_Get_GridMapArea())*0.01)); 
+//	mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //BOOL型数据上报;
+//	mcu_dp_enum_update(DPID_MODE,work_mode); //枚举型数据上报;
+//	//mcu_dp_enum_update(DPID_STATUS,当前设备状态); //枚举型数据上报;
 	
 }
 
@@ -536,7 +540,6 @@ static void bsp_KeySuspend(void)
 	//work_mode = standby;
 	//清扫开关关闭
 	work_switch_go = false;
-	
 	
 	/*灯光亮3颗白色灯*/
 	bsp_OpenThreeWhileLed();
@@ -656,9 +659,9 @@ static void bsp_KeyProc(void)
 			{
 				DEBUG("清扫按键长按\r\n");
 				
-				//工作模式智能 清扫开关 打开
-				work_mode = smart;
+				//清扫开关打开
 				work_switch_go = true;
+				bsp_SetUploadMapIdIndex();
 				
 				/*首先判断是否主机悬空*/
 				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
@@ -821,31 +824,32 @@ static void bsp_KeyProc(void)
 			
 			case KEY_WIFI_STOP:
 			{
-				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,stop);
 				bsp_KeySuspend();
+				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,stop);
 			}break;
 			
 			case KEY_WIFI_EDGE:
 			{
-				bsp_KeySuspend();
-				bsp_SperkerPlay(Song34);
-				bsp_StartEdgewiseRun();
-				
-				//工作模式 沿边 清扫开关 打开
-				work_mode = wall_follow;
-				work_switch_go = true;
-				
-				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
-				
-				
-				/*设置上一次按键值*/
-				bsp_SetLastKeyState(eKEY_CLEAN);
-				/*设置LED状态*/
-				bsp_SetLedState(AT_CLEAN);
-				isSearchCharge = false;
-				bsp_ClearKey();
+//				bsp_KeySuspend();
+//				bsp_SperkerPlay(Song34);
+//				bsp_StartEdgewiseRun();
+//				
+//				//工作模式 沿边 清扫开关 打开
+//				work_mode = wall_follow;
+//				work_switch_go = true;
+//				bsp_SetUploadMapIdIndex();
+//				
+//				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+//				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+//				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
+//				
+//				
+//				/*设置上一次按键值*/
+//				bsp_SetLastKeyState(eKEY_CLEAN);
+//				/*设置LED状态*/
+//				bsp_SetLedState(AT_CLEAN);
+//				isSearchCharge = false;
+//				bsp_ClearKey();
 			}break;
 		}   
 	}

@@ -354,8 +354,9 @@ static unsigned char dp_download_switch_go_handle(const unsigned char value[], u
     else
     {
         //开关开
-		if(work_mode == 0) bsp_PutKey(KEY_LONG_CLEAN); 
-		if(work_mode == 1) bsp_PutKey(KEY_WIFI_EDGE); 
+//		if(work_mode == 0) bsp_PutKey(KEY_LONG_CLEAN); 
+//		if(work_mode == 1) bsp_PutKey(KEY_WIFI_EDGE); 
+		bsp_PutKey(KEY_LONG_CLEAN); 
 		
     }
     
