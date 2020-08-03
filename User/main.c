@@ -179,7 +179,9 @@ static void vTaskDecision(void *pvParameters)
 			/*下面是打印开关，酌情注释*/
 			bsp_WifiStateProc();
         }
-
+		
+		bsp_GetVoltageFilterProc();
+		
         vTaskDelay(50);	
     }
 

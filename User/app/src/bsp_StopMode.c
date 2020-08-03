@@ -16,6 +16,7 @@ static void bsp_SetAllPinLowPower(void);
 */
 void bsp_EnterStopMODE(void)
 {
+	uint32_t i = 0 ;
 	/*断掉部分外设电源*/
 	bsp_DISABLE_ALL_EXIT();
 	
@@ -49,11 +50,28 @@ void bsp_EnterStopMODE(void)
 		2. 在停止模式下，所有的I/O引脚都保持它们在运行模式时的状态。
 		3. 一定要关闭滴答定时器，实际测试发现滴答定时器中断也能唤醒停机模式。
 	*/
+	lowpower_again:
+	
 	SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;  /* 关闭滴答定时器 */  
 	PWR_EnterSTOPMode(PWR_Regulator_LowPower, PWR_STOPEntry_WFE);	
+	
 
+	for(i=0;i<4*1000*100;++i)
+	{
+		
+	}
+	
+	RTT("K3:%d\r\n",GPIO_ReadInputDataBit(GPIO_PORT_K3,GPIO_PIN_K3));
+	if(GPIO_ReadInputDataBit(GPIO_PORT_K3,GPIO_PIN_K3) == 1)
+	{
+		goto lowpower_again;
+	}
+	else
+	{
+		NVIC_SystemReset();
+	}
 
-	NVIC_SystemReset();
+	
 
 
 	portENTER_CRITICAL();
@@ -229,7 +247,7 @@ static void bsp_InitKeyStopMODE(void)
 
 	/* 配置引脚 */
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_K;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	GPIO_Init(GPIO_PORT_K, &GPIO_InitStructure);
 
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource7);

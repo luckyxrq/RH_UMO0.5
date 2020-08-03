@@ -18,7 +18,8 @@ void bsp_InitCurrentFeedbackADC(void);
 float bsp_GetFeedbackVoltage(FeedbackSN sn);
 void bsp_PrintAllVoltage(void);
 
-
+void bsp_GetVoltageFilterProc(void);
+float bsp_GetVoltageAfterFilter(FeedbackSN sn);
 
 #endif
 
