@@ -186,6 +186,11 @@ const uint8_t collision_error = 3;
 const uint8_t cliff_error = 4;
 const uint8_t infra_collision_error = 5;
 const uint8_t imu_error = 5;
+const uint8_t motorLeft_error = 6;
+const uint8_t motorRight_error = 7;
+const uint8_t motorVacuum_error = 8;
+const uint8_t motorRolling_error = 9;
+const uint8_t motorSide_error = 10;
 
 uint8_t collision_error_cnt = 0;
 uint8_t cliff_error_cnt = 0;
@@ -655,7 +660,7 @@ void ResetReturnChargeStationStatus(void){
 
 static uint8_t check_sensor(unsigned char obstacleSignal){
     float batteryvoltage;
-    //	uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent,batteryvoltage;
+	uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent;
     //	IRSensorData_StrategyB
     //	cliff_valueB
     
@@ -678,12 +683,6 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
     
     //电池电量检测
     if(check_sensor_cnt%100){
-        
-        //	motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*100;
-        //	motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight)*100;
-        //	motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum)*100;
-        //	motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush)*100;
-        //	motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush)*100;
         //	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
         batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
         batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
@@ -696,6 +695,35 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
                 return  battery_out_flag;//battery_out_flag;
             }
         }
+		
+//		motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*1000;
+//		if(motorLeftVoltage > 3000)   // 
+//        {
+//			return  motorLeft_error;// ;
+//        }
+//		
+//		motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight)*100;
+//		if(motorLeftVoltage > 3000)   // 
+//        {
+//			return  motorRight_error;// ;
+//        }
+//		motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum)*100;
+//		if(motorLeftVoltage > 3000)   // 
+//        {
+//			return  motorVacuum_error;// ;
+//        }
+//		motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush)*100;
+//		if(motorLeftVoltage > 3000)   // 
+//        {
+//			return  motorRolling_error;// ;
+//        }
+//		motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush)*100;
+//		if(motorLeftVoltage > 3000)   // 
+//        {
+//			return  motorSide_error;// ;
+//        }
+		   
+		     
     }
     
     //碰撞异常检测
