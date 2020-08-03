@@ -548,10 +548,15 @@ void bsp_SearchChargePile(void)
 			else /*转第二圈，时间超过了，还没有知道怎么走，就直走*/
 			{
 				search.pulse = bsp_GetCurrentBothPulse();
-				bsp_SetMotorSpeed(MotorLeft,  3);
-				bsp_SetMotorSpeed(MotorRight, 3);
+				bsp_SetMotorSpeed(MotorLeft,  0);
+				bsp_SetMotorSpeed(MotorRight, 0);
 				
-				++search.action;
+				
+				/*转第二圈也没有好的信号，那么就执行沿边清扫，等到有好信号了再执行转圈圈*/
+				
+				bsp_StartEdgewiseRun();
+				
+				search.action = 9 ;
 			}
 		}break;	
 		
@@ -742,6 +747,24 @@ void bsp_SearchChargePile(void)
 				bsp_SetMotorSpeed(MotorLeft, 2);
 				bsp_SetMotorSpeed(MotorRight,5);
 				search.action = 3 ;
+			}
+		}break;
+		
+		
+		
+		
+		case 9:
+		{
+			if(         ROTATE_CW || ROTATE_CCW 
+				|| RUN_STRAIGHT_0 || RUN_STRAIGHT_1 
+				|| INCLINATION_GO_L_0 || INCLINATION_GO_L_1 || INCLINATION_GO_L_2 
+				|| INCLINATION_GO_R_0 || INCLINATION_GO_R_1 || INCLINATION_GO_R_2)
+			{
+				bsp_SetMotorSpeed(MotorLeft,  0);
+				bsp_SetMotorSpeed(MotorRight, 0);
+
+				bsp_StopEdgewiseRun();
+				bsp_StartSearchChargePile();
 			}
 		}break;
 		
