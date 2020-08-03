@@ -336,6 +336,8 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
 返回参数 : 成功返回:SUCCESS/失败返回:ERROR
 使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
 *****************************************************************************/
+extern uint8_t  work_mode;
+
 static unsigned char dp_download_switch_go_handle(const unsigned char value[], unsigned short length)
 {
     //示例:当前DP类型为BOOL
@@ -352,7 +354,9 @@ static unsigned char dp_download_switch_go_handle(const unsigned char value[], u
     else
     {
         //开关开
-        bsp_PutKey(KEY_LONG_CLEAN);  
+		if(work_mode == 0) bsp_PutKey(KEY_LONG_CLEAN); 
+		if(work_mode == 1) bsp_PutKey(KEY_WIFI_EDGE); 
+		
     }
     
     //处理完DP数据后应有反馈
@@ -370,13 +374,14 @@ static unsigned char dp_download_switch_go_handle(const unsigned char value[], u
 返回参数 : 成功返回:SUCCESS/失败返回:ERROR
 使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
 *****************************************************************************/
+
 static unsigned char dp_download_mode_handle(const unsigned char value[], unsigned short length)
 {
     //示例:当前DP类型为ENUM
     unsigned char ret;
     unsigned char mode;
     static bool isOpenClean = true;
-	static bool isOpenSearchCharge = true;
+	static bool isOpenSearchCharge = false;
     static bool isEdge = true;
     
     mode = mcu_get_dp_download_enum(value,length);
@@ -384,34 +389,36 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
     {
     case 0:
 		DEBUG("0\r\n");
-	
-        if(isOpenClean)
-        {
-            bsp_PutKey(KEY_DOWN_CLEAN);  
-        }
-        else
-        {
-			bsp_PutKey(KEY_DOWN_CLEAN);  
-            bsp_PutKey(KEY_LONG_CLEAN); 
-        }		 
+//        if(isOpenClean)
+//        {
+//            bsp_PutKey(KEY_DOWN_CLEAN);  
+//        }
+//        else
+//        {
+//			bsp_PutKey(KEY_DOWN_CLEAN);  
+//            bsp_PutKey(KEY_LONG_CLEAN); 
+//        }		 
+//        
+//        isOpenClean = !isOpenClean;
         
-        isOpenClean = !isOpenClean;
-        
+		work_mode = 0;
         break;
         
     case 1:
         DEBUG("1\r\n");
 	
-		if(isEdge)
-        {
-            bsp_PutKey(KEY_DOWN_CLEAN);  
-        }
-        else
-        {
-			bsp_PutKey(KEY_DOWN_CLEAN);  
-            bsp_PutKey(KEY_WIFI_EDGE); 
-        }		 
-		isEdge = !isEdge;
+//		if(isEdge)
+//        {
+//            bsp_PutKey(KEY_DOWN_CLEAN);  
+//        }
+//        else
+//        {
+//			bsp_PutKey(KEY_DOWN_CLEAN);  
+//            bsp_PutKey(KEY_WIFI_EDGE); 
+//        }		 
+//		isEdge = !isEdge;
+		  
+		work_mode = 1;
         break;
         
     case 2:

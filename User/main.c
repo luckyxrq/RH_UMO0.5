@@ -54,8 +54,8 @@ typedef enum
 	standby
 }WORK_MODE;
 
-static uint8_t  work_mode = standby;
-static uint8_t  work_switch_go = false;
+uint8_t  work_mode = standby;
+uint8_t  work_switch_go = false;
 
 typedef enum
 {
@@ -533,7 +533,7 @@ void bsp_OffsiteSuspend(void)
 static void bsp_KeySuspend(void)
 {
 	//工作模式 待机
-	work_mode = standby;
+	//work_mode = standby;
 	//清扫开关关闭
 	work_switch_go = false;
 	
@@ -838,6 +838,14 @@ static void bsp_KeyProc(void)
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
+				
+				
+				/*设置上一次按键值*/
+				bsp_SetLastKeyState(eKEY_CLEAN);
+				/*设置LED状态*/
+				bsp_SetLedState(AT_CLEAN);
+				isSearchCharge = false;
+				bsp_ClearKey();
 			}break;
 		}   
 	}
