@@ -876,12 +876,12 @@
 #define none_cliff 0
 
 #define W 5000
-#define real_gostaright_vel 280
-#define long_stra_vel 240
+#define real_gostaright_vel 300
+#define long_stra_vel 250
 #define turn_vel 50
-#define correction_turn_vel 10//40 //10
+#define correction_turn_vel 20//40 //10
 #define correction_straight_vel 10//200 //200
-#define correction_big_turn_vel 10
+#define correction_big_turn_vel 20
 #define correction_big_straight_vel 10//100 
 
 
