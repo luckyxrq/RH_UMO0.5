@@ -251,49 +251,51 @@ static float cliffSub[3] = {0};
 */
 uint8_t bsp_GetCliffStates(void)
 {
-	uint8_t data = 0 ;
-	
-	/*开发射读*/
-	CLIFF_EMIT_ENABLE();
-	bsp_DelayUS(DELAY_FOR_READ_CLIFF_US);
-	/*一次读三个*/
-	cliffTwiceRead [0][0] = bsp_GetCliffVoltage(CliffLeft);
-	cliffTwiceRead [1][0] = bsp_GetCliffVoltage(CliffMiddle);
-	cliffTwiceRead [2][0] = bsp_GetCliffVoltage(CliffRight);
-	
-	
-	/*关发射读*/
-	CLIFF_EMIT_DISABLE();
-	bsp_DelayUS(DELAY_FOR_READ_CLIFF_US);
-	/*一次读三个*/
-	cliffTwiceRead [0][1] = bsp_GetCliffVoltage(CliffLeft);
-	cliffTwiceRead [1][1] = bsp_GetCliffVoltage(CliffMiddle);
-	cliffTwiceRead [2][1] = bsp_GetCliffVoltage(CliffRight);
-	
-	
-	cliffSub[0] = abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000);
-	cliffSub[1] = abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000);
-	cliffSub[2] = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);
-	
-	if( cliffSub[0] <= IS_OBSTACLE_CLIFF_MV )
-	{
-		data |= 1<< 0;
-	}
-	
-	if( cliffSub[1] <= IS_OBSTACLE_CLIFF_MV )
-	{
-		data |= 1<< 1;
-	}
-	
-	if( cliffSub[2] <= IS_OBSTACLE_CLIFF_MV )
-	{
-		data |= 1<< 2;
-	}
-	
-	
-	cliffStates = data;
-	
-	return data;
+//	uint8_t data = 0 ;
+//	
+//	/*开发射读*/
+//	CLIFF_EMIT_ENABLE();
+//	bsp_DelayUS(DELAY_FOR_READ_CLIFF_US);
+//	/*一次读三个*/
+//	cliffTwiceRead [0][0] = bsp_GetCliffVoltage(CliffLeft);
+//	cliffTwiceRead [1][0] = bsp_GetCliffVoltage(CliffMiddle);
+//	cliffTwiceRead [2][0] = bsp_GetCliffVoltage(CliffRight);
+//	
+//	
+//	/*关发射读*/
+//	CLIFF_EMIT_DISABLE();
+//	bsp_DelayUS(DELAY_FOR_READ_CLIFF_US);
+//	/*一次读三个*/
+//	cliffTwiceRead [0][1] = bsp_GetCliffVoltage(CliffLeft);
+//	cliffTwiceRead [1][1] = bsp_GetCliffVoltage(CliffMiddle);
+//	cliffTwiceRead [2][1] = bsp_GetCliffVoltage(CliffRight);
+//	
+//	
+//	cliffSub[0] = abs((cliffTwiceRead [0][1] - cliffTwiceRead [0][0])*1000);
+//	cliffSub[1] = abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000);
+//	cliffSub[2] = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);
+//	
+//	if( cliffSub[0] <= IS_OBSTACLE_CLIFF_MV )
+//	{
+//		data |= 1<< 0;
+//	}
+//	
+//	if( cliffSub[1] <= IS_OBSTACLE_CLIFF_MV )
+//	{
+//		data |= 1<< 1;
+//	}
+//	
+//	if( cliffSub[2] <= IS_OBSTACLE_CLIFF_MV )
+//	{
+//		data |= 1<< 2;
+//	}
+//	
+//	
+//	cliffStates = data;
+//	
+//	return data;
+
+	return 0;
 }
 
 void bsp_GetCliffSub(float arr[])

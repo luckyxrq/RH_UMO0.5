@@ -418,8 +418,7 @@ void bsp_PrintAllVoltage(void)
 	sideBrush,
 	batteryVoltage,
 	batteryCurrent);
-
-
+	
 }
 
 
