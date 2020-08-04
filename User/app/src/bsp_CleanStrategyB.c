@@ -318,9 +318,9 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 	{
 		bsp_PidClear(MotorLeft);
         bsp_PidClear(MotorRight);
-        speed_pid_cnt_default = 1;
-        speed_pid_cnt_ir = 1;
-        speed_pid_cnt_goback = 1;
+//        speed_pid_cnt_default = 1;
+//        speed_pid_cnt_ir = 1;
+//        speed_pid_cnt_goback = 1;
 		speed_pid_cnt_realgo =1;
 		speed_pid_cnt_spin = 1;
 	}
