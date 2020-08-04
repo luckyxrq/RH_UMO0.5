@@ -136,10 +136,10 @@ MCU可调用mcu_api.c文件内的mcu_firm_update_query()函数获取当前MCU固
                     如当前使用MCU的RAM不够,可修改为24
 ******************************************************************************/
 #ifndef SUPPORT_MCU_FIRM_UPDATE
-#define WIFI_UART_QUEUE_LMT             16              //数据接收队列大小,如MCU的RAM不够,可缩小
-#define WIFI_UART_RECV_BUF_LMT          24              //根据用户DP数据大小量定,必须大于24
+#define WIFI_UART_QUEUE_LMT             16               //数据接收队列大小,如MCU的RAM不够,可缩小
+#define WIFI_UART_RECV_BUF_LMT          512              //根据用户DP数据大小量定,必须大于24
 #else
-#define WIFI_UART_QUEUE_LMT             128             //数据接收队列大小,如MCU的RAM不够,可缩小
+#define WIFI_UART_QUEUE_LMT             128              //数据接收队列大小,如MCU的RAM不够,可缩小
 
 //请在此处选择合适的mcu升级缓存大小（根据上面固件包选择大小来选择开启多大的mcu升级缓存）
 #define WIFI_UART_RECV_BUF_LMT          300             //固件升级缓冲区,需大缓存,如单包大小选择256，则缓存必须大于260
