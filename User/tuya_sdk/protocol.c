@@ -381,9 +381,7 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
     //示例:当前DP类型为ENUM
     unsigned char ret;
     unsigned char mode;
-    static bool isOpenClean = true;
 	static bool isOpenSearchCharge = false;
-    static bool isEdge = true;
     
     mode = mcu_get_dp_download_enum(value,length);
     switch(mode)
