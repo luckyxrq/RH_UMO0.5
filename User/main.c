@@ -160,6 +160,10 @@ static void vTaskMapping(void *pvParameters)
 			mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //BOOL型数据上报;
 			mcu_dp_enum_update(DPID_MODE,work_mode); //枚举型数据上报;
 		}
+		
+		
+		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+
         vTaskDelay(100);
     }
 
@@ -189,6 +193,8 @@ static void vTaskDecision(void *pvParameters)
         bsp_KeyProc();
 		
 		bsp_GetVoltageFilterProc();
+		
+		RTT("vTaskDecision:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
         vTaskDelay(50);	
     }
@@ -237,6 +243,8 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			ResetReturnChargeStationStatus();
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
+		
+		RTT("vTaskControl:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
         vTaskDelay(20);
@@ -355,6 +363,8 @@ static void vTaskPerception(void *pvParameters)
 			bsp_SendReportFrameWithCRC16();
 		}
 
+		RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		
 		count++;
         vTaskDelay(5);	
     }		
@@ -375,7 +385,7 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
                  "vTaskMapping",   		        /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskMapping );         /* 任务句柄  */
@@ -387,13 +397,13 @@ static void AppTaskCreate (void)
                  &xHandleTaskDecision );        /* 任务句柄  */
     xTaskCreate( vTaskControl,     		        /* 任务函数  */
                  "vTaskControl",   		        /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  3,              		        /* 任务优先级*/
                  &xHandleTaskControl );         /* 任务句柄  */	
     xTaskCreate( vTaskPerception,     		    /* 任务函数  */
                  "vTaskPerception",   		    /* 任务名    */
-                 1024,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  4,              		        /* 任务优先级*/
                  &xHandleTaskPerception );      /* 任务句柄  */	
