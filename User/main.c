@@ -130,40 +130,41 @@ static void vTaskMapping(void *pvParameters)
 	
     while(1)
     {
-     	count++;	
-#if 1 /*更新地图*/
-		
-		if(isSearchCharge == false)
-		{		
-			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-		}
-#endif
-		
-		bsp_UploadMap();
-		
-		if(count % 5 == 0)
-        {
-			bsp_ChangeWifi2SmartConfigStateProc();
-			
-			/*下面是打印开关，酌情注释*/
-			bsp_WifiStateProc();
-        }
-		
-		if(count % 100 == 0)
-		{	
-			bsp_UploadBatteryInfo();
-		}
-		if(count % 10 == 0)
-		{	
-			mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
-			mcu_dp_value_update(DPID_CLEAN_AREA,(unsigned long)((bsp_Get_GridMapArea())*0.01)); 
-			mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //BOOL型数据上报;
-			mcu_dp_enum_update(DPID_MODE,work_mode); //枚举型数据上报;
-		}
+     	
+//#if 1 /*更新地图*/
+//		
+//		if(isSearchCharge == false)
+//		{		
+//			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+//		}
+//#endif
+//		
+//		bsp_UploadMap();
+//		
+//		if(count % 5 == 0)
+//        {
+//			bsp_ChangeWifi2SmartConfigStateProc();
+//			
+//			/*下面是打印开关，酌情注释*/
+//			bsp_WifiStateProc();
+//        }
+//		
+//		if(count % 100 == 0)
+//		{	
+//			bsp_UploadBatteryInfo();
+//		}
+//		if(count % 10 == 0)
+//		{	
+//			mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
+//			mcu_dp_value_update(DPID_CLEAN_AREA,(unsigned long)((bsp_Get_GridMapArea())*0.01)); 
+//			mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //BOOL型数据上报;
+//			mcu_dp_enum_update(DPID_MODE,work_mode); //枚举型数据上报;
+//		}
 		
 		
 		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
+		count++;	
         vTaskDelay(100);
     }
 
