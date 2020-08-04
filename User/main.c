@@ -21,8 +21,8 @@ static void vTaskDecision(void *pvParameters);
 static void vTaskControl(void *pvParameters);
 /*感知 获取传感器数据 红外对管、跳崖、碰撞、离地、电机电流、尘盒霍尔、编码器、航向角*/
 static void vTaskPerception(void *pvParameters);
-
 static void vTaskMapping(void *pvParameters);
+static void vTaskKey(void *pvParameters);
 
 static void AppTaskCreate (void);
 static void AppObjCreate (void);
@@ -39,7 +39,7 @@ static TaskHandle_t xHandleTaskDecision      = NULL;
 static TaskHandle_t xHandleTaskControl       = NULL;
 static TaskHandle_t xHandleTaskPerception    = NULL;
 static TaskHandle_t xHandleTaskMapping       = NULL;
-
+static TaskHandle_t xHandleTaskKey           = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
 
@@ -190,9 +190,7 @@ static void vTaskDecision(void *pvParameters)
 	vTaskDelay(2000);
     while(1)
     {
-        /* 处理按键事件 */
-        bsp_KeyProc();
-		
+
 		bsp_GetVoltageFilterProc();
 		
 		RTT("vTaskDecision:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
@@ -373,6 +371,32 @@ static void vTaskPerception(void *pvParameters)
 }
 
 
+
+/*
+*********************************************************************************************************
+*	函 数 名: vTaskKey
+*	功能说明: 按键处理
+*	形    参: pvParameters 是在创建该任务时传递的形参
+*	返 回 值: 无
+*   优 先 级: 4  
+*********************************************************************************************************
+*/
+static void vTaskKey(void *pvParameters)
+{
+    while(1)
+    {
+		/* 处理按键事件 */
+        bsp_KeyProc();
+		
+		
+		RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+
+        vTaskDelay(20);	
+    }		
+    
+}
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: AppTaskCreate
@@ -408,6 +432,12 @@ static void AppTaskCreate (void)
                  NULL,           		        /* 任务参数  */
                  4,              		        /* 任务优先级*/
                  &xHandleTaskPerception );      /* 任务句柄  */	
+	xTaskCreate( vTaskKey,     		            /* 任务函数  */
+                 "vTaskKey",   		            /* 任务名    */
+                 512,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 4,              		        /* 任务优先级*/
+                 &xHandleTaskKey );             /* 任务句柄  */	
 	
 }
 
