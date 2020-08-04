@@ -880,9 +880,9 @@
 #define long_stra_vel 240
 #define turn_vel 50
 #define correction_turn_vel 10//40 //10
-#define correction_straight_vel 200 //200
+#define correction_straight_vel 10//200 //200
 #define correction_big_turn_vel 10
-#define correction_big_straight_vel 100 
+#define correction_big_straight_vel 10//100 
 
 
 //#define Deg2Rad(deg) (PI * deg / 180.0F)
