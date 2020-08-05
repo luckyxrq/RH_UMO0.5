@@ -332,20 +332,14 @@ extern signed char Under_extreme_point_x_index;
 extern signed char Under_extreme_point_y_index;
 extern signed char On_extreme_point_x_index;
 extern signed char On_extreme_point_y_index;
-//extern signed char Left_Under_extreme_point_x_index;
-//extern signed char Left_Under_extreme_point_y_index;
-//extern signed char Left_On_extreme_point_x_index;
-//extern signed char Left_On_extreme_point_y_index;
+
 
 extern float adcRealTime[10];
 extern char Under_extreme_point_x[20];
 extern char Under_extreme_point_y[20];
 extern char On_extreme_point_x[20];
 extern char On_extreme_point_y[20];
-//extern char Left_Under_extreme_point_x[10];
-//extern char Left_On_extreme_point_x[10];
-//extern char Left_Under_extreme_point_y[10];
-//extern char Left_On_extreme_point_y[10];
+
 
 
 double my_abs(double x){
@@ -928,7 +922,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     }
     else if(stuck==true){
         StuckRunStep(current_pose);
-        stuck=false;
     }
     else if(boolleaksweep==true){
 		if(returnextremepoint==false){
@@ -6082,6 +6075,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
             stuck=true;
         }
         else{
+            stuck=false;			
             stuck_right_run_step = 0;
             complete_flag = 1;
         }
@@ -12140,6 +12134,7 @@ unsigned char StuckLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
             stuck=true;
         }
         else{
+            stuck=false;			
             stuck_right_run_step = 0;
             complete_flag = 1;
         }
