@@ -914,73 +914,73 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     }
     
 #endif
-////<<<<<<< HEAD
-//	
-//	{	
-//		current_pose->x=current_pose->x-x_error;
-//		current_pose->y=current_pose->y-y_error;
-//		if(b_reverse_moremap==true){
-//			if(reverse_moremap==1){
-//				current_pose->x=current_pose->x+reverse_x_more_map;
-//			}
-//			else{
-//				current_pose->x=current_pose->x-reverse_x_more_map;
-//			}		
-//		}
-//		if(over_clean_finish==false){
-//			if(x_more_map==true||y_more_map==true){
-//				if(x_more_map==true){
-//					if(b_reverse_moremap==false){
-//						current_pose->x=current_pose->x-x_more_positive_start*half_map_wide;
-//					}
-//				}
-//				if(y_more_map==true){
-//					current_pose->y=current_pose->y-y_more_positive_start*half_map_wide;
-//				}
-//			}
-//		}
-//		if (detection_close_edge == true){
-//			DetectionCloseEdge();
-//		}
-//		else if(astar_origin==true){
-//			AStarReturnOrigin(current_pose, obstacleSignal);
-//		}
-//		else if(stuck==true){
-//			StuckRunStep(current_pose);
-//			stuck=false;
-//		}
-//		else if(boolleaksweep==true){
-//				leakingsweep =bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,Yaw,obstacleSignal);
-//			boolleaksweep=false;
-//		}
-//		else if(leftboolleaksweep==true){
-//				leakingsweep =bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,Yaw,obstacleSignal);
-//			leftboolleaksweep=false;
-//		}
-//		else if(more_map==true){
-//			MoreMap(current_pose);
-//			motionSteps=0;
-//			more_map=false;
-//		}
-//		else{
-//		}
-//		map_current_pose_x=current_pose->x;
-//		map_current_pose_y=current_pose->y;
-//		if(bool_leakingsweep_y==true){
-//			if(selectside =='R'){
-//				if(leakingsweep_y_flag+return_origin_distance>current_pose->y){
-//					bool_leakingsweep_y=false;
-//				}
-//			}
-//			else{
-//				if(leakingsweep_y_flag-return_origin_distance<current_pose->y){
-//					bool_leakingsweep_y=false;
-//				}
-//			}
-//		}
-//	}
-//	switch (OVERALL_CLEANING_STRATEGY)
-//=======
+<<<<<<< HEAD
+	
+	{	
+		current_pose->x=current_pose->x-x_error;
+		current_pose->y=current_pose->y-y_error;
+		if(b_reverse_moremap==true){
+			if(reverse_moremap==1){
+				current_pose->x=current_pose->x+reverse_x_more_map;
+			}
+			else{
+				current_pose->x=current_pose->x-reverse_x_more_map;
+			}		
+		}
+		if(over_clean_finish==false){
+			if(x_more_map==true||y_more_map==true){
+				if(x_more_map==true){
+					if(b_reverse_moremap==false){
+						current_pose->x=current_pose->x-x_more_positive_start*half_map_wide;
+					}
+				}
+				if(y_more_map==true){
+					current_pose->y=current_pose->y-y_more_positive_start*half_map_wide;
+				}
+			}
+		}
+		if (detection_close_edge == true){
+			DetectionCloseEdge();
+		}
+		else if(astar_origin==true){
+			AStarReturnOrigin(current_pose, obstacleSignal);
+		}
+		else if(stuck==true){
+			StuckRunStep(current_pose);
+			stuck=false;
+		}
+		else if(boolleaksweep==true){
+				leakingsweep =bsp_Right_ReturnExtreme_point(current_pose->x,current_pose->y,Yaw,obstacleSignal);
+			boolleaksweep=false;
+		}
+		else if(leftboolleaksweep==true){
+				leakingsweep =bsp_Left_ReturnExtreme_point(current_pose->x,current_pose->y,Yaw,obstacleSignal);
+			leftboolleaksweep=false;
+		}
+		else if(more_map==true){
+			MoreMap(current_pose);
+			motionSteps=0;
+			more_map=false;
+		}
+		else{
+		}
+		map_current_pose_x=current_pose->x;
+		map_current_pose_y=current_pose->y;
+		if(bool_leakingsweep_y==true){
+			if(selectside =='R'){
+				if(leakingsweep_y_flag+return_origin_distance>current_pose->y){
+					bool_leakingsweep_y=false;
+				}
+			}
+			else{
+				if(leakingsweep_y_flag-return_origin_distance<current_pose->y){
+					bool_leakingsweep_y=false;
+				}
+			}
+		}
+	}
+	switch (OVERALL_CLEANING_STRATEGY)
+=======
     
     current_pose->x=current_pose->x-x_error;
     current_pose->y=current_pose->y-y_error;
@@ -1060,7 +1060,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         }
     }
     switch (OVERALL_CLEANING_STRATEGY)
-//>>>>>>> ES2_MERGER_V1.317
+>>>>>>> ES2_MERGER_V1.317
     {
     case 0:
         linear_velocity=0;
@@ -2147,11 +2147,11 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_ABS173_CR_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-//<<<<<<< HEAD
+<<<<<<< HEAD
         if (my_abs(Yaw) > 176) //173
-//=======
-//        if (my_abs(Yaw) > 168)
-//>>>>>>> ES2_MERGER_V1.317
+=======
+        if (my_abs(Yaw) > 168)
+>>>>>>> ES2_MERGER_V1.317
         {
             collision_right_rightrun_step_status = COMPLETE_CR_DRYL;
             break;
@@ -3287,11 +3287,11 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     case  TURN_CCLOCK_TARGET_YAW_ABS8_CL_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-//<<<<<<< HEAD
+<<<<<<< HEAD
         if (my_abs(Yaw) < 5) //8
-//=======
-//        if (my_abs(Yaw) < 12)
-//>>>>>>> ES2_MERGER_V1.317
+=======
+        if (my_abs(Yaw) < 12)
+>>>>>>> ES2_MERGER_V1.317
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3510,11 +3510,11 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CLOCK_TARGET_YAW_ABS173_CF_DRYL:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-//<<<<<<< HEAD
+<<<<<<< HEAD
         if (my_abs(Yaw) > 176) //173
-//=======
-//        if (my_abs(Yaw) > 168)
-//>>>>>>> ES2_MERGER_V1.317
+=======
+        if (my_abs(Yaw) > 168)
+>>>>>>> ES2_MERGER_V1.317
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -3666,11 +3666,11 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     case TURN_CCLOCK_TARGET_YAW_ABS10_CF_DRYM:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-//<<<<<<< HEAD
+<<<<<<< HEAD
         if (my_abs(Yaw) < 5) //8
-//=======
-//        if (my_abs(Yaw) < 12)
-//>>>>>>> ES2_MERGER_V1.317
+=======
+        if (my_abs(Yaw) < 12)
+>>>>>>> ES2_MERGER_V1.317
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -7705,11 +7705,11 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     case TURN_CLOCK_TARGET_YAW_ABS3_LRUN_CR_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-//<<<<<<< HEAD
+<<<<<<< HEAD
         if (my_abs(Yaw) < 5) //8
-//=======
-//        if (my_abs(Yaw) < 12)
-//>>>>>>> ES2_MERGER_V1.317
+=======
+        if (my_abs(Yaw) < 12)
+>>>>>>> ES2_MERGER_V1.317
         {
             collision_right_rightrun_step_status = COMPLETE_LRUN_CR_DLYM;
             break;
@@ -8256,11 +8256,11 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
             collision_right_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_MORE_AB173_COLLISION_LRUN_CR_DLYL;
             break;
         }
-//<<<<<<< HEAD
+<<<<<<< HEAD
         if (my_abs(Yaw) > 173) 
-//=======
-//        if (my_abs(Yaw) > 168)
-//>>>>>>> ES2_MERGER_V1.317
+=======
+        if (my_abs(Yaw) > 168)
+>>>>>>> ES2_MERGER_V1.317
         {
             collision_right_rightrun_step_status = COMPLETE_LRUN_CR_DLYL;
             break;
@@ -8982,11 +8982,11 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     case  TURN_CCLOCK_TARGET_YAW_ABS173_LRUN_CL_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-//<<<<<<< HEAD
+<<<<<<< HEAD
         if (my_abs(Yaw)>176) //173
-//=======
-//        if (my_abs(Yaw)>168)
-//>>>>>>> ES2_MERGER_V1.317
+=======
+        if (my_abs(Yaw)>168)
+>>>>>>> ES2_MERGER_V1.317
         {
             collision_left_rightrun_step_status = COMPLETE_LRUN_CL_DLYL;
             break;
@@ -9201,11 +9201,11 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CCLOCK_TARGET_YAW_ABS173_LRUN_CF_DLYL:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-//<<<<<<< HEAD
+<<<<<<< HEAD
         if (my_abs(Yaw) > 176) //173
-//=======
-//        if (my_abs(Yaw) > 168)
-//>>>>>>> ES2_MERGER_V1.317
+=======
+        if (my_abs(Yaw) > 168)
+>>>>>>> ES2_MERGER_V1.317
         {
             collision_front_rightrun_step_status = COMPLETE_LRUN_CF_DLYL;
             break;
@@ -9351,11 +9351,11 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     case TURN_CLOCK_TARGET_YAW_ABS8_LRUN_CF_DLYM:
         linear_velocity = 0;
         angular_velocity = -turn_vel;
-//<<<<<<< HEAD
+<<<<<<< HEAD
         if (my_abs(Yaw) < 5) //8
-//=======
-//        if (my_abs(Yaw) < 12)
-//>>>>>>> ES2_MERGER_V1.317
+=======
+        if (my_abs(Yaw) < 12)
+>>>>>>> ES2_MERGER_V1.317
         {
             collision_front_rightrun_step_status = COMPLETE_LRUN_CF_DLYM;
             break;
