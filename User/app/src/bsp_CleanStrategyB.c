@@ -522,6 +522,151 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 	Last_cmd_angular_velocity = *angular_velocity;
 }
 
+//static void sendvelocity(double* linear_velocity,double* angular_velocity){
+//    short leftVelocity,rightVelocity;
+//    double linear_velocity_IR,cmd_linear_velocity,cmd_angular_velocity;
+//    cmd_linear_velocity = *linear_velocity;
+//    cmd_angular_velocity = *angular_velocity;
+//    
+//    if(cmd_linear_velocity == 0 && cmd_angular_velocity == 0){
+//        leftVelocity = 0;
+//        rightVelocity = 0;
+//        bsp_PidClear(MotorLeft);
+//        bsp_PidClear(MotorRight);
+//        speed_pid_cnt_default = 1;
+//        speed_pid_cnt_ir = 1;
+//        speed_pid_cnt_goback = 1;
+//		speed_pid_cnt_realgo =1;
+//    }
+//    else{
+//        if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100)){
+//            if(IRSensorData_StrategyB[0]||IRSensorData_StrategyB[1]|| IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]||IRSensorData_StrategyB[5]||IRSensorData_StrategyB[6]||IRSensorData_StrategyB[7]){
+//                if(cmd_linear_velocity==200){
+//                    if(IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]){
+//                        cmd_linear_velocity = 0.5*cmd_linear_velocity;
+//                    }
+//                }
+//                else{
+//                    cmd_linear_velocity = 0.5*cmd_linear_velocity;
+//                }
+//                linear_velocity_IR = cmd_linear_velocity;            
+//            }
+//            if(cmd_linear_velocity <0){
+//                cmd_linear_velocity = -160;
+//                if(speed_pid_cnt_goback == 1){
+//                    bsp_PidClear(MotorLeft);
+//                    bsp_PidClear(MotorRight);
+//                }
+//                if(speed_pid_cnt_goback <=50) speed_pid_cnt_goback +=1;
+//                if(speed_pid_cnt_goback >50)  speed_pid_cnt_goback  =50; 
+//                cmd_linear_velocity = speed_pid_cnt_goback*0.02*(cmd_linear_velocity+40)-40;	
+//            }
+//            else{
+//                speed_pid_cnt_goback = 1;
+//            }
+//            if(cmd_linear_velocity == long_stra_vel){
+//                if(speed_pid_cnt_default == 1) {
+//                    bsp_PidClear(MotorLeft);
+//                    bsp_PidClear(MotorRight);
+//                }
+//                if(speed_pid_cnt_default <=20) speed_pid_cnt_default +=1;
+//                if(speed_pid_cnt_default >20)  speed_pid_cnt_default  =20; 
+//                cmd_linear_velocity = speed_pid_cnt_default*0.05*(cmd_linear_velocity-40) + 40;	
+//            }
+//            else{
+//                speed_pid_cnt_default = 1;
+//            }
+//			if(cmd_linear_velocity == real_gostaright_vel){
+//                if(speed_pid_cnt_realgo == 1) {
+//                    bsp_PidClear(MotorLeft);
+//                    bsp_PidClear(MotorRight);
+//                }
+//                if(speed_pid_cnt_realgo <=20) speed_pid_cnt_realgo +=1;
+//                if(speed_pid_cnt_realgo >20)  speed_pid_cnt_realgo  =20; 
+//                cmd_linear_velocity = speed_pid_cnt_realgo*0.05*(cmd_linear_velocity-40) + 40;	
+//            }
+//            else{
+//                speed_pid_cnt_realgo = 1;
+//            }
+//            if(cmd_linear_velocity ==  linear_velocity_IR){
+//                if(speed_pid_cnt_ir == 1){
+//                    bsp_PidClear(MotorLeft);
+//                    bsp_PidClear(MotorRight);
+//                }
+//                if(speed_pid_cnt_ir <=20) speed_pid_cnt_ir +=1;
+//                if(speed_pid_cnt_ir >20)  speed_pid_cnt_ir  =20; 
+//                if(cmd_linear_velocity >  40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity-40) + 40;	
+//                if(cmd_linear_velocity < -40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity+40) - 40;	
+//            }
+//            else{
+//                speed_pid_cnt_ir = 1;
+//            }            
+//        }
+//        else{
+//            speed_pid_cnt_default = 1;
+//            speed_pid_cnt_ir = 1;
+//            speed_pid_cnt_goback = 1;
+//			speed_pid_cnt_realgo =1;
+//        }
+//        leftVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 - Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
+//        rightVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 + Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
+//        
+//        if(leftVelocity>0){
+//            if(leftVelocity<50) leftVelocity = 50;
+//            if(leftVelocity>300) leftVelocity = 300;
+//        }
+//        if(rightVelocity>0){
+//            if(rightVelocity<50) rightVelocity = 50;
+//            if(rightVelocity>300) rightVelocity = 300;
+//        }
+//        if(leftVelocity<0){
+//            if(leftVelocity>-50) leftVelocity = -50;
+//            if(leftVelocity<-300) leftVelocity = -300;
+//        }
+//        if(rightVelocity<0){
+//            if(rightVelocity>-50) rightVelocity = -50;
+//            if(rightVelocity<-300) rightVelocity = -300;
+//        }
+//    }
+//    
+//    int roll = (int)bsp_IMU_GetData(ROLL);
+//    if(my_abs(roll)<172){
+//        if(leftVelocity>0&&rightVelocity>0){
+//            if(roll >= -165 && roll <= -100){
+//                leftVelocity=150;
+//                rightVelocity=150;
+//            }
+//            else if(roll > -170 && roll <= -100){
+//                leftVelocity=100;
+//                rightVelocity=100;
+//            }
+//            else if(roll > -172 && roll <= -100){
+//                leftVelocity=30;
+//                rightVelocity=30;
+//            }
+//            else if(roll >= 100 && roll <= 165){
+//                leftVelocity=300;
+//                rightVelocity=300;
+//            }
+//            else if(roll >= 100 && roll < 170){
+//                leftVelocity=280;
+//                rightVelocity=280;
+//            }
+//            else if(roll >= 100 && roll < 172){
+//                leftVelocity=250;
+//                rightVelocity=250;
+//            }
+//            else                                      
+//            {
+//            }
+//        }
+//    }
+//    bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
+//    bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
+//}
+
+
+
 
 bool isCleanRunning(void){
     return cleanstrategy.isRunning;
@@ -1369,12 +1514,12 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
                 break;
             }
         }
-        else if (my_abs(current_pose->x) > half_map_wide - 4*GRIDHEIGHT)
+        else if (my_abs(current_pose->x) > half_map_wide - 2*GRIDHEIGHT)
         {
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
         }
-        else if (my_abs(current_pose->y) > half_map_wide - 4*GRIDHEIGHT)
+        else if (my_abs(current_pose->y) > half_map_wide - 2*GRIDHEIGHT)
         {
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
@@ -5784,7 +5929,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
     case FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178:
         linear_velocity = 100;
         angular_velocity = -57;
-        if (my_abs(Yaw) > 168)
+        if (my_abs(Yaw) > 172)
         {
             right_forward_boundary_status = FORWARDBOUNDARY_GOSTRAIGHT;
             old_bow_continue=true;
@@ -5820,7 +5965,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
     case FORWARDBOUNDARY_CCLOCK_TARGET_YAW_LESS_ABS3:
         linear_velocity = 100;
         angular_velocity = 57;
-        if (my_abs(Yaw) < 12)
+        if (my_abs(Yaw) < 8)
         {
             right_forward_boundary_status = FORWARDBOUNDARY_GOSTRAIGHT;
             old_bow_continue=true;
@@ -7369,7 +7514,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
     case LEFT_FORWARDBOUNDARY_CCLOCK_TARGET_YAW_MORE_ABS178:
         linear_velocity = 100;
         angular_velocity = 57;
-        if(my_abs(Yaw) > 168){
+        if(my_abs(Yaw) > 172){
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_GOSTRAIGHT;
             old_bow_continue=true;
             break;
@@ -7403,7 +7548,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
     case LEFT_FORWARDBOUNDARY_CLOCK_TARGET_YAW_LESS_ABS3:
         linear_velocity = 100;
         angular_velocity = -57;
-        if (my_abs(Yaw) < 12)
+        if (my_abs(Yaw) < 8)
         {
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_GOSTRAIGHT;
             old_bow_continue=true;
