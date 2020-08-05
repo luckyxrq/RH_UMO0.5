@@ -326,7 +326,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity)
 		speed_pid_cnt_spin = 1;
 	}
 	
-	if(cmd_angular_velocity > 10 || cmd_angular_velocity < -10)
+	if((ABS(cmd_angular_velocity)>10 && ABS(cmd_angular_velocity)<55))
 	{
 		if(cmd_angular_velocity < 0)
 		{
@@ -1059,8 +1059,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             }
         }
     }
-    switch (OVERALL_CLEANING_STRATEGY)
-//>>>>>>> ES2_MERGER_V1.317
+	STRATEGY_SHOW("clean_strategyB:%04X\r\n",(int)OVERALL_CLEANING_STRATEGY);	
+    switch (OVERALL_CLEANING_STRATEGY)//>>>>>>> ES2_MERGER_V1.317
     {
     case 0:
         linear_velocity=0;
@@ -1355,8 +1355,9 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 	unsigned char i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("RightRunningWorkStep:%04X\r\n",(int)right_running_step_status);
     switch (right_running_step_status)
-    {
+    {	
     case 0:
 		linear_velocity = 0;
         angular_velocity = 0;
@@ -1798,6 +1799,8 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         {
             right_running_step_status = STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP;
             right_forward_boundary_status = 0;
+			stuck_right_run_step = 0;
+			
         }
         break;
     case STUCK_FORWARD_BOUNDARY_RIGHT_RUNSTEP:
@@ -1977,8 +1980,10 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
     Yaw= Yaw/100;
+	STRATEGY_SHOW("CollisionRightRightRunStep:%04X\r\n",(int)collision_right_rightrun_step_status);
     switch(collision_right_rightrun_step_status)
     {
+			
     case 0:
         if(turn_start_update == 0)
         {
@@ -2645,8 +2650,10 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
     Yaw= Yaw/100;
+	STRATEGY_SHOW("CollisionLeftRightRunStep:%04X\r\n",(int)collision_left_rightrun_step_status);
     switch(collision_left_rightrun_step_status)
     {
+			
     case 0:	
         if(turn_start_update == 0)
         {
@@ -3341,8 +3348,10 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("CollisionFrontRightRunStep:%04X\r\n",(int)collision_front_rightrun_step_status);	
     switch (collision_front_rightrun_step_status)
     {
+		
     case 0:
         if (turn_start_update == 0)
         {
@@ -3721,8 +3730,10 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
     signed char k,ij;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("RightEdgeDilemma:%04X\r\n",(int)right_edge_dilemma_status);
     switch(right_edge_dilemma_status)
     {
+		
     case 0:
         linear_velocity = 0;
         angular_velocity = 0;
@@ -4656,8 +4667,10 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
             return complete_flag;
         }
     }
+	STRATEGY_SHOW("RightWalkEdge:%04X\r\n",(int)right_walk_edge_status);
     switch(right_walk_edge_status)
     {
+		
     case 0:
         right_walk_edge_status = GOBACK_WALK_EDGE;
         break;
@@ -5244,9 +5257,9 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
             return complete_flag;
         }
     }
-    
+    STRATEGY_SHOW("RightReverseWalkEdge:%04X\r\n",(int)right_reverse_walk_edge_status);
     switch(right_reverse_walk_edge_status)
-    {
+    {	
     case 0:
         right_reverse_walk_edge_status = GOBACK_REVERSE_WALK_EDGE;
         break;
@@ -5822,6 +5835,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
             }
         }
     }
+	STRATEGY_SHOW("ForwardBoundaryRightRunStep:%04X\r\n",(int)right_forward_boundary_status);
     switch (right_forward_boundary_status)
     {
     case 0:
@@ -5955,8 +5969,10 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("stuck_right_run_step:%04X\r\n",(int)stuck_right_run_step);
     switch (stuck_right_run_step)
     {
+		
     case 0:
         stuck_right_run_step = STUCK_FORWARD_BOUNDARY_STATUS;
         break;
@@ -6218,6 +6234,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
     unsigned char i=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("RightReadyLeakingSweep:%04X\r\n",(int)right_ready_leaking_sweep_status);
     switch(right_ready_leaking_sweep_status)
     {
     case 0:

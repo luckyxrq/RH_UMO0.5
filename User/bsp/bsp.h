@@ -98,7 +98,9 @@
 #define WARNING_EN          0 
 #define STRATEGY_DEBUG      0
 #define WIFI_DEBUG_EN       0
-#define RTT_EN              1
+#define RTT_EN              0
+#define STRATEGY_SHOW_EN    1
+
 
 
 #if DEBUG_EN
@@ -132,7 +134,12 @@
 #define RTT(format, ...) {}
 #endif	
 	
-	
+
+#if STRATEGY_SHOW_EN
+#define STRATEGY_SHOW(format, ...) printf(format, ##__VA_ARGS__)
+#else
+#define STRATEGY_SHOW(format, ...) {}
+#endif	
 	
 #if STRATEGY_DEBUG	
 #define gridmap_debug(format, ...) printf (format, ##__VA_ARGS__)
