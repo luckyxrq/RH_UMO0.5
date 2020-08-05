@@ -1438,12 +1438,12 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
                 break;
             }
         }
-        else if (my_abs(current_pose->x) > half_map_wide - 2*GRIDHEIGHT)
+        else if (my_abs(current_pose->x) > half_map_wide - 4*GRIDHEIGHT)
         {
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
         }
-        else if (my_abs(current_pose->y) > half_map_wide - 2*GRIDHEIGHT)
+        else if (my_abs(current_pose->y) > half_map_wide - 4*GRIDHEIGHT)
         {
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;

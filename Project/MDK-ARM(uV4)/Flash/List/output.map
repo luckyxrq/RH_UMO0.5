@@ -4668,18 +4668,18 @@ Image Symbol Table
     xPendingReadyList                        0x20008b18   Data          20  tasks.o(.bss)
     xTasksWaitingTermination                 0x20008b2c   Data          20  tasks.o(.bss)
     xSuspendedTaskList                       0x20008b40   Data          20  tasks.o(.bss)
-    .bss                                     0x20008b54   Section    12288  heap_4.o(.bss)
-    ucHeap                                   0x20008b54   Data       12288  heap_4.o(.bss)
-    .bss                                     0x2000bb54   Section     1208  segger_rtt.o(.bss)
-    _acUpBuffer                              0x2000bbfc   Data        1024  segger_rtt.o(.bss)
-    _acDownBuffer                            0x2000bffc   Data          16  segger_rtt.o(.bss)
-    .bss                                     0x2000c00c   Section      204  dx8_api.o(.bss)
-    DeviceSeed                               0x2000c00c   Data          12  dx8_api.o(.bss)
-    Buffer                                   0x2000c018   Data         148  dx8_api.o(.bss)
-    .bss                                     0x2000c0d8   Section       92  sha1.o(.bss)
-    .bss                                     0x2000c134   Section       48  streamec.o(.bss)
-    pStream                                  0x2000c134   Data          48  streamec.o(.bss)
-    STACK                                    0x2000c168   Section     6144  startup_stm32f10x_hd.o(STACK)
+    .bss                                     0x20008b54   Section    20480  heap_4.o(.bss)
+    ucHeap                                   0x20008b54   Data       20480  heap_4.o(.bss)
+    .bss                                     0x2000db54   Section     1208  segger_rtt.o(.bss)
+    _acUpBuffer                              0x2000dbfc   Data        1024  segger_rtt.o(.bss)
+    _acDownBuffer                            0x2000dffc   Data          16  segger_rtt.o(.bss)
+    .bss                                     0x2000e00c   Section      204  dx8_api.o(.bss)
+    DeviceSeed                               0x2000e00c   Data          12  dx8_api.o(.bss)
+    Buffer                                   0x2000e018   Data         148  dx8_api.o(.bss)
+    .bss                                     0x2000e0d8   Section       92  sha1.o(.bss)
+    .bss                                     0x2000e134   Section       48  streamec.o(.bss)
+    pStream                                  0x2000e134   Data          48  streamec.o(.bss)
+    STACK                                    0x2000e168   Section     6144  startup_stm32f10x_hd.o(STACK)
 
     Global Symbols
 
@@ -5466,10 +5466,10 @@ Image Symbol Table
     wifi_queue_buf                           0x20008650   Data          23  system.o(.bss)
     wifi_uart_rx_buf                         0x20008667   Data         519  system.o(.bss)
     wifi_uart_tx_buf                         0x2000886e   Data         519  system.o(.bss)
-    _SEGGER_RTT                              0x2000bb54   Data         168  segger_rtt.o(.bss)
-    dx8_info                                 0x2000c0ac   Data          44  dx8_api.o(.bss)
-    context                                  0x2000c0d8   Data          92  sha1.o(.bss)
-    __initial_sp                             0x2000d968   Data           0  startup_stm32f10x_hd.o(STACK)
+    _SEGGER_RTT                              0x2000db54   Data         168  segger_rtt.o(.bss)
+    dx8_info                                 0x2000e0ac   Data          44  dx8_api.o(.bss)
+    context                                  0x2000e0d8   Data          92  sha1.o(.bss)
+    __initial_sp                             0x2000f968   Data           0  startup_stm32f10x_hd.o(STACK)
 
 
 
@@ -6163,7 +6163,7 @@ Memory Map of the image
     0x080259c0   0x080259c0   0x00000020   Data   RO         7431    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x080259e0, Size: 0x0000d968, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000009c])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x080259e0, Size: 0x0000f968, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000009c])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -6241,13 +6241,13 @@ Memory Map of the image
     0x20008650        -       0x00000425   Zero   RW         5722    .bss                system.o
     0x20008a75   COMPRESSED   0x00000003   PAD
     0x20008a78        -       0x000000dc   Zero   RW         6167    .bss                tasks.o
-    0x20008b54        -       0x00003000   Zero   RW         6531    .bss                heap_4.o
-    0x2000bb54        -       0x000004b8   Zero   RW         6603    .bss                segger_rtt.o
-    0x2000c00c        -       0x000000cc   Zero   RW         6915    .bss                libdx8_stm32f1.lib(dx8_api.o)
-    0x2000c0d8        -       0x0000005c   Zero   RW         6952    .bss                libdx8_stm32f1.lib(sha1.o)
-    0x2000c134        -       0x00000030   Zero   RW         6966    .bss                libdx8_stm32f1.lib(streamec.o)
-    0x2000c164   COMPRESSED   0x00000004   PAD
-    0x2000c168        -       0x00001800   Zero   RW         3647    STACK               startup_stm32f10x_hd.o
+    0x20008b54        -       0x00005000   Zero   RW         6531    .bss                heap_4.o
+    0x2000db54        -       0x000004b8   Zero   RW         6603    .bss                segger_rtt.o
+    0x2000e00c        -       0x000000cc   Zero   RW         6915    .bss                libdx8_stm32f1.lib(dx8_api.o)
+    0x2000e0d8        -       0x0000005c   Zero   RW         6952    .bss                libdx8_stm32f1.lib(sha1.o)
+    0x2000e134        -       0x00000030   Zero   RW         6966    .bss                libdx8_stm32f1.lib(streamec.o)
+    0x2000e164   COMPRESSED   0x00000004   PAD
+    0x2000e168        -       0x00001800   Zero   RW         3647    STACK               startup_stm32f10x_hd.o
 
 
 ==============================================================================
@@ -6301,7 +6301,7 @@ Image component sizes
        192         20          0         16          0       3099   bsp_wifi_app.o
        630         32          0          0          0       7975   dxi2c_gpio_stm32f1.o
          0          0          0          0          0       1472   event_groups.o
-       416         24          0         24      12288       3991   heap_4.o
+       416         24          0         24      20480       3991   heap_4.o
        136          0          0          0          0       3030   list.o
       2106        284          0         32          0     317617   main.o
       1012        110          0          2          0      11319   mcu_api.o
@@ -6328,7 +6328,7 @@ Image component sizes
       1896        160          0         64        220      18852   tasks.o
 
     ----------------------------------------------------------------------
-    138378       8572        990        748      54492     850109   Object Totals
+    138378       8572        990        748      62684     850109   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         68          0          0         14         16          0   (incl. Padding)
 
@@ -6427,14 +6427,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-    152400       9338       1680        816      54840     827593   Grand Totals
-    152400       9338       1680        156      54840     827593   ELF Image Totals (compressed)
+    152400       9338       1680        816      63032     827593   Grand Totals
+    152400       9338       1680        156      63032     827593   ELF Image Totals (compressed)
     152400       9338       1680        156          0          0   ROM Totals
 
 ==============================================================================
 
     Total RO  Size (Code + RO Data)               154080 ( 150.47kB)
-    Total RW  Size (RW Data + ZI Data)             55656 (  54.35kB)
+    Total RW  Size (RW Data + ZI Data)             63848 (  62.35kB)
     Total ROM Size (Code + RO Data + RW Data)     154236 ( 150.62kB)
 
 ==============================================================================
