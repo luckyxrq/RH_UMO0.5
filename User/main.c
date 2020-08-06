@@ -314,12 +314,6 @@ static void vTaskPerception(void *pvParameters)
 			bsp_DustBoxProc();
 		}
 		
-//		if(isCleanRunning() && bsp_DustBoxGetState() == DustBoxOutside)
-//		{
-//			bsp_OffsiteSuspend();
-//			/*³¾ºÐÈ¡³ö*/
-//			bsp_SperkerPlay(Song9);
-//		}
 		
         /*Ñ°ÕÒ³äµç×®*/
 		bsp_SearchChargePile();
