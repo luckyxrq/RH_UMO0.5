@@ -275,6 +275,10 @@ uint8_t bsp_GetCliffStates(void)
 	cliffSub[1] = abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000);
 	cliffSub[2] = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);
 	
+	
+	//RTT("CLIFF(MV) %d %d %d\r\n",(int)cliffSub[0],(int)cliffSub[1],(int)cliffSub[2]);
+	
+	
 	if( cliffSub[0] <= IS_OBSTACLE_CLIFF_MV )
 	{
 		data |= 1<< 0;
@@ -309,18 +313,18 @@ void bsp_GetCliffSub(float arr[])
 bool bsp_CliffIsDangerous(CliffSWSN sn)
 {
 	
-	if(sn == CliffLeft && (cliffStates&(1<<0)))
-	{
-		return true;
-	}
-	else if(sn == CliffMiddle && (cliffStates&(1<<1)))
-	{
-		return true;
-	}
-	else if(sn == CliffRight && (cliffStates&(1<<2)))
-	{
-		return true;
-	}
+//	if(sn == CliffLeft && (cliffStates&(1<<0)))
+//	{
+//		return true;
+//	}
+//	else if(sn == CliffMiddle && (cliffStates&(1<<1)))
+//	{
+//		return true;
+//	}
+//	else if(sn == CliffRight && (cliffStates&(1<<2)))
+//	{
+//		return true;
+//	}
 	
 	
 	return false;

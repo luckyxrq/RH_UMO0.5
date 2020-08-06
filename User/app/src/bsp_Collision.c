@@ -50,46 +50,6 @@ void bsp_InitCollision(void)
 */
 Collision bsp_CollisionScan(void)
 {
-#if 0 /*没有红外协助的碰撞*/
-	uint8_t ret = 0 ;
-	
-	/* 左边撞上了 */
-	if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,GPIO_PIN_LEFT))
-	{
-		ret |= 1<<0;
-	}
-	
-	
-	/* 右边撞上了 */
-	if(GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,GPIO_PIN_RIGHT))
-	{
-		ret |= 1<<1;
-	}
-	
-	if(ret == 0x00)
-	{
-		return CollisionNone;
-	}
-	else if(ret == 0x01)
-	{
-		return CollisionLeft;
-	}
-	else if(ret == 0x02)
-	{
-		return CollisionRight;
-	}
-	else if(ret == 0x03)
-	{
-		return CollisionAll;
-	}
-	else
-	{
-		WARNING("不合理的碰撞结果\r\n");
-		return CollisionNone;
-	}
-	
-#else /*有红外协助的碰撞*/
-	
 	Collision ret;
 	
 	if(GPIO_ReadInputDataBit(GPIO_PORT_LEFT,GPIO_PIN_LEFT) && GPIO_ReadInputDataBit(GPIO_PORT_RIGHT,GPIO_PIN_RIGHT))
@@ -118,8 +78,6 @@ Collision bsp_CollisionScan(void)
 	}
 	
 	return ret;
-	
-#endif
 }
 
 
@@ -136,15 +94,15 @@ void bsp_PrintCollision(void)
 {
 	if(bsp_CollisionScan() == CollisionLeft)
 	{
-		DEBUG("左边\r\n");
+		RTT("L\r\n");
 	}
 	else if(bsp_CollisionScan() == CollisionRight)
 	{
-		DEBUG("右边\r\n");
+		RTT("R\r\n");
 	}
 	else if(bsp_CollisionScan() == CollisionAll)
 	{
-		DEBUG("两边\r\n");
+		RTT("BOTH\r\n");
 	}
 }
 

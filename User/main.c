@@ -6,7 +6,7 @@
 **********************************************************************************************************
 */
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
-#define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
+#define AT_POWER_ON_OPEN_ALL_MODULE_EN       1     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
 
@@ -161,9 +161,11 @@ static void vTaskMapping(void *pvParameters)
 			mcu_dp_enum_update(DPID_MODE,work_mode); //枚举型数据上报;
 		}
 		
+		bsp_PrintIR_Rev();
+		//bsp_PrintCliff();
+		//bsp_PrintCollision();
 		
-		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
-
+		//RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		count++;	
         vTaskDelay(100);
     }
@@ -193,7 +195,7 @@ static void vTaskDecision(void *pvParameters)
 
 		bsp_GetVoltageFilterProc();
 		
-		RTT("vTaskDecision:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskDecision:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
         vTaskDelay(50);	
     }
@@ -243,7 +245,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
-		RTT("vTaskControl:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskControl:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
         vTaskDelay(20);
@@ -305,7 +307,7 @@ static void vTaskPerception(void *pvParameters)
     {
 		bsp_ComAnalysis();
 		
-#if 1
+#if 0
 		if(bsp_IsInitAW9523B_OK())
 		{
 			bsp_DetectAct();  /*红外对管轮询扫描*/
@@ -325,17 +327,10 @@ static void vTaskPerception(void *pvParameters)
 			bsp_OffSiteProc();
 		}
 		
-		/*检测尘盒*/
-		if(!GetCmdStartUpload())
-		{
-			bsp_DustBoxProc();
-		}
-		
-//		if(isCleanRunning() && bsp_DustBoxGetState() == DustBoxOutside)
+//		/*检测尘盒*/
+//		if(!GetCmdStartUpload())
 //		{
-//			bsp_OffsiteSuspend();
-//			/*尘盒取出*/
-//			bsp_SperkerPlay(Song9);
+//			bsp_DustBoxProc();
 //		}
 		
         /*寻找充电桩*/
@@ -362,7 +357,7 @@ static void vTaskPerception(void *pvParameters)
 			bsp_SendReportFrameWithCRC16();
 		}
 
-		RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
         vTaskDelay(5);	
@@ -389,7 +384,7 @@ static void vTaskKey(void *pvParameters)
         bsp_KeyProc();
 		
 		
-		RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
         vTaskDelay(20);	
     }		
@@ -410,7 +405,7 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
                  "vTaskMapping",   		        /* 任务名    */
-                 1024,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskMapping );         /* 任务句柄  */
@@ -422,7 +417,7 @@ static void AppTaskCreate (void)
                  &xHandleTaskDecision );        /* 任务句柄  */
     xTaskCreate( vTaskControl,     		        /* 任务函数  */
                  "vTaskControl",   		        /* 任务名    */
-                 1024,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  3,              		        /* 任务优先级*/
                  &xHandleTaskControl );         /* 任务句柄  */	
@@ -674,19 +669,19 @@ static void bsp_KeyProc(void)
 				DEBUG("充电按键长按\r\n");
 				
 
-				/*首先判断是否主机悬空*/
-				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
-				{
-					bsp_SperkerPlay(Song16);
-					return;
-				}
-				
-				/*首先判断尘盒*/
-				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
-				{
-					bsp_SperkerPlay(Song9);
-					return;
-				}
+//				/*首先判断是否主机悬空*/
+//				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
+//				{
+//					bsp_SperkerPlay(Song16);
+//					return;
+//				}
+//				
+//				/*首先判断尘盒*/
+//				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
+//				{
+//					bsp_SperkerPlay(Song9);
+//					return;
+//				}
 				
 				bsp_SperkerPlay(Song5);
 				bsp_StartSearchChargePile();
@@ -707,19 +702,19 @@ static void bsp_KeyProc(void)
 				work_switch_go = true;
 				bsp_SetUploadMapIdIndex();
 				
-				/*首先判断是否主机悬空*/
-				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
-				{
-					bsp_SperkerPlay(Song16);
-					return;
-				}
-				
-				/*首先判断尘盒*/
-				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
-				{
-					bsp_SperkerPlay(Song9);
-					return;
-				}
+//				/*首先判断是否主机悬空*/
+//				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
+//				{
+//					bsp_SperkerPlay(Song16);
+//					return;
+//				}
+//				
+//				/*首先判断尘盒*/
+//				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
+//				{
+//					bsp_SperkerPlay(Song9);
+//					return;
+//				}
 				
 				bsp_SperkerPlay(Song3);
 				bsp_IRD_StopWork();
