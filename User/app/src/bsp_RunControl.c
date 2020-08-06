@@ -21,6 +21,23 @@ typedef struct
 
 static LedAppProc ledAppProc;
 
+
+
+
+
+static KEY_STATE key_state = eKEY_NONE;
+
+void bsp_SetLastKeyState(KEY_STATE state)
+{
+	key_state = state;
+}
+
+KEY_STATE bsp_GetLastKeyState(void)
+{
+	return key_state;
+}
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_CloseAllLed
@@ -145,6 +162,9 @@ void bsp_LedAppProc(void)
 		bsp_LedOn(LED_COLOR_YELLOW);
 		bsp_LedOff(LED_COLOR_GREEN);
 		bsp_LedOff(LED_COLOR_RED);
+		
+		/*设置上一次按键值*/
+		bsp_SetLastKeyState(eKEY_NONE);
 	}
 	else if(ledAppProc.ledAppState == AT_CHARGE_DONE) /*充电完成*/
 	{

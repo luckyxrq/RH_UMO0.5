@@ -502,25 +502,6 @@ static void bsp_StopAllMotor(void)
 }
 
 
-typedef enum
-{
-	eKEY_NONE = 0,
-	eKEY_CLEAN,
-	eKEY_SEARCH_CHARGE
-}KEY_STATE;
-
-static KEY_STATE key_state = eKEY_NONE;
-
-void bsp_SetLastKeyState(KEY_STATE state)
-{
-	key_state = state;
-}
-
-KEY_STATE bsp_GetLastKeyState(void)
-{
-	return key_state;
-}
-
 
 void bsp_CloseAllStateRun(void)
 {
