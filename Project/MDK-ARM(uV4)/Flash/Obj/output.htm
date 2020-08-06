@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Aug 06 10:23:52 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Aug 06 15:57:56 2020
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -482,10 +482,10 @@ Global Symbols
 <P><STRONG><a name="[6a]"></a>__aeabi_dadd</STRONG> (Thumb, 322 bytes, Stack size 48 bytes, dadd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_lasr
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsl
+<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsl
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_round
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_lasr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
@@ -1073,7 +1073,7 @@ Global Symbols
 <LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendSelfCheck
 </UL>
 
-<P><STRONG><a name="[a7]"></a>CloseEdgedMap</STRONG> (Thumb, 6884 bytes, Stack size 56 bytes, bsp_cleanstrategyb.o(i.CloseEdgedMap))
+<P><STRONG><a name="[a7]"></a>CloseEdgedMap</STRONG> (Thumb, 6888 bytes, Stack size 56 bytes, bsp_cleanstrategyb.o(i.CloseEdgedMap))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = CloseEdgedMap &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1098,7 +1098,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[ac]"></a>CollisionFrontRightRunStep</STRONG> (Thumb, 2174 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionFrontRightRunStep))
+<P><STRONG><a name="[ac]"></a>CollisionFrontRightRunStep</STRONG> (Thumb, 2176 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionFrontRightRunStep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = CollisionFrontRightRunStep &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1109,7 +1109,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[ad]"></a>CollisionLeftLeftRunStep</STRONG> (Thumb, 4016 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionLeftLeftRunStep))
+<P><STRONG><a name="[ad]"></a>CollisionLeftLeftRunStep</STRONG> (Thumb, 4020 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionLeftLeftRunStep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = CollisionLeftLeftRunStep &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1121,7 +1121,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[ae]"></a>CollisionLeftRightRunStep</STRONG> (Thumb, 3778 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionLeftRightRunStep))
+<P><STRONG><a name="[ae]"></a>CollisionLeftRightRunStep</STRONG> (Thumb, 3782 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.CollisionLeftRightRunStep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = CollisionLeftRightRunStep &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1333,7 +1333,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c8]"></a>ForceReturnOrigin</STRONG> (Thumb, 4940 bytes, Stack size 56 bytes, bsp_cleanstrategyb.o(i.ForceReturnOrigin))
-<BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = ForceReturnOrigin &rArr; pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = ForceReturnOrigin &rArr; pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
@@ -1501,7 +1501,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[da]"></a>LeftReadyLeakingSweep</STRONG> (Thumb, 3156 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.LeftReadyLeakingSweep))
+<P><STRONG><a name="[da]"></a>LeftReadyLeakingSweep</STRONG> (Thumb, 3160 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.LeftReadyLeakingSweep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = LeftReadyLeakingSweep &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1514,7 +1514,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[db]"></a>LeftReverseWalkEdge</STRONG> (Thumb, 3148 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.LeftReverseWalkEdge))
+<P><STRONG><a name="[db]"></a>LeftReverseWalkEdge</STRONG> (Thumb, 3146 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.LeftReverseWalkEdge))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = LeftReverseWalkEdge &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1698,7 +1698,7 @@ Global Symbols
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CloseEdgedMap
 </UL>
 
-<P><STRONG><a name="[e1]"></a>RightEdgeDilemma</STRONG> (Thumb, 5654 bytes, Stack size 64 bytes, bsp_cleanstrategyb.o(i.RightEdgeDilemma))
+<P><STRONG><a name="[e1]"></a>RightEdgeDilemma</STRONG> (Thumb, 5658 bytes, Stack size 64 bytes, bsp_cleanstrategyb.o(i.RightEdgeDilemma))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1743,7 +1743,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightRunningWorkStep
 </UL>
 
-<P><STRONG><a name="[e4]"></a>RightRunningWorkStep</STRONG> (Thumb, 3572 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.RightRunningWorkStep))
+<P><STRONG><a name="[e4]"></a>RightRunningWorkStep</STRONG> (Thumb, 3580 bytes, Stack size 48 bytes, bsp_cleanstrategyb.o(i.RightRunningWorkStep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = RightRunningWorkStep &rArr; RightEdgeDilemma &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -1765,7 +1765,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_strategyB
 </UL>
 
-<P><STRONG><a name="[e6]"></a>RightWalkEdge</STRONG> (Thumb, 3308 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightWalkEdge))
+<P><STRONG><a name="[e6]"></a>RightWalkEdge</STRONG> (Thumb, 3316 bytes, Stack size 40 bytes, bsp_cleanstrategyb.o(i.RightWalkEdge))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = RightWalkEdge &rArr; __aeabi_i2d &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
@@ -2473,7 +2473,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comSendBuf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
+<BR>[Called By]<UL><LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
+<LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
 <P><STRONG><a name="[1d3]"></a>bsp_ClearKey</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_key.o(i.bsp_ClearKey))
@@ -2949,7 +2950,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1ab]"></a>bsp_GridMapUpdate</STRONG> (Thumb, 660 bytes, Stack size 80 bytes, bsp_gridmap.o(i.bsp_GridMapUpdate))
-<BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = bsp_GridMapUpdate &rArr; inverseSensorModelB &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = bsp_GridMapUpdate &rArr; pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
@@ -3274,7 +3275,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM6_IRQHandler
 </UL>
 
-<P><STRONG><a name="[1fd]"></a>bsp_LedAppProc</STRONG> (Thumb, 332 bytes, Stack size 16 bytes, bsp_runcontrol.o(i.bsp_LedAppProc))
+<P><STRONG><a name="[1fd]"></a>bsp_LedAppProc</STRONG> (Thumb, 370 bytes, Stack size 16 bytes, bsp_runcontrol.o(i.bsp_LedAppProc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = bsp_LedAppProc &rArr; bsp_SetLedState
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
@@ -3638,7 +3639,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 </UL>
-<BR>[Called By]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
+<BR>[Called By]<UL><LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_WifiStateProc
+<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SearchChargePile
 <LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedAppProc
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffsiteSuspend
 <LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeySuspend
@@ -3994,10 +3996,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 </UL>
 
-<P><STRONG><a name="[237]"></a>bsp_WifiStateProc</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, bsp_wifi_app.o(i.bsp_WifiStateProc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_WifiStateProc
+<P><STRONG><a name="[237]"></a>bsp_WifiStateProc</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, bsp_wifi_app.o(i.bsp_WifiStateProc))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = bsp_WifiStateProc &rArr; bsp_SetLedState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_wifi_work_state
+<BR>[Calls]<UL><LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_wifi_work_state
 </UL>
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 </UL>
@@ -4073,8 +4076,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 </UL>
 
-<P><STRONG><a name="[242]"></a>data_handle</STRONG> (Thumb, 372 bytes, Stack size 32 bytes, system.o(i.data_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<P><STRONG><a name="[242]"></a>data_handle</STRONG> (Thumb, 374 bytes, Stack size 32 bytes, system.o(i.data_handle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_switch_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
 <LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;heat_beat_check
@@ -4089,7 +4092,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[24a]"></a>dp_download_handle</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, protocol.o(i.dp_download_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_handle &rArr; dp_download_switch_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_handle
 <LI><a href="#[24e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_switch_go_handle
@@ -4368,8 +4371,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;product_info_update
 </UL>
 
-<P><STRONG><a name="[cb]"></a>pow</STRONG> (Thumb, 2478 bytes, Stack size 112 bytes, pow.o(i.pow))
-<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[cb]"></a>pow</STRONG> (Thumb, 2512 bytes, Stack size 128 bytes, pow.o(i.pow))
+<BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
@@ -4683,7 +4686,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[284]"></a>wifi_uart_service</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, mcu_api.o(i.wifi_uart_service))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = wifi_uart_service &rArr; data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = wifi_uart_service &rArr; data_handle &rArr; data_point_handle &rArr; dp_download_handle &rArr; dp_download_switch_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[28a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_queue_total_data
 <LI><a href="#[28b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_check_sum
@@ -4871,8 +4874,8 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1eb]"></a>bsp_KeyProc</STRONG> (Thumb, 870 bytes, Stack size 24 bytes, main.o(i.bsp_KeyProc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = bsp_KeyProc &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
+<P><STRONG><a name="[1eb]"></a>bsp_KeyProc</STRONG> (Thumb, 986 bytes, Stack size 32 bytes, main.o(i.bsp_KeyProc))
+<BR><BR>[Stack]<UL><LI>Max Depth = 140<LI>Call Chain = bsp_KeyProc &rArr; bsp_StartSearchChargePile &rArr; bsp_IRD_StartWork &rArr; TIM_ICInit &rArr; TI4_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
@@ -4909,12 +4912,13 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskKey
 </UL>
 
-<P><STRONG><a name="[1ef]"></a>bsp_KeySuspend</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, main.o(i.bsp_KeySuspend))
-<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = bsp_KeySuspend &rArr; bsp_SperkerPlay &rArr; bsp_DelayUS
+<P><STRONG><a name="[1ef]"></a>bsp_KeySuspend</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, main.o(i.bsp_KeySuspend))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = bsp_KeySuspend &rArr; bsp_CleanZeroYaw &rArr; comSendBuf &rArr; UartSend &rArr; USART_ITConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SperkerPlay
 <LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLedState
 <LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OpenThreeWhileLed
+<LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CleanZeroYaw
 <LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetLastKeyState
 <LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetLastKeyState
 <LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CloseAllStateRun
@@ -4977,7 +4981,7 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
 <P><STRONG><a name="[4d]"></a>vTaskKey</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, main.o(i.vTaskKey))
-<BR><BR>[Stack]<UL><LI>Max Depth = 132 + In Cycle
+<BR><BR>[Stack]<UL><LI>Max Depth = 140 + In Cycle
 <LI>Call Chain = vTaskKey &rArr;  vTaskKey (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
@@ -4988,8 +4992,8 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[49]"></a>vTaskMapping</STRONG> (Thumb, 188 bytes, Stack size 16 bytes, main.o(i.vTaskMapping))
-<BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = vTaskMapping &rArr; bsp_GridMapUpdate &rArr; inverseSensorModelB &rArr; atan2 &rArr; atan &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[49]"></a>vTaskMapping</STRONG> (Thumb, 202 bytes, Stack size 16 bytes, main.o(i.vTaskMapping))
+<BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = vTaskMapping &rArr; bsp_GridMapUpdate &rArr; pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_value_update
@@ -5780,8 +5784,8 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
 </UL>
 
-<P><STRONG><a name="[24f]"></a>dp_download_mode_handle</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, protocol.o(i.dp_download_mode_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<P><STRONG><a name="[24f]"></a>dp_download_mode_handle</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, protocol.o(i.dp_download_mode_handle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_enum_update
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
@@ -5861,7 +5865,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[247]"></a>data_point_handle</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, system.o(i.data_point_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = data_point_handle &rArr; dp_download_handle &rArr; dp_download_mode_handle &rArr; mcu_dp_enum_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = data_point_handle &rArr; dp_download_handle &rArr; dp_download_switch_handle &rArr; mcu_dp_bool_update &rArr; wifi_uart_write_frame &rArr; wifi_uart_write_data &rArr; uart_transmit_output
 </UL>
 <BR>[Calls]<UL><LI><a href="#[249]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_dowmload_dpid_index
 <LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_handle
@@ -6215,7 +6219,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Crypto_Data
 </UL>
 
-<P><STRONG><a name="[123]"></a>_fp_digits</STRONG> (Thumb, 334 bytes, Stack size 56 bytes, printfa.o(i._fp_digits), UNUSED)
+<P><STRONG><a name="[123]"></a>_fp_digits</STRONG> (Thumb, 366 bytes, Stack size 64 bytes, printfa.o(i._fp_digits), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple

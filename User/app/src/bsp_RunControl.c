@@ -1,6 +1,12 @@
 #include "bsp.h"
 
-#define MAX_LINK_TOGGLE_CNT      20
+#define MAX_LINK_TOGGLE_CNT      60//20
+
+
+uint8_t  work_mode = smart;
+uint8_t  work_switch_go = false;
+uint8_t  work_status = idle;
+
 
 typedef struct
 {
@@ -84,7 +90,7 @@ void bsp_PowerOnLedProc(void)
 		bsp_LedToggle(LED_LOGO_POWER);
 		bsp_LedToggle(LED_LOGO_CHARGE);
 		
-		bsp_DelayMS(500);
+		bsp_DelayMS(600);
 	}
 	
 	bsp_LedOn(LED_LOGO_CLEAN);
@@ -107,7 +113,7 @@ void bsp_LedAppProc(void)
 
 	if(ledAppProc.ledAppState == LED_DEFAULT_STATE)       /*默认状态,不处理*/
 	{
-		
+		work_status = idle;
 	}
 	else if(ledAppProc.ledAppState == THREE_WHITE_TOOGLE) /*三颗白色灯闪烁*/
 	{
@@ -122,6 +128,7 @@ void bsp_LedAppProc(void)
 	}
 	else if(ledAppProc.ledAppState == THREE_WHITE_ON) /*亮3颗白色LED*/
 	{
+		work_status = idle;
 		bsp_LedOn(LED_LOGO_CLEAN);
 		bsp_LedOn(LED_LOGO_POWER);
 		bsp_LedOn(LED_LOGO_CHARGE);
@@ -131,6 +138,7 @@ void bsp_LedAppProc(void)
 	}
 	else if(ledAppProc.ledAppState == AT_CHARGING) /*充电中*/
 	{
+		work_status = charging;
 		bsp_LedOn(LED_LOGO_CLEAN);
 		bsp_LedOn(LED_LOGO_POWER);
 		bsp_LedOff(LED_LOGO_CHARGE);
@@ -138,8 +146,9 @@ void bsp_LedAppProc(void)
 		bsp_LedOff(LED_COLOR_GREEN);
 		bsp_LedOff(LED_COLOR_RED);
 	}
-	else if(ledAppProc.ledAppState == AT_CHARGE_DONE) /*充电中*/
+	else if(ledAppProc.ledAppState == AT_CHARGE_DONE) /*充电完成*/
 	{
+		work_status = charge_done;
 		bsp_LedOn(LED_LOGO_CLEAN);
 		bsp_LedOn(LED_LOGO_POWER);
 		bsp_LedOff(LED_LOGO_CHARGE);
@@ -149,6 +158,7 @@ void bsp_LedAppProc(void)
 	}
 	else if(ledAppProc.ledAppState == AT_SEARCH_CHARGE)
 	{
+		work_status = goto_charge;
 		if(xTaskGetTickCount() - ledAppProc.delay >= 360)
 		{
 			bsp_LedToggle(LED_LOGO_CHARGE);
@@ -158,6 +168,9 @@ void bsp_LedAppProc(void)
 	}
 	else if(ledAppProc.ledAppState == AT_CLEAN)
 	{
+		if(work_mode == smart )work_status = smart_clean; 
+		if(work_mode == wall_follow )work_status = wall_clean;
+		
 		if(xTaskGetTickCount() - ledAppProc.delay >= 360)
 		{
 			bsp_LedToggle(LED_LOGO_CLEAN);

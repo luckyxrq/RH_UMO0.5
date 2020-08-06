@@ -338,6 +338,7 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
 *****************************************************************************/
 extern uint8_t  work_mode;
 
+
 static unsigned char dp_download_switch_go_handle(const unsigned char value[], unsigned short length)
 {
     //示例:当前DP类型为BOOL
@@ -381,7 +382,6 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
     //示例:当前DP类型为ENUM
     unsigned char ret;
     unsigned char mode;
-	static bool isOpenSearchCharge = false;
     
     mode = mcu_get_dp_download_enum(value,length);
     switch(mode)
@@ -421,24 +421,15 @@ static unsigned char dp_download_mode_handle(const unsigned char value[], unsign
         break;
         
     case 2:
+		bsp_PutKey(KEY_DOWN_CHARGE);
         DEBUG("2\r\n");
         break;
         
     case 3:
         DEBUG("3\r\n");
 	
-		if(isOpenSearchCharge)
-        {
-            bsp_PutKey(KEY_DOWN_CHARGE);  
-        }
-        else
-        {
-			bsp_PutKey(KEY_DOWN_CHARGE);  
-            bsp_PutKey(KEY_LONG_CHARGE); 
-        }		 
-        
-        isOpenSearchCharge = !isOpenSearchCharge;
-		
+		bsp_PutKey(KEY_DOWN_CHARGE);  
+		bsp_PutKey(KEY_LONG_CHARGE); 
         break;
         
     case 4:

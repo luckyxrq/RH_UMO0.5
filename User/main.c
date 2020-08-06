@@ -47,25 +47,6 @@ bool isSearchCharge = false;
 bool isODDStart  = true;
 
 
-typedef enum
-{
-	smart,
-	wall_follow,
-	standby
-}WORK_MODE;
-
-uint8_t  work_mode = smart;
-uint8_t  work_switch_go = false;
-
-typedef enum
-{
-	forward,
-	backward,
-	turn_left,
-	turn_right,
-	stop
-}WORK_DIRECTION_CONTROL;
-
 
 /*
 *********************************************************************************************************
@@ -157,8 +138,10 @@ static void vTaskMapping(void *pvParameters)
 		{	
 			mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
 			mcu_dp_value_update(DPID_CLEAN_AREA,(unsigned long)((bsp_Get_GridMapArea())*0.01)); 
-			mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //BOOL型数据上报;
-			mcu_dp_enum_update(DPID_MODE,work_mode); //枚举型数据上报;
+			mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //当前清扫开关;
+			mcu_dp_enum_update(DPID_MODE,work_mode); //当前工作模式;
+			mcu_dp_enum_update(DPID_STATUS,work_status); //当前设备状态
+			//mcu_dp_fault_update(DPID_FAULT,当前故障告警); //当前故障告警;
 		}
 		
 		
@@ -528,7 +511,8 @@ static void bsp_StopAllMotor(void)
 typedef enum
 {
 	eKEY_NONE = 0,
-	eKEY_CLEAN
+	eKEY_CLEAN,
+	eKEY_SEARCH_CHARGE
 }KEY_STATE;
 
 static KEY_STATE key_state = eKEY_NONE;
@@ -580,6 +564,8 @@ void bsp_OffsiteSuspend(void)
 */
 static void bsp_KeySuspend(void)
 {
+	//清0方向角度
+	bsp_CleanZeroYaw();
 	//工作模式 待机
 	//work_mode = standby;
 	//清扫开关关闭
@@ -599,6 +585,12 @@ static void bsp_KeySuspend(void)
 	if(bsp_GetLastKeyState() == eKEY_CLEAN)
 	{
 		bsp_SperkerPlay(Song4);
+	}
+	
+	/*上一次是清扫，本次就播放暂停清扫*/
+	if(bsp_GetLastKeyState() == eKEY_SEARCH_CHARGE)
+	{
+		bsp_SperkerPlay(Song30);
 	}
 	
 	/*设置上一次按键值*/
@@ -692,11 +684,12 @@ static void bsp_KeyProc(void)
 				bsp_StartSearchChargePile();
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.6F);
 				/*设置上一次按键值*/
-				bsp_SetLastKeyState(eKEY_NONE);
+				bsp_SetLastKeyState(eKEY_SEARCH_CHARGE);
 				/*设置LED状态*/
 				bsp_SetLedState(AT_SEARCH_CHARGE);
 				isSearchCharge = true;
 				bsp_ClearKey();
+				
 			}break;
 			
 			case KEY_LONG_CLEAN: /*清扫*/
@@ -828,6 +821,9 @@ static void bsp_KeyProc(void)
 				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,forward); 
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(250));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
 //				vTaskDelay(1000);	
 //				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
 //				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
@@ -839,6 +835,9 @@ static void bsp_KeyProc(void)
 				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,backward);
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-250));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-250));
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
 //				vTaskDelay(1000);	
 //				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
 //				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
@@ -850,6 +849,9 @@ static void bsp_KeyProc(void)
 				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,turn_left);
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-100));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+100));
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
 //				vTaskDelay(500);	
 //				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
 //				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
@@ -861,6 +863,9 @@ static void bsp_KeyProc(void)
 				mcu_dp_enum_update(DPID_DIRECTION_CONTROL,turn_right);
 				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+100));
 				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-100));
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
 //				vTaskDelay(500);	
 //				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
 //				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
