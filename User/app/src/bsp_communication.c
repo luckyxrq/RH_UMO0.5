@@ -3,82 +3,9 @@
 #define MAX_ANALYSIS_LEN	    512                 /*一帧数据的最大长度*/
 #define MIN_ANALYSIS_LEN        16                  /*一帧数据的最小长度*/
 
-/*按照1字节对齐，便于存储到uint8_t类型buf*/
-#pragma pack(1)
-typedef struct
-{
-	uint16_t head;
-	
-	uint16_t frame_len;
-	uint16_t frame_len_reverse;
-	
-    uint16_t tx_addr;
-    uint16_t rx_addr;
-	
-    uint16_t main_sec ;
-    uint16_t sub_sec ;
-	
-	/*********数据部分开始***********/
-    
-	uint8_t isOpen; /*上传数据与否，1：上传，0：不上传*/
-    
-	/*********数据部分结束***********/
-	
-	uint16_t crc16;
-}CMD_START_UPLOAD;
-#pragma pack()
 
 
-/*按照1字节对齐，便于存储到uint8_t类型buf*/
-#pragma pack(1)
-typedef struct
-{
-	uint16_t head;
-	
-	uint16_t frame_len;
-	uint16_t frame_len_reverse;
-	
-    uint16_t tx_addr;
-    uint16_t rx_addr;
-	
-    uint16_t main_sec ;
-    uint16_t sub_sec ;
-	
-	/*********数据部分开始***********/
-    
-	uint8_t isOpen; /*上传数据与否，1：上传，0：不上传*/
-    
-	/*********数据部分结束***********/
-	
-	uint16_t crc16;
-}CMD_START_UPLOAD_FIXTURE;
-#pragma pack()
 
-
-/*按照1字节对齐，便于存储到uint8_t类型buf*/
-#pragma pack(1)
-typedef struct
-{
-	uint16_t head;
-	
-	uint16_t frame_len;
-	uint16_t frame_len_reverse;
-	
-    uint16_t tx_addr;
-    uint16_t rx_addr;
-	
-    uint16_t main_sec ;
-    uint16_t sub_sec ;
-	
-	/*********通用数据部分开始***********/
-    
-	uint32_t paraNormal;
-    
-	/*********通用数据部分结束***********/
-	
-	uint16_t crc16;
-}CommunicationNormal;
-#pragma pack()
 
 /*
 **********************************************************************************************************
@@ -86,11 +13,8 @@ typedef struct
 **********************************************************************************************************
 */
 static uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0};    /*用于解析帧数据*/
-static ReportFrameWithCRC16 reportFrameWithCRC16;
+static MCU_FRAME mcu_frame;
 
-static CMD_START_UPLOAD cmd_START_UPLOAD;
-static CMD_START_UPLOAD_FIXTURE cmd_START_UPLOAD_FIXTURE;
-static CommunicationNormal communicationNormal;
 /*
 **********************************************************************************************************
 											函数声明
@@ -100,7 +24,7 @@ static CommunicationNormal communicationNormal;
 
 uint8_t GetCmdStartUpload(void)
 {
-	return cmd_START_UPLOAD.isOpen;
+	return 0;
 }
 
 
@@ -108,41 +32,15 @@ void bsp_ExexCmd(uint8_t *cmd , uint16_t main_sec , uint16_t sub_sec)
 {
     if(main_sec == 2 && sub_sec == 1) /*PC机命令主机上报所有数据*/
 	{
-		memcpy(&cmd_START_UPLOAD,cmd,sizeof(cmd_START_UPLOAD));
 		
-		if(cmd_START_UPLOAD.isOpen)
-		{
-			bsp_StartVacuum(VACUUM_NORMAL);
-			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
-			bsp_IRD_StartWork();
-		}
-		else
-		{
-			bsp_StopVacuum();
-			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
-			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
-			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
-		}
 	}
 	else if(main_sec == 2 && sub_sec == 2) /*PC机命令治具主板开启测试并上报数据*/
 	{
-		memcpy(&cmd_START_UPLOAD_FIXTURE,cmd,sizeof(cmd_START_UPLOAD_FIXTURE));
-		if(cmd_START_UPLOAD_FIXTURE.isOpen)
-		{
-			bsp_StartSelfCheck();
-		}
+
 	}
 	else if(main_sec == 2 && sub_sec == 4) /*PC机命令命令主机执行测试床程序*/
 	{
-		memcpy(&communicationNormal,cmd,sizeof(communicationNormal));
-		if(communicationNormal.paraNormal)
-		{
-			bsp_StartFunctionTest();
-		}
+
 	}
 }
 
@@ -255,75 +153,75 @@ void bsp_ComAnalysis(void)
 
 void bsp_SendReportFrameWithCRC16(void)
 {
-	reportFrameWithCRC16.dustBox = bsp_DustBoxGetState();
+	mcu_frame.dustBox = bsp_DustBoxGetState();
 	
-	reportFrameWithCRC16.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
-	reportFrameWithCRC16.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
+	mcu_frame.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
+	mcu_frame.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
 
-	reportFrameWithCRC16.wheelPulseL = bsp_MotorGetPulseVector(MotorLeft);
-	reportFrameWithCRC16.wheelPulseR = bsp_MotorGetPulseVector(MotorRight);
+	mcu_frame.wheelPulseL = bsp_MotorGetPulseVector(MotorLeft);
+	mcu_frame.wheelPulseR = bsp_MotorGetPulseVector(MotorRight);
 
-	reportFrameWithCRC16.x_pos = bsp_GetCurrentPosX();
-	reportFrameWithCRC16.y_pos = bsp_GetCurrentPosY();
+	mcu_frame.x_pos = bsp_GetCurrentPosX();
+	mcu_frame.y_pos = bsp_GetCurrentPosY();
 
-	reportFrameWithCRC16.cliffMV_L = bsp_GetCliffRealVal(CliffLeft); 
-	reportFrameWithCRC16.cliffMV_M = bsp_GetCliffRealVal(CliffMiddle); 
-	reportFrameWithCRC16.cliffMV_R = bsp_GetCliffRealVal(CliffRight); 
+	mcu_frame.cliffMV_L = bsp_GetCliffRealVal(CliffLeft); 
+	mcu_frame.cliffMV_M = bsp_GetCliffRealVal(CliffMiddle); 
+	mcu_frame.cliffMV_R = bsp_GetCliffRealVal(CliffRight); 
 
-	reportFrameWithCRC16.yaw = bsp_AngleReadRaw(); 
+	mcu_frame.yaw = bsp_AngleReadRaw(); 
 
-	reportFrameWithCRC16.irMV[0] = bsp_GetInfraRedAdcVoltage(IR0); 
-	reportFrameWithCRC16.irMV[1] = bsp_GetInfraRedAdcVoltage(IR1); 
-	reportFrameWithCRC16.irMV[2] = bsp_GetInfraRedAdcVoltage(IR2); 
-	reportFrameWithCRC16.irMV[3] = bsp_GetInfraRedAdcVoltage(IR3); 
-	reportFrameWithCRC16.irMV[4] = bsp_GetInfraRedAdcVoltage(IR4); 
-	reportFrameWithCRC16.irMV[5] = bsp_GetInfraRedAdcVoltage(IR5); 
-	reportFrameWithCRC16.irMV[6] = bsp_GetInfraRedAdcVoltage(IR6); 
-	reportFrameWithCRC16.irMV[7] = bsp_GetInfraRedAdcVoltage(IR7); 
-	reportFrameWithCRC16.irMV[8] = bsp_GetInfraRedAdcVoltage(IR8); 
-	reportFrameWithCRC16.irMV[9] = bsp_GetInfraRedAdcVoltage(IR9); 
+	mcu_frame.irMV[0] = bsp_GetInfraRedAdcVoltage(IR0); 
+	mcu_frame.irMV[1] = bsp_GetInfraRedAdcVoltage(IR1); 
+	mcu_frame.irMV[2] = bsp_GetInfraRedAdcVoltage(IR2); 
+	mcu_frame.irMV[3] = bsp_GetInfraRedAdcVoltage(IR3); 
+	mcu_frame.irMV[4] = bsp_GetInfraRedAdcVoltage(IR4); 
+	mcu_frame.irMV[5] = bsp_GetInfraRedAdcVoltage(IR5); 
+	mcu_frame.irMV[6] = bsp_GetInfraRedAdcVoltage(IR6); 
+	mcu_frame.irMV[7] = bsp_GetInfraRedAdcVoltage(IR7); 
+	mcu_frame.irMV[8] = bsp_GetInfraRedAdcVoltage(IR8); 
+	mcu_frame.irMV[9] = bsp_GetInfraRedAdcVoltage(IR9); 
 
-	reportFrameWithCRC16.irRX[0][0] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT); 
-	reportFrameWithCRC16.irRX[0][1] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER); 
-	reportFrameWithCRC16.irRX[0][2] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT); 
+	mcu_frame.irRX[0][0] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT); 
+	mcu_frame.irRX[0][1] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER); 
+	mcu_frame.irRX[0][2] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT); 
 
-	reportFrameWithCRC16.irRX[1][0] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT); 
-	reportFrameWithCRC16.irRX[1][1] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER); 
-	reportFrameWithCRC16.irRX[1][2] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT);
+	mcu_frame.irRX[1][0] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT); 
+	mcu_frame.irRX[1][1] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER); 
+	mcu_frame.irRX[1][2] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT);
 
-	reportFrameWithCRC16.irRX[2][0] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT); 
-	reportFrameWithCRC16.irRX[2][1] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER); 
-	reportFrameWithCRC16.irRX[2][2] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT);
+	mcu_frame.irRX[2][0] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT); 
+	mcu_frame.irRX[2][1] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER); 
+	mcu_frame.irRX[2][2] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT);
 
-	reportFrameWithCRC16.irRX[3][0] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT); 
-	reportFrameWithCRC16.irRX[3][1] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER); 
-	reportFrameWithCRC16.irRX[3][2] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT);
+	mcu_frame.irRX[3][0] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT); 
+	mcu_frame.irRX[3][1] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER); 
+	mcu_frame.irRX[3][2] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT);
 
-	reportFrameWithCRC16.offsiteSW = bsp_OffSiteGetState();
-	reportFrameWithCRC16.collision = bsp_CollisionScan();
+	mcu_frame.offsiteSW = bsp_OffSiteGetState();
+	mcu_frame.collision = bsp_CollisionScan();
 
-	reportFrameWithCRC16.mA_wheelL           = bsp_GetVoltageAfterFilter(eMotorLeft);
-	reportFrameWithCRC16.mA_wheelR           = bsp_GetVoltageAfterFilter(eMotorRight);
-	reportFrameWithCRC16.mA_roll             = bsp_GetVoltageAfterFilter(eRollingBrush);
-	reportFrameWithCRC16.mA_sideBrush        = bsp_GetVoltageAfterFilter(eSideBrush);
-	reportFrameWithCRC16.mA_vacuum           = bsp_GetVoltageAfterFilter(eVacuum);
-	reportFrameWithCRC16.v_batteryVoltage    = bsp_GetVoltageAfterFilter(eBatteryVoltage);
-	reportFrameWithCRC16.mA_batteryCurrent   = bsp_GetVoltageAfterFilter(eBatteryCurrent);
+	mcu_frame.mA_wheelL           = bsp_GetVoltageAfterFilter(eMotorLeft);
+	mcu_frame.mA_wheelR           = bsp_GetVoltageAfterFilter(eMotorRight);
+	mcu_frame.mA_roll             = bsp_GetVoltageAfterFilter(eRollingBrush);
+	mcu_frame.mA_sideBrush        = bsp_GetVoltageAfterFilter(eSideBrush);
+	mcu_frame.mA_vacuum           = bsp_GetVoltageAfterFilter(eVacuum);
+	mcu_frame.v_batteryVoltage    = bsp_GetVoltageAfterFilter(eBatteryVoltage);
+	mcu_frame.mA_batteryCurrent   = bsp_GetVoltageAfterFilter(eBatteryCurrent);
 
 
-	reportFrameWithCRC16.head = 0xAAAA;
-	reportFrameWithCRC16.frame_len = sizeof(ReportFrameWithCRC16) & 0xFFFF;
-	reportFrameWithCRC16.frame_len_reverse = (~reportFrameWithCRC16.frame_len) & 0xFFFF;
+	mcu_frame.head = 0xAAAA;
+	mcu_frame.frame_len = sizeof(MCU_FRAME) & 0xFFFF;
+	mcu_frame.frame_len_reverse = (~mcu_frame.frame_len) & 0xFFFF;
 	
-	reportFrameWithCRC16.tx_addr = 0;
-	reportFrameWithCRC16.rx_addr = 0;
+	mcu_frame.tx_addr = 0;
+	mcu_frame.rx_addr = 0;
 	
-	reportFrameWithCRC16.main_sec = 0;
-	reportFrameWithCRC16.sub_sec = 0;
+	mcu_frame.main_sec = 0;
+	mcu_frame.sub_sec = 0;
 	
-	uint16_t ret = CRC16_Modbus((uint8_t*)&reportFrameWithCRC16,sizeof(ReportFrameWithCRC16)-2);
-	reportFrameWithCRC16.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
+	uint16_t ret = CRC16_Modbus((uint8_t*)&mcu_frame,sizeof(MCU_FRAME)-2);
+	mcu_frame.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
 	
-	comSendBuf(COM2,(uint8_t*)&reportFrameWithCRC16,sizeof(ReportFrameWithCRC16));
+	comSendBuf(COM2,(uint8_t*)&mcu_frame,sizeof(MCU_FRAME));
 }
 
