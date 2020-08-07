@@ -315,11 +315,11 @@ void bsp_SendReportFrameWithCRC16(void)
 	reportFrameWithCRC16.frame_len = sizeof(ReportFrameWithCRC16) & 0xFFFF;
 	reportFrameWithCRC16.frame_len_reverse = (~reportFrameWithCRC16.frame_len) & 0xFFFF;
 	
-	reportFrameWithCRC16.tx_addr = 0x1234;
-	reportFrameWithCRC16.rx_addr = 0x7856;
+	reportFrameWithCRC16.tx_addr = 0;
+	reportFrameWithCRC16.rx_addr = 0;
 	
-	reportFrameWithCRC16.main_sec = 0x3356;
-	reportFrameWithCRC16.sub_sec = 0x3623;
+	reportFrameWithCRC16.main_sec = 0;
+	reportFrameWithCRC16.sub_sec = 0;
 	
 	uint16_t ret = CRC16_Modbus((uint8_t*)&reportFrameWithCRC16,sizeof(ReportFrameWithCRC16)-2);
 	reportFrameWithCRC16.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
