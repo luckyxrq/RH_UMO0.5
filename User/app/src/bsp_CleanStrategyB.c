@@ -10569,7 +10569,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
     case LEFT_REVERSE_EDGE_TURN_CCLOCK_TARGET_YAW_MORE_0_RWE:
         linear_velocity = 0;
         angular_velocity = turn_vel;
-        if (Yaw > 0 )
+        if (Yaw > 0)
         {
             linear_velocity = 0;
             angular_velocity = 0;
