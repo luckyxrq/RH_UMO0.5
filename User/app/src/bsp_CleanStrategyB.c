@@ -5,7 +5,7 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
-#define CLEAN_WORK_TIME 40*60*1000
+#define CLEAN_WORK_TIME 80*60*1000
 #define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
 #define FORCE_RETURN_ORIGIN_WORK_TIME 2*60*1000
 
@@ -834,7 +834,9 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta, unsigned 
         else{
             bsp_SperkerPlay(Song5);
             bsp_StopUpdateCleanStrategyB();
-            return_charge_station_flag = 1;
+            //return_charge_station_flag = 1;	
+			bsp_PutKey(KEY_LONG_CLEAN);
+			
             
         }
     }
@@ -875,7 +877,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
         RealWorkTime = CurrentCleanTimeStamp - LastCleanTimeStamp;
         if(CurrentCleanTimeStamp - LastCleanTimeStamp >CLEAN_WORK_TIME) return time_out_flag;
     }
-    
+#if 0   
     //µç³ØµçÁ¿¼ì²â
     if(check_sensor_cnt%100){
         //	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
@@ -921,7 +923,10 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 		     
     }
     
-    //Åö×²Òì³£¼ì²â
+
+#endif
+
+	//Åö×²Òì³£¼ì²â
     if(check_sensor_cnt%20){
         if(obstacleSignal<3)   
         {
@@ -1376,7 +1381,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             over_clean_finish = true;
             close_edge_map_run_step_status=0;
             ForceReturnOriginTimeStamp = xTaskGetTickCount();
-            OVERALL_CLEANING_STRATEGY =A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
+            OVERALL_CLEANING_STRATEGY = A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY;
             FunctionStatus = 0;
             break;
         }

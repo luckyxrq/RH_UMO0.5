@@ -360,14 +360,50 @@ static void vTaskPerception(void *pvParameters)
 */
 static void vTaskKey(void *pvParameters)
 {
+	uint32_t count = 0 ;
+	vTaskDelay(2000);
+	
+	uint32_t StartTimeStamp = 0;
+	uint32_t StopTimeStamp = 0;
+	uint8_t IsOnWork = 0;
+	uint32_t work_time =  60*60*1000;
+	uint32_t rest_time =  15*60*1000;
+	
+	
+	IsOnWork = 1;
+	bsp_PutKey(KEY_LONG_CLEAN);
+	StartTimeStamp  = xTaskGetTickCount();
+	
     while(1)
     {
+		count++;
+		if(count % 30 == 0)
+		{
+			if(IsOnWork)
+			{
+				if(xTaskGetTickCount() - StartTimeStamp > work_time ) 
+				{
+					IsOnWork = 0;
+					bsp_PutKey(KEY_DOWN_CLEAN);
+					bsp_CleanZeroYaw();
+					StopTimeStamp  = xTaskGetTickCount();
+				}
+			}else
+			{
+				if(xTaskGetTickCount() - StopTimeStamp > rest_time ) 
+				{
+					IsOnWork = 1;
+					bsp_PutKey(KEY_LONG_CLEAN);
+					StartTimeStamp  = xTaskGetTickCount();
+				}
+			}
+			
+		}
 		/* 处理按键事件 */
         bsp_KeyProc();
 		
-		
 		RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
-
+		
         vTaskDelay(20);	
     }		
     
