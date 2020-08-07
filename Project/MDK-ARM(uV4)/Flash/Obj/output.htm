@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Aug 07 14:53:22 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Aug 07 15:49:57 2020
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -3611,7 +3611,6 @@ Global Symbols
 <LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetInfraRedAdcVoltage
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMapping
 </UL>
 
 <P><STRONG><a name="[142]"></a>bsp_SetAngleChk</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, bsp_selfcheck.o(i.bsp_SetAngleChk))
@@ -4979,7 +4978,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[49]"></a>vTaskMapping</STRONG> (Thumb, 206 bytes, Stack size 16 bytes, main.o(i.vTaskMapping))
+<P><STRONG><a name="[49]"></a>vTaskMapping</STRONG> (Thumb, 202 bytes, Stack size 16 bytes, main.o(i.vTaskMapping))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = vTaskMapping &rArr; bsp_GridMapUpdate &rArr; pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
@@ -4988,7 +4987,6 @@ Local Symbols
 <LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 <LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_WifiStateProc
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_UploadMap
-<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GridMapUpdate
 <LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_Get_GridMapArea
 <LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetIRSensorData
@@ -5005,7 +5003,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
-<P><STRONG><a name="[4c]"></a>vTaskPerception</STRONG> (Thumb, 140 bytes, Stack size 0 bytes, main.o(i.vTaskPerception))
+<P><STRONG><a name="[4c]"></a>vTaskPerception</STRONG> (Thumb, 156 bytes, Stack size 0 bytes, main.o(i.vTaskPerception))
 <BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = vTaskPerception &rArr; bsp_PositionUpdate &rArr; cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wifi_uart_service
