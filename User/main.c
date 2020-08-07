@@ -142,7 +142,7 @@ static void vTaskMapping(void *pvParameters)
 			mcu_dp_enum_update(DPID_MODE,work_mode); //当前工作模式;
 			mcu_dp_enum_update(DPID_STATUS,work_status); //当前设备状态
 			//mcu_dp_fault_update(DPID_FAULT,当前故障告警); //当前故障告警;
-			bsp_SendReportFrame();/*上报协议帧*/
+			bsp_SendReportFrameWithCRC16();/*上报协议帧*/
 		 
 		}
 		
