@@ -331,7 +331,7 @@ static void vTaskPerception(void *pvParameters)
 		bsp_SelfCheckProc();
 		
 		/*空闲休眠模式检测*/
-		bsp_SleepProc();
+		//bsp_SleepProc();
 		
 		/*上传开关和时间间隔同时限制*/
 		if(GetCmdStartUpload() && count % 50 == 0)
