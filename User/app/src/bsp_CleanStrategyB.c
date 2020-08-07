@@ -1553,7 +1553,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 //            }
 //            break;
 //        }
-        else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178){
+        else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 176){
             if (Yaw > 0){
                 linear_velocity = 0;
                 angular_velocity = correction_turn_vel;
@@ -1611,7 +1611,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 //            }
 //            break;
 //        }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2){
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 4){
             if (Yaw > 0){
                 linear_velocity = 0;
                 angular_velocity = -correction_turn_vel;
@@ -6986,7 +6986,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
 //            }
 //            break;
 //        }
-        else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178)
+        else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 176)
         {
             if (Yaw > 0){
                 linear_velocity = 0;
@@ -7052,7 +7052,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
 //                break;
 //            }
 //        }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2)
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 4)
         {
             if (Yaw > 0){
                 linear_velocity = 0;
