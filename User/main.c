@@ -143,7 +143,7 @@ static void vTaskMapping(void *pvParameters)
 			mcu_dp_enum_update(DPID_STATUS,work_status); //当前设备状态
 			//mcu_dp_fault_update(DPID_FAULT,当前故障告警); //当前故障告警;
 			bsp_SendReportFrame();/*上报协议帧*/
-			bsp_SendReportFrameWithCRC16();
+		 
 		}
 		
 		
@@ -425,7 +425,7 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
                  "vTaskMapping",   		        /* 任务名    */
-                 1024,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskMapping );         /* 任务句柄  */
@@ -437,7 +437,7 @@ static void AppTaskCreate (void)
                  &xHandleTaskDecision );        /* 任务句柄  */
     xTaskCreate( vTaskControl,     		        /* 任务函数  */
                  "vTaskControl",   		        /* 任务名    */
-                 1024,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  3,              		        /* 任务优先级*/
                  &xHandleTaskControl );         /* 任务句柄  */	
