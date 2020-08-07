@@ -144,7 +144,9 @@ void bsp_WifiStateProc(void)
 		case WIFI_CONNECTED:
 		WIFI_DEBUG("路由器连接成功 LED常亮\r\n");
 		wifi_ctr.state = eWIFI_CONNECTED;
-		bsp_SetLedState(THREE_WHITE_ON);
+		wifi_link_complete = 1;
+		//bsp_SetLedState(THREE_WHITE_ON);
+		//bsp_OpenThreeWhileLed();
 		break;
 		
 		case WIFI_CONN_CLOUD:

@@ -6,7 +6,7 @@
 uint8_t  work_mode = smart;
 uint8_t  work_switch_go = false;
 uint8_t  work_status = idle;
-
+uint8_t  wifi_link_complete = 0;
 
 typedef struct
 {
@@ -213,9 +213,21 @@ void bsp_LedAppProc(void)
 			
 			if(++ledAppProc.nowLinkToggleCnt >= MAX_LINK_TOGGLE_CNT)
 			{
-				bsp_SetLedState(THREE_WHITE_ON);
+				ledAppProc.ledAppState = AT_LINKDONE;
+			}
+			
+			if(wifi_link_complete)
+			{
+				wifi_link_complete = 0;
+				ledAppProc.ledAppState = AT_LINKDONE;
+				bsp_SperkerPlay(Song27);
 			}
 		}
+	}
+	else if(ledAppProc.ledAppState == AT_LINKDONE)
+	{
+		bsp_OpenThreeWhileLed();
+		ledAppProc.ledAppState = LED_DEFAULT_STATE;
 	}
 }
 

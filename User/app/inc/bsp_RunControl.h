@@ -11,7 +11,8 @@ typedef enum
 	
 	AT_SEARCH_CHARGE,
 	AT_CLEAN,
-	AT_LINK
+	AT_LINK,
+	AT_LINKDONE
 }LedAppState;
 
 typedef enum
@@ -52,6 +53,7 @@ typedef enum
 extern uint8_t  work_status;
 extern uint8_t  work_mode;
 extern uint8_t  work_switch_go;
+extern uint8_t wifi_link_complete;
 
 void bsp_CloseAllLed(void);
 void bsp_OpenThreeWhileLed(void);

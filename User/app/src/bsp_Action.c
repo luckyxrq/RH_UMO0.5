@@ -1,6 +1,10 @@
 #include "bsp.h"
 
-#define FREE_STATE      (!bsp_IsTouchChargePile() &&  bsp_GetLedAppState() != AT_CLEAN && bsp_GetLedAppState() != AT_SEARCH_CHARGE &&bsp_GetLedAppState() != THREE_WHITE_TOOGLE &&bsp_GetLedAppState() != AT_LINK)
+#define FREE_STATE      (!bsp_IsTouchChargePile() &&\
+bsp_GetLedAppState() != AT_CLEAN &&\
+bsp_GetLedAppState() != AT_SEARCH_CHARGE &&\
+bsp_GetLedAppState() != THREE_WHITE_TOOGLE &&\
+bsp_GetLedAppState() != AT_LINK)
 #define FREE_LONG_TIME_SLEEP     (5*60*1000) /*空闲5分钟 而且不在桩上则进入休眠模式*/
 
 
@@ -46,7 +50,7 @@ void bsp_SleepProc(void)
 	{
 		case 0:
 		{
-			if(FREE_STATE)
+			if(FREE_STATE) //(work_status == idle)
 			{
 				sleepProc.lastFreeTime = xTaskGetTickCount();
 				++sleepProc.action;
@@ -55,7 +59,7 @@ void bsp_SleepProc(void)
 		
 		case 1:
 		{
-			if(!FREE_STATE)
+			if(!FREE_STATE) //(work_status != idle)
 			{
 				sleepProc.action = 0 ;
 			}
@@ -64,7 +68,7 @@ void bsp_SleepProc(void)
 				if(xTaskGetTickCount() - sleepProc.lastFreeTime >= FREE_LONG_TIME_SLEEP)
 				{
 					bsp_PutKey(KEY_LONG_POWER); /*模拟按键按下进入休眠模式*/
-					++sleepProc.action;
+					sleepProc.action = 0;
 				}
 			}
 		}break;
