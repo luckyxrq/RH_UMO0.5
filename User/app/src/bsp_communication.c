@@ -14,6 +14,7 @@
 */
 static uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0};    /*用于解析帧数据*/
 CMD_FRAME cmd_frame_tx;
+CMD_FRAME cmd_frame_rx;
 
 /*
 **********************************************************************************************************
@@ -28,20 +29,9 @@ uint8_t GetCmdStartUpload(void)
 }
 
 
-void bsp_ExexCmd(uint8_t *cmd , uint16_t main_sec , uint16_t sub_sec)
+void bsp_ExexCmd(void)
 {
-    if(main_sec == 2 && sub_sec == 1) /*PC机命令主机上报所有数据*/
-	{
-		
-	}
-	else if(main_sec == 2 && sub_sec == 2) /*PC机命令治具主板开启测试并上报数据*/
-	{
-
-	}
-	else if(main_sec == 2 && sub_sec == 4) /*PC机命令命令主机执行测试床程序*/
-	{
-
-	}
+	RTT("crc success(%d-%d)\r\n",cmd_frame_rx.main_sec,cmd_frame_rx.sub_sec);
 }
 
 void bsp_ComAnalysis(void)
@@ -136,8 +126,10 @@ void bsp_ComAnalysis(void)
             uint16_t crc_ret = CRC16_Modbus(analysisBuf,frame_len);
             if(crc_ret == 0)
             {
-                RTT("crc success(%d-%d):%04X\r\n",main_sec,sub_sec,crc_ret);
-                bsp_ExexCmd(analysisBuf,main_sec,sub_sec);
+				memset(&cmd_frame_rx,0,sizeof(CMD_FRAME));
+				memcpy(&cmd_frame_rx,analysisBuf,sizeof(CMD_FRAME));
+
+                bsp_ExexCmd();
             }
             else
             {

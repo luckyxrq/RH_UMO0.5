@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Aug 07 17:40:01 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Aug 07 17:50:50 2020
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -351,7 +351,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[121]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[275]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
+<BR><BR>[Called By]<UL><LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
+<LI><a href="#[275]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_WriteNoCheck
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_WriteBlocking
 </UL>
@@ -375,7 +376,8 @@ Global Symbols
 <P><STRONG><a name="[61]"></a>__aeabi_memclr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
-<BR>[Called By]<UL><LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopSelfCheck
+<BR>[Called By]<UL><LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
+<LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StopSelfCheck
 </UL>
 
 <P><STRONG><a name="[93]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
@@ -1811,6 +1813,7 @@ Global Symbols
 <LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EnterStopMODE
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ParamReadAtPowerOn
+<LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ExexCmd
 <LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_download_direction_control_handle
 </UL>
 
@@ -2576,13 +2579,15 @@ Global Symbols
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskControl
 </UL>
 
-<P><STRONG><a name="[16b]"></a>bsp_ComAnalysis</STRONG> (Thumb, 252 bytes, Stack size 32 bytes, bsp_communication.o(i.bsp_ComAnalysis))
+<P><STRONG><a name="[16b]"></a>bsp_ComAnalysis</STRONG> (Thumb, 250 bytes, Stack size 32 bytes, bsp_communication.o(i.bsp_ComAnalysis))
 <BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = bsp_ComAnalysis &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comGetChar
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SEGGER_RTT_printf
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC16_Modbus
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ExexCmd
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
@@ -2726,8 +2731,12 @@ Global Symbols
 <LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_KeyProc
 </UL>
 
-<P><STRONG><a name="[16e]"></a>bsp_ExexCmd</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, bsp_communication.o(i.bsp_ExexCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
+<P><STRONG><a name="[16e]"></a>bsp_ExexCmd</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, bsp_communication.o(i.bsp_ExexCmd))
+<BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = bsp_ExexCmd &rArr; SEGGER_RTT_printf &rArr; SEGGER_RTT_vprintf &rArr; _PrintInt &rArr; _PrintUnsigned &rArr; _StoreChar &rArr; SEGGER_RTT_Write &rArr; SEGGER_RTT_WriteNoLock &rArr; _WriteBlocking
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SEGGER_RTT_printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_ComAnalysis
 </UL>
 
 <P><STRONG><a name="[20d]"></a>bsp_FlashReadPage</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, bsp_stflash.o(i.bsp_FlashReadPage))
