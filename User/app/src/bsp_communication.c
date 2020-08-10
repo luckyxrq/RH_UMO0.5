@@ -32,6 +32,58 @@ uint8_t GetCmdStartUpload(void)
 void bsp_ExexCmd(void)
 {
 	RTT("crc success(%d-%d)\r\n",cmd_frame_rx.main_sec,cmd_frame_rx.sub_sec);
+	
+	
+	if(cmd_frame_rx.main_sec == 2)
+	{
+		switch(cmd_frame_rx.sub_sec)
+		{
+			case 1:
+			{
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+					bsp_StartVacuum(VACUUM_STRENGTH);
+				}
+				else
+				{
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+					bsp_StopVacuum();
+				}
+			}break;
+			case 2:
+			{
+				
+			}break;
+			case 3:
+			{
+				
+			}break;
+			case 4:
+			{
+				
+			}break;
+			case 5:
+			{
+				
+			}break;
+			case 6:
+			{
+				
+			}break;
+			case 7:
+			{
+				
+			}break;
+			default: break;
+		}
+	}
 }
 
 void bsp_ComAnalysis(void)
