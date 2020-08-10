@@ -39,7 +39,8 @@
 #define OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM07 250 
 #define OBSTACLE_INFRARED_ADC_THRESHOLD_VALUE_FROM89 50
 
-
+#define WHEEL_DIAMETER 0.068f //m
+#define SUCK_DIAMETER  0.168f //m
 
 //#define CUR_POS             (uint8_t)0x00    /*当前点*/
 //#define OBSTACLE_POS        (uint8_t)0x01    /*障碍物*/
@@ -113,7 +114,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
 //unsigned char inverseSensorModelB(unsigned char grid_x,unsigned char grid_y,short x,short y,short theta,short xi,short yi,unsigned char obstacleSignal,
 //	int grid_dist,CLIFFADCVALUE *cliff_value);
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
-short bsp_Get_GridMapArea(void);
+int bsp_Get_GridMapArea(void);
 
 
 

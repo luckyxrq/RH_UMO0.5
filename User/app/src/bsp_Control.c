@@ -194,6 +194,11 @@ int32_t bsp_MotorGetPulseVector(MotorSN sn)
 	return encoderPulseVector[sn];
 }
 
+void bsp_ClearMotorPulseVector(void)
+{
+	encoderPulseVector[0] =0;
+	encoderPulseVector[1] =0;
+}
 
 /*
 *********************************************************************************************************

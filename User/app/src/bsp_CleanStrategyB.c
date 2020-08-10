@@ -687,6 +687,7 @@ void bsp_StartUpdateCleanStrategyB(void){
     linear_velocity = 0,angular_velocity = 0;
 	RealWorkTime = 0;
 	bsp_StartUpdateGridMap();
+	bsp_ClearMotorPulseVector();
 }
 
 

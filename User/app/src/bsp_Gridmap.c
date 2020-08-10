@@ -432,18 +432,27 @@ const unsigned char*  ____bsp_Get_GridMap(int robotX,int robotY){
 }
 
 
-short bsp_Get_GridMapArea(void)
+int bsp_Get_GridMapArea(void)
 {
 	int grid_index_x,grid_index_y;
-	short cleaned_area = 0;
+	int cleaned_area = 0;
+	int motor_left_cnt = 0;
+	int motor_right_cnt = 0;
+	motor_left_cnt  =  bsp_MotorGetPulseVector(MotorLeft);
+	motor_right_cnt = bsp_MotorGetPulseVector(MotorRight);
 	
-	for ( grid_index_x = 0; grid_index_x <= 99; grid_index_x++)
-	{
-		for ( grid_index_y = 0; grid_index_y <= 99; grid_index_y++)
-		{
-			if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) cleaned_area++;
-		}
-	}
+	//cleaned_area  = ((motor_left_cnt + motor_right_cnt)*0.5) / 1024  * WHEEL_DIAMETER * M_PI * SUCK_DIAMETER;
+	
+	cleaned_area  = (motor_left_cnt + motor_right_cnt) /100000 * 1.75153125f;
+	
+//	for ( grid_index_x = 0; grid_index_x <= 99; grid_index_x++)
+//	{
+//		for ( grid_index_y = 0; grid_index_y <= 99; grid_index_y++)
+//		{
+//			if (gridmap.map[grid_index_x][grid_index_y] == gridmap.grid_free) cleaned_area++;
+//		}
+//	}
+//  cleaned_area = cleaned_area * 0.01;
 	return cleaned_area;
 	
 }

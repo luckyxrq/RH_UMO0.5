@@ -137,7 +137,7 @@ static void vTaskMapping(void *pvParameters)
 		if(count % 10 == 0)
 		{	
 			mcu_dp_value_update(DPID_CLEAN_TIME, RealWorkTime/1000/60);
-			mcu_dp_value_update(DPID_CLEAN_AREA,(unsigned long)((bsp_Get_GridMapArea())*0.01)); 
+			mcu_dp_value_update(DPID_CLEAN_AREA,bsp_Get_GridMapArea()); 
 			mcu_dp_bool_update(DPID_SWITCH_GO,work_switch_go); //当前清扫开关;
 			mcu_dp_enum_update(DPID_MODE,work_mode); //当前工作模式;
 			mcu_dp_enum_update(DPID_STATUS,work_status); //当前设备状态
@@ -639,7 +639,7 @@ static void bsp_KeyProc(void)
 			case KEY_LONG_CHARGE: /*充电*/	
 			{
 				DEBUG("充电按键长按\r\n");
-				
+				bsp_KeySuspend();
 
 				/*首先判断是否主机悬空*/
 				if(!GetCmdStartUpload() && bsp_OffSiteGetState() != OffSiteNone) /*前提不处于上传状态*/
