@@ -1,13 +1,5 @@
 #include "bsp.h"
 
-#define PARAM_VER			 0x00000103      /* 参数版本 */
-#define PARAM_SAVE_PAGE      255             /* 保存参数的页序号 */
-
-
-
-
-
-
 
 /*
  按照2字节对齐，便于存储到内部FLASH，内部FLASH每次必须写2字节

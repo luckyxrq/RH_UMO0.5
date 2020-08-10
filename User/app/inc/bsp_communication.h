@@ -58,9 +58,10 @@ typedef struct
 /*这里使用联合体，方便一些自定义的参数*/
 typedef union
 {
-    uint8_t sw;
+    uint8_t  sw;
     uint32_t val;
     uint32_t arr[16];
+	uint32_t mcu_ver;
     MCU_FRAME mcu_frame; 
 }UNION_PARA;
 

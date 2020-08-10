@@ -24,6 +24,8 @@ static uint8_t isCmdStartUpload = 0; /* 1 表示开始上传数据到PC */
 **********************************************************************************************************
 */
 
+static void bsp_SendMCU_Ver(void);
+
 
 uint8_t GetCmdStartUpload(void)
 {
@@ -124,6 +126,17 @@ void bsp_ExexCmd(void)
 				{
 					isCmdStartUpload = 0 ;
 				}
+			}break;
+			default: break;
+		}
+	}
+	else if(cmd_frame_rx.main_sec == 4)
+	{
+		switch(cmd_frame_rx.sub_sec)
+		{
+			case 1:
+			{
+				bsp_SendMCU_Ver();
 			}break;
 			default: break;
 		}
@@ -241,6 +254,8 @@ void bsp_ComAnalysis(void)
 
 void bsp_SendReportFrameWithCRC16(void)
 {
+	memset(&cmd_frame_tx,0,sizeof(CMD_FRAME));
+	
 	cmd_frame_tx.union_para.mcu_frame.dustBox = bsp_DustBoxGetState();
 	
 	cmd_frame_tx.union_para.mcu_frame.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
@@ -315,3 +330,25 @@ void bsp_SendReportFrameWithCRC16(void)
 	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
 }
 
+
+static void bsp_SendMCU_Ver(void)
+{
+	memset(&cmd_frame_tx,0,sizeof(CMD_FRAME));
+	
+	cmd_frame_tx.union_para.mcu_ver = PARAM_VER;
+
+	cmd_frame_tx.head = 0xAAAA;
+	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;
+	cmd_frame_tx.frame_len_reverse = (~cmd_frame_tx.frame_len) & 0xFFFF;
+	
+	cmd_frame_tx.tx_addr = 0x02;
+	cmd_frame_tx.rx_addr = 0x01;
+	
+	cmd_frame_tx.main_sec = 4;
+	cmd_frame_tx.sub_sec = 2;
+	
+	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
+	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
+	
+	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
+}

@@ -1,6 +1,9 @@
 #ifndef __BSP_PARAM_H
 #define __BSP_PARAM_H
 
+#define PARAM_VER			 20200810             /* 参数版本 */
+#define PARAM_SAVE_PAGE      255                  /* 保存参数的页序号 */
+
 
 /*******************************************风机 风力***************************************************/
 #define VACUUM_STRENGTH  0 /*强力*/
