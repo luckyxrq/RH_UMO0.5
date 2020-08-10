@@ -304,8 +304,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.tx_addr = 0x02;
 	cmd_frame_tx.rx_addr = 0x01;
 	
-	cmd_frame_tx.main_sec = 0;
-	cmd_frame_tx.sub_sec = 0;
+	cmd_frame_tx.main_sec = 3;
+	cmd_frame_tx.sub_sec = 1;
 	
 	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
 	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
