@@ -59,23 +59,58 @@ void bsp_ExexCmd(void)
 			}break;
 			case 2:
 			{
-				
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_StartVacuum(VACUUM_STRENGTH);
+				}
+				else
+				{
+					bsp_StopVacuum();
+				}
 			}break;
 			case 3:
 			{
-				
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+				}
+				else
+				{
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+				}
 			}break;
 			case 4:
 			{
-				
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+				}
+				else
+				{
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+				}
 			}break;
 			case 5:
 			{
-				
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				}
+				else
+				{
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
+				}
 			}break;
 			case 6:
 			{
-				
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+				}
+				else
+				{
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
+				}
 			}break;
 			case 7:
 			{
