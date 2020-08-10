@@ -3,82 +3,9 @@
 #define MAX_ANALYSIS_LEN	    512                 /*一帧数据的最大长度*/
 #define MIN_ANALYSIS_LEN        16                  /*一帧数据的最小长度*/
 
-/*按照1字节对齐，便于存储到uint8_t类型buf*/
-#pragma pack(1)
-typedef struct
-{
-	uint16_t head;
-	
-	uint16_t frame_len;
-	uint16_t frame_len_reverse;
-	
-    uint16_t tx_addr;
-    uint16_t rx_addr;
-	
-    uint16_t main_sec ;
-    uint16_t sub_sec ;
-	
-	/*********数据部分开始***********/
-    
-	uint8_t isOpen; /*上传数据与否，1：上传，0：不上传*/
-    
-	/*********数据部分结束***********/
-	
-	uint16_t crc16;
-}CMD_START_UPLOAD;
-#pragma pack()
 
 
-/*按照1字节对齐，便于存储到uint8_t类型buf*/
-#pragma pack(1)
-typedef struct
-{
-	uint16_t head;
-	
-	uint16_t frame_len;
-	uint16_t frame_len_reverse;
-	
-    uint16_t tx_addr;
-    uint16_t rx_addr;
-	
-    uint16_t main_sec ;
-    uint16_t sub_sec ;
-	
-	/*********数据部分开始***********/
-    
-	uint8_t isOpen; /*上传数据与否，1：上传，0：不上传*/
-    
-	/*********数据部分结束***********/
-	
-	uint16_t crc16;
-}CMD_START_UPLOAD_FIXTURE;
-#pragma pack()
 
-
-/*按照1字节对齐，便于存储到uint8_t类型buf*/
-#pragma pack(1)
-typedef struct
-{
-	uint16_t head;
-	
-	uint16_t frame_len;
-	uint16_t frame_len_reverse;
-	
-    uint16_t tx_addr;
-    uint16_t rx_addr;
-	
-    uint16_t main_sec ;
-    uint16_t sub_sec ;
-	
-	/*********通用数据部分开始***********/
-    
-	uint32_t paraNormal;
-    
-	/*********通用数据部分结束***********/
-	
-	uint16_t crc16;
-}CommunicationNormal;
-#pragma pack()
 
 /*
 **********************************************************************************************************
@@ -86,62 +13,132 @@ typedef struct
 **********************************************************************************************************
 */
 static uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0};    /*用于解析帧数据*/
-static ReportFrameWithCRC16 reportFrameWithCRC16;
+CMD_FRAME cmd_frame_tx;
+CMD_FRAME cmd_frame_rx;
 
-static CMD_START_UPLOAD cmd_START_UPLOAD;
-static CMD_START_UPLOAD_FIXTURE cmd_START_UPLOAD_FIXTURE;
-static CommunicationNormal communicationNormal;
+static uint8_t isCmdStartUpload = 0; /* 1 表示开始上传数据到PC */
+
 /*
 **********************************************************************************************************
 											函数声明
 **********************************************************************************************************
 */
 
+static void bsp_SendMCU_Ver(void);
+
 
 uint8_t GetCmdStartUpload(void)
 {
-	return cmd_START_UPLOAD.isOpen;
+	return isCmdStartUpload;
 }
 
 
-void bsp_ExexCmd(uint8_t *cmd , uint16_t main_sec , uint16_t sub_sec)
+void bsp_ExexCmd(void)
 {
-    if(main_sec == 2 && sub_sec == 1) /*PC机命令主机上报所有数据*/
+	RTT("crc success(%d-%d)\r\n",cmd_frame_rx.main_sec,cmd_frame_rx.sub_sec);
+	
+	
+	if(cmd_frame_rx.main_sec == 2)
 	{
-		memcpy(&cmd_START_UPLOAD,cmd,sizeof(cmd_START_UPLOAD));
-		
-		if(cmd_START_UPLOAD.isOpen)
+		switch(cmd_frame_rx.sub_sec)
 		{
-			bsp_StartVacuum(VACUUM_NORMAL);
-			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
-			bsp_IRD_StartWork();
-		}
-		else
-		{
-			bsp_StopVacuum();
-			bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
-			bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
-			bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
-			bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+			case 1:
+			{
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+					bsp_StartVacuum(VACUUM_STRENGTH);
+				}
+				else
+				{
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+					bsp_StopVacuum();
+				}
+			}break;
+			case 2:
+			{
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_StartVacuum(VACUUM_STRENGTH);
+				}
+				else
+				{
+					bsp_StopVacuum();
+				}
+			}break;
+			case 3:
+			{
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
+				}
+				else
+				{
+					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(0));
+				}
+			}break;
+			case 4:
+			{
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+				}
+				else
+				{
+					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+				}
+			}break;
+			case 5:
+			{
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				}
+				else
+				{
+					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.0F);
+				}
+			}break;
+			case 6:
+			{
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
+				}
+				else
+				{
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.0F);
+				}
+			}break;
+			case 7:
+			{
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					isCmdStartUpload = 1 ;
+				}
+				else
+				{
+					isCmdStartUpload = 0 ;
+				}
+			}break;
+			default: break;
 		}
 	}
-	else if(main_sec == 2 && sub_sec == 2) /*PC机命令治具主板开启测试并上报数据*/
+	else if(cmd_frame_rx.main_sec == 4)
 	{
-		memcpy(&cmd_START_UPLOAD_FIXTURE,cmd,sizeof(cmd_START_UPLOAD_FIXTURE));
-		if(cmd_START_UPLOAD_FIXTURE.isOpen)
+		switch(cmd_frame_rx.sub_sec)
 		{
-			bsp_StartSelfCheck();
-		}
-	}
-	else if(main_sec == 2 && sub_sec == 4) /*PC机命令命令主机执行测试床程序*/
-	{
-		memcpy(&communicationNormal,cmd,sizeof(communicationNormal));
-		if(communicationNormal.paraNormal)
-		{
-			bsp_StartFunctionTest();
+			case 1:
+			{
+				bsp_SendMCU_Ver();
+			}break;
+			default: break;
 		}
 	}
 }
@@ -238,8 +235,10 @@ void bsp_ComAnalysis(void)
             uint16_t crc_ret = CRC16_Modbus(analysisBuf,frame_len);
             if(crc_ret == 0)
             {
-                RTT("crc success(%d-%d):%04X\r\n",main_sec,sub_sec,crc_ret);
-                bsp_ExexCmd(analysisBuf,main_sec,sub_sec);
+				memset(&cmd_frame_rx,0,sizeof(CMD_FRAME));
+				memcpy(&cmd_frame_rx,analysisBuf,sizeof(CMD_FRAME));
+
+                bsp_ExexCmd();
             }
             else
             {
@@ -255,75 +254,101 @@ void bsp_ComAnalysis(void)
 
 void bsp_SendReportFrameWithCRC16(void)
 {
-	reportFrameWithCRC16.dustBox = bsp_DustBoxGetState();
+	memset(&cmd_frame_tx,0,sizeof(CMD_FRAME));
 	
-	reportFrameWithCRC16.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
-	reportFrameWithCRC16.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
-
-	reportFrameWithCRC16.wheelPulseL = bsp_MotorGetPulseVector(MotorLeft);
-	reportFrameWithCRC16.wheelPulseR = bsp_MotorGetPulseVector(MotorRight);
-
-	reportFrameWithCRC16.x_pos = bsp_GetCurrentPosX();
-	reportFrameWithCRC16.y_pos = bsp_GetCurrentPosY();
-
-	reportFrameWithCRC16.cliffMV_L = bsp_GetCliffRealVal(CliffLeft); 
-	reportFrameWithCRC16.cliffMV_M = bsp_GetCliffRealVal(CliffMiddle); 
-	reportFrameWithCRC16.cliffMV_R = bsp_GetCliffRealVal(CliffRight); 
-
-	reportFrameWithCRC16.yaw = bsp_AngleReadRaw(); 
-
-	reportFrameWithCRC16.irMV[0] = bsp_GetInfraRedAdcVoltage(IR0); 
-	reportFrameWithCRC16.irMV[1] = bsp_GetInfraRedAdcVoltage(IR1); 
-	reportFrameWithCRC16.irMV[2] = bsp_GetInfraRedAdcVoltage(IR2); 
-	reportFrameWithCRC16.irMV[3] = bsp_GetInfraRedAdcVoltage(IR3); 
-	reportFrameWithCRC16.irMV[4] = bsp_GetInfraRedAdcVoltage(IR4); 
-	reportFrameWithCRC16.irMV[5] = bsp_GetInfraRedAdcVoltage(IR5); 
-	reportFrameWithCRC16.irMV[6] = bsp_GetInfraRedAdcVoltage(IR6); 
-	reportFrameWithCRC16.irMV[7] = bsp_GetInfraRedAdcVoltage(IR7); 
-	reportFrameWithCRC16.irMV[8] = bsp_GetInfraRedAdcVoltage(IR8); 
-	reportFrameWithCRC16.irMV[9] = bsp_GetInfraRedAdcVoltage(IR9); 
-
-	reportFrameWithCRC16.irRX[0][0] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT); 
-	reportFrameWithCRC16.irRX[0][1] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER); 
-	reportFrameWithCRC16.irRX[0][2] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT); 
-
-	reportFrameWithCRC16.irRX[1][0] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT); 
-	reportFrameWithCRC16.irRX[1][1] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER); 
-	reportFrameWithCRC16.irRX[1][2] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT);
-
-	reportFrameWithCRC16.irRX[2][0] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT); 
-	reportFrameWithCRC16.irRX[2][1] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER); 
-	reportFrameWithCRC16.irRX[2][2] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT);
-
-	reportFrameWithCRC16.irRX[3][0] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT); 
-	reportFrameWithCRC16.irRX[3][1] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER); 
-	reportFrameWithCRC16.irRX[3][2] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT);
-
-	reportFrameWithCRC16.offsiteSW = bsp_OffSiteGetState();
-	reportFrameWithCRC16.collision = bsp_CollisionScan();
-
-	reportFrameWithCRC16.mA_wheelL           = bsp_GetVoltageAfterFilter(eMotorLeft);
-	reportFrameWithCRC16.mA_wheelR           = bsp_GetVoltageAfterFilter(eMotorRight);
-	reportFrameWithCRC16.mA_roll             = bsp_GetVoltageAfterFilter(eRollingBrush);
-	reportFrameWithCRC16.mA_sideBrush        = bsp_GetVoltageAfterFilter(eSideBrush);
-	reportFrameWithCRC16.mA_vacuum           = bsp_GetVoltageAfterFilter(eVacuum);
-	reportFrameWithCRC16.v_batteryVoltage    = bsp_GetVoltageAfterFilter(eBatteryVoltage);
-	reportFrameWithCRC16.mA_batteryCurrent   = bsp_GetVoltageAfterFilter(eBatteryCurrent);
-
-
-	reportFrameWithCRC16.head = 0xAAAA;
-	reportFrameWithCRC16.frame_len = sizeof(ReportFrameWithCRC16) & 0xFFFF;
-	reportFrameWithCRC16.frame_len_reverse = (~reportFrameWithCRC16.frame_len) & 0xFFFF;
+	cmd_frame_tx.union_para.mcu_frame.dustBox = bsp_DustBoxGetState();
 	
-	reportFrameWithCRC16.tx_addr = 0;
-	reportFrameWithCRC16.rx_addr = 0;
+	cmd_frame_tx.union_para.mcu_frame.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
+	cmd_frame_tx.union_para.mcu_frame.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
+
+	cmd_frame_tx.union_para.mcu_frame.wheelPulseL = bsp_MotorGetPulseVector(MotorLeft);
+	cmd_frame_tx.union_para.mcu_frame.wheelPulseR = bsp_MotorGetPulseVector(MotorRight);
+
+	cmd_frame_tx.union_para.mcu_frame.x_pos = bsp_GetCurrentPosX();
+	cmd_frame_tx.union_para.mcu_frame.y_pos = bsp_GetCurrentPosY();
+
+	cmd_frame_tx.union_para.mcu_frame.cliffMV_L = bsp_GetCliffRealVal(CliffLeft); 
+	cmd_frame_tx.union_para.mcu_frame.cliffMV_M = bsp_GetCliffRealVal(CliffMiddle); 
+	cmd_frame_tx.union_para.mcu_frame.cliffMV_R = bsp_GetCliffRealVal(CliffRight); 
+
+	cmd_frame_tx.union_para.mcu_frame.yaw = bsp_IMU_GetData(YAW)*100;
+	cmd_frame_tx.union_para.mcu_frame.pitch = bsp_IMU_GetData(PITCH)*100;
+	cmd_frame_tx.union_para.mcu_frame.roll = bsp_IMU_GetData(ROLL)*100;
+
+	cmd_frame_tx.union_para.mcu_frame.irMV[0] = bsp_GetInfraRedAdcVoltage(IR0); 
+	cmd_frame_tx.union_para.mcu_frame.irMV[1] = bsp_GetInfraRedAdcVoltage(IR1); 
+	cmd_frame_tx.union_para.mcu_frame.irMV[2] = bsp_GetInfraRedAdcVoltage(IR2); 
+	cmd_frame_tx.union_para.mcu_frame.irMV[3] = bsp_GetInfraRedAdcVoltage(IR3); 
+	cmd_frame_tx.union_para.mcu_frame.irMV[4] = bsp_GetInfraRedAdcVoltage(IR4); 
+	cmd_frame_tx.union_para.mcu_frame.irMV[5] = bsp_GetInfraRedAdcVoltage(IR5); 
+	cmd_frame_tx.union_para.mcu_frame.irMV[6] = bsp_GetInfraRedAdcVoltage(IR6); 
+	cmd_frame_tx.union_para.mcu_frame.irMV[7] = bsp_GetInfraRedAdcVoltage(IR7); 
+	cmd_frame_tx.union_para.mcu_frame.irMV[8] = bsp_GetInfraRedAdcVoltage(IR8); 
+	cmd_frame_tx.union_para.mcu_frame.irMV[9] = bsp_GetInfraRedAdcVoltage(IR9); 
+
+	cmd_frame_tx.union_para.mcu_frame.irRX[0][0] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_LEFT); 
+	cmd_frame_tx.union_para.mcu_frame.irRX[0][1] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_CENTER); 
+	cmd_frame_tx.union_para.mcu_frame.irRX[0][2] = bsp_IR_GetRev(IR_CH1,IR_TX_SITE_RIGHT); 
+
+	cmd_frame_tx.union_para.mcu_frame.irRX[1][0] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_LEFT); 
+	cmd_frame_tx.union_para.mcu_frame.irRX[1][1] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_CENTER); 
+	cmd_frame_tx.union_para.mcu_frame.irRX[1][2] = bsp_IR_GetRev(IR_CH2,IR_TX_SITE_RIGHT);
+
+	cmd_frame_tx.union_para.mcu_frame.irRX[2][0] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_LEFT); 
+	cmd_frame_tx.union_para.mcu_frame.irRX[2][1] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_CENTER); 
+	cmd_frame_tx.union_para.mcu_frame.irRX[2][2] = bsp_IR_GetRev(IR_CH3,IR_TX_SITE_RIGHT);
+
+	cmd_frame_tx.union_para.mcu_frame.irRX[3][0] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_LEFT); 
+	cmd_frame_tx.union_para.mcu_frame.irRX[3][1] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_CENTER); 
+	cmd_frame_tx.union_para.mcu_frame.irRX[3][2] = bsp_IR_GetRev(IR_CH4,IR_TX_SITE_RIGHT);
+
+	cmd_frame_tx.union_para.mcu_frame.offsiteSW = bsp_OffSiteGetState();
+	cmd_frame_tx.union_para.mcu_frame.collision = bsp_CollisionScan();
+
+	cmd_frame_tx.union_para.mcu_frame.mA_wheelL           = bsp_GetVoltageAfterFilter(eMotorLeft);
+	cmd_frame_tx.union_para.mcu_frame.mA_wheelR           = bsp_GetVoltageAfterFilter(eMotorRight);
+	cmd_frame_tx.union_para.mcu_frame.mA_roll             = bsp_GetVoltageAfterFilter(eRollingBrush);
+	cmd_frame_tx.union_para.mcu_frame.mA_sideBrush        = bsp_GetVoltageAfterFilter(eSideBrush);
+	cmd_frame_tx.union_para.mcu_frame.mA_vacuum           = bsp_GetVoltageAfterFilter(eVacuum);
+	cmd_frame_tx.union_para.mcu_frame.v_batteryVoltage    = bsp_GetVoltageAfterFilter(eBatteryVoltage);
+	cmd_frame_tx.union_para.mcu_frame.mA_batteryCurrent   = bsp_GetVoltageAfterFilter(eBatteryCurrent);
+
+
+	cmd_frame_tx.head = 0xAAAA;
+	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;
+	cmd_frame_tx.frame_len_reverse = (~cmd_frame_tx.frame_len) & 0xFFFF;
 	
-	reportFrameWithCRC16.main_sec = 0;
-	reportFrameWithCRC16.sub_sec = 0;
+	cmd_frame_tx.tx_addr = 0x02;
+	cmd_frame_tx.rx_addr = 0x01;
 	
-	uint16_t ret = CRC16_Modbus((uint8_t*)&reportFrameWithCRC16,sizeof(ReportFrameWithCRC16)-2);
-	reportFrameWithCRC16.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
+	cmd_frame_tx.main_sec = 3;
+	cmd_frame_tx.sub_sec = 1;
 	
-	comSendBuf(COM2,(uint8_t*)&reportFrameWithCRC16,sizeof(ReportFrameWithCRC16));
+	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
+	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
+	
+	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
 }
 
+
+static void bsp_SendMCU_Ver(void)
+{
+	memset(&cmd_frame_tx,0,sizeof(CMD_FRAME));
+	
+	cmd_frame_tx.union_para.mcu_ver = PARAM_VER;
+
+	cmd_frame_tx.head = 0xAAAA;
+	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;
+	cmd_frame_tx.frame_len_reverse = (~cmd_frame_tx.frame_len) & 0xFFFF;
+	
+	cmd_frame_tx.tx_addr = 0x02;
+	cmd_frame_tx.rx_addr = 0x01;
+	
+	cmd_frame_tx.main_sec = 4;
+	cmd_frame_tx.sub_sec = 2;
+	
+	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
+	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
+	
+	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
+}

@@ -145,7 +145,7 @@ static void vTaskMapping(void *pvParameters)
 		}
 		
 		
-		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
 		count++;	
         vTaskDelay(100);
@@ -176,7 +176,7 @@ static void vTaskDecision(void *pvParameters)
 
 		bsp_GetVoltageFilterProc();
 		
-		RTT("vTaskDecision:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskDecision:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
         vTaskDelay(50);	
     }
@@ -226,7 +226,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
-		RTT("vTaskControl:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskControl:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
         vTaskDelay(20);
@@ -339,7 +339,7 @@ static void vTaskPerception(void *pvParameters)
 			bsp_SendReportFrameWithCRC16();
 		}
 
-		RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
         vTaskDelay(5);	
@@ -366,7 +366,7 @@ static void vTaskKey(void *pvParameters)
         bsp_KeyProc();
 		
 		
-		RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
         vTaskDelay(20);	
     }		
@@ -387,7 +387,7 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
                  "vTaskMapping",   		        /* 任务名    */
-                 1024,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskMapping );         /* 任务句柄  */
@@ -399,7 +399,7 @@ static void AppTaskCreate (void)
                  &xHandleTaskDecision );        /* 任务句柄  */
     xTaskCreate( vTaskControl,     		        /* 任务函数  */
                  "vTaskControl",   		        /* 任务名    */
-                 1024,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  3,              		        /* 任务优先级*/
                  &xHandleTaskControl );         /* 任务句柄  */	
