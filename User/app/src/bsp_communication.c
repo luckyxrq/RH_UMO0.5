@@ -16,6 +16,8 @@ static uint8_t analysisBuf[MAX_ANALYSIS_LEN] = {0};    /*用于解析帧数据*/
 CMD_FRAME cmd_frame_tx;
 CMD_FRAME cmd_frame_rx;
 
+static uint8_t isCmdStartUpload = 0; /* 1 表示开始上传数据到PC */
+
 /*
 **********************************************************************************************************
 											函数声明
@@ -25,7 +27,7 @@ CMD_FRAME cmd_frame_rx;
 
 uint8_t GetCmdStartUpload(void)
 {
-	return 0;
+	return isCmdStartUpload;
 }
 
 
@@ -114,7 +116,14 @@ void bsp_ExexCmd(void)
 			}break;
 			case 7:
 			{
-				
+				if(cmd_frame_rx.union_para.sw == 1)
+				{
+					isCmdStartUpload = 1 ;
+				}
+				else
+				{
+					isCmdStartUpload = 0 ;
+				}
 			}break;
 			default: break;
 		}
@@ -292,8 +301,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;
 	cmd_frame_tx.frame_len_reverse = (~cmd_frame_tx.frame_len) & 0xFFFF;
 	
-	cmd_frame_tx.tx_addr = 0;
-	cmd_frame_tx.rx_addr = 0;
+	cmd_frame_tx.tx_addr = 0x02;
+	cmd_frame_tx.rx_addr = 0x01;
 	
 	cmd_frame_tx.main_sec = 0;
 	cmd_frame_tx.sub_sec = 0;
