@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Aug 10 10:28:02 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Aug 10 11:39:00 2020
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -444,6 +444,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartVacuum
+<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SelfCheckProc
 <LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
@@ -684,6 +685,7 @@ Global Symbols
 
 <P><STRONG><a name="[13b]"></a>__aeabi_f2iz</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, ffixi.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
+<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorSpeedMM2Pulse
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCliffStates
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DetectAct
@@ -2482,8 +2484,7 @@ Global Symbols
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IMU_GetData
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
-<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
+<BR>[Called By]<UL><LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PositionUpdate
 <LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 </UL>
 
@@ -3018,6 +3019,7 @@ Global Symbols
 <P><STRONG><a name="[152]"></a>bsp_IMU_GetData</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, bsp_angle.o(i.bsp_IMU_GetData))
 <BR><BR>[Called By]<UL><LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleRead
+<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SendReportFrameWithCRC16
 <LI><a href="#[249]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendvelocity
 </UL>
 
@@ -3647,17 +3649,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPerception
 </UL>
 
-<P><STRONG><a name="[229]"></a>bsp_SendReportFrameWithCRC16</STRONG> (Thumb, 538 bytes, Stack size 8 bytes, bsp_communication.o(i.bsp_SendReportFrameWithCRC16))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = bsp_SendReportFrameWithCRC16 &rArr; bsp_GetCurrentPosY &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[229]"></a>bsp_SendReportFrameWithCRC16</STRONG> (Thumb, 592 bytes, Stack size 16 bytes, bsp_communication.o(i.bsp_SendReportFrameWithCRC16))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = bsp_SendReportFrameWithCRC16 &rArr; bsp_GetCurrentPosY &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;comSendBuf
-<LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_AngleReadRaw
+<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IMU_GetData
 <LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_OffSiteGetState
 <LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetPulseVector
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosY
 <LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetCurrentPosX
 <LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DustBoxGetState
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_CollisionScan
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 <LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_MotorGetSpeed
 <LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetRev

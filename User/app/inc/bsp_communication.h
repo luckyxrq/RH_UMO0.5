@@ -32,7 +32,9 @@ typedef struct
 	uint16_t cliffMV_M;
 	uint16_t cliffMV_R;
 	
-	int16_t yaw;       /*角度值*100传过去*/
+	int16_t yaw;         /*角度值*100传过去*/
+	int16_t pitch;       /*角度值*100传过去*/
+	int16_t roll;        /*角度值*100传过去*/
 	
 	uint16_t irMV[10];  /*一圈红外MV*/
 	uint8_t  irRX[4][3];  /*红外接收*/
@@ -88,10 +90,7 @@ typedef struct
 #pragma pack()
 
 extern CMD_FRAME cmd_frame_tx;
-
-
-
-
+extern CMD_FRAME cmd_frame_rx;
 
 
 /*********************************************协议格式替换部分，上位机上位机统一，直接Copy 结束*************************************************/

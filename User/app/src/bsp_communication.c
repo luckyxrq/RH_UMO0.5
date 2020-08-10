@@ -256,7 +256,9 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.cliffMV_M = bsp_GetCliffRealVal(CliffMiddle); 
 	cmd_frame_tx.union_para.mcu_frame.cliffMV_R = bsp_GetCliffRealVal(CliffRight); 
 
-	cmd_frame_tx.union_para.mcu_frame.yaw = bsp_AngleReadRaw(); 
+	cmd_frame_tx.union_para.mcu_frame.yaw = bsp_IMU_GetData(YAW)*100;
+	cmd_frame_tx.union_para.mcu_frame.pitch = bsp_IMU_GetData(PITCH)*100;
+	cmd_frame_tx.union_para.mcu_frame.roll = bsp_IMU_GetData(ROLL)*100;
 
 	cmd_frame_tx.union_para.mcu_frame.irMV[0] = bsp_GetInfraRedAdcVoltage(IR0); 
 	cmd_frame_tx.union_para.mcu_frame.irMV[1] = bsp_GetInfraRedAdcVoltage(IR1); 
