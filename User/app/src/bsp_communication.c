@@ -150,6 +150,17 @@ void bsp_ExexCmd(void)
 			{
 				bsp_SendAllCalibration();
 			}break;
+			
+			case 8:
+			{
+				bsp_SetParaCliff_L(cmd_frame_rx.union_para.calibration.Cliff_L);
+				bsp_SetParaCliff_M(cmd_frame_rx.union_para.calibration.Cliff_M);
+				bsp_SetParaCliff_R(cmd_frame_rx.union_para.calibration.Cliff_R);
+				bsp_SetParaEdge_L(cmd_frame_rx.union_para.calibration.Edge_L);
+				bsp_SetParaEdge_R(cmd_frame_rx.union_para.calibration.Edge_R);
+				bsp_SetParaErLangShen(cmd_frame_rx.union_para.calibration.ErLangShen);
+			}break;
+			
 			default: break;
 		}
 	}
