@@ -54,6 +54,24 @@ typedef struct
 #pragma pack()
 
 
+/*按照1字节对齐，便于存储到uint8_t类型buf*/
+#pragma pack(1)
+typedef struct
+{
+	uint32_t Cliff_L;       /*跳崖传感器阈值左*/ 
+	uint32_t Cliff_M;       /*跳崖传感器阈值中*/ 
+	uint32_t Cliff_R;       /*跳崖传感器阈值右*/ 
+	                        
+	uint32_t Edge_L;        /*沿边传感器阈值左*/
+	uint32_t Edge_R;        /*沿边传感器阈值右*/
+	
+	uint32_t ErLangShen;    /*二郎神阈值*/
+
+}CALIBRATION;
+#pragma pack()
+
+
+
 
 /*这里使用联合体，方便一些自定义的参数*/
 typedef union
@@ -63,6 +81,7 @@ typedef union
     uint32_t arr[16];
 	uint32_t mcu_ver;
     MCU_FRAME mcu_frame; 
+	CALIBRATION calibration;
 }UNION_PARA;
 
 

@@ -154,6 +154,7 @@ UART_T *ComToUart(COM_PORT_E _ucPort)
 */
 void comSendBuf(COM_PORT_E _ucPort, uint8_t *_ucaBuf, uint16_t _usLen)
 {
+#if 0
 	UART_T *pUart;
 
 	pUart = ComToUart(_ucPort);
@@ -168,6 +169,21 @@ void comSendBuf(COM_PORT_E _ucPort, uint8_t *_ucaBuf, uint16_t _usLen)
 	}
 
 	UartSend(pUart, _ucaBuf, _usLen);
+
+#else
+	uint16_t i = 0 ;
+
+	for(i=0;i<_usLen;i++)
+	{
+		/* 写一个字节到USART1 */
+		USART_SendData(USART2, (uint8_t) _ucaBuf[i]);
+
+		/* 等待发送结束 */
+		while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET)
+		{}
+	}
+#endif
+
 }
 
 /*
