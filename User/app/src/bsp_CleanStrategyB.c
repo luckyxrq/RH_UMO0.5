@@ -451,7 +451,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
     }
     
     
-	
+//爬坡和下坡处理
 	int roll = (int)bsp_IMU_GetData(ROLL);
     if(my_abs(roll)<172){
         if(leftVelocity>0&&rightVelocity>0){
