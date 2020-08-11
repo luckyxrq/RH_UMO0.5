@@ -779,6 +779,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 
 //#################################################################################
 
+//清扫策略开始运行，需要传碰撞参数，位姿参数
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     Yaw = current_pose->orientation;
@@ -1229,7 +1230,9 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     return 1;
 }
 
-//####################################################           RIGHT        #####    
+//####################################################           RIGHT        ##### 
+
+//向右边清扫运行，需要传碰撞参数和位姿参数
 unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -1865,6 +1868,10 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 
 
 
+
+
+
+//向右边清扫运行，右边碰撞处理函数，需要传碰撞参数和位姿参数
 unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0,i=0,j=0;
@@ -2550,6 +2557,8 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
 
 
 
+
+//向右边清扫运行，左边碰撞处理函数，需要传碰撞参数和位姿参数
 unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0,i=0,j=0;
@@ -3255,6 +3264,8 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
 
 
 
+
+//向右边清扫运行，前边碰撞处理函数，需要传碰撞参数和位姿参数
 unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -3617,6 +3628,8 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     return complete_flag;
 }
 
+
+//向右边清扫运行，延边寻找漏扫和脱困函数，需要传碰撞参数和位姿参数
 unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -4574,6 +4587,8 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
 
 
 
+
+//向右边清扫运行，正向延边走函数，需要传碰撞参数和位姿参数
 unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
@@ -5162,6 +5177,8 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
 
 
 
+
+//向右边清扫运行，逆向延边走函数，需要传碰撞参数和位姿参数
 unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
@@ -5733,6 +5750,8 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
 
 
 
+
+//向右边清扫运行，越界函数，需要传碰撞参数和位姿参
 unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -5904,6 +5923,8 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
 
 
 
+
+//向右边清扫运行，卡住处理函数，需要传碰撞参数和位姿参
 unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -6167,6 +6188,8 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
 
 
 
+
+//向右边清扫运行，准备补漏处理函数，需要传碰撞参数和位姿参
 unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -6726,6 +6749,8 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
 
 //##########           LEFT             ###########################################	
 ///////////////////////////////////////////////////////////////////////////////////
+
+//向左边清扫运行，需要传碰撞参数和位姿参数
 unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -7347,6 +7372,8 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
 
 
 
+
+//向左边清扫运行，越界函数，需要传碰撞参数和位姿参
 unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -7515,6 +7542,8 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
 
 
 
+
+//向左边清扫运行，右边碰撞处理函数，需要传碰撞参数和位姿参数
 unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0,i=0,j=0;
@@ -8290,6 +8319,8 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
 }
 
 
+
+//向左边清扫运行，左边碰撞处理函数，需要传碰撞参数和位姿参数
 unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0,i=0,j=0;
@@ -9029,6 +9060,8 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
 
 
 
+
+//向左边清扫运行，前边碰撞处理函数，需要传碰撞参数和位姿参数
 unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -9388,6 +9421,8 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
 
 
 
+
+//向左边清扫运行，正向延边走函数，需要传碰撞参数和位姿参数
 unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
@@ -10016,6 +10051,8 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
 
 
 
+
+//向左边清扫运行，逆向延边走函数，需要传碰撞参数和位姿参数
 unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
@@ -10582,6 +10619,8 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
 
 
 
+
+//向左边清扫运行，延边寻找漏扫和脱困函数，需要传碰撞参数和位姿参数
 unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -11545,6 +11584,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 
 
 
+
+//向左边清扫运行，准备补漏处理函数，需要传碰撞参数和位姿参数
 unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -12100,6 +12141,8 @@ unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSig
 
 
 
+
+//向左边清扫运行，卡住处理函数，需要传碰撞参数和位姿参数
 unsigned char StuckLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
@@ -12360,6 +12403,8 @@ unsigned char StuckLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
 
 
 
+
+//卡住后，地图修复函数，需要传碰撞位姿参数
 void StuckRunStep(POSE *current_pose){
     signed char i,j,k;
     if(stuck_x==true){
@@ -12460,6 +12505,8 @@ void StuckRunStep(POSE *current_pose){
 
 //##############A* return origin function define###################################
 //#################################################################################
+
+//暴力回原点处理函数，需要传碰撞参数和位姿参数
 unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
@@ -13252,6 +13299,8 @@ unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal)
 }
 
 
+
+//右边清扫完成，算出地图x轴上最小值和最大值函数
 void RightMapExtreme(void){
     bool end_x=false;
     unsigned char i,j;
@@ -13290,6 +13339,8 @@ void RightMapExtreme(void){
 
 
 
+
+//A星开启初始化
 void  initOpen(AStar_Open *q){
     q->length = 0;
 }
@@ -13297,7 +13348,7 @@ void  initOpen(AStar_Open *q){
 
 
 
-
+//A星，需要初始化指针，关闭节点，搜索节点坐标值和权值参数
 void  push(AStar_Open *q, AStar_Close cls[AStar_Height][AStar_Width], unsigned char x, unsigned char y, short g){
     //log_debug("A*  push(),\n");
     
@@ -13319,10 +13370,7 @@ void  push(AStar_Open *q, AStar_Close cls[AStar_Height][AStar_Width], unsigned c
     q->Array[mintag] = t;
 }
 
-
-
-
-
+//A星结束
 AStar_Close * shift(AStar_Open *q){
     return q->Array[--q->length];
 }
@@ -13333,6 +13381,8 @@ AStar_Close * shift(AStar_Open *q){
 
 
 
+
+//A星，初始化关闭节点，开启节点坐标值，目标节点坐标值
 void  initClose(AStar_Close cls[AStar_Height][AStar_Width], unsigned char sx, unsigned char sy, unsigned char dx, unsigned char dy){
     unsigned char i, j;
     //log_debug("A*  initClose(),\n");
@@ -13355,6 +13405,8 @@ void  initClose(AStar_Close cls[AStar_Height][AStar_Width], unsigned char sx, un
 
 
 
+
+//A星，初始化关闭节点，开启节点坐标值，目标节点坐标值
 void  initGraph(bool maze[AStar_Height][AStar_Width], unsigned char sx, unsigned char sy, unsigned char dx, unsigned char dy){
     unsigned char i, j;
     AStar_srcX = sx;
@@ -13414,6 +13466,8 @@ void  initGraph(bool maze[AStar_Height][AStar_Width], unsigned char sx, unsigned
 
 
 
+
+//A星函数搜索路径，返回有无路径结果
 bool  astar(){
     unsigned char i, curX, curY, surX, surY;
     float surG;
@@ -13453,6 +13507,8 @@ bool  astar(){
     }
     return AStar_NoSolution;
 }
+
+
 
 
 
@@ -13576,6 +13632,8 @@ unsigned char  printShortest(){
 }
 
 
+
+//A星压缩地图，生成压缩地图，需要传碰撞参数和位姿参数
 unsigned char  AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal){
     signed char complete_flag = 0;
     bool canmove = true;
@@ -13765,6 +13823,8 @@ unsigned char  AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSigna
     printShortest();
     return complete_flag;
 }
+
+
 
 
 
