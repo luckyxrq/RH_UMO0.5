@@ -154,23 +154,25 @@ UART_T *ComToUart(COM_PORT_E _ucPort)
 */
 void comSendBuf(COM_PORT_E _ucPort, uint8_t *_ucaBuf, uint16_t _usLen)
 {
-//	UART_T *pUart;
+#if 0
+	UART_T *pUart;
 
-//	pUart = ComToUart(_ucPort);
-//	if (pUart == 0)
-//	{
-//		return;
-//	}
+	pUart = ComToUart(_ucPort);
+	if (pUart == 0)
+	{
+		return;
+	}
 
-//	if (pUart->SendBefor != 0)
-//	{
-//		pUart->SendBefor();		/* 如果是RS485通信，可以在这个函数中将RS485设置为发送模式 */
-//	}
+	if (pUart->SendBefor != 0)
+	{
+		pUart->SendBefor();		/* 如果是RS485通信，可以在这个函数中将RS485设置为发送模式 */
+	}
 
-//	UartSend(pUart, _ucaBuf, _usLen);
-	
+	UartSend(pUart, _ucaBuf, _usLen);
+
+#else
 	uint16_t i = 0 ;
-	
+
 	for(i=0;i<_usLen;i++)
 	{
 		/* 写一个字节到USART1 */
@@ -180,6 +182,7 @@ void comSendBuf(COM_PORT_E _ucPort, uint8_t *_ucaBuf, uint16_t _usLen)
 		while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET)
 		{}
 	}
+#endif
 
 }
 
