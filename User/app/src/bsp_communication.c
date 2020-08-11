@@ -25,6 +25,7 @@ static uint8_t isCmdStartUpload = 0; /* 1 表示开始上传数据到PC */
 */
 
 static void bsp_SendMCU_Ver(void);
+static void bsp_SendAllCalibration(void);
 
 
 uint8_t GetCmdStartUpload(void)
@@ -137,6 +138,17 @@ void bsp_ExexCmd(void)
 			case 1:
 			{
 				bsp_SendMCU_Ver();
+			}break;
+			default: break;
+		}
+	}
+	else if(cmd_frame_rx.main_sec == 5)
+	{
+		switch(cmd_frame_rx.sub_sec)
+		{
+			case 7:
+			{
+				bsp_SendAllCalibration();
 			}break;
 			default: break;
 		}
@@ -352,3 +364,36 @@ static void bsp_SendMCU_Ver(void)
 	
 	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
 }
+
+
+
+static void bsp_SendAllCalibration(void)
+{
+	memset(&cmd_frame_tx,0,sizeof(CMD_FRAME));
+	
+	cmd_frame_tx.union_para.calibration.Cliff_L = bsp_GetParaCliff_L();
+	cmd_frame_tx.union_para.calibration.Cliff_M = bsp_GetParaCliff_M();
+	cmd_frame_tx.union_para.calibration.Cliff_R = bsp_GetParaCliff_R();
+	
+	cmd_frame_tx.union_para.calibration.Edge_L = bsp_GetParaEdge_L();
+	cmd_frame_tx.union_para.calibration.Edge_R = bsp_GetParaEdge_R();
+	
+	cmd_frame_tx.union_para.calibration.ErLangShen = bsp_GetParaErLangShen();
+	
+
+	cmd_frame_tx.head = 0xAAAA;
+	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;
+	cmd_frame_tx.frame_len_reverse = (~cmd_frame_tx.frame_len) & 0xFFFF;
+	
+	cmd_frame_tx.tx_addr = 0x02;
+	cmd_frame_tx.rx_addr = 0x01;
+	
+	cmd_frame_tx.main_sec = 5;
+	cmd_frame_tx.sub_sec = 7;
+	
+	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
+	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
+	
+	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
+}
+
