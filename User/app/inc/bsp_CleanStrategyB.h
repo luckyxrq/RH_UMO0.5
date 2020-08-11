@@ -862,12 +862,12 @@
 #define star_collision_backward 50
 #define star_collision_go 400
 #define collision_backward_distance 10//3
-#define lateral_move_distance 160
+#define lateral_move_distance 170
 #define walk_edge_distance 200
 #define close_map_move_distance 5
 #define turn_backward_distance 10//3
 #define second_turn_backward_distance 10//4
-#define close_edge 160
+#define close_edge 170
 #define dilemma_close_edge 80
 #define return_origin_distance 200
 
