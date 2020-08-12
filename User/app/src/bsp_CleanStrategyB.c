@@ -13633,7 +13633,7 @@ unsigned char  printShortest(){
 
 
 
-//A星压缩地图，生成压缩地图，需要传碰撞参数和位姿参数
+//压缩地图A星路径规划，生成压缩地图，需要传碰撞参数和位姿参数
 unsigned char  AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSignal){
     signed char complete_flag = 0;
     bool canmove = true;
@@ -13828,6 +13828,8 @@ unsigned char  AStarReturnOrigin(POSE *current_pose, unsigned char obstacleSigna
 
 
 
+
+//A星没有路径的时候，随机游走一会，需要传碰撞参数和位姿参数
 unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -13916,6 +13918,8 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
 
 
 
+
+//实现A星规划出来的步骤，需要传碰撞参数和位姿参数
 unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -14798,6 +14802,8 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
 }
 
 
+
+//实现A星规划出来的每一步，需要传碰撞参数和位姿参数
 unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -15103,6 +15109,8 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal){
     }
     return complete_flag;
 }
+
+//延边走一圈，，需要传碰撞参数和位姿参数
 unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char i;
@@ -16305,6 +16313,8 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
     return complete_flag;
 }
 
+
+//封边
 unsigned char  DetectionCloseEdge(){
     int8_t i,j,k;
     bool end_x = false;
@@ -16579,6 +16589,8 @@ unsigned char  DetectionCloseEdge(){
 
 
 
+
+//越界后马上更新地图
 void MoreMap(POSE *current_pose){
     unsigned char i,j;
     if(motionSteps==1){
@@ -16635,6 +16647,8 @@ void MoreMap(POSE *current_pose){
 
 
 
+
+//右边清扫完成回到原点了，因为越界所以重新更新地图
 void LessMap(void){
     unsigned char i,j;
     for(i=0;i<MAPWIDECELLS;i++){
@@ -16646,7 +16660,7 @@ void LessMap(void){
 }
 
 
-
+//初始化栅格地图
 void StartUpdateGridMap(void){
     unsigned char i,j;
     for(i=0;i<MAPWIDECELLS;i++){
@@ -16658,13 +16672,13 @@ void StartUpdateGridMap(void){
 
 
 
-
+//返回策略当前位置x的值
 int32_t bsp_GetStrategyCurrentPosX(void){
     return 	map_current_pose_x;
 }
 
 
-
+//返回策略当前位置y的值
 int32_t bsp_GetStrategyCurrentPosY(void){
     return 	map_current_pose_y;
 }
@@ -16672,7 +16686,7 @@ int32_t bsp_GetStrategyCurrentPosY(void){
 
 
 
-
+//初始化累计补漏次数和补漏坐标
 void ReturnExtreme_point_init(void){
     signed char  i;
     Under_extreme_point_x_index = 0;
