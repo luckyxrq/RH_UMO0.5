@@ -17,10 +17,10 @@
 unsigned char rightmapmin=0;//右边地图最小值
 unsigned char rightmapmax=0;//右边地图最大值
 
-short wheel_pulse_l;//左轮脉冲数
-short wheel_pulse_r;//右轮脉冲数     
-short temporary_wheel_pulse_r;//右轮临时脉冲数
-short temporary_wheel_pulse_l;//左轮临时脉冲数
+int wheel_pulse_l;//左轮脉冲数
+int wheel_pulse_r;//右轮脉冲数     
+int temporary_wheel_pulse_r;//右轮临时脉冲数
+int temporary_wheel_pulse_l;//左轮临时脉冲数
 
 short OVERALL_CLEANING_STRATEGY = 0;//全局清扫策略状态
 
@@ -94,7 +94,7 @@ int edge_length_start = 0;//延边起始值
 //unsigned char rightmapmin;
 //unsigned char rightmapmax;
 
-unsigned char DelimmaNumber=0;//累次次数
+unsigned char DelimmaNumber=0;//累加次数
 
 //bool clill_start_update=false;
 //bool cliffruningStatus=false;
@@ -15130,6 +15130,12 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
         detection_close=false;
         linear_velocity = 0;
         angular_velocity = 0;
+	    if(wheel_pulse_l>CleanAreaThreshold){
+			    cnt_update=10;
+		}
+		else{
+			cnt_update=5;
+		}
         close_edge_map_run_step_status=START_TURN_CLOCK_TARGET_CLOSE_EDGE_MAP;
         break;
     case START_TURN_CLOCK_TARGET_CLOSE_EDGE_MAP:
@@ -15380,12 +15386,12 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
 					break;
                 }
             }
-            if(my_abs(i-close_edge_min_x)<10&&my_abs(j-close_edge_min_x)<10){
+            if(my_abs(i-close_edge_min_x)<cnt_update&&my_abs(j-close_edge_min_x)<cnt_update){
                 motionSteps++;
                 DelimmaNumber=2;
                 step=0;
             }
-            if(my_abs(i-close_l_edge_max_x)<10&&my_abs(j-close_l_edge_max_y)<10){
+            if(my_abs(i-close_l_edge_max_x)<cnt_update&&my_abs(j-close_l_edge_max_y)<cnt_update){
                 motionSteps++;
                 DelimmaNumber=3;
                 step=0;
@@ -15405,12 +15411,12 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
 					break;
                 }
             }
-            if(my_abs(i-close_l_edge_max_x)<10&&my_abs(j-close_l_edge_max_y)<10){
+            if(my_abs(i-close_l_edge_max_x)<cnt_update&&my_abs(j-close_l_edge_max_y)<cnt_update){
                 motionSteps++;
                 DelimmaNumber=3;
                 step=0;
             }
-            if(my_abs(i-close_edge_max_x)<10&&my_abs(j-close_edge_max_y)<10){
+            if(my_abs(i-close_edge_max_x)<cnt_update&&my_abs(j-close_edge_max_y)<cnt_update){
                 motionSteps++;
                 DelimmaNumber=4;
                 step=0;
@@ -15430,13 +15436,13 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
 					break;
                 }
             }
-            if(my_abs(i-close_edge_max_x)<10&&my_abs(j-close_edge_max_y)<10){
+            if(my_abs(i-close_edge_max_x)<cnt_update&&my_abs(j-close_edge_max_y)<cnt_update){
                 motionSteps++;
                 DelimmaNumber=4;
                 step=0;
             }
             if(detection_close==true){
-                if(my_abs(i-close_r_edge_min_x)<10&&my_abs(j-close_r_edge_min_y)<10){
+                if(my_abs(i-close_r_edge_min_x)<cnt_update&&my_abs(j-close_r_edge_min_y)<cnt_update){
                     motionSteps++;
                     DelimmaNumber=1;
                     step=0;
@@ -15460,11 +15466,11 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
                 }
             }
             if(detection_close==true){
-                if(my_abs(i-close_r_edge_min_x)<10&&my_abs(j-close_r_edge_min_y)<10){
+                if(my_abs(i-close_r_edge_min_x)<cnt_update&&my_abs(j-close_r_edge_min_y)<cnt_update){
                     motionSteps++;
                     DelimmaNumber=1;
                 }
-                if(my_abs(i-close_edge_min_x)<10&&my_abs(j-close_edge_min_x)<10){
+                if(my_abs(i-close_edge_min_x)<cnt_update&&my_abs(j-close_edge_min_x)<cnt_update){
                     motionSteps++;
                     DelimmaNumber=2;
                 }
@@ -16289,6 +16295,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
         else{
             complete_flag=3;
         }
+		cnt_update=0;
         linear_velocity = 0;
         angular_velocity = 0;
         step=0;
@@ -16299,6 +16306,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
         closeedgesmap=true;
         break;
     case COMPLETE_CLOSE_EDGE_MAP:
+		cnt_update=0;
         complete_flag=1;
         linear_velocity = 0;
         angular_velocity = 0;
@@ -16669,6 +16677,7 @@ void StartUpdateGridMap(void){
         }
     }
 }
+
 
 
 

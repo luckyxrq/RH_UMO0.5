@@ -116,7 +116,7 @@ static void vTaskMapping(void *pvParameters)
 		
 		if(isSearchCharge == false)
 		{		
-			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+			bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX(),bsp_GetStrategyCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 		}
 #endif
 		
