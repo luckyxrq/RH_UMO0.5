@@ -112,15 +112,21 @@ static void vTaskMapping(void *pvParameters)
     while(1)
     {
      	
-#if 1 /*更新地图*/
+		//if(!GetCmdStartUpload())
+		{
+			#if 1 /*更新地图*/
 		
-		if(isSearchCharge == false)
-		{		
-			bsp_GridMapUpdate(bsp_GetCurrentPosX(),bsp_GetCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+			if(isSearchCharge == false)
+			{		
+				bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX(),bsp_GetStrategyCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+			}
+			#endif
+
+		
+			bsp_UploadMap();
 		}
-#endif
 		
-		bsp_UploadMap();
+
 		
 		if(count % 5 == 0)
         {
@@ -145,7 +151,7 @@ static void vTaskMapping(void *pvParameters)
 		}
 		
 		
-		//RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
 		count++;	
         vTaskDelay(100);

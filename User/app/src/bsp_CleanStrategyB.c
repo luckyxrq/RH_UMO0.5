@@ -17,10 +17,10 @@
 unsigned char rightmapmin=0;
 unsigned char rightmapmax=0;
 
-short wheel_pulse_l;
-short wheel_pulse_r;
-short temporary_wheel_pulse_r;
-short temporary_wheel_pulse_l;
+int wheel_pulse_l;
+int wheel_pulse_r;
+int temporary_wheel_pulse_r;
+int temporary_wheel_pulse_l;
 
 short OVERALL_CLEANING_STRATEGY = 0;
 

@@ -62,7 +62,7 @@ void NMI_Handler(void)
 */ 
 void HardFault_Handler(void)
 {
-#if 1
+#if 0
   const char *pError = ERR_INFO;
   uint8_t i;
 
