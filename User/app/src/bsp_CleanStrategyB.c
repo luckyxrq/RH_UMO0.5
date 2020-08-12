@@ -14555,11 +14555,11 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
         break;
         
     case E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN:
-        if (my_abs(Yaw) >= 135 || (Yaw < -135 && Yaw > -50))
+        if (my_abs(Yaw) >= 135 || (Yaw > -135 && Yaw < -50))
         {
             a_star_motion_return_origin_status = LESS_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
-        else if (my_abs(Yaw) < 40 || (Yaw >= 40 && Yaw < 135))
+        else if (my_abs(Yaw) <= 40 || (Yaw > 40 && Yaw < 135))
         {
             a_star_motion_return_origin_status = MORE_45_E_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
         }
