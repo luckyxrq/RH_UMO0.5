@@ -154,7 +154,7 @@ UART_T *ComToUart(COM_PORT_E _ucPort)
 */
 void comSendBuf(COM_PORT_E _ucPort, uint8_t *_ucaBuf, uint16_t _usLen)
 {
-#if 0
+#if 1
 	UART_T *pUart;
 
 	pUart = ComToUart(_ucPort);
