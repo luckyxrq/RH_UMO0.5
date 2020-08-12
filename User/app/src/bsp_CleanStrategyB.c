@@ -309,7 +309,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
 /*角速度范围：5~60 度/秒*/
 /*线速度范围：20~250 毫米/秒*/
     short leftVelocity,rightVelocity;
-    double linear_velocity_IR,cmd_linear_velocity,cmd_angular_velocity;
+    double linear_velocity_IR = 0,cmd_linear_velocity = 0,cmd_angular_velocity = 0;
     cmd_linear_velocity = *linear_velocity;
     cmd_angular_velocity = *angular_velocity;
 	

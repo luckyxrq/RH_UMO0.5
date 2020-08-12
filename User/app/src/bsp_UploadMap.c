@@ -27,9 +27,9 @@ void bsp_FillMapInfo(void)
 
 void bsp_SetCurPos(uint8_t i)
 {
-	if(i >= 1 && i <= 80)
-	mapInfo[i].posInfo = CUR_POS;
-	mapInfo[i-1].posInfo = CLEANED_POS;
+//	if(i >= 1 && i <= 80)
+//	mapInfo[i].posInfo = CUR_POS;
+//	mapInfo[i-1].posInfo = CLEANED_POS;
 }
 
 
