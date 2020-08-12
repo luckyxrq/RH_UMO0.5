@@ -885,6 +885,8 @@
 #define correction_big_turn_vel 20
 #define correction_big_straight_vel 10//100 
 
+#define  CleanAreaThreshold  500000
+
 
 //#define Deg2Rad(deg) (PI * deg / 180.0F)
 //#define Rad2Deg(rad) (180.0F * rad / PI)

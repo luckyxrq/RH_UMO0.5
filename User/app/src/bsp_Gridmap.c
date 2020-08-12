@@ -434,7 +434,7 @@ const unsigned char*  ____bsp_Get_GridMap(int robotX,int robotY){
 
 int bsp_Get_GridMapArea(void)
 {
-	int grid_index_x,grid_index_y;
+//	int grid_index_x,grid_index_y;
 	int cleaned_area = 0;
 	int motor_left_cnt = 0;
 	int motor_right_cnt = 0;
