@@ -9036,7 +9036,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         }
         break;
     case  GOSTR_YAW_EQUAL_ABS57_LRUN_CL_DLYL:
-        if (obstacleSignal !=none_obstacle)
+        if (obstacleSignal !=none_obstacle||(&cliff_valueB)->cliffValue0 == 1) //bug
         {
 			linear_velocity = 0;
             angular_velocity = 0;
