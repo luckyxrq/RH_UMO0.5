@@ -68,6 +68,34 @@ void bsp_EnterStopMODE(void)
 	}
 	else
 	{
+		
+		bsp_InitSW();		     /* 开机打开其他外设电源使能引脚 */
+	
+		bsp_AngleRst();
+		bsp_SwOn(SW_5V_EN_CTRL);
+		
+		
+		for(i=0;i<4*1000*100;++i)
+		{
+			
+		}
+		
+		
+		bsp_SwOn(SW_3V3_EN_CTRL);
+		bsp_SwOn(SW_IR_POWER);
+		bsp_SwOn(SW_MOTOR_POWER);
+		bsp_SwOn(SW_VSLAM_POWER);
+		bsp_SwOn(SW_WIFI_POWER);
+		
+		
+		
+		
+		bsp_SperkerPlay(Song32);
+		for(i=0;i<4*1000*100*5;++i)
+		{
+			
+		}
+		
 		NVIC_SystemReset();
 	}
 

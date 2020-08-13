@@ -177,6 +177,8 @@ static void vTaskDecision(void *pvParameters)
 	UNUSED(count);
 	
 	vTaskDelay(2000);
+	
+	
     while(1)
     {
 

@@ -1,7 +1,7 @@
 .\flash\obj\stm32f10x_assert.o: ..\..\User\bsp\stm32f10x_assert.c
 .\flash\obj\stm32f10x_assert.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h
 .\flash\obj\stm32f10x_assert.o: ..\..\Libraries\CMSIS\Include\core_cm3.h
-.\flash\obj\stm32f10x_assert.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\stm32f10x_assert.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\stm32f10x_assert.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\flash\obj\stm32f10x_assert.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\flash\obj\stm32f10x_assert.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\system_stm32f10x.h
@@ -30,4 +30,4 @@
 .\flash\obj\stm32f10x_assert.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\flash\obj\stm32f10x_assert.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\flash\obj\stm32f10x_assert.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\flash\obj\stm32f10x_assert.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\stm32f10x_assert.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdio.h

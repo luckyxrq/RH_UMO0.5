@@ -1,8 +1,8 @@
 .\flash\obj\heap_4.o: ..\..\FreeRTOS\portable\MemMang\heap_4.c
-.\flash\obj\heap_4.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\heap_4.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdlib.h
 .\flash\obj\heap_4.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\heap_4.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\heap_4.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\heap_4.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\heap_4.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\heap_4.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\heap_4.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\heap_4.o: ..\..\FreeRTOS\include\portable.h
