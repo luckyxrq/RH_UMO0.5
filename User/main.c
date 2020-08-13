@@ -40,6 +40,7 @@ static TaskHandle_t xHandleTaskControl       = NULL;
 static TaskHandle_t xHandleTaskPerception    = NULL;
 static TaskHandle_t xHandleTaskMapping       = NULL;
 static TaskHandle_t xHandleTaskKey           = NULL;
+static TaskHandle_t xHandleTaskUploadMap     = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
 
@@ -95,6 +96,39 @@ int main(void)
     while(1);
 }
 
+
+
+/*
+*********************************************************************************************************
+*	函 数 名: vTaskUploadMap
+*	功能说明: 按键处理
+*	形    参: pvParameters 是在创建该任务时传递的形参
+*	返 回 值: 无
+*   优 先 级: 4  
+*********************************************************************************************************
+*/
+static void vTaskUploadMap(void *pvParameters)
+{
+    while(1)
+    {
+		//if(!GetCmdStartUpload())
+		{
+			if(isSearchCharge == false)
+			{		
+				bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX(),bsp_GetStrategyCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+			}
+
+			bsp_UploadMap();
+		}
+		
+		
+		RTT("vTaskUploadMap:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+
+        vTaskDelay(100);
+    }		
+    
+}
+
 /*
 *********************************************************************************************************
 *	函 数 名: vTaskStart
@@ -112,22 +146,6 @@ static void vTaskMapping(void *pvParameters)
     while(1)
     {
      	
-		//if(!GetCmdStartUpload())
-		{
-			#if 1 /*更新地图*/
-		
-			if(isSearchCharge == false)
-			{		
-				bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX(),bsp_GetStrategyCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-			}
-			#endif
-
-		
-			bsp_UploadMap();
-		}
-		
-
-		
 		if(count % 5 == 0)
         {
 			bsp_ChangeWifi2SmartConfigStateProc();
@@ -390,7 +408,18 @@ static void vTaskKey(void *pvParameters)
 */
 static void AppTaskCreate (void)
 {
-	
+	xTaskCreate( vTaskUploadMap,     		    /* 任务函数  */
+                 "vTaskUploadMap",   		    /* 任务名    */
+                 512,//512,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 1,              		        /* 任务优先级*/
+                 &xHandleTaskUploadMap );       /* 任务句柄  */
+	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
+                 "vTaskMapping",   		        /* 任务名    */
+                 512,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 1,              		        /* 任务优先级*/
+                 &xHandleTaskMapping );         /* 任务句柄  */
 	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
                  "vTaskMapping",   		        /* 任务名    */
                  512,//512,            		        /* 任务栈大小，单位word，也就是4字节 */

@@ -561,11 +561,11 @@ ARM Macro Assembler    Page 9
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\flash\obj\startup_stm32f10x_hd.d -o.\flash\obj\startup_stm32f10x
-_hd.o -I.\RTE\_Flash -IE:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Incl
-ude -IE:\Keil_v5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine=
-"__UVISION_VERSION SETA 525" --predefine="STM32F10X_HD SETA 1" --list=.\flash\l
-ist\startup_stm32f10x_hd.lst ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Source\T
-emplates\arm\startup_stm32f10x_hd.s
+_hd.o -IG:\LuckyXRQ\CleanCar\Project\MDK-ARM(uV4)\RTE -ID:\soft\MDK5\ARM\PACK\K
+eil\STM32F1xx_DFP\1.0.5\Device\Include -ID:\soft\MDK5\ARM\CMSIS\Include --prede
+fine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 514" --predefine="
+STM32F10X_HD SETA 1" --list=.\flash\list\startup_stm32f10x_hd.lst ..\..\Librari
+es\CMSIS\Device\ST\STM32F10x\Source\Templates\arm\startup_stm32f10x_hd.s
 
 
 
