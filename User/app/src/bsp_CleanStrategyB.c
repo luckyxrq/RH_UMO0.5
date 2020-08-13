@@ -244,8 +244,7 @@ extern uint8_t  work_mode;
 unsigned char DealWithAlice=0;
 bool boolDealWithAlice=false;
 
-static void right_edge_judgment_repeat(void)
-{
+static void right_edge_judgment_repeat(void){
 	if(adcRealTime[9]>100&&adcRealTime[9]<1500){
 		delimma_edge=0;
 		linear_velocity = 200;
@@ -268,8 +267,7 @@ static void right_edge_judgment_repeat(void)
 	}
 }
 
-static void left_edge_judgment_repeat(void)
-{
+static void left_edge_judgment_repeat(void){
 	if(adcRealTime[8]>100&&adcRealTime[8]<1500){
 		delimma_edge=0;
 		linear_velocity = 200;
@@ -1834,9 +1832,29 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
                 last_position_y = current_pose->y;
                 if(my_abs(Yaw) > 90){
                     collision_right_rightrun_step_status =GOSTR_BYPASS_LOOP_CR_DRYM;
+					i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+					j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+					if(i>3&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+						gridmap.map[i-2][j]=0;
+						gridmap.map[i-3][j]=0;
+						gridmap.map[i-4][j]=0;
+						gridmap.map[i-2][j+1]=0;
+						gridmap.map[i-3][j+1]=0;
+						gridmap.map[i-4][j+1]=0;
+					}
                 }
                 else{
                     collision_right_rightrun_step_status = DIR_RIGHT_YAW_LESS_ABS90_CRRRS;
+					i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+					j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+					if(i>0&&i<96&&j>0&&j<GRIDWIDTH){
+						gridmap.map[i+2][j]=0;
+						gridmap.map[i+3][j]=0;
+						gridmap.map[i+4][j]=0;
+						gridmap.map[i+2][j-1]=0;
+						gridmap.map[i+3][j-1]=0;
+						gridmap.map[i+4][j-1]=0;
+					}
                 }
                 infrared_collision=true;
                 break;
@@ -2495,9 +2513,30 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
                 last_position_y = current_pose->y;
                 if(my_abs(Yaw) < 90){
                     collision_left_rightrun_step_status =GOSTR_BYPASS_LOOP_CL_DRYL;
+					i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+					j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+					if(i>0&&i<96&&j>=1&&j<GRIDWIDTH-1){
+						gridmap.map[i+2][j]=0;
+						gridmap.map[i+3][j]=0;
+						gridmap.map[i+4][j]=0;
+						gridmap.map[i+2][j+1]=0;
+						gridmap.map[i+3][j+1]=0;
+						gridmap.map[i+4][j+1]=0;
+					}
                 }
                 else{
                     collision_left_rightrun_step_status =DIR_RIGHT_YAW_MORE_ABS90_CLRRS;
+					i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+					j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+					if(i>3&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH){
+						gridmap.map[i-2][j]=0;
+						gridmap.map[i-3][j]=0;
+						gridmap.map[i-4][j]=0;
+						gridmap.map[i-2][j-1]=0;
+						gridmap.map[i-3][j-1]=0;
+						gridmap.map[i-4][j-1]=0;
+					}
+					
                 }
                 infrared_collision=true;
                 break;
@@ -3167,7 +3206,7 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
 
 unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
-    unsigned char complete_flag = 0;
+    unsigned char complete_flag=0,i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
 	STRATEGY_SHOW("CollisionFrontRightRunStep:%04X\r\n",(int)collision_front_rightrun_step_status);	
@@ -3179,6 +3218,34 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
         {
             if(obstacleSignal==none_obstacle){
 				obstacleSignal=front_obstacle;
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+			if(my_abs(Yaw)>90){
+				if(i>3&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i-2][j-1]=0;
+					gridmap.map[i-2][j]=0;
+					gridmap.map[i-2][j+1]=0;
+					gridmap.map[i-3][j-1]=0;
+					gridmap.map[i-3][j]=0;
+					gridmap.map[i-3][j+1]=0;
+					gridmap.map[i-4][j-1]=0;
+					gridmap.map[i-4][j]=0;
+					gridmap.map[i-4][j+1]=0;
+				}
+			}
+			else{
+				if(i>2&&i<96&&j>0&&j<GRIDWIDTH-1){
+					gridmap.map[i+2][j-1]=0;
+					gridmap.map[i+2][j]=0;
+					gridmap.map[i+2][j+1]=0;
+					gridmap.map[i+3][j-1]=0;
+					gridmap.map[i+3][j]=0;
+					gridmap.map[i+3][j+1]=0;
+					gridmap.map[i+4][j-1]=0;
+					gridmap.map[i+4][j]=0;
+					gridmap.map[i+4][j+1]=0;
+				}
+			}
                 if (my_abs(Yaw) < 90)
                 {
                     collision_front_rightrun_step_status = DIR_RIGHT_YAW_LESS_ABS90_CFRRS;
@@ -6844,7 +6911,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
 				}
 			}
 			else{
-				if(i>2&&i<96&&j>0&&j<GRIDWIDTH-1){
+				if(i>0&&i<96&&j>0&&j<GRIDWIDTH-1){
 					gridmap.map[i+2][j-1]=0;
 					gridmap.map[i+2][j]=0;
 					gridmap.map[i+2][j+1]=0;
@@ -7402,11 +7469,30 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
                 last_position_y = current_pose->y;
                 if(my_abs(Yaw) < 90){
                     collision_right_rightrun_step_status = GOSTR_BYPASS_LOOP_LRUN_CR_DLYL;
+					i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+					j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+					if(i>0&&i<96&&j>0&&j<GRIDWIDTH){
+						gridmap.map[i+2][j]=0;
+						gridmap.map[i+3][j]=0;
+						gridmap.map[i+4][j]=0;
+						gridmap.map[i+2][j-1]=0;
+						gridmap.map[i+3][j-1]=0;
+						gridmap.map[i+4][j-1]=0;
+					}
                 }
                 else{
                     collision_right_rightrun_step_status = DIR_LEFT_YAW_MORE_ABS90_CRLRS;
+					i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+					j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+					if(i>3&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+						gridmap.map[i-2][j]=0;
+						gridmap.map[i-3][j]=0;
+						gridmap.map[i-4][j]=0;
+						gridmap.map[i-2][j+1]=0;
+						gridmap.map[i-3][j+1]=0;
+						gridmap.map[i-4][j+1]=0;
+					}
                 }
-                last_position_x = current_pose->x;
                 infrared_collision=true;
                 break;
             } 
@@ -8178,9 +8264,29 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
                 last_position_y = current_pose->y;
                 if(my_abs(Yaw) > 90){
                     collision_left_rightrun_step_status = GOSTR_BYPASS_LOOP_LRUN_CL_DLYM;
+					i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+					j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+					if(i>3&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH){
+						gridmap.map[i-2][j]=0;
+						gridmap.map[i-3][j]=0;
+						gridmap.map[i-4][j]=0;
+						gridmap.map[i-2][j-1]=0;
+						gridmap.map[i-3][j-1]=0;
+						gridmap.map[i-4][j-1]=0;
+					}
                 }
                 else{
                     collision_left_rightrun_step_status = DIR_LEFT_YAW_LESS_ABS90_CLLRS;
+					i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+					j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+					if(i>0&&i<96&&j>0&&j<GRIDWIDTH-1){
+						gridmap.map[i+2][j]=0;
+						gridmap.map[i+3][j]=0;
+						gridmap.map[i+4][j]=0;
+						gridmap.map[i+2][j+1]=0;
+						gridmap.map[i+3][j+1]=0;
+						gridmap.map[i+4][j+1]=0;
+					}					
                 }
                 infrared_collision=true;
                 break;
@@ -8904,7 +9010,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
 
 unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
-    unsigned char complete_flag = 0;
+    unsigned char complete_flag = 0,i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
     switch (collision_front_rightrun_step_status)
@@ -8914,6 +9020,35 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
         {
             if(obstacleSignal==none_obstacle){
 				obstacleSignal=front_obstacle;
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(my_abs(Yaw)>90){
+					if(i>3&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH-1){
+						gridmap.map[i-2][j-1]=0;
+						gridmap.map[i-2][j]=0;
+						gridmap.map[i-2][j+1]=0;
+						gridmap.map[i-3][j-1]=0;
+						gridmap.map[i-3][j]=0;
+						gridmap.map[i-3][j+1]=0;
+						gridmap.map[i-4][j-1]=0;
+						gridmap.map[i-4][j]=0;
+						gridmap.map[i-4][j+1]=0;
+					}
+				}
+				else{
+					if(i>0&&i<96&&j>0&&j<GRIDWIDTH-1){
+						gridmap.map[i+2][j-1]=0;
+						gridmap.map[i+2][j]=0;
+					gridmap.map[i+2][j+1]=0;
+					gridmap.map[i+3][j-1]=0;
+					gridmap.map[i+3][j]=0;
+					gridmap.map[i+3][j+1]=0;
+					gridmap.map[i+4][j-1]=0;
+					gridmap.map[i+4][j]=0;
+					gridmap.map[i+4][j+1]=0;
+				}
+			}				
+				
                 if (my_abs(Yaw) < 90)
                 {
                     collision_front_rightrun_step_status = DIR_LEFT_YAW_LESS_ABS90_CFRLS;
@@ -16355,19 +16490,11 @@ void ReturnExtreme_point_init(void){
     Under_extreme_point_y_index=0;
     On_extreme_point_x_index = 0;
     On_extreme_point_y_index = 0;
-//    Under_extreme_point_x_index = 0;
-//    Under_extreme_point_y_index=0;
-//    On_extreme_point_x_index = 0;
-//    On_extreme_point_y_index = 0;
     for(i=0;i<20;i++){
         Under_extreme_point_x[i] = 0;
         Under_extreme_point_y[i] = 0;
         On_extreme_point_x[i]=GRIDWIDTH;
         On_extreme_point_y[i]=GRIDWIDTH;
-//        Under_extreme_point_x[i] = 0;
-//        Under_extreme_point_y[i] = 0;
-//        On_extreme_point_x[i]=GRIDWIDTH;
-//        On_extreme_point_y[i]=GRIDWIDTH;
     }
 }
 
