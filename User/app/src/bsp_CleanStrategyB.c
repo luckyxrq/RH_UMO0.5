@@ -194,9 +194,11 @@ const uint8_t motorSide_error = 10;
 uint8_t collision_error_cnt = 0;
 uint8_t cliff_error_cnt = 0;
 uint8_t imu_error_cnt = 0;
+uint8_t sidebrush_error_cnt = 0;
+uint8_t rollingbrush_error_cnt = 0;
 uint16_t infra_collision_error_cnt = 0;
 static uint8_t time_battery_return_origin_statues = 1;
-
+static int eRollingBrush_A1=0,eRollingBrush_A2=0,eSideBrush_A = 0;
 
 uint8_t return_charge_station_flag = 0;
 
@@ -853,9 +855,6 @@ uint8_t GetReturnChargeStationStatus(void){
 void ResetReturnChargeStationStatus(void){
     return_charge_station_flag  = 0;
 }
-
-
-int eRollingBrush_A1=0,eRollingBrush_A2=0,eRollingBrushout_cnt=0;
 static uint8_t check_sensor(unsigned char obstacleSignal){
     float batteryvoltage;
 	//uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent;
@@ -899,16 +898,34 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 		eRollingBrush_A1 = (int)bsp_GetVoltageAfterFilter(eRollingBrush);
 		if(ABS(eRollingBrush_A1 - eRollingBrush_A2) < 3)
 		{
-			eRollingBrushout_cnt++;
+			rollingbrush_error_cnt++;
 		}else
 		{
-			eRollingBrushout_cnt = 0;
+			rollingbrush_error_cnt = 0;
 		}
 		eRollingBrush_A2 = eRollingBrush_A1;
-		if(eRollingBrushout_cnt > 30) 
+		if(rollingbrush_error_cnt > 30) 
 		{
-			eRollingBrushout_cnt = 0;
+			rollingbrush_error_cnt = 0;
 			return  motorRolling_error;
+		}
+		
+	}
+	//±ßË¢µçÁ÷¼ì²â
+	if(check_sensor_cnt%5)
+	{
+		eSideBrush_A = (int)bsp_GetVoltageAfterFilter(eSideBrush);
+		if(eSideBrush_A > 420)
+		{
+			sidebrush_error_cnt++;
+		}else
+		{
+			sidebrush_error_cnt = 0;
+		}
+		if(sidebrush_error_cnt > 3) 
+		{
+			sidebrush_error_cnt = 0;
+			return  motorSide_error;
 		}
 		
 	}
@@ -1082,7 +1099,13 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         bsp_SperkerPlay(Song14); /*¹öË¢Òì³£*/
         return 1;
 	}
-    
+    if(check_sensor_return_value  == motorSide_error)
+	{
+        bsp_StopUpdateCleanStrategyB();
+        bsp_SperkerPlay(Song15); /*±ßË¢Òì³£*/
+        return 1;
+	}
+	
 #endif
     current_pose->x=current_pose->x-x_error;
     current_pose->y=current_pose->y-y_error;
