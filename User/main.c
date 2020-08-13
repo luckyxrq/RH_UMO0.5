@@ -568,6 +568,8 @@ static void bsp_KeySuspend(void)
 		bsp_SperkerPlay(Song30);
 	}
 	
+	PUMP_OFF();
+	
 	/*设置上一次按键值*/
 	bsp_SetLastKeyState(eKEY_NONE);
 }
@@ -669,75 +671,75 @@ static void bsp_KeyProc(void)
 			
 			case KEY_LONG_CLEAN: /*清扫*/
 			{
-				DEBUG("清扫按键长按\r\n");
-				
-				//清扫开关打开
-				work_switch_go = true;
-				bsp_SetUploadMapIdIndex();
-				
-//				/*首先判断是否主机悬空*/
-//				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
-//				{
-//					bsp_SperkerPlay(Song16);
-//					return;
-//				}
+//				DEBUG("清扫按键长按\r\n");
 //				
-//				/*首先判断尘盒*/
-//				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
+//				//清扫开关打开
+//				work_switch_go = true;
+//				bsp_SetUploadMapIdIndex();
+//				
+////				/*首先判断是否主机悬空*/
+////				if(!GetCmdStartUpload() && bsp_OffSiteGetState() == OffSiteBoth)   /*前提不处于上传状态*/
+////				{
+////					bsp_SperkerPlay(Song16);
+////					return;
+////				}
+////				
+////				/*首先判断尘盒*/
+////				if(!GetCmdStartUpload() && bsp_DustBoxGetState() == DustBoxOutside) /*前提不处于上传状态*/
+////				{
+////					bsp_SperkerPlay(Song9);
+////					return;
+////				}
+//				
+//				bsp_SperkerPlay(Song3);
+//				bsp_IRD_StopWork();
+//				
+//				/*加入后退*/
+//			    if(bsp_IsTouchChargePile())
 //				{
-//					bsp_SperkerPlay(Song9);
-//					return;
+//					bsp_CleanZeroYaw();
+//					vTaskDelay(1000);
+//					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-150));
+//					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
+//					vTaskDelay(1000);
+//					bsp_SetMotorSpeed(MotorLeft, 0);
+//					bsp_SetMotorSpeed(MotorRight,0);
+//					vTaskDelay(500);
+//					if(isODDStart) 
+//					{	
+//						bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+200));
+//						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-200));
+//					}
+//					else
+//					{
+//						bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-200));
+//						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+200));
+//					}
+//					vTaskDelay(1900);
+//					bsp_SetMotorSpeed(MotorLeft, 0);
+//					bsp_SetMotorSpeed(MotorRight,0);
+//					vTaskDelay(500);
+//					if(isODDStart) 
+//					{	
+//						isODDStart = false;
+//					}
+//					else
+//					{
+//						isODDStart = true;
+//						bsp_CleanZeroYaw();
+//					}
+//						
+//					vTaskDelay(50);
 //				}
-				
-				bsp_SperkerPlay(Song3);
-				bsp_IRD_StopWork();
-				
-				/*加入后退*/
-			    if(bsp_IsTouchChargePile())
-				{
-					bsp_CleanZeroYaw();
-					vTaskDelay(1000);
-					bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-150));
-					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-150));
-					vTaskDelay(1000);
-					bsp_SetMotorSpeed(MotorLeft, 0);
-					bsp_SetMotorSpeed(MotorRight,0);
-					vTaskDelay(500);
-					if(isODDStart) 
-					{	
-						bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(+200));
-						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(-200));
-					}
-					else
-					{
-						bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(-200));
-						bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(+200));
-					}
-					vTaskDelay(1900);
-					bsp_SetMotorSpeed(MotorLeft, 0);
-					bsp_SetMotorSpeed(MotorRight,0);
-					vTaskDelay(500);
-					if(isODDStart) 
-					{	
-						isODDStart = false;
-					}
-					else
-					{
-						isODDStart = true;
-						bsp_CleanZeroYaw();
-					}
-						
-					vTaskDelay(50);
-				}
-					
-				bsp_StartUpdateCleanStrategyB();
-				//bsp_StartEdgewiseRun();
-				
-				if(!DEBUG_CLOSE_CLEAN_MOTOR){
-				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
-				}
+//					
+//				bsp_StartUpdateCleanStrategyB();
+//				//bsp_StartEdgewiseRun();
+//				
+//				if(!DEBUG_CLOSE_CLEAN_MOTOR){
+//				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+//				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+//				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
+//				}
 				
 				
 				/*设置上一次按键值*/
@@ -746,6 +748,8 @@ static void bsp_KeyProc(void)
 				bsp_SetLedState(AT_CLEAN);
 				isSearchCharge = false;
 				bsp_ClearKey();
+				
+//				PUMP_OFF();
 				
 			}break;
 			

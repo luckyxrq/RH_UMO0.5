@@ -42,5 +42,9 @@ void bsp_SwOff(SW_ID sw);
 void bsp_InitSW(void);
 
 
+
+#define PUMP_ON()   bsp_SwOn(SW_VSLAM_POWER)
+#define PUMP_OFF()  bsp_SwOff(SW_VSLAM_POWER)
+
 #endif
 

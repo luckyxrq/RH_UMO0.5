@@ -46,7 +46,7 @@ void bsp_InitSW(void)
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_MOTOR_POWER;
 	GPIO_Init(GPIO_PORT_MOTOR_POWER, &GPIO_InitStructure);
 	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;	/* 开漏输出 */
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_VSLAM_POWER;
 	GPIO_Init(GPIO_PORT_VSLAM_POWER, &GPIO_InitStructure);
 	
