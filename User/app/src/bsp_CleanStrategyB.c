@@ -240,6 +240,10 @@ extern CLIFFADCVALUE cliff_valueB;
 
 extern uint8_t  work_mode;
 
+//狭小空间处理翘屁股
+unsigned char DealWithAlice=0;
+bool boolDealWithAlice=false;
+
 static void right_edge_judgment_repeat(void)
 {
 	if(adcRealTime[9]>100&&adcRealTime[9]<1500){
@@ -474,22 +478,36 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity,unsign
             {
             }
         }
+//狭小空间处理翘屁股
 		else{
 			if((&cliff_valueB)->cliffValue0 == 0){
 				if(front_obstacle == obstacleSignal||right_obstacle == obstacleSignal){
-					leftVelocity=-100;
-					rightVelocity=100;
+					DealWithAlice=50;
+					boolDealWithAlice=true;
 				}
 				if(left_obstacle == obstacleSignal){
-					leftVelocity=100;
-					rightVelocity=-100;
+					DealWithAlice=50;
+					boolDealWithAlice=false;
 				}
 			}
 		}
+//狭小空间处理翘屁股
     }
+//狭小空间处理翘屁股
+	if(DealWithAlice>0){
+		DealWithAlice--;
+		if(boolDealWithAlice==true){
+			leftVelocity=-200;
+			rightVelocity=200;
+		}
+		if(boolDealWithAlice==false){
+			leftVelocity=200;
+			rightVelocity=-200;
+		}
+	}
+//狭小空间处理翘屁股
     bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
     bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
-	
 	Last_cmd_angular_velocity = *angular_velocity;
 }
 
@@ -608,7 +626,8 @@ void bsp_ResetCleanStrategyBStatus(void){
     bsp_ResetPosArgument();
     //栅格图复位
     //bsp_StartUpdateGridMap();
-    
+	DealWithAlice=0;
+	boolDealWithAlice=false;
 }
 
 
@@ -8766,7 +8785,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         }
         break;
     case  GOSTR_YAW_EQUAL_ABS57_LRUN_CL_DLYL:
-        if (obstacleSignal !=none_obstacle)
+        if (obstacleSignal !=none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
 			linear_velocity = 0;
             angular_velocity = 0;
