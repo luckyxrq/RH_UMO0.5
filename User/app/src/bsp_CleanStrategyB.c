@@ -950,20 +950,20 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
             cliff_error_cnt = 0;
         }
     }
-//    //Õ”¬›“«“Ï≥£ºÏ≤‚
-//    if(check_sensor_cnt%50){
-//        if(bsp_AngleReadRaw() == 0)   
-//        {
-//            imu_error_cnt++;
-//            if(imu_error_cnt >50)
-//            {
-//                imu_error_cnt = 0;
-//                return imu_error;
-//            }
-//        }else{
-//            imu_error_cnt = 0;
-//        }
-//    }
+    //Õ”¬›“«“Ï≥£ºÏ≤‚
+    if(check_sensor_cnt%50){
+        if(bsp_AngleReadRaw() == 0)   
+        {
+            imu_error_cnt++;
+            if(imu_error_cnt >50)
+            {
+                imu_error_cnt = 0;
+                return imu_error;
+            }
+        }else{
+            imu_error_cnt = 0;
+        }
+    }
 #if 0	
     //∫ÏÕ‚“Ï≥£ºÏ≤‚
     if(check_sensor_cnt%200){

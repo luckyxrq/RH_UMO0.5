@@ -1,8 +1,8 @@
 .\flash\obj\bsp_user_lib.o: ..\..\User\bsp\src\bsp_user_lib.c
 .\flash\obj\bsp_user_lib.o: ..\..\User\bsp\bsp.h
 .\flash\obj\bsp_user_lib.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\bsp_user_lib.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stddef.h
-.\flash\obj\bsp_user_lib.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\bsp_user_lib.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\bsp_user_lib.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\bsp_user_lib.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\bsp_user_lib.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\bsp_user_lib.o: ..\..\FreeRTOS\include\portable.h
@@ -41,10 +41,10 @@
 .\flash\obj\bsp_user_lib.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\flash\obj\bsp_user_lib.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\flash\obj\bsp_user_lib.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\flash\obj\bsp_user_lib.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdio.h
-.\flash\obj\bsp_user_lib.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\string.h
-.\flash\obj\bsp_user_lib.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\bsp_user_lib.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\bsp_user_lib.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\bsp_user_lib.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\bsp_user_lib.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\bsp_user_lib.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\bsp_user_lib.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
 .\flash\obj\bsp_user_lib.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h
 .\flash\obj\bsp_user_lib.o: ..\..\User\main.h

@@ -2,7 +2,7 @@
 .\flash\obj\protocol.o: ..\..\User\tuya_sdk\wifi.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\stm32f10x.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Include\core_cm3.h
-.\flash\obj\protocol.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\flash\obj\protocol.o: ..\..\Libraries\CMSIS\Device\ST\STM32F10x\Include\system_stm32f10x.h
@@ -36,7 +36,7 @@
 .\flash\obj\protocol.o: ..\..\User\tuya_sdk\mcu_api.h
 .\flash\obj\protocol.o: ..\..\User\bsp\bsp.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\FreeRTOS.h
-.\flash\obj\protocol.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stddef.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
 .\flash\obj\protocol.o: ..\..\User\FreeRTOSConfig.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\projdefs.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\portable.h
@@ -45,10 +45,10 @@
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\mpu_wrappers.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\task.h
 .\flash\obj\protocol.o: ..\..\FreeRTOS\include\list.h
-.\flash\obj\protocol.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdio.h
-.\flash\obj\protocol.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\string.h
-.\flash\obj\protocol.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdlib.h
-.\flash\obj\protocol.o: C:\soft\MDK\ARM\ARMCC\Bin\..\include\stdbool.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\protocol.o: D:\soft\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\flash\obj\protocol.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT.h
 .\flash\obj\protocol.o: ..\..\SEGGER_RTT_V618c\RTT\SEGGER_RTT_Conf.h
 .\flash\obj\protocol.o: ..\..\User\main.h
