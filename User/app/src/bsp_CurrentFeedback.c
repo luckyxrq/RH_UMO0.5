@@ -428,11 +428,11 @@ void bsp_PrintAllVoltage(void)
 
 /*******************************************滤波专用变量**************************************************/
 
-#define ARR_SIZE  16
+#define ARR_SIZE  3//16
 
 #define FILTER_ARR            ARR_SIZE
-#define ARR_FILTER_START      2
-#define ARR_FILTER_END        ARR_SIZE - 2 
+#define ARR_FILTER_START      1//2
+#define ARR_FILTER_END        ARR_SIZE - 1//2 
 
 static float g_vMotorLeft        = 0.0F;
 static float g_vMotorRight       = 0.0F;

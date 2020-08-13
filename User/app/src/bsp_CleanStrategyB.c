@@ -854,6 +854,8 @@ void ResetReturnChargeStationStatus(void){
     return_charge_station_flag  = 0;
 }
 
+
+int eRollingBrush_A1=0,eRollingBrush_A2=0,eRollingBrushout_cnt=0;
 static uint8_t check_sensor(unsigned char obstacleSignal){
     float batteryvoltage;
 	//uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent;
@@ -891,7 +893,26 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
                 return  battery_out_flag;//battery_out_flag;
             }
         }
+	//¹öË¢µçÁ÷¼ì²â
+	if(check_sensor_cnt%3)
+	{
+		eRollingBrush_A1 = (int)bsp_GetVoltageAfterFilter(eRollingBrush);
+		if(ABS(eRollingBrush_A1 - eRollingBrush_A2) < 3)
+		{
+			eRollingBrushout_cnt++;
+		}else
+		{
+			eRollingBrushout_cnt = 0;
+		}
+		eRollingBrush_A2 = eRollingBrush_A1;
+		if(eRollingBrushout_cnt > 30) 
+		{
+			eRollingBrushout_cnt = 0;
+			return  motorRolling_error;
+		}
 		
+	}
+	
 //		motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*1000;
 //		if(motorLeftVoltage > 3000)   // 
 //        {
@@ -1049,12 +1070,18 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     if(check_sensor_return_value  == imu_error)
     {
         //log_debug("ÍÓÂÝÒÇÊý¾ÝÒì³££¡\n");
-        bsp_InitAngle(); 
         bsp_StopUpdateCleanStrategyB();
+		bsp_InitAngle(); 
         bsp_SperkerPlay(Song8); /*ÍÓÂÝÒÇÊý¾ÝÒì³£*/
         while(bsp_SpeakerIsBusy()){}
         return 1;
     }
+	if(check_sensor_return_value  == motorRolling_error)
+	{
+        bsp_StopUpdateCleanStrategyB();
+        bsp_SperkerPlay(Song14); /*¹öË¢Òì³£*/
+        return 1;
+	}
     
 #endif
     current_pose->x=current_pose->x-x_error;
