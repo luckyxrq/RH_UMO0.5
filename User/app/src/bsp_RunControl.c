@@ -202,9 +202,10 @@ void bsp_LedAppProc(void)
 	{
 		if(xTaskGetTickCount() - ledAppProc.delay >= 360)
 		{
-			bsp_LedToggle(LED_LOGO_CLEAN);
-			bsp_LedToggle(LED_LOGO_CHARGE);
-			bsp_LedOff(LED_LOGO_POWER);
+//			bsp_LedToggle(LED_LOGO_CLEAN);
+//			bsp_LedToggle(LED_LOGO_CHARGE);
+			bsp_LedToggle(LED_LOGO_POWER);
+//			bsp_LedOff(LED_LOGO_POWER);
 			bsp_LedOff(LED_COLOR_YELLOW);
 			bsp_LedOff(LED_COLOR_GREEN);
 			bsp_LedOff(LED_COLOR_RED);

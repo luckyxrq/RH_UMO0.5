@@ -616,7 +616,7 @@ static void bsp_KeyProc(void)
 			
 
 			
-			case KEY_LONG_POWER: /*关机*/
+			case KEY_9_DOWN: /*关机*/
 			{
 				DEBUG("电源按键长按\r\n");
 				
@@ -762,7 +762,7 @@ static void bsp_KeyProc(void)
 				
 			}break;
 			
-			case KEY_9_DOWN:
+			case KEY_LONG_POWER:
 			{
 				DEBUG("重新配网：同时按充电和清扫\r\n");
 				bsp_SperkerPlay(Song29);

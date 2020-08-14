@@ -67,7 +67,7 @@ void bsp_SleepProc(void)
 			{
 				if(xTaskGetTickCount() - sleepProc.lastFreeTime >= FREE_LONG_TIME_SLEEP)
 				{
-					bsp_PutKey(KEY_LONG_POWER); /*模拟按键按下进入休眠模式*/
+					bsp_PutKey(KEY_9_DOWN);//KEY_LONG_POWER); /*模拟按键按下进入休眠模式*/
 					sleepProc.action = 0;
 				}
 			}
