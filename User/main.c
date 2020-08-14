@@ -176,7 +176,6 @@ static void vTaskDecision(void *pvParameters)
 	
 	UNUSED(count);
 	
-	vTaskDelay(2000);
     while(1)
     {
 
@@ -366,11 +365,11 @@ static void vTaskPerception(void *pvParameters)
 */
 static void vTaskKey(void *pvParameters)
 {
+	vTaskDelay(1000);
     while(1)
     {
 		/* 处理按键事件 */
         bsp_KeyProc();
-		
 		
 		//RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
@@ -735,15 +734,23 @@ static void bsp_KeyProc(void)
 						
 					vTaskDelay(50);
 				}
-					
-				bsp_StartUpdateCleanStrategyB();
-				//bsp_StartEdgewiseRun();
 				
 				if(!DEBUG_CLOSE_CLEAN_MOTOR){
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
 				}
+				vTaskDelay(2000);		
+				
+				bsp_StartUpdateCleanStrategyB();
+				//bsp_StartEdgewiseRun();
+				
+//				if(!DEBUG_CLOSE_CLEAN_MOTOR){
+//				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+//				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+//				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
+//				}
+//				vTaskDelay(1900);
 				
 				
 				/*设置上一次按键值*/

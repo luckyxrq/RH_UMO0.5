@@ -101,13 +101,13 @@ void bsp_PowerOnLedProc(void)
 	bsp_LedOn(LED_LOGO_POWER);
 	bsp_LedOn(LED_LOGO_CHARGE);
 	
-	for(i=0;i<6;i++)
+	for(i=0;i<3;i++)
 	{
 		bsp_LedToggle(LED_LOGO_CLEAN);
 		bsp_LedToggle(LED_LOGO_POWER);
 		bsp_LedToggle(LED_LOGO_CHARGE);
 		
-		bsp_DelayMS(600);
+		bsp_DelayMS(500);
 	}
 	
 	bsp_LedOn(LED_LOGO_CLEAN);
