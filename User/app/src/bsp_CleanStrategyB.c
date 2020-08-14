@@ -1947,6 +1947,22 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_right_rightrun_step_status = TURN_CLOCK_TARGET_YAW_NEG82_CR_DRYL;
             break;
         }
@@ -1999,6 +2015,22 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_right_rightrun_step_status = TURN_CLOCK_TARGET_YAW_ABS173_CR_DRYL;
             break;
         }
@@ -2157,6 +2189,22 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_right_rightrun_step_status = MORE_TRY_BREAK_BYPASS_CR_DRYM;
             break;
         }
@@ -2690,6 +2738,22 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_left_rightrun_step_status = MORE_TRY_BREAK_BYPASS_CL_DRYL;
             break;
         }
@@ -3091,6 +3155,22 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_left_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_NEG98_CL_DRYM;
             break;
         }
@@ -3144,8 +3224,22 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_left_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_ABS8_CL_DRYM;
             break;
         }
@@ -3348,6 +3442,22 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_front_rightrun_step_status = TURN_CLOCK_TARGET_YAW_NEG82_CF_DRYL;
             break;
         }
@@ -3394,6 +3504,22 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
         }
         if (my_abs(last_position_y - current_pose->y) > (lateral_move_distance))
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_front_rightrun_step_status = TURN_CLOCK_TARGET_YAW_ABS173_CF_DRYL;
             break;
         }
@@ -3497,6 +3623,22 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_front_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_ABS93_CF_DRYM;
             break;
         }
@@ -3543,6 +3685,22 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
         }
         if (my_abs(last_position_y - current_pose->y) > (lateral_move_distance))
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>2&&j<GRIDWIDTH){
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i-1][j-2]=0;
+					gridmap.map[i][j-2]=0;
+					gridmap.map[i+1][j-2]=0;
+					gridmap.map[i-1][j-3]=0;
+					gridmap.map[i][j-3]=0;
+					gridmap.map[i+1][j-3]=0;
+				}
+			
+			}
             collision_front_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_ABS10_CF_DRYM;
             break;
         }
@@ -7585,6 +7743,21 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_right_rightrun_step_status = TURN_CLOCK_TARGET_YAW_POS98_LRUN_CR_DLYM;
             break;
         }
@@ -7635,6 +7808,21 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_right_rightrun_step_status = TURN_CLOCK_TARGET_YAW_ABS3_LRUN_CR_DLYM;
             break;
         }
@@ -7794,6 +7982,21 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_right_rightrun_step_status = MORE_TRY_BREAK_BYPASS_LRUN_CR_DLYL;
             break;
         }
@@ -8441,6 +8644,21 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance / 2)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_left_rightrun_step_status = MORE_TRY_BREAK_BYPASS_LRUN_CL_DLYM;
             break;
         }
@@ -8900,8 +9118,21 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
-            linear_velocity = 0;
-            angular_velocity = 0;
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_left_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_ABS87_LRUN_CL_DLYL;
             break;
         }
@@ -8954,6 +9185,21 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_left_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_ABS173_LRUN_CL_DLYL;
             break;
         }
@@ -9152,6 +9398,21 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_front_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_ABS82_LRUN_CF_DLYL;
             break;
         }
@@ -9200,6 +9461,21 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
         }
         if (my_abs(last_position_y - current_pose->y) > (lateral_move_distance))
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_front_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_ABS173_LRUN_CF_DLYL;
             break;
         }
@@ -9298,6 +9574,21 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
         }
         if (my_abs(last_position_y - current_pose->y) > lateral_move_distance)
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_front_rightrun_step_status = TURN_CLOCK_TARGET_YAW_ABS98_LRUN_CF_DLYM;
             break;
         }
@@ -9344,6 +9635,21 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
         }
         if (my_abs(last_position_y - current_pose->y) > (lateral_move_distance))
         {
+			if(adcRealTime[2]>100||adcRealTime[3]>100||adcRealTime[4]>100){
+				i=(current_pose->x+half_map_wide)/GRIDWIDTH;
+				j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+				if(i>0&&i<99&&j>0&&j<97){
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i-1][j+2]=0;
+					gridmap.map[i][j+2]=0;
+					gridmap.map[i+1][j+2]=0;
+					gridmap.map[i-1][j+3]=0;
+					gridmap.map[i][j+3]=0;
+					gridmap.map[i+1][j+3]=0;
+				}
+			}
             collision_front_rightrun_step_status = TURN_CLOCK_TARGET_YAW_ABS8_LRUN_CF_DLYM;
             break;
         }

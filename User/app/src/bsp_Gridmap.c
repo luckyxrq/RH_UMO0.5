@@ -1129,7 +1129,7 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
                                                     leak=true;
                                                     for( t=0;t<On_extreme_point_y_index;t++){
                                                         if(On_extreme_point_y[t]==j-1||On_extreme_point_y[t]==j||On_extreme_point_y[t]==j+1){
-                                                            if (x_boundary-On_extreme_point_x[t]>8)
+                                                            if(x_boundary-On_extreme_point_x[t]>8)
                                                             {
                                                                 break;
                                                             }
