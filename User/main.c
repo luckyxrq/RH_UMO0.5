@@ -112,7 +112,7 @@ static void vTaskMapping(void *pvParameters)
     while(1)
     {
      	
-		//if(!GetCmdStartUpload())
+		if(!GetCmdStartUpload())
 		{
 			#if 1 /*¸üÐÂµØÍ¼*/
 		
