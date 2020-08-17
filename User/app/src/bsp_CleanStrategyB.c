@@ -13,6 +13,8 @@
 #define compression_map_x 25
 #define compression_map_y 25
 
+#define MAX_VELOCITY 350 
+#define MIN_VELOCITY 50
 
 unsigned char rightmapmin=0;
 unsigned char rightmapmax=0;
@@ -434,20 +436,20 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
         rightVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 + Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
         
         if(leftVelocity>0){
-            if(leftVelocity<50) leftVelocity = 50;
-            if(leftVelocity>300) leftVelocity = 300;
+            if(leftVelocity<MIN_VELOCITY) leftVelocity = MIN_VELOCITY;
+            if(leftVelocity>MAX_VELOCITY) leftVelocity = MAX_VELOCITY;
         }
         if(rightVelocity>0){
-            if(rightVelocity<50) rightVelocity = 50;
-            if(rightVelocity>300) rightVelocity = 300;
+            if(rightVelocity<MIN_VELOCITY) rightVelocity = MIN_VELOCITY;
+            if(rightVelocity>MAX_VELOCITY) rightVelocity = MAX_VELOCITY;
         }
         if(leftVelocity<0){
-            if(leftVelocity>-50) leftVelocity = -50;
-            if(leftVelocity<-300) leftVelocity = -300;
+            if(leftVelocity>-MIN_VELOCITY) leftVelocity = -MIN_VELOCITY;
+            if(leftVelocity<-MAX_VELOCITY) leftVelocity = -MAX_VELOCITY;
         }
         if(rightVelocity<0){
-            if(rightVelocity>-50) rightVelocity = -50;
-            if(rightVelocity<-300) rightVelocity = -300;
+            if(rightVelocity>-MIN_VELOCITY) rightVelocity = -MIN_VELOCITY;
+            if(rightVelocity<-MAX_VELOCITY) rightVelocity = -MAX_VELOCITY;
         }
     }
     
@@ -485,187 +487,12 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
             }
         }
     }
-//	    if(my_abs(roll)<=175){
-//        if(leftVelocity>0&&rightVelocity>0){
-//            if(roll >= -165 && roll <= -100){
-//                leftVelocity=200;
-//                rightVelocity=200;
-//            }
-//            else if(roll >= -170 && roll <= -100){
-//                leftVelocity=100;
-//                rightVelocity=100;
-//            }
-//            else if(roll >= -175 && roll <= -100){
-//                leftVelocity=30;
-//                rightVelocity=30;
-//            }
-//            else if(roll >= 100 && roll <= 165){
-//                leftVelocity=300;
-//                rightVelocity=300;
-//            }
-//            else if(roll >= 100 && roll < 170){
-//                leftVelocity=280;
-//                rightVelocity=280;
-//            }
-//            else if(roll >= 100 && roll < 172){
-//                leftVelocity=250;
-//                rightVelocity=250;
-//            }
-//            else                                      
-//            {
-//            }
-//        }
-//   }
+
     bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
     bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
 	
 	Last_cmd_angular_velocity = *angular_velocity;
 }
-
-//static void sendvelocity(double* linear_velocity,double* angular_velocity){
-//    short leftVelocity,rightVelocity;
-//    double linear_velocity_IR,cmd_linear_velocity,cmd_angular_velocity;
-//    cmd_linear_velocity = *linear_velocity;
-//    cmd_angular_velocity = *angular_velocity;
-//    
-//    if(cmd_linear_velocity == 0 && cmd_angular_velocity == 0){
-//        leftVelocity = 0;
-//        rightVelocity = 0;
-//        bsp_PidClear(MotorLeft);
-//        bsp_PidClear(MotorRight);
-//        speed_pid_cnt_default = 1;
-//        speed_pid_cnt_ir = 1;
-//        speed_pid_cnt_goback = 1;
-//		speed_pid_cnt_realgo =1;
-//    }
-//    else{
-//        if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100)){
-//            if(IRSensorData_StrategyB[0]||IRSensorData_StrategyB[1]|| IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]||IRSensorData_StrategyB[5]||IRSensorData_StrategyB[6]||IRSensorData_StrategyB[7]){
-//                if(cmd_linear_velocity==200){
-//                    if(IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]){
-//                        cmd_linear_velocity = 0.5*cmd_linear_velocity;
-//                    }
-//                }
-//                else{
-//                    cmd_linear_velocity = 0.5*cmd_linear_velocity;
-//                }
-//                linear_velocity_IR = cmd_linear_velocity;            
-//            }
-//            if(cmd_linear_velocity <0){
-//                cmd_linear_velocity = -160;
-//                if(speed_pid_cnt_goback == 1){
-//                    bsp_PidClear(MotorLeft);
-//                    bsp_PidClear(MotorRight);
-//                }
-//                if(speed_pid_cnt_goback <=50) speed_pid_cnt_goback +=1;
-//                if(speed_pid_cnt_goback >50)  speed_pid_cnt_goback  =50; 
-//                cmd_linear_velocity = speed_pid_cnt_goback*0.02*(cmd_linear_velocity+40)-40;	
-//            }
-//            else{
-//                speed_pid_cnt_goback = 1;
-//            }
-//            if(cmd_linear_velocity == long_stra_vel){
-//                if(speed_pid_cnt_default == 1) {
-//                    bsp_PidClear(MotorLeft);
-//                    bsp_PidClear(MotorRight);
-//                }
-//                if(speed_pid_cnt_default <=20) speed_pid_cnt_default +=1;
-//                if(speed_pid_cnt_default >20)  speed_pid_cnt_default  =20; 
-//                cmd_linear_velocity = speed_pid_cnt_default*0.05*(cmd_linear_velocity-40) + 40;	
-//            }
-//            else{
-//                speed_pid_cnt_default = 1;
-//            }
-//			if(cmd_linear_velocity == real_gostaright_vel){
-//                if(speed_pid_cnt_realgo == 1) {
-//                    bsp_PidClear(MotorLeft);
-//                    bsp_PidClear(MotorRight);
-//                }
-//                if(speed_pid_cnt_realgo <=20) speed_pid_cnt_realgo +=1;
-//                if(speed_pid_cnt_realgo >20)  speed_pid_cnt_realgo  =20; 
-//                cmd_linear_velocity = speed_pid_cnt_realgo*0.05*(cmd_linear_velocity-40) + 40;	
-//            }
-//            else{
-//                speed_pid_cnt_realgo = 1;
-//            }
-//            if(cmd_linear_velocity ==  linear_velocity_IR){
-//                if(speed_pid_cnt_ir == 1){
-//                    bsp_PidClear(MotorLeft);
-//                    bsp_PidClear(MotorRight);
-//                }
-//                if(speed_pid_cnt_ir <=20) speed_pid_cnt_ir +=1;
-//                if(speed_pid_cnt_ir >20)  speed_pid_cnt_ir  =20; 
-//                if(cmd_linear_velocity >  40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity-40) + 40;	
-//                if(cmd_linear_velocity < -40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity+40) - 40;	
-//            }
-//            else{
-//                speed_pid_cnt_ir = 1;
-//            }            
-//        }
-//        else{
-//            speed_pid_cnt_default = 1;
-//            speed_pid_cnt_ir = 1;
-//            speed_pid_cnt_goback = 1;
-//			speed_pid_cnt_realgo =1;
-//        }
-//        leftVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 - Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
-//        rightVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 + Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
-//        
-//        if(leftVelocity>0){
-//            if(leftVelocity<50) leftVelocity = 50;
-//            if(leftVelocity>300) leftVelocity = 300;
-//        }
-//        if(rightVelocity>0){
-//            if(rightVelocity<50) rightVelocity = 50;
-//            if(rightVelocity>300) rightVelocity = 300;
-//        }
-//        if(leftVelocity<0){
-//            if(leftVelocity>-50) leftVelocity = -50;
-//            if(leftVelocity<-300) leftVelocity = -300;
-//        }
-//        if(rightVelocity<0){
-//            if(rightVelocity>-50) rightVelocity = -50;
-//            if(rightVelocity<-300) rightVelocity = -300;
-//        }
-//    }
-//    
-//    int roll = (int)bsp_IMU_GetData(ROLL);
-//    if(my_abs(roll)<172){
-//        if(leftVelocity>0&&rightVelocity>0){
-//            if(roll >= -165 && roll <= -100){
-//                leftVelocity=150;
-//                rightVelocity=150;
-//            }
-//            else if(roll > -170 && roll <= -100){
-//                leftVelocity=100;
-//                rightVelocity=100;
-//            }
-//            else if(roll > -172 && roll <= -100){
-//                leftVelocity=30;
-//                rightVelocity=30;
-//            }
-//            else if(roll >= 100 && roll <= 165){
-//                leftVelocity=300;
-//                rightVelocity=300;
-//            }
-//            else if(roll >= 100 && roll < 170){
-//                leftVelocity=280;
-//                rightVelocity=280;
-//            }
-//            else if(roll >= 100 && roll < 172){
-//                leftVelocity=250;
-//                rightVelocity=250;
-//            }
-//            else                                      
-//            {
-//            }
-//        }
-//    }
-//    bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
-//    bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
-//}
-
-
 
 
 bool isCleanRunning(void){
@@ -676,12 +503,6 @@ void bsp_StartUpdateCleanStrategyB(void){
     
     LastCleanTimeStamp = xTaskGetTickCount();
     bsp_ResetCleanStrategyBStatus();
-    
-//    cleanstrategy.work_step_status = RIGHTRUNNING_WORK_SETP;
-//    cleanstrategy.right_running_complete  = 0;
-//    cleanstrategy.right_return_origin_complete = 0;
-//    cleanstrategy.left_running_complete = 0;
-//    cleanstrategy.left_return_origin_complete = 0;
 	
     cleanstrategy.action = 0 ;
     cleanstrategy.delay = 0 ;
@@ -777,7 +598,7 @@ void bsp_ResetCleanStrategyBStatus(void){
     mapstopupdate=false;
     
     //CurrentCleanTimeStamp  = 0;
-    
+	
     //位姿复位
     bsp_ResetPosArgument();
     //栅格图复位
