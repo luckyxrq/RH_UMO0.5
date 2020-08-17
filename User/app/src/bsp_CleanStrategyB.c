@@ -319,11 +319,8 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
 	
 	if(Last_cmd_angular_velocity != cmd_angular_velocity)
 	{
-		bsp_PidClear(MotorLeft);
-        bsp_PidClear(MotorRight);
-//        speed_pid_cnt_default = 1;
-//        speed_pid_cnt_ir = 1;
-//        speed_pid_cnt_goback = 1;
+//		bsp_PidClear(MotorLeft);
+//        bsp_PidClear(MotorRight);
 		speed_pid_cnt_realgo =1;
 		speed_pid_cnt_spin = 1;
 	}
@@ -364,15 +361,11 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
     }
     else{
         if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100)){
-            if(IRSensorData_StrategyB[0]||IRSensorData_StrategyB[1]|| IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]||IRSensorData_StrategyB[5]||IRSensorData_StrategyB[6]||IRSensorData_StrategyB[7]){
-                if(cmd_linear_velocity==200){
-                    if(IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]){
-                        cmd_linear_velocity = 0.5*cmd_linear_velocity;
-                    }
-                }
-                else{
-                    cmd_linear_velocity = 0.5*cmd_linear_velocity;
-                }
+            if( IRSensorData_StrategyB[0]||IRSensorData_StrategyB[1]|| IRSensorData_StrategyB[2]||\
+				IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]|| IRSensorData_StrategyB[5]||\
+				IRSensorData_StrategyB[6]||IRSensorData_StrategyB[7]){
+                 
+                cmd_linear_velocity = 0.5*cmd_linear_velocity;
                 linear_velocity_IR = cmd_linear_velocity;            
             }
             if(cmd_linear_velocity <0){
@@ -432,7 +425,9 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
             speed_pid_cnt_goback = 1;
 			speed_pid_cnt_realgo =1;
         }
-        leftVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 - Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
+		
+	
+		leftVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 - Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
         rightVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 + Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
         
         if(leftVelocity>0){
@@ -1392,7 +1387,18 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             break;
         }
-		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 175){
+		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 172){
+            if (Yaw > 0){
+                linear_velocity = 0;
+                angular_velocity = correction_big_turn_vel;
+            }
+            else{
+                linear_velocity = 0;
+                angular_velocity = -correction_big_turn_vel;
+            }
+            break;
+        }
+		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 174){
             if (Yaw > 0){
                 linear_velocity = 0;
                 angular_velocity = correction_big_turn_vel;
@@ -1404,6 +1410,17 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             break;
         }
         else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 176){
+            if (Yaw > 0){
+                linear_velocity = 0;
+                angular_velocity = correction_turn_vel;
+            }
+            else{
+                linear_velocity = 0;
+                angular_velocity = -correction_turn_vel;
+            }
+            break;
+        }
+        else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178){
             if (Yaw > 0){
                 linear_velocity = 0;
                 angular_velocity = correction_turn_vel;
@@ -1426,7 +1443,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             break;
         }
-		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 8)
         {
             if (Yaw > 0){
                 linear_velocity = 0;
@@ -1438,7 +1455,30 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             break;
         }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 4){
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 6){
+            if (Yaw > 0){
+                linear_velocity = 0;
+                angular_velocity = -correction_turn_vel;
+            }
+            else{
+                linear_velocity = 0;
+                angular_velocity = correction_turn_vel;
+            }
+            break;
+        }
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 4)
+        {
+            if (Yaw > 0){
+                linear_velocity = 0;
+                angular_velocity = -correction_big_turn_vel;
+            }
+            else{
+                linear_velocity = 0;
+                angular_velocity = correction_big_turn_vel;
+            }
+            break;
+        }
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2){
             if (Yaw > 0){
                 linear_velocity = 0;
                 angular_velocity = -correction_turn_vel;
