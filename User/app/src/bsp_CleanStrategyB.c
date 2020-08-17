@@ -317,6 +317,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
     cmd_linear_velocity = *linear_velocity;
     cmd_angular_velocity = *angular_velocity;
 	
+#if 0	
 	if(Last_cmd_angular_velocity != cmd_angular_velocity)
 	{
 //		bsp_PidClear(MotorLeft);
@@ -333,9 +334,9 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
                     bsp_PidClear(MotorLeft);
                     bsp_PidClear(MotorRight);
                 }
-                if(speed_pid_cnt_spin <=20) speed_pid_cnt_spin +=1;
-                if(speed_pid_cnt_spin >20)  speed_pid_cnt_spin  =20; 
-                cmd_angular_velocity = speed_pid_cnt_spin*0.05*(cmd_angular_velocity+10)-10;	
+                if(speed_pid_cnt_spin <=10) speed_pid_cnt_spin +=1;
+                if(speed_pid_cnt_spin >10)  speed_pid_cnt_spin  =10; 
+                cmd_angular_velocity = speed_pid_cnt_spin*0.1*(cmd_angular_velocity+10)-10;	
         }
         if(cmd_angular_velocity > 0)
 		{
@@ -343,9 +344,9 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
                     bsp_PidClear(MotorLeft);
                     bsp_PidClear(MotorRight);
                 }
-                if(speed_pid_cnt_spin <=20) speed_pid_cnt_spin +=1;
-                if(speed_pid_cnt_spin >20)  speed_pid_cnt_spin  =20; 
-                cmd_angular_velocity = speed_pid_cnt_spin*0.05*(cmd_angular_velocity-10) + 10;	
+                if(speed_pid_cnt_spin <=10) speed_pid_cnt_spin +=1;
+                if(speed_pid_cnt_spin >10)  speed_pid_cnt_spin  =10; 
+                cmd_angular_velocity = speed_pid_cnt_spin*0.1*(cmd_angular_velocity-10) + 10;	
 		}
 	}
     if(cmd_linear_velocity == 0 && cmd_angular_velocity == 0){
@@ -403,7 +404,7 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
                 cmd_linear_velocity = speed_pid_cnt_realgo*0.05*(cmd_linear_velocity-40) + 40;	
             }
             else{
-                speed_pid_cnt_realgo = 1;
+                //speed_pid_cnt_realgo = 1;
             }
             if(cmd_linear_velocity ==  linear_velocity_IR){
                 if(speed_pid_cnt_ir == 1){
@@ -483,6 +484,77 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
         }
     }
 
+	
+#endif
+
+	if( IRSensorData_StrategyB[0]||IRSensorData_StrategyB[1]|| IRSensorData_StrategyB[2]||\
+				IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]|| IRSensorData_StrategyB[5]||\
+				IRSensorData_StrategyB[6]||IRSensorData_StrategyB[7]){
+                 
+                cmd_linear_velocity = 0.5*cmd_linear_velocity;
+                linear_velocity_IR = cmd_linear_velocity; 				
+            }
+	if(cmd_linear_velocity <0){
+		cmd_linear_velocity = -160;
+		if(speed_pid_cnt_goback == 1){
+			bsp_PidClear(MotorLeft);
+			bsp_PidClear(MotorRight);
+		}
+		if(speed_pid_cnt_goback <=20) speed_pid_cnt_goback +=1;
+		if(speed_pid_cnt_goback >20)  speed_pid_cnt_goback  =20; 
+		cmd_linear_velocity = speed_pid_cnt_goback*0.05*(cmd_linear_velocity+40)-40;	
+	}
+	else{
+		speed_pid_cnt_goback = 1;
+	}
+	if(cmd_linear_velocity == real_gostaright_vel){
+		if(speed_pid_cnt_realgo == 1) {
+			bsp_PidClear(MotorLeft);
+			bsp_PidClear(MotorRight);
+		}
+		if(speed_pid_cnt_realgo <=20) speed_pid_cnt_realgo +=1;
+		if(speed_pid_cnt_realgo >20)  speed_pid_cnt_realgo  =20; 
+		cmd_linear_velocity = speed_pid_cnt_realgo*0.05*(cmd_linear_velocity-40) + 40;	
+	}
+	else
+	{
+		speed_pid_cnt_realgo =1;	
+	}
+	if(cmd_linear_velocity == long_stra_vel || cmd_linear_velocity == 200 ){
+		if(speed_pid_cnt_default == 1) {
+			bsp_PidClear(MotorLeft);
+			bsp_PidClear(MotorRight);
+		}
+		if(speed_pid_cnt_default <=20) speed_pid_cnt_default +=1;
+		if(speed_pid_cnt_default >20)  speed_pid_cnt_default  =20; 
+		cmd_linear_velocity = speed_pid_cnt_default*0.05*(cmd_linear_velocity-40) + 40;	
+	}
+	else{
+		speed_pid_cnt_default = 1;
+	}
+	
+	leftVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 - Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
+    rightVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 + Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
+        
+	
+	
+	
+	if(leftVelocity>0){
+		if(leftVelocity<MIN_VELOCITY) leftVelocity = MIN_VELOCITY;
+		if(leftVelocity>MAX_VELOCITY) leftVelocity = MAX_VELOCITY;
+	}
+	if(rightVelocity>0){
+		if(rightVelocity<MIN_VELOCITY) rightVelocity = MIN_VELOCITY;
+		if(rightVelocity>MAX_VELOCITY) rightVelocity = MAX_VELOCITY;
+	}
+	if(leftVelocity<0){
+		if(leftVelocity>-MIN_VELOCITY) leftVelocity = -MIN_VELOCITY;
+		if(leftVelocity<-MAX_VELOCITY) leftVelocity = -MAX_VELOCITY;
+	}
+	if(rightVelocity<0){
+		if(rightVelocity>-MIN_VELOCITY) rightVelocity = -MIN_VELOCITY;
+		if(rightVelocity<-MAX_VELOCITY) rightVelocity = -MAX_VELOCITY;
+	}
     bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
     bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
 	
@@ -712,19 +784,32 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 	if(check_sensor_cnt%3)
 	{
 		eRollingBrush_A1 = (int)bsp_GetVoltageAfterFilter(eRollingBrush);
-		if(ABS(eRollingBrush_A1 - eRollingBrush_A2) < 3)
+		if(eRollingBrush_A1 > 910)
 		{
 			rollingbrush_error_cnt++;
 		}else
 		{
 			rollingbrush_error_cnt = 0;
 		}
-		eRollingBrush_A2 = eRollingBrush_A1;
-		if(rollingbrush_error_cnt > 30) 
+		if(rollingbrush_error_cnt > 2) 
 		{
 			rollingbrush_error_cnt = 0;
 			return  motorRolling_error;
 		}
+		
+//		if(ABS(eRollingBrush_A1 - eRollingBrush_A2) < 3)
+//		{
+//			rollingbrush_error_cnt++;
+//		}else
+//		{
+//			rollingbrush_error_cnt = 0;
+//		}
+//		eRollingBrush_A2 = eRollingBrush_A1;
+//		if(rollingbrush_error_cnt > 30) 
+//		{
+//			rollingbrush_error_cnt = 0;
+//			return  motorRolling_error;
+//		}
 		
 	}
 	//±ßË¢µçÁ÷¼ì²â
@@ -1389,45 +1474,45 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         }
 		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 172){
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = correction_big_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = 25;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = -correction_big_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = -25;
             }
             break;
         }
 		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 174){
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = correction_big_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = 20;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = -correction_big_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = -20;
             }
             break;
         }
         else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 176){
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = correction_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = 15;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = -correction_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = -15;
             }
             break;
         }
         else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178){
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = correction_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = 10;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = -correction_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = -10;
             }
             break;
         }		
@@ -1446,46 +1531,46 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 8)
         {
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = -correction_big_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = -25;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = correction_big_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = 25;
             }
             break;
         }
         else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 6){
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = -correction_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = -20;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = correction_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = 20;
             }
             break;
         }
 		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 4)
         {
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = -correction_big_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = -15;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = correction_big_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = 15;
             }
             break;
         }
         else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2){
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = -correction_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = -10;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = correction_turn_vel;
+                linear_velocity = 300;
+                angular_velocity = 10;
             }
             break;
         }
