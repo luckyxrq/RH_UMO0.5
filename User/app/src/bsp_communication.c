@@ -47,8 +47,9 @@ void bsp_ExexCmd(void)
 			{
 				if(cmd_frame_rx.union_para.sw == 1)
 				{
-					bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , CONSTANT_HIGH_PWM*0.9F);
-					bsp_MotorCleanSetPWM(MotorSideBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+					bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+					bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+
 					bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(300));
 					bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(300));
 					bsp_StartVacuum(VACUUM_STRENGTH);
