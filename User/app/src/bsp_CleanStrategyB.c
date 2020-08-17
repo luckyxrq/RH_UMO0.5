@@ -1528,8 +1528,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             break;
         }
-		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 8)
-        {
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 8){
             if (Yaw > 0){
                 linear_velocity = 300;
                 angular_velocity = -25;
@@ -1551,8 +1550,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             break;
         }
-		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 4)
-        {
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 4){
             if (Yaw > 0){
                 linear_velocity = 300;
                 angular_velocity = -15;
@@ -1574,7 +1572,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
             break;
         }
-        else if((adcRealTime[2]>200||adcRealTime[3]>200||adcRealTime[4]>200)&&(adcRealTime[1]<100)&&(adcRealTime[5]<100)){
+		else if((adcRealTime[2]>200||adcRealTime[3]>200||adcRealTime[4]>200)&&(adcRealTime[1]<100)&&(adcRealTime[5]<100)){
             linear_velocity = 0;
             angular_velocity = 0;
             if(my_abs(leakingsweep_x-current_pose->x)>500&&my_abs(leakingsweep_y-current_pose->y)>100){
@@ -6910,82 +6908,117 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
             left_running_step_status = FORWARD_BOUNDARY_LEFTRUN_STEP;
             break;
         }
+		
 		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 170){
             if (Yaw > 0){
                 linear_velocity = 0;
                 angular_velocity = turn_vel;
-                break;
             }
             else{
                 linear_velocity = 0;
                 angular_velocity = -turn_vel;
-                break;
-            }
-        }
-        else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 175){
-            if (Yaw > 0){
-                linear_velocity =0;
-                angular_velocity = correction_big_turn_vel;
-                break;
-            }
-            else{
-                linear_velocity =0;
-                angular_velocity = -correction_big_turn_vel;
-                break;
-            }
-        }
-        else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 176)
-        {
-            if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = correction_turn_vel;
-            }
-            else{
-                linear_velocity = 0;
-                angular_velocity = -correction_turn_vel;
             }
             break;
         }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 10)
-        {
-            if (Yaw > 0)
-            {
+		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 172){
+            if (Yaw > 0){
+                linear_velocity = 300;
+                angular_velocity = 25;
+            }
+            else{
+                linear_velocity = 300;
+                angular_velocity = -25;
+            }
+            break;
+        }
+		else if(my_abs(Yaw) >= 90 && my_abs(Yaw) < 174){
+            if (Yaw > 0){
+                linear_velocity = 300;
+                angular_velocity = 20;
+            }
+            else{
+                linear_velocity = 300;
+                angular_velocity = -20;
+            }
+            break;
+        }
+        else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 176){
+            if (Yaw > 0){
+                linear_velocity = 300;
+                angular_velocity = 15;
+            }
+            else{
+                linear_velocity = 300;
+                angular_velocity = -15;
+            }
+            break;
+        }
+        else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 178){
+            if (Yaw > 0){
+                linear_velocity = 300;
+                angular_velocity = 10;
+            }
+            else{
+                linear_velocity = 300;
+                angular_velocity = -10;
+            }
+            break;
+        }		
+
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 10){
+            if (Yaw > 0){
                 linear_velocity = 0;
                 angular_velocity = -turn_vel;
-                break;
             }
-            else
-            {
+            else{
                 linear_velocity = 0;
                 angular_velocity = turn_vel;
-                break;
             }
+            break;
         }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 5)
-        {
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 8){
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = -correction_big_turn_vel;
-                break;
+                linear_velocity = 300;
+                angular_velocity = -25;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = correction_big_turn_vel;
-                break;
+                linear_velocity = 300;
+                angular_velocity = 25;
             }
+            break;
         }
-        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 4)
-        {
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 6){
             if (Yaw > 0){
-                linear_velocity = 0;
-                angular_velocity = -correction_turn_vel;
-                break;
+                linear_velocity = 300;
+                angular_velocity = -20;
             }
             else{
-                linear_velocity = 0;
-                angular_velocity = correction_turn_vel;
-                break;
+                linear_velocity = 300;
+                angular_velocity = 20;
             }
+            break;
+        }
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 4){
+            if (Yaw > 0){
+                linear_velocity = 300;
+                angular_velocity = -15;
+            }
+            else{
+                linear_velocity = 300;
+                angular_velocity = 15;
+            }
+            break;
+        }
+        else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 2){
+            if (Yaw > 0){
+                linear_velocity = 300;
+                angular_velocity = -10;
+            }
+            else{
+                linear_velocity = 300;
+                angular_velocity = 10;
+            }
+            break;
         }
 		else if((adcRealTime[2]>200||adcRealTime[3]>200||adcRealTime[4]>200)&&(adcRealTime[1]<100)&&(adcRealTime[5]<100)){
             linear_velocity = 0;
