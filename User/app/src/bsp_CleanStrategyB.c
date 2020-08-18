@@ -1154,7 +1154,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         {
             if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
                 if(closeedgesmap==true){
-                    OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+                    OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;//CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
                     right_running_step_status = 0;
                     FunctionStatus = 0;
                     break;
@@ -1179,7 +1179,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
                 }
                 else{
                     if(closeedgesmap==true){
-                        OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+                        OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;//CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
                         right_running_step_status = 0;
                         FunctionStatus = 0;
                         break;
@@ -1351,7 +1351,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         if (1 == FunctionStatus)
         {
             if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
-                OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+                OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;//CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
                 left_running_step_status = 0;
                 over_clean_finish = true;
                 FunctionStatus = 0;
@@ -1364,7 +1364,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
                     FunctionStatus=0;
                 }
                 else{
-                    OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+                    OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;//CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
                     left_running_step_status = 0;
                     FunctionStatus = 0;
                 }
