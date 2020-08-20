@@ -48,6 +48,20 @@ typedef struct
 	uint16_t v_batteryVoltage;
 	uint16_t mA_batteryCurrent;
 	
+	/*新增 2020-08-20 */
+	uint32_t systick_ms;
+	uint8_t keyState;
+	uint8_t workState;
+	uint8_t workMode;
+	
+	int16_t accX;
+	int16_t accY;
+	int16_t accZ;
+	
+	int16_t gyroX;
+	int16_t gyroY;
+	int16_t gyroZ;
+	
 	/*********数据部分结束***********/
 
 }MCU_FRAME;
@@ -71,6 +85,18 @@ typedef struct
 #pragma pack()
 
 
+/*按照1字节对齐，便于存储到uint8_t类型buf*/
+#pragma pack(1)
+typedef struct
+{
+	int16_t speedWheelLeft;
+	int16_t speedWheelRight;
+	
+	uint32_t tick;
+	
+	
+}CTR_CMD;
+#pragma pack()
 
 
 /*这里使用联合体，方便一些自定义的参数*/
@@ -82,6 +108,7 @@ typedef union
 	uint32_t mcu_ver;
     MCU_FRAME mcu_frame; 
 	CALIBRATION calibration;
+	CTR_CMD ctr_cmd;
 }UNION_PARA;
 
 
