@@ -98,6 +98,7 @@ void bsp_IRD_StopWork(void);
 void bsp_IR_SoftTimerTickPerMS(void);
 bool bsp_IR_GetRev(IR_CH ch , IRSite site);
 void bsp_PrintIR_Rev(void);
+uint8_t bsp_GetIrRxPinState(void);
 
 #endif
 

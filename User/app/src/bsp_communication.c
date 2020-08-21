@@ -337,6 +337,11 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.v_batteryVoltage    = bsp_GetVoltageAfterFilter(eBatteryVoltage);
 	cmd_frame_tx.union_para.mcu_frame.mA_batteryCurrent   = bsp_GetVoltageAfterFilter(eBatteryCurrent);
 
+	/*头文件新增内容*/
+	cmd_frame_tx.union_para.mcu_frame.keyPinState = bsp_GetKeyPinState();
+	cmd_frame_tx.union_para.mcu_frame.irRxPinState = bsp_GetIrRxPinState();
+	cmd_frame_tx.union_para.mcu_frame.isAwIniOK = bsp_IsInitAW9523B_OK();
+
 
 	cmd_frame_tx.head = 0xAAAA;
 	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;

@@ -62,7 +62,7 @@ void TIM6_IRQHandler( void )
 	{
 		bsp_DetectIsTouchChargePile();
 
-		if(bsp_GetIsStartKeyProc())
+		if(bsp_GetIsStartKeyProc() && (!GetCmdStartUpload()))
 			bsp_KeyScan();
 		
 		bsp_PidSched(); /*10MS调用一次，这里面进行PWM计算，占空比设置，速度（脉冲为单位；MM为单位）计算*/

@@ -240,6 +240,7 @@ void bsp_ClearKey(void);
 /* 自定义扩展添加 */
 void  bsp_SetIsStartKeyProc(bool val);
 bool bsp_GetIsStartKeyProc(void);
+uint8_t bsp_GetKeyPinState(void);
 
 #endif
 
