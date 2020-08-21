@@ -56,5 +56,5 @@ void bsp_CleanZeroYaw(void);
 float bsp_AngleRead(void);
 int16_t bsp_AngleReadRaw(void);
 
-
-
+/*ÐÂÔö*/
+bool bsp_IsAngleInitOK(void);

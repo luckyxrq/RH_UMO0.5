@@ -19,6 +19,23 @@ static uint8_t bsp_AngleChkXorCalc(uint8_t buf[] , uint8_t len);
 #define GPIO_PORT_RST    GPIOB
 #define GPIO_PIN_RST	 GPIO_Pin_13
 
+
+static bool isAngleInitOk = false;
+
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_IsAngleInitOK
+*	功能说明: 返回是否成功通信
+*	形    参: 无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+bool bsp_IsAngleInitOK(void)
+{
+	return isAngleInitOk;
+}
+
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_AngleRead,(为了兼容旧版驱动接口，故提供此函数)
@@ -223,6 +240,9 @@ static void bsp_AnglePoll(void)
 		WARNING("angle chk err:\r\n");
 		goto err_ret;
 	}
+	
+	isAngleInitOk = true ;
+	
 	
 	bsp_SetAngleChk(1);
 	/* 分析应用层协议 */
