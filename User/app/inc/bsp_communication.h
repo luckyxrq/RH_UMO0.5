@@ -52,6 +52,7 @@ typedef struct
 	
 	uint8_t keyPinState;    /*按键引脚的高低电平*/
 	uint8_t irRxPinState;   /*红外接收管引脚的高低电平*/
+	uint8_t offsitePinState;/*离地开关引脚电平*/
 	uint8_t isAwIniOK;      /*前面的红外条是否初始化OK*/
 	
 	uint8_t workState;

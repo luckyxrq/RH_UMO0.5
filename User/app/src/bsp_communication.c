@@ -341,6 +341,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.keyPinState = bsp_GetKeyPinState();
 	cmd_frame_tx.union_para.mcu_frame.irRxPinState = bsp_GetIrRxPinState();
 	cmd_frame_tx.union_para.mcu_frame.isAwIniOK = bsp_IsInitAW9523B_OK();
+	cmd_frame_tx.union_para.mcu_frame.offsitePinState = bsp_GetOffsitePinState();
+	
 
 
 	cmd_frame_tx.head = 0xAAAA;

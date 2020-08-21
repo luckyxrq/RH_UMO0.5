@@ -75,6 +75,38 @@ OffSiteState bsp_OffSiteGetState(void)
 }
 
 
+/*
+*********************************************************************************************************
+*	函 数 名: bsp_GetKeyPinState
+*	功能说明: 返回离地开关高低电平
+*	形    参: 无
+*	返 回 值: 1高 0低
+*********************************************************************************************************
+*/
+uint8_t bsp_GetOffsitePinState(void)
+{
+	/*
+		BIT0:  左
+		BIT1:  右
+	*/
+	
+	uint8_t val = 0 ;
+	
+	if(GPIO_ReadInputDataBit(GPIO_PORT_OFFSITE_SW_L,GPIO_PIN_OFFSITE_SW_L))
+	{
+		val |= 1<< 0;
+	}
+	
+	if(GPIO_ReadInputDataBit(GPIO_PORT_OFFSITE_SW_R,GPIO_PIN_OFFSITE_SW_R))
+	{
+		val |= 1<< 1;
+	}
+	
+	return val;
+}
+
+
+
 typedef struct
 {
 	volatile bool isRunning;

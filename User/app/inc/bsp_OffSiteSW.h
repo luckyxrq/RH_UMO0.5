@@ -15,6 +15,7 @@ OffSiteState bsp_OffSiteGetState(void);
 void bsp_OffSiteProc(void);
 void bsp_StartOffSiteProc(void);
 void bsp_StopOffSiteProc(void);
+uint8_t bsp_GetOffsitePinState(void);
 
 #endif
 
