@@ -19,6 +19,8 @@ typedef struct
 	uint32_t ParamVer;			/* 参数区版本控制（可用于程序升级时，决定是否对参数区进行升级） */
 
 	uint8_t VacuumPowerGrade;   /* VACUUM_STRENGTH    VACUUM_NORMAL    VACUUM_QUIET*/
+	
+	uint32_t collsion_cnt[4];
 }
 PARAM_T;
 #pragma pack()
@@ -111,7 +113,15 @@ void bsp_SetVacuumPowerGrade(uint8_t grade)
 	bsp_SaveParam();
 }
 
-
+void bsp_SetCollisonCnt(uint32_t* collison_buf)
+{
+	param.collsion_cnt[0] = collison_buf[0]; //left_cnt;
+	param.collsion_cnt[1] = collison_buf[1];//right_cnt;
+	param.collsion_cnt[2] = collison_buf[2];//all_cnt;
+	param.collsion_cnt[3] = collison_buf[3];//none_cnt;
+	
+	bsp_SaveParam();
+}
 
 /*
 *********************************************************************************************************
@@ -126,4 +136,7 @@ uint8_t bsp_GetVacuumPowerGrade(void)
 	return param.VacuumPowerGrade;
 }
 
-
+const uint32_t* bsp_GetCollisonCnt(void)
+{
+	return param.collsion_cnt;
+}

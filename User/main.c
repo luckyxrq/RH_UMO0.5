@@ -363,6 +363,8 @@ static void vTaskPerception(void *pvParameters)
 */
 static void vTaskKey(void *pvParameters)
 {
+	uint32_t collision_left = 0,collision_right = 0,collision_all= 0,collision_none = 0;
+	uint32_t collision_buf[4] = {0};
 	uint32_t count = 0 ;
 	vTaskDelay(2000);
 	
@@ -379,6 +381,12 @@ static void vTaskKey(void *pvParameters)
 	
     while(1)
     {
+	
+		if(bsp_CollisionScan() == CollisionNone) collision_none++; 
+		else if(bsp_CollisionScan() == CollisionLeft) collision_left++; 
+		else if(bsp_CollisionScan() == CollisionRight) collision_right++; 
+		else if(bsp_CollisionScan() == CollisionAll) collision_all++; 
+		
 		count++;
 		if(count % 30 == 0)
 		{
@@ -390,6 +398,15 @@ static void vTaskKey(void *pvParameters)
 					bsp_PutKey(KEY_DOWN_CLEAN);
 					bsp_CleanZeroYaw();
 					StopTimeStamp  = xTaskGetTickCount();
+					collision_buf[0] = collision_left;
+					collision_buf[1] = collision_right;
+					collision_buf[2] = collision_all;
+					collision_buf[3] = collision_none;
+					bsp_SetCollisonCnt(collision_buf);
+					collision_left = 0;
+					collision_right = 0;
+					collision_all= 0;
+					collision_none = 0;
 				}
 			}else
 			{
