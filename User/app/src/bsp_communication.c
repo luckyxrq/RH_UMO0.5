@@ -255,16 +255,19 @@ void bsp_ComAnalysis(void)
 
 void bsp_SendReportFrameWithCRC16(void)
 {
+	uint32_t* collision_buf;
+	collision_buf = bsp_GetCollisonCnt();
+		
 	reportFrameWithCRC16.dustBox = bsp_DustBoxGetState();
 	
 	reportFrameWithCRC16.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
 	reportFrameWithCRC16.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
 
-	reportFrameWithCRC16.wheelPulseL = bsp_MotorGetPulseVector(MotorLeft);
-	reportFrameWithCRC16.wheelPulseR = bsp_MotorGetPulseVector(MotorRight);
+	reportFrameWithCRC16.wheelPulseL = *(collision_buf+0);//bsp_MotorGetPulseVector(MotorLeft);
+	reportFrameWithCRC16.wheelPulseR = *(collision_buf+1);//bsp_MotorGetPulseVector(MotorRight);
 
-	reportFrameWithCRC16.x_pos = bsp_GetCurrentPosX();
-	reportFrameWithCRC16.y_pos = bsp_GetCurrentPosY();
+	reportFrameWithCRC16.x_pos = *(collision_buf+2);//bsp_GetCurrentPosX();
+	reportFrameWithCRC16.y_pos = *(collision_buf+3);//bsp_GetCurrentPosY();
 
 	reportFrameWithCRC16.cliffMV_L = bsp_GetCliffRealVal(CliffLeft); 
 	reportFrameWithCRC16.cliffMV_M = bsp_GetCliffRealVal(CliffMiddle); 

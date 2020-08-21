@@ -341,6 +341,7 @@ static void vTaskPerception(void *pvParameters)
 		if(count%100 == 0)
 		{
 			bsp_SendReportFrameWithCRC16();/*上报协议帧*/
+			
 		}
 		RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		

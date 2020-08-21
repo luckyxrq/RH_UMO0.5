@@ -136,7 +136,7 @@ uint8_t bsp_GetVacuumPowerGrade(void)
 	return param.VacuumPowerGrade;
 }
 
-const uint32_t* bsp_GetCollisonCnt(void)
+uint32_t* bsp_GetCollisonCnt(void)
 {
 	return param.collsion_cnt;
 }

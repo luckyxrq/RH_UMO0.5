@@ -17,6 +17,7 @@ void bsp_ParamReadAtPowerOn(void);
 void bsp_SetVacuumPowerGrade(uint8_t grade);
 uint8_t bsp_GetVacuumPowerGrade(void);
 void bsp_SetCollisonCnt(uint32_t* collison_buf);
+uint32_t* bsp_GetCollisonCnt(void);
 
 #endif
 
