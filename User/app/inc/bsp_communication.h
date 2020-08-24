@@ -67,6 +67,9 @@ typedef struct
 	int16_t gyroY;
 	int16_t gyroZ;
 	
+	uint16_t strategyMajor;
+	uint16_t strategyMinor;
+	
 	/*********数据部分结束***********/
 
 }MCU_FRAME;

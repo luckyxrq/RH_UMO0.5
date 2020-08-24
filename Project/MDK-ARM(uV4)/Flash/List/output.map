@@ -4623,86 +4623,86 @@ Image Symbol Table
     .bss                                     0x2000044c   Section       48  bsp_edgewise.o(.bss)
     IRSensorData                             0x2000044c   Data          10  bsp_edgewise.o(.bss)
     edgewiseRun                              0x20000458   Data          36  bsp_edgewise.o(.bss)
-    .bss                                     0x2000047c   Section      752  bsp_communication.o(.bss)
+    .bss                                     0x2000047c   Section      760  bsp_communication.o(.bss)
     analysisBuf                              0x2000047c   Data         512  bsp_communication.o(.bss)
-    .bss                                     0x2000076c   Section       16  bsp_encoder.o(.bss)
-    encoder                                  0x2000076c   Data          16  bsp_encoder.o(.bss)
-    .bss                                     0x2000077c   Section      136  bsp_control.o(.bss)
-    pid                                      0x2000077c   Data          56  bsp_control.o(.bss)
-    speed                                    0x200007b4   Data          80  bsp_control.o(.bss)
-    .bss                                     0x20000808   Section       80  bsp_position.o(.bss)
-    position                                 0x20000808   Data          80  bsp_position.o(.bss)
-    .bss                                     0x20000858   Section       30  bsp_param.o(.bss)
-    param                                    0x20000858   Data          30  bsp_param.o(.bss)
-    .bss                                     0x20000878   Section       12  bsp_offsitesw.o(.bss)
-    offSiteProc                              0x20000878   Data          12  bsp_offsitesw.o(.bss)
-    .bss                                     0x20000884   Section       84  bsp_currentfeedback.o(.bss)
-    arrMotorLeft                             0x20000884   Data          12  bsp_currentfeedback.o(.bss)
-    arrMotorRight                            0x20000890   Data          12  bsp_currentfeedback.o(.bss)
-    arrVacuum                                0x2000089c   Data          12  bsp_currentfeedback.o(.bss)
-    arrRollingBrush                          0x200008a8   Data          12  bsp_currentfeedback.o(.bss)
-    arrSideBrush                             0x200008b4   Data          12  bsp_currentfeedback.o(.bss)
-    arrBatteryVoltage                        0x200008c0   Data          12  bsp_currentfeedback.o(.bss)
-    arrBatteryCurrent                        0x200008cc   Data          12  bsp_currentfeedback.o(.bss)
-    .bss                                     0x200008d8   Section       56  bsp_cliffsw.o(.bss)
-    cliffSub                                 0x200008d8   Data          12  bsp_cliffsw.o(.bss)
-    cliffTwiceRead                           0x200008e4   Data          24  bsp_cliffsw.o(.bss)
-    cliffTest                                0x200008fc   Data          20  bsp_cliffsw.o(.bss)
-    .bss                                     0x20000910   Section       16  bsp_dustbox.o(.bss)
-    dustBoxProc                              0x20000910   Data          16  bsp_dustbox.o(.bss)
-    .bss                                     0x20000920   Section       12  bsp_runcontrol.o(.bss)
-    ledAppProc                               0x20000920   Data          12  bsp_runcontrol.o(.bss)
-    .bss                                     0x2000092c   Section       36  bsp_assistjudgedirection.o(.bss)
-    assistJudgeDirection                     0x2000092c   Data          36  bsp_assistjudgedirection.o(.bss)
-    .bss                                     0x20000950   Section    10200  bsp_gridmap.o(.bss)
-    TuYa_map                                 0x20000950   Data          75  bsp_gridmap.o(.bss)
-    IRSensorData                             0x200009eb   Data          10  bsp_gridmap.o(.bss)
-    .bss                                     0x20003128   Section    15688  bsp_cleanstrategyb.o(.bss)
-    current_pose                             0x20006e64   Data          12  bsp_cleanstrategyb.o(.bss)
-    .bss                                     0x20006e70   Section       36  bsp_cleanstrategyrandom.o(.bss)
-    IRSensorData                             0x20006e70   Data          10  bsp_cleanstrategyrandom.o(.bss)
-    strategyRandom                           0x20006e7c   Data          24  bsp_cleanstrategyrandom.o(.bss)
-    .bss                                     0x20006e94   Section       91  bsp_uploadmap.o(.bss)
-    uploadMap                                0x20006e94   Data          16  bsp_uploadmap.o(.bss)
-    mapInfo                                  0x20006ea4   Data          75  bsp_uploadmap.o(.bss)
-    .bss                                     0x20006ef0   Section       72  bsp_searchchargepile.o(.bss)
-    search                                   0x20006ef0   Data          72  bsp_searchchargepile.o(.bss)
-    .bss                                     0x20006f38   Section       54  bsp_selfcheck.o(.bss)
-    selfCheck                                0x20006f38   Data          54  bsp_selfcheck.o(.bss)
-    .bss                                     0x20006f70   Section     5256  bsp_uart_fifo.o(.bss)
-    g_tUart2                                 0x20006f70   Data          40  bsp_uart_fifo.o(.bss)
-    g_TxBuf2                                 0x20006f98   Data        1024  bsp_uart_fifo.o(.bss)
-    g_RxBuf2                                 0x20007398   Data        1024  bsp_uart_fifo.o(.bss)
-    g_tUart3                                 0x20007798   Data          40  bsp_uart_fifo.o(.bss)
-    g_TxBuf3                                 0x200077c0   Data          16  bsp_uart_fifo.o(.bss)
-    g_RxBuf3                                 0x200077d0   Data        1024  bsp_uart_fifo.o(.bss)
-    g_tUart5                                 0x20007bd0   Data          40  bsp_uart_fifo.o(.bss)
-    g_TxBuf5                                 0x20007bf8   Data        1024  bsp_uart_fifo.o(.bss)
-    g_RxBuf5                                 0x20007ff8   Data        1024  bsp_uart_fifo.o(.bss)
-    .bss                                     0x200083f8   Section      219  bsp_key.o(.bss)
-    s_tBtn                                   0x200083f8   Data         160  bsp_key.o(.bss)
-    s_tKey                                   0x20008498   Data          59  bsp_key.o(.bss)
-    .bss                                     0x200084d4   Section      140  bsp_ir_decode.o(.bss)
-    .bss                                     0x20008560   Section     1061  system.o(.bss)
-    .bss                                     0x20008988   Section      220  tasks.o(.bss)
-    pxReadyTasksLists                        0x20008988   Data         120  tasks.o(.bss)
-    xDelayedTaskList1                        0x20008a00   Data          20  tasks.o(.bss)
-    xDelayedTaskList2                        0x20008a14   Data          20  tasks.o(.bss)
-    xPendingReadyList                        0x20008a28   Data          20  tasks.o(.bss)
-    xTasksWaitingTermination                 0x20008a3c   Data          20  tasks.o(.bss)
-    xSuspendedTaskList                       0x20008a50   Data          20  tasks.o(.bss)
-    .bss                                     0x20008a64   Section    12288  heap_4.o(.bss)
-    ucHeap                                   0x20008a64   Data       12288  heap_4.o(.bss)
-    .bss                                     0x2000ba64   Section     1208  segger_rtt.o(.bss)
-    _acUpBuffer                              0x2000bb0c   Data        1024  segger_rtt.o(.bss)
-    _acDownBuffer                            0x2000bf0c   Data          16  segger_rtt.o(.bss)
-    .bss                                     0x2000bf1c   Section      204  dx8_api.o(.bss)
-    DeviceSeed                               0x2000bf1c   Data          12  dx8_api.o(.bss)
-    Buffer                                   0x2000bf28   Data         148  dx8_api.o(.bss)
-    .bss                                     0x2000bfe8   Section       92  sha1.o(.bss)
-    .bss                                     0x2000c044   Section       48  streamec.o(.bss)
-    pStream                                  0x2000c044   Data          48  streamec.o(.bss)
-    STACK                                    0x2000c078   Section     6144  startup_stm32f10x_hd.o(STACK)
+    .bss                                     0x20000774   Section       16  bsp_encoder.o(.bss)
+    encoder                                  0x20000774   Data          16  bsp_encoder.o(.bss)
+    .bss                                     0x20000784   Section      136  bsp_control.o(.bss)
+    pid                                      0x20000784   Data          56  bsp_control.o(.bss)
+    speed                                    0x200007bc   Data          80  bsp_control.o(.bss)
+    .bss                                     0x20000810   Section       80  bsp_position.o(.bss)
+    position                                 0x20000810   Data          80  bsp_position.o(.bss)
+    .bss                                     0x20000860   Section       30  bsp_param.o(.bss)
+    param                                    0x20000860   Data          30  bsp_param.o(.bss)
+    .bss                                     0x20000880   Section       12  bsp_offsitesw.o(.bss)
+    offSiteProc                              0x20000880   Data          12  bsp_offsitesw.o(.bss)
+    .bss                                     0x2000088c   Section       84  bsp_currentfeedback.o(.bss)
+    arrMotorLeft                             0x2000088c   Data          12  bsp_currentfeedback.o(.bss)
+    arrMotorRight                            0x20000898   Data          12  bsp_currentfeedback.o(.bss)
+    arrVacuum                                0x200008a4   Data          12  bsp_currentfeedback.o(.bss)
+    arrRollingBrush                          0x200008b0   Data          12  bsp_currentfeedback.o(.bss)
+    arrSideBrush                             0x200008bc   Data          12  bsp_currentfeedback.o(.bss)
+    arrBatteryVoltage                        0x200008c8   Data          12  bsp_currentfeedback.o(.bss)
+    arrBatteryCurrent                        0x200008d4   Data          12  bsp_currentfeedback.o(.bss)
+    .bss                                     0x200008e0   Section       56  bsp_cliffsw.o(.bss)
+    cliffSub                                 0x200008e0   Data          12  bsp_cliffsw.o(.bss)
+    cliffTwiceRead                           0x200008ec   Data          24  bsp_cliffsw.o(.bss)
+    cliffTest                                0x20000904   Data          20  bsp_cliffsw.o(.bss)
+    .bss                                     0x20000918   Section       16  bsp_dustbox.o(.bss)
+    dustBoxProc                              0x20000918   Data          16  bsp_dustbox.o(.bss)
+    .bss                                     0x20000928   Section       12  bsp_runcontrol.o(.bss)
+    ledAppProc                               0x20000928   Data          12  bsp_runcontrol.o(.bss)
+    .bss                                     0x20000934   Section       36  bsp_assistjudgedirection.o(.bss)
+    assistJudgeDirection                     0x20000934   Data          36  bsp_assistjudgedirection.o(.bss)
+    .bss                                     0x20000958   Section    10200  bsp_gridmap.o(.bss)
+    TuYa_map                                 0x20000958   Data          75  bsp_gridmap.o(.bss)
+    IRSensorData                             0x200009f3   Data          10  bsp_gridmap.o(.bss)
+    .bss                                     0x20003130   Section    15688  bsp_cleanstrategyb.o(.bss)
+    current_pose                             0x20006e6c   Data          12  bsp_cleanstrategyb.o(.bss)
+    .bss                                     0x20006e78   Section       36  bsp_cleanstrategyrandom.o(.bss)
+    IRSensorData                             0x20006e78   Data          10  bsp_cleanstrategyrandom.o(.bss)
+    strategyRandom                           0x20006e84   Data          24  bsp_cleanstrategyrandom.o(.bss)
+    .bss                                     0x20006e9c   Section       91  bsp_uploadmap.o(.bss)
+    uploadMap                                0x20006e9c   Data          16  bsp_uploadmap.o(.bss)
+    mapInfo                                  0x20006eac   Data          75  bsp_uploadmap.o(.bss)
+    .bss                                     0x20006ef8   Section       72  bsp_searchchargepile.o(.bss)
+    search                                   0x20006ef8   Data          72  bsp_searchchargepile.o(.bss)
+    .bss                                     0x20006f40   Section       54  bsp_selfcheck.o(.bss)
+    selfCheck                                0x20006f40   Data          54  bsp_selfcheck.o(.bss)
+    .bss                                     0x20006f78   Section     5256  bsp_uart_fifo.o(.bss)
+    g_tUart2                                 0x20006f78   Data          40  bsp_uart_fifo.o(.bss)
+    g_TxBuf2                                 0x20006fa0   Data        1024  bsp_uart_fifo.o(.bss)
+    g_RxBuf2                                 0x200073a0   Data        1024  bsp_uart_fifo.o(.bss)
+    g_tUart3                                 0x200077a0   Data          40  bsp_uart_fifo.o(.bss)
+    g_TxBuf3                                 0x200077c8   Data          16  bsp_uart_fifo.o(.bss)
+    g_RxBuf3                                 0x200077d8   Data        1024  bsp_uart_fifo.o(.bss)
+    g_tUart5                                 0x20007bd8   Data          40  bsp_uart_fifo.o(.bss)
+    g_TxBuf5                                 0x20007c00   Data        1024  bsp_uart_fifo.o(.bss)
+    g_RxBuf5                                 0x20008000   Data        1024  bsp_uart_fifo.o(.bss)
+    .bss                                     0x20008400   Section      219  bsp_key.o(.bss)
+    s_tBtn                                   0x20008400   Data         160  bsp_key.o(.bss)
+    s_tKey                                   0x200084a0   Data          59  bsp_key.o(.bss)
+    .bss                                     0x200084dc   Section      140  bsp_ir_decode.o(.bss)
+    .bss                                     0x20008568   Section     1061  system.o(.bss)
+    .bss                                     0x20008990   Section      220  tasks.o(.bss)
+    pxReadyTasksLists                        0x20008990   Data         120  tasks.o(.bss)
+    xDelayedTaskList1                        0x20008a08   Data          20  tasks.o(.bss)
+    xDelayedTaskList2                        0x20008a1c   Data          20  tasks.o(.bss)
+    xPendingReadyList                        0x20008a30   Data          20  tasks.o(.bss)
+    xTasksWaitingTermination                 0x20008a44   Data          20  tasks.o(.bss)
+    xSuspendedTaskList                       0x20008a58   Data          20  tasks.o(.bss)
+    .bss                                     0x20008a6c   Section    12288  heap_4.o(.bss)
+    ucHeap                                   0x20008a6c   Data       12288  heap_4.o(.bss)
+    .bss                                     0x2000ba6c   Section     1208  segger_rtt.o(.bss)
+    _acUpBuffer                              0x2000bb14   Data        1024  segger_rtt.o(.bss)
+    _acDownBuffer                            0x2000bf14   Data          16  segger_rtt.o(.bss)
+    .bss                                     0x2000bf24   Section      204  dx8_api.o(.bss)
+    DeviceSeed                               0x2000bf24   Data          12  dx8_api.o(.bss)
+    Buffer                                   0x2000bf30   Data         148  dx8_api.o(.bss)
+    .bss                                     0x2000bff0   Section       92  sha1.o(.bss)
+    .bss                                     0x2000c04c   Section       48  streamec.o(.bss)
+    pStream                                  0x2000c04c   Data          48  streamec.o(.bss)
+    STACK                                    0x2000c080   Section     6144  startup_stm32f10x_hd.o(STACK)
 
     Global Symbols
 
@@ -5496,25 +5496,25 @@ Image Symbol Table
     srand_cnt                                0x200002f8   Data           4  dx8_api.o(.data)
     __stdout                                 0x20000328   Data           4  stdout.o(.data)
     adcRealTime                              0x20000424   Data          40  bsp_detectact.o(.bss)
-    cmd_frame_tx                             0x2000067c   Data         120  bsp_communication.o(.bss)
-    cmd_frame_rx                             0x200006f4   Data         120  bsp_communication.o(.bss)
-    Under_extreme_point_x                    0x2000099b   Data          20  bsp_gridmap.o(.bss)
-    Under_extreme_point_y                    0x200009af   Data          20  bsp_gridmap.o(.bss)
-    On_extreme_point_x                       0x200009c3   Data          20  bsp_gridmap.o(.bss)
-    On_extreme_point_y                       0x200009d7   Data          20  bsp_gridmap.o(.bss)
-    gridmap                                  0x200009f8   Data       10032  bsp_gridmap.o(.bss)
-    AStar_graph                              0x20003128   Data        2500  bsp_cleanstrategyb.o(.bss)
-    astar_close                              0x20003aec   Data       12500  bsp_cleanstrategyb.o(.bss)
-    maze                                     0x20006bc0   Data         625  bsp_cleanstrategyb.o(.bss)
-    plansteps                                0x20006e31   Data          50  bsp_cleanstrategyb.o(.bss)
-    g_tIR                                    0x200084d4   Data         140  bsp_ir_decode.o(.bss)
-    wifi_queue_buf                           0x20008560   Data          23  system.o(.bss)
-    wifi_uart_rx_buf                         0x20008577   Data         519  system.o(.bss)
-    wifi_uart_tx_buf                         0x2000877e   Data         519  system.o(.bss)
-    _SEGGER_RTT                              0x2000ba64   Data         168  segger_rtt.o(.bss)
-    dx8_info                                 0x2000bfbc   Data          44  dx8_api.o(.bss)
-    context                                  0x2000bfe8   Data          92  sha1.o(.bss)
-    __initial_sp                             0x2000d878   Data           0  startup_stm32f10x_hd.o(STACK)
+    cmd_frame_tx                             0x2000067c   Data         124  bsp_communication.o(.bss)
+    cmd_frame_rx                             0x200006f8   Data         124  bsp_communication.o(.bss)
+    Under_extreme_point_x                    0x200009a3   Data          20  bsp_gridmap.o(.bss)
+    Under_extreme_point_y                    0x200009b7   Data          20  bsp_gridmap.o(.bss)
+    On_extreme_point_x                       0x200009cb   Data          20  bsp_gridmap.o(.bss)
+    On_extreme_point_y                       0x200009df   Data          20  bsp_gridmap.o(.bss)
+    gridmap                                  0x20000a00   Data       10032  bsp_gridmap.o(.bss)
+    AStar_graph                              0x20003130   Data        2500  bsp_cleanstrategyb.o(.bss)
+    astar_close                              0x20003af4   Data       12500  bsp_cleanstrategyb.o(.bss)
+    maze                                     0x20006bc8   Data         625  bsp_cleanstrategyb.o(.bss)
+    plansteps                                0x20006e39   Data          50  bsp_cleanstrategyb.o(.bss)
+    g_tIR                                    0x200084dc   Data         140  bsp_ir_decode.o(.bss)
+    wifi_queue_buf                           0x20008568   Data          23  system.o(.bss)
+    wifi_uart_rx_buf                         0x2000857f   Data         519  system.o(.bss)
+    wifi_uart_tx_buf                         0x20008786   Data         519  system.o(.bss)
+    _SEGGER_RTT                              0x2000ba6c   Data         168  segger_rtt.o(.bss)
+    dx8_info                                 0x2000bfc4   Data          44  dx8_api.o(.bss)
+    context                                  0x2000bff0   Data          92  sha1.o(.bss)
+    __initial_sp                             0x2000d880   Data           0  startup_stm32f10x_hd.o(STACK)
 
 
 
@@ -6229,7 +6229,7 @@ Memory Map of the image
     0x08026420   0x00000020   Data   RO         7530    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x0000d878, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000009c])
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x0000d880, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000009c])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -6275,41 +6275,41 @@ Memory Map of the image
     0x200003b8   0x00000010   Zero   RW          667    .bss                bsp_action.o
     0x200003c8   0x00000084   Zero   RW          777    .bss                bsp_detectact.o
     0x2000044c   0x00000030   Zero   RW          933    .bss                bsp_edgewise.o
-    0x2000047c   0x000002f0   Zero   RW         1015    .bss                bsp_communication.o
-    0x2000076c   0x00000010   Zero   RW         1086    .bss                bsp_encoder.o
-    0x2000077c   0x00000088   Zero   RW         1220    .bss                bsp_control.o
-    0x20000804   0x00000004   PAD
-    0x20000808   0x00000050   Zero   RW         1305    .bss                bsp_position.o
-    0x20000858   0x0000001e   Zero   RW         1373    .bss                bsp_param.o
-    0x20000876   0x00000002   PAD
-    0x20000878   0x0000000c   Zero   RW         1517    .bss                bsp_offsitesw.o
-    0x20000884   0x00000054   Zero   RW         1569    .bss                bsp_currentfeedback.o
-    0x200008d8   0x00000038   Zero   RW         1624    .bss                bsp_cliffsw.o
-    0x20000910   0x00000010   Zero   RW         1708    .bss                bsp_dustbox.o
-    0x20000920   0x0000000c   Zero   RW         1789    .bss                bsp_runcontrol.o
-    0x2000092c   0x00000024   Zero   RW         1855    .bss                bsp_assistjudgedirection.o
-    0x20000950   0x000027d8   Zero   RW         1958    .bss                bsp_gridmap.o
-    0x20003128   0x00003d48   Zero   RW         2099    .bss                bsp_cleanstrategyb.o
-    0x20006e70   0x00000024   Zero   RW         2424    .bss                bsp_cleanstrategyrandom.o
-    0x20006e94   0x0000005b   Zero   RW         2541    .bss                bsp_uploadmap.o
-    0x20006eef   0x00000001   PAD
-    0x20006ef0   0x00000048   Zero   RW         2600    .bss                bsp_searchchargepile.o
-    0x20006f38   0x00000036   Zero   RW         2689    .bss                bsp_selfcheck.o
-    0x20006f6e   0x00000002   PAD
-    0x20006f70   0x00001488   Zero   RW         2875    .bss                bsp_uart_fifo.o
-    0x200083f8   0x000000db   Zero   RW         3173    .bss                bsp_key.o
-    0x200084d3   0x00000001   PAD
-    0x200084d4   0x0000008c   Zero   RW         3589    .bss                bsp_ir_decode.o
-    0x20008560   0x00000425   Zero   RW         5823    .bss                system.o
-    0x20008985   0x00000003   PAD
-    0x20008988   0x000000dc   Zero   RW         6268    .bss                tasks.o
-    0x20008a64   0x00003000   Zero   RW         6632    .bss                heap_4.o
-    0x2000ba64   0x000004b8   Zero   RW         6704    .bss                segger_rtt.o
-    0x2000bf1c   0x000000cc   Zero   RW         7016    .bss                libdx8_stm32f1.lib(dx8_api.o)
-    0x2000bfe8   0x0000005c   Zero   RW         7053    .bss                libdx8_stm32f1.lib(sha1.o)
-    0x2000c044   0x00000030   Zero   RW         7067    .bss                libdx8_stm32f1.lib(streamec.o)
-    0x2000c074   0x00000004   PAD
-    0x2000c078   0x00001800   Zero   RW         3750    STACK               startup_stm32f10x_hd.o
+    0x2000047c   0x000002f8   Zero   RW         1015    .bss                bsp_communication.o
+    0x20000774   0x00000010   Zero   RW         1086    .bss                bsp_encoder.o
+    0x20000784   0x00000088   Zero   RW         1220    .bss                bsp_control.o
+    0x2000080c   0x00000004   PAD
+    0x20000810   0x00000050   Zero   RW         1305    .bss                bsp_position.o
+    0x20000860   0x0000001e   Zero   RW         1373    .bss                bsp_param.o
+    0x2000087e   0x00000002   PAD
+    0x20000880   0x0000000c   Zero   RW         1517    .bss                bsp_offsitesw.o
+    0x2000088c   0x00000054   Zero   RW         1569    .bss                bsp_currentfeedback.o
+    0x200008e0   0x00000038   Zero   RW         1624    .bss                bsp_cliffsw.o
+    0x20000918   0x00000010   Zero   RW         1708    .bss                bsp_dustbox.o
+    0x20000928   0x0000000c   Zero   RW         1789    .bss                bsp_runcontrol.o
+    0x20000934   0x00000024   Zero   RW         1855    .bss                bsp_assistjudgedirection.o
+    0x20000958   0x000027d8   Zero   RW         1958    .bss                bsp_gridmap.o
+    0x20003130   0x00003d48   Zero   RW         2099    .bss                bsp_cleanstrategyb.o
+    0x20006e78   0x00000024   Zero   RW         2424    .bss                bsp_cleanstrategyrandom.o
+    0x20006e9c   0x0000005b   Zero   RW         2541    .bss                bsp_uploadmap.o
+    0x20006ef7   0x00000001   PAD
+    0x20006ef8   0x00000048   Zero   RW         2600    .bss                bsp_searchchargepile.o
+    0x20006f40   0x00000036   Zero   RW         2689    .bss                bsp_selfcheck.o
+    0x20006f76   0x00000002   PAD
+    0x20006f78   0x00001488   Zero   RW         2875    .bss                bsp_uart_fifo.o
+    0x20008400   0x000000db   Zero   RW         3173    .bss                bsp_key.o
+    0x200084db   0x00000001   PAD
+    0x200084dc   0x0000008c   Zero   RW         3589    .bss                bsp_ir_decode.o
+    0x20008568   0x00000425   Zero   RW         5823    .bss                system.o
+    0x2000898d   0x00000003   PAD
+    0x20008990   0x000000dc   Zero   RW         6268    .bss                tasks.o
+    0x20008a6c   0x00003000   Zero   RW         6632    .bss                heap_4.o
+    0x2000ba6c   0x000004b8   Zero   RW         6704    .bss                segger_rtt.o
+    0x2000bf24   0x000000cc   Zero   RW         7016    .bss                libdx8_stm32f1.lib(dx8_api.o)
+    0x2000bff0   0x0000005c   Zero   RW         7053    .bss                libdx8_stm32f1.lib(sha1.o)
+    0x2000c04c   0x00000030   Zero   RW         7067    .bss                libdx8_stm32f1.lib(streamec.o)
+    0x2000c07c   0x00000004   PAD
+    0x2000c080   0x00001800   Zero   RW         3750    STACK               startup_stm32f10x_hd.o
 
 
 ==============================================================================
@@ -6328,7 +6328,7 @@ Image component sizes
        772         32          0         32         36       2502   bsp_cleanstrategyrandom.o
       1068         76          0          2         56       5932   bsp_cliffsw.o
        176         18          0          0          0       1192   bsp_collision.o
-      1640        108          0         14        752       7011   bsp_communication.o
+      1640        108          0         14        760       7059   bsp_communication.o
        932         88          0         12        136       7655   bsp_control.o
       2052        102          0         32         84       4913   bsp_currentfeedback.o
        838         84          0         20        132       6417   bsp_detectact.o
@@ -6390,7 +6390,7 @@ Image component sizes
       1896        160          0         64        220      18272   tasks.o
 
     ----------------------------------------------------------------------
-    141146       8790        990        752      54248     847410   Object Totals
+    141146       8790        990        752      54256     847458   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         74          0          0          5         13          0   (incl. Padding)
 
@@ -6488,14 +6488,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-    155052       9556       1684        820      54596     823798   Grand Totals
-    155052       9556       1684        156      54596     823798   ELF Image Totals (compressed)
+    155052       9556       1684        820      54604     823846   Grand Totals
+    155052       9556       1684        156      54604     823846   ELF Image Totals (compressed)
     155052       9556       1684        156          0          0   ROM Totals
 
 ==============================================================================
 
     Total RO  Size (Code + RO Data)               156736 ( 153.06kB)
-    Total RW  Size (RW Data + ZI Data)             55416 (  54.12kB)
+    Total RW  Size (RW Data + ZI Data)             55424 (  54.13kB)
     Total ROM Size (Code + RO Data + RW Data)     156892 ( 153.21kB)
 
 ==============================================================================
