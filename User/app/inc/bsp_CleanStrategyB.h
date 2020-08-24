@@ -1055,6 +1055,9 @@ short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned
 const unsigned char*  bsp_Get_GridMap(int robotX,int robotY);
 
 
+uint16_t bsp_GetStrategy_MajorIndex(void);
+uint16_t bsp_GetStrategy_MinorIndex(void);
+
 #endif
 
 

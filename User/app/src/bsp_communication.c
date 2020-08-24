@@ -344,7 +344,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.offsitePinState = bsp_GetOffsitePinState();
 	cmd_frame_tx.union_para.mcu_frame.isAngleInitOk = bsp_IsAngleInitOK();
 	
-
+	cmd_frame_tx.union_para.mcu_frame.strategyMajor = bsp_GetStrategy_MajorIndex();
+	cmd_frame_tx.union_para.mcu_frame.strategyMinor = bsp_GetStrategy_MinorIndex();
 
 	cmd_frame_tx.head = 0xAAAA;
 	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;

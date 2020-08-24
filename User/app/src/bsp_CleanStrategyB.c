@@ -252,6 +252,21 @@ extern CLIFFADCVALUE cliff_valueB;
 
 extern uint8_t  work_mode;
 
+
+static 	uint16_t majorStrategyIndex;
+static	uint16_t minorStrategyIndex;
+
+uint16_t bsp_GetStrategy_MajorIndex(void)
+{
+	return majorStrategyIndex;
+}
+
+uint16_t bsp_GetStrategy_MinorIndex(void)
+{
+	return minorStrategyIndex;
+}
+
+
 static void right_edge_judgment_repeat(void)
 {
 	if(adcRealTime[9]>100&&adcRealTime[9]<1500){
@@ -1072,6 +1087,9 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     }
     map_current_pose_x=current_pose->x;
     map_current_pose_y=current_pose->y;
+	
+	majorStrategyIndex = OVERALL_CLEANING_STRATEGY;
+	
     switch (OVERALL_CLEANING_STRATEGY)
     {
     case 0:
@@ -1368,6 +1386,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
 	STRATEGY_SHOW("RightRunningWorkStep:%04X\r\n",(int)right_running_step_status);
+	minorStrategyIndex = right_running_step_status;
     switch (right_running_step_status)
     {	
     case 0:
@@ -2000,7 +2019,8 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
     Yaw = current_pose->orientation;
     Yaw= Yaw/100;
 	STRATEGY_SHOW("CollisionRightRightRunStep:%04X\r\n",(int)collision_right_rightrun_step_status);
-    switch(collision_right_rightrun_step_status)
+    minorStrategyIndex = collision_right_rightrun_step_status;
+	switch(collision_right_rightrun_step_status)
     {
     case 0:
         if(turn_start_update == 0)
@@ -2660,7 +2680,8 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
     Yaw = current_pose->orientation;
     Yaw= Yaw/100;
 	STRATEGY_SHOW("CollisionLeftRightRunStep:%04X\r\n",(int)collision_left_rightrun_step_status);
-    switch(collision_left_rightrun_step_status)
+    minorStrategyIndex = collision_left_rightrun_step_status;
+	switch(collision_left_rightrun_step_status)
     {
 			
     case 0:	
@@ -3348,7 +3369,8 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
 	STRATEGY_SHOW("CollisionFrontRightRunStep:%04X\r\n",(int)collision_front_rightrun_step_status);	
-    switch (collision_front_rightrun_step_status)
+    minorStrategyIndex = collision_front_rightrun_step_status;
+	switch (collision_front_rightrun_step_status)
     {
 		
     case 0:
@@ -3718,6 +3740,7 @@ unsigned char  RightEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
 	STRATEGY_SHOW("RightEdgeDilemma:%04X\r\n",(int)right_edge_dilemma_status);
+	minorStrategyIndex = right_edge_dilemma_status;
     switch(right_edge_dilemma_status)
     {
 		
@@ -4696,6 +4719,7 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
         }
     }
 	STRATEGY_SHOW("RightWalkEdge:%04X\r\n",(int)right_walk_edge_status);
+	minorStrategyIndex = right_walk_edge_status;
     switch(right_walk_edge_status)
     {
     case 0:
@@ -5286,6 +5310,7 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
         }
     }
     STRATEGY_SHOW("RightReverseWalkEdge:%04X\r\n",(int)right_reverse_walk_edge_status);
+	minorStrategyIndex = right_reverse_walk_edge_status;
     switch(right_reverse_walk_edge_status)
     {	
     case 0:
@@ -5861,6 +5886,8 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
             }
         }
     }
+	STRATEGY_SHOW("ForwardBoundaryRightRunStep:%04X\r\n",(int)right_forward_boundary_status);
+	minorStrategyIndex = right_forward_boundary_status;
     switch (right_forward_boundary_status)
     {
     case 0:
@@ -5996,6 +6023,8 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("StuckRightRunStep:%04X\r\n",(int)stuck_right_run_step);
+	minorStrategyIndex = stuck_right_run_step;
     switch (stuck_right_run_step)
     {
     case 0:
@@ -6260,6 +6289,8 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
     unsigned char i=0,k=0,ij=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("RightReadyLeakingSweep:%04X\r\n",(int)right_ready_leaking_sweep_status);
+	minorStrategyIndex = right_ready_leaking_sweep_status;
     switch(right_ready_leaking_sweep_status)
     {
     case 0:
@@ -6822,6 +6853,8 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
     complete_flag = 0;
+	STRATEGY_SHOW("LeftRunningWorkStep:%04X\r\n",(int)left_running_step_status);
+	minorStrategyIndex = left_running_step_status;
     switch (left_running_step_status)
     {
     case 0:
@@ -7470,6 +7503,8 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
             }
         }
     }
+	STRATEGY_SHOW("ForwardBoundaryLeftRunStep:%04X\r\n",(int)right_forward_boundary_status);
+	minorStrategyIndex = right_forward_boundary_status;
     switch (right_forward_boundary_status)
     {
     case 0:
@@ -7603,6 +7638,8 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     unsigned char complete_flag=0,i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("CollisionRightLeftRunStep:%04X\r\n",(int)collision_right_rightrun_step_status);
+	minorStrategyIndex = collision_right_rightrun_step_status;
     switch(collision_right_rightrun_step_status)
     {
     case 0:
@@ -8379,6 +8416,8 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     unsigned char complete_flag=0,i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("CollisionLeftLeftRunStep:%04X\r\n",(int)collision_left_rightrun_step_status);
+	minorStrategyIndex = collision_left_rightrun_step_status;
     switch(collision_left_rightrun_step_status)
     {
     case 0:
@@ -9119,6 +9158,8 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("CollisionFrontLeftRunStep:%04X\r\n",(int)collision_front_rightrun_step_status);
+	minorStrategyIndex = collision_front_rightrun_step_status;
     switch (collision_front_rightrun_step_status)
     {
     case 0:
@@ -9505,6 +9546,8 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
             return complete_flag;
         }
     }
+	STRATEGY_SHOW("LeftWalkEdge:%04X\r\n",(int)right_walk_edge_status);
+	minorStrategyIndex = right_walk_edge_status;
     switch(right_walk_edge_status)
     {
     case 0:
@@ -10133,6 +10176,8 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             return complete_flag;
         }
     }
+	STRATEGY_SHOW("LeftReverseWalkEdge:%04X\r\n",(int)right_reverse_walk_edge_status);
+	minorStrategyIndex = right_reverse_walk_edge_status;
     switch(right_reverse_walk_edge_status)
     {
     case 0:
@@ -10675,6 +10720,8 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
     signed char k,ij;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("LeftEdgeDilemma:%04X\r\n",(int)right_edge_dilemma_status);
+	minorStrategyIndex = right_edge_dilemma_status;
     switch(right_edge_dilemma_status)
     {
     case 0:
@@ -11646,6 +11693,8 @@ unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSig
     unsigned char i=0,k=0,ij=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("LeftReadyLeakingSweep:%04X\r\n",(int)right_ready_leaking_sweep_status);
+	minorStrategyIndex = right_ready_leaking_sweep_status;
     switch(right_ready_leaking_sweep_status)
     {
     case 0:
@@ -12202,6 +12251,8 @@ unsigned char StuckLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw/100;
+	STRATEGY_SHOW("StuckLeftRunStep:%04X\r\n",(int)stuck_right_run_step);
+	minorStrategyIndex = stuck_right_run_step;
     switch(stuck_right_run_step){
     case 0:
         stuck_right_run_step = LEFT_STUCK_FORWARD_BOUNDARY_STATUS;
@@ -12566,6 +12617,8 @@ unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal)
     if((xTaskGetTickCount() - ForceReturnOriginTimeStamp)> EDGEWISE_CLEAN_WORK_TIME){
         return 1;
     }
+	STRATEGY_SHOW("ForceReturnOrigin:%04X\r\n",(int)return_origin_step_status);
+	minorStrategyIndex = return_origin_step_status;
     switch(return_origin_step_status)
     {
     case 0:
@@ -13870,6 +13923,8 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw/100;
+	STRATEGY_SHOW("AStarNotMotionReturnOrigin:%04X\r\n",(int)a_star_not_motion_status);
+	minorStrategyIndex = a_star_not_motion_status;
     switch (a_star_not_motion_status)
     {
     case 0:
@@ -13958,6 +14013,8 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("AStarMotionReturnOrigin:%04X\r\n",(int)a_star_motion_return_origin_status);
+	minorStrategyIndex = a_star_motion_return_origin_status;
     switch (a_star_motion_return_origin_status)
     {
     case 0:
@@ -14840,7 +14897,8 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal){
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
-    //log_debug("a_star_collision_status =======>>>,%x,\n",a_star_collision_status);
+    STRATEGY_SHOW("AStarCollision:%04X\r\n",(int)a_star_collision_status);
+	minorStrategyIndex = a_star_collision_status;
     switch (a_star_collision_status)
     {
     case 0:
