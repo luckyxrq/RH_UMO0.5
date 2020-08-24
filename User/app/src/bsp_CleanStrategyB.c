@@ -500,9 +500,9 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
 			bsp_PidClear(MotorLeft);
 			bsp_PidClear(MotorRight);
 		}
-		if(speed_pid_cnt_goback <=20) speed_pid_cnt_goback +=1;
-		if(speed_pid_cnt_goback >20)  speed_pid_cnt_goback  =20; 
-		cmd_linear_velocity = speed_pid_cnt_goback*0.05*(cmd_linear_velocity+40)-40;	
+		if(speed_pid_cnt_goback <=50) speed_pid_cnt_goback +=1;
+		if(speed_pid_cnt_goback >50)  speed_pid_cnt_goback  =50; 
+		cmd_linear_velocity = speed_pid_cnt_goback*0.02*(cmd_linear_velocity+40)-40;	
 	}
 	else{
 		speed_pid_cnt_goback = 1;
@@ -816,14 +816,14 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 	if(check_sensor_cnt%5)
 	{
 		eSideBrush_A = (int)bsp_GetVoltageAfterFilter(eSideBrush);
-		if(eSideBrush_A > 420)
+		if(eSideBrush_A > 600)
 		{
 			sidebrush_error_cnt++;
 		}else
 		{
 			sidebrush_error_cnt = 0;
 		}
-		if(sidebrush_error_cnt > 3) 
+		if(sidebrush_error_cnt > 20) 
 		{
 			sidebrush_error_cnt = 0;
 			return  motorSide_error;
