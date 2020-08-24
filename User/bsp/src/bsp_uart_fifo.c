@@ -1109,10 +1109,10 @@ int fputc(int ch, FILE *f)
 	return ch;
 #else	/* 采用阻塞方式发送每个字符,等待数据发送完毕 */
 	/* 写一个字节到USART1 */
-	USART_SendData(USART2, (uint8_t) ch);
+	USART_SendData(UART4, (uint8_t) ch);
 
 	/* 等待发送结束 */
-	while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET)
+	while (USART_GetFlagStatus(UART4, USART_FLAG_TC) == RESET)
 	{}
 
 	return ch;

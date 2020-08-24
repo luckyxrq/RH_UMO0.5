@@ -99,7 +99,7 @@
 #define STRATEGY_DEBUG      0
 #define WIFI_DEBUG_EN       0
 #define RTT_EN              0
-#define STRATEGY_SHOW_EN    0
+#define STRATEGY_SHOW_EN    1
 
 
 

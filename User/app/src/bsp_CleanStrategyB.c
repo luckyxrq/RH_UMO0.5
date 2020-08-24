@@ -483,185 +483,12 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
             }
         }
     }
-//	    if(my_abs(roll)<=175){
-//        if(leftVelocity>0&&rightVelocity>0){
-//            if(roll >= -165 && roll <= -100){
-//                leftVelocity=200;
-//                rightVelocity=200;
-//            }
-//            else if(roll >= -170 && roll <= -100){
-//                leftVelocity=100;
-//                rightVelocity=100;
-//            }
-//            else if(roll >= -175 && roll <= -100){
-//                leftVelocity=30;
-//                rightVelocity=30;
-//            }
-//            else if(roll >= 100 && roll <= 165){
-//                leftVelocity=300;
-//                rightVelocity=300;
-//            }
-//            else if(roll >= 100 && roll < 170){
-//                leftVelocity=280;
-//                rightVelocity=280;
-//            }
-//            else if(roll >= 100 && roll < 172){
-//                leftVelocity=250;
-//                rightVelocity=250;
-//            }
-//            else                                      
-//            {
-//            }
-//        }
-//   }
+
     bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
     bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
 	
 	Last_cmd_angular_velocity = *angular_velocity;
 }
-
-//static void sendvelocity(double* linear_velocity,double* angular_velocity){
-//    short leftVelocity,rightVelocity;
-//    double linear_velocity_IR,cmd_linear_velocity,cmd_angular_velocity;
-//    cmd_linear_velocity = *linear_velocity;
-//    cmd_angular_velocity = *angular_velocity;
-//    
-//    if(cmd_linear_velocity == 0 && cmd_angular_velocity == 0){
-//        leftVelocity = 0;
-//        rightVelocity = 0;
-//        bsp_PidClear(MotorLeft);
-//        bsp_PidClear(MotorRight);
-//        speed_pid_cnt_default = 1;
-//        speed_pid_cnt_ir = 1;
-//        speed_pid_cnt_goback = 1;
-//		speed_pid_cnt_realgo =1;
-//    }
-//    else{
-//        if(cmd_linear_velocity != 0 && (cmd_linear_velocity >100 || cmd_linear_velocity <-100)){
-//            if(IRSensorData_StrategyB[0]||IRSensorData_StrategyB[1]|| IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]||IRSensorData_StrategyB[5]||IRSensorData_StrategyB[6]||IRSensorData_StrategyB[7]){
-//                if(cmd_linear_velocity==200){
-//                    if(IRSensorData_StrategyB[2]||IRSensorData_StrategyB[3]||IRSensorData_StrategyB[4]){
-//                        cmd_linear_velocity = 0.5*cmd_linear_velocity;
-//                    }
-//                }
-//                else{
-//                    cmd_linear_velocity = 0.5*cmd_linear_velocity;
-//                }
-//                linear_velocity_IR = cmd_linear_velocity;            
-//            }
-//            if(cmd_linear_velocity <0){
-//                cmd_linear_velocity = -160;
-//                if(speed_pid_cnt_goback == 1){
-//                    bsp_PidClear(MotorLeft);
-//                    bsp_PidClear(MotorRight);
-//                }
-//                if(speed_pid_cnt_goback <=50) speed_pid_cnt_goback +=1;
-//                if(speed_pid_cnt_goback >50)  speed_pid_cnt_goback  =50; 
-//                cmd_linear_velocity = speed_pid_cnt_goback*0.02*(cmd_linear_velocity+40)-40;	
-//            }
-//            else{
-//                speed_pid_cnt_goback = 1;
-//            }
-//            if(cmd_linear_velocity == long_stra_vel){
-//                if(speed_pid_cnt_default == 1) {
-//                    bsp_PidClear(MotorLeft);
-//                    bsp_PidClear(MotorRight);
-//                }
-//                if(speed_pid_cnt_default <=20) speed_pid_cnt_default +=1;
-//                if(speed_pid_cnt_default >20)  speed_pid_cnt_default  =20; 
-//                cmd_linear_velocity = speed_pid_cnt_default*0.05*(cmd_linear_velocity-40) + 40;	
-//            }
-//            else{
-//                speed_pid_cnt_default = 1;
-//            }
-//			if(cmd_linear_velocity == real_gostaright_vel){
-//                if(speed_pid_cnt_realgo == 1) {
-//                    bsp_PidClear(MotorLeft);
-//                    bsp_PidClear(MotorRight);
-//                }
-//                if(speed_pid_cnt_realgo <=20) speed_pid_cnt_realgo +=1;
-//                if(speed_pid_cnt_realgo >20)  speed_pid_cnt_realgo  =20; 
-//                cmd_linear_velocity = speed_pid_cnt_realgo*0.05*(cmd_linear_velocity-40) + 40;	
-//            }
-//            else{
-//                speed_pid_cnt_realgo = 1;
-//            }
-//            if(cmd_linear_velocity ==  linear_velocity_IR){
-//                if(speed_pid_cnt_ir == 1){
-//                    bsp_PidClear(MotorLeft);
-//                    bsp_PidClear(MotorRight);
-//                }
-//                if(speed_pid_cnt_ir <=20) speed_pid_cnt_ir +=1;
-//                if(speed_pid_cnt_ir >20)  speed_pid_cnt_ir  =20; 
-//                if(cmd_linear_velocity >  40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity-40) + 40;	
-//                if(cmd_linear_velocity < -40) cmd_linear_velocity = speed_pid_cnt_ir*0.05*(0.7*cmd_linear_velocity+40) - 40;	
-//            }
-//            else{
-//                speed_pid_cnt_ir = 1;
-//            }            
-//        }
-//        else{
-//            speed_pid_cnt_default = 1;
-//            speed_pid_cnt_ir = 1;
-//            speed_pid_cnt_goback = 1;
-//			speed_pid_cnt_realgo =1;
-//        }
-//        leftVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 - Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
-//        rightVelocity = (short)((0.5*(2*cmd_linear_velocity*0.001 + Deg2Rad(cmd_angular_velocity)*WHEEL_LENGTH))* 1000);
-//        
-//        if(leftVelocity>0){
-//            if(leftVelocity<50) leftVelocity = 50;
-//            if(leftVelocity>300) leftVelocity = 300;
-//        }
-//        if(rightVelocity>0){
-//            if(rightVelocity<50) rightVelocity = 50;
-//            if(rightVelocity>300) rightVelocity = 300;
-//        }
-//        if(leftVelocity<0){
-//            if(leftVelocity>-50) leftVelocity = -50;
-//            if(leftVelocity<-300) leftVelocity = -300;
-//        }
-//        if(rightVelocity<0){
-//            if(rightVelocity>-50) rightVelocity = -50;
-//            if(rightVelocity<-300) rightVelocity = -300;
-//        }
-//    }
-//    
-//    int roll = (int)bsp_IMU_GetData(ROLL);
-//    if(my_abs(roll)<172){
-//        if(leftVelocity>0&&rightVelocity>0){
-//            if(roll >= -165 && roll <= -100){
-//                leftVelocity=150;
-//                rightVelocity=150;
-//            }
-//            else if(roll > -170 && roll <= -100){
-//                leftVelocity=100;
-//                rightVelocity=100;
-//            }
-//            else if(roll > -172 && roll <= -100){
-//                leftVelocity=30;
-//                rightVelocity=30;
-//            }
-//            else if(roll >= 100 && roll <= 165){
-//                leftVelocity=300;
-//                rightVelocity=300;
-//            }
-//            else if(roll >= 100 && roll < 170){
-//                leftVelocity=280;
-//                rightVelocity=280;
-//            }
-//            else if(roll >= 100 && roll < 172){
-//                leftVelocity=250;
-//                rightVelocity=250;
-//            }
-//            else                                      
-//            {
-//            }
-//        }
-//    }
-//    bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(leftVelocity));
-//    bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(rightVelocity));
-//}
 
 
 
@@ -5898,6 +5725,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
             }
         }
     }
+	STRATEGY_SHOW("ForwardBoundaryRightRunStep:%04X\r\n",(int)right_forward_boundary_status);
     switch (right_forward_boundary_status)
     {
     case 0:
@@ -6033,6 +5861,7 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("StuckRightRunStep:%04X\r\n",(int)stuck_right_run_step);
     switch (stuck_right_run_step)
     {
     case 0:
@@ -6297,6 +6126,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
     unsigned char i=0,k=0,ij=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("RightReadyLeakingSweep:%04X\r\n",(int)right_ready_leaking_sweep_status);
     switch(right_ready_leaking_sweep_status)
     {
     case 0:
@@ -6857,6 +6687,7 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
     complete_flag = 0;
+	STRATEGY_SHOW("LeftRunningWorkStep:%04X\r\n",(int)left_running_step_status);
     switch (left_running_step_status)
     {
     case 0:
@@ -7511,6 +7342,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
             }
         }
     }
+	STRATEGY_SHOW("ForwardBoundaryLeftRunStep:%04X\r\n",(int)right_forward_boundary_status);
     switch (right_forward_boundary_status)
     {
     case 0:
@@ -7644,6 +7476,7 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
     unsigned char complete_flag=0,i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("CollisionRightLeftRunStep:%04X\r\n",(int)collision_right_rightrun_step_status);
     switch(collision_right_rightrun_step_status)
     {
     case 0:
@@ -8419,6 +8252,7 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
     unsigned char complete_flag=0,i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("CollisionLeftLeftRunStep:%04X\r\n",(int)collision_left_rightrun_step_status);
     switch(collision_left_rightrun_step_status)
     {
     case 0:
@@ -9158,6 +8992,7 @@ unsigned char  CollisionFrontLeftRunStep(POSE *current_pose, unsigned char obsta
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("CollisionFrontLeftRunStep:%04X\r\n",(int)collision_front_rightrun_step_status);
     switch (collision_front_rightrun_step_status)
     {
     case 0:
@@ -9544,6 +9379,7 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
             return complete_flag;
         }
     }
+	STRATEGY_SHOW("LeftWalkEdge:%04X\r\n",(int)right_walk_edge_status);
     switch(right_walk_edge_status)
     {
     case 0:
@@ -10171,6 +10007,7 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
             return complete_flag;
         }
     }
+	STRATEGY_SHOW("LeftReverseWalkEdge:%04X\r\n",(int)right_reverse_walk_edge_status);
     switch(right_reverse_walk_edge_status)
     {
     case 0:
@@ -10712,6 +10549,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
     signed char k,ij;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("LeftEdgeDilemma:%04X\r\n",(int)right_edge_dilemma_status);
     switch(right_edge_dilemma_status)
     {
     case 0:
@@ -11641,6 +11479,7 @@ unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSig
     unsigned char i=0,k=0,ij=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("LeftReadyLeakingSweep:%04X\r\n",(int)right_ready_leaking_sweep_status);
     switch(right_ready_leaking_sweep_status)
     {
     case 0:
@@ -12195,6 +12034,7 @@ unsigned char StuckLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     unsigned char complete_flag=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw/100;
+	STRATEGY_SHOW("StuckLeftRunStep:%04X\r\n",(int)stuck_right_run_step);
     switch(stuck_right_run_step){
     case 0:
         stuck_right_run_step = LEFT_STUCK_FORWARD_BOUNDARY_STATUS;
@@ -12559,6 +12399,7 @@ unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal)
     if((xTaskGetTickCount() - ForceReturnOriginTimeStamp)> EDGEWISE_CLEAN_WORK_TIME){
         return 1;
     }
+	STRATEGY_SHOW("ForceReturnOrigin:%04X\r\n",(int)return_origin_step_status);
     switch(return_origin_step_status)
     {
     case 0:
@@ -13875,6 +13716,7 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw/100;
+	STRATEGY_SHOW("AStarNotMotionReturnOrigin:%04X\r\n",(int)a_star_not_motion_status);
     switch (a_star_not_motion_status)
     {
     case 0:
@@ -13963,6 +13805,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
+	STRATEGY_SHOW("AStarMotionReturnOrigin:%04X\r\n",(int)a_star_motion_return_origin_status);
     switch (a_star_motion_return_origin_status)
     {
     case 0:
@@ -14845,7 +14688,7 @@ unsigned char  AStarCollision(POSE *current_pose, unsigned char obstacleSignal){
     unsigned char complete_flag = 0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
-    //log_debug("a_star_collision_status =======>>>,%x,\n",a_star_collision_status);
+    STRATEGY_SHOW("AStarCollision:%04X\r\n",(int)a_star_collision_status);
     switch (a_star_collision_status)
     {
     case 0:
@@ -15155,6 +14998,7 @@ unsigned char  CloseEdgedMap(POSE *current_pose, unsigned char obstacleSignal){
     bool end_x=false;
     Yaw = current_pose->orientation;
     Yaw = Yaw/100;
+	STRATEGY_SHOW("CloseEdgedMap:%04X\r\n",(int)close_edge_map_run_step_status);
     switch (close_edge_map_run_step_status){
     case 0:
         closeedgesmap=false;
