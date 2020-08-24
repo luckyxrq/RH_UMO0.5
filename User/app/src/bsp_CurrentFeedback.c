@@ -507,7 +507,7 @@ void bsp_GetVoltageFilterProc(void)
 		sum += arrRollingBrush[i];
 	}
 	g_vRollingBrush = sum / (float)(ARR_FILTER_END-ARR_FILTER_START);
-	g_vRollingBrush = g_vRollingBrush * 1000.0F * 1000.0F / 33.0F / 30.0F;
+	g_vRollingBrush = g_vRollingBrush * 1000.0F * 1000.0F / 33.0F / 50.0F;
 	
 	/*±ßË¢*/
 	sum = 0.0F;

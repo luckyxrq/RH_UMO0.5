@@ -500,9 +500,9 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
 			bsp_PidClear(MotorLeft);
 			bsp_PidClear(MotorRight);
 		}
-		if(speed_pid_cnt_goback <=20) speed_pid_cnt_goback +=1;
-		if(speed_pid_cnt_goback >20)  speed_pid_cnt_goback  =20; 
-		cmd_linear_velocity = speed_pid_cnt_goback*0.05*(cmd_linear_velocity+40)-40;	
+		if(speed_pid_cnt_goback <=50) speed_pid_cnt_goback +=1;
+		if(speed_pid_cnt_goback >50)  speed_pid_cnt_goback  =50; 
+		cmd_linear_velocity = speed_pid_cnt_goback*0.02*(cmd_linear_velocity+40)-40;	
 	}
 	else{
 		speed_pid_cnt_goback = 1;
