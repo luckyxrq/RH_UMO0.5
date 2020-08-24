@@ -816,14 +816,14 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 	if(check_sensor_cnt%5)
 	{
 		eSideBrush_A = (int)bsp_GetVoltageAfterFilter(eSideBrush);
-		if(eSideBrush_A > 420)
+		if(eSideBrush_A > 600)
 		{
 			sidebrush_error_cnt++;
 		}else
 		{
 			sidebrush_error_cnt = 0;
 		}
-		if(sidebrush_error_cnt > 3) 
+		if(sidebrush_error_cnt > 20) 
 		{
 			sidebrush_error_cnt = 0;
 			return  motorSide_error;
