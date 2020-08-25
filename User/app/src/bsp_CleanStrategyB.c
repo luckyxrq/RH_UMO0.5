@@ -940,7 +940,6 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 }
 
 //#################################################################################
-
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     Yaw = current_pose->orientation;
@@ -1023,7 +1022,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
 	}
 	
 #endif
-    current_pose->x=current_pose->x-x_error;
+    
+	current_pose->x=current_pose->x-x_error;
     current_pose->y=current_pose->y-y_error;
     if(b_reverse_moremap==true){
         if(reverse_moremap==1){
