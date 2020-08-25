@@ -7,7 +7,6 @@
 */
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
-
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
 
 /*
@@ -40,6 +39,7 @@ static TaskHandle_t xHandleTaskControl       = NULL;
 static TaskHandle_t xHandleTaskPerception    = NULL;
 static TaskHandle_t xHandleTaskMapping       = NULL;
 static TaskHandle_t xHandleTaskKey           = NULL;
+static TaskHandle_t xHandleTaskMappingUpload = NULL;
 
 static SemaphoreHandle_t  xMutex = NULL;
 
@@ -106,31 +106,17 @@ int main(void)
 */
 
 unsigned int vTaskMapping_cnt = 0;
+unsigned int vTaskMappingUpload_cnt = 0;
 
-static void vTaskMapping(void *pvParameters)
+static void vTaskMappingUpload(void *pvParameters)
 {
 	uint32_t count = 0 ;
-	
-	
     while(1)
     {
-     	
 		//if(!GetCmdStartUpload())
 		//{
-			#if 1 /*更新地图*/
-		
-			if(isSearchCharge == false)
-			{		
-				bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX(),bsp_GetStrategyCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
-			}
-			#endif
-
-		
 			bsp_UploadMap();
 		//}
-		
-
-		
 		if(count % 5 == 0)
         {
 			bsp_ChangeWifi2SmartConfigStateProc();
@@ -154,8 +140,31 @@ static void vTaskMapping(void *pvParameters)
 		}
 		
 		
-		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		RTT("vTaskMappingUpload:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
+		count++;
+		vTaskMappingUpload_cnt++;		
+        vTaskDelay(100);
+    }
+
+}
+
+
+static void vTaskMapping(void *pvParameters)
+{
+	uint32_t count = 0 ;
+	
+    while(1)
+    {
+		//if(!GetCmdStartUpload())
+		//{
+		if(isSearchCharge == false)
+		{		
+			bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX(),bsp_GetStrategyCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+		}
+		//}
+
+		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		count++;
 		vTaskMapping_cnt++;		
         vTaskDelay(100);
@@ -393,10 +402,15 @@ static void vTaskKey(void *pvParameters)
 */
 static void AppTaskCreate (void)
 {
-	
+	xTaskCreate( vTaskMappingUpload,     		/* 任务函数  */
+                 "vTaskMappingUpload",   		/* 任务名    */
+                 128,//512,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 1,              		        /* 任务优先级*/
+                 &xHandleTaskMappingUpload );         /* 任务句柄  */
 	xTaskCreate( vTaskMapping,     		        /* 任务函数  */
                  "vTaskMapping",   		        /* 任务名    */
-                 512,//512,            		        /* 任务栈大小，单位word，也就是4字节 */
+                 512,//512,            		    /* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		        /* 任务参数  */
                  1,              		        /* 任务优先级*/
                  &xHandleTaskMapping );         /* 任务句柄  */

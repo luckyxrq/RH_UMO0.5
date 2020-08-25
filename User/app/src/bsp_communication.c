@@ -276,6 +276,7 @@ void bsp_ComAnalysis(void)
 
 
 extern unsigned int vTaskMapping_cnt;
+extern unsigned int vTaskMappingUpload_cnt;
 void bsp_SendReportFrameWithCRC16(void)
 {
 	memset(&cmd_frame_tx,0,sizeof(CMD_FRAME));
@@ -285,8 +286,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
 	cmd_frame_tx.union_para.mcu_frame.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
 
-	cmd_frame_tx.union_para.mcu_frame.wheelPulseL = vTaskMapping_cnt;//bsp_MotorGetPulseVector(MotorLeft);
-	cmd_frame_tx.union_para.mcu_frame.wheelPulseR = bsp_MotorGetPulseVector(MotorRight);
+	cmd_frame_tx.union_para.mcu_frame.wheelPulseL = vTaskMapping_cnt;       //bsp_MotorGetPulseVector(MotorLeft);
+	cmd_frame_tx.union_para.mcu_frame.wheelPulseR = vTaskMappingUpload_cnt; //bsp_MotorGetPulseVector(MotorRight);
 
 	cmd_frame_tx.union_para.mcu_frame.x_pos = bsp_GetCurrentPosX();
 	cmd_frame_tx.union_para.mcu_frame.y_pos = bsp_GetCurrentPosY();

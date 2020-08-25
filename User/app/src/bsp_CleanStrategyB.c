@@ -3641,7 +3641,7 @@ unsigned char  CollisionFrontRightRunStep(POSE *current_pose, unsigned char obst
             collision_front_rightrun_step_status = GOSTR_YAW_ABS93_CF_DRYM;
             break;
         }
-        if (obstacleSignal != none_obstacle)
+        if (obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             collision_front_rightrun_step_status = TURN_CCLOCK_TARGET_YAW_ABS93_COLLISION_CF_DRYM;
             break;
@@ -5912,7 +5912,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
             old_bow_continue=true;
             break;
         }
-        if (obstacleSignal != none_obstacle)
+        if (obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_forward_boundary_status = FORWARDBOUNDARY_CLOCK_TARGET_YAW_MORE_ABS178_COLLISION;
             break;
@@ -7562,7 +7562,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
             old_bow_continue=true;
             break;
         }
-        if (obstacleSignal != none_obstacle)
+        if (obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             right_forward_boundary_status = LEFT_FORWARDBOUNDARY_CLOCK_TARGET_YAW_LESS_ABS3_COLLISION;
             break;
@@ -13975,7 +13975,7 @@ unsigned char  AStarNotMotionReturnOrigin(POSE *current_pose, unsigned char obst
             a_star_not_motion_status = START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
-        if (obstacleSignal != none_obstacle)
+        if (obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -14303,7 +14303,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             a_star_motion_return_origin_status = GO_B_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
-        if (obstacleSignal != none_obstacle)
+        if (obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             linear_velocity = 0;
             angular_velocity = 0;
@@ -14586,7 +14586,7 @@ unsigned char  AStarMotionReturnOrigin(POSE *current_pose, unsigned char obstacl
             a_star_motion_return_origin_status = GO_A_DIRECT_START_PLAN_ASTAR_MOTION_GOSTR_RETURN;
             break;
         }
-        if (obstacleSignal != none_obstacle)
+        if (obstacleSignal != none_obstacle||(&cliff_valueB)->cliffValue0 == 1)
         {
             linear_velocity = 0;
             angular_velocity = 0;
