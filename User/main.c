@@ -104,6 +104,9 @@ int main(void)
 *   优 先 级: 4  
 *********************************************************************************************************
 */
+
+unsigned int vTaskMapping_cnt = 0;
+
 static void vTaskMapping(void *pvParameters)
 {
 	uint32_t count = 0 ;
@@ -112,8 +115,8 @@ static void vTaskMapping(void *pvParameters)
     while(1)
     {
      	
-		if(!GetCmdStartUpload())
-		{
+		//if(!GetCmdStartUpload())
+		//{
 			#if 1 /*更新地图*/
 		
 			if(isSearchCharge == false)
@@ -124,7 +127,7 @@ static void vTaskMapping(void *pvParameters)
 
 		
 			bsp_UploadMap();
-		}
+		//}
 		
 
 		
@@ -153,7 +156,8 @@ static void vTaskMapping(void *pvParameters)
 		
 		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
-		count++;	
+		count++;
+		vTaskMapping_cnt++;		
         vTaskDelay(100);
     }
 
@@ -339,7 +343,7 @@ static void vTaskPerception(void *pvParameters)
 		bsp_SleepProc();
 		
 		/*上传开关和时间间隔同时限制*/
-		if(GetCmdStartUpload() && count % 50 == 0)
+		if(GetCmdStartUpload() && count % 200 == 0)
 		{
 			bsp_SendReportFrameWithCRC16();
 		}
