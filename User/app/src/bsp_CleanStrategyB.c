@@ -1160,7 +1160,15 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             }
             break;
         }
-        break;
+        if (2 == FunctionStatus)
+		{
+			OVERALL_CLEANING_STRATEGY =  LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+			right_running_step_status = 0;
+			left_running_step_status = 0;
+			FunctionStatus = 0;
+			break;
+		}
+		break;
     case A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
         if(astar_origin==false){
             linear_velocity=0;
@@ -1336,6 +1344,12 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
                 break;
             }  
         }
+		if (2 == FunctionStatus)
+		{
+			OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+			left_running_step_status = 0;
+			FunctionStatus = 0;
+		}
         break;
     case CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY:
         FunctionStatus = CloseEdgedMap(current_pose, obstacleSignal);
@@ -1475,7 +1489,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
         }
-        else if (my_abs(current_pose->y) > half_map_wide - 2*GRIDHEIGHT)
+        else if (my_abs(current_pose->y) > half_map_wide - 3*GRIDHEIGHT)
         {
             right_running_step_status = FORWARD_BOUNDARY_RIGHTRUN_STEP;
             break;
@@ -1806,6 +1820,14 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
         break;
     case FORWARD_BOUNDARY_RIGHTRUN_STEP:
         FunctionStatus = ForwardBoundaryRightRunStep(current_pose, obstacleSignal);
+		if(FunctionStatus==3)
+		{
+			right_running_step_status = 0;
+            right_forward_boundary_status = 0;
+			stuck_right_run_step = 0;
+			FunctionStatus=0;
+			complete_flag=2;
+		}
         if(FunctionStatus==1||FunctionStatus==3)
         {
             if((FunctionStatus==1&&x_more_map==false)||(FunctionStatus==3&&y_more_map==false)){
@@ -5926,7 +5948,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
         }
     }
 	
-	if(my_abs(current_pose->y)>half_map_wide-2*GRIDWIDTH)
+	if(my_abs(current_pose->y)>half_map_wide-3*GRIDWIDTH)
 	{
 		linear_velocity = 0;
 		angular_velocity = 0;
@@ -7295,7 +7317,15 @@ unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSig
         break;
     case FORWARD_BOUNDARY_LEFTRUN_STEP:
         FunctionStatus=ForwardBoundaryLeftRunStep(current_pose,obstacleSignal);
-        if(FunctionStatus==1||FunctionStatus==3)
+        if(FunctionStatus==3)
+		{
+			left_running_step_status = GOSTR_LEFTRUN_STEP;
+            right_forward_boundary_status = 0;
+            complete_flag = 2;
+            FunctionStatus = 0;
+            break;
+		}
+		if(FunctionStatus==1||FunctionStatus==3)
         {
             if((FunctionStatus==1&&x_more_map==false)||(FunctionStatus==3&&y_more_map==false)){
                 if(FunctionStatus==1){
@@ -7558,6 +7588,18 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
             }
         }
     }
+	if(my_abs(current_pose->y)>half_map_wide-3*GRIDWIDTH)
+	{
+                    linear_velocity = 0;
+                    angular_velocity = 0;
+                    right_forward_boundary_status = 0;
+                    judgment_Stuck_status=0;
+                    old_bow_continue=false;
+                    complete_flag=3;
+					stuck  =true;
+					stuck_y=true;
+                    return complete_flag;
+	}
 	STRATEGY_SHOW("ForwardBoundaryLeftRunStep:%04X\r\n",(int)right_forward_boundary_status);
 	minorStrategyIndex = right_forward_boundary_status;
     switch (right_forward_boundary_status)
