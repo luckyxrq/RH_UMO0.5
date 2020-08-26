@@ -8,7 +8,7 @@
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
-
+#define DEBUG_STRATEGY_SHOW                  1
 /*
 **********************************************************************************************************
                                             函数声明
@@ -113,10 +113,10 @@ static void vTaskMappingUpload(void *pvParameters)
 	uint32_t count = 0 ;
     while(1)
     {
-		//if(!GetCmdStartUpload())
-		//{
+		if(!GetCmdStartUpload())
+		{
 			bsp_UploadMap();
-		//}
+		}
 		if(count % 5 == 0)
         {
 			bsp_ChangeWifi2SmartConfigStateProc();
@@ -156,13 +156,13 @@ static void vTaskMapping(void *pvParameters)
 	
     while(1)
     {
-		//if(!GetCmdStartUpload())
-		//{
+		if(!GetCmdStartUpload())
+		{
 		if(isSearchCharge == false)
 		{		
-			bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX(),bsp_GetStrategyCurrentPosY(),bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+			bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX()%5000,bsp_GetStrategyCurrentPosY()%5000,bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 		}
-		//}
+		}
 
 		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		count++;
@@ -356,7 +356,10 @@ static void vTaskPerception(void *pvParameters)
 		{
 			bsp_SendReportFrameWithCRC16();
 		}
-
+		if(DEBUG_STRATEGY_SHOW && count % 100 == 0)
+		{
+			bsp_SendReportFrameWithCRC16();
+		}
 		//RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;

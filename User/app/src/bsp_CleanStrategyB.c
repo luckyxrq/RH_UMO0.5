@@ -5857,13 +5857,18 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
         judgment_Stuck_status_yaw = Yaw;
         judgment_Stuck_status = 1;
     }
-    if(!old_bow_continue){
-        if(my_abs(current_pose->x-judgment_Stuck_status_x)>lateral_move_distance||my_abs(current_pose->y-judgment_Stuck_status_y)>lateral_move_distance){
+    if(!old_bow_continue)
+	{
+        if(my_abs(current_pose->x-judgment_Stuck_status_x)>lateral_move_distance||\
+		   my_abs(current_pose->y-judgment_Stuck_status_y)>lateral_move_distance)
+		{
             judgment_Stuck_status=0;
             judgment_Stuck_status_x = current_pose->x;
             judgment_Stuck_status_y = current_pose->y;
-            if(my_abs(judgment_Stuck_status_yaw-Yaw)<5){
-                if(my_abs(current_pose->x)>half_map_wide-2*GRIDWIDTH){
+            if(my_abs(judgment_Stuck_status_yaw-Yaw)<5)
+			{
+                if(my_abs(current_pose->x)>half_map_wide-2*GRIDWIDTH)
+				{
                     stuck_x=true;
                 }
                 else{
@@ -5886,6 +5891,21 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
             }
         }
     }
+	
+	if(my_abs(current_pose->y)>half_map_wide-2*GRIDWIDTH)
+	{
+		linear_velocity = 0;
+		angular_velocity = 0;
+		right_forward_boundary_status = 0;
+		judgment_Stuck_status=0;
+		complete_flag=3;
+		old_bow_continue=false;
+		stuck_y=true;
+		stuck = true;
+		return complete_flag;
+	}
+	
+	
 	STRATEGY_SHOW("ForwardBoundaryRightRunStep:%04X\r\n",(int)right_forward_boundary_status);
 	minorStrategyIndex = right_forward_boundary_status;
     switch (right_forward_boundary_status)

@@ -289,8 +289,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.wheelPulseL = vTaskMapping_cnt;       //bsp_MotorGetPulseVector(MotorLeft);
 	cmd_frame_tx.union_para.mcu_frame.wheelPulseR = vTaskMappingUpload_cnt; //bsp_MotorGetPulseVector(MotorRight);
 
-	cmd_frame_tx.union_para.mcu_frame.x_pos = bsp_GetCurrentPosX();
-	cmd_frame_tx.union_para.mcu_frame.y_pos = bsp_GetCurrentPosY();
+	cmd_frame_tx.union_para.mcu_frame.x_pos = bsp_GetStrategyCurrentPosX();//bsp_GetCurrentPosX();
+	cmd_frame_tx.union_para.mcu_frame.y_pos = bsp_GetStrategyCurrentPosY();//bsp_GetCurrentPosY();
 
 	cmd_frame_tx.union_para.mcu_frame.cliffMV_L = bsp_GetCliffRealVal(CliffLeft); 
 	cmd_frame_tx.union_para.mcu_frame.cliffMV_M = bsp_GetCliffRealVal(CliffMiddle); 
