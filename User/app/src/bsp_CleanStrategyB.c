@@ -1382,7 +1382,7 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
 unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
-	unsigned char i=0,j=0;
+	signed char i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
 	STRATEGY_SHOW("RightRunningWorkStep:%04X\r\n",(int)right_running_step_status);
@@ -1534,7 +1534,18 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
                 angular_velocity = -10;
             }
             break;
-        }		
+        }
+		else if (my_abs(Yaw) >= 90 && my_abs(Yaw) < 179){
+			if (Yaw > 0){
+				linear_velocity = 300;
+				angular_velocity = 5;
+			}
+			else{
+				linear_velocity = 300;
+				angular_velocity = -5;
+			}
+			break;
+		}		
 
         else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 10){
             if (Yaw > 0){
@@ -1588,6 +1599,17 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             else{
                 linear_velocity = 300;
                 angular_velocity = 10;
+            }
+            break;
+        }
+		else if (my_abs(Yaw) < 90 && my_abs(Yaw) > 1){
+            if (Yaw > 0){
+                linear_velocity = 300;
+                angular_velocity = -5;
+            }
+            else{
+                linear_velocity = 300;
+                angular_velocity = 5;
             }
             break;
         }
@@ -1661,6 +1683,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
 		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
 		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+
 		if(i>0&&i<96&&j>=1&&j<GRIDWIDTH-1){
 			gridmap.map[i+2][j]=0;
 			gridmap.map[i+3][j]=0;
@@ -1693,6 +1716,7 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
             }
 		i=(current_pose->x+half_map_wide)/GRIDWIDTH;
 		j=(current_pose->y+half_map_wide)/GRIDWIDTH;
+
 		if(i>3&&i<GRIDWIDTH&&j>0&&j<GRIDWIDTH){
 			gridmap.map[i-2][j]=0;
 			gridmap.map[i-3][j]=0;
@@ -2015,7 +2039,8 @@ unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSi
 
 unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
-    unsigned char complete_flag=0,i=0,j=0;
+    unsigned char complete_flag=0;
+	signed char i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw= Yaw/100;
 	STRATEGY_SHOW("CollisionRightRightRunStep:%04X\r\n",(int)collision_right_rightrun_step_status);
@@ -2678,7 +2703,8 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
 
 unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
-    unsigned char complete_flag=0,i=0,j=0;
+    unsigned char complete_flag=0;
+	signed char i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw= Yaw/100;
 	STRATEGY_SHOW("CollisionLeftRightRunStep:%04X\r\n",(int)collision_left_rightrun_step_status);
@@ -6314,7 +6340,8 @@ unsigned char  StuckRightRunStep(POSE *current_pose, unsigned char obstacleSigna
 unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
-    unsigned char i=0,k=0,ij=0;
+    unsigned char i=0;
+	signed char k=0,ij=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
 	STRATEGY_SHOW("RightReadyLeakingSweep:%04X\r\n",(int)right_ready_leaking_sweep_status);
@@ -6877,7 +6904,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
 unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
-	unsigned char i=0,j=0;
+	signed char i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
     complete_flag = 0;
@@ -7663,7 +7690,8 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
 
 unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
-    unsigned char complete_flag=0,i=0,j=0;
+    unsigned char complete_flag=0;
+	signed char i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
 	STRATEGY_SHOW("CollisionRightLeftRunStep:%04X\r\n",(int)collision_right_rightrun_step_status);
@@ -8443,7 +8471,8 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
 
 unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
-    unsigned char complete_flag=0,i=0,j=0;
+    unsigned char complete_flag=0;
+	signed char i=0,j=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
 	STRATEGY_SHOW("CollisionLeftLeftRunStep:%04X\r\n",(int)collision_left_rightrun_step_status);
@@ -11727,7 +11756,7 @@ unsigned char  LeftEdgeDilemma(POSE *current_pose, unsigned char obstacleSignal)
 unsigned char LeftReadyLeakingSweep(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
-    unsigned char i=0,k=0,ij=0;
+    signed char i=0,k=0,ij=0;
     Yaw = current_pose->orientation;
     Yaw = Yaw /100;
 	STRATEGY_SHOW("LeftReadyLeakingSweep:%04X\r\n",(int)right_ready_leaking_sweep_status);
