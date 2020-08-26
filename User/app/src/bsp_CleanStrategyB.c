@@ -2380,15 +2380,17 @@ unsigned char  CollisionRightRightRunStep(POSE *current_pose,unsigned char obsta
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
                 if(i>0&&i<99&&j>0&&j<98)
-                gridmap.map[i-1][j]=0;
-                gridmap.map[i][j]=0;
-                gridmap.map[i+1][j]=0;
-                gridmap.map[i-1][j-1]=0;
-                gridmap.map[i][j-1]=0;
-                gridmap.map[i+1][j-1]=0;
-				gridmap.map[i][j+1]=0;
-				gridmap.map[i+1][j+1]=0;
-				gridmap.map[i][j+2]=0;
+				{
+					gridmap.map[i-1][j]=0;
+					gridmap.map[i][j]=0;
+					gridmap.map[i+1][j]=0;
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i][j+2]=0;
+				}
                 last_position_x = current_pose->x;
 			}
             if(adcRealTime[6]>500|| adcRealTime[5]>50||adcRealTime[4]>50){
@@ -2893,15 +2895,17 @@ unsigned char  CollisionLeftRightRunStep(POSE *current_pose,unsigned char obstac
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
                 if(i>0&&i<99&&j>0&&j<98)
-                gridmap.map[i-1][j]=0;
-                gridmap.map[i][j]=0;
-                gridmap.map[i+1][j]=0;
-                gridmap.map[i-1][j-1]=0;
-                gridmap.map[i][j-1]=0;
-                gridmap.map[i+1][j-1]=0;
-				gridmap.map[i][j+1]=0;
-                gridmap.map[i-1][j+1]=0;
-				gridmap.map[i][j+2]=0;
+				{
+					gridmap.map[i-1][j]=0;
+					gridmap.map[i][j]=0;
+					gridmap.map[i+1][j]=0;
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+2]=0;
+				}
                 last_position_x = current_pose->x;
 			}
             if(adcRealTime[0]>500|| adcRealTime[1]>50||adcRealTime[2]>50){
@@ -4836,15 +4840,17 @@ unsigned char  RightWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
                 if(i>0&&i<98&&j>1&&j<GRIDWIDTH-1)
-                gridmap.map[i-1][j]=0;
-                gridmap.map[i][j]=0;
-                gridmap.map[i+1][j]=0;
-//                gridmap.map[i-1][j+1]=0;
-                gridmap.map[i][j+1]=0;
-                gridmap.map[i+1][j+1]=0;
-                gridmap.map[i][j-1]=0;
-                gridmap.map[i+1][j-1]=0;
-                gridmap.map[i][j-2]=0;
+				{
+					gridmap.map[i-1][j]=0;
+					gridmap.map[i][j]=0;
+					gridmap.map[i+1][j]=0;
+	//                gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i][j-2]=0;
+				}
                 last_position_x = current_pose->x;
             }
             break;			
@@ -5420,15 +5426,17 @@ unsigned char  RightReverseWalkEdge(POSE *current_pose,unsigned char obstacleSig
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
                 if(i>1&&i<99&&j>1&&j<GRIDWIDTH-1)
-                gridmap.map[i-1][j]=0;
-                gridmap.map[i][j]=0;
-                gridmap.map[i+1][j]=0;
-                gridmap.map[i-1][j+1]=0;
-                gridmap.map[i][j+1]=0;
-//                gridmap.map[i+1][j+1]=0;
-                gridmap.map[i][j-1]=0;
-                gridmap.map[i-1][j-1]=0;
-                gridmap.map[i][j-2]=0;				
+				{
+					gridmap.map[i-1][j]=0;
+					gridmap.map[i][j]=0;
+					gridmap.map[i+1][j]=0;
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+	//                gridmap.map[i+1][j+1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-2]=0;	
+				}					
                 last_position_x = current_pose->x;
             }
             break;
@@ -8055,15 +8063,17 @@ unsigned char  CollisionRightLeftRunStep(POSE *current_pose,unsigned char obstac
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
                 if(i>1&&i<99&&j>1&&j<GRIDWIDTH)
-                gridmap.map[i-1][j]=0;
-                gridmap.map[i][j]=0;
-                gridmap.map[i+1][j]=0;
-                gridmap.map[i-1][j+1]=0;
-                gridmap.map[i][j+1]=0;
-                gridmap.map[i+1][j+1]=0;
-                gridmap.map[i][j-1]=0;
-                gridmap.map[i-1][j-1]=0;
-                gridmap.map[i][j-2]=0;				
+				{
+					gridmap.map[i-1][j]=0;
+					gridmap.map[i][j]=0;
+					gridmap.map[i+1][j]=0;
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-2]=0;	
+				}					
                 last_position_x = current_pose->x;
 			}
             if(adcRealTime[6]>500|| adcRealTime[5]>50||adcRealTime[4]>50){
@@ -8651,16 +8661,19 @@ unsigned char  CollisionLeftLeftRunStep(POSE *current_pose,unsigned char obstacl
 			    i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH-3;
                 if(i>0&&i<98&&j>1&&j<GRIDWIDTH)
-                gridmap.map[i-1][j]=0;
-                gridmap.map[i][j]=0;
-                gridmap.map[i+1][j]=0;
-                gridmap.map[i-1][j+1]=0;
-                gridmap.map[i][j+1]=0;
-                gridmap.map[i+1][j+1]=0;
-                gridmap.map[i][j-1]=0;
-                gridmap.map[i+1][j-1]=0;
-                gridmap.map[i][j-2]=0;
+				{
+					gridmap.map[i-1][j]=0;
+					gridmap.map[i][j]=0;
+					gridmap.map[i+1][j]=0;
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i][j-2]=0;
+				}
                 last_position_x = current_pose->x;
+					
 			}
             if(adcRealTime[0]>500|| adcRealTime[1]>50||adcRealTime[2]>50){
                 linear_velocity = 50;
@@ -9735,15 +9748,17 @@ unsigned char  LeftWalkEdge(POSE *current_pose,unsigned char obstacleSignal){
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
                 if(i>0&&i<99&&j>0&&j<98)
-                gridmap.map[i-1][j]=0;
-                gridmap.map[i][j]=0;
-                gridmap.map[i+1][j]=0;
-//                gridmap.map[i-1][j-1]=0;
-                gridmap.map[i][j-1]=0;
-                gridmap.map[i+1][j-1]=0;
-				gridmap.map[i][j+1]=0;
-				gridmap.map[i+1][j+1]=0;
-                gridmap.map[i][j+2]=0;
+				{
+					gridmap.map[i-1][j]=0;
+					gridmap.map[i][j]=0;
+					gridmap.map[i+1][j]=0;
+	//                gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+					gridmap.map[i+1][j-1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i+1][j+1]=0;
+					gridmap.map[i][j+2]=0;
+				}
                 last_position_x = current_pose->x;
             }
             break;			
@@ -10307,15 +10322,17 @@ unsigned char  LeftReverseWalkEdge(POSE *current_pose,unsigned char obstacleSign
                 i=(current_pose->x+half_map_wide)/GRIDWIDTH;
                 j=(current_pose->y+half_map_wide)/GRIDWIDTH+3;
                 if(i>0&&i<99&&j>0&&j<98)
-                gridmap.map[i-1][j]=0;
-                gridmap.map[i][j]=0;
-                gridmap.map[i+1][j]=0;
-                gridmap.map[i-1][j-1]=0;
-                gridmap.map[i][j-1]=0;
-//                gridmap.map[i+1][j-1]=0;
-				gridmap.map[i][j+1]=0;
-                gridmap.map[i-1][j+1]=0;
-                gridmap.map[i][j+2]=0;
+				{
+					gridmap.map[i-1][j]=0;
+					gridmap.map[i][j]=0;
+					gridmap.map[i+1][j]=0;
+					gridmap.map[i-1][j-1]=0;
+					gridmap.map[i][j-1]=0;
+	//                gridmap.map[i+1][j-1]=0;
+					gridmap.map[i][j+1]=0;
+					gridmap.map[i-1][j+1]=0;
+					gridmap.map[i][j+2]=0;
+				}
                 last_position_x = current_pose->x;
             }
             break;			
