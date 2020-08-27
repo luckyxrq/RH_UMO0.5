@@ -33,6 +33,8 @@ uint32_t bsp_GetParaCliff_R(void);
 uint32_t bsp_GetParaEdge_L(void);
 uint32_t bsp_GetParaEdge_R(void);
 uint32_t bsp_GetParaErLangShen(void);
+void bsp_SetCollisonCnt(uint32_t* collison_buf);
+uint32_t* bsp_GetCollisonCnt(void);
 
 
 

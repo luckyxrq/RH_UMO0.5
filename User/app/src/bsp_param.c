@@ -22,6 +22,8 @@ typedef struct
 	
 	uint32_t ErLangShen;    /*¶þÀÉÉñãÐÖµ*/
 	
+	uint32_t collsion_cnt[4];
+
 }
 PARAM_T;
 #pragma pack()
@@ -193,6 +195,20 @@ uint32_t bsp_GetParaEdge_R(void)
 uint32_t bsp_GetParaErLangShen(void)
 {
 	return param.ErLangShen;
+}
+
+void bsp_SetCollisonCnt(uint32_t* collison_buf)
+{
+    param.collsion_cnt[0] = collison_buf[0]; //left_cnt;
+    param.collsion_cnt[1] = collison_buf[1];//right_cnt;
+    param.collsion_cnt[2] = collison_buf[2];//all_cnt;
+    param.collsion_cnt[3] = collison_buf[3];//none_cnt;
+    
+    bsp_SaveParam();
+}
+uint32_t* bsp_GetCollisonCnt(void)
+{
+    return param.collsion_cnt;
 }
 
 

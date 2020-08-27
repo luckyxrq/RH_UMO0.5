@@ -659,7 +659,8 @@ short Edge_length(void){
 
 
 short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal){
-    unsigned char y_boundary=0,x_boundary=0,i=0,j=0,k=0,t=0,z=0,ij=0;
+    return 0;
+	unsigned char y_boundary=0,x_boundary=0,i=0,j=0,k=0,t=0,z=0,ij=0;
     short Leaksweep=0;
     bool leak;
     bool firsttrap=false;
@@ -911,7 +912,8 @@ short bsp_Right_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigne
 }
 
 short bsp_Left_ReturnExtreme_point(int robotX,int robotY,int robotTheta,unsigned char obstacleSignal){
-    unsigned char y_boundary;
+    return 0;
+	unsigned char y_boundary;
     unsigned char x_boundary,i=0,j=0,k=0,t=0,z=0,ij=0;
     short Leaksweep=0;
     bool leak;

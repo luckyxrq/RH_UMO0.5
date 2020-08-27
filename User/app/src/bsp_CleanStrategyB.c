@@ -5,7 +5,7 @@
 #define INT_COOR_X 250
 #define INT_COOR_Y 250
 #define ALL_CLEAN_COMPLETE 0
-#define CLEAN_WORK_TIME 40*60*1000
+#define CLEAN_WORK_TIME 80*60*1000
 #define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
 #define FORCE_RETURN_ORIGIN_WORK_TIME 2*60*1000
 
@@ -740,8 +740,9 @@ void bsp_UpdateCleanStrategyB(int robotX,int robotY,double robotTheta, unsigned 
         else{
             bsp_SperkerPlay(Song5);
             bsp_StopUpdateCleanStrategyB();
-            return_charge_station_flag = 1;
-            
+            //return_charge_station_flag = 1;
+			bsp_PutKey(KEY_LONG_CLEAN);
+			
         }
     }
     
@@ -782,6 +783,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
     }
     
     //µç³ØµçÁ¿¼ì²â
+#if 0
     if(check_sensor_cnt%100){
         //	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
         batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
@@ -795,6 +797,8 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
                 return  battery_out_flag;//battery_out_flag;
             }
         }
+#endif 
+	
 	//¹öË¢µçÁ÷¼ì²â
 	if(check_sensor_cnt%3)
 	{
@@ -845,36 +849,6 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 		}
 		
 	}
-	
-//		motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*1000;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorLeft_error;// ;
-//        }
-//		
-//		motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight)*100;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorRight_error;// ;
-//        }
-//		motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum)*100;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorVacuum_error;// ;
-//        }
-//		motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush)*100;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorRolling_error;// ;
-//        }
-//		motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush)*100;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorSide_error;// ;
-//        }
-		   
-		     
-    }
     
     //Åö×²Òì³£¼ì²â
     if(check_sensor_cnt%20){
@@ -1119,8 +1093,9 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         {
             if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
                 if(closeedgesmap==true){
-                    OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
-                    right_running_step_status = 0;
+                    //OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+                    OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+					right_running_step_status = 0;
                     FunctionStatus = 0;
                     break;
                 }
@@ -1144,8 +1119,9 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
                 }
                 else{
                     if(closeedgesmap==true){
-                        OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
-                        right_running_step_status = 0;
+                        //OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+                        OVERALL_CLEANING_STRATEGY = LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+						right_running_step_status = 0;
                         FunctionStatus = 0;
                         break;
                     }
@@ -1324,8 +1300,10 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         if (1 == FunctionStatus)
         {
             if( my_abs(temporary_wheel_pulse_r-wheel_pulse_r)>10000){
-                OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
-                left_running_step_status = 0;
+                //OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+                bsp_ResetCleanStrategyBStatus();
+				OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+				left_running_step_status = 0;
                 over_clean_finish = true;
                 FunctionStatus = 0;
                 break;
@@ -1337,8 +1315,10 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
                     FunctionStatus=0;
                 }
                 else{
-                    OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
-                    left_running_step_status = 0;
+                    //OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+                    bsp_ResetCleanStrategyBStatus();
+					OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
+					left_running_step_status = 0;
                     FunctionStatus = 0;
                 }
                 break;
@@ -1346,7 +1326,9 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         }
 		if (2 == FunctionStatus)
 		{
-			OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+			//OVERALL_CLEANING_STRATEGY = CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY;
+			bsp_ResetCleanStrategyBStatus();
+			OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
 			left_running_step_status = 0;
 			FunctionStatus = 0;
 		}

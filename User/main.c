@@ -8,7 +8,7 @@
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
-#define DEBUG_STRATEGY_SHOW                  0
+#define DEBUG_STRATEGY_SHOW                  1
 /*
 **********************************************************************************************************
                                             函数声明
@@ -349,7 +349,7 @@ static void vTaskPerception(void *pvParameters)
 		bsp_SelfCheckProc();
 		
 		/*空闲休眠模式检测*/
-		bsp_SleepProc();
+		//bsp_SleepProc();
 		
 		/*上传开关和时间间隔同时限制*/
 		if(GetCmdStartUpload() && count % 200 == 0)
@@ -381,9 +381,66 @@ static void vTaskPerception(void *pvParameters)
 */
 static void vTaskKey(void *pvParameters)
 {
-	vTaskDelay(1000);
+	uint32_t collision_left = 0,collision_right = 0,collision_all= 0,collision_none = 0;
+    uint32_t collision_buf[4] = {0};
+
+	uint32_t count = 0 ;
+    vTaskDelay(2000);
+    
+    uint32_t StartTimeStamp = 0;
+    uint32_t StopTimeStamp = 0;
+    uint8_t IsOnWork = 0;
+    uint32_t work_time =  60*60*1000;
+    uint32_t rest_time =  15*60*1000;
+    
+    
+    IsOnWork = 1;
+    bsp_PutKey(KEY_LONG_CLEAN);
+    StartTimeStamp  = xTaskGetTickCount();
+
+	
+	//vTaskDelay(1000);
     while(1)
     {
+		if(bsp_CollisionScan() == CollisionNone) collision_none++; 
+        else if(bsp_CollisionScan() == CollisionLeft) collision_left++; 
+        else if(bsp_CollisionScan() == CollisionRight) collision_right++; 
+        else if(bsp_CollisionScan() == CollisionAll) collision_all++; 
+
+		count++;
+        if(count % 30 == 0)
+        {
+            if(IsOnWork)
+            {
+                if(xTaskGetTickCount() - StartTimeStamp > work_time ) 
+                {
+                    IsOnWork = 0;
+                    bsp_PutKey(KEY_DOWN_CLEAN);
+                    bsp_CleanZeroYaw();
+                    StopTimeStamp  = xTaskGetTickCount();
+					collision_buf[0] = collision_left;
+                    collision_buf[1] = collision_right;
+                    collision_buf[2] = collision_all;
+                    collision_buf[3] = collision_none;
+                    bsp_SetCollisonCnt(collision_buf);
+                    collision_left = 0;
+                    collision_right = 0;
+                    collision_all= 0;
+                    collision_none = 0;
+
+                }
+            }else
+            {
+                if(xTaskGetTickCount() - StopTimeStamp > rest_time ) 
+                {
+                    IsOnWork = 1;
+                    bsp_PutKey(KEY_LONG_CLEAN);
+                    StartTimeStamp  = xTaskGetTickCount();
+                }
+            }
+            
+        }
+
 		/* 处理按键事件 */
         bsp_KeyProc();
 		

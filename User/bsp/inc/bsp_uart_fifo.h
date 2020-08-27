@@ -40,7 +40,7 @@
 #define	UART1_FIFO_EN	0
 #define	UART2_FIFO_EN	1  //调试
 #define	UART3_FIFO_EN	1  //陀螺仪
-#define	UART4_FIFO_EN	0  //BOT3
+#define	UART4_FIFO_EN	1  //BOT3
 #define	UART5_FIFO_EN	1  //WIFI模块
 
 /* RS485芯片发送使能GPIO, PB2 */
@@ -70,7 +70,7 @@ typedef enum
 #endif
 
 #if UART2_FIFO_EN == 1
-	#define UART2_BAUD			38400//115200
+	#define UART2_BAUD			115200
 	#define UART2_TX_BUF_SIZE	1*1024   /*调试串口只发，不收*/
 	#define UART2_RX_BUF_SIZE	1*1024     /*调试串口只发，不收，接收尽可能小*/
 #endif

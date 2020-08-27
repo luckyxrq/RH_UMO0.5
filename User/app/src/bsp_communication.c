@@ -188,7 +188,7 @@ void bsp_ComAnalysis(void)
     UNUSED(sub_sec);
 	
 	/*Ñ¡¶¨´®¿Ú*/
-	port = COM2;
+	port = COM4;
 	
     while(comGetChar( port , &ch))   
     {
@@ -279,6 +279,9 @@ extern unsigned int vTaskMapping_cnt;
 extern unsigned int vTaskMappingUpload_cnt;
 void bsp_SendReportFrameWithCRC16(void)
 {
+	uint32_t* collision_buf;
+    collision_buf = bsp_GetCollisonCnt();
+
 	memset(&cmd_frame_tx,0,sizeof(CMD_FRAME));
 	
 	cmd_frame_tx.union_para.mcu_frame.dustBox = bsp_DustBoxGetState();
@@ -286,8 +289,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
 	cmd_frame_tx.union_para.mcu_frame.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
 
-	cmd_frame_tx.union_para.mcu_frame.wheelPulseL = vTaskMapping_cnt;       //bsp_MotorGetPulseVector(MotorLeft);
-	cmd_frame_tx.union_para.mcu_frame.wheelPulseR = vTaskMappingUpload_cnt; //bsp_MotorGetPulseVector(MotorRight);
+	cmd_frame_tx.union_para.mcu_frame.wheelPulseL = *(collision_buf+2); //all  //vTaskMapping_cnt;       //bsp_MotorGetPulseVector(MotorLeft);
+	cmd_frame_tx.union_para.mcu_frame.wheelPulseR = *(collision_buf+3); //none //bsp_MotorGetPulseVector(MotorRight);
 
 	cmd_frame_tx.union_para.mcu_frame.x_pos = bsp_GetStrategyCurrentPosX();//bsp_GetCurrentPosX();
 	cmd_frame_tx.union_para.mcu_frame.y_pos = bsp_GetStrategyCurrentPosY();//bsp_GetCurrentPosY();
@@ -361,7 +364,7 @@ void bsp_SendReportFrameWithCRC16(void)
 	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
 	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
 	
-	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
+	comSendBuf(COM4,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
 }
 
 
@@ -384,7 +387,7 @@ static void bsp_SendMCU_Ver(void)
 	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
 	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
 	
-	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
+	comSendBuf(COM4,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
 }
 
 
@@ -416,6 +419,6 @@ static void bsp_SendAllCalibration(void)
 	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
 	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
 	
-	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
+	comSendBuf(COM4,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
 }
 
