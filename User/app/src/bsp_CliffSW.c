@@ -275,17 +275,17 @@ uint8_t bsp_GetCliffStates(void)
 	cliffSub[1] = abs((cliffTwiceRead [1][1] - cliffTwiceRead [1][0])*1000);
 	cliffSub[2] = abs((cliffTwiceRead [2][1] - cliffTwiceRead [2][0])*1000);
 	
-	if( cliffSub[0] <= IS_OBSTACLE_CLIFF_MV )
+	if( cliffSub[0] <= bsp_GetParaCliff_L() )
 	{
 		data |= 1<< 0;
 	}
 	
-	if( cliffSub[1] <= IS_OBSTACLE_CLIFF_MV )
+	if( cliffSub[1] <= bsp_GetParaCliff_M() )
 	{
 		data |= 1<< 1;
 	}
 	
-	if( cliffSub[2] <= IS_OBSTACLE_CLIFF_MV )
+	if( cliffSub[2] <= bsp_GetParaCliff_R() )
 	{
 		data |= 1<< 2;
 	}
