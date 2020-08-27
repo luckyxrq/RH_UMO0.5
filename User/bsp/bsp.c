@@ -54,7 +54,7 @@ CleanCarRunMode bsp_GetAppRunMode(void)
 void bsp_Init(void)
 {
 	uint8_t ret;
-	
+
 	UNUSED(ret);
 	
 	/*
@@ -129,6 +129,7 @@ void bsp_Init(void)
 	if(!ret)
 	{
 		WARNING("AW9523B Init Error\r\n");
+		bsp_SperkerPlay(Song36);
 	}
 
 #endif
@@ -146,6 +147,8 @@ void bsp_Init(void)
 	else
 	{
 		bsp_SperkerPlay(Song1);
+		//bsp_SperkerPlay(Song38);
+		bsp_DelayMS(200);
 	}
 	
 #endif

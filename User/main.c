@@ -381,6 +381,7 @@ static void vTaskPerception(void *pvParameters)
 */
 static void vTaskKey(void *pvParameters)
 {
+	
 	vTaskDelay(1000);
     while(1)
     {
