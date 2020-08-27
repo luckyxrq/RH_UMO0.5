@@ -8,7 +8,7 @@
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
-#define DEBUG_STRATEGY_SHOW                  0
+#define DEBUG_STRATEGY_SHOW                  1
 /*
 **********************************************************************************************************
                                             函数声明
@@ -153,14 +153,16 @@ static void vTaskMappingUpload(void *pvParameters)
 static void vTaskMapping(void *pvParameters)
 {
 	uint32_t count = 0 ;
+	uint32_t vTaskMappingUpload_cnt_last = 0;
 	
     while(1)
     {
+		vTaskMappingUpload_cnt_last = vTaskMappingUpload_cnt;
 		if(!GetCmdStartUpload())
 		{
 		if(isSearchCharge == false)
 		{		
-			bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX()%5000,bsp_GetStrategyCurrentPosY()%5000,bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
+			bsp_GridMapUpdate(bsp_GetStrategyCurrentPosX()%4999,bsp_GetStrategyCurrentPosY()%4999,bsp_GetCurrentOrientation(),bsp_CollisionScan(),bsp_GetIRSensorData(),bsp_GetCliffSensorData());
 		}
 		}
 
@@ -168,6 +170,22 @@ static void vTaskMapping(void *pvParameters)
 		count++;
 		vTaskMapping_cnt++;		
         vTaskDelay(100);
+		
+		if(count%20) 
+		{
+			if(vTaskMappingUpload_cnt_last == vTaskMappingUpload_cnt)
+			{
+				vTaskDelete(xHandleTaskMappingUpload);
+				vTaskDelay(500);
+				xTaskCreate( vTaskMappingUpload,/* 任务函数  */
+                 "vTaskMappingUpload",   		/* 任务名    */
+                 128,//512,            		    /* 任务栈大小，单位word，也就是4字节 */
+                 NULL,           		        /* 任务参数  */
+                 1,              		        /* 任务优先级*/
+                 &xHandleTaskMappingUpload );   /* 任务句柄  */
+				vTaskDelay(500);
+			}
+		}
     }
 
 }

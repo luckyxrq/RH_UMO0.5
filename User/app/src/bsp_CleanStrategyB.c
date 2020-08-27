@@ -6087,6 +6087,14 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
         right_forward_boundary_status = 0;
         judgment_Stuck_status = 0;
         complete_flag = 1;
+	
+		//非常粗糙的处理方式，如下
+		current_pose->x = 0;
+		current_pose->y = 0;
+		x_error = 0;
+		y_error = 0;
+		StartUpdateGridMap();
+	
         break;
     }
     return complete_flag;
@@ -7723,6 +7731,12 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
         judgment_Stuck_status=0;
         old_bow_continue=false;
         complete_flag=1;
+		//非常粗糙的处理方式，如下
+		current_pose->x = 0;
+		current_pose->y = 0;
+		x_error = 0;
+		y_error = 0;
+		StartUpdateGridMap();
         break;
     }
     return complete_flag;
