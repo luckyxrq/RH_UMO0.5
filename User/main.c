@@ -804,10 +804,15 @@ static void bsp_KeyProc(void)
 			
 			case KEY_LONG_POWER:
 			{
-				DEBUG("重新配网：同时按充电和清扫\r\n");
-				bsp_SperkerPlay(Song29);
-				bsp_StartChangeWifi2SmartConfigState();
-				bsp_SetLedState(AT_LINK);
+//				DEBUG("重新配网：同时按充电和清扫\r\n");
+//				bsp_SperkerPlay(Song29);
+//				bsp_StartChangeWifi2SmartConfigState();
+//				bsp_SetLedState(AT_LINK);
+
+				bsp_SetEdgeLeftRight(Dir_right);
+				bsp_StartEdgewiseRun();
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				
 			}break;
 			
 			
