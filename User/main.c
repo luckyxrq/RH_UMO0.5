@@ -8,7 +8,7 @@
 #define PAUSE_INTERVAL_RESPONSE_TIME         1
 #define AT_POWER_ON_OPEN_ALL_MODULE_EN       0     /*在开机的时候直接打开所有的电机轮子...，用于调试的时候使用*/
 #define DEBUG_CLOSE_CLEAN_MOTOR              0 //1 关闭清扫电机
-#define DEBUG_STRATEGY_SHOW                  1
+#define DEBUG_STRATEGY_SHOW                  0
 /*
 **********************************************************************************************************
                                             函数声明
@@ -370,14 +370,14 @@ static void vTaskPerception(void *pvParameters)
 		bsp_SleepProc();
 		
 		/*上传开关和时间间隔同时限制*/
-		if(GetCmdStartUpload() && count % 200 == 0)
+		if(GetCmdStartUpload() && count % 50 == 0)
 		{
 			bsp_SendReportFrameWithCRC16();
 		}
-		if(DEBUG_STRATEGY_SHOW && count % 100 == 0)
-		{
-			bsp_SendReportFrameWithCRC16();
-		}
+//		if(DEBUG_STRATEGY_SHOW && count % 100 == 0)
+//		{
+//			bsp_SendReportFrameWithCRC16();
+//		}
 		//RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
