@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Aug 28 10:25:21 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Aug 28 14:26:50 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2859,8 +2859,8 @@ Global Symbols
 <LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_sensor
 </UL>
 
-<P><STRONG><a name="[185]"></a>bsp_GetVoltageFilterProc</STRONG> (Thumb, 610 bytes, Stack size 32 bytes, bsp_currentfeedback.o(i.bsp_GetVoltageFilterProc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = bsp_GetVoltageFilterProc &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[185]"></a>bsp_GetVoltageFilterProc</STRONG> (Thumb, 648 bytes, Stack size 40 bytes, bsp_currentfeedback.o(i.bsp_GetVoltageFilterProc))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = bsp_GetVoltageFilterProc &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetFeedbackVoltage
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
@@ -4976,7 +4976,7 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.AppTaskCreate)
 </UL>
 <P><STRONG><a name="[4b]"></a>vTaskDecision</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, main.o(i.vTaskDecision))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120 + In Cycle
+<BR><BR>[Stack]<UL><LI>Max Depth = 128 + In Cycle
 <LI>Call Chain = vTaskDecision &rArr;  vTaskDecision (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
