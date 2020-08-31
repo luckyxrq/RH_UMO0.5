@@ -1,20 +1,21 @@
 #include "bsp.h"
 #include <math.h>
-
-#define STRATEGY_DEBUG      0 //0 关闭串口调试
-#define INT_COOR_X 250
-#define INT_COOR_Y 250
+ 
+#define INT_COOR_X 0   /*250 StartingCcoordinatesBias.NowNotNeeded*/
+#define INT_COOR_Y 0   /*250 StartingCcoordinatesBias.NowNotNeeded*/
 #define ALL_CLEAN_COMPLETE 0
 #define CLEAN_WORK_TIME 40*60*1000
 #define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
 #define FORCE_RETURN_ORIGIN_WORK_TIME 2*60*1000
 
-#define ZoomMultiple 4
+#define ZoomMultiple 4 /*MapCompress100*100To25*25*/
 #define compression_map_x 25
 #define compression_map_y 25
 
-#define MAX_VELOCITY 350 
-#define MIN_VELOCITY 50
+#define MAX_VELOCITY 350 /*SpeedMaximumLimit*/
+#define MIN_VELOCITY 50  /*SpeedMinimumLimit*/
+
+#define my_abs(x) ABS(x)
 
 unsigned char rightmapmin=0;
 unsigned char rightmapmax=0;
@@ -49,7 +50,7 @@ int8_t return_origin_positive_start= 1;
 int8_t selectside=0;
 
 
-//for  walk edge
+/*for  walk edge*/
 short right_walk_edge_status = 0;
 short right_reverse_walk_edge_status = 0;
 short right_edge_dilemma_status = 0;
@@ -109,7 +110,7 @@ unsigned int CurrentCleanTimeStamp  = 0;
 unsigned int EdgeWiseCleanTimeStamp = 0;
 unsigned int ForceReturnOriginTimeStamp = 0;
 
-//**************return origin value************************************
+/**************return origin value************************************/
 AStar_MapNode AStar_graph[AStar_Height][AStar_Width];
 AStar_Close astar_close[AStar_Height][AStar_Width];
 AStar_Close *AStar_start;
@@ -149,7 +150,7 @@ const AStarPoint astar_dir[8] ={
 
 
 
-//***********stuck status******************************
+/***********stuck status******************************/
 int judgment_Stuck_status = 0;
 int judgment_Stuck_status_x = 0;
 int judgment_Stuck_status_y = 0;
@@ -162,7 +163,7 @@ int x_error = 0;
 int y_error = 0;
 
 
-//############MCU#############################
+/*############MCU#############################*/
 static CleanStrategyB cleanstrategy;
 static POSE current_pose;
 int32_t global_pose_x;
@@ -170,12 +171,12 @@ int32_t global_pose_y;
 int32_t map_current_pose_x;
 int32_t map_current_pose_y;
 
-//static int Yaw;
+/*static int Yaw;*/
 static short speed_pid_cnt_goback  = 0;
 static short speed_pid_cnt_default = 0;
 static short speed_pid_cnt_realgo = 0;
-static short speed_pid_cnt_ir = 0;
-static short speed_pid_cnt_spin = 0;
+//static short speed_pid_cnt_ir = 0;
+//static short speed_pid_cnt_spin = 0;
 static double Last_cmd_angular_velocity = 0;
 static unsigned char* IRSensorData_StrategyB;
 
@@ -316,13 +317,9 @@ static void left_edge_judgment_repeat(void)
 }
 
 
-double my_abs(double x){
-    if(x<0){
-        x=-x;
-    }
-    return x;
-}
 
+
+ 
 
 static void sendvelocity(double* linear_velocity,double* angular_velocity){
 /*角速度范围：5~60 度/秒*/
@@ -759,11 +756,6 @@ void ResetReturnChargeStationStatus(void){
     return_charge_station_flag  = 0;
 }
 static uint8_t check_sensor(unsigned char obstacleSignal){
-    float batteryvoltage;
-	//uint16_t motorLeftVoltage,motorRightVoltage,motorVacuumVoltage,motorRollingVoltage,motorSideVoltage,batteryCurrent;
-    //	IRSensorData_StrategyB
-    //	cliff_valueB
-    
     /*如果 处在 上传数据的状态 ， 则屏蔽异异常检测*/
     if(GetCmdStartUpload())
     {
@@ -772,30 +764,24 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
     
     check_sensor_cnt++;
     if (check_sensor_cnt >201) check_sensor_cnt = 0;
-    
-    //工作时间检测
-    if(check_sensor_cnt%100){
-        
+    /*工作时间检测*/
+    if(check_sensor_cnt%100){   
         CurrentCleanTimeStamp = xTaskGetTickCount();
         RealWorkTime = CurrentCleanTimeStamp - LastCleanTimeStamp;
         if(CurrentCleanTimeStamp - LastCleanTimeStamp >CLEAN_WORK_TIME) return time_out_flag;
     }
     
-    //电池电量检测
+    /*电池电量检测*/
     if(check_sensor_cnt%100){
-        //	batteryCurrent = bsp_GetFeedbackVoltage(eBatteryCurrent)*100;
-        batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
-        batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-        if(batteryvoltage < 13)   //12v-16v
+        if(bsp_GetVoltageAfterFilter(eBatteryVoltage) < 13)   //12v-16v
         {
-            batteryvoltage = bsp_GetFeedbackVoltage(eBatteryVoltage);
-            batteryvoltage = (batteryvoltage * 430 / 66.5) + batteryvoltage + 0.2F; 
-            if(batteryvoltage < 13)
+            if(bsp_GetVoltageAfterFilter(eBatteryVoltage) < 13)
             {
                 return  battery_out_flag;//battery_out_flag;
             }
         }
-	//滚刷电流检测
+	}
+	/*滚刷电流检测*/
 	if(check_sensor_cnt%3)
 	{
 		eRollingBrush_A1 = (int)bsp_GetVoltageAfterFilter(eRollingBrush);
@@ -827,7 +813,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 //		}
 		
 	}
-	//边刷电流检测
+	/*边刷电流检测*/
 	if(check_sensor_cnt%5)
 	{
 		eSideBrush_A = (int)bsp_GetVoltageAfterFilter(eSideBrush);
@@ -845,39 +831,10 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
 		}
 		
 	}
-	
-//		motorLeftVoltage = bsp_GetFeedbackVoltage(eMotorLeft)*1000;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorLeft_error;// ;
-//        }
-//		
-//		motorRightVoltage = bsp_GetFeedbackVoltage(eMotorRight)*100;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorRight_error;// ;
-//        }
-//		motorVacuumVoltage = bsp_GetFeedbackVoltage(eVacuum)*100;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorVacuum_error;// ;
-//        }
-//		motorRollingVoltage = bsp_GetFeedbackVoltage(eRollingBrush)*100;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorRolling_error;// ;
-//        }
-//		motorSideVoltage = bsp_GetFeedbackVoltage(eSideBrush)*100;
-//		if(motorLeftVoltage > 3000)   // 
-//        {
-//			return  motorSide_error;// ;
-//        }
-		   
-		     
-    }
-    
-    //碰撞异常检测
-    if(check_sensor_cnt%20){
+
+    /*碰撞异常检测*/
+    if(check_sensor_cnt%20)
+	{
         if(obstacleSignal<3)   
         {
             collision_error_cnt++;
@@ -890,7 +847,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
             collision_error_cnt = 0;
         }
     }
-    //跳崖异常检测
+    /*跳崖异常检测*/
     if(check_sensor_cnt%20){
         if(cliff_valueB.cliffValue0 == 1)   
         {
@@ -904,7 +861,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
             cliff_error_cnt = 0;
         }
     }
-    //陀螺仪异常检测
+    /*陀螺仪异常检测*/
     if(check_sensor_cnt%50){
         if(bsp_AngleReadRaw() == 0)   
         {
@@ -918,38 +875,19 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
             imu_error_cnt = 0;
         }
     }
-#if 0	
-    //红外异常检测
-    if(check_sensor_cnt%200){
-        if(IRSensorData_StrategyB[1] == 1 || IRSensorData_StrategyB[3] == 1 || \
-                IRSensorData_StrategyB[5] == 1 || IRSensorData_StrategyB[7] == 1) 
-        {
-            infra_collision_error_cnt++;
-            if(infra_collision_error_cnt>500)
-            {
-                infra_collision_error_cnt = 0;
-                return infra_collision_error;
-            }
-        }else{
-            infra_collision_error_cnt = 0;
-        }	
-    }
-#endif		
-    return 0;
-    
+	return 0;  
 }
 
-//#################################################################################
+
+/*#################################################################################*/
 uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     Yaw = current_pose->orientation;
     Yaw= Yaw/100;
     uint8_t check_sensor_return_value = 0;
 
-#if  1	
-    
+#if  1	/*传感器状态检测*/
     check_sensor_return_value =  check_sensor(obstacleSignal);
-    
     if( (check_sensor_return_value < 3 && check_sensor_return_value>0) && time_battery_return_origin_statues)
     {
         time_battery_return_origin_statues = 0;
@@ -957,7 +895,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         if(check_sensor_return_value  == time_out_flag )
         {
             bsp_SperkerPlay(Song5); /*返回充电*/
-            //log_debug("时间到，返回充电！\n");
             bsp_StopVacuum();
             bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
             bsp_MotorCleanSetPWM(MotorSideBrush, CCW , 0);
@@ -967,7 +904,6 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
         if(check_sensor_return_value  == battery_out_flag)
         {
             bsp_SperkerPlay(Song6);/*电池电量低，请回充*/;
-            //log_debug("电池电量低，返回充电！\n");
             bsp_StopVacuum();
             bsp_MotorCleanSetPWM(MotorRollingBrush, CCW , 0);
             bsp_MotorCleanSetPWM(MotorSideBrush, CCW , 0);
@@ -1022,9 +958,11 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
 	}
 	
 #endif
-    
+
+#if 1 /*地图越界 封边检测 A*回原点 机器卡住  沿边处理  补漏处理*/   
 	current_pose->x=current_pose->x-x_error;
     current_pose->y=current_pose->y-y_error;
+	
     if(b_reverse_moremap==true){
         if(reverse_moremap==1){
             current_pose->x=current_pose->x+reverse_x_more_map;
@@ -1085,13 +1023,15 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     }
     else{
     }
+#endif	
+	
     map_current_pose_x=current_pose->x;
     map_current_pose_y=current_pose->y;
 	
 	majorStrategyIndex = OVERALL_CLEANING_STRATEGY;
-	
     switch (OVERALL_CLEANING_STRATEGY)
     {
+#if 1  /*初始化*/
     case 0:
         linear_velocity=0;
         angular_velocity=0;
@@ -1109,10 +1049,14 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
 			OVERALL_CLEANING_STRATEGY = EDGEWISERUN_CLEANING_STRATEGY;
 		}
         break;
+#endif 
+#if 1  /*Start Sweep Right*/
     case START_OVERALL_CLEANING_STRATEGY:
         OVERALL_CLEANING_STRATEGY = RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY;
         selectside = 'R';
         break;
+#endif
+#if 1  /*Sweep Right*/
     case RIGHT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
         FunctionStatus = RightRunningWorkStep(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
@@ -1169,6 +1113,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
 			break;
 		}
 		break;
+#endif
+#if 1  /*A* Return Origin Start*/
     case A_STAR_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
         if(astar_origin==false){
             linear_velocity=0;
@@ -1180,6 +1126,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             astar_origin=false;
         }
         break;
+#endif
+#if 1  /*A* Return Origin Motion*/
     case A_STAR_MOTION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
         if(y_less_map==true){
             current_pose->y=global_pose_y;
@@ -1221,6 +1169,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             break;
         }
         break;
+#endif
+#if 1  /*A* Return Origin NoMotion*/
     case A_STAR_NOT_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
         FunctionStatus = AStarNotMotionReturnOrigin(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
@@ -1230,6 +1180,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             break;
         }
         break;
+#endif
+#if 1  /*A* Return Origin Motion Collisions*/
     case A_STAR_COLLISION_RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
         FunctionStatus = AStarCollision(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
@@ -1245,6 +1197,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             break;
         }
         break;
+#endif
+#if 1  /*Force Return Origin*/
     case RETURN_ORIGIN_WORKING_OVERALL_CLEANING_STRATEGY:
         FunctionStatus = ForceReturnOrigin(current_pose, obstacleSignal);
         if (1 == FunctionStatus)
@@ -1313,6 +1267,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             return 2;
         }
         break;
+#endif
+#if 1  /*Sweep Left*/
     case LEFT_RUNNING_WORKING_OVERALL_CLEANING_STRATEGY:
         if(right_map_extreme==true){
             RightMapExtreme();
@@ -1351,6 +1307,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
 			FunctionStatus = 0;
 		}
         break;
+#endif
+#if 1  /*Edge Sweep For Close Map*/
     case CLOSE_EDGED_MAP_OVERALL_CLEANING_STRATEGY:
         FunctionStatus = CloseEdgedMap(current_pose, obstacleSignal);
         if(1 == FunctionStatus)
@@ -1379,6 +1337,10 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
             break;
         }
         break;
+#endif	
+
+		
+#if 1  /*Edge Sweep*/
 	case EDGEWISERUN_CLEANING_STRATEGY:
 		{
 			 return 1;//nothing...
@@ -1387,12 +1349,13 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     default:
         break;
     }
+#endif 
     //if(OVERALL_CLEANING_STRATEGY!=EDGEWISERUN_CLEANING_STRATEGY) 
 	sendvelocity(&linear_velocity, &angular_velocity);
     return 1;
 }
 
-//####################################################           RIGHT        #####    
+/*####################################################           RIGHT        #####*/   
 unsigned char  RightRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -6929,8 +6892,7 @@ unsigned char  RightReadyLeakingSweep(POSE *current_pose, unsigned char obstacle
 
 
 
-//##########           LEFT             ###########################################	
-///////////////////////////////////////////////////////////////////////////////////
+/*##########           LEFT             ###########################################*/
 unsigned char  LeftRunningWorkStep(POSE *current_pose, unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag = 0;
@@ -12728,8 +12690,7 @@ void StuckRunStep(POSE *current_pose){
 
 
 
-//##############A* return origin function define###################################
-//#################################################################################
+/*##############A* return origin function define###################################*/
 unsigned char ForceReturnOrigin(POSE *current_pose,unsigned char obstacleSignal){
     int Yaw;
     unsigned char complete_flag=0;
