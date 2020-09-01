@@ -46,6 +46,13 @@ static SemaphoreHandle_t  xMutex = NULL;
 bool isSearchCharge = false;
 bool isODDStart  = true;
 
+/*用于任务计数，每次切换过去时都会自增，用于判断任务是否死机*/
+static uint32_t cnt_task_1 = 0;
+static uint32_t cnt_task_2 = 0;
+static uint32_t cnt_task_3 = 0;
+static uint32_t cnt_task_4 = 0;
+static uint32_t cnt_task_5 = 0;
+static uint32_t cnt_task_6 = 0;
 
 
 /*
@@ -143,7 +150,8 @@ static void vTaskMappingUpload(void *pvParameters)
 		RTT("vTaskMappingUpload:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
 		count++;
-		vTaskMappingUpload_cnt++;		
+		vTaskMappingUpload_cnt++;	
+		++cnt_task_1;		
         vTaskDelay(100);
     }
 
@@ -169,6 +177,7 @@ static void vTaskMapping(void *pvParameters)
 		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		count++;
 		vTaskMapping_cnt++;		
+		++cnt_task_2;		
         vTaskDelay(100);
 		
 		if(count%20) 
@@ -214,6 +223,7 @@ static void vTaskDecision(void *pvParameters)
 		
 		//RTT("vTaskDecision:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
+		++cnt_task_3;
         vTaskDelay(50);	
     }
 
@@ -265,6 +275,7 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 		//RTT("vTaskControl:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
+		++cnt_task_4;
         vTaskDelay(20);
     }
     
@@ -381,6 +392,7 @@ static void vTaskPerception(void *pvParameters)
 		//RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
+		++cnt_task_5;
         vTaskDelay(5);	
     }		
     
@@ -407,7 +419,8 @@ static void vTaskKey(void *pvParameters)
         bsp_KeyProc();
 		
 		//RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
-
+		
+		++cnt_task_6;
         vTaskDelay(20);	
     }		
     
@@ -938,7 +951,35 @@ static void bsp_KeyProc(void)
 }
 
 
+uint32_t bsp_GetTickCntTask_1(void)
+{
+	return cnt_task_1;
+}
 
+uint32_t bsp_GetTickCntTask_2(void)
+{
+	return cnt_task_2;
+}
+
+uint32_t bsp_GetTickCntTask_3(void)
+{
+	return cnt_task_3;
+}
+
+uint32_t bsp_GetTickCntTask_4(void)
+{
+	return cnt_task_4;
+}
+
+uint32_t bsp_GetTickCntTask_5(void)
+{
+	return cnt_task_5;
+}
+
+uint32_t bsp_GetTickCntTask_6(void)
+{
+	return cnt_task_6;
+}
 
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
