@@ -2,8 +2,8 @@
 #include <math.h>
 
 #define STRATEGY_DEBUG      0 //0 ¹Ø±Õ´®¿Úµ÷ÊÔ
-#define INT_COOR_X 250
-#define INT_COOR_Y 250
+#define INT_COOR_X 0 //250
+#define INT_COOR_Y 0 //250
 #define ALL_CLEAN_COMPLETE 0
 #define CLEAN_WORK_TIME 80*60*1000
 #define EDGEWISE_CLEAN_WORK_TIME 5*60*1000
@@ -6069,6 +6069,13 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
         right_forward_boundary_status = 0;
         judgment_Stuck_status = 0;
         complete_flag = 1;
+	
+		current_pose->x = 0;
+        current_pose->y = 0;
+        x_error = 0;
+        y_error = 0;
+        StartUpdateGridMap();
+
         break;
     }
     return complete_flag;
@@ -7705,6 +7712,13 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
         judgment_Stuck_status=0;
         old_bow_continue=false;
         complete_flag=1;
+	
+		current_pose->x = 0;
+        current_pose->y = 0;
+        x_error = 0;
+        y_error = 0;
+        StartUpdateGridMap();
+	
         break;
     }
     return complete_flag;
