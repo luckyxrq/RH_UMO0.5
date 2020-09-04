@@ -331,10 +331,6 @@ static void vTaskPerception(void *pvParameters)
 	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
 #endif
 	
-	
-	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse (300));
-	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(300));
-	
     while(1)
     {
 		bsp_ComAnalysis();
@@ -353,17 +349,17 @@ static void vTaskPerception(void *pvParameters)
 		/*²âÊÔ´²³ÌÐò*/
 		bsp_FunctionTestUpdate();
 		
-//		/*¼ì²âÖ÷»úÐü¿Õ*/
-//		if(!GetCmdStartUpload())
-//		{
-//			bsp_OffSiteProc();
-//		}
-//		
-//		/*¼ì²â³¾ºÐ*/
-//		if(!GetCmdStartUpload())
-//		{
-//			bsp_DustBoxProc();
-//		}
+		/*¼ì²âÖ÷»úÐü¿Õ*/
+		if(!GetCmdStartUpload())
+		{
+			bsp_OffSiteProc();
+		}
+		
+		/*¼ì²â³¾ºÐ*/
+		if(!GetCmdStartUpload())
+		{
+			bsp_DustBoxProc();
+		}
 		
 		
         /*Ñ°ÕÒ³äµç×®*/
@@ -420,7 +416,7 @@ static void vTaskKey(void *pvParameters)
     while(1)
     {
 		/* ´¦Àí°´¼üÊÂ¼þ */
-//        bsp_KeyProc();
+        bsp_KeyProc();
 		
 		//RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
