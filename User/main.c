@@ -332,8 +332,8 @@ static void vTaskPerception(void *pvParameters)
 #endif
 	
 	
-	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
-	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
+	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse (150));
+	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(150));
 	
     while(1)
     {
