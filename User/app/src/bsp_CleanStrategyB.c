@@ -6075,6 +6075,7 @@ unsigned char  ForwardBoundaryRightRunStep(POSE *current_pose, unsigned char obs
         x_error = 0;
         y_error = 0;
         StartUpdateGridMap();
+	    bsp_ResetPosArgument();
 
         break;
     }
@@ -7718,6 +7719,7 @@ unsigned char  ForwardBoundaryLeftRunStep(POSE *current_pose, unsigned char obst
         x_error = 0;
         y_error = 0;
         StartUpdateGridMap();
+		bsp_ResetPosArgument();
 	
         break;
     }
