@@ -70,6 +70,16 @@ typedef struct
 	uint16_t strategyMajor;
 	uint16_t strategyMinor;
 	
+	uint32_t cnt_task_1; /*任务1 计数值*/
+	uint32_t cnt_task_2; /*任务2 计数值*/
+	uint32_t cnt_task_3; /*任务3 计数值*/
+	uint32_t cnt_task_4; /*任务4 计数值*/
+	uint32_t cnt_task_5; /*任务5 计数值*/
+	uint32_t cnt_task_6; /*任务6 计数值*/
+	
+	uint32_t cnt_collision_L;
+	uint32_t cnt_collision_R;
+	
 	/*********数据部分结束***********/
 
 }MCU_FRAME;

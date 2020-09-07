@@ -26,7 +26,7 @@ static uint8_t isCmdStartUpload = 0; /* 1 表示开始上传数据到PC */
 
 static void bsp_SendMCU_Ver(void);
 static void bsp_SendAllCalibration(void);
-
+static void bsp_CalibrationAck(void);
 
 uint8_t GetCmdStartUpload(void)
 {
@@ -160,6 +160,11 @@ void bsp_ExexCmd(void)
 				bsp_SetParaEdge_L(cmd_frame_rx.union_para.calibration.Edge_L);
 				bsp_SetParaEdge_R(cmd_frame_rx.union_para.calibration.Edge_R);
 				bsp_SetParaErLangShen(cmd_frame_rx.union_para.calibration.ErLangShen);
+				
+				/*稳定 你懂得*/
+				bsp_CalibrationAck();
+				bsp_CalibrationAck();
+				bsp_CalibrationAck();
 			}break;
 			
 			default: break;
@@ -286,11 +291,11 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.wheelSpeedL = bsp_MotorGetSpeed(MotorLeft);
 	cmd_frame_tx.union_para.mcu_frame.wheelSpeedR = bsp_MotorGetSpeed(MotorRight);
 
-	cmd_frame_tx.union_para.mcu_frame.wheelPulseL = vTaskMapping_cnt;       //bsp_MotorGetPulseVector(MotorLeft);
-	cmd_frame_tx.union_para.mcu_frame.wheelPulseR = vTaskMappingUpload_cnt; //bsp_MotorGetPulseVector(MotorRight);
+	cmd_frame_tx.union_para.mcu_frame.wheelPulseL = bsp_MotorGetPulseVector(MotorLeft);
+	cmd_frame_tx.union_para.mcu_frame.wheelPulseR = bsp_MotorGetPulseVector(MotorRight);
 
-	cmd_frame_tx.union_para.mcu_frame.x_pos = bsp_GetStrategyCurrentPosX();//bsp_GetCurrentPosX();
-	cmd_frame_tx.union_para.mcu_frame.y_pos = bsp_GetStrategyCurrentPosY();//bsp_GetCurrentPosY();
+	cmd_frame_tx.union_para.mcu_frame.x_pos = bsp_GetCurrentPosX();
+	cmd_frame_tx.union_para.mcu_frame.y_pos = bsp_GetCurrentPosY();
 
 	cmd_frame_tx.union_para.mcu_frame.cliffMV_L = bsp_GetCliffRealVal(CliffLeft); 
 	cmd_frame_tx.union_para.mcu_frame.cliffMV_M = bsp_GetCliffRealVal(CliffMiddle); 
@@ -347,7 +352,14 @@ void bsp_SendReportFrameWithCRC16(void)
 	
 	cmd_frame_tx.union_para.mcu_frame.strategyMajor = bsp_GetStrategy_MajorIndex();
 	cmd_frame_tx.union_para.mcu_frame.strategyMinor = bsp_GetStrategy_MinorIndex();
-
+	
+	cmd_frame_tx.union_para.mcu_frame.cnt_task_1 = bsp_GetTickCntTask_1();
+	cmd_frame_tx.union_para.mcu_frame.cnt_task_2 = bsp_GetTickCntTask_2();
+	cmd_frame_tx.union_para.mcu_frame.cnt_task_3 = bsp_GetTickCntTask_3();
+	cmd_frame_tx.union_para.mcu_frame.cnt_task_4 = bsp_GetTickCntTask_4();
+	cmd_frame_tx.union_para.mcu_frame.cnt_task_5 = bsp_GetTickCntTask_5();
+	cmd_frame_tx.union_para.mcu_frame.cnt_task_6 = bsp_GetTickCntTask_6();
+	
 	cmd_frame_tx.head = 0xAAAA;
 	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;
 	cmd_frame_tx.frame_len_reverse = (~cmd_frame_tx.frame_len) & 0xFFFF;
@@ -412,6 +424,27 @@ static void bsp_SendAllCalibration(void)
 	
 	cmd_frame_tx.main_sec = 5;
 	cmd_frame_tx.sub_sec = 7;
+	
+	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
+	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
+	
+	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
+}
+
+static void bsp_CalibrationAck(void)
+{
+	memset(&cmd_frame_tx,0,sizeof(CMD_FRAME));
+	
+
+	cmd_frame_tx.head = 0xAAAA;
+	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;
+	cmd_frame_tx.frame_len_reverse = (~cmd_frame_tx.frame_len) & 0xFFFF;
+	
+	cmd_frame_tx.tx_addr = 0x02;
+	cmd_frame_tx.rx_addr = 0x01;
+	
+	cmd_frame_tx.main_sec = 5;
+	cmd_frame_tx.sub_sec = 8;
 	
 	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
 	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);

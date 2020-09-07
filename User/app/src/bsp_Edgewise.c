@@ -127,6 +127,7 @@ void bsp_SetEdgeLeftRight(Dir_Right_Left Edg_dir)
 }
 
 
+
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_InitEdgewiseRun
@@ -196,13 +197,13 @@ void bsp_EdgewiseRun(void)
 //				edgewiseRun.possibleEnd = 0 ;
 //			}
 			/*向右靠近的过程中还需要检测靠近的时间，如果靠近了很久还是没能找到电压值，那么就是走到了尽头*/
-			else if(vol < 100)
+			else if(vol < 1000)
 			{
 				//bsp_EdgewiseTurnRightSlow();
 				if(edgewiseRun.Left_Right == Dir_right ) bsp_EdgewiseTurnRightSlow();
 				if(edgewiseRun.Left_Right == Dir_left ) bsp_EdgewiseTurnLeftSlow();
 				
-				if(vol < 80)
+				if(vol < 950)
 				{
 					
 					if(edgewiseRun.possibleEnd++ >= POSSIBLE_END)
@@ -212,7 +213,7 @@ void bsp_EdgewiseRun(void)
 					}
 				}
 			}
-			else if(vol > 100)
+			else if(vol > 1000)
 			{
 				//bsp_EdgewiseTurnLeftSlow();
 				if(edgewiseRun.Left_Right == Dir_right ) bsp_EdgewiseTurnLeftSlow();
