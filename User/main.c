@@ -330,6 +330,8 @@ static void vTaskPerception(void *pvParameters)
 	bsp_SetMotorSpeed(MotorLeft,bsp_MotorSpeedMM2Pulse(250));
 	bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(250));
 #endif
+
+	bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 	
     while(1)
     {
@@ -416,7 +418,7 @@ static void vTaskKey(void *pvParameters)
     while(1)
     {
 		/* 处理按键事件 */
-        bsp_KeyProc();
+        //bsp_KeyProc();
 		
 		//RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
