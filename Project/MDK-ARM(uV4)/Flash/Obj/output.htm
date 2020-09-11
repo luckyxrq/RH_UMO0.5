@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Flash\Obj\output.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Flash\Obj\output.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Sep 11 10:36:11 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Sep 11 12:26:53 2020
 <BR><P>
 <H3>Maximum Stack Usage =        560 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1183,11 +1183,11 @@ Global Symbols
 <LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitDustBox
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffEmit_GPIO
 <LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCurrentFeedbackADC
+<LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitChargeIO
-<LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 </UL>
 
 <P><STRONG><a name="[189]"></a>GPIO_PinRemapConfig</STRONG> (Thumb, 86 bytes, Stack size 20 bytes, stm32f10x_gpio.o(i.GPIO_PinRemapConfig))
@@ -1338,9 +1338,9 @@ Global Symbols
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_EXTI_Config
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_DISABLE_ALL_EXIT
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConfigUartNVIC
 </UL>
 
 <P><STRONG><a name="[196]"></a>NVIC_PriorityGroupConfig</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, misc.o(i.NVIC_PriorityGroupConfig))
@@ -1366,9 +1366,9 @@ Global Symbols
 <LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer4
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitTimer2
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyStopMODE
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitHardTimer
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 </UL>
 
 <P><STRONG><a name="[e1]"></a>RCC_APB1PeriphResetCmd</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB1PeriphResetCmd))
@@ -1394,11 +1394,11 @@ Global Symbols
 <LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitDustBox
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCliffEmit_GPIO
 <LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitCurrentFeedbackADC
+<LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 <LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitLed
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitChargeIO
-<LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_InitKeyHard
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitHardUart
 </UL>
 
 <P><STRONG><a name="[80]"></a>RCC_APB2PeriphResetCmd</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd))
@@ -1673,17 +1673,17 @@ Global Symbols
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI2_Config
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TI1_Config
 </UL>
-<BR>[Called By]<UL><LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_TimeOutProc
+<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_TimeOutProc
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IR_GetPulseWidth
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 </UL>
 
 <P><STRONG><a name="[d0]"></a>TIM_ITConfig</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f10x_tim.o(i.TIM_ITConfig))
 <BR><BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_SetTIMforInt
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StopWork
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_StartHardTimer
-<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_IRD_StartWork
 </UL>
 
 <P><STRONG><a name="[1bc]"></a>TIM_OC1Init</STRONG> (Thumb, 114 bytes, Stack size 12 bytes, stm32f10x_tim.o(i.TIM_OC1Init))
