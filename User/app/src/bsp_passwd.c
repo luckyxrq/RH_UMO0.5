@@ -75,45 +75,9 @@ void GetSoftRandom(unsigned char *random, unsigned short len)
 }
 
 
-//------------------------------------------------------------------------------
-//  PIN and Host Authentication
-//------------------------------------------------------------------------------
-unsigned char AuthenticationTest(void)
-{
-   unsigned char rv;
-   unsigned char random[32];
-   unsigned char tmpBuf1[20] = { PPPPP };
-   unsigned char tmpBuf2[20] = { KKKKK };   
-
-   // Wakeup and Reset DX8
-   rv = DX8_Reset();
-   if (rv) return rv;
-
-   // PIN Authentication
-   GetSoftRandom(random,32); // Generate random for verify PIN
-   rv = DX8_VerifyPin(random,tmpBuf1);
-   if (rv) return rv;
-
-   // Host Authentication
-   memset(tmpBuf1,0x00,20);
-   GetSoftRandom(random,32);
-   rv = DX8_HostAuth(random,32,tmpBuf1);
-   if (rv) return rv;
-   Lib_HostAuth(random,32,tmpBuf2,tmpBuf2);
-   rv = memcmp(tmpBuf1,tmpBuf2,20);
-   if (rv) return rv;
-
-   // DX8 Sleep to save power
-   rv = DX8_Sleep(); 
-   if (rv) return rv;
-
-   return 0;
-}
-
-
 #define LED_ARR_SZIE  6
 
-static uint8_t ledArr[LED_ARR_SZIE] = {LED_LOGO_CLEAN,LED_LOGO_POWER,LED_LOGO_CHARGE,LED_COLOR_YELLOW,LED_COLOR_GREEN,LED_COLOR_RED};
+static LED_SN ledArr[LED_ARR_SZIE] = {LED_LOGO_CLEAN,LED_LOGO_POWER,LED_LOGO_CHARGE,LED_COLOR_YELLOW,LED_COLOR_GREEN,LED_COLOR_RED};
 
 void bsp_PwdFailShow(void)
 {
@@ -161,4 +125,41 @@ bool bsp_DX8_CMD(void)
 	return rv;
 }
 
+
+
+
+//------------------------------------------------------------------------------
+//  PIN and Host Authentication
+//------------------------------------------------------------------------------
+unsigned char AuthenticationTest(void)
+{
+   unsigned char rv;
+   unsigned char random[32];
+   unsigned char tmpBuf1[20] = { PPPPP };
+   unsigned char tmpBuf2[20] = { KKKKK };   
+
+   // Wakeup and Reset DX8
+   rv = DX8_Reset();
+   if (rv) return rv;
+
+   // PIN Authentication
+   GetSoftRandom(random,32); // Generate random for verify PIN
+   rv = DX8_VerifyPin(random,tmpBuf1);
+   if (rv) return rv;
+
+   // Host Authentication
+   memset(tmpBuf1,0x00,20);
+   GetSoftRandom(random,32);
+   rv = DX8_HostAuth(random,32,tmpBuf1);
+   if (rv) return rv;
+   Lib_HostAuth(random,32,tmpBuf2,tmpBuf2);
+   rv = memcmp(tmpBuf1,tmpBuf2,20);
+   if (rv) return rv;
+
+   // DX8 Sleep to save power
+   rv = DX8_Sleep(); 
+   if (rv) return rv;
+
+   return 0;
+}
 
