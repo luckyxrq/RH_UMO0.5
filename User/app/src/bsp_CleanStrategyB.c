@@ -329,6 +329,13 @@ static void sendvelocity(double* linear_velocity,double* angular_velocity){
     cmd_linear_velocity = *linear_velocity;
     cmd_angular_velocity = *angular_velocity;
 	
+	UNUSED(cmd_linear_velocity);
+	UNUSED(Last_cmd_angular_velocity);
+	UNUSED(eRollingBrush_A1);
+	UNUSED(linear_velocity_IR);
+	UNUSED(eRollingBrush_A1);
+	UNUSED(eRollingBrush_A2);
+	
 #if 0	
 	if(Last_cmd_angular_velocity != cmd_angular_velocity)
 	{
