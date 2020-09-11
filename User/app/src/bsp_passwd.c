@@ -58,10 +58,10 @@ typedef struct
 /*´ýÐÞ¸Ä*/
 static DX8_ARR dx8_arr[DX8_ARR_CNT] = 
 {
-    {A1_PPPPP,A1_KKKKK},
-    {A2_PPPPP,A2_KKKKK},
-    {A3_PPPPP,A3_KKKKK},
-    {A4_PPPPP,A4_KKKKK},
+    { {A1_PPPPP},{A1_KKKKK}},
+    { {A2_PPPPP},{A2_KKKKK}},
+    { {A3_PPPPP},{A3_KKKKK}},
+    { {A4_PPPPP},{A4_KKKKK}},
 }; 
 
 
