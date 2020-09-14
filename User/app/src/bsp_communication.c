@@ -373,9 +373,7 @@ void bsp_SendReportFrameWithCRC16(void)
 	uint16_t ret = CRC16_Modbus((uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME)-2);
 	cmd_frame_tx.crc16 = ((ret>>8)&0x00FF)  | ((ret<<8)&0xFF00);
 	
-	comSendBuf(COM1,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
-	
-	RTT("sizeof(CMD_FRAME):%d\r\n",sizeof(CMD_FRAME));
+	comSendBuf(COM2,(uint8_t*)&cmd_frame_tx,sizeof(CMD_FRAME));
 }
 
 
