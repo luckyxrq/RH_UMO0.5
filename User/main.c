@@ -147,7 +147,7 @@ static void vTaskMappingUpload(void *pvParameters)
 		}
 		
 		
-		RTT("vTaskMappingUpload:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+
 
 		count++;
 		vTaskMappingUpload_cnt++;	
@@ -174,7 +174,7 @@ static void vTaskMapping(void *pvParameters)
 		}
 		}
 
-		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+
 		count++;
 		vTaskMapping_cnt++;		
 		++cnt_task_2;		
@@ -221,7 +221,7 @@ static void vTaskDecision(void *pvParameters)
 
 		bsp_GetVoltageFilterProc();
 		
-		//RTT("vTaskDecision:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+
 		
 		++cnt_task_3;
         vTaskDelay(50);	
@@ -272,7 +272,6 @@ static void vTaskControl(void *pvParameters)       //控制 根据决策控制电机
 			bsp_PutKey(KEY_LONG_CHARGE);
 		}
 		
-		//RTT("vTaskControl:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;
 		++cnt_task_4;
@@ -381,15 +380,15 @@ static void vTaskPerception(void *pvParameters)
 		bsp_SleepProc();
 		
 		/*上传开关和时间间隔同时限制*/
-		if(GetCmdStartUpload() && count % 50 == 0)
-		{
-			bsp_SendReportFrameWithCRC16();
-		}
-//		if(DEBUG_STRATEGY_SHOW && count % 100 == 0)
+//		if(GetCmdStartUpload() && count % 50 == 0)
 //		{
 //			bsp_SendReportFrameWithCRC16();
 //		}
-		//RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		if(count % 100 == 0)
+		{
+			bsp_SendReportFrameWithCRC16();
+		}
+
 		
 		count++;
 		++cnt_task_5;
@@ -418,7 +417,6 @@ static void vTaskKey(void *pvParameters)
 		/* 处理按键事件 */
         bsp_KeyProc();
 		
-		//RTT("vTaskKey:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		++cnt_task_6;
         vTaskDelay(20);	

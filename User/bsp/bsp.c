@@ -100,7 +100,7 @@ void bsp_Init(void)
 	
 	bsp_InitCollision();     /*初始化碰撞检测，触动开关*/
 	
-	bsp_InitSpeaker();		 /*初始化扬声器*/
+	//bsp_InitSpeaker();		 /*初始化扬声器*/
 	bsp_InitCurrentFeedbackADC();
 	bsp_InitDustBox();
 	
@@ -138,7 +138,7 @@ void bsp_Init(void)
 	bsp_IRD_StartWork();
 	
 		/*播放开机音乐*/
-#if 1
+#if 0
 	if(IsInitFromSleep())
 	{
 		SetIsInitFromSleep(false) ;
