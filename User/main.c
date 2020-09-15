@@ -377,7 +377,7 @@ static void vTaskPerception(void *pvParameters)
 		{
 			if(count % 50 == 0)
 			{
-				bsp_LedTakeTurns();
+				bsp_OpenAllLed();
 			}
 		}
 		

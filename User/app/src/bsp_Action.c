@@ -93,4 +93,3 @@ void bsp_LedTakeTurns(void)
 		toggleIndex = 0;
 	}
 }
-

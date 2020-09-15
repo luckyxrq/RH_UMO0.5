@@ -74,6 +74,20 @@ void bsp_OpenThreeWhileLed(void)
 	bsp_LedOff(LED_COLOR_RED);
 }
 
+
+void bsp_OpenAllLed(void)
+{
+	bsp_LedOn(LED_LOGO_CLEAN);
+	bsp_LedOn(LED_LOGO_POWER);
+	bsp_LedOn(LED_LOGO_CHARGE);
+	bsp_LedOn(LED_COLOR_YELLOW);
+	bsp_LedOn(LED_COLOR_GREEN);
+	bsp_LedOn(LED_COLOR_RED);
+}
+
+
+
+
 void bsp_SetLedState(LedAppState ledAppState)
 {
 	if(ledAppState != ledAppProc.ledAppState)

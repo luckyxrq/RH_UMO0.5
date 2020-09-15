@@ -63,6 +63,7 @@ void bsp_PowerOnLedProc(void);
 LedAppState bsp_GetLedAppState(void);
 void bsp_SetLastKeyState(KEY_STATE state);
 KEY_STATE bsp_GetLastKeyState(void);
+void bsp_OpenAllLed(void);
 
 #endif
 
