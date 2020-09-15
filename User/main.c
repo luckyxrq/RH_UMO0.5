@@ -368,7 +368,19 @@ static void vTaskPerception(void *pvParameters)
 		bsp_EdgewiseRun();
         /*更新坐标*/
         bsp_PositionUpdate();
-		bsp_LedAppProc();
+		
+		if(!GetCmdStartUpload()) /*上传命令的时候 ， 不执行正常的LED闪烁*/
+		{
+			bsp_LedAppProc();
+		}
+		else
+		{
+			if(count % 50 == 0)
+			{
+				bsp_LedTakeTurns();
+			}
+		}
+		
 		wifi_uart_service();
 		
 		/*更新跳崖传感器信息*/

@@ -129,6 +129,15 @@ void bsp_ExexCmd(void)
 					isCmdStartUpload = 0 ;
 				}
 			}break;
+			case 9: /*进入休眠模式*/
+			{
+				bsp_SperkerPlay(Song31);
+				vTaskDelay(10);	
+				while(bsp_SpeakerIsBusy()){}
+				
+				bsp_ClearKey();
+				bsp_EnterStopMODE();
+			}break;
 			default: break;
 		}
 	}
