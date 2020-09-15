@@ -77,3 +77,20 @@ void bsp_SleepProc(void)
 	}
 }
 
+
+#define LED_ARR_SZIE  6
+
+static LED_SN ledArr[LED_ARR_SZIE] = {LED_LOGO_CLEAN,LED_LOGO_POWER,LED_LOGO_CHARGE,LED_COLOR_YELLOW,LED_COLOR_GREEN,LED_COLOR_RED};
+
+void bsp_LedTakeTurns(void)
+{
+	static uint8_t toggleIndex = 0 ;
+	
+	bsp_LedToggle(ledArr[toggleIndex % LED_ARR_SZIE]);
+	
+	if(++toggleIndex >= LED_ARR_SZIE)
+	{
+		toggleIndex = 0;
+	}
+}
+

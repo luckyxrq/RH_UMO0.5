@@ -73,21 +73,9 @@ void GetSoftRandom(unsigned char *random, unsigned short len)
   for (i=0; i<len; i++) random[i] = rand() % 256;
 }
 
-
-#define LED_ARR_SZIE  6
-
-static LED_SN ledArr[LED_ARR_SZIE] = {LED_LOGO_CLEAN,LED_LOGO_POWER,LED_LOGO_CHARGE,LED_COLOR_YELLOW,LED_COLOR_GREEN,LED_COLOR_RED};
-
 void bsp_PwdFailShow(void)
 {
-	static uint8_t toggleIndex = 0 ;
-	
-	bsp_LedToggle(ledArr[toggleIndex % LED_ARR_SZIE]);
-	
-	if(++toggleIndex >= LED_ARR_SZIE)
-	{
-		toggleIndex = 0;
-	}
+	bsp_LedTakeTurns();
 }
 
 bool bsp_DX8_CMD(void)
