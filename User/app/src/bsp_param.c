@@ -204,7 +204,7 @@ void bsp_SetCollisonCnt(uint32_t* collison_buf)
     param.collsion_cnt[2] = collison_buf[2];//all_cnt;
     param.collsion_cnt[3] = collison_buf[3];//none_cnt;
     
-    bsp_SaveParam();
+    //bsp_SaveParam();
 }
 uint32_t* bsp_GetCollisonCnt(void)
 {

@@ -292,8 +292,8 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.wheelPulseL =   bsp_MotorGetPulseVector(MotorLeft);
 	cmd_frame_tx.union_para.mcu_frame.wheelPulseR =   bsp_MotorGetPulseVector(MotorRight);
 	
-	cmd_frame_tx.union_para.mcu_frame.cnt_collision_L = collision_buf[2];
-	cmd_frame_tx.union_para.mcu_frame.cnt_collision_R = collision_buf[3];
+	cmd_frame_tx.union_para.mcu_frame.cnt_collision_L = collision_buf[0];
+	cmd_frame_tx.union_para.mcu_frame.cnt_collision_R = collision_buf[1];
 
 
 	cmd_frame_tx.union_para.mcu_frame.x_pos = bsp_GetStrategyCurrentPosX();//bsp_GetCurrentPosX();
