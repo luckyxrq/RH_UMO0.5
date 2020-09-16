@@ -909,8 +909,7 @@ static uint8_t check_sensor(unsigned char obstacleSignal){
         }	
     }
 #endif		
-    return 0;
-    
+    return 0; 
 }
 
 //#################################################################################
@@ -921,9 +920,8 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     uint8_t check_sensor_return_value = 0;
 
 #if  1	
-    
     check_sensor_return_value =  check_sensor(obstacleSignal);
-    
+ 
     if( (check_sensor_return_value < 3 && check_sensor_return_value>0) && time_battery_return_origin_statues)
     {
         time_battery_return_origin_statues = 0;
@@ -1062,8 +1060,13 @@ uint8_t clean_strategyB(POSE *current_pose,unsigned char obstacleSignal){
     map_current_pose_x=current_pose->x;
     map_current_pose_y=current_pose->y;
 	
-	majorStrategyIndex = OVERALL_CLEANING_STRATEGY;
 	
+	if(ABS(current_pose->x) > 4800 || ABS(current_pose->y) > 4800 ) 
+	{
+		bsp_ResetCleanStrategyBStatus();
+	}
+	
+	majorStrategyIndex = OVERALL_CLEANING_STRATEGY;
     switch (OVERALL_CLEANING_STRATEGY)
     {
     case 0:

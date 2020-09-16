@@ -4,8 +4,6 @@
 
 
 /*********************************************协议格式替换部分，上位机上位机统一，直接Copy 开始*************************************************/
-
-
 #include <stdint.h>
 
 /*按照1字节对齐，便于存储到uint8_t类型buf*/
@@ -69,6 +67,16 @@ typedef struct
 	
 	uint16_t strategyMajor;
 	uint16_t strategyMinor;
+	
+	uint32_t cnt_task_1; /*任务1 计数值*/
+	uint32_t cnt_task_2; /*任务2 计数值*/
+	uint32_t cnt_task_3; /*任务3 计数值*/
+	uint32_t cnt_task_4; /*任务4 计数值*/
+	uint32_t cnt_task_5; /*任务5 计数值*/
+	uint32_t cnt_task_6; /*任务6 计数值*/
+	
+	uint32_t cnt_collision_L;
+	uint32_t cnt_collision_R;
 	
 	/*********数据部分结束***********/
 
@@ -146,8 +154,6 @@ typedef struct
 
 extern CMD_FRAME cmd_frame_tx;
 extern CMD_FRAME cmd_frame_rx;
-
-
 /*********************************************协议格式替换部分，上位机上位机统一，直接Copy 结束*************************************************/
 
 
