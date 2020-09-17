@@ -685,6 +685,7 @@ void bsp_ResetCleanStrategyBStatus(void){
     bsp_ResetPosArgument();
     //Õ¤¸ñÍ¼¸´Î»
     //bsp_StartUpdateGridMap();
+	bsp_ClearMotorPulseVector();
     
 }
 
