@@ -384,7 +384,7 @@ static void vTaskPerception(void *pvParameters)
 //		{
 //			bsp_SendReportFrameWithCRC16();
 //		}
-		if(count % 100 == 0)
+		if(count % 50 == 0)
 		{
 			bsp_SendReportFrameWithCRC16();
 		}

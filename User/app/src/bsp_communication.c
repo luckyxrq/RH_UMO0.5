@@ -360,6 +360,39 @@ void bsp_SendReportFrameWithCRC16(void)
 	cmd_frame_tx.union_para.mcu_frame.cnt_task_5 = bsp_GetTickCntTask_5();
 	cmd_frame_tx.union_para.mcu_frame.cnt_task_6 = bsp_GetTickCntTask_6();
 	
+	
+	
+	/* ≤®–Œœ‘ æ*/
+	cmd_frame_tx.union_para.chart.ch[0 ]  = cmd_frame_tx.union_para.chart.ch[0 ] % 2  ;
+	cmd_frame_tx.union_para.chart.ch[1 ]  = cmd_frame_tx.union_para.chart.ch[1 ] % 1  ;
+	cmd_frame_tx.union_para.chart.ch[2 ]  = cmd_frame_tx.union_para.chart.ch[2 ] % 2  ;
+	cmd_frame_tx.union_para.chart.ch[3 ]  = cmd_frame_tx.union_para.chart.ch[3 ] % 3  ;
+	cmd_frame_tx.union_para.chart.ch[4 ]  = cmd_frame_tx.union_para.chart.ch[4 ] % 4  ;
+	cmd_frame_tx.union_para.chart.ch[5 ]  = cmd_frame_tx.union_para.chart.ch[5 ] % 5  ;
+	cmd_frame_tx.union_para.chart.ch[6 ]  = cmd_frame_tx.union_para.chart.ch[6 ] % 6  ;
+	cmd_frame_tx.union_para.chart.ch[7 ]  = cmd_frame_tx.union_para.chart.ch[7 ] % 7  ;
+	cmd_frame_tx.union_para.chart.ch[8 ]  = cmd_frame_tx.union_para.chart.ch[8 ] % 8  ;
+	cmd_frame_tx.union_para.chart.ch[9 ]  = cmd_frame_tx.union_para.chart.ch[9 ] % 9  ;
+	cmd_frame_tx.union_para.chart.ch[10]  = cmd_frame_tx.union_para.chart.ch[10] % 10 ;
+	cmd_frame_tx.union_para.chart.ch[11]  = cmd_frame_tx.union_para.chart.ch[11] % 11 ;
+	cmd_frame_tx.union_para.chart.ch[12]  = cmd_frame_tx.union_para.chart.ch[12] % 12 ;
+	cmd_frame_tx.union_para.chart.ch[13]  = cmd_frame_tx.union_para.chart.ch[13] % 13 ;
+	cmd_frame_tx.union_para.chart.ch[14]  = cmd_frame_tx.union_para.chart.ch[14] % 14 ;
+	cmd_frame_tx.union_para.chart.ch[15]  = cmd_frame_tx.union_para.chart.ch[15] % 15 ;
+	
+	
+	cmd_frame_tx.union_para.chart.ch_en = 0xFFFF;
+
+	
+	cmd_frame_tx.union_para.chart.ch_en  = (0x0000 
+	| (1<<(2-1))
+	| (1<<(16-1))
+	) & 0xFFFF;;
+
+	
+
+
+
 	cmd_frame_tx.head = 0xAAAA;
 	cmd_frame_tx.frame_len = sizeof(CMD_FRAME) & 0xFFFF;
 	cmd_frame_tx.frame_len_reverse = (~cmd_frame_tx.frame_len) & 0xFFFF;

@@ -121,7 +121,7 @@ typedef struct
 typedef struct
 {
     int32_t ch[16];      /* 串口波形上位机共16个通道*/
-    uint16_t ch_enp[2];  /* 2个字节16位，每一位表示一个通道的使能*/
+    uint16_t ch_en;  /* 2个字节16位，每一位表示一个通道的使能*/
 }CHART;
 #pragma pack()
 
