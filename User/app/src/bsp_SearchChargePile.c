@@ -14,14 +14,6 @@
 
 #define MAX_SEARCH_TICK         (1000*60*5)
 
-
-
-#define CCW_180_PULSE      1700                /*转动180度的脉冲数*/
-#define CCW_360_PULSE      (CCW_180_PULSE*2)   /*转动360度的脉冲数*/
-#define CCW_90_PULSE       (CCW_180_PULSE/2)   /*转动90 度的脉冲数*/
-#define CCW_45_PULSE       (CCW_180_PULSE/4)   /*转动45 度的脉冲数*/
-
-
 #define _SEARCH_PILE_GO_BACK_PULSE                  (10/(3.14F*70)*1024)
 
 /*

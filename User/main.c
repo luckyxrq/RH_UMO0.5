@@ -839,7 +839,9 @@ static void bsp_KeyProc(void)
 			
 			case KEY_10_LONG:
 			{
-				bsp_StartFunctionTest();
+				bsp_SetEdgeLeftRight(Dir_right);
+				bsp_StartEdgewiseRun();
+				
 			}break;
 			
 			

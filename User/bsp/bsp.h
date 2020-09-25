@@ -211,6 +211,13 @@ typedef enum
 }CleanCarRunMode;
 
 
+#define CCW_180_PULSE      1700                /*转动180度的脉冲数*/
+#define CCW_360_PULSE      (CCW_180_PULSE*2)   /*转动360度的脉冲数*/
+#define CCW_90_PULSE       (CCW_180_PULSE/2)   /*转动90 度的脉冲数*/
+#define CCW_45_PULSE       (CCW_180_PULSE/4)   /*转动45 度的脉冲数*/
+#define CCW_30_PULSE       (CCW_180_PULSE/6)   /*转动30 度的脉冲数*/
+
+
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
 void bsp_Idle(void);
