@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-#define STRAIGHT_SPEED_FAST      12
+#define STRAIGHT_SPEED_FAST      8
 #define STRAIGHT_SPEED_SLOW      6
 
 #define TURN_RIGHT_SPEED_FAST_L  3

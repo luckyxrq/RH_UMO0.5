@@ -342,7 +342,9 @@ static void vTaskPerception(void *pvParameters)
 			bsp_DetectDeal(); /*红外对管扫描结果处理*/
 		}
 #endif
-       
+       /*测试床程序*/
+		bsp_BedProc();
+		
 		/*随机策略*/
 		bsp_StrategyRandomProc();
 		
@@ -580,6 +582,7 @@ void bsp_CloseAllStateRun(void)
 	bsp_StopUpdateCleanStrategyB();
 	bsp_StopStrategyRandom();
 	bsp_StopEdgewiseRun();
+	bsp_BedStop();
 }
 
 void bsp_OffsiteSuspend(void)
@@ -808,15 +811,7 @@ static void bsp_KeyProc(void)
 				vTaskDelay(2000);		
 				
 				bsp_StartUpdateCleanStrategyB();
-				//bsp_StartEdgewiseRun();
-				
-//				if(!DEBUG_CLOSE_CLEAN_MOTOR){
-//				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-//				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-//				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
-//				}
-//				vTaskDelay(1900);
-				
+
 				
 				/*设置上一次按键值*/
 				bsp_SetLastKeyState(eKEY_CLEAN);
@@ -839,8 +834,7 @@ static void bsp_KeyProc(void)
 			
 			case KEY_10_LONG:
 			{
-				bsp_SetEdgeLeftRight(Dir_right);
-				bsp_StartEdgewiseRun();
+				bsp_BedStart();
 				
 			}break;
 			
@@ -880,9 +874,7 @@ static void bsp_KeyProc(void)
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
-//				vTaskDelay(1000);	
-//				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
-//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+
 			}break;
 			
 			case KEY_WIFI_DIR_BACK:
@@ -894,9 +886,7 @@ static void bsp_KeyProc(void)
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
-//				vTaskDelay(1000);	
-//				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
-//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+
 			}break;
 			
 			case KEY_WIFI_DIR_LEFT:
@@ -908,9 +898,7 @@ static void bsp_KeyProc(void)
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
-//				vTaskDelay(500);	
-//				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
-//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+
 			}break;
 			
 			case KEY_WIFI_DIR_RIGHT:
@@ -922,9 +910,7 @@ static void bsp_KeyProc(void)
 				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
 				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
-//				vTaskDelay(500);	
-//				bsp_SetMotorSpeed(MotorLeft, bsp_MotorSpeedMM2Pulse(0));
-//				bsp_SetMotorSpeed(MotorRight,bsp_MotorSpeedMM2Pulse(0));
+
 			}break;
 			
 			case KEY_WIFI_STOP:
@@ -935,26 +921,7 @@ static void bsp_KeyProc(void)
 			
 			case KEY_WIFI_EDGE:
 			{
-//				bsp_KeySuspend();
-//				bsp_SperkerPlay(Song34);
-//				bsp_StartEdgewiseRun();
-//				
-//				//工作模式 沿边 清扫开关 打开
-//				work_mode = wall_follow;
-//				work_switch_go = true;
-//				bsp_SetUploadMapIdIndex();
-//				
-//				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
-//				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
-//				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
-//				
-//				
-//				/*设置上一次按键值*/
-//				bsp_SetLastKeyState(eKEY_CLEAN);
-//				/*设置LED状态*/
-//				bsp_SetLedState(AT_CLEAN);
-//				isSearchCharge = false;
-//				bsp_ClearKey();
+
 			}break;
 		}   
 	}
