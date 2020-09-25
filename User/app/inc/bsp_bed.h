@@ -4,6 +4,8 @@
 void bsp_BedStart(void);
 void bsp_BedStop(void);
 void bsp_BedProc(void);
+bool bsp_IsBedProcRunning(void);
+void bsp_LedBedTurns(void);
 
 #endif
 

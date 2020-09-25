@@ -147,7 +147,7 @@ static void vTaskMappingUpload(void *pvParameters)
 		}
 		
 		
-		RTT("vTaskMappingUpload:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskMappingUpload:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 
 		count++;
 		vTaskMappingUpload_cnt++;	
@@ -174,7 +174,7 @@ static void vTaskMapping(void *pvParameters)
 		}
 		}
 
-		RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
+		//RTT("vTaskMapping:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		count++;
 		vTaskMapping_cnt++;		
 		++cnt_task_2;		
@@ -371,17 +371,22 @@ static void vTaskPerception(void *pvParameters)
         /*更新坐标*/
         bsp_PositionUpdate();
 		
-		if(!GetCmdStartUpload()) /*上传命令的时候 ， 不执行正常的LED闪烁*/
+		
+		if( ! bsp_IsBedProcRunning())
 		{
-			bsp_LedAppProc();
-		}
-		else
-		{
-			if(count % 50 == 0)
+			if(!GetCmdStartUpload()) /*上传命令的时候 ， 不执行正常的LED闪烁*/
 			{
-				bsp_OpenAllLed();
+				bsp_LedAppProc();
+			}
+			else
+			{
+				if(count % 50 == 0)
+				{
+					bsp_OpenAllLed();
+				}
 			}
 		}
+		
 		
 		wifi_uart_service();
 		
@@ -399,6 +404,12 @@ static void vTaskPerception(void *pvParameters)
 		{
 			bsp_SendReportFrameWithCRC16();
 		}
+		
+		if(bsp_IsBedProcRunning() && count % 50 == 0)
+		{
+			bsp_LedBedTurns();
+		}
+
 
 		//RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
@@ -831,6 +842,11 @@ static void bsp_KeyProc(void)
 			
 			case KEY_10_LONG:
 			{
+
+				bsp_MotorCleanSetPWM(MotorSideBrush, CCW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_MotorCleanSetPWM(MotorRollingBrush, CW , CONSTANT_HIGH_PWM*0.7F);
+				bsp_StartVacuum(bsp_GetVacuumPowerGrade());
+				
 				bsp_BedStart();
 				
 			}break;

@@ -380,7 +380,7 @@ static void bsp_InitKeyVar(void)
 	s_tBtn[KID_K3].LongTime = KEY_LONG_TIME*3;
 	s_tBtn[KID_K3].RepeatSpeed = 0;	/* 每隔x ms自动发送键值（单位10ms） */
 	
-	s_tBtn[KID_K10].LongTime = KEY_LONG_TIME*3;
+	s_tBtn[KID_K10].LongTime = KEY_LONG_TIME*5;
 
 	/* 判断按键按下的函数 */
 	s_tBtn[0].IsKeyDownFunc = IsKeyDown1;
