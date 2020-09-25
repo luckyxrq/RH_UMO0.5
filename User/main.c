@@ -399,10 +399,7 @@ static void vTaskPerception(void *pvParameters)
 		{
 			bsp_SendReportFrameWithCRC16();
 		}
-//		if(DEBUG_STRATEGY_SHOW && count % 100 == 0)
-//		{
-//			bsp_SendReportFrameWithCRC16();
-//		}
+
 		//RTT("vTaskPerception:%d\r\n",(int)uxTaskGetStackHighWaterMark(NULL));
 		
 		count++;

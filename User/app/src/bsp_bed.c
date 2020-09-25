@@ -175,11 +175,12 @@ void bsp_BedProc(void)
 				
 				++bed.action;
 			}
+			
 		}
 		
 		case 12: /* 缓行一定距离 ，开启右沿边*/
 		{
-			if(bsp_GetCurrentBothPulse() - bed.pulse >= 1700)
+			if(bsp_GetCurrentBothPulse() - bed.pulse >= 1700 * 1.2)
 			{
 				bed.pulse = bsp_GetCurrentBothPulse();
 				
@@ -300,7 +301,7 @@ void bsp_BedProc(void)
 		
 		case 22: /* 后退固定脉冲数*/
 		{
-			if(bsp_GetCurrentBothPulse() - bed.pulse >= 800)
+			if(bsp_GetCurrentBothPulse() - bed.pulse >= 1200)
 			{
 				bed.pulse = bsp_GetCurrentBothPulse();
 				
@@ -309,6 +310,44 @@ void bsp_BedProc(void)
 				++bed.action;
 			}
 		}break;
+		
+		
+		case 23: /* 原地旋转  起始角度是 0   旋转到180度  验证陀螺仪*/
+		{
+				bsp_SetMotorSpeed(MotorLeft, -3);
+				bsp_SetMotorSpeed(MotorRight, 3);
+				++bed.action;	
+			
+		}break;
+		
+		case 24: /* 停在180 度*/
+		{
+			float yaw = ABS(bsp_AngleRead());	
+			
+			if( yaw >= 170 && yaw <= 180 )
+			{
+				bsp_SetMotorSpeed(MotorLeft, 0);
+				bsp_SetMotorSpeed(MotorRight,0);
+				
+				bed.delay = xTaskGetTickCount();
+				
+				++bed.action;
+			}
+		}break;
+		
+		
+		case 25: /*停几百MS*/
+		{
+			if(xTaskGetTickCount() - bed.delay >= 800)
+			{
+				bsp_BedStop();
+				
+				/*返回充电*/
+				bsp_PutKey(KEY_LONG_CHARGE);
+			}
+		}break;
+		
+		
 
 		default: break;
 	}
