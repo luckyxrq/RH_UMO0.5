@@ -199,7 +199,7 @@ void bsp_BedProc(void)
 			RTT_BED("bed %d\r\n",11);
 			
 			/* 如果二郎神被遮挡*/
-			if(bsp_GetInfraRedAdcVoltage(IR7) >= 260)
+			if(bsp_GetInfraRedAdcVoltage(IR7) >= bsp_GetParaErLangShen())
 			{
 				RTT("IR7:%d\r\n",(int)bsp_GetInfraRedAdcVoltage(IR7));
 				
