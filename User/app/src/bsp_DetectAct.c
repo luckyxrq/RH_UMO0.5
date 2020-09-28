@@ -8,17 +8,17 @@
 #define DELAY_FOR_READ_US      200
 #define IS_OBSTACLE_MV         60  //’œ∞≠ŒÔ≤Ó÷µµÁ—π£¨∫¡∑¸
 
-#define IR_OBSTACLE_2_4      30
-#define IR_OBSTACLE_0_6      500
-#define IR_OBSTACLE_3        900  //1200
-#define IR_OBSTACLE_1_5      1700 //2000
+#define IR_OBSTACLE_2_4      50
+#define IR_OBSTACLE_0_6      50
+#define IR_OBSTACLE_3        50
+#define IR_OBSTACLE_1_5      50
 
 
 #define IR_OBSTACLE_7        bsp_GetParaErLangShen()
 
 
-#define IR_OBSTACLE_8        100 /*◊Û—ÿ±ﬂ*/
-#define IR_OBSTACLE_9        100 /*”“—ÿ±ﬂ*/
+#define IR_OBSTACLE_8        1000 /*◊Û—ÿ±ﬂ*/
+#define IR_OBSTACLE_9        1000 /*”“—ÿ±ﬂ*/
 
 
 AW_PIN PinMap[PIN_MAP_MAX][2]=
