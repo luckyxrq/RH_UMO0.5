@@ -2,7 +2,7 @@
 
 /* 在这里修改 PWD版本  加密芯片   0 代表不加密*/
 
-#define PWD_VER      0
+#define PWD_VER     1
 
 
 
